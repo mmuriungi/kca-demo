@@ -103,7 +103,7 @@ page 50001 "Cash Office Setup UP"
                     ApplicationArea = All;
                     Visible = true;
                 }
-                field("Memo Nos."; "Memo Nos.")
+                field("Memo Nos."; Rec."Memo Nos.")
                 {
                     ApplicationArea = All;
                     // ToolTip = 'Specifies the value of the Parttime payee code field.';

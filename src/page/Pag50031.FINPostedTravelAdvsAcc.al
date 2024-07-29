@@ -49,7 +49,7 @@ page 50031 "FIN-Posted Travel Advs. Acc."
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Claim No"; "Claim No")
+                field("Claim No"; Rec."Claim No")
                 {
                     ApplicationArea = all;
                     Editable = false;

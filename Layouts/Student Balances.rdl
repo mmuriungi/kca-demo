@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -11,93 +11,6 @@
       <rd:DataSourceID>e6058cff-16b7-4c6a-8b64-56bbce87b737</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Customer__No__">
-          <DataField>Customer__No__</DataField>
-        </Field>
-        <Field Name="Customer_Name">
-          <DataField>Customer_Name</DataField>
-        </Field>
-        <Field Name="Customer__Debit_Amount__LCY__">
-          <DataField>Customer__Debit_Amount__LCY__</DataField>
-        </Field>
-        <Field Name="Customer__Debit_Amount__LCY__Format">
-          <DataField>Customer__Debit_Amount__LCY__Format</DataField>
-        </Field>
-        <Field Name="Customer__Credit_Amount__LCY__">
-          <DataField>Customer__Credit_Amount__LCY__</DataField>
-        </Field>
-        <Field Name="Customer__Credit_Amount__LCY__Format">
-          <DataField>Customer__Credit_Amount__LCY__Format</DataField>
-        </Field>
-        <Field Name="Customer__Balance__LCY__">
-          <DataField>Customer__Balance__LCY__</DataField>
-        </Field>
-        <Field Name="Customer__Balance__LCY__Format">
-          <DataField>Customer__Balance__LCY__Format</DataField>
-        </Field>
-        <Field Name="Hesabu">
-          <DataField>Hesabu</DataField>
-        </Field>
-        <Field Name="totalc">
-          <DataField>totalc</DataField>
-        </Field>
-        <Field Name="totalcFormat">
-          <DataField>totalcFormat</DataField>
-        </Field>
-        <Field Name="Totald">
-          <DataField>Totald</DataField>
-        </Field>
-        <Field Name="TotaldFormat">
-          <DataField>TotaldFormat</DataField>
-        </Field>
-        <Field Name="totalb">
-          <DataField>totalb</DataField>
-        </Field>
-        <Field Name="totalbFormat">
-          <DataField>totalbFormat</DataField>
-        </Field>
-        <Field Name="ClassCode">
-          <DataField>ClassCode</DataField>
-        </Field>
-        <Field Name="CurrentProgramme_Customer">
-          <DataField>CurrentProgramme_Customer</DataField>
-        </Field>
-        <Field Name="BalPerc">
-          <DataField>BalPerc</DataField>
-        </Field>
-        <Field Name="BalPercFormat">
-          <DataField>BalPercFormat</DataField>
-        </Field>
-        <Field Name="ProgDesc">
-          <DataField>ProgDesc</DataField>
-        </Field>
-        <Field Name="Logo">
-          <DataField>Logo</DataField>
-        </Field>
-        <Field Name="CompName">
-          <DataField>CompName</DataField>
-        </Field>
-        <Field Name="CurrentSettlementType_Customer">
-          <DataField>CurrentSettlementType_Customer</DataField>
-        </Field>
-        <Field Name="CurrentStage_Customer">
-          <DataField>CurrentStage_Customer</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1549,4 +1462,89 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>57af9020-b7f6-41df-9d9a-153bd4f773bf</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Customer__No__">
+          <DataField>Customer__No__</DataField>
+        </Field>
+        <Field Name="Customer_Name">
+          <DataField>Customer_Name</DataField>
+        </Field>
+        <Field Name="Customer__Debit_Amount__LCY__">
+          <DataField>Customer__Debit_Amount__LCY__</DataField>
+        </Field>
+        <Field Name="Customer__Debit_Amount__LCY__Format">
+          <DataField>Customer__Debit_Amount__LCY__Format</DataField>
+        </Field>
+        <Field Name="Customer__Credit_Amount__LCY__">
+          <DataField>Customer__Credit_Amount__LCY__</DataField>
+        </Field>
+        <Field Name="Customer__Credit_Amount__LCY__Format">
+          <DataField>Customer__Credit_Amount__LCY__Format</DataField>
+        </Field>
+        <Field Name="Customer__Balance__LCY__">
+          <DataField>Customer__Balance__LCY__</DataField>
+        </Field>
+        <Field Name="Customer__Balance__LCY__Format">
+          <DataField>Customer__Balance__LCY__Format</DataField>
+        </Field>
+        <Field Name="Hesabu">
+          <DataField>Hesabu</DataField>
+        </Field>
+        <Field Name="totalc">
+          <DataField>totalc</DataField>
+        </Field>
+        <Field Name="totalcFormat">
+          <DataField>totalcFormat</DataField>
+        </Field>
+        <Field Name="Totald">
+          <DataField>Totald</DataField>
+        </Field>
+        <Field Name="TotaldFormat">
+          <DataField>TotaldFormat</DataField>
+        </Field>
+        <Field Name="totalb">
+          <DataField>totalb</DataField>
+        </Field>
+        <Field Name="totalbFormat">
+          <DataField>totalbFormat</DataField>
+        </Field>
+        <Field Name="ClassCode">
+          <DataField>ClassCode</DataField>
+        </Field>
+        <Field Name="CurrentProgramme_Customer">
+          <DataField>CurrentProgramme_Customer</DataField>
+        </Field>
+        <Field Name="BalPerc">
+          <DataField>BalPerc</DataField>
+        </Field>
+        <Field Name="BalPercFormat">
+          <DataField>BalPercFormat</DataField>
+        </Field>
+        <Field Name="ProgDesc">
+          <DataField>ProgDesc</DataField>
+        </Field>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="CurrentSettlementType_Customer">
+          <DataField>CurrentSettlementType_Customer</DataField>
+        </Field>
+        <Field Name="CurrentStage_Customer">
+          <DataField>CurrentStage_Customer</DataField>
+        </Field>
+        <Field Name="fac">
+          <DataField>fac</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -1,12 +1,34 @@
-tableextension 53010 TransferLinesExt extends "Transfer Line"
+tableextension 53010 "Transfer Lines Ext" extends "Transfer Line"
 {
     fields
     {
-        //    field(60000; "Product Group Code"; Code[20])
-        //    {
-        //        DataClassification = ToBeClassified;
+        field(56601; "Quantity In Store"; Decimal)
+        {
+            Caption = 'Quantity In Store';
+        }
 
-        //    } 
+        modify("Item No.")
+        {
+            Caption = 'Item No';
+
+
+            trigger OnAfterValidate()
+
+            begin
+
+
+                ItemLedgerEnty.RESET;
+                ItemLedgerEnty.SETRANGE("Item No.", "Item No.");
+                ItemLedgerEnty.SETRANGE("Location Code", "Transfer-from Code");
+                IF ItemLedgerEnty.FIND('-') THEN BEGIN
+                    ItemLedgerEnty.CalcSums(Quantity);
+                    "Quantity In Store" := ItemLedgerEnty.Quantity;
+                    Validate("Quantity In Store");
+                END;
+            end;
+        }
     }
+    var
+        ItemLedgerEnty: Record "Item Ledger Entry";
 
 }

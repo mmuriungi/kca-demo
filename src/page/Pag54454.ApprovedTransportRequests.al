@@ -134,7 +134,7 @@ page 54454 "Approved Transport Requests"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Fuel Unit Cost field.';
                 }
-                field("Fuel Before trip"; "Fuel Before trip")
+                field("Fuel Before trip"; Rec."Fuel Before trip")
                 {
                     ApplicationArea = all;
                 }

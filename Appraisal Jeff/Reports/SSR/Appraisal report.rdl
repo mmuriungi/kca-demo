@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="AppraisalNo_Appraisal">
+          <DataField>AppraisalNo_Appraisal</DataField>
+        </Field>
+        <Field Name="EmployeeCode_Appraisal">
+          <DataField>EmployeeCode_Appraisal</DataField>
+        </Field>
+        <Field Name="EmployeeName_Appraisal">
+          <DataField>EmployeeName_Appraisal</DataField>
+        </Field>
+        <Field Name="GlobalDimension2Code_Appraisal">
+          <DataField>GlobalDimension2Code_Appraisal</DataField>
+        </Field>
+        <Field Name="ShortcutDimension3Code_Appraisal">
+          <DataField>ShortcutDimension3Code_Appraisal</DataField>
+        </Field>
+        <Field Name="Designation_Appraisal">
+          <DataField>Designation_Appraisal</DataField>
+        </Field>
+        <Field Name="JobGrade_Appraisal">
+          <DataField>JobGrade_Appraisal</DataField>
+        </Field>
+        <Field Name="JobTitle_Appraisal">
+          <DataField>JobTitle_Appraisal</DataField>
+        </Field>
+        <Field Name="Period_Appraisal">
+          <DataField>Period_Appraisal</DataField>
+        </Field>
+        <Field Name="Rating_Appraisal">
+          <DataField>Rating_Appraisal</DataField>
+        </Field>
+        <Field Name="RequiredTraining_Appraisal">
+          <DataField>RequiredTraining_Appraisal</DataField>
+        </Field>
+        <Field Name="ResponseScale_Appraisal">
+          <DataField>ResponseScale_Appraisal</DataField>
+        </Field>
+        <Field Name="SelfAssement_Appraisal">
+          <DataField>SelfAssement_Appraisal</DataField>
+        </Field>
+        <Field Name="HeadofDirectorate_Appraisal">
+          <DataField>HeadofDirectorate_Appraisal</DataField>
+        </Field>
+        <Field Name="PerfomanceGap_Appraisal">
+          <DataField>PerfomanceGap_Appraisal</DataField>
+        </Field>
+        <Field Name="SupervisorDesignation_Appraisal">
+          <DataField>SupervisorDesignation_Appraisal</DataField>
+        </Field>
+        <Field Name="SupervisorName_Appraisal">
+          <DataField>SupervisorName_Appraisal</DataField>
+        </Field>
+        <Field Name="SupervisorNo_Appraisal">
+          <DataField>SupervisorNo_Appraisal</DataField>
+        </Field>
+        <Field Name="SupervisorsComment_Appraisal">
+          <DataField>SupervisorsComment_Appraisal</DataField>
+        </Field>
+        <Field Name="TermsofService_Appraisal">
+          <DataField>TermsofService_Appraisal</DataField>
+        </Field>
+        <Field Name="Timeline_Appraisal">
+          <DataField>Timeline_Appraisal</DataField>
+        </Field>
+        <Field Name="compinfopic">
+          <DataField>compinfopic</DataField>
+        </Field>
+        <Field Name="compinfoname">
+          <DataField>compinfoname</DataField>
+        </Field>
+        <Field Name="compinfophone">
+          <DataField>compinfophone</DataField>
+        </Field>
+        <Field Name="compinfoaddress">
+          <DataField>compinfoaddress</DataField>
+        </Field>
+        <Field Name="compinfoemail">
+          <DataField>compinfoemail</DataField>
+        </Field>
+        <Field Name="compinfowebpage">
+          <DataField>compinfowebpage</DataField>
+        </Field>
+        <Field Name="TargetScore_Targetskrakpi">
+          <DataField>TargetScore_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="AchievedOutcome_Targetskrakpi">
+          <DataField>AchievedOutcome_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="Activity_Targetskrakpi">
+          <DataField>Activity_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="KPIs_Targetskrakpi">
+          <DataField>KPIs_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="KRA_Targetskrakpi">
+          <DataField>KRA_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="Period_Targetskrakpi">
+          <DataField>Period_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="Rating_Targetskrakpi">
+          <DataField>Rating_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="SelfAccess_Targetskrakpi">
+          <DataField>SelfAccess_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="StrategicObjectives_Targetskrakpi">
+          <DataField>StrategicObjectives_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="SupervisorAccess_Targetskrakpi">
+          <DataField>SupervisorAccess_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="Timeline_Targetskrakpi">
+          <DataField>Timeline_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="Timelines_Targetskrakpi">
+          <DataField>Timelines_Targetskrakpi</DataField>
+        </Field>
+        <Field Name="AgreedTargets_PerfomanceReview">
+          <DataField>AgreedTargets_PerfomanceReview</DataField>
+        </Field>
+        <Field Name="ChangedTargets_PerfomanceReview">
+          <DataField>ChangedTargets_PerfomanceReview</DataField>
+        </Field>
+        <Field Name="Code_PerfomanceReview">
+          <DataField>Code_PerfomanceReview</DataField>
+        </Field>
+        <Field Name="KPIs_PerfomanceReview">
+          <DataField>KPIs_PerfomanceReview</DataField>
+        </Field>
+        <Field Name="Levelofachievement_PerfomanceReview">
+          <DataField>Levelofachievement_PerfomanceReview</DataField>
+        </Field>
+        <Field Name="Period_PerfomanceReview">
+          <DataField>Period_PerfomanceReview</DataField>
+        </Field>
+        <Field Name="ReviewPeriod_PerfomanceReview">
+          <DataField>ReviewPeriod_PerfomanceReview</DataField>
+        </Field>
+        <Field Name="Code_EmployeeCoreValues">
+          <DataField>Code_EmployeeCoreValues</DataField>
+        </Field>
+        <Field Name="Description_EmployeeCoreValues">
+          <DataField>Description_EmployeeCoreValues</DataField>
+        </Field>
+        <Field Name="SelfAssement_EmployeeCoreValues">
+          <DataField>SelfAssement_EmployeeCoreValues</DataField>
+        </Field>
+        <Field Name="SupervisorsComment_EmployeeCoreValues">
+          <DataField>SupervisorsComment_EmployeeCoreValues</DataField>
+        </Field>
+        <Field Name="ResponseScale_EmployeeCoreValues">
+          <DataField>ResponseScale_EmployeeCoreValues</DataField>
+        </Field>
+        <Field Name="Rating_EmployeeCoreValues">
+          <DataField>Rating_EmployeeCoreValues</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

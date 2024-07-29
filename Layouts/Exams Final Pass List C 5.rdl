@@ -4946,6 +4946,9 @@ End Function
         <Field Name="mails">
           <DataField>mails</DataField>
         </Field>
+        <Field Name="ProgFilter">
+          <DataField>ProgFilter</DataField>
+        </Field>
         <Field Name="YoSText">
           <DataField>YoSText</DataField>
         </Field>

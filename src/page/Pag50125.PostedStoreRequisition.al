@@ -606,7 +606,7 @@ page 50125 "Posted Store Requisition"
                 IF (PROCStoreRequistionLines."Line Amount" > 0) THEN BEGIN
                     // Commit Budget Here
                     PostBudgetEnties.ExpenseBudget(Item."Item G/L Budget Account", Rec."Request date", '', Rec."Shortcut Dimension 2 Code",
-                    PROCStoreRequistionLines."Line Amount", PROCStoreRequistionLines.Description, USERID, TODAY, 'S-REQUISITION', Rec."No." + PROCStoreRequistionLines."No.", PROCStoreRequistionLines."Description 2", Format("User ID"));
+                    PROCStoreRequistionLines."Line Amount", PROCStoreRequistionLines.Description, USERID, TODAY, 'S-REQUISITION', Rec."No." + PROCStoreRequistionLines."No.", PROCStoreRequistionLines."Description 2", Format(Rec."User ID"));
                 END;
             END;
             UNTIL PROCStoreRequistionLines.NEXT = 0;

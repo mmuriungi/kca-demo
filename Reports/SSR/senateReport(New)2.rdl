@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Student_No_">
+          <DataField>Student_No_</DataField>
+        </Field>
+        <Field Name="Student_Name">
+          <DataField>Student_Name</DataField>
+        </Field>
+        <Field Name="Average">
+          <DataField>Average</DataField>
+        </Field>
+        <Field Name="AverageFormat">
+          <DataField>AverageFormat</DataField>
+        </Field>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="name">
+          <DataField>name</DataField>
+        </Field>
+        <Field Name="PassListCount">
+          <DataField>PassListCount</DataField>
+        </Field>
+        <Field Name="PassListCountFormat">
+          <DataField>PassListCountFormat</DataField>
+        </Field>
+        <Field Name="progName">
+          <DataField>progName</DataField>
+        </Field>
+        <Field Name="departName">
+          <DataField>departName</DataField>
+        </Field>
+        <Field Name="facultyName">
+          <DataField>facultyName</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+        <Field Name="seqFormat">
+          <DataField>seqFormat</DataField>
+        </Field>
+        <Field Name="currSem">
+          <DataField>currSem</DataField>
+        </Field>
+        <Field Name="currAcad">
+          <DataField>currAcad</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="failList">
+          <DataField>failList</DataField>
+        </Field>
+        <Field Name="failListFormat">
+          <DataField>failListFormat</DataField>
+        </Field>
+        <Field Name="Stage">
+          <DataField>Stage</DataField>
+        </Field>
+        <Field Name="Grade">
+          <DataField>Grade</DataField>
+        </Field>
+        <Field Name="supCount">
+          <DataField>supCount</DataField>
+        </Field>
+        <Field Name="supCountFormat">
+          <DataField>supCountFormat</DataField>
+        </Field>
+        <Field Name="retakeCount">
+          <DataField>retakeCount</DataField>
+        </Field>
+        <Field Name="retakeCountFormat">
+          <DataField>retakeCountFormat</DataField>
+        </Field>
+        <Field Name="Programmez">
+          <DataField>Programmez</DataField>
+        </Field>
+        <Field Name="order">
+          <DataField>order</DataField>
+        </Field>
+        <Field Name="SchoolTxt">
+          <DataField>SchoolTxt</DataField>
+        </Field>
+        <Field Name="StageTxt">
+          <DataField>StageTxt</DataField>
+        </Field>
+        <Field Name="ProgramTxt">
+          <DataField>ProgramTxt</DataField>
+        </Field>
+        <Field Name="Narration">
+          <DataField>Narration</DataField>
+        </Field>
+        <Field Name="PassCcountTxt">
+          <DataField>PassCcountTxt</DataField>
+        </Field>
+        <Field Name="FailcountTxt">
+          <DataField>FailcountTxt</DataField>
+        </Field>
+        <Field Name="RetakeOnecountTxt">
+          <DataField>RetakeOnecountTxt</DataField>
+        </Field>
+        <Field Name="AbscondedCountTxt">
+          <DataField>AbscondedCountTxt</DataField>
+        </Field>
+        <Field Name="SuppCountTxt">
+          <DataField>SuppCountTxt</DataField>
+        </Field>
+        <Field Name="specialCountTxt">
+          <DataField>specialCountTxt</DataField>
+        </Field>
+        <Field Name="YearTxt">
+          <DataField>YearTxt</DataField>
+        </Field>
+        <Field Name="SemesterTxt">
+          <DataField>SemesterTxt</DataField>
+        </Field>
+        <Field Name="DeanTxt">
+          <DataField>DeanTxt</DataField>
+        </Field>
+        <Field Name="VCtxt">
+          <DataField>VCtxt</DataField>
+        </Field>
+        <Field Name="StudNo">
+          <DataField>StudNo</DataField>
+        </Field>
+        <Field Name="Semester">
+          <DataField>Semester</DataField>
+        </Field>
+        <Field Name="Unit_Code">
+          <DataField>Unit_Code</DataField>
+        </Field>
+        <Field Name="StageUnits">
+          <DataField>StageUnits</DataField>
+        </Field>
+        <Field Name="Programme">
+          <DataField>Programme</DataField>
+        </Field>
+        <Field Name="Catogory">
+          <DataField>Catogory</DataField>
+        </Field>
+        <Field Name="custName">
+          <DataField>custName</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

@@ -2710,6 +2710,9 @@ End Function
         <Field Name="CompPage">
           <DataField>CompPage</DataField>
         </Field>
+        <Field Name="CompPin">
+          <DataField>CompPin</DataField>
+        </Field>
         <Field Name="Pic">
           <DataField>Pic</DataField>
         </Field>

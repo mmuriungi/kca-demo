@@ -35,15 +35,15 @@ page 50012 "FIN-Imprest Surr. Details UP"
                 {
                     ApplicationArea = All;
                 }
-                field("Over Expenditure"; "Over Expenditure")
+                field("Over Expenditure"; Rec."Over Expenditure")
                 {
                     ApplicationArea = all;
                 }
-                field("Claim Type"; "Claim Type")
+                field("Claim Type"; Rec."Claim Type")
                 {
                     ApplicationArea = ALL;
                 }
-                field("Claim Account"; "Claim Account")
+                field("Claim Account"; Rec."Claim Account")
                 {
                     ApplicationArea = ALL;
                 }
@@ -63,7 +63,7 @@ page 50012 "FIN-Imprest Surr. Details UP"
                 {
                     ApplicationArea = all;
                 }
-                field("Date Cash Collected"; "Date Cash Collected")
+                field("Date Cash Collected"; Rec."Date Cash Collected")
                 {
                     ApplicationArea = all;
                 }

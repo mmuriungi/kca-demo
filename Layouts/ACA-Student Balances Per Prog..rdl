@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -11,72 +11,6 @@
       <rd:DataSourceID>d6159afb-1067-459f-ae7e-a684ba42fdf9</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="CompName">
-          <DataField>CompName</DataField>
-        </Field>
-        <Field Name="Addresses">
-          <DataField>Addresses</DataField>
-        </Field>
-        <Field Name="Phone">
-          <DataField>Phone</DataField>
-        </Field>
-        <Field Name="Pics">
-          <DataField>Pics</DataField>
-        </Field>
-        <Field Name="Mails">
-          <DataField>Mails</DataField>
-        </Field>
-        <Field Name="CustNo">
-          <DataField>CustNo</DataField>
-        </Field>
-        <Field Name="Balance">
-          <DataField>Balance</DataField>
-        </Field>
-        <Field Name="BalanceFormat">
-          <DataField>BalanceFormat</DataField>
-        </Field>
-        <Field Name="CustName">
-          <DataField>CustName</DataField>
-        </Field>
-        <Field Name="SchCode">
-          <DataField>SchCode</DataField>
-        </Field>
-        <Field Name="SchName">
-          <DataField>SchName</DataField>
-        </Field>
-        <Field Name="CompCode">
-          <DataField>CompCode</DataField>
-        </Field>
-        <Field Name="CampName">
-          <DataField>CampName</DataField>
-        </Field>
-        <Field Name="CourseStage">
-          <DataField>CourseStage</DataField>
-        </Field>
-        <Field Name="ProgCode">
-          <DataField>ProgCode</DataField>
-        </Field>
-        <Field Name="ProgDesc">
-          <DataField>ProgDesc</DataField>
-        </Field>
-        <Field Name="ProgCat">
-          <DataField>ProgCat</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2333,4 +2267,65 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="Addresses">
+          <DataField>Addresses</DataField>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+        </Field>
+        <Field Name="Pics">
+          <DataField>Pics</DataField>
+        </Field>
+        <Field Name="Mails">
+          <DataField>Mails</DataField>
+        </Field>
+        <Field Name="CustNo">
+          <DataField>CustNo</DataField>
+        </Field>
+        <Field Name="Balance">
+          <DataField>Balance</DataField>
+        </Field>
+        <Field Name="BalanceFormat">
+          <DataField>BalanceFormat</DataField>
+        </Field>
+        <Field Name="CustName">
+          <DataField>CustName</DataField>
+        </Field>
+        <Field Name="SchCode">
+          <DataField>SchCode</DataField>
+        </Field>
+        <Field Name="SchName">
+          <DataField>SchName</DataField>
+        </Field>
+        <Field Name="CompCode">
+          <DataField>CompCode</DataField>
+        </Field>
+        <Field Name="CampName">
+          <DataField>CampName</DataField>
+        </Field>
+        <Field Name="CourseStage">
+          <DataField>CourseStage</DataField>
+        </Field>
+        <Field Name="ProgCode">
+          <DataField>ProgCode</DataField>
+        </Field>
+        <Field Name="ProgDesc">
+          <DataField>ProgDesc</DataField>
+        </Field>
+        <Field Name="ProgCat">
+          <DataField>ProgCat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

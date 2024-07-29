@@ -55,15 +55,15 @@ page 50146 "Overdue Imprest Card"
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Budgeted Amount"; "Budgeted Amount")
+                field("Budgeted Amount"; Rec."Budgeted Amount")
                 {
                     ApplicationArea = all;
                 }
-                field("Committed Amount"; "Committed Amount")
+                field("Committed Amount"; Rec."Committed Amount")
                 {
                     ApplicationArea = all;
                 }
-                field("Budget Balance"; "Budget Balance")
+                field("Budget Balance"; Rec."Budget Balance")
                 {
                     ApplicationArea = all;
                 }

@@ -43,7 +43,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Net Amount"; "Net Amount")
+                field("Net Amount"; Rec."Net Amount")
                 {
                     ApplicationArea = all;
                 }
@@ -80,12 +80,12 @@ page 50044 "FIN-Travel Advance Acc. UP"
                 {
                     ApplicationArea = All;
                 }
-                field("Claim No"; "Claim No")
+                field("Claim No"; Rec."Claim No")
                 {
                     ApplicationArea = all;
                     Caption = 'Claim Ref No';
                 }
-                field(Remarks; Remarks)
+                field(Remarks; Rec.Remarks)
                 {
                     ApplicationArea = all;
 
@@ -680,7 +680,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
         sendClaimApproval: Codeunit "Init Code";
         Cust: Record Customer;
     begin
-        CalcFields("Over Expenditure", "Claim Type", "Claim Account");
+        //CalcFields(Rec."Over Expenditure", Rec."Claim Type", Rec."Claim Account");
 
         if Rec."Over Expenditure" > 0 then begin
 

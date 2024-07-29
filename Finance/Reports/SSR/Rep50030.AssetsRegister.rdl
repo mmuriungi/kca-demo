@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_assets">
+          <DataField>No_assets</DataField>
+        </Field>
+        <Field Name="Description_assets">
+          <DataField>Description_assets</DataField>
+        </Field>
+        <Field Name="SearchDescription_assets">
+          <DataField>SearchDescription_assets</DataField>
+        </Field>
+        <Field Name="Description2_assets">
+          <DataField>Description2_assets</DataField>
+        </Field>
+        <Field Name="FAClassCode_assets">
+          <DataField>FAClassCode_assets</DataField>
+        </Field>
+        <Field Name="FASubclassCode_assets">
+          <DataField>FASubclassCode_assets</DataField>
+        </Field>
+        <Field Name="GlobalDimension1Code_assets">
+          <DataField>GlobalDimension1Code_assets</DataField>
+        </Field>
+        <Field Name="GlobalDimension2Code_assets">
+          <DataField>GlobalDimension2Code_assets</DataField>
+        </Field>
+        <Field Name="LocationCode_assets">
+          <DataField>LocationCode_assets</DataField>
+        </Field>
+        <Field Name="VendorNo_assets">
+          <DataField>VendorNo_assets</DataField>
+        </Field>
+        <Field Name="MainAssetComponent_assets">
+          <DataField>MainAssetComponent_assets</DataField>
+        </Field>
+        <Field Name="ComponentofMainAsset_assets">
+          <DataField>ComponentofMainAsset_assets</DataField>
+        </Field>
+        <Field Name="FALocationCode_assets">
+          <DataField>FALocationCode_assets</DataField>
+        </Field>
+        <Field Name="ResponsibleEmployee_assets">
+          <DataField>ResponsibleEmployee_assets</DataField>
+        </Field>
+        <Field Name="SerialNo_assets">
+          <DataField>SerialNo_assets</DataField>
+        </Field>
+        <Field Name="MaintenanceVendorNo_assets">
+          <DataField>MaintenanceVendorNo_assets</DataField>
+        </Field>
+        <Field Name="UnderMaintenance_assets">
+          <DataField>UnderMaintenance_assets</DataField>
+        </Field>
+        <Field Name="NextServiceDate_assets">
+          <DataField>NextServiceDate_assets</DataField>
+        </Field>
+        <Field Name="RegistrationNo_assets">
+          <DataField>RegistrationNo_assets</DataField>
+        </Field>
+        <Field Name="TagNo_assets">
+          <DataField>TagNo_assets</DataField>
+        </Field>
+        <Field Name="AssetCode_assets">
+          <DataField>AssetCode_assets</DataField>
+        </Field>
+        <Field Name="AssetNos_assets">
+          <DataField>AssetNos_assets</DataField>
+        </Field>
+        <Field Name="SourceofFunds_assets">
+          <DataField>SourceofFunds_assets</DataField>
+        </Field>
+        <Field Name="MakeorModel_assets">
+          <DataField>MakeorModel_assets</DataField>
+        </Field>
+        <Field Name="DateofDelivery_assets">
+          <DataField>DateofDelivery_assets</DataField>
+        </Field>
+        <Field Name="DatePlacedinUse_assets">
+          <DataField>DatePlacedinUse_assets</DataField>
+        </Field>
+        <Field Name="ReplacementDate_assets">
+          <DataField>ReplacementDate_assets</DataField>
+        </Field>
+        <Field Name="DepreciationRate_assets">
+          <DataField>DepreciationRate_assets</DataField>
+        </Field>
+        <Field Name="DepreciationRate_assetsFormat">
+          <DataField>DepreciationRate_assetsFormat</DataField>
+        </Field>
+        <Field Name="DisposalDate_assets">
+          <DataField>DisposalDate_assets</DataField>
+        </Field>
+        <Field Name="DisposalDate_assetsFormat">
+          <DataField>DisposalDate_assetsFormat</DataField>
+        </Field>
+        <Field Name="DisposalAmount_assets">
+          <DataField>DisposalAmount_assets</DataField>
+        </Field>
+        <Field Name="DisposalAmount_assetsFormat">
+          <DataField>DisposalAmount_assetsFormat</DataField>
+        </Field>
+        <Field Name="Notes_assets">
+          <DataField>Notes_assets</DataField>
+        </Field>
+        <Field Name="Vendor_assets">
+          <DataField>Vendor_assets</DataField>
+        </Field>
+        <Field Name="PaymentVoucherNo_assets">
+          <DataField>PaymentVoucherNo_assets</DataField>
+        </Field>
+        <Field Name="LastPhysicalCheck_assets">
+          <DataField>LastPhysicalCheck_assets</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

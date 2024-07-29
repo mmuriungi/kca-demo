@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_AUDITRiskAnalysisHeader">
+          <DataField>No_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Date_AUDITRiskAnalysisHeader">
+          <DataField>Date_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="DepartmantName_AUDITRiskAnalysisHeader">
+          <DataField>DepartmantName_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Likelihood_AUDITRiskAnalysisHeader">
+          <DataField>Likelihood_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Impact_AUDITRiskAnalysisHeader">
+          <DataField>Impact_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="OverallRating_AUDITRiskAnalysisHeader">
+          <DataField>OverallRating_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="ResponsiblePersonsName_AUDITRiskAnalysisHeader">
+          <DataField>ResponsiblePersonsName_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Process_AUDITRiskAnalysisHeader">
+          <DataField>Process_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="status_AUDITRiskAnalysisHeader">
+          <DataField>status_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="BudgetPeriod_AUDITRiskAnalysisHeader">
+          <DataField>BudgetPeriod_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Risks_AUDITRiskAnalysisHeader">
+          <DataField>Risks_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="departmentName">
+          <DataField>departmentName</DataField>
+        </Field>
+        <Field Name="RiskCode_AuditRiskCauses">
+          <DataField>RiskCode_AuditRiskCauses</DataField>
+        </Field>
+        <Field Name="Title_AuditRiskCauses">
+          <DataField>Title_AuditRiskCauses</DataField>
+        </Field>
+        <Field Name="Description_AuditRiskCauses">
+          <DataField>Description_AuditRiskCauses</DataField>
+        </Field>
+        <Field Name="causesCount">
+          <DataField>causesCount</DataField>
+        </Field>
+        <Field Name="Title_AuditRiskImpacts">
+          <DataField>Title_AuditRiskImpacts</DataField>
+        </Field>
+        <Field Name="Description_AuditRiskImpacts">
+          <DataField>Description_AuditRiskImpacts</DataField>
+        </Field>
+        <Field Name="impactsCount">
+          <DataField>impactsCount</DataField>
+        </Field>
+        <Field Name="RiskTreatment_AuditRiskActions">
+          <DataField>RiskTreatment_AuditRiskActions</DataField>
+        </Field>
+        <Field Name="RiskAction_AuditRiskActions">
+          <DataField>RiskAction_AuditRiskActions</DataField>
+        </Field>
+        <Field Name="actionsCount">
+          <DataField>actionsCount</DataField>
+        </Field>
+        <Field Name="RiskTreatmentAction_AuditRiskTreatmentActStep">
+          <DataField>RiskTreatmentAction_AuditRiskTreatmentActStep</DataField>
+        </Field>
+        <Field Name="Verified_AuditRiskTreatmentActStep">
+          <DataField>Verified_AuditRiskTreatmentActStep</DataField>
+        </Field>
+        <Field Name="VerifiedDate_AuditRiskTreatmentActStep">
+          <DataField>VerifiedDate_AuditRiskTreatmentActStep</DataField>
+        </Field>
+        <Field Name="VerifiedBy_AuditRiskTreatmentActStep">
+          <DataField>VerifiedBy_AuditRiskTreatmentActStep</DataField>
+        </Field>
+        <Field Name="Remarks_AuditRiskTreatmentActStep">
+          <DataField>Remarks_AuditRiskTreatmentActStep</DataField>
+        </Field>
+        <Field Name="TreatmentCode_AuditRiskTreatmentActStep">
+          <DataField>TreatmentCode_AuditRiskTreatmentActStep</DataField>
+        </Field>
+        <Field Name="BudgetedAmount_AuditRiskTreatmentActStep">
+          <DataField>BudgetedAmount_AuditRiskTreatmentActStep</DataField>
+        </Field>
+        <Field Name="BudgetedAmount_AuditRiskTreatmentActStepFormat">
+          <DataField>BudgetedAmount_AuditRiskTreatmentActStepFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

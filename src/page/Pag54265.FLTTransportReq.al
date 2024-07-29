@@ -247,7 +247,7 @@ page 54265 "FLT-Transport Req."
                     ToolTip = 'Specifies the value of the Transport Available/Not Av. field.';
 
                 }
-                field("Allocation Time"; "Transport Approval Time")
+                field("Allocation Time"; Rec."Transport Approval Time")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Transport Available/Not Av. field.';

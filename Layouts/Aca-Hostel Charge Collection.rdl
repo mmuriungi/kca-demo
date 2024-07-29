@@ -1590,6 +1590,15 @@ uVACJrfspJ38n3Et0BtLx6Xjh1/Vh67YrzudJeNaMW08HMRckcLV3I9ReffroRvXwcO1acn8hrrla7We
         <Field Name="SpaceNo">
           <DataField>SpaceNo</DataField>
         </Field>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="compName">
+          <DataField>compName</DataField>
+        </Field>
+        <Field Name="names">
+          <DataField>names</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

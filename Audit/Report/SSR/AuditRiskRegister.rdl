@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_AUDITRiskAnalysisHeader">
+          <DataField>No_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Date_AUDITRiskAnalysisHeader">
+          <DataField>Date_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="DepartmantName_AUDITRiskAnalysisHeader">
+          <DataField>DepartmantName_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Session_AUDITRiskAnalysisHeader">
+          <DataField>Session_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Likelihood_AUDITRiskAnalysisHeader">
+          <DataField>Likelihood_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Impact_AUDITRiskAnalysisHeader">
+          <DataField>Impact_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="OverallRating_AUDITRiskAnalysisHeader">
+          <DataField>OverallRating_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="CreatedBy_AUDITRiskAnalysisHeader">
+          <DataField>CreatedBy_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="CreatedOn_AUDITRiskAnalysisHeader">
+          <DataField>CreatedOn_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Risks_AUDITRiskAnalysisHeader">
+          <DataField>Risks_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Causes_AUDITRiskAnalysisHeader">
+          <DataField>Causes_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Implications_AUDITRiskAnalysisHeader">
+          <DataField>Implications_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="RiskAction_AUDITRiskAnalysisHeader">
+          <DataField>RiskAction_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="ResponsiblePersons_AUDITRiskAnalysisHeader">
+          <DataField>ResponsiblePersons_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Process_AUDITRiskAnalysisHeader">
+          <DataField>Process_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="ResponsiblePersonsName_AUDITRiskAnalysisHeader">
+          <DataField>ResponsiblePersonsName_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="PriorityLevel_AUDITRiskAnalysisHeader">
+          <DataField>PriorityLevel_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="status_AUDITRiskAnalysisHeader">
+          <DataField>status_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="NoSeries_AUDITRiskAnalysisHeader">
+          <DataField>NoSeries_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="BudgetPeriod_AUDITRiskAnalysisHeader">
+          <DataField>BudgetPeriod_AUDITRiskAnalysisHeader</DataField>
+        </Field>
+        <Field Name="Risk_caueses_Description">
+          <DataField>Risk_caueses_Description</DataField>
+        </Field>
+        <Field Name="Risk_Treatment">
+          <DataField>Risk_Treatment</DataField>
+        </Field>
+        <Field Name="Rist_Action">
+          <DataField>Rist_Action</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

@@ -136,7 +136,7 @@ page 50186 "Fixed Assets List-Cust"
                             DefaultDimMultiple: Page "Default Dimensions-Multiple";
                         begin
                             CurrPage.SetSelectionFilter(FA);
-                            DefaultDimMultiple.SetMultiRecord(FA, FieldNo("No."));
+                            DefaultDimMultiple.SetMultiRecord(FA, Rec.FieldNo("No."));
                             DefaultDimMultiple.RunModal();
                         end;
                     }
@@ -311,7 +311,7 @@ page 50186 "Fixed Assets List-Cust"
                 var
                     CopyFA: Report "Copy Fixed Asset";
                 begin
-                    CopyFA.SetFANo("No.");
+                    CopyFA.SetFANo(Rec."No.");
                     CopyFA.RunModal();
                 end;
             }
