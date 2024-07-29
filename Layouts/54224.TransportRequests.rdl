@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="EmpNo_TRequests">
+          <DataField>EmpNo_TRequests</DataField>
+        </Field>
+        <Field Name="EmployeeName_TRequests">
+          <DataField>EmployeeName_TRequests</DataField>
+        </Field>
+        <Field Name="DepartmentCode_TRequests">
+          <DataField>DepartmentCode_TRequests</DataField>
+        </Field>
+        <Field Name="Designation_TRequests">
+          <DataField>Designation_TRequests</DataField>
+        </Field>
+        <Field Name="Destination_TRequests">
+          <DataField>Destination_TRequests</DataField>
+        </Field>
+        <Field Name="PurposeofTrip_TRequests">
+          <DataField>PurposeofTrip_TRequests</DataField>
+        </Field>
+        <Field Name="DateofTrip_TRequests">
+          <DataField>DateofTrip_TRequests</DataField>
+        </Field>
+        <Field Name="Timeout_TRequests">
+          <DataField>Timeout_TRequests</DataField>
+        </Field>
+        <Field Name="NoOfPassangers_TRequests">
+          <DataField>NoOfPassangers_TRequests</DataField>
+        </Field>
+        <Field Name="NoofDaysRequested_TRequests">
+          <DataField>NoofDaysRequested_TRequests</DataField>
+        </Field>
+        <Field Name="VehicleAllocated_TRequests">
+          <DataField>VehicleAllocated_TRequests</DataField>
+        </Field>
+        <Field Name="VehicleCapacity_TRequests">
+          <DataField>VehicleCapacity_TRequests</DataField>
+        </Field>
+        <Field Name="RecommedthisRequest_TRequests">
+          <DataField>RecommedthisRequest_TRequests</DataField>
+        </Field>
+        <Field Name="RecommendationReason_TRequests">
+          <DataField>RecommendationReason_TRequests</DataField>
+        </Field>
+        <Field Name="HODName_TRequests">
+          <DataField>HODName_TRequests</DataField>
+        </Field>
+        <Field Name="HODUserName_TRequests">
+          <DataField>HODUserName_TRequests</DataField>
+        </Field>
+        <Field Name="MileageBeforeTrip_TRequests">
+          <DataField>MileageBeforeTrip_TRequests</DataField>
+        </Field>
+        <Field Name="MileageBeforeTrip_TRequestsFormat">
+          <DataField>MileageBeforeTrip_TRequestsFormat</DataField>
+        </Field>
+        <Field Name="MilleageafterTrip_TRequests">
+          <DataField>MilleageafterTrip_TRequests</DataField>
+        </Field>
+        <Field Name="MilleageafterTrip_TRequestsFormat">
+          <DataField>MilleageafterTrip_TRequestsFormat</DataField>
+        </Field>
+        <Field Name="TotalMileageTravelled_TRequests">
+          <DataField>TotalMileageTravelled_TRequests</DataField>
+        </Field>
+        <Field Name="TotalMileageTravelled_TRequestsFormat">
+          <DataField>TotalMileageTravelled_TRequestsFormat</DataField>
+        </Field>
+        <Field Name="TotalCost_TRequests">
+          <DataField>TotalCost_TRequests</DataField>
+        </Field>
+        <Field Name="TotalCost_TRequestsFormat">
+          <DataField>TotalCost_TRequestsFormat</DataField>
+        </Field>
+        <Field Name="CostPerKilometer_TRequests">
+          <DataField>CostPerKilometer_TRequests</DataField>
+        </Field>
+        <Field Name="CostPerKilometer_TRequestsFormat">
+          <DataField>CostPerKilometer_TRequestsFormat</DataField>
+        </Field>
+        <Field Name="DateofRequest_TRequests">
+          <DataField>DateofRequest_TRequests</DataField>
+        </Field>
+        <Field Name="complogo">
+          <DataField>complogo</DataField>
+        </Field>
+        <Field Name="compName">
+          <DataField>compName</DataField>
+        </Field>
+        <Field Name="compAddress">
+          <DataField>compAddress</DataField>
+        </Field>
+        <Field Name="CompEmail">
+          <DataField>CompEmail</DataField>
+        </Field>
+        <Field Name="CompUrl">
+          <DataField>CompUrl</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
+        <Field Name="Phones">
+          <DataField>Phones</DataField>
+        </Field>
+        <Field Name="pics">
+          <DataField>pics</DataField>
+        </Field>
+        <Field Name="mails">
+          <DataField>mails</DataField>
+        </Field>
+        <Field Name="FirstYearGradComments">
+          <DataField>FirstYearGradComments</DataField>
+        </Field>
+        <Field Name="SecondYearGradComments">
+          <DataField>SecondYearGradComments</DataField>
+        </Field>
+        <Field Name="ThirdYearGradComments">
+          <DataField>ThirdYearGradComments</DataField>
+        </Field>
+        <Field Name="FourthYearGradComments">
+          <DataField>FourthYearGradComments</DataField>
+        </Field>
+        <Field Name="FifthYearGradComments">
+          <DataField>FifthYearGradComments</DataField>
+        </Field>
+        <Field Name="SixthYearGradComments">
+          <DataField>SixthYearGradComments</DataField>
+        </Field>
+        <Field Name="SeventhYearGradComments">
+          <DataField>SeventhYearGradComments</DataField>
+        </Field>
+        <Field Name="AcademicYear">
+          <DataField>AcademicYear</DataField>
+        </Field>
+        <Field Name="AcademicYearText">
+          <DataField>AcademicYearText</DataField>
+        </Field>
+        <Field Name="CalssCaption">
+          <DataField>CalssCaption</DataField>
+        </Field>
+        <Field Name="Category">
+          <DataField>Category</DataField>
+        </Field>
+        <Field Name="ClassificationCode">
+          <DataField>ClassificationCode</DataField>
+        </Field>
+        <Field Name="DepartmentCode">
+          <DataField>DepartmentCode</DataField>
+        </Field>
+        <Field Name="FinalistsGraduationComments">
+          <DataField>FinalistsGraduationComments</DataField>
+        </Field>
+        <Field Name="GradStatusMsg1">
+          <DataField>GradStatusMsg1</DataField>
+        </Field>
+        <Field Name="GradStatusMsg2">
+          <DataField>GradStatusMsg2</DataField>
+        </Field>
+        <Field Name="GradStatusMsg3">
+          <DataField>GradStatusMsg3</DataField>
+        </Field>
+        <Field Name="GradStatusMsg4">
+          <DataField>GradStatusMsg4</DataField>
+        </Field>
+        <Field Name="GradStatusMsg5">
+          <DataField>GradStatusMsg5</DataField>
+        </Field>
+        <Field Name="GradStatusMsg6">
+          <DataField>GradStatusMsg6</DataField>
+        </Field>
+        <Field Name="IncludeAcademicYearCaption">
+          <DataField>IncludeAcademicYearCaption</DataField>
+        </Field>
+        <Field Name="IncludeFailedUnitsHeaders">
+          <DataField>IncludeFailedUnitsHeaders</DataField>
+        </Field>
+        <Field Name="IncludeVariable1">
+          <DataField>IncludeVariable1</DataField>
+        </Field>
+        <Field Name="IncludeVariable2">
+          <DataField>IncludeVariable2</DataField>
+        </Field>
+        <Field Name="IncludeVariable3">
+          <DataField>IncludeVariable3</DataField>
+        </Field>
+        <Field Name="IncludeVariable4">
+          <DataField>IncludeVariable4</DataField>
+        </Field>
+        <Field Name="IncludeVariable5">
+          <DataField>IncludeVariable5</DataField>
+        </Field>
+        <Field Name="IncludeVariable6">
+          <DataField>IncludeVariable6</DataField>
+        </Field>
+        <Field Name="ProgClassValue">
+          <DataField>ProgClassValue</DataField>
+        </Field>
+        <Field Name="ProgClassValueFormat">
+          <DataField>ProgClassValueFormat</DataField>
+        </Field>
+        <Field Name="ProgTotalCount">
+          <DataField>ProgTotalCount</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYearTrans_BarcCo">
+          <DataField>ProgCat_AcadYearTrans_BarcCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYearTrans_CertCo">
+          <DataField>ProgCat_AcadYearTrans_CertCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYearTrans_DipCo">
+          <DataField>ProgCat_AcadYearTrans_DipCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYearTrans_MascCo">
+          <DataField>ProgCat_AcadYearTrans_MascCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYear_BarcCo">
+          <DataField>ProgCat_AcadYear_BarcCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYear_CertCo">
+          <DataField>ProgCat_AcadYear_CertCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYear_DipCo">
+          <DataField>ProgCat_AcadYear_DipCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYear_MasCo">
+          <DataField>ProgCat_AcadYear_MasCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYear_Status_BarcCo">
+          <DataField>ProgCat_AcadYear_Status_BarcCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYear_Status_CertCo">
+          <DataField>ProgCat_AcadYear_Status_CertCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYear_Status_DipCo">
+          <DataField>ProgCat_AcadYear_Status_DipCo</DataField>
+        </Field>
+        <Field Name="ProgCat_AcadYear_Status_MasCo">
+          <DataField>ProgCat_AcadYear_Status_MasCo</DataField>
+        </Field>
+        <Field Name="Prog_AcadYearTrans_Count">
+          <DataField>Prog_AcadYearTrans_Count</DataField>
+        </Field>
+        <Field Name="Prog_AcadYear_Count">
+          <DataField>Prog_AcadYear_Count</DataField>
+        </Field>
+        <Field Name="Prog_AcadYear_Status_Count">
+          <DataField>Prog_AcadYear_Status_Count</DataField>
+        </Field>
+        <Field Name="ProgrammeFailed">
+          <DataField>ProgrammeFailed</DataField>
+        </Field>
+        <Field Name="ProgrammeFailedFormat">
+          <DataField>ProgrammeFailedFormat</DataField>
+        </Field>
+        <Field Name="ProgrammePassed">
+          <DataField>ProgrammePassed</DataField>
+        </Field>
+        <Field Name="ProgrammePassedFormat">
+          <DataField>ProgrammePassedFormat</DataField>
+        </Field>
+        <Field Name="ProgrammeClassificationCount">
+          <DataField>ProgrammeClassificationCount</DataField>
+        </Field>
+        <Field Name="ProgrammeCode">
+          <DataField>ProgrammeCode</DataField>
+        </Field>
+        <Field Name="ProgrammeTotalFailed">
+          <DataField>ProgrammeTotalFailed</DataField>
+        </Field>
+        <Field Name="ProgrammeTotalPassed">
+          <DataField>ProgrammeTotalPassed</DataField>
+        </Field>
+        <Field Name="ReportingAcademicYear">
+          <DataField>ReportingAcademicYear</DataField>
+        </Field>
+        <Field Name="RubricOrder">
+          <DataField>RubricOrder</DataField>
+        </Field>
+        <Field Name="SchClassValue">
+          <DataField>SchClassValue</DataField>
+        </Field>
+        <Field Name="SchClassValueFormat">
+          <DataField>SchClassValueFormat</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYearTrans_BarcCo">
+          <DataField>SchCat_AcadYearTrans_BarcCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYearTrans_CertCo">
+          <DataField>SchCat_AcadYearTrans_CertCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYearTrans_DipCo">
+          <DataField>SchCat_AcadYearTrans_DipCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYearTrans_MascCo">
+          <DataField>SchCat_AcadYearTrans_MascCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYear_BarcCo">
+          <DataField>SchCat_AcadYear_BarcCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYear_CertCo">
+          <DataField>SchCat_AcadYear_CertCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYear_DipCo">
+          <DataField>SchCat_AcadYear_DipCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYear_MasCo">
+          <DataField>SchCat_AcadYear_MasCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYear_Status_BarcCo">
+          <DataField>SchCat_AcadYear_Status_BarcCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYear_Status_CertCo">
+          <DataField>SchCat_AcadYear_Status_CertCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYear_Status_DipCo">
+          <DataField>SchCat_AcadYear_Status_DipCo</DataField>
+        </Field>
+        <Field Name="SchCat_AcadYear_Status_MasCo">
+          <DataField>SchCat_AcadYear_Status_MasCo</DataField>
+        </Field>
+        <Field Name="SchoolFailed">
+          <DataField>SchoolFailed</DataField>
+        </Field>
+        <Field Name="SchoolFailedFormat">
+          <DataField>SchoolFailedFormat</DataField>
+        </Field>
+        <Field Name="SchoolPassed">
+          <DataField>SchoolPassed</DataField>
+        </Field>
+        <Field Name="SchoolPassedFormat">
+          <DataField>SchoolPassedFormat</DataField>
+        </Field>
+        <Field Name="SchoolClassificationCount">
+          <DataField>SchoolClassificationCount</DataField>
+        </Field>
+        <Field Name="SchoolCode">
+          <DataField>SchoolCode</DataField>
+        </Field>
+        <Field Name="SchoolTotalCount">
+          <DataField>SchoolTotalCount</DataField>
+        </Field>
+        <Field Name="SchoolTotalFailed">
+          <DataField>SchoolTotalFailed</DataField>
+        </Field>
+        <Field Name="SchoolTotalPassed">
+          <DataField>SchoolTotalPassed</DataField>
+        </Field>
+        <Field Name="School_AcadYearTrans_Count">
+          <DataField>School_AcadYearTrans_Count</DataField>
+        </Field>
+        <Field Name="School_AcadYear_Count">
+          <DataField>School_AcadYear_Count</DataField>
+        </Field>
+        <Field Name="School_AcadYear_Status_Count">
+          <DataField>School_AcadYear_Status_Count</DataField>
+        </Field>
+        <Field Name="StatusMsg1">
+          <DataField>StatusMsg1</DataField>
+        </Field>
+        <Field Name="StatusMsg2">
+          <DataField>StatusMsg2</DataField>
+        </Field>
+        <Field Name="StatusMsg3">
+          <DataField>StatusMsg3</DataField>
+        </Field>
+        <Field Name="StatusMsg4">
+          <DataField>StatusMsg4</DataField>
+        </Field>
+        <Field Name="StatusMsg5">
+          <DataField>StatusMsg5</DataField>
+        </Field>
+        <Field Name="StatusMsg6">
+          <DataField>StatusMsg6</DataField>
+        </Field>
+        <Field Name="SummaryPageCaption">
+          <DataField>SummaryPageCaption</DataField>
+        </Field>
+        <Field Name="SystemCreatedAt">
+          <DataField>SystemCreatedAt</DataField>
+        </Field>
+        <Field Name="SystemCreatedBy">
+          <DataField>SystemCreatedBy</DataField>
+        </Field>
+        <Field Name="SystemId">
+          <DataField>SystemId</DataField>
+        </Field>
+        <Field Name="SystemModifiedAt">
+          <DataField>SystemModifiedAt</DataField>
+        </Field>
+        <Field Name="SystemModifiedBy">
+          <DataField>SystemModifiedBy</DataField>
+        </Field>
+        <Field Name="YearofStudy">
+          <DataField>YearofStudy</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

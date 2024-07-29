@@ -1,0 +1,9 @@
+*.app
+*.JSON
+*.txt
+*.http
+.alpackages
+.vscode
+.snapshots
+node_modules
+

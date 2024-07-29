@@ -1,0 +1,18 @@
+pageextension 50861 "Dimension Value PageExt" extends "Dimension Values"
+{
+    layout
+    {
+        addafter("Dimension Value Type")
+        {
+            field("G/L Account No."; Rec."G/L Account No.")
+            {
+                Caption = 'Budget Account';
+                ApplicationArea = All;
+            }
+            field("G/L Name"; Rec."G/L Name")
+            {
+                ApplicationArea = All;
+            }
+        }
+    }
+}

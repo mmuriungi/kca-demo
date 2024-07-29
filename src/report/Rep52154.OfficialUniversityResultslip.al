@@ -1,0 +1,250 @@
+report 52154 "Official University Resultslip"
+{
+    DefaultLayout = RDLC;
+    RDLCLayout = './Layouts/Official University Resultslip.rdl';
+
+    dataset
+    {
+        dataitem("ACA-Course Registration"; "ACA-Course Registration")
+        {
+            DataItemTableView = WHERE("Register for" = CONST(Stage), Reversed = FILTER(false));
+            PrintOnlyIfDetail = true;
+            RequestFilterFields = "Student No.", Programmes, Stage, Semester, Session;
+            column(pic; Info.Picture)
+            {
+            }
+            column(StudNo; "ACA-Course Registration"."Student No.")
+            {
+            }
+            column(Prog; "ACA-Course Registration".Programmes)
+            {
+            }
+            column(Sem; "ACA-Course Registration".Semester)
+            {
+            }
+            column(Stag; "ACA-Course Registration".Stage)
+            {
+            }
+            column(CumSc; "ACA-Course Registration"."Cumm Score")
+            {
+            }
+            column(CurrSem; "ACA-Course Registration"."Current Cumm Score")
+            {
+            }
+            column(sName; sName)
+            {
+            }
+            column(pName; pName)
+            {
+            }
+            column(YearOfStudy; YearOfStudy)
+            {
+            }
+            column(YearOfAdmi; YearOfAdmi)
+            {
+            }
+            column(SchoolName; SchoolName)
+            {
+            }
+            column(acadyear; acadyear)
+            {
+            }
+            column(From100Legend; 'A (70% - 100%)        - Excellent         B (60% - 69%)      - Good       C (50% - 59%)     -Satisfactory ')
+            {
+            }
+            column(From40Legend; 'D (40% - 49%)                - Fair                 E (39% and Below)   - Fail')
+            {
+            }
+            column(PassMarkLegend; 'NOTE:   Pass mark is 40%')
+            {
+            }
+            column(DoubleLine; '===============================================================================')
+            {
+            }
+            column(Recomm; 'Recommendation:')
+            {
+            }
+            column(singleLine; '===============================================================================')
+            {
+            }
+            column(signedSignature; 'Signed......................................................')
+            {
+            }
+            column(codSchool; '(COD, ' + SchoolName + ')')
+            {
+            }
+            column(CodDept; '(COD,' + Deptname + ')')
+            {
+            }
+            column(dateSigned; 'Date:.......................................................')
+            {
+            }
+            column(RegAcadLabel; 'Registrar, Academic Affairs')
+            {
+            }
+            dataitem("ACA-Student Units"; "ACA-Student Units")
+            {
+                DataItemLink = "Student No." = FIELD("Student No."), Semester = FIELD(Semester), "Reg. Transacton ID" = FIELD("Reg. Transacton ID");
+                column(Unit; "ACA-Student Units".Unit)
+                {
+                }
+                column(Desc; "ACA-Student Units".Description)
+                {
+                }
+                column(Score; "ACA-Student Units"."Total Score")
+                {
+                }
+                column(Final; "ACA-Student Units"."Final Score")
+                {
+                }
+                column(Grade; "ACA-Student Units".Grade)
+                {
+                }
+                column(Status; "ACA-Student Units".Status)
+                {
+                }
+                column(ResultsStatus; "ACA-Student Units"."Result Status")
+                {
+                }
+                column(CF; "ACA-Student Units".Units)
+                {
+                }
+
+                trigger OnAfterGetRecord()
+                begin
+                    "ACA-Student Units".CalcFields("ACA-Student Units"."Total Score");
+                    if "ACA-Student Units"."Total Score" = 0 then
+                        "ACA-Student Units".Grade := 'E';
+                end;
+            }
+
+            trigger OnAfterGetRecord()
+            begin
+                // ExamProcess.UpdateCourseReg("Course Registration"."Student No.","Course Registration".Programme,"Course Registration".Stage,"Course Registration".Semester);
+                /*
+                IF "Course Registration"."Academic Year"<> acadyear THEN
+                CurrReport.SKIP;
+                IF "Course Registration".Semester<>Sems THEN
+                CurrReport.SKIP;
+                */
+                Clear(SchoolName);
+                if prog.Get("ACA-Course Registration".Programmes) then begin
+                    pName := prog.Description;
+                    dimVal.Reset;
+                    dimVal.SetRange(dimVal."Dimension Code", 'School');
+                    dimVal.SetRange(dimVal.Code, prog."School Code");
+                    if dimVal.Find('-') then begin
+                        SchoolName := dimVal.Name;
+                    end;
+                end;
+                dimVal.Reset;
+                dimVal.SetRange(dimVal."Dimension Code", 'Department');
+                dimVal.SetRange(dimVal.Code, prog."Department Code");
+                if dimVal.Find('-') then begin
+                    Deptname := dimVal.Name;
+                end;
+
+
+                Clear(YearOfStudy);
+                ProgrammeStages.Reset;
+                ProgrammeStages.SetRange(ProgrammeStages."Programme Code", "ACA-Course Registration".Programmes);
+                ProgrammeStages.SetRange(ProgrammeStages.Code, "ACA-Course Registration".Stage);
+                if ProgrammeStages.Find('-') then
+                    YearOfStudy := ProgrammeStages.Description;
+
+
+                Clear(sName);
+                Clear(YearOfAdmi);
+                cust.Reset;
+                cust.SetRange(cust."No.", "ACA-Course Registration"."Student No.");
+                if cust.Find('-') then begin
+                    sName := cust.Name;
+
+                end;
+
+                IntakeRec.Reset;
+                IntakeRec.SetRange(IntakeRec.Code, "ACA-Course Registration".Session);
+                if IntakeRec.Find('-') then
+                    YearOfAdmi := IntakeRec.Description;
+
+                acadyear := "Academic Year";
+
+            end;
+
+            trigger OnPostDataItem()
+            begin
+                // ExamProcess.UpdateCourseReg("Course Registration"."Student No.","Course Registration".Programme,"Course Registration".Stage,"Course Registration".Semester);
+            end;
+        }
+    }
+
+    requestpage
+    {
+
+        layout
+        {
+            area(content)
+            {
+            }
+        }
+
+        actions
+        {
+        }
+    }
+
+    labels
+    {
+    }
+
+    trigger OnPreReport()
+    begin
+        //  IF acadyear='' THEN ERROR('Please specify the academic year.');
+        //  IF Sems='' THEN ERROR('Please specify the Semester.');
+
+        //Info.RESET;
+        // IF Info.FIND('-') THEN BEGIN
+        // Info.CALCFIELDS(Picture);
+        // END;
+    end;
+
+    var
+        ProgrammeStages: Record "ACA-Programme Stages";
+        pName: Text[250];
+        units_Subjects: Record "ACA-Units/Subjects";
+        YearOfStudy: Code[50];
+        YearOfAdmi: Code[50];
+        SchoolName: Text[250];
+        ExamProcess: Codeunit "Exams Processing";
+        EResults: Record "ACA-Exam Results";
+        UnitsR: Record "ACA-Units/Subjects";
+        "Units/Subj": Record "ACA-Units/Subjects";
+        Sem: Record "ACA-Semesters";
+        StudUnits: Record "ACA-Student Units";
+        stduntz: Record "ACA-Student Units";
+        TotalCatMarks: Decimal;
+        TotalCatContributions: Decimal;
+        TotalMainExamContributions: Decimal;
+        TotalExamMark: Decimal;
+        FinalExamMark: Decimal;
+        FinalCATMarks: Decimal;
+        Gradez: Code[10];
+        TotalMarks: Decimal;
+        Gradings: Record "ACA-Exam Gradding Setup";
+        LastGrade: Code[20];
+        LastScore: Decimal;
+        ExitDo: Boolean;
+        Gradings2: Record "ACA-Exam Gradding Setup";
+        Gradeaqq2: Code[10];
+        TotMarks: Decimal;
+        sName: Code[250];
+        cust: Record Customer;
+        acadyear: Code[20];
+        Sems: Code[20];
+        prog: Record "ACA-Programme";
+        dimVal: Record "Dimension Value";
+        Info: Record "Company Information";
+        IntakeRec: Record "ACA-Intake";
+        Deptname: Text[100];
+}
+

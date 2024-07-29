@@ -1,0 +1,87 @@
+report 52085 "Student ID Printing Tracker"
+{
+    DefaultLayout = RDLC;
+    RDLCLayout = './Layouts/Student ID Printing Tracker.rdl';
+
+    dataset
+    {
+        dataitem(IdTracker; "ACA-Sttudent ID Print Tracker")
+        {
+            RequestFilterFields = "Student No.";
+            column(StudNo; Customer."No.")
+            {
+            }
+            column(StudNames; Customer.Name)
+            {
+            }
+            column(Serial; IdTracker.Serial)
+            {
+            }
+            column(pic; info.Picture)
+            {
+            }
+            column(CampName; info.Name)
+            {
+            }
+            column(CompAddress; info.Address + ' ' + info."Address 2" + ' ' + info.City)
+            {
+            }
+            column(CompPhone; info."Phone No." + ' ' + info."Phone No. 2")
+            {
+            }
+
+            trigger OnAfterGetRecord()
+            begin
+                Customer.RESET;
+                Customer.SETRANGE(customer."No.", IdTracker."Student No.");
+                IF Customer.FIND('-') THEN;
+            end;
+
+            trigger OnPreDataItem()
+            begin
+                ACASttudentIDPrintTracker.COPYFILTERS(IdTracker);
+                IF ACASttudentIDPrintTracker.FIND('-') THEN BEGIN
+                    REPEAT
+                    BEGIN
+                        counts := counts + 1;
+                        ACASttudentIDPrintTracker.Serial := counts;
+                        ACASttudentIDPrintTracker.MODIFY;
+                    END;
+                    UNTIL ACASttudentIDPrintTracker.NEXT = 0;
+                END;
+            end;
+        }
+    }
+
+    requestpage
+    {
+
+        layout
+        {
+        }
+
+        actions
+        {
+        }
+    }
+
+    labels
+    {
+    }
+
+    trigger OnPreReport()
+    begin
+
+        info.RESET;
+        IF info.FIND('-') THEN info.CALCFIELDS(Picture);
+
+        CLEAR(counts);
+    end;
+
+    var
+        info: Record "Company Information";
+        Customer: Record Customer;
+        ACASttudentIDPrintTracker: Record "ACA-Sttudent ID Print Tracker";
+        counts: Integer;
+}
+

@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="BuyfromVendorName_PurchaseHeaderArchive">
+          <DataField>BuyfromVendorName_PurchaseHeaderArchive</DataField>
+        </Field>
+        <Field Name="BuyfromVendorNo_PurchaseHeaderArchive">
+          <DataField>BuyfromVendorNo_PurchaseHeaderArchive</DataField>
+        </Field>
+        <Field Name="BuyfromContactNo_PurchaseHeaderArchive">
+          <DataField>BuyfromContactNo_PurchaseHeaderArchive</DataField>
+        </Field>
+        <Field Name="BuyfromPostCode_PurchaseHeaderArchive">
+          <DataField>BuyfromPostCode_PurchaseHeaderArchive</DataField>
+        </Field>
+        <Field Name="BuyfromAddress_PurchaseHeaderArchive">
+          <DataField>BuyfromAddress_PurchaseHeaderArchive</DataField>
+        </Field>
+        <Field Name="BuyfromContact_PurchaseHeaderArchive">
+          <DataField>BuyfromContact_PurchaseHeaderArchive</DataField>
+        </Field>
+        <Field Name="OrderDate_PurchaseHeaderArchive">
+          <DataField>OrderDate_PurchaseHeaderArchive</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="Address2">
+          <DataField>Address2</DataField>
+        </Field>
+        <Field Name="mail">
+          <DataField>mail</DataField>
+        </Field>
+        <Field Name="Url">
+          <DataField>Url</DataField>
+        </Field>
+        <Field Name="CompFax">
+          <DataField>CompFax</DataField>
+        </Field>
+        <Field Name="Comppostalcode">
+          <DataField>Comppostalcode</DataField>
+        </Field>
+        <Field Name="Compphone">
+          <DataField>Compphone</DataField>
+        </Field>
+        <Field Name="compphone2">
+          <DataField>compphone2</DataField>
+        </Field>
+        <Field Name="Quantity_PurchaseLineArchive">
+          <DataField>Quantity_PurchaseLineArchive</DataField>
+        </Field>
+        <Field Name="Quantity_PurchaseLineArchiveFormat">
+          <DataField>Quantity_PurchaseLineArchiveFormat</DataField>
+        </Field>
+        <Field Name="UnitofMeasure_PurchaseLineArchive">
+          <DataField>UnitofMeasure_PurchaseLineArchive</DataField>
+        </Field>
+        <Field Name="UnitCost_PurchaseLineArchive">
+          <DataField>UnitCost_PurchaseLineArchive</DataField>
+        </Field>
+        <Field Name="UnitCost_PurchaseLineArchiveFormat">
+          <DataField>UnitCost_PurchaseLineArchiveFormat</DataField>
+        </Field>
+        <Field Name="AmountIncludingVAT_PurchaseLineArchive">
+          <DataField>AmountIncludingVAT_PurchaseLineArchive</DataField>
+        </Field>
+        <Field Name="AmountIncludingVAT_PurchaseLineArchiveFormat">
+          <DataField>AmountIncludingVAT_PurchaseLineArchiveFormat</DataField>
+        </Field>
+        <Field Name="ShortcutDimension1Code_PurchaseLineArchive">
+          <DataField>ShortcutDimension1Code_PurchaseLineArchive</DataField>
+        </Field>
+        <Field Name="ShortcutDimension2Code_PurchaseLineArchive">
+          <DataField>ShortcutDimension2Code_PurchaseLineArchive</DataField>
+        </Field>
+        <Field Name="Description_PurchaseLineArchive">
+          <DataField>Description_PurchaseLineArchive</DataField>
+        </Field>
+        <Field Name="Approval_Entry__Approver_ID_">
+          <DataField>Approval_Entry__Approver_ID_</DataField>
+        </Field>
+        <Field Name="SenderID_DataItem1171">
+          <DataField>SenderID_DataItem1171</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Status">
+          <DataField>Approval_Entry_Status</DataField>
+        </Field>
+        <Field Name="Approval_Entry__Last_Date_Time_Modified_">
+          <DataField>Approval_Entry__Last_Date_Time_Modified_</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Table_ID">
+          <DataField>Approval_Entry_Table_ID</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Document_Type">
+          <DataField>Approval_Entry_Document_Type</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Document_No_">
+          <DataField>Approval_Entry_Document_No_</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Sequence_No_">
+          <DataField>Approval_Entry_Sequence_No_</DataField>
+        </Field>
+        <Field Name="ApprovalTitle">
+          <DataField>ApprovalTitle</DataField>
+        </Field>
+        <Field Name="ApprovalSignature">
+          <DataField>ApprovalSignature</DataField>
+        </Field>
+        <Field Name="ApproveDateTime">
+          <DataField>ApproveDateTime</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>
