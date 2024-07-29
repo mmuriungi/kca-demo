@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="TIME">
+          <DataField>TIME</DataField>
+        </Field>
+        <Field Name="CompanyInformation_Name">
+          <DataField>CompanyInformation_Name</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="SalesLineFilter">
+          <DataField>SalesLineFilter</DataField>
+        </Field>
+        <Field Name="ItemFilter">
+          <DataField>ItemFilter</DataField>
+        </Field>
+        <Field Name="Item_TABLECAPTION__________ItemFilter">
+          <DataField>Item_TABLECAPTION__________ItemFilter</DataField>
+        </Field>
+        <Field Name="Sales_Line__TABLECAPTION__________SalesLineFilter">
+          <DataField>Sales_Line__TABLECAPTION__________SalesLineFilter</DataField>
+        </Field>
+        <Field Name="Item__No__">
+          <DataField>Item__No__</DataField>
+        </Field>
+        <Field Name="Item_Description">
+          <DataField>Item_Description</DataField>
+        </Field>
+        <Field Name="Sales_Line___Outstanding_Amount_">
+          <DataField>Sales_Line___Outstanding_Amount_</DataField>
+        </Field>
+        <Field Name="Sales_Line___Outstanding_Amount_Format">
+          <DataField>Sales_Line___Outstanding_Amount_Format</DataField>
+        </Field>
+        <Field Name="Item_Global_Dimension_1_Filter">
+          <DataField>Item_Global_Dimension_1_Filter</DataField>
+        </Field>
+        <Field Name="Item_Global_Dimension_2_Filter">
+          <DataField>Item_Global_Dimension_2_Filter</DataField>
+        </Field>
+        <Field Name="Item_Location_Filter">
+          <DataField>Item_Location_Filter</DataField>
+        </Field>
+        <Field Name="Item_Variant_Filter">
+          <DataField>Item_Variant_Filter</DataField>
+        </Field>
+        <Field Name="Sales_Order_StatusCaption">
+          <DataField>Sales_Order_StatusCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Shipment_Date_Caption">
+          <DataField>Sales_Line__Shipment_Date_Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Quantity_Shipped_Caption">
+          <DataField>Sales_Line__Quantity_Shipped_Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Line_Discount_Amount_Caption">
+          <DataField>Sales_Line__Line_Discount_Amount_Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Amount_Caption">
+          <DataField>Sales_Line__Outstanding_Amount_Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Document_No__Caption">
+          <DataField>Sales_Line__Document_No__Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Sell_to_Customer_No__Caption">
+          <DataField>Sales_Line__Sell_to_Customer_No__Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line_QuantityCaption">
+          <DataField>Sales_Line_QuantityCaption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Quantity_Caption">
+          <DataField>Sales_Line__Outstanding_Quantity_Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Unit_Price_Caption">
+          <DataField>Sales_Line__Unit_Price_Caption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Inv__Discount_Amount_Caption">
+          <DataField>Sales_Line__Inv__Discount_Amount_Caption</DataField>
+        </Field>
+        <Field Name="Report_TotalCaption">
+          <DataField>Report_TotalCaption</DataField>
+        </Field>
+        <Field Name="Sales_Line__Document_No__">
+          <DataField>Sales_Line__Document_No__</DataField>
+        </Field>
+        <Field Name="Sales_Line__Sell_to_Customer_No__">
+          <DataField>Sales_Line__Sell_to_Customer_No__</DataField>
+        </Field>
+        <Field Name="Sales_Line__Shipment_Date_">
+          <DataField>Sales_Line__Shipment_Date_</DataField>
+        </Field>
+        <Field Name="Sales_Line_Quantity">
+          <DataField>Sales_Line_Quantity</DataField>
+        </Field>
+        <Field Name="Sales_Line_QuantityFormat">
+          <DataField>Sales_Line_QuantityFormat</DataField>
+        </Field>
+        <Field Name="Sales_Line__Quantity_Shipped_">
+          <DataField>Sales_Line__Quantity_Shipped_</DataField>
+        </Field>
+        <Field Name="Sales_Line__Quantity_Shipped_Format">
+          <DataField>Sales_Line__Quantity_Shipped_Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Quantity_">
+          <DataField>Sales_Line__Outstanding_Quantity_</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Quantity_Format">
+          <DataField>Sales_Line__Outstanding_Quantity_Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Unit_Price_">
+          <DataField>Sales_Line__Unit_Price_</DataField>
+        </Field>
+        <Field Name="Sales_Line__Unit_Price_Format">
+          <DataField>Sales_Line__Unit_Price_Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Line_Discount_Amount_">
+          <DataField>Sales_Line__Line_Discount_Amount_</DataField>
+        </Field>
+        <Field Name="Sales_Line__Line_Discount_Amount_Format">
+          <DataField>Sales_Line__Line_Discount_Amount_Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Inv__Discount_Amount_">
+          <DataField>Sales_Line__Inv__Discount_Amount_</DataField>
+        </Field>
+        <Field Name="Sales_Line__Inv__Discount_Amount_Format">
+          <DataField>Sales_Line__Inv__Discount_Amount_Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Amount_">
+          <DataField>Sales_Line__Outstanding_Amount_</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Amount_Format">
+          <DataField>Sales_Line__Outstanding_Amount_Format</DataField>
+        </Field>
+        <Field Name="Item__No___Control38">
+          <DataField>Item__No___Control38</DataField>
+        </Field>
+        <Field Name="Sales_Line_Quantity_Control39">
+          <DataField>Sales_Line_Quantity_Control39</DataField>
+        </Field>
+        <Field Name="Sales_Line_Quantity_Control39Format">
+          <DataField>Sales_Line_Quantity_Control39Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Quantity_Shipped__Control40">
+          <DataField>Sales_Line__Quantity_Shipped__Control40</DataField>
+        </Field>
+        <Field Name="Sales_Line__Quantity_Shipped__Control40Format">
+          <DataField>Sales_Line__Quantity_Shipped__Control40Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Quantity__Control41">
+          <DataField>Sales_Line__Outstanding_Quantity__Control41</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Quantity__Control41Format">
+          <DataField>Sales_Line__Outstanding_Quantity__Control41Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Line_Discount_Amount__Control42">
+          <DataField>Sales_Line__Line_Discount_Amount__Control42</DataField>
+        </Field>
+        <Field Name="Sales_Line__Line_Discount_Amount__Control42Format">
+          <DataField>Sales_Line__Line_Discount_Amount__Control42Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Inv__Discount_Amount__Control43">
+          <DataField>Sales_Line__Inv__Discount_Amount__Control43</DataField>
+        </Field>
+        <Field Name="Sales_Line__Inv__Discount_Amount__Control43Format">
+          <DataField>Sales_Line__Inv__Discount_Amount__Control43Format</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Amount__Control44">
+          <DataField>Sales_Line__Outstanding_Amount__Control44</DataField>
+        </Field>
+        <Field Name="Sales_Line__Outstanding_Amount__Control44Format">
+          <DataField>Sales_Line__Outstanding_Amount__Control44Format</DataField>
+        </Field>
+        <Field Name="Sales_Line_Document_Type">
+          <DataField>Sales_Line_Document_Type</DataField>
+        </Field>
+        <Field Name="Sales_Line_Line_No_">
+          <DataField>Sales_Line_Line_No_</DataField>
+        </Field>
+        <Field Name="Sales_Line_No_">
+          <DataField>Sales_Line_No_</DataField>
+        </Field>
+        <Field Name="Sales_Line_Shortcut_Dimension_1_Code">
+          <DataField>Sales_Line_Shortcut_Dimension_1_Code</DataField>
+        </Field>
+        <Field Name="Sales_Line_Shortcut_Dimension_2_Code">
+          <DataField>Sales_Line_Shortcut_Dimension_2_Code</DataField>
+        </Field>
+        <Field Name="Sales_Line_Location_Code">
+          <DataField>Sales_Line_Location_Code</DataField>
+        </Field>
+        <Field Name="Sales_Line_Variant_Code">
+          <DataField>Sales_Line_Variant_Code</DataField>
+        </Field>
+        <Field Name="Item_TotalCaption">
+          <DataField>Item_TotalCaption</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

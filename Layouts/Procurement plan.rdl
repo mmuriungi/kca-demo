@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="BudgetName_PROCProcurementPlanHeader">
+          <DataField>BudgetName_PROCProcurementPlanHeader</DataField>
+        </Field>
+        <Field Name="BudgetedAmount_PROCProcurementPlanHeader">
+          <DataField>BudgetedAmount_PROCProcurementPlanHeader</DataField>
+        </Field>
+        <Field Name="BudgetedAmount_PROCProcurementPlanHeaderFormat">
+          <DataField>BudgetedAmount_PROCProcurementPlanHeaderFormat</DataField>
+        </Field>
+        <Field Name="Name_PROCProcurementPlanHeader">
+          <DataField>Name_PROCProcurementPlanHeader</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="Address2">
+          <DataField>Address2</DataField>
+        </Field>
+        <Field Name="mail">
+          <DataField>mail</DataField>
+        </Field>
+        <Field Name="Url">
+          <DataField>Url</DataField>
+        </Field>
+        <Field Name="CompFax">
+          <DataField>CompFax</DataField>
+        </Field>
+        <Field Name="Comppostalcode">
+          <DataField>Comppostalcode</DataField>
+        </Field>
+        <Field Name="Compphone">
+          <DataField>Compphone</DataField>
+        </Field>
+        <Field Name="compphone2">
+          <DataField>compphone2</DataField>
+        </Field>
+        <Field Name="CompanyInfowebpage">
+          <DataField>CompanyInfowebpage</DataField>
+        </Field>
+        <Field Name="BudgetName_PROCProcurementPlanLines">
+          <DataField>BudgetName_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="Category_PROCProcurementPlanLines">
+          <DataField>Category_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="No_PROCProcurementPlanLines">
+          <DataField>No_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="Description_PROCProcurementPlanLines">
+          <DataField>Description_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="ProcurementMethod_PROCProcurementPlanLines">
+          <DataField>ProcurementMethod_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="Quantity_PROCProcurementPlanLines">
+          <DataField>Quantity_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="Quantity_PROCProcurementPlanLinesFormat">
+          <DataField>Quantity_PROCProcurementPlanLinesFormat</DataField>
+        </Field>
+        <Field Name="GlobalDimension1Code_PROCProcurementPlanLines">
+          <DataField>GlobalDimension1Code_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="GlobalDimension2Code_PROCProcurementPlanLines">
+          <DataField>GlobalDimension2Code_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="StartDate_PROCProcurementPlanLines">
+          <DataField>StartDate_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="Type_PROCProcurementPlanLines">
+          <DataField>Type_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="UnitCost_PROCProcurementPlanLines">
+          <DataField>UnitCost_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="UnitCost_PROCProcurementPlanLinesFormat">
+          <DataField>UnitCost_PROCProcurementPlanLinesFormat</DataField>
+        </Field>
+        <Field Name="UnitOfMeasure_PROCProcurementPlanLines">
+          <DataField>UnitOfMeasure_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="Amount_PROCProcurementPlanLines">
+          <DataField>Amount_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="Amount_PROCProcurementPlanLinesFormat">
+          <DataField>Amount_PROCProcurementPlanLinesFormat</DataField>
+        </Field>
+        <Field Name="RemainingQty_PROCProcurementPlanLines">
+          <DataField>RemainingQty_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="RemainingQty_PROCProcurementPlanLinesFormat">
+          <DataField>RemainingQty_PROCProcurementPlanLinesFormat</DataField>
+        </Field>
+        <Field Name="Reservation_PROCProcurementPlanLines">
+          <DataField>Reservation_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="EntryNo_PROCProcurementPlanLines">
+          <DataField>EntryNo_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="VotebookAccount_PROCProcurementPlanLines">
+          <DataField>VotebookAccount_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="SpecialGroup_PROCProcurementPlanLines">
+          <DataField>SpecialGroup_PROCProcurementPlanLines</DataField>
+        </Field>
+        <Field Name="fquater">
+          <DataField>fquater</DataField>
+        </Field>
+        <Field Name="fquaterFormat">
+          <DataField>fquaterFormat</DataField>
+        </Field>
+        <Field Name="sQuater_Lines">
+          <DataField>sQuater_Lines</DataField>
+        </Field>
+        <Field Name="sQuater_LinesFormat">
+          <DataField>sQuater_LinesFormat</DataField>
+        </Field>
+        <Field Name="TQuater_Lines">
+          <DataField>TQuater_Lines</DataField>
+        </Field>
+        <Field Name="TQuater_LinesFormat">
+          <DataField>TQuater_LinesFormat</DataField>
+        </Field>
+        <Field Name="F4Quater_Lines">
+          <DataField>F4Quater_Lines</DataField>
+        </Field>
+        <Field Name="F4Quater_LinesFormat">
+          <DataField>F4Quater_LinesFormat</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

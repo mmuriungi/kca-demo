@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Inventory_DataItemName">
+          <DataField>Inventory_DataItemName</DataField>
+        </Field>
+        <Field Name="Inventory_DataItemNameFormat">
+          <DataField>Inventory_DataItemNameFormat</DataField>
+        </Field>
+        <Field Name="No_DataItemName">
+          <DataField>No_DataItemName</DataField>
+        </Field>
+        <Field Name="UnitofMeasureId_DataItemName">
+          <DataField>UnitofMeasureId_DataItemName</DataField>
+        </Field>
+        <Field Name="UnitPrice_DataItemName">
+          <DataField>UnitPrice_DataItemName</DataField>
+        </Field>
+        <Field Name="UnitPrice_DataItemNameFormat">
+          <DataField>UnitPrice_DataItemNameFormat</DataField>
+        </Field>
+        <Field Name="UnitCost_DataItemName">
+          <DataField>UnitCost_DataItemName</DataField>
+        </Field>
+        <Field Name="UnitCost_DataItemNameFormat">
+          <DataField>UnitCost_DataItemNameFormat</DataField>
+        </Field>
+        <Field Name="BaseUnitofMeasure_DataItemName">
+          <DataField>BaseUnitofMeasure_DataItemName</DataField>
+        </Field>
+        <Field Name="Description_DataItemName">
+          <DataField>Description_DataItemName</DataField>
+        </Field>
+        <Field Name="Comment_DataItemName">
+          <DataField>Comment_DataItemName</DataField>
+        </Field>
+        <Field Name="FromDate">
+          <DataField>FromDate</DataField>
+        </Field>
+        <Field Name="Todate">
+          <DataField>Todate</DataField>
+        </Field>
+        <Field Name="Totalcost">
+          <DataField>Totalcost</DataField>
+        </Field>
+        <Field Name="TotalcostFormat">
+          <DataField>TotalcostFormat</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+        <Field Name="compname">
+          <DataField>compname</DataField>
+        </Field>
+        <Field Name="comppic">
+          <DataField>comppic</DataField>
+        </Field>
+        <Field Name="compemail">
+          <DataField>compemail</DataField>
+        </Field>
+        <Field Name="compphone">
+          <DataField>compphone</DataField>
+        </Field>
+        <Field Name="compwebpage">
+          <DataField>compwebpage</DataField>
+        </Field>
+        <Field Name="compaddress">
+          <DataField>compaddress</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

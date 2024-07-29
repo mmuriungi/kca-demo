@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="DateTime">
+          <DataField>DateTime</DataField>
+        </Field>
+        <Field Name="MemoFrom">
+          <DataField>MemoFrom</DataField>
+        </Field>
+        <Field Name="MemoThrough">
+          <DataField>MemoThrough</DataField>
+        </Field>
+        <Field Name="MemoTo">
+          <DataField>MemoTo</DataField>
+        </Field>
+        <Field Name="CreatedBy">
+          <DataField>CreatedBy</DataField>
+        </Field>
+        <Field Name="Title">
+          <DataField>Title</DataField>
+        </Field>
+        <Field Name="Graph1">
+          <DataField>Graph1</DataField>
+        </Field>
+        <Field Name="Graph2">
+          <DataField>Graph2</DataField>
+        </Field>
+        <Field Name="Graph3">
+          <DataField>Graph3</DataField>
+        </Field>
+        <Field Name="PAYERate">
+          <DataField>PAYERate</DataField>
+        </Field>
+        <Field Name="PAYERateFormat">
+          <DataField>PAYERateFormat</DataField>
+        </Field>
+        <Field Name="PayPeriod">
+          <DataField>PayPeriod</DataField>
+        </Field>
+        <Field Name="PeriodMonth">
+          <DataField>PeriodMonth</DataField>
+        </Field>
+        <Field Name="PeriodYear">
+          <DataField>PeriodYear</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="PAYEValue">
+          <DataField>PAYEValue</DataField>
+        </Field>
+        <Field Name="PAYEValueFormat">
+          <DataField>PAYEValueFormat</DataField>
+        </Field>
+        <Field Name="budgetname">
+          <DataField>budgetname</DataField>
+        </Field>
+        <Field Name="budgetbal">
+          <DataField>budgetbal</DataField>
+        </Field>
+        <Field Name="budgetbalFormat">
+          <DataField>budgetbalFormat</DataField>
+        </Field>
+        <Field Name="BudgetAccount_MemoHeader">
+          <DataField>BudgetAccount_MemoHeader</DataField>
+        </Field>
+        <Field Name="MemoValue">
+          <DataField>MemoValue</DataField>
+        </Field>
+        <Field Name="MemoValueFormat">
+          <DataField>MemoValueFormat</DataField>
+        </Field>
+        <Field Name="ssign">
+          <DataField>ssign</DataField>
+        </Field>
+        <Field Name="utitle">
+          <DataField>utitle</DataField>
+        </Field>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+        </Field>
+        <Field Name="name">
+          <DataField>name</DataField>
+        </Field>
+        <Field Name="name2">
+          <DataField>name2</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="address2">
+          <DataField>address2</DataField>
+        </Field>
+        <Field Name="email">
+          <DataField>email</DataField>
+        </Field>
+        <Field Name="url">
+          <DataField>url</DataField>
+        </Field>
+        <Field Name="BudgetName_MemoHeader">
+          <DataField>BudgetName_MemoHeader</DataField>
+        </Field>
+        <Field Name="BudgetedAmount2_MemoHeader">
+          <DataField>BudgetedAmount2_MemoHeader</DataField>
+        </Field>
+        <Field Name="BudgetedAmount2_MemoHeaderFormat">
+          <DataField>BudgetedAmount2_MemoHeaderFormat</DataField>
+        </Field>
+        <Field Name="CommittedAmount2_MemoHeader">
+          <DataField>CommittedAmount2_MemoHeader</DataField>
+        </Field>
+        <Field Name="CommittedAmount2_MemoHeaderFormat">
+          <DataField>CommittedAmount2_MemoHeaderFormat</DataField>
+        </Field>
+        <Field Name="ExpensedAmount2_MemoHeader">
+          <DataField>ExpensedAmount2_MemoHeader</DataField>
+        </Field>
+        <Field Name="ExpensedAmount2_MemoHeaderFormat">
+          <DataField>ExpensedAmount2_MemoHeaderFormat</DataField>
+        </Field>
+        <Field Name="MemoNos">
+          <DataField>MemoNos</DataField>
+        </Field>
+        <Field Name="StaffNos">
+          <DataField>StaffNos</DataField>
+        </Field>
+        <Field Name="ExpenseCode">
+          <DataField>ExpenseCode</DataField>
+        </Field>
+        <Field Name="StaffNames">
+          <DataField>StaffNames</DataField>
+        </Field>
+        <Field Name="Rates">
+          <DataField>Rates</DataField>
+        </Field>
+        <Field Name="RatesFormat">
+          <DataField>RatesFormat</DataField>
+        </Field>
+        <Field Name="Days">
+          <DataField>Days</DataField>
+        </Field>
+        <Field Name="DaysFormat">
+          <DataField>DaysFormat</DataField>
+        </Field>
+        <Field Name="Amounts">
+          <DataField>Amounts</DataField>
+        </Field>
+        <Field Name="AmountsFormat">
+          <DataField>AmountsFormat</DataField>
+        </Field>
+        <Field Name="ComputePAYE">
+          <DataField>ComputePAYE</DataField>
+        </Field>
+        <Field Name="PAYERate2">
+          <DataField>PAYERate2</DataField>
+        </Field>
+        <Field Name="PAYERate2Format">
+          <DataField>PAYERate2Format</DataField>
+        </Field>
+        <Field Name="PayPeriod2">
+          <DataField>PayPeriod2</DataField>
+        </Field>
+        <Field Name="PeriodYear2">
+          <DataField>PeriodYear2</DataField>
+        </Field>
+        <Field Name="PAYEAmount">
+          <DataField>PAYEAmount</DataField>
+        </Field>
+        <Field Name="PAYEAmountFormat">
+          <DataField>PAYEAmountFormat</DataField>
+        </Field>
+        <Field Name="TransactinType">
+          <DataField>TransactinType</DataField>
+        </Field>
+        <Field Name="No_MemoPRNDetails">
+          <DataField>No_MemoPRNDetails</DataField>
+        </Field>
+        <Field Name="Description_MemoPRNDetails">
+          <DataField>Description_MemoPRNDetails</DataField>
+        </Field>
+        <Field Name="UnitofMeasure_MemoPRNDetails">
+          <DataField>UnitofMeasure_MemoPRNDetails</DataField>
+        </Field>
+        <Field Name="Quantity_MemoPRNDetails">
+          <DataField>Quantity_MemoPRNDetails</DataField>
+        </Field>
+        <Field Name="Quantity_MemoPRNDetailsFormat">
+          <DataField>Quantity_MemoPRNDetailsFormat</DataField>
+        </Field>
+        <Field Name="Amount_MemoPRNDetails">
+          <DataField>Amount_MemoPRNDetails</DataField>
+        </Field>
+        <Field Name="Amount_MemoPRNDetailsFormat">
+          <DataField>Amount_MemoPRNDetailsFormat</DataField>
+        </Field>
+        <Field Name="UnitCost_MemoPRNDetails">
+          <DataField>UnitCost_MemoPRNDetails</DataField>
+        </Field>
+        <Field Name="UnitCost_MemoPRNDetailsFormat">
+          <DataField>UnitCost_MemoPRNDetailsFormat</DataField>
+        </Field>
+        <Field Name="LineAmount_MemoPRNDetails">
+          <DataField>LineAmount_MemoPRNDetails</DataField>
+        </Field>
+        <Field Name="LineAmount_MemoPRNDetailsFormat">
+          <DataField>LineAmount_MemoPRNDetailsFormat</DataField>
+        </Field>
+        <Field Name="memodetailscount">
+          <DataField>memodetailscount</DataField>
+        </Field>
+        <Field Name="PRNDetailsExistText">
+          <DataField>PRNDetailsExistText</DataField>
+        </Field>
+        <Field Name="PRNDetailsExists">
+          <DataField>PRNDetailsExists</DataField>
+        </Field>
+        <Field Name="ApproverID_ApprovalEntry">
+          <DataField>ApproverID_ApprovalEntry</DataField>
+        </Field>
+        <Field Name="LastDateTimeModified_ApprovalEntry">
+          <DataField>LastDateTimeModified_ApprovalEntry</DataField>
+        </Field>
+        <Field Name="Sender_ID">
+          <DataField>Sender_ID</DataField>
+        </Field>
+        <Field Name="Signature_UserSetup">
+          <DataField>Signature_UserSetup</DataField>
+        </Field>
+        <Field Name="ApprovalDesignation_UserSetup">
+          <DataField>ApprovalDesignation_UserSetup</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>
