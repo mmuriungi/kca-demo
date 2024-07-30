@@ -1,7 +1,7 @@
 report 50028 "Quaterly Budget Report"
 {
     DefaultLayout = rdlc;
-    RDLCLayout = './Finance/Reports/SSR/QuateryBudgetReport.rdl';
+    RDLCLayout = './Layouts/QuateryBudgetReport.rdl';
 
     dataset
     {

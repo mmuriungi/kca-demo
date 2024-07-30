@@ -1,16 +1,16 @@
 report 51027 "Update Leave Entries"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Reports/SSR/Update Leave Entries.rdl';
+    RDLCLayout = './Layouts/Update Leave Entries.rdl';
 
     dataset
     {
-        dataitem("HRM-Back To Office Form";"HRM-Back To Office Form")
+        dataitem("HRM-Back To Office Form"; "HRM-Back To Office Form")
         {
 
             trigger OnAfterGetRecord()
             begin
-                          Delete;
+                Delete;
             end;
 
             trigger OnPostDataItem()
@@ -38,7 +38,7 @@ report 51027 "Update Leave Entries"
 
     trigger OnPreReport()
     begin
-         Clear(seq);
+        Clear(seq);
     end;
 
     var

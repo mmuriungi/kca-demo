@@ -1,7 +1,7 @@
 report 54218 "Sales Per Item POS"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/SalesPerItem.rdl';
+    RDLCLayout = './Layouts/SalesPerItem.rdl';
 
     dataset
     {

@@ -1,7 +1,7 @@
 Report 50032 "Aged Accounts Payables 3"
 {
     DefaultLayout = RDLC;
-    //RDLCLayout = './AgedAccountsPayable3.rdl';
+    //RDLCLayout = './Layouts/AgedAccountsPayable3.rdl';
 
     dataset
     {

@@ -1,7 +1,7 @@
 Report 50016 "Tender Award Letter"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Tendering Process/Reports/SSR/Tender Award Letter.rdl';
+    RDLCLayout = './Layouts/Tender Award Letter.rdl';
 
     dataset
     {

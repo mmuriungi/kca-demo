@@ -4,7 +4,7 @@ report 54235 "Lines Delest"
     Caption = 'Lines Delete';
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = RDLC;
-    RDLCLayout = 'test.rdl';
+    RDLCLayout = './Layouts/test.rdl';
 
     dataset
     {

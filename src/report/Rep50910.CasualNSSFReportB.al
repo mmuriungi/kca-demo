@@ -1,7 +1,7 @@
 report 50910 "Casual-NSSF Report (B)"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Casual-NSSF Report (B).rdl';
+    RDLCLayout = './Layouts/Casual-NSSF Report (B).rdl';
 
     dataset
     {

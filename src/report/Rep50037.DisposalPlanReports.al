@@ -1,7 +1,7 @@
 report 50037 "Disposal Plan Reports"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Disposal Plan Reports.rdlc';
+    RDLCLayout = './Layouts/Disposal Plan Reports.rdl';
 
     dataset
     {

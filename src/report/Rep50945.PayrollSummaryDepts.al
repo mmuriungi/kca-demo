@@ -1,7 +1,7 @@
 report 50945 "Payroll Summary Depts."
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Payroll Summary Depts..rdlc';
+    RDLCLayout = './Layouts/Payroll Summary Depts..rdl';
 
     dataset
     {

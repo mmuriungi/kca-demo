@@ -1,7 +1,7 @@
 report 51457 "Standard Leave Balance Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './HR/Reports/SSR/Standard Leave Balance Report.rdl';
+    RDLCLayout = './Layouts/Standard Leave Balance Report.rdl';
 
     dataset
     {

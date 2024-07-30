@@ -1,7 +1,7 @@
 report 54212 "POS PrintOut"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/PosPrintOut.rdl';
+    RDLCLayout = './Layouts/PosPrintOut.rdl';
     Caption = 'Sales Receipt';
 
     dataset

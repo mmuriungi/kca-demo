@@ -1,7 +1,7 @@
 report 50918 "Casuals Summary Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Casuals Summary Report.rdl';
+    RDLCLayout = './Layouts/Casuals Summary Report.rdl';
 
     dataset
     {

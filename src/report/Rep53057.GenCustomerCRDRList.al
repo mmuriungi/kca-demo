@@ -1,7 +1,7 @@
 report 53057 "Gen. Customer CR/DR List"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Gen. Customer CRDR List.rdlc';
+    RDLCLayout = './Layouts/Gen. Customer CRDR List.rdl';
     Caption = 'Customer - Statement';
     UseRequestPage = true;
 

@@ -1,7 +1,7 @@
 report 54204 "FLT Driver List"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Transport/Report/SSR/FLT Driver List.rdl';
+    RDLCLayout = './Layouts/FLT Driver List.rdl';
     Caption = 'FLT Driver List';
 
     dataset

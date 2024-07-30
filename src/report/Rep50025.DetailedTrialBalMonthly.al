@@ -1,7 +1,7 @@
 report 50025 "Detailed Trial Bal. (Monthly)"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Finance/Reports/SSR/Detailed Trial Bal. (Monthly).rdl';
+    RDLCLayout = './Layouts/Detailed Trial Bal. (Monthly).rdl';
 
     dataset
     {

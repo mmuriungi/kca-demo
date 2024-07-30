@@ -41,7 +41,7 @@ page 52814 "Receipt Buffer Lines"
                         cust: Record Customer;
                     begin
                         cust.Get(Rec."Student No.");
-                        Name := cust.Name;
+                        Rec.Name := cust.Name;
                     end;
                 }
                 field(Description; Rec.Description)

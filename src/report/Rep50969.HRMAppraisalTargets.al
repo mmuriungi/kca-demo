@@ -1,7 +1,7 @@
 report 50969 "HRM Appraisal Targets"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Report/SSR/AppraisalTargets.rdl';
+    RDLCLayout = './Layouts/AppraisalTargets.rdl';
 
     dataset
     {

@@ -1,7 +1,7 @@
 report 54202 "HR Transport Requests"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Transport/Report/SSR/HR Transport Requests.rdl';
+    RDLCLayout = './Layouts/HR Transport Requests.rdl';
     Caption = 'HR Transport Requests';
 
     dataset

@@ -1,7 +1,7 @@
 report 50010 "Goods Receipt (GRN)"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = 'Procurement/Reports/SSR/GoodsReceiptNoteGRN.rdl';
+    RDLCLayout = './Layouts/GoodsReceiptNoteGRN.rdl';
     PreviewMode = PrintLayout;
 
     dataset

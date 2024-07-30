@@ -1,7 +1,7 @@
 report 52175 "Grants List"
 {
     Caption = 'Grants List';
-    RDLCLayout = './DRE/Reports/SSR/grantsList.rdl';
+    RDLCLayout = './Layouts/grantsList.rdl';
     dataset
     {
         dataitem(ACAGrants; "ACA-Grants")

@@ -1,7 +1,7 @@
 report 54215 "POS PrintOutTwo"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/PosPrintOutTwo.rdl';
+    RDLCLayout = './Layouts/PosPrintOutTwo.rdl';
 
     dataset
     {

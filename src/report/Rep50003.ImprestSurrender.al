@@ -1,7 +1,7 @@
 report 50003 "Imprest Surrender"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Finance/Reports/SSR/ImprestAccounting.rdl';
+    RDLCLayout = './Layouts/ImprestAccounting.rdl';
 
     dataset
     {

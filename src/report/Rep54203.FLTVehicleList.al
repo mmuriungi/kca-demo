@@ -1,7 +1,7 @@
 report 54203 "FLT Vehicle List"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Transport/Report/SSR/FLT Vehicle List.rdl';
+    RDLCLayout = './Layouts/FLT Vehicle List.rdl';
     Caption = 'FLT Vehicle List';
 
     dataset

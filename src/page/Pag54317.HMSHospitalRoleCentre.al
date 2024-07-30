@@ -259,7 +259,7 @@ page 54317 "HMS-Hospital Role Centre"
                 {
                     Image = Register;
                     caption = 'Track Patient Location';
-                    RunObject = Page " Patient Location ";
+                    RunObject = Page "Patient Location";
                     //RunPageLink = Location  : filter ();
                     ApplicationArea = All;
                 }

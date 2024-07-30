@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,109 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="pic">
-          <DataField>pic</DataField>
-        </Field>
-        <Field Name="seq">
-          <DataField>seq</DataField>
-        </Field>
-        <Field Name="comp">
-          <DataField>comp</DataField>
-        </Field>
-        <Field Name="tittle">
-          <DataField>tittle</DataField>
-        </Field>
-        <Field Name="CompName">
-          <DataField>CompName</DataField>
-        </Field>
-        <Field Name="CompAddress">
-          <DataField>CompAddress</DataField>
-        </Field>
-        <Field Name="CompPhone">
-          <DataField>CompPhone</DataField>
-        </Field>
-        <Field Name="CompMail">
-          <DataField>CompMail</DataField>
-        </Field>
-        <Field Name="CompHomePage">
-          <DataField>CompHomePage</DataField>
-        </Field>
-        <Field Name="MealCode">
-          <DataField>MealCode</DataField>
-        </Field>
-        <Field Name="Desc">
-          <DataField>Desc</DataField>
-        </Field>
-        <Field Name="bonapettie">
-          <DataField>bonapettie</DataField>
-        </Field>
-        <Field Name="RecipeCost">
-          <DataField>RecipeCost</DataField>
-        </Field>
-        <Field Name="RecipeCostFormat">
-          <DataField>RecipeCostFormat</DataField>
-        </Field>
-        <Field Name="RecipePrice">
-          <DataField>RecipePrice</DataField>
-        </Field>
-        <Field Name="RecipePriceFormat">
-          <DataField>RecipePriceFormat</DataField>
-        </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-        </Field>
-        <Field Name="Resource">
-          <DataField>Resource</DataField>
-        </Field>
-        <Field Name="Name">
-          <DataField>Name</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="QtyFormat">
-          <DataField>QtyFormat</DataField>
-        </Field>
-        <Field Name="UnitCost">
-          <DataField>UnitCost</DataField>
-        </Field>
-        <Field Name="UnitCostFormat">
-          <DataField>UnitCostFormat</DataField>
-        </Field>
-        <Field Name="Markup">
-          <DataField>Markup</DataField>
-        </Field>
-        <Field Name="MarkupFormat">
-          <DataField>MarkupFormat</DataField>
-        </Field>
-        <Field Name="UnitPrice">
-          <DataField>UnitPrice</DataField>
-        </Field>
-        <Field Name="UnitPriceFormat">
-          <DataField>UnitPriceFormat</DataField>
-        </Field>
-        <Field Name="FinalCost">
-          <DataField>FinalCost</DataField>
-        </Field>
-        <Field Name="FinalCostFormat">
-          <DataField>FinalCostFormat</DataField>
-        </Field>
-        <Field Name="FinalPrice">
-          <DataField>FinalPrice</DataField>
-        </Field>
-        <Field Name="FinalPriceFormat">
-          <DataField>FinalPriceFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1974,4 +1871,107 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+        <Field Name="comp">
+          <DataField>comp</DataField>
+        </Field>
+        <Field Name="tittle">
+          <DataField>tittle</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="CompPhone">
+          <DataField>CompPhone</DataField>
+        </Field>
+        <Field Name="CompMail">
+          <DataField>CompMail</DataField>
+        </Field>
+        <Field Name="CompHomePage">
+          <DataField>CompHomePage</DataField>
+        </Field>
+        <Field Name="MealCode">
+          <DataField>MealCode</DataField>
+        </Field>
+        <Field Name="Desc">
+          <DataField>Desc</DataField>
+        </Field>
+        <Field Name="bonapettie">
+          <DataField>bonapettie</DataField>
+        </Field>
+        <Field Name="RecipeCost">
+          <DataField>RecipeCost</DataField>
+        </Field>
+        <Field Name="RecipeCostFormat">
+          <DataField>RecipeCostFormat</DataField>
+        </Field>
+        <Field Name="RecipePrice">
+          <DataField>RecipePrice</DataField>
+        </Field>
+        <Field Name="RecipePriceFormat">
+          <DataField>RecipePriceFormat</DataField>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
+        <Field Name="Resource">
+          <DataField>Resource</DataField>
+        </Field>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="QtyFormat">
+          <DataField>QtyFormat</DataField>
+        </Field>
+        <Field Name="UnitCost">
+          <DataField>UnitCost</DataField>
+        </Field>
+        <Field Name="UnitCostFormat">
+          <DataField>UnitCostFormat</DataField>
+        </Field>
+        <Field Name="Markup">
+          <DataField>Markup</DataField>
+        </Field>
+        <Field Name="MarkupFormat">
+          <DataField>MarkupFormat</DataField>
+        </Field>
+        <Field Name="UnitPrice">
+          <DataField>UnitPrice</DataField>
+        </Field>
+        <Field Name="UnitPriceFormat">
+          <DataField>UnitPriceFormat</DataField>
+        </Field>
+        <Field Name="FinalCost">
+          <DataField>FinalCost</DataField>
+        </Field>
+        <Field Name="FinalCostFormat">
+          <DataField>FinalCostFormat</DataField>
+        </Field>
+        <Field Name="FinalPrice">
+          <DataField>FinalPrice</DataField>
+        </Field>
+        <Field Name="FinalPriceFormat">
+          <DataField>FinalPriceFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

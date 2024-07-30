@@ -6198,9 +6198,6 @@ End Function
         <Field Name="StudNumber">
           <DataField>StudNumber</DataField>
         </Field>
-        <Field Name="CampusFilter">
-          <DataField>CampusFilter</DataField>
-        </Field>
         <Field Name="Progs">
           <DataField>Progs</DataField>
         </Field>

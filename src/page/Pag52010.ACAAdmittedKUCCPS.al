@@ -574,7 +574,8 @@ page 52010 "ACA-Admitted KUCCPS"
                 courseReg.Reset();
                 courseReg.SetRange("Student No.", Apps."Admission No");
                 if courseReg.find('-') then begin
-                    Rename(courseReg.Programmes)
+                    //Check line below
+                    Rename(courseReg.Programmes, courseReg.Programmes)
                 end;
 
             until Apps.Next() = 0;

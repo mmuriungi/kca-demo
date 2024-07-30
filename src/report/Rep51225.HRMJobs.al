@@ -1,7 +1,7 @@
 report 51225 HRMJobs
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Report/SSR/hrmJobs.rdl';
+    RDLCLayout = './Layouts/hrmJobs.rdl';
     dataset
     {
         dataitem(jobs; "HRM-Jobs")

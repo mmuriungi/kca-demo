@@ -9,20 +9,20 @@ page 52083 "Class Attendance Card"
         {
             group(General)
             {
-                field("Attendance Date"; "Attendance Date")
+                field("Attendance Date"; Rec."Attendance Date")
                 {
                     ApplicationArea = All;
                 }
-                field(Semester; Semester)
+                field(Semester; Rec.Semester)
                 {
                     ApplicationArea = All;
                 }
-                field("Class Rep. Reg. No"; "Class Rep. Reg. No")
+                field("Class Rep. Reg. No"; Rec."Class Rep. Reg. No")
                 {
                     Caption = 'Class Representative';
                     ApplicationArea = All;
                 }
-                field("Lecturer Code"; "Lecturer Code")
+                field("Lecturer Code"; Rec."Lecturer Code")
                 {
                     ApplicationArea = All;
                 }
@@ -32,19 +32,19 @@ page 52083 "Class Attendance Card"
                     Enabled = false;
                     ApplicationArea = All;
                 }
-                field("Unit Code"; "Unit Code")
+                field("Unit Code"; Rec."Unit Code")
                 {
                     ApplicationArea = All;
                 }
-                field("From Time"; "From Time")
+                field("From Time"; Rec."From Time")
                 {
                     ApplicationArea = All;
                 }
-                field("To Time"; "To Time")
+                field("To Time"; Rec."To Time")
                 {
                     ApplicationArea = All;
                 }
-                field("Class Type"; "Class Type")
+                field("Class Type"; Rec."Class Type")
                 {
                     ApplicationArea = All;
                 }
@@ -87,20 +87,20 @@ page 52083 "Class Attendance Card"
         //ACAUnitsSubjects.RESET;
         //ACAUnitsSubjects.SETRANGE()
 
-        IF HRMEmployeeC.GET("Lecturer Code") THEN BEGIN
+        IF HRMEmployeeC.GET(Rec."Lecturer Code") THEN BEGIN
             LectName := HRMEmployeeC."First Name" + ' ' + HRMEmployeeC."Middle Name" + ' ' + HRMEmployeeC."Last Name";
         END;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        "Attendance Date" := TODAY;
+        Rec."Attendance Date" := TODAY;
         ACASemester.RESET;
         ACASemester.SETRANGE("Current Semester", TRUE);
         IF ACASemester.FIND('-') THEN BEGIN
-            Semester := ACASemester.Code;
+            Rec.Semester := ACASemester.Code;
         END;
-        "Captured By" := USERID;
+        Rec."Captured By" := USERID;
     end;
 
     var

@@ -1,7 +1,7 @@
 report 50021 "Store Requisitions"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Store Requisition/Reports/SSRS/StoreRequisition.rdl';
+    //RDLCLayout = './Layouts/StoreRequisition.rdl';
 
     dataset
     {

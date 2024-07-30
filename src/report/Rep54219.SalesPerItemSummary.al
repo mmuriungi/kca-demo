@@ -1,7 +1,7 @@
 report 54219 "Sales Per Item Summary"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/SalesPerItemSummary.rdl';
+    RDLCLayout = './Layouts/SalesPerItemSummary.rdl';
 
     dataset
     {

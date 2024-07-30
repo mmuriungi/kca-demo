@@ -28,7 +28,7 @@ page 50154 "FIN-Asset Transfer Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Asset No field.';
                 }
-                field("Asset Description"; "Asset Description")
+                field("Asset Description"; Rec."Asset Description")
                 {
                     ApplicationArea = all;
                     Editable = false;

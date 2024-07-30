@@ -1,7 +1,7 @@
 report 50019 "Bank Acc. Recon. - TestReport"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Bank Acc. Recon. - Test.rdlc';
+    RDLCLayout = './Layouts/Bank Acc. Recon. - Test.rdl';
     Caption = 'Bank Acc. Recon. - Test';
 
     dataset
@@ -381,7 +381,7 @@ report 50019 "Bank Acc. Recon. - TestReport"
                     BankAccReconciliationLine.SETRANGE(BankAccReconciliationLine."Bank Account No.", "Bank Account No.");
                     BankAccReconciliationLine.SETRANGE(BankAccReconciliationLine."Statement No.", "Statement No.");
                     //BankAccReconciliationLine.SETRANGE(Imported,FALSE);
-                   // BankAccReconciliationLine.SETRANGE(BankAccReconciliationLine.Type, BankAccReconciliationLine.Type::"Bank Account Ledger Entry");
+                    // BankAccReconciliationLine.SETRANGE(BankAccReconciliationLine.Type, BankAccReconciliationLine.Type::"Bank Account Ledger Entry");
                     BankAccReconciliationLine.SETFILTER("Applied Amount", '=%1', 0);
                     IF BankAccReconciliationLine.Difference < 0 THEN BEGIN
                         BankDebits := BankDebits + BankAccReconciliationLine.Difference;

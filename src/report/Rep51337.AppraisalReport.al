@@ -3,7 +3,7 @@
 /// </summary>
 report 51337 "Appraisal Report"
 {
-    RDLCLayout = './Appraisal Jeff/Reports/SSR/Appraisal report.rdl';
+    RDLCLayout = './Layouts/Appraisal report.rdl';
     DefaultLayout = rdlc;
     dataset
     {

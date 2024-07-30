@@ -37,5 +37,9 @@ tableextension 51803 "Company Informations" extends "Company Information"
         // {
 
         // }
+        field(56601; "Company P.I.N"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

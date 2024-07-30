@@ -1,7 +1,7 @@
 report 50941 "PRL-Company Payroll Summary 3"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './PRL-Company Payroll Summary 3.rdl';
+    RDLCLayout = './Layouts/PRL-Company Payroll Summary 3.rdl';
 
     dataset
     {

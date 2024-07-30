@@ -1,7 +1,7 @@
 report 54217 "POS Daily Totals"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/PosDailyPrint.rdl';
+    RDLCLayout = './Layouts/PosDailyPrint.rdl';
 
     dataset
     {

@@ -4528,11 +4528,23 @@ p+9VAXOhP6lv1X1bNSutZBLrwtbLnMMx1DjMogBTzDhSVgbDUOh94oWb4WPN3DNWwbGIX+XPlqHgsNH/
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="CoName">
+          <DataField>CoName</DataField>
+        </Field>
+        <Field Name="addresses">
+          <DataField>addresses</DataField>
+        </Field>
+        <Field Name="phones">
+          <DataField>phones</DataField>
+        </Field>
+        <Field Name="Mails">
+          <DataField>Mails</DataField>
+        </Field>
+        <Field Name="Pic">
+          <DataField>Pic</DataField>
+        </Field>
         <Field Name="StudNo">
           <DataField>StudNo</DataField>
-        </Field>
-        <Field Name="ProgClassInt">
-          <DataField>ProgClassInt</DataField>
         </Field>
         <Field Name="Prog">
           <DataField>Prog</DataField>
@@ -4549,8 +4561,11 @@ p+9VAXOhP6lv1X1bNSutZBLrwtbLnMMx1DjMogBTzDhSVgbDUOh94oWb4WPN3DNWwbGIX+XPlqHgsNH/
         <Field Name="CurrSem">
           <DataField>CurrSem</DataField>
         </Field>
-        <Field Name="Pic">
-          <DataField>Pic</DataField>
+        <Field Name="GradedGrade">
+          <DataField>GradedGrade</DataField>
+        </Field>
+        <Field Name="remsz">
+          <DataField>remsz</DataField>
         </Field>
         <Field Name="YoS">
           <DataField>YoS</DataField>
@@ -4615,6 +4630,15 @@ p+9VAXOhP6lv1X1bNSutZBLrwtbLnMMx1DjMogBTzDhSVgbDUOh94oWb4WPN3DNWwbGIX+XPlqHgsNH/
         <Field Name="acadyearz">
           <DataField>acadyearz</DataField>
         </Field>
+        <Field Name="signedSignature">
+          <DataField>signedSignature</DataField>
+        </Field>
+        <Field Name="TranscriptSignatory">
+          <DataField>TranscriptSignatory</DataField>
+        </Field>
+        <Field Name="TransCriptTitle">
+          <DataField>TransCriptTitle</DataField>
+        </Field>
         <Field Name="FacultyName">
           <DataField>FacultyName</DataField>
         </Field>
@@ -4639,89 +4663,167 @@ p+9VAXOhP6lv1X1bNSutZBLrwtbLnMMx1DjMogBTzDhSVgbDUOh94oWb4WPN3DNWwbGIX+XPlqHgsNH/
         <Field Name="Cat3">
           <DataField>Cat3</DataField>
         </Field>
-        <Field Name="Label1">
-          <DataField>Label1</DataField>
+        <Field Name="LegendRange11">
+          <DataField>LegendRange11</DataField>
         </Field>
-        <Field Name="Label2">
-          <DataField>Label2</DataField>
+        <Field Name="LegendGrade11">
+          <DataField>LegendGrade11</DataField>
         </Field>
-        <Field Name="Label3">
-          <DataField>Label3</DataField>
+        <Field Name="LegendDesc11">
+          <DataField>LegendDesc11</DataField>
         </Field>
-        <Field Name="Label4">
-          <DataField>Label4</DataField>
+        <Field Name="LegendRange12">
+          <DataField>LegendRange12</DataField>
         </Field>
-        <Field Name="Label5">
-          <DataField>Label5</DataField>
+        <Field Name="LegendGrade12">
+          <DataField>LegendGrade12</DataField>
         </Field>
-        <Field Name="BLabel1">
-          <DataField>BLabel1</DataField>
+        <Field Name="LegendDesc12">
+          <DataField>LegendDesc12</DataField>
         </Field>
-        <Field Name="BLabel2">
-          <DataField>BLabel2</DataField>
+        <Field Name="LegendRange13">
+          <DataField>LegendRange13</DataField>
         </Field>
-        <Field Name="BLabel3">
-          <DataField>BLabel3</DataField>
+        <Field Name="LegendGrade13">
+          <DataField>LegendGrade13</DataField>
         </Field>
-        <Field Name="BLabel4">
-          <DataField>BLabel4</DataField>
+        <Field Name="LegendDesc13">
+          <DataField>LegendDesc13</DataField>
         </Field>
-        <Field Name="BLabel5">
-          <DataField>BLabel5</DataField>
+        <Field Name="LegendRange14">
+          <DataField>LegendRange14</DataField>
         </Field>
-        <Field Name="LegendRange1">
-          <DataField>LegendRange1</DataField>
+        <Field Name="LegendGrade14">
+          <DataField>LegendGrade14</DataField>
         </Field>
-        <Field Name="LegendGrade1">
-          <DataField>LegendGrade1</DataField>
+        <Field Name="LegendDesc14">
+          <DataField>LegendDesc14</DataField>
         </Field>
-        <Field Name="LegendDesc1">
-          <DataField>LegendDesc1</DataField>
+        <Field Name="LegendRange15">
+          <DataField>LegendRange15</DataField>
         </Field>
-        <Field Name="LegendRange2">
-          <DataField>LegendRange2</DataField>
+        <Field Name="LegendGrade15">
+          <DataField>LegendGrade15</DataField>
         </Field>
-        <Field Name="LegendGrade2">
-          <DataField>LegendGrade2</DataField>
+        <Field Name="LegendDesc15">
+          <DataField>LegendDesc15</DataField>
         </Field>
-        <Field Name="LegendDesc2">
-          <DataField>LegendDesc2</DataField>
+        <Field Name="LegendRange16">
+          <DataField>LegendRange16</DataField>
         </Field>
-        <Field Name="LegendRange3">
-          <DataField>LegendRange3</DataField>
+        <Field Name="LegendGrade16">
+          <DataField>LegendGrade16</DataField>
         </Field>
-        <Field Name="LegendGrade3">
-          <DataField>LegendGrade3</DataField>
+        <Field Name="LegendDesc16">
+          <DataField>LegendDesc16</DataField>
         </Field>
-        <Field Name="LegendDesc3">
-          <DataField>LegendDesc3</DataField>
+        <Field Name="LegendRange21">
+          <DataField>LegendRange21</DataField>
         </Field>
-        <Field Name="LegendRange4">
-          <DataField>LegendRange4</DataField>
+        <Field Name="LegendGrade21">
+          <DataField>LegendGrade21</DataField>
         </Field>
-        <Field Name="LegendGrade4">
-          <DataField>LegendGrade4</DataField>
+        <Field Name="LegendDesc21">
+          <DataField>LegendDesc21</DataField>
         </Field>
-        <Field Name="LegendDesc4">
-          <DataField>LegendDesc4</DataField>
+        <Field Name="LegendRange22">
+          <DataField>LegendRange22</DataField>
         </Field>
-        <Field Name="LegendRange5">
-          <DataField>LegendRange5</DataField>
+        <Field Name="LegendGrade22">
+          <DataField>LegendGrade22</DataField>
         </Field>
-        <Field Name="LegendGrade5">
-          <DataField>LegendGrade5</DataField>
+        <Field Name="LegendDesc22">
+          <DataField>LegendDesc22</DataField>
         </Field>
-        <Field Name="LegendDesc5">
-          <DataField>LegendDesc5</DataField>
+        <Field Name="LegendRange23">
+          <DataField>LegendRange23</DataField>
         </Field>
-        <Field Name="LegendRange6">
-          <DataField>LegendRange6</DataField>
+        <Field Name="LegendGrade23">
+          <DataField>LegendGrade23</DataField>
         </Field>
-        <Field Name="LegendGrade6">
-          <DataField>LegendGrade6</DataField>
+        <Field Name="LegendDes23">
+          <DataField>LegendDes23</DataField>
         </Field>
-        <Field Name="LegendDesc6">
-          <DataField>LegendDesc6</DataField>
+        <Field Name="LegendRange24">
+          <DataField>LegendRange24</DataField>
+        </Field>
+        <Field Name="LegendGrade24">
+          <DataField>LegendGrade24</DataField>
+        </Field>
+        <Field Name="LegendDesc24">
+          <DataField>LegendDesc24</DataField>
+        </Field>
+        <Field Name="LegendRange25">
+          <DataField>LegendRange25</DataField>
+        </Field>
+        <Field Name="LegendGrade25">
+          <DataField>LegendGrade25</DataField>
+        </Field>
+        <Field Name="LegendDesc25">
+          <DataField>LegendDesc25</DataField>
+        </Field>
+        <Field Name="LegendRange26">
+          <DataField>LegendRange26</DataField>
+        </Field>
+        <Field Name="LegendGrade26">
+          <DataField>LegendGrade26</DataField>
+        </Field>
+        <Field Name="LegendDesc26">
+          <DataField>LegendDesc26</DataField>
+        </Field>
+        <Field Name="LegendRange31">
+          <DataField>LegendRange31</DataField>
+        </Field>
+        <Field Name="LegendGrade31">
+          <DataField>LegendGrade31</DataField>
+        </Field>
+        <Field Name="LegendDesc31">
+          <DataField>LegendDesc31</DataField>
+        </Field>
+        <Field Name="LegendRange32">
+          <DataField>LegendRange32</DataField>
+        </Field>
+        <Field Name="LegendGrade32">
+          <DataField>LegendGrade32</DataField>
+        </Field>
+        <Field Name="LegendDesc32">
+          <DataField>LegendDesc32</DataField>
+        </Field>
+        <Field Name="LegendRange33">
+          <DataField>LegendRange33</DataField>
+        </Field>
+        <Field Name="LegendGrade33">
+          <DataField>LegendGrade33</DataField>
+        </Field>
+        <Field Name="LegendDesc33">
+          <DataField>LegendDesc33</DataField>
+        </Field>
+        <Field Name="LegendRange34">
+          <DataField>LegendRange34</DataField>
+        </Field>
+        <Field Name="LegendGrade34">
+          <DataField>LegendGrade34</DataField>
+        </Field>
+        <Field Name="LegendDesc34">
+          <DataField>LegendDesc34</DataField>
+        </Field>
+        <Field Name="LegendRange35">
+          <DataField>LegendRange35</DataField>
+        </Field>
+        <Field Name="LegendGrade35">
+          <DataField>LegendGrade35</DataField>
+        </Field>
+        <Field Name="LegendDesc35">
+          <DataField>LegendDesc35</DataField>
+        </Field>
+        <Field Name="LegendRange36">
+          <DataField>LegendRange36</DataField>
+        </Field>
+        <Field Name="LegendGrade36">
+          <DataField>LegendGrade36</DataField>
+        </Field>
+        <Field Name="LegendDesc36">
+          <DataField>LegendDesc36</DataField>
         </Field>
         <Field Name="Unit">
           <DataField>Unit</DataField>

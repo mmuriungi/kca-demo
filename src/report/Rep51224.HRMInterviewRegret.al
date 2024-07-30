@@ -3,7 +3,7 @@ report 51224 "HRM-Interview Regret"
     UsageCategory = Administration;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Report/SSR/hrmInvRegret.rdl';
+    RDLCLayout = './Layouts/hrmInvRegret.rdl';
 
     dataset
     {
@@ -17,7 +17,7 @@ report 51224 "HRM-Interview Regret"
             {
 
             }
-            column(CompanyInformation;CompanyInformation.Picture)
+            column(CompanyInformation; CompanyInformation.Picture)
             {
 
             }
@@ -25,17 +25,17 @@ report 51224 "HRM-Interview Regret"
             // {
 
             // }
-            column(First_Name;"First Name")
+            column(First_Name; "First Name")
             {
 
             }
-            column(Last_Name;"Last Name")
+            column(Last_Name; "Last Name")
             {
 
             }
-            column(Middle_Name;"Middle Name")
+            column(Middle_Name; "Middle Name")
             {
-                
+
             }
         }
     }

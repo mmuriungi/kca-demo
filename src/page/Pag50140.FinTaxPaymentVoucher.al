@@ -23,7 +23,7 @@ page 50140 "Fin-Tax Payment Voucher"
                     Importance = Promoted;
                     ApplicationArea = All;
                 }
-                field("Tax Type"; "Tax Type")
+                field("Tax Type"; Rec."Tax Type")
                 {
                     ApplicationArea = all;
                 }

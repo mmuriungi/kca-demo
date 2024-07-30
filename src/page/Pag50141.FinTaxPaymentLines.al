@@ -34,7 +34,7 @@ page 50141 "Fin-Tax Payment Lines "
                 {
                     ApplicationArea = all;
                 }
-                field("Vendor pv"; "Vendor pv")
+                field("Vendor pv"; Rec."Vendor pv")
                 {
                     ApplicationArea = all;
 

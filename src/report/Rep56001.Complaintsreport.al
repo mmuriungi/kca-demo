@@ -3,7 +3,7 @@ report 56001 "Complaints report"
     ApplicationArea = All;
     Caption = 'Complaints report';
     DefaultLayout = RDLC;
-    RDLCLayout = './QA/Report/SSR/Complaints Report.rdl';
+    RDLCLayout = './Layouts/Complaints Report.rdl';
     UsageCategory = ReportsAndAnalysis;
     dataset
     {

@@ -2,7 +2,7 @@ report 50004 "Interbank Transfers"
 
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Finance/Reports/SSR/InterbankDetails.rdl';
+    RDLCLayout = './Layouts/InterbankDetails.rdl';
 
     dataset
     {

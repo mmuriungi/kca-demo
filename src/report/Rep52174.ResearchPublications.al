@@ -1,7 +1,7 @@
 report 52174 "Research Publications"
 {
     Caption = 'Research Publications';
-    RDLCLayout = './DRE/Reports/SSR/researchPublication.rdl';
+    RDLCLayout = './Layouts/researchPublication.rdl';
     dataset
     {
         dataitem(ResearchPublications; "Research Publications")

@@ -1,7 +1,7 @@
 report 50913 "Casual Payroll Summary"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Casual Payroll Summary.rdl';
+    RDLCLayout = './Layouts/Casual Payroll Summary.rdl';
 
     dataset
     {

@@ -1,7 +1,7 @@
 report 50877 "FIN-Memo Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './MEMO/Reports/SSR/FINMemoReport.rdl';
+    RDLCLayout = './Layouts/FINMemoReport.rdl';
 
     dataset
     {

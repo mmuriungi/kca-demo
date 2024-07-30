@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,112 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="StartDate">
-          <DataField>StartDate</DataField>
-        </Field>
-        <Field Name="EndDate">
-          <DataField>EndDate</DataField>
-        </Field>
-        <Field Name="OderDate">
-          <DataField>OderDate</DataField>
-        </Field>
-        <Field Name="docNo">
-          <DataField>docNo</DataField>
-        </Field>
-        <Field Name="CustNo">
-          <DataField>CustNo</DataField>
-        </Field>
-        <Field Name="CustName">
-          <DataField>CustName</DataField>
-        </Field>
-        <Field Name="SalesPerson">
-          <DataField>SalesPerson</DataField>
-        </Field>
-        <Field Name="PostingDate">
-          <DataField>PostingDate</DataField>
-        </Field>
-        <Field Name="PostingDesc">
-          <DataField>PostingDesc</DataField>
-        </Field>
-        <Field Name="CompAddress">
-          <DataField>CompAddress</DataField>
-        </Field>
-        <Field Name="CompAddress1">
-          <DataField>CompAddress1</DataField>
-        </Field>
-        <Field Name="CompPhonenO">
-          <DataField>CompPhonenO</DataField>
-        </Field>
-        <Field Name="CompPhoneNo2">
-          <DataField>CompPhoneNo2</DataField>
-        </Field>
-        <Field Name="CompPic">
-          <DataField>CompPic</DataField>
-        </Field>
-        <Field Name="CompEmail1">
-          <DataField>CompEmail1</DataField>
-        </Field>
-        <Field Name="CompHome">
-          <DataField>CompHome</DataField>
-        </Field>
-        <Field Name="SalesLineNo">
-          <DataField>SalesLineNo</DataField>
-        </Field>
-        <Field Name="SalesLineNoFormat">
-          <DataField>SalesLineNoFormat</DataField>
-        </Field>
-        <Field Name="SalesDocNo">
-          <DataField>SalesDocNo</DataField>
-        </Field>
-        <Field Name="SalesItemNo">
-          <DataField>SalesItemNo</DataField>
-        </Field>
-        <Field Name="SelesItemDesc">
-          <DataField>SelesItemDesc</DataField>
-        </Field>
-        <Field Name="LineAmountIncludingVAT">
-          <DataField>LineAmountIncludingVAT</DataField>
-        </Field>
-        <Field Name="LineAmountIncludingVATFormat">
-          <DataField>LineAmountIncludingVATFormat</DataField>
-        </Field>
-        <Field Name="LineAmount">
-          <DataField>LineAmount</DataField>
-        </Field>
-        <Field Name="LineAmountFormat">
-          <DataField>LineAmountFormat</DataField>
-        </Field>
-        <Field Name="SalesQuantity">
-          <DataField>SalesQuantity</DataField>
-        </Field>
-        <Field Name="SalesQuantityFormat">
-          <DataField>SalesQuantityFormat</DataField>
-        </Field>
-        <Field Name="SalesUnitOfMeasure">
-          <DataField>SalesUnitOfMeasure</DataField>
-        </Field>
-        <Field Name="SalesUnitPrice">
-          <DataField>SalesUnitPrice</DataField>
-        </Field>
-        <Field Name="SalesUnitPriceFormat">
-          <DataField>SalesUnitPriceFormat</DataField>
-        </Field>
-        <Field Name="SalesLineAmount">
-          <DataField>SalesLineAmount</DataField>
-        </Field>
-        <Field Name="SalesLineAmountFormat">
-          <DataField>SalesLineAmountFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1773,4 +1667,110 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="StartDate">
+          <DataField>StartDate</DataField>
+        </Field>
+        <Field Name="EndDate">
+          <DataField>EndDate</DataField>
+        </Field>
+        <Field Name="OderDate">
+          <DataField>OderDate</DataField>
+        </Field>
+        <Field Name="docNo">
+          <DataField>docNo</DataField>
+        </Field>
+        <Field Name="CustNo">
+          <DataField>CustNo</DataField>
+        </Field>
+        <Field Name="CustName">
+          <DataField>CustName</DataField>
+        </Field>
+        <Field Name="SalesPerson">
+          <DataField>SalesPerson</DataField>
+        </Field>
+        <Field Name="PostingDate">
+          <DataField>PostingDate</DataField>
+        </Field>
+        <Field Name="PostingDesc">
+          <DataField>PostingDesc</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="CompAddress1">
+          <DataField>CompAddress1</DataField>
+        </Field>
+        <Field Name="CompPhonenO">
+          <DataField>CompPhonenO</DataField>
+        </Field>
+        <Field Name="CompPhoneNo2">
+          <DataField>CompPhoneNo2</DataField>
+        </Field>
+        <Field Name="CompPic">
+          <DataField>CompPic</DataField>
+        </Field>
+        <Field Name="CompEmail1">
+          <DataField>CompEmail1</DataField>
+        </Field>
+        <Field Name="CompHome">
+          <DataField>CompHome</DataField>
+        </Field>
+        <Field Name="SalesLineNo">
+          <DataField>SalesLineNo</DataField>
+        </Field>
+        <Field Name="SalesLineNoFormat">
+          <DataField>SalesLineNoFormat</DataField>
+        </Field>
+        <Field Name="SalesDocNo">
+          <DataField>SalesDocNo</DataField>
+        </Field>
+        <Field Name="SalesItemNo">
+          <DataField>SalesItemNo</DataField>
+        </Field>
+        <Field Name="SelesItemDesc">
+          <DataField>SelesItemDesc</DataField>
+        </Field>
+        <Field Name="LineAmountIncludingVAT">
+          <DataField>LineAmountIncludingVAT</DataField>
+        </Field>
+        <Field Name="LineAmountIncludingVATFormat">
+          <DataField>LineAmountIncludingVATFormat</DataField>
+        </Field>
+        <Field Name="LineAmount">
+          <DataField>LineAmount</DataField>
+        </Field>
+        <Field Name="LineAmountFormat">
+          <DataField>LineAmountFormat</DataField>
+        </Field>
+        <Field Name="SalesQuantity">
+          <DataField>SalesQuantity</DataField>
+        </Field>
+        <Field Name="SalesQuantityFormat">
+          <DataField>SalesQuantityFormat</DataField>
+        </Field>
+        <Field Name="SalesUnitOfMeasure">
+          <DataField>SalesUnitOfMeasure</DataField>
+        </Field>
+        <Field Name="SalesUnitPrice">
+          <DataField>SalesUnitPrice</DataField>
+        </Field>
+        <Field Name="SalesUnitPriceFormat">
+          <DataField>SalesUnitPriceFormat</DataField>
+        </Field>
+        <Field Name="SalesLineAmount">
+          <DataField>SalesLineAmount</DataField>
+        </Field>
+        <Field Name="SalesLineAmountFormat">
+          <DataField>SalesLineAmountFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

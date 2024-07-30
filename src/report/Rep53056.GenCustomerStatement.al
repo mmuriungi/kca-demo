@@ -1,7 +1,7 @@
 report 53056 "Gen. Customer Statement"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Gen. Customer Statement.rdlc';
+    RDLCLayout = './Layouts/Gen. Customer Statement.rdl';
     Caption = 'Customer - Statement';
 
     dataset

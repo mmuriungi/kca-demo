@@ -1,7 +1,7 @@
 report 54201 "HR Transport Allocations"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Transport/Report/SSR/HR Transport Allocations.rdl';
+    RDLCLayout = './Layouts/HR Transport Allocations.rdl';
     Caption = 'HR Transport Allocations';
 
     dataset

@@ -1,7 +1,7 @@
 report 55404 "Audit Risk Register"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Audit/Report/SSR/AuditRiskRegister.rdl';
+    RDLCLayout = './Layouts/AuditRiskRegister.rdl';
 
     dataset
     {

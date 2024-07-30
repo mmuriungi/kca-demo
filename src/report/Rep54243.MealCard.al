@@ -2,7 +2,7 @@ report 54243 "Meal Card"
 {
     Caption = 'Meal Card';
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/mealcard.rdl';
+    RDLCLayout = './Layouts/mealcard.rdl';
     dataset
     {
         dataitem(CafeMembers; "Cafe Members")

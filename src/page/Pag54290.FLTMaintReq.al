@@ -62,7 +62,7 @@ page 54290 "FLT-Maint. Req."
                 {
                     ApplicationArea = All;
                 }
-                field("mileage at service"; "mileage at service")
+                field("mileage at service"; Rec."mileage at service")
                 {
                     ApplicationArea = All;
 

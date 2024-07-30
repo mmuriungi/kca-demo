@@ -1,7 +1,7 @@
 report 50200 "Trial Balance Detail/Summary2"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Finance/Reports/SSR/TrialBalanceDetailSummary2.rdl';
+    RDLCLayout = './Layouts/TrialBalanceDetailSummary2.rdl';
     Caption = 'Trial Balance Detail/Summary';
     dataset
     {

@@ -140,7 +140,7 @@ page 54453 "FLT-Maint. Req2."
 
                     ApplicationArea = all;
                 }
-                field("Next Service Due Mileage"; "Next Service Due Mileage")
+                field("Next Service Due Mileage"; Rec."Next Service Due Mileage")
                 {
                     Caption = 'Next Service Due Mileage';
 

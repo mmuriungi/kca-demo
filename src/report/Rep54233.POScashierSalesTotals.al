@@ -1,7 +1,7 @@
 report 54233 "POS cashier Sales Totals"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/PosCashierPrintTotal.rdl';
+    RDLCLayout = './Layouts/PosCashierPrintTotal.rdl';
 
     dataset
     {

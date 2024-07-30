@@ -1,7 +1,7 @@
 report 54207 "Visitors Per Department"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Security/Reports/SSR/Visitors Per Department.rdl';
+    RDLCLayout = './Layouts/Visitors Per Department.rdl';
     Caption = 'Visitors Per Department';
 
     dataset

@@ -1,7 +1,7 @@
 report 50905 "PCA Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './PCA Report.rdlc';
+    RDLCLayout = './Layouts/PCA Report.rdl';
 
     dataset
     {

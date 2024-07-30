@@ -3,7 +3,7 @@ report 51226 "HRM-Offer letter"
     UsageCategory = Administration;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Report/SSR/hrmOffer.rdl';
+    RDLCLayout = './Layouts/hrmOffer.rdl';
 
     dataset
     {

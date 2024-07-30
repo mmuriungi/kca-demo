@@ -51,7 +51,7 @@ page 54471 "Hostel Stock Header card&"
                     ToolTip = 'Specifies the value of the Posted field.';
                 }
             }
-            part("Quantity Line"; " hostel Store lines")
+            part("Quantity Line"; "hostel Store lines")
             {
                 ApplicationArea = All;
                 SubPageLink = "Document No." = field("No.");

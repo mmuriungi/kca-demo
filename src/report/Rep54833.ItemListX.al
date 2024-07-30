@@ -1,7 +1,7 @@
 report 54833 "Item ListX"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Clinic\Reports\SSR\Item ListX.rdl';
+    RDLCLayout = './Layouts/Item ListX.rdl';
     Caption = 'Item List';
 
     dataset

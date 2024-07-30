@@ -1,7 +1,7 @@
 report 50023 "Check-Printing"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Check-Printing.rdlc';
+    RDLCLayout = './Layouts/Check-Printing.rdl';
 
     dataset
     {

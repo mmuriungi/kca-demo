@@ -1,61 +1,61 @@
-report 51221  employeeRequisition
+report 51221 employeeRequisition
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Report/SSR/hrmEmployeeReq.rdl';
+    RDLCLayout = './Layouts/hrmEmployeeReq.rdl';
     ApplicationArea = Basic, Suite;
     Caption = 'Employeee Requisition';
     PreviewMode = PrintLayout;
     UsageCategory = ReportsAndAnalysis;
-    
+
     dataset
     {
         dataitem(empReq; "HRM-Employee Requisitions")
         {
-            column(Job_ID;"Job ID")
-            {
-                
-            }
-            column(Requisition_Date;"Requisition Date")
+            column(Job_ID; "Job ID")
             {
 
             }
-            column(Priority;Priority)
+            column(Requisition_Date; "Requisition Date")
             {
 
             }
-            column(Job_Description;"Job Description")
-            {
-                
-            }
-            column(Reason_For_Request;"Reason For Request")
+            column(Priority; Priority)
             {
 
             }
-            column(Type_of_Contract_Required;"Type of Contract Required")
+            column(Job_Description; "Job Description")
             {
 
             }
-            column(Vacant_Positions;"Vacant Positions")
+            column(Reason_For_Request; "Reason For Request")
             {
 
             }
-            column(Required_Positions;"Required Positions")
+            column(Type_of_Contract_Required; "Type of Contract Required")
             {
 
             }
-            column(Requisition_Type;"Requisition Type")
+            column(Vacant_Positions; "Vacant Positions")
             {
 
             }
-            column(Opening_Date;"Opening Date")
+            column(Required_Positions; "Required Positions")
             {
 
             }
-            column(Closing_Date;"Closing Date")
+            column(Requisition_Type; "Requisition Type")
             {
 
             }
-            column(Advertised;Advertised)
+            column(Opening_Date; "Opening Date")
+            {
+
+            }
+            column(Closing_Date; "Closing Date")
+            {
+
+            }
+            column(Advertised; Advertised)
             {
 
             }
@@ -67,9 +67,9 @@ report 51221  employeeRequisition
             {
 
             }
-            column(Requestor;Requestor)
+            column(Requestor; Requestor)
             {
-                
+
             }
             dataitem(DataItem1102755001; 454)
             {
@@ -112,17 +112,17 @@ report 51221  employeeRequisition
             }
         }
     }
-    
+
     requestpage
     {
         layout
         {
-            
+
         }
-    
+
         actions
         {
-            
+
         }
     }
     trigger OnInitReport()
@@ -135,5 +135,5 @@ report 51221  employeeRequisition
     var
         myInt: Integer;
         CompanyInformation: Record "Company Information";
-   
+
 }

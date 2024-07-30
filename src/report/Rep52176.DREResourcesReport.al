@@ -1,7 +1,7 @@
 report 52176 "DRE-Resources Report"
 {
     Caption = 'DRE-Resources Report';
-    RDLCLayout = './DRE/Reports/SSR/dreResources.rdl';
+    RDLCLayout = './Layouts/dreResources.rdl';
     dataset
     {
         dataitem(DREResources; "DRE-Resources")

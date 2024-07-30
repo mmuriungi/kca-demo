@@ -943,12 +943,6 @@ End Function
         <Field Name="pic">
           <DataField>pic</DataField>
         </Field>
-        <Field Name="compname">
-          <DataField>compname</DataField>
-        </Field>
-        <Field Name="compemail">
-          <DataField>compemail</DataField>
-        </Field>
         <Field Name="Gtext">
           <DataField>Gtext</DataField>
         </Field>

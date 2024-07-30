@@ -1721,9 +1721,6 @@ End Function
         <Field Name="Year">
           <DataField>Year</DataField>
         </Field>
-        <Field Name="Category">
-          <DataField>Category</DataField>
-        </Field>
         <Field Name="Grade">
           <DataField>Grade</DataField>
         </Field>

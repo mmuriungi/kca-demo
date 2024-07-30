@@ -1,7 +1,7 @@
 reportextension 50104 "Bank Det.Trial Bal" extends "Bank Acc. - Detail Trial Bal."
 {
 
-    RDLCLayout = './Bank Acc. - Detail Trial Bal.rdl';
+    RDLCLayout = './Layouts/Bank Acc. - Detail Trial Bal.rdl';
 
     dataset
     {
