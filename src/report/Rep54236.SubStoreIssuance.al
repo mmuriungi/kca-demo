@@ -1,7 +1,7 @@
 report 54236 "Sub Store Issuance"
 {
     Caption = 'Sub Store Issuance';
-    RDLCLayout = './hostel/storeTransactions.rdl';
+    RDLCLayout = './Layouts/storeTransactions.rdl';
     dataset
     {
         dataitem(hostelstocklines; "hostel stock lines")

@@ -1,7 +1,7 @@
 report 54230 "POS Item Sales"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/PosItemSales.rdl';
+    RDLCLayout = './Layouts/PosItemSales.rdl';
     dataset
     {
         dataitem(posItem; "POS Items")

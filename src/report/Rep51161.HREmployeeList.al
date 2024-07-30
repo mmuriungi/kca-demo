@@ -1,7 +1,7 @@
 report 51161 "HR Employee List"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './HR/Reports/SSR/HR Employee List.rdl';
+    RDLCLayout = './Layouts/HR Employee List.rdl';
 
     dataset
     {

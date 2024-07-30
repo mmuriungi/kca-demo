@@ -3,7 +3,7 @@ report 50984 "HRM-InterviewInv"
     UsageCategory = Administration;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Report/SSR/hrmIntrw.rdl';
+    RDLCLayout = './Layouts/hrmIntrw.rdl';
 
     dataset
     {

@@ -1,7 +1,7 @@
 report 54224 "FTL- Transport Requests"
 {
     DefaultLayout = Word;
-    WordLayout = './Transport/Report/SSR/54224.TransportRequests.docx';
+    WordLayout = './Layouts/54224.TransportRequests.docx';
 
     dataset
     {

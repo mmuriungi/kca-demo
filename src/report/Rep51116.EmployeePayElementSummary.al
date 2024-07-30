@@ -1,7 +1,7 @@
 report 51116 "Employee Pay Element Summary"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Reports/SSR/Employee Pay Element Summary.rdl';
+    RDLCLayout = './Layouts/Employee Pay Element Summary.rdl';
 
     dataset
     {

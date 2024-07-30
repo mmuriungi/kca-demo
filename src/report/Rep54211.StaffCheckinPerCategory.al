@@ -1,7 +1,7 @@
 report 54211 "Staff Check-in Per Category"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Security/Reports/SSR/Staff Check-in Per Category.rdl';
+    RDLCLayout = './Layouts/Staff Check-in Per Category.rdl';
     Caption = 'Staff Check-in Per Category';
 
     dataset

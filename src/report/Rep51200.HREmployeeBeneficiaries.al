@@ -1,7 +1,7 @@
 report 51200 "HR Employee Beneficiaries"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Reports/SSR/HREmployeeBeneficiaries.rdlc';
+    RDLCLayout = './Layouts/HREmployeeBeneficiaries.rdlc';
     Caption = 'Employee Beneficiaries';
 
     dataset

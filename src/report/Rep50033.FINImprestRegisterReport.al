@@ -2,7 +2,7 @@ report 50033 "FIN-Imprest Register Report"
 {
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = './Finance/Reports/SSR/ImprestRegister.rdl';
+    RDLCLayout = './Layouts/ImprestRegister.rdl';
     Caption = 'FIN-Imprest Register Report';
     UsageCategory = Administration;
     dataset

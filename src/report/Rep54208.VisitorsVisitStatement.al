@@ -1,7 +1,7 @@
 report 54208 "Visitors Visit Statement"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Security/Reports/SSR/Visitors Visit Statement.rdl';
+    RDLCLayout = './Layouts/Visitors Visit Statement.rdl';
     Caption = 'Visitors Visit Statement';
 
     dataset

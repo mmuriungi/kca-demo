@@ -2,7 +2,7 @@ report 50017 "Purchase Quote Report"
 {
     DefaultLayout = RDLC;
     UsageCategory = ReportsAndAnalysis;
-    RDLCLayout = './Finance/Reports/SSR/PurchaseQuoteRequestReport.rdl';
+    RDLCLayout = './Layouts/PurchaseQuoteRequestReport.rdl';
 
     dataset
     {

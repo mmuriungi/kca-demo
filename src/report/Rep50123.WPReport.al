@@ -1,7 +1,7 @@
 report 50123 "W/P Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './WP Report.rdlc';
+    RDLCLayout = './Layouts/WP Report.rdl';
 
     dataset
     {

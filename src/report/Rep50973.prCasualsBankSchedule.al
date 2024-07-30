@@ -1,7 +1,7 @@
 report 50973 "pr Casuals Bank Schedule"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './pr Casuals Bank Schedule.rdl';
+    RDLCLayout = './Layouts/pr Casuals Bank Schedule.rdl';
 
     dataset
     {

@@ -3,7 +3,7 @@ report 50007 Receipt
     Caption = 'Receipt';
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = rdlc;
-    RDLCLayout = './Finance/Reports/SSR/OfficialReceipt.rdl';
+    RDLCLayout = './Layouts/OfficialReceipt.rdl';
 
     dataset
     {

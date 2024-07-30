@@ -1,7 +1,7 @@
 report 51227 "HRM-JobAdvert"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Report/SSR/hrmJobAdvert.rdl';
+    RDLCLayout = './Layouts/hrmJobAdvert.rdl';
 
     dataset
     {

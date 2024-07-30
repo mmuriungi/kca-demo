@@ -1,7 +1,7 @@
 report 55402 "Audit Planner Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Audit/Report/SSR/AuditPlannerReport.rdl';
+    RDLCLayout = './Layouts/AuditPlannerReport.rdl';
     EnableExternalImages = true;
 
     dataset

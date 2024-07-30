@@ -1,7 +1,7 @@
-report  50966 "HR Leave Application (1)"
+report 50966 "HR Leave Application (1)"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Reports/SSR/HRLeaveApplication1.rdl';
+    RDLCLayout = './Layouts/HRLeaveApplication1.rdl';
 
     dataset
     {

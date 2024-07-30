@@ -1,7 +1,7 @@
 report 50965 "Employee Details Summary"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './HR/Reports/SSR/EmployeeDetailsSummary.rdl';
+    RDLCLayout = './Layouts/EmployeeDetailsSummary.rdl';
 
     dataset
     {
@@ -243,7 +243,7 @@ report 50965 "Employee Details Summary"
                 column(EmpHistTitle; EmploymentHistory."Job Title")
                 {
                 }
-                
+
 
                 trigger OnAfterGetRecord()
                 begin

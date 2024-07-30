@@ -1,7 +1,7 @@
 report 50977 "PR Payroll Summary - Detailed"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './payroll\Report\SSR\PRPayrollSummaryDetailed.rdl';
+    RDLCLayout = './Layouts/PRPayrollSummaryDetailed.rdl';
 
     dataset
     {

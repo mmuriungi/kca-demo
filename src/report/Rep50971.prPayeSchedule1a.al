@@ -1,7 +1,7 @@
 report 50971 "prPaye Schedule 1a"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './prPaye Schedule 1a.rdl';
+    RDLCLayout = './Layouts/prPaye Schedule 1a.rdl';
 
     dataset
     {
@@ -157,11 +157,11 @@ report 50971 "prPaye Schedule 1a"
                 //PeriodTrans.SETFILTER(PeriodTrans."Sub Group Order",'=5|=3'); //Paye Amount
                 IF PeriodTrans.FIND('-') THEN
                     REPEAT
-                            //TXBP Taxable Pay -  BY DENNIS PSNR 690
+                        //TXBP Taxable Pay -  BY DENNIS PSNR 690
 
-                            IF (PeriodTrans."Transaction Code" = 'GPAY') THEN BEGIN
-                                GrossPay := PeriodTrans.Amount;
-                            END;
+                        IF (PeriodTrans."Transaction Code" = 'GPAY') THEN BEGIN
+                            GrossPay := PeriodTrans.Amount;
+                        END;
 
                         IF (PeriodTrans."Transaction Code" = '592') THEN BEGIN
                             ProvidentSelf := PeriodTrans.Amount;

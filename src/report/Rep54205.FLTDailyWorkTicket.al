@@ -1,7 +1,7 @@
 report 54205 "FLT Daily Work Ticket"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Transport/Report/SSR/FLT Daily Work Ticket.rdl';
+    RDLCLayout = './Layouts/FLT Daily Work Ticket.rdl';
     Caption = 'FLT Daily Work Ticket';
 
     dataset

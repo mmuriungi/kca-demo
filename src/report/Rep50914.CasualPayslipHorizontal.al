@@ -1,7 +1,7 @@
 report 50914 "Casual- Payslip Horizontal"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Casual- Payslip Horizontal.rdl';
+    RDLCLayout = './Layouts/Casual- Payslip Horizontal.rdl';
 
     dataset
     {

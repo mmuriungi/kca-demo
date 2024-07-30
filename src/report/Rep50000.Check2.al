@@ -1,7 +1,7 @@
 Report 50000 Check2
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Finance/Reports/SSR/Check.rdlc';
+    RDLCLayout = './Layouts/Check.rdl';
     Caption = 'Check';
     Permissions = TableData 270 = m;
 

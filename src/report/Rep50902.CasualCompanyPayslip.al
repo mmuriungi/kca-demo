@@ -1,7 +1,7 @@
 report 50902 "Casual-Company Payslip"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Casual-Company Payslip.rdl';
+    RDLCLayout = './Layouts/Casual-Company Payslip.rdl';
 
     dataset
     {

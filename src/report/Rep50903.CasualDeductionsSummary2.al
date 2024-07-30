@@ -1,7 +1,7 @@
 report 50903 "Casual-Deductions Summary 2"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Casual-Deductions Summary 2.rdl';
+    RDLCLayout = './Layouts/Casual-Deductions Summary 2.rdl';
 
     dataset
     {

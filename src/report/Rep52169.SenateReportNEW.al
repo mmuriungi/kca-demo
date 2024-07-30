@@ -1,7 +1,7 @@
 report 52169 "Senate Report(NEW)"
 {
     //Caption = 'Senate Report(NEW)';
-    RDLCLayout = './Reports/SSR/senateReport(New)2.rdl';
+    RDLCLayout = './Layouts/senateReport(New)2.rdl';
     dataset
     {
         dataitem(Senate; "Senate Report New")

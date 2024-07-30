@@ -1,7 +1,7 @@
 report 54223 "Damage reports"
 {
     Caption = 'Damage reports';
-    RDLCLayout = './HOSTEL/damages.rdl';
+    RDLCLayout = './Layouts/damages.rdl';
     dataset
     {
         dataitem(damages; damages)

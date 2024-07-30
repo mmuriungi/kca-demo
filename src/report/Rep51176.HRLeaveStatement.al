@@ -1,7 +1,7 @@
 report 51176 "HR Leave Statement"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Reports/SSR/HRLeaveStatement.rdl';
+    RDLCLayout = './Layouts/HRLeaveStatement.rdl';
 
     dataset
     {

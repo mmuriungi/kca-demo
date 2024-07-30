@@ -1,7 +1,7 @@
 report 50946 "Payroll Variance Report 2"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = '.\payroll\Report\SSR\Payroll Variance Report12.rdl';
+    RDLCLayout = '.\Layouts\Payroll Variance Report12.rdl';
 
     dataset
     {

@@ -1,7 +1,7 @@
 report 50026 "Student - Trial Balance"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './CustomerTrialBalance.rdlc';
+    RDLCLayout = './Layouts/CustomerTrialBalance.rdl';
     AdditionalSearchTerms = 'payment due,order status';
     ApplicationArea = Basic, Suite;
     Caption = 'Student - Trial Balance';

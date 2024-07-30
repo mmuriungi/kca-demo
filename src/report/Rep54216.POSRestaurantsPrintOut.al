@@ -1,7 +1,7 @@
 report 54216 "POS Restaurants PrintOut"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './POS/Report/SSR/PosPrintOutRest.rdl';
+    RDLCLayout = './Layouts/PosPrintOutRest.rdl';
 
     dataset
     {

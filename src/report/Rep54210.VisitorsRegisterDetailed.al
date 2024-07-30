@@ -1,7 +1,7 @@
 report 54210 "Visitors Register Detailed"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Security/Reports/SSR/Visitors Register Detailed.rdl';
+    RDLCLayout = './Layouts/Visitors Register Detailed.rdl';
     Caption = 'Visitors Register Detailed';
 
     dataset

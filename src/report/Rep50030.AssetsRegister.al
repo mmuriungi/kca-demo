@@ -2,7 +2,7 @@ report 50030 "Assets Register"
 {
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = rdlc;
-    RDLCLayout = './Finance/Reports/SSR/Rep50030.AssetsRegister.rdl';
+    RDLCLayout = './Layouts/Rep50030.AssetsRegister.rdl';
 
     dataset
     {

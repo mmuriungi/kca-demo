@@ -1,7 +1,7 @@
 report 50022 "Payment Voucher Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Payment Voucher Report.rdlc';
+    RDLCLayout = './Layouts/Payment Voucher Report.rdl';
 
     dataset
     {

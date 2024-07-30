@@ -1,7 +1,7 @@
 report 50904 "Casual-Individual Payslips"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Casual-Individual Payslips.rdl';
+    RDLCLayout = './Layouts/Casual-Individual Payslips.rdl';
 
     dataset
     {
@@ -1173,53 +1173,53 @@ report 50904 "Casual-Individual Payslips"
                 strGrpText := '';
                 IF PeriodTrans.FIND('-') THEN
                     REPEAT
-                            //Check if the group has changed
-                            IF strGrpText <> PeriodTrans."Group Text" THEN BEGIN
-                                IF PeriodTrans."Group Order" <> 1 THEN BEGIN
-                                    Index := Index + 1;
-                                    Trans[ColumnNo, Index] := '.................................';
-                                    TransAmt[ColumnNo, Index] := '.............................';
-                                    //  TransBal[ColumnNo,Index]:='......................................';
-                                END;
-
-                                IF (PeriodTrans."Group Text" <> 'DAILY WAGE') AND (PeriodTrans."Group Text" <> 'GROSS PAY') AND
-                                (PeriodTrans."Group Text" <> 'NET PAY') THEN BEGIN
-                                    Index := Index + 1;
-                                    strGrpText := PeriodTrans."Group Text";
-
-                                    Trans[ColumnNo, Index] := strGrpText;
-                                    TransAmt[ColumnNo, Index] := '.';
-                                    //  TransBal[ColumnNo,Index]:='.';
-                                END;
-                                IF ((PeriodTrans."Group Text" = 'TOTAL DEDUCTIONS') OR (PeriodTrans."Group Text" = 'TOTAL DEDUCTION')) THEN BEGIN
-                                    Index := Index + 1;
-                                    Trans[ColumnNo, Index] := '...........................';
-                                    TransAmt[ColumnNo, Index] := '..........................';
-                                    //TransBal[ColumnNo,Index2]:='......................................';
-                                END;
+                        //Check if the group has changed
+                        IF strGrpText <> PeriodTrans."Group Text" THEN BEGIN
+                            IF PeriodTrans."Group Order" <> 1 THEN BEGIN
                                 Index := Index + 1;
+                                Trans[ColumnNo, Index] := '.................................';
+                                TransAmt[ColumnNo, Index] := '.............................';
+                                //  TransBal[ColumnNo,Index]:='......................................';
+                            END;
+
+                            IF (PeriodTrans."Group Text" <> 'DAILY WAGE') AND (PeriodTrans."Group Text" <> 'GROSS PAY') AND
+                            (PeriodTrans."Group Text" <> 'NET PAY') THEN BEGIN
+                                Index := Index + 1;
+                                strGrpText := PeriodTrans."Group Text";
+
+                                Trans[ColumnNo, Index] := strGrpText;
+                                TransAmt[ColumnNo, Index] := '.';
+                                //  TransBal[ColumnNo,Index]:='.';
+                            END;
+                            IF ((PeriodTrans."Group Text" = 'TOTAL DEDUCTIONS') OR (PeriodTrans."Group Text" = 'TOTAL DEDUCTION')) THEN BEGIN
+                                Index := Index + 1;
+                                Trans[ColumnNo, Index] := '...........................';
+                                TransAmt[ColumnNo, Index] := '..........................';
+                                //TransBal[ColumnNo,Index2]:='......................................';
+                            END;
+                            Index := Index + 1;
+                            Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
+                            EVALUATE(TransAmt[ColumnNo, Index], FORMAT(PeriodTrans.Amount));
+                        END ELSE BEGIN
+
+                            IF (PeriodTrans."Group Text" <> 'DAILY WAGE') AND (PeriodTrans."Group Text" <> 'GROSS PAY')
+                                        AND (PeriodTrans."Group Text" <> 'NET PAY') THEN BEGIN
+
+                                Index := Index + 1;
+                                strGrpText := PeriodTrans."Group Text";
+
                                 Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
                                 EVALUATE(TransAmt[ColumnNo, Index], FORMAT(PeriodTrans.Amount));
-                            END ELSE BEGIN
-
-                                IF (PeriodTrans."Group Text" <> 'DAILY WAGE') AND (PeriodTrans."Group Text" <> 'GROSS PAY')
-                                            AND (PeriodTrans."Group Text" <> 'NET PAY') THEN BEGIN
-
-                                    Index := Index + 1;
-                                    strGrpText := PeriodTrans."Group Text";
-
-                                    Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
-                                    EVALUATE(TransAmt[ColumnNo, Index], FORMAT(PeriodTrans.Amount));
-
-                                END;
-                                IF ((PeriodTrans."Group Text" = 'TOTAL DEDUCTIONS') OR (PeriodTrans."Group Text" = 'TOTAL DEDUCTION')) THEN BEGIN
-                                    Index := Index + 1;
-                                    Trans[ColumnNo, Index] := '............................';
-                                    TransAmt[ColumnNo, Index] := '.........................';
-                                    //TransBal[ColumnNo,Index2]:='......................................';
-                                END;
 
                             END;
+                            IF ((PeriodTrans."Group Text" = 'TOTAL DEDUCTIONS') OR (PeriodTrans."Group Text" = 'TOTAL DEDUCTION')) THEN BEGIN
+                                Index := Index + 1;
+                                Trans[ColumnNo, Index] := '............................';
+                                TransAmt[ColumnNo, Index] := '.........................';
+                                //TransBal[ColumnNo,Index2]:='......................................';
+                            END;
+
+                        END;
                         PeriodTrans.CALCFIELDS(PeriodTrans."Total Statutories");
                         IF PeriodTrans."Transaction Code" = 'TOT-DED' THEN
                             //  error('Test');
@@ -1245,52 +1245,52 @@ report 50904 "Casual-Individual Payslips"
                 PeriodTrans.SETCURRENTKEY(PeriodTrans."Employee Code", PeriodTrans."Period Month", PeriodTrans."Period Year",
                 PeriodTrans."Group Order", PeriodTrans."Sub Group Order");
                 IF PeriodTrans.FIND('-') THEN BEGIN
-                                                  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                  REPEAT
-                                                      //Check if the group has changed
-                                                      IF strGrpText <> PeriodTrans."Group Text" THEN BEGIN
-                                                          IF PeriodTrans."Group Order" <> 1 THEN BEGIN
-                                                              Index := Index + 1;
-                                                              Trans[ColumnNo, Index] := '...............................................................';
-                                                              TransAmt[ColumnNo, Index] := '...............................................................';
-                                                              //TransBal[ColumnNo,Index2]:='......................................';
-                                                          END;
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    REPEAT
+                        //Check if the group has changed
+                        IF strGrpText <> PeriodTrans."Group Text" THEN BEGIN
+                            IF PeriodTrans."Group Order" <> 1 THEN BEGIN
+                                Index := Index + 1;
+                                Trans[ColumnNo, Index] := '...............................................................';
+                                TransAmt[ColumnNo, Index] := '...............................................................';
+                                //TransBal[ColumnNo,Index2]:='......................................';
+                            END;
 
-                                                          IF ((PeriodTrans."Group Text" = 'TOTAL DEDUCTIONS') OR (PeriodTrans."Group Text" = 'TOTAL DEDUCTION')) THEN BEGIN
-                                                              Index := Index + 1;
-                                                              Trans[ColumnNo, Index] := '...............................................................';
-                                                              TransAmt[ColumnNo, Index] := '...............................................................';
-                                                              //TransBal[ColumnNo,Index2]:='......................................';
-                                                          END;
+                            IF ((PeriodTrans."Group Text" = 'TOTAL DEDUCTIONS') OR (PeriodTrans."Group Text" = 'TOTAL DEDUCTION')) THEN BEGIN
+                                Index := Index + 1;
+                                Trans[ColumnNo, Index] := '...............................................................';
+                                TransAmt[ColumnNo, Index] := '...............................................................';
+                                //TransBal[ColumnNo,Index2]:='......................................';
+                            END;
 
-                                                          IF (PeriodTrans."Group Text" <> 'DAILY WAGE') AND (PeriodTrans."Group Text" <> 'GROSS PAY') AND
-                                                        (PeriodTrans."Group Text" <> 'NET PAY') THEN BEGIN
-                                                              Index := Index + 1;
-                                                              strGrpText := PeriodTrans."Group Text";
-                                                              Trans[ColumnNo, Index] := strGrpText;
-                                                              TransAmt[ColumnNo, Index] := '.';
-                                                              // TransBal[ColumnNo,Index]:='.';
-                                                          END;
+                            IF (PeriodTrans."Group Text" <> 'DAILY WAGE') AND (PeriodTrans."Group Text" <> 'GROSS PAY') AND
+                          (PeriodTrans."Group Text" <> 'NET PAY') THEN BEGIN
+                                Index := Index + 1;
+                                strGrpText := PeriodTrans."Group Text";
+                                Trans[ColumnNo, Index] := strGrpText;
+                                TransAmt[ColumnNo, Index] := '.';
+                                // TransBal[ColumnNo,Index]:='.';
+                            END;
 
-                                                          IF PeriodTrans.Balance > 0 THEN BEGIN
-                                                              Index := Index + 1;
-                                                              Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
-                                                              EVALUATE(TransAmt[ColumnNo, Index], FORMAT(PeriodTrans.Balance));
-                                                          END;
+                            IF PeriodTrans.Balance > 0 THEN BEGIN
+                                Index := Index + 1;
+                                Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
+                                EVALUATE(TransAmt[ColumnNo, Index], FORMAT(PeriodTrans.Balance));
+                            END;
 
-                                                      END ELSE BEGIN
+                        END ELSE BEGIN
 
-                                                          IF (PeriodTrans."Group Text" <> 'DAILY WAGE') AND (PeriodTrans."Group Text" <> 'GROSS PAY')
-                                                                      AND (PeriodTrans."Group Text" <> 'NET PAY') THEN BEGIN
-                                                              IF PeriodTrans.Balance > 0 THEN BEGIN
-                                                                  Index := Index + 1;
-                                                                  strGrpText := PeriodTrans."Group Text";
-                                                                  Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
-                                                                  EVALUATE(TransAmt[ColumnNo, Index], FORMAT(PeriodTrans.Balance));
-                                                              END;
-                                                          END;
-                                                      END;
-                                                  UNTIL PeriodTrans.NEXT = 0;
+                            IF (PeriodTrans."Group Text" <> 'DAILY WAGE') AND (PeriodTrans."Group Text" <> 'GROSS PAY')
+                                        AND (PeriodTrans."Group Text" <> 'NET PAY') THEN BEGIN
+                                IF PeriodTrans.Balance > 0 THEN BEGIN
+                                    Index := Index + 1;
+                                    strGrpText := PeriodTrans."Group Text";
+                                    Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
+                                    EVALUATE(TransAmt[ColumnNo, Index], FORMAT(PeriodTrans.Balance));
+                                END;
+                            END;
+                        END;
+                    UNTIL PeriodTrans.NEXT = 0;
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
                 END;
                 PeriodTrans.RESET;
@@ -1303,16 +1303,16 @@ report 50904 "Casual-Individual Payslips"
                 PeriodTrans.SETCURRENTKEY(PeriodTrans."Employee Code", PeriodTrans."Period Month", PeriodTrans."Period Year",
                 PeriodTrans."Group Order", PeriodTrans."Sub Group Order");
                 IF PeriodTrans.FIND('-') THEN BEGIN
-                                                  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                  REPEAT
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    REPEAT
 
-                                                      IF ((PeriodTrans."Group Text" = 'DEDUCTIONS') AND (PeriodTrans."Transaction Name" = 'Pension (Self)')) THEN BEGIN
-                                                          Index := Index + 1;
-                                                          strGrpText := 'DEDUCTIONS';
-                                                          Trans[ColumnNo, Index] := 'Pension (Employer)';
-                                                          EVALUATE(TransAmt[ColumnNo, Index], FORMAT(((PeriodTrans.Amount) * (2))));
-                                                      END;
-                                                  UNTIL PeriodTrans.NEXT = 0;
+                        IF ((PeriodTrans."Group Text" = 'DEDUCTIONS') AND (PeriodTrans."Transaction Name" = 'Pension (Self)')) THEN BEGIN
+                            Index := Index + 1;
+                            strGrpText := 'DEDUCTIONS';
+                            Trans[ColumnNo, Index] := 'Pension (Employer)';
+                            EVALUATE(TransAmt[ColumnNo, Index], FORMAT(((PeriodTrans.Amount) * (2))));
+                        END;
+                    UNTIL PeriodTrans.NEXT = 0;
                 END;
 
 

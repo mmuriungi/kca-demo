@@ -4,7 +4,7 @@ report 50034 "VAT Witholding Report"
     Caption = 'VAT Witholding Report';
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = RDLC;
-    RDLCLayout = './Finance/Reports/SSR/VAT Witholding Report.rdl';
+    RDLCLayout = './Layouts/VAT Witholding Report.rdl';
     dataset
     {
         dataitem(FinWitholdingTaxLedges; "Fin-Witholding Tax Ledges")

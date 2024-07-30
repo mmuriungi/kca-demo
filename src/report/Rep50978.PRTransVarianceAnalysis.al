@@ -1,7 +1,7 @@
 report 50978 "PR Trans  Variance Analysis"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './payroll\Report\SSR\PRTransVarianceAnalysis.rdl';
+    RDLCLayout = './Layouts/PRTransVarianceAnalysis.rdl';
     Caption = 'PR Transactions Variance Analysis';
 
     dataset

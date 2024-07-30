@@ -1,7 +1,7 @@
 report 55401 "Audit Evaluation Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Audit/Report/SSR/AuditEvaluationReport.rdl';
+    RDLCLayout = './Layouts/AuditEvaluationReport.rdl';
 
     dataset
     {

@@ -3,7 +3,7 @@ report 50001 "Claim Requisition Report"
     Caption = 'Claim Requisition Report';
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = RDLC;
-    RDLCLayout = './Finance/Reports/SSR/ClaimsReport2.rdl';
+    RDLCLayout = './Layouts/ClaimsReport2.rdl';
 
     dataset
     {

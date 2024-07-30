@@ -5,7 +5,7 @@ report 50020 "Trial BalanceTMUC"
     // ease of conversion, the 4 Percent To Total columns are still within the array,
     // even though the user can NEVER select them. These are columns 2, 4, 6 & 8.
     DefaultLayout = RDLC;
-    RDLCLayout = './Trial Balance.rdlc';
+    RDLCLayout = './Layouts/Trial Balance.rdl';
 
     Caption = 'Trial Balance2017';
 

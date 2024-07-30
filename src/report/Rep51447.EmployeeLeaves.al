@@ -1,7 +1,7 @@
 report 51447 "Employee Leaves"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './hr/Reports/SSR/EmployeeLeaves.rdl';
+    RDLCLayout = './Layouts/EmployeeLeaves.rdl';
 
     dataset
     {

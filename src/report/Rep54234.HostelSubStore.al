@@ -1,7 +1,7 @@
 report 54234 "Hostel Sub-Store "
 {
     Caption = 'Hostel Sub-Store ';
-    RDLCLayout = './HOSTEL/stockreport.rdl';
+    RDLCLayout = './Layouts/stockreport.rdl';
     dataset
     {
         dataitem(HostelSubStore; "Hostel Sub-Store")

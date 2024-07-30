@@ -1,7 +1,7 @@
 report 53058 "Fixed Asset Register Detailed"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Fixed Asset Register Detailed.rdlc';
+    RDLCLayout = './Layouts/Fixed Asset Register Detailed.rdl';
 
     dataset
     {

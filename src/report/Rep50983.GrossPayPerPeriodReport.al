@@ -2,7 +2,7 @@ Report 50983 "Gross Pay Per Period Report"
 {
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = RDLC;
-    RDLCLayout = './Payroll/payroll Variance/SSR/Levi Management/Reports/SSR/GrossPayPerPeriod.rdl';
+    RDLCLayout = './Layouts/GrossPayPerPeriod.rdl';
 
     dataset
     {
