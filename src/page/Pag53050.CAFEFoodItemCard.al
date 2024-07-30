@@ -698,28 +698,28 @@ page 53050 "CAFE Food Item Card"
         DampenerQtyEnabled: Boolean;
         OverflowLevelEnabled: Boolean;
     begin
-        PlanningGetParam.SetUpPlanningControls(Rec."Reordering Policy", Rec."Include Inventory",
-          TimeBucketEnabled, SafetyLeadTimeEnabled, SafetyStockQtyEnabled,
-          ReorderPointEnabled, ReorderQtyEnabled, MaximumInventoryEnabled,
-          MinimumOrderQtyEnabled, MaximumOrderQtyEnabled, OrderMultipleEnabled, IncludeInventoryEnabled,
-          ReschedulingPeriodEnabled, LotAccumulationPeriodEnabled,
-          DampenerPeriodEnabled, DampenerQtyEnabled, OverflowLevelEnabled);
+        // PlanningGetParam.SetPlanningParameters(Rec."Reordering Policy", Rec."Include Inventory",
+        //   TimeBucketEnabled, SafetyLeadTimeEnabled, SafetyStockQtyEnabled,
+        //   ReorderPointEnabled, ReorderQtyEnabled, MaximumInventoryEnabled,
+        //   MinimumOrderQtyEnabled, MaximumOrderQtyEnabled, OrderMultipleEnabled, IncludeInventoryEnabled,
+        //   ReschedulingPeriodEnabled, LotAccumulationPeriodEnabled,
+        //   DampenerPeriodEnabled, DampenerQtyEnabled, OverflowLevelEnabled);
 
-        TimeBucketEnable := TimeBucketEnabled;
-        SafetyLeadTimeEnable := SafetyLeadTimeEnabled;
-        SafetyStockQtyEnable := SafetyStockQtyEnabled;
-        ReorderPointEnable := ReorderPointEnabled;
-        ReorderQtyEnable := ReorderQtyEnabled;
-        MaximumInventoryEnable := MaximumInventoryEnabled;
-        MinimumOrderQtyEnable := MinimumOrderQtyEnabled;
-        MaximumOrderQtyEnable := MaximumOrderQtyEnabled;
-        OrderMultipleEnable := OrderMultipleEnabled;
-        IncludeInventoryEnable := IncludeInventoryEnabled;
-        ReschedulingPeriodEnable := ReschedulingPeriodEnabled;
-        LotAccumulationPeriodEnable := LotAccumulationPeriodEnabled;
-        DampenerPeriodEnable := DampenerPeriodEnabled;
-        DampenerQtyEnable := DampenerQtyEnabled;
-        OverflowLevelEnable := OverflowLevelEnabled;
+        // TimeBucketEnable := TimeBucketEnabled;
+        // SafetyLeadTimeEnable := SafetyLeadTimeEnabled;
+        // SafetyStockQtyEnable := SafetyStockQtyEnabled;
+        // ReorderPointEnable := ReorderPointEnabled;
+        // ReorderQtyEnable := ReorderQtyEnabled;
+        // MaximumInventoryEnable := MaximumInventoryEnabled;
+        // MinimumOrderQtyEnable := MinimumOrderQtyEnabled;
+        // MaximumOrderQtyEnable := MaximumOrderQtyEnabled;
+        // OrderMultipleEnable := OrderMultipleEnabled;
+        // IncludeInventoryEnable := IncludeInventoryEnabled;
+        // ReschedulingPeriodEnable := ReschedulingPeriodEnabled;
+        // LotAccumulationPeriodEnable := LotAccumulationPeriodEnabled;
+        // DampenerPeriodEnable := DampenerPeriodEnabled;
+        // DampenerQtyEnable := DampenerQtyEnabled;
+        // OverflowLevelEnable := OverflowLevelEnabled;
     end;
 
     local procedure EnableCostingControls()
@@ -730,7 +730,7 @@ page 53050 "CAFE Food Item Card"
 
     local procedure SetSocialListeningFactboxVisibility()
     var
-        //SocialListeningMgt: Codeunit "Social Listening Management";
+    //SocialListeningMgt: Codeunit "Social Listening Management";
     begin
         //SocialListeningMgt.GetItemFactboxVisibility(Rec, SocialListeningSetupVisible, SocialListeningVisible);
     end;
@@ -772,21 +772,21 @@ page 53050 "CAFE Food Item Card"
 
     local procedure CreateItemFromTemplate()
     var
-        ItemTemplate: Record "Item Template";
+        ItemTemplate: Record "Item Templ.";
         Item: Record "Item";
     begin
-        IF NewMode THEN BEGIN
-            IF ItemTemplate.NewItemFromTemplate(Item) THEN BEGIN
-                Rec.COPY(Item);
-                CurrPage.UPDATE;
-            END;
+        // IF NewMode THEN BEGIN
+        //     IF ItemTemplate.Get(Item."NO") THEN BEGIN
+        //         Rec.COPY(Item);
+        //         CurrPage.UPDATE;
+        //     END;
 
-            // Enforce FIFO costing method for Foundation
-            IF ApplicationAreaSetup.IsFoundationEnabled THEN
-                Item.VALIDATE("Costing Method", Rec."Costing Method"::FIFO);
+        //     // Enforce FIFO costing method for Foundation
+        //     IF ApplicationAreaSetup.IsFoundationEnabled THEN
+        //         Item.VALIDATE("Costing Method", Rec."Costing Method"::FIFO);
 
-            NewMode := FALSE;
-        END;
+        //     NewMode := FALSE;
+        // END;
     end;
 }
 

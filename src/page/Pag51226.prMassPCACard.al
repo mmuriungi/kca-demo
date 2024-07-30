@@ -126,7 +126,7 @@ page 51226 "prMassPCA Card"
                     begin
 
                         DocumentType := DocumentType::MassPCA;
-                        ApprovalEntries.Setfilters(DATABASE::prMassPCAHD, DocumentType, Rec."Change Advice Serial No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::prMassPCAHD, DocumentType, Rec."Change Advice Serial No.");
                         ApprovalEntries.RUN;
                         ApprovalsMgmt.OpenApprovalEntriesPage(Rec.RECORDID)
                     end;

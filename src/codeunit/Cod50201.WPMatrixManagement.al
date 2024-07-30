@@ -13,7 +13,7 @@ codeunit 50201 "WP Matrix Management"
     procedure SetPeriodColumnSet(DateFilter: Text[1024]; PeriodType: Option Day,Week,Month,Quarter,Year,"Accounting Period"; Direction: Option Backward,Forward; var FirstColumn: Date; var LastColumn: Date; NoOfColumns: Integer)
     var
         Period: Record "Date";
-        PeriodFormMgt: Codeunit "PeriodFormManagement";
+        PeriodFormMgt: Codeunit "PeriodPageManagement";
         Steps: Integer;
         TmpFirstColumn: Date;
         TmpLastColumn: Date;
@@ -205,7 +205,7 @@ codeunit 50201 "WP Matrix Management"
     procedure FillPeriodColumns(PeriodType: Option Day,Week,Month,Quarter,Year,"Accounting Period"; var MatrixColumnCaptions: array[32] of Text[1024]; var MatrixRecords: array[32] of Record "Date"; FirstColumn: Date; LastColumn: Date; ShowColumnName: Boolean)
     var
         Period: Record "Date";
-        PeriodFormMgt: Codeunit "PeriodFormManagement";
+        PeriodFormMgt: Codeunit "PeriodPageManagement";
         i: Integer;
     begin
         Period.SETRANGE("Period Start", FirstColumn, LastColumn);
@@ -360,7 +360,7 @@ codeunit 50201 "WP Matrix Management"
     var
         Steps: Integer;
         Calendar: Record "Date";
-        PeriodFormMgt: Codeunit "PeriodFormManagement";
+        PeriodFormMgt: Codeunit "PeriodPageManagement";
     begin
         CLEAR(CaptionSet);
         CaptionRange := '';
@@ -486,7 +486,7 @@ codeunit 50201 "WP Matrix Management"
     local procedure FindDate(SearchString: Text[3]; var Calendar: Record "Date"; PeriodType: Option Day,Week,Month,Quarter,Year,"Accounting Period"; ErrorWhenNotFound: Boolean): Boolean
     var
         Found: Boolean;
-        PeriodFormMgt: Codeunit "PeriodFormManagement";
+        PeriodFormMgt: Codeunit "PeriodPageManagement";
     begin
         CLEAR(PeriodFormMgt);
         Found := PeriodFormMgt.FindDate(SearchString, Calendar, PeriodType);

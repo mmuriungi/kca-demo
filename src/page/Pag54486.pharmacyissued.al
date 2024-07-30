@@ -120,7 +120,7 @@ page 54486 "pharmacy issued"
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::Requisition;
-                        ApprovalEntries.Setfilters(DATABASE::"PROC-Store Requistion Header", DocumentType, Rec."No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"PROC-Store Requistion Header", DocumentType, Rec."No.");
                         ApprovalEntries.RUN;
                     end;
                 }

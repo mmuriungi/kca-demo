@@ -231,7 +231,7 @@ page 50918 "HRM List Submitted to CIRO"
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::"Employee Requisition";
-                        ApprovalEntries.Setfilters(DATABASE::"HRM-Employee Requisitions", DocumentType, Rec."Requisition No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"HRM-Employee Requisitions", DocumentType, Rec."Requisition No.");
                         ApprovalEntries.Run;
                     end;
                 }

@@ -968,7 +968,7 @@ codeunit 51813 DimensionManagement2
         InsertObject(TempAllObjWithCaption, DATABASE::"Item Charge");
         InsertObject(TempAllObjWithCaption, DATABASE::"Work Center");
         InsertObject(TempAllObjWithCaption, DATABASE::"Service Contract Header");
-        InsertObject(TempAllObjWithCaption, DATABASE::"Customer Template");
+        InsertObject(TempAllObjWithCaption, DATABASE::"Customer Templ.");
         InsertObject(TempAllObjWithCaption, DATABASE::"Service Contract Template");
         InsertObject(TempAllObjWithCaption, DATABASE::"IC Partner");
         InsertObject(TempAllObjWithCaption, DATABASE::"Service Order Type");

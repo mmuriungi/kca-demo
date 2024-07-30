@@ -300,7 +300,7 @@ page 52072 "COD-Applicants"
                         ApprovalEntries: Page "Approval Entries";
                     begin
                         DocumentType := DocumentType::Admission;
-                        ApprovalEntries.Setfilters(DATABASE::"ACA-Applic. Form Header", DocumentType, Rec."Application No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"ACA-Applic. Form Header", DocumentType, Rec."Application No.");
                         ApprovalEntries.RUN;
                     end;
                 }

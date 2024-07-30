@@ -83,7 +83,7 @@ page 50228 "Disposal Plan"
                     DocumentType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,Receipt,"Staff Claim","Staff Advance",AdvanceSurrender,"Bank Slip",Grant,"Grant Surrender",JV,"Employee Requisition","Leave Application","Training Requisition","Transport Requisition","Grant Task","Concept Note",Proposal,"Job Approval","Disciplinary Approvals",GRN,Clearence,Donation,Transfer,PayChange,Budget,GL,"Cash Purchase","Leave Reimburse",Appraisal,Inspection,Closeout,"Lab Request",ProposalProjectsAreas,"Leave Carry over","IB Transfer",EmpTransfer,LeavePlanner,HrAssetTransfer,Contract,Project;
                 begin
                     DocType := DocType::Disposal;
-                    ApprovalEntries.Setfilters(DATABASE::"Disposal Plan Table Header", DocType, Rec."No.");
+                    ApprovalEntries.SetRecordFilters(DATABASE::"Disposal Plan Table Header", DocType, Rec."No.");
                     ApprovalEntries.RUN;
                 end;
             }

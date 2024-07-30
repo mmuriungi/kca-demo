@@ -119,7 +119,7 @@ page 50059 "PROC-Posted Store Reqs"
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::Requisition;
-                        ApprovalEntries.Setfilters(DATABASE::"PROC-Store Requistion Header", DocumentType, Rec."No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"PROC-Store Requistion Header", DocumentType, Rec."No.");
                         ApprovalEntries.RUN;
                     end;
                 }

@@ -751,7 +751,7 @@ page 50123 "Approved Purchase Requisition"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 #pragma warning disable AL0603
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
 #pragma warning restore AL0603
                         ApprovalEntries.RUN;
                     end;

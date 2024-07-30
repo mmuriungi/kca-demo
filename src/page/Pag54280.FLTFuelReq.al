@@ -233,7 +233,7 @@ page 54280 "FLT-Fuel Req."
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::TR;
-                        ApprovalEntries.Setfilters(DATABASE::"FLT-Fuel & Maintenance Req.", DocumentType, Rec."Requisition No");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"FLT-Fuel & Maintenance Req.", DocumentType, Rec."Requisition No");
                         ApprovalEntries.Run;
                     end;
                 }

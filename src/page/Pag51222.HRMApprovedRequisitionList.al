@@ -231,7 +231,7 @@ page 51222 "HRM Approved Requisition List"
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::"Employee Requisition";
-                        ApprovalEntries.Setfilters(DATABASE::"HRM-Employee Requisitions", DocumentType, Rec."Requisition No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"HRM-Employee Requisitions", DocumentType, Rec."Requisition No.");
                         ApprovalEntries.Run;
                     end;
                 }

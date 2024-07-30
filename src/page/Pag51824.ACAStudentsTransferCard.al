@@ -308,7 +308,7 @@ page 51824 "ACA-Students Transfer Card"
                 begin
 
                     DocumentType := DocumentType::"School Transfer";
-                    ApprovalEntries.Setfilters(DATABASE::"ACA-Students Transfer", DocumentType, Rec."Student No");
+                    ApprovalEntries.SetRecordFilters(DATABASE::"ACA-Students Transfer", DocumentType, Rec."Student No");
                     ApprovalEntries.RUN;
                 end;
             }

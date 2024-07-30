@@ -373,7 +373,7 @@ page 51820 "ACA-Application Form Header a"
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::Admission;
-                        ApprovalEntries.Setfilters(DATABASE::"ACA-Applic. Form Header", DocumentType, Rec."Application No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"ACA-Applic. Form Header", DocumentType, Rec."Application No.");
                         ApprovalEntries.RUN;
                     end;
                 }

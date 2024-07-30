@@ -1253,7 +1253,7 @@ codeunit 50905 AccSchedManagement2
     var
         ValueAsText: Text[30];
     begin
-        ValueAsText := MatrixMgt.FormatValue(Value, ColumnLayout2."Rounding Factor", CalcAddCurr);
+        ValueAsText := MatrixMgt.FormatAmount(Value, ColumnLayout2."Rounding Factor", CalcAddCurr);
 
         if (ValueAsText <> '') and
            (ColumnLayout2."Column Type" = ColumnLayout2."Column Type"::Formula) and
@@ -2032,7 +2032,7 @@ then
     procedure FindPeriod(var AccScheduleLine: Record "Acc. Schedule Line"; SearchText: Text[3]; PeriodType: Option Day,Week,Month,Quarter,Year,"Accounting Period")
     var
         Calendar: Record Date;
-        PeriodFormMgt: Codeunit PeriodFormManagement;
+        PeriodFormMgt: Codeunit PeriodPageManagement;
     begin
         if AccScheduleLine.GetFilter("Date Filter") <> '' then begin
             Calendar.SetFilter("Period Start", AccScheduleLine.GetFilter("Date Filter"));

@@ -382,7 +382,7 @@ page 50162 "Budget Workplan Matrix"
         BusUnit: Record "Business Unit";
         Period: Record "Date";
         DimVal: Record "Dimension Value";
-        PeriodFormMgt: Codeunit "PeriodFormManagement";
+        PeriodFormMgt: Codeunit "PeriodPageManagement";
         Found: Boolean;
         WorkPlan: Record "Workplan Activities";
     begin
@@ -516,7 +516,7 @@ page 50162 "Budget Workplan Matrix"
         BusUnit: Record "Business Unit";
         Period: Record "Date";
         DimVal: Record "Dimension Value";
-        PeriodFormMgt: Codeunit "PeriodFormManagement";
+        PeriodFormMgt: Codeunit "PeriodPageManagement";
         ResultSteps: Integer;
         WorkPlan: Record "Workplan Activities";
     begin

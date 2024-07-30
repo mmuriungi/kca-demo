@@ -136,7 +136,7 @@ page 54270 "FLT-Transport - Closed"
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::TransportRequest;
-                        ApprovalEntries.Setfilters(DATABASE::"FLT-Transport Requisition", DocumentType, Rec."Transport Requisition No");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"FLT-Transport Requisition", DocumentType, Rec."Transport Requisition No");
                         ApprovalEntries.Run;
                     end;
                 }

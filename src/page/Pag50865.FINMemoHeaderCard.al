@@ -205,7 +205,7 @@ page 50865 "FIN-Memo Header Card"
 
                 trigger OnAction()
                 begin
-                    ApprovalEntries.Setfilters(DATABASE::"FIN-Memo Header", 8, Rec."No.");
+                    ApprovalEntries.SetRecordFilters(DATABASE::"FIN-Memo Header", 8, Rec."No.");
                     ApprovalEntries.RUN;
                 end;
             }

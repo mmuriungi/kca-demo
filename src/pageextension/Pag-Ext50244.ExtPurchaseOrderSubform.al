@@ -42,18 +42,18 @@ pageextension 50244 "ExtPurchase Order Subform" extends "Purchase Order Subform"
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Item Reference Unit of Measure field.';
             }
-            field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
-            {
-                ApplicationArea = all;
-                Editable = true;
-                Visible = true;
-            }
-            field("Gen. Prod. Posting Group"; Rec."Gen. Prod. Posting Group")
-            {
-                ApplicationArea = all;
-                Editable = true;
-                Visible = true;
-            }
+            // field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
+            // {
+            //     ApplicationArea = all;
+            //     Editable = true;
+            //     Visible = true;
+            // }
+            // field("Gen. Prod. Posting Group"; Rec."Gen. Prod. Posting Group")
+            // {
+            //     ApplicationArea = all;
+            //     Editable = true;
+            //     Visible = true;
+            // }
             /* field("Quantity Invoiced 2"; Rec."Quantity Invoiced")
             {
                 ApplicationArea = All;
