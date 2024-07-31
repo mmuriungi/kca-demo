@@ -283,13 +283,13 @@ page 50052 "Proc-Purchase Quotes List"
                     PromotedCategory = Category4;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
 
-                    trigger OnAction()
-                    var
-                        WorkflowsEntriesBuffer: Record "Workflows Entries Buffer";
-                    begin
-                        WorkflowsEntriesBuffer.RunWorkflowEntriesPage(
-                            Rec.RecordId, DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
-                    end;
+                    //trigger OnAction()
+                    // var
+                    //     WorkflowsEntriesBuffer: Record "Workflows Entries Buffer";
+                    // begin
+                    //     WorkflowsEntriesBuffer.RunWorkflowEntriesPage(
+                    //         Rec.RecordId, DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
+                    // end;
                 }
             }
         }

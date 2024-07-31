@@ -1219,10 +1219,10 @@ page 54522 "Cafe Store"
                         Image = Timeline;
                         ApplicationArea = All;
 
-                        trigger OnAction()
-                        begin
-                            Rec.ShowTimelineFromItem(Rec);
-                        end;
+                        // trigger OnAction()
+                        // begin
+                        //     Rec.ShowTimelineFromItem(Rec);
+                        // end;
                     }
                 }
             }
@@ -1803,7 +1803,7 @@ page 54522 "Cafe Store"
 
     local procedure SetSocialListeningFactboxVisibility()
     var
-        //SocialListeningMgt: Codeunit 871;
+    //SocialListeningMgt: Codeunit 871;
     begin
         //SocialListeningMgt.GetItemFactboxVisibility(Rec, SocialListeningSetupVisible, SocialListeningVisible);
     end;

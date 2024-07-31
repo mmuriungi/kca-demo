@@ -57,7 +57,7 @@ page 50015 "FIN-Imprests List"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"FIN-Imprest Header", 6, Rec."No.");
+                        ApprovalEntries.SetRecordfilters(DATABASE::"FIN-Imprest Header", 6, Rec."No.");
                         ApprovalEntries.RUN;
                     end;
                 }

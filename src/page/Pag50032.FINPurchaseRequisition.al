@@ -136,7 +136,7 @@ page 50032 "FIN-Purchase Requisition"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
 
                         ApprovalEntries.RUN;
                     end;

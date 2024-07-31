@@ -134,7 +134,7 @@ page 54269 "FLT-Approved transport Req"
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::TR;
-                        ApprovalEntries.Setfilters(DATABASE::"FLT-Transport Requisition", DocumentType, Rec."Transport Requisition No");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"FLT-Transport Requisition", DocumentType, Rec."Transport Requisition No");
                         ApprovalEntries.Run;
                     end;
                 }

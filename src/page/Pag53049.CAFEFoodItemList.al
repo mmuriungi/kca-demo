@@ -541,21 +541,21 @@ page 53049 "CAFE Food Item List"
                         PAGE.RUN(PAGE::"Items by Location", Rec);
                     end;
                 }
-                group("&Item Availability by")
-                {
-                    Caption = '&Item Availability by';
-                    Image = ItemAvailability;
-                    action(Timeline)
-                    {
-                        Caption = 'Timeline';
-                        Image = Timeline;
+                // group("&Item Availability by")
+                // {
+                //     Caption = '&Item Availability by';
+                //     Image = ItemAvailability;
+                //     action(Timeline)
+                //     {
+                //         Caption = 'Timeline';
+                //         Image = Timeline;
 
-                        trigger OnAction()
-                        begin
-                            Rec.ShowTimelineFromItem(Rec);
-                        end;
-                    }
-                }
+                //         trigger OnAction()
+                //         begin
+                //             Rec.ShowTimelineFromItem(Rec);
+                //         end;
+                //     }
+                // }
             }
 
         }

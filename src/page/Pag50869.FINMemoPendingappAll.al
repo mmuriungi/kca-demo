@@ -106,7 +106,7 @@ page 50869 "FIN-Memo Pending app All"
                 trigger OnAction()
                 begin
                     DocumentType := DocumentType::Memo;
-                    ApprovalEntries.Setfilters(DATABASE::"FIN-Memo Header", DocumentType, Rec."No.");
+                    ApprovalEntries.SetRecordFilters(DATABASE::"FIN-Memo Header", DocumentType, Rec."No.");
                     ApprovalEntries.RUN;
                 end;
             }

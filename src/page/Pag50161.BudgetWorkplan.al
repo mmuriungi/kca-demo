@@ -856,7 +856,7 @@ page 50161 "Budget Workplan"
     var
         GLAcc: Record "Workplan Activities";
         Calendar: Record "Date";
-        PeriodFormMgt: Codeunit "PeriodFormManagement";
+        PeriodFormMgt: Codeunit "PeriodPageManagement";
     begin
         IF DateFilter <> '' THEN BEGIN
             Calendar.SETFILTER("Period Start", DateFilter);

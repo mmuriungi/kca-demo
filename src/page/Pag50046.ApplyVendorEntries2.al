@@ -1166,33 +1166,33 @@ page 50046 "Apply Vendor Entries 2"
         NewApplicationDate: Date;
         NewDocumentNo: Code[20];
     begin
-        IF CalcType = CalcType::Direct THEN BEGIN
-            IF ApplyingVendLedgEntry."Entry No." <> 0 THEN BEGIN
-                Rec := ApplyingVendLedgEntry;
-                ApplicationDate := VendEntryApplyPostedEntries.GetApplicationDate(Rec);
+        //     IF CalcType = CalcType::Direct THEN BEGIN
+        //         IF ApplyingVendLedgEntry."Entry No." <> 0 THEN BEGIN
+        //             Rec := ApplyingVendLedgEntry;
+        //             ApplicationDate := VendEntryApplyPostedEntries.GetApplicationDate(Rec);
 
-                PostApplication.SetValues(Rec."Document No.", ApplicationDate);
-                IF ACTION::OK = PostApplication.RUNMODAL THEN BEGIN
-                    PostApplication.GetValues(NewDocumentNo, NewApplicationDate);
-                    IF NewApplicationDate < ApplicationDate THEN
-                        ERROR(Text013, Rec.FIELDCAPTION("Posting Date"), Rec.TABLECAPTION);
-                END ELSE
-                    ERROR(Text019);
+        //             PostApplication.SetParameters(Rec."Document No.", ApplicationDate);
+        //             IF ACTION::OK = PostApplication.RUNMODAL THEN BEGIN
+        //                 PostApplication.GetParameters(NewDocumentNo, NewApplicationDate);
+        //                 IF NewApplicationDate < ApplicationDate THEN
+        //                     ERROR(Text013, Rec.FIELDCAPTION("Posting Date"), Rec.TABLECAPTION);
+        //             END ELSE
+        //                 ERROR(Text019);
 
-                IF PreviewMode THEN
-                    VendEntryApplyPostedEntries.PreviewApply(Rec, NewDocumentNo, NewApplicationDate)
-                ELSE
-                    VendEntryApplyPostedEntries.Apply(Rec, NewDocumentNo, NewApplicationDate);
+        //             IF PreviewMode THEN
+        //                 VendEntryApplyPostedEntries.PreviewApply(Rec, NewDocumentNo, NewApplicationDate)
+        //             ELSE
+        //                 VendEntryApplyPostedEntries.Apply(Rec, NewDocumentNo, NewApplicationDate);
 
-                IF NOT PreviewMode THEN BEGIN
-                    MESSAGE(Text012);
-                    PostingDone := TRUE;
-                    CurrPage.CLOSE;
-                END;
-            END ELSE
-                ERROR(Text002);
-        END ELSE
-            ERROR(Text003);
+        //             IF NOT PreviewMode THEN BEGIN
+        //                 MESSAGE(Text012);
+        //                 PostingDone := TRUE;
+        //                 CurrPage.CLOSE;
+        //             END;
+        //         END ELSE
+        //             ERROR(Text002);
+        //     END ELSE
+        //         ERROR(Text003);
     end;
 
     local procedure CheckActionPerformed(): Boolean

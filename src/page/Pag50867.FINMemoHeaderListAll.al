@@ -108,7 +108,7 @@ page 50867 "FIN-Memo Header List All"
 
                 trigger OnAction()
                 begin
-                    ApprovalEntries.Setfilters(DATABASE::"FIN-Memo Header", 8, Rec."No.");
+                    ApprovalEntries.SetRecordFilters(DATABASE::"FIN-Memo Header", 8, Rec."No.");
                     ApprovalEntries.RUN;
                 end;
             }

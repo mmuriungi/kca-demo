@@ -132,7 +132,7 @@ page 54271 "FLT-Submitted Transport List"
                     trigger OnAction()
                     begin
                         DocumentType := DocumentType::TR;
-                        ApprovalEntries.Setfilters(DATABASE::"FLT-Transport Requisition", DocumentType, Rec."Transport Requisition No");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"FLT-Transport Requisition", DocumentType, Rec."Transport Requisition No");
                         ApprovalEntries.Run;
                     end;
                 }

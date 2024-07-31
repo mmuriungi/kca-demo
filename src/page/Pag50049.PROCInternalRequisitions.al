@@ -224,7 +224,7 @@ page 50049 "PROC-Internal Requisitions"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 #pragma warning disable AL0603
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
+                        ApprovalEntries.SetRecordfilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
 #pragma warning restore AL0603
                         ApprovalEntries.RUN;
                     end;

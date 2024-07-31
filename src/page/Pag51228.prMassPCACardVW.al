@@ -91,7 +91,7 @@ page 51228 "prMassPCA Card VW"
                     begin
 
                         DocumentType := DocumentType::MassPCA;
-                        ApprovalEntries.Setfilters(DATABASE::"prBasic pay PCA", DocumentType, Rec."Change Advice Serial No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"prBasic pay PCA", DocumentType, Rec."Change Advice Serial No.");
                         ApprovalEntries.RUN;
                     end;
                 }

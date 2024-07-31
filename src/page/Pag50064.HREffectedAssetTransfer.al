@@ -100,7 +100,7 @@ page 50064 "HR Effected Asset Transfer"
                 begin
 
                     DocumentType := DocumentType::"Asset Transfer";
-                    ApprovalEntries.Setfilters(DATABASE::"HR Asset Transfer Header", DocumentType, Rec."No.");
+                    ApprovalEntries.SetRecordFilters(DATABASE::"HR Asset Transfer Header", DocumentType, Rec."No.");
                     ApprovalEntries.RUN;
                 end;
             }

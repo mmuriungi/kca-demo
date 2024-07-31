@@ -138,7 +138,7 @@ page 50040 "FIN-Staff Claim List Posted"
 
 
                     DocumentType := DocumentType::"Staff Claim";
-                    Approvalentries.Setfilters(DATABASE::"FIN-Staff Claims Header", 6, Rec."No.");
+                    Approvalentries.SetRecordFilters(DATABASE::"FIN-Staff Claims Header", 6, Rec."No.");
                     Approvalentries.RUN;
                 end;
             }
