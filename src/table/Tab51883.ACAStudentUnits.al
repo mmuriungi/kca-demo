@@ -1548,7 +1548,7 @@ table 51883 "ACA-Student Units"
         {
 
         }
-         field(60197; ModeOfStudy; code[20])
+        field(60197; ModeOfStudy; code[20])
         {
             //TableRelation = "ACA-Settlement Type".ModeofStudy;
             //FieldClass = FlowField;

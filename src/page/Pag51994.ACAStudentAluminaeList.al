@@ -9,7 +9,7 @@ page 51994 "ACA-Student Aluminae List"
     PageType = List;
     SourceTable = Customer;
     SourceTableView = WHERE("Customer Type" = CONST(Student),
-                            Status = FILTER(Alluminae | "Dropped Out" | Suspended | Expulsion | Discontinued | Deceased | Transferred));
+                            Status = FILTER(Alumni | "Dropped Out" | Suspended | Expulsion | Discontinued | Deceased | Transferred));
 
     layout
     {

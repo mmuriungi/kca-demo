@@ -44,7 +44,7 @@ page 51968 "ACA-Std Registration List"
                 {
                     ApplicationArea = All;
                 }
-                field("Barcode/QR Code"; Rec."Barcode/QR Code")
+                field("Barcode/QR Code"; Rec."Barcode Picture")
                 {
                     ApplicationArea = All;
                 }
@@ -230,7 +230,7 @@ page 51968 "ACA-Std Registration List"
                     trigger OnAction()
                     begin
                         IF CONFIRM('Are you sure you want to mark this students as an alluminae?', TRUE) = TRUE THEN BEGIN
-                            Rec.Status := Rec.Status::Alluminae;
+                            Rec.Status := Rec.Status::Alumni;
                             Rec.MODIFY;
                         END;
                     end;

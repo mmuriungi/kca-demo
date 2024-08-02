@@ -13,7 +13,7 @@ page 51975 "ACA-Student Picture"
                 {
                     ApplicationArea = All;
                 }
-                field("Barcode/QR Code"; Rec."Barcode/QR Code")
+                field("Barcode/QR Code"; Rec."Barcode Picture")
                 {
                     Enabled = false;
                     ApplicationArea = All;

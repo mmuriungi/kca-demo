@@ -1374,7 +1374,7 @@ codeunit 54205 BankIntegration
             Customer.Gender := AdminSetup.Gender;
             //  Customer."Telex No.":=Rec."Fax No.";
             Customer."E-Mail" := AdminSetup.Email;
-            Customer."ID No" := AdminSetup."ID Number/Birth Certificate";
+            Customer."ID No" := AdminSetup."ID Number/BirthCert";
             // Customer."Date Of Birth":=AdminSetup."Date of Birth";
             Customer."Date Registered" := Today;
             Customer."Customer Type" := Customer."Customer Type"::Student;

@@ -431,26 +431,27 @@ page 52815 "ACA-KUCCPS Student Reg"
                             admletter.SetRange("Application No.", Rec."Application No.");
                             Report.Run(66681, true, true, admletter);
                         end else
-                            if ((Rec."Programme Level" = Rec."Programme Level"::Bachelor)) then begin
+                            if ((Rec."Programme Level" = Rec."Programme Level"::Undergraduate)) then begin
 
                                 admletter.Reset();
                                 admletter.SetRange("Application No.", Rec."Application No.");
                                 Report.Run(66679, true, true, admletter);
                             end else
-                                if Rec."Programme Level" = Rec."Programme Level"::Masters then begin
+                                if Rec."Programme Level" = Rec."Programme Level"::Postgraduate then begin
 
                                     admletter.Reset();
                                     admletter.SetRange("Application No.", Rec."Application No.");
                                     Report.Run(66682, true, true, admletter);
 
-                                end else
-                                    if Rec."Programme Level" = Rec."Programme Level"::PHD then begin
+                                end;
+                    /* else
+                        if Rec."Programme Level" = Rec."Programme Level"::PHD then begin
 
-                                        admletter.Reset();
-                                        admletter.SetRange("Application No.", Rec."Application No.");
-                                        Report.Run(66683, true, true, admletter);
+                            admletter.Reset();
+                            admletter.SetRange("Application No.", Rec."Application No.");
+                            Report.Run(66683, true, true, admletter);
 
-                                    end
+                        end*/
                 end;
 
             }
