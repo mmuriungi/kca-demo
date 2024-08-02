@@ -294,7 +294,15 @@ table 51877 "ACA-General Set-Up"
         }
         field(50078; "Restrict to Year 1"; Boolean)
         {
-            
+
+        }
+        field(50079; "Available Accom. Spaces (Male)"; Integer)
+        {
+
+        }
+        field(50080; "Available Acc. Spaces(Female)"; integer)
+        {
+
         }
     }
 
