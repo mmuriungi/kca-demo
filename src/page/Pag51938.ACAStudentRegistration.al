@@ -327,7 +327,7 @@ page 51938 "ACA-Student Registration"
                     trigger OnAction()
                     begin
                         IF CONFIRM('Are you sure you want to mark this students as an alluminae?', TRUE) = TRUE THEN BEGIN
-                            Rec.Status := Rec.Status::Alluminae;
+                            Rec.Status := Rec.Status::Alumni;
                             Rec.MODIFY;
                         END;
                     end;
