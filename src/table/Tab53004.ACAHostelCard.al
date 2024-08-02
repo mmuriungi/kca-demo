@@ -161,6 +161,9 @@ table 53004 "ACA-Hostel Card"
         {
             DataClassification = ToBeClassified;
         }
+        field(50015; "Asignment Sequence"; Integer)
+        {
+        }
     }
 
     keys
