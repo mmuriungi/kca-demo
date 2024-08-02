@@ -502,7 +502,7 @@ table 51833 "ACA-Applic. Form Header"
         }
         field(50001; "Programme Level"; Option)
         {
-            OptionMembers = " ","Proffesional Course",Certificate,Diploma,Bachelor,"Post-Graduate Diploma",Masters,PHD;
+            OptionMembers = " ",Diploma,Undergraduate,Postgraduate,"Course List",certificate;
         }
         field(50002; "Knew Through (Other)"; Text[250])
         {
@@ -996,14 +996,55 @@ table 51833 "ACA-Applic. Form Header"
         }
         field(50142; Ethicity; Code[20])
         {
-            
+
         }
-
-
-
-
-
-
+        /*
+        Applications.Phone := ACAAdmImportedJABBuffer.Phone;
+                Applications."Alt. Phone" := ACAAdmImportedJABBuffer."Alt. Phone";
+                Applications.Box := ACAAdmImportedJABBuffer.Box;
+                Applications.Town := ACAAdmImportedJABBuffer.Town;
+                Applications."NHIF No" := ACAAdmImportedJABBuffer."NHIF No";
+                Applications.Location := ACAAdmImportedJABBuffer.Location;
+                Applications."Name of Chief" := ACAAdmImportedJABBuffer."Name of Chief";
+                Applications."Sub-County" := ACAAdmImportedJABBuffer."Sub-County";
+                Applications.Constituency := ACAAdmImportedJABBuffer.Constituency;
+                Applications."OLevel School" := ACAAdmImportedJABBuffer."OLevel School";
+                Applications."OLevel Year Completed" := KUCCPSImports."OLevel Year Completed";
+                */
+                //phone
+                field(50143; "Phone"; code[50])
+                {
+                }
+                field(50144; "Alt. Phone"; code[50])
+                {
+                }
+                field(50145; Box; code[50])
+                {
+                }
+                field(50146; Town; code[50])
+                {
+                }
+                field(50147; "NHIF No"; code[50])
+                {
+                }
+                field(50148; Location; code[50])
+                {
+                }
+                field(50149; "Name of Chief"; code[50])
+                {
+                }
+                field(50150; "Sub-County"; code[50])
+                {
+                }
+                field(50151; Constituency; code[50])
+                {
+                }
+                field(50152; "OLevel School"; code[50])
+                {
+                }
+                field(50153; "OLevel Year Completed"; code[50])
+                {
+                }
     }
 
     keys
