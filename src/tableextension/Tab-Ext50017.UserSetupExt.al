@@ -348,10 +348,10 @@ tableextension 50017 UserSetupExt extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
-
-
-
-
-
+        //"Can Edit Core Banking"
+        field(56671; "Can Edit Core Banking"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
