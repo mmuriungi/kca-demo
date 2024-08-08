@@ -2,6 +2,81 @@ tableextension 50019 "Customer Ext" extends Customer
 {
     fields
     {
+        field(10004; "UPS Zone"; Code[2])
+        {
+            Caption = 'UPS Zone';
+            DataClassification = CustomerContent;
+        }
+        field(10015; "Tax Exemption No."; Text[30])
+        {
+            Caption = 'Tax Exemption No.';
+            DataClassification = CustomerContent;
+        }
+        field(10017; "Bank Communication"; Option)
+        {
+            Caption = 'Bank Communication';
+            OptionMembers = " ";
+            DataClassification = CustomerContent;
+        }
+        field(10018; "Check Date Format"; Option)
+        {
+            Caption = 'Check Date Format';
+            OptionMembers = " ";
+            DataClassification = CustomerContent;
+        }
+        field(10019; "Check Date Separator"; Option)
+        {
+            Caption = 'Check Date Separator';
+            OptionMembers = " ";
+            DataClassification = CustomerContent;
+        }
+        field(10021; "Balance on Date"; Decimal)
+        {
+            Caption = 'Balance on Date';
+            DataClassification = CustomerContent;
+        }
+        field(10022; "Balance on Date (LCY)"; Decimal)
+        {
+            Caption = 'Balance on Date (LCY)';
+            DataClassification = CustomerContent;
+        }
+        field(10023; "RFC No."; Code[13])
+        {
+            Caption = 'RFC No.';
+            DataClassification = CustomerContent;
+            trigger onvalidate()
+            var
+                Customer: Record Customer;
+            begin
+                CASE "Tax Identification Type" OF
+                    "Tax Identification Type"::"Legal Entity":
+                        ValidateRFCNo(12);
+                    "Tax Identification Type"::"Natural Person":
+                        ValidateRFCNo(13);
+                END;
+                Customer.RESET;
+                Customer.SETRANGE("RFC No.", "RFC No.");
+                Customer.SETFILTER("No.", '<>%1', "No.");
+                IF Customer.FINDFIRST THEN
+                    MESSAGE(Text10002, "RFC No.");
+            end;
+        }
+        field(10024; "CURP No."; Code[18])
+        {
+            Caption = 'CURP No.';
+            DataClassification = CustomerContent;
+        }
+        field(10025; "State Inscription"; Text[30])
+        {
+            Caption = 'State Inscription';
+            DataClassification = CustomerContent;
+        }
+        field(14020; "Tax Identification Type"; Option)
+        {
+            Caption = 'Tax Identification Type';
+            OptionMembers = "Legal Entity","Natural Person";
+            DataClassification = CustomerContent;
+        }
         field(50000; "Bank Code"; Code[20])
         {
             Caption = 'Bank Code';
@@ -17,64 +92,266 @@ tableextension 50019 "Customer Ext" extends Customer
             Caption = 'Account No';
             DataClassification = ToBeClassified;
         }
-
+        field(50050; "Balance (Cafe)"; Decimal)
+        {
+            Caption = 'Balance (Cafe)';
+            FieldClass = FlowField;
+            CalcFormula = Sum("CAT-Det. Students Cafe Ledgers".Amount WHERE("Customer No." = FIELD("No.")));
+        }
+        field(50051; "Debit Amount (Cafe)"; Decimal)
+        {
+            Caption = 'Debit Amount (Cafe)';
+            FieldClass = FlowField;
+            CalcFormula = Sum("CAT-Det. Students Cafe Ledgers"."Debit Amount" WHERE("Customer No." = FIELD("No.")));
+        }
+        field(50052; "Credit Amount (Cafe)"; Decimal)
+        {
+            Caption = 'Credit Amount (Cafe)';
+            FieldClass = FlowField;
+            CalcFormula = Sum("CAT-Det. Students Cafe Ledgers"."Credit Amount" WHERE("Customer No." = FIELD("No.")));
+        }
+        field(63000; Gender; Option)
+        {
+            Caption = 'Gender';
+            OptionMembers = " ",Male,Female;
+            DataClassification = CustomerContent;
+        }
+        field(63001; "Date Of Birth"; Date)
+        {
+            Caption = 'Date Of Birth';
+            DataClassification = CustomerContent;
+        }
+        field(63002; Age; Decimal)
+        {
+            Caption = 'Age';
+            DataClassification = CustomerContent;
+        }
+        field(63003; "Marital Status"; Option)
+        {
+            Caption = 'Marital Status';
+            OptionMembers = " ";
+            DataClassification = CustomerContent;
+        }
+        field(63004; "Blood Group"; Text[5])
+        {
+            Caption = 'Blood Group';
+            DataClassification = CustomerContent;
+        }
+        field(63005; Weight; Decimal)
+        {
+            Caption = 'Weight';
+            DataClassification = CustomerContent;
+        }
+        field(63006; Height; Decimal)
+        {
+            Caption = 'Height';
+            DataClassification = CustomerContent;
+        }
+        field(63007; Religion; Code[20])
+        {
+            Caption = 'Religion';
+            DataClassification = CustomerContent;
+        }
+        field(63008; Citizenship; Text[100])
+        {
+            Caption = 'Citizenship';
+            DataClassification = CustomerContent;
+        }
+        field(63009; "Payments By"; Code[70])
+        {
+            Caption = 'Payments By';
+            DataClassification = CustomerContent;
+        }
+        field(63010; "Student Type"; Code[20])
+        {
+            Caption = 'Student Type';
+            DataClassification = CustomerContent;
+        }
+        field(63011; "ID No"; Code[20])
+        {
+            Caption = 'ID No';
+            trigger OnValidate()
+            begin
+                Cust.RESET;
+                Cust.SETRANGE(Cust."ID No", "ID No");
+                IF Cust.FIND('-') THEN;
+                //ERROR('Passport/ID No. exists.');
+            end;
+        }
+        field(63012; "Date Registered"; Date)
+        {
+            Caption = 'Date Registered';
+            DataClassification = CustomerContent;
+        }
+        field(63013; "Membership No"; Text[1])
+        {
+            Caption = 'Membership No';
+            DataClassification = CustomerContent;
+        }
+        field(63014; "Customer Type"; Option)
+        {
+            Caption = 'Customer Type';
+            OptionMembers = Customer,Student,Hotel;
+            DataClassification = CustomerContent;
+        }
+        field(63015; "Birth Cert"; Code[20])
+        {
+            Caption = 'Birth Cert';
+            trigger OnValidate()
+            begin
+                Cust.RESET;
+                Cust.SETRANGE(Cust."Birth Cert", "Birth Cert");
+                IF Cust.FIND('-') THEN
+                    ERROR('Birth Cert/KNEC No. exists.');
+            end;
+        }
+        field(63016; "UNISA No"; Code[1])
+        {
+            Caption = 'UNISA No';
+            DataClassification = CustomerContent;
+        }
+        field(63018; "Old Student Code"; Code[20])
+        {
+            Caption = 'Old Student Code';
+            DataClassification = CustomerContent;
+        }
+        field(63019; "Name 3"; Text[1])
+        {
+            Caption = 'Name 3';
+            DataClassification = CustomerContent;
+        }
+        field(63020; Status; Option)
+        {
+            Caption = 'Status';
+            OptionMembers = Registration,Current,Alumni,"Dropped Out",Defered,Suspended,Expulsion,Discontinued,Deferred,Deceased,Transferred,Disciplinary,Unknown,"Completed not graduated","Graduated no Certificates","Graduated with Certificate","New Admission",Incomplete;
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                "Status Change Date" := TODAY;
+            end;
+        }
         field(63021; "Total Billed"; Decimal)
         {
+            Caption = 'Total Billed';
             CalcFormula = Sum("ACA-Std Charges".Amount WHERE("Student No." = FIELD("No.")));
             Editable = false;
             FieldClass = FlowField;
         }
-
+        field(63022; "Library Code"; Code[1])
+        {
+            Caption = 'Library Code';
+            DataClassification = CustomerContent;
+        }
+        field(63024; "KNEC No"; Code[30])
+        {
+            Caption = 'KNEC No';
+            DataClassification = CustomerContent;
+        }
+        field(63025; "Passport No"; Code[1])
+        {
+            Caption = 'Passport No';
+            DataClassification = CustomerContent;
+        }
         field(63026; "Total Paid"; Decimal)
         {
+            Caption = 'Total Paid';
             CalcFormula = Sum("ACA-Std Charges"."Amount Paid" WHERE("Student No." = FIELD("No.")));
             Editable = false;
             FieldClass = FlowField;
         }
         field(63030; "No. Of Receipts"; Integer)
         {
+            Caption = 'No. Of Receipts';
             CalcFormula = Count("ACA-Receipt" WHERE("Student No." = FIELD("No.")));
             FieldClass = FlowField;
         }
-
+        field(63034; "Confirmed Ok"; Boolean)
+        {
+            Caption = 'Confirmed Ok';
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                "User ID" := USERID;
+            end;
+        }
+        field(63035; "User ID"; Code[1])
+        {
+            Caption = 'User ID';
+            DataClassification = CustomerContent;
+        }
         field(63037; "No Of Charges"; Integer)
         {
+            Caption = 'No Of Charges';
             CalcFormula = Count("ACA-Std Charges" WHERE("Student No." = FIELD("No.")));
             FieldClass = FlowField;
         }
-
+        field(63038; "Library Membership"; Option)
+        {
+            Caption = 'Library Membership';
+            OptionMembers = " ";
+            DataClassification = CustomerContent;
+        }
+        field(63039; libsecurity; Text[1])
+        {
+            Caption = 'libsecurity';
+            DataClassification = CustomerContent;
+        }
         field(63040; "Can Use Library"; Boolean)
         {
-            DataClassification = ToBeClassified;
-            Description = 'USED BY LIBRARY TO CHECK WETHER STUDENT EXISTS IN LIB SYSTEM - 12TH JUNE 2008 - TONY';
-
+            Caption = 'Can Use Library';
+            DataClassification = CustomerContent;
             trigger OnValidate()
             begin
                 TESTFIELD("Library Category");
                 "Library Security" := 1;
                 MODIFY;
+
             end;
         }
-
+        field(63041; "Lib Membership"; Text[10])
+        {
+            Caption = 'Lib Membership';
+            DataClassification = CustomerContent;
+        }
+        field(63042; "No Of Reversals"; Integer)
+        {
+            Caption = 'No Of Reversals';
+            CalcFormula = Count("Cust. Ledger Entry" WHERE("Customer No." = FIELD("No."),
+                                                            Reversed = CONST(True)));
+            FieldClass = FlowField;
+        }
+        field(63043; "Document No. Filter"; Code[20])
+        {
+            Caption = 'Document No. Filter';
+            DataClassification = CustomerContent;
+        }
         field(63046; "Semester Filter"; Code[20])
         {
-            FieldClass = FlowFilter;
+            Caption = 'Semester Filter';
+            DataClassification = CustomerContent;
             TableRelation = "ACA-Semester".Code;
-        }
-        field(51801; "Senate Classification Based on"; Option)
-        {
-            CalcFormula = Lookup("Dimension Value"."Senate Classification Based on" WHERE(Code = FIELD("Global Dimension 1 Code")));
-            FieldClass = FlowField;
-            OptionCaption = ' ,Year of Study,Academic Year';
-            OptionMembers = " ","Year of Study","Academic Year";
-        }
 
+        }
+        field(63047; "Staff No."; Code[20])
+        {
+            Caption = 'Staff No.';
+            DataClassification = CustomerContent;
+        }
+        field(63048; "Internal/External"; Option)
+        {
+            Caption = 'Internal/External';
+            OptionMembers = " ";
+            DataClassification = CustomerContent;
+        }
         field(63050; "Application No."; Code[20])
         {
-            DataClassification = ToBeClassified;
+            Caption = 'Application No.';
+            DataClassification = CustomerContent;
             TableRelation = "ACA-Enquiry Header"."Enquiry No." WHERE(Status = CONST(Eligible));
 
-            trigger OnValidate()
+            trigger onvalidate()
+            var
+                myInt: Integer;
             begin
                 Enrollment.RESET;
                 IF Enrollment.GET("Application No.") THEN BEGIN
@@ -89,7 +366,7 @@ tableextension 50019 "Customer Ext" extends Customer
                     Rec."Date Of Birth" := Enrollment."Date of Birth";
                     Rec."Date Registered" := TODAY;
                     Rec."Customer Type" := Rec."Customer Type"::Student;
-                    //  Rec."Student Type" := FORMAT(Enrollment."Student Type");
+                    Rec."Student Type" := FORMAT(Enrollment."Student Type");
                     Rec."ID No" := Enrollment."Passport/National ID Number";
                     "Customer Posting Group" := 'STUDENTS';
                     VALIDATE("Customer Posting Group");
@@ -104,7 +381,7 @@ tableextension 50019 "Customer Ext" extends Customer
                     CourseRegistration.Programmes := Enrollment.Programmes;
                     CourseRegistration.Semester := Enrollment.Semester;
                     CourseRegistration.Stage := Enrollment."Programme Stage";
-                    //CourseRegistration."Student Type" := Enrollment."Student Type";
+                    CourseRegistration."Student Type" := Enrollment."Student Type";
                     CourseRegistration."Registration Date" := TODAY;
                     //CourseRegistration."Settlement Type":='FULL PAYMENT';
                     //CourseRegistration.VALIDATE(CourseRegistration."Settlement Type");
@@ -166,8 +443,8 @@ tableextension 50019 "Customer Ext" extends Customer
                             EducationHistory.RESET;
                             EducationHistory.INIT;
                             EducationHistory."Student No." := Rec."No.";
-                            EducationHistory.From := EnrollmentEducationHistory.From;
-                            EducationHistory."To" := EnrollmentEducationHistory."To";
+                            // EducationHistory.From:=EnrollmentEducationHistory."From";
+                            //EducationHistory."To":=EnrollmentEducationHistory."To";
                             EducationHistory.Qualifications := EnrollmentEducationHistory.Qualifications;
                             EducationHistory.Instituition := EnrollmentEducationHistory.Instituition;
                             EducationHistory.Remarks := EnrollmentEducationHistory.Remarks;
@@ -182,25 +459,254 @@ tableextension 50019 "Customer Ext" extends Customer
                 END;
             end;
         }
-
+        field(63051; "Accredited Centre no."; Code[20])
+        {
+            Caption = 'Accredited Centre no.';
+            DataClassification = CustomerContent;
+        }
         field(63052; "Unbilled Charged"; Integer)
         {
+            Caption = 'Unbilled Charged';
             CalcFormula = Count("ACA-Std Charges" WHERE("Student No." = FIELD("No."),
                                                          Recognized = CONST(false)));
             FieldClass = FlowField;
         }
+        field(63055; Adults; Integer)
+        {
+            Caption = 'Adults';
+            DataClassification = CustomerContent;
+        }
+        field(63056; "Vehicle No."; Code[5])
+        {
+            Caption = 'Vehicle No.';
+            DataClassification = CustomerContent;
+        }
+        field(63057; "Children Under 12"; Integer)
+        {
+            Caption = 'Children Under 12';
+            DataClassification = CustomerContent;
+        }
+        field(63058; "Group/Company"; Code[20])
+        {
+            Caption = 'Group/Company';
+            DataClassification = CustomerContent;
+        }
+        field(63059; "Departure Date"; Date)
+        {
+            Caption = 'Departure Date';
+            DataClassification = CustomerContent;
+        }
+        field(63060; "Arrival Date"; Date)
+        {
+            Caption = 'Arrival Date';
+            DataClassification = CustomerContent;
+        }
+        field(63061; Nationality; Text[20])
+        {
+            Caption = 'Nationality';
+            DataClassification = CustomerContent;
+        }
+        field(63062; "Room no"; Code[6])
+        {
+            Caption = 'Room no';
+            DataClassification = CustomerContent;
+        }
+        field(63063; "Room Type"; Code[6])
+        {
+            Caption = 'Room Type';
+            DataClassification = CustomerContent;
+        }
+        field(63064; "Receipt No"; Code[20])
+        {
+            Caption = 'Receipt No';
+            DataClassification = CustomerContent;
+        }
+        field(63065; Rate; Decimal)
+        {
+            Caption = 'Rate';
+            DataClassification = CustomerContent;
+        }
+        field(63066; Cashier; Text[1])
+        {
+            Caption = 'Cashier';
+            DataClassification = CustomerContent;
+        }
+        field(63067; Deposit; Decimal)
+        {
+            Caption = 'Deposit';
+            DataClassification = CustomerContent;
+        }
+        field(63068; "Payment Date"; Date)
+        {
+            Caption = 'Payment Date';
+            DataClassification = CustomerContent;
+        }
+        field(63069; Remarks; Text[20])
+        {
+            Caption = 'Remarks';
+            DataClassification = CustomerContent;
+        }
+        field(63071; Singles; Integer)
+        {
+            Caption = 'Singles';
+            DataClassification = CustomerContent;
+        }
+        field(63073; Doubles; Integer)
+        {
+            Caption = 'Doubles';
+            DataClassification = CustomerContent;
+        }
+        field(63074; Triples; Integer)
+        {
+            Caption = 'Triples';
+            DataClassification = CustomerContent;
+        }
+        field(63075; "Taken By"; Text[1])
+        {
+            Caption = 'Taken By';
+            DataClassification = CustomerContent;
+        }
+        field(63076; "Checked By"; Text[1])
+        {
+            Caption = 'Checked By';
+            DataClassification = CustomerContent;
+        }
+        field(63078; "Check Out Date"; Date)
+        {
+            Caption = 'Check Out Date';
+            DataClassification = CustomerContent;
+        }
+        field(63079; "Check In Time"; Time)
+        {
+            Caption = 'Check In Time';
+            DataClassification = CustomerContent;
+        }
+        field(63080; "HTL Status"; Option)
+        {
+            Caption = 'HTL Status';
+            OptionMembers = " ",Reserved,Current,Old;
+            DataClassification = CustomerContent;
+        }
+        field(63081; "HELB No."; Code[20])
+        {
+            Caption = 'HELB No.';
+            DataClassification = CustomerContent;
+        }
+        field(63082; "Deferement Period"; DateFormula)
+        {
+            Caption = 'Deferement Period';
+            DataClassification = CustomerContent;
+        }
+        field(63083; "Status Change Date"; Date)
+        {
+            Caption = 'Status Change Date';
+            DataClassification = CustomerContent;
+        }
+        field(63084; "Revenue Cash Account"; Code[20])
+        {
+            Caption = 'Revenue Cash Account';
+            DataClassification = CustomerContent;
+        }
+        field(63085; Password; Text[50])
+        {
+            Caption = 'Password';
+            DataClassification = CustomerContent;
+        }
+        field(63086; "Gown 1"; Boolean)
+        {
+            Caption = 'Gown 1';
+            DataClassification = CustomerContent;
+        }
+        field(63087; "Gown 2"; Boolean)
+        {
+            Caption = 'Gown 2';
+            DataClassification = CustomerContent;
+        }
+        field(63088; "Gown 3"; Boolean)
+        {
+            Caption = 'Gown 3';
+            DataClassification = CustomerContent;
+        }
+        field(63089; "Date Issued"; Date)
+        {
+            Caption = 'Date Issued';
+            DataClassification = CustomerContent;
+        }
+        field(63090; "Gown Status"; Option)
+        {
+            Caption = 'Gown Status';
+            OptionMembers = " ",Loaned,Returned;
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                IF "Gown Status" = "Gown Status"::Loaned THEN
+                    "Date Issued" := TODAY;
 
+                IF "Gown Status" = "Gown Status"::Returned THEN
+                    "Date Returned" := TODAY;
+            end;
+        }
+        field(63091; "Date Returned"; Date)
+        {
+            Caption = 'Date Returned';
+            DataClassification = CustomerContent;
+        }
+        field(63092; "Certificate Status"; Option)
+        {
+            Caption = 'Certificate Status';
+            OptionMembers = " ",Pending,Collected;
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                IF "Certificate Status" = "Certificate Status"::Collected THEN
+                    "Date Collected" := TODAY;
+
+            end;
+        }
+        field(63093; "Date Collected"; Date)
+        {
+            Caption = 'Date Collected';
+            DataClassification = CustomerContent;
+        }
+        field(63094; Confirmed; Boolean)
+        {
+            Caption = 'Confirmed';
+            DataClassification = CustomerContent;
+        }
+        field(63095; "Confirmed Remarks"; Text[50])
+        {
+            Caption = 'Confirmed Remarks';
+            DataClassification = CustomerContent;
+        }
+        field(63096; "Special Requrements"; Text[20])
+        {
+            Caption = 'Special Requrements';
+            DataClassification = CustomerContent;
+        }
+        field(63097; "Certificate No."; Text[20])
+        {
+            Caption = 'Certificate No.';
+            DataClassification = CustomerContent;
+        }
         field(63098; "No. Of Reg"; Integer)
         {
+            Caption = 'No. Of Reg';
             CalcFormula = Count("ACA-Course Registration" WHERE("Student No." = FIELD("No.")));
             FieldClass = FlowField;
         }
-
+        field(63099; "No Of Creidts"; Integer)
+        {
+            Caption = 'No Of Creidts';
+            CalcFormula = Count("Detailed Cust. Ledg. Entry" WHERE("Customer No." = FIELD("No."),
+                                                                    "Entry Type" = CONST("Initial Entry"),
+                                                                    "Credit Amount (LCY)" = FILTER(> 0)));
+            FieldClass = FlowField;
+        }
         field(63100; District; Code[20])
         {
-            DataClassification = ToBeClassified;
+            Caption = 'District';
+            DataClassification = CustomerContent;
             TableRelation = "ACA-Applic. Setup County".Code;
-
             trigger OnValidate()
             begin
                 districtrec.RESET;
@@ -219,16 +725,42 @@ tableextension 50019 "Customer Ext" extends Customer
         }
         field(63102; "Programme Filter"; Code[20])
         {
+            Caption = 'Programme Filter';
             FieldClass = FlowFilter;
             TableRelation = "ACA-Programme".Code;
-        }
 
+        }
+        field(63103; "Transfer to No."; Code[20])
+        {
+            Caption = 'Transfer to No.';
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                ValidateShortcutDimCode(2, "Global Dimension 2 Code");
+            end;
+        }
+        field(63104; "Transfer to"; Code[20])
+        {
+            Caption = 'Transfer to';
+            DataClassification = CustomerContent;
+        }
+        field(63106; "Stage Filter"; Code[20])
+        {
+            Caption = 'Stage Filter';
+            FieldClass = FlowFilter;
+        }
         field(63107; "Settlement Type Filter"; Code[20])
         {
+            Caption = 'Settlement Type Filter';
             FieldClass = FlowFilter;
             TableRelation = "ACA-Settlement Type".Code;
-        }
 
+        }
+        field(63108; "Current Programme"; Code[20])
+        {
+            Caption = 'Current Programme';
+            DataClassification = CustomerContent;
+        }
         field(63109; "Registered PartTime"; Integer)
         {
             CalcFormula = Count("ACA-Course Registration" WHERE("Student No." = FILTER('*04???*'),
@@ -242,6 +774,62 @@ tableextension 50019 "Customer Ext" extends Customer
             FieldClass = FlowField;
         }
 
+        field(63111; "Total Registered"; Integer)
+        {
+            Caption = 'Total Registered';
+            DataClassification = CustomerContent;
+        }
+        field(63112; "Paid PartTime"; Integer)
+        {
+            Caption = 'Paid PartTime';
+            DataClassification = CustomerContent;
+        }
+        field(63113; "Hostel Black Listed"; Boolean)
+        {
+            Caption = 'Hostel Black Listed';
+            DataClassification = CustomerContent;
+        }
+        field(63114; "Black Listed Reason"; Text[20])
+        {
+            Caption = 'Black Listed Reason';
+            DataClassification = CustomerContent;
+        }
+        field(63115; "Black Listed By"; Code[20])
+        {
+            Caption = 'Black Listed By';
+            DataClassification = CustomerContent;
+        }
+        field(63116; "Audit Issue"; Boolean)
+        {
+            Caption = 'Audit Issue';
+            DataClassification = CustomerContent;
+        }
+        field(63117; "Not Billed"; Boolean)
+        {
+            Caption = 'Not Billed';
+            DataClassification = CustomerContent;
+        }
+        field(63118; "New Stud"; Boolean)
+        {
+            Caption = 'New Stud';
+            DataClassification = CustomerContent;
+        }
+        field(63119; "Programme Category Filter"; Option)
+        {
+            Caption = 'Programme Category Filter';
+            OptionMembers = " ";
+            FieldClass = FlowFilter;
+        }
+        field(63120; sms_Password; Text[15])
+        {
+            Caption = 'sms_Password';
+            DataClassification = CustomerContent;
+        }
+        field(63121; "BroadCast Filter"; Code[20])
+        {
+            Caption = 'BroadCast Filter';
+            FieldClass = FlowFilter;
+        }
         field(63122; "In Current Sem"; Integer)
         {
             CalcFormula = Count("ACA-Course Registration" WHERE("Student No." = FIELD("No.")));
@@ -262,48 +850,148 @@ tableextension 50019 "Customer Ext" extends Customer
             FieldClass = FlowFilter;
             TableRelation = "ACA-Intake".Code;
         }
-
-
+        field(63126; "Exam Period Filter"; Code[20])
+        {
+            Caption = 'Exam Period Filter';
+            FieldClass = FlowFilter;
+        }
+        field(63127; "Lock Online Application"; Boolean)
+        {
+            Caption = 'Lock Online Application';
+            DataClassification = CustomerContent;
+        }
+        field(63128; "PIN No"; Code[20])
+        {
+            Caption = 'PIN No';
+            DataClassification = CustomerContent;
+        }
+        field(63129; "Allow Reg. With Balance"; Boolean)
+        {
+            Caption = 'Allow Reg. With Balance';
+            DataClassification = CustomerContent;
+        }
+        field(63130; "Allowed Reg. By"; Code[20])
+        {
+            Caption = 'Allowed Reg. By';
+            DataClassification = CustomerContent;
+        }
+        field(63131; "Allowed Date"; Date)
+        {
+            Caption = 'Allowed Date';
+            DataClassification = CustomerContent;
+        }
+        field(63132; "Current Program"; Code[20])
+        {
+            Caption = 'Current Program';
+            DataClassification = CustomerContent;
+        }
+        field(63133; "Current Semester"; Code[20])
+        {
+            Caption = 'Current Semester';
+            DataClassification = CustomerContent;
+        }
+        field(63134; "ID Card Expiry Year"; Integer)
+        {
+            Caption = 'ID Card Expiry Year';
+            DataClassification = CustomerContent;
+        }
+        field(63135; Tribe; Code[20])
+        {
+            Caption = 'Tribe';
+            DataClassification = CustomerContent;
+        }
+        field(63136; "Barcode Picture"; BLOB)
+        {
+            Caption = 'Barcode Picture';
+            DataClassification = CustomerContent;
+        }
+        field(63137; "Graduation Date"; Date)
+        {
+            Caption = 'Graduation Date';
+            DataClassification = CustomerContent;
+        }
         field(63138; "Class Code"; Code[20])
         {
-            DataClassification = ToBeClassified;
+            Caption = 'Class Code';
+            DataClassification = CustomerContent;
             TableRelation = "ACA-Course Classes".Code;
-        }
 
+        }
+        field(63139; "Course Details"; Text[20])
+        {
+            Caption = 'Course Details';
+            DataClassification = CustomerContent;
+        }
+        field(63140; "Sponsor Name"; Text[20])
+        {
+            Caption = 'Sponsor Name';
+            DataClassification = CustomerContent;
+        }
+        field(63141; School; Code[20])
+        {
+            Caption = 'School';
+            DataClassification = CustomerContent;
+        }
+        field(63142; "Study Mode"; Option)
+        {
+            Caption = 'Study Mode';
+            OptionMembers = " ";
+            DataClassification = CustomerContent;
+        }
+        field(63143; "Course Duration"; Integer)
+        {
+            Caption = 'Course Duration';
+            DataClassification = CustomerContent;
+        }
+        field(63144; "Admission Date"; Date)
+        {
+            Caption = 'Admission Date';
+            DataClassification = CustomerContent;
+        }
         field(63145; "Hostel Allocated"; Boolean)
         {
-            // CalcFormula = Exist("ACA-Hostel Ledger" WHERE("Student No" = FIELD("No.")));
-            // FieldClass = FlowField;
+            Caption = 'Hostel Allocated';
+            DataClassification = CustomerContent;
         }
         field(63146; "Hostel No."; Code[20])
         {
-            // CalcFormula = Lookup("ACA-Hostel Ledger"."Hostel No" WHERE("Student No" = FIELD("No.")));
-            // FieldClass = FlowField;
+            Caption = 'Hostel No.';
+            DataClassification = CustomerContent;
         }
         field(63147; "Room Code"; Code[20])
         {
-            // CalcFormula = Lookup("ACA-Hostel Ledger"."Room No" WHERE("Student No" = FIELD("No.")));
-            // FieldClass = FlowField;
+            Caption = 'Room Code';
+            DataClassification = CustomerContent;
         }
         field(63148; "Space Booked"; Code[20])
         {
-            // CalcFormula = Lookup("ACA-Hostel Ledger"."Space No" WHERE("Student No" = FIELD("No.")));
-            // FieldClass = FlowField;
+            Caption = 'Space Booked';
+            DataClassification = CustomerContent;
         }
         field(63149; "Academic Year"; Code[20])
         {
-            // CalcFormula = Lookup("ACA-Hostel Ledger"."Academic Year" WHERE("Student No" = FIELD("No.")));
-            // FieldClass = FlowField;
+            Caption = 'Academic Year';
+            DataClassification = CustomerContent;
         }
         field(63150; Semester; Code[20])
         {
-            // CalcFormula = Lookup("ACA-Hostel Ledger".Semester WHERE("Student No" = FIELD("No.")));
-            // FieldClass = FlowField;
+            Caption = 'Semester';
+            DataClassification = CustomerContent;
         }
-
+        field(63151; "Library Security"; Integer)
+        {
+            Caption = 'Library Security';
+            DataClassification = CustomerContent;
+        }
+        field(63152; "Library Username"; Text[20])
+        {
+            Caption = 'Library Username';
+            DataClassification = CustomerContent;
+        }
         field(63153; "Library Category"; Code[20])
         {
-            DataClassification = ToBeClassified;
+            Caption = 'Library Category';
+            DataClassification = CustomerContent;
             TableRelation = "ACA-Library Codes"."Lib Code";
 
             trigger OnValidate()
@@ -312,26 +1000,112 @@ tableextension 50019 "Customer Ext" extends Customer
                 "Library Expiry Date" := TODAY + LibCode."Expiry Duration";
             end;
         }
-
+        field(63154; "Library Expiry Date"; Date)
+        {
+            Caption = 'Library Expiry Date';
+            DataClassification = CustomerContent;
+        }
+        field(63155; "Old Status"; Code[20])
+        {
+            Caption = 'Old Status';
+            DataClassification = CustomerContent;
+        }
+        field(63156; "Sponsor Address"; Text[20])
+        {
+            Caption = 'Sponsor Address';
+            DataClassification = CustomerContent;
+        }
+        field(63157; "Sponsor Town"; Text[20])
+        {
+            Caption = 'Sponsor Town';
+            DataClassification = CustomerContent;
+        }
+        field(63158; "Sponsor Phone"; Text[20])
+        {
+            Caption = 'Sponsor Phone';
+            DataClassification = CustomerContent;
+        }
+        field(63159; "Changed Password"; Boolean)
+        {
+            Caption = 'Changed Password';
+            DataClassification = CustomerContent;
+        }
         field(63160; "Catering Amount"; Decimal)
         {
-            // CalcFormula = Sum("CAT-Catering Prepayment Ledger".Amount WHERE("Customer No" = FIELD("No."),
-            //                                                                  Date = FIELD("Date Filter")));
-            // FieldClass = FlowField;
+            Caption = 'Catering Amount';
+            DataClassification = CustomerContent;
         }
-
-
+        field(63161; "Clearance Status"; Option)
+        {
+            Caption = 'Clearance Status';
+            OptionMembers = open,Active,Cleared;
+            DataClassification = CustomerContent;
+        }
+        field(63162; "Clearance Initiated by"; Code[20])
+        {
+            Caption = 'Clearance Initiated by';
+            DataClassification = CustomerContent;
+        }
+        field(63163; "Clearance Initiated Date"; Date)
+        {
+            Caption = 'Clearance Initiated Date';
+            DataClassification = CustomerContent;
+        }
+        field(63164; "Clearance Initiated Time"; Time)
+        {
+            Caption = 'Clearance Initiated Time';
+            DataClassification = CustomerContent;
+        }
         field(63165; "Clearance Semester"; Code[20])
         {
-            DataClassification = ToBeClassified;
+            Caption = 'Clearance Semester';
+            DataClassification = CustomerContent;
             TableRelation = "ACA-Semesters".Code;
+
         }
         field(63166; "Clearance Academic Year"; Code[20])
         {
-            DataClassification = ToBeClassified;
+            Caption = 'Clearance Academic Year';
+            DataClassification = CustomerContent;
             TableRelation = "ACA-Academic Year".Code;
-        }
 
+        }
+        field(63167; "Intake Code"; Code[20])
+        {
+            Caption = 'Intake Code';
+            DataClassification = CustomerContent;
+        }
+        field(63168; "Programme End Date"; Date)
+        {
+            Caption = 'Programme End Date';
+            DataClassification = CustomerContent;
+        }
+        field(63169; "Applied for Clearance"; Boolean)
+        {
+            Caption = 'Applied for Clearance';
+            DataClassification = CustomerContent;
+        }
+        field(63170; "Clearance Reason"; Option)
+        {
+            Caption = 'Clearance Reason';
+            OptionMembers = " ",Graduation,Suspension,Transfer;
+            DataClassification = CustomerContent;
+        }
+        field(63171; "Refund on PV"; Decimal)
+        {
+            Caption = 'Refund on PV';
+            DataClassification = CustomerContent;
+        }
+        field(63175; "Library Gender"; Code[20])
+        {
+            Caption = 'Library Gender';
+            DataClassification = CustomerContent;
+        }
+        field(63176; "Library Branch"; Code[20])
+        {
+            Caption = 'Library Branch';
+            DataClassification = CustomerContent;
+        }
         field(63177; "Current Faculty"; Code[20])
         {
             CalcFormula = Lookup("ACA-Programme"."School Code" WHERE(Code = FIELD("Current Programme")));
@@ -346,21 +1120,108 @@ tableextension 50019 "Customer Ext" extends Customer
         }
         field(63179; "Charge Filter"; Code[20])
         {
+            Caption = 'Charge Filter';
             FieldClass = FlowFilter;
             TableRelation = "ACA-Charge".Code;
+
         }
         field(63180; Programme; Text[200])
         {
             CalcFormula = Lookup("ACA-Course Registration".Programmes where("Student No." = field("No.")));
             FieldClass = FlowField;
         }
-
+        field(63181; "Student Balance"; Decimal)
+        {
+            Caption = 'Student Balance';
+            CalcFormula = Sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" WHERE("Customer No." = FIELD("No."),
+                                                                                 "Initial Entry Global Dim. 1" = FIELD("Global Dimension 1 Filter"),
+                                                                                 "Initial Entry Global Dim. 2" = FIELD("Global Dimension 2 Filter"),
+                                                                                 "Currency Code" = FIELD("Currency Filter")));
+            FieldClass = FlowField;
+        }
+        field(63182; "Comp No"; Code[20])
+        {
+            Caption = 'Comp No';
+            DataClassification = CustomerContent;
+        }
+        field(63183; "Spouce Name"; Text[70])
+        {
+            Caption = 'Spouce Name';
+            DataClassification = CustomerContent;
+        }
+        field(63184; "Spouse Id"; Code[20])
+        {
+            Caption = 'Spouse Id';
+            DataClassification = CustomerContent;
+        }
+        field(63185; "Spouse Phone"; Code[20])
+        {
+            Caption = 'Spouse Phone';
+            DataClassification = CustomerContent;
+        }
+        field(63186; Countings; Integer)
+        {
+            Caption = 'Countings';
+            DataClassification = CustomerContent;
+        }
         field(63187; "Settlement Type"; Code[20])
         {
             CalcFormula = Lookup("ACA-Course Registration"."Settlement Type" WHERE("Student No." = FIELD("No.")));
             FieldClass = FlowField;
         }
-
+        field(63188; "First Name"; Text[50])
+        {
+            Caption = 'First Name';
+            DataClassification = CustomerContent;
+        }
+        field(63189; "Middle Name"; Text[50])
+        {
+            Caption = 'Middle Name';
+            DataClassification = CustomerContent;
+        }
+        field(63190; "Last Name"; Text[50])
+        {
+            Caption = 'Last Name';
+            DataClassification = CustomerContent;
+        }
+        field(63191; "Updated Profile"; Boolean)
+        {
+            Caption = 'Updated Profile';
+            DataClassification = CustomerContent;
+        }
+        field(63192; "Disability Status"; Boolean)
+        {
+            Caption = 'Disability Status';
+            DataClassification = CustomerContent;
+        }
+        field(63193; "Disability Description"; Text[30])
+        {
+            Caption = 'Disability Description';
+            DataClassification = CustomerContent;
+        }
+        field(63194; "Campus Code"; Code[50])
+        {
+            Caption = 'Campus Code';
+            DataClassification = CustomerContent;
+        }
+        field(63195; "Senate Classification Based on"; Option)
+        {
+            Caption = 'Senate Classification Based on';
+            FieldClass = FlowField;
+            calcformula = Lookup("Dimension Value"."Senate Classification Based on" WHERE(Code = FIELD("Global Dimension 1 Code")));
+            OptionMembers = " ","Year of Study","Academic Year";
+        }
+        field(63196; "Programme Category"; Option)
+        {
+            Caption = 'Programme Category';
+            OptionMembers = " ";
+            DataClassification = CustomerContent;
+        }
+        field(63197; "In Graduation"; Boolean)
+        {
+            Caption = 'In Graduation';
+            DataClassification = CustomerContent;
+        }
         field(63198; "Tagged as Graduating"; Boolean)
         {
             CalcFormula = Lookup("ACA-Classification Students".Graduating WHERE("Student Number" = FIELD("No.")));
@@ -381,10 +1242,6 @@ tableextension 50019 "Customer Ext" extends Customer
                                                            "Pass Exists" = FILTER(false)));
             FieldClass = FlowField;
         }
-        field(63201; "Rent Deposit"; Decimal)
-        {
-
-        }
         field(63202; studentType; Option)
         {
             OptionMembers = KUCCPS,SSP;
@@ -398,63 +1255,17 @@ tableextension 50019 "Customer Ext" extends Customer
             CalcFormula = sum("CAFE Studentledger".Amount where(StudentId = field("No.")));
             FieldClass = FlowField;
         }
-        field(56602; Age; Integer)
+        field(63205; "University Email"; Text[80])
         {
             DataClassification = ToBeClassified;
         }
-        field(56603; "Date Of Birth"; Date)
+        field(63206; "Email Password"; Text[200])
         {
             DataClassification = ToBeClassified;
-        }
-        field(56604; Gender; Option)
-        {
-            //OptionCaption = 'Male,Female';
-            OptionMembers = " ",Male,Female;
-        }
-        field(56605; "Marital Status"; Option)
-        {
-            OptionCaption = 'Single,Married';
-            OptionMembers = Single,Married;
-        }
-        field(56606; "Blood Group"; Text[5])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(56607; Weight; Decimal)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(56608; Height; Decimal)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(56609; Religion; Text[50])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(56610; Citizenship; Text[100])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(56611; "Payments By"; Text[150])
-        {
-            DataClassification = ToBeClassified;
-        }
 
-        field(56613; "Birth Cert"; Text[30])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(56614; "Staff No."; Text[30])
-        {
-            DataClassification = ToBeClassified;
         }
 
 
-        field(56617; Password; Text[50])
-        {
-
-        }
 
 
         modify("No.")
@@ -1133,629 +1944,6 @@ tableextension 50019 "Customer Ext" extends Customer
             Caption = 'Contact Graph Id';
         }
 
-        field(63011; "ID No"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-
-            trigger OnValidate()
-            begin
-                Cust.RESET;
-                Cust.SETRANGE(Cust."ID No", "ID No");
-                IF Cust.FIND('-') THEN
-                    ERROR('Passport/ID No. exists.');
-            end;
-        }
-        field(63012; "Date Registered"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63013; "Membership No"; Text[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63014; "Customer Type"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = 'Customer,Student';
-            OptionMembers = Customer,Student,Hotel;
-        }
-
-        field(63016; "UNISA No"; Code[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63018; "Old Student Code"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63019; "Name 3"; Text[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63020; Status; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = 'Registration,Current,Alluminae,Dropped Out,Deferred,Suspended,Expulsion,Discontinued,Deceased,Transferred,Disciplinary,Unknown,Completed not graduated,Graduated no Certificates,Graduated with Certificate,Did Not Report,Absconded,Transferred from TMUC,Resit,Halt';
-            OptionMembers = Registration,Current,Alluminae,"Dropped Out",Deferred,Suspended,Expulsion,Discontinued,Deceased,Transferred,Disciplinary,Unknown,"Completed not graduated","Graduated no Certificates","Graduated with Certificate","Did Not Report",Absconded,"Transferred from TMUC",Resit,Halt;
-
-
-            trigger OnValidate()
-            begin
-                "Status Change Date" := TODAY;
-            end;
-        }
-
-        field(63022; "Library Code"; Code[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63024; "KNEC No"; Code[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63025; "Passport No"; Code[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63034; "Confirmed Ok"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-
-            trigger OnValidate()
-            begin
-                "User ID" := USERID;
-            end;
-        }
-        field(63035; "User ID"; Code[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63038; "Library Membership"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = 'DIP IT,BSC IT,IMIS,KATC,CPACPS,ACCA,ABE,UNISA,BCOM,TEACHING STAFF,DIRECTORS,ADMIN STAFF,BR MATHS,IT,PACKAGES,DCEDHM';
-            OptionMembers = "DIP IT","BSC IT",IMIS,KATC,CPACPS,ACCA,ABE,UNISA,BCOM,"TEACHING STAFF",DIRECTORS,"ADMIN STAFF","BR MATHS",IT,PACKAGES,DCEDHM;
-        }
-        field(63039; libsecurity; Text[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63041; "Lib Membership"; Text[1])
-        {
-            DataClassification = ToBeClassified;
-            Description = 'STORES THE STUDENTS LATEST LIBRARY MEMBSERSHIP CATEGORY - 12TH JUNE 2008 - TONY';
-        }
-        field(63042; "No Of Reversals"; Integer)
-        {
-            CalcFormula = Count("Cust. Ledger Entry" WHERE("Customer No." = FIELD("No."),
-                                                            Reversed = CONST(True)));
-            FieldClass = FlowField;
-        }
-        field(63043; "Document No. Filter"; Code[20])
-        {
-            FieldClass = FlowFilter;
-            TableRelation = "Cust. Ledger Entry"."Document No.";
-        }
-
-
-        field(63048; "Programme Category"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = 'Internal,External';
-            OptionMembers = Internal,External;
-        }
-
-        field(63051; "Accredited Centre no."; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63055; Adults; Integer)
-        {
-            DataClassification = ToBeClassified;
-            InitValue = 1;
-        }
-        field(63056; "Vehicle No."; Code[5])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63057; "Children Under 12"; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63058; "Group/Company"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63059; "Departure Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63060; "Arrival Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63061; Nationality; Text[20])
-        {
-            DataClassification = ToBeClassified;
-            InitValue = 'KENYAN';
-        }
-        field(63062; "Room no"; Code[6])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63063; "Room Type"; Code[6])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63064; "Receipt No"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63065; Rate; Decimal)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63066; Cashier; Text[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63067; Deposit; Decimal)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63068; "Payment Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63069; Remarks; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63071; Singles; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63073; Doubles; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63074; Triples; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63075; "Taken By"; Text[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63076; "Checked By"; Text[1])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63078; "Check Out Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63079; "Check In Time"; Time)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63080; "HTL Status"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionMembers = ,,Reserved,Current,Old;
-        }
-        field(63081; "HELB No."; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63082; "Deferement Period"; DateFormula)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63083; "Status Change Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63084; "Revenue Cash Account"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Bank Account"."No." WHERE("Bank Acc. Posting Group" = CONST('CASH'));
-        }
-
-        field(63086; "Gown 1"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63087; "Gown 2"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63088; "Gown 3"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63089; "Date Issued"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63090; "Gown Status"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = ' ,Loaned,Returned';
-            OptionMembers = " ",Loaned,Returned;
-
-            trigger OnValidate()
-            begin
-                IF "Gown Status" = "Gown Status"::Loaned THEN
-                    "Date Issued" := TODAY;
-
-                IF "Gown Status" = "Gown Status"::Returned THEN
-                    "Date Returned" := TODAY;
-            end;
-        }
-        field(63091; "Date Returned"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63092; "Certificate Status"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = ' ,Pending,Collected';
-            OptionMembers = " ",Pending,Collected;
-
-            trigger OnValidate()
-            begin
-                IF "Certificate Status" = "Certificate Status"::Collected THEN
-                    "Date Collected" := TODAY;
-            end;
-        }
-        field(63093; "Date Collected"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63094; Confirmed; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63095; "Confirmed Remarks"; Text[50])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63096; "Special Requrements"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63097; "Certificate No."; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63099; "No Of Creidts"; Integer)
-        {
-            CalcFormula = Count("Detailed Cust. Ledg. Entry" WHERE("Customer No." = FIELD("No."),
-                                                                    "Entry Type" = CONST("Initial Entry"),
-                                                                    "Credit Amount (LCY)" = FILTER(> 0)));
-            FieldClass = FlowField;
-        }
-
-
-        field(63103; "Transfer to No."; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63104; "Transfer to"; Code[20])
-        {
-            CaptionClass = '1,1,2';
-            Caption = 'Transfer to';
-            DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
-
-            trigger OnValidate()
-            begin
-                ValidateShortcutDimCode(2, "Global Dimension 2 Code");
-            end;
-        }
-        field(63106; "Stage Filter"; Code[20])
-        {
-            FieldClass = FlowFilter;
-        }
-
-        field(63108; "Current Programme"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            Description = 'Auto populated on Billing';
-        }
-
-        field(63111; "Total Registered"; Integer)
-        {
-            FieldClass = Normal;
-        }
-        field(63112; "Paid PartTime"; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63113; "Hostel Black Listed"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63114; "Black Listed Reason"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63115; "Black Listed By"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63116; "Audit Issue"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63117; "Not Billed"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63118; "New Stud"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63119; "Programme Category Filter"; Option)
-        {
-            FieldClass = FlowFilter;
-            OptionCaption = ',Diploma,Undergraduate,Postgraduate,Course List';
-            OptionMembers = ,Diploma,Undergraduate,Postgraduate,"Course List";
-        }
-        field(63120; sms_Password; Text[15])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63121; "BroadCast Filter"; Code[20])
-        {
-            FieldClass = FlowFilter;
-            //TableRelation = GEN-sms_BroadCast.Code;
-        }
-
-        field(63127; "Lock Online Application"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63128; "PIN No"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63129; "Allow Reg. With Balance"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63130; "Allowed Reg. By"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63131; "Allowed Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63132; "Current Program"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63133; "Current Semester"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63134; "ID Card Expiry Year"; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63135; Tribe; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            //TableRelation = Tribes."Tribe Code";
-        }
-        field(63136; "Barcode Picture"; BLOB)
-        {
-            Caption = 'Picture';
-            DataClassification = ToBeClassified;
-            SubType = Bitmap;
-        }
-        field(63137; "Graduation Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63139; "Course Details"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63140; "Sponsor Name"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63141; School; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = FILTER('SCHOOL'));
-        }
-        field(63142; "Study Mode"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = ' ,Full Time,Part Time,Weekend,ODL,School Based,Evening';
-            OptionMembers = " ","Full Time","Part Time",Weekend,ODL,"School Based",Evening;
-        }
-        field(63143; "Course Duration"; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63144; "Admission Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63151; "Library Security"; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63152; "Library Username"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63154; "Library Expiry Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63155; "Old Status"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63156; "Sponsor Address"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63157; "Sponsor Town"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63158; "Sponsor Phone"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63159; "Changed Password"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63161; "Clearance Status"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = 'open,Active,Cleared';
-            OptionMembers = open,Active,Cleared;
-        }
-        field(63162; "Clearance Initiated by"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63163; "Clearance Initiated Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63164; "Clearance Initiated Time"; Time)
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63167; "Intake Code"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63168; "Programme End Date"; Date)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63169; "Applied for Clearance"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63170; "Clearance Reason"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = ' ,Graduation,Suspension,Transfer';
-            OptionMembers = " ",Graduation,Suspension,Transfer;
-        }
-#pragma warning disable AL0717
-        field(63171; "Refund on PV"; Decimal)
-#pragma warning restore AL0717
-        {
-            //CalcFormula = Sum("FIN-Payment Line"."Net Amount" WHERE ("Account No."=FIELD("No."),
-            //  Posted=CONST(No),
-            //  "Payment Status"=CONST(Approved)));
-            FieldClass = FlowField;
-        }
-        field(63175; "Library Gender"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63176; "Library Branch"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-
-        field(63181; "Student Balance"; Decimal)
-        {
-            CalcFormula = Sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" WHERE("Customer No." = FIELD("No."),
-                                                                                 "Initial Entry Global Dim. 1" = FIELD("Global Dimension 1 Filter"),
-                                                                                 "Initial Entry Global Dim. 2" = FIELD("Global Dimension 2 Filter"),
-                                                                                 "Currency Code" = FIELD("Currency Filter")));
-            FieldClass = FlowField;
-        }
-        field(63182; "Comp No"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63183; "Spouce Name"; Text[70])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63184; "Spouse Id"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63185; "Spouse Phone"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63186; Countings; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(63188; "Barcode/QR Code"; BLOB)
-        {
-            DataClassification = ToBeClassified;
-            SubType = Bitmap;
-        }
-        field(63189; "Disability Status"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionCaption = ',None,Disabled';
-            OptionMembers = ,"None",Disabled;
-        }
-        field(63190; "Updated Profile"; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63191; "Disability Description"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63192; "Email Password"; Text[200])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63193; "University Email"; Text[80])
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(63194; "Campus Code"; Code[50])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        /* field(63196; "Programme Category"; Option)
-        {
-            CalcFormula = Lookup("ACA-Course Registration"."Programme Category" WHERE("Student No." = FIELD("No.")));
-            FieldClass = FlowField;
-            OptionCaption = ',Certificate ,Diploma,Undergraduate,Postgraduate,Professional,Course List';
-            OptionMembers = ,"Certificate ",Diploma,Undergraduate,Postgraduate,Professional,"Course List";
-        } */
-        field(63197; "County of Origin"; Text[30])
-        {
-            DataClassification = ToBeClassified;
-        }
 
     }
     keys
@@ -1792,5 +1980,36 @@ tableextension 50019 "Customer Ext" extends Customer
         districtrec: Record "ACA-Applic. Setup County";
         Districtname: Text[50];
         LibCode: Record "ACA-Library Codes";
+        SalesSetup: Record "Sales & Receivables Setup";
+        ACAApplicFormHeader: Record "ACA-Applic. Form Header";
+        CommentLine: Record "Order Address";
+        SalesOrderLine: Record "Sales Line";
+        CustBankAcc: Record "Customer Bank Account";
+        ShipToAddr: Record "Ship-to Address";
+        PostCode: Record "Post Code";
+        GenBusPostingGrp: Record "Gen. Business Posting Group";
+        ShippingAgentService: Record "Shipping Agent Services";
+        RMSetup: Record "Marketing Setup";
+        SalesPrice: Record "Sales Price";
+        SalesLineDisc: Record "Sales Line Discount";
+        SalesPrepmtPct: Record "Sales Prepayment %";
+        ServContract: Record "Service Contract Header";
+        ServiceItem: Record "Service Item";
+        PaymentToleranceMgt: Codeunit "Payment Tolerance Management";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        MoveEntries: Codeunit MoveEntries;
+        UpdateContFromCust: Codeunit "CustCont-Update";
+        DimMgt: Codeunit DimensionManagement;
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+        InsertFromContact: Boolean;
+        InsertFromTemplate: Boolean;
+        LookupRequested: Boolean;
+        ValidateUser: Codeunit "Validate User Permissions";
+
+    procedure ValidateRFCNo(Length: Integer)
+    begin
+        IF STRLEN("RFC No.") <> Length THEN
+            ERROR(Text10000, "RFC No.");
+    end;
 
 }
