@@ -624,15 +624,15 @@ page 54324 "ACA-Academics Role Center&"
                     RunObject = Page "ACA-Application Form H. list";
                     ApplicationArea = All;
                 }
-                action(COD)
+                action(HOD)
                 {
                     //Caption = 'Deans Commitee';
-                    RunObject = Page "COD-Applicants";
+                    RunObject = Page "HOD-Applicants";
                     ApplicationArea = All;
                 }
-                action("COD Rejected")
+                action("HOD Rejected")
                 {
-                    RunObject = Page "COD Rejections";
+                    RunObject = Page "HOD Rejections";
                     ApplicationArea = All;
                 }
                 action("Deans Applicantions")

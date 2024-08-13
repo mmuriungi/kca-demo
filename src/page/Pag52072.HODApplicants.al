@@ -1,6 +1,6 @@
-page 52072 "COD-Applicants"
+page 52072 "HOD-Applicants"
 {
-    CardPageID = "COD Applicants CARD";
+    CardPageID = "HOD Applicants CARD";
     InsertAllowed = false;
     ModifyAllowed = false;
     PageType = List;
