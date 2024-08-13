@@ -1,7 +1,7 @@
 /// <summary>
 /// Page ACA-Application Form Header (ID 68467).
 /// </summary>
-page 52805 "COD Applicants CARD"
+page 52805 "HOD Applicants CARD"
 {
     PageType = Document;
     SourceTable = "ACA-Applic. Form Header";

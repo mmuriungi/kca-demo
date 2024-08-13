@@ -1,4 +1,4 @@
-page 52075 "COD Rejections"
+page 52075 "HOD Rejections"
 {
     PageType = List;
     ApplicationArea = All;
