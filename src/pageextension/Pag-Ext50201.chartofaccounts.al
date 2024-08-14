@@ -44,4 +44,11 @@ pageextension 50201 chartofaccounts extends "Chart of Accounts"
 
 
     }
+    trigger OnOpenPage()
+    var
+        myInt: Integer;
+    begin
+        //Rec.LoadFields(Indentation);
+        Rec.SetLoadFields(Indentation)
+    end;
 }

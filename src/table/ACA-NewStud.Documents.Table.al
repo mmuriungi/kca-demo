@@ -426,7 +426,7 @@ Table 77360 "ACA-New Stud. Documents"
         ACASemesters: Record "ACA-Semesters";
         ACAIntake: Record "ACA-Intake";
     begin
-        //  REPORT.RUN(51348,FALSE,FALSE,ACAAdmImportedJABBuffer); // Process Admission for Selected Student
+        //  REPORT.RUN(REPORT::"Process JAB Admissions",FALSE,FALSE,ACAAdmImportedJABBuffer); // Process Admission for Selected Student
         /*This function processes the JAB admission and takes them to the Applications list*/
         Clear(ACASemesters);
         ACASemesters.Reset;

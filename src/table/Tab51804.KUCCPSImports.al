@@ -602,7 +602,7 @@ table 51804 "KUCCPS Imports"
                     end else begin
                         KUCCPSImports.Selected := true;
                         KUCCPSImports.Modify;
-                        Report.Run(51348, false, false, KUCCPSImports);
+                        Report.Run(REPORT::"Process JAB Admissions", false, false, KUCCPSImports);
                         Commit;
                         //Send Non-Resident Email
                         MailBody := 'You have not applied for a hostel allocation. You are therefore adviced to make personal arrangements for accomodation. Find Attached Form.';
@@ -763,7 +763,7 @@ table 51804 "KUCCPS Imports"
                 //process admission
                 if KUCCPSImports.Accomodation = KUCCPSImports.Accomodation::Resident then begin
                     Selected := true;
-                    Report.Run(51348, false, false, Rec);
+                    Report.Run(REPORT::"Process JAB Admissions", false, false, Rec);
                     Commit;
                     //Admit student from the applic form header
                     ApplicHeader.Reset;
@@ -884,35 +884,35 @@ table 51804 "KUCCPS Imports"
     {
     }
 
-    trigger OnInsert()
-    begin
-        Clear(ACAAcademicYear);
-        ACAAcademicYear.Reset;
-        ACAAcademicYear.SetRange(Current, true);
-        if ACAAcademicYear.Find('-') then begin
-            "Academic Year" := ACAAcademicYear.Code;
-        end;
-        Rec."Current Approval Level" := 'APPROVAL INITIATED';
-        Clear(ACANewStudDocSetup);
-        ACANewStudDocSetup.Reset;
-        ACANewStudDocSetup.SetRange("Academic Year", Rec."Academic Year");
-        if ACANewStudDocSetup.Find('-') then begin
-            repeat
-            begin
-                ACANewStudDocuments.Init;
-                ACANewStudDocuments."Academic Year" := ACANewStudDocSetup."Academic Year";
-                ACANewStudDocuments."Index Number" := Rec.Index;
-                ACANewStudDocuments."Document Code" := ACANewStudDocSetup."Document Code";
-                ACANewStudDocuments."Approval Sequence" := ACANewStudDocSetup.Sequence;
-                if ACANewStudDocSetup.Sequence = 1 then
-                    ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Open
-                else
-                    ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Created;
-                if ACANewStudDocuments.Insert then;
-            end;
-            until ACANewStudDocSetup.Next = 0;
-        end;
-    end;
+    // trigger OnInsert()
+    // begin
+    //     Clear(ACAAcademicYear);
+    //     ACAAcademicYear.Reset;
+    //     ACAAcademicYear.SetRange(Current, true);
+    //     if ACAAcademicYear.Find('-') then begin
+    //         "Academic Year" := ACAAcademicYear.Code;
+    //     end;
+    //     Rec."Current Approval Level" := 'APPROVAL INITIATED';
+    //     Clear(ACANewStudDocSetup);
+    //     ACANewStudDocSetup.Reset;
+    //     ACANewStudDocSetup.SetRange("Academic Year", Rec."Academic Year");
+    //     if ACANewStudDocSetup.Find('-') then begin
+    //         repeat
+    //         begin
+    //             ACANewStudDocuments.Init;
+    //             ACANewStudDocuments."Academic Year" := ACANewStudDocSetup."Academic Year";
+    //             ACANewStudDocuments."Index Number" := Rec.Index;
+    //             ACANewStudDocuments."Document Code" := ACANewStudDocSetup."Document Code";
+    //             ACANewStudDocuments."Approval Sequence" := ACANewStudDocSetup.Sequence;
+    //             if ACANewStudDocSetup.Sequence = 1 then
+    //                 ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Open
+    //             else
+    //                 ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Created;
+    //             if ACANewStudDocuments.Insert then;
+    //         end;
+    //         until ACANewStudDocSetup.Next = 0;
+    //     end;
+    // end;
 
     var
         ACAAcademicYear: Record "ACA-Academic Year";
