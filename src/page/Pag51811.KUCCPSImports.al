@@ -67,7 +67,7 @@ page 51811 "KUCCPS Imports"
                 {
                     ApplicationArea = Basic;
                 }
-                field("Slt Mail"; Rec."Slt Mail")
+                field("Alt Mail"; Rec."Slt Mail")
                 {
                     ApplicationArea = Basic;
                 }
@@ -160,13 +160,13 @@ page 51811 "KUCCPS Imports"
                         ACAAdmImportedJABBuffer: Record "KUCCPS Imports";
                     begin
                         if Confirm('Process Selected Student?', true) = false then Error('Cancelled!');
-                        // REPORT.RUN(51348,TRUE,TRUE);
+                        // REPORT.RUN(REPORT::"Process JAB Admissions",TRUE,TRUE);
                         //  END ELSE BEGIN
                         ACAAdmImportedJABBuffer.Reset;
                         ACAAdmImportedJABBuffer.SetRange(ACAAdmImportedJABBuffer.Selected, true);
                         ACAAdmImportedJABBuffer.SetRange(ACAAdmImportedJABBuffer.Processed, false);
                         if ACAAdmImportedJABBuffer.Find('-') then begin
-                            Report.Run(51348, false, false, ACAAdmImportedJABBuffer);
+                            Report.Run(REPORT::"Process JAB Admissions", false, false, ACAAdmImportedJABBuffer);
                         end;
                         CurrPage.Update;
                     end;
