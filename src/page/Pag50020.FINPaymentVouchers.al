@@ -280,7 +280,7 @@ page 50020 "FIN-Payment Vouchers"
                         //ERROR('You cannot Print until the document is released for approval');
                         Rec.RESET;
                         Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(69278, TRUE, TRUE, Rec);
+                        REPORT.RUN(report::"Payment Voucher Reports", TRUE, TRUE, Rec);
                         Rec.RESET;
 
                         CurrPage.UPDATE;
