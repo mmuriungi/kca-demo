@@ -98,12 +98,12 @@ page 52085 "KUCCPS Imports Mailing List"
                         ACAAdmImportedJABBuffer: Record "KUCCPS Imports";
                     begin
                         IF CONFIRM('Process Selected Student?', TRUE) = FALSE THEN BEGIN
-                            REPORT.RUN(REPORT::"Process JAB Admissions", TRUE, TRUE);
+                            REPORT.RUN(51348, TRUE, TRUE);
                         END ELSE BEGIN
                             ACAAdmImportedJABBuffer.RESET;
                             ACAAdmImportedJABBuffer.SETRANGE(ser, Rec.ser);
                             IF ACAAdmImportedJABBuffer.FIND('-') THEN BEGIN
-                                REPORT.RUN(REPORT::"Process JAB Admissions", FALSE, FALSE, ACAAdmImportedJABBuffer);
+                                REPORT.RUN(51348, FALSE, FALSE, ACAAdmImportedJABBuffer);
                             END;
                         END;
                         CurrPage.UPDATE;

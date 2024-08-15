@@ -5,7 +5,7 @@ page 51971 "ACA-Application Form H. list"
     ModifyAllowed = false;
     PageType = List;
     SourceTable = "ACA-Applic. Form Header";
-    SourceTableView = WHERE(Status = FILTER("Pending Payment"), "Settlement Type" = const('SSS'));
+    SourceTableView = WHERE(Status = FILTER("Pending Payment"));
 
     layout
     {
@@ -390,7 +390,8 @@ page 51971 "ACA-Application Form H. list"
                         //   BEGIN
                         Rec."User ID" := USERID;
                         Rec."Date of Receipt" := TODAY;
-                        Rec.Status := Rec.Status::"Provisional Admission";
+                        //Rec.Status := Rec.Status::"Provisional Admission";
+                        Rec.Status := Rec.Status::"Department Approved";
                         Rec."Documents Verified" := FALSE;
                         Rec."Admitted Degree" := Rec."First Degree Choice";
                         Rec."Date Of Meeting" := TODAY;
