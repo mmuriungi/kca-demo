@@ -397,7 +397,7 @@ page 52072 "HOD-Applicants"
                         //   BEGIN
                         Rec."User ID" := USERID;
                         Rec."Date of Receipt" := TODAY;
-                        Rec.Status := Rec.Status::"Provisional Admission";
+                        Rec.Status := Rec.Status::"Department Approved";
                         Rec."Documents Verified" := FALSE;
                         Rec."Admitted Degree" := Rec."First Degree Choice";
                         Rec."Date Of Meeting" := TODAY;

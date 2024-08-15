@@ -541,6 +541,7 @@ page 52805 "HOD Applicants CARD"
                     //Rec."Submission Status" := Rec."Submission Status"::"FAB Submission";
                     //Rec.Status := Rec.Status::"Provisional Admission";
                     Rec.Modify();
+                    Message('Student sent to dean''s office for approval');
                 end;
             }
             action(Reject)
@@ -618,6 +619,7 @@ page 52805 "HOD Applicants CARD"
                     //Rec."Submission Status" := Rec."Submission Status"::"FAB Submission";
                     //Rec.Status := Rec.Status::"Provisional Admission";
                     Rec.Modify();
+                    Message('Student Application Rejected');
                 end;
             }
             action(Ratify)
