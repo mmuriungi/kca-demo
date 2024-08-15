@@ -34,12 +34,12 @@ page 50017 "FIN-Payment Header"
                 }
                 field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {
-                    Editable = false;
+                    Editable = true;
                     ApplicationArea = All;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
-                    Editable = false;
+                    Editable = true;
                     ApplicationArea = All;
                 }
                 field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code") { ApplicationArea = all; }
@@ -638,9 +638,6 @@ page 50017 "FIN-Payment Header"
     begin
 
         Rec."Payment Type" := Rec."Payment Type"::Normal;
-        Rec."Global Dimension 1 Code" := 'MAIN';
-        Rec."Shortcut Dimension 2 Code" := 'CENTRAL VOTE';
-        Rec."Responsibility Center" := 'FIN';
         Rec."Cheque Type" := Rec."Cheque Type"::"Manual Check";
         CompanyInfo.get();
         Rec."On Behalf Of" := CompanyInfo.Name;
