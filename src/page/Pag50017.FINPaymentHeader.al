@@ -414,7 +414,7 @@ page 50017 "FIN-Payment Header"
                     // //ERROR('You cannot Print until the document is released for approval');
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(50005, TRUE, TRUE, Rec);
+                    REPORT.RUN(report::"Payment Voucher Reports", TRUE, TRUE, Rec);
                     Rec.RESET;
 
                     CurrPage.UPDATE;
