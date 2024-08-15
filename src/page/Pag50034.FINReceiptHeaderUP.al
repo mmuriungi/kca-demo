@@ -158,7 +158,7 @@ page 50034 "FIN-Receipt Header UP"
                     //IF Rec.Posted = FALSE THEN ERROR('Post the receipt before printing.');
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(50007, TRUE, TRUE, Rec);
+                    REPORT.RUN(report::Receipt, TRUE, TRUE, Rec);
                     //Rec.RESET;
                 end;
             }
@@ -195,7 +195,7 @@ page 50034 "FIN-Receipt Header UP"
                     IF Rec.Posted = TRUE THEN BEGIN
                         Rcpt.RESET;
                         Rcpt.SETFILTER(Rcpt."No.", Rec."No.");
-                        REPORT.RUN(50007, FALSE, TRUE, Rcpt);
+                        REPORT.RUN(report::Receipt, FALSE, TRUE, Rcpt);
 
                     END;
                 end;
@@ -212,9 +212,9 @@ page 50034 "FIN-Receipt Header UP"
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
         //********************************JACK**********************************//
-        Rec."Global Dimension 1 Code" := 'MAIN';
-        Rec."Shortcut Dimension 2 Code" := 'CENTRAL';
-        Rec.Validate("Shortcut Dimension 2 Code");
+        // Rec."Global Dimension 1 Code" := 'MAIN';
+        // Rec."Shortcut Dimension 2 Code" := 'CENTRAL';
+        //Rec.Validate("Shortcut Dimension 2 Code");
         Rcpt.RESET;
         Rcpt.SETRANGE(Rcpt.Posted, FALSE);
         Rcpt.SETRANGE(Rcpt."Created By", USERID);
