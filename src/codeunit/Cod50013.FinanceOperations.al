@@ -2,7 +2,7 @@ codeunit 50013 "Finance Operations"
 {
     var
 
-       PaymentHeader: Record "FIN-Imprest Header";
+        PaymentHeader: Record "FIN-Imprest Header";
         Objeperiod: Record "PRL-Payroll Periods";
         EmpTransactions: Record "PRL-Employee Transactions";
         Periodmoth: Integer;
@@ -55,8 +55,8 @@ codeunit 50013 "Finance Operations"
             PayHeader.Cashier := UserId;
             PayHeader."Time Posted" := Time;
             PayHeader."Payment Narration" := 'Imprest Combinination';
-            PayHeader."Global Dimension 1 Code" := 'MAIN';
-            PayHeader."Shortcut Dimension 2 Code" := 'CENTRAL VOTE';
+            PayHeader."Global Dimension 1 Code" := FinImprestHeader."Global Dimension 1 Code";
+            PayHeader."Shortcut Dimension 2 Code" := FinImprestHeader."Shortcut Dimension 2 Code";
             Info.get;
             PayHeader."On Behalf Of" := Info.Name;
             PayHeader.Insert();
@@ -152,10 +152,11 @@ codeunit 50013 "Finance Operations"
 
         //end;
     end;
+
     procedure PayrollRefund()
     begin
 
- Objeperiod.reset;
+        Objeperiod.reset;
         Objeperiod.SetFilter(Objeperiod.Closed, '=%1', false);
         if Objeperiod.Find('-') then begin
             Periodmoth := Objeperiod."Period Month";
@@ -163,14 +164,14 @@ codeunit 50013 "Finance Operations"
             PayrallPeriod := Objeperiod."Date Opened";
 
             if Objeperiod.Find('-') then begin
-    end;
+            end;
         end;
     end;
 
 
     procedure RecoverFromPayroll()
     var
-     
+
 
 
     begin
