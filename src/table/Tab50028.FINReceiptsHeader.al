@@ -504,8 +504,6 @@ table 50028 "FIN-Receipts Header"
             GenLedgerSetup.TESTFIELD(GenLedgerSetup."Receipts No");
             NoSeriesMgt.InitSeries(GenLedgerSetup."Receipts No", xRec."No. Series", 0D, "No.", "No. Series");
         END;
-        Rec."Global Dimension 1 Code" := 'Main';
-        Rec."Responsibility Center" := 'Main';
 
         UserTemplate.RESET;
         UserTemplate.SETRANGE(UserTemplate.UserID, USERID);

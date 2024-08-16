@@ -475,24 +475,7 @@ tableextension 50010 "Purchase Header" extends "Purchase Header"
 
     begin
         InitInsert2;
-        /* Rec.Reset();
-         IF (DocApprovalType = DocApprovalType::Requisition) and ("No." = '') and ("Document Type 2" = "Document Type 2"::Requisition)
-         And ("Document Type" = "Document Type"::Quote) THEN BEGIN
-             PurchSetup.GET;
-             PurchSetup.TESTFIELD(PurchSetup."Internal Requisition No.");
-             NoSeriesMgt.InitSeries(PurchSetup."Internal Requisition No.", xRec."No. Series", 0D, "No.", "No. Series");
-         END;*/
-
-        PurchSetup.Reset();
-        if PurchSetup.find('-') then;
-        PurchSetup.TestField("Requisition Default Vendor");
-        if vend.get(PurchSetup."Requisition Default Vendor") then;
-        IF DocApprovalType = DocApprovalType::Requisition THEN BEGIN
-            "Buy-from Vendor No." := PurchSetup."Requisition Default Vendor";
-            VALIDATE("Buy-from Vendor No.");
-            Rec.Validate("Buy-from Vendor Name", vend.Name);
-            // "Quote No." := "No."
-        END
+      
     end;
 
     trigger OnModify()
