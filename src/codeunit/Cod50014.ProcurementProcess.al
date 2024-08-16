@@ -1537,7 +1537,6 @@ codeunit 50014 "Procurement Process"
                     purheader."Winning Bid" := Thead."Recommended for Award";
                     purheader."Document Type" := purheader."Document Type"::Order;
                     purheader.Insert();
-
                     sno := 0;
                     qlines.Reset();
                     qlines.SetRange("Document No.", Thead."Recommended for Award");
