@@ -1536,8 +1536,7 @@ codeunit 50014 "Procurement Process"
                     purheader."Assigned User ID 2" := UserId;
                     purheader."Winning Bid" := Thead."Recommended for Award";
                     purheader."Document Type" := purheader."Document Type"::Order;
-                    purheader.Insert();
-
+                    purheader.Insert();git re
                     sno := 0;
                     qlines.Reset();
                     qlines.SetRange("Document No.", Thead."Recommended for Award");
