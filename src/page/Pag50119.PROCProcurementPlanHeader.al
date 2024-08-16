@@ -42,11 +42,17 @@ page 50119 "PROC-Procurement Plan Header"
                     Visible = false;
                 }
             }
-            part(part; "Workplan Activities")
+            //part(part; "Workplan Activities")
+            // {
+            //     SubPageLink = "WorkPlan Code" = FIELD("Budget Name"),
+            //                    "Shortcut Dimension 2 Code" = FIELD("Department Code"),
+            //                   "Global Dimension 1 Code" = FIELD("Campus Code");
+            // }
+            part(part; "PROC-Procurement Plan Lines")
             {
-                SubPageLink = "WorkPlan Code" = FIELD("Budget Name"),
-                               "Shortcut Dimension 2 Code" = FIELD("Department Code"),
-                              "Global Dimension 1 Code" = FIELD("Campus Code");
+                SubPageLink = "Budget Name" = FIELD("Budget Name"),
+                               "Department" = FIELD("Department Code"),
+                               "Campus" = FIELD("Campus Code");
             }
         }
     }
