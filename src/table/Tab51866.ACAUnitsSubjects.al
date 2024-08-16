@@ -18,7 +18,7 @@ table 51866 "ACA-Units/Subjects"
         {
             Caption = 'Unit Code';
             NotBlank = true;
-            // TableRelation = "ACA-Units Master Table"."Unit Code";
+            TableRelation = "ACA-Units Master Table"."Unit Code";
             // trigger OnValidate()
             // begin
             //     unitsMatsr.Reset();
