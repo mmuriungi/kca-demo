@@ -4,6 +4,8 @@ page 50157 "Workplan Activities"
     Editable = true;
     PageType = ListPart;
     SourceTable = "Workplan Activities";
+        ObsoleteState=Pending;
+    ObsoleteReason='Unused for this project';
 
     layout
     {
