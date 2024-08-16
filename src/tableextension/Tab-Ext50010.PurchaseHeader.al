@@ -436,22 +436,6 @@ tableextension 50010 "Purchase Header" extends "Purchase Header"
             OptionMembers = LPO,LSO;
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         modify("Responsibility Center")
         {
             Caption = 'Responsibility Center';
@@ -459,14 +443,11 @@ tableextension 50010 "Purchase Header" extends "Purchase Header"
 
             trigger OnAfterValidate()
             begin
-
-
                 if xRec."Responsibility Center" <> "Responsibility Center" then begin
                     RecreatePurchLines(FieldCaption("Responsibility Center"));
                     "Assigned User ID" := UserId;
                 end;
             end;
-
         }
     }
 
