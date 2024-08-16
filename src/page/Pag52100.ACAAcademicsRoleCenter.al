@@ -636,7 +636,7 @@ page 52100 "ACA-Academics Role Center"
         }
         area(sections)
         {
-            group("SSS Admissions")
+            group("PSSP Admissions")
             {
 
                 Image = RegisteredDocs;
@@ -721,7 +721,7 @@ page 52100 "ACA-Academics Role Center"
                     RunObject = Page "KUCCPS Imports";
                     ApplicationArea = All;
                 }
-                action("Registration KUCCP")
+                action("Registration KUCCPS")
                 {
                     RunObject = Page "ACA-KUCCPS Student Reg";
                     Visible = true;
