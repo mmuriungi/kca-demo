@@ -37,7 +37,8 @@ page 54373 "Procurement Management RC"
                 {
                     ApplicationArea = Suite;
                     Caption = 'Procurement Plan';
-                    RunObject = Page "PROC-Procurement Plan Header";
+                    // RunObject = Page "PROC-Procurement Plan Header";
+                    RunObject = page "PROC-Procurement Plan list";
                     ToolTip = 'Create purchase requisition from departments.';
                 }
 

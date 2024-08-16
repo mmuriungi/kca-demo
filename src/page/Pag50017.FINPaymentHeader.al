@@ -57,7 +57,7 @@ page 50017 "FIN-Payment Header"
                     Caption = 'Payment to';
                     Importance = Promoted;
                     ApplicationArea = All;
-                    Editable = "Payment NarrationEditable";
+                    Editable = PaymentNarrationEditable;
                     ShowMandatory = true;
                 }
                 field("On Behalf Of"; Rec."On Behalf Of")
@@ -67,7 +67,7 @@ page 50017 "FIN-Payment Header"
                 }
                 field("Payment Narration"; Rec."Payment Narration")
                 {
-                    Editable = "Payment NarrationEditable";
+                    Editable = PaymentNarrationEditable;
                     Importance = Promoted;
                     MultiLine = true;
                     ApplicationArea = All;
@@ -105,7 +105,7 @@ page 50017 "FIN-Payment Header"
                 }
                 field("Responsibility Center"; Rec."Responsibility Center")
                 {
-                    Editable = "Payment NarrationEditable";
+                    Editable = PaymentNarrationEditable;
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
@@ -172,7 +172,6 @@ page 50017 "FIN-Payment Header"
                 {
                     ApplicationArea = ALL;
                     Visible = ChequeBufferNoEditable;
-
                 }
                 field("Cheque No."; Rec."Cheque No.")
                 {
@@ -623,7 +622,7 @@ page 50017 "FIN-Payment Header"
         DateEditable := TRUE;
         PayeeEditable := TRUE;
         ShortcutDimension2CodeEditable := TRUE;
-        "Payment NarrationEditable" := TRUE;
+        PaymentNarrationEditable := TRUE;
         GlobalDimension1CodeEditable := TRUE;
         "Currency CodeEditable" := FALSE;
         "Invoice Currency CodeEditable" := TRUE;
@@ -740,7 +739,7 @@ page 50017 "FIN-Payment Header"
         [InDataSet]
         GlobalDimension1CodeEditable: Boolean;
         [InDataSet]
-        "Payment NarrationEditable": Boolean;
+        PaymentNarrationEditable: Boolean;
         [InDataSet]
         ShortcutDimension2CodeEditable: Boolean;
         [InDataSet]
@@ -1980,7 +1979,7 @@ page 50017 "FIN-Payment Header"
         IF Rec.Status = Rec.Status::Pending THEN BEGIN
             "Currency CodeEditable" := FALSE;
             GlobalDimension1CodeEditable := TRUE;
-            "Payment NarrationEditable" := TRUE;
+            PaymentNarrationEditable := TRUE;
             ShortcutDimension2CodeEditable := TRUE;
             PayeeEditable := TRUE;
             ShortcutDimension3CodeEditable := TRUE;
@@ -1991,17 +1990,17 @@ page 50017 "FIN-Payment Header"
         END ELSE BEGIN
             "Currency CodeEditable" := FALSE;
             GlobalDimension1CodeEditable := FALSE;
-            "Payment NarrationEditable" := FALSE;
+            PaymentNarrationEditable := FALSE;
             ShortcutDimension2CodeEditable := FALSE;
             PayeeEditable := FALSE;
             ShortcutDimension3CodeEditable := FALSE;
             ShortcutDimension4CodeEditable := FALSE;
             DateEditable := FALSE;
             PVLinesEditable := FALSE;
-
-
-
-        END
+        END;
+        if Rec.Status = Rec.status::Approved then begin
+            PaymentNarrationEditable := true;
+        end;
     end;
 
     //[Scope('Internal')]
