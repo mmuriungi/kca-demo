@@ -1625,5 +1625,13 @@ codeunit 50014 "Procurement Process"
 
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", OnBeforeCheckBuyFromVendorNo, '', false, false)]
+    local procedure SkipVendorCheckForRequisition(PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
+    begin
+        if PurchaseHeader.DocApprovalType = PurchaseHeader.DocApprovalType::Requisition then begin
+            ishandled := true;
+        end;
+    end;
+
 }
 
