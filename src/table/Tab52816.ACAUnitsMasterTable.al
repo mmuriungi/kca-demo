@@ -8,18 +8,13 @@ table 52816 "ACA-Units Master Table"
     {
         field(1; "Unit Code"; Code[20])
         {
-
-
         }
         field(8; "Unit Name"; Text[100])
         {
-
         }
         field(2; "Unit Base Code"; Code[20])
         {
-
         }
-
         field(3; "Department Code"; Code[20])
 
         {
@@ -47,32 +42,26 @@ table 52816 "ACA-Units Master Table"
         }
         field(5; "Credit Hours"; Decimal)
         {
-
         }
         field(6; "Programme Code"; Code[20])
         {
-            //TableRelation = "ACA-Programme".Code;
+            TableRelation = "ACA-Programme".Code;
         }
         field(7; ExamCategory; code[20])
         {
-
         }
         field(9; "Unit Base Title"; Text[100])
         {
-
         }
         field(10; "Prerequisite Unit Code 1"; code[20])
         {
-
         }
         field(11; "Prerequisite Unit Code 2"; code[20])
         {
-
         }
         field(12; "Prerequisite Unit Code 3"; code[20])
         {
-
-        }
+ }
 
     }
 
@@ -86,7 +75,5 @@ table 52816 "ACA-Units Master Table"
 
     var
         myInt: Integer;
-
-
 
 }

@@ -3,6 +3,7 @@ report 52155 "Post Student Charges"
     ApplicationArea = All;
     Caption = 'Post Student Charges';
     UsageCategory = ReportsAndAnalysis;
+    ProcessingOnly = true;
     dataset
     {
         dataitem(ACACourseRegistration; "ACA-Course Registration")
