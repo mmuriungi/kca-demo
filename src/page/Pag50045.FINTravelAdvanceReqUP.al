@@ -127,8 +127,8 @@ page 50045 "FIN-Travel Advance Req. UP"
                 }
                 field(Status; Rec.Status)
                 {
-                    Editable = true;
                     ApplicationArea = All;
+                    editable = false;
                 }
                 field("Total Net Amount"; Rec."Total Net Amount")
                 {
@@ -156,6 +156,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                 field("Cheque Buffer No"; Rec."Cheque Buffer No")
                 {
                     ApplicationArea = all;
+                    visible = false;
 
                 }
                 field("Cheque No."; Rec."Cheque No.")
