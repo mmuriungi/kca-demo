@@ -103,7 +103,7 @@ table 51883 "ACA-Student Units"
         {
             Editable = true;
             NotBlank = false;
-            //TableRelation = "ACA-Units/Subjects".Code WHERE("Programme Code" = FIELD(Programme));
+            TableRelation = "ACA-Units/Subjects".Code WHERE("Programme Code" = FIELD(Programme));
 
             trigger OnValidate()
             var
