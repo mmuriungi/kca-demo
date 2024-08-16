@@ -51,7 +51,6 @@ report 52009 "Student ID"
             //Barcode2: Record 60003;
             begin
                 //CardExpiry:=Cust."ID Card Expiry Year";
-                Custz.CALCFIELDS(Custz.Image);
                 IF NOT Custz.Image.HASVALUE THEN CurrReport.SKIP;
                 courseReg.RESET;
                 courseReg.SETRANGE(courseReg."Student No.", Custz."No.");
@@ -152,7 +151,7 @@ report 52009 "Student ID"
     begin
         CompInfo.GET;
         CompInfo.CALCFIELDS(CompInfo.Picture);
-        CompInfo.CALCFIELDS(CompInfo.Picture);
+        
     end;
 
     var
