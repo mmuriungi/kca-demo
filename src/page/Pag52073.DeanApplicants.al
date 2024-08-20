@@ -309,7 +309,7 @@ page 52073 "Dean-Applicants"
                     Caption = 'Send A&pproval Request';
                     Image = SendApprovalRequest;
                     Promoted = true;
-                    PromotedCategory = Category4;
+                    //PromotedCategory = Category4;
                     PromotedIsBig = true;
                     ApplicationArea = All;
 
@@ -414,7 +414,7 @@ page 52073 "Dean-Applicants"
                     Caption = 'Cancel Approval Re&quest';
                     Image = Cancel;
                     Promoted = true;
-                    PromotedCategory = Category4;
+                    //PromotedCategory = Category4;
                     PromotedIsBig = true;
                     ApplicationArea = All;
 

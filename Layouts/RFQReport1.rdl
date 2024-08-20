@@ -64,188 +64,119 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="Quotation_Request_Vendors__Quotation_Request_Vendors___Document_No__">
-          <DataField>Quotation_Request_Vendors__Quotation_Request_Vendors___Document_No__</DataField>
+        <Field Name="BidderSupplier_ReqHeader">
+          <DataField>BidderSupplier_ReqHeader</DataField>
         </Field>
-        <Field Name="VendorName">
-          <DataField>VendorName</DataField>
+        <Field Name="OrderNo_ReqHeader">
+          <DataField>OrderNo_ReqHeader</DataField>
         </Field>
-        <Field Name="VendNos">
-          <DataField>VendNos</DataField>
+        <Field Name="PrequalificationPeriod_ReqHeader">
+          <DataField>PrequalificationPeriod_ReqHeader</DataField>
         </Field>
-        <Field Name="vendAddress______Pcode">
-          <DataField>vendAddress______Pcode</DataField>
+        <Field Name="Description_ReqHeader">
+          <DataField>Description_ReqHeader</DataField>
         </Field>
-        <Field Name="TODAY">
-          <DataField>TODAY</DataField>
+        <Field Name="SuppliersCategory_ReqHeader">
+          <DataField>SuppliersCategory_ReqHeader</DataField>
         </Field>
-        <Field Name="info_Name">
-          <DataField>info_Name</DataField>
+        <Field Name="No_ReqHeader">
+          <DataField>No_ReqHeader</DataField>
         </Field>
-        <Field Name="info_PhoneNo">
-          <DataField>info_PhoneNo</DataField>
+        <Field Name="Title_ReqHeader">
+          <DataField>Title_ReqHeader</DataField>
         </Field>
-        <Field Name="info_EMail">
-          <DataField>info_EMail</DataField>
+        <Field Name="RequisitionNo_ReqHeader">
+          <DataField>RequisitionNo_ReqHeader</DataField>
         </Field>
-        <Field Name="info_HomePage">
-          <DataField>info_HomePage</DataField>
+        <Field Name="CreationDate_ReqHeader">
+          <DataField>CreationDate_ReqHeader</DataField>
         </Field>
-        <Field Name="info_Address_____info__Post_Code_">
-          <DataField>info_Address_____info__Post_Code_</DataField>
+        <Field Name="UserID_ReqHeader">
+          <DataField>UserID_ReqHeader</DataField>
         </Field>
-        <Field Name="City">
-          <DataField>City</DataField>
+        <Field Name="ProcurementMethod_ReqHeader">
+          <DataField>ProcurementMethod_ReqHeader</DataField>
         </Field>
-        <Field Name="info_City">
-          <DataField>info_City</DataField>
+        <Field Name="ReturnDate_ReqHeader">
+          <DataField>ReturnDate_ReqHeader</DataField>
         </Field>
-        <Field Name="CompanyLogo">
-          <DataField>CompanyLogo</DataField>
+        <Field Name="DocumentNo_ReqHeader">
+          <DataField>DocumentNo_ReqHeader</DataField>
         </Field>
-        <Field Name="Purchase_Quote_Header___Expected_Closing_Date_">
-          <DataField>Purchase_Quote_Header___Expected_Closing_Date_</DataField>
+        <Field Name="ExtendedDate_ReqHeader">
+          <DataField>ExtendedDate_ReqHeader</DataField>
         </Field>
-        <Field Name="Days_to_DeliverCaption">
-          <DataField>Days_to_DeliverCaption</DataField>
+        <Field Name="IssuedDate_ReqHeader">
+          <DataField>IssuedDate_ReqHeader</DataField>
         </Field>
-        <Field Name="BrandCaption">
-          <DataField>BrandCaption</DataField>
+        <Field Name="Compname">
+          <DataField>Compname</DataField>
         </Field>
-        <Field Name="Unit_PriceCaption">
-          <DataField>Unit_PriceCaption</DataField>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
         </Field>
-        <Field Name="QtyCaption">
-          <DataField>QtyCaption</DataField>
+        <Field Name="CompPhone">
+          <DataField>CompPhone</DataField>
         </Field>
-        <Field Name="UnitCaption">
-          <DataField>UnitCaption</DataField>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
         </Field>
-        <Field Name="Item_DescriptionCaption">
-          <DataField>Item_DescriptionCaption</DataField>
+        <Field Name="CompMail">
+          <DataField>CompMail</DataField>
         </Field>
-        <Field Name="CodeCaption">
-          <DataField>CodeCaption</DataField>
+        <Field Name="CompUrl">
+          <DataField>CompUrl</DataField>
         </Field>
-        <Field Name="Buyer_s_Destination_and_Address_Caption">
-          <DataField>Buyer_s_Destination_and_Address_Caption</DataField>
+        <Field Name="Description2_ReqLines">
+          <DataField>Description2_ReqLines</DataField>
         </Field>
-        <Field Name="From_Caption">
-          <DataField>From_Caption</DataField>
+        <Field Name="BuyfromVendorNo_ReqLines">
+          <DataField>BuyfromVendorNo_ReqLines</DataField>
         </Field>
-        <Field Name="Date_Caption">
-          <DataField>Date_Caption</DataField>
+        <Field Name="RequisitionNo_ReqLines">
+          <DataField>RequisitionNo_ReqLines</DataField>
         </Field>
-        <Field Name="Quotation_No__Caption">
-          <DataField>Quotation_No__Caption</DataField>
+        <Field Name="LineNo_ReqLines">
+          <DataField>LineNo_ReqLines</DataField>
         </Field>
-        <Field Name="Seller_s_Name_and_Address_Caption">
-          <DataField>Seller_s_Name_and_Address_Caption</DataField>
+        <Field Name="Type_ReqLines">
+          <DataField>Type_ReqLines</DataField>
         </Field>
-        <Field Name="To_Caption">
-          <DataField>To_Caption</DataField>
+        <Field Name="No_ReqLines">
+          <DataField>No_ReqLines</DataField>
         </Field>
-        <Field Name="REQUEST_FOR_QUOTATION_FORMCaption">
-          <DataField>REQUEST_FOR_QUOTATION_FORMCaption</DataField>
+        <Field Name="UnitofMeasureCode_ReqLines">
+          <DataField>UnitofMeasureCode_ReqLines</DataField>
         </Field>
-        <Field Name="Authorized_by_Caption">
-          <DataField>Authorized_by_Caption</DataField>
+        <Field Name="Description_ReqLines">
+          <DataField>Description_ReqLines</DataField>
         </Field>
-        <Field Name="Procurement_Officer_____________________________________________________________Caption">
-          <DataField>Procurement_Officer_____________________________________________________________Caption</DataField>
+        <Field Name="Quantity_ReqLines">
+          <DataField>Quantity_ReqLines</DataField>
         </Field>
-        <Field Name="PLEASE_GIVE_US_URGENT_QUOTATIONS_FOR_THE_FOLLOWING_GOODS_AND_SERVICES_Caption">
-          <DataField>PLEASE_GIVE_US_URGENT_QUOTATIONS_FOR_THE_FOLLOWING_GOODS_AND_SERVICES_Caption</DataField>
+        <Field Name="Quantity_ReqLinesFormat">
+          <DataField>Quantity_ReqLinesFormat</DataField>
         </Field>
-        <Field Name="MMUCaption">
-          <DataField>MMUCaption</DataField>
+        <Field Name="UnitofMeasure_ReqLines">
+          <DataField>UnitofMeasure_ReqLines</DataField>
         </Field>
-        <Field Name="UNIVERSITYCaption">
-          <DataField>UNIVERSITYCaption</DataField>
+        <Field Name="UnitPrice_ReqLines">
+          <DataField>UnitPrice_ReqLines</DataField>
         </Field>
-        <Field Name="PROCUREMENT_DEPARTMENTCaption">
-          <DataField>PROCUREMENT_DEPARTMENTCaption</DataField>
+        <Field Name="UnitPrice_ReqLinesFormat">
+          <DataField>UnitPrice_ReqLinesFormat</DataField>
         </Field>
-        <Field Name="Total_CostCaption">
-          <DataField>Total_CostCaption</DataField>
+        <Field Name="Amount_ReqLines">
+          <DataField>Amount_ReqLines</DataField>
         </Field>
-        <Field Name="Expected_Closing_Date_Caption">
-          <DataField>Expected_Closing_Date_Caption</DataField>
+        <Field Name="Amount_ReqLinesFormat">
+          <DataField>Amount_ReqLinesFormat</DataField>
         </Field>
-        <Field Name="Quotation_Request_Vendors_Document_Type">
-          <DataField>Quotation_Request_Vendors_Document_Type</DataField>
+        <Field Name="SupplierCategory_ReqLines">
+          <DataField>SupplierCategory_ReqLines</DataField>
         </Field>
-        <Field Name="Quotation_Request_Vendors_Vendor_No_">
-          <DataField>Quotation_Request_Vendors_Vendor_No_</DataField>
-        </Field>
-        <Field Name="Purchase_Quote_Header_Document_Type">
-          <DataField>Purchase_Quote_Header_Document_Type</DataField>
-        </Field>
-        <Field Name="Purchase_Quote_Header_No_">
-          <DataField>Purchase_Quote_Header_No_</DataField>
-        </Field>
-        <Field Name="PostingDescription_PurchaseQuoteHeader">
-          <DataField>PostingDescription_PurchaseQuoteHeader</DataField>
-        </Field>
-        <Field Name="ExpectedClosingDate_PurchaseQuoteHeader">
-          <DataField>ExpectedClosingDate_PurchaseQuoteHeader</DataField>
-        </Field>
-        <Field Name="DeptName">
-          <DataField>DeptName</DataField>
-        </Field>
-        <Field Name="DocNos">
-          <DataField>DocNos</DataField>
-        </Field>
-        <Field Name="VenNaem">
-          <DataField>VenNaem</DataField>
-        </Field>
-        <Field Name="VenNos">
-          <DataField>VenNos</DataField>
-        </Field>
-        <Field Name="PQITMNO">
-          <DataField>PQITMNO</DataField>
-        </Field>
-        <Field Name="Uom">
-          <DataField>Uom</DataField>
-        </Field>
-        <Field Name="qty">
-          <DataField>qty</DataField>
-        </Field>
-        <Field Name="qtyFormat">
-          <DataField>qtyFormat</DataField>
-        </Field>
-        <Field Name="Desc">
-          <DataField>Desc</DataField>
-        </Field>
-        <Field Name="Desc1">
-          <DataField>Desc1</DataField>
-        </Field>
-        <Field Name="For_Official_UseCaption">
-          <DataField>For_Official_UseCaption</DataField>
-        </Field>
-        <Field Name="Designation_____________________________________Date_____________________________________Caption">
-          <DataField>Designation_____________________________________Date_____________________________________Caption</DataField>
-        </Field>
-        <Field Name="Opened_By_Caption">
-          <DataField>Opened_By_Caption</DataField>
-        </Field>
-        <Field Name="Designation_____________________________________Date_____________________________________Caption_Control1102755019">
-          <DataField>Designation_____________________________________Date_____________________________________Caption_Control1102755019</DataField>
-        </Field>
-        <Field Name="Checked_By_Caption">
-          <DataField>Checked_By_Caption</DataField>
-        </Field>
-        <Field Name="Purchase_Quote_Line_Document_Type">
-          <DataField>Purchase_Quote_Line_Document_Type</DataField>
-        </Field>
-        <Field Name="Purchase_Quote_Line_Document_No_">
-          <DataField>Purchase_Quote_Line_Document_No_</DataField>
-        </Field>
-        <Field Name="Purchase_Quote_Line_Line_No_">
-          <DataField>Purchase_Quote_Line_Line_No_</DataField>
-        </Field>
-        <Field Name="Purchase_Quote_Line_Description">
-          <DataField>Purchase_Quote_Line_Description</DataField>
+        <Field Name="OrderDate_ReqLines">
+          <DataField>OrderDate_ReqLines</DataField>
         </Field>
       </Fields>
       <Query>

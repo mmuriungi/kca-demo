@@ -76,6 +76,7 @@ table 51804 "KUCCPS Imports"
         }
         field(4; Prog; Code[20])
         {
+            TableRelation = "ACA-Programme";
         }
         field(5; Names; Text[100])
         {

@@ -302,7 +302,7 @@ page 51971 "ACA-Application Form H. list"
                     Caption = 'Send A&pproval Request';
                     Image = SendApprovalRequest;
                     Promoted = true;
-                    PromotedCategory = Category4;
+                    //PromotedCategory = Category4;
                     PromotedIsBig = true;
                     ApplicationArea = All;
 
