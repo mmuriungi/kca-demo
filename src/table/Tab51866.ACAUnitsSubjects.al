@@ -202,10 +202,10 @@ table 51866 "ACA-Units/Subjects"
         }
         field(58; "Unit Registered"; Integer)
         {
-            // CalcFormula = Count("ACA-Student Units" WHERE("Student No." = FIELD("Student No. Filter"),
-            //                                                Unit = FIELD(Code)));
-            // Editable = false;
-            // FieldClass = FlowField;
+            CalcFormula = Count("ACA-Student Units" WHERE("Student No." = FIELD("Student No. Filter"),
+                                                           Unit = FIELD(Code)));
+            Editable = false;
+            FieldClass = FlowField;
         }
         field(59; "Re-Sit"; Integer)
         {
