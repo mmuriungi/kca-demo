@@ -302,7 +302,7 @@ page 51971 "ACA-Application Form H. list"
                     Caption = 'Send A&pproval Request';
                     Image = SendApprovalRequest;
                     Promoted = true;
-                    //PromotedCategory = Category4;
+                    PromotedCategory = Process;
                     PromotedIsBig = true;
                     ApplicationArea = All;
 
@@ -408,7 +408,7 @@ page 51971 "ACA-Application Form H. list"
                     Caption = 'Cancel Approval Re&quest';
                     Image = Cancel;
                     Promoted = true;
-                    PromotedCategory = Category4;
+                    PromotedCategory = Process;
                     PromotedIsBig = true;
                     ApplicationArea = All;
 
