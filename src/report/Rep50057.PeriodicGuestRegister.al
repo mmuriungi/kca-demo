@@ -4,7 +4,7 @@ report 50057 "Periodic Guest Register"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'GuestRegister.rdl';
+    RDLCLayout = './Layouts/GuestRegister.rdl';
 
     dataset
     {

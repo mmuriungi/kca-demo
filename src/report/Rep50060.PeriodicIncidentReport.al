@@ -4,7 +4,7 @@ report 50060 "Periodic Incident Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'IncidentReport.rdl';
+    RDLCLayout = './Layouts/IncidentReport.rdl';
 
     dataset
     {

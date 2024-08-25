@@ -3,7 +3,7 @@ report 50058 "Counselling Session Analysis"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = './CounselingSessionAnalysis.rdl';
+    RDLCLayout = './Layouts/CounselingSessionAnalysis.rdl';
 
     dataset
     {

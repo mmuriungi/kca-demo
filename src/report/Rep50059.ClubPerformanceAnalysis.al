@@ -4,7 +4,7 @@ report 50059 "Club Performance Analysis"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = './ClubPerformanceAnalysis.rdl';
+    RDLCLayout = './Layouts/ClubPerformanceAnalysis.rdl';
 
     dataset
     {

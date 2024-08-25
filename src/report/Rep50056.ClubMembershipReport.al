@@ -4,7 +4,7 @@ report 50056 "Club Membership Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'ClubMembershipReport.rdl';
+    RDLCLayout = './Layouts/ClubMembershipReport.rdl';
 
     dataset
     {
