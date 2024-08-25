@@ -1,6 +1,6 @@
 page 50303 "Student Affairs Analytics"
 {
-    PageType = Card;
+    PageType = Cardpart;
     ApplicationArea = All;
     UsageCategory = Administration;
 
