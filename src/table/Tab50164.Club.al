@@ -37,6 +37,19 @@ table 50164 Club
             Caption = 'Status';
             OptionMembers = Active,Inactive,PendingApproval;
         }
+        //Activity Count
+        field(8; "Activity Count"; Integer)
+        {
+            Caption = 'Activity Count';
+            FieldClass = FlowField;
+            CalcFormula = count("Club/Society Activity" where("Club/Society Code" = field(Code)));
+        }
+        //"Date Filter"
+        field(9; "Date Filter"; Date)
+        {
+            Caption = 'Date Filter';
+            fieldclass = flowfilter;
+        }
     }
 
     keys
