@@ -83,8 +83,8 @@ report 52008 "Post Billing"
 
                     //Billing
                     GenJnl.RESET;
-                    GenJnl.SETRANGE("Journal Template Name", 'SALES');
-                    GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
+                    GenJnl.SETRANGE("Journal Template Name", 'GENERAL');
+                    GenJnl.SETRANGE("Journal Batch Name", 'DEFAULT');
                     GenJnl.DELETEALL;
 
                     SettlementType.GET("CourseRegistration"."Settlement Type");
@@ -416,8 +416,8 @@ report 52008 "Post Billing"
                             GenJnl.VALIDATE(GenJnl."Shortcut Dimension 2 Code");
                             GenJnl."Shortcut Dimension 3 code" := Prog.Faculty;
                             GenJnl.Validate("Shortcut Dimension 3 code");
-                            GenJnl."Shortcut Dimension 4 code" := Prog."Code";
-                            GenJnl.Validate("Shortcut Dimension 4 code");
+                            // GenJnl."Shortcut Dimension 4 code" := Prog."Code";
+                            // GenJnl.Validate("Shortcut Dimension 4 code");
                             //GenJnl.VALIDATE(GenJnl."Due Date");
                             IF StudentCharges."Recovery Priority" <> 0 THEN
                                 GenJnl."Recovery Priority" := StudentCharges."Recovery Priority"
@@ -448,17 +448,17 @@ report 52008 "Post Billing"
 
                         GenJnl."Document No." := "CourseRegistration"."Reg. Transacton ID";
                         GenJnl.VALIDATE(GenJnl."Document No.");
-                        GenJnl."Journal Template Name" := 'SALES';
-                        GenJnl."Journal Batch Name" := 'STUD PAY';
+                        GenJnl."Journal Template Name" := 'GENERAL';
+                        GenJnl."Journal Batch Name" := 'DEFAULT';
                         GenJnl."Account Type" := GenJnl."Account Type"::Customer;
                         GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
                         GenJnl.VALIDATE(GenJnl."Shortcut Dimension 1 Code");
                         GenJnl."Shortcut Dimension 2 Code" := Prog."Department Code";
                         GenJnl.VALIDATE(GenJnl."Shortcut Dimension 2 Code");
-                        GenJnl."Shortcut Dimension 3 code" := Prog.Faculty;
+                        GenJnl."Shortcut Dimension 3 Code" := Prog.Faculty;
                         GenJnl.Validate("Shortcut Dimension 3 code");
-                        GenJnl."Shortcut Dimension 4 code" := Prog."Code";
-                        GenJnl.Validate("Shortcut Dimension 4 code");
+                        //GenJnl."Shortcut Dimension 4 code" := Prog."Code";
+                        //GenJnl.Validate("Shortcut Dimension 4 code");
 
                         GenJnl.Amount := UnrecognisedAmount;
                         //Error('%1', UnrecognisedAmount);
@@ -474,8 +474,8 @@ report 52008 "Post Billing"
                             GenJnl.INSERT;
 
                         GenJnl.RESET;
-                        GenJnl.SETRANGE("Journal Template Name", 'SALES');
-                        GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
+                        GenJnl.SETRANGE("Journal Template Name", 'GENERAL');
+                        GenJnl.SETRANGE("Journal Batch Name", 'DEFAULT');
                         IF GenJnl.FIND('-') THEN BEGIN
                             CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B", GenJnl);
                         END;
