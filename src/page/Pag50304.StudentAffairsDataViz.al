@@ -1,6 +1,6 @@
 page 50304 "Student Affairs Data Viz"
 {
-    PageType = Card;
+    PageType = Cardpart;
     ApplicationArea = All;
     UsageCategory = Administration;
 
