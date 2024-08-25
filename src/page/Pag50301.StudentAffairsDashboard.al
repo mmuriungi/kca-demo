@@ -1,6 +1,6 @@
 page 50301 "Student Affairs Dashboard"
 {
-    PageType = Card;
+    PageType = Cardpart;
     ApplicationArea = All;
     UsageCategory = Administration;
 
