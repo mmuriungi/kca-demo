@@ -1,6 +1,6 @@
 page 50302 "Student Engagement Analytics"
 {
-    PageType = Card;
+    PageType = Cardpart;
     ApplicationArea = All;
     UsageCategory = Administration;
 
@@ -197,4 +197,4 @@ page 50302 "Student Engagement Analytics"
         MostCommonLeaveReason: Text[250];
         StudentsUsingCounseling: Decimal;
         AverageSessionsPerStudent: Decimal;
-}     
+}
