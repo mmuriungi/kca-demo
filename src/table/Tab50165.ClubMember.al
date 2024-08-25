@@ -36,6 +36,11 @@ table 50165 "Club Member"
         {
             Caption = 'Student Name';
         }
+        field(8; Role; Text[50])
+        {
+            Caption = 'Role';
+        }
+
     }
 
     keys
