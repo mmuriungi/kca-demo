@@ -50,6 +50,10 @@ table 50164 Club
             Caption = 'Date Filter';
             fieldclass = flowfilter;
         }
+        field(10; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+        }
     }
 
     keys
@@ -59,4 +63,15 @@ table 50164 Club
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    begin
+        clubsetup.Get();
+        ClubSetup.TestField("Club/Society Nos");
+        NoseriesMgmt.InitSeries(clubsetup."Club/Society Nos", xRec."No. Series", 0D, Rec."Code", Rec."No. Series");
+    end;
+
+    var
+        NoseriesMgmt: Codeunit "NoSeriesManagement";
+        ClubSetup: Record "Student Welfare Setup";
 }
