@@ -28,6 +28,10 @@ table 50167 "Club/Society Activity"
             Caption = 'Status';
             OptionMembers = Planned,Completed,Cancelled;
         }
+        field(6; Attendance; Integer)
+        {
+            Caption = 'Attendance';
+        }
     }
     
     keys
