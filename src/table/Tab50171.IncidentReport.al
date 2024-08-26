@@ -45,8 +45,22 @@ table 50171 "Incident Report"
         field(12; "Date Reported"; Date)
         {
         }
+        field(13; "Time Reported"; Time)
+        {
+        }
+        field(14; "Date Closed"; Date)
+        {
+        }
+        field(15; "Time Closed"; Time)
+        {
+        }
+        field(16; "Incident Location"; Text[100])
+        {
+        }
+        field(18; "No. Series"; Code[20])
+        {
+        }
     }
-
     keys
     {
         key(PK; "Case No.")
@@ -54,4 +68,14 @@ table 50171 "Incident Report"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    begin
+        Setup.Get();
+        setup.TestField("Incident Nos");
+        Noseries.InitSeries(Setup."Incident Nos", xRec."No. Series", 0D, rec."Case No.", Rec."No. Series");
+    end;
+
+    var
+        Setup: Record "Security Setup";
+        Noseries: Codeunit NoSeriesManagement;
 }
