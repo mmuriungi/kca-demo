@@ -1,7 +1,7 @@
 table 50884 "CAT-Meal Booking Header"
 {
-    DrillDownPageID = 53109;
-    LookupPageID = 53109;
+    DrillDownPageID = "CAT-Meal Booking List";
+    LookupPageID = "CAT-Meal Booking List";
 
     fields
     {

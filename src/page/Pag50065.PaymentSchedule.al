@@ -83,7 +83,7 @@ page 50065 "Payment Schedule"
         ImpH: Record "FIN-Imprest Header";
         PS: Record "Payment Schedule";
         BankRec: Record 270;
-        PostChequeNo: Codeunit 50112;
+        PostChequeNo: Codeunit "General. Jnl.-Post Line";
         CheckLedger: Record 272;
 
     //[Scope('Internal')]
