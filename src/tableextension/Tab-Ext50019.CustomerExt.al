@@ -1264,6 +1264,20 @@ tableextension 50019 "Customer Ext" extends Customer
             DataClassification = ToBeClassified;
 
         }
+        //Club Engagement Score
+        field(63207; "Club Engagement Score"; Decimal)
+        {
+        }
+        field(63208; "Leave Usage"; Decimal)
+        {
+            Caption = 'Leave Usage (Days)';
+            Editable = false;
+        }
+        field(63209; "Counseling Sessions"; Integer)
+        {
+            Caption = 'Counseling Sessions';
+            Editable = false;
+        }
 
 
 
