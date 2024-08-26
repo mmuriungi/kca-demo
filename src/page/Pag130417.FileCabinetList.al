@@ -1,5 +1,5 @@
 //was page 130417 "File Cabinet List"
-page 55100 "File Cabinet List"
+page 51859 "File Cabinet List"
 {
     CardPageID = "File Card";
     PageType = List;

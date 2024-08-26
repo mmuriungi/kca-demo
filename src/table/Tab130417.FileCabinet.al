@@ -1,5 +1,5 @@
 //was table 130417 "File Cabinet"
-table 55100 "File Cabinet"
+table 51198 "File Cabinet"
 {
 
     fields

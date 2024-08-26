@@ -1279,7 +1279,16 @@ tableextension 50019 "Customer Ext" extends Customer
             Editable = false;
         }
 
-
+        field(63210; "Last Engagement Date"; Date)
+        {
+            Caption = 'Last Engagement Date';
+        }
+        field(63211; "Total Donations"; Decimal)
+        {
+            Caption = 'Total Donations';
+            FieldClass = FlowField;
+            CalcFormula = sum(Donation.Amount where("Donor No." = field("No.")));
+        }
 
 
         modify("No.")
