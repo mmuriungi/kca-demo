@@ -406,7 +406,7 @@ page 51452 "CAT-Cafeteria Role Center"
                     Image = "Report";
                     //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
 
-                    RunObject = Report 51816;
+                    RunObject = Report "UpdateStud Dept";
                     // ApplicationArea = BAsic, Suite;
                 }
                 action("Meal Booking")
