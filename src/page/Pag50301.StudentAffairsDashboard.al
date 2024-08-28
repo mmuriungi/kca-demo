@@ -8,7 +8,7 @@ page 50301 "Student Affairs Dashboard"
     {
         area(Content)
         {
-            group(ClubStatistics)
+            cuegroup(ClubStatistics)
             {
                 Caption = 'Club Statistics';
                 field(TotalClubs; TotalClubs)
@@ -30,7 +30,7 @@ page 50301 "Student Affairs Dashboard"
                     Editable = false;
                 }
             }
-            group(LeaveStatistics)
+            cuegroup(LeaveStatistics)
             {
                 Caption = 'Leave Statistics';
                 field(PendingLeaves; PendingLeaves)
@@ -46,7 +46,7 @@ page 50301 "Student Affairs Dashboard"
                     Editable = false;
                 }
             }
-            group(CounselingStatistics)
+            cuegroup(CounselingStatistics)
             {
                 Caption = 'Counseling Statistics';
                 field(TotalSessions; TotalSessions)
