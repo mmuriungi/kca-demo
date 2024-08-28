@@ -37,6 +37,7 @@ page 50294 "Club Card"
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
             }
             part("Club Members"; "Club Member")
@@ -56,18 +57,39 @@ page 50294 "Club Card"
     {
         area(Processing)
         {
-            action(Approve)
+            action(SendApprovalRequest)
             {
                 ApplicationArea = All;
-                Caption = 'Approve Club';
-                Image = Approve;
-                Visible = Rec.Status = Rec.Status::PendingApproval;
+                Caption = 'Send Approval Request';
+                Image = SendApprovalRequest;
+                Visible = Rec."Approval Status" = Rec."Approval Status"::open;
 
                 trigger OnAction()
                 var
-                    ClubMgmt: Codeunit "Student Affairs Management";
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-                    ClubMgmt.ApproveClub(Rec);
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnSendDocForApproval(variant);
+                end;
+            }
+            //cancelapproval
+            action(CancelApproval)
+            {
+                ApplicationArea = All;
+                Caption = 'Cancel Approval';
+                Image = CancelApproval;
+                Visible = Rec."Approval Status" = Rec."Approval Status"::"Pending Approval";
+
+                trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
+                begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                 end;
             }
             action(Deactivate)
