@@ -45,6 +45,12 @@ table 50166 "Student Leave"
         {
             Caption = 'Approval Date';
         }
+        //"No. Series"
+        field(10; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            TableRelation = "No. Series";
+        }
     }
 
     keys
@@ -54,4 +60,14 @@ table 50166 "Student Leave"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    begin
+        clubsetup.Get();
+        ClubSetup.TestField("Leave Nos");
+        NoseriesMgmt.InitSeries(clubsetup."Leave Nos", xRec."No. Series", 0D, Rec."Leave No.", Rec."No. Series");
+    end;
+
+    var
+        NoseriesMgmt: Codeunit "NoSeriesManagement";
+        ClubSetup: Record "Student Welfare Setup";
 }

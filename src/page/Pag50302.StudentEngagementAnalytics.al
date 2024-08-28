@@ -8,7 +8,7 @@ page 50302 "Student Engagement Analytics"
     {
         area(Content)
         {
-            group(ClubEngagement)
+            cuegroup(ClubEngagement)
             {
                 Caption = 'Club Engagement';
                 field(AverageClubsPerStudent; AverageClubsPerStudent)
@@ -24,7 +24,7 @@ page 50302 "Student Engagement Analytics"
                     Editable = false;
                 }
             }
-            group(LeaveAnalysis)
+            cuegroup(LeaveAnalysis)
             {
                 Caption = 'Leave Analysis';
                 field(AverageLeavePerStudent; AverageLeavePerStudent)
@@ -40,7 +40,7 @@ page 50302 "Student Engagement Analytics"
                     Editable = false;
                 }
             }
-            group(CounselingAnalysis)
+            cuegroup(CounselingAnalysis)
             {
                 Caption = 'Counseling Analysis';
                 field(StudentsUsingCounseling; StudentsUsingCounseling)

@@ -123,6 +123,14 @@ page 50305 "Student Affairs Role Center"
                     RunObject = Page "Counselor List";
                 }
             }
+            group(Setups)
+            {
+                action("General Setup")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Welfare Setup";
+                }
+            }
         }
 
         area(Reporting)
