@@ -32,7 +32,7 @@ page 50297 "Student Leave List"
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Rec.Status)
+                field(Status; Rec."Approval Status")
                 {
                     ApplicationArea = All;
                 }

@@ -31,10 +31,9 @@ table 50166 "Student Leave"
         {
             Caption = 'Reason';
         }
-        field(7; Status; Option)
+        field(7; "Approval Status"; enum "Common Approval Status")
         {
-            Caption = 'Status';
-            OptionMembers = New,PendingHOD,PendingDean,Approved,Rejected;
+            Caption = 'Approval Status';
         }
         field(8; "Approved By"; Code[20])
         {
@@ -50,6 +49,13 @@ table 50166 "Student Leave"
         {
             Caption = 'No. Series';
             TableRelation = "No. Series";
+        }
+        //Studnet Name
+        field(11; "Student Name"; Text[250])
+        {
+            Caption = 'Student Name';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Customer."Name" where("No." = field("Student No.")));
         }
     }
 
