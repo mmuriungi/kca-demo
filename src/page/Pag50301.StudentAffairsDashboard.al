@@ -105,9 +105,9 @@ page 50301 "Student Affairs Dashboard"
         ClubSocietyActivity.SetFilter("Activity Date", '>=%1', Today);
         UpcomingActivities := ClubSocietyActivity.Count;
 
-        StudentLeave.SetRange(Status, StudentLeave.Status::PendingHOD, StudentLeave.Status::PendingDean);
+        StudentLeave.SetRange("Approval Status", StudentLeave."Approval Status"::"Pending Approval");
         PendingLeaves := StudentLeave.Count;
-        StudentLeave.SetRange(Status, StudentLeave.Status::Approved);
+        StudentLeave.SetRange("Approval Status", StudentLeave."Approval Status"::Approved);
         StudentLeave.SetRange("Start Date", CalcDate('<-CM>', Today), CalcDate('<CM>', Today));
         ApprovedLeaves := StudentLeave.Count;
 
