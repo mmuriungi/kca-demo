@@ -14,6 +14,13 @@ table 50165 "Club Member"
         {
             Caption = 'Student No.';
             TableRelation = Customer where("Customer Type" = CONST(Student));
+            trigger OnValidate()
+            var
+                Customer: Record Customer;
+            begin
+                Customer.Get("Student No.");
+                "Student Name" := Customer.Name;
+            end;
         }
         field(3; "Join Date"; Date)
         {
