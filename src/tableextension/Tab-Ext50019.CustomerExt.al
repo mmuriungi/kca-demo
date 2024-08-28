@@ -1264,8 +1264,31 @@ tableextension 50019 "Customer Ext" extends Customer
             DataClassification = ToBeClassified;
 
         }
+        //Club Engagement Score
+        field(63207; "Club Engagement Score"; Decimal)
+        {
+        }
+        field(63208; "Leave Usage"; Decimal)
+        {
+            Caption = 'Leave Usage (Days)';
+            Editable = false;
+        }
+        field(63209; "Counseling Sessions"; Integer)
+        {
+            Caption = 'Counseling Sessions';
+            Editable = false;
+        }
 
-
+        field(63210; "Last Engagement Date"; Date)
+        {
+            Caption = 'Last Engagement Date';
+        }
+        field(63211; "Total Donations"; Decimal)
+        {
+            Caption = 'Total Donations';
+            FieldClass = FlowField;
+            CalcFormula = sum(Donation.Amount where("Donor No." = field("No.")));
+        }
 
 
         modify("No.")

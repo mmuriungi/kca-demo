@@ -1537,7 +1537,6 @@ codeunit 50014 "Procurement Process"
                     purheader."Winning Bid" := Thead."Recommended for Award";
                     purheader."Document Type" := purheader."Document Type"::Order;
                     purheader.Insert();
-
                     sno := 0;
                     qlines.Reset();
                     qlines.SetRange("Document No.", Thead."Recommended for Award");
@@ -1623,6 +1622,14 @@ codeunit 50014 "Procurement Process"
         end else
             Error('Ensure an accounting officer is setup on user setup');
 
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", OnBeforeCheckBuyFromVendorNo, '', false, false)]
+    local procedure SkipVendorCheckForRequisition(PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
+    begin
+        if PurchaseHeader.DocApprovalType = PurchaseHeader.DocApprovalType::Requisition then begin
+            ishandled := true;
+        end;
     end;
 
 }

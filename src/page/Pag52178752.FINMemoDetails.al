@@ -1,5 +1,5 @@
 //page 52178752 "FIN-Memo Details"
-page 50862 "FIN-Memo Details"
+page 50330 "FIN-Memo Details"
 {
     PageType = List;
     SourceTable = "FIN-Memo Details";

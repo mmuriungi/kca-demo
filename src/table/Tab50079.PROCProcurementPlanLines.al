@@ -9,7 +9,7 @@ table 50079 "PROC-Procurement Plan Lines"
         }
         field(2; Department; Code[20])
         {
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
         field(3; Type; Option)
         {
@@ -71,9 +71,9 @@ table 50079 "PROC-Procurement Plan Lines"
         {
             Editable = false;
         }
-        field(10; Projects; Code[20])
+        field(10; Campus; Code[20])
         {
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
         field(11; Category; Code[20])
         {
@@ -85,9 +85,9 @@ table 50079 "PROC-Procurement Plan Lines"
         {
             TableRelation = "PROC-Procurement Plan Period".Code;
         }
-        field(14; Campus; Code[20])
+        field(14; School; Code[20])
         {
-            //TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
         }
         field(15; Unit; Code[10])
         {
@@ -206,7 +206,7 @@ table 50079 "PROC-Procurement Plan Lines"
         {
             Clustered = true;
         }
-        key(Key2; "Budget Name", Department, Type, "Type No", Projects, "Procurement Plan Period")
+        key(Key2; "Budget Name", Department, Type, "Type No", School, "Procurement Plan Period")
         {
             //Clustered = true;
         }

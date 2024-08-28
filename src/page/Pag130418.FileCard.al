@@ -1,5 +1,5 @@
 //was page 130418 "File Card"
-page 55101 "File Card"
+page 51860 "File Card"
 {
     PageType = Card;
     SourceTable = "File Cabinet";

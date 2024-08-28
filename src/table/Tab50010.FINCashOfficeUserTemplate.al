@@ -240,7 +240,7 @@ table 50010 "FIN-Cash Office User Template"
         }
         field(20; "Imprest  Batch"; Code[20])
         {
-            TableRelation = "Gen. Journal Batch".Name;
+            TableRelation = "Gen. Journal Batch".Name where("Journal Template Name" = FIELD("Imprest Template"));
         }
         field(50000; "Claim Template"; Code[20])
         {

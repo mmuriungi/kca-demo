@@ -78,8 +78,8 @@ table 50148 "Budget Import"
         NoSeriesMgt.InitSeries(GenLedgerSetup."Budget Nos", xRec."No. Series", 0D, "No.", "No. Series");
         "Document Date" := Today;
         "Created By" := UserId;
-        "Global Dimension 1 Code" := 'MAIN';
-        "Global Dimension 2 Code" := 'CENTRAL VOTE';
+        // "Global Dimension 1 Code" := 'MAIN';
+        // "Global Dimension 2 Code" := 'CENTRAL VOTE';
         //END
     END;
 
