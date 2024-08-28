@@ -84,7 +84,7 @@ page 51811 "KUCCPS Imports"
                 field("Academic Year"; Rec."Academic Year")
                 {
                     ApplicationArea = Basic;
-                    Editable = false;
+                    //Editable = false;
                 }
                 field(OTP; Rec.OTP)
                 {
