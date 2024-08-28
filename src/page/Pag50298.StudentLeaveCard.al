@@ -2,7 +2,7 @@ page 50298 "Student Leave Card"
 {
     PageType = Card;
     SourceTable = "Student Leave";
-    
+
     layout
     {
         area(Content)
@@ -33,26 +33,51 @@ page 50298 "Student Leave Card"
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Rec.Status)
+                field(Status; Rec."Approval Status")
                 {
                     ApplicationArea = All;
                 }
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
         {
-            action(ApproveLeave)
+            action(SendApprovalRequest)
             {
                 ApplicationArea = All;
-                Caption = 'Approve Leave';
-                Image = Approve;
-                
+                Caption = 'Send Approval Request';
+                Image = SendApprovalRequest;
+                Visible = Rec."Approval Status" = Rec."Approval Status"::open;
+
                 trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnSendDocForApproval(variant);
+                end;
+            }
+            //cancelapproval
+            action(CancelApproval)
+            {
+                ApplicationArea = All;
+                Caption = 'Cancel Approval';
+                Image = CancelApproval;
+                Visible = Rec."Approval Status" = Rec."Approval Status"::open;
+
+                trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
+                begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                 end;
             }
         }
