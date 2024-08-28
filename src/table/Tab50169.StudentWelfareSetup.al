@@ -26,6 +26,12 @@ table 50169 "Student Welfare Setup"
             Caption = 'Counseling Nos';
             TableRelation = "No. Series";
         }
+        field(5; "Club/Society Activity Nos"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Club/Society Activity Nos';
+            TableRelation = "No. Series";
+        }
     }
     keys
     {
