@@ -3,6 +3,7 @@ codeunit 50017 "Student Affairs Management"
     procedure ApproveClub(var Club: Record Club)
     begin
         Club.Status := Club.Status::Active;
+        club."Approval Status" := club."Approval Status"::Approved;
         Club.Modify(true);
         SendApprovalNotification(Club);
     end;
@@ -44,7 +45,6 @@ codeunit 50017 "Student Affairs Management"
         Email: Codeunit Email;
         PatronEmail: Text;
     begin
-        // Implement email notification logic
     end;
 
     local procedure NotifyClubMembers(Club: Record Club)
@@ -54,7 +54,6 @@ codeunit 50017 "Student Affairs Management"
         EmailMessage: Codeunit "Email Message";
         Email: Codeunit Email;
     begin
-        // Implement email notification logic for all club members
     end;
 
     procedure CreateClubActivity(ClubCode: Code[20]; ActivityDate: Date; Description: Text[250])
