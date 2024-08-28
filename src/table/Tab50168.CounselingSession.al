@@ -35,6 +35,12 @@ table 50168 "Counseling Session"
         {
             Caption = 'Follow-up Required';
         }
+        //"No. Series"
+        field(8; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            TableRelation = "No. Series";
+        }
     }
 
     keys
@@ -44,4 +50,14 @@ table 50168 "Counseling Session"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    begin
+        clubsetup.Get();
+        ClubSetup.TestField("Counseling Nos");
+        NoseriesMgmt.InitSeries(clubsetup."Counseling Nos", xRec."No. Series", 0D, Rec."Session No.", Rec."No. Series");
+    end;
+
+    var
+        NoseriesMgmt: Codeunit "NoSeriesManagement";
+        ClubSetup: Record "Student Welfare Setup";
 }
