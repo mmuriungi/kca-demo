@@ -17,6 +17,10 @@ page 50298 "Student Leave Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Student Name"; Rec."Student Name")
+                {
+                    ApplicationArea = All;
+                }
                 field("Leave Type"; Rec."Leave Type")
                 {
                     ApplicationArea = All;
@@ -25,9 +29,19 @@ page 50298 "Student Leave Card"
                 {
                     ApplicationArea = All;
                 }
+                field("No of Days"; Rec."No of Days")
+                {
+                    ApplicationArea = All;
+                }
                 field("End Date"; Rec."End Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Return Date"; Rec."Return Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
                 field(Reason; Rec.Reason)
                 {

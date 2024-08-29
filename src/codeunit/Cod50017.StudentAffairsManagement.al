@@ -78,4 +78,35 @@ codeunit 50017 "Student Affairs Management"
         CounselingSession."Session Date" := SessionDate;
         CounselingSession.Insert(true);
     end;
+
+    procedure calculateLeaveEndDate(Var Leave: Record "Student Leave"): Date
+    var
+    begin
+        Leave."End Date" := Leave."Start Date" + Leave."No of Days";
+        Leave.Modify(true);
+        exit(Leave."End Date");
+    end;
+
+    procedure calculateReturnDate(Var Leave: Record "Student Leave"): Date
+    var
+    begin
+        Leave."Return Date" := Leave."End Date" + 1;
+        Leave.Modify(true);
+        exit(Leave."Return Date");
+    end;
+
+    procedure createStudentLeaveLedger(Var Leave: Record "Student Leave")
+    var
+        StudentLeaveLedger: Record "Student Leave Ledger";
+    begin
+        StudentLeaveLedger.Init();
+        StudentLeaveLedger."Student No." := Leave."Student No.";
+        StudentLeaveLedger."Leave Type" := Leave."Leave Type";
+        StudentLeaveLedger."Start Date" := Leave."Start Date";
+        StudentLeaveLedger."End Date" := Leave."End Date";
+        StudentLeaveLedger.Reason := Leave.Reason;
+        StudentLeaveLedger."No of Days" := Leave."No of Days";
+        StudentLeaveLedger."Posting Date" := Today;
+        StudentLeaveLedger.Insert(true);
+    end;
 }

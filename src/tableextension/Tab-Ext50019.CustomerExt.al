@@ -1189,10 +1189,10 @@ tableextension 50019 "Customer Ext" extends Customer
             Caption = 'Updated Profile';
             DataClassification = CustomerContent;
         }
-        field(63192; "Disability Status"; Boolean)
+        field(63192; "Disability Status"; option)
         {
             Caption = 'Disability Status';
-            DataClassification = CustomerContent;
+            OptionMembers = " ",Yes,No;
         }
         field(63193; "Disability Description"; Text[30])
         {
