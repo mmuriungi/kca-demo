@@ -6,10 +6,10 @@ page 50305 "Student Affairs Role Center"
     {
         area(RoleCenter)
         {
-            // part(Headlines; "Headline RC Student Affairs")
-            // {
-            //     ApplicationArea = All;
-            // }
+            part(Headlines; "Headline RC Student Affairs")
+            {
+                ApplicationArea = All;
+            }
             // part(ClubActivities; "Club Activities Cue")
             // {
             //     ApplicationArea = All;

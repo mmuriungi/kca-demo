@@ -44,22 +44,26 @@ table 50166 "Student Leave"
         {
             Caption = 'Approval Date';
         }
-        //"No. Series"
         field(10; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
             TableRelation = "No. Series";
         }
-        //Studnet Name
         field(11; "Student Name"; Text[250])
         {
             Caption = 'Student Name';
             FieldClass = FlowField;
             CalcFormula = lookup(Customer."Name" where("No." = field("Student No.")));
         }
-    }
-
-    keys
+        field(12; "No of Days"; Decimal)
+        {
+            Caption = 'No of Days';
+        }
+        field(13; "Return Date"; Date)
+        {
+            Caption = 'Return Date';
+        }
+    }    keys
     {
         key(PK; "Leave No.")
         {
@@ -76,4 +80,5 @@ table 50166 "Student Leave"
     var
         NoseriesMgmt: Codeunit "NoSeriesManagement";
         ClubSetup: Record "Student Welfare Setup";
+        AffairsMgmt: Codeunit "Student Affairs Management";
 }
