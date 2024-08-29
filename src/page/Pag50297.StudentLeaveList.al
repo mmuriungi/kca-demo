@@ -20,6 +20,10 @@ page 50297 "Student Leave List"
                 {
                     ApplicationArea = All;
                 }
+                field("Student Name";Rec."Student Name")
+                {
+                    ApplicationArea = All;
+                }
                 field("Leave Type"; Rec."Leave Type")
                 {
                     ApplicationArea = All;

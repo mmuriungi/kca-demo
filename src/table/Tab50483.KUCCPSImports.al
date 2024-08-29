@@ -871,6 +871,23 @@ table 50483 "KUCCPS Imports"
         field(126; "Resent E-mail"; Boolean)
         {
         }
+        //Generated
+        field(127; Generated; Boolean)
+        {
+        }
+        //"Disability Status"
+        field(128; "Disability Status"; option)
+        {
+            OptionMembers = " ",Yes,No;
+        }
+        field(129; "Disability Description"; Text[250])
+        {
+        }
+        //"Ethnic Background"
+        field(130; "Ethnic Background"; Code[20])
+        {
+           // TableRelation = 
+        }
     }
 
     keys
