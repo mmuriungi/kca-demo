@@ -8,7 +8,7 @@ page 50301 "Student Affairs Dashboard"
     {
         area(Content)
         {
-            group(ClubStatistics)
+            cuegroup(ClubStatistics)
             {
                 Caption = 'Club Statistics';
                 field(TotalClubs; TotalClubs)
@@ -30,7 +30,7 @@ page 50301 "Student Affairs Dashboard"
                     Editable = false;
                 }
             }
-            group(LeaveStatistics)
+            cuegroup(LeaveStatistics)
             {
                 Caption = 'Leave Statistics';
                 field(PendingLeaves; PendingLeaves)
@@ -46,7 +46,7 @@ page 50301 "Student Affairs Dashboard"
                     Editable = false;
                 }
             }
-            group(CounselingStatistics)
+            cuegroup(CounselingStatistics)
             {
                 Caption = 'Counseling Statistics';
                 field(TotalSessions; TotalSessions)
@@ -105,9 +105,9 @@ page 50301 "Student Affairs Dashboard"
         ClubSocietyActivity.SetFilter("Activity Date", '>=%1', Today);
         UpcomingActivities := ClubSocietyActivity.Count;
 
-        StudentLeave.SetRange(Status, StudentLeave.Status::PendingHOD, StudentLeave.Status::PendingDean);
+        StudentLeave.SetRange("Approval Status", StudentLeave."Approval Status"::"Pending Approval");
         PendingLeaves := StudentLeave.Count;
-        StudentLeave.SetRange(Status, StudentLeave.Status::Approved);
+        StudentLeave.SetRange("Approval Status", StudentLeave."Approval Status"::Approved);
         StudentLeave.SetRange("Start Date", CalcDate('<-CM>', Today), CalcDate('<CM>', Today));
         ApprovedLeaves := StudentLeave.Count;
 

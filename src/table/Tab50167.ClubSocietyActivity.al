@@ -2,13 +2,12 @@ table 50167 "Club/Society Activity"
 {
     Caption = 'Club/Society Activity';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
-        field(1; "Entry No."; Integer)
+        field(1; "Activity No."; code[20])
         {
-            Caption = 'Entry No.';
-            AutoIncrement = true;
+            Caption = 'Activity No.';
         }
         field(2; "Club/Society Code"; Code[20])
         {
@@ -32,13 +31,28 @@ table 50167 "Club/Society Activity"
         {
             Caption = 'Attendance';
         }
+        //."No. Series"
+        field(7; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+        }
     }
-    
+
     keys
     {
-        key(PK; "Entry No.")
+        key(PK; "Activity No.", "Club/Society Code")
         {
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    begin
+        clubsetup.Get();
+        ClubSetup.TestField("Club/Society Activity Nos");
+        NoseriesMgmt.InitSeries(clubsetup."Club/Society Activity Nos", xRec."No. Series", 0D, Rec."Activity No.", Rec."No. Series");
+    end;
+
+    var
+        NoseriesMgmt: Codeunit "NoSeriesManagement";
+        ClubSetup: Record "Student Welfare Setup";
 }

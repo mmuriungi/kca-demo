@@ -8,7 +8,7 @@ page 50303 "Student Affairs Analytics"
     {
         area(Content)
         {
-            group(OverallMetrics)
+            cuegroup(OverallMetrics)
             {
                 Caption = 'Overall Metrics';
                 field(AverageEngagementScore; AverageEngagementScore)
@@ -24,7 +24,7 @@ page 50303 "Student Affairs Analytics"
                     Editable = false;
                 }
             }
-            group(ClubMetrics)
+            cuegroup(ClubMetrics)
             {
                 Caption = 'Club Metrics';
                 field(MostActiveClub; MostActiveClub)
@@ -40,7 +40,7 @@ page 50303 "Student Affairs Analytics"
                     Editable = false;
                 }
             }
-            group(LeaveMetrics)
+            cuegroup(LeaveMetrics)
             {
                 Caption = 'Leave Metrics';
                 field(AverageLeaveUsage; AverageLeaveUsage)
@@ -56,7 +56,7 @@ page 50303 "Student Affairs Analytics"
                     Editable = false;
                 }
             }
-            group(CounselingMetrics)
+            cuegroup(CounselingMetrics)
             {
                 Caption = 'Counseling Metrics';
                 field(AverageCounselingSessions; AverageCounselingSessions)

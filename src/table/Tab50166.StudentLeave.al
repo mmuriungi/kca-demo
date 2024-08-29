@@ -31,10 +31,9 @@ table 50166 "Student Leave"
         {
             Caption = 'Reason';
         }
-        field(7; Status; Option)
+        field(7; "Approval Status"; enum "Common Approval Status")
         {
-            Caption = 'Status';
-            OptionMembers = New,PendingHOD,PendingDean,Approved,Rejected;
+            Caption = 'Approval Status';
         }
         field(8; "Approved By"; Code[20])
         {
@@ -45,6 +44,19 @@ table 50166 "Student Leave"
         {
             Caption = 'Approval Date';
         }
+        //"No. Series"
+        field(10; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            TableRelation = "No. Series";
+        }
+        //Studnet Name
+        field(11; "Student Name"; Text[250])
+        {
+            Caption = 'Student Name';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Customer."Name" where("No." = field("Student No.")));
+        }
     }
 
     keys
@@ -54,4 +66,14 @@ table 50166 "Student Leave"
             Clustered = true;
         }
     }
+    trigger OnInsert()
+    begin
+        clubsetup.Get();
+        ClubSetup.TestField("Leave Nos");
+        NoseriesMgmt.InitSeries(clubsetup."Leave Nos", xRec."No. Series", 0D, Rec."Leave No.", Rec."No. Series");
+    end;
+
+    var
+        NoseriesMgmt: Codeunit "NoSeriesManagement";
+        ClubSetup: Record "Student Welfare Setup";
 }

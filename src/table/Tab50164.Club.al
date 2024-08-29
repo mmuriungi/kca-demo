@@ -20,7 +20,7 @@ table 50164 Club
         field(4; "Patron No."; Code[20])
         {
             Caption = 'Patron No.';
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(5; "Founding Date"; Date)
         {
@@ -35,7 +35,7 @@ table 50164 Club
         field(7; Status; Option)
         {
             Caption = 'Status';
-            OptionMembers = Active,Inactive,PendingApproval;
+            OptionMembers = " ",Active,Inactive,PendingApproval;
         }
         //Activity Count
         field(8; "Activity Count"; Integer)
@@ -54,6 +54,12 @@ table 50164 Club
         {
             Caption = 'No. Series';
         }
+        field(11; "Approval Status"; enum "Common Approval Status")
+        {
+            Caption = 'Approval Status';
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
