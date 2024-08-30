@@ -34,6 +34,14 @@ table 50166 "Student Leave"
         field(7; "Approval Status"; enum "Common Approval Status")
         {
             Caption = 'Approval Status';
+            trigger onvalidate()
+            begin
+                if "Approval Status" = "Approval Status"::Approved then begin
+                    "Approval Date" := Today;
+                    "Approved By" := USERID;
+                    AffairsMgmt.createStudentLeaveLedger(Rec);
+                end;
+            end;
         }
         field(8; "Approved By"; Code[20])
         {
@@ -63,7 +71,17 @@ table 50166 "Student Leave"
         {
             Caption = 'Return Date';
         }
-    }    keys
+        field(14; "Posting Date"; Date)
+        {
+            Caption = 'Posting Date';
+        }
+        field(15; "Posting Type"; Option)
+        {
+            Caption = 'Posting Type';
+            OptionMembers = Leave,Recall;
+        }
+    }
+    keys
     {
         key(PK; "Leave No.")
         {

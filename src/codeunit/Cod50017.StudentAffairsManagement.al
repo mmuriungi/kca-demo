@@ -105,6 +105,13 @@ codeunit 50017 "Student Affairs Management"
         StudentLeaveLedger."Start Date" := Leave."Start Date";
         StudentLeaveLedger."End Date" := Leave."End Date";
         StudentLeaveLedger.Reason := Leave.Reason;
+        case
+            leave."Posting Type" of
+            leave."Posting Type"::Leave:
+                StudentLeaveLedger."No of Days" := Leave."No of Days";
+            leave."Posting Type"::Recall:
+                StudentLeaveLedger."No of Days" := Leave."No of Days" * -1;
+        end;
         StudentLeaveLedger."No of Days" := Leave."No of Days";
         StudentLeaveLedger."Posting Date" := Today;
         StudentLeaveLedger.Insert(true);
