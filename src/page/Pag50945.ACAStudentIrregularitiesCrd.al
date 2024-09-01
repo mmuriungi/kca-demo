@@ -1,4 +1,4 @@
-page 50945 "ACA-Student Irregularities Crd"
+page 50945 "ACA-Exam Irregularities Card"
 {
     PageType = Card;
     SourceTable = "ACA-Irregularities Register";

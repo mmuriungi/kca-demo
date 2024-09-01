@@ -1,7 +1,7 @@
 page 51100 "ACA-Exam Results Buffer 2"
 {
-    DeleteAllowed = false;
-    Editable = false;
+    //DeleteAllowed = false;
+    //Editable = false;
     PageType = List;
     SourceTable = "ACA-Exam Results Buffer 2";
     SourceTableView = WHERE("Course Reg. Created" = FILTER(False),
