@@ -242,7 +242,7 @@ page 50889 "ACA-Std Registration List"
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
-                    RunObject = Page "ACA-Student Irregularities";
+                    RunObject = Page "ACA-Exam Irregularities";
                     RunPageLink = "Student No." = FIELD("No.");
                     ApplicationArea = All;
 

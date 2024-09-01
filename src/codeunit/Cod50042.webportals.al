@@ -8,14 +8,14 @@ dotnet
     {
         type(System.Array; Bytes) { }
     }
-    // assembly(mscorlib)
-    // {
-    //     type(System.Convert; Convert) { }
-    // }
-    // assembly(mscorlib)
-    // {
-    //     type(System.IO.MemoryStream; MemoryStream) { }
-    // }
+    assembly(mscorlib)
+    {
+        type(System.Convert; Convert) { }
+    }
+    assembly(mscorlib)
+    {
+        type(System.IO.MemoryStream; MemoryStream) { }
+    }
 }
 codeunit 50042 webportals
 {

@@ -1,6 +1,6 @@
-page 50944 "ACA-Student Irregularities"
+page 50944 "ACA-Exam Irregularities"
 {
-    CardPageID = "ACA-Student Irregularities Crd";
+    CardPageID = "ACA-Exam Irregularities Card";
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
