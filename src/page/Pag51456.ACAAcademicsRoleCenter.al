@@ -150,11 +150,11 @@ page 51456 "ACA-Academics Role Center&"
                     //     RunObject = Page "ACA-Grading Sys. Header";
                     //     ApplicationArea = All;
                     // }
-                    action("Lecturer List")
+                    action("Lecturer Units")
                     {
                         Image = Employee;
 
-                        RunObject = Page "ACA-Lecturers Units";
+                        RunObject = Page "ACA-Lecturer List";
                         ApplicationArea = All;
                     }
                     action("ImportUnits")
