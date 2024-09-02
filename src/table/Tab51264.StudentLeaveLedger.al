@@ -31,6 +31,11 @@ table 51264 "Student Leave Ledger"
         {
             Caption = 'Reason';
         }
+        field(15; "Posting Type"; Option)
+        {
+            Caption = 'Posting Type';
+            OptionMembers = Leave,Recall;
+        }
         field(5200; "Entry No."; Integer)
         {
             Caption = 'Entry No.';

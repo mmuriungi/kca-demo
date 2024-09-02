@@ -195,7 +195,7 @@ codeunit 50089 "Approval Workflows V1"
             Database::"Student Leave":
                 begin
                     RecRef.SetTable(StudentLeave);
-                    StudentLeave."Approval Status" := StudentLeave."Approval Status"::Approved;
+                    StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::Approved);
                     StudentLeave.Modify();
                     Handled := true;
                 end;

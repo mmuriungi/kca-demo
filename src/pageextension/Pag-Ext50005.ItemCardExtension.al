@@ -26,6 +26,23 @@ pageextension 50005 "Item Card Extension" extends "Item Card"
             }
 
         }
+        addafter(Item)
+        {
+            group(Sports)
+            {
+                Caption = 'Sports Equipment';
+                Visible = Rec."Item Category" = Rec."Item Category"::"Sporting Equipment";
+
+                field("Item Category"; Rec."Item Category")
+                {
+                    ApplicationArea = All;
+                }
+                field("Game Code"; Rec."Game Code")
+                {
+                    ApplicationArea = All;
+                }
+            }
+        }
     }
 
     actions

@@ -57,5 +57,17 @@ tableextension 50008 Item extends Item
         // {
         //     DataClassification = ToBeClassified;
         // }	
+        field(88897; "Item Category"; enum "Item Category")
+        {
+            Caption = 'Item Category';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Item Category"."Item Category Type" where(Code = field("Item Category Code")));
+        }
+        field(88898; "Game Code"; Code[20])
+        {
+            Caption = 'Game Code';
+            TableRelation = Game;
+            DataClassification = CustomerContent;
+        }
     }
 }
