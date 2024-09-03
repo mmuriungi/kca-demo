@@ -1,7 +1,7 @@
 // Page: Equipment Issuance
 page 52016 "Equipment Issuance"
 {
-    PageType = Document;
+    PageType = Card;
     ApplicationArea = All;
     UsageCategory = Documents;
     SourceTable = "Equipment Issuance";
@@ -29,6 +29,22 @@ page 52016 "Equipment Issuance"
                     ApplicationArea = All;
                 }
                 field("Return Date"; Rec."Return Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Game Code"; Rec."Game Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Game Name"; Rec."Game Name")
+                {
+                    ApplicationArea = All;
+                }
+                                field("Receipient No.";Rec."Receipient No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Receipient Name";Rec."Receipient Name")
                 {
                     ApplicationArea = All;
                 }
