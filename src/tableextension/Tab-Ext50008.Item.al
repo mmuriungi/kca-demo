@@ -68,6 +68,19 @@ tableextension 50008 Item extends Item
             Caption = 'Game Code';
             TableRelation = Game;
             DataClassification = CustomerContent;
+            trigger OnValidate()
+            var
+                Game: Record "Game";
+            begin
+                if Game.Get("Game Code") then
+                    "Game Name" := Game."Name";
+            end;
+        }
+        //."Game Name"
+        field(88899; "Game Name"; Text[250])
+        {
+            Caption = 'Game Name';
+            DataClassification = CustomerContent;
         }
     }
 }

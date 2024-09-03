@@ -59,7 +59,7 @@ page 52017 "Sports Equip. Manager RC"
                 {
                     ApplicationArea = All;
                     Caption = 'Equipment Issuance';
-                    RunObject = page "Equipment Issuance";
+                    RunObject = page "Equipment Issuance List";
                 }
             }
         }
