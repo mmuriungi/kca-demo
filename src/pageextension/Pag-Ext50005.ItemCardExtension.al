@@ -41,6 +41,10 @@ pageextension 50005 "Item Card Extension" extends "Item Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Game Name"; Rec."Game Name")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
