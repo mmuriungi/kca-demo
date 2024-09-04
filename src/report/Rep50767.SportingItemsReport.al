@@ -4,7 +4,7 @@ report 50767 "Sporting Items Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'SportingItemsReport.rdl';
+    RDLCLayout = './Layouts/SportingItemsReport.rdl';
 
     dataset
     {
