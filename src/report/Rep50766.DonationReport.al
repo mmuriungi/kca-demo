@@ -4,7 +4,7 @@ report 50766 "Donation Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'DonationReport.rdl';
+    RDLCLayout = './Layouts/DonationReport.rdl';
 
     dataset
     {

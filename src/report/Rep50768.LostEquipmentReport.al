@@ -4,7 +4,7 @@ report 50768 "Lost Equipment Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'LostEquipmentReport.rdl';
+    RDLCLayout = './Layouts/LostEquipmentReport.rdl';
 
     dataset
     {
