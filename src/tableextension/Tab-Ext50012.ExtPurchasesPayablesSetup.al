@@ -98,13 +98,16 @@ tableextension 50012 "ExtPurchases & Payables Setup" extends "Purchases & Payabl
         field(56616; "LSO Nos"; code[20])
         {
 
-
-
-
         }
-
-
-
+        field(56617; "Task Nos"; code[20])
+        {
+            TableRelation = "No. Series";
+        }
+        field(56618; "Project Mgt Nos"; code[20])
+        {
+            TableRelation = "No. Series";
+            Caption = 'Contract Nos';
+        }
     }
 
 
