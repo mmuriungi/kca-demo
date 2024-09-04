@@ -51,9 +51,8 @@ page 52021 "Equipment Usage Chart"
         EquipmentIssuance: Record "Equipment Issuance";
         i: Integer;
     begin
-        BusinessChartBuffer.AddMeasure('Usage Count', 1, BusinessChartBuffer."Data Type"::Integer, BusinessChartBuffer."Chart Type"::Column);
         BusinessChartBuffer.SetXAxis('Game', BusinessChartBuffer."Data Type"::String);
-
+        BusinessChartBuffer.AddMeasure('Usage Count', 1, BusinessChartBuffer."Data Type"::Integer, BusinessChartBuffer."Chart Type"::Column);
         if Game.FindSet() then
             repeat
                 i += 1;
