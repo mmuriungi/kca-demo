@@ -4,7 +4,7 @@ report 50765 "Alumni Engagement Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'AlumniEngagementReport.rdl';
+    RDLCLayout = './Layouts/AlumniEngagementReport.rdl';
 
     dataset
     {
