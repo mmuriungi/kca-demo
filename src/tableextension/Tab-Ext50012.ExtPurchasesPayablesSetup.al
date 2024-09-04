@@ -66,38 +66,27 @@ tableextension 50012 "ExtPurchases & Payables Setup" extends "Purchases & Payabl
         }
         field(56611; "Direct Procurement"; code[20])
         {
-
-
+            TableRelation = "No. Series";
         }
         field(56612; "Restricted tendering"; code[20])
         {
-
-
+            TableRelation = "No. Series";
         }
         field(56613; "Two Stage Tender"; code[20])
         {
-
-
-
-
+            TableRelation = "No. Series";
         }
         field(56614; Tender; code[20])
         {
-
-
-
-
+            TableRelation = "No. Series";
         }
         field(56615; "Tender Submission"; code[20])
         {
-
-
-
-
+            TableRelation = "No. Series";
         }
         field(56616; "LSO Nos"; code[20])
         {
-
+            TableRelation = "No. Series";
         }
         field(56617; "Task Nos"; code[20])
         {
