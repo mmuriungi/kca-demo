@@ -789,7 +789,7 @@ table 50562 "ACA-Student Units"
 
             //         AcaSpecialExamsDetails.RESET;
             //         AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
-            //         AcaSpecialExamsDetails.SETFILTER(Catogory, '%1', AcaSpecialExamsDetails.Catogory::Supplementary);
+            //         AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Supplementary);
             //         AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
             //         AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
             //         AcaSpecialExamsDetails.SETRANGE("Current Academic Year", ACAAcademicYear.Code);
@@ -802,7 +802,7 @@ table 50562 "ACA-Student Units"
             //             AcaSpecialExamsDetails.Stage := Rec.Stage;
             //             AcaSpecialExamsDetails.Programme := Rec.Programme;
             //             AcaSpecialExamsDetails."Unit Code" := Rec.Unit;
-            //             AcaSpecialExamsDetails.Catogory := AcaSpecialExamsDetails.Catogory::Supplementary;
+            //             AcaSpecialExamsDetails.Category := AcaSpecialExamsDetails.Category::Supplementary;
             //             AcaSpecialExamsDetails."Current Academic Year" := ACAAcademicYear.Code;
             //             AcaSpecialExamsDetails.INSERT;
             //         END ELSE BEGIN
@@ -1161,7 +1161,7 @@ table 50562 "ACA-Student Units"
 
             //         AcaSpecialExamsDetails.RESET;
             //         AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
-            //         AcaSpecialExamsDetails.SETFILTER(Catogory, '%1', AcaSpecialExamsDetails.Catogory::Special);
+            //         AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Special);
             //         AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
             //         AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
             //         IF NOT (AcaSpecialExamsDetails.FIND('-')) THEN BEGIN
@@ -1173,7 +1173,7 @@ table 50562 "ACA-Student Units"
             //             AcaSpecialExamsDetails.Stage := Rec.Stage;
             //             AcaSpecialExamsDetails.Programme := Rec.Programme;
             //             AcaSpecialExamsDetails."Unit Code" := Rec.Unit;
-            //             AcaSpecialExamsDetails.Catogory := AcaSpecialExamsDetails.Catogory::Special;
+            //             AcaSpecialExamsDetails.Category := AcaSpecialExamsDetails.Category::Special;
             //             AcaSpecialExamsDetails."Current Academic Year" := ACAAcademicYear.Code;
             //             AcaSpecialExamsDetails.INSERT;
             //         END ELSE BEGIN
@@ -1189,7 +1189,7 @@ table 50562 "ACA-Student Units"
             //             //Delete from Special if Marks are not yet posted
             //             AcaSpecialExamsDetails.RESET;
             //             AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
-            //             AcaSpecialExamsDetails.SETFILTER(Catogory, '%1', AcaSpecialExamsDetails.Catogory::Special);
+            //             AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Special);
             //             AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
             //             AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
             //             IF AcaSpecialExamsDetails.FIND('-') THEN BEGIN
@@ -1211,7 +1211,7 @@ table 50562 "ACA-Student Units"
 
             //                 AcaSpecialExamsDetails.RESET;
             //                 AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
-            //                 AcaSpecialExamsDetails.SETFILTER(Catogory, '%1', AcaSpecialExamsDetails.Catogory::Supplementary);
+            //                 AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Supplementary);
             //                 AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
             //                 AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
             //                 IF NOT (AcaSpecialExamsDetails.FIND('-')) THEN BEGIN
@@ -1223,7 +1223,7 @@ table 50562 "ACA-Student Units"
             //                     AcaSpecialExamsDetails.Stage := Rec.Stage;
             //                     AcaSpecialExamsDetails.Programme := Rec.Programme;
             //                     AcaSpecialExamsDetails."Unit Code" := Rec.Unit;
-            //                     AcaSpecialExamsDetails.Catogory := AcaSpecialExamsDetails.Catogory::Supplementary;
+            //                     AcaSpecialExamsDetails.Category := AcaSpecialExamsDetails.Category::Supplementary;
             //                     AcaSpecialExamsDetails."Current Academic Year" := ACAAcademicYear.Code;
             //                     AcaSpecialExamsDetails.INSERT;
             //                 END ELSE BEGIN
@@ -1250,7 +1250,7 @@ table 50562 "ACA-Student Units"
         field(50088; "No of Supplementaries"; Integer)
         {
             // CalcFormula = Count("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."),
-            //                                                        Catogory = FILTER(Supplementary),
+            //                                                        Category = FILTER(Supplementary),
             //                                                        "Unit Code" = FIELD(Unit)));
             // FieldClass = FlowField;
         }
@@ -1397,10 +1397,7 @@ table 50562 "ACA-Student Units"
                                                                   "Student No" = FIELD("Student No.")));
             FieldClass = FlowField;
         }
-        field(60171; "Exam Catogory"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
+    
         field(60172; "Special Programme Class"; Option)
         {
             DataClassification = ToBeClassified;

@@ -161,7 +161,7 @@ page 50865 "ACA-Course Registration List"
                 PromotedIsBig = true;
                 RunObject = Page "Supp. Exams Details List";
                 RunPageLink = "Student No." = FIELD("Student No.");
-                RunPageView = WHERE(Catogory = FILTER(Supplementary));
+                RunPageView = WHERE(Category = FILTER(Supplementary));
                 ApplicationArea = All;
             }
             action(SpecialExamsReg)

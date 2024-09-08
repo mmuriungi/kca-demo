@@ -318,7 +318,7 @@ report 50601 "Official College Transcript"
                 CLEAR(TransCriptRemarks);
                 CLEAR(PassRemark);
                 ACAProgCatTranscriptComm.RESET;
-                ACAProgCatTranscriptComm.SETRANGE("Exam Catogory", prog."Exam Category");
+                ACAProgCatTranscriptComm.SETRANGE("Exam Category", prog."Exam Category");
                 ACAProgCatTranscriptComm.SETRANGE("Year of Study", Coregs."Year of Study");
                 IF ACAProgCatTranscriptComm.FIND('-') THEN BEGIN
                     IF Coregs."Final Classification Pass" THEN

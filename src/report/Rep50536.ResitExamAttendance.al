@@ -50,7 +50,7 @@ report 50536 "Resit Exam Attendance"
             column(CostPerExam_resit; "Cost Per Exam")
             {
             }
-            column(Catogory_resit; Catogory)
+            column(Category_resit; Category)
             {
             }
             column(CurrentAcademicYear_resit; "Current Academic Year")

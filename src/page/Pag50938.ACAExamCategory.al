@@ -32,7 +32,7 @@ page 50938 "ACA-Exam Category"
                 Promoted = true;
                 PromotedIsBig = true;
                 RunObject = Page "ACA-Cat. Transc. Comments";
-                RunPageLink = "Exam Catogory" = FIELD(Code);
+                RunPageLink = "Exam Category" = FIELD(Code);
                 ApplicationArea = All;
             }
             action("Exam Setup")

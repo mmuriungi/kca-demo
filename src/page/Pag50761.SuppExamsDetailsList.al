@@ -47,7 +47,7 @@ page 50761 "Supp. Exams Details List"
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field(Catogory; Rec.Catogory)
+                field(Category; Rec.Category)
                 {
                     //Editable = false;
                     ApplicationArea = All;

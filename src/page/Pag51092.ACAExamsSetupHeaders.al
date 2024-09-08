@@ -35,7 +35,7 @@ page 51092 "ACA-Exams Setup Headers"
                 Promoted = true;
                 PromotedIsBig = true;
                 RunObject = Page "ACA-Cat. Transc. Comments";
-                RunPageLink = "Exam Catogory" = FIELD(Code);
+                RunPageLink = "Exam Category" = FIELD(Code);
                 ApplicationArea = All;
             }
             action("Exam Setup")

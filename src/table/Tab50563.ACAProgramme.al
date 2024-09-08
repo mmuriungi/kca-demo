@@ -410,6 +410,11 @@ table 50563 "ACA-Programme"
         {
 
         }
+        //"Use Program Semesters"
+        field(50032; "Use Program Semesters"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

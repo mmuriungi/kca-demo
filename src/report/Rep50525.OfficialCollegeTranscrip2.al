@@ -334,7 +334,7 @@ report 50525 "Official College Transcrip2"
                 Clear(TransCriptRemarks);
                 Clear(PassRemark);
                 ACAProgCatTranscriptComm.Reset;
-                ACAProgCatTranscriptComm.SetRange("Exam Catogory", prog."Exam Category");
+                ACAProgCatTranscriptComm.SetRange("Exam Category", prog."Exam Category");
                 ACAProgCatTranscriptComm.SetRange("Year of Study", Coregs."Year of Study");
                 if ACAProgCatTranscriptComm.Find('-') then begin
                     if Coregs."Final Classification Pass" then

@@ -133,7 +133,7 @@ table 50829 "Aca-Special Exams Results"
                 //AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Student No.","Student No.");
                 IF AcaSpecialExamsDetails.FIND('-') THEN BEGIN
                     stud_Units.CALCFIELDS(stud_Units."CATs Marks");
-                    IF AcaSpecialExamsDetails.Catogory = AcaSpecialExamsDetails.Catogory::Special THEN BEGIN
+                    IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Special THEN BEGIN
                         AcaSpecialExamsDetails."CAT Marks" := stud_Units."CATs Marks";
                         AcaSpecialExamsDetails."Exam Marks" := Contribution + stud_Units."CATs Marks";
                         AcaSpecialExamsDetails."Total Marks" := Contribution + stud_Units."CATs Marks";
@@ -142,7 +142,7 @@ table 50829 "Aca-Special Exams Results"
                         // stud_Units."Academic Year":="Academic Year";
                         AcaSpecialExamsDetails.MODIFY;
                     END ELSE
-                        IF AcaSpecialExamsDetails.Catogory = AcaSpecialExamsDetails.Catogory::Supplementary THEN BEGIN
+                        IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Supplementary THEN BEGIN
                             AcaSpecialExamsDetails."CAT Marks" := stud_Units."CATs Marks";
                             IF prog."Exam Category" = 'NURSING' THEN BEGIN
                                 IF ((Contribution > 50) OR (Contribution = 50)) THEN BEGIN
@@ -264,7 +264,7 @@ table 50829 "Aca-Special Exams Results"
             DataClassification = ToBeClassified;
             TableRelation = "Exam Sessions Management"."Exam Session" WHERE(Category = FILTER("Special Exams"));
         }
-        field(50020; Catogory; Option)
+        field(50020; Category; Option)
         {
             DataClassification = ToBeClassified;
             OptionCaption = ' ,Special,Supplementary';

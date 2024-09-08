@@ -2274,6 +2274,16 @@ table 50213 "HRM-Employee C"
         {
 
         }
+        //"Is HOD"
+        field(60092; "Is HOD"; Boolean)
+        {
+
+        }
+        //Has HOD Rights
+        field(60093; "Has HOD Rights"; Boolean)
+        {
+
+        }
     }
 
     keys

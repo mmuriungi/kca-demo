@@ -47,6 +47,19 @@ table 50954 "FLT-Travel Requisition Staff"
         {
             AutoIncrement = true;
         }
+        //"Employee No"
+        field(8; "Employee No"; Code[20])
+        {
+            TableRelation = "HRM-Employee C"."No.";
+            trigger OnValidate()
+            begin
+                IF HrEmployee.GET("Employee No") THEN
+                    "Employee Name" := HrEmployee."First Name" + ' ' + HrEmployee."Middle Name" + ' ' + HrEmployee."Last Name";
+            end;
+        }
+        field(9; "Employee Name"; Text[250])
+        {
+        }
     }
 
     keys

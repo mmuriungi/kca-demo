@@ -235,7 +235,7 @@ report 50467 "Provisional College Trans. 3"
                 }
                 dataitem(ExamGraddingSetup; "ACA-Exam Gradding Setup")
                 {
-                    DataItemLink = Category = FIELD("Exam Catogory");
+                    DataItemLink = Category = FIELD("Exam Category");
                     column(ExamCat; ExamGraddingSetup.Category)
                     {
                     }
@@ -281,7 +281,7 @@ report 50467 "Provisional College Trans. 3"
                             END;
                         END;
                     END;
-                    StudUnitsss."Exam Catogory" := ProgCategory;
+                    StudUnitsss."Exam Category" := ProgCategory;
                 end;
             }
 
@@ -371,7 +371,7 @@ report 50467 "Provisional College Trans. 3"
                     IF Sem.FIND('-') THEN BEGIN
                         IF Sem.From <> 0D THEN BEGIN
                             ACAProgCatTranscriptComm.RESET;
-                            ACAProgCatTranscriptComm.SETRANGE("Exam Catogory", prog."Exam Category");
+                            ACAProgCatTranscriptComm.SETRANGE("Exam Category", prog."Exam Category");
                             IF ACAProgCatTranscriptComm.FIND('-') THEN
                                 GRADDATE := FORMAT(DATE2DMY((CALCDATE(FORMAT(ACAProgCatTranscriptComm.COUNT) + 'Y', Sem.From)), 3));
                             YearOfAdmi := Sem.From;

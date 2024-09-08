@@ -171,7 +171,7 @@ report 50547 "Senate Report(NEW)"
                 end;
                 specialsup.Reset();
                 specialsup.SetRange(Programme, Senate.Programme);
-                specialsup.SetRange(Catogory, specialsup.Catogory::Supplementary);
+                specialsup.SetRange(Category, specialsup.Category::Supplementary);
                 if specialsup.Find('-') then begin
                     Clear(uniqueStudNo);
                     repeat
@@ -185,7 +185,7 @@ report 50547 "Senate Report(NEW)"
                 end;
                 specialsup.Reset();
                 specialsup.SetRange(Programme, Senate.Programme);
-                specialsup.SetRange(Catogory, specialsup.Catogory::Resit);
+                specialsup.SetRange(Category, specialsup.Category::Resit);
                 if specialsup.Find('-') then begin
                     Clear(uniqueStudNo);
                     repeat
@@ -275,7 +275,7 @@ report 50547 "Senate Report(NEW)"
             {
 
             }
-            column(Catogory; Catogory)
+            column(Category; Category)
             {
 
             }

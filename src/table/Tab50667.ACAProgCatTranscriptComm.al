@@ -3,7 +3,7 @@ table 50667 "ACA-Prog. Cat. Transcript Comm"
 
     fields
     {
-        field(1; "Exam Catogory"; Code[20])
+        field(1; "Exam Category"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
@@ -31,7 +31,7 @@ table 50667 "ACA-Prog. Cat. Transcript Comm"
 
     keys
     {
-        key(Key1; "Exam Catogory", "Year of Study")
+        key(Key1; "Exam Category", "Year of Study")
         {
         }
     }
