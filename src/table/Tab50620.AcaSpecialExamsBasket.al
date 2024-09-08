@@ -62,7 +62,7 @@ table 50620 "Aca-Special Exams Basket"
         {
             DataClassification = ToBeClassified;
         }
-        field(16; Catogory; Option)
+        field(16; Category; Option)
         {
             DataClassification = ToBeClassified;
             OptionCaption = ' ,Special,Supplementary';
@@ -80,7 +80,7 @@ table 50620 "Aca-Special Exams Basket"
 
     keys
     {
-        key(Key1; "Student No.", Stage, Programme, Semester, "Academic Year", Catogory, "Unit Code")
+        key(Key1; "Student No.", Stage, Programme, Semester, "Academic Year", Category, "Unit Code")
         {
         }
     }

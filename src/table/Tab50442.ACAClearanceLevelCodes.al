@@ -19,8 +19,8 @@ table 50442 "ACA-Clearance Level Codes"
         }
         field(5; "Priority Level"; Option)
         {
-            OptionCaption = 'Normal,1st Level,Final level';
-            OptionMembers = Normal,"1st Level","Final level";
+            OptionCaption = 'Normal,1st Level,Final level,Finance';
+            OptionMembers = Normal,"1st Level","Final level",Finance;
         }
     }
 

@@ -24,6 +24,10 @@ table 50550 "ACA-Programme Semesters"
         field(5; Current; Boolean)
         {
         }
+        //"Marks Entry Deadline"
+        field(6; "Marks Entry Deadline"; Date)
+        {
+        }
     }
 
     keys

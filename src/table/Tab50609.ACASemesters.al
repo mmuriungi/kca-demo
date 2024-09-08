@@ -131,6 +131,11 @@ table 50609 "ACA-Semesters"
         {
 
         }
+        //"Special Entry Deadline"
+        field(25; "Special Entry Deadline"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

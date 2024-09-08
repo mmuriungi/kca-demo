@@ -38,21 +38,21 @@ table 50441 "ACA-Clearance Approval Entries"
         }
         field(11; "Priority Level"; Option)
         {
-            OptionCaption = 'Normal,1st Level,Final level';
-            OptionMembers = Normal,"1st Level","Final level";
+            OptionCaption = 'Normal,1st Level,Final level,Finance';
+            OptionMembers = Normal,"1st Level","Final level",Finance;
         }
         field(12; "Student ID"; Code[30])
         {
             // TableRelation = Customer."No." WHERE("Customer Type" = FILTER('Student'));
         }
-        /*  field(13;"Academic Year";Code[20])
-         {
-             TableRelation = "ACA-Academic Year".Code;
-         } */
-        /* field(14;Semester;Code[20])
+        field(13; "Academic Year"; Code[20])
         {
-            TableRelation = ACA-Semesters.Code;
-        } */
+            TableRelation = "ACA-Academic Year".Code;
+        }
+        field(14; Semester; Code[20])
+        {
+            TableRelation = "ACA-Semesters".Code;
+        }
         field(15; Status; Option)
         {
             OptionCaption = 'Created,Open,Cleared,Rejected,Cancelled';
@@ -63,6 +63,10 @@ table 50441 "ACA-Clearance Approval Entries"
              CalcFormula = Lookup(Customer.Name WHERE("No." = FIELD("Student ID")));
              FieldClass = FlowField;
          } */
+        //sequence
+        field(17; Sequence; Integer)
+        {
+        }
     }
 
     keys
@@ -70,6 +74,9 @@ table 50441 "ACA-Clearance Approval Entries"
         key(Key1; "Clearance Level Code", Department, "Clear By ID")
         {
             Clustered = true;
+        }
+        key(Key2; Sequence)
+        {
         }
     }
 

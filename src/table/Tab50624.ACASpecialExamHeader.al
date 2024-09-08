@@ -102,7 +102,7 @@ table 50624 "ACA-Special Exam Header"
                                                                                  Status = FILTER(Approved)));
             FieldClass = FlowField;
         }
-        field(13; Catogory; Option)
+        field(13; Category; Option)
         {
             DataClassification = ToBeClassified;
             OptionCaption = ' ,Special,Supplementary';
@@ -112,7 +112,7 @@ table 50624 "ACA-Special Exam Header"
 
     keys
     {
-        key(Key1; "Student No.", Stage, Programme, Semester, "Academic Year", Catogory)
+        key(Key1; "Student No.", Stage, Programme, Semester, "Academic Year", Category)
         {
         }
     }

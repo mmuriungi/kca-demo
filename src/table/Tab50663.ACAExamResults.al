@@ -591,6 +591,11 @@ table 50663 "ACA-Exam Results"
         {
             Editable = false;
         }
+        //User_ID
+        field(63033; User_ID; Code[50])
+        {
+            Editable = false;
+        }
     }
 
     keys

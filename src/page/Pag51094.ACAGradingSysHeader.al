@@ -37,7 +37,7 @@ page 51094 "ACA-Grading Sys. Header"
                 PromotedCategory = Process;
                 PromotedOnly = true;
                 RunObject = Page "ACA-Cat. Transc. Comments";
-                RunPageLink = "Exam Catogory" = FIELD(Code);
+                RunPageLink = "Exam Category" = FIELD(Code);
                 ApplicationArea = All;
             }
             action("Exam Setup")

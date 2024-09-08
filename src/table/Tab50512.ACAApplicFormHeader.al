@@ -1045,6 +1045,10 @@ table 50512 "ACA-Applic. Form Header"
                 field(50153; "OLevel Year Completed"; code[50])
                 {
                 }
+                //Tribe
+                field(50154; Tribe; code[50])
+                {
+                }
     }
 
     keys
