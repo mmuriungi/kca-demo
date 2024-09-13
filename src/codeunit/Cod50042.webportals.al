@@ -2,21 +2,21 @@
 /// <summary>
 /// Codeunit webportals (ID 51801).
 /// </summary>
-// dotnet
-// {
-//     assembly(mscorlib)
-//     {
-//         type(System.Array; Bytes) { }
-//     }
-//     assembly(mscorlib)
-//     {
-//         type(System.Convert; Convert) { }
-//     }
-//     assembly(mscorlib)
-//     {
-//         type(System.IO.MemoryStream; MemoryStream) { }
-//     }
-// }
+dotnet
+{
+    assembly(mscorlib)
+    {
+        type(System.Array; Bytes) { }
+    }
+    assembly(mscorlib)
+    {
+        type(System.Convert; Convert) { }
+    }
+    assembly(mscorlib)
+    {
+        type(System.IO.MemoryStream; MemoryStream) { }
+    }
+}
 codeunit 50042 webportals
 {
 
