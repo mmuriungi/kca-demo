@@ -470,7 +470,7 @@ report 50524 "Provisional College Transcrip3"
                     if Sem.Find('-') then begin
                         if Sem.From <> 0D then begin
                             ACAProgCatTranscriptComm.Reset;
-                            ACAProgCatTranscriptComm.SetRange("Exam Catogory", prog."Exam Category");
+                            ACAProgCatTranscriptComm.SetRange("Exam Category", prog."Exam Category");
                             if ACAProgCatTranscriptComm.Find('-') then
                                 GRADDATE := Format(Date2DMY((CalcDate(Format(ACAProgCatTranscriptComm.Count) + 'Y', Sem.From)), 3));
                             YearOfAdmi := Sem.From;

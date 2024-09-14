@@ -158,5 +158,14 @@ page 50845 "ACA-Programme Stages"
             }
         }
     }
+
+    procedure GetSelectionFilter(): Text[2048]
+    var
+        AcaPStages: Record "ACA-Programme Stages";
+        SelectionFilterMgmt: Codeunit "Custom Filter Management";
+    begin
+        CurrPage.SETSELECTIONFILTER(AcaPStages);
+        EXIT(SelectionFilterMgmt.GetSelectionFilterForStages(AcaPStages));
+    end;
 }
 

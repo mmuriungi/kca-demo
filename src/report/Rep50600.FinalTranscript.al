@@ -405,7 +405,7 @@ report 50600 "Final Transcript"
                 CLEAR(TransCriptRemarks);
                 CLEAR(PassRemark);
                 ACAProgCatTranscriptComm.RESET;
-                ACAProgCatTranscriptComm.SETRANGE(ACAProgCatTranscriptComm."Exam Catogory", prog."Exam Category");
+                ACAProgCatTranscriptComm.SETRANGE(ACAProgCatTranscriptComm."Exam Category", prog."Exam Category");
                 ACAProgCatTranscriptComm.SETRANGE("Year of Study", Coregs."Year of Study");
                 IF ACAProgCatTranscriptComm.FIND('-') THEN BEGIN
                     IF Coregs."Final Classification Pass" THEN

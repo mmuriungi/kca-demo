@@ -7,7 +7,7 @@ page 50733 "Special Exams Details List"
     ModifyAllowed = true;
     PageType = List;
     SourceTable = "Aca-Special Exams Details";
-    SourceTableView = WHERE(Catogory = FILTER("Special"));
+    SourceTableView = WHERE(Category = FILTER("Special"));
 
     layout
     {
@@ -53,7 +53,7 @@ page 50733 "Special Exams Details List"
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field(Catogory; Rec.Catogory)
+                field(Category; Rec.Category)
                 {
                     Editable = false;
                     ApplicationArea = All;

@@ -2976,7 +2976,7 @@ table 50555 "ACA-Course Registration"
         field(60172; "Highest Yearly Repeats"; Integer)
         {
             // CalcFormula = Count("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."),
-            //                                                        Catogory = FILTER(Supplementary),
+            //                                                        Category = FILTER(Supplementary),
             //                                                        "Academic Year" = FIELD("Academic Year")));
             // FieldClass = FlowField;
         }
@@ -3153,7 +3153,12 @@ table 50555 "ACA-Course Registration"
         {
 
         }
-       
+        //"Signed Nominal Role"
+        field(60197; "Signed Nominal Role"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

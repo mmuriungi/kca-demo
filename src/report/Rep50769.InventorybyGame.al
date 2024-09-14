@@ -4,7 +4,7 @@ report 50769 "Inventory by Game"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'InventoryByGame.rdl';
+    RDLCLayout = './Layouts/InventoryByGame.rdl';
 
     dataset
     {

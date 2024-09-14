@@ -95,7 +95,7 @@ report 50675 "Exam Attendance Clearance"
             //     {
 
             //     }
-            //     column(Catogory; Catogory)
+            //     column(Category; Category)
             //     {
 
             //     }

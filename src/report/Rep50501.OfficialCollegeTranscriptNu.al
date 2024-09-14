@@ -332,7 +332,7 @@ report 50501 "Official College Transcript Nu"
                     IF Sem.FIND('-') THEN BEGIN
                         IF Sem.From <> 0D THEN BEGIN
                             ACAProgCatTranscriptComm.RESET;
-                            ACAProgCatTranscriptComm.SETRANGE("Exam Catogory", prog."Exam Category");
+                            ACAProgCatTranscriptComm.SETRANGE("Exam Category", prog."Exam Category");
                             IF ACAProgCatTranscriptComm.FIND('-') THEN
                                 GRADDATE := FORMAT(DATE2DMY((CALCDATE(FORMAT(ACAProgCatTranscriptComm.COUNT) + 'Y', Sem.From)), 3));
                             YearOfAdmi := Sem.From;

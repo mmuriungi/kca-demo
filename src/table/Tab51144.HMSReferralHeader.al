@@ -66,6 +66,14 @@ table 51144 "HMS-Referral Header"
             CalcFormula = Lookup("HMS-Patient"."Patient Ref. No." WHERE("Patient No." = FIELD("Patient No.")));
             FieldClass = FlowField;
         }
+        //"Staff No,"No. Series" 
+        field(35; "Staff No"; Code[20])
+        {
+           
+        }
+        field(36; "No. Series"; Code[20])
+        {
+        }
     }
 
     keys

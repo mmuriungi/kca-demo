@@ -5,33 +5,20 @@ table 50281 "HRM-Applicant Qualifications"
     //todo  DrillDownPageID = 39003960;
     //todo LookupPageID = 39003960;
 
+
     fields
     {
         field(1; "Application No"; Code[10])
         {
             Caption = 'Application No';
-            TableRelation = "HRM-Job Applications (B)"."Application No";
         }
         field(2; "Employee No."; Code[20])
         {
             Caption = 'Employee No.';
-            NotBlank = true;
         }
-        field(3; "Qualification Description"; code[200])
+        field(3; "Qualification Description"; Code[80])
         {
             Caption = 'Qualification Description';
-            NotBlank = true;
-
-            trigger OnValidate()
-            begin
-                /*
-                Qualifications.RESET;
-                Qualifications.SETRANGE(Qualifications.Code,"Qualification Description");
-                IF Qualifications.FIND('-') THEN
-                "Qualification Code":=Qualifications.Description;
-                */
-
-            end;
         }
         field(4; "From Date"; Date)
         {
@@ -44,10 +31,9 @@ table 50281 "HRM-Applicant Qualifications"
         field(6; Type; Option)
         {
             Caption = 'Type';
-            OptionCaption = ' ,Internal,External,Previous Position';
             OptionMembers = " ",Internal,External,"Previous Position";
         }
-        field(7; Description; Text[30])
+        field(7; Description; Text[250])
         {
             Caption = 'Description';
         }
@@ -57,7 +43,6 @@ table 50281 "HRM-Applicant Qualifications"
         }
         field(9; Cost; Decimal)
         {
-            AutoFormatType = 1;
             Caption = 'Cost';
         }
         field(10; "Course Grade"; Text[30])
@@ -67,9 +52,7 @@ table 50281 "HRM-Applicant Qualifications"
         field(11; "Employee Status"; Option)
         {
             Caption = 'Employee Status';
-            Editable = false;
-            OptionCaption = 'Active,Inactive,Terminated';
-            OptionMembers = Active,Inactive,Terminated;
+            OptionMembers = " ",Active,Inactive,Terminated,OnLeave; // Customize as needed
         }
         field(13; "Expiration Date"; Date)
         {
@@ -77,39 +60,119 @@ table 50281 "HRM-Applicant Qualifications"
         }
         field(14; "Qualification Type"; Code[20])
         {
-            NotBlank = false;
-            TableRelation = "HRM-Lookup Values".Code WHERE(Type = FILTER("Qualification Type"));
+            Caption = 'Qualification Type';
         }
-        field(15; "Qualification Code"; Text[200])
+        field(15; "Qualification Code"; Text[100])
         {
-            NotBlank = true;
-            TableRelation = "HRM-Qualifications".Code WHERE("Qualification Type" = FIELD("Qualification Type"));
-
+            Caption = 'Qualification Code';
             trigger OnValidate()
             begin
-                if HRQualifications.Get("Qualification Type", "Qualification Code") then
+                IF HRQualifications.GET("Qualification Type", "Qualification Code") THEN
                     "Qualification Description" := HRQualifications.Description;
-                if JobReq.Get(JobReq."Qualification Type", JobReq."Qualification Code") then
+                IF JobReq.GET(JobReq."Qualification Type", JobReq."Qualification Code") THEN
                     "Score ID" := JobReq."Desired Score";
             end;
         }
         field(16; "Score ID"; Decimal)
         {
+            Caption = 'Score ID';
         }
         field(17; "Desired Score"; Decimal)
         {
+            Caption = 'Desired Score';
+        }
+        field(18; "Attachment Path"; Text[250])
+        {
+            Caption = 'Attachment Path';
+        }
+        field(19; "File Name"; Text[250])
+        {
+            Caption = 'File Name';
+        }
+        field(20; Active; Boolean)
+        {
+            Caption = 'Active';
+        }
+        field(21; "Member Since"; Code[10])
+        {
+            Caption = 'Member Since';
+        }
+        field(22; Title; Text[250])
+        {
+            Caption = 'Title';
+        }
+        field(23; ISBN; Code[50])
+        {
+            Caption = 'ISBN';
+        }
+        field(24; Publisher; Text[100])
+        {
+            Caption = 'Publisher';
+        }
+        field(25; "Year of Publication"; Code[10])
+        {
+            Caption = 'Year of Publication';
+        }
+        field(26; "Chapter Title"; Text[250])
+        {
+            Caption = 'Chapter Title';
+        }
+        field(27; "Page From"; Text[30])
+        {
+            Caption = 'Page From';
+        }
+        field(28; "Page To"; Text[30])
+        {
+            Caption = 'Page To';
+        }
+        field(29; "Seminar Type"; Text[30])
+        {
+            Caption = 'Seminar Type';
+        }
+        field(30; "Seminar Mode"; Text[30])
+        {
+            Caption = 'Seminar Mode';
+        }
+        field(31; "Year of Supervision"; Code[10])
+        {
+            Caption = 'Year of Supervision';
+        }
+        field(32; "Post Graduate Level"; Text[10])
+        {
+            Caption = 'Post Graduate Level';
+        }
+        field(33; "No of students"; Integer)
+        {
+            Caption = 'No of students';
+        }
+        field(34; Grant; Text[250])
+        {
+            Caption = 'Grant';
+        }
+        field(35; "Grant Year"; Code[10])
+        {
+            Caption = 'Grant Year';
+        }
+        field(36; "Grant Purpose"; Text[250])
+        {
+            Caption = 'Grant Purpose';
+        }
+        field(37; "Education Level"; Text[30])
+        {
+            Caption = 'Education Level';
+        }
+        field(38; "Journal Title"; Text[250])
+        {
+            Caption = 'Journal Title';
         }
     }
 
     keys
     {
-        key(Key1; "Application No", "Qualification Type", "Qualification Code")
+        key(PK; "Application No", "Qualification Type", "Qualification Code", Description)
         {
+            Clustered = true;
         }
-    }
-
-    fieldgroups
-    {
     }
 
     var
@@ -118,4 +181,3 @@ table 50281 "HRM-Applicant Qualifications"
         Position: Code[20];
         JobReq: Record "HRM-Job Requirements";
 }
-

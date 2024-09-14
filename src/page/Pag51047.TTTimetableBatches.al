@@ -155,7 +155,7 @@ page 51047 "TT-Timetable Batches"
                     IF CONFIRM('Generate Automatic Constraints, Continue?', FALSE) = FALSE THEN ERROR('Cancelled by user!');
                     //IF CONFIRM('You may be required to regenerate your timetable \after generating your constraints. \Continue?',TRUE)=FALSE THEN  ERROR('Cancelled by user!');
 
-                    //Get Default Catogory
+                    //Get Default Category
                     TTWeightLessonCategories.RESET;
                     TTWeightLessonCategories.SETRANGE(Semester, Rec.Semester);
                     TTWeightLessonCategories.SETRANGE("Default Category", TRUE);
