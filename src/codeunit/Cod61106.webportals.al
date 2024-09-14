@@ -1,0 +1,8061 @@
+#pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
+Codeunit 61106 webportals
+{
+
+    trigger OnRun()
+    var
+        Cust: Record Customer;
+        RptFileName: Text;
+        MailBody: Text;
+    begin
+        //GenerateAdmLetter('B100/0029G/19','AdmLetter'+'B1000029G19');
+        //GenerateStudentExamCard('A102/0039G/20','SEM1 22/23','');SendEmailEasy_WithAttachment
+        // //  SendEmailEasy('Hallo','Wanjala Tinga','We are Simply Testing the Mailing Functionality Here','If you received this, we Love you',
+        // //  'System Generated Mails are not to be replied to','Contact 0704121064 for Assistance','wanjalatom2003@gmail.com','AUTOMATIC MAILS TEST');
+        // SendEmailEasy_WithAttachment('Hallo','Wanjala Tinga','We are Simply Testing the Mailing Functionality Here','If you received this, we Love you',
+        // 'System Generated Mails are not to be replied to','Contact 0704121064 for Assistance','muriungimmwiti@gmail.com','AUTOMATIC MAILS TEST',
+        // 'D:\NavInstallationTools.psm1','D:\NavInstallationTools.psm1');
+        //GenerateStudentExamCard('E100/0405G/18','SEM2 20/21','Wanjala');
+        //MESSAGE(GetEvaluated('A100/0018G/17',' ',' ','ARE 463','SEM2 20/21'));
+        //Generatep9Report(2020, '0366', 'Juma.pdf');
+        //GenerateClearanceForm('E100/0513G/17','E1000513G17');
+        //GenerateTranscript('E100/0525G/18','Test.pdf','2019/2020');
+        // MESSAGE(InsertExamResults('P106','P106/1731G/20','SEM1 23/24','BOT 110', 25,'FINAL EXAM','0410','Kendagor Ruth 325345436666666666'));
+        // MESSAGE(InsertExamResults('P106','P106/1731G/20','SEM1 23/24','BOT 110',22,'CAT','0410','Kendagor Ruth 325345436666666666'));
+        // MESSAGE(InsertExamResults('E111','E111/1489G/21','Sem1 21/22','HIS 111',10,'CAT','0007','Prof. Mwaruvie'));
+        //MESSAGE(CaptureMarksValidation('B105','Sem2 19/20','BHM 105','PT-0603','Wsanjay'));
+        //GenerateStudentProvisionalResults('E100/0525G/18','','SEM2 19/20');
+        //ConfirmSupplementary('P101/1393G/20','MAT 125','2021/2022', 'SEM2 21/22',2);
+        //CheckRecruitmentApplicantLogin('bonfacekamau.com@gmail.com','123');
+        //MESSAGE(AdmissionDocApprovalRequests('KUCSERVER\TWANJALA'));
+        //MESSAGE(GetCurrentAcademicYear());
+        //Send_SMS_Easy('0704121064','Testing SMS Function Message 1','Testing Message 2','Testing Message 3');
+
+        //MESSAGE('res% 1',FnBookSpecialExam('A102/0002G/21','A102','SEM1 23/24','AEE 315','Test'));
+        //MESSAGE(GetUnconfirmedSupUnits('A102/0002G/23'));
+        // Cust.RESET;
+        //    Cust.SETRANGE("No.",'P100/9595G/24');
+        //    IF Cust.FINDFIRST THEN BEGIN
+        //      Cust.TESTFIELD("E-Mail");
+        //      MailBody:='This is to notify you that you have been allocated accommodation at the university. '+
+        // 'You have been allocated Block '+'AAA'+', Room no: '+'"Room No"'+', Space: '+'"Space No"'+
+        // 'Kindly collect the keys and other items from the Hostel manager on the reporting day. Fill the attached form and present it to the hostel manager';
+        // RptFileName:='D:\'+'Room Agreement_'+'P1009595G24'+'.pdf';
+        //
+        // IF EXISTS(RptFileName) THEN
+        //  ERASE(RptFileName);
+        // REPORT.SAVEASPDF(REPORT::"Resident Room Agreement",RptFileName,Cust);
+        //      SendEmailEasy_WithAttachment('Dear ',Cust.Name,MailBody,'','Karatina University','Hostel Manager','muriungimmwiti@gmail.com','HOSTEL ALLOCATION BLOCK',RptFileName,RptFileName);
+        // // IF EXISTS(RptFilename) THEN
+        //  ERASE(RptFilename);
+        //END;
+        //GenerateSuppExamCard('E107/1130G/20','D:\rpp.pdf');
+        MarkKUCCPSDetailsUpdated('A100/00111G/24');
+    end;
+
+    var
+        FILESPATH: label '\\41.89.230.10\Downloads\';
+        ProgramUnits: Record "ACA-Semester";
+        "Employee Card": Record "HRM-Employee C";
+        "HR Leave Application": Record "HRM-Leave Requisition";
+        "Supervisor Card": Record "User Setup";
+        HRLeaveTypes: Record "HRM-Leave Types";
+        ApprovalEntry: Record "Approval Entry";
+        ApprovalEntry_2: Record "Approval Entry";
+        LeaveT: Record "HRM-Leave Requisition";
+        HRSetup: Record "HRM-Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        NextLeaveApplicationNo: Code[20];
+        EmployeeUserId: Text;
+        SupervisorId: Text;
+        PeriodTrans: Record "PRL-Period Transactions";
+        "Supervisor ID": Text;
+        HRLeave: Record "HRM-Leave Requisition";
+        BaseCalendar: Record "Base Calendar Change";
+        test: Boolean;
+        testDate: Date;
+        GeneralOptions: Record "HRM-Setup";
+        TransportRequisition: Record "FLT-Transport Requisition";
+        HRTravellingStaff: Record "FLT-Travel Requisition Staff";
+        ltype: Record "HRM-Leave Types";
+        dates: Record Date;
+        LeaveTypes: Record "HRM-Leave Types";
+        varDaysApplied: Decimal;
+        TransportRequisition_2: Record "FLT-Transport Requisition";
+        SalaryCard: Record "PRL-Salary Card";
+        Customer: Record Customer;
+        "Fee By Stage": Record "ACA-Fee By Stage";
+        CourseRegistration: Record "ACA-Course Registration";
+        MealBookingHeader: Record "CAT-Meal Booking Header";
+        MealBookingLines: Record "CAT-Meal Booking Lines";
+        ApprovalMgt: Codeunit "Approval Workflows V1";
+        AppMgt: Codeunit "Approval Workflows V1";
+        // ApprovalSetup: Record UnknownRecord452;
+        Text004: label 'Approval Setup not found.';
+        FILESPATH_S: label '\\41.89.230.10\Downloads2\';
+        RelieverName: Text;
+        LeaveLE: Record "HRM-Leave Ledger";
+        ExamResults: Record "ACA-Exam Results";
+        showmessage: Boolean;
+        ManualCancel: Boolean;
+        State: Option Open,"Pending Approval",Cancelled,Approved;
+        DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
+        tableNo: Integer;
+        ApproverComments: Record "Approval Comment Line";
+        objPeriod: Record "PRL-Payroll Periods";
+        P9: Record "PRL-Employee P9 Info";
+        StoreRequisition: Record "PROC-Store Requistion Header";
+        ImprestRequisition: Record "FIN-Imprest Header";
+        CourseReg: Record "ACA-Course Registration";
+        GenSetup: Record "ACA-General Set-Up";
+        NextStoreqNo: Code[10];
+        MealRequisition: Record "CAT-Meal Booking Header";
+        NextMtoreqNo: Code[10];
+        MealLinesCreate: Record "CAT-Meal Booking Lines";
+
+        VenueRequisition: Record "Gen-Venue Booking";
+        Programmezz: Record "ACA-Programme";
+        Receiptz: Record "ACA-Receipt";
+        StudentCard: Record Customer;
+        ACAUnitsSubjects: Record "ACA-Units/Subjects";
+        CurrentSem: Record "ACA-Semesters";
+        StudCharges: Record "ACA-Std Charges";
+        AcademicYr: Record "ACA-Academic Year";
+        UnitSubjects: Record "ACA-Units/Subjects";
+        CustLedgerEntry: Record "Cust. Ledger Entry";
+        DetailedCustLedgEntry: Record "Detailed Cust. Ledg. Entry";
+        StudentUnits: Record "ACA-Student Units";
+        StudentUnitBaskets: Record "ACA-Student Units Baskets";
+        EmployeeCard: Record "HRM-Employee C";
+        LedgerEntries: Record "Detailed Cust. Ledg. Entry";
+        Stages: Record "ACA-Programme Stages";
+        PRLEmployeeP9Info: Record "PRL-Employee P9 Info";
+        LecEvaluation: Record "ACA-Lecturers Evaluation";
+        VenueBooking: Record "Gen-Venue Booking";
+        HelpDesk: Record "HelpDesk Header";
+        VoteElection: Record "ELECT Election Result";
+        KUCCPSRaw: Record "KUCCPS Imports";
+        AdmissionFormHeader: Record "ACA-Adm. Form Header";
+        FILESPATH_A: label '\\41.89.230.10\Downloads3\';
+        OnlineUsersz: Record "OnlineUsers";
+        AplicFormHeader: Record "ACA-Applic. Form Header";
+        ProgEntrySubjects: Record "ACA-Programme Entry Subjects";
+        ApplicFormAcademic: Record "ACA-Applic. Form Academic";
+        Intake: Record "ACA-Intake";
+        ProgramSem: Record "ACA-Programme Semesters";
+        filename2: Text[250];
+        Dimensions: Record "Dimension";
+        EvaluationQuiz: Record "ACA-Evaluation Questions";
+        AdmissionFormHeader1: Record "ACA-Applic. Form Header";
+        ImportsBuffer: Record "ACA-Imp. Receipts Buffer";
+        Admissions: Record "ACA-Adm. Form Header";
+        ApplicationSubject: Record "ACA-Applic. Form Academic";
+        AdmissionSubject: Record "ACA-Adm. Form Academic";
+        LineNo: Integer;
+        MedicalCondition: Record "ACA-Medical Condition";
+        AdmissionMedical: Record "ACA-Adm. Form Medical Form";
+        AdmissionFamily: Record "ACA-Adm. Form Family Medical";
+        Immunization: Record "ACA-Immunization";
+        AdmissionImmunization: Record "ACA-Adm. Form Immunization";
+        AdminKin: Record "ACA-Adm. Form Next of Kin";
+        StudentKin: Record "ACA-Student Kin";
+        StudentGuardian: Record "ACA-Student Sponsors Details";
+        Referrralll: Record "HMS-Referral Header";
+        coreg: Record "ACA-Course Registration";
+        ElectionHeader: Record "ELECT-Elections Header";
+        BallotBuffer: Record "ELECT-Ballot Register Buffer";
+        VoteReg: Record "ELECT-Voter Register";
+        NextJobapplicationNo: Code[20];
+        ClearanceHeader: Record "ACA-Clearance Header";
+        userSetup10: Record "User Setup";
+        HostelLedger: Record "ACA-Hostel Ledger";
+        HostelRooms: Record "ACA-Students Hostel Rooms";
+        HostelCard: Record "ACA-Hostel Card";
+        HostelBlockRooms: Record "ACA-Hostel Block Rooms";
+        RoomSpaces: Record "ACA-Room Spaces";
+        HrEmployeeC: Record "HRM-Employee C";
+        ProgrammeSemesters: Record "ACA-Programme Semesters";
+        RecAccountusers: Record "Online Recruitment users";
+        ApplicantQualifications: Record "HRM-Applicant Qualifications";
+        JobApplications: Record "HRM-Job Applications (B)";
+        ProgStages: Record "ACA-Programme Stages";
+        ACASetupRec: Integer;
+        Counties: Text[1000];
+        PurchSetup: Record "Purchases & Payables Setup";
+        tblBidder: Record "Tender Applicants Registration";
+        SupUnits: Record "Aca-Special Exams Details";
+        DocSetup: Record "ACA-New Stud. Doc. Setup";
+        StudentDocs: Record "ACA-New Stud. Documents";
+        GradesTable: Record "ACA-Applic. Setup Grade";
+
+
+    procedure ConfirmSupUnit(StdNo: Code[20]; unit: Code[20]) Message: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            CurrentSem.Reset;
+            //CurrentSem.SETRANGE("Current Semester",TRUE);
+            //IF CurrentSem.FIND('-') THEN BEGIN
+            // IF CurrentSem."Supp Registration Deadline" < TODAY THEN
+            // ERROR('Supplementary registration deadline has passed, kindly contact the admin.');
+            SupUnits.Reset;
+            SupUnits.SetRange("Student No.", StdNo);
+            SupUnits.SetRange("Unit Code", unit);
+            SupUnits.SetRange(Category, SupUnits.Category::Supplementary);
+            SupUnits.SetRange(Status, SupUnits.Status::New);
+            if SupUnits.Find('-') then begin
+                //
+                StudentCard.Reset;
+                StudentCard.SetRange("No.", StdNo);
+                if StudentCard.FindFirst then begin
+                    GenSetup.Reset;
+                    //IF (StudentCard.Balance < 0) OR (StudentCard.Balance >= -1000)
+                    //IF (StudentCard.Balance < 0) OR (StudentCard.Balance >= GenSetup."Supplementary Fee") THEN BEGIN
+                    if (StudentCard.Balance < 0) or (Abs(StudentCard.Balance) >= Abs(GenSetup."Supplementary Fee")) then begin
+
+                        SupUnits.Status := SupUnits.Status::Approved;
+                        SupUnits.Validate(Status);
+                        SupUnits.Modify;
+                        Message := 'SUCCESS: Supplementary successfully confirmed';
+                    end else begin
+                        Error('Please PAY For your Supplementary');
+                    end;
+                end else begin
+                    Error('Student not found');
+                end;
+
+                //end student search
+                //END  ELSE Message:='FAILED: Supplementary not confirmed';
+            end;
+        end;
+    end;
+
+
+    procedure GetCurrentAcademicYear() Year: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            AcademicYr.Reset;
+            AcademicYr.SetRange(Current, true);
+            if AcademicYr.Find('-') then begin
+                Year := AcademicYr.Code;
+            end;
+        end;
+    end;
+
+
+    procedure GetIndexNo(username: Code[20]) Index: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            KUCCPSRaw.Reset;
+            KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+            if KUCCPSRaw.Find('-') then begin
+                Index := KUCCPSRaw.Index;
+            end;
+        end;
+    end;
+
+
+    procedure DeleteAttachments(indexno: Code[20]; doctype: Code[50]) Deleted: Boolean
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            StudentDocs.Reset;
+            StudentDocs.SetRange("Index Number", GetIndexNo(indexno));
+            StudentDocs.SetRange("Document Code", doctype);
+            if StudentDocs.Find('-') then begin
+                StudentDocs.CalcFields(Document_Image);
+                if StudentDocs.Document_Image.Hasvalue then begin
+                    Clear(StudentDocs.Document_Image);
+                    StudentDocs.Modify;
+                    Deleted := true;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure CheckUnattachedDoc(indexno: Code[20]) Msg: Boolean
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            DocSetup.Reset;
+            //DocSetup.SETRANGE("Academic Year",GetCurrentAcademicYear());
+            DocSetup.SetRange(Mandatory, true);
+            if DocSetup.Find('-') then begin
+                repeat
+                    StudentDocs.Reset;
+                    StudentDocs.SetRange("Index Number", GetIndexNo(indexno));
+                    StudentDocs.SetRange("Document Code", DocSetup."Document Code");
+                    if StudentDocs.Find('-') then begin
+                        StudentDocs.CalcFields(Document_Image);
+                        if not StudentDocs.Document_Image.Hasvalue then begin
+                            Msg := true;
+                        end;
+                    end;
+                until DocSetup.Next = 0;
+            end;
+        end;
+    end;
+
+
+    procedure GetGrades() Message: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            GradesTable.Reset;
+            if GradesTable.Find('-') then begin
+                repeat
+
+                    Message += Format(GradesTable.Code) + ' ::';
+                until GradesTable.Next = 0;
+            end;
+        end;
+    end;
+
+
+    procedure GetMandatoryAttachments(indexno: Code[20]) Message: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            DocSetup.Reset;
+            DocSetup.SetRange("Academic Year", GetCurrentAcademicYear());
+            DocSetup.SetRange(Mandatory, true);
+            if DocSetup.Find('-') then begin
+                repeat
+                    StudentDocs.Reset;
+                    StudentDocs.SetRange("Index Number", GetIndexNo(indexno));
+                    StudentDocs.SetRange("Document Code", DocSetup."Document Code");
+                    if StudentDocs.Find('-') then begin
+                        StudentDocs.CalcFields(Document_Image);
+                        if not StudentDocs.Document_Image.Hasvalue then begin
+                            Message += Format(DocSetup."Document Code") + ' ::';
+                        end;
+                    end;
+                until DocSetup.Next = 0;
+            end;
+        end;
+    end;
+
+
+    procedure GetConfirmedSupUnits(StdNo: Code[20]) Message: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            SupUnits.Reset;
+            SupUnits.SetRange("Student No.", StdNo);
+            SupUnits.SetRange(Category, SupUnits.Category::Supplementary);
+            SupUnits.SetRange(Status, SupUnits.Status::Approved);
+            SupUnits.SetRange("Charge Posted", true);
+            if SupUnits.Find('-') then begin
+                repeat
+                    SupUnits.CalcFields("Unit Description");
+                    Message += SupUnits."Unit Code" + ' ::' + SupUnits."Unit Description" + ' :::';
+                until SupUnits.Next = 0;
+            end;
+        end;
+    end;
+
+
+    procedure GetUnconfirmedSupUnits(StdNo: Code[20]) Message: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            SupUnits.Reset;
+            SupUnits.SetRange("Student No.", StdNo);
+            SupUnits.SetRange(Category, SupUnits.Category::Supplementary);
+            SupUnits.SetRange(Status, SupUnits.Status::New);
+            //SupUnits.SETRANGE("Charge Posted",FALSE);
+
+            if SupUnits.Find('-') then begin
+                repeat
+                    /*AcademicYr.RESET;
+                    AcademicYr.SETRANGE(Code, SupUnits."Academic Year");
+                    AcademicYr.SETRANGE("Allow View of Transcripts", TRUE);
+                    IF AcademicYr.FIND('-') THEN BEGIN*/
+                    SupUnits.CalcFields("Unit Description", "2nd Supp Marks");
+                    if not (SupUnits."Charge Posted") and ((SupUnits."Exam Marks" < 40) and (SupUnits."2nd Supp Marks" < 40)) then begin
+                        if not (((SupUnits.Semester = 'SEM1 23/24') and (SupUnits.Stage = 'Y1S1')) or ((SupUnits.Semester = 'SEM2 23/24') and (SupUnits.Stage = 'Y1S2')))
+                        then begin
+                            Message += SupUnits."Unit Code" + ' ::' + SupUnits."Unit Description" + ' :::';
+                        end;
+                    end;
+                //END;
+                until SupUnits.Next = 0;
+            end;
+        end;
+
+    end;
+
+
+    procedure GetEvalLects("Program": Code[20]; Stage: Code[20]; Unit: Code[20]; Sem: Code[20]) Message: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+    begin
+        begin
+            LecturerUnits.Reset;
+            LecturerUnits.SetRange(Programme, "Program");
+            LecturerUnits.SetRange(Stage, Stage);
+            LecturerUnits.SetRange(Unit, Unit);
+            LecturerUnits.SetRange(Semester, Sem);
+            // LecturerUnits.SETRANGE("Company Name", @Company_Name);
+
+            // LectLoadBatch.SETRANGE("Semester Code", LecturerUnits."Semester");
+
+            if LecturerUnits.FindSet then begin
+                Message := '';
+
+                LectLoadBatch.Reset;
+                LectLoadBatch.SetRange("Lecturer Code", LecturerUnits.Lecturer);
+
+                repeat
+                    repeat
+                        if LecturerUnits.Lecturer = LectLoadBatch."Lecturer Code" then begin
+                            LecturerUnits.Lecturer := LectLoadBatch."Lecturer Name";
+
+                            Message := Message + LecturerUnits.Lecturer + '--' + LectLoadBatch."Lecturer Name" + '\n';
+
+                            exit;
+                        end;
+
+                    until LectLoadBatch.Next = 0;
+
+                until LecturerUnits.Next = 0;
+
+                //LecturerUnits.SETRANGE("Company Name", @Company_Name);
+                // LecturerUnits.SETRANGE("Student Name", bkamau);
+                // LecturerUnits.SORTFIELDS("Lecturer");
+                //LecturerUnits.SETTABLEVIEW("Lecturer Units");
+                //EXIT(LecturerUnits);
+            end;
+        end;
+    end;
+
+
+    procedure LoadSelectedUnits(StudentNo: Code[20]; myStage: Code[10]; MyProg: Code[10]; mySem: Code[10]) Message: Text
+    var
+        RegisteredUnits: Record "ACA-Student Units";
+        ACAUnitsSubjects: Record "ACA-Units/Subjects";
+        ACAUnitsBaskets: Record "ACA-Student Units Baskets";
+    begin
+        ACAUnitsBaskets.Reset;
+        ACAUnitsBaskets.SetRange(Programmes, MyProg);
+        ACAUnitsBaskets.SetRange("Student No.", StudentNo);
+        ACAUnitsBaskets.SetRange(Stage, myStage);
+        ACAUnitsBaskets.SetRange(Semester, mySem);
+
+
+        if ACAUnitsBaskets.FindSet then begin
+            Message := '';
+            repeat
+                // Message:=ACAUnitsSubjects.Code+'::'+ACAUnitsSubjects.Desription;
+                Message := Message + ACAUnitsBaskets.Unit + '::' + ACAUnitsBaskets.Description + '\n';
+            //until UnitSubjects.Next = 0;
+            until ACAUnitsBaskets.Next = 0;
+        end;
+
+
+
+
+        //
+        // LoadUnits(ProgCode : Code[20];StageCode : Code[20]) Message : Text
+        // ACAUnitsSubjects.RESET;
+        // ACAUnitsSubjects.SETRANGE("Programme Code",ProgCode);
+        // ACAUnitsSubjects.SETRANGE("Stage Code",StageCode);
+        // ACAUnitsSubjects.SETRANGE("Time Table",TRUE);
+        // ACAUnitsSubjects.SETRANGE("Old Unit",FALSE);
+        // IF ACAUnitsSubjects.FIND('-') THEN BEGIN
+        //    Message:=ACAUnitsSubjects.Code+'::'+ACAUnitsSubjects.Desription;
+        //  END;
+    end;
+
+
+    procedure LoadSemUnits(ProgCode: Code[20]; StageCode: Code[20]) Message: Text
+    begin
+        begin
+            ACAUnitsSubjects.Reset;
+            ACAUnitsSubjects.SetRange("Programme Code", ProgCode);
+            ACAUnitsSubjects.SetRange("Stage Code", StageCode);
+            ACAUnitsSubjects.SetRange("Time Table", true);
+            ACAUnitsSubjects.SetRange("Old Unit", false);
+
+            if ACAUnitsSubjects.FindSet then begin
+                Message := '';
+                repeat
+                    // Message:=ACAUnitsSubjects.Code+'::'+ACAUnitsSubjects.Desription;
+                    Message := Message + ACAUnitsSubjects.Code + '##' + ACAUnitsSubjects.Desription + '\n';
+                //until UnitSubjects.Next = 0;
+                until ACAUnitsSubjects.Next = 0;
+            end;
+        end;
+
+        // begin
+        //        ProgramUnits.RESET;
+        //        ProgramUnits.SETRANGE(ProgramUnits."Programme Code", progcode);
+        //        ProgramUnits.SETRANGE(ProgramUnits."Stage Code", stagecode);
+        //        ProgramUnits.SETRANGE(ProgramUnits."Mode of Study", studymode);
+        //        ProgramUnits.SETRANGE(ProgramUnits.Semester, GetCurrentSem(progcode, stagecode));
+        //        IF ProgramUnits.FIND('-') THEN BEGIN
+        //            REPEAT
+        //                Details := Details + ProgramUnits."Unit Code" + ' ::' + ProgramUnits.Desription + ' :::';
+        //
+        //            until ProgramUnits.Next = 0;
+        //        END;
+    end;
+
+
+    procedure LoadSemesterUnits(ProgCode: Code[20]; StageCode: Code[20]) Message: Text
+    begin
+        begin
+            ACAUnitsSubjects.Reset;
+            ACAUnitsSubjects.SetRange("Programme Code", ProgCode);
+            ACAUnitsSubjects.SetRange("Stage Code", StageCode);
+            ACAUnitsSubjects.SetRange("Time Table", true);
+            ACAUnitsSubjects.SetRange("Old Unit", false);
+
+            if ACAUnitsSubjects.FindSet then begin
+                Message := '';
+                repeat
+                    // Message:=ACAUnitsSubjects.Code+'::'+ACAUnitsSubjects.Desription;
+                    Message := Message + ACAUnitsSubjects.Code + '--' + ACAUnitsSubjects.Desription + '\n';
+                //until UnitSubjects.Next = 0;
+                until ACAUnitsSubjects.Next = 0;
+            end;
+        end;
+
+        // begin
+        //        ProgramUnits.RESET;
+        //        ProgramUnits.SETRANGE(ProgramUnits."Programme Code", progcode);
+        //        ProgramUnits.SETRANGE(ProgramUnits."Stage Code", stagecode);
+        //        ProgramUnits.SETRANGE(ProgramUnits."Mode of Study", studymode);
+        //        ProgramUnits.SETRANGE(ProgramUnits.Semester, GetCurrentSem(progcode, stagecode));
+        //        IF ProgramUnits.FIND('-') THEN BEGIN
+        //            REPEAT
+        //                Details := Details + ProgramUnits."Unit Code" + ' ::' + ProgramUnits.Desription + ' :::';
+        //
+        //            until ProgramUnits.Next = 0;
+        //        END;
+    end;
+
+
+    procedure LoadRegisteredUnits(StudentNo: Code[20]; myStage: Code[10]; MyProg: Code[10]; mySem: Code[10]) Message: Text
+    var
+        RegisteredUnits: Record "ACA-Student Units";
+        ACAUnitsSubjects: Record "ACA-Units/Subjects";
+    begin
+        RegisteredUnits.Reset;
+        RegisteredUnits.SetRange(Programme, MyProg);
+        RegisteredUnits.SetRange("Student No.", StudentNo);
+        RegisteredUnits.SetRange(Stage, myStage);
+        RegisteredUnits.SetRange(Semester, mySem);
+
+        /// loop through the ACAUnitsSubjects record and add the matching units to RegisteredUnits
+        // WHILE ACAUnitsSubjects.FIND('-') DO BEGIN
+        // RegisteredUnits.RESET;
+        // RegisteredUnits.SETRANGE(Unit, ACAUnitsSubjects.Code);
+        // RegisteredUnits.SETRANGE(Programme, MyProg);
+        // RegisteredUnits.SETRANGE(Stage, myStage);
+        // RegisteredUnits.SETRANGE(Semester, mySem);
+        // RegisteredUnits.SETRANGE("Student No.", StudentNo);
+        // RegisteredUnits.SETRANGE("Register for", 0);
+
+        if RegisteredUnits.FindSet then begin
+            Message := '';
+            repeat
+                // Message:=ACAUnitsSubjects.Code+'::'+ACAUnitsSubjects.Desription;
+                Message := Message + RegisteredUnits.Unit + '\n';
+            //until UnitSubjects.Next = 0;
+            until RegisteredUnits.Next = 0;
+        end;
+
+
+
+
+        // Z
+        // LoadUnits(ProgCode : Code[20];StageCode : Code[20]) Message : Text
+        // ACAUnitsSubjects.RESET;
+        // ACAUnitsSubjects.SETRANGE("Programme Code",ProgCode);
+        // ACAUnitsSubjects.SETRANGE("Stage Code",StageCode);
+        // ACAUnitsSubjects.SETRANGE("Time Table",TRUE);
+        // ACAUnitsSubjects.SETRANGE("Old Unit",FALSE);
+        // IF ACAUnitsSubjects.FIND('-') THEN BEGIN
+        //    Message:=ACAUnitsSubjects.Code+'::'+ACAUnitsSubjects.Desription;
+        //  END;
+    end;
+
+
+    procedure GetCurrentRecruitmentPassword(username: Text) Message: Text
+    begin
+        begin
+            RecAccountusers.Reset;
+            RecAccountusers.SetRange(RecAccountusers."Email Address", username);
+            if RecAccountusers.Find('-') then begin
+                Message := RecAccountusers.Password + '::';
+            end
+        end;
+    end;
+
+
+    procedure RemoveGrantLine(QualCode: Code[20]; AppNo: Code[20]; Grant: Text; Year: Code[10]; Purpose: Text) rtnMsg: Boolean
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Code", QualCode);
+            ApplicantQualifications.SetRange(Grant, Grant);
+            ApplicantQualifications.SetRange("Grant Year", Year);
+            ApplicantQualifications.SetRange("Grant Purpose", Purpose);
+            if ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Delete;
+                rtnMsg := true;
+            end;
+        end;
+    end;
+
+
+    procedure RemoveSupervisionLine(QualCode: Code[20]; AppNo: Code[20]; Inst: Text; Year: Code[10]; Level: Text) rtnMsg: Boolean
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Code", QualCode);
+            ApplicantQualifications.SetRange("Institution/Company", Inst);
+            ApplicantQualifications.SetRange("Year of Supervision", Year);
+            ApplicantQualifications.SetRange("Post Graduate Level", Level);
+            if ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Delete;
+                rtnMsg := true;
+            end;
+        end;
+    end;
+
+
+    procedure RemoveJobQualiReqLine(QualCode: Code[20]; AppNo: Code[20]; Desc: Text) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Code", QualCode);
+            ApplicantQualifications.SetRange(Description, Desc);
+            if ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Delete;
+                rtnMsg := 'Qualification Deleted Successfully';
+            end;
+        end;
+    end;
+
+
+    procedure InsertBookChapter(AppNo: Code[30]; title: Text; ChapterTitle: Text; ISBN: Code[50]; Publisher: Text; PageFrom: Text; PageTo: Text; Filepath: Text; Filename: Text) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Type", 'BOOK CHAPTERS');
+            ApplicantQualifications.SetRange("Qualification Code", 'BKCHAPTERS');
+            ApplicantQualifications.SetRange(ISBN, ISBN);
+            if not ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Init();
+
+                ApplicantQualifications."Application No" := AppNo;
+                ApplicantQualifications."Qualification Type" := 'BOOK CHAPTERS';
+                ApplicantQualifications."Qualification Code" := 'BKCHAPTERS';
+                ApplicantQualifications.Validate("Qualification Code");
+                ApplicantQualifications.Title := title;
+                ApplicantQualifications."Chapter Title" := ChapterTitle;
+                ApplicantQualifications.ISBN := ISBN;
+                ApplicantQualifications.Description := ISBN;
+                ApplicantQualifications.Publisher := Publisher;
+                ApplicantQualifications."Page From" := PageFrom;
+                ApplicantQualifications."Page To" := PageTo;
+                ApplicantQualifications."Attachment Path" := Filepath;
+                ApplicantQualifications."File Name" := Filename;
+                ApplicantQualifications.Insert();
+
+                rtnMsg := 'SUCCESS' + '::';
+            end else begin
+                rtnMsg := 'FAILED' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure InsertGrant(AppNo: Code[30]; Grant: Text; Year: Code[10]; Purpose: Text; Filepath: Text; Filename: Text) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Type", 'GRANTS');
+            ApplicantQualifications.SetRange("Qualification Code", 'GRANTS');
+            ApplicantQualifications.SetRange(Grant, Grant);
+            ApplicantQualifications.SetRange("Grant Year", Year);
+            ApplicantQualifications.SetRange("Grant Purpose", Purpose);
+            if not ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Init();
+                ApplicantQualifications."Application No" := AppNo;
+                ApplicantQualifications."Qualification Type" := 'GRANTS';
+                ApplicantQualifications."Qualification Code" := 'GRANTS';
+                ApplicantQualifications.Validate("Qualification Code");
+                ApplicantQualifications.Grant := Grant;
+                ApplicantQualifications."Grant Year" := Year;
+                ApplicantQualifications."Grant Purpose" := Purpose;
+                ApplicantQualifications.Description := Purpose;
+                ApplicantQualifications."Attachment Path" := Filepath;
+                ApplicantQualifications."File Name" := Filename;
+                ApplicantQualifications.Insert();
+
+                rtnMsg := 'SUCCESS' + '::';
+            end else begin
+                rtnMsg := 'FAILED' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure InsertSupervision(AppNo: Code[30]; Inst: Text; Year: Code[10]; Level: Text; Students: Integer; Filepath: Text; Filename: Text) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Type", 'SUPERVISIONS');
+            ApplicantQualifications.SetRange("Qualification Code", 'SUPERV');
+            ApplicantQualifications.SetRange("Institution/Company", Inst);
+            ApplicantQualifications.SetRange("Year of Supervision", Year);
+            ApplicantQualifications.SetRange("Post Graduate Level", Level);
+            if not ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Init();
+
+                ApplicantQualifications."Application No" := AppNo;
+                ApplicantQualifications."Qualification Type" := 'SUPERVISIONS';
+                ApplicantQualifications."Qualification Code" := 'SUPERV';
+                ApplicantQualifications.Validate("Qualification Code");
+                ApplicantQualifications."Institution/Company" := Inst;
+                ApplicantQualifications."Year of Supervision" := Year;
+                ApplicantQualifications."Post Graduate Level" := Level;
+                ApplicantQualifications."No of students" := Students;
+                ApplicantQualifications.Description := Inst + ' ' + Year + ' ' + Level;
+                ApplicantQualifications."Attachment Path" := Filepath;
+                ApplicantQualifications."File Name" := Filename;
+                ApplicantQualifications.Insert();
+
+                rtnMsg := 'SUCCESS' + '::';
+            end else begin
+                rtnMsg := 'FAILED' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure InsertSeminar(AppNo: Code[30]; Type: Text; Name: Text; Mode: Text; Inst: Text; fDate: Date; tDate: Date; Filepath: Text; Filename: Text) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Type", 'SEMINARS');
+            ApplicantQualifications.SetRange("Qualification Code", 'SEMINARS');
+            ApplicantQualifications.SetRange(Title, Name);
+            if not ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Init();
+
+                ApplicantQualifications."Application No" := AppNo;
+                ApplicantQualifications."Qualification Type" := 'SEMINARS';
+                ApplicantQualifications."Qualification Code" := 'SEMINARS';
+                ApplicantQualifications.Validate("Qualification Code");
+                ApplicantQualifications.Title := Name;
+                ApplicantQualifications."Institution/Company" := Inst;
+                ApplicantQualifications."Seminar Type" := Type;
+                ApplicantQualifications."Seminar Mode" := Mode;
+                ApplicantQualifications."From Date" := fDate;
+                ApplicantQualifications."To Date" := tDate;
+                ApplicantQualifications.Description := Name;
+                ApplicantQualifications."Attachment Path" := Filepath;
+                ApplicantQualifications."File Name" := Filename;
+                ApplicantQualifications.Insert();
+
+                rtnMsg := 'SUCCESS' + '::';
+            end else begin
+                rtnMsg := 'FAILED' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure InsertBook(AppNo: Code[30]; title: Text; ISBN: Code[50]; Publisher: Text; Year: Text; Filepath: Text; Filename: Text) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Type", 'BOOKS');
+            ApplicantQualifications.SetRange("Qualification Code", 'BOOKS');
+            ApplicantQualifications.SetRange(ISBN, ISBN);
+            if not ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Init();
+
+                ApplicantQualifications."Application No" := AppNo;
+                ApplicantQualifications."Qualification Type" := 'BOOKS';
+                ApplicantQualifications."Qualification Code" := 'BOOKS';
+                ApplicantQualifications.Validate("Qualification Code");
+                ApplicantQualifications.Title := title;
+                ApplicantQualifications.ISBN := ISBN;
+                ApplicantQualifications.Description := ISBN;
+                ApplicantQualifications.Publisher := Publisher;
+                ApplicantQualifications."Year of Publication" := Year;
+                ApplicantQualifications."Attachment Path" := Filepath;
+                ApplicantQualifications."File Name" := Filename;
+                ApplicantQualifications.Insert();
+
+                rtnMsg := 'SUCCESS' + '::';
+            end else begin
+                rtnMsg := 'FAILED' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure InsertProfBodyMembership(AppNo: Code[30]; Institution: Code[50]; MemberSince: Code[10]; FilePath: Text; Description: Text; filename: Text; Active: Boolean) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Type", 'MEMBERSHIP');
+            ApplicantQualifications.SetRange("Qualification Code", 'MBR');
+            ApplicantQualifications.SetRange(Description, Description);
+            if not ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Init();
+
+                ApplicantQualifications."Application No" := AppNo;
+                ApplicantQualifications."Qualification Type" := 'MEMBERSHIP';
+                ApplicantQualifications."Qualification Code" := 'MBR';
+                ApplicantQualifications.Validate("Qualification Code");
+                ApplicantQualifications."Institution/Company" := Institution;
+                ApplicantQualifications."Member Since" := MemberSince;
+                ApplicantQualifications.Active := Active;
+                ApplicantQualifications.Description := Description;
+                ApplicantQualifications."Attachment Path" := FilePath;
+                ApplicantQualifications."File Name" := filename;
+                ApplicantQualifications.Insert();
+
+                rtnMsg := 'SUCCESS' + '::';
+            end else begin
+                rtnMsg := 'FAILED' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure InsertJobApplicantEducationQualifications(AppNo: Code[30]; QualType: Code[30]; QualCode: Code[30]; Level: Text; Institution: Code[50]; FromDate: Date; ToDate: Date; Description: Text; FilePath: Text; Filename: Text) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Type", QualType);
+            ApplicantQualifications.SetRange("Qualification Code", QualCode);
+            ApplicantQualifications.SetRange(Description, Description);
+            if not ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Init();
+
+                ApplicantQualifications."Application No" := AppNo;
+                ApplicantQualifications."Qualification Type" := QualType;
+                ApplicantQualifications."Qualification Code" := QualCode;
+                ApplicantQualifications.Validate("Qualification Code");
+                ApplicantQualifications."Institution/Company" := Institution;
+                ApplicantQualifications."From Date" := FromDate;
+                ApplicantQualifications."To Date" := ToDate;
+                ApplicantQualifications."Education Level" := Level;
+                ApplicantQualifications.Description := Description;
+                ApplicantQualifications."Attachment Path" := FilePath;
+                ApplicantQualifications."File Name" := Filename;
+                ApplicantQualifications.Insert();
+
+                rtnMsg := 'SUCCESS' + '::';
+            end else begin
+                rtnMsg := 'FAILED' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure InsertJobApplicantQualifications(AppNo: Code[30]; QualType: Code[30]; QualCode: Code[30]; Institution: Code[50]; FromDate: Date; ToDate: Date; FilePath: Text; Description: Text; filename: Text) rtnMsg: Text
+    begin
+        begin
+            ApplicantQualifications.Reset();
+
+            ApplicantQualifications.SetRange("Application No", AppNo);
+            ApplicantQualifications.SetRange("Qualification Type", QualType);
+            ApplicantQualifications.SetRange("Qualification Code", QualCode);
+            ApplicantQualifications.SetRange(Description, Description);
+            if not ApplicantQualifications.Find('-') then begin
+                ApplicantQualifications.Init();
+
+                ApplicantQualifications."Application No" := AppNo;
+                ApplicantQualifications."Qualification Type" := QualType;
+                ApplicantQualifications."Qualification Code" := QualCode;
+                ApplicantQualifications.Validate("Qualification Code");
+                ApplicantQualifications."Institution/Company" := Institution;
+                ApplicantQualifications."From Date" := FromDate;
+                ApplicantQualifications."To Date" := ToDate;
+                ApplicantQualifications.Description := Description;
+                ApplicantQualifications."Attachment Path" := FilePath;
+                ApplicantQualifications."File Name" := filename;
+                ApplicantQualifications.Insert();
+
+                rtnMsg := 'SUCCESS' + '::';
+            end else begin
+                rtnMsg := 'FAILED' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure ValidRecruitmentEmailAddress(username: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'Incorrect Username or Password';
+        TXTCorrectDetails: label 'Login';
+    begin
+        begin
+            RecAccountusers.Reset;
+            RecAccountusers.SetRange(RecAccountusers."Email Address", username);
+            if RecAccountusers.Find('-') then begin
+                Message := TXTCorrectDetails + '::';
+            end else begin
+                Message := TXTIncorrectDetails + '::';
+            end
+        end;
+    end;
+
+
+    procedure CreateRecruitmentAccount(Initialsz: Integer; FirstName: Text; MiddleName: Text; LastName: Text; PostalAddress: Text; PostalCode: Text; IDNumber: Code[30]; Genderz: Integer; HomePhoneNumber: Code[30]; Citizenshipz: Text; Countyz: Text; MaritalStatus: Integer; EthnicOrigin: Text; Disabledz: Option; DesabilityDetails: Text; PwdNumber: Text[50]; DoB: Date; KRA: Text; ApplicantType: Integer; EmailAddress: Text; Passwordz: Text; ActivationCode: Code[10]) Message: Text
+    begin
+        RecAccountusers.Reset;
+        RecAccountusers.SetRange(RecAccountusers."Email Address", EmailAddress);
+        if not RecAccountusers.Find('-') then begin
+            RecAccountusers.Init;
+
+            RecAccountusers.Initials := Initialsz;
+            RecAccountusers."First Name" := FirstName;
+            RecAccountusers."Middle Name" := MiddleName;
+            RecAccountusers."Last Name" := LastName;
+            RecAccountusers."Postal Address" := PostalAddress;
+            RecAccountusers."Postal Code" := PostalCode;
+            RecAccountusers."ID Number" := IDNumber;
+            RecAccountusers.Gender := Genderz;
+            RecAccountusers."Home Phone Number" := HomePhoneNumber;
+            //RecAccountusers."Residential Address" := ResidentialAddress;
+            RecAccountusers.Citizenship := Citizenshipz;
+            RecAccountusers.County := Countyz;
+            RecAccountusers."Marital Status" := MaritalStatus;
+            RecAccountusers."Ethnic Group" := EthnicOrigin;
+            RecAccountusers.Disabled := Disabledz;
+            RecAccountusers."Disability Details" := DesabilityDetails;
+            RecAccountusers."PWD Number" := PwdNumber;
+            RecAccountusers."Date of Birth" := DoB;
+            RecAccountusers."KRA PIN Number" := KRA;
+            //RecAccountusers."Driving License" := DrivingLicense;
+            // RecAccountusers."1st Language" := stLanguage;
+            // RecAccountusers."2nd Language" := ndLanguage;
+            // RecAccountusers."Additional Language" := AdditionalLanguage;
+            RecAccountusers."Applicant Type" := ApplicantType;
+            RecAccountusers."Email Address" := EmailAddress;
+            RecAccountusers.Password := Passwordz;
+            RecAccountusers."Activation Code" := ActivationCode;
+            RecAccountusers."Created Date" := Today;
+            //RecAccountusers.INSERT;
+            if RecAccountusers.Insert then begin
+                Message := 'Account Created successfully' + '::' + RecAccountusers.Password;
+                // Send Email here
+                /*SendEmailEasy(FORMAT(RecAccountusers.Initials),FirstName+' '+MiddleName+' '+LastName,',You have successfully created online Recruitment account at KARU',
+                'Your User Name is: '+EmailAddress+', Password: '+Passwordz,'Once again welcome to the Karatina University Recruitment portal.'+
+                'Keep your credentials safely.','This is a system generated email. Do not reply.',EmailAddress,COMPANYNAME+' Recruitment portal Account');*/
+            end else
+                Message := 'Error, not created' + '::' + RecAccountusers.Password;
+        end else begin
+            Message := 'Warning! We already have account created with the Email address provided.' + '::' + RecAccountusers.Password;
+        end
+
+    end;
+
+
+    procedure SendRecruitmentPassword(EmailAddress: Text) Message: Text
+    begin
+        RecAccountusers.Reset;
+        RecAccountusers.SetRange(RecAccountusers."Email Address", EmailAddress);
+        if RecAccountusers.Find('-') then begin
+            Message := 'Kindly check your email for the password.';
+            // Send Email here
+            SendEmailEasy('', '', 'Your KarU recruitment Portal Password is  ' + RecAccountusers.Password,
+            'Login to continue with your application.', 'Once again welcome to the Karatina University Recruitment portal.' +
+            'Keep your credentials safely.', 'This is a system generated email. Do not reply.', EmailAddress, COMPANYNAME + ' Recruitment portal Account');
+        end else
+            Message := 'Error';
+
+    end;
+
+
+    procedure SubmitJobApplication(EMail: Text; FirstName: Text; MiddletName: Text; LastName: Text; JobID: Text; JobDescription: Text; RefNo: Text) Message: Text[100]
+    begin
+        begin
+
+            JobApplications.Reset;
+
+            JobApplications.SetRange(JobApplications."E-Mail", EMail);
+            JobApplications.SetRange(JobApplications."Job Applied For", JobID);
+            if not JobApplications.Find('-') then begin
+                NextJobapplicationNo := NoSeriesMgt.GetNextNo('JOBAPP', 0D, true);
+
+                RecAccountusers.Reset;
+                RecAccountusers.SetRange(RecAccountusers."Email Address", EMail);
+                if RecAccountusers.Find('-') then begin
+                    JobApplications.Init;
+
+                    JobApplications."Application No" := NextJobapplicationNo;
+                    JobApplications."Employee Requisition No" := RefNo;
+                    JobApplications."Applicant Type" := RecAccountusers."Applicant Type";
+                    JobApplications.Initials := Format(RecAccountusers.Initials);
+                    JobApplications."First Name" := FirstName;
+                    JobApplications."Middle Name" := MiddletName;
+                    JobApplications."Last Name" := LastName;
+                    JobApplications."Postal Address" := RecAccountusers."Postal Address";
+                    JobApplications."Residential Address" := RecAccountusers."Residential Address";
+                    JobApplications."Post Code" := RecAccountusers."Postal Code";
+                    JobApplications.County := RecAccountusers.County;
+                    JobApplications."Home Phone Number" := RecAccountusers."Home Phone Number";
+                    JobApplications."Cell Phone Number" := RecAccountusers."Home Phone Number";
+                    JobApplications."Work Phone Number" := RecAccountusers."Home Phone Number";
+                    JobApplications."E-Mail" := EMail;
+                    JobApplications."ID Number" := RecAccountusers."ID Number";
+                    JobApplications.Gender := RecAccountusers.Gender;
+                    JobApplications."Country Code" := RecAccountusers.Citizenship;
+                    JobApplications."Marital Status" := RecAccountusers."Marital Status";
+                    JobApplications."Ethnic Group" := RecAccountusers."Ethnic Group";
+                    JobApplications."First Language (R/W/S)" := RecAccountusers."1st Language";
+                    JobApplications."Driving Licence" := RecAccountusers."Driving License";
+                    JobApplications.Disabled := RecAccountusers.Disabled;
+                    JobApplications."Date Of Birth" := RecAccountusers."Date of Birth";
+                    JobApplications."Second Language (R/W/S)" := RecAccountusers."2nd Language";
+                    JobApplications."Additional Language" := RecAccountusers."Additional Language";
+                    JobApplications.Citizenship := RecAccountusers.Citizenship;
+                    //JobApplications."Ethnic Origin" := RecAccountusers."Ethnic Origin";
+                    JobApplications."Disabling Details" := RecAccountusers."Disability Details";
+                    JobApplications."Passport Number" := RecAccountusers."ID Number";
+                    JobApplications."PIN Number" := RecAccountusers."KRA PIN Number";
+                    JobApplications."Job Applied For" := JobID;
+                    JobApplications."Job Applied for Description" := JobDescription;
+                    JobApplications.Status := JobApplications.Status::Normal;
+                    JobApplications."Date Applied" := Today;
+                    JobApplications."No. Series" := 'JOBAPP';
+                    //JobApplications."CV Path" := MyCVPath;
+                    //JobApplications."Cover Letter Path" := GoodConductPath;
+                    JobApplications.Insert;
+                    if JobApplications.Insert then;
+                    Message := 'SUCCESS' + '::' + JobApplications."Application No";
+                end
+
+            end else begin
+                Message := 'FAILED' + '::' + JobApplications."Application No";
+            end;
+
+        end;
+
+
+
+
+
+
+
+
+        /*CLEAR(ReturnMessage);
+        ReturnMessage:='FAILED';
+        IF SuppCategory = 1 THEN BEGIN
+        AcaSpecialExamsDetailss.RESET;
+        AcaSpecialExamsDetailss.SETRANGE("Academic Year",AcademicYear);
+        AcaSpecialExamsDetailss.SETRANGE("Student No.",StudentNo);
+        AcaSpecialExamsDetailss.SETRANGE("Unit Code",UnitCode);
+        IF AcaSpecialExamsDetailss.FIND('-') THEN BEGIN
+          IF AcaSpecialExamsDetailss."Charge Posted" = FALSE THEN ERROR('Supp. Charges for '+UnitCode+'are not posted!');
+          AcaSpecialExamsDetailss."Exam Marks":=ExamScore;
+          AcaSpecialExamsDetailss.MODIFY;
+        ReturnMessage:='SUCCESS';
+          END;
+          END ELSE IF SuppCategory = 2 THEN BEGIN
+        Aca2ndSuppExamsDetails.RESET;
+        Aca2ndSuppExamsDetails.SETRANGE("Academic Year",AcademicYear);
+        Aca2ndSuppExamsDetails.SETRANGE("Student No.",StudentNo);
+        Aca2ndSuppExamsDetails.SETRANGE("Unit Code",UnitCode);
+        IF Aca2ndSuppExamsDetails.FIND('-') THEN BEGIN
+          IF Aca2ndSuppExamsDetails."Charge Posted" = FALSE THEN ERROR('Supp. Charges for '+UnitCode+'are not posted!');
+          Aca2ndSuppExamsDetails."Exam Marks":=ExamScore;
+          Aca2ndSuppExamsDetails.MODIFY;
+        ReturnMessage:='SUCCESS';
+          END;
+            END;*/
+
+    end;
+
+
+    procedure SubmitJobApplicationAttachments(AppNo: Code[30]; CvPath: Text; CoverLetterPath: Text[250]) Message: Text[100]
+    begin
+        begin
+
+            JobApplications.Reset;
+
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+
+                if (JobApplications.Submitted = false) then begin
+                    JobApplications."CV Path" := CvPath;
+                    JobApplications."Cover Letter Path" := CoverLetterPath;
+                    JobApplications.Submitted := true;
+                    JobApplications.Modify();
+                    if JobApplications.Modify() then;
+                    Message := 'SUCCESS' + '::';
+                end else begin
+                    Message := 'FAIL 1' + '::';
+                end
+
+
+
+            end else begin
+                Message := 'FAIL 2' + '::';
+            end
+        end;
+    end;
+
+
+    procedure CheckJobApplicationSubmitted(AppNo: Code[30]) Message: Boolean
+    begin
+        begin
+
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                Message := JobApplications.Submitted;
+            end;
+        end;
+    end;
+
+
+    procedure SubmitJobApplicationSpecialization(AppNo: Code[30]; Specialization: Text) Message: Boolean
+    begin
+        begin
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                JobApplications.Specialization := Specialization;
+                JobApplications.Modify;
+                Message := true;
+            end;
+        end;
+    end;
+
+
+    procedure SubmitJobApplicationOtherAttachmentsFileName(AppNo: Code[30]; CvFileName: Text) Message: Boolean
+    begin
+        begin
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                JobApplications."Other Attachments FileName" := CvFileName;
+                JobApplications.Modify;
+                Message := true;
+            end;
+        end;
+    end;
+
+
+    procedure DeleteJobApplicationOtherAttachments(AppNo: Code[30]) Message: Boolean
+    begin
+        begin
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                JobApplications."Other Attachments FileName" := '';
+                JobApplications."Other Attachments Path" := '';
+                JobApplications.Modify;
+                Message := true;
+            end;
+        end;
+    end;
+
+
+    procedure SubmitJobApplicationCVFileName(AppNo: Code[30]; CvFileName: Text) Message: Boolean
+    begin
+        begin
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                JobApplications."CV FileName" := CvFileName;
+                JobApplications.Modify;
+                Message := true;
+            end;
+        end;
+    end;
+
+
+    procedure SubmitJobApplicationCoverLetterFileName(AppNo: Code[30]; CoverLetterFileName: Text) Message: Boolean
+    begin
+        begin
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                JobApplications."Cover Letter FileName" := CoverLetterFileName;
+                JobApplications.Modify;
+                Message := true;
+            end;
+        end;
+    end;
+
+
+    procedure GetJobApplicationOtherAttachmentsFileName(AppNo: Code[30]) Message: Text[100]
+    begin
+        begin
+
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                Message := JobApplications."Other Attachments FileName";
+            end;
+        end;
+    end;
+
+
+    procedure GetJobApplicationCoverLetterFileName(AppNo: Code[30]) Message: Text[100]
+    begin
+        begin
+
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                Message := JobApplications."Cover Letter FileName";
+            end;
+        end;
+    end;
+
+
+    procedure GetJobApplicationCVFileName(AppNo: Code[30]) Message: Text[100]
+    begin
+        begin
+
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                Message := JobApplications."CV FileName";
+            end;
+        end;
+    end;
+
+
+    procedure GetJobApplicationSpecialization(AppNo: Code[30]) Message: Text[250]
+    begin
+        begin
+
+            JobApplications.Reset;
+            JobApplications.SetRange(JobApplications."Application No", AppNo);
+            if JobApplications.Find('-') then begin
+                Message := JobApplications.Specialization;
+            end;
+        end;
+    end;
+
+
+    procedure CreateBidderAccount(VatPin: Text; CompName: Text; PostalAddress: Text; PostalCode: Text; Location: Text; CompPhone: Text; CompEmail: Text; ContactPerson: Text; ContactPersonPhone: Text; ContactPersonEmail: Text; VATCertificate: Text[250]; PinRegistrationCertificate: Text[250]; TaxCompliaceCertificate: Text[250]; Password: Text; Country: Text; CertificateOfIncorporation: Text[250]) Message: Text
+    begin
+        begin
+            tblBidder.Reset;
+            tblBidder.SetRange(tblBidder."No.", VatPin);
+
+            if not tblBidder.Find('-') then begin
+                tblBidder."No." := VatPin;
+                tblBidder.Name := CompName;
+                tblBidder."E-Mail" := CompEmail;
+                tblBidder."Phone No." := CompPhone;
+                tblBidder.Address := PostalAddress + '-' + PostalCode;
+                //tblBidder."Territory Code" := Country;
+                tblBidder."Contact Person" := ContactPerson;
+                //tblBidder."Phone No." := ContactPersonPhone;
+                tblBidder."Contact Person Email" := ContactPersonEmail;
+                tblBidder."VAT Registration No." := VatPin;
+                tblBidder."Certificate of Incoporation" := CertificateOfIncorporation;
+                tblBidder."VAT Registration Certificate" := VATCertificate;
+                tblBidder."Pin Registration Certificate" := PinRegistrationCertificate;
+                tblBidder."Tax Compliance Certificate" := TaxCompliaceCertificate;
+                tblBidder.Password := Password;
+                tblBidder.Insert;
+                Message := 'SUCCESS' + '::';
+            end
+            else begin
+                Message := 'FAIL' + '::';
+            end;
+        end;
+
+    end;
+
+
+    procedure HRLeaveApplication(EmployeeNo: Text; LeaveType: Text; AppliedDays: Decimal; StartDate: Date; EndDate: Date; ReturnDate: Date; SenderComments: Text; Reliever: Text; RelieverName: Text) successMessage: Text
+    var
+        ACAApplicFormHeader: Record "ACA-Applic. Form Header";
+        ApprovHR: Codeunit IntCodeunit;
+    begin
+        LeaveT.Init;
+        HRSetup.Get;
+        NextLeaveApplicationNo := NoSeriesMgt.GetNextNo('LEAVE', 0D, true);
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", EmployeeNo);
+
+        if "Employee Card".Find('-')
+        then begin
+            LeaveT."User ID" := "Employee Card"."User ID";
+            EmployeeUserId := "Employee Card"."User ID";
+            LeaveT."Employee No" := EmployeeNo;
+            LeaveT."Employee Name" := "Employee Card".FullName;
+            "Supervisor Card".Reset;
+            "Supervisor Card".SetRange("Supervisor Card"."User ID", "Employee Card"."User ID");
+            if "Supervisor Card".Find('-')
+            then begin
+                SupervisorId := "Supervisor Card"."Approver ID";
+            end;
+        end;
+
+        LeaveT."Reliever No." := Reliever;
+        LeaveT."Reliever Name" := RelieverName;
+        LeaveT."No." := NextLeaveApplicationNo;
+        LeaveT."Leave Type" := LeaveType;
+        LeaveT.Validate("Leave Type");
+        LeaveT."Applied Days" := AppliedDays;
+        LeaveT.Date := Today;
+        LeaveT."Starting Date" := StartDate;
+        LeaveT."End Date" := EndDate;
+        LeaveT."Return Date" := ReturnDate;
+        LeaveT.Purpose := SenderComments;
+        LeaveT."No. Series" := 'LEAVE';
+        LeaveT.Status := HRLeave.Status::Open;
+        LeaveT."Responsibility Center" := 'KARU';
+        LeaveT.Insert;
+        //send request for approval
+        "HR Leave Application".Reset;
+        "HR Leave Application".SetRange("HR Leave Application"."No.", NextLeaveApplicationNo);
+        if "HR Leave Application".Find('-')
+        then begin
+
+            //State:=State::Open;
+            //IF Status<>Status::Open THEN State:=State::"Pending Approval";
+            //DocType:=DocType::"Leave Application";
+            //CLEAR(tableNo);
+            //tableNo:=61125;
+            //AppMgt.SendApproval(tableNo,NextLeaveApplicationNo,DocType,State);
+            ApprovHR.OnSendLeavesforApproval("HR Leave Application");
+        end;
+    end;
+
+
+    procedure HRUpdateLeaveApplication("Document No": Text; "Reliever No": Text; ApprovedDays: Integer; "Supervisor ID param": Text) SuccessMessage: Text
+    begin
+
+        LeaveT.Reset;
+        LeaveT.SetRange(LeaveT."No.", "Document No");
+
+        if LeaveT.Find('-')
+          then begin
+            // LeaveT.Reliever:="Reliever No";
+            "Employee Card".Reset;
+            "Employee Card".SetRange("Employee Card"."No.", "Reliever No");
+
+            if "Employee Card".Find('-')
+            then begin
+
+            end;
+            LeaveT.Modify;
+            "Supervisor ID" := "Supervisor ID param";
+
+            ApprovalEntry.SetRange(ApprovalEntry."Document No.", "Document No");
+            ApprovalEntry.SetRange(ApprovalEntry."Approver ID", "Supervisor ID param");
+            ApprovalEntry.SetRange(ApprovalEntry.Status, ApprovalEntry.Status::Open);
+            if ApprovalEntry.Find('-') then begin
+                //Modify status to approved if there are no other approvers
+                ApprovalEntry.Status := ApprovalEntry.Status::Approved;
+                ApprovalEntry.Modify;
+
+                //Change next doc to open
+                ApprovalEntry_2.Reset;
+                ApprovalEntry_2.SetRange(ApprovalEntry_2."Document No.", "Document No");
+                ApprovalEntry_2.SetRange(ApprovalEntry_2.Status, ApprovalEntry_2.Status::Created);
+                if ApprovalEntry_2.Find('-') then begin
+                    ApprovalEntry_2.Status := ApprovalEntry_2.Status::Open;
+                    ApprovalEntry_2."Last Date-Time Modified" := CreateDatetime(Today, Time);
+                    ApprovalEntry_2."Last Modified By ID" := "Supervisor ID param";
+                    ApprovalEntry_2.Modify;
+                    SuccessMessage := 'Approval successful.';
+                end;
+
+            end;
+            ApprovalEntry_2.Reset;
+            ApprovalEntry_2.SetRange(ApprovalEntry_2."Document No.", "Document No");
+            if ApprovalEntry_2.FindLast then begin
+                if ApprovalEntry_2.Status = ApprovalEntry_2.Status::Approved then begin
+                    HRLeave.Reset;
+                    HRLeave.SetRange(HRLeave."No.", "Document No");
+                    if HRLeave.Find('-') then begin
+                        HRLeave.Status := "HR Leave Application".Status::Posted;
+                        HRLeave.Modify;
+                        //  HRLeave.CreateLeaveLedgerEntries;
+                        //   IF ApprovalSetup.Approvals THEN
+                        //     ApprovalMgtNotification.SendLeaveApprovedMail(HRLeave,ApprovalEntry);
+
+                    end;
+                end;
+            end;
+
+        end;
+    end;
+
+
+    procedure TransportRequisitionCreate("Employee No": Text; Destination: Text; CommenceFrom: Text; "Date of Trip": Date; Purpose: Text; "No of Days": Integer; "No of Passengers": Integer; "Request Type": Option; "Travel Type": Option; DepatureTime: Time; Department: Code[20]; Campus: Code[20]) LastTransportReqInsert: Text
+    var
+        NextTransportApplicationNo: Text;
+    begin
+
+        TransportRequisition.Init;
+        NextTransportApplicationNo := NoSeriesMgt.GetNextNo('TRANS', 0D, true);
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", "Employee No");
+
+        if "Employee Card".Find('-')
+        then begin
+            TransportRequisition."Requested By" := "Employee Card"."User ID";
+            TransportRequisition."Department Code" := "Employee Card"."Department Code";
+            TransportRequisition."Employee Name" := "Employee Card".Names;
+            TransportRequisition."Emp No" := "Employee No";
+            TransportRequisition."Employee Name" := "Employee Card".Names;
+            // TransportRequisition."Phone No.":="Employee Card"."Work Phone Number";
+            "Supervisor Card".Reset;
+            "Supervisor Card".SetRange("Supervisor Card"."User ID", "Employee Card"."User ID");
+            if "Supervisor Card".Find('-')
+            then begin
+                SupervisorId := "Supervisor Card"."Approver ID";
+            end;
+        end;
+
+        TransportRequisition."Transport Requisition No" := NextTransportApplicationNo;
+        TransportRequisition.Commencement := CommenceFrom;
+        TransportRequisition.Destination := Destination;
+        TransportRequisition."Date of Request" := Today;
+        //TransportRequisition."Request Date":=TODAY;
+        TransportRequisition."Purpose of Trip" := Purpose;
+        TransportRequisition."No. Series" := 'TRANS';
+        //TransportRequisition."Date of Trip":="Date of Trip";
+        TransportRequisition."No of Days Requested" := "No of Days";
+        //TransportRequisition."No of Passengers":="No of Passengers";
+        // TransportRequisition."Request type":="Request Type";
+        //TransportRequisition."Travel Type":="Travel Type";
+        //TransportRequisition."Depature Time" := DepatureTime;
+        TransportRequisition."Department Code" := Department;
+        // TransportRequisition.Campus := Campus;
+
+        TransportRequisition.Insert;
+
+        TransportRequisition.Reset;
+        TransportRequisition.SetRange(TransportRequisition."Transport Requisition No", NextTransportApplicationNo);
+        if TransportRequisition.Find('-')
+        then begin
+            /*ApprovalEntry.INIT;
+            ApprovalEntry."Table ID":=39004336;
+            ApprovalEntry."Document Type" :=ApprovalEntry."Document Type"::"Staff Claim";
+            ApprovalEntry."Document No.":=NextTransportApplicationNo;
+            ApprovalEntry."Sequence No.":=1;
+            ApprovalEntry."Approval Code":='TRANS';
+            ApprovalEntry.Status:=ApprovalEntry_2.Status::Open;
+            ApprovalEntry."Sender ID":=EmployeeUserId;
+            ApprovalEntry."Approver ID":=SupervisorId;
+            ApprovalEntry."Date-Time Sent for Approval":=CURRENTDATETIME;
+            ApprovalEntry."Last Date-Time Modified":=CURRENTDATETIME;
+            ApprovalEntry."Last Modified By ID":=USERID;
+            ApprovalEntry.INSERT;*/
+            LastTransportReqInsert := TransportRequisition."Transport Requisition No";
+        end;
+
+    end;
+
+
+    procedure HRTravelRequisitionCreate("Requisition No": Text; "Employee Number": Text)
+    begin
+        TransportRequisition.Reset;
+        TransportRequisition.SetRange(TransportRequisition."Transport Requisition No", "Requisition No");
+        TransportRequisition.SetRange(TransportRequisition.Status, TransportRequisition_2.Status::Open);
+
+        if TransportRequisition.Find('-') then begin
+
+            HRTravellingStaff.Reset;
+            HRTravellingStaff.SetRange(HRTravellingStaff."Employee No", "Employee Number");
+            HRTravellingStaff.SetRange(HRTravellingStaff."Req No", "Requisition No");
+
+            if HRTravellingStaff.FindSet then
+                Error('This staff member already exists for this ticket');
+
+            HRTravellingStaff.Reset;
+            HRTravellingStaff.Init;
+            /*  "Employee Card".SETRANGE("Employee Card"."No.","Employee Number");
+
+                 IF "Employee Card".FIND('-')
+                 THEN
+                   BEGIN
+                      HRTravellingStaff."Employee Name":="Employee Card"."Names";
+                      HRTravellingStaff.Position:="Employee Card"."Job Title";
+                 END;
+           */
+            HRTravellingStaff."Req No" := "Requisition No";
+            HRTravellingStaff."Employee No" := "Employee Number";
+            HRTravellingStaff.Validate(HRTravellingStaff."Employee No");
+            HRTravellingStaff.Insert(true);
+        end
+        else begin
+            Error('You can only add staff to an open ticket');
+        end;
+
+    end;
+
+
+    procedure HRTravellingStaffRemove("Entry Number": Integer)
+    begin
+        HRTravellingStaff.Reset;
+        HRTravellingStaff.SetRange(HRTravellingStaff.EntryNo, "Entry Number");
+        if HRTravellingStaff.FindSet then
+            HRTravellingStaff.Delete;
+    end;
+
+
+    procedure DetermineIfIsNonWorking(var bcDate: Date; var "Leave Type": Text) ItsNonWorking: Boolean
+    var
+        dates: Record Date;
+    begin
+        Clear(ItsNonWorking);
+        GeneralOptions.Find('-');
+        //One off Hollidays like Good Friday
+        BaseCalendar.Reset;
+        BaseCalendar.SetFilter(BaseCalendar."Base Calendar Code", GeneralOptions."Base Calendar");
+        BaseCalendar.SetRange(BaseCalendar.Date, bcDate);
+        if BaseCalendar.Find('-') then begin
+            if BaseCalendar.Nonworking = true then
+                ItsNonWorking := true;
+        end;
+
+        // For Annual Holidays
+        BaseCalendar.Reset;
+        BaseCalendar.SetFilter(BaseCalendar."Base Calendar Code", GeneralOptions."Base Calendar");
+        BaseCalendar.SetRange(BaseCalendar."Recurring System", BaseCalendar."recurring system"::"Annual Recurring");
+        if BaseCalendar.Find('-') then begin
+            repeat
+                if ((Date2dmy(bcDate, 1) = BaseCalendar."Date Day") and (Date2dmy(bcDate, 2) = BaseCalendar."Date Month")) then begin
+                    if BaseCalendar.Nonworking = true then
+                        ItsNonWorking := true;
+                end;
+            until BaseCalendar.Next = 0;
+        end;
+
+        if ItsNonWorking = false then begin
+            // Check if its a weekend
+            dates.Reset;
+            dates.SetRange(dates."Period Type", dates."period type"::Date);
+            dates.SetRange(dates."Period Start", bcDate);
+            if dates.Find('-') then begin
+                //if date is a sunday
+                if dates."Period Name" = 'Sunday' then begin
+                    //check if Leave includes sunday
+                    ltype.Reset;
+                    ltype.SetRange(ltype.Code, "Leave Type");
+                    if ltype.Find('-') then begin
+                        if ltype."Inclusive of Sunday" = false then ItsNonWorking := true;
+                    end;
+                end else
+                    if dates."Period Name" = 'Saturday' then begin
+                        //check if Leave includes sato
+                        ltype.Reset;
+                        ltype.SetRange(ltype.Code, "Leave Type");
+                        if ltype.Find('-') then begin
+                            if ltype."Inclusive of Saturday" = false then ItsNonWorking := true;
+                        end;
+                    end;
+
+            end;
+        end;
+    end;
+
+
+    procedure DetermineLeaveReturnDate(fBeginDate: Date; fDays: Decimal; "Leave Type": Text) fReturnDate: Date
+    var
+        ltype: Record "HRM-Leave Types";
+    begin
+        ltype.Reset;
+        if ltype.Get("Leave Type") then begin
+        end;
+        varDaysApplied := fDays;
+        fReturnDate := fBeginDate;
+        repeat
+            if DetermineIfIncludesNonWorking("Leave Type") = false then begin
+                fReturnDate := CalcDate('1D', fReturnDate);
+                if DetermineIfIsNonWorking(fReturnDate, "Leave Type") then begin
+                    varDaysApplied := varDaysApplied + 1;
+                end else
+                    varDaysApplied := varDaysApplied;
+                varDaysApplied := varDaysApplied + 1
+            end
+            else begin
+                fReturnDate := CalcDate('1D', fReturnDate);
+                varDaysApplied := varDaysApplied - 1;
+            end;
+        until varDaysApplied = 0;
+        exit(fReturnDate);
+    end;
+
+
+    procedure DetermineIfIncludesNonWorking(var fLeaveCode: Text): Boolean
+    begin
+        if LeaveTypes.Get(fLeaveCode) then begin
+            if LeaveTypes."Inclusive of Non Working Days" = true then
+                exit(true);
+        end;
+    end;
+
+
+    procedure CalcEndDate(SDate: Date; LDays: Integer; "Leave Type": Text) LEndDate: Date
+    var
+        EndLeave: Boolean;
+        DayCount: Integer;
+        ltype: Record "HRM-Leave Types";
+    begin
+        /* ltype.RESET;
+          IF ltype.GET("Leave Type") THEN BEGIN
+          END;
+           SDate:=SDate-1;
+           EndLeave:=FALSE;
+           WHILE EndLeave=FALSE DO BEGIN
+           IF NOT DetermineIfIsNonWorking(SDate,"Leave Type") THEN
+           DayCount:=DayCount+1;
+           SDate:=SDate+1;
+           IF DayCount>LDays THEN
+           EndLeave:=TRUE;
+           END;
+           LEndDate:=SDate-1;
+        
+        WHILE DetermineIfIsNonWorking(LEndDate,"Leave Type")=TRUE DO
+        BEGIN
+        LEndDate:=LEndDate+1;
+        END;*/   //Removed by JK
+
+
+        SDate := SDate;
+        EndLeave := false;
+        DayCount := 1;
+        while EndLeave = false do begin
+            if not DetermineIfIsNonWorking(SDate, "Leave Type") then
+                DayCount := DayCount + 1;
+            SDate := SDate + 1;
+            if DayCount > LDays then
+                EndLeave := true;
+        end;
+        LEndDate := SDate - 1;
+
+        while DetermineIfIsNonWorking(LEndDate, "Leave Type") = true do begin
+            LEndDate := LEndDate + 1;
+        end;
+
+    end;
+
+
+    procedure CalcReturnDate(EndDate: Date; "Leave Type": Text) RDate: Date
+    var
+        EndLeave: Boolean;
+        DayCount: Integer;
+        LEndDate: Date;
+        ltype: Record "HRM-Leave Types";
+    begin
+        if ltype.Get("Leave Type") then begin
+        end;
+        RDate := EndDate + 1;
+        while DetermineIfIsNonWorking(RDate, "Leave Type") = true do begin
+            RDate := RDate + 1;
+        end;
+    end;
+
+
+    procedure ValidateStartDate("Starting Date": Date)
+    begin
+        dates.Reset;
+        dates.SetRange(dates."Period Start", "Starting Date");
+        dates.SetFilter(dates."Period Type", '=%1', dates."period type"::Date);
+        if dates.Find('-') then
+            if ((dates."Period Name" = 'Sunday') or (dates."Period Name" = 'Saturday')) then begin
+                if (dates."Period Name" = 'Sunday') then
+                    Error('You can not start your leave on a Sunday')
+                else if (dates."Period Name" = 'Saturday') then Error('You can not start your leave on a Saturday')
+            end;
+
+        BaseCalendar.Reset;
+        BaseCalendar.SetFilter(BaseCalendar."Base Calendar Code", GeneralOptions."Base Calendar");
+        BaseCalendar.SetRange(BaseCalendar.Date, "Starting Date");
+        if BaseCalendar.Find('-') then begin
+            repeat
+                if BaseCalendar.Nonworking = true then begin
+                    if BaseCalendar.Description <> '' then
+                        Error('You can not start your Leave on a Holiday - ''' + BaseCalendar.Description + '''')
+                    else
+                        Error('You can not start your Leave on a Holiday');
+                end;
+            until BaseCalendar.Next = 0;
+        end;
+
+        // For Annual Holidays
+        BaseCalendar.Reset;
+        BaseCalendar.SetFilter(BaseCalendar."Base Calendar Code", GeneralOptions."Base Calendar");
+        BaseCalendar.SetRange(BaseCalendar."Recurring System", BaseCalendar."recurring system"::"Annual Recurring");
+        if BaseCalendar.Find('-') then begin
+            repeat
+                if ((Date2dmy("Starting Date", 1) = BaseCalendar."Date Day") and (Date2dmy("Starting Date", 2) = BaseCalendar."Date Month")) then begin
+                    if BaseCalendar.Nonworking = true then begin
+                        if BaseCalendar.Description <> '' then
+                            Error('You can not start your Leave on a Holiday - ''' + BaseCalendar.Description + '''')
+                        else
+                            Error('You can not start your Leave on a Holiday');
+                    end;
+                end;
+            until BaseCalendar.Next = 0;
+        end;
+    end;
+
+
+    procedure HRCancelLeaveApplication(LeaveApplicationNo: Text)
+    begin
+        "HR Leave Application".Reset;
+        "HR Leave Application".SetRange("HR Leave Application"."No.", LeaveApplicationNo);
+
+        if "HR Leave Application".Find('-') then begin
+            "HR Leave Application".Status := HRLeave.Status::Cancelled;
+            "HR Leave Application".Modify;
+        end;
+
+
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", LeaveApplicationNo);
+
+        if ApprovalEntry.Find('-') then begin
+            repeat
+                ApprovalEntry.Status := ApprovalEntry_2.Status::Canceled;
+                ApprovalEntry.Modify;
+            until ApprovalEntry.Next = 0
+        end;
+    end;
+
+
+    procedure GeneratePaySlipReport(EmployeeNo: Text; Period: Date; filenameFromApp: Text) filename: Text[100]
+    var
+        "prSalary Card": record "PRL-Salary Card";
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        //MESSAGE('OK');
+        SalaryCard.Reset;
+        SalaryCard.SetRange(SalaryCard."Employee Code", EmployeeNo);
+        SalaryCard.SetRange(SalaryCard."Payroll Period", Period);
+
+        if SalaryCard.Find('-') then begin
+            Report.SaveAsPdf(77708, filename, SalaryCard);   //52017726
+        end;
+        exit(filename);
+    end;
+
+
+    procedure Generate13thPaySlipReport(EmployeeNo: Text; Period: Date; filenameFromApp: Text) filename: Text[100]
+    var
+        "prSalary Card": Record "PRL-Salary Card";
+        PRl13thSlipDaysComp: Record "PRl 13thSlip DaysComp";
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        //MESSAGE('OK');
+        PRl13thSlipDaysComp.Reset;
+        PRl13thSlipDaysComp.SetRange(PRl13thSlipDaysComp."Employee Code", EmployeeNo);
+        PRl13thSlipDaysComp.SetRange(PRl13thSlipDaysComp."Payroll Period", Period);
+
+        if PRl13thSlipDaysComp.Find('-') then begin
+            Report.SaveAsPdf(77710, filename, PRl13thSlipDaysComp);
+        end;
+        exit(filename);
+    end;
+
+
+    procedure GenerateStudentStatement("Student No": Text; filenameFromApp: Text)
+    var
+        filename: Text;
+    begin
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", "Student No");
+
+        if Customer.Find('-') then begin
+            Report.SaveAsPdf(51072, filename, Customer);
+        end;
+    end;
+
+
+    procedure GenerateStudentProformaInvoice("Programme Code": Text; "Stage Code": Text; filenameFromApp: Text)
+    var
+        filename: Text;
+    begin
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        "Fee By Stage".Reset;
+        "Fee By Stage".SetRange("Fee By Stage"."Programme Code", "Programme Code");
+        "Fee By Stage".SetRange("Fee By Stage"."Stage Code", "Stage Code");
+
+        if "Fee By Stage".Find('-') then begin
+            Report.SaveAsPdf(51015, filename, "Fee By Stage");
+        end;
+    end;
+
+
+    procedure GenerateSpecialExamCard(StudentNo: Text; filenameFromApp: Text): Text
+    var
+        filename: Text;
+        Customer: Record Customer;
+        ACACourseRegistrationz1: Record "ACA-Course Registration";
+        ACALecturersEvaluation: Record "ACA-Lecturers Evaluation";
+        StudUnits: Record "ACA-Student Units";
+    begin
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", StudentNo);
+        //CourseRegistration.SETRANGE(CourseRegistration.Semester,Sem);
+        CourseRegistration.SetRange(CourseRegistration.Reversed, false);
+        //CourseRegistration.SETRANGE(CourseRegistration.Posted,FALSE);
+        CourseRegistration.SetCurrentkey(Stage);
+        if CourseRegistration.Find('+') then begin
+            Report.SaveAsPdf(78087, filename, CourseRegistration);
+            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);
+        end;
+    end;
+
+
+    procedure GenerateSuppExamCard(StudentNo: Text; filenameFromApp: Text): Text
+    var
+        filename: Text;
+        Customer: Record Customer;
+        ACACourseRegistrationz1: Record "ACA-Course Registration";
+        ACALecturersEvaluation: Record "ACA-Lecturers Evaluation";
+        StudUnits: Record "ACA-Student Units";
+    begin
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", StudentNo);
+        //CourseRegistration.SETRANGE(CourseRegistration.Semester,Sem);
+        CourseRegistration.SetRange(CourseRegistration.Reversed, false);
+        //CourseRegistration.SETRANGE(CourseRegistration.Posted,FALSE);
+        CourseRegistration.SetCurrentkey(Stage);
+        if CourseRegistration.FindSet then begin
+            Report.SaveAsPdf(78088, filename, CourseRegistration);
+            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);
+        end;
+    end;
+
+
+    procedure GenerateStudentExamCard(StudentNo: Text; Sem: Text; filenameFromApp: Text): Text
+    var
+        filename: Text;
+        Customer: Record Customer;
+        ACACourseRegistrationz1: Record "ACA-Course Registration";
+        ACALecturersEvaluation: Record "ACA-Lecturers Evaluation";
+        StudUnits: Record "ACA-Student Units";
+    begin
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        //Sem:='SEM2 19/20';
+
+        ACACourseRegistrationz1.Reset;
+        ACACourseRegistrationz1.SetRange("Student No.", StudentNo);
+        ACACourseRegistrationz1.SetRange(Reversed, false);
+        ACACourseRegistrationz1.SetRange(Semester, Sem);
+        if not ACACourseRegistrationz1.Find('-') then Error('No semester Registration found');
+        // ACACourseRegistrationz1.CALCFIELDS("Exists Unevaluated");
+        // IF  ACACourseRegistrationz1."Exists Unevaluated" THEN ERROR('Please do your lecturer evaluation before downloading the Card.....1');
+        ACACourseRegistrationz1.CalcFields("Total Billed");
+        //////////////////
+        // Evaluation
+
+        StudUnits.Reset;
+        //// STUDUNITS.SETRANGE(STUDUNITS.PROGRAMME,ACACOURSEREGISTRATIONZ1.PROGRAMME);
+        StudentUnits.SetRange(Semester, Sem);
+        StudentUnits.SetRange("Student No.", StudentNo);
+        StudentUnits.SetFilter("Course Evaluated", '%1', false);
+        StudentUnits.SetFilter("Exempted in Evaluation", '%1', false);
+        StudentUnits.SetFilter(Unit, '<>%1', '');
+        if StudentUnits.Find('-') then Error('YOU HAVE NOT EVALUATED ALL COURSES FOR ' + Sem);
+
+        ////////////////////
+
+        ACALecturersEvaluation.Reset;
+        ACALecturersEvaluation.SetRange("Student No", StudentNo);
+        ACALecturersEvaluation.SetRange(Semester, Sem);
+        if not ACALecturersEvaluation.Find('-') then Error('Please do your lecturer evaluation before downloading the Card....2');
+
+
+
+        // // // Customer.RESET;
+        // // // Customer.SETRANGE("No.",StudentNo);
+        // // // IF Customer.FIND('-') THEN BEGIN
+        // // //    Customer.CALCFIELDS(Balance);
+        // // //   IF (Customer.Balance>ACACourseRegistrationz1."Total Billed") THEN ERROR('Fee Policy not met!');
+        // // //      END ELSE ERROR('Invalid Student');
+        /////////////////////////////////////////////////////////////
+        Customer.Reset;
+        Customer.SetRange("No.", StudentNo);
+        if Customer.Find('-') then Customer.CalcFields(Balance);
+        CourseReg.Reset;
+        CourseReg.SetRange("Student No.", StudentNo);
+        CourseReg.SetRange(Semester, Sem);
+        CourseReg.SetRange(Reversed, false);
+        if CourseReg.Find('+') then begin
+            CourseReg.CalcFields("Total Billed");
+            coreg.Reset;
+            coreg.SetRange("Student No.", StudentNo);
+            coreg.SetRange(Semester, Sem);
+            coreg.SetRange(Reversed, false);
+            if coreg.Find('-') then begin
+                if Customer.Balance > 0 then Error('Fee policy Not met!');
+
+            end else
+                Error('No registration for found');
+        end else
+            Error('No registration for found');
+        /////////////////////////////////////////////////////////////
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", StudentNo);
+        CourseRegistration.SetRange(CourseRegistration.Semester, Sem);
+        CourseRegistration.SetRange(Reversed, false);
+        if CourseRegistration.FindFirst then begin
+            Report.SaveAsPdf(51515, filename, CourseRegistration);
+            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);
+        end;
+    end;
+
+
+    procedure GenerateStudentProvisionalResults(StudentNo: Text[20]; filenameFromApp: Text[150]; sem: Text[20]) ReturnMessage: Text[250]
+    var
+        filename: Text;
+        ACASemesters: Record "ACA-Semesters";
+    begin
+        Clear(ReturnMessage);
+        ReturnMessage := CourseRegistration."Student No." + ' - ' + sem;
+        ACASemesters.Reset;
+        ACASemesters.SetRange(Code, sem);
+        if ACASemesters.Find('-') then begin
+            if ACASemesters."Released Results" then begin
+            end else
+                Error('Access Denied!');
+        end else
+            Error('Invalid Semester');
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", StudentNo);
+        CourseRegistration.SetRange(CourseRegistration.Semester, sem);
+
+        if CourseRegistration.Find('-') then begin
+            Report.SaveAsPdf(51797, filename, CourseRegistration);
+            ///REPORT.RUN(51797,TRUE,FALSE,CourseRegistration);
+        end;
+    end;
+
+
+    procedure MealBookingCreate(BookingDate: Date; BookingTime: Time; RequiredTime: Time; MeetingName: Text; Venue: Text; Pax: Decimal; BookingType: Option; "Employee No": Text; BreakFast: Boolean; TenOClockTea: Boolean; NormalLunch: Boolean; Water: Boolean; FourOClockTea: Boolean) LastBookingInsert: Text
+    var
+        NextMealBookingNo: Text;
+        StrBookingDates: Text;
+        StrBookingInts: Text;
+        StrMealOptions: Text;
+        StrDrinks: Text;
+    begin
+        MealBookingHeader.Init;
+        NextMealBookingNo := NoSeriesMgt.GetNextNo('MEAL BOOKI', 0D, true);
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", "Employee No");
+
+
+        if "Employee Card".Find('-')
+        then begin
+            MealBookingHeader."Booking Id" := NextMealBookingNo;
+            MealBookingHeader.Department := "Employee Card"."Department Code";
+            MealBookingHeader."Request Date" := BookingDate;
+            MealBookingHeader."Booking Date" := BookingDate;
+            MealBookingHeader."Meeting Name" := MeetingName;
+            MealBookingHeader."Required Time" := RequiredTime;
+            MealBookingHeader.Venue := Venue;
+            MealBookingHeader.Pax := Pax;
+            //MealBookingHeader."Booking Type":=BookingType;
+            MealBookingHeader."Booking Time" := BookingTime;
+            MealBookingHeader."No. Series" := 'MEAL BOOKI';
+
+            //MealBookingHeader.BreakFast:=BreakFast;
+            //MealBookingHeader."10 Oclock Tea":=TenOClockTea;
+            //MealBookingHeader."Normal Lunch":=NormalLunch;
+            /* MealBookingHeader."Vegeterian Lunch":=VegeterianLunch; */
+            // MealBookingHeader.Water:=Water;
+            /* MealBookingHeader.Bolied:= */
+            // MealBookingHeader."4 Oclock Tea":=FourOClockTea;
+
+            MealBookingHeader."Requested By" := "Employee Card"."User ID";
+            MealBookingHeader.Status := 0;
+            MealBookingHeader.Insert;
+
+            MealBookingHeader.Reset;
+            MealBookingHeader.SetRange(MealBookingHeader."Requested By", "Employee Card"."User ID");
+            if MealBookingHeader.FindLast
+            then
+                StrBookingDates := Format(MealBookingHeader."Required Time") + '::' + Format(MealBookingHeader."Booking Date") + '::' + Format(MealBookingHeader."Booking Time");
+            //StrBookingInts:=FORMAT(MealBookingHeader."Booking Type");
+            //StrMealOptions:=FORMAT(MealBookingHeader.BreakFast)+'::'+FORMAT(MealBookingHeader."Normal Lunch");
+            //StrDrinks:=FORMAT(MealBookingHeader."10 Oclock Tea")+'::'+FORMAT(MealBookingHeader.Water)+'::'+FORMAT(MealBookingHeader."4 Oclock Tea");
+
+            LastBookingInsert := MealBookingHeader."Booking Id" + '::' + StrBookingInts + '::' + MealBookingHeader."Meeting Name" + '::' + MealBookingHeader.Venue + '::' + StrBookingDates + '::' + Format(MealBookingHeader.Pax) + '::' + StrMealOptions + '::' + StrDrinks;
+
+        end
+
+    end;
+
+
+    procedure MealBookingLineCreate(MealBookingID: Text; MealCode: Text; Quantity: Decimal; UnitPrice: Decimal; Cost: Decimal)
+    begin
+        MealBookingLines.Reset;
+        MealBookingLines.Init;
+        MealBookingLines."Booking Id" := MealBookingID;
+        MealBookingLines."Meal Code" := MealCode;
+        MealBookingLines.Quantity := Quantity;
+        MealBookingLines."Unit Price" := UnitPrice;
+        MealBookingLines.Cost := Cost;
+        MealBookingLines.Insert;
+    end;
+
+
+    procedure MealBookingLineDelete(LineNo: Integer)
+    begin
+        MealBookingLines.Reset;
+        MealBookingLines.SetRange(MealBookingLines."Line No.", LineNo);
+        if MealBookingLines.Find('-') then begin
+            MealBookingLines.Delete;
+            Message('Meal Item Deleted Successfully');
+        end;
+    end;
+
+
+    procedure MealBookingLineUpdate(LineNo: Integer; Quantity: Decimal)
+    begin
+        MealBookingLines.Reset;
+        MealBookingLines.SetRange(MealBookingLines."Line No.", LineNo);
+        if MealBookingLines.Find('-') then begin
+            //MealBookingLines."Meal Code":=MealCode;
+            MealBookingLines.Quantity := Quantity;
+            MealBookingLines.Validate(MealBookingLines."Meal Code");
+            //MealBookingLines."Unit Price":=UnitPrice;
+            //MealBookingLines.Cost:=Cost;
+            MealBookingLines.Modify;
+            Message('Meal Item Updated Successfully');
+        end;
+    end;
+
+
+    procedure MealBookingApprovalRequest(ReqNo: Text)
+    var
+        ApprovalMgt: Codeunit "Workflow Initialization";
+        showmessage: Boolean;
+        ManualCancel: Boolean;
+        State: Option Open,"Pending Approval",Cancelled,Approved;
+        DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
+        tableNo: Integer;
+        RespCenter: Text[10];
+    begin
+        MealBookingHeader.Reset;
+        MealBookingHeader.SetRange(MealBookingHeader."Booking Id", ReqNo);
+        if MealBookingHeader.Find('-') then begin
+            with MealBookingHeader do begin
+                TestField(Department);
+                TestField("Request Date");
+                TestField("Booking Date");
+                TestField("Meeting Name");
+                TestField("Required Time");
+                TestField(Venue);
+                TestField("Contact Person");
+                TestField("Contact Number");
+                TestField(Pax);
+
+                // IF "Availlable Days"<1 THEN ERROR('Please note that you dont have enough leave balance');
+
+                //Release the Bookingfor Approval
+                State := State::Open;
+                if Status <> Status::New then State := State::"Pending Approval";
+                DocType := Doctype::"Meals Bookings";
+                Clear(tableNo);
+                tableNo := 61778;
+                Clear(RespCenter);
+                ApprovalMgt.OnSendMealBookingforApproval(MealBookingHeader);
+                //  IF ApprovalMgt.SendLeaveApprovalRequest(Rec) THEN;
+                //  AppMgt.SendMealsApprovalRequest(MealBookingHeader);
+            end;
+        end;
+    end;
+
+
+    procedure ApproveDocument(DocumentNo: Text; ApproverID: Text)
+    var
+
+    begin
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", DocumentNo);
+        ApprovalEntry.SetRange(ApprovalEntry."Approver ID", ApproverID);
+
+        if ApprovalEntry.Find('-') then begin
+
+            repeat
+            // if not ApprovalSetup.Get then
+            //     Error(Text004);
+
+            // AppMgt.ApproveApprovalRequest(ApprovalEntry); TODO
+
+            until ApprovalEntry.Next = 0;
+        end;
+    end;
+
+
+    procedure RejectDocument(DocumentNo: Text; ApproverID: Text)
+    var
+        DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Farmer Application",Vehicle_Reg,"Medical Claim";
+    begin
+        Clear(ApprovalEntry);
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", DocumentNo);
+        ApprovalEntry.SetRange(ApprovalEntry."Approver ID", ApproverID);
+
+        // IF ApprovalEntry.FIND('-') THEN BEGIN
+        //    REPEAT
+        //        IF NOT ApprovalSetup.GET THEN
+        //          ERROR(Text004);
+        //TODO
+        //AppMgt.CancelApproval(61125, Doctype::"Leave Application", DocumentNo, true, true);// RejectApprovalRequest(ApprovalEntry);
+
+        // UNTIL ApprovalEntry.NEXT = 0;
+    end;
+
+
+    procedure CancelDocument(DocumentNo: Text; SenderID: Text)
+    begin
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", DocumentNo);
+        ApprovalEntry.SetRange(ApprovalEntry."Sender ID", SenderID);
+        // //
+        // // IF ApprovalEntry.FIND('-') THEN
+        // //    REPEAT
+        // //      //AppMgt.CancelMealsApprovalRequest(ApprovalEntry);
+        // //    UNTIL ApprovalEntry.NEXT = 0;TODO
+        //  AppMgt.CancelApproval(61125, Doctype::"Leave Application", DocumentNo, true, true);
+    end;
+
+
+    procedure fxSendLeaveForApproval(LeaveNo: Text)
+    var
+        WebUser: Text[20];
+    begin
+        "HR Leave Application".Reset;
+        Message(LeaveNo);
+        "HR Leave Application".SetRange("HR Leave Application"."No.", LeaveNo);
+        if "HR Leave Application".Find('-')
+        then begin
+            WebUser := "HR Leave Application"."User ID";
+            Message(WebUser);
+            //AppMgt.SendLeaveApprovalRequest("HR Leave Application");
+            Message('OK3');
+
+        end;
+    end;
+
+
+    procedure TransportRequisitionApprovalRequest(ReqNo: Text)
+    var
+        AppRVMgt: Codeunit "iNIT cODEUNIT";
+    begin
+        TransportRequisition.Reset;
+        TransportRequisition.SetRange(TransportRequisition."Transport Requisition No", ReqNo);
+        if TransportRequisition.Find('-')
+        then begin
+            AppRVMgt.OnSendTransportReqforApproval(TransportRequisition);
+        end;
+    end;
+
+
+    procedure AvailableLeaveDays(EmployeeNo: Text; LeaveType: Text) availabledays: Text
+    var
+        daysInteger: Integer;
+    begin
+        Clear(availabledays);
+        Clear(daysInteger);
+        LeaveLE.Reset;
+        LeaveLE.SetRange(LeaveLE."Employee No", EmployeeNo);
+        //LeaveLE.SETRANGE(LeaveLE."Leave Type",LeaveType);
+        //LeaveLE.SETRANGE(LeaveLE."Leave Period",Year);
+        if LeaveLE.Find('-') then
+            repeat
+            begin
+                daysInteger := daysInteger + LeaveLE."No. of Days"
+                // availabledays:=FORMAT(LeaveLE."No. of Days");
+            end;
+            until LeaveLE.Next = 0;
+        availabledays := Format(daysInteger);
+    end;
+
+
+    procedure SubmitAdmissionAttachment(Indexno: Code[20]; DocCode: Code[50]; Base64Image: BigText) Submitted: Boolean
+    var
+        ToFile: Text;
+        IStream: InStream;
+        Bytes: dotnet Array;
+        Convert: dotnet Convert;
+        MemoryStream: dotnet MemoryStream;
+        OStream: OutStream;
+    begin
+        StudentDocs.Reset;
+        StudentDocs.SetRange("Index Number", GetIndexNo(Indexno));
+        StudentDocs.SetRange("Document Code", DocCode);
+        if StudentDocs.Find('-') then begin
+            Bytes := Convert.FromBase64String(Base64Image);
+            MemoryStream := MemoryStream.MemoryStream(Bytes);
+            StudentDocs.Document_Image.CreateOutstream(OStream);
+            MemoryStream.WriteTo(OStream);
+            StudentDocs.Modify;
+            Submitted := true;
+        end;
+    end;
+
+
+    procedure GetProfilePicture(StaffNo: Text) BaseImage: Text
+    var
+        ToFile: Text;
+        IStream: InStream;
+        Bytes: dotnet Array;
+        Convert: dotnet Convert;
+        MemoryStream: dotnet MemoryStream;
+    begin
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", StaffNo);
+
+        if "Employee Card".Find('-') then begin
+            if "Employee Card".Picture.Hasvalue then begin
+                "Employee Card".CalcFields(Picture);
+                "Employee Card".Picture.CreateInstream(IStream);
+                MemoryStream := MemoryStream.MemoryStream();
+                CopyStream(MemoryStream, IStream);
+                Bytes := MemoryStream.GetBuffer();
+                BaseImage := Convert.ToBase64String(Bytes);
+            end;
+        end;
+    end;
+
+
+    procedure GetDocAttachment(index: Code[20]; doctype: Code[50]) BaseImage: Text
+    var
+        ToFile: Text;
+        IStream: InStream;
+        Bytes: dotnet Array;
+        Convert: dotnet Convert;
+        MemoryStream: dotnet MemoryStream;
+        bs64img: Text;
+    begin
+        StudentDocs.Reset;
+        StudentDocs.SetRange("Index Number", index);
+        StudentDocs.SetRange("Document Code", doctype);
+        if StudentDocs.Find('-') then begin
+            if StudentDocs.Document_Image.Hasvalue then begin
+                StudentDocs.CalcFields(Document_Image);
+                StudentDocs.Document_Image.CreateInstream(IStream);
+                MemoryStream := MemoryStream.MemoryStream();
+                CopyStream(MemoryStream, IStream);
+                Bytes := MemoryStream.GetBuffer();
+                bs64img := Convert.ToBase64String(Bytes);
+                BaseImage := bs64img;
+            end;
+        end;
+    end;
+
+
+    procedure GetSubmittedAttachment(username: Text) BaseImage: Text
+    var
+        ToFile: Text;
+        IStream: InStream;
+        Bytes: dotnet Array;
+        Convert: dotnet Convert;
+        MemoryStream: dotnet MemoryStream;
+        bs64img: Text;
+    begin
+        StudentDocs.Reset;
+        StudentDocs.SetRange("Index Number", GetIndexNo(username));
+        if StudentDocs.Find('-') then begin
+            repeat
+                if StudentDocs.Document_Image.Hasvalue then begin
+                    StudentDocs.CalcFields(Document_Image);
+                    StudentDocs.Document_Image.CreateInstream(IStream);
+                    MemoryStream := MemoryStream.MemoryStream();
+                    CopyStream(MemoryStream, IStream);
+                    Bytes := MemoryStream.GetBuffer();
+                    bs64img := Convert.ToBase64String(Bytes);
+                    BaseImage += Format(StudentDocs."Document Code") + ' ::' + bs64img + ' ::' + Format(StudentDocs."Approval Status") + ' ::' + StudentDocs."Reject Reason" + ' :::';
+                end;
+            until StudentDocs.Next = 0;
+        end;
+    end;
+
+
+    procedure GetProfilePictureStudent(StudentNo: Text) BaseImage: Text
+    var
+        ToFile: Text;
+        IStream: InStream;
+        Bytes: dotnet Array;
+        Convert: dotnet Convert;
+        MemoryStream: dotnet MemoryStream;
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", StudentNo);
+
+        if Customer.Find('-') then begin
+            if Customer.Image.Hasvalue then begin
+                //Customer.CalcFields(Picture);
+                //Customer.Image.CreateInstream(IStream);TODO
+                MemoryStream := MemoryStream.MemoryStream();
+                CopyStream(MemoryStream, IStream);
+                Bytes := MemoryStream.GetBuffer();
+                BaseImage := Convert.ToBase64String(Bytes);
+            end;
+        end;
+    end;
+
+
+    procedure ExamResultsCreate(StudentNo: Text; Prog: Text; Stage: Text; Sem: Text; Unit: Text; Score: Integer; ExamType: Text; AcademicYear: Text; RegistrationType: Option)
+    begin
+        ExamResults.Init;
+        ExamResults."Student No." := StudentNo;
+        ExamResults.Programmes := Prog;
+        ExamResults.Stage := Stage;
+        ExamResults.Unit := Unit;
+        ExamResults.Semester := Sem;
+        ExamResults.Score := Score;
+        ExamResults.ExamType := ExamType;
+        ExamResults."Academic Year" := AcademicYear;
+        //ExamResults."Registration Type":=RegistrationType;
+        ExamResults.Insert;
+    end;
+
+
+    procedure StaffLogin(Username: Text; UserPassword: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'Incorrect Username or Password';
+        TXTCorrectDetails: label 'Login';
+        FullNames: Text;
+    begin
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", Username);
+        if "Employee Card".Find('-') then begin
+            if ("Employee Card"."Changed Password" = true) then begin
+                if ("Employee Card"."Portal Password" = UserPassword) then begin
+                    FullNames := "Employee Card"."First Name" + ' ' + "Employee Card"."Middle Name" + ' ' + "Employee Card"."Last Name";
+                    Message := TXTCorrectDetails + '::' + Format("Employee Card"."Changed Password") + '::' + "Employee Card"."No." + '::' + "Employee Card"."User ID" + '::' + FullNames;
+                end else begin
+                    Message := TXTIncorrectDetails + '::' + Format("Employee Card"."Changed Password");
+                end
+            end else begin
+                if ("Employee Card"."ID Number" = UserPassword) then begin
+                    Message := TXTCorrectDetails + '::' + Format("Employee Card"."Changed Password") + '::' + "Employee Card"."No." + '::' + "Employee Card"."User ID" + '::' + FullNames;
+                end else begin
+                    Message := TXTIncorrectDetails + '::' + Format("Employee Card"."Changed Password");
+                end
+            end
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure GetUserID(EmployeeNo: Code[10]) msg: Text
+    begin
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", EmployeeNo);
+        if "Employee Card".Find('-')
+        then begin
+            msg := "Employee Card"."User ID";
+        end
+    end;
+
+
+    procedure GetFullName(EmployeeNo: Text)
+    begin
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", EmployeeNo);
+
+        if "Employee Card".Find('-')
+        then begin
+            Message("Employee Card".FullName);
+        end
+    end;
+
+
+    procedure InsertApproverComments(DocumentNo: Code[50]; ApproverID: Code[100]; Comments: Text[250])
+    begin
+        ApproverComments.Reset;
+
+        ApproverComments."Document No." := DocumentNo;
+        ApproverComments."User ID" := ApproverID;
+        ApproverComments.Comment := Comments;
+        ApproverComments."Date and Time" := CurrentDatetime;
+
+        ApproverComments.Insert(true);
+    end;
+
+
+    procedure Generatep9Report(SelectedPeriod: Integer; EmployeeNo: Text; filenameFromApp: Text) filename: Text[100]
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+
+        objPeriod.Reset;
+        objPeriod.SetRange(objPeriod."Period Year", SelectedPeriod);
+        if objPeriod.Find('-') then;
+
+        PRLEmployeeP9Info.Reset;
+        PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Employee Code", EmployeeNo);
+        PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Period Year", objPeriod."Period Year");
+        if PRLEmployeeP9Info.Find('-') then
+            Report.SaveAsPdf(51746, filename, PRLEmployeeP9Info);
+        //REPORT.SAVEASPDF(51746,filename,P9);   //52017726
+        // END;
+        exit(filename);
+    end;
+
+
+    procedure StoreRequisitionApprovalRequest(ReqNo: Text)
+    var
+        //ApprovalMgt: Codeunit UnknownCodeunit439;//TODO
+        showmessage: Boolean;
+        ManualCancel: Boolean;
+        State: Option Open,"Pending Approval",Cancelled,Approved;
+        DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
+        tableNo: Integer;
+    begin
+        StoreRequisition.Reset;
+        StoreRequisition.SetRange(StoreRequisition."No.", ReqNo);
+        if StoreRequisition.Find('-')
+        then begin
+            State := State::Open;
+            if StoreRequisition.Status <> StoreRequisition.Status::"Pending Approval" then State := State::Open;
+
+            DocType := Doctype::Requisition;
+            Clear(tableNo);
+            tableNo := Database::"PROC-Store Requistion Header";
+            // if ApprovalMgt.SendApproval(tableNo, StoreRequisition."No.", DocType, State, StoreRequisition."Responsibility Center", 0) then;
+        end;
+    end;
+
+
+    procedure ImprestRequisitionApprovalRequest(ReqNo: Text)
+    var
+        State: Option;
+        DocType: Option;
+        tableNo: Integer;
+        AppRMgt: codeunit "Init Code";
+    begin
+        ImprestRequisition.Reset;
+        ImprestRequisition.SetRange(ImprestRequisition."No.", ReqNo);
+        if ImprestRequisition.Find('-')
+        then begin
+            AppRMgt.OnSendImprestforApproval(ImprestRequisition);
+        end;
+    end;
+
+
+    procedure PreRegisterStudents2(studentNo: Text; stage: Text; semester: Text; Programme: Text; AcademicYear: Text; settlementType: Text; ProgrammeOption: Code[20]) CourseRegId: Code[30]
+    var
+        Progs: Code[20];
+        stagez: Code[20];
+        semesterz: Code[20];
+    begin
+        stagez := stage;
+        semesterz := semester;
+        GenSetup.Get;
+        Clear(Progs);
+        Progs := Programme;
+        Clear(CourseReg);
+        CourseReg.Reset;
+        CourseReg.SetRange(CourseReg."Student No.", studentNo);
+        CourseReg.SetRange(CourseReg.Programmes, Progs);
+        CourseReg.SetRange(CourseReg.Semester, semesterz);
+        CourseReg.SetRange(CourseReg.Reversed, false);
+
+        if CourseReg.Find('-') then
+            Error('You have already registered for Semester %1, Year %2', semesterz, CourseReg.Stage);
+        /*
+        //Insert Student Course
+        CourseReg.RESET;
+        CourseReg.SETRANGE(CourseReg."Student No.",studentNo);
+        CourseReg.SETRANGE(CourseReg.Programmes,Progs);
+        CourseReg.SETRANGE(CourseReg.Semester,semester);
+        CourseReg.SETRANGE(CourseReg.Reversed,FALSE);
+        //CourseReg.SETRANGE(CourseReg.Stage,stage);
+        //CourseReg.SETRANGE(CourseReg."Settlement Type", settlementType);
+        
+        IF CourseReg.FIND('-') THEN BEGIN
+        
+        CourseRegId:=CourseReg."Reg. Transacton ID";
+        //CourseReg.Programmes:=Progs;
+        CourseReg.VALIDATE(Programme,Progs);
+        //CourseReg.Stage:=stage;
+        CourseReg.VALIDATE(Stage);
+        CourseReg.Semester:=semester;
+        CourseReg."Academic Year":=AcademicYear;
+        CourseReg."Settlement Type":=settlementType;
+        
+        CourseReg.MODIFY(TRUE);
+        
+        END ELSE BEGIN*/
+        Clear(CourseReg);
+        CourseReg.Reset;
+        CourseReg.SetRange(CourseReg."Student No.", studentNo);
+        CourseReg.SetRange(CourseReg.Programmes, Progs);
+        CourseReg.SetRange(CourseReg.Semester, semesterz);
+        CourseReg.SetRange(CourseReg.Reversed, false);
+
+        if not (CourseReg.Find('-')) then begin
+            CourseReg.Init;
+            CourseRegId := NoSeriesMgt.GetNextNo(GenSetup."Registration Nos.", Today, true);
+            CourseReg."Reg. Transacton ID" := CourseRegId;
+            CourseReg."Student No." := studentNo;
+            CourseReg.Semester := semesterz;
+            CourseReg."Academic Year" := AcademicYear;
+            CourseReg.Programmes := Progs;
+            CourseReg.Options := ProgrammeOption;
+            CourseReg.Validate(Programmes);
+            //CourseReg.Stage:=stage;
+            CourseReg.Validate(Stage, stagez);
+            //CourseReg."Date Registered":=TODAY;
+            //CourseReg.Semester:=semester;
+            //CourseReg."Academic Year":=AcademicYear;
+            CourseReg.Validate("Settlement Type", settlementType);
+            CourseReg.Insert(true);
+
+            //END;
+        end;
+
+    end;
+
+
+    procedure StoresRequisitionCreate(EmployeeNo: Text; UserID: Text; RequiredDate: Date; Purpose: Text; Department: Code[20]; Campus: Code[20]; DepartmentName: Text[250]; CampusName: Text[250]; ReqType: Option; IssueStore: Code[10]; ResponsibilityCentre: Code[10])
+    begin
+
+        StoreRequisition.Init;
+        NextStoreqNo := NoSeriesMgt.GetNextNo('STREQ', 0D, true);
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", EmployeeNo);
+
+        if "Employee Card".Find('-')
+        then begin
+            StoreRequisition."Requester ID" := UserID;
+            "Supervisor Card".Reset;
+            "Supervisor Card".SetRange("Supervisor Card"."User ID", UserID);
+            if "Supervisor Card".Find('-')
+            then begin
+                SupervisorId := "Supervisor Card"."Approver ID";
+            end;
+        end;
+        //StoreRequisition.INIT;
+        StoreRequisition."No." := NextStoreqNo;
+        StoreRequisition."Request date" := Today;
+        StoreRequisition."Required Date" := RequiredDate;
+        StoreRequisition."User ID" := UserID;
+        StoreRequisition."Requester ID" := UserID;
+        StoreRequisition."Request date" := Today;
+        StoreRequisition."Request Description" := Purpose;
+        StoreRequisition."No. Series" := 'STREQ';
+        StoreRequisition.Status := StoreRequisition.Status::Open;
+        StoreRequisition."Global Dimension 1 Code" := Campus;
+        StoreRequisition."Shortcut Dimension 2 Code" := Department;
+        StoreRequisition."Function Name" := CampusName;
+        StoreRequisition."Budget Center Name" := DepartmentName;
+        StoreRequisition."Responsibility Center" := ResponsibilityCentre;
+        StoreRequisition."Issuing Store" := IssueStore;
+        StoreRequisition."Store Requisition Type" := ReqType;
+
+        StoreRequisition.Insert;
+
+        StoreRequisition.Reset;
+        StoreRequisition.SetRange(StoreRequisition."No.", NextStoreqNo);
+        if StoreRequisition.Find('-')
+        then begin
+            /*ApprovalEntry.INIT;
+            ApprovalEntry."Table ID":=39004336;
+            ApprovalEntry."Document Type" :=ApprovalEntry."Document Type"::"Staff Claim";
+            ApprovalEntry."Document No.":=NextTransportApplicationNo;
+            ApprovalEntry."Sequence No.":=1;
+            ApprovalEntry."Approval Code":='TRANS';
+            ApprovalEntry.Status:=ApprovalEntry_2.Status::Open;
+            ApprovalEntry."Sender ID":=EmployeeUserId;
+            ApprovalEntry."Approver ID":=SupervisorId;
+            ApprovalEntry."Date-Time Sent for Approval":=CURRENTDATETIME;
+            ApprovalEntry."Last Date-Time Modified":=CURRENTDATETIME;
+            ApprovalEntry."Last Modified By ID":=USERID;
+            ApprovalEntry.INSERT;
+            LastTransportReqInsert:=TransportRequisition."Transport Requisition No";*/
+        end;
+
+    end;
+
+
+    procedure MealRequisitionCreate(EmployeeNo: Text; Department: Code[20]; BookingDate: Date; MeetingName: Text[50]; RequiredTime: Time; Venue: Text[50]; ContactPerson: Text[50]; ContactNo: Text[30]; ContactMail: Text[50]; Pax: Integer; DepartmentName: Text[50]; RequestedBy: Code[20]; BookingTime: Time)
+    begin
+
+        MealRequisition.Init;
+        NextMtoreqNo := NoSeriesMgt.GetNextNo('MEAL BOOKI', 0D, true);
+        "Employee Card".Reset;
+        "Employee Card".SetRange("Employee Card"."No.", EmployeeNo);
+
+        if "Employee Card".Find('-')
+        then begin
+            MealRequisition."Requested By" := RequestedBy;
+            "Supervisor Card".Reset;
+            "Supervisor Card".SetRange("Supervisor Card"."User ID", RequestedBy);
+            if "Supervisor Card".Find('-')
+            then begin
+                SupervisorId := "Supervisor Card"."Approver ID";
+            end;
+        end;
+        //MealRequisition.INIT;
+        MealRequisition."Booking Id" := NextMtoreqNo;
+        MealRequisition.Department := Department;
+        MealRequisition."Request Date" := Today;
+        MealRequisition."Booking Date" := BookingDate;
+        MealRequisition."Meeting Name" := MeetingName;
+        MealRequisition."Required Time" := RequiredTime;
+        MealRequisition.Venue := Venue;
+        MealRequisition."Contact Person" := ContactPerson;
+        MealRequisition."Contact Number" := ContactNo;
+        MealRequisition."Contact Mail" := ContactMail;
+        MealRequisition.Pax := Pax;
+        MealRequisition.Status := MealRequisition.Status::New;
+        MealRequisition."Department Name" := DepartmentName;
+        MealRequisition."Requested By" := RequestedBy;
+        MealRequisition."No. Series" := 'MEAL BOOKI';
+        MealRequisition."Booking Time" := BookingTime;
+
+        MealRequisition.Insert;
+
+        MealRequisition.Reset;
+        MealRequisition.SetRange(MealRequisition."Booking Id", NextStoreqNo);
+        if MealRequisition.Find('-')
+        then begin
+            /*ApprovalEntry.INIT;
+            ApprovalEntry."Table ID":=39004336;
+            ApprovalEntry."Document Type" :=ApprovalEntry."Document Type"::"Staff Claim";
+            ApprovalEntry."Document No.":=NextTransportApplicationNo;
+            ApprovalEntry."Sequence No.":=1;
+            ApprovalEntry."Approval Code":='TRANS';
+            ApprovalEntry.Status:=ApprovalEntry_2.Status::Open;
+            ApprovalEntry."Sender ID":=EmployeeUserId;
+            ApprovalEntry."Approver ID":=SupervisorId;
+            ApprovalEntry."Date-Time Sent for Approval":=CURRENTDATETIME;
+            ApprovalEntry."Last Date-Time Modified":=CURRENTDATETIME;
+            ApprovalEntry."Last Modified By ID":=USERID;
+            ApprovalEntry.INSERT;
+            LastTransportReqInsert:=TransportRequisition."Transport Requisition No";*/
+        end;
+
+    end;
+
+
+    procedure MealReqLines(BookingId: Code[20]; MealCode: Code[20]; MealName: Text[250]; Quantity: Decimal; UnitPrice: Decimal; Cost: Decimal)
+    begin
+
+        MealLinesCreate.Init;
+        MealLinesCreate."Booking Id" := BookingId;
+        MealLinesCreate."Meal Code" := MealCode;
+        MealLinesCreate."Meal Name" := MealName;
+        MealLinesCreate.Quantity := Quantity;
+        MealLinesCreate."Unit Price" := UnitPrice;
+        MealLinesCreate.Cost := Cost;
+
+        MealLinesCreate.Insert;
+
+        MealLinesCreate.Reset;
+        MealLinesCreate.SetRange(MealLinesCreate."Booking Id", BookingId);
+        if MealLinesCreate.Find('-')
+        then begin
+            /*ApprovalEntry.INIT;
+            ApprovalEntry."Table ID":=39004336;
+            ApprovalEntry."Document Type" :=ApprovalEntry."Document Type"::"Staff Claim";
+            ApprovalEntry."Document No.":=NextTransportApplicationNo;
+            ApprovalEntry."Sequence No.":=1;
+            ApprovalEntry."Approval Code":='TRANS';
+            ApprovalEntry.Status:=ApprovalEntry_2.Status::Open;
+            ApprovalEntry."Sender ID":=EmployeeUserId;
+            ApprovalEntry."Approver ID":=SupervisorId;
+            ApprovalEntry."Date-Time Sent for Approval":=CURRENTDATETIME;
+            ApprovalEntry."Last Date-Time Modified":=CURRENTDATETIME;
+            ApprovalEntry."Last Modified By ID":=USERID;
+            ApprovalEntry.INSERT;
+            LastTransportReqInsert:=TransportRequisition."Transport Requisition No";*/
+        end;
+
+    end;
+
+
+    procedure VenueRequisitionCreate(Department: Code[20]; BookingDate: Date; MeetingDescription: Text[150]; RequiredTime: Time; Venue: Code[20]; ContactPerson: Text[50]; ContactNo: Text[50]; ContactMail: Text[30]; RequestedBy: Text; Pax: Integer)
+    begin
+
+        VenueRequisition.Init;
+        NextMtoreqNo := NoSeriesMgt.GetNextNo('VB', 0D, true);
+        //MealRequisition.INIT;
+        VenueRequisition."Booking Id" := NextMtoreqNo;
+        VenueRequisition.Department := Department;
+        VenueRequisition."Request Date" := Today;
+        VenueRequisition."Booking Date" := BookingDate;
+        VenueRequisition."Meeting Description" := MeetingDescription;
+        VenueRequisition."Required Time" := RequiredTime;
+        VenueRequisition.Venue := Venue;
+        VenueRequisition."Contact Person" := ContactPerson;
+        VenueRequisition."Contact Number" := ContactNo;
+        VenueRequisition."Contact Mail" := ContactMail;
+        VenueRequisition.Pax := Pax;
+        VenueRequisition.Status := VenueRequisition.Status::"Pending Approval";
+        //VenueRequisition."Department Name":=DepartmentName;
+        VenueRequisition."Requested By" := RequestedBy;
+        VenueRequisition."No. Series" := 'VB';
+        //VenueRequisition."Booking Time":= ;
+
+        VenueRequisition.Insert;
+    end;
+
+
+    procedure VenueReqApprovalRequest(ReqNo: Text)
+    begin
+        VenueRequisition.Reset;
+        VenueRequisition.SetRange(VenueRequisition."Booking Id", ReqNo);
+        if VenueRequisition.Find('-')
+        then begin
+            // AppMgt.SendVenueApprovalRequest(VenueRequisition); TODO
+        end;
+    end;
+
+
+    procedure GenerateFeeStructure(Programz: Code[20]; SettlementType: Code[20]; filenameFromApp: Text) filename: Text
+    begin
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        //MESSAGE('OK');
+        Programmezz.Reset;
+        Programmezz.SetRange(Programmezz.Code, Programz);
+        Programmezz.SetFilter(Programmezz."Settlement Type Filter", '%1', SettlementType);
+
+        if Programmezz.Find('-') then begin
+            Report.SaveAsPdf(51794, filename, Programmezz);   //52017726
+        end;
+        exit(filename);
+    end;
+
+
+    procedure GenerateReceipt(ReceiptNo: Code[20]; filenameFromApp: Text) filename: Text
+    begin
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        //MESSAGE('OK');
+        Receiptz.Reset;
+        Receiptz.SetRange(Receiptz."Receipt No.", ReceiptNo);
+
+        if Receiptz.Find('-') then begin
+            Report.SaveAsPdf(51524, filename, Receiptz);   //52017726
+        end;
+        exit(filename);
+    end;
+
+
+    procedure StudentsLogin(Username: Text; UserPassword: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'Incorrect Username or Password';
+        TXTCorrectDetails: label 'Login';
+        FullNames: Text;
+    begin
+        StudentCard.Reset;
+        StudentCard.SetRange(StudentCard."No.", Username);
+        StudentCard.SetFilter(StudentCard.Status, '%1|%2|%3', StudentCard.Status::Current, StudentCard.Status::Registration, StudentCard.Status::"New Admission");
+        if StudentCard.Find('-') then begin
+            if (StudentCard."Changed Password" = true) then begin
+                if (StudentCard.Password = UserPassword) then begin
+                    FullNames := StudentCard.Name;
+                    Message := TXTCorrectDetails + '::' + Format(StudentCard."Changed Password") + '::' + StudentCard."No." + '::' + StudentCard.Name + '::' + Format(StudentCard.Status);
+                end else begin
+                    Message := TXTIncorrectDetails + '::' + Format(StudentCard."Changed Password");
+                end
+            end else begin
+                if (StudentCard.Password = UserPassword) then begin
+                    Message := TXTCorrectDetails + '::' + Format(StudentCard."Changed Password") + '::' + StudentCard."No." + '::' + StudentCard.Name + '::' + Format(StudentCard.Status);
+                end else begin
+                    Message := TXTIncorrectDetails + '::' + Format(StudentCard."Changed Password");
+                end
+            end
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure GetStudentFullName(StudentNo: Text) Message: Text
+    var
+        FullDetails: Integer;
+    begin
+        StudentCard.Reset;
+        StudentCard.SetRange(StudentCard."No.", StudentNo);
+        if StudentCard.Find('-') then begin
+            Message := StudentCard."No." + '::' + StudentCard.Name + '::' + StudentCard."E-Mail" + '::' + StudentCard."ID No" + '::' + Format(StudentCard.Gender) + '::' + Format(StudentCard."Date Of Birth") + '::' + StudentCard."Post Code" + '::' + StudentCard.Address;
+
+        end
+    end;
+
+
+    procedure IsStudentRegistered(StudentNo: Text; Sem: Text) Message: Text
+    var
+        TXTNotRegistered: label 'Not registered';
+        TXTRegistered: label 'Registered';
+    begin
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", StudentNo);
+        CourseRegistration.SetRange(CourseRegistration.Semester, Sem);
+        CourseRegistration.SetRange(CourseRegistration.Reversed, false);
+
+        if CourseRegistration.Find('-') then begin
+            Message := TXTRegistered + '::';
+        end else begin
+            Message := TXTNotRegistered + '::';
+        end
+    end;
+
+
+    procedure GetMarksEntryDeadline(prog: Code[20]; sem: Code[20]) Message: Text
+    begin
+        Programmezz.Reset;
+        Programmezz.SetRange(Code, prog);
+        if Programmezz.Find('-') then begin
+            if Programmezz."Use Program Semesters" = true then begin
+                ProgrammeSemesters.Reset;
+                ProgrammeSemesters.SetRange("Programme Code", Programmezz.Code);
+                ProgrammeSemesters.SetRange(Semester, sem);
+                if ProgrammeSemesters.Find('-') then begin
+                    Message := Format(ProgrammeSemesters."Marks Entry Deadline");
+                end;
+            end else begin
+                CurrentSem.Reset;
+                CurrentSem.SetRange(Code, sem);
+                if CurrentSem.Find('-') then begin
+                    Message := Format(CurrentSem."Mark entry Dealine");
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure GetCurrentSemData() Message: Text
+    begin
+        CurrentSem.Reset;
+        CurrentSem.SetRange(CurrentSem."Current Semester", true);
+        if CurrentSem.Find('-') then begin
+            Message := CurrentSem.Code + '::' + CurrentSem.Description + '::' + Format(CurrentSem."Registration Deadline");
+        end
+    end;
+
+
+    procedure GetStudentCourseData(StudentNo: Text; Sem: Text) Message: Text
+    begin
+        // CourseRegistration.RESET;
+        // CourseRegistration.SETRANGE(CourseRegistration."Student No.",StudentNo);
+        // //CourseRegistration.SETRANGE(CourseRegistration.Semester,Sem);
+        // CourseRegistration.SETRANGE(CourseRegistration.Reversed,FALSE);
+        // //CourseRegistration.SETRANGE(CourseRegistration.Posted,FALSE);
+        // CourseRegistration.SETCURRENTKEY(Stage);
+        // IF CourseRegistration.FIND('+') THEN BEGIN
+        //          Message := CourseRegistration.Stage+'::'+CourseRegistration.Programmes+'::'+CourseRegistration."Reg. Transacton ID"+'::'+CourseRegistration.Semester+'::'
+        //  +CourseRegistration."Settlement Type"+'::'+FORMAT(CourseRegistration.Programmes);
+        //      END;
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", StudentNo);
+        //CourseRegistration.SETRANGE(CourseRegistration.Semester,Sem);
+        CourseRegistration.SetRange(CourseRegistration.Reversed, false);
+        //CourseRegistration.SETRANGE(CourseRegistration.Posted,FALSE);
+        CourseRegistration.SetCurrentkey(Stage);
+        if CourseRegistration.Find('+') then begin
+            Message := CourseRegistration.Stage + '::' + CourseRegistration.Programmes + '::' + CourseRegistration."Reg. Transacton ID" + '::' + CourseRegistration.Semester + '::'
+    + CourseRegistration."Settlement Type" + '::' + GetProgram(CourseRegistration.Programmes) + '::' + GetSchool(CourseRegistration.Programmes);
+        end;
+    end;
+
+
+    procedure GetProgram(ProgID: Text) Message: Text
+    begin
+        Programmezz.Reset;
+        Programmezz.SetRange(Programmezz.Code, ProgID);
+        if Programmezz.Find('-') then begin
+            Message := Programmezz.Description;
+        end
+    end;
+
+
+    procedure GetBilled(StudentNo: Text; Sem: Text) Message: Text
+    var
+        ACACourseRegistration: Record "ACA-Course Registration";
+    begin
+        ACACourseRegistration.Reset;
+        ACACourseRegistration.SetRange(ACACourseRegistration."Student No.", StudentNo);
+        ACACourseRegistration.SetRange(ACACourseRegistration.Semester, Sem);
+        ACACourseRegistration.SetRange(ACACourseRegistration.Reversed, false);
+        ACACourseRegistration.SetRange(ACACourseRegistration.Posted, true);
+        if ACACourseRegistration.Find('-') then begin
+            Message := ACACourseRegistration.Semester;
+        end;
+    end;
+
+
+    procedure GetAcademicYr() Message: Text
+    begin
+        AcademicYr.Reset;
+        AcademicYr.SetRange(AcademicYr.Current, true);
+        if AcademicYr.Find('-') then begin
+            Message := AcademicYr.Code + '::' + AcademicYr.Description;
+        end
+    end;
+
+
+    procedure UnitDescription(ProgID: Text; UnitID: Text) Message: Text
+    begin
+        UnitSubjects.Reset;
+        UnitSubjects.SetRange(UnitSubjects."Programme Code", ProgID);
+        UnitSubjects.SetRange(UnitSubjects.Code, UnitID);
+        UnitSubjects.SetRange(UnitSubjects."Time Table", true);
+        UnitSubjects.SetRange(UnitSubjects."Old Unit", false);
+        if UnitSubjects.Find('-') then begin
+            Message := UnitSubjects.Desription;
+        end
+    end;
+
+
+    procedure SubmitUnits(studentNo: Text; Unit: Text; Prog: Text; myStage: Text; sem: Text; RegTransID: Text; UnitDescription: Text; AcademicYear: Text) ReturnMessage: Text[150]
+    var
+        Customer: Record Customer;
+    begin
+        if Customer.Get(studentNo) then begin
+            Customer.CalcFields(Balance);
+            if Customer.Balance > 0 then begin
+                ReturnMessage := 'Units not registered! Your Balance is greater than zero!';
+            end;
+        end;
+        if not (Customer.Balance > 0) then begin
+            StudentUnits.Init;
+            StudentUnits."Student No." := studentNo;
+            StudentUnits.Unit := Unit;
+            StudentUnits.Programme := Prog;
+            StudentUnits.Stage := myStage;
+            StudentUnits.Semester := sem;
+            StudentUnits.Taken := true;
+            StudentUnits."Reg. Transacton ID" := RegTransID;
+            StudentUnits."Unit Description" := UnitDescription;
+            StudentUnits."Academic Year" := AcademicYear;
+            StudentUnits.Insert(true);
+            ReturnMessage := 'Units registered Successfully!'
+        end;
+    end;
+
+
+    procedure GetUnitTaken(UnitID: Text; StudentNo: Text; Stage: Text) Message: Text
+    var
+        TXTtaken: label 'Taken';
+        TXTNotTaken: label 'Not Taken';
+    begin
+        StudentUnits.Reset;
+        StudentUnits.SetRange(StudentUnits.Unit, UnitID);
+        StudentUnits.SetRange(StudentUnits."Student No.", StudentNo);
+        StudentUnits.SetRange(StudentUnits.Stage, Stage);
+        if StudentUnits.Find('-') then begin
+            Message := TXTtaken + '::';
+        end else begin
+            Message := TXTNotTaken + '::';
+        end
+    end;
+
+
+    procedure SubmitUnitsBaskets(studentNo: Text; Unit: Text; Prog: Text; myStage: Text; sem: Text; RegTransID: Text; UnitDescription: Text; AcademicYear: Text)
+    var
+        ACAStudentUnits: Record "ACA-Student Units";
+    begin
+        ACAStudentUnits.Reset;
+        ACAStudentUnits.SetRange("Student No.", studentNo);
+        ACAStudentUnits.SetRange(Semester, sem);
+        ACAStudentUnits.SetRange(Unit, Unit);
+        if ACAStudentUnits.Find('-') then Prog := ACAStudentUnits.Programme;
+
+        StudentUnitBaskets.Reset;
+        StudentUnitBaskets.SetRange("Student No.", studentNo);
+        StudentUnitBaskets.SetRange(Unit, Unit);
+        StudentUnitBaskets.SetRange(Programmes, Prog);
+        StudentUnitBaskets.SetRange(Stage, myStage);
+        StudentUnitBaskets.SetRange(Semester, sem);
+        StudentUnitBaskets.SetRange("Reg. Transacton ID", RegTransID);
+        StudentUnitBaskets.SetRange("Academic Year", AcademicYear);
+        if not StudentUnitBaskets.Find('-') then begin
+            StudentUnitBaskets.Init;
+            StudentUnitBaskets."Student No." := studentNo;
+            StudentUnitBaskets.Unit := Unit;
+            StudentUnitBaskets.Programmes := Prog;
+            StudentUnitBaskets.Stage := myStage;
+            StudentUnitBaskets.Taken := true;
+            StudentUnitBaskets.Semester := sem;
+            StudentUnitBaskets."Reg. Transacton ID" := RegTransID;
+            StudentUnitBaskets.Description := UnitDescription;
+            StudentUnitBaskets."Academic Year" := AcademicYear;
+            StudentUnitBaskets.Posted := false;
+            StudentUnitBaskets.Insert(true);
+        end else begin
+            StudentUnitBaskets.Posted := false;
+            StudentUnitBaskets.Modify;
+        end;
+    end;
+
+
+    procedure GetUnitSelected(UnitID: Text; StudentNo: Text; Stage: Text) Message: Text
+    var
+        TXTtaken: label 'Taken';
+        TXTNotTaken: label 'Not Taken';
+    begin
+        StudentUnitBaskets.Reset;
+        StudentUnitBaskets.SetRange(StudentUnitBaskets.Unit, UnitID);
+        StudentUnitBaskets.SetRange(StudentUnitBaskets."Student No.", StudentNo);
+        StudentUnitBaskets.SetRange(StudentUnitBaskets.Stage, Stage);
+        StudentUnitBaskets.SetRange(StudentUnitBaskets.Posted, false);
+        if StudentUnitBaskets.Find('-') then begin
+            Message := TXTtaken + '::';
+        end else begin
+            Message := TXTNotTaken + '::';
+        end
+    end;
+
+
+    procedure DeleteSelectedUnit(studentNo: Text; UnitID: Text)
+    begin
+        StudentUnitBaskets.Reset;
+        StudentUnitBaskets.SetRange(StudentUnitBaskets."Student No.", studentNo);
+        StudentUnitBaskets.SetRange(StudentUnitBaskets.Unit, UnitID);
+        if StudentUnitBaskets.Find('-') then begin
+            StudentUnitBaskets.Delete;
+            Message('Deleted Successfully');
+        end;
+    end;
+
+
+    procedure DeleteSubmittedUnit(studentNo: Text)
+    begin
+        StudentUnitBaskets.Reset;
+        StudentUnitBaskets.SetRange(StudentUnitBaskets."Student No.", studentNo);
+        if StudentUnitBaskets.Find('-') then begin
+            repeat
+                StudentUnitBaskets.Posted := true;
+                StudentUnitBaskets.Modify;
+                Message('Deleted Successfully');
+            until StudentUnitBaskets.Next = 0;
+        end;
+    end;
+
+
+    procedure CheckStaffPasswordChanged(username: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            if (EmployeeCard."Changed Password" = true) then begin
+                Message := TXTCorrectDetails + '::' + Format(EmployeeCard."Changed Password");
+            end else begin
+                Message := TXTIncorrectDetails + '::' + Format(EmployeeCard."Changed Password");
+            end
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure CheckStaffLogin(username: Text; userpassword: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'Incorrect Username or Password';
+        TXTCorrectDetails: label 'Login';
+        FullNames: Text;
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        EmployeeCard.SetRange(EmployeeCard.Status, EmployeeCard.Status::Active);
+        if EmployeeCard.Find('-') then begin
+            if (EmployeeCard."Changed Password" = true) then begin
+                if (EmployeeCard."Portal Password" = userpassword) then begin
+                    FullNames := EmployeeCard."First Name" + ' ' + EmployeeCard."Middle Name" + ' ' + EmployeeCard."Last Name";
+                    Message := TXTCorrectDetails + '::' + Format(EmployeeCard."Changed Password") + '::' + EmployeeCard."No." + '::' + EmployeeCard."User ID" + '::' + FullNames;
+                end else begin
+                    Message := TXTIncorrectDetails + '::' + Format(EmployeeCard."Changed Password");
+                end
+            end else begin
+                if (EmployeeCard."Portal Password" = userpassword) then begin
+                    Message := TXTCorrectDetails + '::' + Format(EmployeeCard."Changed Password") + '::' + EmployeeCard."No." + '::' + EmployeeCard."User ID" + '::' + FullNames;
+                end else begin
+                    Message := TXTIncorrectDetails + '::' + Format(EmployeeCard."Changed Password");
+                end
+            end
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure CheckStaffLoginForUnchangedPass(Username: Text; Useremail: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'Warning!, login failed! Ensure you login with your email as the password!';
+        TXTCorrectDetails: label 'Login';
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", Username);
+        EmployeeCard.SetRange(EmployeeCard.Status, EmployeeCard.Status::Active);
+        if EmployeeCard.Find('-') then begin
+            if (EmployeeCard."Changed Password" = true) then begin
+                if (EmployeeCard."Portal Password" = Useremail) then begin
+                    Message := TXTCorrectDetails + '::' + EmployeeCard."No." + '::' + EmployeeCard."Company E-Mail";
+                end else begin
+                    Message := TXTIncorrectDetails + '::';
+                end
+            end else begin
+                if (EmployeeCard."Portal Password" = Useremail) then begin
+                    Message := TXTCorrectDetails + '::' + EmployeeCard."No." + '::' + EmployeeCard."Company E-Mail";
+                end else begin
+                    Message := TXTIncorrectDetails + '::';
+                end
+            end
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure UpdateStaffPass(username: Text; genpass: Text)
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            EmployeeCard."Portal Password" := genpass;
+            EmployeeCard."Changed Password" := true;
+            EmployeeCard.Modify;
+            Message('Meal Item Updated Successfully');
+        end;
+    end;
+
+
+    procedure CheckValidStaffNo(username: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'Invalid Staff No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            Message := TXTCorrectDetails + '::';
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure getStaffMail(username: Text) Message: Text
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            Message := EmployeeCard."Company E-Mail" + '::';
+        end
+    end;
+
+
+    procedure GetCurrentPassword(username: Text) Message: Text
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            Message := EmployeeCard."Portal Password" + '::';
+        end
+    end;
+
+
+    procedure GenerateTranscript(StudentNo: Text; filenameFromApp: Text; sem: Text)
+    var
+        filename: Text;
+        AcademicYear: Code[20];
+        ACAExamCourseRegistration: Record "ACA-Exam. Course Registration";
+    begin
+        filename := FILESPATH + filenameFromApp;
+        Clear(AcademicYear);
+        AcademicYear := sem;
+        if Exists(filename) then
+            Erase(filename);
+        ACAExamCourseRegistration.Reset;
+        ACAExamCourseRegistration.SetRange(ACAExamCourseRegistration."Student Number", StudentNo);
+        ACAExamCourseRegistration.SetRange(ACAExamCourseRegistration."Academic Year", AcademicYear);
+        //ACAExamCourseRegistration.SETRANGE(ACAExamCourseRegistration."Allow View of Results",TRUE);
+        if ACAExamCourseRegistration.Find('-') then begin
+            Report.SaveAsPdf(66667, filename, ACAExamCourseRegistration);
+        end;
+    end;
+
+
+    procedure GenerateLeaveStatement(StaffNo: Text; filenameFromApp: Text)
+    var
+        filename: Text;
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", StaffNo);
+
+        if EmployeeCard.Find('-') then begin
+            Report.SaveAsPdf(51457, filename, EmployeeCard);
+        end;
+    end;
+
+
+    procedure GetStaffDetails(username: Text) Message: Text
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            Message := EmployeeCard."ID Number" + '::' + EmployeeCard.Citizenship + '::' + EmployeeCard."Postal Address" + '::' +
+  EmployeeCard."Job Title" + '::' + EmployeeCard."Company E-Mail" + '::' + Format(EmployeeCard.Title) + '::' + Format(EmployeeCard."Date Of Birth");
+
+        end
+    end;
+
+
+    procedure GetStaffGender(username: Text) Message: Text
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            Message := Format(EmployeeCard.Gender) + '::' + EmployeeCard."Cellular Phone Number";
+
+        end
+    end;
+
+
+    procedure HasFinances(StudentNo: Text) Message: Text
+    var
+        TXTNotRegistered: label 'No';
+        TXTRegistered: label 'Yes';
+    begin
+        LedgerEntries.Reset;
+        LedgerEntries.SetRange(LedgerEntries."Customer No.", StudentNo);
+        if LedgerEntries.Find('-') then begin
+            Message := TXTRegistered + '::';
+        end else begin
+            Message := TXTNotRegistered + '::';
+        end
+    end;
+
+
+    procedure GetCurrentSTageOrder(stage: Text; "Program": Text) Message: Text
+    begin
+        Stages.Reset;
+        Stages.SetRange(Stages.Code, stage);
+        Stages.SetRange(Stages."Programme Code", "Program");
+        if Stages.Find('-') then begin
+            Message := Format(Stages.Order);
+        end
+    end;
+
+
+    procedure GetNextSTage(orderd: Integer; Progz: Text) Message: Text
+    begin
+        Stages.Reset;
+        Stages.SetRange(Stages.Order, orderd);
+        Stages.SetRange(Stages."Programme Code", Progz);
+        if Stages.Find('-') then begin
+            Message := Stages.Code;
+        end;
+    end;
+
+
+    procedure SubmitSpecialAndSupplementary(StudNo: Code[20]; LectNo: Code[20]; Marks: Decimal; AcademicYear: Code[20]; UnitCode: Code[20]) ReturnMessage: Text[250]
+    var
+        AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+        AcaSpecialExamsResults: Record "Aca-Special Exams Results";
+        emps: Record "HRM-Employee C";
+    begin
+        Clear(ReturnMessage);
+        Clear(emps);
+        emps.Reset;
+        emps.SetRange("No.", LectNo);
+        if emps.Find('-') then;
+        AcaSpecialExamsDetails.Reset;
+        AcaSpecialExamsDetails.SetRange("Current Academic Year", AcademicYear);
+        AcaSpecialExamsDetails.SetRange("Student No.", StudNo);
+        AcaSpecialExamsDetails.SetRange("Unit Code", UnitCode);
+        if AcaSpecialExamsDetails.Find('-') then begin
+            AcaSpecialExamsResults.Reset;
+            AcaSpecialExamsResults.SetRange("Current Academic Year", AcademicYear);
+            AcaSpecialExamsResults.SetRange("Student No.", StudNo);
+            AcaSpecialExamsResults.SetRange(Unit, UnitCode);
+            if AcaSpecialExamsResults.Find('-') then begin
+                AcaSpecialExamsResults.Validate(Score, Marks);
+                AcaSpecialExamsResults.UserID := LectNo;
+                AcaSpecialExamsResults."Modified Date" := Today;
+                AcaSpecialExamsResults.category := AcaSpecialExamsDetails.Category;
+                AcaSpecialExamsResults.Modify;
+                ReturnMessage := 'SUCCESS: Marks Modified!'
+            end else begin
+                AcaSpecialExamsResults.Init;
+                AcaSpecialExamsResults.Programmes := AcaSpecialExamsDetails.Programme;
+                AcaSpecialExamsResults.Stage := AcaSpecialExamsDetails.Stage;
+                AcaSpecialExamsResults.Unit := UnitCode;
+                AcaSpecialExamsResults.Semester := AcaSpecialExamsDetails.Semester;
+                AcaSpecialExamsResults."Student No." := AcaSpecialExamsDetails."Student No.";
+                AcaSpecialExamsResults."Academic Year" := AcademicYear;
+                AcaSpecialExamsResults."Admission No" := StudNo;
+                AcaSpecialExamsResults."Current Academic Year" := AcademicYear;
+                AcaSpecialExamsResults.UserID := LectNo;
+                AcaSpecialExamsResults."Capture Date" := Today;
+                AcaSpecialExamsResults.category := AcaSpecialExamsDetails.Category;
+                AcaSpecialExamsResults."Lecturer Names" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                AcaSpecialExamsResults.Validate(Score, Marks);
+                AcaSpecialExamsResults.Insert;
+                ReturnMessage := 'SUCCESS: Marks Inserted!';
+            end;
+            AcaSpecialExamsDetails."Exam Marks" := Marks;
+            AcaSpecialExamsDetails.Modify;
+        end;
+    end;
+
+
+    procedure GetFees(StudentNo: Text) Message: Text
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", StudentNo);
+        if Customer.Find('-') then begin
+            Customer.CalcFields("Debit Amount", "Credit Amount", Balance);
+            Message := Format(Customer."Debit Amount") + '::' + Format(Customer."Credit Amount") + '::' + Format(Customer.Balance);
+
+        end
+    end;
+
+    local procedure GetSchool(Prog: Code[20]) SchoolName: Text[150]
+    var
+        ACAProgramme2: Record "ACA-Programme";
+        DimensionValue: Record "Dimension Value";
+    begin
+        Clear(SchoolName);
+        if ACAProgramme2.Get(Prog) then begin
+            DimensionValue.Reset;
+            DimensionValue.SetRange("Dimension Code", 'SCHOOL');
+            DimensionValue.SetRange(Code, ACAProgramme2."School Code");
+            if DimensionValue.Find('-') then SchoolName := DimensionValue.Name;
+        end;
+    end;
+
+
+    procedure EvaluateLecturer(Programmez: Text; Stagez: Text; Unitz: Text; Semesterz: Text; StudentNoz: Text; LecturerNoz: Text; QuestionNoz: Text; Responsez: Text; SelectedValue: Integer)
+    begin
+        LecEvaluation.Reset;
+        LecEvaluation.SetRange(LecEvaluation.Programme, Programmez);
+        LecEvaluation.SetRange(LecEvaluation.Stage, Stagez);
+        LecEvaluation.SetRange(LecEvaluation.Unit, Unitz);
+        LecEvaluation.SetRange(LecEvaluation.Semester, Semesterz);
+        LecEvaluation.SetRange(LecEvaluation."Student No", StudentNoz);
+        LecEvaluation.SetRange(LecEvaluation."Lecturer No", LecturerNoz);
+        LecEvaluation.SetRange(LecEvaluation."Question No", QuestionNoz);
+        if not LecEvaluation.Find('-') then begin
+            LecEvaluation.Init;
+            LecEvaluation.Programme := Programmez;
+            LecEvaluation.Stage := Stagez;
+            LecEvaluation.Unit := Unitz;
+            LecEvaluation.Semester := Semesterz;
+            LecEvaluation."Student No" := StudentNoz;
+            LecEvaluation."Lecturer No" := LecturerNoz;
+            LecEvaluation."Question No" := QuestionNoz;
+            LecEvaluation.Response := Responsez;
+            LecEvaluation."Date Time" := CurrentDatetime;
+            LecEvaluation.Value := SelectedValue;
+            LecEvaluation.Choices := SelectedValue;
+            LecEvaluation.Insert(true);
+        end else begin
+            LecEvaluation.Response := Responsez;
+            LecEvaluation.Value := SelectedValue;
+            LecEvaluation.Modify;
+        end;
+
+        StudentUnits.Reset;
+        StudentUnits.SetRange("Student No.", StudentNoz);
+        StudentUnits.SetRange(Unit, Unitz);
+        StudentUnits.SetRange(Semester, Semesterz);
+        StudentUnits.SetRange(Stage, Stagez);
+        if StudentUnits.Find('-') then begin
+            StudentUnits."Course Evaluated" := true;
+            StudentUnits.Modify;
+        end;
+    end;
+
+
+    procedure GetEvaluated(Username: Text; "Program": Text; Stage: Text; Unit: Text; Sem: Text) Message: Text
+    var
+        TXTNotEvaluated: label 'No';
+        TXTEvaluated: label 'Yes';
+    begin
+        LecEvaluation.Reset;
+        LecEvaluation.SetRange(LecEvaluation."Student No", Username);
+        LecEvaluation.SetRange(LecEvaluation.Programme, "Program");
+        LecEvaluation.SetRange(LecEvaluation.Stage, Stage);
+        LecEvaluation.SetRange(LecEvaluation.Unit, Unit);
+        LecEvaluation.SetRange(LecEvaluation.Semester, Sem);
+        if LecEvaluation.Find('-') then begin
+            Message := TXTEvaluated + '::';
+        end else begin
+            Message := TXTNotEvaluated + '::';
+        end
+    end;
+
+
+    procedure GetSentForApprovals_Venue(DocNumber: Text) Message: Text
+    begin
+        VenueBooking.Reset;
+        VenueBooking.SetRange(VenueBooking."Booking Id", DocNumber);
+        if VenueBooking.Find('-') then begin
+            Message := Format(VenueBooking.Status);
+        end
+    end;
+
+
+    procedure SendVenueApproval(DocNumber: Code[20])
+    var
+    // ApprovalsMgtNotification: Codeunit UnknownCodeunit440;
+    // DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Venue Booking";
+    begin
+        VenueBooking.Reset;
+        VenueBooking.SetRange(VenueBooking."Booking Id", DocNumber);
+        if VenueBooking.Find('-') then begin
+            VenueBooking.Status := VenueBooking.Status::"Pending Approval";//TODO
+            VenueBooking.Modify;
+            //  ApprovalsMgtNotification.SendVenueApprovalMail(DocNumber, Format(Doctype::"Meals Bookings"), VenueBooking."Contact Mail", VenueBooking."Contact Person");
+        end
+    end;
+
+
+    procedure SendApprovalRequest(Table_ids: Integer; Doc_Nos: Code[20]; Doc_Types: Integer; Statuss: Integer; ResponsibilityCenters: Code[30]; DocAmounts: Decimal)
+    begin
+        //AppMgt.SendApproval(Table_ids, Doc_Nos, Doc_Types, Statuss, ResponsibilityCenters, DocAmounts); //TODO
+    end;
+
+
+    procedure CancelApprovalRequest(var Table_Ids: Integer; Doc_Types: Option; var Doc_nos: Code[20]; var ShowMessages: Boolean; var ManualCancels: Boolean)
+    begin
+       // AppMgt.CancelApproval(Table_Ids, Doc_Types, Doc_nos, ShowMessages, ManualCancels); //TODO
+    end;
+
+
+    procedure SubmitHelpdesk(SenderID: Text; Questions: Text; Categorys: Option; Departments: Code[50]; Names: Text)
+    begin
+        HelpDesk.Init;
+        HelpDesk."Sender ID" := SenderID;
+        HelpDesk.Question := Questions;
+        HelpDesk.Status := HelpDesk.Status::New;
+        HelpDesk."Request Date" := Today;
+        HelpDesk.Department := Departments;
+        HelpDesk.Category := Categorys;
+        HelpDesk.Name := Names;
+        HelpDesk.Insert(true);
+    end;
+
+
+    procedure GetStaffDepartment(username: Text) Message: Text
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            Message := EmployeeCard."Department Code";
+
+        end
+    end;
+
+
+    procedure GetStaffProfileDetails(username: Text) Message: Text
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", username);
+        if EmployeeCard.Find('-') then begin
+            Message := EmployeeCard."ID Number" + '::' + EmployeeCard.Citizenship + '::' + EmployeeCard."Postal Address" + '::' +
+  EmployeeCard."Job Title" + '::' + EmployeeCard."Company E-Mail" + '::' + Format(EmployeeCard.Title) + '::' + Format(EmployeeCard."Date Of Birth") + '::' + Format(EmployeeCard.Gender) + '::' + EmployeeCard."Cellular Phone Number";
+
+        end
+    end;
+
+
+    procedure GetPendingApplications_Leave(username: Text) Message: Text
+    var
+        TXTHas: label 'Yes';
+        TXTNot: label 'No';
+    begin
+        LeaveT.Reset;
+        LeaveT.SetRange(LeaveT."Employee No", username);
+        LeaveT.SetRange(LeaveT.Status, LeaveT.Status::Open);
+        //LeaveT.SETFILTER(LeaveT.Status,'%1|%2',LeaveT.Status::Open,LeaveT.Status::"Pending Approval");
+        //LeaveT.SETRANGE(LeaveT.Status,LeaveT.Status::"Pending Approval");
+        if LeaveT.Find('-') then begin
+            //Message:=FORMAT(LeaveT.COUNT);
+            Message := TXTHas + '::';
+        end else begin
+            Message := TXTNot + '::';
+        end
+    end;
+
+
+    procedure CheckLeaveStatus(username: Text; LeaveType: Text) Message: Text
+    var
+        TXTHas: label 'Yes';
+        TXTNot: label 'No';
+    begin
+        LeaveT.Reset;
+        LeaveT.SetRange(LeaveT."Employee No", username);
+        LeaveT.SetRange(LeaveT.Status, LeaveT.Status::"Pending Approval");
+        LeaveT.SetRange(LeaveT."Leave Type", LeaveType);
+        if LeaveT.Find('-') then begin
+            Message := TXTHas + '::';
+        end else begin
+            Message := TXTNot + '::';
+        end
+    end;
+
+
+    procedure GetSApprovalStatus(ReqNo: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", ReqNo);
+        ApprovalEntry.SetFilter(ApprovalEntry.Status, '%1|%2|%3', ApprovalEntry.Status::Approved, ApprovalEntry.Status::Canceled, ApprovalEntry.Status::Rejected);
+        if ApprovalEntry.Find('-') then begin
+            Message := TXTCorrectDetails + '::';
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure GetSentForApproval(DocNum: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", DocNum);
+        if ApprovalEntry.Find('-') then begin
+            Message := TXTCorrectDetails + '::';
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure GetApprovedRejected(DocNum: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", DocNum);
+        ApprovalEntry.SetFilter(ApprovalEntry.Status, '%1|%2|%3', ApprovalEntry.Status::Approved, ApprovalEntry.Status::Rejected, ApprovalEntry.Status::Canceled);
+        if ApprovalEntry.Find('-') then begin
+            Message := TXTCorrectDetails + '::';
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure LecturerSpecificTimetables(Semesters: Code[20]; LecturerNo: Code[20]; TimetableType: Text[20]; filenameFromApp: Text) TimetableReturn: Text
+    var
+        UnitFilterString: Text[1024];
+        NoOfLoops: Integer;
+        EXTTimetableFInalCollector: Record "EXT-Timetable FInal Collector";
+        TTTimetableFInalCollector: Record "TT-Timetable FInal Collector";
+        filename: Text[200];
+        ACALecturersUnits: Record "ACA-Lecturers Units";
+    begin
+        Clear(TimetableReturn);
+        ACALecturersUnits.Reset;
+        ACALecturersUnits.SetRange(Semester, Semesters);
+        ACALecturersUnits.SetRange(Lecturer, LecturerNo);
+        if ACALecturersUnits.Find('-') then begin
+            Clear(UnitFilterString);
+            Clear(NoOfLoops);
+            repeat
+            begin
+                if NoOfLoops > 0 then
+                    UnitFilterString := UnitFilterString + '|';
+                UnitFilterString := UnitFilterString + ACALecturersUnits.Unit;
+                NoOfLoops := NoOfLoops + 1;
+            end;
+            until ACALecturersUnits.Next = 0;
+        end else
+            TimetableReturn := 'You''ve not been allocated units in ' + Semesters;
+        if UnitFilterString <> '' then begin
+            //Render the timetables here
+            //**1. Class Timetable
+            if TimetableType = 'CLASS' then begin
+                TTTimetableFInalCollector.Reset;
+                TTTimetableFInalCollector.SetRange(Lecturer, LecturerNo);
+                TTTimetableFInalCollector.SetRange(Semester, Semesters);
+                TTTimetableFInalCollector.SetFilter(Unit, UnitFilterString);
+                if TTTimetableFInalCollector.Find('-') then begin//Pull the Class Timetable Here
+                                                                 //    REPORT.RUN(74501,TRUE,FALSE,TTTimetableFInalCollector);
+                                                                 //filename :=FILESPATH_S+LecturerNo+'_ClassTimetable_'+Semesters;
+                    TimetableReturn := FILESPATH_S + filenameFromApp;
+                    if Exists(TimetableReturn) then
+                        Erase(TimetableReturn);
+                    Report.SaveAsPdf(74501, TimetableReturn, TTTimetableFInalCollector);
+                end;
+            end else if TimetableType = 'EXAM' then begin
+                //**2. Exam Timetable
+                EXTTimetableFInalCollector.Reset;
+                EXTTimetableFInalCollector.SetRange(Semester, Semesters);
+                EXTTimetableFInalCollector.SetFilter(Unit, UnitFilterString);
+                if EXTTimetableFInalCollector.Find('-') then begin//Pull the Exam Timetable Here
+                                                                  //    REPORT.RUN(74551,TRUE,FALSE,EXTTimetableFInalCollector);
+                                                                  // filename :=FILESPATH_S+LecturerNo+'_ExamTimetable_'+Semesters;
+                    TimetableReturn := FILESPATH_S + filenameFromApp;
+                    if Exists(TimetableReturn) then
+                        Erase(TimetableReturn);
+                    Report.SaveAsPdf(74551, TimetableReturn, EXTTimetableFInalCollector);
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure StudentSpecificTimetables(Semesters: Code[20]; StudentNo: Code[20]; TimetableType: Text[20]) TimetableReturn: Text
+    var
+        ACACourseRegistration: Record "ACA-Course Registration";
+        ACAStudentUnits: Record "ACA-Student Units";
+        UnitFilterString: Text[1024];
+        NoOfLoops: Integer;
+        EXTTimetableFInalCollector: Record "EXT-Timetable FInal Collector";
+        TTTimetableFInalCollector: Record "TT-Timetable FInal Collector";
+        filename: Text[200];
+    begin
+        Clear(TimetableReturn);
+        ACACourseRegistration.Reset;
+        ACACourseRegistration.SetRange(Semester, Semesters);
+        ACACourseRegistration.SetRange("Student No.", StudentNo);
+        if ACACourseRegistration.Find('-') then begin
+            ACAStudentUnits.Reset;
+            ACAStudentUnits.SetRange(Semester, Semesters);
+            ACAStudentUnits.SetRange("Student No.", StudentNo);
+            ACAStudentUnits.SetFilter("Reg. Reversed", '=%1', false);
+            if ACAStudentUnits.Find('-') then begin
+                Clear(UnitFilterString);
+                Clear(NoOfLoops);
+                repeat
+                begin
+                    if NoOfLoops > 0 then
+                        UnitFilterString := UnitFilterString + '|';
+                    UnitFilterString := UnitFilterString + ACAStudentUnits.Unit;
+                    NoOfLoops := NoOfLoops + 1;
+                end;
+                until ACAStudentUnits.Next = 0;
+            end else
+                TimetableReturn := 'You have not registered for Units in ' + Semesters;
+        end else
+            TimetableReturn := 'You are not registered in ' + Semesters;
+        if UnitFilterString <> '' then begin
+            //Render the timetables here
+            //**1. Class Timetable
+            if TimetableType = 'CLASS' then begin
+                TTTimetableFInalCollector.Reset;
+                TTTimetableFInalCollector.SetRange(Programme, ACACourseRegistration.Programmes);
+                TTTimetableFInalCollector.SetRange(Semester, Semesters);
+                TTTimetableFInalCollector.SetFilter(Unit, UnitFilterString);
+                if TTTimetableFInalCollector.Find('-') then begin//Pull the Class Timetable Here
+                    Report.Run(74501, true, false, TTTimetableFInalCollector);
+                    filename := FILESPATH_S + StudentNo + '_ClassTimetable_' + Semesters;
+                    if Exists(filename) then
+                        Erase(filename);
+                    Report.SaveAsPdf(74501, filename, TTTimetableFInalCollector);
+                end;
+            end else if TimetableType = 'EXAM' then begin
+                //**2. Exam Timetable
+                EXTTimetableFInalCollector.Reset;
+                EXTTimetableFInalCollector.SetRange(Programme, ACACourseRegistration.Programmes);
+                EXTTimetableFInalCollector.SetRange(Semester, Semesters);
+                EXTTimetableFInalCollector.SetFilter(Unit, UnitFilterString);
+                if EXTTimetableFInalCollector.Find('-') then begin//Pull the Exam Timetable Here
+                                                                  //   REPORT.RUN(74551,TRUE,FALSE,EXTTimetableFInalCollector);
+                    filename := FILESPATH_S + StudentNo + '_ExamTimetable_' + Semesters;
+                    if Exists(filename) then
+                        Erase(filename);
+                    Report.SaveAsPdf(74551, filename, EXTTimetableFInalCollector);
+                end;
+            end;
+        end;
+
+        //EXIT(filename);
+    end;
+
+
+    procedure Vote(Elections: Code[50]; StudentNo: Text; CandidateNo: Text; Positions: Text)
+    begin
+        VoteElection.Init;
+        VoteElection.Election := Elections;
+        VoteElection."Student No." := StudentNo;
+        VoteElection."Candidate No." := CandidateNo;
+        VoteElection."PIN No." := '0';
+        VoteElection.Position := Positions;
+        VoteElection.Date := Today;
+        VoteElection."Date Time" := CurrentDatetime;
+        VoteElection.Voted := true;
+        VoteElection.Insert(true);
+    end;
+
+    local procedure CheckFeeStatus(StudentN: Code[20]; Semest: Code[20]) Register: Code[10]
+    var
+        BilledAmount: Decimal;
+        "50Percent": Decimal;
+        Customerz1: Record Customer;
+        ACACourseRegistrationz: Record "ACA-Course Registration";
+    begin
+        Register := 'NO';
+        Customerz1.Reset;
+        Customerz1.SetRange("No.", StudentN);
+        if Customerz1.Find('-') then begin
+            if Customerz1.CalcFields(Balance) then;
+            //  ACACourseRegistrationz.RESET;
+            //  ACACourseRegistrationz.SETRANGE("Student No.",StudentN);
+            //  ACACourseRegistrationz.SETRANGE(Semester,Semest);
+            //  IF ACACourseRegistrationz.FIND('-') THEN BEGIN
+            //    IF ACACourseRegistrationz.CALCFIELDS("Total Billed") THEN BEGIN
+            if not (Customerz1.Balance > 0) then Register := 'YES';
+            //      END;
+            //    END;
+        end;
+    end;
+
+
+    procedure KUCCPSLogin(username: Text) Message: Text
+    var
+        FullNames: Text;
+        TXTIncorrectDetails: label 'Incorrect Username or Password';
+        TXTCorrectDetails: label 'Login';
+        TXTInactive: label 'Your Account is not active';
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        KUCCPSRaw.SetRange(KUCCPSRaw."Academic Year", '2024/2025');
+        if KUCCPSRaw.Find('-') then begin
+            FullNames := KUCCPSRaw.Names;
+            Message := TXTCorrectDetails + '::' + KUCCPSRaw.Admin + '::' + FullNames;
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure GetKUCCPSUserData(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := KUCCPSRaw.Admin + '::' + KUCCPSRaw.Names + '::' + Format(KUCCPSRaw.Gender) + '::' +
+  KUCCPSRaw.Email + '::' + KUCCPSRaw.Phone + '::' + Format(KUCCPSRaw.Prog) + '::' + GetProgram(KUCCPSRaw.Prog) + '::' + KUCCPSRaw.Prog;
+
+        end
+    end;
+
+
+    procedure GenerateAdmLetter(AdmNo: Text; filenameFromApp: Text)
+    var
+        filename: Text;
+    begin
+        //filename :=FILESPATH_A+filenameFromApp;
+        //IF EXISTS(filename) THEN
+        //ERASE(filename);
+        //AdmissionFormHeader.RESET;
+        //AdmissionFormHeader.SETRANGE(AdmissionFormHeader."Admission No.",AdmNo);
+
+        //IF AdmissionFormHeader.FIND('-') THEN BEGIN
+        //REPORT.SAVEASPDF(51338,filename,AdmissionFormHeader);
+        //END;
+        filename := FILESPATH_A + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, AdmNo);
+
+        if KUCCPSRaw.Find('-') then begin
+            Report.SaveAsPdf(51343, filename, KUCCPSRaw);
+        end;
+    end;
+
+
+    procedure RegisterOnlineAccount(EmailAddress: Text; IDNo: Text; Genderz: Integer; PhoneNo: Text; Passwordz: Text; FirstName: Text; MiddleName: Text; LastName: Text; SessionIDz: Text; DoBz: Date; Countyz: Code[50]; MaritalStatus: Integer; Nationalityz: Code[50]; PostalAddress: Text)
+    begin
+        OnlineUsersz.Init;
+        OnlineUsersz."Email Address" := EmailAddress;
+        OnlineUsersz."ID No" := IDNo;
+        OnlineUsersz.Gender := Genderz;
+        OnlineUsersz."Phone No" := PhoneNo;
+        OnlineUsersz.Password := Passwordz;
+        OnlineUsersz."First Name" := FirstName;
+        OnlineUsersz."Middle Name" := MiddleName;
+        OnlineUsersz."Last Name" := LastName;
+        OnlineUsersz.SessionID := SessionIDz;
+        OnlineUsersz.Confirmed := true;
+        OnlineUsersz.DoB := DoBz;
+        OnlineUsersz.County := Countyz;
+        OnlineUsersz."Marital Status" := MaritalStatus;
+        OnlineUsersz.Nationality := Nationalityz;
+        OnlineUsersz."Postal Address" := PostalAddress;
+        OnlineUsersz.Insert(true);
+    end;
+
+
+    procedure CheckOnlineLogin(username: Text; passrd: Text) Message: Text
+    var
+        FullNames: Text;
+        TXTIncorrectDetails: label 'Incorrect Username or Password';
+        TXTCorrectDetails: label 'Login';
+        TXTInactive: label 'Your Account is not active';
+    begin
+        OnlineUsersz.Reset;
+        OnlineUsersz.SetRange(OnlineUsersz."Email Address", username);
+        OnlineUsersz.SetRange(OnlineUsersz.Password, passrd);
+        if OnlineUsersz.Find('-') then begin
+            FullNames := OnlineUsersz."First Name" + ' ' + OnlineUsersz."Middle Name" + ' ' + OnlineUsersz."Last Name";
+            Message := TXTCorrectDetails + '::' + OnlineUsersz."Email Address" + '::' + OnlineUsersz."ID No" + '::' + FullNames;
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+
+    procedure CheckOnlineAccountStatus(username: Text) Message: Text
+    begin
+        OnlineUsersz.Reset;
+        OnlineUsersz.SetRange(OnlineUsersz."Email Address", username);
+        if OnlineUsersz.Find('-') then begin
+            Message := Format(OnlineUsersz.Confirmed);
+        end
+    end;
+
+
+    procedure GetAdmissionNo(IdNumber: Text) Message: Text
+    begin
+        AplicFormHeader.Reset;
+        AplicFormHeader.SetRange(AplicFormHeader."ID Number", IdNumber);
+        if AplicFormHeader.Find('-') then begin
+            Message := AplicFormHeader."Admission No" + '::' + AplicFormHeader."Application No." + '::' + AplicFormHeader."First Degree Choice" + '::' + Format(AplicFormHeader.Gender) + '::' + Format(AplicFormHeader."Academic Year");
+        end
+    end;
+
+
+    procedure GetOnlineUserDetails(username: Text) Message: Text
+    begin
+        OnlineUsersz.Reset;
+        OnlineUsersz.SetRange(OnlineUsersz."Email Address", username);
+        //OnlineUsersz.SETRANGE(OnlineUsersz.Password,passrd);
+        if OnlineUsersz.Find('-') then begin
+            Message := OnlineUsersz."Email Address" + '::' + OnlineUsersz."Phone No" + '::' + Format(OnlineUsersz.Gender) + '::' + OnlineUsersz."First Name" + '::' + OnlineUsersz."Middle Name" + '::' + OnlineUsersz."Last Name" + '::' + OnlineUsersz."Postal Address";
+        end
+    end;
+
+
+    procedure GetCourseApplicNumber(progz: Text; IDNumber: Text) Message: Text
+    begin
+        AplicFormHeader.Reset;
+        AplicFormHeader.SetRange(AplicFormHeader."First Degree Choice", progz);
+        AplicFormHeader.SetRange(AplicFormHeader."ID Number", IDNumber);
+        if AplicFormHeader.Find('-') then begin
+            Message := AplicFormHeader."Application No." + '::' + Format(AplicFormHeader."Points Acquired") + '::' + AplicFormHeader."Mean Grade Acquired";
+        end
+    end;
+
+    procedure GeProgrammeMinimumPoints(ProgzCode: Text) Message: Text
+    begin
+        Programmezz.Reset;
+        Programmezz.SetRange(Programmezz.Code, ProgzCode);
+        if Programmezz.Find('-') then begin
+            Message := Format(Programmezz."Minimum Points") + '::' + Programmezz."Minimum Grade";
+        end
+    end;
+
+    procedure ValidateSubjectGrade(Programme: Text; SubjectCode: Text) Message: Text
+    begin
+        ProgEntrySubjects.Reset;
+        ProgEntrySubjects.SetRange(ProgEntrySubjects.Programme, Programme);
+        ProgEntrySubjects.SetRange(ProgEntrySubjects.Subject, SubjectCode);
+        if ProgEntrySubjects.Find('-') then begin
+            Message := Format(ProgEntrySubjects."Minimum Points") + '::' + ProgEntrySubjects."Minimum Grade" + '::' + GetAttainedPoints(ProgEntrySubjects."Minimum Grade");
+        end
+    end;
+
+    procedure GetGradeForSelectedSubject(SubjectCode: Text; ApplicationNo: Text) Message: Text
+    begin
+        ApplicFormAcademic.Reset;
+        ApplicFormAcademic.SetRange(ApplicFormAcademic."Subject Code", SubjectCode);
+        ApplicFormAcademic.SetRange(ApplicFormAcademic."Application No.", ApplicationNo);
+        if ApplicFormAcademic.Find('-') then begin
+            Message := ApplicFormAcademic.Grade;
+        end
+    end;
+
+    procedure SubmitOnlineCourseApplication(Surnamez: Text; OtherNames: Text; DateOfBirth: Date; Gender: Integer; IDNumber: Text; PermanentHomeAddress: Text; CorrAddress: Text; MobileNo: Text; EmailAddress: Text; programz: Text; CampusCode: Text; ModeOfStudy: Text; HowDid: Text)
+    var
+        KUCCPSImports: Record "KUCCPS Imports";
+    begin
+        Clear(KUCCPSRaw);
+        AplicFormHeader.Init;
+        NextLeaveApplicationNo := NoSeriesMgt.GetNextNo('APP', 0D, true);
+        AplicFormHeader."Application No." := NextLeaveApplicationNo;
+        AplicFormHeader.Date := Today;
+        AplicFormHeader."Application Date" := Today;
+        AplicFormHeader."Date of Receipt" := Today;
+        AplicFormHeader.Surname := Surnamez;
+        AplicFormHeader."Other Names" := OtherNames;
+        AplicFormHeader."Date Of Birth" := DateOfBirth;
+        AplicFormHeader.Gender := Gender;
+        AplicFormHeader."First Degree Choice" := programz;
+        AplicFormHeader.School1 := GetSchool(programz);
+        AplicFormHeader."ID Number" := IDNumber;
+        AplicFormHeader."Address for Correspondence2" := PermanentHomeAddress;
+        AplicFormHeader."Address for Correspondence1" := CorrAddress;
+        AplicFormHeader."Telephone No. 1" := MobileNo;
+        AplicFormHeader.Email := EmailAddress;
+        AplicFormHeader."Emergency Email" := EmailAddress;
+        AplicFormHeader.Campus := CampusCode;
+        AplicFormHeader."No. Series" := 'APP';
+        AplicFormHeader."Mode of Study" := ModeOfStudy;
+        AplicFormHeader."Knew College Thru" := HowDid;
+        AplicFormHeader.OnlineSeq := 1;
+        AplicFormHeader.Insert(true);
+    end;
+
+    procedure SubmitSujects(ApplicationNo: Text; SubjectCode: Text; MinGrade: Text; Gradez: Text) Message: Text
+    begin
+        ApplicFormAcademic.Reset;
+        ApplicFormAcademic.SetRange(ApplicFormAcademic."Application No.", ApplicationNo);
+        ApplicFormAcademic.SetRange(ApplicFormAcademic."Subject Code", SubjectCode);
+
+        if not ApplicFormAcademic.Find('-') then begin
+            ApplicFormAcademic.Init;
+            ApplicFormAcademic."Application No." := ApplicationNo;
+            ApplicFormAcademic."Subject Code" := SubjectCode;
+            ApplicFormAcademic."Min Grade" := MinGrade;
+            ApplicFormAcademic.Grade := Gradez;
+            ApplicFormAcademic.Insert(true);
+        end else begin
+            ApplicFormAcademic."Min Grade" := MinGrade;
+            ApplicFormAcademic.Grade := Gradez;
+            ApplicFormAcademic.Modify;
+        end;
+    end;
+
+    procedure UpdateApplication(gradez: Text; pointz: Integer; ApplicationNo: Text)
+    begin
+        ApplicFormAcademic.Reset;
+        ApplicFormAcademic.SetRange(ApplicFormAcademic."Application No.", ApplicationNo);
+
+        if ApplicFormAcademic.Find('-') then begin
+            ApplicFormAcademic.Grade := gradez;
+            ApplicFormAcademic.Points := pointz;
+            ApplicFormAcademic.Modify;
+        end;
+    end;
+
+    procedure GetAttainedPoints(AttainedCode: Code[30]) Message: Text
+    var
+        ACAApplicSetupGrade: Record "ACA-Applic. Setup Grade";
+    begin
+        Clear(Message);
+        if ACAApplicSetupGrade.Get(AttainedCode) then begin
+            ACAApplicSetupGrade.Reset;
+            if ACAApplicSetupGrade.Find('-') then Message := Format(ACAApplicSetupGrade.Points);
+        end;
+    end;
+
+    procedure CurrentIntake() Message: Text
+    begin
+        Intake.Reset;
+        Intake.SetRange(Intake.Current, true);
+        if Intake.Find('-') then begin
+            Message := Intake.Code + '::' + Intake.Description;
+        end
+    end;
+
+    procedure GetOnlineUserDetailsMore(username: Text) Message: Text
+    begin
+        OnlineUsersz.Reset;
+        OnlineUsersz.SetRange(OnlineUsersz."Email Address", username);
+        //OnlineUsersz.SETRANGE(OnlineUsersz.Password,passrd);
+        if OnlineUsersz.Find('-') then begin
+            Message := Format(OnlineUsersz."Marital Status") + '::' + Format(OnlineUsersz.County) + '::' + Format(OnlineUsersz.Nationality) + '::' + Format(OnlineUsersz.DoB);
+        end
+    end;
+
+    procedure GetProgramSemesters(Progz: Code[50]) Message: Text
+    begin
+        ProgramSem.Reset;
+        ProgramSem.SetRange(ProgramSem."Programme Code", Progz);
+        ProgramSem.SetRange(ProgramSem.Current, true);
+        if ProgramSem.Find('-') then begin
+            Message := ProgramSem.Semester;
+
+        end
+    end;
+
+
+    procedure UpdateApplicationLevel(ApplicNum: Text; NumSq: Integer)
+    begin
+        AplicFormHeader.Reset;
+        AplicFormHeader.SetRange(AplicFormHeader."Application No.", ApplicNum);
+
+        if AplicFormHeader.Find('-') then begin
+            AplicFormHeader.OnlineSeq := NumSq;
+            AplicFormHeader.Modify;
+        end;
+    end;
+
+
+    procedure UpdateApplicationIntake(AppLicNum: Text; Intake: Text; academicYear: Text)
+    begin
+        AplicFormHeader.Reset;
+        AplicFormHeader.SetRange(AplicFormHeader."Application No.", AppLicNum);
+
+        if AplicFormHeader.Find('-') then begin
+            AplicFormHeader."Academic Year" := academicYear;
+            AplicFormHeader."Intake Code" := Intake;
+            AplicFormHeader.Modify;
+        end;
+    end;
+
+
+    procedure UpdateApplicationPayments(ApplicNum: Text; PayMode: Text; TransID: Text)
+    begin
+        AplicFormHeader.Reset;
+        AplicFormHeader.SetRange(AplicFormHeader."Application No.", ApplicNum);
+
+        if AplicFormHeader.Find('-') then begin
+            AplicFormHeader."Mode Of Payment" := PayMode;
+            AplicFormHeader."Receipt Slip No." := TransID;
+            AplicFormHeader.Modify;
+        end;
+    end;
+
+
+    procedure GenerateOfferLetter(AdmNo: Text; filenameFromApp: Text)
+    var
+        filename: Text;
+    begin
+        filename := FILESPATH_A + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, AdmNo);
+
+        if KUCCPSRaw.Find('-') then begin
+            Report.SaveAsPdf(51343, filename, KUCCPSRaw);
+        end;
+
+        //filename :=FILESPATH_A+filenameFromApp;
+        //IF EXISTS(filename) THEN
+        // ERASE(filename);
+        //AdmissionFormHeader.RESET;
+        //AdmissionFormHeader.SETRANGE(AdmissionFormHeader."Admission No.",AdmNo);
+
+        //IF AdmissionFormHeader.FIND('-') THEN BEGIN
+        //  REPORT.SAVEASPDF(51339,filename,AdmissionFormHeader);51343
+        //END;
+    end;
+
+
+    procedure CloseHelpDeskIssue(IssueId: Integer) ReturnValue: Text[150]
+    var
+        HelpDeskHeader: Record "HelpDesk Header";
+    begin
+        ReturnValue := 'FAILED';
+        HelpDeskHeader.Reset;
+        HelpDeskHeader.SetRange(Code, IssueId);
+        if HelpDeskHeader.Find('-') then begin
+            HelpDeskHeader.Status := HelpDeskHeader.Status::Closed;
+            HelpDeskHeader.Modify;
+            ReturnValue := 'SUCCESS'
+        end;
+    end;
+
+
+    procedure GetRegTrans(Username: Text) Message: Text
+    begin
+        CourseReg.Reset;
+        CourseReg.SetRange(CourseReg."Student No.", Username);
+        CourseReg.SetRange(CourseReg.Reversed, false);
+        CourseReg.SetCurrentkey(Stage);
+        if CourseReg.Find('+') then begin
+            Message := CourseReg."Reg. Transacton ID" + '::' + CourseReg.Programmes + '::' + CourseReg.Semester;
+        end
+    end;
+
+
+    procedure GetEvalFaculty("Code": Text) Message: Text
+    begin
+        Programmezz.Reset;
+        Programmezz.SetRange(Programmezz.Code, Code);
+        if Programmezz.Find('-') then begin
+            Message := Programmezz.Faculty + '::' + Programmezz."Department Code" + '::' + Programmezz.Description;
+        end
+    end;
+
+
+    procedure GetStudentGender(Username: Text) Message: Text
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", Username);
+        if Customer.Find('-') then begin
+            Message := Format(Customer.Gender);
+        end
+    end;
+
+
+    procedure GetEvalStage(Username: Text; TransID: Text) Message: Text
+    begin
+        CourseReg.Reset;
+        CourseReg.SetRange(CourseReg."Student No.", Username);
+        CourseReg.SetRange(CourseReg."Reg. Transacton ID", TransID);
+        CourseReg.SetRange(CourseReg.Reversed, false);
+        if CourseReg.Find('-') then begin
+            Message := CourseReg.Stage + '::' + CourseReg.Programmes;
+        end
+    end;
+
+
+    procedure GetEvalStageDesc("Code": Text) Message: Text
+    begin
+        Stages.Reset;
+        Stages.SetRange(Stages.Code, Code);
+        if Stages.Find('-') then begin
+            Message := Stages.Description;
+        end
+    end;
+
+
+    procedure GetEvalFacultyDesc("Code": Text) Message: Text
+    begin
+        Dimensions.Reset;
+        Dimensions.SetRange(Dimensions.Code, Code);
+        Dimensions.SetRange(Dimensions."Dimension Code", 'SCHOOL');
+        if Dimensions.Find('-') then begin
+            Message := Dimensions.Name;
+        end
+    end;
+
+
+    procedure GetTotalEvalQuiz(semester: Text) Message: Text
+    begin
+        EvaluationQuiz.Reset;
+        EvaluationQuiz.SetRange(EvaluationQuiz.Semester, semester);
+        if EvaluationQuiz.Find('-') then begin
+            Message := Format(EvaluationQuiz.Count);
+        end
+    end;
+
+
+    procedure GetTotalEvalRespondedQuiz(username: Text; semesterz: Text; Unitz: Text) Message: Text
+    begin
+        LecEvaluation.Reset;
+        LecEvaluation.SetRange(LecEvaluation."Student No", username);
+        LecEvaluation.SetRange(LecEvaluation.Semester, semesterz);
+        LecEvaluation.SetRange(LecEvaluation.Unit, Unitz);
+        if LecEvaluation.Find('-') then begin
+            Message := Format(LecEvaluation.Count);
+        end
+    end;
+
+    procedure GetOnlineSessionID(sessionIDz: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        OnlineUsersz.Reset;
+        OnlineUsersz.SetRange(OnlineUsersz.SessionID, sessionIDz);
+        if OnlineUsersz.Find('-') then begin
+            Message := TXTCorrectDetails;
+        end else begin
+            Message := TXTIncorrectDetails;
+        end
+    end;
+
+    procedure RecruitmentAccountActivated(Email: Text) Message: Boolean
+    begin
+        RecAccountusers.Reset;
+        RecAccountusers.SetRange("Email Address", Email);
+        if RecAccountusers.Find('-') then begin
+            Message := RecAccountusers.Activated;
+        end;
+    end;
+
+    procedure RecruitmentEmailExists(Email: Text) Message: Boolean
+    begin
+        RecAccountusers.Reset;
+        RecAccountusers.SetRange("Email Address", Email);
+        if RecAccountusers.Find('-') then begin
+            Message := true;
+        end;
+    end;
+
+    procedure ActivateRecruitmentAccount(Email: Text; ActivationCode: Code[10]) Message: Boolean
+    begin
+        RecAccountusers.Reset;
+        RecAccountusers.SetRange("Email Address", Email);
+        RecAccountusers.SetRange("Activation Code", ActivationCode);
+        if RecAccountusers.Find('-') then begin
+            RecAccountusers.Activated := true;
+            RecAccountusers.Modify;
+            Message := true;
+        end;
+    end;
+
+    procedure ActivateOnlineUserAccount(sessionIDz: Text) Message: Text
+    begin
+        OnlineUsersz.Reset;
+        OnlineUsersz.SetRange(OnlineUsersz.SessionID, sessionIDz);
+        if OnlineUsersz.Find('-') then begin
+            Message := Format(OnlineUsersz.Confirmed);
+            OnlineUsersz.Confirmed := true;
+            OnlineUsersz.Modify;
+        end;
+    end;
+
+    procedure GetOnlineEmailExists(emailaddress: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        OnlineUsersz.Reset;
+        OnlineUsersz.SetRange(OnlineUsersz."Email Address", emailaddress);
+        if OnlineUsersz.Find('-') then begin
+            Message := TXTCorrectDetails;
+        end else begin
+            Message := TXTIncorrectDetails;
+        end
+    end;
+
+
+    procedure GetKUCCPSUserProfile(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := KUCCPSRaw.Names + '::' + KUCCPSRaw."ID Number/BirthCert" + '::' + Format(KUCCPSRaw.Gender) + '::' +
+  KUCCPSRaw."Primary Index no" + '::' + KUCCPSRaw."Intake Code" + '::' + KUCCPSRaw.Box + '::' + KUCCPSRaw.Codes + '::' +
+  KUCCPSRaw.Town + '::' + Format(KUCCPSRaw."Date of Birth") + '::' + Format(KUCCPSRaw.County) + '::' + KUCCPSRaw.Phone
+  + '::' + KUCCPSRaw.Email + '::' + KUCCPSRaw."Full Name of Father" + '::' + KUCCPSRaw."Place of Birth";
+        end
+    end;
+
+
+    procedure KuccpsProfileUpdated(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := Format(KUCCPSRaw.Updated) + '::' + Format(KUCCPSRaw.Results);
+        end
+    end;
+
+
+    procedure GetPersonaldata(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := KUCCPSRaw.Names + '::' + KUCCPSRaw."ID Number/BirthCert" + '::' + KUCCPSRaw."NIIMS No" + '::' + Format(KUCCPSRaw."Date of Birth") + '::' + Format(KUCCPSRaw.Gender) + '::' +
+            Format(KUCCPSRaw."Physical Impairments") + '::' + KUCCPSRaw."Physical impairments Details" + '::' + KUCCPSRaw."NHIF No" + '::' + Format(KUCCPSRaw.Religion) + '::' +
+            Format(KUCCPSRaw.Nationality) + '::' + KUCCPSRaw."Alt. Phone" + '::' + KUCCPSRaw.Box + '::' + KUCCPSRaw.Codes
+            + '::' + KUCCPSRaw.Town + '::' + KUCCPSRaw."Slt Mail" + '::' + Format(KUCCPSRaw."Marital Status") + '::' + KUCCPSRaw.Tribe + '::' + KUCCPSRaw."Name of Spouse"
+            + '::' + KUCCPSRaw."Occupation of Spouse" + '::' + KUCCPSRaw."Spouse Phone No" + '::' + KUCCPSRaw."Number of Children" + '::';
+        end
+    end;
+
+
+    procedure GetKuccpsFamilydata(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := KUCCPSRaw."Full Name of Father" + '::' + Format(KUCCPSRaw."Father Status") + '::' + KUCCPSRaw."Father Occupation" + '::' + Format(KUCCPSRaw."Father Date of Birth") + '::' + KUCCPSRaw."Name of Mother" + '::' +
+            Format(KUCCPSRaw."Mother Status") + '::' + KUCCPSRaw."Mother Occupation" + '::' + Format(KUCCPSRaw."Mother Date of Birth") + '::' + KUCCPSRaw."Number of brothers and sisters" + '::' + KUCCPSRaw."Father Telephone" + '::' + KUCCPSRaw."Mother Telephone";
+        end
+    end;
+
+
+    procedure MarkKUCCPSDetailsUpdated(username: Text) Msg: Boolean
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw.Updated := true;
+            KUCCPSRaw.Confirmed := true;
+            if KUCCPSRaw.Modify then begin
+                KUCCPSRaw.Validate(Confirmed);
+                Message('Confirmed!');
+            end;
+            Msg := true;
+        end
+    end;
+
+
+    procedure GetKuccpsAccommodationData(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := Format(KUCCPSRaw.Accomodation) + '::' + KUCCPSRaw."Non-Resident Owner" + '::' + KUCCPSRaw."Non-Resident Address" + '::' + KUCCPSRaw."Residential Owner Phone" + '::' + KUCCPSRaw."Assigned Block" + '::' +
+            KUCCPSRaw."Assigned Room" + '::' + KUCCPSRaw."Assigned Space";
+        end
+    end;
+
+
+    procedure GetKuccpsResidencedata(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := KUCCPSRaw."Place of Birth" + '::' + KUCCPSRaw."Permanent Residence" + '::' + KUCCPSRaw."Nearest Town" + '::' + KUCCPSRaw.Location + '::' + KUCCPSRaw."Name of Chief" + '::' +
+            Format(KUCCPSRaw.County) + '::' + KUCCPSRaw."Sub-County" + '::' + KUCCPSRaw.Constituency + '::' + KUCCPSRaw."Nearest Police Station";
+        end
+    end;
+
+
+    procedure GetKuccpsEmmergencydata(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := KUCCPSRaw."Emergency Name1" + '::' + KUCCPSRaw."Emergency Relationship1" + '::' + KUCCPSRaw."Emergency P.O. Box1" + '::' + KUCCPSRaw."Emergency Phone No1" + '::' + KUCCPSRaw."Emergency Email1" + '::' +
+            KUCCPSRaw."Emergency Name2" + '::' + KUCCPSRaw."Emergency Relationship2" + '::' + KUCCPSRaw."Emergency P.O. Box2" + '::' + KUCCPSRaw."Emergency Phone No2" + '::' + KUCCPSRaw."Emergency Email2";
+        end
+    end;
+
+
+    procedure GetKuccpsAcademicdata(username: Text) Message: Text
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Message := KUCCPSRaw."OLevel School" + '::' + KUCCPSRaw.Index + '::' + KUCCPSRaw."OLevel Year Completed" + '::' + KUCCPSRaw."Primary School" + '::' + KUCCPSRaw."Primary Index no" + '::' +
+            KUCCPSRaw."Primary Year Completed" + '::' + KUCCPSRaw."K.C.P.E. Results" + '::' + KUCCPSRaw."Any Other Institution Attended";
+        end
+    end;
+
+
+    procedure UpdateKUCCPSPersonalDetails(username: Text; Namesz: Text; Genderz: Integer; Phonez: Code[20]; Boxz: Code[50]; Codesz: Code[20]; Townz: Code[40]; Tribez: Code[50]; Emailz: Text; DateofBirth: Date; IDNumber: Text; NIIMSNo: Text; PhysicalImpairments: Boolean; PhysicalImpairmentsDetails: Text; NHIFNo: Text; Religionz: Code[50]; Nationalityz: Code[50]; MaritalStatus: Integer; NameOfSpouse: Text; OccupationOfSpouse: Text; SpousePhoneNo: Code[30]; NumberOfChildren: Text)
+    var
+        Headers: Record "ACA-Applic. Form Header";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw.Names := Namesz;
+            KUCCPSRaw.Gender := Genderz;
+            KUCCPSRaw."Alt. Phone" := Phonez;
+            KUCCPSRaw.Box := Boxz;
+            KUCCPSRaw.Codes := Codesz;
+            KUCCPSRaw.Town := Townz;
+            KUCCPSRaw.Tribe := Tribez;
+            KUCCPSRaw."Slt Mail" := Emailz;
+            KUCCPSRaw."Date of Birth" := DateofBirth;
+            KUCCPSRaw."ID Number/BirthCert" := IDNumber;
+            KUCCPSRaw."NIIMS No" := NIIMSNo;
+            KUCCPSRaw."Physical Impairments" := PhysicalImpairments;
+            KUCCPSRaw."Physical impairments Details" := PhysicalImpairmentsDetails;
+            KUCCPSRaw."NHIF No" := NHIFNo;
+            KUCCPSRaw.Religion := Religionz;
+            KUCCPSRaw.Nationality := Nationalityz;
+            KUCCPSRaw."Marital Status" := MaritalStatus;
+            KUCCPSRaw."Name of Spouse" := NameOfSpouse;
+            KUCCPSRaw."Occupation of Spouse" := OccupationOfSpouse;
+            KUCCPSRaw."Spouse Phone No" := SpousePhoneNo;
+            KUCCPSRaw."Number of Children" := NumberOfChildren;
+            if KUCCPSRaw.Modify then begin
+                Clear(Headers);
+                Headers.Reset;
+                Headers.SetRange("Admission No", username);
+                if Headers.Find('-') then begin
+                    repeat
+                    begin
+                        Headers.Email := KUCCPSRaw.Email;
+                        Headers."Emergency Email" := KUCCPSRaw."Slt Mail";
+                        Headers."ID Number" := KUCCPSRaw."ID Number/BirthCert";
+                        Headers."Date Of Birth" := KUCCPSRaw."Date of Birth";
+                        Headers.County := KUCCPSRaw.County;
+                        Headers.Phone := KUCCPSRaw.Phone;
+                        Headers."Alt. Phone" := KUCCPSRaw."Alt. Phone";
+                        Headers.Box := KUCCPSRaw.Box;
+                        Headers.Town := KUCCPSRaw.Town;
+                        Headers."NHIF No" := KUCCPSRaw."NHIF No";
+                        Headers.Location := KUCCPSRaw.Location;
+                        Headers."Name of Chief" := KUCCPSRaw."Name of Chief";
+                        Headers."Sub-County" := KUCCPSRaw."Sub-County";
+                        Headers.Constituency := KUCCPSRaw.Constituency;
+                        Headers."OLevel School" := KUCCPSRaw."OLevel School";
+                        Headers."OLevel Year Completed" := KUCCPSRaw."OLevel Year Completed";
+                        Headers."Telephone No. 1" := KUCCPSRaw.Phone;
+                        Headers."Telephone No. 2" := KUCCPSRaw."Emergency Phone No1";
+                        Headers."Address for Correspondence1" := KUCCPSRaw.Box;
+                        Headers."Address for Correspondence2" := KUCCPSRaw.Codes;
+                        Headers."Address for Correspondence3" := KUCCPSRaw.Town;
+                        if Headers.Modify(true) then;
+                    end;
+                    until Headers.Next = 0;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure UpdateKUCCPSFamilyDetails(username: Text; FullNameofFather: Text; FatherStatus: Integer; FatherOccupation: Text; FatherDateOfBirth: Date; NameOfMother: Text; MotherStatus: Integer; MotherOccupation: Text; MotherDateOfBirth: Date; NumberOfbrothersandsisters: Code[20]; FatherPhone: Code[20]; MotherPhone: Code[20])
+    var
+        Headers: Record "ACA-Applic. Form Header";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw."Full Name of Father" := FullNameofFather;
+            KUCCPSRaw."Father Status" := FatherStatus;
+            KUCCPSRaw."Father Occupation" := FatherOccupation;
+            KUCCPSRaw."Father Date of Birth" := FatherDateOfBirth;
+            KUCCPSRaw."Father Telephone" := FatherPhone;
+            KUCCPSRaw."Mother Telephone" := MotherPhone;
+            KUCCPSRaw."Name of Mother" := NameOfMother;
+            KUCCPSRaw."Mother Status" := MotherStatus;
+            KUCCPSRaw."Mother Occupation" := MotherOccupation;
+            KUCCPSRaw."Mother Date of Birth" := MotherDateOfBirth;
+            KUCCPSRaw."Number of brothers and sisters" := NumberOfbrothersandsisters;
+            if KUCCPSRaw.Modify then begin
+                Clear(Headers);
+                Headers.Reset;
+                Headers.SetRange("Admission No", username);
+                if Headers.Find('-') then begin
+                    repeat
+                    begin
+                        Headers.Email := KUCCPSRaw.Email;
+                        Headers."Emergency Email" := KUCCPSRaw."Slt Mail";
+                        Headers."ID Number" := KUCCPSRaw."ID Number/BirthCert";
+                        Headers."Date Of Birth" := KUCCPSRaw."Date of Birth";
+                        Headers.County := KUCCPSRaw.County;
+                        Headers.Phone := KUCCPSRaw.Phone;
+                        Headers."Alt. Phone" := KUCCPSRaw."Alt. Phone";
+                        Headers.Box := KUCCPSRaw.Box;
+                        Headers.Town := KUCCPSRaw.Town;
+                        Headers."NHIF No" := KUCCPSRaw."NHIF No";
+                        Headers.Location := KUCCPSRaw.Location;
+                        Headers."Name of Chief" := KUCCPSRaw."Name of Chief";
+                        Headers."Sub-County" := KUCCPSRaw."Sub-County";
+                        Headers.Constituency := KUCCPSRaw.Constituency;
+                        Headers."OLevel School" := KUCCPSRaw."OLevel School";
+                        Headers."OLevel Year Completed" := KUCCPSRaw."OLevel Year Completed";
+                        Headers."Telephone No. 1" := KUCCPSRaw.Phone;
+                        Headers."Telephone No. 2" := KUCCPSRaw."Emergency Phone No1";
+                        Headers."Address for Correspondence1" := KUCCPSRaw.Box;
+                        Headers."Address for Correspondence2" := KUCCPSRaw.Codes;
+                        Headers."Address for Correspondence3" := KUCCPSRaw.Town;
+                        if Headers.Modify(true) then;
+                    end;
+                    until Headers.Next = 0;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure UpdateKUCCPSResidenceDetails(username: Text; PlaceOfBirth: Text; PermanentResidence: Text; NearestTown: Text; Locationz: Text; NameOfChief: Text; Countyz: Code[50]; SubCounty: Text; Constituencyz: Text; NearestPoliceStation: Text)
+    var
+        Headers: Record "ACA-Applic. Form Header";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw."Place of Birth" := PlaceOfBirth;
+            KUCCPSRaw."Permanent Residence" := PermanentResidence;
+            KUCCPSRaw."Nearest Town" := NearestTown;
+            KUCCPSRaw.Location := Locationz;
+            KUCCPSRaw."Name of Chief" := NameOfChief;
+            KUCCPSRaw.County := Countyz;
+
+            KUCCPSRaw."Sub-County" := SubCounty;
+            KUCCPSRaw.Constituency := Constituencyz;
+            KUCCPSRaw."Nearest Police Station" := NearestPoliceStation;
+            if KUCCPSRaw.Modify then begin
+                Clear(Headers);
+                Headers.Reset;
+                Headers.SetRange("Admission No", username);
+                if Headers.Find('-') then begin
+                    repeat
+                    begin
+                        Headers.Email := KUCCPSRaw.Email;
+                        Headers."Emergency Email" := KUCCPSRaw."Slt Mail";
+                        Headers."ID Number" := KUCCPSRaw."ID Number/BirthCert";
+                        Headers."Date Of Birth" := KUCCPSRaw."Date of Birth";
+                        Headers.County := KUCCPSRaw.County;
+                        //Headers.Tr
+                        Headers.Phone := KUCCPSRaw.Phone;
+                        Headers."Alt. Phone" := KUCCPSRaw."Alt. Phone";
+                        Headers.Box := KUCCPSRaw.Box;
+                        Headers.Town := KUCCPSRaw.Town;
+                        Headers."NHIF No" := KUCCPSRaw."NHIF No";
+                        Headers.Location := KUCCPSRaw.Location;
+                        Headers."Name of Chief" := KUCCPSRaw."Name of Chief";
+                        Headers."Sub-County" := KUCCPSRaw."Sub-County";
+                        Headers.Constituency := KUCCPSRaw.Constituency;
+                        Headers."OLevel School" := KUCCPSRaw."OLevel School";
+                        Headers."OLevel Year Completed" := KUCCPSRaw."OLevel Year Completed";
+                        Headers."Telephone No. 1" := KUCCPSRaw.Phone;
+                        Headers."Telephone No. 2" := KUCCPSRaw."Emergency Phone No1";
+                        Headers."Address for Correspondence1" := KUCCPSRaw.Box;
+                        Headers."Address for Correspondence2" := KUCCPSRaw.Codes;
+                        Headers."Address for Correspondence3" := KUCCPSRaw.Town;
+                        if Headers.Modify(true) then;
+                    end;
+                    until Headers.Next = 0;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure UpdateKUCCPSProfile(username: Text; Namesz: Text; Genderz: Integer; Phonez: Code[20]; Boxz: Code[50]; Codesz: Code[20]; Townz: Code[40]; Emailz: Text; Countyz: Code[50]; Tribe: Code[50]; DateofBirth: Date; IDNumber: Text; NIIMSNo: Text; PhysicalImpairments: Boolean; PhysicalImpairmentsDetails: Text; NHIFNo: Text; Religionz: Code[50]; Nationalityz: Code[50]; MaritalStatus: Integer; NameOfSpouse: Text; OccupationOfSpouse: Text; SpousePhoneNo: Code[30]; NumberOfChildren: Text; FullNameofFather: Text; FatherStatus: Integer; FatherOccupation: Text; FatherDateOfBirth: Date; NameOfMother: Text; MotherStatus: Integer; MotherOccupation: Text; MotherDateOfBirth: Date; NumberOfbrothersandsisters: Code[20]; PlaceOfBirth: Text; PermanentResidence: Text; NearestTown: Text; Locationz: Text; NameOfChief: Text; SubCounty: Text; Constituencyz: Text; NearestPoliceStation: Text)
+    var
+        Headers: Record "ACA-Applic. Form Header";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw.Names := Namesz;
+            KUCCPSRaw.Gender := Genderz;
+            KUCCPSRaw.Phone := Phonez;
+            KUCCPSRaw.Box := Boxz;
+            KUCCPSRaw.Codes := Codesz;
+            KUCCPSRaw.Town := Townz;
+            KUCCPSRaw.Email := Emailz;
+            KUCCPSRaw.County := Countyz;
+            KUCCPSRaw.Tribe := Tribe;
+            KUCCPSRaw."Date of Birth" := DateofBirth;
+            KUCCPSRaw."ID Number/BirthCert" := IDNumber;
+            KUCCPSRaw."NIIMS No" := NIIMSNo;
+            KUCCPSRaw."Physical Impairments" := PhysicalImpairments;
+            KUCCPSRaw."Physical impairments Details" := PhysicalImpairmentsDetails;
+            KUCCPSRaw."NHIF No" := NHIFNo;
+            KUCCPSRaw.Religion := Religionz;
+            KUCCPSRaw.Nationality := Nationalityz;
+            KUCCPSRaw."Marital Status" := MaritalStatus;
+            KUCCPSRaw."Name of Spouse" := NameOfSpouse;
+            KUCCPSRaw."Occupation of Spouse" := OccupationOfSpouse;
+            KUCCPSRaw."Spouse Phone No" := SpousePhoneNo;
+            KUCCPSRaw."Number of Children" := NumberOfChildren;
+            KUCCPSRaw."Full Name of Father" := FullNameofFather;
+            KUCCPSRaw."Father Status" := FatherStatus;
+            KUCCPSRaw."Father Occupation" := FatherOccupation;
+            KUCCPSRaw."Father Date of Birth" := FatherDateOfBirth;
+            KUCCPSRaw."Name of Mother" := NameOfMother;
+            KUCCPSRaw."Mother Status" := MotherStatus;
+            KUCCPSRaw."Mother Occupation" := MotherOccupation;
+            KUCCPSRaw."Mother Date of Birth" := MotherDateOfBirth;
+            KUCCPSRaw."Number of brothers and sisters" := NumberOfbrothersandsisters;
+            KUCCPSRaw."Place of Birth" := PlaceOfBirth;
+            KUCCPSRaw."Permanent Residence" := PermanentResidence;
+            KUCCPSRaw."Nearest Town" := NearestTown;
+            KUCCPSRaw.Location := Locationz;
+            KUCCPSRaw."Name of Chief" := NameOfChief;
+            KUCCPSRaw."Sub-County" := SubCounty;
+            KUCCPSRaw.Constituency := Constituencyz;
+            KUCCPSRaw."Nearest Police Station" := NearestPoliceStation;
+
+            KUCCPSRaw.Updated := true;
+            if KUCCPSRaw.Modify then begin
+                Clear(Headers);
+                Headers.Reset;
+                Headers.SetRange("Admission No", username);
+                if Headers.Find('-') then begin
+                    repeat
+                    begin
+                        Headers.Email := KUCCPSRaw.Email;
+                        Headers."Emergency Email" := KUCCPSRaw."Slt Mail";
+                        Headers."ID Number" := KUCCPSRaw."ID Number/BirthCert";
+                        Headers."Date Of Birth" := KUCCPSRaw."Date of Birth";
+                        Headers.County := KUCCPSRaw.County;
+                        Headers.Tribe := KUCCPSRaw.Tribe;
+                        Headers.Phone := KUCCPSRaw.Phone;
+                        Headers."Alt. Phone" := KUCCPSRaw."Alt. Phone";
+                        Headers.Box := KUCCPSRaw.Box;
+                        Headers.Town := KUCCPSRaw.Town;
+                        Headers."NHIF No" := KUCCPSRaw."NHIF No";
+                        Headers.Location := KUCCPSRaw.Location;
+                        Headers."Name of Chief" := KUCCPSRaw."Name of Chief";
+                        Headers."Sub-County" := KUCCPSRaw."Sub-County";
+                        Headers.Constituency := KUCCPSRaw.Constituency;
+                        Headers."OLevel School" := KUCCPSRaw."OLevel School";
+                        Headers."OLevel Year Completed" := KUCCPSRaw."OLevel Year Completed";
+                        Headers."Telephone No. 1" := KUCCPSRaw.Phone;
+                        Headers."Telephone No. 2" := KUCCPSRaw."Emergency Phone No1";
+                        Headers."Address for Correspondence1" := KUCCPSRaw.Box;
+                        Headers."Address for Correspondence2" := KUCCPSRaw.Codes;
+                        Headers."Address for Correspondence3" := KUCCPSRaw.Town;
+                        if Headers.Modify(true) then;
+                    end;
+                    until Headers.Next = 0;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure UpdateKUCCPSEmergencyContacts(username: Text; EmergencyName1: Text; EmergencyRelationship1: Text; EmergencyBox1: Text; EmergencyPhoneNo1: Code[30]; EmergencyEmail1: Text; EmergencyName2: Text; EmergencyRelationship2: Text; EmergencyBox2: Text; EmergencyPhoneNo2: Code[30]; EmergencyEmail2: Text)
+    var
+        ACAApplicFormHeader: Record "ACA-Applic. Form Header";
+        Headers: Record "ACA-Applic. Form Header";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw."Emergency Name1" := EmergencyName1;
+            KUCCPSRaw."Emergency Relationship1" := EmergencyRelationship1;
+            KUCCPSRaw."Emergency P.O. Box1" := EmergencyBox1;
+            KUCCPSRaw."Emergency Phone No1" := EmergencyPhoneNo1;
+            KUCCPSRaw."Emergency Email1" := EmergencyEmail1;
+            KUCCPSRaw."Emergency Name2" := EmergencyName2;
+            KUCCPSRaw."Emergency Relationship2" := EmergencyRelationship2;
+            KUCCPSRaw."Emergency P.O. Box2" := EmergencyBox2;
+            KUCCPSRaw."Emergency Phone No2" := EmergencyPhoneNo2;
+            KUCCPSRaw."Emergency Email2" := EmergencyEmail2;
+            if KUCCPSRaw.Modify then begin
+                Clear(Headers);
+                Headers.Reset;
+                Headers.SetRange("Admission No", username);
+                if Headers.Find('-') then begin
+                    repeat
+                    begin
+                        Headers.Email := KUCCPSRaw.Email;
+                        Headers."Emergency Email" := KUCCPSRaw."Slt Mail";
+                        Headers."ID Number" := KUCCPSRaw."ID Number/BirthCert";
+                        Headers."Date Of Birth" := KUCCPSRaw."Date of Birth";
+                        Headers.County := KUCCPSRaw.County;
+                        Headers.Phone := KUCCPSRaw.Phone;
+                        Headers."Alt. Phone" := KUCCPSRaw."Alt. Phone";
+                        Headers.Box := KUCCPSRaw.Box;
+                        Headers.Town := KUCCPSRaw.Town;
+                        Headers."NHIF No" := KUCCPSRaw."NHIF No";
+                        Headers.Location := KUCCPSRaw.Location;
+                        Headers."Name of Chief" := KUCCPSRaw."Name of Chief";
+                        Headers."Sub-County" := KUCCPSRaw."Sub-County";
+                        Headers.Constituency := KUCCPSRaw.Constituency;
+                        Headers."OLevel School" := KUCCPSRaw."OLevel School";
+                        Headers."OLevel Year Completed" := KUCCPSRaw."OLevel Year Completed";
+                        Headers."Telephone No. 1" := KUCCPSRaw.Phone;
+                        Headers."Telephone No. 2" := KUCCPSRaw."Emergency Phone No1";
+                        Headers."Address for Correspondence1" := KUCCPSRaw.Box;
+                        Headers."Address for Correspondence2" := KUCCPSRaw.Codes;
+                        Headers."Address for Correspondence3" := KUCCPSRaw.Town;
+                        if Headers.Modify(true) then;
+                    end;
+                    until Headers.Next = 0;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure UpdateKUCCPSAcademicDetails(username: Text; OLevelSchool: Text; OLevelYearCompleted: Code[20]; PrimarySchool: Text; PrimaryIndexNo: Text; PrimaryYearCompleted: Code[20]; KCPEResults: Text; AnyOtherInstitutionAttended: Text)
+    var
+        ACAApplicFormHeader: Record "ACA-Applic. Form Header";
+        Headers: Record "ACA-Applic. Form Header";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw."OLevel School" := OLevelSchool;
+            KUCCPSRaw."OLevel Year Completed" := OLevelYearCompleted;
+            KUCCPSRaw."Primary School" := PrimarySchool;
+            KUCCPSRaw."Primary Index no" := PrimaryIndexNo;
+            KUCCPSRaw."Primary Year Completed" := PrimaryYearCompleted;
+            KUCCPSRaw."K.C.P.E. Results" := KCPEResults;
+            KUCCPSRaw."Any Other Institution Attended" := AnyOtherInstitutionAttended;
+            if KUCCPSRaw.Modify then begin
+                Clear(Headers);
+                Headers.Reset;
+                Headers.SetRange("Admission No", username);
+                if Headers.Find('-') then begin
+                    repeat
+                    begin
+                        Headers.Email := KUCCPSRaw.Email;
+                        Headers."Emergency Email" := KUCCPSRaw."Slt Mail";
+                        Headers."ID Number" := KUCCPSRaw."ID Number/BirthCert";
+                        Headers."Date Of Birth" := KUCCPSRaw."Date of Birth";
+                        Headers.County := KUCCPSRaw.County;
+                        Headers.Phone := KUCCPSRaw.Phone;
+                        Headers."Alt. Phone" := KUCCPSRaw."Alt. Phone";
+                        Headers.Box := KUCCPSRaw.Box;
+                        Headers.Town := KUCCPSRaw.Town;
+                        Headers."NHIF No" := KUCCPSRaw."NHIF No";
+                        Headers.Location := KUCCPSRaw.Location;
+                        Headers."Name of Chief" := KUCCPSRaw."Name of Chief";
+                        Headers."Sub-County" := KUCCPSRaw."Sub-County";
+                        Headers.Constituency := KUCCPSRaw.Constituency;
+                        Headers."OLevel School" := KUCCPSRaw."OLevel School";
+                        Headers."OLevel Year Completed" := KUCCPSRaw."OLevel Year Completed";
+                        Headers."Telephone No. 1" := KUCCPSRaw.Phone;
+                        Headers."Telephone No. 2" := KUCCPSRaw."Emergency Phone No1";
+                        Headers."Address for Correspondence1" := KUCCPSRaw.Box;
+                        Headers."Address for Correspondence2" := KUCCPSRaw.Codes;
+                        Headers."Address for Correspondence3" := KUCCPSRaw.Town;
+                        if Headers.Modify(true) then;
+                    end;
+                    until Headers.Next = 0;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure UpdateKUCCPSAccommodationDetails(username: Text; Accomodation: Option; NonResidentOwner: Text; NonResidentAddress: Text; NonResidentPhone: Text)
+    var
+        ACAApplicFormHeader: Record "ACA-Applic. Form Header";
+        Headers: Record "ACA-Applic. Form Header";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw.Accomodation := Accomodation;
+            KUCCPSRaw."Non-Resident Owner" := NonResidentOwner;
+            KUCCPSRaw."Non-Resident Address" := NonResidentAddress;
+            KUCCPSRaw."Residential Owner Phone" := NonResidentPhone;
+            if KUCCPSRaw.Modify then begin
+                Clear(Headers);
+                Headers.Reset;
+                Headers.SetRange("Admission No", username);
+                if Headers.Find('-') then begin
+                    repeat
+                    begin
+                        Headers.Email := KUCCPSRaw.Email;
+                        Headers."Emergency Email" := KUCCPSRaw."Slt Mail";
+                        Headers."ID Number" := KUCCPSRaw."ID Number/BirthCert";
+                        Headers."Date Of Birth" := KUCCPSRaw."Date of Birth";
+                        Headers.County := KUCCPSRaw.County;
+                        Headers.Phone := KUCCPSRaw.Phone;
+                        Headers."Alt. Phone" := KUCCPSRaw."Alt. Phone";
+                        Headers.Box := KUCCPSRaw.Box;
+                        Headers.Town := KUCCPSRaw.Town;
+                        Headers."NHIF No" := KUCCPSRaw."NHIF No";
+                        Headers.Location := KUCCPSRaw.Location;
+                        Headers."Name of Chief" := KUCCPSRaw."Name of Chief";
+                        Headers."Sub-County" := KUCCPSRaw."Sub-County";
+                        Headers.Constituency := KUCCPSRaw.Constituency;
+                        Headers."OLevel School" := KUCCPSRaw."OLevel School";
+                        Headers."OLevel Year Completed" := KUCCPSRaw."OLevel Year Completed";
+                        Headers."Telephone No. 1" := KUCCPSRaw.Phone;
+                        Headers."Telephone No. 2" := KUCCPSRaw."Emergency Phone No1";
+                        Headers."Address for Correspondence1" := KUCCPSRaw.Box;
+                        Headers."Address for Correspondence2" := KUCCPSRaw.Codes;
+                        Headers."Address for Correspondence3" := KUCCPSRaw.Town;
+                        if Headers.Modify(true) then;
+                    end;
+                    until Headers.Next = 0;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure UpdateKUCCPSProfileMore(username: Text; EmergencyName1: Text; EmergencyRelationship1: Text; EmergencyBox1: Text; EmergencyPhoneNo1: Code[30]; EmergencyEmail1: Text; EmergencyName2: Text; EmergencyRelationship2: Text; EmergencyBox2: Text; EmergencyPhoneNo2: Code[30]; EmergencyEmail2: Text; OLevelSchool: Text; OLevelYearCompleted: Code[20]; PrimarySchool: Text; PrimaryIndexNo: Text; PrimaryYearCompleted: Code[20]; KCPEResults: Text; AnyOtherInstitutionAttended: Text; Accomodation: Integer; NonResidentOwner: Text; NonResidentAddress: Text; NonResidentPhone: Text)
+    var
+        ACAApplicFormHeader: Record "ACA-Applic. Form Header";
+        Headers: Record "ACA-Applic. Form Header";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw."Emergency Name1" := EmergencyName1;
+            KUCCPSRaw."Emergency Relationship1" := EmergencyRelationship1;
+            KUCCPSRaw."Emergency P.O. Box1" := EmergencyBox1;
+            KUCCPSRaw."Emergency Phone No1" := EmergencyPhoneNo1;
+            KUCCPSRaw."Emergency Email1" := EmergencyEmail1;
+            KUCCPSRaw."Emergency Name2" := EmergencyName2;
+            KUCCPSRaw."Emergency Relationship2" := EmergencyRelationship2;
+            KUCCPSRaw."Emergency P.O. Box2" := EmergencyBox2;
+            KUCCPSRaw."Emergency Phone No2" := EmergencyPhoneNo2;
+            KUCCPSRaw."Emergency Email2" := EmergencyEmail2;
+            KUCCPSRaw."OLevel School" := OLevelSchool;
+            KUCCPSRaw."OLevel Year Completed" := OLevelYearCompleted;
+            KUCCPSRaw."Primary School" := PrimarySchool;
+            KUCCPSRaw."Primary Index no" := PrimaryIndexNo;
+            KUCCPSRaw."Primary Year Completed" := PrimaryYearCompleted;
+            KUCCPSRaw."K.C.P.E. Results" := KCPEResults;
+            KUCCPSRaw."Any Other Institution Attended" := AnyOtherInstitutionAttended;
+
+            KUCCPSRaw.Accomodation := Accomodation;
+            KUCCPSRaw."Non-Resident Owner" := NonResidentOwner;
+            KUCCPSRaw."Non-Resident Address" := NonResidentAddress;
+            KUCCPSRaw."Residential Owner Phone" := NonResidentPhone;
+
+            KUCCPSRaw.Updated := true;
+            if KUCCPSRaw.Modify then begin
+                Clear(Headers);
+                Headers.Reset;
+                Headers.SetRange("Admission No", username);
+                if Headers.Find('-') then begin
+                    repeat
+                    begin
+                        Headers.Email := KUCCPSRaw.Email;
+                        Headers."Emergency Email" := KUCCPSRaw."Slt Mail";
+                        Headers."ID Number" := KUCCPSRaw."ID Number/BirthCert";
+                        Headers."Date Of Birth" := KUCCPSRaw."Date of Birth";
+                        Headers.County := KUCCPSRaw.County;
+                        Headers.Phone := KUCCPSRaw.Phone;
+                        Headers."Alt. Phone" := KUCCPSRaw."Alt. Phone";
+                        Headers.Box := KUCCPSRaw.Box;
+                        Headers.Town := KUCCPSRaw.Town;
+                        Headers."NHIF No" := KUCCPSRaw."NHIF No";
+                        Headers.Location := KUCCPSRaw.Location;
+                        Headers."Name of Chief" := KUCCPSRaw."Name of Chief";
+                        Headers."Sub-County" := KUCCPSRaw."Sub-County";
+                        Headers.Constituency := KUCCPSRaw.Constituency;
+                        Headers."OLevel School" := KUCCPSRaw."OLevel School";
+                        Headers."OLevel Year Completed" := KUCCPSRaw."OLevel Year Completed";
+                        Headers."Telephone No. 1" := KUCCPSRaw.Phone;
+                        Headers."Telephone No. 2" := KUCCPSRaw."Emergency Phone No1";
+                        Headers."Address for Correspondence1" := KUCCPSRaw.Box;
+                        Headers."Address for Correspondence2" := KUCCPSRaw.Codes;
+                        Headers."Address for Correspondence3" := KUCCPSRaw.Town;
+                        if Headers.Modify(true) then;
+                    end;
+                    until Headers.Next = 0;
+                end;
+            end;
+        end;
+    end;
+
+    procedure SubmitKuccpsSujects(AAdmissionNo: Text; SubjectCode: Text; SubjectName: Text; MinGrade: Text; Pointsz: Integer) Message: Text
+    begin
+        ApplicFormAcademic.Reset;
+        ApplicFormAcademic.SetRange(ApplicFormAcademic."Application No.", AAdmissionNo);
+        ApplicFormAcademic.SetRange(ApplicFormAcademic."Subject Code", SubjectCode);
+
+        if not ApplicFormAcademic.Find('-') then begin
+            ApplicFormAcademic.Init;
+            ApplicFormAcademic."Application No." := AAdmissionNo;
+            ApplicFormAcademic."Subject Code" := SubjectCode;
+            ApplicFormAcademic.Subject := SubjectName;
+            ApplicFormAcademic."Min Grade" := MinGrade;
+            ApplicFormAcademic.Grade := MinGrade;
+            ApplicFormAcademic.Points := Pointsz;
+            ApplicFormAcademic.Insert(true);
+        end else begin
+            ApplicFormAcademic."Min Grade" := MinGrade;
+            ApplicFormAcademic.Grade := MinGrade;
+            ApplicFormAcademic.Points := Pointsz;
+            ApplicFormAcademic.Modify;
+
+        end;
+    end;
+
+
+    procedure PreRegisterKuccpsStudents(studentNo: Text; stage: Text; semester: Text; Programme: Text; AcademicYear: Text; settlementType: Text) CourseRegId: Code[30]
+    var
+        Progs: Code[20];
+    begin
+        GenSetup.Get;
+        Clear(Progs);
+        if Evaluate(Progs, Programme) then;
+        CourseReg.Reset;
+        CourseReg.SetRange(CourseReg."Student No.", studentNo);
+        CourseReg.SetRange(CourseReg.Programmes, Progs);
+        CourseReg.SetRange(CourseReg.Semester, semester);
+        CourseReg.SetRange(CourseReg.Reversed, false);
+
+        if CourseReg.Find('-') then
+            Error('You have already registered for Semester %1, Year %2', semester, CourseReg.Stage);
+        /*
+        //Insert Student Course
+        CourseReg.RESET;
+        CourseReg.SETRANGE(CourseReg."Student No.",studentNo);
+        CourseReg.SETRANGE(CourseReg.Programmes,Progs);
+        CourseReg.SETRANGE(CourseReg.Semester,semester);
+        CourseReg.SETRANGE(CourseReg.Reversed,FALSE);
+        //CourseReg.SETRANGE(CourseReg.Stage,stage);
+        //CourseReg.SETRANGE(CourseReg."Settlement Type", settlementType);
+        
+        IF CourseReg.FIND('-') THEN BEGIN
+        
+        CourseRegId:=CourseReg."Reg. Transacton ID";
+        //CourseReg.Programmes:=Progs;
+        CourseReg.VALIDATE(Programme,Progs);
+        //CourseReg.Stage:=stage;
+        CourseReg.VALIDATE(Stage);
+        CourseReg.Semester:=semester;
+        CourseReg."Academic Year":=AcademicYear;
+        CourseReg."Settlement Type":=settlementType;
+        
+        CourseReg.MODIFY(TRUE);
+        
+        END ELSE BEGIN*/
+        CourseReg.Init;
+        CourseRegId := NoSeriesMgt.GetNextNo(GenSetup."Registration Nos.", Today, true);
+        CourseReg."Reg. Transacton ID" := CourseRegId;
+        CourseReg."Student No." := studentNo;
+        CourseReg.Programmes := Progs;
+        CourseReg.Validate(Programmes);
+        //CourseReg.Stage:=stage;
+        CourseReg.Validate(Stage);
+        //CourseReg."Date Registered":=TODAY;
+        //CourseReg.Semester:=semester;
+        //CourseReg."Academic Year":=AcademicYear;
+        CourseReg.Validate("Settlement Type", settlementType);
+        CourseReg.Insert(true);
+
+        //END;
+
+    end;
+
+
+    procedure UpdateKCSEResults(username: Text)
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            KUCCPSRaw.Results := true;
+            KUCCPSRaw.Modify;
+        end;
+    end;
+
+
+    procedure IsStudentKuccpsRegistered(StudentNo: Text; Stage: Text) Message: Text
+    var
+        TXTNotRegistered: label 'Not registered';
+        TXTRegistered: label 'Registered';
+    begin
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", StudentNo);
+        CourseRegistration.SetRange(CourseRegistration.Stage, Stage);
+        CourseRegistration.SetRange(CourseRegistration.Reversed, false);
+        if CourseRegistration.Find('-') then begin
+            Message := TXTRegistered + '::';
+        end else begin
+            Message := TXTNotRegistered + '::';
+        end
+    end;
+
+
+    procedure HasKuccpsFinances(StudentNo: Text) Message: Text
+    var
+        TXTNotRegistered: label 'No';
+        TXTRegistered: label 'Yes';
+    begin
+        ImportsBuffer.Reset;
+        ImportsBuffer.SetRange(ImportsBuffer."Student No.", StudentNo);
+        if ImportsBuffer.Find('-') then begin
+            Message := TXTRegistered + '::';
+        end else begin
+            Message := TXTNotRegistered + '::';
+        end
+    end;
+
+
+    procedure TransferToAdmission(AdmissionNumber: Code[20])
+    var
+        AdminSetup: Record "KUCCPS Imports";
+        NewAdminCode: Code[20];
+    begin
+        /*This function transfers the fieldsin the application to the fields in the admissions table*/
+        /*Get the new admission code for the selected application*/
+
+        AdminSetup.Reset;
+        AdminSetup.SetRange(AdminSetup.Admin, AdmissionNumber);
+        AdminSetup.SetRange(AdminSetup.Results, true);
+        if AdminSetup.Find('-') then begin
+            Customer.Init;
+            Customer."No." := AdminSetup.Admin;
+            Customer.Name := CopyStr(AdminSetup.Names, 1, 80);
+            Customer."Search Name" := UpperCase(CopyStr(AdminSetup.Names, 1, 80));
+            Customer.Address := CopyStr(AdminSetup.Box + ',' + AdminSetup.Codes, 1, 30);
+            if AdminSetup.Box <> '' then
+                Customer."Address 2" := AdminSetup.Town;
+            if AdminSetup.Phone <> '' then
+                Customer."Phone No." := AdminSetup.Phone + ',' + AdminSetup."Alt. Phone";
+            //  Customer."Telex No.":=Rec."Fax No.";
+            Customer."E-Mail" := AdminSetup.Email;
+            Customer.Gender := AdminSetup.Gender;
+            Customer."Date Of Birth" := AdminSetup."Date of Birth";
+            Customer."Date Registered" := Today;
+            Customer."Customer Type" := Customer."customer type"::Student;
+            //Customer."Student Type":=FORMAT(Enrollment."Student Type");
+            Customer."Date Of Birth" := AdminSetup."Date of Birth";
+            Customer."ID No" := AdminSetup."ID Number/BirthCert";
+            Customer."Application No." := AdminSetup.Admin;
+            Customer."Marital Status" := AdminSetup."Marital Status";
+            Customer.Citizenship := Format(AdminSetup.Nationality);
+            Customer."Current Programme" := AdminSetup.Prog;
+            Customer."Current Semester" := 'SEM1 23/24';
+            Customer."Current Stage" := 'Y1S1';
+            Customer.Religion := Format(AdminSetup.Religion);
+            Customer."Application Method" := Customer."application method"::"Apply to Oldest";
+            Customer."Customer Posting Group" := 'STUDENT';
+            Customer.Validate(Customer."Customer Posting Group");
+            Customer."Global Dimension 1 Code" := 'MAIN';
+            Customer.County := AdminSetup.County;
+            Customer.Status := Customer.Status::"New Admission";
+            Customer.Insert();
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+
+            Customer.Reset;
+            Customer.SetRange("No.", AdminSetup.Admin);
+            //Customer.SETFILTER("Date Registered",'=%1',TODAY);
+            if Customer.Find('-') then begin
+                if AdminSetup.Gender = AdminSetup.Gender::Female then begin
+                    Customer.Gender := Customer.Gender::Female;
+                end else begin
+                    Customer.Gender := Customer.Gender::Male;
+                end;
+                Customer.Modify;
+            end;
+
+            Customer.Reset;
+            Customer.SetRange("No.", AdminSetup.Admin);
+            Customer.SetFilter("Date Registered", '=%1', Today);
+            if Customer.Find('-') then begin
+                CourseRegistration.Reset;
+                CourseRegistration.SetRange("Student No.", AdminSetup.Admin);
+                CourseRegistration.SetRange("Settlement Type", 'KUCCPS');
+                CourseRegistration.SetRange(Programmes, AdminSetup.Prog);
+                CourseRegistration.SetRange(Semester, 'SEM1 22/23');
+                if not CourseRegistration.Find('-') then begin
+                    CourseRegistration.Init;
+                    CourseRegistration."Reg. Transacton ID" := '';
+                    CourseRegistration.Validate(CourseRegistration."Reg. Transacton ID");
+                    CourseRegistration."Student No." := AdminSetup.Admin;
+                    CourseRegistration.Programmes := AdminSetup.Prog;
+                    CourseRegistration.Semester := 'SEM1 22/23';
+                    CourseRegistration.Stage := 'Y1S1';
+                    CourseRegistration."Student Type" := CourseRegistration."student type"::"Full Time";
+                    CourseRegistration."Registration Date" := Today;
+                    CourseRegistration."Settlement Type" := 'KUCCPS';
+                    CourseRegistration."Academic Year" := '2022/2023';
+
+                    //CourseRegistration.VALIDATE(CourseRegistration."Settlement Type");
+                    CourseRegistration.Insert;
+                    CourseRegistration.Reset;
+                    CourseRegistration.SetRange("Student No.", AdminSetup.Admin);
+                    CourseRegistration.SetRange("Settlement Type", 'KUCCPS');
+                    CourseRegistration.SetRange(Programmes, AdminSetup.Prog);
+                    CourseRegistration.SetRange(Semester, 'SEM1 22/23');
+                    if CourseRegistration.Find('-') then begin
+                        CourseRegistration."Settlement Type" := 'KUCCPS';
+                        CourseRegistration.Validate(CourseRegistration."Settlement Type");
+                        CourseRegistration."Academic Year" := '2022/2023';
+                        CourseRegistration."Registration Date" := Today;
+                        CourseRegistration.Validate(CourseRegistration."Registration Date");
+                        CourseRegistration.Modify;
+
+                    end;
+                end else begin
+                    CourseRegistration.Reset;
+                    CourseRegistration.SetRange("Student No.", AdminSetup.Admin);
+                    CourseRegistration.SetRange("Settlement Type", 'KUCCPS');
+                    CourseRegistration.SetRange(Programmes, AdminSetup.Prog);
+                    CourseRegistration.SetRange(Semester, 'SEM1 22/23');
+                    CourseRegistration.SetFilter(Posted, '=%1', false);
+                    if CourseRegistration.Find('-') then begin
+                        CourseRegistration."Settlement Type" := 'KUCCPS';
+                        CourseRegistration.Validate(CourseRegistration."Settlement Type");
+                        CourseRegistration."Academic Year" := '2022/2023';
+                        CourseRegistration."Registration Date" := Today;
+                        CourseRegistration.Validate(CourseRegistration."Registration Date");
+                        CourseRegistration.Modify;
+
+                    end;
+                end;
+            end;
+
+
+            /*Get the record and transfer the details to the admissions database*/
+            //ERROR('TEST- '+NewAdminCode);
+            /*Transfer the details into the admission database table*/
+            Admissions.Init;
+            Admissions."Admission No." := AdminSetup.Admin;
+            Admissions.Validate("Admission No.");
+            Admissions.Date := Today;
+            Admissions."Application No." := AdminSetup.Index;
+            Admissions."Admission Type" := 'KUCCPS';
+            Admissions."Academic Year" := '2022/2023';
+            Admissions.Surname := AdminSetup.Names;
+            Admissions."Other Names" := AdminSetup.Names;
+            Admissions.Status := Admissions.Status::Admitted;
+            Admissions."Degree Admitted To" := AdminSetup.Prog;
+            Admissions.Validate("Degree Admitted To");
+            Admissions."Date Of Birth" := AdminSetup."Date of Birth";
+            Admissions.Gender := AdminSetup.Gender + 1;
+            Admissions."Marital Status" := AdminSetup."Marital Status";
+            Admissions.County := Customer.County;
+            Admissions.Campus := 'MAIN';
+            Admissions.Nationality := AdminSetup.Nationality;
+            Admissions."Correspondence Address 1" := AdminSetup.Box;
+            Admissions."Correspondence Address 2" := AdminSetup.Codes;
+            Admissions."Correspondence Address 3" := AdminSetup.Town;
+            Admissions."Telephone No. 1" := AdminSetup.Phone;
+            Admissions."Telephone No. 2" := AdminSetup."Alt. Phone";
+            //Admissions."Former School Code":=AdminSetup."Former School Code";
+            Admissions."Index Number" := AdminSetup.Index;
+            Admissions."Stage Admitted To" := 'Y1S1';
+            Admissions."Semester Admitted To" := 'SEM1 22/23';
+            Admissions."Settlement Type" := 'KUCCPS';
+            Admissions."Intake Code" := AdminSetup."Intake Code";
+            Admissions."ID Number" := AdminSetup."ID Number/BirthCert";
+            Admissions."E-Mail" := AdminSetup.Email;
+            // Admissions."Telephone No. 1":=AdminSetup."Telephone No. 1";
+            // Admissions."Telephone No. 2":=AdminSetup."Telephone No. 1";
+            Admissions.Insert();
+            AdminSetup.Admin := NewAdminCode;
+            /*Get the subject details and transfer the  same to the admissions subject*/
+            ApplicationSubject.Reset;
+            ApplicationSubject.SetRange(ApplicationSubject."Application No.", AdminSetup.Admin);
+            if ApplicationSubject.Find('-') then begin
+                /*Get the last number in the admissions table*/
+                AdmissionSubject.Reset;
+                if AdmissionSubject.Find('+') then begin
+                    LineNo := AdmissionSubject."Line No." + 1;
+                end
+                else begin
+                    LineNo := 1;
+                end;
+
+                /*Insert the new records into the database table*/
+                repeat
+                    with AdmissionSubject do begin
+                        Init;
+                        "Line No." := LineNo + 1;
+                        "Admission No." := NewAdminCode;
+                        "Subject Code" := ApplicationSubject."Subject Code";
+                        Grade := Grade;
+                        Insert();
+                        LineNo := LineNo + 1;
+                    end;
+                until ApplicationSubject.Next = 0;
+            end;
+            /*Insert the medical conditions into the admission database table containing the medical condition*/
+            MedicalCondition.Reset;
+            MedicalCondition.SetRange(MedicalCondition.Mandatory, true);
+            if MedicalCondition.Find('-') then begin
+                /*Get the last line number from the medical condition table for the admissions module*/
+                AdmissionMedical.Reset;
+                if AdmissionMedical.Find('+') then begin
+                    LineNo := AdmissionMedical."Line No." + 1;
+                end
+                else begin
+                    LineNo := 1;
+                end;
+                AdmissionMedical.Reset;
+                /*Loop thru the medical conditions*/
+                repeat
+                    AdmissionMedical.Init;
+                    AdmissionMedical."Line No." := LineNo + 1;
+                    AdmissionMedical."Admission No." := NewAdminCode;
+                    AdmissionMedical."Medical Condition Code" := MedicalCondition.Code;
+                    AdmissionMedical.Insert();
+                    LineNo := LineNo + 1;
+                until MedicalCondition.Next = 0;
+            end;
+            /*Insert the details into the family table*/
+            MedicalCondition.Reset;
+            MedicalCondition.SetRange(MedicalCondition.Mandatory, true);
+            MedicalCondition.SetRange(MedicalCondition.Family, true);
+            if MedicalCondition.Find('-') then begin
+                /*Get the last number in the family table*/
+                AdmissionFamily.Reset;
+                if AdmissionFamily.Find('+') then begin
+                    LineNo := AdmissionFamily."Line No.";
+                end
+                else begin
+                    LineNo := 0;
+                end;
+                repeat
+                    AdmissionFamily.Init;
+                    AdmissionFamily."Line No." := LineNo + 1;
+                    AdmissionFamily."Medical Condition Code" := MedicalCondition.Code;
+                    AdmissionFamily."Admission No." := NewAdminCode;
+                    AdmissionFamily.Insert();
+                    LineNo := LineNo + 1;
+                until MedicalCondition.Next = 0;
+            end;
+
+            /*Insert the immunization details into the database*/
+            Immunization.Reset;
+            //Immunization.SETRANGE(Immunization.Mandatory,TRUE);
+            if Immunization.Find('-') then begin
+                /*Get the last line number from the database*/
+                AdmissionImmunization.Reset;
+                if AdmissionImmunization.Find('+') then begin
+                    LineNo := AdmissionImmunization."Line No." + 1;
+                end
+                else begin
+                    LineNo := 1;
+                end;
+                /*loop thru the immunizations table adding the details into the admissions table for immunizations*/
+                repeat
+                    AdmissionImmunization.Init;
+                    AdmissionImmunization."Line No." := LineNo + 1;
+                    AdmissionImmunization."Admission No." := NewAdminCode;
+                    AdmissionImmunization."Immunization Code" := Immunization.Code;
+                    AdmissionImmunization.Insert();
+                until Immunization.Next = 0;
+            end;
+
+            TakeStudentToRegistration(AdminSetup.Admin);
+        end;
+
+    end;
+
+
+    procedure TakeStudentToRegistration(var AdmissNo: Code[20])
+    begin
+        Admissions.Reset;
+        Admissions.SetRange("Admission No.", AdmissNo);
+        if Admissions.Find('-') then begin
+
+            //insert the details related to the next of kin of the student into the database
+            AdminKin.Reset;
+            AdminKin.SetRange(AdminKin."Admission No.", Admissions."Admission No.");
+            if AdminKin.Find('-') then begin
+                repeat
+                    StudentKin.Reset;
+                    StudentKin.Init;
+                    StudentKin."Student No" := Admissions."Admission No.";
+                    StudentKin.Relationship := AdminKin.Relationship;
+                    StudentKin.Name := AdminKin."Full Name";
+                    //StudentKin."Other Names":=EnrollmentNextofKin."Other Names";
+                    //StudentKin."ID No/Passport No":=EnrollmentNextofKin."ID No/Passport No";
+                    //StudentKin."Date Of Birth":=EnrollmentNextofKin."Date Of Birth";
+                    //StudentKin.Occupation:=EnrollmentNextofKin.Occupation;
+                    StudentKin."Office Tel No" := AdminKin."Telephone No. 1";
+                    StudentKin."Home Tel No" := AdminKin."Telephone No. 2";
+                    //StudentKin.Remarks:=EnrollmentNextofKin.Remarks;
+                    StudentKin.Insert;
+                until AdminKin.Next = 0;
+            end;
+
+            //insert the details in relation to the guardian/sponsor into the database in relation to the current student
+            if Admissions."Mother Alive Or Dead" = Admissions."mother alive or dead"::Alive then begin
+                if Admissions."Mother Full Name" <> '' then begin
+                    StudentGuardian.Reset;
+                    StudentGuardian.Init;
+                    StudentGuardian."Student No." := Admissions."Admission No.";
+                    StudentGuardian.Names := Admissions."Mother Full Name";
+                    StudentGuardian.Insert;
+                end;
+            end;
+            if Admissions."Father Alive Or Dead" = Admissions."father alive or dead"::Alive then begin
+                if Admissions."Father Full Name" <> '' then begin
+                    StudentGuardian.Reset;
+                    StudentGuardian.Init;
+                    StudentGuardian."Student No." := Admissions."Admission No.";
+                    StudentGuardian.Names := Admissions."Father Full Name";
+                    StudentGuardian.Insert;
+                end;
+            end;
+            if Admissions."Guardian Full Name" <> '' then begin
+                if Admissions."Guardian Full Name" <> '' then begin
+                    StudentGuardian.Reset;
+                    StudentGuardian.Init;
+                    StudentGuardian."Student No." := Admissions."Admission No.";
+                    StudentGuardian.Names := Admissions."Guardian Full Name";
+                    StudentGuardian.Insert;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure SubmitReferral(Username: Text; Reason: Text)
+    begin
+        /*This function transfers the fieldsin the application to the fields in the admissions table*/
+        /*Get the new admission code for the selected application*/
+        NextLeaveApplicationNo := NoSeriesMgt.GetNextNo('HOSPAPP', 0D, true);
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", Username);
+        if EmployeeCard.Find('-') then begin
+            Referrralll.Init;
+            Referrralll."Treatment no." := NextLeaveApplicationNo;
+            Referrralll."Date Referred" := Today;
+            Referrralll."Referral Reason" := Reason;
+            Referrralll.Status := Referrralll.Status::New;
+            Referrralll.Surname := EmployeeCard."Last Name";
+            Referrralll."Middle Name" := EmployeeCard."Middle Name";
+            Referrralll."Last Name" := EmployeeCard."First Name";
+            Referrralll."ID Number" := EmployeeCard."First Name";
+            Referrralll."Correspondence Address 1" := EmployeeCard."Postal Address";
+            Referrralll."Telephone No. 1" := EmployeeCard."Cellular Phone Number";
+            Referrralll.Email := EmployeeCard."Company E-Mail";
+            Referrralll."Staff No" := Username;
+            Referrralll."No. Series" := 'HOSPAPP';
+            Referrralll.Insert();
+        end;
+
+    end;
+
+
+    procedure GenerateReferralReport(EmployeeNo: Text; filenameFromApp: Text) filename: Text[100]
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        //MESSAGE('OK');
+        Referrralll.Reset;
+        Referrralll.SetRange(Referrralll."Treatment no.", EmployeeNo);
+
+        if Referrralll.Find('-') then begin
+            Report.SaveAsPdf(51871, filename, Referrralll);   //52017726
+        end;
+        exit(filename);
+    end;
+
+
+    procedure getActiveElection() Message: Text
+    var
+        ELECTElectionsSetup: Record "ELECT-Elections Setup";
+    begin
+        ELECTElectionsSetup.Reset;
+        if ELECTElectionsSetup.Find('-') then begin
+            Message := Format(true) + '::' + ELECTElectionsSetup."Current Election";
+        end else begin
+            Message := Format(false);
+        end;
+    end;
+
+
+    procedure getActiveElectionDetails() Message: Text
+    begin
+        ElectionHeader.Reset;
+        ElectionHeader.SetRange(ElectionHeader."Is Active", true);
+        if ElectionHeader.Find('-') then begin
+            Message := ElectionHeader."Election Code" + '::' + Format(ElectionHeader."Voting Allowed");
+        end
+    end;
+
+
+    procedure IsAvoter(username: Text; ElectionCode: Text) Message: Text
+    var
+        TXTNotRegistered: label 'Not';
+        TXTRegistered: label 'Yes';
+        VoterRegister: Record "ELECT-Voter Register";
+    begin
+        VoterRegister.Reset;
+        VoterRegister.SetRange(VoterRegister."Voter No.", username);
+        VoterRegister.SetRange(VoterRegister."Election Code", ElectionCode);
+        if VoterRegister.Find('-') then begin
+            Message := TXTRegistered + '::';
+        end else begin
+            Message := TXTNotRegistered + '::';
+        end
+    end;
+
+
+    procedure UpdateElection(Elections: Code[50]; StudentNo: Text; CandidateNo: Text; Positions: Text; Operation: Code[10]) VoterBufferVal: Text[100]
+    var
+        ELECTMyCandidates: Record "ELECT-My Candidates";
+        ELECTElectionsHeader: Record "ELECT-Elections Header";
+        ELECTElectionsSetup: Record "ELECT-Elections Setup";
+        VoterRegister: Record "ELECT-Voter Register";
+        ELECTBallotRegisterBuffer: Record "ELECT-Ballot Register Buffer";
+        ELECTBallotRegister: Record "ELECT-Ballot Register";
+    begin
+        ELECTElectionsSetup.Reset;
+        if ELECTElectionsSetup.Find('-') then;
+        ELECTElectionsSetup.TestField("Current Election");
+        ELECTElectionsHeader.Reset;
+        ELECTElectionsHeader.SetRange("Election Code", Elections);
+        if ELECTElectionsHeader.Find('-') then;
+        VoterRegister.Reset;
+        VoterRegister.SetRange("Election Code", ELECTElectionsHeader."Election Code");
+        VoterRegister.SetRange("Voter No.", StudentNo);
+        VoterRegister.SetRange(Voted, false);
+        if VoterRegister.Find('-') then begin
+            if Operation = 'EDIT' then begin
+                ELECTBallotRegisterBuffer.Init;
+                ELECTBallotRegisterBuffer."Election Code" := Elections;
+                ELECTBallotRegisterBuffer."Ballot ID" := VoterRegister."Ballot ID";
+                ELECTBallotRegisterBuffer."Position Code" := Positions;
+                ELECTBallotRegisterBuffer."Candidate No." := CandidateNo;
+                ELECTBallotRegisterBuffer."Voting Time" := Time;
+                ELECTBallotRegisterBuffer."Votting Date" := Today;
+                ELECTBallotRegisterBuffer."Department Code" := VoterRegister."Department Code";
+                ELECTBallotRegisterBuffer."Electral District" := VoterRegister."Electral District";
+                ELECTBallotRegisterBuffer."Campus Code" := VoterRegister."Campus Code";
+                ELECTBallotRegisterBuffer."Voter No." := StudentNo;
+                ELECTBallotRegisterBuffer.Insert;
+            end else if Operation = 'INSERT' then begin// Submit Final Poll
+                ELECTBallotRegisterBuffer.Reset;
+                ELECTBallotRegisterBuffer.SetRange("Election Code", ELECTElectionsHeader."Election Code");
+                ELECTBallotRegisterBuffer.SetRange("Ballot ID", VoterRegister."Ballot ID");
+                if ELECTBallotRegisterBuffer.Find('-') then begin
+                    repeat
+                    begin
+                        ELECTBallotRegister.Init;
+                        ELECTBallotRegister."Election Code" := ELECTBallotRegisterBuffer."Election Code";
+                        ELECTBallotRegister."Ballot ID" := ELECTBallotRegisterBuffer."Ballot ID";
+                        ELECTBallotRegister."Position Code" := ELECTBallotRegisterBuffer."Position Code";
+                        ELECTBallotRegister."Candidate No." := ELECTBallotRegisterBuffer."Candidate No.";
+                        ELECTBallotRegister."Voting Time" := ELECTBallotRegisterBuffer."Voting Time";
+                        ELECTBallotRegister."Votting Date" := ELECTBallotRegisterBuffer."Votting Date";
+                        ELECTBallotRegister."Department Code" := VoterRegister."Department Code";
+                        ELECTBallotRegister."Electral District" := VoterRegister."Electral District";
+                        ELECTBallotRegister."Campus Code" := VoterRegister."Campus Code";
+                        ELECTBallotRegister.Insert;
+                        //Delete Entry from the Buffer on submission of individual Ballot
+                        ELECTBallotRegisterBuffer.Delete;
+                    end;
+                    until ELECTBallotRegisterBuffer.Next = 0;
+                end;
+                VoterRegister.Voted := true;
+                VoterRegister.Modify;
+            end;
+        end;
+    end;
+
+
+    procedure DeleteVoteSelected(studentNo: Text; CandidateNo: Text)
+    begin
+        BallotBuffer.Reset;
+        BallotBuffer.SetRange(BallotBuffer."Voter No.", studentNo);
+        BallotBuffer.SetRange(BallotBuffer."Candidate No.", CandidateNo);
+        if BallotBuffer.Find('-') then begin
+            BallotBuffer.Delete;
+            Message('Deleted Successfully');
+        end;
+    end;
+
+
+    procedure GetPositionVoted(PositionCode: Text; Username: Text) Message: Text
+    var
+        Voted: label 'Yes';
+        NotVoted: label 'No';
+    begin
+        BallotBuffer.Reset;
+        BallotBuffer.SetRange(BallotBuffer."Voter No.", Username);
+        BallotBuffer.SetRange(BallotBuffer."Position Code", PositionCode);
+        if BallotBuffer.Find('-') then begin
+            Message := Voted + '::';
+        end else begin
+            Message := NotVoted + '::';
+        end
+    end;
+
+
+    procedure VoteRegisters(ElectionCode: Text; Username: Text) Message: Text
+    begin
+        VoteReg.Reset;
+        VoteReg.SetRange(VoteReg."Election Code", ElectionCode);
+        VoteReg.SetRange(VoteReg."Voter No.", Username);
+        if VoteReg.Find('-') then begin
+            Message := Format(VoteReg.Voted);
+        end
+    end;
+
+
+    procedure GetElectionType(ElectionCode: Code[30]) Message: Text
+    begin
+        ElectionHeader.Reset;
+        ElectionHeader.SetRange(ElectionHeader."Election Code", ElectionCode);
+        if ElectionHeader.Find('-') then begin
+            Message := Format(ElectionHeader."Delegates Election");
+        end
+    end;
+
+    procedure IsStageFinal(Stage: Text; programm: Text) Message: Text
+    begin
+        Stages.Reset;
+        Stages.SetRange(Stages."Programme Code", programm);
+        Stages.SetRange(Stages.Code, Stage);
+        if Stages.Find('-') then begin
+            Message := Format(Stages."Final Stage");
+
+        end
+    end;
+
+    procedure HasAppliedClearance(username: Text) Message: Text
+    var
+        TXTApplied: label 'Yes';
+        TXTNotApplied: label 'Not Applied';
+        Customerz: Record Customer;
+    begin
+        Customerz.Reset;
+        Customerz.SetRange(Customerz."No.", username);
+        Customerz.SetFilter(Customerz."Clearance Status", '%1|%2', Customerz."clearance status"::Active,
+        Customerz."clearance status"::Cleared);
+        if Customerz.Find('-') then begin
+            Message := TXTApplied + '::';
+        end else begin
+            Message := TXTNotApplied + '::';
+        end
+    end;
+
+    procedure GenerateClearanceForm(StudentNo: Text; filenameFromApp: Text)
+    var
+        filename: Text;
+        ACAClearanceApprovalEntries: Record "ACA-Clearance Approval Entries";
+        cust: Record Customer;
+    begin
+        ///// Check if Entires exists. If not, Initiate a Clearance after reversal
+        Clear(ACAClearanceApprovalEntries);
+        ACAClearanceApprovalEntries.Reset;
+        ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", StudentNo);
+        if not (ACAClearanceApprovalEntries.Find('-')) then begin
+            if cust.Get(StudentNo) then begin
+                cust."Clearance Status" := cust."clearance status"::open;
+                cust.Modify;
+                // Initiate Clearance Here
+                SubmitForClearance(StudentNo, '');
+            end;
+        end;
+
+        filename := FILESPATH + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        Clear(ACAClearanceApprovalEntries);
+        ACAClearanceApprovalEntries.Reset;
+        ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", StudentNo);
+
+        if ACAClearanceApprovalEntries.Find('-') then begin
+            Report.SaveAsPdf(51675, filename, ACAClearanceApprovalEntries);
+            // REPORT.RUN(51675,FALSE,FALSE,ACAClearanceApprovalEntries);
+        end;
+    end;
+
+
+    procedure SendEmailEasy(Salutation: Text[100]; UserFullNames: Text[150]; Paragraph1: Text[963]; Paragraph2: Text[963]; Disclaimer1: Text[369]; Disclaimer2: Text[369]; EmailID: Text[639]; MailSubject: Text[639])
+    var
+        XmlParameters: Text[1024];
+        OStream: OutStream;
+        IStream: InStream;
+        TempFileName: Text[1024];
+        CustTempTable: Record Customer temporary;
+        CustomerTable: Record Customer;
+        // SMTPMailSetup: Record UnknownRecord409;
+        // SMTPMail: Codeunit UnknownCodeunit400;
+        CF_FTLCustomerInvoice: Report "Customer Statement";
+    begin
+        // SMTPMailSetup.Get;
+        // SMTPMailSetup.TestField("SMTP Server");
+        // SMTPMailSetup.TestField("User ID");
+        // SMTPMailSetup.TestField("SMTP Server Port");
+        // SMTPMailSetup.TestField("Password Key");
+
+        // Clear(SMTPMail);
+        // SMTPMail.CreateMessage(UserFullNames, SMTPMailSetup."User ID", EmailID, MailSubject, '', true);
+        // SMTPMail.AppendBody(Salutation + ',' + UserFullNames + ',');
+
+        // SMTPMail.AppendBody('<br>');
+        // SMTPMail.AppendBody(Paragraph1);
+        // SMTPMail.AppendBody('<br>');
+        // SMTPMail.AppendBody(Paragraph2);
+        // SMTPMail.AppendBody('<HR>');
+        // SMTPMail.AppendBody(Disclaimer1);
+        // SMTPMail.AppendBody('<br>');
+        // SMTPMail.AppendBody(Disclaimer2);
+        // SMTPMail.Send;
+    end;
+
+
+    procedure SendEmailEasy_WithAttachment(Salutation: Text[100]; UserFullNames: Text[150]; Paragraph1: Text[963]; Paragraph2: Text[963]; Disclaimer1: Text[369]; Disclaimer2: Text[369]; EmailID: Text[639]; MailSubject: Text[639]; Filepaths: Text[250]; AttachmentTitle: Code[250])
+    var
+        XmlParameters: Text[1024];
+        OStream: OutStream;
+        IStream: InStream;
+        TempFileName: Text[1024];
+        CustTempTable: Record Customer temporary;
+        CustomerTable: Record Customer;
+        // SMTPMailSetup: Record UnknownRecord409;
+        // SMTPMail: Codeunit UnknownCodeunit400;
+        // ClearanceReport: Report UnknownReport51675;
+        filename: Text[250];
+    begin
+        // filename := Filepaths;
+        // if not Exists(filename) then
+        //     Error('File not found!');
+
+
+        // SMTPMailSetup.Get;
+        // SMTPMailSetup.TestField("SMTP Server");
+        // SMTPMailSetup.TestField("User ID");
+        // SMTPMailSetup.TestField("SMTP Server Port");
+        // SMTPMailSetup.TestField("Password Key");
+
+        // Clear(SMTPMail);
+        // SMTPMail.CreateMessage(UserFullNames, SMTPMailSetup."User ID", EmailID, MailSubject, '', true);
+        // SMTPMail.AddAttachment(AttachmentTitle, filename);
+        // SMTPMail.AppendBody(Salutation + ',' + UserFullNames + ',');
+
+        // SMTPMail.AppendBody('<br>');
+        // SMTPMail.AppendBody(Paragraph1);
+        // SMTPMail.AppendBody('<br>');
+        // SMTPMail.AppendBody(Paragraph2);
+        // SMTPMail.AppendBody('<HR>');
+        // SMTPMail.AppendBody(Disclaimer1);
+        // SMTPMail.AppendBody('<br>');
+        // SMTPMail.AppendBody(Disclaimer2);
+        // SMTPMail.Send;
+    end;
+
+
+    procedure ApproveStudClearance(StudentNo: Code[20]; User_ID: Code[20]; Clearance_Level_Code: Code[20])
+    var
+        ACAClearanceApprovalEntries: Record "ACA-Clearance Approval Entries";
+        webportals: Codeunit webportals;
+        cust: Record Customer;
+        ACAClearanceApprovalEntries1: Record "ACA-Clearance Approval Entries";
+        counted: Integer;
+        stringval: Text[250];
+        enties: Record "ACA-Clearance Approval Entries";
+        UserSetup: Record "User Setup";
+        enties2: Record "ACA-Clearance Approval Entries";
+    begin
+        ACAClearanceApprovalEntries1.Reset;
+        ACAClearanceApprovalEntries1.SetRange("Clear By ID", User_ID);
+        ACAClearanceApprovalEntries1.SetRange("Student ID", StudentNo);
+        ACAClearanceApprovalEntries1.SetRange("Clearance Level Code", Clearance_Level_Code);
+        if ACAClearanceApprovalEntries1.Find('-') then begin
+            with ACAClearanceApprovalEntries1 do begin
+                if "Clearance Level Code" = '' then Error('Nothing to clear!');
+                Clear(counted);
+                Clear(stringval);
+                // // //         conditions.RESET;
+                // // //         conditions.SETRANGE(conditions."Clearance Level Code","Clearance Level Code");
+                // // //         conditions.SETFILTER(conditions."Condition to Check",'<>%1','');
+                // // //         IF conditions.FIND('-') THEN BEGIN
+                // // //         stringval:='\-----------------------***** ATTENTION *****------------------------';
+                // // //           stringval:=stringval+'\Ensure that the following conditions are met';
+                // // //           REPEAT
+                // // //           BEGIN
+                // // //             stringval:=stringval+'\'+FORMAT(conditions.Sequence)+'). '+conditions."Condition to Check";
+                // // //           END;
+                // // //           UNTIL conditions.NEXT=0;
+                // // //           stringval:=stringval+'\'+'                             CONTINUE?                              ';
+                // // //           stringval:=stringval+'\-----------------------*********************------------------------';
+                // // //         END ELSE stringval:='Ensure that all the conditions required for clearance are met. Continue?';
+                // // //
+                // // // IF CONFIRM(stringval,TRUE)=FALSE THEN ERROR('Cancelled!');
+                // //         ACAClearanceApprovalEntries1
+                // //         enties.RESET;
+                // //         enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
+                // //         enties.SETRANGE(enties."Student ID",StudentNo);
+                // //         enties.SETFILTER(enties."Clear By ID",User_ID);
+                // //         IF enties.FIND('-') THEN BEGIN
+                Cleared := true;
+                "Last Date Modified" := Today;
+                "Last Time Modified" := Time;
+                Status := Status::Cleared;
+                Modify;
+                // END;
+                enties2.Reset;
+                enties2.SetRange(enties2."Clearance Level Code", "Clearance Level Code");
+                enties2.SetRange(enties2."Student ID", "Student ID");
+                enties2.SetRange(enties2.Sequence, Sequence);
+                if enties2.Find('-') then begin
+                    repeat
+                    begin
+                        enties2."Last Date Modified" := Today;
+                        enties2."Last Time Modified" := Time;
+                        enties2.Status := enties.Status::Cleared;
+                        enties2.Modify;
+                    end;
+                    until enties2.Next = 0;
+                end;
+
+                // Approval for the 1st Approval
+                if "Priority Level" = "priority level"::"1st Level" then begin
+                    enties.Reset;
+                    enties.SetRange(enties."Student ID", "Student ID");
+                    enties.SetFilter(enties.Status, '=%1', enties.Status::Created);
+                    enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Normal);
+                    if enties.Find('-') then begin
+                        repeat
+                        begin
+                            enties."Last Date Modified" := Today;
+                            enties."Last Time Modified" := Time;
+                            enties.Status := enties.Status::Open;
+                            enties.Modify;
+                            ///////////////////////////////////////////////////////////////////////////////////
+                            UserSetup.Reset;
+                            UserSetup.SetRange("User ID", enties."Clear By ID");
+                            if UserSetup.Find('-') then begin
+
+                                webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + "Student ID",
+                                'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                                'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
+                            end;
+                            ///////////////////////////////////////////////////////////////////////////////////
+                        end;
+                        until enties.Next = 0;
+                    end;
+                end else if "Priority Level" = "priority level"::Normal then begin
+                    //Search where Final Level and set to open
+                    enties.Reset;
+                    enties.SetRange(enties.Department, Department);
+                    enties.SetRange(enties."Student ID", "Student ID");
+                    enties.SetFilter(enties.Status, '=%1', enties.Status::Open);
+                    enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Normal);
+                    if not enties.Find('-') then begin
+                        // If All other Clearances are done, Open the final Clearance
+                        /////////////////////////////////////////////////////////////
+                        //enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
+                        ACAClearanceApprovalEntries.Reset;
+                        //    ACAClearanceApprovalEntries.SETRANGE(ACAClearanceApprovalEntries.Department,Department);
+                        ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", "Student ID");
+                        ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries.Status, '=%1', ACAClearanceApprovalEntries.Status::Created);
+                        ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries."Priority Level", '=%1',
+                                 ACAClearanceApprovalEntries."priority level"::Finance);
+                        if ACAClearanceApprovalEntries.Find('-') then begin
+                            repeat
+                            begin
+                                ACAClearanceApprovalEntries."Last Date Modified" := Today;
+                                ACAClearanceApprovalEntries."Last Time Modified" := Time;
+                                ACAClearanceApprovalEntries.Status := ACAClearanceApprovalEntries.Status::Open;
+                                ACAClearanceApprovalEntries.Modify;
+                                ///////////////////////////////////////////////////////////////////////////////////
+                                UserSetup.Reset;
+                                UserSetup.SetRange("User ID", ACAClearanceApprovalEntries."Clear By ID");
+                                if UserSetup.Find('-') then begin
+                                    webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + StudentNo,
+                                    'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                                    'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
+                                end;
+                                ///////////////////////////////////////////////////////////////////////////////////
+                            end;
+                            until ACAClearanceApprovalEntries.Next = 0;
+                        end;
+
+                        /////////////////////////////////////////////////////////////
+                    end;
+                end else if "Priority Level" = "priority level"::Finance then begin
+                    //Search where Final Level and set to open
+                    enties.Reset;
+                    enties.SetRange(enties.Department, Department);
+                    enties.SetRange(enties."Student ID", "Student ID");
+                    enties.SetFilter(enties.Status, '=%1', enties.Status::Open);
+                    enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Finance);
+                    if not enties.Find('-') then begin
+                        // If All other Clearances are done, Open the final Clearance
+                        /////////////////////////////////////////////////////////////
+                        //enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
+                        ACAClearanceApprovalEntries.Reset;
+                        //    ACAClearanceApprovalEntries.SETRANGE(ACAClearanceApprovalEntries.Department,Department);
+                        ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", "Student ID");
+                        ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries.Status, '=%1', ACAClearanceApprovalEntries.Status::Created);
+                        ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries."Priority Level", '=%1',
+                                 ACAClearanceApprovalEntries."priority level"::"Final level");
+                        if ACAClearanceApprovalEntries.Find('-') then begin
+                            repeat
+                            begin
+                                ACAClearanceApprovalEntries."Last Date Modified" := Today;
+                                ACAClearanceApprovalEntries."Last Time Modified" := Time;
+                                ACAClearanceApprovalEntries.Status := ACAClearanceApprovalEntries.Status::Open;
+                                ACAClearanceApprovalEntries.Modify;
+                                ///////////////////////////////////////////////////////////////////////////////////
+                                UserSetup.Reset;
+                                UserSetup.SetRange("User ID", ACAClearanceApprovalEntries."Clear By ID");
+                                if UserSetup.Find('-') then begin
+                                    webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + StudentNo,
+                                    'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                                    'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
+                                end;
+                                ///////////////////////////////////////////////////////////////////////////////////
+                            end;
+                            until ACAClearanceApprovalEntries.Next = 0;
+                        end;
+
+                        /////////////////////////////////////////////////////////////
+                    end;
+                end else if "Priority Level" = "priority level"::"Final level" then begin
+                    // Change status of the clearance of the student card
+                    if cust.Get("Student ID") then begin
+                        cust."Clearance Status" := cust."clearance status"::Cleared;
+                        cust.Modify;
+                        ///////////////////////////////////////////////////////////////////////////////////
+                        if cust."E-Mail" <> '' then begin
+                            webportals.SendEmailEasy('Hi ', cust.Name, ' Your application for clearance has been Approved',
+                            'Download your signed clearance form from the portal', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                            'In case of Challenges, Kindly Talk to your department head', UserSetup."E-Mail", 'STUDENT APPROVED CLEARANCE');
+                        end;
+                        ///////////////////////////////////////////////////////////////////////////////////
+                    end;
+                end;
+            end; // end with ACAClearanceApprovalEntries1 do
+
+        end;
+    end;
+
+    procedure CheckStudentPasswordChanged(username: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            if (Customer."Changed Password" = true) then begin
+                Message := TXTCorrectDetails + '::' + Format(Customer."Changed Password");
+            end else begin
+                Message := TXTIncorrectDetails + '::' + Format(Customer."Changed Password");
+            end
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+    procedure CheckStudentLoginForUnchangedPass(username: Text; Passwordz: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'Warning!, login failed! Ensure you login with your Admission Number as both your username as well as password!';
+        TXTCorrectDetails: label 'Login';
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        //Customer.SETRANGE(Customer.Status,Customer.Status::);
+        if Customer.Find('-') then begin
+            if (Customer."No." = Passwordz) then begin
+                Message := TXTCorrectDetails + '::' + Customer."No." + '::' + Customer."E-Mail";
+            end else begin
+                Message := TXTIncorrectDetails + '::';
+            end
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+    procedure GetSettlementType(username: Text) Message: Text
+    begin
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", username);
+        if Customer.Find('-') then begin
+            Message := Format(CourseRegistration."Settlement Type");
+
+        end
+    end;
+
+    procedure GetRoomCostNum(SpaceNo: Text) Message: Text
+    begin
+        HostelLedger.Reset;
+        HostelLedger.SetRange(HostelLedger."Space No", SpaceNo);
+        if HostelLedger.Find('-') then begin
+            Message := HostelLedger."Room No" + '::' + Format(HostelLedger."Room Cost");
+
+        end
+    end;
+
+    procedure GetRoomSpaceCosts(HostelNo: Text) Message: Text
+    begin
+        HostelBlockRooms.Reset;
+        HostelBlockRooms.SetRange(HostelBlockRooms."Hostel Code", HostelNo);
+        if HostelRooms.Find('-') then begin
+            Message := Format(HostelBlockRooms."Room Cost") + '::' + Format(HostelBlockRooms."JAB Fees") + '::' + Format(HostelBlockRooms."SSP Fees");
+
+        end
+    end;
+
+    procedure VerifyOldStudentPassword(username: Text; OldPass: Text) Message: Text
+    var
+        TXTIncorrectDetails: label 'No';
+        TXTCorrectDetails: label 'Yes';
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        Customer.SetRange(Customer.Password, OldPass);
+        if Customer.Find('-') then begin
+            Message := TXTCorrectDetails;
+        end else begin
+            Message := TXTIncorrectDetails + '::';
+        end
+    end;
+
+    procedure ChangeStudentPassword(username: Text; Pass: Text)
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Customer.Password := Pass;
+            Customer."Changed Password" := true;
+            Customer.Modify;
+            Message('Password Updated Successfully');
+        end;
+    end;
+
+    procedure GetAllowedHostelBookingGroup(username: Text) Message: Text
+    begin
+        CourseRegistration.Reset;
+        CourseRegistration.SetRange(CourseRegistration."Student No.", username);
+        CourseRegistration.SetRange(CourseRegistration.Reversed, false);
+        CourseRegistration.SetCurrentkey(Stage);
+        if CourseRegistration.Find('+') then begin
+            Message := CourseRegistration.Stage + '::' + CourseRegistration.Semester;
+        end;
+    end;
+
+    procedure GetHostelGenSetups() Message: Text
+    begin
+        GenSetup.Reset;
+        if GenSetup.Find('-') then begin
+            Message := GenSetup."Default Year" + '::' + GenSetup."Default Semester";
+
+        end;
+    end;
+
+    procedure IsHostelBlacklisted(username: Text) Message: Text
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Message := Format(Customer."Hostel Black Listed");
+
+        end
+    end;
+
+    procedure GetAccomodationFee(username: Text; Sem: Text) Message: Text
+    begin
+        StudCharges.Reset;
+        StudCharges.SetRange(StudCharges."Student No.", username);
+        StudCharges.SetRange(StudCharges.Semester, Sem);
+        StudCharges.SetRange(StudCharges.accommodation, true);
+        if StudCharges.Find('-') then begin
+            Message := Format(StudCharges.Amount);
+        end;
+    end;
+
+    procedure SubmitForClearance(username: Text; Programmm: Text) Message: Text
+    var
+        Rec: Record Customer;
+        ACACourseRegistration: Record "ACA-Course Registration";
+        deptemp: Record "ACA-Clearance templates";
+        progs: Record "ACA-Programme";
+        sems: Record "ACA-Semesters";
+        AcadYear: Record "ACA-Academic Year";
+        ClearLevela: Record "ACA-Clearance Level Codes";
+        ClearEntries: Record "ACA-Clearance Approval Entries";
+        UserSetup: Record "User Setup";
+        ClearStandardApp: Record "ACA-Clearance Std Approvers";
+        webportals: Codeunit webportals;
+        ClearTemplates: Record "ACA-Clearance templates";
+        ClearDepTemplates: Record "ACA-Clearance Dept. Approvers";
+    begin
+        /*IF Customer.GET(username) THEN BEGIN
+           Customer.CALCFIELDS(Balance);
+           IF Customer.Balance>0 THEN BEGIN
+              Message:='Clearance application not successful! Your Balance is greater than zero!';
+             END;
+           END;
+           IF NOT (Customer.Balance>0) THEN BEGIN
+            NextJobapplicationNo:=NoSeriesMgt.GetNextNo('CLRE',0D,TRUE);
+            ClearanceHeader.RESET;
+             ClearanceHeader.SETRANGE(ClearanceHeader."Student No.",username);
+             IF NOT ClearanceHeader.FIND('-') THEN BEGIN
+            ClearanceHeader.INIT;
+            ClearanceHeader."No.":=NextJobapplicationNo;
+            ClearanceHeader.Date:=TODAY;
+            ClearanceHeader."Student No.":=username;
+            ClearanceHeader.Programme:=Programmm;
+            ClearanceHeader.Status:=ClearanceHeader.Status::New;
+            ClearanceHeader."No. Series":='CLRE';
+            ClearanceHeader.INSERT;
+        
+        Customer.RESET;
+        Customer.SETRANGE(Customer."No.",username);
+        IF Customer.FIND('-') THEN BEGIN
+          Customer."Applied for Clearance":=TRUE;
+          Customer."Clearance Initiated by":=username;
+          Customer."Clearance Status":= Customer."Clearance Status"::Active;
+          Customer."Clearance Initiated Date":=TODAY;
+          Customer."Clearance Initiated Time":=TIME;
+          Customer."Clearance Reason":=Customer."Clearance Reason"::Graduation;
+          Customer.MODIFY;
+        END;
+         Message:='Clearance request successfully initiated';
+         END ELSE BEGIN
+         Message:='You already initiated your clearance process.';
+         END;
+         END;
+         */
+        Rec.Reset;
+        Rec.SetRange("No.", username);
+        if Rec.Find('-') then begin
+            with Rec do begin
+                Clear(ACACourseRegistration);
+                ACACourseRegistration.Reset;
+                ACACourseRegistration.SetRange("Student No.", Rec."No.");
+                ACACourseRegistration.SetFilter(Programmes, '<>%1', '');
+                ACACourseRegistration.SetFilter(Reversed, '=%1', false);
+                if ACACourseRegistration.Find('+') then begin
+                end;
+                progs.Reset;
+                progs.SetRange(Code, ACACourseRegistration.Programmes);
+                if progs.Find('-') then;
+                "Global Dimension 2 Code" := progs."Department Code";
+                sems.Reset;
+                sems.SetRange(sems."Current Semester", true);
+                if sems.Find('-') then
+                    if not (sems.Code = '') then;
+                "Clearance Semester" := ACACourseRegistration.Semester;
+                "Programme End Date" := ACACourseRegistration."Registration Date";
+                AcadYear.Reset;
+                AcadYear.SetRange(AcadYear.Current, true);
+                if AcadYear.Find('-') then
+                    if not (AcadYear.Code = '') then;
+                "Clearance Academic Year" := ACACourseRegistration."Academic Year";
+                "Clearance Reason" := "clearance reason"::Graduation;
+                Modify;
+
+                CalcFields("Balance (LCY)");
+                // CALCFIELDS("Refund on PV");
+                if ("Balance (LCY)" > 0) then Error('The student''s balance must be zero (0).\The Balance is ' + Format("Balance (LCY)"));
+                //  IF NOT (CONFIRM('Initiate student clearance for '+"No."+': '+Name,FALSE)=TRUE) THEN ERROR('Cancelled!');
+                //TESTFIELD("Clearance Reason");
+                TestField("Global Dimension 2 Code");
+                //TESTFIELD("Clearance Semester");
+                //TESTFIELD("Clearance Academic Year");
+                TestField("Current Programme");
+                TestField("Programme End Date");
+                //TESTFIELD("Intake Code");
+                deptemp.Reset;
+                deptemp.SetRange(deptemp."Clearance Level Code", 'HOD');
+                deptemp.SetRange(deptemp.Department, "Global Dimension 2 Code");
+                if not (deptemp.Find('-')) then Error('Departmental approver for ''' + "Global Dimension 2 Code" + ''' missing');
+                ClearLevela.Reset;
+                ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
+                ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::"1st Level");
+                if not (ClearLevela.Find('-')) then Error('1st Approval Level is missing!');
+
+                ClearLevela.Reset;
+                ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
+                ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::Finance);
+                if not (ClearLevela.Find('-')) then Error('Finance Approval Level is missing!');
+
+
+                ClearLevela.Reset;
+                ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
+                ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::"Final level");
+                if not (ClearLevela.Find('-')) then Error('Final Approval Level is missing!');
+
+
+
+                ClearLevela.Reset;
+                ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
+                if ClearLevela.Find('-') then begin //5
+                    repeat
+                    begin  //4
+                        if (ClearLevela.Standard) then begin  //3
+                                                              // Pick from the standard Approvals and insert into the Entries table
+                            ClearStandardApp.Reset;
+                            ClearStandardApp.SetRange(ClearStandardApp."Clearance Level Code", ClearLevela."Clearance Level Code");
+                            ClearStandardApp.SetFilter(ClearStandardApp.Active, '=%1', true);
+                            if ClearStandardApp.Find('-') then begin //2
+                                repeat  // Rep1
+                                begin //1
+                                    ClearEntries.Init;
+                                    ClearEntries."Clearance Level Code" := ClearStandardApp."Clearance Level Code";
+                                    ClearEntries.Department := "Global Dimension 2 Code";
+                                    ClearEntries."Student ID" := "No.";
+                                    ClearEntries."Clear By ID" := ClearStandardApp."Clear By Id";
+                                    ClearEntries."Initiated By" := UserId;
+                                    ClearEntries."Initiated Date" := Today;
+                                    ClearEntries."Initiated Time" := Time;
+                                    ClearEntries."Last Date Modified" := Today;
+                                    ClearEntries."Last Time Modified" := Time;
+                                    ClearEntries.Cleared := false;
+                                    ClearEntries."Priority Level" := ClearLevela."Priority Level";
+                                    ClearEntries."Academic Year" := ACACourseRegistration."Academic Year";
+                                    ClearEntries.Semester := ACACourseRegistration.Semester;
+                                    if ClearLevela."Priority Level" = ClearLevela."priority level"::"1st Level" then begin
+                                        ClearEntries.Status := ClearEntries.Status::Open;
+                                        ClearEntries.Insert;
+                                        UserSetup.Reset;
+                                        UserSetup.SetRange("User ID", ClearStandardApp."Clear By Id");
+                                        if UserSetup.Find('-') then begin
+
+                                            webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + Rec."No.",
+                                            'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                                            'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
+                                        end;
+                                    end else begin
+                                        ClearEntries.Status := ClearEntries.Status::Created;
+                                        ClearEntries.Insert;
+                                    end;
+
+                                end; //1
+                                until ClearStandardApp.Next = 0; //  Rep1
+                            end else
+                                Error('Setup for Clearance Templates not found;');  // 2
+                        end else begin    //3
+                                          // Check templates for the related Clearance Approvals
+                            ClearTemplates.Reset;
+                            ClearTemplates.SetRange(ClearTemplates."Clearance Level Code", ClearLevela."Clearance Level Code");
+                            ClearTemplates.SetRange(ClearTemplates.Department, "Global Dimension 2 Code");
+                            ClearTemplates.SetFilter(ClearTemplates.Active, '=%1', true);
+                            if ClearTemplates.Find('-') then begin  //6
+                                ClearDepTemplates.Reset;
+                                ClearDepTemplates.SetRange(ClearDepTemplates."Clearance Level Code", ClearLevela."Clearance Level Code");
+                                ClearDepTemplates.SetRange(ClearDepTemplates.Department, "Global Dimension 2 Code");
+                                ClearDepTemplates.SetFilter(ClearDepTemplates.Active, '=%1', true);
+                                if ClearDepTemplates.Find('-') then begin//7
+                                    repeat
+                                    begin
+                                        ClearEntries.Init;
+                                        ClearEntries."Clearance Level Code" := ClearDepTemplates."Clearance Level Code";
+                                        ClearEntries.Department := "Global Dimension 2 Code";
+                                        ClearEntries."Student ID" := "No.";
+                                        ClearEntries."Clear By ID" := ClearDepTemplates."Clear By Id";
+                                        ClearEntries."Initiated By" := UserId;
+                                        ClearEntries."Initiated Date" := Today;
+                                        ClearEntries."Initiated Time" := Time;
+                                        ClearEntries."Last Date Modified" := Today;
+                                        ClearEntries."Last Time Modified" := Time;
+                                        ClearEntries.Cleared := false;
+                                        ClearEntries."Priority Level" := ClearLevela."Priority Level";
+                                        ClearEntries."Academic Year" := ACACourseRegistration."Academic Year";
+                                        ClearEntries.Semester := ACACourseRegistration.Semester;
+                                        if ClearLevela."Priority Level" = ClearLevela."priority level"::"1st Level" then begin
+                                            ClearEntries.Status := ClearEntries.Status::Open;
+                                            ClearEntries.Insert;
+                                            UserSetup.Reset;
+                                            UserSetup.SetRange("User ID", ClearStandardApp."Clear By Id");
+                                            if UserSetup.Find('-') then begin
+                                                webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + Rec."No.",
+                                                'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                                                'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
+                                            end;
+                                        end else begin
+                                            ClearEntries.Status := ClearEntries.Status::Created;
+                                            ClearEntries.Insert;
+                                        end;
+                                    end;
+                                    until ClearDepTemplates.Next = 0;
+                                end;//7
+                            end //6
+                        end;   //3
+                    end;  //4
+                    until ClearLevela.Next = 0;
+                end else
+                    Error('No Clearance levels specified.');  //5
+                Message := 'Clearance Initiated successfully.';
+                "Clearance Status" := "clearance status"::Active;
+                Modify;
+            end;
+        end;
+
+    end;
+
+
+    procedure BookHostel(studentNo: Text; MyHostelNo: Text; MySemester: Text; AccademicYear: Text; myRoomNo: Text; MyAccomFee: Decimal; mySpaceNo: Text)
+    begin
+        HostelRooms.Reset;
+        HostelRooms.Init;
+        HostelRooms.Student := studentNo;
+        HostelRooms."Space No" := mySpaceNo;
+        HostelRooms."Room No" := myRoomNo;
+        HostelRooms."Hostel No" := MyHostelNo;
+        HostelRooms."Accomodation Fee" := MyAccomFee;
+        HostelRooms."Allocation Date" := Today;
+        HostelRooms.Semester := MySemester;
+        HostelRooms."Academic Year" := AccademicYear;
+        HostelRooms.Insert;
+
+        RoomSpaces.Reset;
+        RoomSpaces.SetRange(RoomSpaces."Space Code", mySpaceNo);
+        if RoomSpaces.Find('-') then begin
+            RoomSpaces.Booked := true;
+            RoomSpaces.Validate(RoomSpaces."Space Code");
+            RoomSpaces.Modify;
+            Message('Room space Updated Successfully');
+        end;
+    end;
+
+
+    procedure GetHasBooked(username: Text; sem: Text) Message: Text
+    begin
+        HostelRooms.Reset;
+        HostelRooms.SetRange(HostelRooms.Student, username);
+        HostelRooms.SetRange(HostelRooms.Semester, sem);
+        if HostelRooms.Find('-') then begin
+            Message := HostelRooms.Student + '::' + HostelRooms."Space No" + '::' + HostelRooms."Room No" + '::' +
+  HostelRooms."Hostel No" + '::' + Format(HostelRooms."Accomodation Fee") + '::' + HostelRooms.Semester + '::' + Format(HostelRooms."Allocation Date");
+
+        end;
+    end;
+
+
+    procedure GetHostelDesc(HostelNo: Text) Message: Text
+    begin
+        HostelCard.Reset;
+        HostelCard.SetRange(HostelCard."Asset No", HostelNo);
+        if HostelCard.Find('-') then begin
+            Message := HostelCard.Description;
+
+        end;
+    end;
+
+    procedure UpdateStudentProfile(username: Text; genderz: Integer; DoB: Date; Countyz: Text; Tribes: Text; Disabled: Integer)
+    begin
+        StudentCard.Reset;
+        StudentCard.SetRange(StudentCard."No.", username);
+        if StudentCard.Find('-') then begin
+            StudentCard.Gender := genderz;
+            StudentCard."Date Of Birth" := DoB;
+            StudentCard.County := Countyz;
+            StudentCard.Tribe := Tribes;
+            //StudentCard."Disability Status":=Disabled;
+            StudentCard.Modify;
+            Message('Updated Successfully');
+        end;
+    end;
+
+    procedure StudentProfileUpdated(username: Text) Message: Text
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Message := Format(Customer."Updated Profile");
+        end
+    end;
+
+    procedure GetUniversityMailPass(username: Text) Message: Text
+    begin
+        StudentCard.Reset;
+        StudentCard.SetRange(StudentCard."No.", username);
+        if StudentCard.Find('-') then begin
+            // Message:=StudentCard."University Email"+'::'+StudentCard."Email Password"+'::'+StudentCard."Phone No.";
+
+        end
+    end;
+
+    procedure GetStudentPersonaldata(username: Text) Message: Text
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Message := Customer.Name + '::' + Format(Customer.Gender) + '::' + Customer."ID No" + '::' + Format(Customer."Date Of Birth") + '::' +
+             Customer."Phone No." + '::' + Format(Customer."Disability Status") + '::' + Format(Customer.Tribe) + '::' + Format(Customer.Nationality)
+             + '::' + Format(Customer.County) + '::' +
+             Customer.Address + '::' + Customer."Post Code" + '::' + Customer."Address 2" + '::' + Customer."Disability Description" + '::' +
+             Customer."E-Mail";
+        end
+    end;
+
+    procedure UpdateContStudentProfile(username: Text; Genderz: Integer; Phonez: Code[20]; Boxz: Code[50]; Codesz: Code[20]; Townz: Code[40]; Emailz: Text; Countyz: Code[50]; DateofBirth: Date; IDNumber: Text; PhysicalImpairments: Integer; PhysicalImpairmentsDetails: Text; Ethnic: Code[50]; Nationalityz: Code[50])
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Customer.Gender := Genderz;
+            Customer."ID No" := IDNumber;
+            Customer."Date Of Birth" := DateofBirth;
+            Customer."Phone No." := Phonez;
+            // Customer."Disability Status":=FORMATPhysicalImpairments;
+            Customer.Tribe := Ethnic;
+            Customer.Nationality := Nationalityz;
+            Customer.County := Countyz;
+            Customer.Address := Boxz;
+            Customer."Post Code" := Codesz;
+            Customer."Address 2" := Townz;
+            Customer."Disability Description" := PhysicalImpairmentsDetails;
+            Customer."E-Mail" := Emailz;
+            Customer."Updated Profile" := true;
+            Customer.Modify;
+            //MESSAGE('Meal Item Updated Successfully');
+        end;
+    end;
+
+
+    procedure IsLecturer(LectNo: Text) Message: Text
+    begin
+        HrEmployeeC.Reset;
+        HrEmployeeC.SetRange(HrEmployeeC."No.", LectNo);
+        HrEmployeeC.SetRange(HrEmployeeC.Lecturer, true);
+        if HrEmployeeC.Find('-') then begin
+            Message := 'Yes' + '::';
+        end;
+    end;
+
+
+    procedure GetProgrammeCurrentSemData(ProgId: Code[30]) Message: Text
+    begin
+        ProgrammeSemesters.Reset;
+        ProgrammeSemesters.SetRange(ProgrammeSemesters.Current, true);
+        if ProgrammeSemesters.Find('-') then begin
+            Message := ProgrammeSemesters.Semester + '::' + ProgrammeSemesters.Semester + '::' + Format(CurrentSem."Registration Deadline");
+        end;
+    end;
+
+
+    procedure CaptureMarksValidation(Programz: Code[20]; Semesterz: Code[20]; Unitz: Code[20]; UserNamez: Code[50]; LecturerNamez: Text[250]) MarksCaptureReturn: Text[250]
+    var
+        AcaProgram: Record "ACA-Programme";
+        HRMEmployeeC: Record "HRM-Employee C";
+        ACASemesters: Record "ACA-Semesters";
+        LectLoadBatchLines: Record "Lect Load Batch Lines";
+        ACALecturersUnits: Record "ACA-Lecturers Units";
+        HRMEmployeeC2: Record "HRM-Employee C";
+        ACAUnitsSubjects: Record "ACA-Units/Subjects";
+        ACAProgSemesterSchedule: Record "ACA-Prog. Semester Schedule";
+        ACAProgStageSemSchedule: Record "ACA-Prog/Stage Sem. Schedule";
+        ACAProgStageUnitSemSche: Record "ACA-Prog/Stage/Unit Sem. Sche.";
+        ACALectureMarksPermissions: Record "ACA-Lecture Marks Permissions";
+        EdittingLocked: Boolean;
+    begin
+        Clear(MarksCaptureReturn);
+        if AcaProgram.Get(Programz) then;
+
+        ACASemesters.Reset;
+        ACASemesters.SetRange(ACASemesters.Code, Semesterz);
+        if ACASemesters.Find('-') then;
+        //Check from Prog, Stage, Unit and Lecturer Units if Capture of Marks is allowed
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ACAProgSemesterSchedule.Reset;
+        ACAProgSemesterSchedule.SetRange(Code, Semesterz);
+        ACAProgSemesterSchedule.SetRange("Programme Code", AcaProgram.Code);
+        if ACAProgSemesterSchedule.Find('-') then;
+        ACAProgStageSemSchedule.Reset;
+        ACAProgStageSemSchedule.SetRange(Code, Semesterz);
+        ACAProgStageSemSchedule.SetRange("Programme Code", AcaProgram.Code);
+        ACAProgStageSemSchedule.SetRange(Code, ACAUnitsSubjects."Stage Code");
+        if ACAProgStageSemSchedule.Find('-') then;
+        ACAProgStageUnitSemSche.Reset;
+        ACAProgStageUnitSemSche.SetRange(Code, Semesterz);
+        ACAProgStageUnitSemSche.SetRange("Programme Code", AcaProgram.Code);
+        ACAProgStageUnitSemSche.SetRange("Unit Code", ACAUnitsSubjects.Code);
+        if ACAProgStageUnitSemSche.Find('-') then;
+        ACALectureMarksPermissions.Reset;
+        ACALectureMarksPermissions.SetRange(Code, Semesterz);
+        ACALectureMarksPermissions.SetRange("Programme Code", AcaProgram.Code);
+        ACALectureMarksPermissions.SetRange("Unit Code", ACAUnitsSubjects.Code);
+        ACALectureMarksPermissions.SetRange("Lecturer Code", UserNamez);
+        if ACALectureMarksPermissions.Find('-') then;
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        // Check if Marks exceeds Maximum Defined
+        //  (ACALectureMarksPermissions."Lock Exam Editting") AND
+        Clear(EdittingLocked);
+        if ((ACAProgSemesterSchedule."Lock Exam Editing")
+          and (ACAProgStageUnitSemSche."Lock Exam Editting") and
+          (ACAProgStageSemSchedule."Lock Exam Editting") and
+            (ACASemesters."Lock Exam Editting"))
+           //       AND
+           //       (ACAProgStageUnitSemSche."Mark entry Dealine"<TODAY)
+           //      AND (ACAProgStageSemSchedule."Mark entry Dealine"<TODAY) AND
+           //       (ACAProgSemesterSchedule."Mark entry Dealine"<TODAY)
+           then
+            EdittingLocked := true;
+
+        ACASemesters.Reset;
+        ACASemesters.SetRange(ACASemesters.Code, Semesterz);
+        //    ACASemesters.SETRANGE(ACASemesters."Programme Code",Programz);
+        if ACASemesters.Find('-') then begin
+            HRMEmployeeC.Reset;
+            HRMEmployeeC.SetRange("No.", UserNamez);
+            if HRMEmployeeC.Find('-') then begin
+                if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
+
+                if ((ACASemesters."Lock CAT Editting") and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
+                    MarksCaptureReturn := 'CAT Marks editing locked';
+                if ((ACASemesters."Lock CAT Editting") and ((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
+                    MarksCaptureReturn := 'CAT Marks editing locked';
+                // -------------------------------------------------------------- Exams
+
+                if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
+                    MarksCaptureReturn := 'EXAM Marks editing locked';
+                if ((EdittingLocked = false) and (HRMEmployeeC.Lecturer = false)) then MarksCaptureReturn := 'Not Lecturer: Access denied!';
+                if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
+                    MarksCaptureReturn := 'EXAM Marks editing locked';
+                if ((HRMEmployeeC."Is HOD" = true) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
+                    MarksCaptureReturn := 'HOD editing not allowed';
+                ACAUnitsSubjects.Reset;
+                ACAUnitsSubjects.SetRange(Code, Unitz);
+                ACAUnitsSubjects.SetRange("Programme Code", Programz);
+                if ACAUnitsSubjects.Find('-') then
+                    if ACAUnitsSubjects."Common Unit" = false then;
+                //            IF (((HRMEmployeeC."Is HOD"=TRUE) OR (HRMEmployeeC."Has HOD Rights"=TRUE)) AND (ACASemesters."Evaluate Lecture"=TRUE) AND  (AcaProgram."Department Code"<>HRMEmployeeC."Department Code") ) THEN
+                //            MarksCaptureReturn:=AcaProgram."Department Code"+' is not your department!';
+            end else
+                MarksCaptureReturn := 'Invalid Staff No. ' + Semesterz;
+        end else
+            MarksCaptureReturn := 'Invalid Semester ' + Semesterz;
+
+        if MarksCaptureReturn = '' then MarksCaptureReturn := 'SUCCESS';
+    end;
+
+
+    procedure IsProgOptionsAllowed(Prog: Code[20]; Stage: Code[20]) Message: Text
+    begin
+        ProgStages.Reset;
+        ProgStages.SetRange(ProgStages.Code, Stage);
+        ProgStages.SetRange(ProgStages."Programme Code", Prog);
+        ProgStages.SetRange(ProgStages."Allow Programme Options", true);
+        if ProgStages.Find('-') then begin
+            Message := 'Yes' + '::';
+        end else begin
+            Message := 'No' + '::';
+        end;
+    end;
+
+
+    procedure DeleteRegisteredUnit(Unit: Code[20]; Sem: Code[20]; StudNo: Code[20]) rtnMsg: Text
+    var
+        studetUnits: Record "ACA-Student Units";
+    begin
+        studetUnits.Reset;
+        studetUnits.SetRange(studetUnits."Student No.", StudNo);
+        studetUnits.SetRange(studetUnits.Semester, Sem);
+        studetUnits.SetRange(studetUnits.Unit, Unit);
+        if studetUnits.Find('-') then begin
+            studetUnits.CalcFields("CATs Marks Exists", "EXAMs Marks Exists");
+            if ((studetUnits."CATs Marks Exists") or (studetUnits."EXAMs Marks Exists")) then
+                rtnMsg := 'Marks Exist you cannot Delete!';
+            if (rtnMsg = '') then begin
+                studetUnits.Delete;
+                rtnMsg := 'SUCCESS: You have deleted ' + Unit;
+            end;
+        end;
+    end;
+
+
+    procedure RegisterSupp(StudentNo: Code[20]; UnitCode: Code[20]; AcademicYear: Code[20]; Semesterz: Code[20]) RetunMsg: Text[250]
+    var
+        AcaSpecialExamsDetailss: Record "Aca-Special Exams Details";
+        ACAStudentUnits: Record "ACA-Student Units";
+        ACAProgramme: Record "ACA-Programme";
+        Sequences: Integer;
+    begin
+        ACAStudentUnits.Reset;
+        ACAStudentUnits.SetRange("Student No.", StudentNo);
+        ACAStudentUnits.SetRange(Unit, UnitCode);
+        if ACAStudentUnits.Find('-') then;
+        ACAProgramme.Reset;
+        ACAProgramme.SetRange(Code, ACAStudentUnits.Programme);
+        if ACAProgramme.Find('-') then;
+        AcaSpecialExamsDetailss.Init;
+        AcaSpecialExamsDetailss."Academic Year" := ACAStudentUnits."Academic Year";
+        AcaSpecialExamsDetailss.Semester := ACAStudentUnits.Semester;
+        AcaSpecialExamsDetailss."Student No." := StudentNo;
+        AcaSpecialExamsDetailss.Programme := ACAStudentUnits.Programme;
+        AcaSpecialExamsDetailss.Stage := ACAStudentUnits.Stage;
+        AcaSpecialExamsDetailss.Validate("Unit Code", UnitCode);
+        AcaSpecialExamsDetailss."Current Academic Year" := AcademicYear;
+        AcaSpecialExamsDetailss."Current Academic Year" := ACAStudentUnits."Academic Year";
+        AcaSpecialExamsDetailss.Category := AcaSpecialExamsDetailss.Category::Supplementary;
+        if AcaSpecialExamsDetailss.Insert then RetunMsg := 'SUCCESS' else RetunMsg := 'FAILED';
+
+        AcaSpecialExamsDetailss.Reset;
+        AcaSpecialExamsDetailss.SetRange("Student No.", StudentNo);
+        AcaSpecialExamsDetailss.SetRange("Unit Code", UnitCode);
+        AcaSpecialExamsDetailss.SetRange("Academic Year", AcademicYear);
+        AcaSpecialExamsDetailss.SetRange(Semester, Semesterz);
+        AcaSpecialExamsDetailss.SetRange(Sequence, Sequences);
+        if AcaSpecialExamsDetailss.Find('-') then begin
+            // Get Special Exam Charges And Post. Then tag the record as Billed
+        end;
+    end;
+
+
+    procedure DeleteRegisteredSupp(Unit: Code[20]; Sem: Code[20]; StudNo: Code[20]) rtnMsg: Text
+    var
+        AcaSpecialExamsDetailss: Record "Aca-Special Exams Details";
+        ACAStudentUnits: Record "ACA-Student Units";
+        ACAProgramme: Record "ACA-Programme";
+    begin
+        AcaSpecialExamsDetailss.Reset;
+        AcaSpecialExamsDetailss.SetRange(AcaSpecialExamsDetailss."Student No.", StudNo);
+        AcaSpecialExamsDetailss.SetRange(AcaSpecialExamsDetailss.Semester, Sem);
+        AcaSpecialExamsDetailss.SetRange(AcaSpecialExamsDetailss."Unit Code", Unit);
+        if AcaSpecialExamsDetailss.Find('-') then begin
+            if ((AcaSpecialExamsDetailss."Exam Marks" <> 0)) then
+                rtnMsg := 'Marks Exist you cannot Delete!';
+            if (rtnMsg = '') then begin
+                AcaSpecialExamsDetailss.Delete;
+                rtnMsg := 'SUCCESS: You have deleted ' + Unit;
+            end;
+        end;
+    end;
+
+
+    procedure IsHoD(LectNo: Text) Message: Text
+    begin
+        Clear(Message);
+        HrEmployeeC.Reset;
+        HrEmployeeC.SetRange(HrEmployeeC."No.", LectNo);
+        HrEmployeeC.SetRange(HrEmployeeC."Is HOD", true);
+        if HrEmployeeC.Find('-') then begin
+            Message := 'Yes' + '::';
+        end;
+        if Message = '' then begin
+            HrEmployeeC.Reset;
+            HrEmployeeC.SetRange(HrEmployeeC."No.", LectNo);
+            HrEmployeeC.SetRange(HrEmployeeC."Has HOD Rights", true);
+            if HrEmployeeC.Find('-') then begin
+                Message := 'Yes' + '::';
+            end;
+        end;
+    end;
+
+
+    procedure GetCurrentProgramSemester(ProgCode: Code[20]; Stagesz: Code[20]) CurrentSemester: Code[20]
+    var
+        ACAProgramme: Record "ACA-Programme";
+        ACAProgrammeStageSemesters: Record "ACA-Programme Stage Semesters";
+        ACAProgrammeSemesters: Record "ACA-Programme Semesters";
+        semesterz: Record "ACA-Semesters";
+    begin
+        Clear(CurrentSemester);
+        ACAProgramme.Reset;
+        ACAProgramme.SetRange(Code, ProgCode);
+        if ACAProgramme.Find('-') then
+            if ACAProgramme."Use Program Semesters" then begin
+                ACAProgrammeStageSemesters.Reset;
+                ACAProgrammeStageSemesters.SetRange("Programme Code", ProgCode);
+                ACAProgrammeStageSemesters.SetRange(Stage, Stagesz);
+                ACAProgrammeStageSemesters.SetRange(Current, true);
+                if ACAProgrammeStageSemesters.Find('-') then begin
+                    CurrentSemester := ACAProgrammeStageSemesters.Semester;
+                end;
+
+                if CurrentSemester = '' then begin
+                    //Pick from general Semester
+                    ACAProgrammeSemesters.Reset;
+                    ACAProgrammeSemesters.SetRange(Current, true);
+                    ACAProgrammeSemesters.SetRange("Programme Code", ProgCode);
+                    if ACAProgrammeSemesters.Find('-') then begin
+                        CurrentSemester := ACAProgrammeSemesters.Semester;
+
+                    end;
+                end;
+            end;
+        if CurrentSemester = '' then begin
+            semesterz.Reset;
+            semesterz.SetRange("Current Semester", true);
+            if semesterz.Find('-') then begin
+                CurrentSemester := semesterz.Code;
+            end;
+        end;
+    end;
+
+
+    procedure ApproveAction(DocumentNo: Code[20]; ApproverID: Code[20]; SequenceNo: Integer; Table_Id: Integer; DocumentType: Integer; ApprovalActions: Text[150]; RejectReason: Text[250])
+    var
+        ApprovalCommentLine: Record "Approval Comment Line";
+        ApprovalCommentLine2: Record "Approval Comment Line";
+    begin
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", DocumentNo);
+        ApprovalEntry.SetRange(ApprovalEntry."Approver ID", ApproverID);
+        ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", SequenceNo);
+        ApprovalEntry.SetRange(ApprovalEntry."Table ID", Table_Id);
+        ApprovalEntry.SetRange(ApprovalEntry."Document Type", DocumentType);
+        if ApprovalEntry.Find('-') then begin
+            repeat
+                // if not ApprovalSetup.Get then
+                //     Error(Text004);
+                // if ApprovalActions = 'APPROVE' then
+                //     AppMgt.ApproveApprovalRequest(ApprovalEntry)
+                // else if ApprovalActions = 'REJECT' then begin
+                //     AppMgt.RejectApprovalRequest(ApprovalEntry);
+                //     if RejectReason <> '' then begin
+                //         ApprovalCommentLine2.Reset;
+                //         if ApprovalCommentLine2.Find('+') then;
+                //         ApprovalCommentLine.Init;
+                //         ApprovalCommentLine."Entry No." := ApprovalCommentLine2."Entry No." + 1;
+                //         ApprovalCommentLine."Document No." := DocumentNo;
+                //         ApprovalCommentLine."Document Type" := DocumentType;
+                //         ApprovalCommentLine."Table ID" := Table_Id;
+                //         ApprovalCommentLine."User ID" := ApproverID;
+                //         ApprovalCommentLine."Date and Time" := CreateDatetime(Today, Time);
+                //         ApprovalCommentLine.Comment := RejectReason;
+                //         if ApprovalCommentLine.Insert then;
+                //     end;
+                // end else if ApprovalActions = 'CANCEL' then begin
+                //     AppMgt.CancelApproval(ApprovalEntry."Table ID", ApprovalEntry."Document Type", ApprovalEntry."Document No.", false, false);
+                //     if RejectReason <> '' then begin
+                //         ApprovalCommentLine2.Reset;
+                //         if ApprovalCommentLine2.Find('+') then;
+                //         ApprovalCommentLine.Init;
+                //         ApprovalCommentLine."Entry No." := ApprovalCommentLine2."Entry No." + 1;
+                //         ApprovalCommentLine."Document No." := DocumentNo;
+                //         ApprovalCommentLine."Document Type" := DocumentType;
+                //         ApprovalCommentLine."Table ID" := Table_Id;
+                //         ApprovalCommentLine."User ID" := ApproverID;
+                //         ApprovalCommentLine."Date and Time" := CreateDatetime(Today, Time);
+                //         ApprovalCommentLine.Comment := RejectReason;
+                //         if ApprovalCommentLine.Insert then;
+                //     end;
+                // end else if ApprovalActions = 'DELEGATE' then
+                //         AppMgt.DelegateApprovalRequest(ApprovalEntry);
+
+            until ApprovalEntry.Next = 0;
+        end;
+    end;
+
+
+    procedure ConfirmSupplementary(StudentNo: Code[20]; UnitCode: Code[20]; AcademicYear: Code[20]; Semenster: Code[20]; SuppCategory: Integer) RetunMsg: Text[50]
+    var
+        Aca2ndSuppExamsDetails: Record "Aca-2nd Supp. Exams Details";
+        AcaSpecialExamsDetailss: Record "Aca-Special Exams Details";
+        ACAStudentUnits: Record "ACA-Student Units";
+        ACAProgramme: Record "ACA-Programme";
+        ACACourseRegistration: Record "ACA-Course Registration";
+        GenJnl: Record "Gen. Journal Line";
+        GenJournalTemplate: Record "Gen. Journal Template";
+        GenJournalBatch: Record "Gen. Journal Batch";
+        ACAGeneralSetUp: Record "ACA-General Set-Up";
+        ACACharge: Record "ACA-Charge";
+        cust: Record Customer;
+        BatchNos: Code[20];
+    begin
+        //Create and delete Journal Template & Batch
+        Clear(ACAGeneralSetUp);
+        Clear(ACACharge);
+        Clear(BatchNos);
+        Clear(cust);
+        if StrLen(StudentNo) > 10 then
+            BatchNos := CopyStr(StudentNo, 1, 10)
+        else
+            BatchNos := StudentNo;
+        cust.Reset;
+        cust.SetRange("No.", StudentNo);
+        if cust.Find('-') then;
+        if ACAGeneralSetUp.Get then;
+        ACAGeneralSetUp.TestField("Supplementary Fee");
+        ACAGeneralSetUp.TestField("Supplementary Fee Code");
+        ACACharge.Reset;
+        ACACharge.SetRange(Code, ACAGeneralSetUp."Supplementary Fee Code");
+        if ACACharge.Find('-') then begin
+            ACACharge.TestField(Amount);
+            ACACharge.TestField("G/L Account");
+        end else
+            Error('Invalid Charge!');
+        Clear(GenJournalTemplate);
+        Clear(GenJournalBatch);
+        if not (GenJournalTemplate.Get('SUPP')) then begin
+            GenJournalTemplate.Init;
+            GenJournalTemplate.Name := 'SUPP';
+            GenJournalTemplate.Insert(true);
+        end;
+        GenJournalBatch.Reset;
+        GenJournalBatch.SetRange("Journal Template Name", 'SUPP');
+        GenJournalBatch.SetRange(Name, BatchNos);
+        if not (GenJournalBatch.Find('-')) then begin
+            GenJournalBatch.Init;
+            GenJournalBatch."Journal Template Name" := 'SUPP';
+            GenJournalBatch.Name := BatchNos;
+            GenJournalBatch.Insert(true);
+        end;
+
+        Clear(RetunMsg);
+        RetunMsg := 'FAILED';
+        ACAStudentUnits.Reset;
+        ACAStudentUnits.SetRange("Student No.", StudentNo);
+        ACAStudentUnits.SetRange(Unit, UnitCode);
+        ACAStudentUnits.SetRange("Reg Reversed", false);
+        if ACAStudentUnits.Find('-') then;
+        ACAProgramme.Reset;
+        ACAProgramme.SetRange(Code, ACAStudentUnits.Programme);
+        if ACAProgramme.Find('-') then;
+        if SuppCategory = 1 then begin
+            AcaSpecialExamsDetailss.Reset;
+            AcaSpecialExamsDetailss.SetRange("Student No.", StudentNo);
+            AcaSpecialExamsDetailss.SetRange("Unit Code", UnitCode);
+            AcaSpecialExamsDetailss.SetRange("Academic Year", AcademicYear);
+            if AcaSpecialExamsDetailss.Find('-') then begin
+                // Get Special Exam Charges And Post. Then tag the record as Billed
+                AcaSpecialExamsDetailss."Charge Posted" := true;
+                AcaSpecialExamsDetailss.Modify;
+                RetunMsg := 'FAILED';
+                // Post Charge Here
+                /////////////////////////////////////////////////////////////////////////////////////
+                GenJnl.Reset;
+                GenJnl.SetRange("Journal Batch Name", StudentNo);
+                GenJnl.SetRange("Journal Template Name", 'SUPP');
+                if GenJnl.Find('-') then GenJnl.DeleteAll;
+                GenJnl.Init;
+                GenJnl."Line No." := 10000;
+                GenJnl."Posting Date" := Today;
+                GenJnl."Document No." := 'SUPP.' + UnitCode;
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SUPP';
+                GenJnl."Journal Batch Name" := BatchNos;
+                GenJnl."Account Type" := GenJnl."account type"::Customer;
+                GenJnl."Account No." := StudentNo;
+                GenJnl.Amount := ACACharge.Amount;
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := '1st Supp. Charges for ' + UnitCode;
+                GenJnl."Bal. Account Type" := GenJnl."account type"::"G/L Account";
+                GenJnl."Bal. Account No." := ACACharge."G/L Account";
+                GenJnl.Validate(GenJnl."Bal. Account No.");
+                ACAProgramme.TestField("Department Code");
+                GenJnl."Shortcut Dimension 1 Code" := cust."Global Dimension 1 Code";
+                GenJnl."Shortcut Dimension 2 Code" := ACAProgramme."Department Code";
+                GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+
+                GenJnl.Insert;
+
+                //Post Charge
+                GenJnl.Reset;
+                GenJnl.SetRange("Journal Template Name", 'SUPP');
+                GenJnl.SetRange("Journal Batch Name", BatchNos);
+                if GenJnl.Find('-') then begin
+                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post B2", GenJnl);
+                end;
+                /////////////////////////////////////////////////////////////////////////////////////
+
+                RetunMsg := 'SUCCESS';
+                // Delete The Student Journal from the Batches
+                GenJournalBatch.Reset;
+                GenJournalBatch.SetRange("Journal Template Name", 'SUPP');
+                GenJournalBatch.SetRange(Name, BatchNos);
+                if GenJournalBatch.Find('-') then GenJournalBatch.DeleteAll;
+                RetunMsg := 'SUCCESS';
+            end;
+        end else if SuppCategory = 2 then begin
+            Aca2ndSuppExamsDetails.Reset;
+            Aca2ndSuppExamsDetails.SetRange("Student No.", StudentNo);
+            Aca2ndSuppExamsDetails.SetRange("Unit Code", UnitCode);
+            Aca2ndSuppExamsDetails.SetRange("Academic Year", AcademicYear);
+            if Aca2ndSuppExamsDetails.Find('-') then begin
+                Aca2ndSuppExamsDetails."Charge Posted" := true;
+                Aca2ndSuppExamsDetails.Modify;
+                RetunMsg := 'FAILED';
+                // Post Charge Here
+                /////////////////////////////////////////////////////////////////////////////////////
+                GenJnl.Reset;
+                GenJnl.SetRange("Journal Batch Name", StudentNo);
+                GenJnl.SetRange("Journal Template Name", 'SUPP');
+                if GenJnl.Find('-') then GenJnl.DeleteAll;
+                GenJnl.Init;
+                GenJnl."Line No." := 10000;
+                GenJnl."Posting Date" := Today;
+                GenJnl."Document No." := 'SUPP.' + UnitCode;
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SUPP';
+                GenJnl."Journal Batch Name" := BatchNos;
+                GenJnl."Account Type" := GenJnl."account type"::Customer;
+                GenJnl."Account No." := StudentNo;
+                GenJnl.Amount := ACACharge.Amount;
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := '2nd Supp. Charges for ' + UnitCode;
+                GenJnl."Bal. Account Type" := GenJnl."account type"::"G/L Account";
+                GenJnl."Bal. Account No." := ACACharge."G/L Account";
+                GenJnl.Validate(GenJnl."Bal. Account No.");
+                ACAProgramme.TestField("Department Code");
+                GenJnl."Shortcut Dimension 1 Code" := cust."Global Dimension 1 Code";
+                GenJnl."Shortcut Dimension 2 Code" := ACAProgramme."Department Code";
+                GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+
+                GenJnl.Insert;
+
+                //Post Charge
+                GenJnl.Reset;
+                GenJnl.SetRange("Journal Template Name", 'SUPP');
+                GenJnl.SetRange("Journal Batch Name", BatchNos);
+                if GenJnl.Find('-') then begin
+                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post B2", GenJnl);
+                end;
+                /////////////////////////////////////////////////////////////////////////////////////
+
+                RetunMsg := 'SUCCESS';
+                // Delete The Student Journal from the Batches
+                GenJournalBatch.Reset;
+                GenJournalBatch.SetRange("Journal Template Name", 'SUPP');
+                GenJournalBatch.SetRange(Name, BatchNos);
+                if GenJournalBatch.Find('-') then GenJournalBatch.DeleteAll;
+                RetunMsg := 'SUCCESS';
+            end;
+        end;
+    end;
+
+
+    procedure SubmitSupplementaryMarks(StudentNo: Code[20]; LectNo: Code[10]; UnitCode: Code[20]; AcademicYear: Code[20]; Semenster: Code[20]; SuppCategory: Integer; ExamScore: Decimal) ReturnMessage: Text[100]
+    var
+        Aca2ndSuppExamsDetails: Record "Aca-2nd Supp. Exams Details";
+        AcaSpecialExamsDetailss: Record "Aca-Special Exams Details";
+        ACAStudentUnits: Record "ACA-Student Units";
+        ACAProgramme: Record "ACA-Programme";
+        ACACourseRegistration: Record "ACA-Course Registration";
+        GenJnl: Record "Gen. Journal Line";
+        GenJournalTemplate: Record "Gen. Journal Template";
+        GenJournalBatch: Record "Gen. Journal Batch";
+        ACAGeneralSetUp: Record "ACA-General Set-Up";
+        ACACharge: Record "ACA-Charge";
+        cust: Record Customer;
+        Aca2ndSuppExamsResults: Record "Aca-2nd Supp. Exams Results";
+        emps: Record "HRM-Employee C";
+    begin
+        Clear(ReturnMessage);
+        Clear(emps);
+        emps.Reset;
+        emps.SetRange("No.", LectNo);
+        if emps.Find('-') then;
+        Aca2ndSuppExamsDetails.Reset;
+        Aca2ndSuppExamsDetails.SetRange("Current Academic Year", AcademicYear);
+        Aca2ndSuppExamsDetails.SetRange("Student No.", StudentNo);
+        Aca2ndSuppExamsDetails.SetRange("Unit Code", UnitCode);
+        if Aca2ndSuppExamsDetails.Find('-') then begin
+            Aca2ndSuppExamsResults.Reset;
+            Aca2ndSuppExamsResults.SetRange("Current Academic Year", AcademicYear);
+            Aca2ndSuppExamsResults.SetRange("Student No.", StudentNo);
+            Aca2ndSuppExamsResults.SetRange(Unit, UnitCode);
+            if Aca2ndSuppExamsResults.Find('-') then begin
+                Aca2ndSuppExamsResults.Validate(Score, ExamScore);
+                Aca2ndSuppExamsResults.UserID := LectNo;
+                Aca2ndSuppExamsResults."Lecturer Names" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                Aca2ndSuppExamsResults."Modified Date" := Today;
+                Aca2ndSuppExamsResults.category := Aca2ndSuppExamsDetails.Category;
+                Aca2ndSuppExamsResults.Modify;
+                ReturnMessage := 'SUCCESS: Marks Modified!'
+            end else begin
+                Aca2ndSuppExamsResults.Init;
+                Aca2ndSuppExamsResults.Programme := Aca2ndSuppExamsDetails.Programme;
+                Aca2ndSuppExamsResults.Stage := Aca2ndSuppExamsDetails.Stage;
+                Aca2ndSuppExamsResults.Unit := UnitCode;
+                Aca2ndSuppExamsResults.Semester := Aca2ndSuppExamsDetails.Semester;
+                Aca2ndSuppExamsResults."Student No." := Aca2ndSuppExamsDetails."Student No.";
+                Aca2ndSuppExamsResults."Academic Year" := AcademicYear;
+                Aca2ndSuppExamsResults."Admission No" := StudentNo;
+                Aca2ndSuppExamsResults."Current Academic Year" := AcademicYear;
+                Aca2ndSuppExamsResults.UserID := LectNo;
+                Aca2ndSuppExamsResults."Capture Date" := Today;
+                Aca2ndSuppExamsResults.category := Aca2ndSuppExamsDetails.Category;
+                Aca2ndSuppExamsResults."Lecturer Names" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                Aca2ndSuppExamsResults.Validate(Score, ExamScore);
+                Aca2ndSuppExamsResults.Insert;
+                ReturnMessage := 'SUCCESS: Marks Inserted!';
+            end;
+            Aca2ndSuppExamsDetails."Exam Marks" := ExamScore;
+            Aca2ndSuppExamsDetails.Modify;
+        end;
+
+
+
+
+        /*CLEAR(ReturnMessage);
+        ReturnMessage:='FAILED';
+        IF SuppCategory = 1 THEN BEGIN
+        AcaSpecialExamsDetailss.RESET;
+        AcaSpecialExamsDetailss.SETRANGE("Academic Year",AcademicYear);
+        AcaSpecialExamsDetailss.SETRANGE("Student No.",StudentNo);
+        AcaSpecialExamsDetailss.SETRANGE("Unit Code",UnitCode);
+        IF AcaSpecialExamsDetailss.FIND('-') THEN BEGIN
+          IF AcaSpecialExamsDetailss."Charge Posted" = FALSE THEN ERROR('Supp. Charges for '+UnitCode+'are not posted!');
+          AcaSpecialExamsDetailss."Exam Marks":=ExamScore;
+          AcaSpecialExamsDetailss.MODIFY;
+        ReturnMessage:='SUCCESS';
+          END;
+          END ELSE IF SuppCategory = 2 THEN BEGIN
+        Aca2ndSuppExamsDetails.RESET;
+        Aca2ndSuppExamsDetails.SETRANGE("Academic Year",AcademicYear);
+        Aca2ndSuppExamsDetails.SETRANGE("Student No.",StudentNo);
+        Aca2ndSuppExamsDetails.SETRANGE("Unit Code",UnitCode);
+        IF Aca2ndSuppExamsDetails.FIND('-') THEN BEGIN
+          IF Aca2ndSuppExamsDetails."Charge Posted" = FALSE THEN ERROR('Supp. Charges for '+UnitCode+'are not posted!');
+          Aca2ndSuppExamsDetails."Exam Marks":=ExamScore;
+          Aca2ndSuppExamsDetails.MODIFY;
+        ReturnMessage:='SUCCESS';
+          END;
+            END;*/
+
+    end;
+
+
+    procedure GetLectureEmail(LectNo: Code[20]) LectEmail: Text[150]
+    var
+        HRMEmployeeC: Record "HRM-Employee C";
+    begin
+        Clear(HRMEmployeeC);
+        Clear(LectEmail);
+        HRMEmployeeC.Reset;
+        HRMEmployeeC.SetRange("No.", LectNo);
+        if HRMEmployeeC.Find() then LectEmail := HRMEmployeeC."Company E-Mail";
+    end;
+
+
+    procedure GetRegistrarEmail() RegistrarMail: Text[150]
+    var
+        ACAGeneralSetUp: Record "ACA-General Set-Up";
+    begin
+        Clear(RegistrarMail);
+        Clear(ACAGeneralSetUp);
+        if ACAGeneralSetUp.Find('-') then begin
+            RegistrarMail := ACAGeneralSetUp.Registrar_Mail;
+        end;
+    end;
+
+
+    procedure GetNationalIdNumber(User_ID: Code[20]) ReturnMessage: Text[150]
+    var
+        HrEmployees: Record "HRM-Employee C";
+    begin
+        ReturnMessage := 'FAILED:: Invalid Employee No.';
+        Clear(HrEmployees);
+        HrEmployees.Reset;
+        HrEmployees.SetRange("No.", User_ID);
+        if HrEmployees.Find('-') then begin
+            if HrEmployees."ID Number" = '' then
+                ReturnMessage := 'FAILED:: Missing ID'
+            else
+                ReturnMessage := HrEmployees."ID Number";
+        end;
+    end;
+
+
+    procedure GetCounties(): Text[1000]
+    var
+        ACASetupRec: Record "ACA-Academics Central Setups";
+    begin
+
+        begin
+            Counties := '';
+            ACASetupRec.SetRange(Category, 5);
+            if ACASetupRec.FindSet then begin
+                repeat
+                    Counties += ACASetupRec."Title Code" + ' - ' + ACASetupRec.Description + ';';
+                until ACASetupRec.Next = 0;
+            end;
+            exit(Counties);
+        end;
+    end;
+
+
+    procedure AdmissionDocApprovalRequests(User_Id: Code[20]) ReturnMessage: Text
+    var
+        KUCCPSImports: Record "KUCCPS Imports";
+        AdmissionApprovalEntries: Record "Admission Approval Entries";
+    begin
+        Clear(AdmissionApprovalEntries);
+        AdmissionApprovalEntries.Reset;
+        AdmissionApprovalEntries.SetRange("Academic Year", GetCurrentAcademicYear());
+        AdmissionApprovalEntries.SetRange(Approver_Id, User_Id);
+        AdmissionApprovalEntries.SetRange("Approval Status", AdmissionApprovalEntries."approval status"::Open);
+        if AdmissionApprovalEntries.Find('-') then begin
+            repeat
+                // ReturnMessage += AdmissionApprovalEntries.Index+'::'+FORMAT(AdmissionApprovalEntries."Document Code")+':::';
+                ReturnMessage += AdmissionApprovalEntries.Index + '::' +
+                Format(AdmissionApprovalEntries."Document Code") + '::' +
+                AdmissionApprovalEntries."NHIF No" + '::' +
+                AdmissionApprovalEntries."K.C.P.E. Results" + '::' +
+                AdmissionApprovalEntries."ID Number/BirthCert" + '::' +
+                AdmissionApprovalEntries.Admin + ':::';
+
+            until AdmissionApprovalEntries.Next = 0;
+        end;
+    end;
+
+
+    procedure AdmissionDocApproval(User_Id: Code[20]; DocCode: Code[50]; IndexNumber: Code[20]; ApprovalComments: Text[50]) ReturnMessage: Text[250]
+    var
+        KUCCPSImports: Record "KUCCPS Imports";
+        ACANewStudDocuments: Record "ACA-New Stud. Documents";
+    begin
+        if User_Id = '' then ReturnMessage := 'No user ID Specified.';
+        if IndexNumber = '' then ReturnMessage := 'No Index Number Specified.';
+        if ReturnMessage = '' then begin
+            Clear(ACANewStudDocuments);
+            ACANewStudDocuments.Reset;
+            ACANewStudDocuments.SetRange("Academic Year", GetCurrentAcademicYear());
+            ACANewStudDocuments.SetRange("Index Number", IndexNumber);
+            ACANewStudDocuments.SetRange("Document Code", DocCode);
+            if ACANewStudDocuments.Find('-') then begin
+                ACANewStudDocuments."Approval Comments" := ApprovalComments;
+                ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Approved;
+                ACANewStudDocuments.Modify;
+                ReturnMessage := ACANewStudDocuments.ApproveDocument(ACANewStudDocuments, User_Id);
+            end;
+        end;
+    end;
+
+
+    procedure SignNorminalRole(Student_No: Code[20]) ReturnMessage: Boolean
+    var
+        ACACourseRegistration: Record "ACA-Course Registration";
+        ACASemesters: Record "ACA-Semesters";
+    begin
+        Clear(ACASemesters);
+        ACASemesters.Reset;
+        ACASemesters.SetRange("Current Semester", true);
+        if ACASemesters.Find('-') then begin
+            Clear(ACACourseRegistration);
+            ACACourseRegistration.Reset;
+            ACACourseRegistration.SetRange("Student No.", Student_No);
+            ACACourseRegistration.SetRange(Semester, ACASemesters.Code);
+            if not ACACourseRegistration.Find('-') then begin
+                Error('FAILED: No Course registration!');
+            end else begin
+                if ACACourseRegistration."Signed Nominal Role" = false then begin
+                    ACACourseRegistration."Signed Nominal Role" := true;
+                    if ACACourseRegistration.Modify then ReturnMessage := true;
+                end;
+            end;
+        end else
+            Error('FAILED: No defined current Semester!');
+    end;
+
+
+    procedure CheckNorminalRoleStatus(Student_No: Code[20]) ReturnMessage: Boolean
+    var
+        ACACourseRegistration: Record "ACA-Course Registration";
+        ACASemesters: Record "ACA-Semesters";
+    begin
+        Clear(ACASemesters);
+        ACASemesters.Reset;
+        ACASemesters.SetRange("Current Semester", true);
+        if ACASemesters.Find('-') then begin
+            Clear(ACACourseRegistration);
+            ACACourseRegistration.Reset;
+            ACACourseRegistration.SetRange("Student No.", Student_No);
+            ACACourseRegistration.SetRange(Semester, ACASemesters.Code);
+            if ACACourseRegistration.Find('-') then begin
+                if ACACourseRegistration."Signed Nominal Role" = true then begin
+                    ReturnMessage := true;
+                    ;
+                end;
+            end;
+        end;
+    end;
+
+
+    procedure GetMyDocumentsApproved(AdmNo: Code[20]) ReturnMessage: Text[1024]
+    var
+        ACANewStudDocuments: Record "ACA-New Stud. Documents";
+        KUCCPSImports: Record "KUCCPS Imports";
+    begin
+        Clear(ReturnMessage);
+        //ReturnMessage := 'Invalid Admission Number';
+        Clear(KUCCPSImports);
+        KUCCPSImports.Reset;
+        KUCCPSImports.SetRange(Admin, AdmNo);
+        if KUCCPSImports.Find('-') then begin
+
+            Clear(ACANewStudDocuments);
+            ACANewStudDocuments.Reset;
+            ACANewStudDocuments.SetRange("Index Number", KUCCPSImports.Index);
+            if ACANewStudDocuments.Find('-') then begin
+                repeat
+                begin
+                    ACANewStudDocuments.CalcFields("Approval Sequence");
+                    ACANewStudDocuments.Sequence := ACANewStudDocuments."Approval Sequence";
+                    ACANewStudDocuments.Modify;
+                end;
+                until ACANewStudDocuments.Next = 0;
+            end;
+            Clear(ACANewStudDocuments);
+            ACANewStudDocuments.Reset;
+            ACANewStudDocuments.SetRange("Index Number", KUCCPSImports.Index);
+            ACANewStudDocuments.SetCurrentkey(Sequence);
+            if ACANewStudDocuments.Find('-') then begin
+                repeat
+                begin
+                    ReturnMessage +=
+                   KUCCPSImports.Admin + '::' +
+                   Format(ACANewStudDocuments."Document Code") + '::' +
+                   ACANewStudDocuments."Approval Comments" + ':::' +
+                   Format(ACANewStudDocuments."Approval Status") + '::'
+                    //ACANewStudDocuments."Approved Date/Time"+'::'+
+                    //ACANewStudDocuments.Approver_Id
+                end;
+                until ACANewStudDocuments.Next = 0;
+            end;
+        end;
+    end;
+
+
+    procedure SavePesaFlowInvoice(refno: Code[20]; invoiceno: Code[20]; custno: Code[20]; custname: Text[100]; invoiceamt: Decimal; serviceid: Code[20]; desc: Text[50]; token: Text[100]; link: Text[150]) inserted: Boolean
+    var
+        PesaFlowInvoices: Record "PesaFlow Invoices";
+    begin
+        PesaFlowInvoices.Reset;
+        PesaFlowInvoices.SetRange(BillRefNo, refno);
+        if not PesaFlowInvoices.Find('-') then begin
+            PesaFlowInvoices.Init;
+            PesaFlowInvoices.BillRefNo := refno;
+            PesaFlowInvoices.Validate(CustomerRefNo, custno);
+            PesaFlowInvoices.InvoiceNo := invoiceno;
+            PesaFlowInvoices.CustomerName := custname;
+            PesaFlowInvoices.InvoiceAmount := invoiceamt;
+            PesaFlowInvoices.ServiceID := serviceid;
+            PesaFlowInvoices.Description := desc;
+            PesaFlowInvoices.TokenHash := token;
+            PesaFlowInvoices.InvoiceLink := link;
+            if PesaFlowInvoices.Insert then begin
+                inserted := true;
+            end;
+        end else begin
+            Error('Bill Reference Number Already Exists!');
+        end;
+    end;
+
+
+    procedure CheckAccomodationFeePaid(stdno: Code[10]) Msg: Boolean
+    var
+        PesaFlowIntegration: Record "PesaFlow Integration";
+    begin
+        PesaFlowIntegration.Reset;
+        PesaFlowIntegration.SetRange(CustomerRefNo, stdno);
+        PesaFlowIntegration.SetRange(PaidAmount, 6500);
+        if PesaFlowIntegration.Find('-') then begin
+            Msg := true;
+        end
+    end;
+
+
+    procedure GenerateBillRefNo() Msg: Text
+    var
+        refNo: Code[20];
+    begin
+        refNo := NoSeriesMgt.GetNextNo('FPINV', 0D, true);
+        Msg := refNo;
+    end;
+
+
+    procedure IsResident(username: Text) Msg: Boolean
+    var
+        KUCCPSRaw: Record "KUCCPS Imports";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(Admin, username);
+        KUCCPSRaw.SetRange(Accomodation, KUCCPSRaw.Accomodation::Resident);
+        if KUCCPSRaw.Find('-') then begin
+            Msg := true;
+        end;
+    end;
+
+
+    procedure GetApplicantDetails(username: Text) Msg: Text
+    var
+        KUCCPSRaw: Record "KUCCPS Imports";
+    begin
+        KUCCPSRaw.Reset;
+        KUCCPSRaw.SetRange(Admin, username);
+        if KUCCPSRaw.Find('-') then begin
+            Msg := KUCCPSRaw.Phone + ' ::' + KUCCPSRaw.Names + ' ::' + KUCCPSRaw."ID Number/BirthCert" + ' ::' + KUCCPSRaw.Email;
+        end;
+    end;
+
+
+    procedure VerifyPesaflowPayment(username: Text; amount: Decimal; serviceid: Text) Msg: Text
+    var
+        PesaFlowIntegration: Record "PesaFlow Integration";
+    begin
+        PesaFlowIntegration.Reset;
+        PesaFlowIntegration.SetRange(CustomerRefNo, username);
+        //PesaFlowIntegration.SETRANGE(PaidAmount, amount);
+        PesaFlowIntegration.SetRange(ServiceID, serviceid);
+        if PesaFlowIntegration.Find('-') then
+            Msg := ''
+        else
+            Msg := 'Not found';
+    end;
+
+
+    procedure Check_Hostel_Availability(Index_No: Code[20]) AvailabilityStatus: Text[50]
+    var
+        KUCCPSImports: Record "KUCCPS Imports";
+    begin
+        Clear(AvailabilityStatus);
+        AvailabilityStatus := 'FULL';
+        Clear(KUCCPSImports);
+        KUCCPSImports.Reset;
+        KUCCPSImports.SetRange(Index, Index_No);
+        if KUCCPSImports.Find('-') then begin
+
+            if KUCCPSImports.Accomodation = KUCCPSImports.Accomodation::Resident then begin
+                KUCCPSImports.CalcFields("Total Resident Students", "Available Room Spaces (M)", "Available Room Spaces (F)");
+                if KUCCPSImports.Gender = KUCCPSImports.Gender::Male then begin
+                    if KUCCPSImports."Total Resident Students" > KUCCPSImports."Available Room Spaces (M)" then begin
+                        AvailabilityStatus := 'FULL';
+                    end else
+                        AvailabilityStatus := 'AVAILABLE';
+                end else if KUCCPSImports.Gender = KUCCPSImports.Gender::Female then begin
+                    if KUCCPSImports."Total Resident Students" > KUCCPSImports."Available Room Spaces (F)" then begin
+                        AvailabilityStatus := 'FULL';
+                    end else
+                        AvailabilityStatus := 'AVAILABLE';
+                end;
+            end;
+        end else
+            Error('Invalid Index.')
+    end;
+
+
+    procedure Send_SMS_Easy(RecPhoneNumber: Code[20]; Message_1: Text[250]; Message_2: Text[250]; Message_3: Text[250])
+    var
+        Command: Text;
+        Result: Text;
+        ErrorMsg: Text;
+    // SMSTokes: Record "SMS Tokes";
+    // SMSHeader: Record UnknownRecord70701;
+    begin
+        // Clear(SMSTokes);
+        // SMSTokes.Init;
+        // SMSTokes."SMS Code" := 'AUTO';
+        // SMSTokes."Recipient No." := CreateGuid;
+        // SMSTokes.Phone := RecPhoneNumber;
+        // SMSTokes."Message 1" := Message_1;
+        // SMSTokes."Message 2" := Message_2;
+        // SMSTokes."Message 3" := Message_3;
+        // SMSTokes."Recepient Type" := SMSTokes."recepient type"::" ";
+        // SMSTokes."User Code" := UserId;
+        // SMSTokes.Insert;
+
+        // Command := 'C:\Users\Public\SendSMS.bat';
+        // ExecuteBat := ExecuteBat.ProcessStartInfo('cmd', '/c "' + Command + '"');     //Provide Details of the Process that need to be Executed.
+
+        // ExecuteBat.RedirectStandardError := true;      // In Case of Error the Error Should be Redirected.
+
+        // ExecuteBat.RedirectStandardOutput := true;     // In Case of Sucess the Error Should be Redirected.
+
+        // ExecuteBat.UseShellExecute := false;
+
+        // ExecuteBat.CreateNoWindow := true;             // In case we want to see the window set it to False.
+
+        // Process := Process.Process;                    // Constructor
+
+        // Process.StartInfo(ExecuteBat);
+
+        // Process.Start;
+        // Message('SMS is in queue');
+    end;
+
+
+    procedure CheckRecruitmentApplicantLogin(username: Text; userpassword: Text) Message: Text
+    var
+        FullNames: Text;
+        Initials: Option;
+        pCode: Code[30];
+        IDNum: Text;
+        Gender: Option;
+        Phone: Code[20];
+        rAddress: Text;
+        Citizenship: Text;
+        County: Text;
+        Mstatus: Option;
+        Eorigin: Text;
+        Disabled: Text;
+        dDetails: Text;
+        DOB: Date;
+        Dlicense: Text;
+        KRA: Text;
+        firstLang: Code[50];
+        secondLang: Code[50];
+        AdditionalLang: Code[50];
+        ApplicantType: Option;
+        pAddress: Text;
+        TXTIncorrectDetails: label 'Incorrect Username or Password';
+        TXTCorrectDetails: label 'Login';
+    begin
+        Clear(RecAccountusers);
+        RecAccountusers.Reset;
+        RecAccountusers.SetRange(RecAccountusers."Email Address", username);
+        RecAccountusers.SetRange(RecAccountusers.Password, userpassword);
+        if RecAccountusers.Find('-') then begin
+            //  IF (RecAccountusers.Password = userpassword) THEN BEGIN
+            FullNames := RecAccountusers."First Name" + ' ' + RecAccountusers."Middle Name" + ' ' + RecAccountusers."Last Name";
+            Initials := RecAccountusers.Initials;
+            pAddress := RecAccountusers."Postal Address";
+            pCode := RecAccountusers."Postal Code";
+            IDNum := RecAccountusers."ID Number";
+            Gender := RecAccountusers.Gender;
+            Phone := RecAccountusers."Home Phone Number";
+            rAddress := RecAccountusers."Residential Address";
+            Citizenship := RecAccountusers.Citizenship;
+            County := RecAccountusers.County;
+            Mstatus := RecAccountusers."Marital Status";
+            Eorigin := RecAccountusers."Ethnic Group";
+            Disabled := Format(RecAccountusers.Disabled);
+            dDetails := RecAccountusers."Disability Details";
+            DOB := RecAccountusers."Date of Birth";
+            // //          Dlicense:=RecAccountusers."Driving License";
+            KRA := RecAccountusers."KRA PIN Number";
+            // //          firstLang:= RecAccountusers."1st Language";
+            // //          secondLang:=RecAccountusers."2nd Language";
+            // //          AdditionalLang:=RecAccountusers."Additional Language";
+            ApplicantType := RecAccountusers."Applicant Type";
+
+            Message := TXTCorrectDetails + ' ::' +
+             RecAccountusers."Email Address" + ' ::' +
+             RecAccountusers."First Name" + ' ::'
+             + RecAccountusers."Middle Name" + ' ::' +
+              RecAccountusers."Last Name" + ' ::' +
+               Format(Initials) + ' ::' +
+                pAddress + ' ::' +
+                Format(RecAccountusers.Gender) + ' ::'
+                 + Phone + ' ::' +
+                  IDNum + ' ::' +
+                  Citizenship + ' ::' +
+              County + ' ::' +
+               Format(RecAccountusers."Marital Status") + ' ::' +
+                Format(RecAccountusers."Ethnic Group") + ' ::' +
+                 Format(RecAccountusers.Disabled) + ' ::' +
+              dDetails + ' ::' +
+               Format(DOB) + ' ::' +
+                Dlicense + ' ::' +
+                 KRA + ' ::' +
+                  firstLang + ' ::' +
+                   secondLang + ' ::' +
+                    AdditionalLang + ' ::' +
+                     Format(RecAccountusers."Applicant Type");
+        end else begin
+            FullNames := RecAccountusers."First Name" + ' ' + RecAccountusers."Middle Name" + ' ' + RecAccountusers."Last Name";
+            Message := TXTIncorrectDetails;
+
+        end;
+    end;
+
+
+    procedure InsertExamResults(Programz: Code[20]; StudNoz: Code[20]; Semesterz: Code[20]; Unitz: Code[20]; Scorez: Decimal; ExamTypez: Code[20]; UserNamez: Code[50]; LecturerNamez: Text[250]) MarksCaptureReturn: Text[250]
+    var
+        ACAExamResults: Record "ACA-Exam Results";
+        ACAStudentUnits: Record "ACA-Student Units";
+        Customer: Record Customer;
+        AcaProgram: Record "ACA-Programme";
+        ACAExamsSetup: Record "ACA-Exams Setup";
+        HRMEmployeeC: Record "HRM-Employee C";
+        ACASemesters: Record "ACA-Semesters";
+        LectLoadBatchLines: Record "Lect Load Batch Lines";
+        ACALecturersUnits: Record "ACA-Lecturers Units";
+        ACACourseRegistration: Record "ACA-Course Registration";
+        ACAProgSemesterSchedule: Record "ACA-Prog. Semester Schedule";
+        ACAProgStageSemSchedule: Record "ACA-Prog/Stage Sem. Schedule";
+        ACAProgStageUnitSemSche: Record "ACA-Prog/Stage/Unit Sem. Sche.";
+        ACALectureMarksPermissions: Record "ACA-Lecture Marks Permissions";
+        ACAUnitsSubjects: Record "ACA-Units/Subjects";
+        EdittingLocked: Boolean;
+        ProgCat: Code[20];
+        ACAUnitsSubjects4: Record "ACA-Units/Subjects";
+        ACASemesters2: Record "ACA-Semesters";
+        // ACAResultsBufferHeader: Record "ACA-Results Buffer Header";
+        // ACAResultsBufferDetails: Record "ACA-Results Buffer Details";
+        // ACAResultsBufferMarks: Record "ACA-Results Buffer Marks";
+        Programmezz: Record "ACA-Programme";
+    // ACAResultsBufferUnits: Record "ACA-Results Buffer Units";
+    // ACAResultsBufferStudents: Record "ACA-Results Buffer Students";
+    // ACAResultsBufferProgStage: Record "ACA-Results Buffer Prog. Stage";
+    // ACAResultsBufferSetup: Record "ACA-Results Buffer Setup";
+    begin
+
+        Clear(Programmezz);
+        Programmezz.Reset;
+        Programmezz.SetRange(Code, Programz);
+        if Programmezz.Find('-') then begin
+            Programmezz.TestField("Exam Category");
+        end;
+        Clear(Customer);
+        Customer.Reset;
+        Customer.SetRange("No.", StudNoz);
+        if Customer.Find('-') then Customer.CalcFields(Balance);
+        Clear(MarksCaptureReturn);
+        Clear(ACASemesters);
+        ACASemesters.Reset;
+        ACASemesters.SetRange(ACASemesters.Code, Semesterz);
+        if ACASemesters.Find('-') then;
+        if ExamTypez = 'EXAM' then ExamTypez := 'FINAL EXAM';
+        if Customer.Get(StudNoz) then begin
+            ACACourseRegistration.Reset;
+            ACACourseRegistration.SetRange("Student No.", StudNoz);
+            ACACourseRegistration.SetRange(Semester, Semesterz);
+            ACACourseRegistration.SetRange(Reversed, false);
+            if ACACourseRegistration.Find('-') then;
+            ACAUnitsSubjects.Reset;
+            ACAUnitsSubjects.SetRange("Programme Code", Programz);
+            ACAUnitsSubjects.SetRange(Code, Unitz);
+            if ACAUnitsSubjects.Find('-') then;
+            ACAStudentUnits.Reset;
+            ACAStudentUnits.SetRange(Semester, Semesterz);
+            ACAStudentUnits.SetRange(Programme, Programz);
+            ACAStudentUnits.SetRange("Student No.", StudNoz);
+            ACAStudentUnits.SetRange(Unit, Unitz);
+            if ACAStudentUnits.Find('-') then begin
+                AcaProgram.Reset;
+                AcaProgram.SetRange(Code, Programz);
+                if AcaProgram.Find('-') then begin
+                    AcaProgram.TestField("Exam Category");
+                    Clear(ACAExamsSetup);
+                    Clear(ProgCat);
+                    ProgCat := AcaProgram."Exam Category";
+                    Clear(ACAUnitsSubjects4);
+                    ACAUnitsSubjects4.Reset;
+                    ACAUnitsSubjects4.SetRange(Code, Unitz);
+                    ACAUnitsSubjects4.SetRange("Programme Code", Programz);
+                    if ACAUnitsSubjects4.Find('-') then
+                        if ACAUnitsSubjects4."Default Exam Category" <> '' then ProgCat := ACAUnitsSubjects4."Default Exam Category";
+                    ACAExamsSetup.Reset;
+                    ACAExamsSetup.SetRange(Category, ProgCat);
+                    if ((ExamTypez = 'CAT') or (ExamTypez = 'CATS')) then
+                        ACAExamsSetup.SetFilter(Code, '%1|%2', 'CAT', 'CATS')
+                    else if ((ExamTypez = 'EXAM') or (ExamTypez = 'MAIN EXAM') or (ExamTypez = 'FINAL EXAM')) then
+                        ACAExamsSetup.SetFilter(Code, '%1|%2|%3', 'MAIN EXAM', 'EXAM', 'FINAL EXAM');
+                    if ACAExamsSetup.Find('-') then begin
+                        //Check from Prog, Stage, Unit and Lecturer Units if Capture of Marks is allowed
+                        ///////////////////////////////////////////////////////////////////////////////////////////////////
+                        ACAProgSemesterSchedule.Reset;
+                        ACAProgSemesterSchedule.SetRange(Code, Semesterz);
+                        ACAProgSemesterSchedule.SetRange("Programme Code", AcaProgram.Code);
+                        if ACAProgSemesterSchedule.Find('-') then;
+                        ACAProgStageSemSchedule.Reset;
+                        ACAProgStageSemSchedule.SetRange(Code, Semesterz);
+                        ACAProgStageSemSchedule.SetRange("Programme Code", AcaProgram.Code);
+                        ACAProgStageSemSchedule.SetRange("Stage Code", ACAUnitsSubjects."Stage Code");
+                        if ACAProgStageSemSchedule.Find('-') then;
+                        ACAProgStageUnitSemSche.Reset;
+                        ACAProgStageUnitSemSche.SetRange(Code, Semesterz);
+                        ACAProgStageUnitSemSche.SetRange("Programme Code", AcaProgram.Code);
+                        ACAProgStageUnitSemSche.SetRange("Unit Code", ACAUnitsSubjects.Code);
+                        if ACAProgStageUnitSemSche.Find('-') then;
+                        ACALectureMarksPermissions.Reset;
+                        ACALectureMarksPermissions.SetRange(Code, Semesterz);
+                        ACALectureMarksPermissions.SetRange("Programme Code", AcaProgram.Code);
+                        ACALectureMarksPermissions.SetRange("Unit Code", ACAUnitsSubjects.Code);
+                        ACALectureMarksPermissions.SetRange("Lecturer Code", UserNamez);
+                        if ACALectureMarksPermissions.Find('-') then;
+                        ///////////////////////////////////////////////////////////////////////////////////////////////////
+                        // Check if Marks exceeds Maximum Defined
+                        // (ACALectureMarksPermissions."Lock Exam Editting") AND
+                        Clear(EdittingLocked);
+                        if ((ACAProgSemesterSchedule."Lock Exam Editing")
+                          and (ACAProgStageUnitSemSche."Lock Exam Editting") and
+                          (ACAProgStageSemSchedule."Lock Exam Editting") and
+                            (ACASemesters."Lock Exam Editting"))
+                           //       AND
+                           //       (ACAProgStageUnitSemSche."Mark entry Dealine"<TODAY)
+                           //      AND (ACAProgStageSemSchedule."Mark entry Dealine"<TODAY) AND
+                           //       (ACAProgSemesterSchedule."Mark entry Dealine"<TODAY)
+                           then
+                            EdittingLocked := true;
+                        if not (Scorez > ACAExamsSetup."Max. Score") then begin
+                            ACASemesters.Reset;
+                            ACASemesters.SetRange(ACASemesters.Code, Semesterz);
+                            //    ACASemesters.SETRANGE(ACASemesters."Programme Code",Programz);
+                            if ACASemesters.Find('-') then begin
+                                HRMEmployeeC.Reset;
+                                HRMEmployeeC.SetRange("No.", UserNamez);
+                                if HRMEmployeeC.Find('-') then begin
+                                    if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
+                                    // IF  ((HRMEmployeeC.Lecturer=FALSE) AND ((HRMEmployeeC."Is HOD"=FALSE) AND (HRMEmployeeC."Has HOD Rights"=FALSE))) THEN MarksCaptureReturn:='Access Denied: Not Lecturer Not HOD';
+
+                                    if ((ExamTypez = 'CAT') or (ExamTypez = 'CATS')) then begin
+                                        if ((ACASemesters."Lock CAT Editting") and (HRMEmployeeC."Is HOD" = false)) then
+                                            MarksCaptureReturn := 'CAT Marks editing locked';
+                                        if ((ACASemesters."Lock CAT Editting") and (HRMEmployeeC."Is HOD" = true) and (ACASemesters."Evaluate Lecture" = false)) then
+                                            MarksCaptureReturn := 'CAT Marks editing locked';
+                                    end;
+                                    // -------------------------------------------------------------- Exams
+
+                                    if ((ExamTypez = 'EXAM') or (ExamTypez = 'MAIN EXAM') or (ExamTypez = 'FINAL EXAM')) then begin
+                                        if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
+                                            MarksCaptureReturn := 'EXAM Marks editing locked';
+                                        if ((EdittingLocked = false) and (HRMEmployeeC.Lecturer = false)) then MarksCaptureReturn := 'Not Lecturer: Access denied!';
+                                        if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
+                                            MarksCaptureReturn := 'EXAM Marks editing locked';
+                                    end;
+                                    if (((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
+                                        MarksCaptureReturn := 'HOD editing not allowed';
+
+
+                                    if (((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (EdittingLocked = true) and
+                                      (AcaProgram."Department Code" <> HRMEmployeeC."Department Code")) then
+                                        MarksCaptureReturn := AcaProgram."Department Code" + ' is not your department!';
+
+
+
+                                    ACALecturersUnits.Reset;
+                                    ACALecturersUnits.SetRange(Programme, AcaProgram.Code);
+                                    ACALecturersUnits.SetRange(Unit, Unitz);
+                                    ACALecturersUnits.SetRange(Semester, Semesterz);
+                                    ACALecturersUnits.SetRange(Lecturer, UserNamez);
+                                    if not (ACALecturersUnits.Find('-')) then begin
+                                        if ((EdittingLocked = true)) then MarksCaptureReturn := 'Access Denied. No allocation done';
+                                    end;
+                                    //-------------------------------------------------------------------------
+                                    // Create Approval Entries for the marks
+                                    // -- Create Marks Approval Entries
+                                    CreateMarksApprovalEntries(AcaProgram, ACASemesters, UserNamez, ACAStudentUnits);
+                                    // Create A single unit Entry for the Approval Units Reference
+                                    /*  Clear(ACAResultsBufferUnits);
+                                      ACAResultsBufferUnits.Init;
+                                      ACAResultsBufferUnits."Academic Year" := ACASemesters."Academic Year";
+                                      ACAResultsBufferUnits.Semester := Semesterz;
+                                      ACAResultsBufferUnits.Programme := AcaProgram.Code;
+                                      ACAResultsBufferUnits."Unit Code" := Unitz;
+                                      ACAResultsBufferUnits."Department Code" := AcaProgram."Department Code";
+                                      if ACAResultsBufferUnits.Insert then;
+                                      ////////////////////////////////////////////// Buffering
+                                      Clear(ACAResultsBufferProgStage);
+                                      ACAResultsBufferProgStage.Reset;
+                                      ACAResultsBufferProgStage.SetRange("Semester Code", ACASemesters.Code);
+                                      ACAResultsBufferProgStage.SetRange("Prog. Code", AcaProgram.Code);
+                                      ACAResultsBufferProgStage.SetRange("Stage Code", ACAStudentUnits.Stage);
+                                      if ACAResultsBufferProgStage.Find('-') then
+                                          if ACAResultsBufferProgStage."To Buffer Results" = true then begin
+                                              Clear(ACAExamResults);
+                                              ACAExamResults.Reset;
+                                              ACAExamResults.SetRange("Student No.", StudNoz);
+                                              ACAExamResults.SetRange(Programme, Programz);
+                                              ACAExamResults.SetRange(Unit, Unitz);
+                                              ACAExamResults.SetRange(Semester, Semesterz);
+                                              ACAExamResults.SetRange(ExamType, ExamTypez);
+                                              if ACAExamResults.Find('-') then begin
+                                                  ACAExamResults.Score := Scorez;
+                                                  ACAExamResults.Modify;
+                                              end else begin
+                                                  // ///////////////////////////////////////////////////////////////////
+                                                  Clear(ACAResultsBufferSetup);
+                                                  ACAResultsBufferSetup.Reset;
+                                                  if ACAResultsBufferSetup.Find('-') then;
+                                                  Clear(Customer);
+                                                  Customer.Get(StudNoz);
+                                                  Customer.CalcFields(Balance);
+                                                  if ((ACAResultsBufferSetup."Auto-post When Balance is zero") and ((Customer.Balance = 0) or (Customer.Balance < 0))) then begin
+                                                      ////////////------------------------------------------------------------------
+                                                      if MarksCaptureReturn = '' then begin
+                                                          ////////////////////////////////////////////////////////////////////////////////////////////////
+                                                          ACAExamResults.Reset;
+                                                          ACAExamResults.SetRange("Student No.", StudNoz);
+                                                          ACAExamResults.SetRange(Programme, Programz);
+                                                          ACAExamResults.SetRange(Unit, Unitz);
+                                                          ACAExamResults.SetRange(Semester, Semesterz);
+                                                          ACAExamResults.SetRange(ExamType, ExamTypez);
+                                                          if ACAExamResults.Find('-') then begin
+                                                              ACAExamResults.Score := Scorez;
+                                                              ACAExamResults.Validate(Score);
+                                                              ACAExamResults.Modify;
+                                                              ACAExamResults.Validate(ExamType);
+                                                              MarksCaptureReturn := 'SUCCESS:: Marks inserted';
+                                                          end else begin
+                                                              ACAExamResults.Init;
+                                                              ACAExamResults."Student No." := StudNoz;
+                                                              ACAExamResults.Programmes := Programz;
+                                                              ACAExamResults.Stage := ACAStudentUnits.Stage;
+                                                              ACAExamResults.Unit := Unitz;
+                                                              ACAExamResults.Semester := Semesterz;
+                                                              ACAExamResults.Exam := ExamTypez;
+                                                              ACAExamResults."Reg. Transaction ID" := ACAStudentUnits."Reg. Transacton ID";
+                                                              ACAExamResults.ExamType := ExamTypez;
+                                                              ACAExamResults."Exam Category" := Programmezz."Exam Category";
+                                                              ACAExamResults."Lecturer Names" := LecturerNamez;
+                                                              ACAExamResults."User Name" := LecturerNamez;
+                                                              ACAExamResults.User_ID := UserNamez;
+                                                              ACAExamResults.Submitted := true;
+                                                              ACAExamResults."Submitted By" := UserNamez;
+                                                              ACAExamResults."Submitted On" := Today;
+                                                              ACAExamResults.Category := Programmezz."Exam Category";
+                                                              ACAExamResults.Department := Programmezz."Department Code";
+                                                              ACAExamResults."Admission No" := StudNoz;
+                                                              ACAExamResults."Academic Year" := ACASemesters."Academic Year";
+                                                              ACAExamResults.Score := Scorez;
+                                                              ACAExamResults.Insert;
+                                                              ACAExamResults.Reset;
+                                                              ACAExamResults.SetRange("Student No.", StudNoz);
+                                                              ACAExamResults.SetRange(Programmes, Programz);
+                                                              ACAExamResults.SetRange(Unit, Unitz);
+                                                              ACAExamResults.SetRange(Semester, Semesterz);
+                                                              ACAExamResults.SetRange(ExamType, ExamTypez);
+                                                              if ACAExamResults.Find('-') then begin
+                                                                  ACAExamResults.Score := Scorez;
+                                                                  ACAExamResults.Validate(Score);
+                                                                  ACAExamResults.Validate(ExamType);
+                                                                  ACAExamResults.Modify;
+                                                              end;
+                                                              MarksCaptureReturn := 'SUCCESS:: Marks inserted';
+                                                          end;
+                                                      end;
+                                                      //-------------------------------------------------------------------------------------
+                                                      // end else begin
+                                                      //         ACAResultsBufferHeader.Init;
+                                                      //         ACAResultsBufferHeader."Academic Year" := ACASemesters."Academic Year";
+                                                      //         ACAResultsBufferHeader.Semester := ACASemesters.Code;
+                                                      //         ACAResultsBufferHeader.Programme := AcaProgram.Code;
+                                                      //         ACAResultsBufferHeader."Unit Code" := Unitz;
+                                                      //         ACAResultsBufferHeader.Lecturer := UserNamez;
+                                                      //         ACAResultsBufferHeader."Department Code" := AcaProgram."Department Code";
+                                                      //         ACAResultsBufferHeader.Stage := ACAStudentUnits.Stage;
+                                                      //         if ACAResultsBufferHeader.Insert then;
+                                                      //         //
+                                                      //         ACAResultsBufferDetails.Init;
+                                                      //         ACAResultsBufferDetails."Academic Year" := ACASemesters."Academic Year";
+                                                      //         ACAResultsBufferDetails.Semester := Semesterz;
+                                                      //         ACAResultsBufferDetails.Programme := Programz;
+                                                      //         ACAResultsBufferDetails."Unit Code" := Unitz;
+                                                      //         ACAResultsBufferDetails.Lecturer := UserNamez;
+                                                      //         ACAResultsBufferDetails."Student No." := StudNoz;
+                                                      //         ACAResultsBufferDetails."Student Name" := Customer.Name;
+                                                      //         ACAResultsBufferDetails."Department Code" := AcaProgram."Department Code";
+                                                      //         ACAResultsBufferDetails.Stage := ACAStudentUnits.Stage;
+                                                      //         if ACAResultsBufferDetails.Insert then;
+                                                      //         //
+                                                      //         // Insert Student data
+                                                      //         ACAResultsBufferStudents.Init;
+                                                      //         ACAResultsBufferStudents."Academic Year" := ACASemesters."Academic Year";
+                                                      //         ACAResultsBufferStudents.Semester := Semesterz;
+                                                      //         ACAResultsBufferStudents.Programme := Programz;
+                                                      //         ACAResultsBufferStudents."Student No." := StudNoz;
+                                                      //         if ACAResultsBufferStudents.Insert then;
+                                                      //         //
+                                                      //         ACAResultsBufferMarks.Init;
+                                                      //         ACAResultsBufferMarks."Academic Year" := ACASemesters."Academic Year";
+                                                      //         ACAResultsBufferMarks.Semester := Semesterz;
+                                                      //         ACAResultsBufferMarks.Programme := Programz;
+                                                      //         ACAResultsBufferMarks."Unit Code" := Unitz;
+                                                      //         ACAResultsBufferMarks.Lecturer := UserNamez;
+                                                      //         ACAResultsBufferMarks."Student No." := StudNoz;
+                                                      //         ACAResultsBufferMarks."Student Name" := Customer.Name;
+                                                      //         ACAResultsBufferMarks."Exam Type" := ExamTypez;
+                                                      //         ACAResultsBufferMarks."Date Submitted" := Today;
+                                                      //         ACAResultsBufferMarks."Time Submitted" := Time;
+                                                      //         ACAResultsBufferMarks."Submitted By" := LecturerNamez;
+                                                      //         ACAResultsBufferMarks."Department Code" := AcaProgram."Department Code";
+                                                      //         ACAResultsBufferMarks.Stage := ACAStudentUnits.Stage;
+                                                      //         if ACAResultsBufferMarks.Insert then;
+
+                                                      //         ACAResultsBufferMarks.SetRange("Academic Year", ACASemesters."Academic Year");
+                                                      //         ACAResultsBufferMarks.SetRange(Semester, Semesterz);
+                                                      //         ACAResultsBufferMarks.SetRange(Programme, Programz);
+                                                      //         ACAResultsBufferMarks.SetRange("Unit Code", Unitz);
+                                                      //         //ACAResultsBufferMarks.SETRANGE(Lecturer,UserNamez);
+                                                      //         ACAResultsBufferMarks.SetRange("Exam Type", ExamTypez);
+                                                      //         ACAResultsBufferMarks.SetRange("Student No.", StudNoz);
+                                                      //         if ACAResultsBufferMarks.Find('-') then begin
+                                                      //             repeat
+                                                      //             begin
+                                                      //                 ACAResultsBufferMarks."Score (String)" := Format(Scorez);
+                                                      //                 ACAResultsBufferMarks."Score Decimal" := Scorez;
+                                                      //                 ACAResultsBufferMarks.Modify(true);
+                                                      //                 MarksCaptureReturn := 'SUCCESS:: Marks inserted';
+                                                      //             end;
+                                                      //             until ACAResultsBufferMarks.Next = 0;
+                                                      //         end;
+                                                      //     end;
+                                                      //  end;
+                                                  end else begin
+                                                      if MarksCaptureReturn = '' then begin
+                                                          ////////////////////////////////////////////////////////////////////////////////////////////////
+                                                          ACAExamResults.Reset;
+                                                          ACAExamResults.SetRange("Student No.", StudNoz);
+                                                          ACAExamResults.SetRange(Programmes, Programz);
+                                                          ACAExamResults.SetRange(Unit, Unitz);
+                                                          ACAExamResults.SetRange(Semester, Semesterz);
+                                                          ACAExamResults.SetRange(ExamType, ExamTypez);
+                                                          if ACAExamResults.Find('-') then begin
+                                                              ACAExamResults.Score := Scorez;
+                                                              ACAExamResults.Validate(Score);
+                                                              ACAExamResults.Modify;
+                                                              ACAExamResults.Validate(ExamType);
+                                                              MarksCaptureReturn := 'SUCCESS:: Marks inserted';
+                                                          end else begin
+                                                              ACAExamResults.Init;
+                                                              ACAExamResults."Student No." := StudNoz;
+                                                              ACAExamResults.Programmes := Programz;
+                                                              ACAExamResults.Stage := ACAStudentUnits.Stage;
+                                                              ACAExamResults.Unit := Unitz;
+                                                              ACAExamResults.Semester := Semesterz;
+                                                              ACAExamResults.Exam := ExamTypez;
+                                                              ACAExamResults."Reg. Transaction ID" := ACAStudentUnits."Reg. Transacton ID";
+                                                              ACAExamResults.ExamType := ExamTypez;
+                                                              ACAExamResults."Exam Category" := Programmezz."Exam Category";
+                                                              ACAExamResults."Lecturer Names" := LecturerNamez;
+                                                              ACAExamResults."User Name" := LecturerNamez;
+                                                              ACAExamResults.User_ID := UserNamez;
+                                                              ACAExamResults.Submitted := true;
+                                                              ACAExamResults."Submitted By" := UserNamez;
+                                                              ACAExamResults."Submitted On" := Today;
+                                                              ACAExamResults.Category := Programmezz."Exam Category";
+                                                              ACAExamResults.Department := Programmezz."Department Code";
+                                                              ACAExamResults."Admission No" := StudNoz;
+                                                              ACAExamResults."Academic Year" := ACASemesters."Academic Year";
+                                                              ACAExamResults.Score := Scorez;
+                                                              ACAExamResults.Insert;
+                                                              ACAExamResults.Reset;
+                                                              ACAExamResults.SetRange("Student No.", StudNoz);
+                                                              ACAExamResults.SetRange(Programmes, Programz);
+                                                              ACAExamResults.SetRange(Unit, Unitz);
+                                                              ACAExamResults.SetRange(Semester, Semesterz);
+                                                              ACAExamResults.SetRange(ExamType, ExamTypez);
+                                                              if ACAExamResults.Find('-') then begin
+                                                                  ACAExamResults.Score := Scorez;
+                                                                  ACAExamResults.Validate(Score);
+                                                                  ACAExamResults.Validate(ExamType);
+                                                                  ACAExamResults.Modify;
+                                                              end;
+                                                              MarksCaptureReturn := 'SUCCESS:: Marks inserted';
+                                                          end;
+                                                          ///////////////////////////////////////////////////////////////////////////////////////////
+                                                      end;
+                                                  end;// end of if Buffer Results
+                                                      //------------------------------------------------------------------
+                                              end else
+                                              MarksCaptureReturn := 'Invalid Staff No. ' + Semesterz;
+                                          end else
+                                              MarksCaptureReturn := 'Invalid Semester ' + Semesterz;
+                                              */
+                                end else
+                                    MarksCaptureReturn := 'Invalid Marks on ' + Unitz + ' Student: ' + StudNoz + ': ' + Customer.Name + ', Exam type: ' +
+                           ExamTypez + '. Not to exceed: ' + Format(ACAExamsSetup."Max. Score");
+                            end else begin
+                                // Exams Setup Missing
+                                MarksCaptureReturn := 'No defined maximum mark values for ' + Unitz + ' Student: ' + StudNoz + ': ' + Customer.Name;
+                            end;
+                        end else begin
+                            // Program Missing
+                            MarksCaptureReturn := 'Program ' + Programz + ' Missing in Registration for: ' + StudNoz + ': ' + Customer.Name;
+                        end;
+                    end else begin
+                        MarksCaptureReturn := 'Unit ' + Unitz + ' Missing in Registration for: ' + StudNoz + ': ' + Customer.Name;
+                    end;
+                end;
+            end;
+        end;
+    end;
+
+    local procedure CreateMarksApprovalEntries(var AcaProgram: Record "ACA-Programme"; var ACASemesters: Record "ACA-Semesters"; UserNamez: Text[150]; var ACAStudentUnits: Record "ACA-Student Units")
+    var
+    // ACAResultsWorkflowTemplates: Record "ACA-Results Workflow Templates";
+    // ACAResultsWorkflowCodes: Record UnknownRecord78061;
+    // ACAResultsWorkflowApprovers: Record UnknownRecord78062;
+    // ACAResultsApprovalEntries: Record UnknownRecord78063;
+    begin
+        // Clear(ACAResultsWorkflowTemplates);
+        // ACAResultsWorkflowTemplates.Reset;
+        // ACAResultsWorkflowTemplates.SetRange("Department Code", AcaProgram."Department Code");
+        // ACAResultsWorkflowTemplates.SetRange("Academic Year", ACASemesters."Academic Year");
+        // if ACAResultsWorkflowTemplates.Find('-') then begin
+        //     repeat
+        //     begin
+        //         Clear(ACAResultsWorkflowCodes);
+        //         ACAResultsWorkflowCodes.Reset;
+        //         ACAResultsWorkflowCodes.SetRange("Academic Year", ACASemesters."Academic Year");
+        //         ACAResultsWorkflowCodes.SetRange("Template Name", ACAResultsWorkflowTemplates."Template Name");
+        //         if ACAResultsWorkflowCodes.Find('-') then begin
+        //             repeat
+        //             begin
+        //                 Clear(ACAResultsWorkflowApprovers);
+        //                 ACAResultsWorkflowApprovers.Reset;
+        //                 ACAResultsWorkflowApprovers.SetRange("Academic Year", ACAResultsWorkflowCodes."Academic Year");
+        //                 ACAResultsWorkflowApprovers.SetRange("Template Name", ACAResultsWorkflowCodes."Template Name");
+        //                 ACAResultsWorkflowApprovers.SetRange(WF_Code, ACAResultsWorkflowCodes.WF_Code);
+        //                 ACAResultsWorkflowApprovers.SetRange(Series, ACAResultsWorkflowCodes.Series);
+        //                 if ACAResultsWorkflowApprovers.Find('-') then begin
+        //                     repeat
+        //                     begin
+        //                         if ACAResultsWorkflowCodes."Approval Category" = ACAResultsWorkflowCodes."approval category"::"Per Unit" then begin
+        //                             // Create Approval entry here
+        //                             ACAResultsApprovalEntries.Init;
+        //                             ACAResultsApprovalEntries."Academic Year" := ACASemesters."Academic Year";
+        //                             ACAResultsApprovalEntries.Semester := ACASemesters.Code;
+        //                             ACAResultsApprovalEntries.Programme := AcaProgram.Code;
+        //                             ACAResultsApprovalEntries."Unit Code" := ACAStudentUnits.Unit;
+        //                             ACAResultsApprovalEntries."Approver ID" := ACAResultsWorkflowApprovers."Approver ID";
+        //                             ACAResultsApprovalEntries."Approval Series" := ACAResultsWorkflowApprovers.Series;
+        //                             ACAResultsApprovalEntries.Lecturer := UserNamez;
+        //                             ACAResultsApprovalEntries."Department Code" := AcaProgram."Department Code";
+        //                             ACAResultsApprovalEntries.Stage := ACAStudentUnits.Stage;
+        //                             ACAResultsApprovalEntries."Approval Template" := ACAResultsWorkflowApprovers."Template Name";
+        //                             ACAResultsApprovalEntries."Workflow Code" := ACAResultsWorkflowApprovers.WF_Code;
+        //                             ACAResultsApprovalEntries."Approval Category" := ACAResultsWorkflowCodes."Approval Category";
+        //                             if ACAResultsWorkflowCodes.Series = 1 then
+        //                                 ACAResultsApprovalEntries.Status := ACAResultsApprovalEntries.Status::open else
+        //                                 ACAResultsApprovalEntries.Status := ACAResultsApprovalEntries.Status::" ";
+        //                             if ACAResultsApprovalEntries.Insert then;
+        //                         end else begin
+        //                             // Create a per Program Approval entry
+        //                             ACAResultsApprovalEntries.Init;
+        //                             ACAResultsApprovalEntries."Academic Year" := ACASemesters."Academic Year";
+        //                             ACAResultsApprovalEntries.Semester := ACASemesters.Code;
+        //                             ACAResultsApprovalEntries.Programme := AcaProgram.Code;
+        //                             ACAResultsApprovalEntries."Approver ID" := ACAResultsWorkflowApprovers."Approver ID";
+        //                             ACAResultsApprovalEntries."Approval Series" := ACAResultsWorkflowApprovers.Series;
+        //                             ACAResultsApprovalEntries.Lecturer := UserNamez;
+        //                             ACAResultsApprovalEntries."Department Code" := AcaProgram."Department Code";
+        //                             ACAResultsApprovalEntries.Stage := ACAStudentUnits.Stage;
+        //                             ACAResultsApprovalEntries."Approval Template" := ACAResultsWorkflowApprovers."Template Name";
+        //                             ACAResultsApprovalEntries."Workflow Code" := ACAResultsWorkflowApprovers.WF_Code;
+        //                             ACAResultsApprovalEntries."Approval Category" := ACAResultsWorkflowCodes."Approval Category";
+        //                             if ACAResultsWorkflowCodes.Series = 1 then
+        //                                 ACAResultsApprovalEntries.Status := ACAResultsApprovalEntries.Status::open else
+        //                                 ACAResultsApprovalEntries.Status := ACAResultsApprovalEntries.Status::" ";
+        //                             if ACAResultsApprovalEntries.Insert then;
+        //                         end;
+        //                     end;
+        //                     until ACAResultsWorkflowApprovers.Next = 0;
+        //                 end;
+        //             end;
+        //             until ACAResultsWorkflowCodes.Next = 0;
+        //         end;
+        //     end;
+        //     until ACAResultsWorkflowTemplates.Next = 0;
+        // end;
+    end;
+
+
+    procedure FnBookSpecialExam(StudentNo: Code[25]; ProgramCode: Code[25]; SemesterCode: Code[25]; Unitcode: Code[25]; Reason: Code[100]): Integer
+    var
+        StdUnits: Record "ACA-Student Units";
+        AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+        ACASems: Record "ACA-Semesters";
+    begin
+        ACASems.Reset;
+        ACASems.SetRange(ACASems.Code, SemesterCode);
+        if ACASems.FindFirst then begin
+            ACASems.TestField("Special Entry Deadline");
+            if ACASems."Special Entry Deadline" < Today then
+                Error('Special examination booking is not allowed at this moment.');
+        end;
+
+        StdUnits.Reset;
+        StdUnits.SetRange(StdUnits."Student No.", StudentNo);
+        StdUnits.SetRange(StdUnits.Programme, ProgramCode);
+        StdUnits.SetRange(StdUnits.Semester, SemesterCode);
+        StdUnits.SetRange(StdUnits.Unit, Unitcode);
+        if StdUnits.FindFirst then begin
+            StdUnits."Special Exam" := StdUnits."special exam"::Special;
+            StdUnits."Reason for Special Exam/Susp." := Reason;
+            StdUnits.Validate("Special Exam");
+            StdUnits.Modify;
+            Commit;
+        end;
+
+        AcaSpecialExamsDetails.Reset;
+        AcaSpecialExamsDetails.SetRange("Student No.", StudentNo);
+        AcaSpecialExamsDetails.SetRange("Unit Code", Unitcode);
+        AcaSpecialExamsDetails.SetRange(Programme, ProgramCode);
+        AcaSpecialExamsDetails.SetRange(Semester, SemesterCode);
+        AcaSpecialExamsDetails.SetRange(AcaSpecialExamsDetails.Category, AcaSpecialExamsDetails.Category::Supplementary);
+        if AcaSpecialExamsDetails.FindFirst then
+            exit(AcaSpecialExamsDetails.Sequence) else
+            exit(0);
+    end;
+
+
+    procedure FnCheckMarksEntryValid(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
+    var
+        StageSem: Record "ACA-Prog/Stage Sem. Schedule";
+    begin
+        StageSem.Reset;
+        StageSem.SetRange(Code, Semester);
+        StageSem.SetRange("Programme Code", Programme);
+        StageSem.SetRange("Stage Code", Stage);
+        if StageSem.FindFirst then begin
+            exit(Today < StageSem."Mark entry Dealine");
+        end else
+            exit(false);
+    end;
+
+
+    procedure FnCheckSpecialsEntryValid(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
+    var
+        StageSem: Record "ACA-Prog/Stage Sem. Schedule";
+    begin
+        StageSem.Reset;
+        StageSem.SetRange(Code, Semester);
+        StageSem.SetRange("Programme Code", Programme);
+        StageSem.SetRange("Stage Code", Stage);
+        if StageSem.FindFirst then begin
+            exit(Today < StageSem."Special Entry Deadline");
+        end else
+            exit(false);
+    end;
+
+
+    procedure FnCheckSuppEntryValid(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
+    var
+        StageSem: Record "ACA-Prog/Stage Sem. Schedule";
+    begin
+        StageSem.Reset;
+        StageSem.SetRange(Code, Semester);
+        StageSem.SetRange("Programme Code", Programme);
+        StageSem.SetRange("Stage Code", Stage);
+        if StageSem.FindFirst then begin
+            exit(Today < StageSem."Supplementary Entry Deadline");
+        end else
+            exit(false);
+    end;
+
+
+    procedure FnCheckCATLocked(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
+    var
+        StageSem: Record "ACA-Prog/Stage Sem. Schedule";
+    begin
+        StageSem.Reset;
+        StageSem.SetRange(Code, Semester);
+        StageSem.SetRange("Programme Code", Programme);
+        StageSem.SetRange("Stage Code", Stage);
+        if StageSem.FindFirst then begin
+            exit(StageSem."Lock CAT Editting");
+        end;
+    end;
+
+
+    procedure FnCheckExamLocked(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
+    var
+        StageSem: Record "ACA-Prog/Stage Sem. Schedule";
+    begin
+        StageSem.Reset;
+        StageSem.SetRange(Code, Semester);
+        StageSem.SetRange("Programme Code", Programme);
+        StageSem.SetRange("Stage Code", Stage);
+        if StageSem.FindFirst then begin
+            exit(StageSem."Lock Exam Editting");
+        end;
+    end;
+
+
+    procedure FnGetLecturerStudentsWithSearch(unit: Code[20]; prog: Code[20]; sem: Code[20]; stage: Code[20]; searchParam: Text) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+    begin
+        Customer.Reset;
+        Customer.SetCurrentkey("No.");
+        Customer.SetFilter("No.", '%1', '*' + searchParam + '*');
+        if Customer.Find('-') then begin
+            repeat
+                StdUnits.Reset;
+                StdUnits.SetRange("Student No.", Customer."No.");
+                StdUnits.SetRange(Unit, unit);
+                StdUnits.SetRange(Programme, prog);
+                StdUnits.SetRange(Semester, sem);
+                StdUnits.SetRange(Stage, stage);
+                if StdUnits.Find('-') then begin
+                    repeat
+                        Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                    until StdUnits.Next = 0;
+                end;
+            until Customer.Next = 0;
+        end else begin
+            Customer.Reset;
+            Customer.SetCurrentkey("No.");
+            Customer.SetFilter(Name, '%1', '*' + searchParam + '*');
+            if Customer.Find('-') then begin
+                repeat
+                    StdUnits.Reset;
+                    StdUnits.SetRange("Student No.", Customer."No.");
+                    StdUnits.SetRange(Unit, unit);
+                    StdUnits.SetRange(Programme, prog);
+                    StdUnits.SetRange(Semester, sem);
+                    StdUnits.SetRange(Stage, stage);
+                    if StdUnits.Find('-') then begin
+                        repeat
+                            Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                        until StdUnits.Next = 0;
+                    end;
+                until Customer.Next = 0;
+            end;
+        end;
+    end;
+
+
+    procedure FnGetLecturerStudents(unit: Code[20]; prog: Code[20]; sem: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+    begin
+        StdUnits.Reset;
+        StdUnits.SetCurrentkey("Student No.");
+        StdUnits.SetRange(Unit, unit);
+        StdUnits.SetRange(Programme, prog);
+        StdUnits.SetRange(Semester, sem);
+        StdUnits.SetRange(Stage, stage);
+        if StdUnits.Find('-') then begin
+            repeat
+                Customer.Reset;
+                Customer.SetRange("No.", StdUnits."Student No.");
+                if Customer.Find('-') then begin
+                    Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                end;
+            until StdUnits.Next = 0;
+        end;
+    end;
+
+
+    procedure FnGetScore(stdNo: Code[20]; unit: Code[20]; sem: Code[20]; examType: Code[20]) Msg: Text
+    var
+        ExamResults: Record "ACA-Exam Results";
+    //ExamResultsBuffer: Record "ACA-Results Buffer Marks";
+    begin
+        ExamResults.Reset;
+        ExamResults.SetRange("Student No.", stdNo);
+        ExamResults.SetRange(Unit, unit);
+        ExamResults.SetRange(Semester, sem);
+        ExamResults.SetRange(ExamType, examType);
+        if ExamResults.Find('-') then begin
+            Msg := Format(ExamResults.Score) + '::' + Format(ExamResults."Edit Count");
+        end;
+        /*  else begin
+            ExamResultsBuffer.Reset;
+            ExamResultsBuffer.SetRange("Student No.", stdNo);
+            ExamResultsBuffer.SetRange("Unit Code", unit);
+            ExamResultsBuffer.SetRange(Semester, sem);
+            ExamResultsBuffer.SetRange("Exam Type", examType);
+            if ExamResultsBuffer.Find('-') then begin
+                Msg := ExamResultsBuffer."Score (String)" + '::' + Format(ExamResults."Edit Count");
+            end;
+        end; */
+    end;
+}
+

@@ -2,6 +2,7 @@
 /// <summary>
 /// Codeunit webportals (ID 51801).
 /// </summary>
+
 // dotnet
 // {
 //     assembly(mscorlib)
@@ -17,7 +18,25 @@
 //         type(System.IO.MemoryStream; MemoryStream) { }
 //     }
 // }
-codeunit 50042 webportals
+//codeunit 50042 webportals
+
+// dotnet
+// {
+//     assembly(mscorlib)
+//     {
+//         type(System.Array; Bytes) { }
+//     }
+//     assembly(mscorlib)
+//     {
+//         type(System.Convert; Convert) { }
+//     }
+//     assembly(mscorlib)
+//     {
+//         type(System.IO.MemoryStream; MemoryStream) { }
+//     }
+// }
+codeunit 50042 webportalsII
+
 {
 
     trigger OnRun()
@@ -805,7 +824,7 @@ codeunit 50042 webportals
                 AcaSpecialExamsResults.VALIDATE(Score, Marks);
                 AcaSpecialExamsResults.UserID := LectNo;
                 AcaSpecialExamsResults."Modified Date" := TODAY;
-                AcaSpecialExamsResults.Catogory := AcaSpecialExamsDetails.Catogory;
+                AcaSpecialExamsResults.Category := AcaSpecialExamsDetails.Category;
                 AcaSpecialExamsResults.MODIFY;
                 ReturnMessage := '1'
             END ELSE BEGIN
@@ -820,7 +839,7 @@ codeunit 50042 webportals
                 AcaSpecialExamsResults."Current Academic Year" := AcaSpecialExamsDetails."Current Academic Year";
                 AcaSpecialExamsResults.UserID := LectNo;
                 AcaSpecialExamsResults."Capture Date" := TODAY;
-                AcaSpecialExamsResults.Catogory := AcaSpecialExamsDetails.Catogory;
+                AcaSpecialExamsResults.Category := AcaSpecialExamsDetails.Category;
                 AcaSpecialExamsResults.VALIDATE(Score, Marks);
                 AcaSpecialExamsResults.INSERT;
                 AcaSpecialExamsResults.VALIDATE(Unit);
@@ -2471,7 +2490,7 @@ codeunit 50042 webportals
     end;
 
 
-    procedure SubmitSupUnitsBaskets(studentNo: Text; AcademicYear: Text; Sem: Text; myStage: Text; Programmez: Text; UnitCode: Text; Catogoryz: Integer; UnitDesc: Text)
+    procedure SubmitSupUnitsBaskets(studentNo: Text; AcademicYear: Text; Sem: Text; myStage: Text; Programmez: Text; UnitCode: Text; Categoryz: Integer; UnitDesc: Text)
     begin
         SupUnitsBasket.RESET;
         SupUnitsBasket.SETRANGE(SupUnitsBasket."Academic Year", AcademicYear);
@@ -2490,7 +2509,7 @@ codeunit 50042 webportals
             SupUnitsBasket."Unit Code" := UnitCode;
             SupUnitsBasket."Unit Description" := UnitDesc;
             SupUnitsBasket.Status := SupUnitsBasket.Status::New;
-            SupUnitsBasket.Catogory := Catogoryz;
+            SupUnitsBasket.Category := Categoryz;
             SupUnitsBasket.INSERT(TRUE);
         END ELSE BEGIN
             SupUnitsBasket.MODIFY;
@@ -2498,7 +2517,7 @@ codeunit 50042 webportals
     end;
 
 
-    procedure SubmitSupUnits(studentNo: Text; AcademicYear: Text; Sem: Text; myStage: Text; Programmez: Text; UnitCode: Text; Catogoryz: Integer; UnitDesc: Text; ThisemacYear: Text; CurrentSem: Text)
+    procedure SubmitSupUnits(studentNo: Text; AcademicYear: Text; Sem: Text; myStage: Text; Programmez: Text; UnitCode: Text; Categoryz: Integer; UnitDesc: Text; ThisemacYear: Text; CurrentSem: Text)
     begin
         SupUnits.RESET;
         SupUnits.SETRANGE(SupUnits."Student No.", studentNo);
@@ -2516,7 +2535,7 @@ codeunit 50042 webportals
             SupUnits."Unit Code" := UnitCode;
             SupUnits."Unit Description" := UnitDesc;
             SupUnits.Status := SupUnits.Status::New;
-            SupUnits.Catogory := Catogoryz;
+            SupUnits.Category := Categoryz;
             SupUnits."Current Academic Year" := ThisemacYear;
             SupUnits."Current Semester" := CurrentSem;
             SupUnits.INSERT(TRUE);
