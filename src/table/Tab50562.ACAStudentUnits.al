@@ -1037,7 +1037,7 @@ table 50562 "ACA-Student Units"
         }
         field(50071; Supervisor; Code[20])
         {
-            // TableRelation = "ACA-Lecturers/Examiners"."No.";
+            TableRelation = "ACA-Lecturers/Examiners"."No.";
         }
         field(50072; "Released Results"; Boolean)
         {
@@ -1397,7 +1397,7 @@ table 50562 "ACA-Student Units"
                                                                   "Student No" = FIELD("Student No.")));
             FieldClass = FlowField;
         }
-    
+
         field(60172; "Special Programme Class"; Option)
         {
             DataClassification = ToBeClassified;

@@ -64,7 +64,10 @@ page 50083 "Tender Disq Preliminary Card"
 
     actions
     {
+        area(Processing)
+        {
 
+        }
     }
 
     trigger OnDeleteRecord(): Boolean
