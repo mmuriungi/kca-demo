@@ -1,4 +1,4 @@
-page 50256 "Proc Number Setups"
+page 52054 "Proc Number Setups"
 {
     Caption = 'Proc Number Setups';
     PageType = List;

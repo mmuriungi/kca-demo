@@ -645,6 +645,63 @@ table 50048 "PROC-Purchase Quote Header"
         {
             //Caption = 'BizTalk Document Sent';
         }
+        //Description
+        field(99008523; "Description"; Text[250])
+        {
+            Caption = 'Description';
+        } field(50202; "Requisition No."; code[30])
+        {
+            TableRelation = "Purchase Header"."No." where("Document Type" = filter(Quote), DocApprovalType = filter(Requisition), Status = filter(Released));
+            trigger OnValidate()
+            var
+                RFQ: Record "PROC-Purchase Quote Line";
+                RFQ_Line: Record "PROC-Purchase Quote Line";
+                countedRec: Integer;
+                PurchLine: Record "Purchase Line";
+                purheader: Record "Purchase Header";
+                Ptype: Option " ","G/L Account",Item,Resource,"Fixed Asset","Charge (Item)";
+            begin
+                //CHECK WHETHER HAS LINES AND DELETE
+                IF NOT CONFIRM('If you change the purchase requisition No. the current lines will be deleted. Do you want to continue?', FALSE)
+                THEN
+                    ERROR('You have selected to abort the process');
+
+                RFQ_Line.RESET;
+                RFQ_Line.SETRANGE("Document No.", "No.");
+                RFQ_Line.DELETEALL;
+
+                PurchLine.RESET;
+                PurchLine.SETRANGE("Document No.", "Requisition No.");
+                IF PurchLine.FIND('-') THEN BEGIN
+                    REPEAT
+                        RFQ_Line.Reset();
+                        RFQ_Line.SetRange("Document No.", "No.");
+                        if RFQ_Line.Find('-') then begin
+                            countedRec := RFQ_Line.COUNT + 1;
+                        end
+                        else
+                            countedRec := 1;
+
+                        RFQ_Line.Init();
+                        RFQ_Line."Document No." := Rec."No.";
+                        RFQ_Line."Document Type" := 3;
+                        //RFQ_Line."Line No." := countedRec;
+                        RFQ_Line."Type" := Ptype;
+                        RFQ_Line."No." := PurchLine."No.";
+                        RFQ_Line."Line No." := PurchLine."Line No.";
+                        RFQ_Line."Location Code" := PurchLine."Location Code";
+                        RFQ_Line.Quantity := PurchLine.Quantity;
+                        RFQ_Line.Description := PurchLine.Description;
+                        RFQ_Line."Description 2" := PurchLine."Description 2";
+                        RFQ_Line."Direct Unit Cost" := PurchLine."Direct Unit Cost";
+                        RFQ_Line."Line Amount" := PurchLine.Amount;
+                        RFQ_Line.Insert();
+
+                    UNTIL PurchLine.NEXT = 0;
+                END;
+            end;
+        }
+ 
     }
 
     keys

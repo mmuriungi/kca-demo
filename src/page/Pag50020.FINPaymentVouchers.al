@@ -120,6 +120,8 @@ page 50020 "FIN-Payment Vouchers"
                     PromotedIsBig = true;
 
                     trigger OnAction()
+                    var
+                        pg20: page 20;
                     begin
                         ExpenseBudget;
                         //Post PV Entries

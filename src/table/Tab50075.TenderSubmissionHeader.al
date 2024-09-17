@@ -604,11 +604,12 @@ table 50075 "Tender Submission Header"
         {
 
         }
-
-
-
-
-    }
+        //"RFQ No."
+        field(158; "RFQ No."; Code[20])
+        {
+            Caption = 'RFQ No.';
+        }
+          }
 
     keys
     {
