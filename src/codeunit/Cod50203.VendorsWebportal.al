@@ -20,6 +20,7 @@ codeunit 50203 "VendorsWebportal"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         nextapplicno: Code[20];
         procheader: Record "PROC-Purchase Quote Header";
+        Us: page 9807;
 
         FILESPATH: Label 'C:\inetpub\wwwroot\NDMAVendors\Downloads\';
         purchaseheader: Record "Purchase Header";

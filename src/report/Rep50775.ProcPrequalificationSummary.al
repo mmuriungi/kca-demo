@@ -1,7 +1,7 @@
 report 50775 "Proc-Prequalification Summary"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Suppliers PreQualification/Reports/SSR/ProcPrequalificationSummary.rdl';
+    RDLCLayout = './Layouts/ProcPrequalificationSummary.rdl';
     dataset
     {
         dataitem(Year; "Proc-Prequalification Years")
