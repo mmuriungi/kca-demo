@@ -328,6 +328,21 @@ table 50059 "Tender Applicants Registration"
         {
 
         }
+        //"Company Contact"
+        field(152; "Company Contact"; Text[100])
+        {
+            Caption = 'Company Contact';
+        }
+        //OTP
+        field(153; "OTP"; Text[20])
+        {
+            Caption = 'OTP';
+        }
+        //"Account Activated"
+        field(154; "Account Activated"; Boolean)
+        {
+            Caption = 'Account Activated';
+        }
     }
 
     keys

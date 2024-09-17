@@ -373,7 +373,7 @@ tableextension 50010 "Purchase Header" extends "Purchase Header"
         field(5666006; "Quote Status"; Option)
         {
 
-            OptionMembers = " ","Fin Qualif","Recommended Award","Prelim qualif","Tech Qualf","Demo Qualif","Prelim Disqualif","Tech Disqualif","Demo Disqualif","Fin Disqualif",Submitted;
+            OptionMembers = " ",Pending,"Fin Qualif","Recommended Award","Prelim qualif","Tech Qualf","Demo Qualif","Prelim Disqualif","Tech Disqualif","Demo Disqualif","Fin Disqualif",Submitted;
         }
         field(5666007; Archived; Boolean)
         {
@@ -456,7 +456,7 @@ tableextension 50010 "Purchase Header" extends "Purchase Header"
 
     begin
         InitInsert2;
-      
+
     end;
 
     trigger OnModify()
