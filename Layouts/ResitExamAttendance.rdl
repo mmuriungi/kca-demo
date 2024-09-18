@@ -1140,8 +1140,8 @@ End Function
         <Field Name="CostPerExam_resitFormat">
           <DataField>CostPerExam_resitFormat</DataField>
         </Field>
-        <Field Name="Catogory_resit">
-          <DataField>Catogory_resit</DataField>
+        <Field Name="Category_resit">
+          <DataField>Category_resit</DataField>
         </Field>
         <Field Name="CurrentAcademicYear_resit">
           <DataField>CurrentAcademicYear_resit</DataField>

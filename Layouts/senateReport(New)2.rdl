@@ -1382,8 +1382,8 @@ UG21RMNPjhIi5jbzUOBEOqPRsYnwpkx9bU3YI+w+c1qpyqT4/ZRMdiJ8J5E70wvmN+uSi9do08Z1Wrig
         <Field Name="Programme">
           <DataField>Programme</DataField>
         </Field>
-        <Field Name="Catogory">
-          <DataField>Catogory</DataField>
+        <Field Name="Category">
+          <DataField>Category</DataField>
         </Field>
         <Field Name="custName">
           <DataField>custName</DataField>

@@ -1,6 +1,5 @@
 pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Role Center"
 {
-
     actions
     {
         addafter("Posted Documents")
@@ -25,7 +24,6 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                 RunObject = Page "FIN-Purchase Requisition";
                 ToolTip = 'Create purchase requisition from departments.';
             }
-
 
             action("Approved Purchase Requisitions")
             {
@@ -66,37 +64,27 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                 {
                     ApplicationArea = all;
                     RunObject = page "Proc-Prequalification Years";
-
-
                 }
                 action("Prequalification categories")
                 {
                     ApplicationArea = all;
                     RunObject = page "Prequalification Categories";
-
-
                 }
                 action("Prequalification Suppliers/Categories")
                 {
                     ApplicationArea = all;
                     RunObject = page "Prequalified Cat/Years List";
-
-
                 }
-
-
             }
             group(ProcPlan)
             {
                 Caption = 'Procurement Planing';
 
-                //"Proc-Target Groups
                 action("Procurement Period")
                 {
                     caption = 'Procurement Period';
                     RunObject = page "Proc-Procure. Plan Period1";
                     ApplicationArea = all;
-
                 }
                 action("Procurement Plan")
                 {
@@ -105,63 +93,22 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                     ApplicationArea = All;
                     RunObject = Page "Departmental  Procurement List";
                 }
-                // action(planning)
-                // {
-                //     ApplicationArea = Suite;
-                //     Caption = 'Procurement Plan';
-                //     RunObject = Page "Departmental  Procurement List";
-                //     ToolTip = 'Create purchase requisition from departments.';
-                // }
-
                 action("Consolidated Plan")
                 {
                     Caption = 'Consolidated Plan';
                     ApplicationArea = all;
                     RunObject = Page "Consolidated Plan List";
                 }
-                // action("Budget Workplan Names")
-                // {
-                //     Caption = 'Budget Workplan Names';
-                //     RunObject = Page 50163;
-                // }
-                // action("Procurement Method")
-                // {
-                //     Caption = 'Procurement Methods';
-                //     RunObject = Page 50169;
-                // }
-                // action("Workplan Activities")
-                // {
-                //     Caption = 'Workplan Activities';
-                //     RunObject = Page 50157;
-                // }
-                // action("Budget")
-                // {
-                //     Caption = 'Budget Workplan';
-                //     RunObject = Page 50161;
-                // }
-                // action(WorkPlan_Creation)
-                // {
-                //     Caption = 'WorkPlan Creation';
-                //     RunObject = Page 50165;
-                // }
             }
             Group("Internal Purchase Requisitions")
             {
                 action("Purchase Requisition1")
                 {
                     ApplicationArea = All;
-                    // Caption = 'Caption', comment = 'NLB="YourLanguageCaption"';
                     Image = History;
-
                     RunObject = page "Purchase Requisition Header1";
                 }
-
             }
-
-
-        }
-        addbefore("Posted Documents")
-        {
             group(Tender)
             {
                 Caption = 'Tendering Process';
@@ -189,7 +136,6 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                 {
                     Caption = 'Preliminary Qualifiers';
                     ApplicationArea = basic, suite;
-                    //RunObject = Page "Tender Preliminary QualfyList";
                     RunObject = Page "Tender Prelim QualifyiedL";
                 }
                 action(TechnicalQualifiers)
@@ -197,15 +143,12 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                     Caption = 'Technical Qualifiers';
                     ApplicationArea = basic, suite;
                     RunObject = Page "Tender Technical QualifyiedL";
-                    //RunObject = Page "Tender Technical QualifiedList";
-
                 }
                 action(DemoQualifiers)
                 {
                     Caption = 'Demonstration Qualifiers';
                     ApplicationArea = basic, suite;
                     RunObject = Page "Tender Demo QualifyiedL";
-                    //RunObject = Page "Tender Demo QualifiedList";
                 }
                 action(FinancialQualifiers)
                 {
@@ -221,8 +164,13 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                 }
                 group(TenderSetup)
                 {
-
                     Caption = 'Setups';
+                    action("No.series")
+                    {
+                        Caption = 'Tendering Series';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = Page "Tender Series Setup";
+                    }
                     action(PreliminarySetup)
                     {
                         Caption = 'Preliminary Setups';
@@ -276,8 +224,6 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                     ApplicationArea = basic, suite;
                     RunObject = Page "Tender Disq Financial List";
                 }
-
-
             }
             group(Common_req)
             {
@@ -287,10 +233,8 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                 {
                     ApplicationArea = all;
                     Caption = 'Stores Requisitions';
-
                     RunObject = Page "PROC-Store Requisition";
                 }
-
                 action(Action1000000003)
                 {
                     ApplicationArea = all;
@@ -325,26 +269,93 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                     ApplicationArea = All;
                     RunObject = Page "FIN-Imprests List";
                 }
-                // action("Page FLT Transport Requisition2")
-                // {
-                //     Caption = 'Transport Requisition';
-                //     ApplicationArea = All;
-                //     RunObject = Page "FLT-Transport Req. List";
-                // }
-
-                // action("Meal Booking")
-                // {
-                //     Caption = 'Meal Booking';
-                //     ApplicationArea = All;
-                //     RunObject = Page "CAT-Meal Booking List";
-                // }
             }
-
-
-
-
+            group("Store Requisition")
+            {
+                Caption = 'Store Requisitions';
+                action("Store Requests")
+                {
+                    ApplicationArea = All;
+                    Image = Document;
+                    RunObject = Page "PROC-Store Requisition";
+                }
+                action("All SRNS")
+                {
+                    ApplicationArea = All;
+                    Image = AboutNav;
+                    RunObject = page "All Store Requisition";
+                }
+                action("Approved SRNS")
+                {
+                    ApplicationArea = All;
+                    Image = SettleOpenTransactions;
+                    RunObject = Page "PROC-Approved Store Reqs";
+                }
+                action("Posted Store Requisitions")
+                {
+                    Caption = 'Posted SRNS';
+                    ApplicationArea = All;
+                    Image = PostedOrder;
+                    RunObject = Page "PROC-Posted Store Reqs";
+                }
+            }
+            group("Reports")
+            {
+                action("PO Report")
+                {
+                    ApplicationArea = All;
+                    Image = OrderList;
+                    RunObject = Report "Order Status Report";
+                }
+            }
+            group(ProcurementProcesses)
+            {
+                Caption = 'Procurement Processes V1';
+                Image = Purchasing;
+                action("Proc-Prequalification Years")
+                {
+                    Caption = 'Prequalification Years';
+                    ApplicationArea = basic, suite;
+                    RunObject = Page "Proc-Prequalification Years";
+                }
+                action("Prequalification Application")
+                {
+                    Caption = 'Prequalification Application';
+                    ApplicationArea = basic, suite;
+                    RunObject = Page "Prequalification Application";
+                }
+                action("Proc-Prequalification Categories")
+                {
+                    Caption = 'Prequalification Categories/Years';
+                    ApplicationArea = basic, suite;
+                    RunObject = Page "Proc-Preq. Categories/Year";
+                }
+                action("PROC Open.Tender Header")
+                {
+                    Caption = 'Open Tenders';
+                    ApplicationArea = basic, suite;
+                    RunObject = Page "PROC Open.Tender List";
+                }
+                action("PROC-Purchase Restricted List")
+                {
+                    Caption = 'Restricted Tenders';
+                    ApplicationArea = basic, suite;
+                    RunObject = Page "PROC-Purchase Restricted List";
+                }
+                action("PROC-Purchase Direct List")
+                {
+                    Caption = 'Direct Procurement';
+                    ApplicationArea = basic, suite;
+                    RunObject = Page "PROC-Purchase Direct List";
+                }
+                action("PROC-Two Stage.Tender List")
+                {
+                    Caption = 'Two Stage Tender';
+                    ApplicationArea = basic, suite;
+                    RunObject = Page "PROC-Two Stage.Tender List";
+                }
+            }
         }
-
         modify("Purchase &Order")
         {
             Visible = false;
@@ -360,64 +371,9 @@ pageextension 50006 "Purchasing Agent Role Center" extends "Purchasing Agent Rol
                 ApplicationArea = Suite;
                 Caption = 'Procurement &Order';
                 Image = Document;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Purchase Order List";
                 ToolTip = 'Create a new purchase order.';
             }
         }
-        addbefore("Posted Documents")
-        {
-            group("Store Requisition")
-            {
-                Caption = 'Store Requisitions';
-                action("Store Requests")
-                {
-                    ApplicationArea = All;
-                    Image = Document;
-                    RunObject = Page "PROC-Store Requisition";
-                }
-                action("All SRNS")
-                {
-                    ApplicationArea = All;
-                    Image = AboutNav;
-
-                    RunObject = page "All Store Requisition";
-                }
-                action("Approved SRNS")
-                {
-                    ApplicationArea = All;
-
-                    Image = SettleOpenTransactions;
-                    RunObject = Page "PROC-Approved Store Reqs";
-                }
-
-                action("Posted Store Requisitions")
-                {
-                    Caption = 'Posted SRNS';
-                    ApplicationArea = All;
-                    Image = PostedOrder;
-                    RunObject = Page "PROC-Posted Store Reqs";
-                }
-
-            }
-
-            group("Reports")
-            {
-                action("PO Report")
-                {
-                    ApplicationArea = All;
-                    Image = OrderList;
-                    RunObject = Report "Order Status Report";
-                }
-            }
-        }
-
     }
-
-
-
-
-
-
 }

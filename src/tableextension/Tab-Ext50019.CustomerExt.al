@@ -1289,6 +1289,11 @@ tableextension 50019 "Customer Ext" extends Customer
             FieldClass = FlowField;
             CalcFormula = sum(Donation.Amount where("Donor No." = field("No.")));
         }
+        field(63212; "Supervisor No."; Code[25])
+        {
+            TableRelation = "HRM-Employee C" where(Lecturer = const(true));
+
+        }
 
 
         modify("No.")
