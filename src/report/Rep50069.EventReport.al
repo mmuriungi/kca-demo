@@ -5,7 +5,7 @@ report 50069 "Event Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'EventReport.rdl';
+    RDLCLayout = './Layouts/EventReport.rdl';
 
     dataset
     {

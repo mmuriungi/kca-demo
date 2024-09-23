@@ -64,35 +64,29 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="No_">
-          <DataField>No_</DataField>
+        <Field Name="Student_No_">
+          <DataField>Student_No_</DataField>
         </Field>
         <Field Name="Name">
           <DataField>Name</DataField>
         </Field>
-        <Field Name="Date">
-          <DataField>Date</DataField>
+        <Field Name="Program_Code">
+          <DataField>Program_Code</DataField>
         </Field>
-        <Field Name="Time">
-          <DataField>Time</DataField>
+        <Field Name="Department_Code">
+          <DataField>Department_Code</DataField>
         </Field>
-        <Field Name="Location">
-          <DataField>Location</DataField>
+        <Field Name="School_Code">
+          <DataField>School_Code</DataField>
         </Field>
-        <Field Name="Category">
-          <DataField>Category</DataField>
+        <Field Name="Supervisor_Code">
+          <DataField>Supervisor_Code</DataField>
         </Field>
-        <Field Name="Registered_Attendees">
-          <DataField>Registered_Attendees</DataField>
+        <Field Name="SupervisorName">
+          <DataField>SupervisorName</DataField>
         </Field>
-        <Field Name="Checked_in_Attendees">
-          <DataField>Checked_in_Attendees</DataField>
-        </Field>
-        <Field Name="Feedback_Score">
-          <DataField>Feedback_Score</DataField>
-        </Field>
-        <Field Name="Feedback_ScoreFormat">
-          <DataField>Feedback_ScoreFormat</DataField>
+        <Field Name="ThesisApproved">
+          <DataField>ThesisApproved</DataField>
         </Field>
       </Fields>
       <Query>

@@ -7,6 +7,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
     var
         MaintenanceRequest: Record "Maintenance Request";
         UtilityBill: Record "Utility Bill";
+        CertApplic: Record "Certificate Application";
     begin
         case DocumentAttachment."Table ID" of
 
@@ -21,6 +22,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecRef.Open(DATABASE::"Utility Bill");
                     if UtilityBill.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(UtilityBill);
+                end;
+            Database::"Certificate Application":
+                begin
+                    RecRef.Open(DATABASE::"Certificate Application");
+                    if CertApplic.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(CertApplic);
                 end;
         end;
     end;
@@ -45,6 +52,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecNo := FieldRef.Value;
                     DocumentAttachment.SetRange("No.", RecNo);
                 end;
+            Database::"Certificate Application":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.SetRange("No.", RecNo);
+                end;
         end;
     end;
 
@@ -63,6 +76,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     DocumentAttachment.Validate("No.", RecNo);
                 end;
             DATABASE::"Utility Bill":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                end;
+            Database::"Certificate Application":
                 begin
                     FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;

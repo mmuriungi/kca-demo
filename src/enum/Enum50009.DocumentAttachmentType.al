@@ -10,4 +10,8 @@ enum 50009 "Document Attachment Type"
     value(2; "Thesis")
     {
     }
+    value(3; "Police Abstract")
+    {
+    }
+    
 }
