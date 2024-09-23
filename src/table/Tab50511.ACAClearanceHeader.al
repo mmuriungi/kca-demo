@@ -256,7 +256,7 @@ table 50511 "ACA-Clearance Header"
         IF "No." = '' THEN BEGIN
             GLSetup.GET;
             GLSetup.TESTFIELD("Clearance Nos");
-            //NoSeriesMgt.InitSeries(GLSetup."Clearance Nos",xRec."No. Series",0D,"No.","No. Series");
+            NoSeriesMgt.InitSeries(GLSetup."Clearance Nos", xRec."No. Series", 0D, "No.", "No. Series");
         END;
     end;
 
