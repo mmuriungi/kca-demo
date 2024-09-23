@@ -3,7 +3,7 @@ report 50773 "Contract List Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'ContractListReport.rdl';
+    RDLCLayout = './Layouts/ContractListReport.rdl';
 
     dataset
     {
