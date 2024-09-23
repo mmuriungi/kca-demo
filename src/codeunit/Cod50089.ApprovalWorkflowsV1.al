@@ -19,11 +19,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelPostgradSupervisorApplicRequestTxt: Label 'An Approval request for Postgraduate Supervisor Application is Cancelled';
         RunWorkflowOnSendPostgradSupervisorApplicForApprovalCode: Label 'RUNWORKFLOWONSENDPOSTGRADSUPERVISORAPPLICFORAPPROVAL';
         RunWorkflowOnCancePostgradSupervisorApplicForApprovalCode: Label 'RUNWORKFLOWONCANCELPOSTGRADSUPERVISORAPPLICFORAPPROVAL';
-
-
-
-
-
+        //Certificate Application
+        OnSendCertApplicRequestTxt: Label 'Approval request for Certificate Application is requested';
+        OnCancelCertApplicRequestTxt: Label 'An Approval request for Certificate Application is Cancelled';
+        RunWorkflowOnSendCertApplicForApprovalCode: Label 'RUNWORKFLOWONSENDCERTAPPLICFORAPPROVAL';
+        RunWorkflowOnCanceCertApplicForApprovalCode: Label 'RUNWORKFLOWONCANCECERTAPPLICFORAPPROVAL';
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
     var
@@ -75,6 +75,9 @@ codeunit 50089 "Approval Workflows V1"
         //Postgrad Supervisor Applic.
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendPostgradSupervisorApplicForApprovalCode, Database::"Postgrad Supervisor Applic.", OnSendPostgradSupervisorApplicRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancePostgradSupervisorApplicForApprovalCode, Database::"Postgrad Supervisor Applic.", OnCancelPostgradSupervisorApplicRequestTxt, 0, false);
+        //Certificate Application
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendCertApplicForApprovalCode, Database::"Certificate Application", OnSendCertApplicRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCanceCertApplicForApprovalCode, Database::"Certificate Application", OnCancelCertApplicRequestTxt, 0, false);
     end;
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
@@ -96,6 +99,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendStudentLeaveForApprovalCode, Variant);
             Database::"Postgrad Supervisor Applic.":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendPostgradSupervisorApplicForApprovalCode, Variant);
+            Database::"Certificate Application":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendCertApplicForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -115,6 +120,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCanceStudentLeaveForApprovalCode, Variant);
             Database::"Postgrad Supervisor Applic.":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancePostgradSupervisorApplicForApprovalCode, Variant);
+            Database::"Certificate Application":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCanceCertApplicForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -127,6 +134,7 @@ codeunit 50089 "Approval Workflows V1"
         club: Record "Club";
         StudentLeave: Record "Student Leave";
         PosGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
+        CertApplic: Record "Certificate Application";
     begin
         case RecRef.Number of
             Database::club:
@@ -150,6 +158,13 @@ codeunit 50089 "Approval Workflows V1"
                     PosGradSupervisorApplic.Modify();
                     Handled := true;
                 end;
+            Database::"Certificate Application":
+                begin
+                    RecRef.SetTable(CertApplic);
+                    CertApplic.Validate("Status", CertApplic.Status::Open);
+                    CertApplic.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -159,6 +174,7 @@ codeunit 50089 "Approval Workflows V1"
         club: Record "Club";
         StudentLeave: Record "Student Leave";
         PosGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
+        CertApplic: Record "Certificate Application";
     begin
         case RecRef.Number of
             Database::club:
@@ -185,6 +201,14 @@ codeunit 50089 "Approval Workflows V1"
                     Variant := PosGradSupervisorApplic;
                     IsHandled := true;
                 end;
+            Database::"Certificate Application":
+                begin
+                    RecRef.SetTable(CertApplic);
+                    CertApplic.Validate("Status", CertApplic.Status::Pending);
+                    CertApplic.Modify();
+                    Variant := CertApplic;
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -193,6 +217,8 @@ codeunit 50089 "Approval Workflows V1"
     var
         club: Record "Club";
         StudentLeave: Record "Student Leave";
+        PostGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
+        certApplic: Record "Certificate Application";
     begin
         case RecRef.number of
             Database::Club:
@@ -207,8 +233,13 @@ codeunit 50089 "Approval Workflows V1"
                 end;
             Database::"Postgrad Supervisor Applic.":
                 begin
-                    RecRef.SetTable(StudentLeave);
-                    ApprovalEntryArgument."Document No." := StudentLeave."Leave No.";
+                    RecRef.SetTable(PostGradSupervisorApplic);
+                    ApprovalEntryArgument."Document No." := PostGradSupervisorApplic."No.";
+                end;
+            Database::"Certificate Application":
+                begin
+                    RecRef.SetTable(certApplic);
+                    ApprovalEntryArgument."Document No." := certApplic."No.";
                 end;
         end;
     end;
@@ -220,6 +251,7 @@ codeunit 50089 "Approval Workflows V1"
         club: Record "Club";
         StudentLeave: Record "Student Leave";
         PostGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
+        certApplic: Record "Certificate Application";
     begin
         case RecRef.Number of
             Database::Club:
@@ -244,6 +276,13 @@ codeunit 50089 "Approval Workflows V1"
                     //Send Mail
 
                 end;
+            Database::"Certificate Application":
+                begin
+                    RecRef.SetTable(certApplic);
+                    certApplic.Validate("Status", certApplic.Status::Approved);
+                    certApplic.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -253,6 +292,7 @@ codeunit 50089 "Approval Workflows V1"
         club: Record "Club";
         StudentLeave: Record "Student Leave";
         postgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
+        CertApplic: Record "Certificate Application";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -276,6 +316,13 @@ codeunit 50089 "Approval Workflows V1"
                         postgradSupervisorApplic.Modify(true);
                     end;
                 end;
+            Database::"Certificate Application":
+                begin
+                    if CertApplic.Get(ApprovalEntry."Document No.") then begin
+                        CertApplic.Status := CertApplic.Status::Rejected;
+                        CertApplic.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -285,6 +332,7 @@ codeunit 50089 "Approval Workflows V1"
         RecRef: RecordRef;
         StudentLeave: Record "Student Leave";
         PostgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
+        CertApplic: Record "Certificate Application";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -309,6 +357,13 @@ codeunit 50089 "Approval Workflows V1"
                     PostgradSupervisorApplic.Modify();
                     Variant := PostgradSupervisorApplic;
                 end;
+            Database::"Certificate Application":
+                begin
+                    RecRef.SetTable(CertApplic);
+                    CertApplic.Validate("Status", CertApplic.Status::Open);
+                    CertApplic.Modify();
+                    Variant := CertApplic;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -320,6 +375,7 @@ codeunit 50089 "Approval Workflows V1"
         club: Record "Club";
         StudentLeave: Record "Student Leave";
         PostgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
+        CertApplic: Record "Certificate Application";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -344,7 +400,13 @@ codeunit 50089 "Approval Workflows V1"
                     PostgradSupervisorApplic.Modify();
                     Variant := PostgradSupervisorApplic;
                 end;
-
+            Database::"Certificate Application":
+                begin
+                    RecRef.SetTable(CertApplic);
+                    CertApplic.Validate("Status", CertApplic.Status::Pending);
+                    CertApplic.Modify();
+                    Variant := CertApplic;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -357,6 +419,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentLeave: Record "Student Leave";
         PostgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         Cust: Record "Customer";
+        CertApplic: Record "Certificate Application";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
