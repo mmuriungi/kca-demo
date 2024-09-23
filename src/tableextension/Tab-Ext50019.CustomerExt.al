@@ -1292,7 +1292,20 @@ tableextension 50019 "Customer Ext" extends Customer
         field(63212; "Supervisor No."; Code[25])
         {
             TableRelation = "HRM-Employee C" where(Lecturer = const(true));
+            trigger OnValidate()
+            var
+                Employee: Record "HRM-Employee C";
+            begin
+                Employee.reset;
+                employee.SETRANGE("No.", "Supervisor No.");
+                if employee.findfirst then  begin
+                    "Supervisor Name" := employee.fullname();
+                end;
+            end;
 
+        }
+        field(63213; "Supervisor Name"; Text[50])
+        {
         }
 
 
