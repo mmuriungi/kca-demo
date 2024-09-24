@@ -36,9 +36,9 @@ table 51288 "Postgrad Supervisor Applic."
         {
             Caption = 'Status';
         }
-        field(6; "Assigned Suppervisor Code"; Code[25])
+        field(6; "Assigned Supervisor Code"; Code[25])
         {
-            Caption = 'Assigned Suppervisor Code';
+            Caption = 'Assigned Supervisor Code';
             tableRelation = "HRM-Employee C" where(Lecturer = Const(true));
         }
         field(7; "Assigned Supervisor Name"; Text[150])
