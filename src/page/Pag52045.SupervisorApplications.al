@@ -3,9 +3,9 @@ page 52045 "Supervisor Applications"
     ApplicationArea = All;
     Caption = 'Supervisor Applications';
     PageType = List;
-    CardPageId = "Suppervisor Application";
+    CardPageId = "Supervisor Application";
     SourceTable = "Postgrad Supervisor Applic.";
-    
+
     layout
     {
         area(Content)
@@ -24,9 +24,9 @@ page 52045 "Supervisor Applications"
                 {
                     ToolTip = 'Specifies the value of the Student Name field.', Comment = '%';
                 }
-                field("Assigned Suppervisor Code"; Rec."Assigned Suppervisor Code")
+                field("Assigned Supervisor Code"; Rec."Assigned Supervisor Code")
                 {
-                    ToolTip = 'Specifies the value of the Assigned Suppervisor Code field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Assigned Supervisor Code field.', Comment = '%';
                 }
                 field("Assigned Supervisor Name"; Rec."Assigned Supervisor Name")
                 {
