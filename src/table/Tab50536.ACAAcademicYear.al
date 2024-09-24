@@ -82,6 +82,10 @@ table 50536 "ACA-Academic Year"
             DataClassification = ToBeClassified;
 
         }
+        //Current Supplementary Year
+        field(22; "Current Supplementary Year"; Boolean)
+        {
+        }
     }
 
     keys
