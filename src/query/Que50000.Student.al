@@ -1,4 +1,4 @@
-query 50000 Student
+query 50004 Student
 {
     QueryType = API;
     APIPublisher = 'appKings';
