@@ -393,7 +393,7 @@ page 50619 "HRM-Employee (B)"
                 field("Company E-Mail"; Rec."Company E-Mail")
                 {
                     ApplicationArea = All;
-                    Caption = 'UoEm E-mail';
+                    Caption = 'KarU E-mail';
                 }
 
             }
