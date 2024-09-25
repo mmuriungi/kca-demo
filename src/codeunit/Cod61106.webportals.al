@@ -2414,6 +2414,26 @@ Codeunit 61106 webportals
         end
     end;
 
+    procedure VerifyOldPassword(username: Text; oldPassword: Text) msg: Boolean
+    begin
+        "Employee Card".Reset;
+        "Employee Card".SetRange("No.", username);
+        "Employee Card".SetRange("Portal Password", oldPassword);
+        if "Employee Card".Find('-') then begin
+            msg := true;
+        end;
+    end;
+
+    procedure ChangeStaffPassword(username: Text; newPassword: Text) msg: Boolean
+    begin
+        "Employee Card".Reset;
+        "Employee Card".SetRange("No.", username);
+        if "Employee Card".Find('-') then begin
+            "Employee Card"."Portal Password" := newPassword;
+            "Employee Card".Modify;
+            msg := true;
+        end;
+    end;
 
     procedure GetUserID(EmployeeNo: Code[10]) msg: Text
     begin
@@ -3168,13 +3188,13 @@ Codeunit 61106 webportals
         EmployeeCard.SetRange(EmployeeCard.Status, EmployeeCard.Status::Active);
         if EmployeeCard.Find('-') then begin
             if (EmployeeCard."Changed Password" = true) then begin
-                if (EmployeeCard."Portal Password" = Useremail) then begin
+                if (EmployeeCard."Company E-Mail" = Useremail) then begin
                     Message := TXTCorrectDetails + '::' + EmployeeCard."No." + '::' + EmployeeCard."Company E-Mail";
                 end else begin
                     Message := TXTIncorrectDetails + '::';
                 end
             end else begin
-                if (EmployeeCard."Portal Password" = Useremail) then begin
+                if (EmployeeCard."Company E-Mail" = Useremail) then begin
                     Message := TXTCorrectDetails + '::' + EmployeeCard."No." + '::' + EmployeeCard."Company E-Mail";
                 end else begin
                     Message := TXTIncorrectDetails + '::';
