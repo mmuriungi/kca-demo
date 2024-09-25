@@ -1786,7 +1786,7 @@ Codeunit 61106 webportals
         SalaryCard.SetRange(SalaryCard."Payroll Period", Period);
 
         if SalaryCard.Find('-') then begin
-            Report.SaveAsPdf(77708, filename, SalaryCard);   //52017726
+            Report.SaveAsPdf(Report::PayslipTest, filename, SalaryCard);   //52017726
         end;
         exit(filename);
     end;
@@ -1823,7 +1823,7 @@ Codeunit 61106 webportals
         Customer.SetRange(Customer."No.", "Student No");
 
         if Customer.Find('-') then begin
-            Report.SaveAsPdf(51072, filename, Customer);
+            Report.SaveAsPdf(report::"Student Fee Statement 2", filename, Customer);
         end;
     end;
 
@@ -1840,7 +1840,7 @@ Codeunit 61106 webportals
         "Fee By Stage".SetRange("Fee By Stage"."Stage Code", "Stage Code");
 
         if "Fee By Stage".Find('-') then begin
-            Report.SaveAsPdf(51015, filename, "Fee By Stage");
+            Report.SaveAsPdf(Report::"Student Proforma Invoice", filename, "Fee By Stage");
         end;
     end;
 
@@ -1864,7 +1864,7 @@ Codeunit 61106 webportals
         CourseRegistration.SetCurrentkey(Stage);
         if CourseRegistration.Find('+') then begin
             Report.SaveAsPdf(78087, filename, CourseRegistration);
-            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);
+            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);TODO
         end;
     end;
 
@@ -1888,7 +1888,7 @@ Codeunit 61106 webportals
         CourseRegistration.SetCurrentkey(Stage);
         if CourseRegistration.FindSet then begin
             Report.SaveAsPdf(78088, filename, CourseRegistration);
-            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);
+            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);TODO
         end;
     end;
 
@@ -1969,7 +1969,7 @@ Codeunit 61106 webportals
         CourseRegistration.SetRange(Reversed, false);
         if CourseRegistration.FindFirst then begin
             Report.SaveAsPdf(51515, filename, CourseRegistration);
-            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);
+            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);TODO
         end;
     end;
 
@@ -1997,7 +1997,7 @@ Codeunit 61106 webportals
         CourseRegistration.SetRange(CourseRegistration.Semester, sem);
 
         if CourseRegistration.Find('-') then begin
-            Report.SaveAsPdf(51797, filename, CourseRegistration);
+            Report.SaveAsPdf(report::"Official University Resultslip", filename, CourseRegistration);
             ///REPORT.RUN(51797,TRUE,FALSE,CourseRegistration);
         end;
     end;
@@ -2465,7 +2465,7 @@ Codeunit 61106 webportals
         PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Employee Code", EmployeeNo);
         PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Period Year", objPeriod."Period Year");
         if PRLEmployeeP9Info.Find('-') then
-            Report.SaveAsPdf(51746, filename, PRLEmployeeP9Info);
+            Report.SaveAsPdf(Report::"P9 Report (Final)", filename, PRLEmployeeP9Info);
         //REPORT.SAVEASPDF(51746,filename,P9);   //52017726
         // END;
         exit(filename);
@@ -2794,7 +2794,7 @@ Codeunit 61106 webportals
         Programmezz.SetFilter(Programmezz."Settlement Type Filter", '%1', SettlementType);
 
         if Programmezz.Find('-') then begin
-            Report.SaveAsPdf(51794, filename, Programmezz);   //52017726
+            Report.SaveAsPdf(Report::"Fee Structure Summary Report", filename, Programmezz);   //52017726
         end;
         exit(filename);
     end;
@@ -2810,7 +2810,7 @@ Codeunit 61106 webportals
         Receiptz.SetRange(Receiptz."Receipt No.", ReceiptNo);
 
         if Receiptz.Find('-') then begin
-            Report.SaveAsPdf(51524, filename, Receiptz);   //52017726
+            Report.SaveAsPdf(Report::"Student Fee Receipts", filename, Receiptz);   //52017726
         end;
         exit(filename);
     end;
@@ -3250,7 +3250,7 @@ Codeunit 61106 webportals
         ACAExamCourseRegistration.SetRange(ACAExamCourseRegistration."Academic Year", AcademicYear);
         //ACAExamCourseRegistration.SETRANGE(ACAExamCourseRegistration."Allow View of Results",TRUE);
         if ACAExamCourseRegistration.Find('-') then begin
-            Report.SaveAsPdf(66667, filename, ACAExamCourseRegistration);
+            Report.SaveAsPdf(Report::"Provisional College Transcrip3", filename, ACAExamCourseRegistration);
         end;
     end;
 
@@ -3266,7 +3266,7 @@ Codeunit 61106 webportals
         EmployeeCard.SetRange(EmployeeCard."No.", StaffNo);
 
         if EmployeeCard.Find('-') then begin
-            Report.SaveAsPdf(51457, filename, EmployeeCard);
+            Report.SaveAsPdf(Report::"Standard Leave Balance Report", filename, EmployeeCard);
         end;
     end;
 
@@ -3661,12 +3661,12 @@ Codeunit 61106 webportals
                 TTTimetableFInalCollector.SetRange(Semester, Semesters);
                 TTTimetableFInalCollector.SetFilter(Unit, UnitFilterString);
                 if TTTimetableFInalCollector.Find('-') then begin//Pull the Class Timetable Here
-                                                                 //    REPORT.RUN(74501,TRUE,FALSE,TTTimetableFInalCollector);
+                                                                 //    REPORT.RUN(report::"TT-Master Timetable (Final) 2",TRUE,FALSE,TTTimetableFInalCollector);
                                                                  //filename :=FILESPATH_S+LecturerNo+'_ClassTimetable_'+Semesters;
                     TimetableReturn := FILESPATH_S + filenameFromApp;
                     if Exists(TimetableReturn) then
                         Erase(TimetableReturn);
-                    Report.SaveAsPdf(74501, TimetableReturn, TTTimetableFInalCollector);
+                    Report.SaveAsPdf(report::"TT-Master Timetable (Final) 2", TimetableReturn, TTTimetableFInalCollector);
                 end;
             end else if TimetableType = 'EXAM' then begin
                 //**2. Exam Timetable
@@ -3674,12 +3674,12 @@ Codeunit 61106 webportals
                 EXTTimetableFInalCollector.SetRange(Semester, Semesters);
                 EXTTimetableFInalCollector.SetFilter(Unit, UnitFilterString);
                 if EXTTimetableFInalCollector.Find('-') then begin//Pull the Exam Timetable Here
-                                                                  //    REPORT.RUN(74551,TRUE,FALSE,EXTTimetableFInalCollector);
+                                                                  //    REPORT.RUN(report::"EXT-Master Timetable (Final) 2",TRUE,FALSE,EXTTimetableFInalCollector);
                                                                   // filename :=FILESPATH_S+LecturerNo+'_ExamTimetable_'+Semesters;
                     TimetableReturn := FILESPATH_S + filenameFromApp;
                     if Exists(TimetableReturn) then
                         Erase(TimetableReturn);
-                    Report.SaveAsPdf(74551, TimetableReturn, EXTTimetableFInalCollector);
+                    Report.SaveAsPdf(Report::"EXT-Master Timetable (Final) 2", TimetableReturn, EXTTimetableFInalCollector);
                 end;
             end;
         end;
@@ -3729,11 +3729,11 @@ Codeunit 61106 webportals
                 TTTimetableFInalCollector.SetRange(Semester, Semesters);
                 TTTimetableFInalCollector.SetFilter(Unit, UnitFilterString);
                 if TTTimetableFInalCollector.Find('-') then begin//Pull the Class Timetable Here
-                    Report.Run(74501, true, false, TTTimetableFInalCollector);
+                    Report.Run(report::"TT-Master Timetable (Final) 2", true, false, TTTimetableFInalCollector);
                     filename := FILESPATH_S + StudentNo + '_ClassTimetable_' + Semesters;
                     if Exists(filename) then
                         Erase(filename);
-                    Report.SaveAsPdf(74501, filename, TTTimetableFInalCollector);
+                    Report.SaveAsPdf(report::"TT-Master Timetable (Final) 2", filename, TTTimetableFInalCollector);
                 end;
             end else if TimetableType = 'EXAM' then begin
                 //**2. Exam Timetable
@@ -3742,11 +3742,11 @@ Codeunit 61106 webportals
                 EXTTimetableFInalCollector.SetRange(Semester, Semesters);
                 EXTTimetableFInalCollector.SetFilter(Unit, UnitFilterString);
                 if EXTTimetableFInalCollector.Find('-') then begin//Pull the Exam Timetable Here
-                                                                  //   REPORT.RUN(74551,TRUE,FALSE,EXTTimetableFInalCollector);
+                                                                  //   REPORT.RUN(report::"EXT-Master Timetable (Final) 2",TRUE,FALSE,EXTTimetableFInalCollector);
                     filename := FILESPATH_S + StudentNo + '_ExamTimetable_' + Semesters;
                     if Exists(filename) then
                         Erase(filename);
-                    Report.SaveAsPdf(74551, filename, EXTTimetableFInalCollector);
+                    Report.SaveAsPdf(report::"EXT-Master Timetable (Final) 2", filename, EXTTimetableFInalCollector);
                 end;
             end;
         end;
@@ -3844,7 +3844,7 @@ Codeunit 61106 webportals
         KUCCPSRaw.SetRange(KUCCPSRaw.Admin, AdmNo);
 
         if KUCCPSRaw.Find('-') then begin
-            Report.SaveAsPdf(51343, filename, KUCCPSRaw);
+            Report.SaveAsPdf(Report::"Official Admission LetterJAb", filename, KUCCPSRaw);
         end;
     end;
 
@@ -4114,7 +4114,7 @@ Codeunit 61106 webportals
         KUCCPSRaw.SetRange(KUCCPSRaw.Admin, AdmNo);
 
         if KUCCPSRaw.Find('-') then begin
-            Report.SaveAsPdf(51343, filename, KUCCPSRaw);
+            Report.SaveAsPdf(Report::"Official Admission LetterJAb", filename, KUCCPSRaw);
         end;
 
         //filename :=FILESPATH_A+filenameFromApp;
@@ -4124,7 +4124,7 @@ Codeunit 61106 webportals
         //AdmissionFormHeader.SETRANGE(AdmissionFormHeader."Admission No.",AdmNo);
 
         //IF AdmissionFormHeader.FIND('-') THEN BEGIN
-        //  REPORT.SAVEASPDF(51339,filename,AdmissionFormHeader);51343
+        //  REPORT.SAVEASPDF(51339,filename,AdmissionFormHeader);Report::"Official Admission LetterJAb"
         //END;
     end;
 
@@ -5372,7 +5372,7 @@ Codeunit 61106 webportals
         Referrralll.SetRange(Referrralll."Treatment no.", EmployeeNo);
 
         if Referrralll.Find('-') then begin
-            Report.SaveAsPdf(51871, filename, Referrralll);   //52017726
+            Report.SaveAsPdf(51871, filename, Referrralll);   //52017726 todo
         end;
         exit(filename);
     end;
@@ -5584,7 +5584,7 @@ Codeunit 61106 webportals
         ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", StudentNo);
 
         if ACAClearanceApprovalEntries.Find('-') then begin
-            Report.SaveAsPdf(51675, filename, ACAClearanceApprovalEntries);
+            Report.SaveAsPdf(Report::"ACA-Clean Std Units", filename, ACAClearanceApprovalEntries);
             // REPORT.RUN(51675,FALSE,FALSE,ACAClearanceApprovalEntries);
         end;
     end;
