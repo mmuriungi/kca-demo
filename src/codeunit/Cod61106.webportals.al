@@ -8057,5 +8057,160 @@ Codeunit 61106 webportals
             end;
         end; */
     end;
+
+    procedure GetCurrentSem() Sem: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batches";
+    begin
+        CurrentSem.Reset;
+        CurrentSem.SetRange("Current Semester", true);
+        if CurrentSem.Find('-') then begin
+            Sem := CurrentSem.Code;
+        end;
+    end;
+
+
+    procedure GetCurrentSuppYear() Year: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batches";
+    begin
+        begin
+            AcademicYr.Reset;
+            AcademicYr.SetRange("Current Supplementary Year", true);
+            if AcademicYr.Find('-') then begin
+                Year := AcademicYr.Code;
+            end;
+        end;
+    end;
+
+    procedure GetLecturerSuppStages(lec: Code[20]; prog: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        ACALecturerUnits: Record "ACA-Lecturers Units";
+    begin
+        ACALecturerUnits.Reset;
+        ACALecturerUnits.SetCurrentkey(Stage);
+        ACALecturerUnits.SetRange(Lecturer, lec);
+        ACALecturerUnits.SetRange(Programme, prog);
+        if ACALecturerUnits.Find('-') then begin
+            repeat
+                //ACALecturerUnits.SETRANGE(Programme, ACALecturerUnits.Programme);
+                //ACALecturerUnits.FIND('+');
+                //ACALecturerUnits.SETRANGE(Programme);
+                CurrentSem.Reset;
+                CurrentSem.SetRange(Code, ACALecturerUnits.Semester);
+                CurrentSem.SetRange("Academic Year", GetCurrentSuppYear());
+                if CurrentSem.Find('-') then begin
+                    Msg += ACALecturerUnits.Stage + ' ::' + ACALecturerUnits.Stage + ' :::';
+                end;
+            until ACALecturerUnits.Next = 0;
+        end;
+    end;
+
+
+    procedure GetLecturerSuppProgrammes(lec: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        ACALecturerUnits: Record "ACA-Lecturers Units";
+    begin
+        ACALecturerUnits.Reset;
+        ACALecturerUnits.SetCurrentkey(Programme);
+        ACALecturerUnits.SetRange(Lecturer, lec);
+        if ACALecturerUnits.Find('-') then begin
+            repeat
+                //ACALecturerUnits.SETRANGE(Programme, ACALecturerUnits.Programme);
+                //ACALecturerUnits.FIND('+');
+                //ACALecturerUnits.SETRANGE(Programme);
+                CurrentSem.Reset;
+                CurrentSem.SetRange(Code, ACALecturerUnits.Semester);
+                CurrentSem.SetRange("Academic Year", GetCurrentSuppYear());
+                if CurrentSem.Find('-') then begin
+                    Programmezz.Reset;
+                    Programmezz.SetRange(Code, ACALecturerUnits.Programme);
+                    if Programmezz.Find('-') then begin
+                        Msg += ACALecturerUnits.Programme + ' ::' + Programmezz.Description + ' :::';
+                    end;
+                end;
+            until ACALecturerUnits.Next = 0;
+        end;
+    end;
+
+
+    procedure GetLecturerSuppUnits(lec: Code[20]; prog: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        ACALecturerUnits: Record "ACA-Lecturers Units";
+    begin
+        ACALecturerUnits.Reset;
+        ACALecturerUnits.SetRange(Lecturer, lec);
+        ACALecturerUnits.SetRange(Programme, prog);
+        ACALecturerUnits.SetRange(Stage, stage);
+        if ACALecturerUnits.Find('-') then begin
+            repeat
+                CurrentSem.Reset;
+                CurrentSem.SetRange(Code, ACALecturerUnits.Semester);
+                CurrentSem.SetRange("Academic Year", GetCurrentSuppYear());
+                if CurrentSem.Find('-') then begin
+                    Msg += ACALecturerUnits.Unit + ' ::' + ACALecturerUnits.Description + ' :::';
+                end;
+            until ACALecturerUnits.Next = 0;
+        end;
+    end;
+
+    procedure FnGetSuppMaxScore(prog: Code[20]; unit: Code[20]; stage: Code[10]) Msg: Decimal
+    var
+        ExamResults: Record "ACA-Exam Results";
+        //ExamResultsBuffer: Record UnknownRecord78055;
+        ACAExamCategory: Record "ACA-Exam Category";
+        ACASpecialExamResults: Record "ACA-Special Exams Results";
+    begin
+        UnitSubjects.Reset;
+        UnitSubjects.SetRange(Code, unit);
+        UnitSubjects.SetRange("Programme Code", prog);
+        UnitSubjects.SetRange("Stage Code", stage);
+        if UnitSubjects.Find('-') then begin
+            ACAExamCategory.Reset;
+            ACAExamCategory.SetRange(Code, UnitSubjects."Exam Category");
+            if ACAExamCategory.Find('-') then begin
+                Msg := ACAExamCategory."Supplementary Max. Score";
+            end;
+        end;
+    end;
+
+
+    procedure FnGetSpecialScore(stdNo: Code[20]; unit: Code[20]) Msg: Text
+    var
+        ExamResults: Record "ACA-Exam Results";
+        // ExamResultsBuffer: Record UnknownRecord78055;
+        ACASpecialExamResults: Record "ACA-Special Exams Results";
+    begin
+        ACASpecialExamResults.Reset;
+        ACASpecialExamResults.SetRange("Student No.", stdNo);
+        ACASpecialExamResults.SetRange(Unit, unit);
+        ACASpecialExamResults.SetRange(Category, ACASpecialExamResults.Category::Special);
+        if ACASpecialExamResults.Find('-') then begin
+            Msg := Format(ACASpecialExamResults.Score);
+        end;
+    end;
+
+
+    procedure FnGetSuppScore(stdNo: Code[20]; unit: Code[20]) Msg: Text
+    var
+        ExamResults: Record "ACA-Exam Results";
+        // ExamResultsBuffer: Record UnknownRecord78055;
+        ACASpecialExamResults: Record "Aca-Special Exams Results";
+    begin
+        ACASpecialExamResults.Reset;
+        ACASpecialExamResults.SetRange("Student No.", stdNo);
+        ACASpecialExamResults.SetRange(Unit, unit);
+        ACASpecialExamResults.SetRange(Category, ACASpecialExamResults.Category::Supplementary);
+        if ACASpecialExamResults.Find('-') then begin
+            Msg := Format(ACASpecialExamResults.Score);
+        end;
+    end;
+
+
 }
 
