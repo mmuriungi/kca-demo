@@ -415,6 +415,11 @@ table 50563 "ACA-Programme"
         {
             DataClassification = ToBeClassified;
         }
+        //"Requires Combination"
+        field(50033; "Requires Combination"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

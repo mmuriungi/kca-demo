@@ -1011,44 +1011,48 @@ table 50512 "ACA-Applic. Form Header"
                 Applications."OLevel School" := ACAAdmImportedJABBuffer."OLevel School";
                 Applications."OLevel Year Completed" := KUCCPSImports."OLevel Year Completed";
                 */
-                //phone
-                field(50143; "Phone"; code[50])
-                {
-                }
-                field(50144; "Alt. Phone"; code[50])
-                {
-                }
-                field(50145; Box; code[50])
-                {
-                }
-                field(50146; Town; code[50])
-                {
-                }
-                field(50147; "NHIF No"; code[50])
-                {
-                }
-                field(50148; Location; code[50])
-                {
-                }
-                field(50149; "Name of Chief"; code[50])
-                {
-                }
-                field(50150; "Sub-County"; code[50])
-                {
-                }
-                field(50151; Constituency; code[50])
-                {
-                }
-                field(50152; "OLevel School"; code[50])
-                {
-                }
-                field(50153; "OLevel Year Completed"; code[50])
-                {
-                }
-                //Tribe
-                field(50154; Tribe; code[50])
-                {
-                }
+        //phone
+        field(50143; "Phone"; code[50])
+        {
+        }
+        field(50144; "Alt. Phone"; code[50])
+        {
+        }
+        field(50145; Box; code[50])
+        {
+        }
+        field(50146; Town; code[50])
+        {
+        }
+        field(50147; "NHIF No"; code[50])
+        {
+        }
+        field(50148; Location; code[50])
+        {
+        }
+        field(50149; "Name of Chief"; code[50])
+        {
+        }
+        field(50150; "Sub-County"; code[50])
+        {
+        }
+        field(50151; Constituency; code[50])
+        {
+        }
+        field(50152; "OLevel School"; code[50])
+        {
+        }
+        field(50153; "OLevel Year Completed"; code[50])
+        {
+        }
+        //Tribe
+        field(50154; Tribe; code[50])
+        {
+        }
+        //."Rules and Regulations Agreed"
+        field(50155; "Rules and Regulations Agreed"; Boolean)
+        {
+        }
     }
 
     keys
