@@ -123,6 +123,18 @@ page 52044 "Post Graduate Management"
                     ToolTip = 'View a report of students categorized by their study stage';
                 }
             }
+            group(Setup)
+            {
+                Caption = 'Setup';
+                Image = Setup;
+                action(PostgradSetup)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Postgraduate Setup';
+                    RunObject = Page "PostGraduate Setup";
+                    ToolTip = 'Setup postgraduate management settings';
+                }
+            }
         }
         area(Embedding)
         {
