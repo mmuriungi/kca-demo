@@ -8211,6 +8211,162 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure FnGetLecturerSpecialStudents(unit: Code[20]; prog: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+    begin
+        SupUnits.Reset;
+        SupUnits.SetCurrentkey("Student No.");
+        SupUnits.SetRange("Unit Code", unit);
+        SupUnits.SetRange(Programme, prog);
+        SupUnits.SetRange("Current Academic Year", GetCurrentSuppYear());
+        SupUnits.SetRange(Stage, stage);
+        SupUnits.SetRange(Category, SupUnits.Category::Special);
+        if SupUnits.Find('-') then begin
+            repeat
+                Customer.Reset;
+                Customer.SetRange("No.", SupUnits."Student No.");
+                if Customer.Find('-') then begin
+                    Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + SupUnits."Unit Code" + ' ::' + SupUnits."Unit Description" + ' :::';
+                end;
+            until SupUnits.Next = 0;
+        end;
+    end;
+
+    procedure FnGetLecturerSuppStudents(unit: Code[20]; prog: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+    begin
+        SupUnits.Reset;
+        SupUnits.SetCurrentkey("Student No.");
+        SupUnits.SetRange("Unit Code", unit);
+        SupUnits.SetRange(Programme, prog);
+        SupUnits.SetRange("Current Academic Year", GetCurrentSuppYear());
+        SupUnits.SetRange(Stage, stage);
+        SupUnits.SetRange(Category, SupUnits.Category::Supplementary);
+        if SupUnits.Find('-') then begin
+            repeat
+                Customer.Reset;
+                Customer.SetRange("No.", SupUnits."Student No.");
+                if Customer.Find('-') then begin
+                    Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + SupUnits."Unit Code" + ' ::' + SupUnits."Unit Description" + ' :::';
+                end;
+            until SupUnits.Next = 0;
+        end;
+    end;
+
+    procedure SubmitSpecialByLec(StudNo: Code[20]; LectNo: Code[20]; Marks: Decimal; UnitCode: Code[20]; Prog: Code[10]; Stage: Code[10]) ReturnMessage: Text[250]
+    var
+        AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+        AcaSpecialExamsResults: Record "Aca-Special Exams Results";
+        emps: Record "HRM-Employee C";
+    begin
+        Clear(ReturnMessage);
+        Clear(emps);
+        emps.Reset;
+        emps.SetRange("No.", LectNo);
+        if emps.Find('-') then;
+        AcaSpecialExamsDetails.Reset;
+        AcaSpecialExamsDetails.SetRange("Current Academic Year", GetCurrentSuppYear());
+        AcaSpecialExamsDetails.SetRange("Student No.", StudNo);
+        AcaSpecialExamsDetails.SetRange("Unit Code", UnitCode);
+        AcaSpecialExamsDetails.SetRange(Programme, Prog);
+        AcaSpecialExamsDetails.SetRange(Category, AcaSpecialExamsDetails.Category::Special);
+        AcaSpecialExamsDetails.SetRange(Stage, Stage);
+        if AcaSpecialExamsDetails.Find('-') then begin
+            AcaSpecialExamsResults.Reset;
+            AcaSpecialExamsResults.SetRange("Student No.", StudNo);
+            AcaSpecialExamsResults.SetRange(Unit, UnitCode);
+            AcaSpecialExamsResults.SetRange(Category, AcaSpecialExamsResults.Category::Special);
+            if not AcaSpecialExamsResults.Find('-') then begin
+                AcaSpecialExamsResults.Init;
+                AcaSpecialExamsResults.Programmes := AcaSpecialExamsDetails.Programme;
+                AcaSpecialExamsResults.Stage := AcaSpecialExamsDetails.Stage;
+                AcaSpecialExamsResults.Unit := UnitCode;
+                AcaSpecialExamsResults.Semester := AcaSpecialExamsDetails.Semester;
+                AcaSpecialExamsResults."Student No." := AcaSpecialExamsDetails."Student No.";
+                AcaSpecialExamsResults."Academic Year" := AcaSpecialExamsDetails."Academic Year";
+                AcaSpecialExamsResults."Admission No" := StudNo;
+                AcaSpecialExamsResults."Current Academic Year" := GetCurrentSuppYear();
+                AcaSpecialExamsResults.UserID := LectNo;
+                AcaSpecialExamsResults."Capture Date" := Today;
+                AcaSpecialExamsResults.Category := AcaSpecialExamsDetails.Category;
+                AcaSpecialExamsResults."Lecturer Names" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                AcaSpecialExamsResults.Score := Marks;
+                AcaSpecialExamsResults.Validate(Score);
+                AcaSpecialExamsResults.Insert;
+                ReturnMessage := 'SUCCESS: Marks Inserted!';
+            end else begin
+                AcaSpecialExamsResults."Current Academic Year" := GetCurrentSuppYear();
+                AcaSpecialExamsResults."Modified By" := LectNo;
+                AcaSpecialExamsResults."Modified Date" := Today;
+                AcaSpecialExamsResults."Modified By Name" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                AcaSpecialExamsResults.Score := Marks;
+                AcaSpecialExamsResults.Validate(Score);
+                AcaSpecialExamsResults.Modify;
+                ReturnMessage := 'SUCCESS: Marks Modified!';
+            end;
+            AcaSpecialExamsDetails."Exam Marks" := Marks;
+            AcaSpecialExamsDetails.Modify;
+        end;
+    end;
+
+
+    procedure SubmitSuppByLec(StudNo: Code[20]; LectNo: Code[20]; Marks: Decimal; UnitCode: Code[20]; Prog: Code[10]; Stage: Code[10]) ReturnMessage: Text[250]
+    var
+        AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+        AcaSpecialExamsResults: Record "Aca-Special Exams Results";
+        emps: Record "HRM-Employee C";
+    begin
+        Clear(ReturnMessage);
+        Clear(emps);
+        emps.Reset;
+        emps.SetRange("No.", LectNo);
+        if emps.Find('-') then;
+        AcaSpecialExamsDetails.Reset;
+        AcaSpecialExamsDetails.SetRange("Current Academic Year", GetCurrentSuppYear());
+        AcaSpecialExamsDetails.SetRange(Category, AcaSpecialExamsDetails.Category::Supplementary);
+        AcaSpecialExamsDetails.SetRange("Student No.", StudNo);
+        AcaSpecialExamsDetails.SetRange("Unit Code", UnitCode);
+        AcaSpecialExamsDetails.SetRange(Programme, Prog);
+        AcaSpecialExamsDetails.SetRange(Stage, Stage);
+        if AcaSpecialExamsDetails.Find('-') then begin
+            AcaSpecialExamsResults.Reset;
+            AcaSpecialExamsResults.SetRange("Student No.", StudNo);
+            AcaSpecialExamsResults.SetRange(Unit, UnitCode);
+            AcaSpecialExamsResults.SetRange(Category, AcaSpecialExamsResults.Category::Supplementary);
+            if not AcaSpecialExamsResults.Find('-') then begin
+                AcaSpecialExamsResults.Init;
+                AcaSpecialExamsResults.Programmes := AcaSpecialExamsDetails.Programme;
+                AcaSpecialExamsResults.Stage := AcaSpecialExamsDetails.Stage;
+                AcaSpecialExamsResults.Unit := UnitCode;
+                AcaSpecialExamsResults.Semester := AcaSpecialExamsDetails.Semester;
+                AcaSpecialExamsResults."Student No." := AcaSpecialExamsDetails."Student No.";
+                AcaSpecialExamsResults."Academic Year" := AcaSpecialExamsDetails."Academic Year";
+                AcaSpecialExamsResults."Admission No" := StudNo;
+                AcaSpecialExamsResults."Current Academic Year" := GetCurrentSuppYear();
+                AcaSpecialExamsResults.UserID := LectNo;
+                AcaSpecialExamsResults."Capture Date" := Today;
+                AcaSpecialExamsResults.Category := AcaSpecialExamsDetails.Category;
+                AcaSpecialExamsResults."Lecturer Names" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                AcaSpecialExamsResults.Score := Marks;
+                AcaSpecialExamsResults.Validate(Score);
+                AcaSpecialExamsResults.Insert;
+                ReturnMessage := 'SUCCESS: Marks Inserted!';
+            end else begin
+                AcaSpecialExamsResults."Current Academic Year" := GetCurrentSuppYear();
+                AcaSpecialExamsResults."Modified By" := LectNo;
+                AcaSpecialExamsResults."Modified Date" := Today;
+                AcaSpecialExamsResults."Modified By Name" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                AcaSpecialExamsResults.Score := Marks;
+                AcaSpecialExamsResults.Validate(Score);
+                AcaSpecialExamsResults.Modify;
+                ReturnMessage := 'SUCCESS: Marks Modified!';
+            end;
+            AcaSpecialExamsDetails."Exam Marks" := Marks;
+            AcaSpecialExamsDetails.Modify;
+        end;
+    end;
 
 }
 
