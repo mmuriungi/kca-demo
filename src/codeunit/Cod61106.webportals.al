@@ -187,6 +187,7 @@ Codeunit 61106 webportals
         DocSetup: Record "ACA-New Stud. Doc. Setup";
         StudentDocs: Record "ACA-New Stud. Documents";
         GradesTable: Record "ACA-Applic. Setup Grade";
+        PostGradHandler: Codeunit "PostGraduate Handler";
 
 
     procedure ConfirmSupUnit(StdNo: Code[20]; unit: Code[20]) Message: Text
@@ -8387,6 +8388,51 @@ Codeunit 61106 webportals
             AcaSpecialExamsDetails.Modify;
         end;
     end;
+    #Region
+    //handle postgraduate submodule
+    procedure ApplyForSupervisor(StudentNo: Code[20]) ret_value: Code[20]
+    begin
+        ret_value := (PostGradHandler.ApplyForSupervisor(StudentNo));
+    end;
 
+    procedure SubmitDocument(StudentNo: Code[20]; SubmissionType: Option "Concept Paper",Thesis) ret_value: Code[20]
+    begin
+        ret_value := (PostGradHandler.SubmitDocument(StudentNo, SubmissionType));
+    end;
+
+    procedure LogCommunication(StudentNo: Code[20]; SupervisorCode: Code[20]; Message: Text[2048]; SenderType: Option Student,Supervisor) ret_value: Boolean
+    begin
+        ret_value := (PostGradHandler.LogCommunication(StudentNo, SupervisorCode, Message, SenderType));
+    end;
+
+    procedure UploadBase64FileToDocumentAttachment(base64Content: Text; fileName: Text; tableId: Integer; DocumentNo: Code[25]; LineNo: Integer): Boolean
+    var
+        TempBlob: Codeunit "Temp Blob";
+        DocumentAttachment: Record "Document Attachment";
+        Base64Convert: Codeunit "Base64 Convert";
+        InStream: InStream;
+        OutStream: OutStream;
+        FileMgmt: Codeunit "File Management";
+    begin
+        // Convert base64 to binary
+        TempBlob.CreateOutStream(OutStream);
+        Base64Convert.FromBase64(base64Content, OutStream);
+        // Prepare Document Attachment record
+        DocumentAttachment.Init();
+        DocumentAttachment.Validate("Table ID", tableId);
+        DocumentAttachment.Validate("No.", DocumentNo);
+        if LineNo <> 0 then
+            DocumentAttachment.Validate("Line No.", LineNo);
+        DocumentAttachment."File Name" := FileMgmt.GetFileNameWithoutExtension(fileName);
+        DocumentAttachment."File Extension" := FileMgmt.GetExtension(fileName);
+        DocumentAttachment."Document Reference ID".ImportStream(TempBlob.CreateInStream(), fileName);
+        // Insert the record
+        if DocumentAttachment.Insert(true) then begin
+            exit(true);
+        end else begin
+            exit(false);
+        end;
+    end;
+    #endregion
 }
 

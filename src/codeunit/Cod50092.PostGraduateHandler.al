@@ -23,7 +23,7 @@ codeunit 50092 "PostGraduate Handler"
         SupervisorApplication."Student No." := StudentNo;
         SupervisorApplication.Validate("Student No.");
         SupervisorApplication."Application Date" := Today;
-        SupervisorApplication.Status := SupervisorApplication.Status::Pending;
+        SupervisorApplication.Status := SupervisorApplication.Status::Open;
         if SupervisorApplication.Insert(true) then
             exit(SupervisorApplication."No.");
     end;
@@ -70,24 +70,24 @@ codeunit 50092 "PostGraduate Handler"
         NotificationMsg := StrSubstNo('Dear %1,\Your "Postgrad Supervisor Applic."has been approved. Your assigned supervisor is %2 (%3).',
                                       PostgradStudent.Name, Supervisor.FullName(), Supervisor."E-Mail");
 
-        // Here you would typically integrate with a notification system or email service
-        // For demonstration purposes, we'll just use Message
-        Message(NotificationMsg);
+        //TODO
+
     end;
 
-    procedure SubmitDocument(StudentNo: Code[20]; SubmissionType: Option "Concept Paper",Thesis; DocumentLink: Text[250])
+    procedure SubmitDocument(StudentNo: Code[20]; SubmissionType: Option "Concept Paper",Thesis): Code[20]
     var
         StudentSubmission: Record "Student Submission";
     begin
         StudentSubmission.Init();
+        StudentSubmission."No." := '';
         StudentSubmission."Student No." := StudentNo;
         StudentSubmission."Submission Type" := SubmissionType;
         StudentSubmission."Submission Date" := Today;
-        StudentSubmission."Document Link" := DocumentLink;
+        //StudentSubmission."Document Link" := DocumentLink;
         StudentSubmission.Status := StudentSubmission.Status::Open;
         StudentSubmission.Insert(true);
-
         UpdateStudentStage(StudentNo, SubmissionType);
+        exit(StudentSubmission."No.");
     end;
 
     procedure ReviewSubmission(EntryNo: Integer; NewStatus: Option Submitted,Reviewed,Approved,Rejected)
@@ -130,7 +130,7 @@ codeunit 50092 "PostGraduate Handler"
         PostgradStudent.Modify();
     end;
 
-    procedure LogCommunication(StudentNo: Code[20]; SupervisorCode: Code[20]; Message: Text[2048]; SenderType: Option Student,Supervisor)
+    procedure LogCommunication(StudentNo: Code[20]; SupervisorCode: Code[20]; Message: Text[2048]; SenderType: Option Student,Supervisor): Boolean
     var
         StudentCommunicationLog: Record "Postgrad Messages";
     begin
@@ -140,6 +140,6 @@ codeunit 50092 "PostGraduate Handler"
         StudentCommunicationLog."Communication Date" := CurrentDateTime;
         StudentCommunicationLog.Message := Message;
         StudentCommunicationLog."Sender Type" := SenderType;
-        StudentCommunicationLog.Insert(true);
+        exit(StudentCommunicationLog.Insert(true));
     end;
 }
