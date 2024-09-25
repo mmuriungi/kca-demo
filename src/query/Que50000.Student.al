@@ -1,11 +1,11 @@
 query 50000 Student
 {
-    APIVersion = 'v1.0';
     QueryType = API;
-    EntitySetName = 'students';
-    EntityName = 'student';
-    APIGroup = 'postgraduateApplication';
     APIPublisher = 'appKings';
+    APIVersion = 'v1.0';
+    EntityName = 'student';
+    EntitySetName = 'students';
+    APIGroup = 'postgraduateApplication';
 
     elements
     {
