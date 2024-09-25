@@ -283,6 +283,16 @@ table 50829 "Aca-Special Exams Results"
         {
             DataClassification = ToBeClassified;
         }
+        //"Modified By"
+        field(50025; "Modified By"; Code[25])
+        {
+            DataClassification = ToBeClassified;
+        }
+        //"Modified By Name"
+        field(50026; "Modified By Name"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
