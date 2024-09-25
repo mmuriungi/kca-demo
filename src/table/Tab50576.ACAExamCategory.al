@@ -14,6 +14,10 @@ table 50576 "ACA-Exam Category"
         field(3; Series; Integer)
         {
         }
+        //Supplementary Max. Score
+        field(4; "Supplementary Max. Score"; Decimal)
+        {
+        }
     }
 
     keys

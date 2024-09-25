@@ -256,6 +256,261 @@ codeunit 50042 webportalsII
 
     end;
 
+    procedure FnGetLecturerStudentsWithSearch(unit: Code[20]; prog: Code[20]; sem: Code[20]; stage: Code[20]; searchParam: Text) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+    begin
+        Customer.Reset;
+        Customer.SetCurrentkey("No.");
+        Customer.SetFilter("No.", '%1', '*' + searchParam + '*');
+        if Customer.Find('-') then begin
+            repeat
+                StdUnits.Reset;
+                StdUnits.SetRange("Student No.", Customer."No.");
+                StdUnits.SetRange(Unit, unit);
+                StdUnits.SetRange(Programme, prog);
+                StdUnits.SetRange(Semester, sem);
+                StdUnits.SetRange(Stage, stage);
+                if StdUnits.Find('-') then begin
+                    repeat
+                        Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                    until StdUnits.Next = 0;
+                end;
+            until Customer.Next = 0;
+        end else begin
+            Customer.Reset;
+            Customer.SetCurrentkey("No.");
+            Customer.SetFilter(Name, '%1', '*' + searchParam + '*');
+            if Customer.Find('-') then begin
+                repeat
+                    StdUnits.Reset;
+                    StdUnits.SetRange("Student No.", Customer."No.");
+                    StdUnits.SetRange(Unit, unit);
+                    StdUnits.SetRange(Programme, prog);
+                    StdUnits.SetRange(Semester, sem);
+                    StdUnits.SetRange(Stage, stage);
+                    if StdUnits.Find('-') then begin
+                        repeat
+                            Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                        until StdUnits.Next = 0;
+                    end;
+                until Customer.Next = 0;
+            end;
+        end;
+    end;
+
+    procedure GetCurrentSuppYear() Year: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batches";
+    begin
+        begin
+            AcademicYr.Reset;
+            AcademicYr.SetRange("Current Supplementary Year", true);
+            if AcademicYr.Find('-') then begin
+                Year := AcademicYr.Code;
+            end;
+        end;
+    end;
+
+    procedure FnGetLecturerSpecialStudents(unit: Code[20]; prog: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+    begin
+        SupUnits.Reset;
+        SupUnits.SetCurrentkey("Student No.");
+        SupUnits.SetRange("Unit Code", unit);
+        SupUnits.SetRange(Programme, prog);
+        SupUnits.SetRange("Current Academic Year", GetCurrentSuppYear());
+        SupUnits.SetRange(Stage, stage);
+        SupUnits.SetRange(Category, SupUnits.Category::Special);
+        if SupUnits.Find('-') then begin
+            repeat
+                Customer.Reset;
+                Customer.SetRange("No.", SupUnits."Student No.");
+                if Customer.Find('-') then begin
+                    Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + SupUnits."Unit Code" + ' ::' + SupUnits."Unit Description" + ' :::';
+                end;
+            until SupUnits.Next = 0;
+        end;
+    end;
+
+    procedure GetLecturerSuppStages(lec: Code[20]; prog: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        ACALecturerUnits: Record "ACA-Lecturers Units";
+    begin
+        ACALecturerUnits.Reset;
+        ACALecturerUnits.SetCurrentkey(Stage);
+        ACALecturerUnits.SetRange(Lecturer, lec);
+        ACALecturerUnits.SetRange(Programme, prog);
+        if ACALecturerUnits.Find('-') then begin
+            repeat
+                //ACALecturerUnits.SETRANGE(Programme, ACALecturerUnits.Programme);
+                //ACALecturerUnits.FIND('+');
+                //ACALecturerUnits.SETRANGE(Programme);
+                CurrentSem.Reset;
+                CurrentSem.SetRange(Code, ACALecturerUnits.Semester);
+                CurrentSem.SetRange("Academic Year", GetCurrentSuppYear());
+                if CurrentSem.Find('-') then begin
+                    Msg += ACALecturerUnits.Stage + ' ::' + ACALecturerUnits.Stage + ' :::';
+                end;
+            until ACALecturerUnits.Next = 0;
+        end;
+    end;
+
+
+    procedure GetLecturerSuppProgrammes(lec: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        ACALecturerUnits: Record "ACA-Lecturers Units";
+        Programmezz: Record "ACA-Programme";
+    begin
+        ACALecturerUnits.Reset;
+        ACALecturerUnits.SetCurrentkey(Programme);
+        ACALecturerUnits.SetRange(Lecturer, lec);
+        if ACALecturerUnits.Find('-') then begin
+            repeat
+                //ACALecturerUnits.SETRANGE(Programme, ACALecturerUnits.Programme);
+                //ACALecturerUnits.FIND('+');
+                //ACALecturerUnits.SETRANGE(Programme);
+                CurrentSem.Reset;
+                CurrentSem.SetRange(Code, ACALecturerUnits.Semester);
+                CurrentSem.SetRange("Academic Year", GetCurrentSuppYear());
+                if CurrentSem.Find('-') then begin
+                    Programmezz.Reset;
+                    Programmezz.SetRange(Code, ACALecturerUnits.Programme);
+                    if Programmezz.Find('-') then begin
+                        Msg += ACALecturerUnits.Programme + ' ::' + Programmezz.Description + ' :::';
+                    end;
+                end;
+            until ACALecturerUnits.Next = 0;
+        end;
+    end;
+
+
+    procedure GetLecturerSuppUnits(lec: Code[20]; prog: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        ACALecturerUnits: Record "ACA-Lecturers Units";
+    begin
+        ACALecturerUnits.Reset;
+        ACALecturerUnits.SetRange(Lecturer, lec);
+        ACALecturerUnits.SetRange(Programme, prog);
+        ACALecturerUnits.SetRange(Stage, stage);
+        if ACALecturerUnits.Find('-') then begin
+            repeat
+                CurrentSem.Reset;
+                CurrentSem.SetRange(Code, ACALecturerUnits.Semester);
+                CurrentSem.SetRange("Academic Year", GetCurrentSuppYear());
+                if CurrentSem.Find('-') then begin
+                    Msg += ACALecturerUnits.Unit + ' ::' + ACALecturerUnits.Description + ' :::';
+                end;
+            until ACALecturerUnits.Next = 0;
+        end;
+    end;
+
+
+    procedure FnGetLecturerStudents(unit: Code[20]; prog: Code[20]; sem: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+    begin
+        StdUnits.Reset;
+        StdUnits.SetCurrentkey("Student No.");
+        StdUnits.SetRange(Unit, unit);
+        StdUnits.SetRange(Programme, prog);
+        StdUnits.SetRange(Semester, sem);
+        StdUnits.SetRange(Stage, stage);
+        if StdUnits.Find('-') then begin
+            repeat
+                Customer.Reset;
+                Customer.SetRange("No.", StdUnits."Student No.");
+                if Customer.Find('-') then begin
+                    Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                end;
+            until StdUnits.Next = 0;
+        end;
+    end;
+
+
+    procedure FnGetSuppMaxScore(prog: Code[20]; unit: Code[20]; stage: Code[10]) Msg: Decimal
+    var
+        ExamResults: Record "ACA-Exam Results";
+        ExamResultsBuffer: Record "ACA-Exam Results Buffer";
+        ACAExamCategory: Record "ACA-Exam Category";
+    begin
+        UnitSubjects.Reset;
+        UnitSubjects.SetRange(Code, unit);
+        UnitSubjects.SetRange("Programme Code", prog);
+        UnitSubjects.SetRange("Stage Code", stage);
+        if UnitSubjects.Find('-') then begin
+            ACAExamCategory.Reset;
+            ACAExamCategory.SetRange(Code, UnitSubjects."Exam Category");
+            if ACAExamCategory.Find('-') then begin
+                Msg := ACAExamCategory."Supplementary Max. Score";
+            end;
+        end;
+    end;
+
+
+    procedure FnGetSpecialScore(stdNo: Code[20]; unit: Code[20]) Msg: Text
+    var
+        ExamResults: Record "ACA-Exam Results";
+        ExamResultsBuffer: Record "ACA-Exam Results Buffer";
+        ACASpecialExamResults: Record "ACA-Special Exams Results";
+    begin
+        ACASpecialExamResults.Reset;
+        ACASpecialExamResults.SetRange("Student No.", stdNo);
+        ACASpecialExamResults.SetRange(Unit, unit);
+        ACASpecialExamResults.SetRange(Category, ACASpecialExamResults.Category::Special);
+        if ACASpecialExamResults.Find('-') then begin
+            Msg := Format(ACASpecialExamResults.Score);
+        end;
+    end;
+
+
+    procedure FnGetSuppScore(stdNo: Code[20]; unit: Code[20]) Msg: Text
+    var
+        ExamResults: Record "ACA-Exam Results";
+        ExamResultsBuffer: Record "ACA-Exam Results Buffer";
+        ACASpecialExamResults: Record "ACA-Special Exams Results";
+    begin
+        ACASpecialExamResults.Reset;
+        ACASpecialExamResults.SetRange("Student No.", stdNo);
+        ACASpecialExamResults.SetRange(Unit, unit);
+        ACASpecialExamResults.SetRange(Category, ACASpecialExamResults.Category::Supplementary);
+        if ACASpecialExamResults.Find('-') then begin
+            Msg := Format(ACASpecialExamResults.Score);
+        end;
+    end;
+
+
+    procedure FnGetScore(stdNo: Code[20]; unit: Code[20]; sem: Code[20]; examType: Code[20]) Msg: Text
+    var
+        ExamResults: Record "ACA-Exam Results";
+        ExamResultsBuffer: Record "ACA-Exam Results Buffer";
+    begin
+        ExamResults.Reset;
+        ExamResults.SetRange("Student No.", stdNo);
+        ExamResults.SetRange(Unit, unit);
+        ExamResults.SetRange(Semester, sem);
+        ExamResults.SetRange(ExamType, examType);
+        if ExamResults.Find('-') then begin
+            Msg := Format(ExamResults.Score) + '::' + Format(ExamResults."Edit Count");
+        end
+        //  else begin
+        //     ExamResultsBuffer.Reset;
+        //     ExamResultsBuffer.SetRange("Student No.", stdNo);
+        //     ExamResultsBuffer.SetRange("Unit Code", unit);
+        //     ExamResultsBuffer.SetRange(Semester, sem);
+        //     ExamResultsBuffer.SetRange("Exam Type", examType);
+        //     if ExamResultsBuffer.Find('-') then begin
+        //         Msg := ExamResultsBuffer."Score (String)" + '::' + Format(ExamResults."Edit Count");
+        //     end;
+        // end;
+    end;
+
+
 
     procedure GenerateStudentProvisionalResults(StudentNo: Text; filenameFromApp: Text; sem: Text)
     var
