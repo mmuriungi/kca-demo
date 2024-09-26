@@ -40,6 +40,65 @@ codeunit 50014 "Procurement Process"
         confrm: Record "Proc-Confirm Recommended";
         committe: Record "Proc-Committee Membership";
         Pheader: Record "Purchase Header";
+
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", OnBeforeCheckBuyFromVendorNo, '', false, false)]
+    local procedure skipOnBeforeCheckBuyFromVendorNo(PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
+    begin
+        if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Quote then begin
+            IsHandled := true;
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", OnBeforeGetVPGInvRoundAcc, '', false, false)]
+    local procedure skipOnBeforeGetVPGInvRoundAcc(PurchHeader: Record "Purchase Header"; Vendor: Record Vendor; var AccountNo: Code[20]; var IsHandled: Boolean)
+    begin
+        if PurchHeader."Document Type" = PurchHeader."Document Type"::Quote then begin
+            IsHandled := true;
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", OnBeforeValidateNo, '', false, false)]
+    local procedure OnBeforeValidateNo(var PurchaseLine: Record "Purchase Line"; var IsHandled: Boolean)
+    begin
+        if PurchaseLine."Document Type" = PurchaseLine."Document Type"::Quote then begin
+            IsHandled := true;
+            PurchaseLine.validateRequisitionLine();
+        end;
+    end;
+
+    procedure fnGetAccounntNames(AccType: Enum "Purchase Line Type"; AccNo: Code[20]): Text
+    var
+        GLAcc: Record "G/L Account";
+        Vendor: Record Vendor;
+        Customer: Record Customer;
+        Item: Record Item;
+        BankAcc: Record "Bank Account";
+        Emp: Record Employee;
+        FA: Record "Fixed Asset";
+    begin
+        case AccType of
+            AccType::"G/L Account":
+                begin
+                    GLAcc.Get(AccNo);
+                    exit(GLAcc.Name);
+                end;
+            AccType::Item:
+                begin
+                    Item.Get(AccNo);
+                    exit(Item.Description);
+                end;
+            AccType::"Fixed Asset":
+                begin
+                    FA.Get(AccNo);
+                    exit(FA.Description);
+                end;
+            AccType::"Charge (Item)":
+                begin
+                    item.Get(AccNo);
+                    exit(item.Description);
+                end;
+        end;
+    end;
     //Re-Evaluate
     procedure RedoEvaluation(QuoteNo: Code[50])
     var
