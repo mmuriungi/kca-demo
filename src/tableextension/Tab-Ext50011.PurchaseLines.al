@@ -305,10 +305,19 @@ tableextension 50011 "Purchase Lines" extends "Purchase Line"
 
         field(5100015; Decision; Option) { OptionMembers = Order; }
         field(5100016; "Selected By"; code[20]) { }
-
-
-
-
-
     }
+
+    procedure validateRequisitionLine()
+    var
+        ObjPurchHeader: Record "Purchase Header";
+        ProcMgmt: Codeunit "Procurement Process";
+    begin
+        ObjPurchHeader.reset;
+        ObjPurchHeader.setrange("No.", "Document No.");
+        if ObjPurchHeader.findfirst then begin
+            "Shortcut Dimension 1 Code" := ObjPurchHeader."Shortcut Dimension 1 Code";
+            "Shortcut Dimension 2 Code" := ObjPurchHeader."Shortcut Dimension 2 Code";
+            Description := ProcMgmt.fnGetAccounntNames(Type, "No.");
+        end;
+    end;
 }
