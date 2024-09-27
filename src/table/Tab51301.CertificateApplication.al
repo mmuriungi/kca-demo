@@ -69,6 +69,11 @@ table 51301 "Certificate Application"
         {
             Caption = 'Student Name';
         }
+        field(13; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            TableRelation = "No. Series";
+        }
     }
 
     keys
@@ -81,9 +86,13 @@ table 51301 "Certificate Application"
 
     trigger OnInsert()
     begin
-
+        CertIssuanceSetup.GET;
+        CertIssuanceSetup.TestField("Issuance Nos");
+        NoSeriesMgmt.InitSeries(CertIssuanceSetup."Issuance Nos", xRec."No. Series", 0D, Rec."No.", xRec."No. Series");
     end;
 
     var
         CertMgmt: Codeunit "Student Certificate Management";
+        CertIssuanceSetup: Record "Certificate Issuance Setup";
+        NoSeriesMgmt: Codeunit NoSeriesManagement;
 }
