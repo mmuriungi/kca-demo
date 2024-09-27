@@ -1,6 +1,6 @@
 codeunit 50200 "Student Certificate Management"
 {
-    procedure CreateApplication(StudentNo: Code[20]; ApplicationType: Option)
+    procedure CreateApplication(StudentNo: Code[20]; ApplicationType: Option)ret_value: Code[20]
     var
         CertApp: Record "Certificate Application";
     begin
@@ -70,9 +70,7 @@ codeunit 50200 "Student Certificate Management"
             CertApp."Application Type"::"Special Examination":
                 BodyText := GetSpecialExaminationConfirmationText();
         end;
-
-        // Here you would implement the actual email sending logic
-        // This is just a placeholder
+        //TODO
         Message('Email sent to %1 with body: %2', Student."E-Mail", BodyText);
     end;
 
@@ -94,9 +92,7 @@ codeunit 50200 "Student Certificate Management"
             CertApp."Application Type"::"Special Examination":
                 BodyText := 'Your application for a special examination has been approved. Please check with your department for further instructions.';
         end;
-
-        // Here you would implement the actual email sending logic
-        // This is just a placeholder
+        //TODO
         Message('Approval notification sent to %1 with body: %2', Student."E-Mail", BodyText);
     end;
 
@@ -106,9 +102,7 @@ codeunit 50200 "Student Certificate Management"
     begin
         if not Student.Get(CertApp."Student No.") then
             exit;
-
-        // Here you would implement the actual email sending logic
-        // This is just a placeholder
+            //TODO
         Message('Rejection notification sent to %1: Your application has been rejected. Please contact the examinations office for more information.', Student."E-Mail");
     end;
 
