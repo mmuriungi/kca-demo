@@ -329,7 +329,7 @@ page 50055 "PROC-Purchase Quot Req. Header"
                     vends.RESET;
                     vends.SETRANGE(vends."Document No.", Rec."No.");
                     IF vends.FIND('-') THEN BEGIN
-                        REPORT.RUN(50099, TRUE, FALSE, vends);
+                        REPORT.RUN(50051, TRUE, FALSE, vends);
                     END;
                 end;
             }
