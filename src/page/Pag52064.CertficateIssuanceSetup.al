@@ -13,7 +13,7 @@ page 52064 "Certficate Issuance Setup"
             {
                 Caption = 'General';
 
-                field("Cert Re-issuance Nos"; Rec."Cert Re-issuance Nos")
+                field("Issuance Nos"; Rec."Issuance Nos")
                 {
                     ToolTip = 'Specifies the value of the Cert Re-issuance Nos field.', Comment = '%';
                 }
