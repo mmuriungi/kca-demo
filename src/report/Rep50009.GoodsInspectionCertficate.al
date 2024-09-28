@@ -1,7 +1,7 @@
-report 50009 "Goods Inspection Certficate"
+report 50009 "Goods Inspection Certificate"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/GoodsInspectionCertficate.rdl';
+    RDLCLayout = './Layouts/GoodsInspectionCertificate.rdl';
     PreviewMode = PrintLayout;
 
     dataset
