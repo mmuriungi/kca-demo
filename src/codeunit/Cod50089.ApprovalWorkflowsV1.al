@@ -99,7 +99,7 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendStudentLeaveForApprovalCode, Variant);
             Database::"Postgrad Supervisor Applic.":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendPostgradSupervisorApplicForApprovalCode, Variant);
-            Database::"Certificate Application": 
+            Database::"Certificate Application":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendCertApplicForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
@@ -248,6 +248,7 @@ codeunit 50089 "Approval Workflows V1"
     local procedure OnReleaseDocument(RecRef: RecordRef; var Handled: boolean)
     var
         Clubmgmt: Codeunit "Student Affairs Management";
+        StudHandler: Codeunit "Student Handler";
         club: Record "Club";
         StudentLeave: Record "Student Leave";
         PostGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
@@ -280,6 +281,7 @@ codeunit 50089 "Approval Workflows V1"
                 begin
                     RecRef.SetTable(certApplic);
                     certApplic.Validate("Status", certApplic.Status::Approved);
+                    StudHandler.handleStudentCertificateApplicationBilling(certApplic);
                     certApplic.Modify();
                     Handled := true;
                 end;
