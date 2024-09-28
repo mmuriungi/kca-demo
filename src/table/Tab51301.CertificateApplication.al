@@ -1,7 +1,7 @@
 table 51301 "Certificate Application"
 {
     Caption = 'Certificate Application';
-    DataClassification = CustomerContent;
+    DataClassification = ToBeClassified;
 
     fields
     {
@@ -69,16 +69,33 @@ table 51301 "Certificate Application"
         {
             Caption = 'Student Name';
         }
+
         field(13; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
             TableRelation = "No. Series";
         }
+        //Invoice No. and Invoice Date
+        field(14; "Invoice No."; Code[20])
+        {
+            Caption = 'Invoice No.';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Sales Invoice Header"."No." where("External Document No." = field("No.")));
+        }
+        field(15; "Invoice Date"; Date)
+        {
+            Caption = 'Invoice Date';
+        }
+        //invoiced
+        field(16; "Invoiced"; Boolean)
+        {
+            Caption = 'Invoiced';
+        }
     }
 
     keys
     {
-        key(PK; "No.", "Student No.")
+        key(PK; "No.", "Student No.", "Application Type")
         {
             Clustered = true;
         }
