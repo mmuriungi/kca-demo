@@ -1,7 +1,7 @@
-page 52064 "Certficate Issuance Setup"
+page 52064 "Certificate Issuance Setup"
 {
     ApplicationArea = All;
-    Caption = 'Certficate Issuance Setup';
+    Caption = 'Certificate Issuance Setup';
     PageType = Card;
     SourceTable = "Certificate Issuance Setup";
 
@@ -37,6 +37,23 @@ page 52064 "Certficate Issuance Setup"
                 {
                     ToolTip = 'Specifies the value of the Transcript Re-issuance Fee field.', Comment = '%';
                 }
+                field("Replacement Fee Account"; Rec."Replacement Fee Account")
+                {
+                    ToolTip = 'Specifies the value of the Replacement Fee Account field.', Comment = '%';
+                }
+                field("Replacement Fees Account"; Rec."Replacement Fees Account")
+                {
+                    ToolTip = 'Specifies the value of the Replacement Fees Account field.', Comment = '%';
+                }
+                field("Storage Fees Account"; Rec."Storage Fees Account")
+                {
+                    ToolTip = 'Specifies the value of the Storage Fees Account field.', Comment = '%';
+                }
+                field("Transcript Re-issuance Fee Acc."; Rec."Transcript Re-issuance Fee Acc.")
+                {
+                    ToolTip = 'Specifies the value of the Transcript Re-issuance Fee Account field.', Comment = '%';
+                }
+
             }
         }
     }
