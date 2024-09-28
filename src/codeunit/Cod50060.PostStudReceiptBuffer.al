@@ -145,8 +145,8 @@ codeunit 50060 "Post Stud Receipt Buffer"
         GenJnl.Reset();
         GenJnl.SETRANGE("Journal Template Name", 'SALES');
         GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
-        IF GenJnl.FIND('-') THEN BEGIN
-            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post", GenJnl);
+        IF GenJnl.FindSet() THEN BEGIN
+            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
 
         end;
 
