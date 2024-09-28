@@ -33,6 +33,29 @@ table 51302 "Certificate Issuance Setup"
         {
             Caption = 'Transcript Pick-Up Duration';
         }
+        //Storage fees account, Replacement Fees Account,Replacement Fee Account, Transcript Re-issuance Fee Acc. 
+        field(8; "Storage Fees Account"; Code[20])
+        {
+            Caption = 'Storage Fees Account';
+            TableRelation = "G/L Account";
+        }
+        field(9; "Replacement Fees Account"; Code[20])
+        {
+            Caption = 'Replacement Fees Account';
+            TableRelation = "G/L Account";
+        }
+        field(10; "Replacement Fee Account"; Code[20])
+        {
+            Caption = 'Replacement Fee Account';
+            TableRelation = "G/L Account";
+        }
+        field(11; "Transcript Re-issuance Fee Acc."; Code[20])
+        {
+            Caption = 'Transcript Re-issuance Fee Account';
+            TableRelation = "G/L Account";
+        }
+
+
     }
     keys
     {
