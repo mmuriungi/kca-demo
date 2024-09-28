@@ -7,6 +7,7 @@ report 50248 "Application List Academic New"
     {
         dataitem("ACA-Applic. Form Header"; "ACA-Applic. Form Header")
         {
+            DataItemTableView = where(Status = const(Status::"Pending Approval"));
             RequestFilterFields = "Application No.";
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
             {

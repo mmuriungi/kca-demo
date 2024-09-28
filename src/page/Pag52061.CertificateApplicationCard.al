@@ -82,8 +82,13 @@ page 52061 "Certificate Application Card"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnSendDocForApproval(variant);
                 end;
             }
             action(CancelApprovalRequest)
@@ -96,8 +101,13 @@ page 52061 "Certificate Application Card"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                 end;
             }
         }

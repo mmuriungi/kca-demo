@@ -1,7 +1,7 @@
 report 50053 "Goods Inspection Cert"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/GoodsInspectionCertficate1.rdl';
+    RDLCLayout = './Layouts/GoodsInspectionCertificate1.rdl';
     PreviewMode = PrintLayout;
 
     dataset

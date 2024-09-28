@@ -773,6 +773,33 @@ page 51464 "ACA-Exam Man. Role Centre"
                 }
 
             }
+            group("Certificate Application")
+            {
+                action("Certificate & Application")
+                {
+                    Caption = 'New Certificate Application';
+                    Image = UserSetup;
+                    RunObject = Page "Certificate Application List";
+                    RunPageView = where("Application Type" = const("New Certificate"));
+                    ApplicationArea = All;
+                }
+                action("Copy of Certificate")
+                {
+                    Caption = 'Copy of Certificate';
+                    Image = UserSetup;
+                    RunObject = Page "Certificate Application List";
+                    RunPageView = where("Application Type" = const("Copy of Certificate"));
+                    ApplicationArea = All;
+                }
+                action("Reissue Transcript")
+                {
+                    Caption = 'Reissue Transcript';
+                    Image = UserSetup;
+                    RunObject = Page "Certificate Application List";
+                    RunPageView = where("Application Type" = const("Reissue Transcript"));
+                    ApplicationArea = All;
+                }
+            }
             group("Periodic Reports")
             {
                 group("Senate Reports")
@@ -1159,6 +1186,14 @@ page 51464 "ACA-Exam Man. Role Centre"
                     Image = Calendar;
 
                     RunObject = Page "ACA-Academic Year List";
+                    ApplicationArea = All;
+                }
+                action("Certificate Issuance Setup")
+                {
+                    Caption = 'Certificate Issuance Setup';
+                    Image = FixedAssets;
+
+                    RunObject = Page "Certificate Issuance Setup";
                     ApplicationArea = All;
                 }
             }

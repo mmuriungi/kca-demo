@@ -8,6 +8,7 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>f30e8540-04f3-4aea-a97a-658aa939e756</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <ReportSections>
@@ -75,18 +76,6 @@
                                     <FontSize>14pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>Underline</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>(A Constituent MASENO UNIVERSITY)</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1296,6 +1285,7 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>bdc736ba-5c83-4b3f-a4e1-a73b4a887332</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
