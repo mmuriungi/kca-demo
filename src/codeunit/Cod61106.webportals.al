@@ -54,7 +54,7 @@ Codeunit 61106 webportals
     end;
 
     var
-        FILESPATH: label '\\41.89.230.10\Downloads\';
+        FILESPATH: label 'C:\inetpub\wwwroot\Downloads\';
         ProgramUnits: Record "ACA-Semester";
         "Employee Card": Record "HRM-Employee C";
         "HR Leave Application": Record "HRM-Leave Requisition";
@@ -92,7 +92,7 @@ Codeunit 61106 webportals
         AppMgt: Codeunit "Approval Workflows V1";
         // ApprovalSetup: Record UnknownRecord452;
         Text004: label 'Approval Setup not found.';
-        FILESPATH_S: label '\\41.89.230.10\Downloads2\';
+        FILESPATH_S: label 'C:\inetpub\wwwroot\Downloads2\';
         RelieverName: Text;
         LeaveLE: Record "HRM-Leave Ledger";
         ExamResults: Record "ACA-Exam Results";
@@ -136,7 +136,7 @@ Codeunit 61106 webportals
         VoteElection: Record "ELECT Election Result";
         KUCCPSRaw: Record "KUCCPS Imports";
         AdmissionFormHeader: Record "ACA-Adm. Form Header";
-        FILESPATH_A: label '\\41.89.230.10\Downloads3\';
+        FILESPATH_A: label 'C:\inetpub\wwwroot\Downloads3\';
         OnlineUsersz: Record "OnlineUsers";
         AplicFormHeader: Record "ACA-Applic. Form Header";
         ProgEntrySubjects: Record "ACA-Programme Entry Subjects";
@@ -1865,7 +1865,7 @@ Codeunit 61106 webportals
         CourseRegistration.SetCurrentkey(Stage);
         if CourseRegistration.Find('+') then begin
             Report.SaveAsPdf(78087, filename, CourseRegistration);
-            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);TODO
+            // // Report.RUN(Report::"Exam Card Final",TRUE,FALSE,CourseRegistration);TODO
         end;
     end;
 
@@ -1889,7 +1889,7 @@ Codeunit 61106 webportals
         CourseRegistration.SetCurrentkey(Stage);
         if CourseRegistration.FindSet then begin
             Report.SaveAsPdf(78088, filename, CourseRegistration);
-            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);TODO
+            // // Report.RUN(Report::"Exam Card Final",TRUE,FALSE,CourseRegistration);TODO
         end;
     end;
 
@@ -1969,8 +1969,8 @@ Codeunit 61106 webportals
         CourseRegistration.SetRange(CourseRegistration.Semester, Sem);
         CourseRegistration.SetRange(Reversed, false);
         if CourseRegistration.FindFirst then begin
-            Report.SaveAsPdf(51515, filename, CourseRegistration);
-            // // REPORT.RUN(51515,TRUE,FALSE,CourseRegistration);TODO
+            Report.SaveAsPdf(Report::"Exam Card Final", filename, CourseRegistration);
+            // // Report.RUN(Report::"Exam Card Final",TRUE,FALSE,CourseRegistration);TODO
         end;
     end;
 
@@ -3008,26 +3008,26 @@ Codeunit 61106 webportals
     var
         Customer: Record Customer;
     begin
-        if Customer.Get(studentNo) then begin
-            Customer.CalcFields(Balance);
-            if Customer.Balance > 0 then begin
-                ReturnMessage := 'Units not registered! Your Balance is greater than zero!';
-            end;
-        end;
-        if not (Customer.Balance > 0) then begin
-            StudentUnits.Init;
-            StudentUnits."Student No." := studentNo;
-            StudentUnits.Unit := Unit;
-            StudentUnits.Programme := Prog;
-            StudentUnits.Stage := myStage;
-            StudentUnits.Semester := sem;
-            StudentUnits.Taken := true;
-            StudentUnits."Reg. Transacton ID" := RegTransID;
-            StudentUnits."Unit Description" := UnitDescription;
-            StudentUnits."Academic Year" := AcademicYear;
-            StudentUnits.Insert(true);
-            ReturnMessage := 'Units registered Successfully!'
-        end;
+        // if Customer.Get(studentNo) then begin
+        //     Customer.CalcFields(Balance);
+        //     if Customer.Balance > 0 then begin
+        //         ReturnMessage := 'Units not registered! Your Balance is greater than zero!';
+        //     end;
+        // end;
+        // if not (Customer.Balance > 0) then begin
+        StudentUnits.Init;
+        StudentUnits."Student No." := studentNo;
+        StudentUnits.Unit := Unit;
+        StudentUnits.Programme := Prog;
+        StudentUnits.Stage := myStage;
+        StudentUnits.Semester := sem;
+        StudentUnits.Taken := true;
+        StudentUnits."Reg. Transacton ID" := RegTransID;
+        StudentUnits."Unit Description" := UnitDescription;
+        StudentUnits."Academic Year" := AcademicYear;
+        StudentUnits.Insert(true);
+        ReturnMessage := 'Units registered Successfully!'
+        //end;
     end;
 
 
