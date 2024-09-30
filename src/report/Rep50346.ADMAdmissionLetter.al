@@ -3,7 +3,8 @@ report 50346 "ADM Admission Letter"
 
     ApplicationArea = All;
     DefaultLayout = WORD;
-    WordLayout = './Layouts/bachelorsAdmissionLetters.docx';
+    //WordLayout = './Layouts/bachelorsAdmissionLetters.docx';
+    RDLCLayout ='./Layouts/bachelorsAdmissionLetter.rdl';
     PreviewMode = PrintLayout;
     UsageCategory = ReportsAndAnalysis;
     EnableHyperlinks = true;
