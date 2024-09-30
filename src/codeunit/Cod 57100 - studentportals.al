@@ -505,13 +505,13 @@ codeunit 57100 studentportals
             REPORT.SAVEASPDF(report::"Exam Card Final", filename, CourseRegistration);
             /*
             IF CourseRegistration.FIND('-') THEN BEGIN
-              REPORT.SAVEASPDF(51515,filename,CourseRegistration);
+              Report.SaveAsPdf(Report::"Exam Card Final",filename,CourseRegistration);
             END;
             Customer.RESET;
             Customer.SETRANGE("No.",StudentNo);
             Customer.SETFILTER("Semester Filter",sem);
             IF Customer.FINDFIRST THEN BEGIN
-               REPORT.SAVEASPDF(51515,filename,Customer);*/
+               Report.SaveAsPdf(Report::"Exam Card Final",filename,Customer);*/
         END;
 
     end;

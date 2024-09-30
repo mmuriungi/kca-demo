@@ -573,7 +573,7 @@ page 50888 "ACA-Student Payments Form"
 
 
                         Receipt.INIT;
-                        Receipt."Receipt No." := "Last No";
+                        Receipt."Receipt No." := '';
                         //Receipt.VALIDATE(Receipt."Receipt No.");
                         Receipt."Student No." := Rec."Student No.";
                         Receipt.Date := Rec."Transaction Date";
@@ -595,25 +595,26 @@ page 50888 "ACA-Student Payments Form"
                         Receipt."Transaction Time" := TIME;
                         Receipt."User ID" := USERID;
                         Receipt."Reg ID" := CourseReg;
-                        Receipt.INSERT;
+                        Receipt.INSERT(true);
 
-                        Receipt.RESET;
-                        IF Receipt.FIND('+') THEN BEGIN
-
-
-                            CustLedg.RESET;
-                            CustLedg.SETRANGE(CustLedg."Customer No.", Rec."Student No.");
-                            //CustLedg.SETRANGE(CustLedg."Apply to",TRUE);
-                            CustLedg.SETRANGE(CustLedg.Open, TRUE);
-                            CustLedg.SETRANGE(CustLedg.Reversed, FALSE);
-                            IF CustLedg.FIND('-') THEN BEGIN
-
-                                GenSetUp.GET();
+                        // Receipt.RESET;
+                        // IF Receipt.FIND('+') THEN BEGIN
 
 
-                            END;
+                        //     CustLedg.RESET;
+                        //     CustLedg.SETRANGE(CustLedg."Customer No.", Rec."Student No.");
+                        //     //CustLedg.SETRANGE(CustLedg."Apply to",TRUE);
+                        //     CustLedg.SETRANGE(CustLedg.Open, TRUE);
+                        //     CustLedg.SETRANGE(CustLedg.Reversed, FALSE);
+                        //     IF CustLedg.FIND('-') THEN BEGIN
 
-                        END;
+                        //         GenSetUp.GET();
+
+
+                        //     END;
+
+                        // END;
+                        GenSetUp.Get();
 
                         //Bank Entry
                         IF BankRec.GET(Rec."Bank No.") THEN
@@ -626,7 +627,7 @@ page 50888 "ACA-Student Payments Form"
                             GenJnl.INIT;
                             GenJnl."Line No." := GenJnl."Line No." + 10000;
                             GenJnl."Posting Date" := Rec."Bank Slip Date";
-                            GenJnl."Document No." := "Last No";
+                            GenJnl."Document No." := Receipt."Receipt No.";
                             GenJnl."External Document No." := Rec."Cheque No";
                             GenJnl.VALIDATE(GenJnl."Document No.");
                             GenJnl."Journal Template Name" := 'SALES';
@@ -666,7 +667,7 @@ page 50888 "ACA-Student Payments Form"
                             GenJnl.INIT;
                             GenJnl."Line No." := GenJnl."Line No." + 10000;
                             GenJnl."Posting Date" := Rec."Bank Slip Date";
-                            GenJnl."Document No." := "Last No";
+                            GenJnl."Document No." := Receipt."Receipt No.";
                             GenJnl."External Document No." := Rec."Drawer Name";
                             GenJnl.VALIDATE(GenJnl."Document No.");
                             GenJnl."Journal Template Name" := 'SALES';
@@ -708,7 +709,7 @@ page 50888 "ACA-Student Payments Form"
                             GenJnl.INIT;
                             GenJnl."Line No." := GenJnl."Line No." + 10000;
                             GenJnl."Posting Date" := Rec."Bank Slip Date";
-                            GenJnl."Document No." := "Last No";
+                            GenJnl."Document No." := Receipt."Receipt No.";
                             GenJnl."External Document No." := '';
                             GenJnl.VALIDATE(GenJnl."Document No.");
                             GenJnl."Journal Template Name" := 'SALES';
@@ -746,7 +747,7 @@ page 50888 "ACA-Student Payments Form"
                             GenJnl.INIT;
                             GenJnl."Line No." := GenJnl."Line No." + 10000;
                             GenJnl."Posting Date" := Rec."Bank Slip Date";
-                            GenJnl."Document No." := "Last No";
+                            GenJnl."Document No." := Receipt."Receipt No.";
                             GenJnl."External Document No." := 'CDF';
                             GenJnl.VALIDATE(GenJnl."Document No.");
                             GenJnl."Journal Template Name" := 'SALES';
@@ -777,7 +778,7 @@ page 50888 "ACA-Student Payments Form"
                             GenJnl.INIT;
                             GenJnl."Line No." := GenJnl."Line No." + 10000;
                             GenJnl."Posting Date" := Rec."Bank Slip Date";
-                            GenJnl."Document No." := "Last No";
+                            GenJnl."Document No." := Receipt."Receipt No.";
                             GenJnl."External Document No." := 'CDF';
                             GenJnl.VALIDATE(GenJnl."Document No.");
                             GenJnl."Journal Template Name" := 'SALES';
@@ -814,7 +815,7 @@ page 50888 "ACA-Student Payments Form"
                             GenJnl.INIT;
                             GenJnl."Line No." := GenJnl."Line No." + 10000;
                             GenJnl."Posting Date" := Rec."Bank Slip Date";
-                            GenJnl."Document No." := "Last No";
+                            GenJnl."Document No." := Receipt."Receipt No.";
                             GenJnl."External Document No." := '';
                             GenJnl.VALIDATE(GenJnl."Document No.");
                             GenJnl."Journal Template Name" := 'SALES';
@@ -847,9 +848,9 @@ page 50888 "ACA-Student Payments Form"
                         GenJnl.RESET;
                         GenJnl.SETRANGE("Journal Template Name", 'SALES');
                         GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
-                        IF GenJnl.FIND('-') THEN BEGIN
+                        IF GenJnl.FindSet() THEN BEGIN
 
-                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B2", GenJnl);
+                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
                             Rec.MODIFY;
                         END;
 
