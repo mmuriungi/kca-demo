@@ -157,9 +157,9 @@ table 50638 "ACA-Receipt"
             CalcFormula = Lookup(Customer."Current Semester" WHERE("No." = FIELD("Student No.")));
             FieldClass = FlowField;
         }
-        field(50003;"Semester Code";code[20])
+        field(50003; "Semester Code"; code[20])
         {
-            TableRelation="ACA-Semesters".Code;
+            TableRelation = "ACA-Semesters".Code;
 
         }
     }
@@ -210,9 +210,19 @@ table 50638 "ACA-Receipt"
             ERROR('Modification or deletion out of the allowed range not allowed.')
     end;
 
+    trigger OnInsert()
+    begin
+        if "Receipt No." = '' then begin
+            BankRec.GET(Rec."Bank Account");
+            NoSeriesMgt.InitSeries(BankRec."Receipt No. Series", xRec."No. Series", 0D, Rec."Receipt No.", Rec."No. Series");
+        end;
+
+    end;
+
     var
         NoSeriesMgt: Codeunit NoSeriesManagement;
         GenSetup: Record "ACA-General Set-Up";
         Rcpt: Record "ACA-Receipt";
+        BankRec: Record "Bank Account";
 }
 
