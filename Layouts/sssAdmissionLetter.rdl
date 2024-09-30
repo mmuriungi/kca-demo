@@ -11,112 +11,6 @@
       <rd:DataSourceID>637f0a82-e886-4621-85d4-204cfb52f59c</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Admission_No">
-          <DataField>Admission_No</DataField>
-        </Field>
-        <Field Name="Application_No_">
-          <DataField>Application_No_</DataField>
-        </Field>
-        <Field Name="programName">
-          <DataField>programName</DataField>
-        </Field>
-        <Field Name="Programme_Faculty">
-          <DataField>Programme_Faculty</DataField>
-        </Field>
-        <Field Name="Application_Date">
-          <DataField>Application_Date</DataField>
-        </Field>
-        <Field Name="Other_Names">
-          <DataField>Other_Names</DataField>
-        </Field>
-        <Field Name="firstName">
-          <DataField>firstName</DataField>
-        </Field>
-        <Field Name="Surname">
-          <DataField>Surname</DataField>
-        </Field>
-        <Field Name="First_Degree_Choice">
-          <DataField>First_Degree_Choice</DataField>
-        </Field>
-        <Field Name="CompanyInformation">
-          <DataField>CompanyInformation</DataField>
-        </Field>
-        <Field Name="totalFee">
-          <DataField>totalFee</DataField>
-        </Field>
-        <Field Name="Intake_Code">
-          <DataField>Intake_Code</DataField>
-        </Field>
-        <Field Name="ReportingDate">
-          <DataField>ReportingDate</DataField>
-        </Field>
-        <Field Name="Date_of_Admission">
-          <DataField>Date_of_Admission</DataField>
-        </Field>
-        <Field Name="name">
-          <DataField>name</DataField>
-        </Field>
-        <Field Name="faculty">
-          <DataField>faculty</DataField>
-        </Field>
-        <Field Name="Settlement_Type">
-          <DataField>Settlement_Type</DataField>
-        </Field>
-        <Field Name="EndDateText">
-          <DataField>EndDateText</DataField>
-        </Field>
-        <Field Name="appDate">
-          <DataField>appDate</DataField>
-        </Field>
-        <Field Name="Campus">
-          <DataField>Campus</DataField>
-        </Field>
-        <Field Name="campusText">
-          <DataField>campusText</DataField>
-        </Field>
-        <Field Name="letterHead">
-          <DataField>letterHead</DataField>
-        </Field>
-        <Field Name="letterHead2">
-          <DataField>letterHead2</DataField>
-        </Field>
-        <Field Name="letterHead3">
-          <DataField>letterHead3</DataField>
-        </Field>
-        <Field Name="letterHead4">
-          <DataField>letterHead4</DataField>
-        </Field>
-        <Field Name="footer1">
-          <DataField>footer1</DataField>
-        </Field>
-        <Field Name="footer2">
-          <DataField>footer2</DataField>
-        </Field>
-        <Field Name="footer3">
-          <DataField>footer3</DataField>
-        </Field>
-        <Field Name="semOneFee">
-          <DataField>semOneFee</DataField>
-        </Field>
-        <Field Name="semOneFeeFormat">
-          <DataField>semOneFeeFormat</DataField>
-        </Field>
-        <Field Name="semTwoFee">
-          <DataField>semTwoFee</DataField>
-        </Field>
-        <Field Name="semTwoFeeFormat">
-          <DataField>semTwoFeeFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -712,12 +606,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -837,4 +725,110 @@ UG21RMNPjhIi5jbzUOBEOqPRsYnwpkx9bU3YI+w+c1qpyqT4/ZRMdiJ8J5E70wvmN+uSi9do08Z1Wrig
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Admission_No">
+          <DataField>Admission_No</DataField>
+        </Field>
+        <Field Name="Application_No_">
+          <DataField>Application_No_</DataField>
+        </Field>
+        <Field Name="programName">
+          <DataField>programName</DataField>
+        </Field>
+        <Field Name="Programme_Faculty">
+          <DataField>Programme_Faculty</DataField>
+        </Field>
+        <Field Name="Application_Date">
+          <DataField>Application_Date</DataField>
+        </Field>
+        <Field Name="Other_Names">
+          <DataField>Other_Names</DataField>
+        </Field>
+        <Field Name="firstName">
+          <DataField>firstName</DataField>
+        </Field>
+        <Field Name="Surname">
+          <DataField>Surname</DataField>
+        </Field>
+        <Field Name="First_Degree_Choice">
+          <DataField>First_Degree_Choice</DataField>
+        </Field>
+        <Field Name="CompanyInformation">
+          <DataField>CompanyInformation</DataField>
+        </Field>
+        <Field Name="totalFee">
+          <DataField>totalFee</DataField>
+        </Field>
+        <Field Name="Intake_Code">
+          <DataField>Intake_Code</DataField>
+        </Field>
+        <Field Name="ReportingDate">
+          <DataField>ReportingDate</DataField>
+        </Field>
+        <Field Name="Date_of_Admission">
+          <DataField>Date_of_Admission</DataField>
+        </Field>
+        <Field Name="name">
+          <DataField>name</DataField>
+        </Field>
+        <Field Name="faculty">
+          <DataField>faculty</DataField>
+        </Field>
+        <Field Name="Settlement_Type">
+          <DataField>Settlement_Type</DataField>
+        </Field>
+        <Field Name="EndDateText">
+          <DataField>EndDateText</DataField>
+        </Field>
+        <Field Name="appDate">
+          <DataField>appDate</DataField>
+        </Field>
+        <Field Name="Campus">
+          <DataField>Campus</DataField>
+        </Field>
+        <Field Name="campusText">
+          <DataField>campusText</DataField>
+        </Field>
+        <Field Name="letterHead">
+          <DataField>letterHead</DataField>
+        </Field>
+        <Field Name="letterHead2">
+          <DataField>letterHead2</DataField>
+        </Field>
+        <Field Name="letterHead3">
+          <DataField>letterHead3</DataField>
+        </Field>
+        <Field Name="letterHead4">
+          <DataField>letterHead4</DataField>
+        </Field>
+        <Field Name="footer1">
+          <DataField>footer1</DataField>
+        </Field>
+        <Field Name="footer2">
+          <DataField>footer2</DataField>
+        </Field>
+        <Field Name="footer3">
+          <DataField>footer3</DataField>
+        </Field>
+        <Field Name="semOneFee">
+          <DataField>semOneFee</DataField>
+        </Field>
+        <Field Name="semOneFeeFormat">
+          <DataField>semOneFeeFormat</DataField>
+        </Field>
+        <Field Name="semTwoFee">
+          <DataField>semTwoFee</DataField>
+        </Field>
+        <Field Name="semTwoFeeFormat">
+          <DataField>semTwoFeeFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
