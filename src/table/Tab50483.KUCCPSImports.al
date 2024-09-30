@@ -603,7 +603,7 @@ table 50483 "KUCCPS Imports"
                     end else begin
                         KUCCPSImports.Selected := true;
                         KUCCPSImports.Modify;
-                        Report.Run(51348, false, false, KUCCPSImports);
+                        Report.Run(Report::"Process JAB Admissions", false, false, KUCCPSImports);
                         Commit;
                         //Send Non-Resident Email
                         MailBody := 'You have not applied for a hostel allocation. You are therefore adviced to make personal arrangements for accomodation. Find Attached Form.';
@@ -764,7 +764,7 @@ table 50483 "KUCCPS Imports"
                 //process admission
                 if KUCCPSImports.Accomodation = KUCCPSImports.Accomodation::Resident then begin
                     Selected := true;
-                    Report.Run(51348, false, false, Rec);
+                    Report.Run(Report::"Process JAB Admissions", false, false, Rec);
                     Commit;
                     //Admit student from the applic form header
                     ApplicHeader.Reset;
@@ -886,7 +886,7 @@ table 50483 "KUCCPS Imports"
         //"Ethnic Background"
         field(130; "Ethnic Background"; Code[20])
         {
-           // TableRelation = 
+            // TableRelation = 
         }
     }
 

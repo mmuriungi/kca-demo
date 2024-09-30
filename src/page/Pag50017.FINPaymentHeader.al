@@ -536,7 +536,7 @@ page 50017 "FIN-Payment Header"
                         Payments.RESET;
                         Payments.SETFILTER(Payments."No.", rec."No.");
                         //IF Payments.FIND('-') THEN
-                        REPORT.RUN(50023, TRUE, TRUE, Payments);
+                        REPORT.RUN(Report::"Check-Printing", TRUE, TRUE, Payments);
                     end;
                 }
                 action("Void Check")
