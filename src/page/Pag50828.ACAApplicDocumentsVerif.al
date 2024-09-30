@@ -477,12 +477,12 @@ page 50828 "ACA-Applic. Documents Verif."
                 var
                     admletter: Record "ACA-Applic. Form Header";
                 begin
-                    if Rec."Settlement Type" = 'SSS' then begin
+                    if Rec."Settlement Type" = 'PSSP' then begin
                         admletter.Reset();
                         admletter.SetRange("Application No.", Rec."Application No.");
                         Report.Run(Report::"SSS Admission Letter", true, true, admletter);
                     end else
-                        if Rec."Settlement Type" = 'GSS' then begin
+                        if Rec."Settlement Type" = 'KUCCPS' then begin
                             admletter.Reset();
                             admletter.SetRange("Application No.", Rec."Application No.");
                             Report.Run(Report::"ADM Admission Letter", true, true, admletter);
