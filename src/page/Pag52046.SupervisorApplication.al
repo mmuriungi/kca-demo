@@ -45,7 +45,7 @@ page 52046 "Supervisor Application"
                 {
                     ToolTip = 'Specifies the value of the Date Approved field.', Comment = '%';
                 }
-            
+
             }
         }
     }
@@ -53,38 +53,44 @@ page 52046 "Supervisor Application"
     {
         area(Processing)
         {
-            action("Send Approval Request")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Send Approval Request';
-                    Image = SendApprovalRequest;
-                    Promoted = true;
-                    PromotedIsBig = true;
-
-                    trigger OnAction()
-                    var
-                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
-                    begin
-                       
-
-                       
-
-                    end;
-                }
-                action("Cancel Approval Re&quest")
-                {
-                    Caption = 'Cancel Approval Re&quest';
-                    Image = CancelledEntries;
-                    Promoted = true;
-                    PromotedIsBig = true;
-
-                    trigger OnAction()
-                    var
-                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
-                    begin
-                        
-                    end;
-                }
+            action(SendApprovalRequest)
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                Caption = 'Send Approval Request';
+                ToolTip = 'Send an approval request for the selected certificate application.';
+                Image = ApprovalRequest;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
+                begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnSendDocForApproval(variant);
+                end;
+            }
+            action(CancelApprovalRequest)
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                Caption = 'Cancel Approval Request';
+                ToolTip = 'Cancel the approval request for the selected certificate application.';
+                Image = CancelApprovalRequest;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
+                begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end;
+            }
         }
-           }
+    }
 }
