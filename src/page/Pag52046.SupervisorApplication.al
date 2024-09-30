@@ -45,7 +45,46 @@ page 52046 "Supervisor Application"
                 {
                     ToolTip = 'Specifies the value of the Date Approved field.', Comment = '%';
                 }
+            
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action("Send Approval Request")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Send Approval Request';
+                    Image = SendApprovalRequest;
+                    Promoted = true;
+                    PromotedIsBig = true;
+
+                    trigger OnAction()
+                    var
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                    begin
+                       
+
+                       
+
+                    end;
+                }
+                action("Cancel Approval Re&quest")
+                {
+                    Caption = 'Cancel Approval Re&quest';
+                    Image = CancelledEntries;
+                    Promoted = true;
+                    PromotedIsBig = true;
+
+                    trigger OnAction()
+                    var
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                    begin
+                        
+                    end;
+                }
+        }
+           }
 }

@@ -394,7 +394,8 @@ page 50060 "PROC-Store Req. Header (B)"
                     begin
                         Rec.RESET;
                         Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(50021, TRUE, TRUE, Rec);
+                        //REPORT.RUN(50021, TRUE, TRUE, Rec);
+                        REPORT.RUN(Report::"Store Requisitions", TRUE, TRUE, Rec);
                         Rec.RESET;
                     end;
                 }

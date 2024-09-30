@@ -2,7 +2,7 @@ page 51466 "POS Setup"
 {
     PageType = Card;
     SourceTable = "POS Setup";
-    InsertAllowed = false;
+    //InsertAllowed = false;
 
     layout
     {
