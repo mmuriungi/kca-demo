@@ -8,7 +8,7 @@ page 51164 "ACA-KUCCPS Student Reg"
     InsertAllowed = false;
     PageType = List;
     SourceTable = "ACA-Applic. Form Header";
-    SourceTableView = WHERE("Settlement Type" = const('GSS'), Admitted = const(false));
+    SourceTableView = WHERE("Settlement Type" = const('KUCCPS'), Admitted = const(false));
 
 
     layout
@@ -413,7 +413,7 @@ page 51164 "ACA-KUCCPS Student Reg"
             }
             action("Admission Letter")
             {
-                ApplicationArea = All;
+                //ApplicationArea = All;
                 Promoted = true;
                 PromotedCategory = Process;
                 trigger OnAction()
