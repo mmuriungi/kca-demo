@@ -236,7 +236,7 @@ page 50035 "FIN-Receipts Line Posted UP"
                         ERROR('Post the receipt before printing.');
                     Rec.RESET;
                     Rec.SETFILTER(No, Rec.No);
-                    REPORT.RUN(52015, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::Receipt, TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }
@@ -250,7 +250,7 @@ page 50035 "FIN-Receipts Line Posted UP"
                         ERROR('Post the receipt before printing.');
                     Rec.RESET;
                     Rec.SETFILTER(No, Rec.No);
-                    REPORT.RUN(52015, FALSE, TRUE, Rec);
+                    REPORT.RUN(Report::Receipt, FALSE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }

@@ -185,7 +185,7 @@ page 50007 "FIN-Cash Payment Header UP"
                 begin
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(50006, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Petty Cash Report", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }

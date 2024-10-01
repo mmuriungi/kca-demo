@@ -270,7 +270,7 @@ page 50002 "FIN-Bank & Cash Trans. Req. UP"
                     begin
                         Rec.RESET;
                         Rec.SETRANGE(No, Rec.No);
-                        REPORT.RUN(50004, TRUE, TRUE, Rec);
+                        REPORT.RUN(Report::"Interbank Transfers", TRUE, TRUE, Rec);
                         Rec.RESET;
                     end;
                 }

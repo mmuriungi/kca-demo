@@ -575,7 +575,7 @@ page 50022 "FIN-Posted Imprest Accounting"
                 begin
                     Rec.RESET;
                     Rec.SETFILTER(No, Rec.No);
-                    REPORT.RUN(50003, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Imprest Surrender", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }
