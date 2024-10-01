@@ -1,8 +1,8 @@
 page 51094 "ACA-Grading Sys. Header"
 {
     DeleteAllowed = false;
-    InsertAllowed = false;
-    ModifyAllowed = false;
+    InsertAllowed = true;
+    ModifyAllowed = true;
     PageType = List;
     SourceTable = "ACA-Exam Category";
 

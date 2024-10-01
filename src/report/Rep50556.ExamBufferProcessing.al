@@ -6,7 +6,7 @@ report 50556 "Exam Buffer Processing"
     {
         dataitem(ExamBuff2; "ACA-Exam Results Buffer 2")
         {
-            DataItemTableView = where(Programme = const('B141'), Semester = const('SEM 1 23/24'));
+            //DataItemTableView = where(Programme = const('B141'), Semester = const('SEM 1 23/24'));
 
             trigger OnAfterGetRecord()
             var
