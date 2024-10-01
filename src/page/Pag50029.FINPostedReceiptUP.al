@@ -164,7 +164,7 @@ page 50029 "FIN-Posted Receipt UP"
                     IF Rec.Posted = FALSE THEN ERROR('Post the receipt before printing.');
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(50007, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::Receipt, TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }

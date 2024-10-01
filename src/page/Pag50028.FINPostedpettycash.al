@@ -274,7 +274,7 @@ page 50028 "FIN-Posted petty cash"
                             //ERROR('You cannot Print until the document is released for approval');
                             Rec.RESET;
                         Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(50006, TRUE, TRUE, Rec);
+                        REPORT.RUN(Report::"Petty Cash Report", TRUE, TRUE, Rec);
                         Rec.RESET;
                     end;
                 }
