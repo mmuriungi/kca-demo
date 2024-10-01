@@ -20,5 +20,20 @@ tableextension 50016 "General Ledger Entry" extends "G/L Entry"
             CalcFormula = lookup(Customer.Name WHERE("No." = FIELD("Bal. Account No.")));
             FieldClass = FlowField;
         }
+        //"Item Specification"
+        field(50003; "Item Specification"; Text[250])
+        {
+            Caption = 'Item Specification';
+        }
+        //"Currency Code"
+        field(50004; "Currency Code"; Code[10])
+        {
+            Caption = 'Currency Code';
+        }
+        //"Exchange Rate to Base Currency"
+        field(50005; "Exchange Rate to Base Currency"; Decimal)
+        {
+            Caption = 'Exchange Rate to Base Currency';
+        }
     }
 }
