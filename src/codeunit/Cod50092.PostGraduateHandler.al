@@ -58,11 +58,13 @@ codeunit 50092 "PostGraduate Handler"
         SupervisorApplication.Modify();
     end;
 
-    local procedure SendNotificationToStudent(StudentNo: Code[20]; SupervisorCode: Code[20])
+    procedure SendNotificationToStudent(StudentNo: Code[20]; SupervisorCode: Code[20])
     var
         PostgradStudent: Record "Customer";
         Supervisor: Record "HRM-Employee C";
         NotificationMsg: Text;
+        NOtifHandler: Codeunit "Notifications Handler";
+        RcEmails: List of [Text];
     begin
         PostgradStudent.Get(StudentNo);
         Supervisor.Get(SupervisorCode);
@@ -70,7 +72,7 @@ codeunit 50092 "PostGraduate Handler"
         NotificationMsg := StrSubstNo('Dear %1,\Your "Postgrad Supervisor Applic."has been approved. Your assigned supervisor is %2 (%3).',
                                       PostgradStudent.Name, Supervisor.FullName(), Supervisor."E-Mail");
 
-        //TODO
+        NOtifHandler.fnSendemail(PostgradStudent.Name, 'Supervisor Approval', NotificationMsg, PostgradStudent."E-Mail", '', '', false, '', '', '');
 
     end;
 
