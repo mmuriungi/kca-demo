@@ -468,7 +468,7 @@ report 50386 "Post Billing"
                             ELSE
                                 GenJnl."Account No." := "No.";
 
-                        END;
+                        END; 
 
                         IF ((GenJnl.Amount <> 0) and (GenJnl."Posting Date" <> 0D)) THEN
                             GenJnl.INSERT;
