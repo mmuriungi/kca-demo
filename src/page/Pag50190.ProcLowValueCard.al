@@ -3,7 +3,7 @@ page 50190 "Proc-Low Value Card"
     Caption = 'Low Value Tender';
     DeleteAllowed = false;
     PageType = Card;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'New,Vendors, Report,Evaluation Matrix, Award, Bid,Approvals,Attachments';
     SourceTableView = where("Procurement methods" = const("Low Value Procurement"));
     layout
