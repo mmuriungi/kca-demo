@@ -94,8 +94,8 @@ codeunit 50203 "VendorsWebportal"
                 TenderSubmissionHeader."Bid Status" := TenderSubmissionHeader."Bid Status"::pending;
                 TenderSubmissionHeader."RFQ No." := ProcurementPurchaseHeader."Requisition No.";
                 TenderSubmissionHeader."Document Date" := Today;
-                TenderSubmissionHeader."Expected Opening Date" := CreateDateTime(ProcurementPurchaseHeader."Expected Opening Date", 0T);
-                TenderSubmissionHeader."Expected Closing Date" := CreateDateTime(ProcurementPurchaseHeader."Expected Closing Date", 0T);
+                TenderSubmissionHeader."Expected Opening Date" := ProcurementPurchaseHeader."Expected Opening Date";
+                TenderSubmissionHeader."Expected Closing Date" := ProcurementPurchaseHeader."Expected Closing Date";
                 if (TenderSubmissionHeader.insert) then
                     msg := nextapplicno
                 else
@@ -1035,8 +1035,8 @@ codeunit 50203 "VendorsWebportal"
                 purchaseheader."Posting Description" := procheader.Description;
                 purchaseheader."Quote Status" := purchaseheader."Quote Status"::Pending;
                 purchaseheader."Document Date" := Today;
-                purchaseheader."Expected Opening Date" := CreateDateTime(procheader."Expected Opening Date", 0T);
-                purchaseheader."Expected Closing Date" := CreateDateTime(procheader."Expected Closing Date", 0T);
+                purchaseheader."Expected Opening Date" := procheader."Expected Opening Date";
+                purchaseheader."Expected Closing Date" := procheader."Expected Closing Date";
                 purchaseheader.insert;
                 msg := nextapplicno;
             end;
