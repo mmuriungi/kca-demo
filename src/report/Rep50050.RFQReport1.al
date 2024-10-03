@@ -122,7 +122,7 @@ report 50050 "RFQ Report1"
             column(Quotation_Request_Vendors_Vendor_No_; "Vendor No.")
             {
             }
-            dataitem("PROC-Purchase Quote Header"; "PROC-Purchase Quote Header1")
+            dataitem("PROC-Purchase Quote Header"; "PROC-Purchase Quote Header")
             {
                 DataItemLink = "No." = FIELD("Document No.");
                 column(Purchase_Quote_Header_Document_Type; "Document Type")
@@ -255,7 +255,7 @@ report 50050 "RFQ Report1"
         DocDate: Date;
         DocNo: Integer;
         vendAddress: Text[50];
-        Quote: Record "PROC-Purchase Quote Header1";
+        Quote: Record "PROC-Purchase Quote Header";
         vendor: Record Vendor;
         info: Record "Company Information";
         Pcode: Code[20];

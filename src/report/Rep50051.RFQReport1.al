@@ -5,7 +5,7 @@ report 50051 "RFQ Report 1"
 
     dataset
     {
-        dataitem(ReqHeader; "PROC-Purchase Quote Header1")
+        dataitem(ReqHeader; "PROC-Purchase Quote Header")
         {
             RequestFilterFields = "No.";
             column(BidderSupplier_ReqHeader; "Bidder/Supplier")
