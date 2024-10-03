@@ -8,203 +8,185 @@ table 50048 "PROC-Purchase Quote Header"
         field(1; "Document Type"; Enum "Purchase Document Type")
         {
             Caption = 'Document Type';
-            //OptionCaption = 'Quotation Request,Open Tender,Restricted Tender';
-            //OptionMembers = "Quotation Request","Open Tender","Restricted Tender";
         }
-        field(3; "No."; Code[20])
+        field(2; "No."; Code[20])
         {
             Caption = 'No.';
             Editable = False;
-
-
         }
-        field(11; "Your Reference"; Text[30])
+        field(3; "Your Reference"; Text[30])
         {
             Caption = 'Your Reference';
         }
-        field(12; "Ship-to Code"; Code[10])
+        field(4; "Ship-to Code"; Code[10])
         {
             Caption = 'Ship-to Code';
             TableRelation = Location.Code WHERE("Use As In-Transit" = filter(false));
         }
-        field(13; "Ship-to Name"; Text[50])
+        field(5; "Ship-to Name"; Text[50])
         {
             Caption = 'Ship-to Name';
         }
-        field(14; "Ship-to Name 2"; Text[50])
+        field(6; "Ship-to Name 2"; Text[50])
         {
             Caption = 'Ship-to Name 2';
         }
-        field(15; "Ship-to Address"; Text[50])
+        field(7; "Ship-to Address"; Text[50])
         {
             Caption = 'Ship-to Address';
         }
-        field(16; "Ship-to Address 2"; Text[50])
+        field(8; "Ship-to Address 2"; Text[50])
         {
             Caption = 'Ship-to Address 2';
         }
-        field(17; "Ship-to City"; Text[30])
+        field(9; "Ship-to City"; Text[30])
         {
             Caption = 'Ship-to City';
         }
-        field(18; "Ship-to Contact"; Text[50])
+        field(10; "Ship-to Contact"; Text[50])
         {
             Caption = 'Ship-to Contact';
         }
-        field(19; "Expected Opening Date"; Date)
+        field(11; "Expected Opening Date"; DateTime)
         {
             Caption = 'Expected Opening Date';
         }
-        field(20; "Posting Date"; Date)
+        field(12; "Posting Date"; Date)
         {
             Caption = 'Posting Date';
         }
-        field(21; "Expected Closing Date"; Date)
+        field(13; "Expected Closing Date"; DateTime)
         {
             Caption = 'Expected Closing Date';
         }
-        field(22; "Posting Description"; Text[50])
+        field(14; "Posting Description"; Text[50])
         {
             Caption = 'Posting Description';
         }
-        field(23; "Payment Terms Code"; Code[10])
+        field(15; "Payment Terms Code"; Code[10])
         {
             Caption = 'Payment Terms Code';
             TableRelation = "Payment Terms";
         }
-        field(24; "Due Date"; Date)
+        field(16; "Due Date"; Date)
         {
             Caption = 'Due Date';
         }
-        field(25; "Payment Discount %"; Decimal)
+        field(17; "Payment Discount %"; Decimal)
         {
             Caption = 'Payment Discount %';
             DecimalPlaces = 0 : 5;
         }
-        field(26; "Pmt. Discount Date"; Date)
+        field(18; "Pmt. Discount Date"; Date)
         {
             Caption = 'Pmt. Discount Date';
         }
-        field(27; "Shipment Method Code"; Code[10])
+        field(19; "Shipment Method Code"; Code[10])
         {
             Caption = 'Shipment Method Code';
             TableRelation = "Shipment Method";
         }
-        field(28; "Location Code"; Code[10])
+        field(20; "Location Code"; Code[10])
         {
             Caption = 'Location Code';
             TableRelation = Location WHERE("Use As In-Transit" = filter(false));
         }
-        field(29; "Shortcut Dimension 1 Code"; Code[20])
+        field(21; "Shortcut Dimension 1 Code"; Code[20])
         {
             CaptionClass = '1,2,1';
             Caption = 'Shortcut Dimension 1 Code';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
-        field(30; "Shortcut Dimension 2 Code"; Code[20])
+        field(22; "Shortcut Dimension 2 Code"; Code[20])
         {
             CaptionClass = '1,2,2';
             Caption = 'Shortcut Dimension 2 Code';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
-        field(31; "Vendor Posting Group"; Code[10])
+        field(23; "Vendor Posting Group"; Code[10])
         {
             Caption = 'Vendor Posting Group';
             Editable = false;
             TableRelation = "Vendor Posting Group";
         }
-        field(32; "Currency Code"; Code[10])
+        field(24; "Currency Code"; Code[10])
         {
             Caption = 'Currency Code';
             TableRelation = Currency;
         }
-        field(33; "Currency Factor"; Decimal)
+        field(25; "Currency Factor"; Decimal)
         {
             Caption = 'Currency Factor';
             DecimalPlaces = 0 : 15;
             Editable = false;
             MinValue = 0;
         }
-        field(35; "Prices Including VAT"; Boolean)
+        field(26; "Prices Including VAT"; Boolean)
         {
             Caption = 'Prices Including VAT';
-
-            trigger OnValidate()
-            var
-                PurchLine: Record "Purchase Line";
-                Currency: Record "Currency";
-                RecalculatePrice: Boolean;
-            begin
-            end;
         }
-        field(37; "Invoice Disc. Code"; Code[20])
+        field(27; "Invoice Disc. Code"; Code[20])
         {
             Caption = 'Invoice Disc. Code';
         }
-        field(41; "Language Code"; Code[10])
+        field(28; "Language Code"; Code[10])
         {
             Caption = 'Language Code';
             TableRelation = Language;
         }
-        field(43; "Purchaser Code"; Code[10])
+        field(29; "Purchaser Code"; Code[10])
         {
             Caption = 'Purchaser Code';
             TableRelation = "Salesperson/Purchaser";
-
-            trigger OnValidate()
-            var
-            //ApprovalEntry: Record "454";
-            begin
-            end;
         }
-        field(45; "Order Class"; Code[10])
+        field(30; "Order Class"; Code[10])
         {
             Caption = 'Order Class';
         }
-        field(46; Comment; Boolean)
+        field(31; Comment; Boolean)
         {
+            Caption = 'Comment';
             FieldClass = FlowField;
             CalcFormula = Exist("Purch. Comment Line" WHERE("Document Type" = FIELD("Document Type"),
-                                                             "No." = FIELD("No."), "Document Line No." = CONST(0)));
-            Caption = 'Comment';
+                                                             "No." = FIELD("No."),
+                                                             "Document Line No." = CONST(0)));
             Editable = false;
-
         }
-        field(47; "No. Printed"; Integer)
+        field(32; "No. Printed"; Integer)
         {
             Caption = 'No. Printed';
             Editable = false;
         }
-        field(51; "On Hold"; Code[3])
+        field(33; "On Hold"; Code[3])
         {
             Caption = 'On Hold';
         }
-        field(52; "Applies-to Doc. Type"; Option)
+        field(34; "Applies-to Doc. Type"; Option)
         {
             Caption = 'Applies-to Doc. Type';
             OptionCaption = ' ,Payment,Invoice,Credit Memo,Finance Charge Memo,Reminder,Refund';
             OptionMembers = " ",Payment,Invoice,"Credit Memo","Finance Charge Memo",Reminder,Refund;
         }
-        field(53; "Applies-to Doc. No."; Code[20])
+        field(35; "Applies-to Doc. No."; Code[20])
         {
             Caption = 'Applies-to Doc. No.';
         }
-        field(55; "Bal. Account No."; Code[20])
+        field(36; "Bal. Account No."; Code[20])
         {
             Caption = 'Bal. Account No.';
             TableRelation = IF ("Bal. Account Type" = CONST("G/L Account")) "G/L Account"
             ELSE
             IF ("Bal. Account Type" = CONST("Bank Account")) "Bank Account";
         }
-        field(57; Receive; Boolean)
+        field(37; Receive; Boolean)
         {
             Caption = 'Receive';
         }
-        field(58; Invoice; Boolean)
+        field(38; Invoice; Boolean)
         {
             Caption = 'Invoice';
         }
-        field(60; Amount; Decimal)
+        field(39; Amount; Decimal)
         {
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 1;
@@ -214,7 +196,7 @@ table 50048 "PROC-Purchase Quote Header"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(61; "Amount Including VAT"; Decimal)
+        field(40; "Amount Including VAT"; Decimal)
         {
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 1;
@@ -224,484 +206,415 @@ table 50048 "PROC-Purchase Quote Header"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(62; "Receiving No."; Code[20])
+        field(41; "Receiving No."; Code[20])
         {
             Caption = 'Receiving No.';
         }
-        field(63; "Posting No."; Code[20])
+        field(42; "Posting No."; Code[20])
         {
             Caption = 'Posting No.';
         }
-        field(64; "Last Receiving No."; Code[20])
+        field(43; "Last Receiving No."; Code[20])
         {
             Caption = 'Last Receiving No.';
             Editable = false;
             TableRelation = "Purch. Rcpt. Header";
         }
-        field(65; "Last Posting No."; Code[20])
+        field(44; "Last Posting No."; Code[20])
         {
             Caption = 'Last Posting No.';
             Editable = false;
             TableRelation = "Purch. Inv. Header";
         }
-        field(73; "Reason Code"; Code[10])
+        field(45; "Reason Code"; Code[10])
         {
             Caption = 'Reason Code';
             TableRelation = "Reason Code";
         }
-        field(74; "Gen. Bus. Posting Group"; Code[10])
+        field(46; "Gen. Bus. Posting Group"; Code[10])
         {
             Caption = 'Gen. Bus. Posting Group';
             TableRelation = "Gen. Business Posting Group";
         }
-        field(76; "Transaction Type"; Code[10])
+        field(47; "Transaction Type"; Code[10])
         {
             Caption = 'Transaction Type';
             TableRelation = "Transaction Type";
         }
-        field(77; "Transport Method"; Code[10])
+        field(48; "Transport Method"; Code[10])
         {
             Caption = 'Transport Method';
             TableRelation = "Transport Method";
         }
-        field(78; "VAT Country/Region Code"; Code[10])
+        field(49; "VAT Country/Region Code"; Code[10])
         {
             Caption = 'VAT Country/Region Code';
             TableRelation = "Country/Region";
         }
-        field(91; "Ship-to Post Code"; Code[20])
+        field(50; "Ship-to Post Code"; Code[20])
         {
             Caption = 'Ship-to Post Code';
             TableRelation = "Post Code";
-            //This property is currently not supported
-            //TestTableRelation = false;
             ValidateTableRelation = false;
         }
-        field(92; "Ship-to County"; Text[30])
+        field(51; "Ship-to County"; Text[30])
         {
             Caption = 'Ship-to County';
         }
-        field(93; "Ship-to Country/Region Code"; Code[10])
+        field(52; "Ship-to Country/Region Code"; Code[10])
         {
             Caption = 'Ship-to Country/Region Code';
             TableRelation = "Country/Region";
         }
-        field(94; "Bal. Account Type"; Option)
+        field(53; "Bal. Account Type"; Option)
         {
             Caption = 'Bal. Account Type';
             OptionCaption = 'G/L Account,Bank Account';
             OptionMembers = "G/L Account","Bank Account";
         }
-        field(95; "Order Address Code"; Code[10])
+        field(54; "Order Address Code"; Code[10])
         {
             Caption = 'Order Address Code';
-
-            trigger OnValidate()
-            var
-                PayToVend: Record Vendor;
-            begin
-            end;
         }
-        field(97; "Entry Point"; Code[10])
+        field(55; "Entry Point"; Code[10])
         {
             Caption = 'Entry Point';
             TableRelation = "Entry/Exit Point";
         }
-        field(98; Correction; Boolean)
+        field(56; Correction; Boolean)
         {
             Caption = 'Correction';
         }
-        field(99; "Document Date"; Date)
+        field(57; "Document Date"; Date)
         {
             Caption = 'Document Date';
         }
-        field(101; "Area"; Code[10])
+        field(58; "Area"; Code[10])
         {
             Caption = 'Area';
             TableRelation = Area;
         }
-        field(102; "Transaction Specification"; Code[10])
+        field(59; "Transaction Specification"; Code[10])
         {
             Caption = 'Transaction Specification';
             TableRelation = "Transaction Specification";
         }
-        field(104; "Payment Method Code"; Code[10])
+        field(60; "Payment Method Code"; Code[10])
         {
             Caption = 'Payment Method Code';
             TableRelation = "Payment Method";
         }
-        field(107; "No. Series"; Code[10])
+        field(61; "No. Series"; Code[10])
         {
             Caption = 'No. Series';
             Editable = false;
             TableRelation = "No. Series";
         }
-        field(108; "Posting No. Series"; Code[10])
+        field(62; "Posting No. Series"; Code[10])
         {
             Caption = 'Posting No. Series';
             TableRelation = "No. Series";
         }
-        field(109; "Receiving No. Series"; Code[10])
+        field(63; "Receiving No. Series"; Code[10])
         {
             Caption = 'Receiving No. Series';
             TableRelation = "No. Series";
         }
-        field(114; "Tax Area Code"; Code[20])
+        field(64; "Tax Area Code"; Code[20])
         {
             Caption = 'Tax Area Code';
             TableRelation = "Tax Area";
         }
-        field(115; "Tax Liable"; Boolean)
+        field(65; "Tax Liable"; Boolean)
         {
             Caption = 'Tax Liable';
         }
-        field(116; "VAT Bus. Posting Group"; Code[10])
+        field(66; "VAT Bus. Posting Group"; Code[10])
         {
             Caption = 'VAT Bus. Posting Group';
             TableRelation = "VAT Business Posting Group";
         }
-        field(118; "Applies-to ID"; Code[20])
+        field(67; "Applies-to ID"; Code[20])
         {
             Caption = 'Applies-to ID';
-
-            trigger OnValidate()
-            var
-                TempVendLedgEntry: Record 25;
-            begin
-            end;
         }
-        field(119; "VAT Base Discount %"; Decimal)
+        field(68; "VAT Base Discount %"; Decimal)
         {
             Caption = 'VAT Base Discount %';
             DecimalPlaces = 0 : 5;
             MaxValue = 100;
             MinValue = 0;
-
-            trigger OnValidate()
-            var
-                ChangeLogMgt: Codeunit "Change Log Management";
-                RecRef: RecordRef;
-                xRecRef: RecordRef;
-            begin
-            end;
         }
-        field(120; Status; Option)
+        field(69; Status; Option)
         {
             Caption = 'Status';
             Editable = false;
-            OptionCaption = 'Open,Released,Pending Approval,Pending Prepayment';
+            OptionCaption = 'Open,Released,Pending Approval,Pending Prepayment,Closed,Cancelled,Stopped';
             OptionMembers = Open,Released,"Pending Approval","Pending Prepayment",Closed,Cancelled,Stopped;
         }
-        field(121; "Invoice Discount Calculation"; Option)
+        field(70; "Invoice Discount Calculation"; Option)
         {
             Caption = 'Invoice Discount Calculation';
             Editable = false;
             OptionCaption = 'None,%,Amount';
             OptionMembers = "None","%",Amount;
         }
-        field(122; "Invoice Discount Value"; Decimal)
+        field(71; "Invoice Discount Value"; Decimal)
         {
             AutoFormatType = 1;
             Caption = 'Invoice Discount Value';
             Editable = false;
         }
-        field(123; "Send IC Document"; Boolean)
+        field(72; "Send IC Document"; Boolean)
         {
             Caption = 'Send IC Document';
         }
-        field(124; "IC Status"; Option)
+        field(73; "IC Status"; Option)
         {
             Caption = 'IC Status';
             OptionCaption = 'New,Pending,Sent';
             OptionMembers = New,Pending,Sent;
         }
-        field(125; "Buy-from IC Partner Code"; Code[20])
+        field(74; "Buy-from IC Partner Code"; Code[20])
         {
             Caption = 'Buy-from IC Partner Code';
             Editable = false;
             TableRelation = "IC Partner";
         }
-        field(126; "Pay-to IC Partner Code"; Code[20])
+        field(75; "Pay-to IC Partner Code"; Code[20])
         {
             Caption = 'Pay-to IC Partner Code';
             Editable = false;
             TableRelation = "IC Partner";
         }
-        field(129; "IC Direction"; Option)
+        field(76; "IC Direction"; Option)
         {
             Caption = 'IC Direction';
             OptionCaption = 'Outgoing,Incoming';
             OptionMembers = Outgoing,Incoming;
         }
-        field(151; "Quote No."; Code[20])
+        field(77; "Prepayment No."; Code[20])
+        {
+            Caption = 'Prepayment No.';
+        }
+        field(78; "Last Prepayment No."; Code[20])
+        {
+            Caption = 'Last Prepayment No.';
+            TableRelation = "Purch. Inv. Header";
+        }
+        field(79; "Prepmt. Cr. Memo No."; Code[20])
+        {
+            Caption = 'Prepmt. Cr. Memo No.';
+        }
+        field(80; "Last Prepmt. Cr. Memo No."; Code[20])
+        {
+            Caption = 'Last Prepmt. Cr. Memo No.';
+            TableRelation = "Purch. Cr. Memo Hdr.";
+        }
+        field(81; "Prepayment %"; Decimal)
+        {
+            Caption = 'Prepayment %';
+            DecimalPlaces = 0:5;
+            MaxValue = 100;
+            MinValue = 0;
+        }
+        field(82; "Prepayment No. Series"; Code[20])
+        {
+            Caption = 'Prepayment No. Series';
+            TableRelation = "No. Series";
+        }
+        field(83; "Compress Prepayment"; Boolean)
+        {
+            Caption = 'Compress Prepayment';
+            InitValue = true;
+        }
+        field(84; "Prepayment Due Date"; Date)
+        {
+            Caption = 'Prepayment Due Date';
+        }
+        field(85; "Prepmt. Cr. Memo No. Series"; Code[20])
+        {
+            Caption = 'Prepmt. Cr. Memo No. Series';
+            TableRelation = "No. Series";
+        }
+        field(86; "Prepmt. Posting Description"; Text[100])
+        {
+            Caption = 'Prepmt. Posting Description';
+        }
+        field(87; "Prepmt. Pmt. Discount Date"; Date)
+        {
+            Caption = 'Prepmt. Pmt. Discount Date';
+        }
+        field(88; "Prepmt. Payment Terms Code"; Code[10])
+        {
+            Caption = 'Prepmt. Payment Terms Code';
+            TableRelation = "Payment Terms";
+        }
+        field(89; "Prepmt. Payment Discount %"; Decimal)
+        {
+            Caption = 'Prepmt. Payment Discount %';
+            DecimalPlaces = 0:5;
+            MaxValue = 100;
+            MinValue = 0;
+        }
+        field(90; "Quote No."; Code[20])
         {
             Caption = 'Quote No.';
             Editable = false;
         }
-        field(5043; "No. of Archived Versions"; Integer)
+        field(91; "Job Queue Status"; Option)
         {
-            FieldClass = FlowField;
-            CalcFormula = Max("Purchase Header Archive"."Version No." WHERE("Document Type" = FIELD("Document Type"), "No." = FIELD("No."),
-                                                                             "Doc. No. Occurrence" = FIELD("Doc. No. Occurrence")));
-            Caption = 'No. of Archived Versions';
+            Caption = 'Job Queue Status';
+            OptionCaption = ' ,Scheduled for Posting,Error,Posting';
+            OptionMembers = " ","Scheduled for Posting",Error,Posting;
+        }
+        field(92; "Job Queue Entry ID"; Guid)
+        {
+            Caption = 'Job Queue Entry ID';
             Editable = false;
-
         }
-        field(5048; "Doc. No. Occurrence"; Integer)
+        field(93; "Incoming Document Entry No."; Integer)
         {
-            Caption = 'Doc. No. Occurrence';
+            Caption = 'Incoming Document Entry No.';
+            TableRelation = "Incoming Document";
         }
-        field(5050; "Campaign No."; Code[20])
+        field(94; "Creditor No."; Code[20])
         {
-            Caption = 'Campaign No.';
-            TableRelation = Campaign;
+            Caption = 'Creditor No.';
         }
-        field(5052; "Buy-from Contact No."; Code[20])
+        field(95; "Payment Reference"; Code[50])
         {
-            Caption = 'Buy-from Contact No.';
-            TableRelation = Contact;
-
-            trigger OnLookup()
-            var
-                Cont: Record 5050;
-                ContBusinessRelation: Record 5054;
-            begin
-            end;
-
-            trigger OnValidate()
-            var
-                ContBusinessRelation: Record 5054;
-                Cont: Record 5050;
-            begin
-            end;
+            Caption = 'Payment Reference';
         }
-        field(5053; "Pay-to Contact No."; Code[20])
+        field(96; "Payment Method Id"; Code[20])
         {
-            Caption = 'Pay-to Contact No.';
-            TableRelation = Contact;
-
-            trigger OnLookup()
-            var
-                Cont: Record 5050;
-                ContBusinessRelation: Record 5054;
-            begin
-            end;
-
-            trigger OnValidate()
-            var
-                ContBusinessRelation: Record 5054;
-                Cont: Record 5050;
-            begin
-            end;
+            Caption = 'Payment Method Id';
+            TableRelation = "Payment Method";
         }
-        field(5700; "Responsibility Center"; Code[10])
+        field(97; "Procurement methods"; Enum "Proc-Procurement Methods")
+        {
+        }
+        field(98; "Description"; Text[250])
+        {
+            Caption = 'Description';
+        }
+        field(99; "Expected Opening Date II"; DateTime)
+        {
+        }
+        field(100; "Expected Closing Date II"; DateTime)
+        {
+        }
+        field(101; "Initiate Tier Two"; Boolean)
+        {
+        }
+        field(102; "Professional Opinion"; Text[2000])
+        {
+        }
+        field(103; "Awarded BId"; Code[10])
+        {
+            TableRelation = "Tender Submission Header"."No." where("Request for Quote No." = field("No."), "Bid Status" = filter("Fin Qualif"));
+        }
+        field(104; "Awarded Quote"; Code[10])
+        {
+            TableRelation = "Purchase Header"."No." where("Request for Quote No." = field("No."), "Quote Status" = filter("Fin Qualif"));
+        }
+        field(105; "Issue Order"; Boolean)
+        {
+        }
+        field(106; "Bidder/Supplier"; Code[30])
+        {
+        }
+        field(107; "captured by"; Code[30])
+        {
+        }
+        field(108; "Order No."; Code[30])
+        {
+        }
+        field(109; "Technical Evaluation"; Option)
+        {
+            OptionMembers = No,Yes;
+        }
+        field(110; "Technical Passmark Score"; Decimal)
+        {
+            Editable = false;
+            BlankZero = false;
+            DecimalPlaces = 1;
+            FieldClass = FlowField;
+            CalcFormula = sum("Proc-Technical Qualif"."Maximum Score" where("No." = field("No.")));
+        }
+        field(111; "Demonistration Evaluation"; Option)
+        {
+            Caption = 'Demonstration Evaluation';
+            OptionMembers = No,Yes;
+        }
+        field(112; "Demo Passmark Score"; Decimal)
+        {
+            BlankZero = false;
+            DecimalPlaces = 1;
+            FieldClass = FlowField;
+            CalcFormula = sum("Proc-Demo Qualif"."Maximum Score" where("No." = field("No.")));
+        }
+        field(113; "Financial Evaluation Score"; Decimal)
+        {
+            Caption = 'Financial Evaluation Amount';
+            FieldClass = FlowField;
+            CalcFormula = sum("PROC-Purchase Quote Line"."Line Amount" where("Document Type" = FIELD("Document Type"), "Document No." = FIELD("No.")));
+            Editable = false;
+        }
+        field(114; "Post-Qualification"; Option)
+        {
+            OptionMembers = No,Yes;
+        }
+        field(115; "Has Evaluation"; Option)
+        {
+            OptionMembers = No,Yes;
+        }
+        field(116; "Preliminary Evaluation"; Option)
+        {
+            OptionMembers = No,Yes;
+        }
+        field(117; "Financial Evaluation"; Option)
+        {
+            OptionMembers = No,Yes;
+        }
+        field(118; "Evaluation Started"; Boolean)
+        {
+        }
+        field(119; "Suppliers Category"; code[50])
+        {
+            TableRelation = "Preq Categories/Years"."Preq Category" where("Preq Year" = field("Prequalification Period"));
+        }
+        field(120; "Prequalification Period"; Code[30])
+        {
+            TableRelation = "Prequalification Years"."Preq Years";
+        }
+        field(121; "Category Description"; Text[2048])
+        {
+        }
+        field(122; "Responsibility Center"; Code[10])
         {
             Caption = 'Responsibility Center';
-            TableRelation = "Responsibility Center";
+            TableRelation = "Responsibility Center".Code where(grouping = filter('P-QUOTE'));
         }
-        field(5752; "Completely Received"; Boolean)
-        {
-            Caption = 'Completely Received';
-            Editable = false;
-            FieldClass = FlowField;
-
-            CalcFormula = Min("Purchase Line"."Completely Received" WHERE("Document Type" = FIELD("Document Type"), "Document No." = FIELD("No."),
-                                                                           Type = FILTER(<> ' '), "Location Code" = FIELD("Location Filter")));
-        }
-        field(5753; "Posting from Whse. Ref."; Integer)
-        {
-            Caption = 'Posting from Whse. Ref.';
-        }
-        field(5754; "Location Filter"; Code[10])
-        {
-            Caption = 'Location Filter';
-            FieldClass = FlowFilter;
-            TableRelation = Location;
-        }
-        field(5790; "Requested Receipt Date"; Date)
-        {
-            Caption = 'Requested Receipt Date';
-        }
-        field(5791; "Promised Receipt Date"; Date)
-        {
-            Caption = 'Promised Receipt Date';
-        }
-        field(5792; "Lead Time Calculation"; DateFormula)
-        {
-            Caption = 'Lead Time Calculation';
-        }
-        field(5793; "Inbound Whse. Handling Time"; DateFormula)
-        {
-            Caption = 'Inbound Whse. Handling Time';
-        }
-        field(5796; "Date Filter"; Date)
-        {
-            Caption = 'Date Filter';
-            FieldClass = FlowFilter;
-        }
-        field(5801; "Return Shipment No."; Code[20])
-        {
-            Caption = 'Return Shipment No.';
-        }
-        field(5802; "Return Shipment No. Series"; Code[10])
-        {
-            Caption = 'Return Shipment No. Series';
-            TableRelation = "No. Series";
-        }
-        field(5803; Ship; Boolean)
-        {
-            Caption = 'Ship';
-        }
-        field(5804; "Last Return Shipment No."; Code[20])
-        {
-            Caption = 'Last Return Shipment No.';
-            Editable = false;
-            TableRelation = "Return Shipment Header";
-        }
-        field(9000; "Assigned User ID"; Code[20])
+        field(123; "UserName"; Code[20])
         {
             Caption = 'Assigned User ID';
             TableRelation = "User Setup";
         }
-        field(50000; Copied; Boolean)
-        {
-        }
-        field(50001; "Debit Note"; Boolean)
-        {
-        }
-        field(39005536; Cancelled; Boolean)
-        {
-        }
-        field(39005537; "Cancelled By"; Code[20])
-        {
-        }
-        field(39005538; "Cancelled Date"; Date)
-        {
-        }
-        field(39005539; DocApprovalType; Option)
+        field(124; DocApprovalType; Option)
         {
             OptionMembers = Purchase,Requisition,Quote;
         }
-        field(39005540; "Procurement Type Code"; Code[20])
-        {
-            //TableRelation = "PROC-Procurement Limit Code";
-        }
-        field(39005541; "Created By"; Code[20])
+        field(125; "Created By"; Code[20])
         {
         }
-        field(99008500; "Date Received"; Date)
+        field(126; "Vendor Quote No."; Code[20])
         {
-            Caption = 'Date Received';
         }
-        field(99008501; "Time Received"; Time)
+        field(127; "Requisition No."; code[30])
         {
-            Caption = 'Time Received';
+            TableRelation = "Purchase Header"."No." where("Document Type" = filter(Quote), DocApprovalType = filter(Requisition), Status = filter(Released), Archived = filter(false));
         }
-        field(99008504; "BizTalk Purchase Quote"; Boolean)
-        {
-            Caption = 'BizTalk Purchase Quote';
-        }
-        field(99008505; "BizTalk Purch. Order Cnfmn."; Boolean)
-        {
-            Caption = 'BizTalk Purch. Order Cnfmn.';
-        }
-        field(99008506; "BizTalk Purchase Invoice"; Boolean)
-        {
-            Caption = 'BizTalk Purchase Invoice';
-        }
-        field(99008507; "BizTalk Purchase Receipt"; Boolean)
-        {
-            Caption = 'BizTalk Purchase Receipt';
-        }
-        field(99008508; "BizTalk Purchase Credit Memo"; Boolean)
-        {
-            Caption = 'BizTalk Purchase Credit Memo';
-        }
-        field(99008509; "Date Sent"; Date)
-        {
-            Caption = 'Date Sent';
-        }
-        field(99008510; "Time Sent"; Time)
-        {
-            Caption = 'Time Sent';
-        }
-        field(99008511; "BizTalk Request for Purch. Qte"; Boolean)
-        {
-            Caption = 'BizTalk Request for Purch. Qte';
-        }
-        field(99008512; "BizTalk Purchase Order"; Boolean)
-        {
-            Caption = 'BizTalk Purchase Order';
-        }
-        field(99008520; "Vendor Quote No."; Code[20])
-        {
-            Caption = 'Vendor Quote No.';
-        }
-        field(99008521; "BizTalk Document Sent"; Boolean)
-        {
-            Caption = 'BizTalk Document Sent';
-        }
-        field(99008522; "Procurement methods"; Enum "Proc-Procurement Methods")
-        {
-            //Caption = 'BizTalk Document Sent';
-        }
-        //Description
-        field(99008523; "Description"; Text[250])
-        {
-            Caption = 'Description';
-        } field(50202; "Requisition No."; code[30])
-        {
-            TableRelation = "Purchase Header"."No." where("Document Type" = filter(Quote), DocApprovalType = filter(Requisition), Status = filter(Released));
-            trigger OnValidate()
-            var
-                RFQ: Record "PROC-Purchase Quote Line";
-                RFQ_Line: Record "PROC-Purchase Quote Line";
-                countedRec: Integer;
-                PurchLine: Record "Purchase Line";
-                purheader: Record "Purchase Header";
-                Ptype: Option " ","G/L Account",Item,Resource,"Fixed Asset","Charge (Item)";
-            begin
-                //CHECK WHETHER HAS LINES AND DELETE
-                IF NOT CONFIRM('If you change the purchase requisition No. the current lines will be deleted. Do you want to continue?', FALSE)
-                THEN
-                    ERROR('You have selected to abort the process');
-
-                RFQ_Line.RESET;
-                RFQ_Line.SETRANGE("Document No.", "No.");
-                RFQ_Line.DELETEALL;
-
-                PurchLine.RESET;
-                PurchLine.SETRANGE("Document No.", "Requisition No.");
-                IF PurchLine.FIND('-') THEN BEGIN
-                    REPEAT
-                        RFQ_Line.Reset();
-                        RFQ_Line.SetRange("Document No.", "No.");
-                        if RFQ_Line.Find('-') then begin
-                            countedRec := RFQ_Line.COUNT + 1;
-                        end
-                        else
-                            countedRec := 1;
-
-                        RFQ_Line.Init();
-                        RFQ_Line."Document No." := Rec."No.";
-                        RFQ_Line."Document Type" := 3;
-                        //RFQ_Line."Line No." := countedRec;
-                        RFQ_Line."Type" := Ptype;
-                        RFQ_Line."No." := PurchLine."No.";
-                        RFQ_Line."Line No." := PurchLine."Line No.";
-                        RFQ_Line."Location Code" := PurchLine."Location Code";
-                        RFQ_Line.Quantity := PurchLine.Quantity;
-                        RFQ_Line.Description := PurchLine.Description;
-                        RFQ_Line."Description 2" := PurchLine."Description 2";
-                        RFQ_Line."Direct Unit Cost" := PurchLine."Direct Unit Cost";
-                        RFQ_Line."Line Amount" := PurchLine.Amount;
-                        RFQ_Line.Insert();
-
-                    UNTIL PurchLine.NEXT = 0;
-                END;
-            end;
-        }
- 
     }
 
     keys
@@ -721,12 +634,16 @@ table 50048 "PROC-Purchase Quote Header"
 
     trigger OnInsert()
     begin
-        //Check if the number has been inserted by the user
         IF "No." = '' THEN BEGIN
-            PurchSetup.RESET;
             PurchSetup.GET();
-            PurchSetup.TESTFIELD(PurchSetup."Quotation Request No");
-            NoSeriesMgt.InitSeries(PurchSetup."Quotation Request No", xRec."No. Series", TODAY, "No.", "No. Series");
+            if Rec."Procurement methods" = Rec."Procurement methods"::"Direct Procurement" then
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup."Direct Procurement", 0D, True)
+            else if Rec."Procurement methods" = Rec."Procurement methods"::"Restricted Tendering" then
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup."Restricted tendering", 0D, True)
+            else if Rec."Procurement methods" = Rec."Procurement methods"::"Two Stage Tender" then
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup."Two stage Tender", 0D, True)
+            else
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup."Quotation Request No", 0D, True);
         END;
     end;
 
@@ -734,57 +651,80 @@ table 50048 "PROC-Purchase Quote Header"
     begin
         IF xRec."No." <> "No." THEN BEGIN
             PurchSetup.GET();
-            NoSeriesMgt.TestManual(PurchSetup."Quotation Request No");
+            if Rec."Procurement methods" = Rec."Procurement methods"::"Request for Quotation" then
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup."Quotation Request No", 0D, True)
+            else if Rec."Procurement methods" = Rec."Procurement methods"::"Direct Procurement" then
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup."Direct Procurement", 0D, True)
+            else if Rec."Procurement methods" = Rec."Procurement methods"::"Restricted Tendering" then
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup."Restricted tendering", 0D, True)
+            else if Rec."Procurement methods" = Rec."Procurement methods"::"Two Stage Tender" then
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup."Two stage Tender", 0D, True)
+            else if Rec."Procurement methods" = Rec."Procurement methods"::"Open Tendering" then
+                "No." := NoSeriesMgt.GetNextNo(PurchSetup.Tender, 0D, True)
         END;
     end;
 
+    procedure fetchVendors()
+    var
+        ven: Record "Preq Suppliers/Category";
+        vengry: Record "Preq Suppliers/Category";
+        RFQ: Record "PROC-Purchase Quote Header";
+    begin
+        RFQ.Reset();
+        RFQ.SetRange("No.", Rec."No.");
+        RFQ.SetRange("Suppliers Category", Rec."Suppliers Category");
+        if RFQ.Find('-') then begin
+            vengry.Reset();
+            vengry.SetRange("Document No.", RFQ."No.");
+            vengry.DeleteAll();
+
+            ven.Reset();
+            ven.SetRange("Preq Category", RFQ."Suppliers Category");
+            if ven.Find('-') then begin
+                repeat
+                    ven.CalcFields("Supplier Name", Phone, Email);
+                    vengry.Init();
+                    vengry."Document No." := RFQ."No.";
+                    vengry.Supplier_Code := ven.Supplier_Code;
+                    vengry."Supplier Name" := ven."Supplier Name";
+                    vengry.Email := ven.Email;
+                    vengry.Phone := ven.Phone;
+                    vengry."Preq Year" := ven."Preq Year";
+                    vengry.Insert();
+                until ven.Next() = 0;
+            end;
+        end;
+    end;
+
+    procedure PreliminaryChecks()
+    var
+        techQual: Record "Proc-Technical Qualif";
+    begin
+        if Rec."Technical Evaluation" = Rec."Technical Evaluation"::Yes then begin
+            if "Technical Passmark Score" <= 0 then Error('Technical Passmark has to be above zero');
+            if "Technical Passmark Score" > 100 then Error('Technical Passmark has to be 100 and below');
+        end;
+        if Rec."Demonistration Evaluation" = Rec."Demonistration Evaluation"::Yes then begin
+            if "Demo Passmark Score" <= 0 then Error('Demo Passmark has to be above zero');
+            if "Demo Passmark Score" > 100 then Error('Technical Passmark has to be 100 and below');
+        end;
+        techQual.Reset();
+        techQual.SetRange("No.", Rec."No.");
+        if techQual.Find('-') then begin
+            repeat
+                if techQual."Maximum Score" <= 0 then
+                    Error('%1%2%3%4%5', 'Technical Requirement ', techQual.Description, ' has to have a maximum score ');
+            until techQual.Next() = 0;
+        end;
+    end;
 
     var
-        Text000: Label 'Do you want to print receipt %1?';
-        Text001: Label 'Do you want to print invoice %1?';
-        Text002: Label 'Do you want to print credit memo %1?';
-        Text003: Label 'You cannot rename a %1.';
-        Text004: Label 'Do you want to change %1?';
-        Text005: Label 'You cannot reset %1 because the document still has one or more lines.';
-        Text006: Label 'You cannot change %1 because the order is associated with one or more sales orders.';
-        Text007: Label '%1 is greater than %2 in the %3 table.\';
-        Text008: Label 'Confirm change?';
-        Text009: Label 'Deleting this document will cause a gap in the number series for receipts. ';
-        Text010: Label 'An empty receipt %1 will be created to fill this gap in the number series.\\';
-        Text011: Label 'Do you want to continue?';
-        Text012: Label 'Deleting this document will cause a gap in the number series for posted invoices. ';
-        Text013: Label 'An empty posted invoice %1 will be created to fill this gap in the number series.\\';
-        Text014: Label 'Deleting this document will cause a gap in the number series for posted credit memos. ';
-        Text015: Label 'An empty posted credit memo %1 will be created to fill this gap in the number series.\\';
-        Text016: Label 'If you change %1, the existing purchase lines will be deleted and new purchase lines based on the new information in the header will be created.\\';
-        Text018: Label 'You must delete the existing purchase lines before you can change %1.';
-        Text019: Label 'You have changed %1 on the purchase header, but it has not been changed on the existing purchase lines.\';
-        Text020: Label 'You must update the existing purchase lines manually.';
-        Text021: Label 'The change may affect the exchange rate used on the price calculation of the purchase lines.';
-        Text022: Label 'Do you want to update the exchange rate?';
-        Text023: Label 'You cannot delete this document. Your identification is set up to process from %1 %2 only.';
-        Text024: Label 'Do you want to print return shipment %1?';
-        Text025: Label 'You have modified the %1 field. Note that the recalculation of VAT may cause penny differences, so you must check the amounts afterwards. ';
-        Text027: Label 'Do you want to update the %2 field on the lines to reflect the new value of %1?';
-        Text028: Label 'Your identification is set up to process from %1 %2 only.';
-        Text029: Label 'Deleting this document will cause a gap in the number series for return shipments. ';
-        Text030: Label 'An empty return shipment %1 will be created to fill this gap in the number series.\\';
-        Text032: Label 'You have modified %1.\\';
-        Text033: Label 'Do you want to update the lines?';
-        Text034: Label 'You cannot change the %1 when the %2 has been filled in.';
-        Text037: Label 'Contact %1 %2 is not related to vendor %3.';
-        Text038: Label 'Contact %1 %2 is related to a different company than vendor %3.';
-        Text039: Label 'Contact %1 %2 is not related to a vendor.';
-        Text040: Label 'You can not change the %1 field because %2 %3 has %4 = %5 and the %6 has already been assigned %7 %8.';
-        Text041: Label 'The purchase %1 %2 has item tracking. Do you want to delete it anyway?';
-        Text042: Label 'You must cancel the approval process if you wish to change the %1.';
-        Text043: Label 'Do you want to print prepayment invoice %1?';
-        Text044: Label 'Do you want to print prepayment credit memo %1?';
-        Text045: Label 'Deleting this document will cause a gap in the number series for prepayment invoices. ';
-        Text046: Label 'An empty prepayment invoice %1 will be created to fill this gap in the number series.\\';
-        Text047: Label 'Deleting this document will cause a gap in the number series for prepayment credit memos. ';
-        Text049: Label '%1 is set up to process from %2 %3 only.';
-        Text050: Label 'Reservations exist for this order. These reservations will be canceled if a date conflict is caused by this change.\\';
+        eval: Record "Proc Evaluation Report";
+        confrm: Record "Proc-Confirm Recommended";
+        committe: Record "Proc-Committee Membership";
+        Pheader: Record "Purchase Header";
         PurchSetup: Record "Purchases & Payables Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
+        ClassReq: Record "Proc Classification Requiremnt";
+        PreliQual: Record "Proc-Preliminary Qualif";
 }
