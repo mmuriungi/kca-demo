@@ -3,7 +3,7 @@ page 50214 "Proc Open.Tender List"
     CardPageID = "PROC Open.Tender Header";
     Editable = false;
     PageType = List;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     SourceTableView = where(DocApprovalType = const(Purchase), "Procurement methods" = const("Open Tendering"));
     layout
     {

@@ -2,7 +2,7 @@ page 50215 "Proc Open.Tender Header"
 {
     Caption = 'Open Tender';
     PageType = Card;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'New,Process, Report,Evaluation Matrix, Award, Bid,Approvals,Attachments';
     SourceTableView = where("Procurement methods" = const("Open Tendering"));
     layout
@@ -320,7 +320,7 @@ page 50215 "Proc Open.Tender Header"
 
                     trigger OnAction()
                     var
-                        header: Record "PROC-Purchase Quote Header1";
+                        header: Record "PROC-Purchase Quote Header";
                         comm: Record "Proc-Committee Membership";
                     begin
                         header.Reset();
