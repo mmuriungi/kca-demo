@@ -3,6 +3,7 @@ page 50060 "PROC-Store Req. Header (B)"
     PageType = Card;
     SourceTable = "PROC-Store Requistion Header";
     //SourceTableView = WHERE(Status = FILTER(<> Posted));
+    PromotedActionCategories = 'New,Process,Reports,Approval,Budgetary Control,Category6_caption,Category7_caption,Category8_caption,Category9_caption,Category10_caption';
 
     layout
     {
