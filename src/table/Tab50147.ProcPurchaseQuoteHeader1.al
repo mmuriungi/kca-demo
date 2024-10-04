@@ -1,6 +1,7 @@
 table 50147 "Proc-Purchase Quote Header1"
 {
     DataCaptionFields = "No.";
+    ObsoleteState = Removed;
     fields
     {
         field(1; "No."; Code[20])
@@ -418,7 +419,7 @@ table 50147 "Proc-Purchase Quote Header1"
     var
         ven: Record "Preq Suppliers/Category";
         vengry: Record "Preq Suppliers/Category";
-        RFQ: Record "PROC-Purchase Quote Header1";
+        RFQ: Record "PROC-Purchase Quote Header";
     begin
         RFQ.Reset();
         RFQ.SetRange("No.", Rec."No.");

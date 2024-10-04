@@ -19,7 +19,7 @@ table 50136 "Proc-Committee Appointment H"
         field(3; "Tender/Quote No"; Code[50])
         {
             Caption = 'Tender/RFQ No';
-            TableRelation = "PROC-Purchase Quote Header1"."No." where("Procurement methods" = field("Procurement Method"), Status = filter(Released));
+            TableRelation = "PROC-Purchase Quote Header"."No." where("Procurement methods" = field("Procurement Method"), Status = filter(Released));
             trigger OnValidate()
             begin
                 if "Procurement Method" = "Procurement Method"::" " then Error('First choose the procurement method!');

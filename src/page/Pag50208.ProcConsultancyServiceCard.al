@@ -3,7 +3,7 @@ page 50208 "Proc-Consultancy Service Card"
     Caption = 'Consultancy Service Card';
     PageType = Card;
     DeleteAllowed = false;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'New,Vendor, Report,Evaluation Matrix, Award, Bid,Approvals,Attachments';
     SourceTableView = where("Procurement methods" = const("Consultancy Services"));
     layout

@@ -3,7 +3,7 @@ page 50192 "Proc-Framework Agreement Card"
     Caption = 'Framework Agreement Card';
     PageType = Card;
     DeleteAllowed = false;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'New,Vendors, Report,Evaluation Matrix, Award, Bid,Approvals,Attachments';
     SourceTableView = where("Procurement methods" = const("Framework Agreement"));
     layout

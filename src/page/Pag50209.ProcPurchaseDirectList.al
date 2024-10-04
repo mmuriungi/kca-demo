@@ -3,7 +3,7 @@ page 50209 "Proc-Purchase Direct List"
     CardPageID = "PROC-Purchase Direct Header";
     Editable = false;
     PageType = List;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     SourceTableView = where(DocApprovalType = const(Purchase), "Procurement methods" = const("Direct Procurement"));
     layout
     {

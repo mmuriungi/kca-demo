@@ -2,7 +2,7 @@ page 50217 "PROC Proffesional Opinion"
 {
     Caption = 'Professional Opinion';
     PageType = Card;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     layout
     {
         area(content)

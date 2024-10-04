@@ -5,7 +5,7 @@ page 50236 "Proc Framework Agreement list"
     DeleteAllowed = false;
     Editable = false;
     PageType = List;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     SourceTableView = where(DocApprovalType = const(Purchase), "Procurement methods" = const("Framework Agreement"));
 
     layout

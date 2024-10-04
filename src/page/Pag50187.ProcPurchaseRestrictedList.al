@@ -3,7 +3,7 @@ page 50187 "Proc-Purchase Restricted List"
     CardPageID = "PROC-Purchase Restrict Header";
     Editable = false;
     PageType = List;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     SourceTableView = where(DocApprovalType = const(Purchase), "Procurement methods" = const("Restricted Tendering"));
     layout
     {

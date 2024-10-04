@@ -5,7 +5,7 @@ report 50040 "Tender/Bid Opening"
 
     dataset
     {
-        dataitem(header; "PROC-Purchase Quote Header1")
+        dataitem(header; "PROC-Purchase Quote Header")
         {
 
             column(No_header; "No.")

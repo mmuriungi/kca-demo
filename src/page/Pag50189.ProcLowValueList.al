@@ -5,7 +5,7 @@ page 50189 "Proc-Low Value List"
     DeleteAllowed = false;
     Editable = false;
     PageType = List;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     SourceTableView = where(DocApprovalType = const(Purchase), "Procurement methods" = const("Low Value Procurement"));
 
     layout

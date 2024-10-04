@@ -292,17 +292,11 @@ tableextension 50010 "Purchase Header" extends "Purchase Header"
         field(56652; "RFQ No."; Code[20])
         {
             //DataClassification = ToBeClassified;
-
-            trigger OnLookup()
+            TableRelation = "PROC-Purchase Quote Header";
+            trigger OnValidate()
+            var
+            ProcProcess: Codeunit "Procurement Process";
             begin
-                TESTFIELD("Responsibility Center");
-                TESTFIELD("Shortcut Dimension 1 Code");
-                TESTFIELD("Shortcut Dimension 2 Code");
-                /*
-                RFQHdr.RESET;
-                RFQHdr.SETRANGE(RFQHdr.lost,RFQHdr.lost::"1");
-                IF PAGE.RUNMODAL(39006069,RFQHdr) = ACTION::LookupOK THEN
-                  InsertRFQ(RFQHdr);*/
 
             end;
         }

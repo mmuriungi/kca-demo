@@ -2,7 +2,7 @@ page 50212 "Proc-Two Stage.Tender Header"
 {
     Caption = 'Two Stage Tendering';
     PageType = Card;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'New,Process, Report,Evaluation Matrix, Tier Tendering,Bid,Award, Attachments';
     layout
     {
@@ -419,7 +419,7 @@ page 50212 "Proc-Two Stage.Tender Header"
 
                     trigger OnAction()
                     var
-                        header: Record "PROC-Purchase Quote Header1";
+                        header: Record "PROC-Purchase Quote Header";
                         comm: Record "Proc-Committee Membership";
                     begin
                         header.Reset();

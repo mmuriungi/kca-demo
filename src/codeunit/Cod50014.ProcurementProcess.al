@@ -32,7 +32,7 @@ codeunit 50014 "Procurement Process"
         purHead: Record "Purchase Header";
         Tsubmission: record "Tender Submission Header";
         phead: Record "Purchase Header";
-        rfq: Record "PROC-Purchase Quote Header1";
+        rfq: Record "PROC-Purchase Quote Header";
         mem: Record "Proc-Committee Membership";
         Rmet: Integer;
         Rnmet: Integer;
@@ -103,7 +103,7 @@ codeunit 50014 "Procurement Process"
     procedure RedoEvaluation(QuoteNo: Code[50])
     var
         phead: Record "Purchase Header";
-        rfq: Record "PROC-Purchase Quote Header1";
+        rfq: Record "PROC-Purchase Quote Header";
         mem: Record "Proc-Committee Membership";
         BidderNo: Code[50];
     begin
@@ -148,7 +148,7 @@ codeunit 50014 "Procurement Process"
     procedure EvaluationSetups(QuoteNo: Code[50])
     var
         phead: Record "Purchase Header";
-        rfq: Record "PROC-Purchase Quote Header1";
+        rfq: Record "PROC-Purchase Quote Header";
         mem: Record "Proc-Committee Membership";
         Commitee: Record "Proc-Committee Members";
         BidderNo: Code[50];
@@ -1137,7 +1137,7 @@ codeunit 50014 "Procurement Process"
     end;
 
     //Awarding of tender
-    procedure AwardTender(var Thead: Record "PROC-Purchase Quote Header1")
+    procedure AwardTender(var Thead: Record "PROC-Purchase Quote Header")
     var
         purheader: Record "Purchase Header";
         prlines: Record "Purchase Line";
@@ -1367,7 +1367,7 @@ codeunit 50014 "Procurement Process"
     end;
 
 
-    procedure GenerateTotierBid(var header: Record "PROC-Purchase Quote Header1")
+    procedure GenerateTotierBid(var header: Record "PROC-Purchase Quote Header")
     var
         qlines: Record "PROC-Purchase Quote Line";
         tsheader: Record "Tender Submission Header";
@@ -1421,7 +1421,7 @@ codeunit 50014 "Procurement Process"
     end;
 
     //Evaluation Report
-    procedure EvaluationReport(var header: Record "PROC-Purchase Quote Header1")
+    procedure EvaluationReport(var header: Record "PROC-Purchase Quote Header")
     var
         eval: Record "Proc Evaluation Report";
         confrm: Record "Proc-Confirm Recommended";
@@ -1443,7 +1443,7 @@ codeunit 50014 "Procurement Process"
             page.Run(Page::"Evaluation Report", eval);
     end;
     //Proffessional Opinion
-    procedure ProffesionalOpinion(var header: Record "PROC-Purchase Quote Header1")
+    procedure ProffesionalOpinion(var header: Record "PROC-Purchase Quote Header")
     var
         eval: Record "Proc Evaluation Report";
         confrm: Record "Proc-Confirm Recommended";
@@ -1488,7 +1488,7 @@ codeunit 50014 "Procurement Process"
     end;
 
 
-    procedure GenerateQuote(var header: Record "PROC-Purchase Quote Header1")
+    procedure GenerateQuote(var header: Record "PROC-Purchase Quote Header")
     var
         qlines: Record "PROC-Purchase Quote Line";
         pheader: Record "Purchase Header";
@@ -1689,6 +1689,30 @@ codeunit 50014 "Procurement Process"
         if PurchaseHeader.DocApprovalType = PurchaseHeader.DocApprovalType::Requisition then begin
             ishandled := true;
         end;
+    end;
+
+    //procedure findRfq(var header: Record "PROC-Purchase Quote Header")
+
+    procedure fnInsertPurchaseQuoteFromRfq(RfqHeader: Record "PROC-Purchase Quote Header"; var PurchHeader: Record "Purchase Header")
+    var
+        PurchLine: Record "Purchase Line";
+        rfqLine: Record "PROC-Purchase Quote Line";
+    begin
+        PurchLine.Reset();
+        PurchLine.SetRange("Document No.", PurchHeader."No.");
+        PurchLine.SetRange("Document Type", PurchLine."Document Type"::Quote);
+        if PurchLine.FindFirst() then begin
+            if not confirm('Existing Quote Lines will be deleted. Do you want to continue?') then
+                exit;
+        end;
+        PurchHeader."Posting Description" := RfqHeader."Posting Description";
+        PurchHeader."Due Date" := RfqHeader."Due Date";
+
+        PurchLine.Reset();
+        PurchLine.SetRange("Document No.", PurchHeader."No.");
+        PurchLine.SetRange("Document Type", PurchLine."Document Type"::Quote);
+        PurchLine.DeleteAll();
+
     end;
 
 }
