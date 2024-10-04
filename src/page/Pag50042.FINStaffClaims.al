@@ -339,7 +339,7 @@ page 50042 "FIN-Staff Claims"
                     // ERROR('You can only print after the document is Approved');
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(50001, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Claim Requisition Report", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }

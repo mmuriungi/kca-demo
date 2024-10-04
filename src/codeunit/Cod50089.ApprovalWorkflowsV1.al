@@ -34,6 +34,14 @@ codeunit 50089 "Approval Workflows V1"
         case RecRef.Number of
             database::"Club":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendClubForApprovalCode));
+            Database::"Student Leave":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendStudentLeaveForApprovalCode));
+            Database::"Postgrad Supervisor Applic.":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendPostgradSupervisorApplicForApprovalCode));
+            Database::"Certificate Application":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendCertApplicForApprovalCode));
+            else
+                Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
     end;
 
@@ -253,6 +261,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentLeave: Record "Student Leave";
         PostGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         certApplic: Record "Certificate Application";
+        PgHandler: Codeunit "PostGraduate Handler";
     begin
         case RecRef.Number of
             Database::Club:
@@ -275,7 +284,7 @@ codeunit 50089 "Approval Workflows V1"
                     PostGradSupervisorApplic.Modify();
                     Handled := true;
                     //Send Mail
-
+                    PgHandler.SendNotificationToStudent(PostGradSupervisorApplic."Student No.", PostGradSupervisorApplic."Assigned Supervisor Code");
                 end;
             Database::"Certificate Application":
                 begin
