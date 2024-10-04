@@ -4,7 +4,7 @@ report 50346 "ADM Admission Letter"
     ApplicationArea = All;
     DefaultLayout = WORD;
     //WordLayout = './Layouts/bachelorsAdmissionLetters.docx';
-    RDLCLayout ='./Layouts/bachelorsAdmissionLetter.rdl';
+    RDLCLayout = './Layouts/bachelorsAdmissionLetter.rdl';
     PreviewMode = PrintLayout;
     UsageCategory = ReportsAndAnalysis;
     EnableHyperlinks = true;
@@ -164,9 +164,6 @@ report 50346 "ADM Admission Letter"
 
             }
 
-
-
-
             trigger OnAfterGetRecord()
             begin
                 intakeFees.Reset();
@@ -223,6 +220,7 @@ report 50346 "ADM Admission Letter"
         end;
 
 
+
     end;
 
     var
@@ -236,6 +234,7 @@ report 50346 "ADM Admission Letter"
         faculty: text[200];
         Dimn: Record "Dimension Value";
         intakeFees: Record "ACA-ProgramIntakeFee";
+        User: Record "User Setup";
         EndDateText: Text;
         appDate: Text;
         gabatext: Label 'Main Hall - Gaba Campus';
