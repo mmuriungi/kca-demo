@@ -11,76 +11,6 @@
       <rd:DataSourceID>83ee6522-e3e7-4143-8323-a6909ac40104</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="Phone">
-          <DataField>Phone</DataField>
-        </Field>
-        <Field Name="pics">
-          <DataField>pics</DataField>
-        </Field>
-        <Field Name="No">
-          <DataField>No</DataField>
-        </Field>
-        <Field Name="Desc">
-          <DataField>Desc</DataField>
-        </Field>
-        <Field Name="Vaccant">
-          <DataField>Vaccant</DataField>
-        </Field>
-        <Field Name="fullyOccupied">
-          <DataField>fullyOccupied</DataField>
-        </Field>
-        <Field Name="partiallyOccupied">
-          <DataField>partiallyOccupied</DataField>
-        </Field>
-        <Field Name="Blacklisted">
-          <DataField>Blacklisted</DataField>
-        </Field>
-        <Field Name="totRooms">
-          <DataField>totRooms</DataField>
-        </Field>
-        <Field Name="rmCode">
-          <DataField>rmCode</DataField>
-        </Field>
-        <Field Name="stdNo">
-          <DataField>stdNo</DataField>
-        </Field>
-        <Field Name="stdName">
-          <DataField>stdName</DataField>
-        </Field>
-        <Field Name="stdaddress">
-          <DataField>stdaddress</DataField>
-        </Field>
-        <Field Name="stdphone">
-          <DataField>stdphone</DataField>
-        </Field>
-        <Field Name="host">
-          <DataField>host</DataField>
-        </Field>
-        <Field Name="rm">
-          <DataField>rm</DataField>
-        </Field>
-        <Field Name="spc">
-          <DataField>spc</DataField>
-        </Field>
-        <Field Name="years">
-          <DataField>years</DataField>
-        </Field>
-        <Field Name="sems">
-          <DataField>sems</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1074,12 +1004,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1119,4 +1043,74 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>4e681f15-a6c4-42c8-86e8-d7e51158d11e</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+        </Field>
+        <Field Name="pics">
+          <DataField>pics</DataField>
+        </Field>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="Desc">
+          <DataField>Desc</DataField>
+        </Field>
+        <Field Name="Vaccant">
+          <DataField>Vaccant</DataField>
+        </Field>
+        <Field Name="fullyOccupied">
+          <DataField>fullyOccupied</DataField>
+        </Field>
+        <Field Name="partiallyOccupied">
+          <DataField>partiallyOccupied</DataField>
+        </Field>
+        <Field Name="Blacklisted">
+          <DataField>Blacklisted</DataField>
+        </Field>
+        <Field Name="totRooms">
+          <DataField>totRooms</DataField>
+        </Field>
+        <Field Name="rmCode">
+          <DataField>rmCode</DataField>
+        </Field>
+        <Field Name="stdNo">
+          <DataField>stdNo</DataField>
+        </Field>
+        <Field Name="stdName">
+          <DataField>stdName</DataField>
+        </Field>
+        <Field Name="stdaddress">
+          <DataField>stdaddress</DataField>
+        </Field>
+        <Field Name="stdphone">
+          <DataField>stdphone</DataField>
+        </Field>
+        <Field Name="host">
+          <DataField>host</DataField>
+        </Field>
+        <Field Name="rm">
+          <DataField>rm</DataField>
+        </Field>
+        <Field Name="spc">
+          <DataField>spc</DataField>
+        </Field>
+        <Field Name="years">
+          <DataField>years</DataField>
+        </Field>
+        <Field Name="sems">
+          <DataField>sems</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

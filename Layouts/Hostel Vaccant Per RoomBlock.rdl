@@ -11,64 +11,6 @@
       <rd:DataSourceID>8d97af7f-163c-4525-bf67-4eaab4baf0af</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="Phone">
-          <DataField>Phone</DataField>
-        </Field>
-        <Field Name="pics">
-          <DataField>pics</DataField>
-        </Field>
-        <Field Name="No">
-          <DataField>No</DataField>
-        </Field>
-        <Field Name="Desc">
-          <DataField>Desc</DataField>
-        </Field>
-        <Field Name="Vaccant">
-          <DataField>Vaccant</DataField>
-        </Field>
-        <Field Name="fullyOccupied">
-          <DataField>fullyOccupied</DataField>
-        </Field>
-        <Field Name="partiallyOccupied">
-          <DataField>partiallyOccupied</DataField>
-        </Field>
-        <Field Name="Blacklisted">
-          <DataField>Blacklisted</DataField>
-        </Field>
-        <Field Name="totRooms">
-          <DataField>totRooms</DataField>
-        </Field>
-        <Field Name="HostCode">
-          <DataField>HostCode</DataField>
-        </Field>
-        <Field Name="HostelName">
-          <DataField>HostelName</DataField>
-        </Field>
-        <Field Name="rmCode">
-          <DataField>rmCode</DataField>
-        </Field>
-        <Field Name="TotSpaces">
-          <DataField>TotSpaces</DataField>
-        </Field>
-        <Field Name="OccupiedSpaces">
-          <DataField>OccupiedSpaces</DataField>
-        </Field>
-        <Field Name="VacantSpaces">
-          <DataField>VacantSpaces</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1406,12 +1348,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1451,4 +1387,62 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>58470b35-de33-4b38-9f70-ad5b091ee108</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+        </Field>
+        <Field Name="pics">
+          <DataField>pics</DataField>
+        </Field>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="Desc">
+          <DataField>Desc</DataField>
+        </Field>
+        <Field Name="Vaccant">
+          <DataField>Vaccant</DataField>
+        </Field>
+        <Field Name="fullyOccupied">
+          <DataField>fullyOccupied</DataField>
+        </Field>
+        <Field Name="partiallyOccupied">
+          <DataField>partiallyOccupied</DataField>
+        </Field>
+        <Field Name="Blacklisted">
+          <DataField>Blacklisted</DataField>
+        </Field>
+        <Field Name="totRooms">
+          <DataField>totRooms</DataField>
+        </Field>
+        <Field Name="HostCode">
+          <DataField>HostCode</DataField>
+        </Field>
+        <Field Name="HostelName">
+          <DataField>HostelName</DataField>
+        </Field>
+        <Field Name="rmCode">
+          <DataField>rmCode</DataField>
+        </Field>
+        <Field Name="TotSpaces">
+          <DataField>TotSpaces</DataField>
+        </Field>
+        <Field Name="OccupiedSpaces">
+          <DataField>OccupiedSpaces</DataField>
+        </Field>
+        <Field Name="VacantSpaces">
+          <DataField>VacantSpaces</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

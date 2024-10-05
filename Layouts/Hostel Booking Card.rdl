@@ -11,85 +11,6 @@
       <rd:DataSourceID>9b8e037f-6a13-4bf1-b5b1-b921441694c9</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="LineNo_StudentsHostelRooms">
-          <DataField>LineNo_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="SpaceNo_StudentsHostelRooms">
-          <DataField>SpaceNo_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="RoomNo_StudentsHostelRooms">
-          <DataField>RoomNo_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="HostelNo_StudentsHostelRooms">
-          <DataField>HostelNo_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="AccomodationFee_StudentsHostelRooms">
-          <DataField>AccomodationFee_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="AccomodationFee_StudentsHostelRoomsFormat">
-          <DataField>AccomodationFee_StudentsHostelRoomsFormat</DataField>
-        </Field>
-        <Field Name="AllocationDate_StudentsHostelRooms">
-          <DataField>AllocationDate_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="ClearanceDate_StudentsHostelRooms">
-          <DataField>ClearanceDate_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="Charges_StudentsHostelRooms">
-          <DataField>Charges_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="Charges_StudentsHostelRoomsFormat">
-          <DataField>Charges_StudentsHostelRoomsFormat</DataField>
-        </Field>
-        <Field Name="Student_StudentsHostelRooms">
-          <DataField>Student_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="Billed_StudentsHostelRooms">
-          <DataField>Billed_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="BilledDate_StudentsHostelRooms">
-          <DataField>BilledDate_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="Semester_StudentsHostelRooms">
-          <DataField>Semester_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="Cleared_StudentsHostelRooms">
-          <DataField>Cleared_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="OverPaid_StudentsHostelRooms">
-          <DataField>OverPaid_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="OverPaidAmt_StudentsHostelRooms">
-          <DataField>OverPaidAmt_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="OverPaidAmt_StudentsHostelRoomsFormat">
-          <DataField>OverPaidAmt_StudentsHostelRoomsFormat</DataField>
-        </Field>
-        <Field Name="EvictionCode_StudentsHostelRooms">
-          <DataField>EvictionCode_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="Gender_StudentsHostelRooms">
-          <DataField>Gender_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="HostelAssigned_StudentsHostelRooms">
-          <DataField>HostelAssigned_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="HostelName_StudentsHostelRooms">
-          <DataField>HostelName_StudentsHostelRooms</DataField>
-        </Field>
-        <Field Name="StudentName_StudentsHostelRooms">
-          <DataField>StudentName_StudentsHostelRooms</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -468,12 +389,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -513,4 +428,83 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>696f59f7-2b3b-481e-90ad-e7747e251309</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="LineNo_StudentsHostelRooms">
+          <DataField>LineNo_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="SpaceNo_StudentsHostelRooms">
+          <DataField>SpaceNo_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="RoomNo_StudentsHostelRooms">
+          <DataField>RoomNo_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="HostelNo_StudentsHostelRooms">
+          <DataField>HostelNo_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="AccomodationFee_StudentsHostelRooms">
+          <DataField>AccomodationFee_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="AccomodationFee_StudentsHostelRoomsFormat">
+          <DataField>AccomodationFee_StudentsHostelRoomsFormat</DataField>
+        </Field>
+        <Field Name="AllocationDate_StudentsHostelRooms">
+          <DataField>AllocationDate_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="ClearanceDate_StudentsHostelRooms">
+          <DataField>ClearanceDate_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="Charges_StudentsHostelRooms">
+          <DataField>Charges_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="Charges_StudentsHostelRoomsFormat">
+          <DataField>Charges_StudentsHostelRoomsFormat</DataField>
+        </Field>
+        <Field Name="Student_StudentsHostelRooms">
+          <DataField>Student_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="Billed_StudentsHostelRooms">
+          <DataField>Billed_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="BilledDate_StudentsHostelRooms">
+          <DataField>BilledDate_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="Semester_StudentsHostelRooms">
+          <DataField>Semester_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="Cleared_StudentsHostelRooms">
+          <DataField>Cleared_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="OverPaid_StudentsHostelRooms">
+          <DataField>OverPaid_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="OverPaidAmt_StudentsHostelRooms">
+          <DataField>OverPaidAmt_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="OverPaidAmt_StudentsHostelRoomsFormat">
+          <DataField>OverPaidAmt_StudentsHostelRoomsFormat</DataField>
+        </Field>
+        <Field Name="EvictionCode_StudentsHostelRooms">
+          <DataField>EvictionCode_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="Gender_StudentsHostelRooms">
+          <DataField>Gender_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="HostelAssigned_StudentsHostelRooms">
+          <DataField>HostelAssigned_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="HostelName_StudentsHostelRooms">
+          <DataField>HostelName_StudentsHostelRooms</DataField>
+        </Field>
+        <Field Name="StudentName_StudentsHostelRooms">
+          <DataField>StudentName_StudentsHostelRooms</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
