@@ -168,6 +168,23 @@ table 50797 "ACA-Exam Classification Units"
                                                                        Pass = FILTER(true)));
             FieldClass = FlowField;
         }
+        //"Unit Stage"
+        field(69; "Unit Stage"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        //Is Supp. Unit
+        field(70; "Is Supp. Unit"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."), "Unit Code" = FIELD("Unit Code"), Category = FILTER(Supplementary), "Academic Year" = FIELD("Academic Year")));
+        }
+        //"Is Special Unit"
+        field(71; "Is Special Unit"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."), "Unit Code" = FIELD("Unit Code"), Category = FILTER(Special), "Academic Year" = FIELD("Academic Year")));
+        }
     }
 
     keys
