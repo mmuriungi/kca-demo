@@ -46,6 +46,7 @@ report 50614 "Hostel Status Summary Report"
             column(TotalSpaces; "ACA-Hostel Card"."Room Spaces")
             {
             }
+            column(CompanyName;info.Name){}
 
             trigger OnAfterGetRecord()
             begin
