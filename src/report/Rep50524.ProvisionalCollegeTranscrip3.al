@@ -11,7 +11,10 @@ report 50524 "Provisional College Transcrip3"
             CalcFields = Grade, "Override Remarks", Remarks;
             PrintOnlyIfDetail = true;
             RequestFilterFields = "Student Number", Programme, "School Code", "Academic Year", "Year of Study";
-            column(CoName; 'UNIVERSITY OF EMBU')
+            column(CoName; CompanyInformation.Name)
+            {
+            }
+            column(ProgClassInt; ProgClassInt)
             {
             }
             column(addresses; CompanyInformation.Address + ',' + CompanyInformation."Address 2" + ' ' + CompanyInformation.City)
@@ -364,9 +367,19 @@ report 50524 "Provisional College Transcrip3"
                 Clear(Countings2);
                 Clear(Countings3);
                 Clear(SchoolName);
+                CLEAR(ProgClassInt);
                 prog.Reset;
                 prog.SetRange(Code, CourseRegs.Programme);
                 if prog.Find('-') then;
+                IF prog."Special Programme Class" = prog."Special Programme Class"::"Medicine & Nursing" THEN
+                    ProgClassInt := 'B'
+                ELSE
+                    IF prog."Special Programme Class" = prog."Special Programme Class"::General THEN ProgClassInt := 'A';
+                IF ((prog.Category = prog.Category::Certificate)
+                  OR (prog.Category = prog.Category::Professional)
+                  OR (prog.Category = prog.Category::Diploma)
+                  OR (prog.Category = prog.Category::"Course List")) THEN
+                    ProgClassInt := 'C';
                 pName := prog.Description;
                 ProvisionalTranscriptComment.Reset;
                 ProvisionalTranscriptComment.SetRange(Code, CourseRegs."Final Classification");
@@ -563,6 +576,7 @@ report 50524 "Provisional College Transcrip3"
         sName: Code[250];
         cust: Record Customer;
         acadyear: Code[20];
+        ProgClassInt: Code[10];
         Sems: Code[20];
         prog: Record "ACA-Programme";
         dimVal: Record "Dimension Value";
