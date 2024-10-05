@@ -25,7 +25,7 @@
                   <Width>1.13889in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13889in</Width>
+                  <Width>1.28055in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.19167in</Width>
@@ -290,7 +290,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!AttendanceDate_att.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>M/d/yyyy</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -519,7 +521,7 @@
             <Top>0.99666in</Top>
             <Left>0.22167in</Left>
             <Height>0.51667in</Height>
-            <Width>7.95834in</Width>
+            <Width>8.1in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -615,7 +617,7 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>5.08cm</Height>
+        <Height>4.41854cm</Height>
         <Style />
       </Body>
       <Width>21.17937cm</Width>

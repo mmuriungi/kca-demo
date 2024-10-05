@@ -46,6 +46,10 @@ table 50653 "ACA-Exam Gradding Setup"
         field(50003; Award; Code[50])
         {
         }
+        //"Hide in Summary"
+        field(50004; "Hide in Summary"; Boolean)
+        {
+        }
     }
 
     keys

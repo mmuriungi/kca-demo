@@ -3158,6 +3158,11 @@ table 50555 "ACA-Course Registration"
         {
             DataClassification = ToBeClassified;
         }
+        //"Academic Year Exclude Comp."
+        field(60198; "Academic Year Exclude Comp."; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 
