@@ -22,7 +22,7 @@ table 50792 "ACA-Classification Students"
         field(5; "School Code"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = FILTER('FACULTY'));
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = const(3));
         }
         field(6; "Department Name"; Text[150])
         {
