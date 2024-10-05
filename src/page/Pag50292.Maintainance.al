@@ -3,20 +3,20 @@ page 50292 Maintainance
     ApplicationArea = All;
     Caption = 'Maintainance';
     PageType = RoleCenter;
-    
+
     layout
     {
         area(Content)
         {
-          part(Headline; "Headline RC Team Member")
-          {
-            ApplicationArea = All;
-          }  
+            part(Headline; "Headline RC Team Member")
+            {
+                ApplicationArea = All;
+            }
         }
     }
     actions
     {
-            area(Sections)
+        area(Sections)
         {
             group("Repair Requests")
             {
@@ -40,9 +40,16 @@ page 50292 Maintainance
                     RunObject = page "Repair Requests";
                     RunPageLink = Status = const(Approved);
                 }
+                action("Underway")
+                {
+                    Caption = 'Maintainance Officer Assigned';
+                    ApplicationArea = Basic, Suite;
+                    RunObject = page "MO Repair Requests";
+                    RunPageLink = Status = const(Approved);
+                }
                 action("Closed")
                 {
-                    Caption = 'Maintainance Officer Completed';
+                    Caption = 'Completed';
                     ApplicationArea = Basic, Suite;
                     RunObject = page "maintenance request list";
                     RunPageLink = Completed = const(true);
@@ -200,123 +207,186 @@ page 50292 Maintainance
                     RunPageLink = Status = filter(Open | Pending | Approved | Cancelled | Completed | Closed);
                 }
                 group("Utility Bills")
-            {
-                group("Internal Bills")
                 {
-                    action("Open Bills")
+                    group("Internal Bills")
                     {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = const(Open), "Bill Type" = const(Internal);
+                        action("Open Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = const(Open), "Bill Type" = const(Internal);
+                        }
+                        action("Pending Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = const(Pending), "Bill Type" = const(Internal);
+                        }
+                        action("Approved Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = const(Approved), "Bill Type" = const(Internal);
+                        }
+                        action("Cancelled Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = const(Cancelled), "Bill Type" = const(Internal);
+                        }
+                        action("All Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(Internal);
+                        }
                     }
-                    action("Pending Bills")
+                    group("External Bills")
                     {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = const(Pending), "Bill Type" = const(Internal);
-                    }
-                    action("Approved Bills")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = const(Approved), "Bill Type" = const(Internal);
-                    }
-                    action("Cancelled Bills")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = const(Cancelled), "Bill Type" = const(Internal);
-                    }
-                    action("All Bills")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(Internal);
+                        Visible = false;
+                        action("&Open Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = const(Open), "Bill Type" = const(External);
+                        }
+                        action("&Pending Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = const(Pending), "Bill Type" = const(External);
+                        }
+                        action("&Approved Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = const(Approved), "Bill Type" = const(External);
+                        }
+                        action("&Cancelled Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = const(Cancelled), "Bill Type" = const(External);
+                        }
+                        action("&All Bills")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            RunObject = page "Utility Bills";
+                            RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(External);
+                        }
                     }
                 }
-                group("External Bills")
+                group("Projects Designs")
                 {
-                    Visible = false;
-                    action("&Open Bills")
+                    action("&Open")
+                    {
+                        Caption = 'Project Design';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page Projects;
+                        RunPageLink = Status = const(Open);
+                    }
+                    action("&Pending")
+                    {
+                        Caption = 'Pending Project Design';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page Projects;
+                        RunPageLink = Status = const(Pending);
+                    }
+                    action("&Approved")
+                    {
+                        Caption = 'Approved Project Design';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page Projects;
+                        RunPageLink = Status = const(Approved);
+                    }
+                    action("&Cancelled")
+                    {
+                        Caption = 'Cancelled Project Design';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page Projects;
+                        RunPageLink = Status = const(Cancelled);
+                    }
+                }
+                group("Active Projects")
+                {
+                    action("Approved projects")
+                    {
+                        Caption = 'Approved Project Designs';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page Projects;
+                        RunPageLink = Status = const(Approved);
+                    }
+                    action("Projects In-Progress ")
                     {
                         ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = const(Open), "Bill Type" = const(External);
+                        RunObject = page Projects;
+                        RunPageLink = Status = filter(InProgress);
                     }
-                    action("&Pending Bills")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = const(Pending), "Bill Type" = const(External);
-                    }
-                    action("&Approved Bills")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = const(Approved), "Bill Type" = const(External);
-                    }
-                    action("&Cancelled Bills")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = const(Cancelled), "Bill Type" = const(External);
-                    }
-                    action("&All Bills")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page "Utility Bills";
-                        RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(External);
-                    }
+
                 }
             }
-            group("Projects Designs")
+            group(Common_req)
             {
-                action("&Open")
+                Caption = 'Common Requisitions';
+
+                action("Stores Requisitions")
                 {
-                    Caption = 'Project Design';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page Projects;
-                    RunPageLink = Status = const(Open);
+                    Caption = 'Stores Requisitions';
+                    ApplicationArea = All;
+                    RunObject = Page "PROC-Store Requisition";
                 }
-                action("&Pending")
+                action("Imprest Requisitions")
                 {
-                    Caption = 'Pending Project Design';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page Projects;
-                    RunPageLink = Status = const(Pending);
+                    Caption = 'Imprest Requisitions';
+                    ApplicationArea = All;
+                    RunObject = Page "FIN-Imprests List";
                 }
-                action("&Approved")
+                action("Leave Applications")
                 {
-                    Caption = 'Approved Project Design';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page Projects;
-                    RunPageLink = Status = const(Approved);
+                    Caption = 'Leave Applications';
+                    RunObject = Page "HRM-Leave Requisition List";
+                    ApplicationArea = All;
                 }
-                action("&Cancelled")
+                action("My Approved Leaves")
                 {
-                    Caption = 'Cancelled Project Design';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page Projects;
-                    RunPageLink = Status = const(Cancelled);
+                    Caption = 'My Approved Leaves';
+                    Image = History;
+                    RunObject = Page "HRM-My Approved Leaves List";
+                    ApplicationArea = All;
                 }
-            }
-            group("Active Projects")
-            {
-                action("Approved projects")
+                action("Page FLT Transport Requisition2")
                 {
-                    Caption = 'Approved Project Designs';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page Projects;
-                    RunPageLink = Status = const(Approved);
+                    Caption = 'Transport Requisition';
+                    RunObject = Page "FLT-Transport Req. List";
+                    ApplicationArea = All;
                 }
-                action("Projects In-Progress ")
+                action(Travel_Notices2)
                 {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page Projects;
-                    RunPageLink = Status = filter(InProgress);
+                    Caption = 'Travel Notice';
+                    Image = Register;
+                    RunObject = Page "FLT-Safari Notices List";
+                    ApplicationArea = All;
+                }
+                action("Meal Booking")
+                {
+                    Caption = 'Meal Booking';
+                    ApplicationArea = All;
+                    RunObject = Page "CAT-Meal Booking List";
                 }
 
-            }
+                action("File Requisitions")
+                {
+                    Image = Register;
+                    ApplicationArea = All;
+                    RunObject = Page "REG-File Requisition List";
+                }
+                action("Purchase Requisition Header")
+                {
+                    Caption = 'Purchase Requisition';
+                    RunObject = page "Purchase Requisition Header";
+                    ApplicationArea = All;
+                }
+
             }
 
         }
