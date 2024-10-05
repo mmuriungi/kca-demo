@@ -97,7 +97,32 @@ table 51007 "Repair Request"
         {
 
         }
-
+        //Faculty
+        field(15; "School"; Code[20])
+        {
+            TableRelation = "Dimension Value" where("Global Dimension No." = const(3));
+            trigger OnValidate()
+            var
+                DimValue: Record "Dimension Value";
+            begin
+                if DimValue.Get("School") then
+                    "School Name" := DimValue.Name;
+            end;
+        }
+        field(16; "School Name"; Text[150])
+        {
+            Editable = false;
+        }
+        //Location
+        field(17; "Location"; Code[20])
+        {
+            TableRelation = Location;
+        }
+        //Repair Classification
+        field(18; "Repair Classification"; Option)
+        {
+            OptionMembers = " ",Normal,Special;
+        }
     }
     keys
     {
