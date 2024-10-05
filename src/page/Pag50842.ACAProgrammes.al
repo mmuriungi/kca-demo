@@ -68,19 +68,23 @@ page 50842 "ACA-Programmes"
                 {
                     ApplicationArea = All;
                 }
-                field(Faculty; Rec.Faculty)
-                {
-                    Caption = 'School';
-                    ApplicationArea = All;
-                }
-                // field("School Code"; Rec."School Code")
+                // field(Faculty; Rec.Faculty)
                 // {
-                //     ApplicationArea = ALL;
+                //     Caption = 'School';
+                //     ApplicationArea = All;
                 // }
-                field("Faculty Name"; Rec."Faculty Name")
+                field("School Code"; Rec."School Code")
+                {
+                    ApplicationArea = ALL;
+                }
+                field("School Name";Rec."School Name")
                 {
                     ApplicationArea = All;
                 }
+                // field("Faculty Name"; Rec."Faculty Name")
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field("Campus Code"; Rec."Campus Code")
                 {
