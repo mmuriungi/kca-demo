@@ -127,7 +127,14 @@ table 51009 "Maintenance Officer"
         field(17; "client Closed"; Boolean)
         {
             DataClassification = ToBeClassified;
-
+        }
+        //User ID
+        field(18; "User ID"; Code[20])
+        {
+            Caption = 'User ID';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("User Setup"."User ID" where("Employee No." = field("No.")));
         }
     }
     keys
