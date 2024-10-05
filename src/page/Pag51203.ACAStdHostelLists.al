@@ -131,7 +131,7 @@ page 51203 "ACA-Std Hostel Lists"
                 Image = List;
                 Promoted = true;
                 RunObject = Page "ACA-Stud. Hostel Rooms";
-                RunPageLink = Student = FIELD("No."),Gender =field(Gender);
+                RunPageLink = Student = FIELD("No."), Gender = field(Gender);
                 RunPageView = WHERE(Cleared = FILTER(false));
                 ApplicationArea = All;
             }
