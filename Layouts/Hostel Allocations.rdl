@@ -8,8 +8,46 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>719a1e73-a60f-47d5-870d-99d24bb49441</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="Title1">
+          <DataField>Title1</DataField>
+        </Field>
+        <Field Name="StdNo">
+          <DataField>StdNo</DataField>
+        </Field>
+        <Field Name="stdName">
+          <DataField>stdName</DataField>
+        </Field>
+        <Field Name="host">
+          <DataField>host</DataField>
+        </Field>
+        <Field Name="room">
+          <DataField>room</DataField>
+        </Field>
+        <Field Name="AmountCharged">
+          <DataField>AmountCharged</DataField>
+        </Field>
+        <Field Name="AmountChargedFormat">
+          <DataField>AmountChargedFormat</DataField>
+        </Field>
+        <Field Name="settlement">
+          <DataField>settlement</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -36,7 +74,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>P.O. BOX 30305 - 00100 GPO, MASENO</Value>
+                    <Value />
                     <Style>
                       <FontFamily>times New Roman</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -72,7 +110,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>TEL (020)891201/2 Fax (020) 891949</Value>
+                    <Value />
                     <Style>
                       <FontFamily>times New Roman</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -107,7 +145,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Email: info@karu.ac.ke</Value>
+                    <Value />
                     <Style>
                       <FontFamily>times New Roman</FontFamily>
                       <FontSize>9pt</FontSize>
@@ -877,6 +915,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -915,41 +959,5 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="pic">
-          <DataField>pic</DataField>
-        </Field>
-        <Field Name="Title1">
-          <DataField>Title1</DataField>
-        </Field>
-        <Field Name="StdNo">
-          <DataField>StdNo</DataField>
-        </Field>
-        <Field Name="stdName">
-          <DataField>stdName</DataField>
-        </Field>
-        <Field Name="host">
-          <DataField>host</DataField>
-        </Field>
-        <Field Name="room">
-          <DataField>room</DataField>
-        </Field>
-        <Field Name="AmountCharged">
-          <DataField>AmountCharged</DataField>
-        </Field>
-        <Field Name="AmountChargedFormat">
-          <DataField>AmountChargedFormat</DataField>
-        </Field>
-        <Field Name="settlement">
-          <DataField>settlement</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
+  <rd:ReportID>6a0c10e7-be13-45dd-b75e-2f88fe970024</rd:ReportID>
 </Report>

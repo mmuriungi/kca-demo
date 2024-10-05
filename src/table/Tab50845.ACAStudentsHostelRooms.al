@@ -166,8 +166,8 @@ table 50845 "ACA-Students Hostel Rooms"
         }
         field(17; Gender; Option)
         {
-            CalcFormula = Lookup(Customer.Gender WHERE("No." = FIELD(Student)));
-            FieldClass = FlowField;
+            // CalcFormula = Lookup(Customer.Gender WHERE("No." = FIELD(Student)));
+            // FieldClass = FlowField;
             OptionCaption = 'Male,Female';
             OptionMembers = Male,Female;
         }

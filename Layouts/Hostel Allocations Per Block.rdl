@@ -8,8 +8,88 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>43dfc7b1-7bce-47a6-a724-914d9506061a</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+        </Field>
+        <Field Name="pics">
+          <DataField>pics</DataField>
+        </Field>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="Desc">
+          <DataField>Desc</DataField>
+        </Field>
+        <Field Name="Vaccant">
+          <DataField>Vaccant</DataField>
+        </Field>
+        <Field Name="fullyOccupied">
+          <DataField>fullyOccupied</DataField>
+        </Field>
+        <Field Name="partiallyOccupied">
+          <DataField>partiallyOccupied</DataField>
+        </Field>
+        <Field Name="Blacklisted">
+          <DataField>Blacklisted</DataField>
+        </Field>
+        <Field Name="totRooms">
+          <DataField>totRooms</DataField>
+        </Field>
+        <Field Name="stdNo">
+          <DataField>stdNo</DataField>
+        </Field>
+        <Field Name="stdName">
+          <DataField>stdName</DataField>
+        </Field>
+        <Field Name="stdaddress">
+          <DataField>stdaddress</DataField>
+        </Field>
+        <Field Name="stdphone">
+          <DataField>stdphone</DataField>
+        </Field>
+        <Field Name="host">
+          <DataField>host</DataField>
+        </Field>
+        <Field Name="rm">
+          <DataField>rm</DataField>
+        </Field>
+        <Field Name="spc">
+          <DataField>spc</DataField>
+        </Field>
+        <Field Name="years">
+          <DataField>years</DataField>
+        </Field>
+        <Field Name="sems">
+          <DataField>sems</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+        <Field Name="RegDate">
+          <DataField>RegDate</DataField>
+        </Field>
+        <Field Name="ReservID">
+          <DataField>ReservID</DataField>
+        </Field>
+        <Field Name="Semester">
+          <DataField>Semester</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1409,7 +1489,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MASENO UNIVERSITY</Value>
+                    <Value />
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1516,6 +1596,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1554,83 +1640,5 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="Phone">
-          <DataField>Phone</DataField>
-        </Field>
-        <Field Name="pics">
-          <DataField>pics</DataField>
-        </Field>
-        <Field Name="No">
-          <DataField>No</DataField>
-        </Field>
-        <Field Name="Desc">
-          <DataField>Desc</DataField>
-        </Field>
-        <Field Name="Vaccant">
-          <DataField>Vaccant</DataField>
-        </Field>
-        <Field Name="fullyOccupied">
-          <DataField>fullyOccupied</DataField>
-        </Field>
-        <Field Name="partiallyOccupied">
-          <DataField>partiallyOccupied</DataField>
-        </Field>
-        <Field Name="Blacklisted">
-          <DataField>Blacklisted</DataField>
-        </Field>
-        <Field Name="totRooms">
-          <DataField>totRooms</DataField>
-        </Field>
-        <Field Name="stdNo">
-          <DataField>stdNo</DataField>
-        </Field>
-        <Field Name="stdName">
-          <DataField>stdName</DataField>
-        </Field>
-        <Field Name="stdaddress">
-          <DataField>stdaddress</DataField>
-        </Field>
-        <Field Name="stdphone">
-          <DataField>stdphone</DataField>
-        </Field>
-        <Field Name="host">
-          <DataField>host</DataField>
-        </Field>
-        <Field Name="rm">
-          <DataField>rm</DataField>
-        </Field>
-        <Field Name="spc">
-          <DataField>spc</DataField>
-        </Field>
-        <Field Name="years">
-          <DataField>years</DataField>
-        </Field>
-        <Field Name="sems">
-          <DataField>sems</DataField>
-        </Field>
-        <Field Name="seq">
-          <DataField>seq</DataField>
-        </Field>
-        <Field Name="RegDate">
-          <DataField>RegDate</DataField>
-        </Field>
-        <Field Name="ReservID">
-          <DataField>ReservID</DataField>
-        </Field>
-        <Field Name="Semester">
-          <DataField>Semester</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
+  <rd:ReportID>3cbccf35-1fa2-4811-a97e-eec5a6c0b685</rd:ReportID>
 </Report>
