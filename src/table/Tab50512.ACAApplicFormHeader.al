@@ -76,11 +76,20 @@ table 50512 "ACA-Applic. Form Header"
         {
             Description = 'Stores the first degree choice for the applicant';
             TableRelation = "ACA-Programme".Code WHERE(Code = FIELD("First Degree Choice"));
+            Caption = 'Programme';
         }
         field(17; School1; Code[50])
         {
             Description = 'Stores the first faculty choice for the applicant';
-            TableRelation = "Dimension Value".Code WHERE(Name = FIELD(School1));
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
+            Caption = 'School';
+            trigger OnValidate()
+            var
+                DimVal: Record "Dimension Value";
+            begin
+                if DimVal.Get(School1) then
+                    "School Name" := DimVal.Name;
+            end;
         }
         field(18; "Second Degree Choice"; Code[50])
         {
@@ -1051,6 +1060,10 @@ table 50512 "ACA-Applic. Form Header"
         }
         //."Rules and Regulations Agreed"
         field(50155; "Rules and Regulations Agreed"; Boolean)
+        {
+        }
+        //school name
+        field(50156; "School Name"; Text[250])
         {
         }
     }

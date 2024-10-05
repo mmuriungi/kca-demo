@@ -101,11 +101,13 @@ table 50798 "ACA-Exam. Course Registration"
         }
         field(20; "Normal Average"; Decimal)
         {
-            DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = Average("ACA-Exam Classification Units"."Total Score Decimal" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(21; "Weighted Average"; Decimal)
         {
-            DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = Average("ACA-Exam Classification Units"."Weighted Total Score" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(22; "Total Failed Courses"; Integer)
         {
@@ -1104,6 +1106,15 @@ table 50798 "ACA-Exam. Course Registration"
             FieldClass = FlowField;
             CalcFormula = Count("ACA-Exam. Course Registration" WHERE("School Code" = FIELD("School Code"), "Academic Year" = FIELD("Academic Year"), Programme = FIELD(Programme)));
 
+        }
+        //Academic Year Exclude Comp.
+        field(170; "Academic Year Exclude Comp."; Boolean)
+        {
+
+            Caption = 'Academic Year Exclude Comp.';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student Number"), "Academic Year" = FIELD("Academic Year"), "Academic Year Exclude Comp." = const(true)));
         }
 
 
