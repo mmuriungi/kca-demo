@@ -2,7 +2,7 @@ page 50188 "Proc-Purchase Restrict Header"
 {
     Caption = 'Restricted Tender';
     PageType = Card;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'New,Vendors, Report,Evaluation Matrix,Award,Bid,Approvals, Attachments';
     //SourceTableView = where("Procurement methods" = const("Direct Procurement"));
     layout

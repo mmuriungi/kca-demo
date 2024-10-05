@@ -1,7 +1,7 @@
 report 50021 "Store Requisitions"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/StoreRequisition.rdl';
+    RDLCLayout = './Layouts/StoreRequisition - Backup.rdl';
 
     dataset
     {
@@ -45,6 +45,9 @@ report 50021 "Store Requisitions"
             {
             }
             column(pics; info.Picture)
+            {
+            }
+            column(comp_name; info.Name)
             {
             }
             column(ApprovalUserArr_3_; ApprovalUserArr[3])

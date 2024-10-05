@@ -49,7 +49,7 @@ table 50126 "Proc-Committee Membership"
             OptionMembers = "","Initiate Opening";
             trigger OnValidate()
             var
-                rfq: Record "PROC-Purchase Quote Header1";
+                rfq: Record "PROC-Purchase Quote Header";
             begin
                 if Confirm('Confirm Opening ? ', true) = false then Error('Cancelled');
                 if (Rec."Initiate Opening" = Rec."Initiate Opening"::"Initiate Opening") then begin

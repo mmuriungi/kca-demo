@@ -2625,6 +2625,9 @@ GPa0RsYABsBY/wAgTm4hvbXvNSQu7LHSH5pKk0az1l5RQsEHP+H90xJQIKJJJ3Pmce1Z6jQai5S65M0z
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="DepartmentName_PROCStoreRequistionHeader">
+          <DataField>DepartmentName_PROCStoreRequistionHeader</DataField>
+        </Field>
         <Field Name="Store_Requistion_Header__No__">
           <DataField>Store_Requistion_Header__No__</DataField>
         </Field>
@@ -2661,6 +2664,21 @@ GPa0RsYABsBY/wAgTm4hvbXvNSQu7LHSH5pKk0az1l5RQsEHP+H90xJQIKJJJ3Pmce1Z6jQai5S65M0z
         <Field Name="pics">
           <DataField>pics</DataField>
         </Field>
+        <Field Name="name">
+          <DataField>name</DataField>
+        </Field>
+        <Field Name="mail">
+          <DataField>mail</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="Address2">
+          <DataField>Address2</DataField>
+        </Field>
+        <Field Name="Url">
+          <DataField>Url</DataField>
+        </Field>
         <Field Name="ApprovalUserArr_3_">
           <DataField>ApprovalUserArr_3_</DataField>
         </Field>
@@ -2694,11 +2712,20 @@ GPa0RsYABsBY/wAgTm4hvbXvNSQu7LHSH5pKk0az1l5RQsEHP+H90xJQIKJJJ3Pmce1Z6jQai5S65M0z
         <Field Name="Store_Requistion_Lines__No__Caption">
           <DataField>Store_Requistion_Lines__No__Caption</DataField>
         </Field>
+        <Field Name="Store_Requistion_Lines_DescriptionCaption">
+          <DataField>Store_Requistion_Lines_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Store_Requistion_Lines_QuantityCaption">
+          <DataField>Store_Requistion_Lines_QuantityCaption</DataField>
+        </Field>
         <Field Name="UoMCaption">
           <DataField>UoMCaption</DataField>
         </Field>
         <Field Name="Store_Requistion_Lines__Line_Amount_Caption">
           <DataField>Store_Requistion_Lines__Line_Amount_Caption</DataField>
+        </Field>
+        <Field Name="Store_Requistion_Lines__Unit_Cost_Caption">
+          <DataField>Store_Requistion_Lines__Unit_Cost_Caption</DataField>
         </Field>
         <Field Name="Date_Caption">
           <DataField>Date_Caption</DataField>
@@ -2729,9 +2756,6 @@ GPa0RsYABsBY/wAgTm4hvbXvNSQu7LHSH5pKk0az1l5RQsEHP+H90xJQIKJJJ3Pmce1Z6jQai5S65M0z
         </Field>
         <Field Name="Signature_Caption_Control1102755000">
           <DataField>Signature_Caption_Control1102755000</DataField>
-        </Field>
-        <Field Name="DepartmentName_PROCStoreRequistionHeader">
-          <DataField>DepartmentName_PROCStoreRequistionHeader</DataField>
         </Field>
         <Field Name="seq">
           <DataField>seq</DataField>
@@ -2777,27 +2801,6 @@ GPa0RsYABsBY/wAgTm4hvbXvNSQu7LHSH5pKk0az1l5RQsEHP+H90xJQIKJJJ3Pmce1Z6jQai5S65M0z
         </Field>
         <Field Name="QtyRequestedFormat">
           <DataField>QtyRequestedFormat</DataField>
-        </Field>
-        <Field Name="SequenceNo_ApprovalEntry">
-          <DataField>SequenceNo_ApprovalEntry</DataField>
-        </Field>
-        <Field Name="ApproverID_ApprovalEntry">
-          <DataField>ApproverID_ApprovalEntry</DataField>
-        </Field>
-        <Field Name="LastDateTimeModified_ApprovalEntry">
-          <DataField>LastDateTimeModified_ApprovalEntry</DataField>
-        </Field>
-        <Field Name="SenderID_ApprovalEntry">
-          <DataField>SenderID_ApprovalEntry</DataField>
-        </Field>
-        <Field Name="DateTimeSentforApproval_ApprovalEntry">
-          <DataField>DateTimeSentforApproval_ApprovalEntry</DataField>
-        </Field>
-        <Field Name="Signature_UserSetup">
-          <DataField>Signature_UserSetup</DataField>
-        </Field>
-        <Field Name="ApprovalDesignation_UserSetup">
-          <DataField>ApprovalDesignation_UserSetup</DataField>
         </Field>
       </Fields>
       <Query>

@@ -4,7 +4,7 @@ page 50269 "Purchase Quote List"
     Editable = false;
     DeleteAllowed = false;
     PageType = List;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     SourceTableView = where(DocApprovalType = const(Purchase), "Procurement methods" = const("Request for Quotation"));
 
     layout

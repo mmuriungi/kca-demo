@@ -5,7 +5,7 @@ page 50207 "Proc-Consultancy Services List"
     PageType = List;
     Editable = false;
     DeleteAllowed = false;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     SourceTableView = where(DocApprovalType = const(Purchase), "Procurement methods" = const("Consultancy Services"));
     layout
     {

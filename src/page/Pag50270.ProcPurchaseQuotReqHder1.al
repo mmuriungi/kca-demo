@@ -2,7 +2,7 @@ page 50270 "Proc-Purchase Quot Req. Hder1"
 {
     Caption = 'Request for Quotations';
     PageType = Card;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'New,Vendors, Report,Evaluation Matrix, Award, Bid,Approvals,Attachments';
     SourceTableView = where("Procurement methods" = const("Request for Quotation"));
     layout
@@ -388,7 +388,7 @@ page 50270 "Proc-Purchase Quot Req. Hder1"
 
                     trigger OnAction()
                     var
-                        header: Record "PROC-Purchase Quote Header1";
+                        header: Record "PROC-Purchase Quote Header";
                         comm: Record "Proc-Committee Membership";
                     begin
                         header.Reset();

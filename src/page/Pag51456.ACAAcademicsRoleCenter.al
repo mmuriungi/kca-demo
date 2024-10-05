@@ -177,7 +177,7 @@ page 51456 "ACA-Academics Role Center&"
                     {
                         Caption = 'Intake Setup';
                         Image = Setup;
-                        RunObject = page "Program Intake Fee";
+                        RunObject = page "ACA-Intake List";
                         ApplicationArea = All;
                     }
                 }
@@ -308,13 +308,11 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Report "KUCCPS & PSSP Adm. By Program";
                         ApplicationArea = All;
                     }
-                    action("Admission Summary 2")
+                    action("Admission Per School")
                     {
-                        Caption = 'Admission Summary 2';
                         Image = Report;
-
                         ApplicationArea = All;
-                        //  RunObject = Report 69287;
+                        RunObject = Report "ACA-Senate Report";
                     }
                     action("New Applications")
                     {

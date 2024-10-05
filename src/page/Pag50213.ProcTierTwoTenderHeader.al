@@ -4,7 +4,7 @@ page 50213 "Proc-Tier Two Tender Header"
     DeleteAllowed = false;
     Caption = 'Two Stage Tendering';
     PageType = Card;
-    SourceTable = "PROC-Purchase Quote Header1";
+    SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'New,Process, Report,Evaluation Matrix';
     layout
     {

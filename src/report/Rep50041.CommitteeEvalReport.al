@@ -68,7 +68,7 @@ report 50041 "Committee Eval Report"
 
                 }
 
-                dataitem(Purchasequote; "Proc-Purchase Quote Header1")
+                dataitem(Purchasequote; "Proc-Purchase Quote Header")
                 {
                     DataItemLink = "No." = field("No."), "Procurement methods" = field("Procurement Methods");
                     column(AwardedBId_Purchasequote; "Awarded BId")

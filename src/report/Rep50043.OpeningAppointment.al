@@ -192,7 +192,7 @@ report 50043 "Opening Appointment"
         MemberNo: Code[50];
         Compinfo: Record "Company Information";
         Tenderdesc: Text[500];
-        Purchasequote: Record "PROC-Purchase Quote Header1";
+        Purchasequote: Record "PROC-Purchase Quote Header";
         Openingdate: DateTime;
         Commitm: Record "Proc-Committee Members";
         QuoteNo: Code[50];
