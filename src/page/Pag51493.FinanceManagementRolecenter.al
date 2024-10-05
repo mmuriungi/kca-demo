@@ -682,7 +682,15 @@ page 51493 "Finance Management Rolecenter"
 
         area(Reporting)
         {
-            group(Reports)
+            group("Finance Reports")
+            {
+                action("General Ledger Report")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report  GeneralLedgerv3;
+                }
+            }            group(Reports)
             {
 
                 Caption = 'Payroll Reports';
