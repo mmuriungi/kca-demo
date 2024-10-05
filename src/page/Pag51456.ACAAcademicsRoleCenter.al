@@ -208,8 +208,7 @@ page 51456 "ACA-Academics Role Center&"
             }
             group("Application and Admission")
             {
-                group(AppliAdmin)
-                {
+                
                     Caption = 'Applications & General setup';
                     Image = Job;
                     // action("Online Enquiries")
@@ -255,12 +254,11 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Page "ACA-Admitted Applicants List";
                         ApplicationArea = All;
                     }
-                }
+               
             }
             group("Admission History")
             {
-                group(AdminHist)
-                {
+                
                     Caption = 'Admissions History';
                     Image = History;
                     action("Pending Admissions")
@@ -284,12 +282,64 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Page "ACA-Cancelled ApplicsList";
                         ApplicationArea = All;
                     }
-                }
+               
+            }
+            group("Application Reports")
+            {
+                 action("New Applications")
+                    {
+                        Image = Report;
+
+                        RunObject = Report "Application List Academic New";
+                        ApplicationArea = All;
+                    }
+                    action("Online Applications Report")
+                    {
+                        Image = Report;
+
+                        RunObject = Report "Application List";
+                        ApplicationArea = All;
+                    }
+                    action("Application List")
+                    {
+                        Image = Report;
+
+                        RunObject = Report "Application List Academic New";
+                        ApplicationArea = All;
+                    }
+                     action("Direct Applications")
+                    {
+                        Image = Report;
+
+                        RunObject = Report "Direct Applications Form Reg";
+                        ApplicationArea = All;
+                    }
+                    
+                    action("Application Summary")
+                    {
+                        Image = Report;
+
+                        RunObject = Report "Application Summary";
+                        ApplicationArea = All;
+                    }
+                    action("Applicant Shortlisting (Summary)")
+                    {
+                        Image = Report;
+
+                        RunObject = Report "Shortlisted Students Summary";
+                        ApplicationArea = All;
+                    }
+                    action("Applicant Shortlisting (Detailed)")
+                    {
+                        Image = Report;
+
+                        RunObject = Report "Shortlisted Students Status";
+                        ApplicationArea = All;
+                    }
             }
             group("Admission Reports")
             {
-                group(AdminReports)
-                {
+                
                     Caption = 'Admission Reports';
                     Image = ResourcePlanning;
                     action("Admissions Summary")
@@ -314,27 +364,8 @@ page 51456 "ACA-Academics Role Center&"
                         ApplicationArea = All;
                         RunObject = Report "ACA-Senate Report";
                     }
-                    action("New Applications")
-                    {
-                        Image = Report;
-
-                        RunObject = Report "Application List Academic New";
-                        ApplicationArea = All;
-                    }
-                    action("Online Applications Report")
-                    {
-                        Image = Report;
-
-                        RunObject = Report "Application List";
-                        ApplicationArea = All;
-                    }
-                    action(Enquiries)
-                    {
-                        Image = Report;
-
-                        ApplicationArea = All;
-                        //RunObject = Report 50052;
-                    }
+                   
+                    
                     action("Marketing Strategies Report")
                     {
                         Image = Report;
@@ -342,48 +373,13 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Report "ACA-Marketing Strategy";
                         ApplicationArea = All;
                     }
-                    action("Direct Applications")
-                    {
-                        Image = Report;
-
-                        RunObject = Report "Direct Applications Form Reg";
-                        ApplicationArea = All;
-                    }
-                    action("Application List")
-                    {
-                        Image = Report;
-
-                        RunObject = Report "Application List Academic New";
-                        ApplicationArea = All;
-                    }
-                    action("Application Summary")
-                    {
-                        Image = Report;
-
-                        RunObject = Report "Application Summary";
-                        ApplicationArea = All;
-                    }
-                    action("Applicant Shortlisting (Summary)")
-                    {
-                        Image = Report;
-
-                        RunObject = Report "Shortlisted Students Summary";
-                        ApplicationArea = All;
-                    }
-                    action("Applicant Shortlisting (Detailed)")
-                    {
-                        Image = Report;
-
-                        RunObject = Report "Shortlisted Students Status";
-                        ApplicationArea = All;
-                    }
-                }
+                   
+                
             }
 
             group(Academics)
             {
-                group(Academics2)
-                {
+                
                     Caption = 'Academic';
                     Image = Departments;
                     action("Student Registration")
@@ -414,12 +410,11 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Page "ACA-Lecturer List";
                         ApplicationArea = All;
                     }
-                }
+               
             }
             group("Periodic Activities")
             {
-                group(PerAc)
-                {
+               
                     Caption = 'Periodic Activities';
                     Image = Transactions;
                     // action("Graduation Charges (Unposted)")
@@ -439,12 +434,11 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Report "Graduation Fee Generator";
                         ApplicationArea = All;
                     }
-                }
+                
             }
             group("Academic reports")
             {
-                group(AcadReports)
-                {
+               
                     Caption = 'Academic reports';
                     Image = RegisteredDocs;
                     action("NorminalRoll")
@@ -500,7 +494,7 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Report AutoRegisterUnits;
                         ApplicationArea = All;
                     }
-                }
+                
             }
         }
         area(embedding)

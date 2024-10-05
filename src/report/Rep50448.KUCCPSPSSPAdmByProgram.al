@@ -8,6 +8,7 @@ report 50448 "KUCCPS & PSSP Adm. By Program"
         dataitem("ACA-Programme"; "ACA-Programme")
         {
             PrintOnlyIfDetail = true;
+            RequestFilterFields = "School Code";
             column(ProgCode; "ACA-Programme".Code)
             {
             }
@@ -41,6 +42,7 @@ report 50448 "KUCCPS & PSSP Adm. By Program"
             column(TotStudents; "ACA-Programme"."Admissions JAB" + "ACA-Programme"."Admissions SSP")
             {
             }
+            column(School_Code; "School Code") { }
             dataitem("ACA-Applic. Form Header"; "ACA-Applic. Form Header")
             {
                 DataItemLink = "Admitted Degree" = FIELD(Code);
@@ -119,7 +121,8 @@ report 50448 "KUCCPS & PSSP Adm. By Program"
                 column(FirstChoiceCat; "ACA-Applic. Form Header"."First Choice Category")
                 {
                 }
-
+                column(County; County)
+                { }
                 trigger OnAfterGetRecord()
                 begin
                     IF "ACA-Applic. Form Header"."First Choice Semester" <> Sems THEN

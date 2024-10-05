@@ -24,7 +24,7 @@ table 50798 "ACA-Exam. Course Registration"
         field(5; "School Code"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = FILTER('FACULTY'));
+            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = FILTER('SCHOOL'));
         }
         field(6; "Department Name"; Text[150])
         {

@@ -66,7 +66,15 @@ table 50563 "ACA-Programme"
         }
         field(16; "School Code"; Code[20])
         {
-            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = CONST('FACULTY'));
+            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = CONST('SCHOOL'));
+            trigger OnValidate()
+            var
+            "Dimension Value": Record "Dimension Value";
+            begin
+                IF GradeSetup.GET("School Code") THEN BEGIN
+                    "School Name":= "Dimension Value".Name;
+                END;
+            end;
         }
         field(17; Budget; Integer)
         {
@@ -290,6 +298,10 @@ table 50563 "ACA-Programme"
         }
         field(104; "Tuition Fees"; Decimal)
         {
+        }
+        field(105; "School Name"; Code[20])
+        {
+            
         }
         field(50000; "Campus Code"; Code[20])
         {
