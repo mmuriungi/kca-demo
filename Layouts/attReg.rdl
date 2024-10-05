@@ -11,43 +11,6 @@
       <rd:DataSourceID>d6b58782-ba75-4ca6-9073-8030a9d1b223</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="AttendanceDate_att">
-          <DataField>AttendanceDate_att</DataField>
-        </Field>
-        <Field Name="StudentNo_att">
-          <DataField>StudentNo_att</DataField>
-        </Field>
-        <Field Name="StudentName_att">
-          <DataField>StudentName_att</DataField>
-        </Field>
-        <Field Name="LecturerCode_att">
-          <DataField>LecturerCode_att</DataField>
-        </Field>
-        <Field Name="UnitCode_att">
-          <DataField>UnitCode_att</DataField>
-        </Field>
-        <Field Name="Present_att">
-          <DataField>Present_att</DataField>
-        </Field>
-        <Field Name="Semester_att">
-          <DataField>Semester_att</DataField>
-        </Field>
-        <Field Name="pic">
-          <DataField>pic</DataField>
-        </Field>
-        <Field Name="name">
-          <DataField>name</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -670,12 +633,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -715,4 +672,41 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="AttendanceDate_att">
+          <DataField>AttendanceDate_att</DataField>
+        </Field>
+        <Field Name="StudentNo_att">
+          <DataField>StudentNo_att</DataField>
+        </Field>
+        <Field Name="StudentName_att">
+          <DataField>StudentName_att</DataField>
+        </Field>
+        <Field Name="LecturerCode_att">
+          <DataField>LecturerCode_att</DataField>
+        </Field>
+        <Field Name="UnitCode_att">
+          <DataField>UnitCode_att</DataField>
+        </Field>
+        <Field Name="Present_att">
+          <DataField>Present_att</DataField>
+        </Field>
+        <Field Name="Semester_att">
+          <DataField>Semester_att</DataField>
+        </Field>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="name">
+          <DataField>name</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
