@@ -12,7 +12,7 @@ report 50534 "Official University Transcript"
             PrintOnlyIfDetail = true;
             RequestFilterFields = "Student Number", Programme, "School Code", "Academic Year", "Year of Study";
 
-            column(CoName; 'TOM MBOYA UNIVERSITY')
+            column(CoName; COMPANYINFORMATION.Name)
             {
             }
             column(ProgClassInt; ProgClassInt)
