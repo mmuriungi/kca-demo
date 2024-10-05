@@ -171,7 +171,8 @@ table 50797 "ACA-Exam Classification Units"
         //"Unit Stage"
         field(69; "Unit Stage"; Code[20])
         {
-            DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula=Lookup("ACA-Units/Subjects"."Stage Code" WHERE ("Programme Code"=FIELD(Programme),Code=FIELD("Unit Code")));
         }
         //Is Supp. Unit
         field(70; "Is Supp. Unit"; Boolean)
