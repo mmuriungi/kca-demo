@@ -3823,7 +3823,7 @@ Codeunit 61106 webportals
     begin
         KUCCPSRaw.Reset;
         KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
-        KUCCPSRaw.SetRange(KUCCPSRaw."Academic Year", '2024/2025');
+        //KUCCPSRaw.SetRange(KUCCPSRaw."Academic Year", '2024/2025');
         if KUCCPSRaw.Find('-') then begin
             FullNames := KUCCPSRaw.Names;
             Message := TXTCorrectDetails + '::' + KUCCPSRaw.Admin + '::' + FullNames;
