@@ -3,12 +3,14 @@ page 50298 "Student Leave Card"
     PageType = Card;
     SourceTable = "Student Leave";
 
+
     layout
     {
         area(Content)
         {
             group(General)
             {
+                Editable = Rec."Approval Status" = Rec."Approval Status"::Open;
                 field("Leave No."; Rec."Leave No.")
                 {
                     ApplicationArea = All;
@@ -92,6 +94,30 @@ page 50298 "Student Leave Card"
                     variant := Rec;
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end;
+            }
+        }
+        area(Navigation)
+        {
+            action(Attachments)
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                Image = Attach;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
+
+                trigger OnAction()
+                var
+                    DocumentAttachmentDetails: Page "Document Attachment Details";
+                    RecRef: RecordRef;
+                begin
+                    RecRef.GetTable(Rec);
+                    DocumentAttachmentDetails.OpenForRecRef(RecRef);
+                    DocumentAttachmentDetails.RunModal;
                 end;
             }
         }
