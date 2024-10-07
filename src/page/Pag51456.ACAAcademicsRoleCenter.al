@@ -180,6 +180,13 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = page "ACA-Intake List";
                         ApplicationArea = All;
                     }
+                    action("ACA-Prog/Stage Sem. Schedule")
+                    {
+                        Caption = 'ACA-Prog/Stage Sem. Schedule';
+                        Image = Setup;
+                        RunObject = page "ACA-Prog/Stage Sem. Schedule";
+                        ApplicationArea = All;
+                    }
                 }
                 group(SetUP)
                 {
@@ -208,293 +215,293 @@ page 51456 "ACA-Academics Role Center&"
             }
             group("Application and Admission")
             {
-                
-                    Caption = 'Applications & General setup';
-                    Image = Job;
-                    // action("Online Enquiries")
-                    // {
-                    //     Image = NewOrder;
 
-                    //     RunObject = Page "ACA-Enquiry Form";
-                    //     ApplicationArea = All;
+                Caption = 'Applications & General setup';
+                Image = Job;
+                // action("Online Enquiries")
+                // {
+                //     Image = NewOrder;
 
-                    // }
-                    // action("Online Applications")
-                    // {
-                    //     Image = NewCustomer;
+                //     RunObject = Page "ACA-Enquiry Form";
+                //     ApplicationArea = All;
 
-                    //     RunObject = Page "ACA-Enquiry List (a)";
-                    //     ApplicationArea = All;
-                    // }
-                    action("Admission Applications")
-                    {
-                        Image = NewCustomer;
+                // }
+                // action("Online Applications")
+                // {
+                //     Image = NewCustomer;
 
-                        RunObject = Page "ACA-Application Form Header a";
-                        ApplicationArea = All;
-                    }
-                    action("Approved Applications")
-                    {
-                        Image = Archive;
+                //     RunObject = Page "ACA-Enquiry List (a)";
+                //     ApplicationArea = All;
+                // }
+                action("Admission Applications")
+                {
+                    Image = NewCustomer;
 
-                        RunObject = Page "ACA-Approved Applications List";
-                        ApplicationArea = All;
-                    }
-                    action("Admission Letters")
-                    {
-                        Image = CustomerList;
+                    RunObject = Page "ACA-Application Form Header a";
+                    ApplicationArea = All;
+                }
+                action("Approved Applications")
+                {
+                    Image = Archive;
 
-                        RunObject = Page "ACA-Admn Letters Direct";
-                        ApplicationArea = All;
-                    }
-                    action("Admitted Applicants")
-                    {
-                        Image = Archive;
+                    RunObject = Page "ACA-Approved Applications List";
+                    ApplicationArea = All;
+                }
+                action("Admission Letters")
+                {
+                    Image = CustomerList;
 
-                        RunObject = Page "ACA-Admitted Applicants List";
-                        ApplicationArea = All;
-                    }
-               
+                    RunObject = Page "ACA-Admn Letters Direct";
+                    ApplicationArea = All;
+                }
+                action("Admitted Applicants")
+                {
+                    Image = Archive;
+
+                    RunObject = Page "ACA-Admitted Applicants List";
+                    ApplicationArea = All;
+                }
+
             }
             group("Admission History")
             {
-                
-                    Caption = 'Admissions History';
+
+                Caption = 'Admissions History';
+                Image = History;
+                action("Pending Admissions")
+                {
                     Image = History;
-                    action("Pending Admissions")
-                    {
-                        Image = History;
 
-                        RunObject = Page "ACA-Pending Admissions List";
-                        ApplicationArea = All;
-                    }
-                    action("Rejected Applications")
-                    {
-                        Image = Reject;
+                    RunObject = Page "ACA-Pending Admissions List";
+                    ApplicationArea = All;
+                }
+                action("Rejected Applications")
+                {
+                    Image = Reject;
 
-                        RunObject = Page "ACA-Rejected Applications List";
-                        ApplicationArea = All;
-                    }
-                    action("Cancelled Applications")
-                    {
-                        Image = Cancel;
+                    RunObject = Page "ACA-Rejected Applications List";
+                    ApplicationArea = All;
+                }
+                action("Cancelled Applications")
+                {
+                    Image = Cancel;
 
-                        RunObject = Page "ACA-Cancelled ApplicsList";
-                        ApplicationArea = All;
-                    }
-               
+                    RunObject = Page "ACA-Cancelled ApplicsList";
+                    ApplicationArea = All;
+                }
+
             }
             group("Application Reports")
             {
-                 action("New Applications")
-                    {
-                        Image = Report;
+                action("New Applications")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Application List Academic New";
-                        ApplicationArea = All;
-                    }
-                    action("Online Applications Report")
-                    {
-                        Image = Report;
+                    RunObject = Report "Application List Academic New";
+                    ApplicationArea = All;
+                }
+                action("Online Applications Report")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Application List";
-                        ApplicationArea = All;
-                    }
-                    action("Application List")
-                    {
-                        Image = Report;
+                    RunObject = Report "Application List";
+                    ApplicationArea = All;
+                }
+                action("Application List")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Application List Academic New";
-                        ApplicationArea = All;
-                    }
-                     action("Direct Applications")
-                    {
-                        Image = Report;
+                    RunObject = Report "Application List Academic New";
+                    ApplicationArea = All;
+                }
+                action("Direct Applications")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Direct Applications Form Reg";
-                        ApplicationArea = All;
-                    }
-                    
-                    action("Application Summary")
-                    {
-                        Image = Report;
+                    RunObject = Report "Direct Applications Form Reg";
+                    ApplicationArea = All;
+                }
 
-                        RunObject = Report "Application Summary";
-                        ApplicationArea = All;
-                    }
-                    action("Applicant Shortlisting (Summary)")
-                    {
-                        Image = Report;
+                action("Application Summary")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Shortlisted Students Summary";
-                        ApplicationArea = All;
-                    }
-                    action("Applicant Shortlisting (Detailed)")
-                    {
-                        Image = Report;
+                    RunObject = Report "Application Summary";
+                    ApplicationArea = All;
+                }
+                action("Applicant Shortlisting (Summary)")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Shortlisted Students Status";
-                        ApplicationArea = All;
-                    }
+                    RunObject = Report "Shortlisted Students Summary";
+                    ApplicationArea = All;
+                }
+                action("Applicant Shortlisting (Detailed)")
+                {
+                    Image = Report;
+
+                    RunObject = Report "Shortlisted Students Status";
+                    ApplicationArea = All;
+                }
             }
             group("Admission Reports")
             {
-                
-                    Caption = 'Admission Reports';
-                    Image = ResourcePlanning;
-                    action("Admissions Summary")
-                    {
-                        Caption = 'Admissions Summary';
-                        Image = Report;
 
-                        RunObject = Report "KUCCPS & PSSP Admissions List";
-                        ApplicationArea = All;
-                    }
-                    action("Admission By Program")
-                    {
-                        Caption = 'Admission By Program';
-                        Image = Report;
+                Caption = 'Admission Reports';
+                Image = ResourcePlanning;
+                action("Admissions Summary")
+                {
+                    Caption = 'Admissions Summary';
+                    Image = Report;
 
-                        RunObject = Report "KUCCPS & PSSP Adm. By Program";
-                        ApplicationArea = All;
-                    }
-                    action("Admission Per School")
-                    {
-                        Image = Report;
-                        ApplicationArea = All;
-                        RunObject = Report "ACA-Senate Report";
-                    }
-                   
-                    
-                    action("Marketing Strategies Report")
-                    {
-                        Image = Report;
+                    RunObject = Report "KUCCPS & PSSP Admissions List";
+                    ApplicationArea = All;
+                }
+                action("Admission By Program")
+                {
+                    Caption = 'Admission By Program';
+                    Image = Report;
 
-                        RunObject = Report "ACA-Marketing Strategy";
-                        ApplicationArea = All;
-                    }
-                   
-                
+                    RunObject = Report "KUCCPS & PSSP Adm. By Program";
+                    ApplicationArea = All;
+                }
+                action("Admission Per School")
+                {
+                    Image = Report;
+                    ApplicationArea = All;
+                    RunObject = Report "ACA-Senate Report";
+                }
+
+
+                action("Marketing Strategies Report")
+                {
+                    Image = Report;
+
+                    RunObject = Report "ACA-Marketing Strategy";
+                    ApplicationArea = All;
+                }
+
+
             }
 
             group(Academics)
             {
-                
-                    Caption = 'Academic';
-                    Image = Departments;
-                    action("Student Registration")
-                    {
-                        Image = Register;
 
-                        RunObject = Page "ACA-Std Registration List";
-                        ApplicationArea = All;
-                    }
-                    action("Student Card")
-                    {
-                        Image = Registered;
+                Caption = 'Academic';
+                Image = Departments;
+                action("Student Registration")
+                {
+                    Image = Register;
 
-                        RunObject = Page "ACA-Std Card List";
-                        ApplicationArea = All;
-                    }
-                    action(Alumni)
-                    {
-                        Image = History;
+                    RunObject = Page "ACA-Std Registration List";
+                    ApplicationArea = All;
+                }
+                action("Student Card")
+                {
+                    Image = Registered;
 
-                        RunObject = Page "ACA-Student Aluminae List";
-                        ApplicationArea = All;
-                    }
-                    action("Lecturers List")
-                    {
-                        Image = Resource;
+                    RunObject = Page "ACA-Std Card List";
+                    ApplicationArea = All;
+                }
+                action(Alumni)
+                {
+                    Image = History;
 
-                        RunObject = Page "ACA-Lecturer List";
-                        ApplicationArea = All;
-                    }
-               
+                    RunObject = Page "ACA-Student Aluminae List";
+                    ApplicationArea = All;
+                }
+                action("Lecturers List")
+                {
+                    Image = Resource;
+
+                    RunObject = Page "ACA-Lecturer List";
+                    ApplicationArea = All;
+                }
+
             }
             group("Periodic Activities")
             {
-               
-                    Caption = 'Periodic Activities';
-                    Image = Transactions;
-                    // action("Graduation Charges (Unposted)")
-                    // {
-                    //     Caption = 'Graduation Charges (Unposted)';
-                    //     Image = UnApply;
-                    //     
-                    //     PromotedIsBig = true;
-                    //     RunObject = Page "ACA-Grad. Charges (Unposted)";
-                    //     ApplicationArea = All;
-                    // }
-                    action(GenGraduInd)
-                    {
-                        Caption = 'Generate Graduation Charges (Individual Students)';
-                        Image = GetEntries;
 
-                        RunObject = Report "Graduation Fee Generator";
-                        ApplicationArea = All;
-                    }
-                
+                Caption = 'Periodic Activities';
+                Image = Transactions;
+                // action("Graduation Charges (Unposted)")
+                // {
+                //     Caption = 'Graduation Charges (Unposted)';
+                //     Image = UnApply;
+                //     
+                //     PromotedIsBig = true;
+                //     RunObject = Page "ACA-Grad. Charges (Unposted)";
+                //     ApplicationArea = All;
+                // }
+                action(GenGraduInd)
+                {
+                    Caption = 'Generate Graduation Charges (Individual Students)';
+                    Image = GetEntries;
+
+                    RunObject = Report "Graduation Fee Generator";
+                    ApplicationArea = All;
+                }
+
             }
             group("Academic reports")
             {
-               
-                    Caption = 'Academic reports';
-                    Image = RegisteredDocs;
-                    action("NorminalRoll")
-                    {
-                        Image = Report;
 
-                        RunObject = Report "Norminal Roll (Cont. Students)";
-                        ApplicationArea = All;
-                    }
-                    action("Enrollment Statistics")
-                    {
-                        Image = Report;
+                Caption = 'Academic reports';
+                Image = RegisteredDocs;
+                action("NorminalRoll")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Students Enrolment";
-                        ApplicationArea = All;
-                    }
-                    action("Student Balances")
-                    {
-                        Image = Report;
+                    RunObject = Report "Norminal Roll (Cont. Students)";
+                    ApplicationArea = All;
+                }
+                action("Enrollment Statistics")
+                {
+                    Image = Report;
 
-                        RunObject = Report "stud list new";
-                        ApplicationArea = All;
-                    }
-                    action("Fee Statements")
-                    {
-                        Image = Report;
+                    RunObject = Report "Students Enrolment";
+                    ApplicationArea = All;
+                }
+                action("Student Balances")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Student Fee Statement 2";
-                        ApplicationArea = All;
-                    }
-                    action("Statistics By Programme Category")
-                    {
-                        Image = Statistics;
+                    RunObject = Report "stud list new";
+                    ApplicationArea = All;
+                }
+                action("Fee Statements")
+                {
+                    Image = Report;
 
-                        RunObject = Report "Population By Prog. Category";
-                        ApplicationArea = All;
-                    }
-                    action("Exam Attendace")
-                    {
-                        Image = Statistics;
-                        RunObject = Report "Exam Attendance Clearance";
-                        ApplicationArea = All;
-                    }
-                    action("Exam Card")
-                    {
-                        Image = Statistics;
-                        RunObject = Report "Exam Card Final";
-                        ApplicationArea = All;
-                    }
-                    action("Auto Register")
-                    {
-                        Image = Statistics;
-                        RunObject = Report AutoRegisterUnits;
-                        ApplicationArea = All;
-                    }
-                
+                    RunObject = Report "Student Fee Statement 2";
+                    ApplicationArea = All;
+                }
+                action("Statistics By Programme Category")
+                {
+                    Image = Statistics;
+
+                    RunObject = Report "Population By Prog. Category";
+                    ApplicationArea = All;
+                }
+                action("Exam Attendace")
+                {
+                    Image = Statistics;
+                    RunObject = Report "Exam Attendance Clearance";
+                    ApplicationArea = All;
+                }
+                action("Exam Card")
+                {
+                    Image = Statistics;
+                    RunObject = Report "Exam Card Final";
+                    ApplicationArea = All;
+                }
+                action("Auto Register")
+                {
+                    Image = Statistics;
+                    RunObject = Report AutoRegisterUnits;
+                    ApplicationArea = All;
+                }
+
             }
         }
         area(embedding)
