@@ -111,6 +111,10 @@ page 52041 "Contract Mgmt Role Center"
                 // RunPageView = where(Status = const(Verified), "Expiry Date" = field("Date Filter"));
                 ToolTip = 'View contracts expiring soon';
             }
+
+        }
+        area(Processing)
+        {
             group(Setups)
             {
                 action("Expense Codes")
