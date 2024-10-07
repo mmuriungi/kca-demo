@@ -189,8 +189,10 @@ page 50044 "FIN-Travel Advance Acc. UP"
                         // END;
 
                         //Release the Imprest for Approval
-
-                        ApprovalMgt.OnSendImprestAccforApproval(Rec);
+                        if ApprovalMgt.IsImprestAccEnabled(Rec) then
+                            ApprovalMgt.OnSendImprestAccforApproval(Rec)
+                        else
+                            Error('No Approval Workflow has been setup for this record type.');
 
                     end;
                 }
