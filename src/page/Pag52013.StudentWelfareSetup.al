@@ -25,6 +25,10 @@ page 52013 "Student Welfare Setup"
                 {
                     ToolTip = 'Specifies the value of the Club/Society Nos field.', Comment = '%';
                 }
+                field("Club/Society Activity Nos";Rec."Club/Society Activity Nos")
+                {
+                    ToolTip = 'Specifies the value of the Club/Society Activity Nos field.', Comment = '%';
+                }
             }
         }
     }
