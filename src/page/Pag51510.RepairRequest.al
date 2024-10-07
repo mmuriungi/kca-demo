@@ -30,6 +30,30 @@ page 51510 "Repair Request"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Facilty Description field.';
                 }
+                field(School; Rec.School)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the value of the School field.';
+                }
+                field("School Name"; Rec."School Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the value of the School Name field.';
+                }
+                field(Location; Rec.Location)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the value of the Location field.';
+                }
+                field("Repair Classification"; Rec."Repair Classification")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the value of the Repair Classification field.';
+                }
                 field("Room No."; Rec."Room No.")
                 {
                     ApplicationArea = All;
@@ -182,6 +206,8 @@ page 51510 "Repair Request"
                     SuccessMsg: Label 'The repair request  has been closed successfully';
                 begin
                     Rec.Status := Rec.Status::Closed;
+                    Rec."End Date" := Today;
+                    Rec.Validate("End Date");
                     Rec.Modify();
                     Message(SuccessMsg);
                     CurrPage.Update();

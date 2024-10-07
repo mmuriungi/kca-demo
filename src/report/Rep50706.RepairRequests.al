@@ -47,6 +47,9 @@ report 50706 "Repair Requests"
             column(Status; Status)
             {
             }
+            column(End_Date; "End Date")
+            {
+            }
             trigger OnAfterGetRecord()
             var
                 myInt: Integer;

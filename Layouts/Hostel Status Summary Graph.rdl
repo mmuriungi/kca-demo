@@ -8,6 +8,7 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>892402f3-ce31-456b-a4a0-cd76e55c01f4</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <ReportSections>
@@ -35,7 +36,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MASENO UNIVERSITY</Value>
+                    <Value />
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -487,7 +488,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>(MASENO UNIVERSITY)</Value>
+                    <Value />
                     <Style>
                       <FontStyle>Italic</FontStyle>
                       <FontWeight>Normal</FontWeight>
@@ -563,6 +564,7 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>78afdaee-f4fd-4c72-bc61-49ca5485937f</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>

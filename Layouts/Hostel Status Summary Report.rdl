@@ -8,6 +8,7 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>0637d771-f469-4394-b1b3-1d29255ebfe5</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <ReportSections>
@@ -848,7 +849,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MASENO UNIVERSITY</Value>
+                    <Value>=First(Fields!CompanyName.Value, "DataSet_Result")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -991,6 +992,7 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>17f02fee-23e7-4dda-9bce-3c9c3b90f3cf</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
@@ -1032,6 +1034,9 @@ End Function
         </Field>
         <Field Name="TotalSpaces">
           <DataField>TotalSpaces</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
         </Field>
       </Fields>
       <Query>
