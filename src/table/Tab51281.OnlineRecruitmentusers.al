@@ -130,6 +130,39 @@ table 51281 "Online Recruitment users"
         {
             Caption = 'Activated';
         }
+        //Religion,Denomination,"Ethnic Origin"
+        field(31; Religion; Text[50])
+        {
+            Caption = 'Religion';
+        }
+        field(32; Denomination; Text[50])
+        {
+            Caption = 'Denomination';
+        }
+        field(33; "Ethnic Origin"; Option)
+        {
+            OptionMembers = African,Coloured,Indian,White,Other;
+        }
+        //SessionKey
+        field(34; "SessionKey"; Text[50])
+        {
+            Caption = 'Session Key';
+        }
+        //"Account Confirmed"
+        field(35; "Account Confirmed"; Boolean)
+        {
+            Caption = 'Account Confirmed';
+        }
+        // /"Details Updated"
+        field(36; "Details Updated"; Boolean)
+        {
+            Caption = 'Details Updated';
+        }
+        //"Passport No"
+        field(37; "Passport No"; Text[50])
+        {
+            Caption = 'Passport';
+        }
     }
 
     keys
