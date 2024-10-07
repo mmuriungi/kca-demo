@@ -27,6 +27,13 @@ report 50058 "Counselling Session Analysis"
             column(FollowupRequired; "Follow-up Required")
             {
             }
+             column(CompanyName;CompanyInformation.Name)
+            {
+            }
+            column(CompanyPhone;CompanyInformation."Phone No.")
+            {}
+            column(Logo;CompanyInformation.Picture)
+            {}
         }
     }
 
@@ -60,8 +67,14 @@ report 50058 "Counselling Session Analysis"
         if EndDate <> 0D then
             "Counseling Session".SetFilter("Session Date", '<=%1', EndDate);
     end;
-
+    trigger OnInitReport()
+    var
+    begin
+        CompanyInformation.Get();
+        CompanyInformation.CalcFields(Picture)
+    end;
     var
         StartDate: Date;
         EndDate: Date;
+        CompanyInformation: Record "Company Information";
 }

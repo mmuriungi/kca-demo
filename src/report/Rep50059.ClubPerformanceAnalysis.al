@@ -25,7 +25,13 @@ report 50059 "Club Performance Analysis"
             column(AverageAttendance; AverageAttendance)
             {
             }
-            
+             column(CompanyName;CompanyInformation.Name)
+            {
+            }
+            column(CompanyPhone;CompanyInformation."Phone No.")
+            {}
+            column(Logo;CompanyInformation.Picture)
+            {}
             trigger OnAfterGetRecord()
             begin
                 CalcFields("Member Count", "Activity Count");
@@ -90,9 +96,16 @@ report 50059 "Club Performance Analysis"
         else
             AverageAttendance := 0;
     end;
-
+  
+    trigger OnInitReport()
+    var
+    begin
+        CompanyInformation.Get();
+        CompanyInformation.CalcFields(Picture)
+    end;
     var
         StartDate: Date;
         EndDate: Date;
         AverageAttendance: Decimal;
+        CompanyInformation: Record "Company Information";
 }
