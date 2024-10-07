@@ -8,6 +8,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
         MaintenanceRequest: Record "Maintenance Request";
         UtilityBill: Record "Utility Bill";
         CertApplic: Record "Certificate Application";
+        LeaveRequest: Record "Student Leave";
     begin
         case DocumentAttachment."Table ID" of
 
@@ -28,6 +29,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecRef.Open(DATABASE::"Certificate Application");
                     if CertApplic.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(CertApplic);
+                end;
+            DATABASE::"Student Leave":
+                begin
+                    RecRef.Open(DATABASE::"Student Leave");
+                    if LeaveRequest.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(LeaveRequest);
                 end;
         end;
     end;
@@ -58,6 +65,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecNo := FieldRef.Value;
                     DocumentAttachment.SetRange("No.", RecNo);
                 end;
+            Database::"Student Leave":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.SetRange("No.", RecNo);
+                end;
         end;
     end;
 
@@ -82,6 +95,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     DocumentAttachment.Validate("No.", RecNo);
                 end;
             Database::"Certificate Application":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                end;
+            Database::"Student Leave":
                 begin
                     FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;
