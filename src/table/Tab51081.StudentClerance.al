@@ -36,6 +36,26 @@ table 51081 "Student Clerance"
             Editable = false;
             OptionMembers = Open,Pending,Approved,Cancelled,Posted;
         }
+        //"Department Cleared"
+        field(8; "Department Cleared"; Boolean)
+        {
+            Caption = 'Department Cleared';
+        }
+        //"School Cleared"
+        field(9; "School Cleared"; Boolean)
+        {
+            Caption = 'School Cleared';
+        }
+        //"Department Cleared Name"
+        field(10; "Department Cleared Name"; Text[200])
+        {
+            Caption = 'Department Cleared Name';
+        }
+        //"School Cleared Name"
+        field(11; "School Cleared Name"; Text[200])
+        {
+            Caption = 'School Cleared Name';
+        }
     }
     keys
     {
