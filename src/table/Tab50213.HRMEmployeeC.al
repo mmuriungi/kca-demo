@@ -2284,6 +2284,12 @@ table 50213 "HRM-Employee C"
         {
 
         }
+        //Is Counsellor
+        field(60094; "Is Counsellor"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = exist("HRM-Jobs" where("Job ID" = field("Job Title"), "Job Category" = const(Counselor)));
+        }
     }
 
     keys
