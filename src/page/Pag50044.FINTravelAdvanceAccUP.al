@@ -174,6 +174,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                         showmessage: Boolean;
                         ManualCancel: Boolean;
                         State: Option Open,"Pending Approval",Cancelled,Approved;
+                        rpmgmt: Codeunit ReportManagement;
                     begin
                         //First Check whether all amount entered tally
                         // ImprestDetails.RESET;
