@@ -85,7 +85,19 @@ tableextension 50011 "Purchase Lines" extends "Purchase Line"
         field(56603; "Expense Code"; Code[20])
         {
             DataClassification = ToBeClassified;
-            Description = 'ADDED THIS FIELD';
+            trigger Onvalidate()
+            var
+                ExpenseCodes: record "Expense Code";
+            begin
+                ExpenseCodes.Reset();
+                ExpenseCodes.SetRange(ExpenseCodes.Code, "Expense Code");
+                if ExpenseCodes.FindFirst() then begin
+                    Type := ExpenseCodes.Type;
+                    Validate(Type);
+                    "No." := ExpenseCodes."G/L Account";
+                    validate("No.");
+                end
+            end;
         }
         field(56604; "RFQ No."; Code[20])
         {
