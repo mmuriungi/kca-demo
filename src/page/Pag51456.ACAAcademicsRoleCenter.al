@@ -988,6 +988,16 @@ page 51456 "ACA-Academics Role Center&"
                     RunObject = page "Program Intake Fee";
                     ApplicationArea = All;
                 }
+                action("Central Setups")
+                {
+                    RunObject = page "ACA-Central Setup List";
+                    ApplicationArea = All;
+                }
+                action(Tribes)
+                {
+                    RunObject = page "Tribes List";
+                    ApplicationArea = All;
+                }
             }
             group(Approvals)
             {
