@@ -2547,9 +2547,6 @@ End Function
         <Field Name="Purchase_Quote_Line_QuantityFormat">
           <DataField>Purchase_Quote_Line_QuantityFormat</DataField>
         </Field>
-        <Field Name="Purchase_Quote_Line__Description_">
-          <DataField>Purchase_Quote_Line__Description_</DataField>
-        </Field>
         <Field Name="Purchase_Quote_Line__Description_2_">
           <DataField>Purchase_Quote_Line__Description_2_</DataField>
         </Field>
