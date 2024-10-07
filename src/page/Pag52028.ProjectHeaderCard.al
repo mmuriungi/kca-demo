@@ -182,7 +182,7 @@ page 52028 "Project Header Card"
             part("Document Attachment Factbox"; "Document Attachment Factbox")
             {
                 ApplicationArea = Suite;
-                SubPageLink = "No." = FIELD("No."), "Table ID" = const(52177863);
+                SubPageLink = "No." = FIELD("No."), "Table ID" = const(Database::"Project Header");
             }
             part(CommentsFactBox; "Approval Comments FactBox")
             {
