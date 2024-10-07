@@ -199,6 +199,8 @@ codeunit 50089 "Approval Workflows V1"
                     StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::"Pending Approval");
                     StudentLeave.Modify();
                     Variant := StudentLeave;
+                    if not fnCheckApprovalRequirements(Variant) then
+                        Error('Approval requirements are not met. Attach the required documents and try again.');
                     IsHandled := true;
                 end;
             Database::"Postgrad Supervisor Applic.":
@@ -431,6 +433,7 @@ codeunit 50089 "Approval Workflows V1"
         PostgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         Cust: Record "Customer";
         CertApplic: Record "Certificate Application";
+        DocAttachment: Record "Document Attachment";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -444,7 +447,9 @@ codeunit 50089 "Approval Workflows V1"
             Database::"Student Leave":
                 begin
                     RecRef.SetTable(StudentLeave);
-                    if StudentLeave."Approval Status" = StudentLeave."Approval Status"::Open then
+                    if not (StudentLeave."Approval Status" = StudentLeave."Approval Status"::Open) then
+                        exit(false);
+                    if not checkDocumentAttachmentExists(Variant) then
                         exit(false);
                     exit(true);
                 end;
@@ -457,4 +462,25 @@ codeunit 50089 "Approval Workflows V1"
                 end;
         end;
     end;
+
+    procedure checkDocumentAttachmentExists(var Variant: Variant): Boolean
+    var
+        DocAttachment: Record "Document Attachment";
+        RecRef: RecordRef;
+        LeaveRequest: Record "Student Leave";
+    begin
+        RecRef.GetTable(Variant);
+        case RecRef.Number of
+            Database::"Student Leave":
+                begin
+                    RecRef.SetTable(LeaveRequest);
+                    DocAttachment.Reset();
+                    DocAttachment.SetRange("No.", LeaveRequest."Leave No.");
+                    DocAttachment.SetRange("Table ID", Database::"Student Leave");
+                    if DocAttachment.FindFirst() then
+                        exit(true);
+                end;
+        end;
+    end;
+
 }
