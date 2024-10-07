@@ -22,7 +22,8 @@ table 50847 "ACA-Hostel Card"
         }
         field(6; Gender; Option)
         {
-            OptionMembers = Male,Female;
+            OptionCaption = ' ,Male,Female';
+            OptionMembers = " ",Male,Female;
         }
         field(7; Location; Code[20])
         {

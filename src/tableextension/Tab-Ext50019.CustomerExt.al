@@ -113,6 +113,7 @@ tableextension 50019 "Customer Ext" extends Customer
         field(63000; Gender; Option)
         {
             Caption = 'Gender';
+            OptionCaption = ' ,Male,Female';
             OptionMembers = " ",Male,Female;
             DataClassification = CustomerContent;
         }

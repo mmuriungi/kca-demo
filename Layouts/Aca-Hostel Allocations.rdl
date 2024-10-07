@@ -15,20 +15,6 @@
     <ReportSection>
       <Body>
         <ReportItems>
-          <Image Name="Image2">
-            <Source>Embedded</Source>
-            <Value>MasenoUniversityLogo</Value>
-            <Sizing>FitProportional</Sizing>
-            <Top>0.08208in</Top>
-            <Left>0.33208in</Left>
-            <Height>1.1875in</Height>
-            <Width>1.3125in</Width>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Image>
           <Textbox Name="Textbox1">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -36,21 +22,10 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Maseno University</Value>
+                    <Value />
                     <Style>
                       <FontFamily>Cambria</FontFamily>
                       <FontSize>18pt</FontSize>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value EvaluationMode="Auto">
-Private Bag,Maseno, Kenya
-Tel: +254 - 57 - 351620/22
-Fax: +254 - 57 - 351221
-info@maseno.ac.ke</Value>
-                    <Style>
-                      <FontFamily>Cambria</FontFamily>
-                      <FontSize>11pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -64,7 +39,6 @@ info@maseno.ac.ke</Value>
             <Left>2.57167in</Left>
             <Height>1.08333in</Height>
             <Width>4.30208in</Width>
-            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -82,7 +56,7 @@ info@maseno.ac.ke</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Hostels Allocations Report</Value>
+                    <Value>Hostels Allocations Report</Value>
                     <Style>
                       <FontFamily>Cambria</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -100,7 +74,7 @@ info@maseno.ac.ke</Value>
             <Left>0.26958in</Left>
             <Height>0.25in</Height>
             <Width>9.125in</Width>
-            <ZIndex>2</ZIndex>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -149,7 +123,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">#No.</Value>
+                                  <Value>#No.</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -179,7 +153,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Student</Value>
+                                  <Value>Student</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -209,7 +183,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Name</Value>
+                                  <Value>Name</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -239,7 +213,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Hostel</Value>
+                                  <Value>Hostel</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -269,7 +243,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Room</Value>
+                                  <Value>Room</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -299,7 +273,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Space No</Value>
+                                  <Value>Space No</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -329,7 +303,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Semester</Value>
+                                  <Value>Semester</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -364,7 +338,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!seq.Value</Value>
+                                  <Value>=Fields!seq.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -394,7 +368,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!SNo.Value</Value>
+                                  <Value>=Fields!SNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -424,7 +398,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!name.Value</Value>
+                                  <Value>=Fields!name.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -443,7 +417,6 @@ info@maseno.ac.ke</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -455,7 +428,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!HNo.Value</Value>
+                                  <Value>=Fields!HNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -485,7 +458,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!RNo.Value</Value>
+                                  <Value>=Fields!RNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -515,7 +488,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!SpaceNo.Value</Value>
+                                  <Value>=Fields!SpaceNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -545,7 +518,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Sem.Value</Value>
+                                  <Value>=Fields!Sem.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -595,8 +568,8 @@ info@maseno.ac.ke</Value>
             <Top>1.55083in</Top>
             <Left>0.26958in</Left>
             <Height>0.5in</Height>
-            <Width>9.55078in</Width>
-            <ZIndex>3</ZIndex>
+            <Width>9.55077in</Width>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
