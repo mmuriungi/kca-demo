@@ -22,6 +22,10 @@ table 50166 "Student Leave"
         field(4; "Start Date"; Date)
         {
             Caption = 'Start Date';
+            trigger OnValidate()
+            begin
+                AffairsMgmt.calculateLeaveEndDate(Rec);
+            end;
         }
         field(5; "End Date"; Date)
         {
@@ -34,6 +38,7 @@ table 50166 "Student Leave"
         field(7; "Approval Status"; enum "Common Approval Status")
         {
             Caption = 'Approval Status';
+            Editable = false;
             trigger onvalidate()
             begin
                 if "Approval Status" = "Approval Status"::Approved then begin

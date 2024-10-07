@@ -20,7 +20,7 @@ table 50168 "Counseling Session"
         field(3; "Counselor No."; Code[20])
         {
             Caption = 'Counselor No.';
-            TableRelation = "HRM-Employee C"."No." where("Employee Type" = filter('Counselor'));
+            TableRelation = "HRM-Employee C"."No." where("Is Counsellor" = const(true));
             trigger OnValidate()
             var
                 Emp: Record "HRM-Employee C";
