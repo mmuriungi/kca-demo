@@ -2,6 +2,9 @@ table 50168 "Counseling Session"
 {
     Caption = 'Counseling Session';
     DataClassification = ToBeClassified;
+    DrillDownPageId = "Counseling Session List";
+    LookupPageId = "Counseling Session List";
+
 
     fields
     {
@@ -17,7 +20,14 @@ table 50168 "Counseling Session"
         field(3; "Counselor No."; Code[20])
         {
             Caption = 'Counselor No.';
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C"."No." where("Employee Type" = filter('Counselor'));
+            trigger OnValidate()
+            var
+                Emp: Record "HRM-Employee C";
+            begin
+                emp.GET("Counselor No.");
+                Rec."Counsellor Name" := Emp.FullName();
+            end;
         }
         field(4; "Session Date"; Date)
         {
@@ -41,6 +51,11 @@ table 50168 "Counseling Session"
             Caption = 'No. Series';
             TableRelation = "No. Series";
         }
+        //Counsellor Name
+        field(9; "Counsellor Name"; Text[250])
+        {
+            Caption = 'Counsellor Name';
+        }
     }
 
     keys
@@ -60,4 +75,5 @@ table 50168 "Counseling Session"
     var
         NoseriesMgmt: Codeunit "NoSeriesManagement";
         ClubSetup: Record "Student Welfare Setup";
+        Emp: Record "HRM-Employee C";
 }

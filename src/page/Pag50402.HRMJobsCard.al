@@ -136,6 +136,10 @@ page 50402 "HRM-Jobs Card"
                 {
                     ApplicationArea = all;
                 }
+                field("Job Category"; Rec."Job Category")
+                {
+                    ApplicationArea = all;
+                }
             }
         }
         area(factboxes)
