@@ -71,6 +71,10 @@ table 50166 "Student Leave"
         field(12; "No of Days"; Decimal)
         {
             Caption = 'No of Days';
+            trigger OnValidate()
+            begin
+                AffairsMgmt.calculateLeaveEndDate(Rec);
+            end;
         }
         field(13; "Return Date"; Date)
         {
