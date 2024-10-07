@@ -119,7 +119,7 @@ codeunit 50094 staffportals
         fleetRequisition: Record "FLT-Transport Requisition";
         stdClearance: Record "Student Clerance";
     // Staff Portal Functions
-    procedure GetDepartmentGraduationClearance(hod:Code[20]) msg:Text
+    procedure GetDepartmentGraduationClearance(hod: Code[20]) msg: Text
     begin
         EmployeeCard.Reset;
         EmployeeCard.SetRange("No.", hod);
@@ -128,17 +128,18 @@ codeunit 50094 staffportals
             stdClearance.SetRange("Department Code", EmployeeCard."Department Code");
             stdClearance.SetRange("Department Cleared", false);
             stdClearance.SetCurrentKey("Student No");
-            if stdClearance.Find('-')then begin
+            if stdClearance.Find('-') then begin
                 repeat
-                stdClearance.SETRANGE("Student No", stdClearance."Student No");
-                stdClearance.FIND('+');
-                stdClearance.SETRANGE("Student No");
-                msg += stdClearance."Clearance No"+'::'+stdClearance."Student No"+'::'+stdClearance."Student Name "+':::';
+                    stdClearance.SETRANGE("Student No", stdClearance."Student No");
+                    stdClearance.FIND('+');
+                    stdClearance.SETRANGE("Student No");
+                    msg += stdClearance."Clearance No" + '::' + stdClearance."Student No" + '::' + stdClearance."Student Name " + ':::';
                 until stdClearance.Next = 0;
             end;
         end;
     end;
-    procedure GetSchoolGraduationClearance(hod:Code[20]) msg:Text
+
+    procedure GetSchoolGraduationClearance(hod: Code[20]) msg: Text
     begin
         EmployeeCard.Reset;
         EmployeeCard.SetRange("No.", hod);
@@ -147,38 +148,41 @@ codeunit 50094 staffportals
             stdClearance.SetRange(School, EmployeeCard."Faculty Code");
             stdClearance.SetRange("School Cleared", false);
             stdClearance.SetCurrentKey("Student No");
-            if stdClearance.Find('-')then begin
+            if stdClearance.Find('-') then begin
                 repeat
-                stdClearance.SETRANGE("Student No", stdClearance."Student No");
-                stdClearance.FIND('+');
-                stdClearance.SETRANGE("Student No");
-                msg += stdClearance."Clearance No"+'::'+stdClearance."Student No"+'::'+stdClearance."Student Name "+':::';
+                    stdClearance.SETRANGE("Student No", stdClearance."Student No");
+                    stdClearance.FIND('+');
+                    stdClearance.SETRANGE("Student No");
+                    msg += stdClearance."Clearance No" + '::' + stdClearance."Student No" + '::' + stdClearance."Student Name " + ':::';
                 until stdClearance.Next = 0;
             end;
         end;
     end;
-    procedure ClearDepartmentGraduation(clrNo:Code[20]; staffno:code[20])cleared:Boolean
+
+    procedure ClearDepartmentGraduation(clrNo: Code[20]; staffno: code[20]) cleared: Boolean
     begin
         stdClearance.Reset;
         stdClearance.SetRange("Clearance No", clrNo);
-        if stdClearance.Find('-')then begin
+        if stdClearance.Find('-') then begin
             stdClearance."Department Cleared" := true;
             stdClearance."Department Cleared Name" := GetFullNames(staffno);
             stdClearance.Modify;
             cleared := true;
         end;
     end;
-    procedure ClearSchoolGraduation(clrNo:Code[20]; staffno:code[20])cleared:Boolean
+
+    procedure ClearSchoolGraduation(clrNo: Code[20]; staffno: code[20]) cleared: Boolean
     begin
         stdClearance.Reset;
         stdClearance.SetRange("Clearance No", clrNo);
-        if stdClearance.Find('-')then begin
+        if stdClearance.Find('-') then begin
             stdClearance."School Cleared" := true;
             stdClearance."School Cleared Name" := GetFullNames(staffno);
             stdClearance.Modify;
             cleared := true;
         end;
     end;
+
     procedure TransportRequisition(empNo: Code[20]; destination: Text; tripdate: Date; timeout: Time; duration: Text; passengers: Integer; purpose: Text) msg: Text
     var
         NxtReqNo: Code[20];
@@ -1428,7 +1432,7 @@ codeunit 50094 staffportals
             RecAccountusers."Marital Status" := MaritalStatus;
             RecAccountusers."Ethnic Group" := EthnicOrigin;
             RecAccountusers.Disabled := Disabledz;
-            RecAccountusers."Desability Details" := DesabilityDetails;
+            RecAccountusers."Disability Details" := DesabilityDetails;
             RecAccountusers."PWD Number" := PwdNumber;
             RecAccountusers."Date of Birth" := DoB;
             //RecAccountusers."Driving License" := DrivingLicense;
@@ -1495,7 +1499,7 @@ codeunit 50094 staffportals
                 Mstatus := RecAccountusers."Marital Status";
                 Eorigin := RecAccountusers."Ethnic Origin";
                 Disabled := Format(RecAccountusers.Disabled);
-                dDetails := RecAccountusers."Desability Details";
+                dDetails := RecAccountusers."Disability Details";
                 DOB := RecAccountusers."Date of Birth";
                 // //          Dlicense:=RecAccountusers."Driving License";		
                 KRA := RecAccountusers."KRA PIN Number";
@@ -1556,7 +1560,7 @@ codeunit 50094 staffportals
                 JobApplications."Second Language (R/W/S)" := RecAccountusers."2nd Language";
                 JobApplications."Additional Language" := RecAccountusers."Additional Language";
                 JobApplications.Citizenship := RecAccountusers.Citizenship;
-                JobApplications."Disabling Details" := RecAccountusers."Desability Details";
+                JobApplications."Disabling Details" := RecAccountusers."Disability Details";
                 JobApplications."Passport Number" := RecAccountusers."ID Number";
                 JobApplications."PIN Number" := RecAccountusers."KRA PIN Number";
                 JobApplications."Job Applied For" := JobID;
@@ -1955,7 +1959,7 @@ codeunit 50094 staffportals
                 AcaSpecialExamsResults.VALIDATE(Score, Marks);
                 AcaSpecialExamsResults.UserID := LectNo;
                 AcaSpecialExamsResults."Modified Date" := TODAY;
-                AcaSpecialExamsResults.Catogory := AcaSpecialExamsDetails.Catogory;
+                AcaSpecialExamsResults.category := AcaSpecialExamsDetails.category;
                 AcaSpecialExamsResults.MODIFY;
                 ReturnMessage := '1'
             END ELSE BEGIN
@@ -1970,7 +1974,7 @@ codeunit 50094 staffportals
                 AcaSpecialExamsResults."Current Academic Year" := AcaSpecialExamsDetails."Current Academic Year";
                 AcaSpecialExamsResults.UserID := LectNo;
                 AcaSpecialExamsResults."Capture Date" := TODAY;
-                AcaSpecialExamsResults.Catogory := AcaSpecialExamsDetails.Catogory;
+                AcaSpecialExamsResults.category := AcaSpecialExamsDetails.category;
                 AcaSpecialExamsResults.VALIDATE(Score, Marks);
                 AcaSpecialExamsResults.INSERT;
                 AcaSpecialExamsResults.VALIDATE(Unit);
@@ -2366,7 +2370,7 @@ codeunit 50094 staffportals
                 JobApplications."Second Language (R/W/S)" := RecAccountusers."2nd Language";
                 JobApplications."Additional Language" := RecAccountusers."Additional Language";
                 JobApplications.Citizenship := RecAccountusers.Citizenship;
-                JobApplications."Disabling Details" := RecAccountusers."Desability Details";
+                JobApplications."Disabling Details" := RecAccountusers."Disability Details";
                 JobApplications."Passport Number" := RecAccountusers."ID Number";
                 JobApplications."PIN Number" := RecAccountusers."KRA PIN Number";
                 JobApplications."Job Applied For" := JobID;
@@ -2656,7 +2660,7 @@ codeunit 50094 staffportals
             RecAccountusers."Marital Status" := MaritalStatus;
             RecAccountusers."Ethnic Group" := EthnicOrigin;
             RecAccountusers.Disabled := Disabledz;
-            RecAccountusers."Desability Details" := DesabilityDetails;
+            RecAccountusers."Disability Details" := DesabilityDetails;
             RecAccountusers."PWD Number" := PwdNumber;
             RecAccountusers."Date of Birth" := DoB;
             RecAccountusers.Religion := Religion;
@@ -3500,7 +3504,7 @@ codeunit 50094 staffportals
                             StudentUnitBaskets.SetRange("Student No.", unitregapprovals.StudNo);
                             StudentUnitBaskets.SetRange(Semester, GetCurrentSem());
                             if StudentUnitBaskets.Find('-') then begin
-                            msg += unitregapprovals.studNo + '::' + cust.Name + '::' + unitregapprovals."Programme Description" + '::' + unitregapprovals.Stage + ':::';
+                                msg += unitregapprovals.studNo + '::' + cust.Name + '::' + unitregapprovals."Programme Description" + '::' + unitregapprovals.Stage + ':::';
                             end;
                         end;
                     end;
@@ -4024,7 +4028,8 @@ codeunit 50094 staffportals
             exit(Base64.ToBase64(DocInstream));
         end;
     end;
-procedure LeaveAttachement(retNo: Code[50]; fileName: Text; attachment: BigText; tableId: Integer) return_value: Boolean
+
+    procedure LeaveAttachement(retNo: Code[50]; fileName: Text; attachment: BigText; tableId: Integer) return_value: Boolean
     var
         DocAttachment: Record "Document Attachment";
         FromRecRef: RecordRef;
@@ -4069,6 +4074,7 @@ procedure LeaveAttachement(retNo: Code[50]; fileName: Text; attachment: BigText;
             Error('File not uploaded. No table filter found');
 
     end;
+
     var
         days: Record "TT-Days";
         timeslots: Record "TT-Daily Lessons";
