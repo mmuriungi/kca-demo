@@ -2866,6 +2866,14 @@ Codeunit 61106 webportals
         end
     end;
 
+    procedure GetStudentsDetails(Username: Text) Message: Text
+    begin
+        StudentCard.Reset;
+        StudentCard.SetRange(StudentCard."No.", Username);
+        if StudentCard.Find('-') then begin
+            Message := StudentCard.Name + '::' + Format(StudentCard.Status);
+        end
+    end;
 
     procedure GetStudentFullName(StudentNo: Text) Message: Text
     var
@@ -5917,6 +5925,7 @@ Codeunit 61106 webportals
         Customer.Reset;
         Customer.SetRange(Customer."No.", username);
         Customer.SetRange(Customer."Parent Password", pass);
+        Customer.SetFilter(Customer.Status, '%1|%2|%3', Customer.Status::Current, Customer.Status::Registration, Customer.Status::"New Admission");
         if Customer.Find('-') then begin
             Msg := true;
         end;
