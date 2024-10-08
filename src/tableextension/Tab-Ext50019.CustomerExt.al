@@ -1308,8 +1308,12 @@ tableextension 50019 "Customer Ext" extends Customer
         field(63213; "Supervisor Name"; Text[50])
         {
         }
-
-
+        field(63214; "Parent Password"; Text[50])
+        {
+        }
+        field(63215; "Changed Parent Password"; Boolean)
+        {
+        }
         modify("No.")
         {
             Caption = 'No.';
