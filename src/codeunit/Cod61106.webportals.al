@@ -2866,6 +2866,14 @@ Codeunit 61106 webportals
         end
     end;
 
+    procedure GetStudentsDetails(Username: Text) Message: Text
+    begin
+        StudentCard.Reset;
+        StudentCard.SetRange(StudentCard."No.", Username);
+        if StudentCard.Find('-') then begin
+            Message := StudentCard.Name + '::' + Format(StudentCard.Status);
+        end
+    end;
 
     procedure GetStudentFullName(StudentNo: Text) Message: Text
     var
@@ -5889,6 +5897,47 @@ Codeunit 61106 webportals
         end else begin
             Message := TXTIncorrectDetails + '::';
         end
+    end;
+
+    procedure CheckParentPasswordChanged(username: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Msg := Customer."Changed Parent Password";
+        end;
+    end;
+
+    procedure ChangeParentPassword(username: Text; pass: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Customer."Parent Password" := pass;
+            Customer."Changed Parent Password" := true;
+            Customer.Modify;
+            Msg := true;
+        end;
+    end;
+
+    procedure ParentsLogin(username: Text; pass: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        Customer.SetRange(Customer."Parent Password", pass);
+        Customer.SetFilter(Customer.Status, '%1|%2|%3', Customer.Status::Current, Customer.Status::Registration, Customer.Status::"New Admission");
+        if Customer.Find('-') then begin
+            Msg := true;
+        end;
+    end;
+
+    procedure ValidStudentNo(username: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Msg := true;
+        end;
     end;
 
     procedure CheckStudentLoginForUnchangedPass(username: Text; Passwordz: Text) Message: Text
