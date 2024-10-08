@@ -5891,6 +5891,46 @@ Codeunit 61106 webportals
         end
     end;
 
+    procedure CheckParentPasswordChanged(username: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Msg := Customer."Changed Parent Password";
+        end;
+    end;
+
+    procedure ChangeParentPassword(username: Text; pass: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Customer."Parent Password" := pass;
+            Customer."Changed Parent Password" := true;
+            Customer.Modify;
+            Msg := true;
+        end;
+    end;
+
+    procedure ParentsLogin(username: Text; pass: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        Customer.SetRange(Customer."Parent Password", pass);
+        if Customer.Find('-') then begin
+            Msg := true;
+        end;
+    end;
+
+    procedure ValidStudentNo(username: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Msg := true;
+        end;
+    end;
+
     procedure CheckStudentLoginForUnchangedPass(username: Text; Passwordz: Text) Message: Text
     var
         TXTIncorrectDetails: label 'Warning!, login failed! Ensure you login with your Admission Number as both your username as well as password!';
