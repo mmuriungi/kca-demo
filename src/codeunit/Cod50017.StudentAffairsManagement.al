@@ -83,6 +83,7 @@ codeunit 50017 "Student Affairs Management"
     var
     begin
         Leave."End Date" := Leave."Start Date" + Leave."No of Days";
+        Leave."Return Date" := calculateReturnDate(Leave);
         Leave.Modify(true);
         exit(Leave."End Date");
     end;
