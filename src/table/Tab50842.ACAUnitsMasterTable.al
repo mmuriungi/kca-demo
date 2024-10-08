@@ -9,7 +9,7 @@ table 50842 "ACA-Units Master Table"
         field(1; "Unit Code"; Code[20])
         {
         }
-        field(8; "Unit Name"; Text[100])
+        field(8; "Unit Name"; Text[150])
         {
         }
         field(2; "Unit Base Code"; Code[20])

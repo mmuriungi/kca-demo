@@ -23,6 +23,7 @@ page 50297 "Student Leave List"
                 field("Student Name";Rec."Student Name")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Leave Type"; Rec."Leave Type")
                 {
@@ -35,6 +36,7 @@ page 50297 "Student Leave List"
                 field("End Date"; Rec."End Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field(Status; Rec."Approval Status")
                 {

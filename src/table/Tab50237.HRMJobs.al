@@ -214,6 +214,11 @@ table 50237 "HRM-Jobs"
         {
             OptionMembers = " ",Teaching,"Non Teaaching";
         }
+        //Job category
+        field(50008; "Job Category"; enum "Job Category")
+        {
+            
+        }
 
     }
 

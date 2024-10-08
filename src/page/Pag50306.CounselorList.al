@@ -4,7 +4,8 @@ page 50306 "Counselor List"
     Caption = 'Counselor List';
     PageType = List;
     SourceTable = "HRM-Employee C";
-    
+    SourceTableView = where("Is Counsellor" = const(true));
+
     layout
     {
         area(Content)

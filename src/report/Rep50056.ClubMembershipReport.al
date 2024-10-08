@@ -19,10 +19,20 @@ report 50056 "Club Membership Report"
             column(MemberCount; "Member Count")
             {
             }
+            column(CompanyName;CompanyInformation.Name)
+            {
+            }
+            column(CompanyPhone;CompanyInformation."Phone No.")
+            {}
+            column(Logo;CompanyInformation.Picture)
+            {}
             dataitem("Club Member"; "Club Member")
             {
                 DataItemLink = "Club Code" = field(Code);
                 column(StudentNo; "Student No.")
+                {
+                }
+                column(Student_Name;"Student Name")
                 {
                 }
                 column(JoinDate; "Join Date")
@@ -34,7 +44,16 @@ report 50056 "Club Membership Report"
                 column(Position; Position)
                 {
                 }
+
             }
         }
     }
+    trigger OnInitReport()
+    var
+    begin
+        CompanyInformation.Get();
+        CompanyInformation.CalcFields(Picture)
+    end;
+    var
+    CompanyInformation: Record "Company Information";
 }

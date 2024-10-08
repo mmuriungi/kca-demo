@@ -1,7 +1,7 @@
 table 50101 "Expense Code"
 {
-    // DrillDownPageID = "Expense Code";
-    // LookupPageID = "Expense Code";
+    DrillDownPageID = "Expense Code";
+    LookupPageID = "Expense Code";
 
     fields
     {
@@ -12,6 +12,24 @@ table 50101 "Expense Code"
         }
         field(2; Name; Text[30])
         {
+        }
+        field(3; "G/L Account"; Code[20])
+        {
+            TableRelation = "G/L Account"."No.";
+        }
+        field(5; Type; Option)
+        {
+            OptionCaption = ' ,G/L Account,Item,,Fixed Asset,Charge (Item)';
+            OptionMembers = " ","G/L Account",Item,,"Fixed Asset","Charge (Item)";
+        }
+        field(6; "Expense Type"; Option)
+        {
+            OptionCaption = 'Training,Admin';
+            OptionMembers = Training,Admin;
+        }
+        field(7; "Per Diem"; Boolean)
+        {
+            DataClassification = ToBeClassified;
         }
     }
 

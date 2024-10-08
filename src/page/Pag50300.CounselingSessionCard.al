@@ -20,6 +20,11 @@ page 50300 "Counseling Session Card"
                 field("Counselor No."; Rec."Counselor No.")
                 {ApplicationArea = All;
                 }
+                field("Counsellor Name";Rec."Counsellor Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
                 field("Session Date"; Rec."Session Date")
                 {
                     ApplicationArea = All;

@@ -107,7 +107,30 @@ page 50305 "Student Affairs Role Center"
                 action("Leave Requests List")
                 {
                     ApplicationArea = All;
+                    Caption = 'Open Leave Requests';
                     RunObject = Page "Student Leave List";
+                    RunPageView = where("Approval Status" = CONST(Open));
+                }
+                action("Pending Leave Requests")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Pending Leave Requests';
+                    RunObject = Page "Student Leave List";
+                    RunPageView = where("Approval Status" = CONST("Pending Approval"));
+                }
+                action("Approved Leave Requests")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Approved Leave Requests';
+                    RunObject = Page "Student Leave List";
+                    RunPageView = where("Approval Status" = CONST(Approved));
+                }
+                action("Rejected Leave Requests")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Rejected Leave Requests';
+                    RunObject = Page "Student Leave List";
+                    RunPageView = where("Approval Status" = CONST(Rejected));
                 }
             }
             group("Counseling Management")
