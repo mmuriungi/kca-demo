@@ -7,172 +7,160 @@ table 51281 "Online Recruitment users"
     {
         field(1; Initials; Option)
         {
-            Caption = 'Initials';
-            OptionMembers = " ",Mr,Mrs,Ms,Dr,Prof; // Customize as needed
+            DataClassification = ToBeClassified;
+            OptionMembers = Mr,Mrs,Miss;
         }
         field(2; "First Name"; Text[100])
         {
-            Caption = 'First Name';
+            DataClassification = ToBeClassified;
         }
         field(3; "Middle Name"; Text[100])
         {
-            Caption = 'Middle Name';
+            DataClassification = ToBeClassified;
         }
         field(4; "Last Name"; Text[100])
         {
-            Caption = 'Last Name';
+            DataClassification = ToBeClassified;
         }
         field(5; "Postal Address"; Text[100])
         {
-            Caption = 'Postal Address';
+            DataClassification = ToBeClassified;
         }
         field(6; "Postal Code"; Code[30])
         {
-            Caption = 'Postal Code';
+            DataClassification = ToBeClassified;
         }
         field(7; "ID Number"; Text[30])
         {
-            Caption = 'ID Number';
+            DataClassification = ToBeClassified;
         }
         field(8; Gender; Option)
         {
-            Caption = 'Gender';
-            OptionMembers = " ",Male,Female,Other;
+            DataClassification = ToBeClassified;
+            OptionMembers = Male,Female;
         }
         field(9; "Cell Phone Number"; Code[50])
         {
-            Caption = 'Cell Phone Number';
+            DataClassification = ToBeClassified;
         }
         field(10; "Home Phone Number"; Code[50])
         {
-            Caption = 'Home Phone Number';
+            DataClassification = ToBeClassified;
         }
         field(11; "Residential Address"; Text[150])
         {
-            Caption = 'Residential Address';
+            DataClassification = ToBeClassified;
         }
         field(12; Citizenship; Text[100])
         {
-            Caption = 'Citizenship';
+            DataClassification = ToBeClassified;
         }
         field(13; County; Text[50])
         {
-            Caption = 'County';
+            DataClassification = ToBeClassified;
         }
         field(14; "Marital Status"; Option)
         {
-            Caption = 'Marital Status';
-            OptionMembers = " ",Single,Married,Divorced,Widowed;
+            DataClassification = ToBeClassified;
+            OptionMembers = Single,Married,Separated,Divorced,"Widow(er)",Other;
         }
-        field(15; "Ethnic Group"; Text[50])
+        field(15; "Ethnic Origin"; Option)
         {
-            Caption = 'Ethnic Group';
+            DataClassification = ToBeClassified;
+            OptionMembers = African,Indian,White,Coloured;
         }
         field(16; Disabled; Option)
         {
-            Caption = 'Disabled';
-            OptionMembers = " ",Yes,No;
+            OptionMembers = No,Yes," ";
+            DataClassification = ToBeClassified;
         }
         field(17; "Disability Details"; Text[100])
         {
-            Caption = 'Disability Details';
+            DataClassification = ToBeClassified;
         }
         field(18; "Date of Birth"; Date)
         {
-            Caption = 'Date of Birth';
+            DataClassification = ToBeClassified;
         }
         field(19; "Driving License"; Text[50])
         {
-            Caption = 'Driving License';
+            DataClassification = ToBeClassified;
         }
         field(20; "KRA PIN Number"; Text[30])
         {
-            Caption = 'KRA PIN Number';
+            DataClassification = ToBeClassified;
         }
         field(21; "1st Language"; Code[50])
         {
-            Caption = '1st Language';
+            DataClassification = ToBeClassified;
         }
         field(22; "2nd Language"; Code[50])
         {
-            Caption = '2nd Language';
+            DataClassification = ToBeClassified;
         }
         field(23; "Additional Language"; Code[50])
         {
-            Caption = 'Additional Language';
+            DataClassification = ToBeClassified;
         }
         field(24; "Applicant Type"; Option)
         {
-            Caption = 'Applicant Type';
-            OptionMembers = " ",Student,Staff,Other; // Customize as needed
+            DataClassification = ToBeClassified;
+            OptionMembers = External,Internals;
         }
-        field(25; "Email Address"; Text[50])
+        field(25; "Email Address"; Text[150])
         {
-            Caption = 'Email Address';
+            DataClassification = ToBeClassified;
         }
         field(26; Password; Text[50])
         {
-            Caption = 'Password';
+            DataClassification = ToBeClassified;
         }
         field(27; "Created Date"; Date)
         {
-            Caption = 'Created Date';
+            DataClassification = ToBeClassified;
         }
-        field(28; "PWD Number"; Text[50])
+        field(28; "Ethnic Group"; Text[50])
         {
-            Caption = 'PWD Number';
+            DataClassification = ToBeClassified;
         }
-        field(29; "Activation Code"; Code[10])
+        field(29; "PWD Number"; Text[50])
         {
-            Caption = 'Activation Code';
+            DataClassification = ToBeClassified;
         }
-        field(30; Activated; Boolean)
+        field(30; "SessionKey"; Text[100])
         {
-            Caption = 'Activated';
+            DataClassification = ToBeClassified;
         }
-        //Religion,Denomination,"Ethnic Origin"
-        field(31; Religion; Text[50])
+        field(31; "Account Confirmed"; Boolean)
         {
-            Caption = 'Religion';
+            DataClassification = ToBeClassified;
         }
-        field(32; Denomination; Text[50])
+        field(32; "Details Updated"; Boolean)
         {
-            Caption = 'Denomination';
+            DataClassification = ToBeClassified;
         }
-        field(33; "Ethnic Origin"; Option)
+        field(33; "Passport No"; Text[30])
         {
-            OptionMembers = African,Coloured,Indian,White,Other;
+            DataClassification = ToBeClassified;
         }
-        //SessionKey
-        field(34; "SessionKey"; Text[50])
+        field(34; "Religion"; Text[30])
         {
-            Caption = 'Session Key';
+            DataClassification = ToBeClassified;
         }
-        //"Account Confirmed"
-        field(35; "Account Confirmed"; Boolean)
+        field(35; "Denomination"; Text[30])
         {
-            Caption = 'Account Confirmed';
-        }
-        // /"Details Updated"
-        field(36; "Details Updated"; Boolean)
-        {
-            Caption = 'Details Updated';
-        }
-        //"Passport No"
-        field(37; "Passport No"; Text[50])
-        {
-            Caption = 'Passport';
+            DataClassification = ToBeClassified;
         }
     }
 
     keys
     {
-        key(PK; "Email Address", "ID Number")
-        {
-            Clustered = true;
-        }
-        key(EY; "Email Address")
+        key(Key1; "Email Address")
         {
         }
+    }
+
+    fieldgroups
+    {
     }
 }

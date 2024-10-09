@@ -988,7 +988,7 @@ Codeunit 61106 webportals
             RecAccountusers."Applicant Type" := ApplicantType;
             RecAccountusers."Email Address" := EmailAddress;
             RecAccountusers.Password := Passwordz;
-            RecAccountusers."Activation Code" := ActivationCode;
+            RecAccountusers."SessionKey" := ActivationCode;
             RecAccountusers."Created Date" := Today;
             //RecAccountusers.INSERT;
             if RecAccountusers.Insert then begin
@@ -4279,7 +4279,7 @@ Codeunit 61106 webportals
         RecAccountusers.Reset;
         RecAccountusers.SetRange("Email Address", Email);
         if RecAccountusers.Find('-') then begin
-            Message := RecAccountusers.Activated;
+            Message := RecAccountusers."Account Confirmed";
         end;
     end;
 
@@ -4296,9 +4296,9 @@ Codeunit 61106 webportals
     begin
         RecAccountusers.Reset;
         RecAccountusers.SetRange("Email Address", Email);
-        RecAccountusers.SetRange("Activation Code", ActivationCode);
+        RecAccountusers.SetRange("SessionKey", ActivationCode);
         if RecAccountusers.Find('-') then begin
-            RecAccountusers.Activated := true;
+            RecAccountusers."Account Confirmed" := true;
             RecAccountusers.Modify;
             Message := true;
         end;
