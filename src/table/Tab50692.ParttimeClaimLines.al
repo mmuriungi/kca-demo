@@ -229,6 +229,14 @@ table 50692 "Parttime Claim Lines"
         {
 
         }
+        //Exculded
+        field(21; "Excluded"; Boolean)
+        {
+            trigger OnValidate()
+            begin
+
+            end;
+        }
     }
 
     keys
