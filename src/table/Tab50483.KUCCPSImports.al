@@ -605,10 +605,10 @@ table 50483 "KUCCPS Imports"
                         KUCCPSImports.Modify;
                         Report.Run(Report::"Process JAB Admissions", false, false, KUCCPSImports);
                         Commit;
-                        //Send Non-Resident Email
-                        MailBody := 'You have not applied for a hostel allocation. You are therefore adviced to make personal arrangements for accomodation. Find Attached Form.';
-                        RptFileName := 'D:\Non-Resident Form\5b.-Non-Resident-Form (1)' + '.pdf';
-                        SendMail.SendEmailEasy_WithAttachment('Dear ', Names, MailBody, '', 'Karatina University', 'Hostel Manager', Email, ' HOSTEL ALERT TO NON RESIDENT', RptFileName, RptFileName);
+                        //Send Non-Resident Email  TODO
+                        // MailBody := 'You have not applied for a hostel allocation. You are therefore adviced to make personal arrangements for accomodation. Find Attached Form.';
+                        // RptFileName := 'D:\Non-Resident Form\5b.-Non-Resident-Form (1)' + '.pdf';
+                        // SendMail.SendEmailEasy_WithAttachment('Dear ', Names, MailBody, '', 'Karatina University', 'Hostel Manager', Email, ' HOSTEL ALERT TO NON RESIDENT', RptFileName, RptFileName);
                     end;
                     if KUCCPSImports."Assigned Space" <> '' then begin
                         // Create Hostel Charge

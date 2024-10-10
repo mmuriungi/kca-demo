@@ -212,6 +212,17 @@ page 50860 "ACA-General Set-Up"
 
 
             }
+            group(Hostel)
+            {
+                field("Available Accom. Spaces (Male)"; Rec."Available Accom. Spaces (Male)")
+                {
+                    ApplicationArea = All;
+                }
+                field("Available Acc. Spaces(Female)"; Rec."Available Acc. Spaces(Female)")
+                {
+                    ApplicationArea = All;
+                }
+            }
             group("ID Setup")
             {
                 Caption = 'ID Setup';

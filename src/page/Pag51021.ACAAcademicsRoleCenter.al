@@ -8,7 +8,7 @@ page 51021 "ACA-Academics Role Center"
 
     layout
     {
-        area(rolecenter)
+        area(rolecenter) 
         {
             // part("Dashboard Greetings"; "Dashboard Greetings")
 

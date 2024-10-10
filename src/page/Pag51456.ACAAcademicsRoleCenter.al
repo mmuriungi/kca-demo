@@ -157,6 +157,13 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Page "ACA-Lecturer List";
                         ApplicationArea = All;
                     }
+                    action("Lecturer Halls")
+                    {
+
+                        Image = FixedAssets;
+                        RunObject = Page "ACA-LectureHalls Setup";
+                        ApplicationArea = All;
+                    }
                     action("ImportUnits")
                     {
                         Caption = 'Import Units';
