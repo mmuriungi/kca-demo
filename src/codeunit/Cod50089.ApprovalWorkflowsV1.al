@@ -24,6 +24,7 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelCertApplicRequestTxt: Label 'An Approval request for Certificate Application is Cancelled';
         RunWorkflowOnSendCertApplicForApprovalCode: Label 'RUNWORKFLOWONSENDCERTAPPLICFORAPPROVAL';
         RunWorkflowOnCanceCertApplicForApprovalCode: Label 'RUNWORKFLOWONCANCECERTAPPLICFORAPPROVAL';
+        //Employee Requisition
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
     var
