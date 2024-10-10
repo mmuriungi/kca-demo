@@ -59,7 +59,7 @@ table 50691 "Parttime Claim Header"
         field(7; "Payment Amount"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = Sum("Parttime Claim Lines".Amount WHERE("Document No." = FIELD("No.")));
+            CalcFormula = Sum("Parttime Claim Lines".Amount WHERE("Document No." = FIELD("No."), Excluded = const(false)));
             Description = 'Stores the amount of the payment voucher';
             Editable = false;
         }
@@ -184,6 +184,15 @@ table 50691 "Parttime Claim Header"
         field(50; "No. Series"; Code[20])
         {
             Description = 'Stores the number series in the database';
+        }
+        field(51; "Shortcut Dimension 3 Code"; Code[30])
+        {
+            CaptionClass = '1,2,3';
+            Caption = 'Shortcut Dimension 3 Code';
+            Description = 'Stores the reference of the second Shortcut dimension in the database';
+            NotBlank = false;
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
+
         }
     }
 

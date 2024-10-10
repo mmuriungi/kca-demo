@@ -204,8 +204,11 @@ page 50971 "Parttime Claims Header"
                 Image = PostBatch;
 
                 trigger OnAction()
+                var
+                ParttimerMgmt: Codeunit "PartTimer Management";
                 begin
-                    Rec.PostClaim();
+                    ParttimerMgmt.createPaymentVoucher(Rec);
+                   // Rec.PostClaim();
                 end;
             }
         }

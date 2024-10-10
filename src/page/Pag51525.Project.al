@@ -28,14 +28,22 @@ page 51525 Project
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Project Type field.';
                 }
-                field("Project Description"; Rec."Contract Summary")
+                field("Project Description"; Rec."Project Description")
                 {
                     caption = 'project Description';
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Project Description field.';
+                    MultiLine = true;
+                    Width = 4500;
+
+                }
+                field("Contract Summary"; Rec."Contract Summary")
+                {
+                    caption = 'Contract Summary';
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Contract Summary field.';
                     MultiLine = true;
                     Width = 4500;
-
                 }
                 field(user; rec.user)
                 {
@@ -53,6 +61,11 @@ page 51525 Project
                     Visible = rec.Status = rec.Status::Approved;
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Start Date field.';
+                }
+                field("Project Bond"; Rec."Project Bond")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Project Bond field.';
                 }
                 field("Expected End Date"; Rec."Expected End Date")
                 {
@@ -83,6 +96,7 @@ page 51525 Project
             }
             group("Project Supervisor")
             {
+                Caption = 'Clerk of Works';
                 Visible = rec.Status = rec.Status::Approved;
 
                 field(Requester; rec.Requester)
@@ -117,9 +131,19 @@ page 51525 Project
             part("Assigned Staff"; "Assigned staffs list")
             {
                 ApplicationArea = basic, suit;
+                Caption = 'Project Consultants';
                 SubPageLink = no = field("No.");
-                Editable = rec.Status = rec.Status::Approved;
-                Visible = rec.Status = rec.Status::Approved;
+                // Editable = rec.Status = rec.Status::Approved;
+                // Visible = rec.Status = rec.Status::Approved;
+
+            }
+            part("Project Contractor"; "Project Contractor")
+            {
+                ApplicationArea = basic, suit;
+                Caption = 'Project Contractor';
+                SubPageLink = "Project No" = field("No.");
+                // Editable = rec.Status = rec.Status::Approved;
+                // Visible = rec.Status = rec.Status::Approved;
 
             }
             part("Monthly Report"; "Project Report list")
@@ -136,6 +160,7 @@ page 51525 Project
     {
         area(processing)
         {
+            //TODO Send Reports
             action(Attachments)
             {
                 caption = 'Project Design template';
@@ -250,6 +275,16 @@ page 51525 Project
                 begin
                     ApprovalsMgmt.OnCancelMaintenanceRequestForApproval(Rec);
                 end;
+            }
+            action(Milestone)
+            {
+                Image = Task;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                RunObject = Page "Project Milestones";
+                RunPageLink = "Project No" = FIELD("No.");
+                //  Visible = IsApproved or ActionExtended;
             }
         }
 

@@ -10,14 +10,21 @@ page 51593 "Assigned staffs list"
         {
             repeater(General)
             {
+                field("Consultant Type"; Rec."Consultant Type")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Consultant Type';
+                }
                 field("Staff Number"; Rec."Staff Number")
                 {
                     ApplicationArea = All;
+                    Caption = 'Consultant Number';
                     ToolTip = 'Specifies the value of the Staff Number field.', Comment = '%';
                 }
                 field("staff name"; Rec."staff name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Consultant Name';
                     ToolTip = 'Specifies the value of the staff name field.', Comment = '%';
                 }
                 field("staff email"; Rec."staff email")

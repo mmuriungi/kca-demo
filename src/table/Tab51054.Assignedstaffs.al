@@ -12,14 +12,23 @@ table 51054 "Assigned staffs"
         field(1; "Staff Number"; Code[40])
         {
             Caption = 'Staff Number';
-            TableRelation = "HRM-Employee C"."No.";
-
+            TableRelation = if ("Consultant Type" = filter(Vendor)) Vendor."No." else
+            "HRM-Employee C"."No.";
             trigger OnValidate()
             var
                 hr: Record "HRM-Employee C";
                 fullname: Text[100];
-
+                Vendor: Record Vendor;
             begin
+                if "Consultant Type" = "Consultant Type"::Vendor then begin
+                    Vendor.Reset;
+                    Vendor.SetRange(Vendor."No.", "Staff Number");
+                    if Vendor.FindFirst then begin
+                        rec."staff name" := Vendor.Name;
+                        rec."staff email" := Vendor."E-Mail";
+                        rec."phone Number" := Vendor."Phone No.";
+                    end;
+                end;
                 hr.Reset;
                 hr.SetRange(hr."No.", "Staff Number");
                 IF hr.FindFirst then begin
@@ -59,6 +68,11 @@ table 51054 "Assigned staffs"
         field(5; comment; Text[60])
         {
             Caption = 'comment';
+        }
+        //Consultant type
+        field(7; "Consultant Type"; Option)
+        {
+            OptionMembers = " ",Staff,Vendor;
         }
     }
     keys

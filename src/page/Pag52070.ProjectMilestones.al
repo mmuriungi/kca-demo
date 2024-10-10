@@ -1,9 +1,10 @@
-page 52030 "Project Tasks"
+page 52070 "Project Milestones"
 {
-    Caption = 'Contract Milestones';
-    CardPageID = "Project Tasks Card";
-    PageType = List; 
-    SourceTable = "Project Tasks";
+    ApplicationArea = All;
+    Caption = 'Project Milestones';
+    PageType = List;
+    SourceTable = "Project Milestone";
+    CardPageID = "Project Milestone Card";
 
     layout
     {

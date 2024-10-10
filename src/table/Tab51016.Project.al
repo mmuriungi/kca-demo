@@ -22,7 +22,7 @@ table 51016 Project
         {
             Caption = 'Project Type';
         }
-        field(4; "Contract Summary"; Text[1000])
+        field(4; "Contract Summary"; Text[2048])
         {
             Caption = 'Contract Summary';
         }
@@ -117,6 +117,22 @@ table 51016 Project
         {
             DataClassification = ToBeClassified;
         }
+        field(16; "Project Description"; Text[1000])
+        {
+            DataClassification = ToBeClassified;
+        }
+        //Start Date, Project Bond, End date
+        field(20; "Project Bond"; DateFormula)
+        {
+            DataClassification = ToBeClassified;
+            trigger OnValidate()
+            begin
+                TestField("Start Date");
+                "Expected End Date" := CalcDate("Project Bond", "Start Date")
+            end;
+        }
+
+
     }
     keys
     {
