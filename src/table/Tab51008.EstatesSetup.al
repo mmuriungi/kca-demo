@@ -48,6 +48,16 @@ table 51008 "Estates Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+        //Project task nos
+        field(9; "Project Task Nos"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+            trigger OnValidate()
+            begin
+
+            end;
+        }
     }
     keys
     {
