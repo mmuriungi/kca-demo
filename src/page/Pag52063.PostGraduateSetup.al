@@ -2,19 +2,13 @@ page 52063 "PostGraduate Setup"
 {
     ApplicationArea = All;
     Caption = 'PostGraduate Setup';
-    PageType = List;
+    PageType = Card;
     SourceTable = "PostGraduate Setup";
     
     layout
     {
         area(Content)
         {
-            repeater(General)
-            {
-                field(Pk; Rec.Pk)
-                {
-                    ToolTip = 'Specifies the value of the Pk field.', Comment = '%';
-                }
                 field("Min. Supervisor Applic Fees"; Rec."Min. Supervisor Applic Fees")
                 {
                     ToolTip = 'Specifies the value of the Min. Supervisor Applic Fees field.', Comment = '%';
@@ -31,7 +25,7 @@ page 52063 "PostGraduate Setup"
                 {
                     ToolTip = 'Specifies the value of the Supervisor Assignment Nos. field.', Comment = '%';
                 }
-            }
+           
         }
     }
 }

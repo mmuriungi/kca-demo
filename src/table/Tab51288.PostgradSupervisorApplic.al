@@ -64,14 +64,17 @@ table 51288 "Postgrad Supervisor Applic."
     }
 
     trigger OnInsert()
-    begin
-        Setup.GET;
-        setup.TestField("Supervisor Assignment Nos.");
-        NoSeries.InitSeries(setup."Supervisor Assignment Nos.", xRec."No. Series", 0D, Rec."No.", xRec."No. Series");
-        "Application Date" := today;
-    end;
-
     var
         NoSeries: Codeunit NoSeriesManagement;
         Setup: Record "PostGraduate Setup";
+    begin
+        if "No." = '' then begin
+        Setup.Get();
+        setup.TestField("Supervisor Assignment Nos.");
+        NoSeries.InitSeries(setup."Supervisor Assignment Nos.", xRec."No. Series", 0D, Rec."No.", xRec."No. Series");
+        "Application Date" := today;
+        end
+    end;
+
+    
 }

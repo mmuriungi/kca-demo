@@ -188,6 +188,7 @@ Codeunit 61106 webportals
         StudentDocs: Record "ACA-New Stud. Documents";
         GradesTable: Record "ACA-Applic. Setup Grade";
         PostGradHandler: Codeunit "PostGraduate Handler";
+        acacentalsetup: Record "ACA-Academics Central Setups";
 
 
     procedure ConfirmSupUnit(StdNo: Code[20]; unit: Code[20]) Message: Text
@@ -987,7 +988,7 @@ Codeunit 61106 webportals
             RecAccountusers."Applicant Type" := ApplicantType;
             RecAccountusers."Email Address" := EmailAddress;
             RecAccountusers.Password := Passwordz;
-            RecAccountusers."Activation Code" := ActivationCode;
+            RecAccountusers."SessionKey" := ActivationCode;
             RecAccountusers."Created Date" := Today;
             //RecAccountusers.INSERT;
             if RecAccountusers.Insert then begin
@@ -1929,10 +1930,10 @@ Codeunit 61106 webportals
 
         ////////////////////
 
-        ACALecturersEvaluation.Reset;
-        ACALecturersEvaluation.SetRange("Student No", StudentNo);
-        ACALecturersEvaluation.SetRange(Semester, Sem);
-        if not ACALecturersEvaluation.Find('-') then Error('Please do your lecturer evaluation before downloading the Card....2');
+        //ACALecturersEvaluation.Reset;
+        //ACALecturersEvaluation.SetRange("Student No", StudentNo);
+        //ACALecturersEvaluation.SetRange(Semester, Sem);
+        //if not ACALecturersEvaluation.Find('-') then Error('Please do your lecturer evaluation before downloading the Card....2');
 
 
 
@@ -2866,6 +2867,14 @@ Codeunit 61106 webportals
         end
     end;
 
+    procedure GetStudentsDetails(Username: Text) Message: Text
+    begin
+        StudentCard.Reset;
+        StudentCard.SetRange(StudentCard."No.", Username);
+        if StudentCard.Find('-') then begin
+            Message := StudentCard.Name + '::' + Format(StudentCard.Status);
+        end
+    end;
 
     procedure GetStudentFullName(StudentNo: Text) Message: Text
     var
@@ -4270,7 +4279,7 @@ Codeunit 61106 webportals
         RecAccountusers.Reset;
         RecAccountusers.SetRange("Email Address", Email);
         if RecAccountusers.Find('-') then begin
-            Message := RecAccountusers.Activated;
+            Message := RecAccountusers."Account Confirmed";
         end;
     end;
 
@@ -4287,9 +4296,9 @@ Codeunit 61106 webportals
     begin
         RecAccountusers.Reset;
         RecAccountusers.SetRange("Email Address", Email);
-        RecAccountusers.SetRange("Activation Code", ActivationCode);
+        RecAccountusers.SetRange("SessionKey", ActivationCode);
         if RecAccountusers.Find('-') then begin
-            RecAccountusers.Activated := true;
+            RecAccountusers."Account Confirmed" := true;
             RecAccountusers.Modify;
             Message := true;
         end;
@@ -5889,6 +5898,47 @@ Codeunit 61106 webportals
         end else begin
             Message := TXTIncorrectDetails + '::';
         end
+    end;
+
+    procedure CheckParentPasswordChanged(username: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Msg := Customer."Changed Parent Password";
+        end;
+    end;
+
+    procedure ChangeParentPassword(username: Text; pass: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Customer."Parent Password" := pass;
+            Customer."Changed Parent Password" := true;
+            Customer.Modify;
+            Msg := true;
+        end;
+    end;
+
+    procedure ParentsLogin(username: Text; pass: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        Customer.SetRange(Customer."Parent Password", pass);
+        Customer.SetFilter(Customer.Status, '%1|%2|%3', Customer.Status::Current, Customer.Status::Registration, Customer.Status::"New Admission");
+        if Customer.Find('-') then begin
+            Msg := true;
+        end;
+    end;
+
+    procedure ValidStudentNo(username: Text) Msg: Boolean
+    begin
+        Customer.Reset;
+        Customer.SetRange(Customer."No.", username);
+        if Customer.Find('-') then begin
+            Msg := true;
+        end;
     end;
 
     procedure CheckStudentLoginForUnchangedPass(username: Text; Passwordz: Text) Message: Text

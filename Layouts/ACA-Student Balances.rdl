@@ -62,7 +62,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">#</Value>
+                                  <Value>#</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -93,7 +93,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Reg No.</Value>
+                                  <Value>Reg No.</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -122,7 +122,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Name</Value>
+                                  <Value>Name</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -151,7 +151,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Stage</Value>
+                                  <Value>Stage</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -178,7 +178,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Settlement</Value>
+                                  <Value>Settlement</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -205,7 +205,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Debit</Value>
+                                  <Value>Debit</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -234,7 +234,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Credit</Value>
+                                  <Value>Credit</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -263,7 +263,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Balance</Value>
+                                  <Value>Balance</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -292,7 +292,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Status</Value>
+                                  <Value>Status</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -321,7 +321,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Programme</Value>
+                                  <Value>Programme</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -355,7 +355,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!NCount.Value</Value>
+                                  <Value>=Fields!NCount.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -385,7 +385,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Customer__No__.Value</Value>
+                                  <Value>=Fields!Customer__No__.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -414,7 +414,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Customer_Name.Value</Value>
+                                  <Value>=Fields!Customer_Name.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -443,7 +443,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Course_Registration__Stage.Value</Value>
+                                  <Value>=Fields!Course_Registration__Stage.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -471,7 +471,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Settlemnt.Value</Value>
+                                  <Value>=Fields!Settlemnt.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -499,7 +499,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Customer__Debit_Amount__LCY__.Value</Value>
+                                  <Value>=Fields!Customer__Debit_Amount__LCY__.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                     <Format>=Fields!Customer__Debit_Amount__LCY__Format.Value</Format>
@@ -527,7 +527,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Customer__Credit_Amount__LCY__.Value</Value>
+                                  <Value>=Fields!Customer__Credit_Amount__LCY__.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                     <Format>=Fields!Customer__Credit_Amount__LCY__Format.Value</Format>
@@ -555,7 +555,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Customer__Balance__LCY__.Value</Value>
+                                  <Value>=Fields!Customer__Balance__LCY__.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                     <Format>=Fields!Customer__Balance__LCY__Format.Value</Format>
@@ -584,7 +584,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Studentstatus.Value</Value>
+                                  <Value>=Fields!Studentstatus.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -615,7 +615,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Programme_Code.Value</Value>
+                                  <Value>=Fields!Programme_Code.Value</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -651,7 +651,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -679,7 +679,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -704,7 +704,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -729,7 +729,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -755,7 +755,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -784,7 +784,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!Customer__Debit_Amount__LCY__.Value)</Value>
+                                  <Value>=Sum(Fields!Customer__Debit_Amount__LCY__.Value)</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -813,7 +813,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!Customer__Credit_Amount__LCY__.Value)</Value>
+                                  <Value>=Sum(Fields!Customer__Credit_Amount__LCY__.Value)</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -842,7 +842,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!Customer__Balance__LCY__.Value)</Value>
+                                  <Value>=Sum(Fields!Customer__Balance__LCY__.Value)</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -872,7 +872,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -902,7 +902,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -991,7 +991,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">STUDENT BALANCES</Value>
+                      <Value>STUDENT BALANCES</Value>
                       <Style>
                         <FontFamily>Book Antiqua</FontFamily>
                         <FontSize>12pt</FontSize>
@@ -1026,7 +1026,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">MASENO UNIVERSITY</Value>
+                      <Value>=First(Fields!COMPANYNAME.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontFamily>Book Antiqua</FontFamily>
                         <FontSize>16pt</FontSize>
@@ -1055,21 +1055,6 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Image Name="Logo">
-              <Source>Embedded</Source>
-              <Value>logo</Value>
-              <Sizing>FitProportional</Sizing>
-              <Top>0.5694cm</Top>
-              <Left>8.86229cm</Left>
-              <Height>2.24965cm</Height>
-              <Width>2.27611cm</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-              </Style>
-            </Image>
           </ReportItems>
           <Style>
             <Border>
