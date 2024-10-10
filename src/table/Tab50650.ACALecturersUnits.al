@@ -72,6 +72,7 @@ table 50650 "ACA-Lecturers Units"
             begin
                 "Unit Cost" := "No. Of Hours" * Rate;
                 "Claimed Amount" := "No. Of Hours" * Rate;
+                Amount := "No. Of Hours" * Rate;
             end;
         }
         field(8; "No. Of Hours Contracted"; Decimal)
@@ -130,6 +131,7 @@ table 50650 "ACA-Lecturers Units"
             begin
                 "Unit Cost" := "No. Of Hours" * Rate;
                 "Claimed Amount" := "No. Of Hours" * Rate;
+                Amount := "No. Of Hours" * Rate;
             end;
         }
         field(19; "Credit hours"; Decimal)

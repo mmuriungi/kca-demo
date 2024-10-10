@@ -2290,6 +2290,22 @@ table 50213 "HRM-Employee C"
             FieldClass = FlowField;
             CalcFormula = exist("HRM-Jobs" where("Job ID" = field("Job Title"), "Job Category" = const(Counselor)));
         }
+        //Vendor No., Vendor Name
+        field(60095; "Vendor No."; Code[20])
+        {
+            TableRelation = Vendor;
+            trigger OnValidate()
+            var
+                vendor: Record Vendor;
+            begin
+                if vendor.Get("Vendor No.") then
+                    "Vendor Name" := vendor.Name;
+            end;
+        }
+        field(60096; "Vendor Name"; Text[150])
+        {
+
+        }
     }
 
     keys
