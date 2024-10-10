@@ -2,7 +2,7 @@ page 52030 "Project Tasks"
 {
     Caption = 'Contract Milestones';
     CardPageID = "Project Tasks Card";
-    PageType = List;
+    PageType = List; 
     SourceTable = "Project Tasks";
 
     layout
