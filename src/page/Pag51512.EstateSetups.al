@@ -31,6 +31,10 @@ page 51512 "Estate Setups"
                 {
                     ApplicationArea = Basic, Suite;
                 }
+                field("Project Task Nos"; Rec."Project Task Nos")
+                {
+                    ApplicationArea = Basic, Suite;
+                }
             }
             group("Maintenance Schedule Subject")
             {

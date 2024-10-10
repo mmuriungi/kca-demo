@@ -128,7 +128,6 @@ codeunit 50034 IntCodeunit
     var
 
         Leave: Record "HRM-Leave Requisition";
-        RecruitReqs: Record "HRM-Employee Requisitions";
         PrlApproval: Record "Prl-Approval";
     begin
         case
@@ -138,11 +137,6 @@ codeunit 50034 IntCodeunit
                     RecRef.SetTable(Leave);
                     ApprovalEntryArgument."Document No." := Leave."No.";
                     ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::"Leave Application";
-                end;
-            Database::"HRM-Employee Requisitions":
-                begin
-                    RecRef.SetTable(RecruitReqs);
-                    ApprovalEntryArgument."Document No." := RecruitReqs."Requisition No.";
                 end;
             Database::"Prl-Approval":
                 begin
@@ -154,39 +148,5 @@ codeunit 50034 IntCodeunit
         end;
     end;
     //////////////////************************End Populate  Approval Entry**********************////////////////////////
-    /// 
-    /// 
-
-
-    //"Recruitment Requisition"
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnSendRecruitReqsforApproval(VAR RecruitReqs: Record "HRM-Employee Requisitions");
-    begin
-    end;
-
-    procedure IsRecruitReqsEnabled(var RecruitReqs: Record "HRM-Employee Requisitions"): Boolean
-    var
-        WFMngt: Codeunit "Workflow Management";
-        WFCode: Codeunit "Work Flow Code";
-    begin
-        exit(WFMngt.CanExecuteWorkflow(RecruitReqs, WFCode.RunWorkflowOnSendRecruitReqsApprovalCode()))
-    end;
-
-    local procedure CheckRecruitReqsWorkflowEnabled(): Boolean
-    var
-        RecruitReqs: Record "HRM-Employee Requisitions";
-        NoWorkflowEnb: TextConst ENU = 'No workflow Enabled for this Record type', ENG = 'No workflow Enabled for this Record type';
-
-    begin
-        if not IsRecruitReqsEnabled(RecruitReqs) then
-            Error(NoWorkflowEnb);
-    end;
-    //Cancel "Recruitment Requisition"
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnCancelRecruitReqsforApproval(VAR RecruitReqs: Record "HRM-Employee Requisitions");
-    begin
-    end;
-    //End Cancel "Recruitment Requisition"
-
 
 }
