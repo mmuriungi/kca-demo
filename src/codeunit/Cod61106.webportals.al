@@ -188,6 +188,7 @@ Codeunit 61106 webportals
         StudentDocs: Record "ACA-New Stud. Documents";
         GradesTable: Record "ACA-Applic. Setup Grade";
         PostGradHandler: Codeunit "PostGraduate Handler";
+        acacentalsetup: Record "ACA-Academics Central Setups";
 
 
     procedure ConfirmSupUnit(StdNo: Code[20]; unit: Code[20]) Message: Text
@@ -987,7 +988,7 @@ Codeunit 61106 webportals
             RecAccountusers."Applicant Type" := ApplicantType;
             RecAccountusers."Email Address" := EmailAddress;
             RecAccountusers.Password := Passwordz;
-            RecAccountusers."Activation Code" := ActivationCode;
+            RecAccountusers."SessionKey" := ActivationCode;
             RecAccountusers."Created Date" := Today;
             //RecAccountusers.INSERT;
             if RecAccountusers.Insert then begin
@@ -1929,10 +1930,10 @@ Codeunit 61106 webportals
 
         ////////////////////
 
-        ACALecturersEvaluation.Reset;
-        ACALecturersEvaluation.SetRange("Student No", StudentNo);
-        ACALecturersEvaluation.SetRange(Semester, Sem);
-        if not ACALecturersEvaluation.Find('-') then Error('Please do your lecturer evaluation before downloading the Card....2');
+        //ACALecturersEvaluation.Reset;
+        //ACALecturersEvaluation.SetRange("Student No", StudentNo);
+        //ACALecturersEvaluation.SetRange(Semester, Sem);
+        //if not ACALecturersEvaluation.Find('-') then Error('Please do your lecturer evaluation before downloading the Card....2');
 
 
 
@@ -4278,7 +4279,7 @@ Codeunit 61106 webportals
         RecAccountusers.Reset;
         RecAccountusers.SetRange("Email Address", Email);
         if RecAccountusers.Find('-') then begin
-            Message := RecAccountusers.Activated;
+            Message := RecAccountusers."Account Confirmed";
         end;
     end;
 
@@ -4295,9 +4296,9 @@ Codeunit 61106 webportals
     begin
         RecAccountusers.Reset;
         RecAccountusers.SetRange("Email Address", Email);
-        RecAccountusers.SetRange("Activation Code", ActivationCode);
+        RecAccountusers.SetRange("SessionKey", ActivationCode);
         if RecAccountusers.Find('-') then begin
-            RecAccountusers.Activated := true;
+            RecAccountusers."Account Confirmed" := true;
             RecAccountusers.Modify;
             Message := true;
         end;
