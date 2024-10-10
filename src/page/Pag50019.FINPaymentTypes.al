@@ -3,6 +3,8 @@ page 50019 "FIN-Payment Types"
     PageType = Worksheet;
     SourceTable = "FIN-Receipts and Payment Types";
     SourceTableView = WHERE(Type = CONST(Payment));
+    Editable = true;
+    ModifyAllowed = true;
     //
     layout
     {
@@ -119,6 +121,10 @@ page 50019 "FIN-Payment Types"
                     ApplicationArea = All;
                 }
                 field("Telephone Allowance?"; Rec."Telephone Allowance?")
+                {
+                    ApplicationArea = All;
+                }
+                field("Lecturer Claim?"; Rec."Lecturer Claim?")
                 {
                     ApplicationArea = All;
                 }
