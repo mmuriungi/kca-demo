@@ -641,6 +641,16 @@ table 50025 "FIN-Payments Header"
         {
 
         }
+        //SourceDocNo
+        field(50167; "Source Document No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        //source table
+        field(50168; "Source Table"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 
