@@ -449,7 +449,16 @@ page 50619 "HRM-Employee (B)"
                     ApplicationArea = all;
                 }
 
+                field("Vendor No."; Rec."Vendor No.")
+                {
 
+                    ApplicationArea = all;
+                }
+                field("Vendor Name"; Rec."Vendor Name")
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+                }
 
             }
             group(Leave)
