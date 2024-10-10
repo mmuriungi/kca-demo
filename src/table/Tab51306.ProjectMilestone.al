@@ -8,7 +8,7 @@ table 51306 "Project Milestone"
         field(1; "Project No"; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Project Header";
+            TableRelation = "Project";
         }
         field(2; "Task No"; Code[10])
         {
