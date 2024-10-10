@@ -29,6 +29,7 @@ table 50692 "Parttime Claim Lines"
             var
                 lecunits: Record "ACA-Lecturers Units";
                 pplines: Record "Parttime Claim Lines";
+                ParttimerMgmt: Codeunit "Parttimer Management";
             begin
                 TestField(Programme);
                 pplines.Reset();
@@ -46,6 +47,8 @@ table 50692 "Parttime Claim Lines"
                     "Unit Description" := lecunits.Description;
                     Stage := lecunits.Stage;
                     "Student Count" := lecunits."Registered Students";
+                    #region "Invigillation Done" = false
+                    /*
                     if "Invigillation Done" = false then begin
                         if ("Programme Category" = "Programme Category"::Postgraduate) then begin
                             if "Exam Category" = 'PHD' then begin
@@ -150,7 +153,12 @@ table 50692 "Parttime Claim Lines"
                                 end;
 
                             end;
-                    end;
+                    end;*/
+                    #endregion
+                    #region Calculations
+                    ParttimerMgmt.checkClaimEligibility(Rec);
+                    ParttimerMgmt.calculateClaimAmount(Rec);
+                    #endregion
                 end;
 
             end;
@@ -186,7 +194,10 @@ table 50692 "Parttime Claim Lines"
         }
         field(12; "Hourly Rate"; Decimal)
         {
-
+            trigger OnValidate()
+            begin
+                Amount := "Hours Done" * "Hourly Rate";
+            end;
         }
         field(13; "Lecture No."; code[30])
         {
@@ -231,6 +242,20 @@ table 50692 "Parttime Claim Lines"
         }
         //Exculded
         field(21; "Excluded"; Boolean)
+        {
+            trigger OnValidate()
+            begin
+
+            end;
+        }
+        field(22; "Cat Exists"; Boolean)
+        {
+            trigger OnValidate()
+            begin
+
+            end;
+        }
+        field(23; "Exam Exists"; Boolean)
         {
             trigger OnValidate()
             begin
