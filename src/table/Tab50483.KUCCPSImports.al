@@ -402,8 +402,8 @@ table 50483 "KUCCPS Imports"
             begin
                 // Confirmation by the student triggers generation of proforma Bill
                 if Confirmed = true then begin
-                    if "Academic Year" <> '2024/2025' then
-                        Error('Academic year ' + "Academic Year" + 'is not allowed');
+                    // if "Academic Year" <> '2024/2025' then
+                    //     Error('Academic year ' + "Academic Year" + 'is not allowed');
                     if Rec.Accomodation = Rec.Accomodation::Resident then begin
                         Rec.CalcFields("Total Resident Students", "Available Room Spaces (M)", "Available Room Spaces (F)");
                         if Rec.Gender = Rec.Gender::Male then begin
