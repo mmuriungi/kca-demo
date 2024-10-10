@@ -164,6 +164,13 @@ page 51456 "ACA-Academics Role Center&"
                         RunObject = Page "ACA-LectureHalls Setup";
                         ApplicationArea = All;
                     }
+                    action("Part Timer Rates")
+                    {
+                        Image = FixedAssets;
+
+                        RunObject = Page "Part timer Rates";
+                        ApplicationArea = All;
+                    }
                     action("ImportUnits")
                     {
                         Caption = 'Import Units';
