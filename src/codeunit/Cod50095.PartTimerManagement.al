@@ -83,7 +83,7 @@ codeunit 50095 "PartTimer Management"
         PVHeader."Payment Type" := PVHeader."Payment Type"::Normal;
         PVHeader."Paying Bank Account" := PartTime."Paying Bank Account";
         PVHeader."Pay Mode" := PVHeader."Pay Mode";
-        PVHeader."Responsibility Center" := PVHeader."Responsibility Center";
+        PVHeader."Responsibility Center" := PartTime."Responsibility Center";
         PVHeader."Payment Narration" := PartTime.Purpose;
         PVHeader.Payee := PartTime.Payee;
         PVHeader."Source Document No" := PartTime."No.";
