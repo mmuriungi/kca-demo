@@ -283,7 +283,7 @@ codeunit  50039 "Workflow Event Handling (hr)"
                     WorkFlowEventHandling.AddEventPredecessor(WorkFlowEventHandling.RunWorkflowOnApproveApprovalRequestCode, RunWorkFlowOnSendCompanyActivitiesForApprovalCode);
 
                 end;
-
+ 
         end
     end;
 
