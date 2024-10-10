@@ -1,6 +1,6 @@
 codeunit 50037 "Work Flow Code"
 {
-   trigger OnRun()
+    trigger OnRun()
     begin
 
     end;
@@ -30,7 +30,6 @@ codeunit 50037 "Work Flow Code"
         ReOpenDisCasesTxt: TextConst ENU = 'ReOpen  Displinary Cases', ENG = 'ReOpen  Displinary Cases';
         //End DisCases
 
-
         //Training
         SendTrainingsReq: TextConst ENU = 'Approval Request for Trainings is requested', ENG = 'Approval Request for Trainings is requested';
         AppReqTrainings: TextConst ENU = 'Approval Request for Trainings is approved', ENG = 'Approval Request for Trainings is approved';
@@ -41,23 +40,6 @@ codeunit 50037 "Work Flow Code"
         ReleaseTrainingsTxt: TextConst ENU = 'Release  Trainings', ENG = 'Release  Trainings';
         ReOpenTrainingsTxt: TextConst ENU = 'ReOpen  Trainings', ENG = 'ReOpen  Trainings';
         //End Training
-
-
-        //RecruitReqs REssponses
-
-        //RecruitReqsS
-        SendRecruitReqsReq: TextConst ENU = 'Approval Request for RecruitReqs is requested', ENG = 'Approval Request for RecruitReqs is requested';
-        AppReqRecruitReqs: TextConst ENU = 'Approval Request for RecruitReqs is approved', ENG = 'Approval Request for RecruitReqs is approved';
-        RejReqRecruitReqs: TextConst ENU = 'Approval Request for RecruitReqs is rejected', ENG = 'Approval Request for RecruitReqs is rejected';
-        CanReqRecruitReqs: TextConst ENU = 'Approval Request for RecruitReqs is cancelled', ENG = 'Approval Request for RecruitReqs is cancelled';
-        UserCanReqRecruitReqs: TextConst ENU = 'Approval Request for RecruitReqs is cancelled by User', ENG = 'Approval Request for RecruitReqs is cancelled by User';
-        DelReqRecruitReqs: TextConst ENU = 'Approval Request for RecruitReqs is delegated', ENG = 'Approval Request for RecruitReqs is delegated';
-        RecruitReqsPendAppTxt: TextConst ENU = 'Status of RecruitReqs changed to Pending approval', ENG = 'Status of RecruitReqs changed to Pending approval';
-        ReleaseRecruitReqsTxt: TextConst ENU = 'Release RecruitReqs', ENG = 'Release RecruitReqs';
-        ReOpenRecruitReqsTxt: TextConst ENU = 'ReOpen RecruitReqs', ENG = 'ReOpen RecruitReqs';
-        //END RecruitReqsS
-        //End RecruitReqs Responses 
-
 
         //PrlApproval REssponses
 
@@ -74,373 +56,6 @@ codeunit 50037 "Work Flow Code"
     //END PrlApprovalS
     //End PrlApproval Responses 
 
-    //Leave Workflow
-    procedure RunWorkflowOnSendLeaveApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnSendLeaveApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnSendLeavesforApproval', '', false, false)]
-    procedure RunWorkflowOnSendLeaveApproval(var Leave: Record "HRM-Leave Requisition")
-    begin
-        WFMngt.HandleEvent(RunWorkflowOnSendLeaveApprovalCode(), Leave);
-    end;
-
-    procedure RunWorkflowOnApproveLeaveApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnApproveLeaveApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnApproveLeaveApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveLeaveApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnRejectLeaveApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectLeaveApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnRejectLeaveApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectLeaveApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnDelegateLeaveApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnDelegateLeaveApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnDelegateLeaveApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateLeaveApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure SetStatusToPendingApprovalCodeLeave(): Code[128]
-    begin
-        exit(UpperCase('Set Status To PendingApproval on Leave'));
-    end;
-
-    procedure SetStatusToPendingApprovalLeave(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        Leave: Record "HRM-Leave Requisition";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"HRM-Leave Requisition":
-                begin
-                    RecRef.SetTable(Leave);
-                    Leave.Validate(Status, Leave.Status::"Pending Approval");
-                    Leave.Modify();
-                    Variant := Leave;
-                end;
-        end;
-    end;
-
-    procedure ReleaseLeaveCode(): Code[128]
-    begin
-        exit(UpperCase('Release Leave'));
-    end;
-
-    procedure ReleaseLeave(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        Leave: Record "HRM-Leave Requisition";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReleaseLeave(Variant);
-                end;
-            DATABASE::"HRM-Leave Requisition":
-                begin
-                    RecRef.SetTable(Leave);
-                    Leave.Validate(Status, Leave.Status::Released);
-                    //  Leave.PostLeaveApplications();
-                    Leave.Modify();
-                    Variant := Leave;
-                end;
-        end;
-    end;
-
-    procedure ReOpenLeaveCode(): Code[128]
-    begin
-        exit(UpperCase('ReOpen Leave'));
-    end;
-
-    procedure ReOpenLeave(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        Leave: Record "HRM-Leave Requisition";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReOpenLeave(Variant);
-                end;
-            DATABASE::"HRM-Leave Requisition":
-                begin
-                    RecRef.SetTable(Leave);
-                    Leave.Validate(Status, Leave.Status::Open);
-                    Leave.Modify();
-                    Variant := Leave;
-                end;
-        end;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
-    procedure AddLeaveEventToLibrary()
-    begin
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendLeaveApprovalCode(), Database::"HRM-Leave Requisition", SendLeaveReq, 0, false);
-
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveLeaveApprovalCode(), Database::"Approval Entry", AppReqLeave, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectLeaveApprovalCode(), Database::"Approval Entry", RejReqLeave, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateLeaveApprovalCode(), Database::"Approval Entry", DelReqLeave, 0, false);
-        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelLeaveApprovalCode, Database::"HRM-Leave Requisition", UserCanReqLeave, 0, false);
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
-    procedure AddLeaveRespToLibrary()
-    begin
-        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeLeave(), 0, SendLeaveForPendAppTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReleaseLeaveCode(), 0, ReleaseLeaveTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReOpenLeaveCode(), 0, ReOpenLeaveTxt, 'GROUP 0');
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
-    procedure ExeRespForLeave(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
-    var
-        WorkflowResponse: Record "Workflow Response";
-    begin
-        IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
-            case WorkflowResponse."Function Name" of
-                SetStatusToPendingApprovalCodeLeave():
-                    begin
-                        SetStatusToPendingApprovalLeave(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReleaseLeaveCode():
-                    begin
-                        ReleaseLeave(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReOpenLeaveCode():
-                    begin
-                        ReOpenLeave(Variant);
-                        ResponseExecuted := true;
-                    end;
-            end;
-    end;
-    //Cancelling of Leave Code
-    procedure RunWorkflowOnCancelLeaveApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnCancelLeaveApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnCancelLeaveForApproval', '', false, false)]
-    procedure RunWorkflowOnCancelLeaveApproval(VAR Leave: Record "HRM-Leave Requisition")
-    begin
-
-        WFMngt.HandleEvent(RunWorkflowOnCancelLeaveApprovalCode(), Leave);
-
-    end;
-    //End Cancelling Leave Code
-
-
-
-    //Training
-    procedure RunWorkflowOnSendTrainingsApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnSendTrainingsApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnSendTrainingsforApproval', '', false, false)]
-    procedure RunWorkflowOnSendTrainingsApproval(var Trainings: Record "HRM-Training Applications")
-    begin
-        WFMngt.HandleEvent(RunWorkflowOnSendTrainingsApprovalCode(), Trainings);
-    end;
-
-    procedure RunWorkflowOnApproveTrainingsApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnApproveTrainingsApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnApproveTrainingsApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveTrainingsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnRejectTrainingsApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectTrainingsApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnRejectTrainingsApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectTrainingsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnDelegateTrainingsApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnDelegateTrainingsApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnDelegateTrainingsApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateTrainingsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure SetStatusToPendingApprovalCodeTrainings(): Code[128]
-    begin
-        exit(UpperCase('Set Status To PendingApproval on Trainings'));
-    end;
-
-    procedure SetStatusToPendingApprovalTrainings(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        Trainings: Record "HRM-Training Applications";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"HRM-Training Applications":
-                begin
-                    RecRef.SetTable(Trainings);
-                    Trainings.Validate(Status, Trainings.Status::"Pending Approval");
-                    Trainings.Modify();
-                    Variant := Trainings;
-                end;
-        end;
-    end;
-
-    procedure ReleaseTrainingsCode(): Code[128]
-    begin
-        exit(UpperCase('Release Trainings'));
-    end;
-
-    procedure ReleaseTrainings(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        Trainings: Record "HRM-Training Applications";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReleaseTrainings(Variant);
-                end;
-            DATABASE::"HRM-Training Applications":
-                begin
-                    RecRef.SetTable(Trainings);
-                    Trainings.Validate(Status, Trainings.Status::Approved);
-                    Trainings.Modify();
-                    Variant := Trainings;
-                end;
-        end;
-    end;
-
-    procedure ReOpenTrainingsCode(): Code[128]
-    begin
-        exit(UpperCase('ReOpen Trainings'));
-    end;
-
-    procedure ReOpenTrainings(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        Trainings: Record "HRM-Training Applications";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReOpenTrainings(Variant);
-                end;
-            DATABASE::"HRM-Training Applications":
-                begin
-                    RecRef.SetTable(Trainings);
-                    Trainings.Validate(Status, Trainings.Status::New);
-                    Trainings.Modify();
-                    Variant := Trainings;
-                end;
-        end;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
-    procedure AddTrainingsEventToLibrary()
-    begin
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendTrainingsApprovalCode(), Database::"HRM-Training Applications", SendTrainingsReq, 0, false);
-
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveTrainingsApprovalCode(), Database::"Approval Entry", AppReqTrainings, 0, false);
-        //  WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveTrainingsApprovalCode(), Database::"Approval Entry", ReOpenTrainingsTxt, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectTrainingsApprovalCode(), Database::"Approval Entry", RejReqTrainings, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateTrainingsApprovalCode(), Database::"Approval Entry", DelReqTrainings, 0, false);
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
-    procedure AddTrainingsRespToLibrary()
-    begin
-        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeTrainings(), 0, TrainingsPendAppTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReleaseTrainingsCode(), 0, ReleaseTrainingsTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReOpenTrainingsCode(), 0, ReOpenTrainingsTxt, 'GROUP 0');
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
-    procedure ExeRespForTrainings(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
-    var
-        WorkflowResponse: Record "Workflow Response";
-    begin
-        IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
-            case WorkflowResponse."Function Name" of
-                SetStatusToPendingApprovalCodeTrainings():
-                    begin
-                        SetStatusToPendingApprovalTrainings(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReleaseTrainingsCode():
-                    begin
-                        ReleaseTrainings(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReOpenTrainingsCode():
-                    begin
-                        ReOpenTrainings(Variant);
-                        ResponseExecuted := true;
-                    end;
-            end;
-    end;
-
-    //End Training
-
-
-    //"HRM-Disciplinary Cases (B)"
 
     //DisCases
     procedure RunWorkflowOnSendDisCasesApprovalCode(): Code[128]
@@ -666,96 +281,84 @@ codeunit 50037 "Work Flow Code"
     end;
 
 
-    //Start RecruitReqs Workflow
-    procedure RunWorkflowOnSendRecruitReqsApprovalCode(): Code[128]
+    //Leave Workflow
+    procedure RunWorkflowOnSendLeaveApprovalCode(): Code[128]
     begin
-        exit(UpperCase('RunWorkflowOnSendRecruitReqsApproval'))
+        exit(UpperCase('RunWorkflowOnSendLeaveApproval'))
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnSendRecruitReqsforApproval', '', false, false)]
-    procedure RunWorkflowOnSendRecruitReqsApproval(var RecruitReqs: Record "HRM-Employee Requisitions")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnSendLeavesforApproval', '', false, false)]
+    procedure RunWorkflowOnSendLeaveApproval(var Leave: Record "HRM-Leave Requisition")
     begin
-        WFMngt.HandleEvent(RunWorkflowOnSendRecruitReqsApprovalCode(), RecruitReqs);
+        WFMngt.HandleEvent(RunWorkflowOnSendLeaveApprovalCode(), Leave);
     end;
 
-    procedure RunWorkflowOnApproveRecruitReqsApprovalCode(): Code[128]
+    procedure RunWorkflowOnApproveLeaveApprovalCode(): Code[128]
     begin
-        exit(UpperCase('RunWorkflowOnApproveRecruitReqsApproval'))
+        exit(UpperCase('RunWorkflowOnApproveLeaveApproval'))
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnApproveRecruitReqsApproval(var ApprovalEntry: Record "Approval Entry")
+    procedure RunWorkflowOnApproveLeaveApproval(var ApprovalEntry: Record "Approval Entry")
     begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveRecruitReqsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveLeaveApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
     end;
 
-    procedure RunWorkflowOnRejectRecruitReqsApprovalCode(): Code[128]
+    procedure RunWorkflowOnRejectLeaveApprovalCode(): Code[128]
     begin
-        exit(UpperCase('RunWorkflowOnRejectRecruitReqsApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnRejectRecruitReqsApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectRecruitReqsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnCancelledRecruitReqsApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectRecruitReqsApproval'))
+        exit(UpperCase('RunWorkflowOnRejectLeaveApproval'))
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnCancelledRecruitReqsApproval(var ApprovalEntry: Record "Approval Entry")
+    procedure RunWorkflowOnRejectLeaveApproval(var ApprovalEntry: Record "Approval Entry")
     begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnCancelledRecruitReqsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectLeaveApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
     end;
 
-    procedure RunWorkflowOnDelegateRecruitReqsApprovalCode(): Code[128]
+    procedure RunWorkflowOnDelegateLeaveApprovalCode(): Code[128]
     begin
-        exit(UpperCase('RunWorkflowOnDelegateRecruitReqsApproval'))
+        exit(UpperCase('RunWorkflowOnDelegateLeaveApproval'))
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnDelegateRecruitReqsApproval(var ApprovalEntry: Record "Approval Entry")
+    procedure RunWorkflowOnDelegateLeaveApproval(var ApprovalEntry: Record "Approval Entry")
     begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateRecruitReqsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateLeaveApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
     end;
 
-    procedure SetStatusToPendingApprovalCodeRecruitReqs(): Code[128]
+    procedure SetStatusToPendingApprovalCodeLeave(): Code[128]
     begin
-        exit(UpperCase('SetStatusToPendingApprovalRecruitReqs'));
+        exit(UpperCase('Set Status To PendingApproval on Leave'));
     end;
 
-    procedure SetStatusToPendingApprovalRecruitReqs(var Variant: Variant)
+    procedure SetStatusToPendingApprovalLeave(var Variant: Variant)
     var
         RecRef: RecordRef;
-        RecruitReqs: Record "HRM-Employee Requisitions";
+        Leave: Record "HRM-Leave Requisition";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number() of
-            DATABASE::"HRM-Employee Requisitions":
-            
+            DATABASE::"HRM-Leave Requisition":
                 begin
-                    RecRef.SetTable(RecruitReqs);
-                    RecruitReqs.Validate(Status, RecruitReqs.Status::"Pending Approval");
-                    RecruitReqs.Modify();
-                    Variant := RecruitReqs;
+                    RecRef.SetTable(Leave);
+                    Leave.Validate(Status, Leave.Status::"Pending Approval");
+                    Leave.Modify();
+                    Variant := Leave;
                 end;
         end;
     end;
 
-    procedure ReleaseRecruitReqsCode(): Code[128]
+    procedure ReleaseLeaveCode(): Code[128]
     begin
-        exit(UpperCase('Release RecruitReqs'));
+        exit(UpperCase('Release Leave'));
     end;
 
-    procedure ReleaseRecruitReqs(var Variant: Variant)
+    procedure ReleaseLeave(var Variant: Variant)
     var
         RecRef: RecordRef;
         TargetRecRef: RecordRef;
         ApprovalEntry: Record "Approval Entry";
-        RecruitReqs: Record "HRM-Employee Requisitions";
+        Leave: Record "HRM-Leave Requisition";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number() of
@@ -764,29 +367,30 @@ codeunit 50037 "Work Flow Code"
                     ApprovalEntry := Variant;
                     TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
                     Variant := TargetRecRef;
-                    ReleaseRecruitReqs(Variant);
+                    ReleaseLeave(Variant);
                 end;
-            DATABASE::"HRM-Employee Requisitions":
+            DATABASE::"HRM-Leave Requisition":
                 begin
-                    RecRef.SetTable(RecruitReqs);
-                    RecruitReqs.Validate(Status, RecruitReqs.Status::Approved);
-                    RecruitReqs.Modify();
-                    Variant := RecruitReqs;
+                    RecRef.SetTable(Leave);
+                    Leave.Validate(Status, Leave.Status::Released);
+                    //  Leave.PostLeaveApplications();
+                    Leave.Modify();
+                    Variant := Leave;
                 end;
         end;
     end;
 
-    procedure ReOpenRecruitReqsCode(): Code[128]
+    procedure ReOpenLeaveCode(): Code[128]
     begin
-        exit(UpperCase('ReOpenRecruitReqs'));
+        exit(UpperCase('ReOpen Leave'));
     end;
 
-    procedure ReOpenRecruitReqs(var Variant: Variant)
+    procedure ReOpenLeave(var Variant: Variant)
     var
         RecRef: RecordRef;
         TargetRecRef: RecordRef;
         ApprovalEntry: Record "Approval Entry";
-        RecruitReqs: Record "HRM-Employee Requisitions";
+        Leave: Record "HRM-Leave Requisition";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number() of
@@ -795,80 +399,246 @@ codeunit 50037 "Work Flow Code"
                     ApprovalEntry := Variant;
                     TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
                     Variant := TargetRecRef;
-                    ReOpenRecruitReqs(Variant);
+                    ReOpenLeave(Variant);
                 end;
-            DATABASE::"HRM-Employee Requisitions":
+            DATABASE::"HRM-Leave Requisition":
                 begin
-                    RecRef.SetTable(RecruitReqs);
-                    RecruitReqs.Validate(Status, RecruitReqs.Status::"Pending Approval");
-                    RecruitReqs.Modify();
-                    Variant := RecruitReqs;
+                    RecRef.SetTable(Leave);
+                    Leave.Validate(Status, Leave.Status::Open);
+                    Leave.Modify();
+                    Variant := Leave;
                 end;
         end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
-    procedure AddRecruitReqsEventToLibrary()
+    procedure AddLeaveEventToLibrary()
     begin
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendRecruitReqsApprovalCode(), Database::"HRM-Training Applications", SendRecruitReqsReq, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveRecruitReqsApprovalCode(), Database::"Approval Entry", AppReqRecruitReqs, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectRecruitReqsApprovalCode(), Database::"Approval Entry", RejReqRecruitReqs, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateRecruitReqsApprovalCode(), Database::"Approval Entry", DelReqRecruitReqs, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnCancelledRecruitReqsApprovalCode(), Database::"Approval Entry", CanReqRecruitReqs, 0, false);
-        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelRecruitReqsApprovalCode, Database::"HRM-Training Applications", UserCanReqRecruitReqs, 0, false);
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendLeaveApprovalCode(), Database::"HRM-Leave Requisition", SendLeaveReq, 0, false);
+
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveLeaveApprovalCode(), Database::"Approval Entry", AppReqLeave, 0, false);
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectLeaveApprovalCode(), Database::"Approval Entry", RejReqLeave, 0, false);
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateLeaveApprovalCode(), Database::"Approval Entry", DelReqLeave, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelLeaveApprovalCode, Database::"HRM-Leave Requisition", UserCanReqLeave, 0, false);
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
-    procedure AddRecruitReqsRespToLibrary()
+    procedure AddLeaveRespToLibrary()
     begin
-        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeRecruitReqs(), 0, RecruitReqsPendAppTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReleaseRecruitReqsCode(), 0, ReleaseRecruitReqsTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReOpenRecruitReqsCode(), 0, ReOpenRecruitReqsTxt, 'GROUP 0');
+        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeLeave(), 0, SendLeaveForPendAppTxt, 'GROUP 0');
+        WorkflowResponseHandling.AddResponseToLibrary(ReleaseLeaveCode(), 0, ReleaseLeaveTxt, 'GROUP 0');
+        WorkflowResponseHandling.AddResponseToLibrary(ReOpenLeaveCode(), 0, ReOpenLeaveTxt, 'GROUP 0');
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
-    procedure ExeRespForRecruitReqs(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
+    procedure ExeRespForLeave(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
     var
         WorkflowResponse: Record "Workflow Response";
     begin
         IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
             case WorkflowResponse."Function Name" of
-                SetStatusToPendingApprovalCodeRecruitReqs():
+                SetStatusToPendingApprovalCodeLeave():
                     begin
-                        SetStatusToPendingApprovalRecruitReqs(Variant);
+                        SetStatusToPendingApprovalLeave(Variant);
                         ResponseExecuted := true;
                     end;
-                ReleaseRecruitReqsCode():
+                ReleaseLeaveCode():
                     begin
-                        ReleaseRecruitReqs(Variant);
+                        ReleaseLeave(Variant);
                         ResponseExecuted := true;
                     end;
-                ReOpenRecruitReqsCode():
+                ReOpenLeaveCode():
                     begin
-                        ReOpenRecruitReqs(Variant);
+                        ReOpenLeave(Variant);
+                        ResponseExecuted := true;
+                    end;
+            end;
+    end;
+    //Cancelling of Leave Code
+    procedure RunWorkflowOnCancelLeaveApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnCancelLeaveApproval'))
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnCancelLeaveForApproval', '', false, false)]
+    procedure RunWorkflowOnCancelLeaveApproval(VAR Leave: Record "HRM-Leave Requisition")
+    begin
+        WFMngt.HandleEvent(RunWorkflowOnCancelLeaveApprovalCode(), Leave);
+    end;
+    //End Cancelling Leave Code
+
+    //Training
+    procedure RunWorkflowOnSendTrainingsApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnSendTrainingsApproval'))
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnSendTrainingsforApproval', '', false, false)]
+    procedure RunWorkflowOnSendTrainingsApproval(var Trainings: Record "HRM-Training Applications")
+    begin
+        WFMngt.HandleEvent(RunWorkflowOnSendTrainingsApprovalCode(), Trainings);
+    end;
+
+    procedure RunWorkflowOnApproveTrainingsApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnApproveTrainingsApproval'))
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
+    procedure RunWorkflowOnApproveTrainingsApproval(var ApprovalEntry: Record "Approval Entry")
+    begin
+        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveTrainingsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+    end;
+
+    procedure RunWorkflowOnRejectTrainingsApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnRejectTrainingsApproval'))
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
+    procedure RunWorkflowOnRejectTrainingsApproval(var ApprovalEntry: Record "Approval Entry")
+    begin
+        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectTrainingsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+    end;
+
+    procedure RunWorkflowOnDelegateTrainingsApprovalCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnDelegateTrainingsApproval'))
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
+    procedure RunWorkflowOnDelegateTrainingsApproval(var ApprovalEntry: Record "Approval Entry")
+    begin
+        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateTrainingsApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+    end;
+
+    procedure SetStatusToPendingApprovalCodeTrainings(): Code[128]
+    begin
+        exit(UpperCase('Set Status To PendingApproval on Trainings'));
+    end;
+
+    procedure SetStatusToPendingApprovalTrainings(var Variant: Variant)
+    var
+        RecRef: RecordRef;
+        Trainings: Record "HRM-Training Applications";
+    begin
+        RecRef.GetTable(Variant);
+        case RecRef.Number() of
+            DATABASE::"HRM-Training Applications":
+                begin
+                    RecRef.SetTable(Trainings);
+                    Trainings.Validate(Status, Trainings.Status::"Pending Approval");
+                    Trainings.Modify();
+                    Variant := Trainings;
+                end;
+        end;
+    end;
+
+    procedure ReleaseTrainingsCode(): Code[128]
+    begin
+        exit(UpperCase('Release Trainings'));
+    end;
+
+    procedure ReleaseTrainings(var Variant: Variant)
+    var
+        RecRef: RecordRef;
+        TargetRecRef: RecordRef;
+        ApprovalEntry: Record "Approval Entry";
+        Trainings: Record "HRM-Training Applications";
+    begin
+        RecRef.GetTable(Variant);
+        case RecRef.Number() of
+            DATABASE::"Approval Entry":
+                begin
+                    ApprovalEntry := Variant;
+                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
+                    Variant := TargetRecRef;
+                    ReleaseTrainings(Variant);
+                end;
+            DATABASE::"HRM-Training Applications":
+                begin
+                    RecRef.SetTable(Trainings);
+                    Trainings.Validate(Status, Trainings.Status::Approved);
+                    Trainings.Modify();
+                    Variant := Trainings;
+                end;
+        end;
+    end;
+
+    procedure ReOpenTrainingsCode(): Code[128]
+    begin
+        exit(UpperCase('ReOpen Trainings'));
+    end;
+
+    procedure ReOpenTrainings(var Variant: Variant)
+    var
+        RecRef: RecordRef;
+        TargetRecRef: RecordRef;
+        ApprovalEntry: Record "Approval Entry";
+        Trainings: Record "HRM-Training Applications";
+    begin
+        RecRef.GetTable(Variant);
+        case RecRef.Number() of
+            DATABASE::"Approval Entry":
+                begin
+                    ApprovalEntry := Variant;
+                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
+                    Variant := TargetRecRef;
+                    ReOpenTrainings(Variant);
+                end;
+            DATABASE::"HRM-Training Applications":
+                begin
+                    RecRef.SetTable(Trainings);
+                    Trainings.Validate(Status, Trainings.Status::New);
+                    Trainings.Modify();
+                    Variant := Trainings;
+                end;
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
+    procedure AddTrainingsEventToLibrary()
+    begin
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendTrainingsApprovalCode(), Database::"HRM-Training Applications", SendTrainingsReq, 0, false);
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveTrainingsApprovalCode(), Database::"Approval Entry", AppReqTrainings, 0, false);
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectTrainingsApprovalCode(), Database::"Approval Entry", RejReqTrainings, 0, false);
+        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateTrainingsApprovalCode(), Database::"Approval Entry", DelReqTrainings, 0, false);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
+    procedure AddTrainingsRespToLibrary()
+    begin
+        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeTrainings(), 0, TrainingsPendAppTxt, 'GROUP 0');
+        WorkflowResponseHandling.AddResponseToLibrary(ReleaseTrainingsCode(), 0, ReleaseTrainingsTxt, 'GROUP 0');
+        WorkflowResponseHandling.AddResponseToLibrary(ReOpenTrainingsCode(), 0, ReOpenTrainingsTxt, 'GROUP 0');
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
+    procedure ExeRespForTrainings(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
+    var
+        WorkflowResponse: Record "Workflow Response";
+    begin
+        IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
+            case WorkflowResponse."Function Name" of
+                SetStatusToPendingApprovalCodeTrainings():
+                    begin
+                        SetStatusToPendingApprovalTrainings(Variant);
+                        ResponseExecuted := true;
+                    end;
+                ReleaseTrainingsCode():
+                    begin
+                        ReleaseTrainings(Variant);
+                        ResponseExecuted := true;
+                    end;
+                ReOpenTrainingsCode():
+                    begin
+                        ReOpenTrainings(Variant);
                         ResponseExecuted := true;
                     end;
             end;
     end;
 
-
-    //Cancelling of RecruitReqs Code
-    procedure RunWorkflowOnCancelRecruitReqsApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnCancelRecruitReqsApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnCancelRecruitReqsForApproval', '', false, false)]
-    procedure RunWorkflowOnCancelRecruitReqsApproval(VAR RecruitReqs: Record "HRM-Employee Requisitions")
-    begin
-
-        WFMngt.HandleEvent(RunWorkflowOnCancelRecruitReqsApprovalCode(), RecruitReqs);
-
-    end;
-    //End Cancelling RecruitReqs Code
-
-    //End RecruitReqs Workflow
-
+    //End Training
 
     //Start PrlApproval Workflow
     procedure RunWorkflowOnSendPrlApprovalApprovalCode(): Code[128]
@@ -1054,7 +824,6 @@ codeunit 50037 "Work Flow Code"
             end;
     end;
 
-
     //Cancelling of PrlApproval Code
     procedure RunWorkflowOnCancelPrlApprovalApprovalCode(): Code[128]
     begin
@@ -1064,15 +833,10 @@ codeunit 50037 "Work Flow Code"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::IntCodeunit, 'OnCancelPrlApprovalForApproval', '', false, false)]
     procedure RunWorkflowOnCancelPrlApprovalApproval(VAR PrlApproval: Record "Prl-Approval")
     begin
-
         WFMngt.HandleEvent(RunWorkflowOnCancelPrlApprovalApprovalCode(), PrlApproval);
-
     end;
     //End Cancelling PrlApproval Code
 
     //End PrlApproval Workflow
-
-    //End Wcode codeunit
-
 
 }
