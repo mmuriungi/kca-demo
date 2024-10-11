@@ -266,6 +266,13 @@ table 50650 "ACA-Lecturers Units"
         {
 
         }
+        field(48; "Required Equipment"; Text[100])
+        {
+        }
+        field(49; "Academic Year"; Code[20])
+        {
+            TableRelation = "ACA-Academic Year".Code;
+        }
     }
 
     keys
