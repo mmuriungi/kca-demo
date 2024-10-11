@@ -13,6 +13,10 @@ page 50751 "Lecturer Units List"
                 {
                     ApplicationArea = All;
                 }
+                field("Academic Year"; Rec."Academic Year")
+                {
+                    ApplicationArea = All;
+                }
                 field(Programme; Rec.Programme)
                 {
                     ApplicationArea = All;
@@ -88,6 +92,10 @@ page 50751 "Lecturer Units List"
                     ApplicationArea = All;
                 }
                 field("Marks Submitted"; Rec."Marks Submitted")
+                {
+                    ApplicationArea = All;
+                }
+                field("Required Equipment";Rec."Required Equipment")
                 {
                     ApplicationArea = All;
                 }

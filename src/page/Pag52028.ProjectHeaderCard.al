@@ -64,6 +64,18 @@ page 52028 "Project Header Card"
                 {
                     Editable = IsOpen;
                 }
+                field("Global Dimension 1 Code";Rec."Global Dimension 1 Code")
+                {
+                    Editable = IsOpen;
+                }
+                field("Shortcut Dimension 2 Code";Rec."Shortcut Dimension 2 Code")
+                {
+                    Editable = IsOpen;
+                }
+                field("Shortcut Dimension 3 Code";Rec."Shortcut Dimension 3 Code")
+                {
+                    Editable = IsOpen;
+                }
                 field("Estimated Start Date"; Rec."Estimated Start Date")
                 {
                     Editable = IsOpen;

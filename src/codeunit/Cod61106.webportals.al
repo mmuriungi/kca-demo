@@ -189,6 +189,7 @@ Codeunit 61106 webportals
         GradesTable: Record "ACA-Applic. Setup Grade";
         PostGradHandler: Codeunit "PostGraduate Handler";
         acacentalsetup: Record "ACA-Academics Central Setups";
+        fablist: Record "ACA-Applic. Form Header";
 
 
     procedure ConfirmSupUnit(StdNo: Code[20]; unit: Code[20]) Message: Text
@@ -8482,6 +8483,43 @@ Codeunit 61106 webportals
         end else begin
             exit(false);
         end;
+    end;
+
+    procedure GenerateBS64ApplicationSummary(appNo: Text; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
+    var
+        tmpBlob: Codeunit "Temp Blob";
+        cnv64: Codeunit "Base64 Convert";
+        InStr: InStream;
+        OutStr: OutStream;
+        txtB64: Text;
+        format: ReportFormat;
+        recRef: RecordRef;
+        filename: Text;
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        IF EXISTS(filename) THEN
+            ERASE(filename);
+
+        fablist.RESET;
+        fablist.SETRANGE(fablist."Application No.", appNo);
+        IF fablist.FIND('-') THEN BEGIN
+            recRef.GetTable(fablist);
+            tmpBlob.CreateOutStream(OutStr);
+            Report.SaveAs(51862, '', format::Pdf, OutStr, recRef);
+            tmpBlob.CreateInStream(InStr);
+            txtB64 := cnv64.ToBase64(InStr, true);
+            bigtext.AddText(txtB64);
+        END;
+        EXIT(filename);
+    end;
+    procedure checkHOD(username: code[10]) ishod: Boolean
+    begin
+        EmployeeCard.RESET;
+        EmployeeCard.SETRANGE(EmployeeCard."No.", username);
+        EmployeeCard.SETRANGE(EmployeeCard.HOD, TRUE);
+        IF EmployeeCard.FIND('-') THEN BEGIN
+            ishod := TRUE;
+        END;
     end;
     #endregion
 }
