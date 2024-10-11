@@ -36,6 +36,11 @@ table 50701 "ACA-Lecturer Halls Setup"
         {
 
         }
+        //available equipment
+        field(9; "Available Equipment"; Text[1000])
+        {
+
+        }
 
     }
     
