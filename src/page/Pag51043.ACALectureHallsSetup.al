@@ -44,6 +44,10 @@ page 51043 "ACA-LectureHalls Setup"
                 {
                     ApplicationArea = ALL;
                 }
+                field("Available Equipment";Rec."Available Equipment")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
