@@ -190,6 +190,7 @@ Codeunit 61106 webportals
         PostGradHandler: Codeunit "PostGraduate Handler";
         acacentalsetup: Record "ACA-Academics Central Setups";
         fablist: Record "ACA-Applic. Form Header";
+        programs: Record "ACA-Programme";
 
 
     procedure ConfirmSupUnit(StdNo: Code[20]; unit: Code[20]) Message: Text
@@ -8519,6 +8520,123 @@ Codeunit 61106 webportals
         EmployeeCard.SETRANGE(EmployeeCard.HOD, TRUE);
         IF EmployeeCard.FIND('-') THEN BEGIN
             ishod := TRUE;
+        END;
+    end;
+    procedure checkDean(username: code[10]) ishod: Boolean
+    begin
+        EmployeeCard.RESET;
+        EmployeeCard.SETRANGE(EmployeeCard."No.", username);
+        EmployeeCard.SETRANGE(EmployeeCard.isDean, TRUE);
+        IF EmployeeCard.FIND('-') THEN BEGIN
+            ishod := TRUE;
+        END;
+    end;
+    procedure GetDepartmentalApps(username: code[10]) apps: Text
+    var
+        progname: Text;
+        faculty: Text;
+    begin
+        EmployeeCard.RESET;
+        EmployeeCard.SETRANGE(EmployeeCard."No.", username);
+        IF EmployeeCard.FIND('-') THEN BEGIN
+            fablist.RESET;
+            fablist.SETRANGE(fablist."Admitted Department", EmployeeCard."Department Code");
+            fablist.SETRANGE(fablist.Status, fablist.Status::"Pending Approval");
+            IF fablist.FIND('-') THEN BEGIN
+                REPEAT
+                    programs.RESET;
+                    programs.SETRANGE(programs.Code, fablist."First Degree Choice");
+                    IF programs.FIND('-') THEN BEGIN
+                        progname := programs.Description;
+                        faculty := programs.Faculty;
+                    END;
+                    apps := apps + fablist."Application No." + ' ::' + progname + ' ::' + faculty + ' ::' + FORMAT(fablist."Application Date") + ' ::' + fablist.firstName + ' ::' + fablist.Surname + ' ::' + ' :::';
+                UNTIL fablist.Next = 0;
+            END;
+        END;
+    end;
+    procedure GetFacultyApps(username: code[10]) apps: Text
+    var
+        progname: Text;
+        faculty: Text;
+    begin
+        EmployeeCard.RESET;
+        EmployeeCard.SETRANGE(EmployeeCard."No.", username);
+        IF EmployeeCard.FIND('-') THEN BEGIN
+            fablist.RESET;
+            fablist.SETRANGE(fablist."Programme Faculty", EmployeeCard."Faculty Code");
+            fablist.SETFILTER(fablist.Status, '%1|%2', fablist.Status::"Department Approved", fablist.Status::"Department Rejected");
+            IF fablist.FIND('-') THEN BEGIN
+                REPEAT
+                    programs.RESET;
+                    programs.SETRANGE(programs.Code, fablist."First Degree Choice");
+                    IF programs.FIND('-') THEN BEGIN
+                        progname := programs.Description;
+                        faculty := programs.Faculty;
+                    END;
+                    apps := apps + fablist."Application No." + ' ::' + progname + ' ::' + faculty + ' ::' + FORMAT(fablist."Application Date") + ' ::' + fablist.firstName + ' ::' + fablist.Surname + ' ::' + FORMAT(fablist.Status) + ' :::';
+                UNTIL fablist.Next = 0;
+            END;
+        END;
+    end;
+    procedure RejectDepartmentalApps(appno: code[20]; staffno: code[20]; reason: Text[250]) rejected: Boolean
+    begin
+        fablist.RESET;
+        fablist.SETRANGE(fablist."Application No.", appno);
+        IF fablist.FIND('-') THEN BEGIN
+            fabList.Status := fablist.Status::"Department Rejected";
+            fablist."Rejection Reason" := reason;
+            fablist."DAB Staff ID" := staffno;
+            fablist.Validate("DAB Staff ID");
+            fablist.MODIFY;
+            rejected := TRUE;
+        END;
+    end;
+    procedure RejectFacultyApps(appno: code[20]; staffno: code[20]; reason: Text[250]) accepted: Boolean
+    begin
+        fablist.RESET;
+        fablist.SETRANGE(fablist."Application No.", appno);
+        IF fablist.FIND('-') THEN BEGIN
+            fabList.Status := fablist.Status::"Dean Rejected";
+            fablist."Rejection Reason" := reason;
+            fablist."FAB Staff ID" := staffno;
+            fablist.Validate("FAB Staff ID");
+            fablist.MODIFY;
+            accepted := TRUE;
+        END;
+    end;
+    procedure AcceptDepartmentalApps(appno: code[20]; staffno: Code[20]) accepted: Boolean
+    begin
+        fablist.RESET;
+        fablist.SETRANGE(fablist."Application No.", appno);
+        IF fablist.FIND('-') THEN BEGIN
+            fablist.Status := fablist.Status::"Department Approved";
+            fablist."DAB Staff ID" := staffno;
+            fablist.Validate("DAB Staff ID");
+            //fablist."Settlement Type":=stype;
+            fablist.MODIFY;
+            //SendEmail(fablist."First Degree Choice", fablist."Application No.");
+            accepted := TRUE;
+        END;
+    end;
+    procedure AcceptFacultyApps(appno: code[20]; staffno: code[20]) accepted: Boolean
+    begin
+        fablist.RESET;
+        fablist.SETRANGE(fablist."Application No.", appno);
+        IF fablist.FIND('-') THEN BEGIN
+            fabList.Status := fablist.Status::"Dean Approved";
+            fablist."FAB Staff ID" := staffno;
+            fablist.Validate("FAB Staff ID");
+            fablist.MODIFY;
+            accepted := TRUE;
+        END;
+    end;
+    procedure GetApplicantEmail(appno: code[50]) email: Text
+    begin
+        fablist.RESET;
+        fablist.SETRANGE(fablist."Application No.", appno);
+        IF fablist.FIND('-') THEN BEGIN
+            email := fabList.Email;
         END;
     end;
     #endregion
