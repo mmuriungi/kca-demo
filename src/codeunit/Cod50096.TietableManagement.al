@@ -1,5 +1,10 @@
 codeunit 50096 "Timetable Management"
 {
+    trigger OnRun()
+    begin
+        GenerateTimetable('2024', 'S1');
+    end;
+
     procedure GenerateTimetable(AcademicYear: Code[20]; Semester: code[20])
     var
         CourseOffering: Record "ACA-Lecturers Units";
