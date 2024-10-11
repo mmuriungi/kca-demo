@@ -113,7 +113,7 @@ table 51268 "Project Header"
         }
         field(19; "Contract Type"; Option)
         {
-            OptionMembers = "",General,Maintenance,Goods,Service;
+            OptionMembers = " ",Insurance,Lease,"Supply Contract","Service Contract",Construction,Consultancy;
         }
         field(20; "Extend From"; Date)
         {
@@ -246,7 +246,40 @@ table 51268 "Project Header"
         }
         field(46; "Contract End Notification"; DateFormula)
         {
-            DataClassification=ToBeClassified;
+            DataClassification = ToBeClassified;
+        }
+        field(47; "Global Dimension 1 Code"; Code[30])
+        {
+            CaptionClass = '1,1,1';
+            Caption = 'Global Dimension 1 Code';
+            Description = 'Stores the reference to the first global dimension in the database';
+            NotBlank = false;
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
+
+            trigger OnValidate()
+            begin
+
+            end;
+        }
+        field(48; "Shortcut Dimension 2 Code"; Code[30])
+        {
+            CaptionClass = '1,2,2';
+            Caption = 'Shortcut Dimension 2 Code';
+            Description = 'Stores the reference of the second global dimension in the database';
+            NotBlank = false;
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+
+            trigger OnValidate()
+            begin
+
+            end;
+        }
+        field(81; "Shortcut Dimension 3 Code"; Code[20])
+        {
+            CaptionClass = '1,2,3';
+            Caption = 'Shortcut Dimension 3 Code';
+            Description = 'Stores the reference of the Third global dimension in the database';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
         }
 
     }
