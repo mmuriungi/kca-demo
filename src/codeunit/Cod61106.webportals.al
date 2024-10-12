@@ -6617,7 +6617,7 @@ Codeunit 61106 webportals
         Clear(Message);
         HrEmployeeC.Reset;
         HrEmployeeC.SetRange(HrEmployeeC."No.", LectNo);
-        HrEmployeeC.SetRange(HrEmployeeC."Is HOD", true);
+        HrEmployeeC.SetRange(HrEmployeeC."HOD", true);
         if HrEmployeeC.Find('-') then begin
             Message := 'Yes' + '::';
         end;
