@@ -2152,7 +2152,7 @@ page 50017 "FIN-Payment Header"
                 IF GLAccount.FIND('-') THEN GLAccount.TESTFIELD(Name);
                 DimensionValue.RESET;
                 DimensionValue.SETRANGE(Code, Rec."Shortcut Dimension 2 Code");
-                // DimensionValue.SETRANGE("Global Dimension No.", 2);
+                DimensionValue.SETRANGE("Global Dimension No.", 2);
                 //DimensionValue.SetRange(Code, Rec."Global Dimension 1 Code");
                 IF DimensionValue.FIND('-') THEN DimensionValue.TESTFIELD(Name);
                 FINBudgetEntries.RESET;
