@@ -53,6 +53,14 @@ page 50312 "Security Officer Role Center"
                     RunObject = page "Daily Occurrence Book List";
                 }
             }
+            group("Security Setups")
+            {
+                action("Security Setup")
+                {
+                    ApplicationArea = All;
+                    RunObject =  page "Security Setup";
+                }
+            }
             group(Reports)
             {
                 Caption = 'Reports';
