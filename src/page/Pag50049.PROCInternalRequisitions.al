@@ -107,7 +107,7 @@ page 50049 "PROC-Internal Requisitions"
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    Editable = true;
                 }
             }
             part(PurchLines; "Purchase Quote Subform")
