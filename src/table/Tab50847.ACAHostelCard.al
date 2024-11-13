@@ -1,6 +1,6 @@
 table 50847 "ACA-Hostel Card"
 {
-    DrillDownPageID = "ACA-Hostel List1";
+    DrillDownPageID = "ACA-Hostel List1"; 
     LookupPageID = "ACA-Hostel List1";
 
     fields
@@ -20,10 +20,10 @@ table 50847 "ACA-Hostel Card"
         field(5; "Cost Per Occupant"; Decimal)
         {
         }
-        field(6; Gender; Option)
+        field(6; Gender; Enum Gender)
         {
-            OptionCaption = ' ,Male,Female';
-            OptionMembers = " ",Male,Female;
+            // OptionCaption = ' ,Male,Female';
+            // OptionMembers = ,Male,Female;
         }
         field(7; Location; Code[20])
         {
