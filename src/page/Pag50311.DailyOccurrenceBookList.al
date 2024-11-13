@@ -5,6 +5,7 @@ page 50311 "Daily Occurrence Book List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Daily Occurrence Book";
+    CardPageId = "Daily Occurrence Card";
 
     layout
     {

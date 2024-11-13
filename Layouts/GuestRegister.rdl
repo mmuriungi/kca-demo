@@ -11,37 +11,6 @@
       <rd:DataSourceID>6a555b8f-0941-49b6-8528-d4b5dfcaa8e5</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Entry_No_">
-          <DataField>Entry_No_</DataField>
-        </Field>
-        <Field Name="Visitor_Name">
-          <DataField>Visitor_Name</DataField>
-        </Field>
-        <Field Name="Reason_for_Visit">
-          <DataField>Reason_for_Visit</DataField>
-        </Field>
-        <Field Name="Time_In">
-          <DataField>Time_In</DataField>
-        </Field>
-        <Field Name="Time_Out">
-          <DataField>Time_Out</DataField>
-        </Field>
-        <Field Name="Vehicle_Plate_Number">
-          <DataField>Vehicle_Plate_Number</DataField>
-        </Field>
-        <Field Name="Is_Staff">
-          <DataField>Is_Staff</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -546,12 +515,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -591,4 +554,35 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Entry_No_">
+          <DataField>Entry_No_</DataField>
+        </Field>
+        <Field Name="Visitor_Name">
+          <DataField>Visitor_Name</DataField>
+        </Field>
+        <Field Name="Reason_for_Visit">
+          <DataField>Reason_for_Visit</DataField>
+        </Field>
+        <Field Name="Time_In">
+          <DataField>Time_In</DataField>
+        </Field>
+        <Field Name="Time_Out">
+          <DataField>Time_Out</DataField>
+        </Field>
+        <Field Name="Vehicle_Plate_Number">
+          <DataField>Vehicle_Plate_Number</DataField>
+        </Field>
+        <Field Name="Is_Staff">
+          <DataField>Is_Staff</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -17,6 +17,7 @@ table 50674 "ACA-Imp. Receipts Buffer"
         field(4; Amount; Decimal)
         {
             NotBlank = true;
+            //Editable = not Posted;
         }
         field(5; Posted; Boolean)
         {
@@ -26,7 +27,7 @@ table 50674 "ACA-Imp. Receipts Buffer"
         }
         field(7; "Student No."; Code[20])
         {
-            //TableRelation = Customer;
+            TableRelation = Customer where("Customer Type" = const(Student));
             // ValidateTableRelation = false;
             trigger OnValidate()
             var

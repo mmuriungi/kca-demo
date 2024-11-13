@@ -11,34 +11,6 @@
       <rd:DataSourceID>d75900b2-bd9c-4915-87a1-176aaea441f0</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Case_No_">
-          <DataField>Case_No_</DataField>
-        </Field>
-        <Field Name="Accused_Name">
-          <DataField>Accused_Name</DataField>
-        </Field>
-        <Field Name="Victim_Reporting_Party">
-          <DataField>Victim_Reporting_Party</DataField>
-        </Field>
-        <Field Name="Nature_of_Case">
-          <DataField>Nature_of_Case</DataField>
-        </Field>
-        <Field Name="Category">
-          <DataField>Category</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -479,12 +451,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -524,4 +490,32 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Case_No_">
+          <DataField>Case_No_</DataField>
+        </Field>
+        <Field Name="Accused_Name">
+          <DataField>Accused_Name</DataField>
+        </Field>
+        <Field Name="Victim_Reporting_Party">
+          <DataField>Victim_Reporting_Party</DataField>
+        </Field>
+        <Field Name="Nature_of_Case">
+          <DataField>Nature_of_Case</DataField>
+        </Field>
+        <Field Name="Category">
+          <DataField>Category</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

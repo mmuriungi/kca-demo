@@ -40,7 +40,7 @@ table 50171 "Incident Report"
         }
         field(11; "Forwarded To"; Option)
         {
-            OptionMembers = "Dean of Students",Registrar,VC;
+            OptionMembers = ,"Dean of Students",Registrar,VC;
         }
         field(12; "Date Reported"; Date)
         {
@@ -60,10 +60,17 @@ table 50171 "Incident Report"
         field(18; "No. Series"; Code[20])
         {
         }
+        field(19; "OB No."; Code[20])
+        {
+            TableRelation = "Daily Occurrence Book"."OB No.";
+        }
+        field(20; "Case Summary Desctiption"; Text[300])
+        {
+        }
     }
     keys
     {
-        key(PK; "Case No.")
+        key(PK; "Case No.","OB No.")
         {
             Clustered = true;
         }
