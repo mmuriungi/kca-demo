@@ -2459,9 +2459,9 @@ Table 51250 "ACA-New Stud. Documents"
                 GenJnl.Reset;
                 GenJnl.SetRange("Journal Template Name", 'SALES');
                 GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-                if GenJnl.Find('-') then begin
-
-                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post B2", GenJnl);
+                IF GenJnl.FindSet() THEN BEGIN
+                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
+                        
                     ACAStdPayments.Posted := true;
                     ACAStdPayments.Modify;
                     Modify;

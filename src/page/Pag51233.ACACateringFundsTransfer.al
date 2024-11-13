@@ -105,8 +105,8 @@ page 51233 "ACA-Catering Funds Transfer"
                         JournLine.RESET;
                         JournLine.SETRANGE("Journal Template Name", CateringSetUp."Sales Template");
                         JournLine.SETRANGE("Journal Batch Name", CateringSetUp."Sales Batch");
-                        IF JournLine.FIND('-') THEN BEGIN
-                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Bill", JournLine);
+                        IF JournLine.FindSet() THEN BEGIN
+                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", JournLine);
                         END;
 
 

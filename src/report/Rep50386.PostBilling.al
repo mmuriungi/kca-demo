@@ -476,8 +476,8 @@ report 50386 "Post Billing"
                         GenJnl.RESET;
                         GenJnl.SETRANGE("Journal Template Name", 'GENERAL');
                         GenJnl.SETRANGE("Journal Batch Name", 'DEFAULT');
-                        IF GenJnl.FIND('-') THEN BEGIN
-                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B", GenJnl);
+                        IF GenJnl.FindSet() THEN BEGIN
+                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
                         END;
                         Cust.Status := Cust.Status::Current;
                         Cust.MODIFY;

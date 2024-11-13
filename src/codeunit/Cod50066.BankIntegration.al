@@ -591,8 +591,8 @@ codeunit 50066 BankIntegration
             GenJnl.Reset;
             GenJnl.SetRange("Journal Template Name", 'SALES');
             GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-            if GenJnl.Find('-') then begin
-                CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post Bill", GenJnl);
+            if GenJnl.FindSet() then begin
+                CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
             end;
             //Post New
             Cust."Application Method" := Cust."Application Method"::"Apply to Oldest";
@@ -1290,9 +1290,9 @@ codeunit 50066 BankIntegration
             GenJnl.Reset;
             GenJnl.SetRange("Journal Template Name", 'SALES');
             GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-            if GenJnl.Find('-') then begin
+            if GenJnl.FindSet() then begin
 
-                CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post B2", GenJnl);
+                CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
                 ACAStdPayments.Modify;
             end;
 

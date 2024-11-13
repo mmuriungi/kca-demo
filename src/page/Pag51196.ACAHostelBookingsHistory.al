@@ -851,8 +851,8 @@ page 51196 "ACA-Hostel Bookings (History)"
             GenJnl.RESET;
             GenJnl.SETRANGE("Journal Template Name", 'SALES');
             GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
-            IF GenJnl.FIND('-') THEN BEGIN
-                CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Bill", GenJnl);
+            IF GenJnl.FindSet() THEN BEGIN
+                CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
             END;
 
             //Post New

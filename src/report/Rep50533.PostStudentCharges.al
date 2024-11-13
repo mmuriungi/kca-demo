@@ -44,8 +44,8 @@ report 50533 "Post Student Charges"
                 GenJnl.SETRANGE(GenJnl."Journal Template Name", 'SALES');
                 GenJnl.SETRANGE(GenJnl."Journal Batch Name", 'STUD PAY');
 
-                IF GenJnl.FIND('-') THEN BEGIN
-                    CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Bill", GenJnl);
+                IF GenJnl.FindSet() THEN BEGIN
+                    CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
                 END;
             end;
 

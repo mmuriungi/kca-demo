@@ -529,8 +529,8 @@ table 50625 "Aca-Special Exams Details"
             GenJnl.RESET;
             GenJnl.SETRANGE("Journal Template Name", 'SALES');
             GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
-            IF GenJnl.FIND('-') THEN BEGIN
-                CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B2", GenJnl);
+            IF GenJnl.FindSet() THEN BEGIN
+                CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
             END;
 
             //Post New

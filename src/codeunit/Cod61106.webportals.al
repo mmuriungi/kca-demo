@@ -6836,8 +6836,8 @@ Codeunit 61106 webportals
                 GenJnl.Reset;
                 GenJnl.SetRange("Journal Template Name", 'SUPP');
                 GenJnl.SetRange("Journal Batch Name", BatchNos);
-                if GenJnl.Find('-') then begin
-                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post B2", GenJnl);
+                if GenJnl.FindSet() then begin
+                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post Batch", GenJnl);
                 end;
                 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -6892,8 +6892,8 @@ Codeunit 61106 webportals
                 GenJnl.Reset;
                 GenJnl.SetRange("Journal Template Name", 'SUPP');
                 GenJnl.SetRange("Journal Batch Name", BatchNos);
-                if GenJnl.Find('-') then begin
-                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post B2", GenJnl);
+                if GenJnl.FindSet()then begin
+                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post Batch", GenJnl);
                 end;
                 /////////////////////////////////////////////////////////////////////////////////////
 

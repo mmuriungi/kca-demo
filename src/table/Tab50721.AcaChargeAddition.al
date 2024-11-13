@@ -213,7 +213,9 @@ table 50721 "Aca-Charge Addition"
             GenJnl.RESET;
             GenJnl.SETRANGE("Journal Template Name", 'SALES');
             GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
-            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B", GenJnl);
+            IF GenJnl.FindSet() THEN BEGIN
+                CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
+            END;
             ChargeLine.Posted := true;
             ChargeLine.Modify();
 
