@@ -46,35 +46,70 @@ page 51491 "Pharmacy Request List"
     {
         area(Processing)
         {
-            action("Request Approval")
+            // action("Request Approval")
+            // {
+            //     ApplicationArea = All;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     Image = SendApprovalRequest;
+
+            //     trigger OnAction()
+            //     begin
+            //         if ApprovalMgt.IsPharmRequestsEnabled(Rec) = true then
+            //             ApprovalMgt.OnSendPharmRequestsforApproval(Rec)
+            //         else
+            //             Error('Check Your workflow');
+            //     end;
+            // }
+
+            // action("Cancel Approval")
+            // {
+            //     ApplicationArea = All;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     Image = CancelApprovalRequest;
+
+            //     trigger OnAction()
+            //     begin
+            //         if ApprovalMgt.IsPharmRequestsEnabled(Rec) = true then
+            //             ApprovalMgt.OnCancelPharmRequestsforApproval(Rec)
+            //         else
+            //             Error('Check Your workflow');
+            //     end;
+            // }
+            action(SendApprovalRequest)
             {
                 ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
+                Caption = 'Send Approval Request';
                 Image = SendApprovalRequest;
+                Visible = Rec."Status" = Rec.Status::Pending;
 
                 trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-                    if ApprovalMgt.IsPharmRequestsEnabled(Rec) = true then
-                        ApprovalMgt.OnSendPharmRequestsforApproval(Rec)
-                    else
-                        Error('Check Your workflow');
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnSendDocForApproval(variant);
                 end;
             }
-
-            action("Cancel Approval")
+            //cancelapproval
+            action(CancelApproval)
             {
                 ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                Image = CancelApprovalRequest;
+                Caption = 'Cancel Approval';
+                Image = CancelApproval;
+                Visible = Rec."Status" = Rec."Status"::"Pending Approval";
 
                 trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-                    if ApprovalMgt.IsPharmRequestsEnabled(Rec) = true then
-                        ApprovalMgt.OnCancelPharmRequestsforApproval(Rec)
-                    else
-                        Error('Check Your workflow');
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                 end;
             }
 

@@ -24,7 +24,13 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelCertApplicRequestTxt: Label 'An Approval request for Certificate Application is Cancelled';
         RunWorkflowOnSendCertApplicForApprovalCode: Label 'RUNWORKFLOWONSENDCERTAPPLICFORAPPROVAL';
         RunWorkflowOnCanceCertApplicForApprovalCode: Label 'RUNWORKFLOWONCANCECERTAPPLICFORAPPROVAL';
-        //Employee Requisition
+        //Phamacy Request
+        OnSendPhamacyRequestTxt: Label 'Approval request for Phamacy items is requested';
+        OnCancelPhamacyRequestTxt: Label 'An Approval request for Phamacy item is Cancelled';
+        RunWorkflowOnSendPhamacyRequestForApprovalCode: Label 'RUNWORKFLOWONSENDPHAMACYFORAPPROVAL';
+        RunWorkflowOnCancelPhamacyRequestForApprovalCode: Label 'RUNWORKFLOWONCANCEPHAMACYREQUESTFORAPPROVAL';
+       
+
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
     var
@@ -41,6 +47,9 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendPostgradSupervisorApplicForApprovalCode));
             Database::"Certificate Application":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendCertApplicForApprovalCode));
+            Database::"Pharmacy Requests Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendPhamacyRequestForApprovalCode));
+                
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -87,6 +96,9 @@ codeunit 50089 "Approval Workflows V1"
         //Certificate Application
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendCertApplicForApprovalCode, Database::"Certificate Application", OnSendCertApplicRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCanceCertApplicForApprovalCode, Database::"Certificate Application", OnCancelCertApplicRequestTxt, 0, false);
+        //Phamacyrequest
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendPhamacyRequestForApprovalCode, Database::"Pharmacy Requests Header", OnSendPhamacyRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelPhamacyRequestForApprovalCode, Database::"Pharmacy Requests Header", OnCancelPhamacyRequestTxt, 0, false);
     end;
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
@@ -110,6 +122,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendPostgradSupervisorApplicForApprovalCode, Variant);
             Database::"Certificate Application":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendCertApplicForApprovalCode, Variant);
+            Database::"Pharmacy Requests Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendPhamacyRequestForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -131,6 +145,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancePostgradSupervisorApplicForApprovalCode, Variant);
             Database::"Certificate Application":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCanceCertApplicForApprovalCode, Variant);
+            Database::"Pharmacy Requests Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelPhamacyRequestForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -144,6 +160,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentLeave: Record "Student Leave";
         PosGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         CertApplic: Record "Certificate Application";
+        PhamacyHeader: Record "Pharmacy Requests Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -174,6 +191,13 @@ codeunit 50089 "Approval Workflows V1"
                     CertApplic.Modify();
                     Handled := true;
                 end;
+                Database::"Pharmacy Requests Header":
+                begin
+                    RecRef.SetTable(PhamacyHeader);
+                    PhamacyHeader.Validate("Status", PhamacyHeader.Status::Pending);
+                    PhamacyHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -184,6 +208,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentLeave: Record "Student Leave";
         PosGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         CertApplic: Record "Certificate Application";
+        PhamacyHeader: Record "Pharmacy Requests Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -220,6 +245,13 @@ codeunit 50089 "Approval Workflows V1"
                     Variant := CertApplic;
                     IsHandled := true;
                 end;
+                 Database::"Pharmacy Requests Header":
+                begin
+                    RecRef.SetTable(PhamacyHeader);
+                    PhamacyHeader.Validate("Status", PhamacyHeader.Status::Pending);
+                    PhamacyHeader.Modify();
+                    isHandled := true;
+                end;
         end;
     end;
 
@@ -230,6 +262,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentLeave: Record "Student Leave";
         PostGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         certApplic: Record "Certificate Application";
+        PhamacyHeader: Record "Pharmacy Requests Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -252,6 +285,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(certApplic);
                     ApprovalEntryArgument."Document No." := certApplic."No.";
                 end;
+                Database::"Pharmacy Requests Header":
+                begin
+                    RecRef.SetTable(PhamacyHeader);
+                    ApprovalEntryArgument."Document No." := PhamacyHeader."No.";
+                end;
         end;
     end;
 
@@ -265,6 +303,7 @@ codeunit 50089 "Approval Workflows V1"
         PostGradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         certApplic: Record "Certificate Application";
         PgHandler: Codeunit "PostGraduate Handler";
+        PhamacyHeader: Record "Pharmacy Requests Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -297,6 +336,14 @@ codeunit 50089 "Approval Workflows V1"
                     certApplic.Modify();
                     Handled := true;
                 end;
+                Database::"Pharmacy Requests Header":
+                begin
+                    RecRef.SetTable(PhamacyHeader);
+                    PhamacyHeader.Validate("Status", PhamacyHeader.Status::Approved);
+                    //StudHandler.handleStudentCertificateApplicationBilling(PhamacyHeader);
+                    PhamacyHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -307,6 +354,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentLeave: Record "Student Leave";
         postgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         CertApplic: Record "Certificate Application";
+        PhamacyHeader: Record "Pharmacy Requests Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -337,6 +385,13 @@ codeunit 50089 "Approval Workflows V1"
                         CertApplic.Modify(true);
                     end;
                 end;
+                Database::"Pharmacy Requests Header":
+                begin
+                    if PhamacyHeader.Get(ApprovalEntry."Document No.") then begin
+                        PhamacyHeader.Status := PhamacyHeader.Status::Pending;
+                        PhamacyHeader.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -347,6 +402,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentLeave: Record "Student Leave";
         PostgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         CertApplic: Record "Certificate Application";
+        PhamacyHeader: Record "Pharmacy Requests Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -378,6 +434,13 @@ codeunit 50089 "Approval Workflows V1"
                     CertApplic.Modify();
                     Variant := CertApplic;
                 end;
+                Database::"Pharmacy Requests Header":
+                begin
+                    RecRef.SetTable(PhamacyHeader);
+                    PhamacyHeader.Validate("Status", PhamacyHeader.Status::Pending);
+                    PhamacyHeader.Modify();
+                    Variant := PhamacyHeader;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -390,6 +453,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentLeave: Record "Student Leave";
         PostgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
         CertApplic: Record "Certificate Application";
+        PhamacyHeader: Record "Pharmacy Requests Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -420,6 +484,13 @@ codeunit 50089 "Approval Workflows V1"
                     CertApplic.Validate("Status", CertApplic.Status::Pending);
                     CertApplic.Modify();
                     Variant := CertApplic;
+                end;
+                Database::"Pharmacy Requests Header":
+                begin
+                    RecRef.SetTable(PhamacyHeader);
+                    PhamacyHeader.Validate("Status", PhamacyHeader.Status::Pending);
+                    PhamacyHeader.Modify();
+                    Variant := PhamacyHeader;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);

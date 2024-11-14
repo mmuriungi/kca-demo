@@ -4190,7 +4190,7 @@ codeunit 57100 studentportals
                 BEGIN
                     NewAdminCode := NoSeriesMgt.GetNextNo(AdminSetup."No. Series", TODAY, TRUE);
                     fablist."Admission No" := AdminSetup."Programme Prefix" + '/' + NewAdminCode + '/' + AdminSetup.Year;
-                    fabList."Student E-mail" := NewAdminCode + '@student.embuni.ac.ke';
+                    fabList."Student E-mail" := NewAdminCode + '@student.karu.ac.ke';//Confirm email
                     fablist.MODIFY;
 
                     KUCCPSRaw.Reset();
@@ -4299,6 +4299,66 @@ codeunit 57100 studentportals
             end;
             fablist.Status := fablist.Status::Admitted;
             fabList.Insert;
+        end else begin
+            fablist.Init;
+            fabList."Application No." := appNo;
+            fabList.firstName := fname;
+            fablist."Other Names" := mmname;
+            fablist.Surname := lname;
+            fablist."Full Names" := fullname;
+            fabList."Index Number" := index;
+            fabList.Gender := gender;
+            fabList."Date Of Birth" := dob;
+            fabList.Nationality := Nationality;
+            fabList.County := county;
+            fabList."ID Number" := idNo;
+            fabList."Passport Number" := passPort;
+            fabList."Identification Documemnt" := idDoc;
+            fabList.Religion := religion;
+            fablist."Other Religion Description" := otherreligion;
+            /*fabList.Denomination := denomination;
+            fabList.Congregation := congregation;
+            fabList.Diocese := diocese;
+            fablist."Order/Instutute" := inst;
+            fablist."Protestant Congregation" := protCongregation;*/
+            fabList."Marital Status" := maritalStat;
+            fabList.Disability := disability;
+            fablist."Nature of Disability" := disTyp;
+            fabList."Knew College Thru" := knewThru;
+            fablist.Ethicity := ethnic;
+            fabList."Telephone No. 1" := phoneNo;
+            fablist."Telephone No. 2" := altPhoneNo;
+            fabList.Email := email;
+            fabList."Address for Correspondence1" := postAddress;
+            fablist."Address for Correspondence3" := town;
+            fablist."Next of kin Name" := kinName;
+            fabList."Next Of Kin Email" := kinEmail;
+            fablist."Next of kin Mobile" := kinPhoneNo;
+            fablist."Next of Kin R/Ship" := kinRel;
+            fabList."Emergency Contact Name" := fpName;
+            fablist."Emergency Contact Telephone" := fpPhoneNo;
+            fabList."Emergency Contact Email" := fpEmail;
+            fabList."Fee payer R/Ship" := fpRel;
+            fablist."Former School Code" := highSchool;
+            fabList."High School From Year" := hschF;
+            fabList."High School To Year" := hschT;
+            fablist."Settlement Type" := 'GSS';
+            fabList."Application Date" := Today;
+            KUCCPSRaw.RESET;
+            KUCCPSRaw.SETRANGE(KUCCPSRaw.Index, index);
+            IF KUCCPSRaw.FIND('-') THEN BEGIN
+                //fabList."Year of Examination" := KUCCPSRaw."OLevel Year Completed";
+                programs.RESET;
+                programs.SETRANGE(programs.Code, KUCCPSRaw.Prog);
+                IF programs.FIND('-') THEN BEGIN
+                    fablist."First Degree Choice" := programs.Code;
+                    fablist."Programme Faculty" := programs.Faculty;
+                    fablist.programName := programs.Description;
+                    fablist."Admitted Department" := programs."Department Code";
+                end;
+            end;
+            fablist.Status := fablist.Status::Admitted;
+            fabList.Modify();
             KUCCPSRaw.RESET;
             KUCCPSRaw.SETRANGE(KUCCPSRaw.Index, index);
             IF KUCCPSRaw.FIND('-') THEN BEGIN
