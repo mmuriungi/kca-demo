@@ -97,7 +97,7 @@ page 50298 "Student Leave Card"
                 end;
             }
         }
-        area(Navigation)
+        area(Navigation) 
         {
             action(Attachments)
             {
