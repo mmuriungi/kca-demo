@@ -1,4 +1,4 @@
-table 51311 "HRM-Calendar"
+table 51312 "HRM-Calendar"
 {
     Caption = 'HRM-Calendar';
     DataClassification = ToBeClassified;

@@ -1,4 +1,4 @@
-page 52077 "Medical Dependants"
+page 52082 "Medical Dependants"
 {
     ApplicationArea = All;
     Caption = 'Medical Dependants';

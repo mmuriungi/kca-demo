@@ -2,14 +2,14 @@ table 51311 "HRM-Certifications"
 {
     Caption = 'HRM-Certifications';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "No."; Code[30])
         {
             Caption = 'No.';
         }
-        field(2;"Employee Code"; Code[20])
+        field(2; "Employee Code"; Code[20])
         {
             Caption = 'Employee Code';
         }
@@ -36,7 +36,7 @@ table 51311 "HRM-Certifications"
     }
     keys
     {
-        key(PK; "No.","Employee Code")
+        key(PK; "No.", "Employee Code")
         {
             Clustered = true;
         }
