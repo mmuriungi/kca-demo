@@ -146,18 +146,63 @@ page 52081 "Medical Claims Card"
     {
         area(Processing)
         {
-            action(Submit)
+            action(SendApprovalRequest)
             {
                 ApplicationArea = All;
-                Caption = 'Submit for Approval';
+                Caption = 'Send Approval Request';
                 Image = SendApprovalRequest;
+                Visible = Rec."Status" = Rec."Status"::open;
+
+                trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
+                begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnSendDocForApproval(variant);
+                end;
+            }
+            //cancelapproval
+            action(CancelApproval)
+            {
+                ApplicationArea = All;
+                Caption = 'Cancel Approval';
+                Image = CancelApproval;
+                Visible = Rec."Status" = Rec."Status"::open;
+
+                trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
+                begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end;
+            }
+        }
+        area(Navigation)
+        {
+            action(Attachments)
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                Image = Attach;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                PromotedOnly = true;
+                ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
 
                 trigger OnAction()
+                var
+                    DocumentAttachmentDetails: Page "Document Attachment Details";
+                    RecRef: RecordRef;
                 begin
-                    
+                    RecRef.GetTable(Rec);
+                    DocumentAttachmentDetails.OpenForRecRef(RecRef);
+                    DocumentAttachmentDetails.RunModal;
                 end;
             }
         }
