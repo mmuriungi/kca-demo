@@ -1,6 +1,6 @@
 table 50245 "HRM-Medical Claims"
 {
-
+ 
 
     fields
     {
@@ -141,10 +141,8 @@ table 50245 "HRM-Medical Claims"
         field(3972; "Member Names"; Text[100])
         {
         }
-        field(3973; Status; Option)
+        field(3973; Status; enum "Custom Approval Status" )
         {
-            OptionCaption = 'New,Pending Approval,Approved,Posted';
-            OptionMembers = New,"Pending Approval",Approved,Posted;
         }
         field(3974; "Responsibility Center"; Code[10])
         {
@@ -185,6 +183,10 @@ table 50245 "HRM-Medical Claims"
         field(3981; "Claim Currency Code"; Code[10])
         {
             TableRelation = Currency;
+        }
+        //Posted
+        field(3982; "Posted"; Boolean)
+        {
         }
     }
 

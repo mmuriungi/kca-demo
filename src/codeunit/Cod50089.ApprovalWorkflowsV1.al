@@ -214,7 +214,7 @@ codeunit 50089 "Approval Workflows V1"
             Database::club:
                 begin
                     RecRef.SetTable(club);
-                    club.Validate("Approval Status", club."Approval Status"::"Pending Approval");
+                    club.Validate("Approval Status", club."Approval Status"::"Pending");
                     club.Modify();
                     Variant := club;
                     IsHandled := true;
@@ -222,7 +222,7 @@ codeunit 50089 "Approval Workflows V1"
             Database::"Student Leave":
                 begin
                     RecRef.SetTable(StudentLeave);
-                    StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::"Pending Approval");
+                    StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::"Pending");
                     StudentLeave.Modify();
                     Variant := StudentLeave;
                     if not fnCheckApprovalRequirements(Variant) then
@@ -460,14 +460,14 @@ codeunit 50089 "Approval Workflows V1"
             Database::Club:
                 begin
                     RecRef.SetTable(club);
-                    club.validate("Approval Status", club."Approval Status"::"Pending Approval");
+                    club.validate("Approval Status", club."Approval Status"::"Pending");
                     club.Modify;
                     Variant := club;
                 end;
             Database::"Student Leave":
                 begin
                     RecRef.SetTable(StudentLeave);
-                    StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::"Pending Approval");
+                    StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::"Pending");
                     StudentLeave.Modify();
                     Variant := StudentLeave;
                 end;

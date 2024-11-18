@@ -116,7 +116,7 @@ page 50305 "Student Affairs Role Center"
                     ApplicationArea = All;
                     Caption = 'Pending Leave Requests';
                     RunObject = Page "Student Leave List";
-                    RunPageView = where("Approval Status" = CONST("Pending Approval"));
+                    RunPageView = where("Approval Status" = CONST("Pending"));
                 }
                 action("Approved Leave Requests")
                 {

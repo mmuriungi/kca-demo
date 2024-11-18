@@ -65,7 +65,7 @@ Table 61251 "HRM-Medical Scheme Members"
         {
             CalcFormula = sum("HRM-Medical Claims"."Scheme Amount Charged" where("Member No" = field("Employee No"),
                                                                                   "Claim Type" = const(Inpatient),
-                                                                                  Status = const(Posted)));
+                                                                                  Posted = const(true)));
             FieldClass = FlowField;
         }
         field(10; "Out-Patient Limit"; Decimal)
@@ -81,7 +81,7 @@ Table 61251 "HRM-Medical Scheme Members"
         {
             CalcFormula = sum("HRM-Medical Claims"."Scheme Amount Charged" where("Member No" = field("Employee No"),
                                                                                   "Claim Type" = const(Outpatient),
-                                                                                  Status = const(Posted)));
+                                                                                  posted = const(true)));
             FieldClass = FlowField;
         }
         field(14; "Balance Out- Patient"; Decimal)

@@ -35,7 +35,7 @@ table 50166 "Student Leave"
         {
             Caption = 'Reason';
         }
-        field(7; "Approval Status"; enum "Common Approval Status")
+        field(7; "Approval Status"; enum "Custom Approval Status")
         {
             Caption = 'Approval Status';
             Editable = false;

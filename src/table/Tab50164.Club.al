@@ -54,7 +54,7 @@ table 50164 Club
         {
             Caption = 'No. Series';
         }
-        field(11; "Approval Status"; enum "Common Approval Status")
+        field(11; "Approval Status"; enum "Custom Approval Status")
         {
             Caption = 'Approval Status';
             DataClassification = ToBeClassified;

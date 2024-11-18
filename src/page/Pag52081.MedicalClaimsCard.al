@@ -1,0 +1,165 @@
+page 52081 "Medical Claims Card"
+{
+    SourceTable = "HRM-Medical Claims";
+    Caption = 'Medical Claim Card';
+
+    layout
+    {
+        area(Content)
+        {
+            group(General)
+            {
+                Caption = 'General Information';
+                field("Claim No"; Rec."Claim No")
+                {
+                    ApplicationArea = All;
+                    Importance = Promoted;
+
+                    trigger OnAssistEdit()
+                    begin
+                        // if Rec.AssistEdit(xRec) then
+                        //     CurrPage.Update();
+                    end;
+                }
+                field("Claim Date"; Rec."Claim Date")
+                {
+                    ApplicationArea = All;
+                    Importance = Promoted;
+                }
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = All;
+                    Importance = Promoted;
+                }
+                field("Claim Type"; Rec."Claim Type")
+                {
+                    ApplicationArea = All;
+                    Importance = Standard;
+                }
+                field("Document Ref"; Rec."Document Ref")
+                {
+                    ApplicationArea = All;
+                }
+            }
+
+            group(MemberDetails)
+            {
+                Caption = 'Member Information';
+                field("Member No"; Rec."Member No")
+                {
+                    ApplicationArea = All;
+                    Importance = Standard;
+                }
+                field("Member Names"; Rec."Member Names")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Scheme No"; Rec."Scheme No")
+                {
+                    ApplicationArea = All;
+                    Importance = Standard;
+                }
+            }
+
+            group(PatientInfo)
+            {
+                Caption = 'Patient Information';
+                field(Dependants; Rec.Dependants)
+                {
+                    ApplicationArea = All;
+                    Importance = Standard;
+                }
+                field("Patient Name"; Rec."Patient Name")
+                {
+                    ApplicationArea = All;
+                    Importance = Standard;
+                }
+            }
+
+            group(FacilityDetails)
+            {
+                Caption = 'Medical Facility';
+                field("Facility Attended"; Rec."Facility Attended")
+                {
+                    ApplicationArea = All;
+                    Importance = Standard;
+                }
+                field("Facility Name"; Rec."Facility Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Date of Service"; Rec."Date of Service")
+                {
+                    ApplicationArea = All;
+                }
+            }
+
+            group(ClaimAmount)
+            {
+                Caption = 'Claim Details';
+                field("Claim Currency Code"; Rec."Claim Currency Code")
+                {
+                    ApplicationArea = All;
+                    Importance = Standard;
+                }
+                field("Claim Amount"; Rec."Claim Amount")
+                {
+                    ApplicationArea = All;
+                    Importance = Promoted;
+                }
+                field("Currency Factor"; Rec."Currency Factor")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Scheme Currency Code"; Rec."Scheme Currency Code")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Scheme Amount Charged"; Rec."Scheme Amount Charged")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+            }
+
+            group(Other)
+            {
+                Caption = 'Additional Information';
+                field(Comments; Rec.Comments)
+                {
+                    ApplicationArea = All;
+                    MultiLine = true;
+                }
+                field("Responsibility Center"; Rec."Responsibility Center")
+                {
+                    ApplicationArea = All;
+                }
+            }
+        }
+    }
+
+    actions
+    {
+        area(Processing)
+        {
+            action(Submit)
+            {
+                ApplicationArea = All;
+                Caption = 'Submit for Approval';
+                Image = SendApprovalRequest;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+
+                trigger OnAction()
+                begin
+                    
+                end;
+            }
+        }
+    }
+}
