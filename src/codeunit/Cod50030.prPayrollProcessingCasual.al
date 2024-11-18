@@ -118,7 +118,7 @@ codeunit 50030 "prPayrollProcessing Casual"
         prEmployeeTransactions: Record "PRL-CASUAL EMP. TRANSACTIONS";
         prTransactionCodes: Record "PRL-TRANSACTION CODES";
         strExtractedFrml: Text[250];
-        SpecialTransType: Option Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage;
+        SpecialTransType: Enum "Payroll Special Transaction";
         TransactionType: Option Income,Deduction;
         curPensionCompany: Decimal;
         curTaxOnExcessPension: Decimal;
@@ -1088,7 +1088,7 @@ codeunit 50030 "prPayrollProcessing Casual"
     end;
 
 
-    procedure fnGetSpecialTransAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Option Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage,Gratuity,"Insurance Relief","Allowance Recovery"; blnCompDedc: Boolean; currInstalment: Integer) SpecialTransAmount: Decimal
+    procedure fnGetSpecialTransAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Enum "Payroll Special Transaction"; blnCompDedc: Boolean; currInstalment: Integer) SpecialTransAmount: Decimal
     var
         prEmployeeTransactions: Record "PRL-CASUAL EMP. TRANSACTIONS";
         prTransactionCodes: Record "PRL-TRANSACTION CODES";
@@ -1975,7 +1975,7 @@ codeunit 50030 "prPayrollProcessing Casual"
     end;
 
 
-    procedure fnGetSpecialTransAmount2(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Option Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage; blnCompDedc: Boolean; currentInstalments: Integer)
+    procedure fnGetSpecialTransAmount2(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Enum "Payroll Special Transaction"; blnCompDedc: Boolean; currentInstalments: Integer)
     var
         prEmployeeTransactions: Record "PRL-CASUAL EMP. TRANSACTIONS";
         prTransactionCodes: Record "PRL-TRANSACTION CODES";
@@ -2054,7 +2054,7 @@ codeunit 50030 "prPayrollProcessing Casual"
     end;
 
 
-    procedure fnGetPensionAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Option Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage,Gratuity,"Insurance Relief"; blnCompDedc: Boolean; currInstalment: Integer) SpecialTransAmount: Decimal
+    procedure fnGetPensionAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Enum "Payroll Special Transaction"; blnCompDedc: Boolean; currInstalment: Integer) SpecialTransAmount: Decimal
     var
         prEmployeeTransactions: Record "PRL-CASUAL EMP. TRANSACTIONS";
         prTransactionCodes: Record "PRL-TRANSACTION CODES";
