@@ -17,6 +17,10 @@ page 52074 "Daily Occurrence Card"
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
                 }
+                field("OB No."; Rec."OB No.")
+                {
+                    ToolTip = 'Specifies the value of the OB No. field.', Comment = '%';
+                }
                 field("Date"; Rec."Date")
                 {
                     ToolTip = 'Specifies the value of the Date field.', Comment = '%';

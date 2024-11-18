@@ -219,7 +219,10 @@ table 50237 "HRM-Jobs"
         {
             
         }
-
+        field(50009; "Specialization"; Code[20])
+        {
+            //TableRelation = "HRM-Lookup Values";
+        }
     }
 
     keys
