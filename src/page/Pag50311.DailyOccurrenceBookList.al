@@ -17,6 +17,10 @@ page 50311 "Daily Occurrence Book List"
                 {
                     ApplicationArea = All;
                 }
+                field("OB No."; Rec."OB No.")
+                {
+                    ApplicationArea = All;
+                }
                 field("Date"; Rec."Date")
                 {
                     ApplicationArea = All;

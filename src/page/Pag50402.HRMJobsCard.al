@@ -22,6 +22,10 @@ page 50402 "HRM-Jobs Card"
                     ApplicationArea = all;
                     Importance = Promoted;
                 }
+                field(Specialization;Rec.Specialization)
+                {
+                    ApplicationArea = All;
+                }
                 field("Position Reporting to"; Rec."Position Reporting to")
                 {
                     ApplicationArea = all;
