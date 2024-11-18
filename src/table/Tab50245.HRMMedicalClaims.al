@@ -1,7 +1,6 @@
 table 50245 "HRM-Medical Claims"
 {
-    //todo DrillDownPageID = "HMS-Radiology History List";
-    //todo LookupPageID = "HMS-Radiology History List";
+
 
     fields
     {
@@ -27,17 +26,17 @@ table 50245 "HRM-Medical Claims"
         }
         field(7; "Facility Attended"; Code[10])
         {
-            //todo TableRelation = "HRM-Medical Facility".Code;
+            TableRelation = "HRM-Medical Facility".Code;
 
             trigger OnValidate()
             begin
-                /*todo    Facility.Reset;
-                  Facility.SetRange(Facility.Code, "Facility Attended");
-                  if Facility.Find('-') then begin
-                      "Facility Name" := Facility."Facility Name";
+                Facility.Reset;
+                Facility.SetRange(Facility.Code, "Facility Attended");
+                if Facility.Find('-') then begin
+                    "Facility Name" := Facility."Facility Name";
 
-                  end;
-                  todo*/
+                end;
+
             end;
         }
         field(8; "Claim Amount"; Decimal)
@@ -51,8 +50,8 @@ table 50245 "HRM-Medical Claims"
                     if "Claim Currency Code" <> xRec."Claim Currency Code" then
                         UpdateCurrencyFactor;
                 end else begin
-                    //todo  if "Claim Currency Code" <> MedicalSchemes.Currency then
-                    //todo UpdateCurrencyFactor;
+                    //  if "Claim Currency Code" <> MedicalSchemes.Currency then
+                    // UpdateCurrencyFactor;
                 end;
                 if "Currency Factor" <> 0 then
                     "Scheme Amount Charged" := "Claim Amount" * "Currency Factor"
@@ -118,25 +117,25 @@ table 50245 "HRM-Medical Claims"
         }
         field(3971; "Scheme No"; Code[10])
         {
-            //todo TableRelation = "HRM-Medical Schemes" WHERE(Status = FILTER(<> Closed));
+            // TableRelation = "HRM-Medical Schemes" WHERE(Status = FILTER(<> Closed));
 
             trigger OnValidate()
             begin
-                /*HRClaimTypes.GET("Claim Type");
+                HRClaimTypes.GET("Claim Type");
                 HRClaimTypes.GET("Member No");
-                IF HRClaim."Claim Type"=HRClaimTypes."Scheme Type" THEN
-                EXIT
+                IF HRClaim."Claim Type" = HRClaimTypes."Scheme Type" THEN
+                    EXIT
                 ELSE
-                ERROR('This scheme type is restricted to the '+ FORMAT(HRClaimTypes."Scheme Type") +' Scheme Type')
-                */
+                    ERROR('This scheme type is restricted to the ' + FORMAT(HRClaimTypes."Scheme Type") + ' Scheme Type');
 
-                /*todo      HRClaimTypes.Reset;
-                      HRClaimTypes.SetRange(HRClaimTypes."Scheme No", "Scheme No");
-                      if HRClaimTypes.Find('-') then begin
-                          "Scheme Currency Code" := HRClaimTypes.Currency;
-                          Modify;
-                      end;
-      todo*/
+
+                     HRClaimTypes.Reset;
+                HRClaimTypes.SetRange(HRClaimTypes."Scheme No", "Scheme No");
+                if HRClaimTypes.Find('-') then begin
+                    "Scheme Currency Code" := HRClaimTypes.Currency;
+                    Modify;
+                end;
+
             end;
         }
         field(3972; "Member Names"; Text[100])
@@ -213,38 +212,38 @@ table 50245 "HRM-Medical Claims"
 
         HREmp.Reset;
         HREmp.SetRange(HREmp."User ID", "Member ID");
-        /*todo  if HREmp.Find('-') then begin
-              "Member No" := HREmp."No.";
-              "Member Names" := HREmp."First Name" + ' ' + HREmp."Middle Name" + ' ' + HREmp."Last Name";
+        if HREmp.Find('-') then begin
+            "Member No" := HREmp."No.";
+            "Member Names" := HREmp."First Name" + ' ' + HREmp."Middle Name" + ' ' + HREmp."Last Name";
 
-              HRMSMembers.Reset;
-              HRMSMembers.SetCurrentKey(HRMSMembers."Employee No");
-              HRMSMembers.SetRange(HRMSMembers."Employee No", "Member No");
-              if HRMSMembers.Find('-') then
-                  "Scheme No" := HRMSMembers."Scheme No";
-              if MedicalSchemes.Find('-') then
-                  "Scheme Currency Code" := MedicalSchemes.Currency;
-              //VALIDATE("Scheme No");
-              //MODIFY;
+            HRMSMembers.Reset;
+            HRMSMembers.SetCurrentKey(HRMSMembers."Employee No");
+            HRMSMembers.SetRange(HRMSMembers."Employee No", "Member No");
+            if HRMSMembers.Find('-') then
+                "Scheme No" := HRMSMembers."Scheme No";
+            if MedicalSchemes.Find('-') then
+                "Scheme Currency Code" := MedicalSchemes.Currency;
+            //VALIDATE("Scheme No");
+            //MODIFY;
 
-              //IF MedicalSchemes.GET(HRMSMembers."Scheme No") THEN BEGIN
+            //IF MedicalSchemes.GET(HRMSMembers."Scheme No") THEN BEGIN
 
-              // END; }
+            // END; }
 
-          end; todo*/
+        end;
     end;
 
     var
         MDependants: Record "HRM-Employee Kin";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         HRSetup: Record "HRM-Setup";
-        //todo HRClaimTypes: Record "HRM-Medical Schemes";
+        HRClaimTypes: Record "HRM-Medical Schemes";
         HRClaim: Record "HRM-Medical Claims";
         HREmp: Record "HRM-Employee C";
-        //todo Facility: Record "HRM-Medical Facility";
+        Facility: Record "HRM-Medical Facility";
         Curr: Record Currency;
-        //todo  HRMSMembers: Record "HRM-Medical Scheme Members";
-        //todo  MedicalSchemes: Record "HRM-Medical Schemes";
+        HRMSMembers: Record "HRM-Medical Scheme Members";
+        MedicalSchemes: Record "HRM-Medical Schemes";
         CurrExchRate: Record "Currency Exchange Rate";
 
     local procedure UpdateCurrencyFactor()
