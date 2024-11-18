@@ -9,6 +9,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
         UtilityBill: Record "Utility Bill";
         CertApplic: Record "Certificate Application";
         LeaveRequest: Record "Student Leave";
+        medclaim: Record "HRM-Medical Claims";
     begin
         case DocumentAttachment."Table ID" of
 
@@ -35,6 +36,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecRef.Open(DATABASE::"Student Leave");
                     if LeaveRequest.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(LeaveRequest);
+                end;
+            Database::"HRM-Medical Claims":
+                begin
+                    RecRef.Open(Database::"HRM-Medical Claims");
+                    if medclaim.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(medclaim);
                 end;
         end;
     end;
@@ -71,6 +78,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecNo := FieldRef.Value;
                     DocumentAttachment.SetRange("No.", RecNo);
                 end;
+            Database::"HRM-Medical Claims":
+                begin
+                    FieldRef := RecRef.Field(10);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.SetRange("No.", RecNo);
+                end;
         end;
     end;
 
@@ -103,6 +116,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
             Database::"Student Leave":
                 begin
                     FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                end;
+            Database::"HRM-Medical Claims":
+                begin
+                    FieldRef := RecRef.Field(10);
                     RecNo := FieldRef.Value;
                     DocumentAttachment.Validate("No.", RecNo);
                 end;

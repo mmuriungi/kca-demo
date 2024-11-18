@@ -43,15 +43,6 @@ codeunit 52178866 "Notifications Handler"
         Receipient: Text;
     begin
         Companyinforec.GET;
-        // if recipientEmail.Count > 0 then begin
-        //     foreach Receipient in recipientEmail do begin
-        //         if not fnvalidateemail(Receipient) then begin
-        //             //remove invalid email address
-        //             recipientEmail.Remove(Receipient);
-        //         end;
-        //     end;
-        // end;
-
         if RecipientEmail <> '' then begin
             CuEmailMessage.Create('', Subject, '');
             CuEmailMessage.SetBodyHTMLFormatted(true);
@@ -61,18 +52,7 @@ codeunit 52178866 "Notifications Handler"
             if AddBcc <> '' then
                 CuEmailMessage.SetRecipients(EmailReceipientType::BCC, AddBcc);
             if hasAttachment then begin
-                //get name and type of attachment
-                // i := 1;
-                // foreach dict in AttachmentDict.Values do begin
-                //     foreach detail in dict.Values do begin
-                //         AttachmentDict.Keys.Get(i, attachmentName);
-                //         dict.Get(1, attachmentType);
-                //         Dict.Get(2, attachmentBase64);
-                //     end;
                 CuEmailMessage.AddAttachment(AttachmentName + '.' + attachmentType, AttachmentType, AttachmentBase64);
-                //     i += 1;
-                // end;
-
             end;
             CuEmailMessage.AppendToBody('<html> <body> <font face="Maiandra GD,Garamond,Tahoma", size = "3">');
             CuEmailMessage.AppendToBody('Dear ' + 'Sir/Madam' + ',');
