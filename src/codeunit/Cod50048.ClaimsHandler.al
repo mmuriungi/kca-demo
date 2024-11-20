@@ -32,7 +32,7 @@ codeunit 50048 "Claims Handler"
             PvLines.No := PVHeader."No.";
             PvLines.Type := PayTypes.Code;
             PvLines.Validate("Type");
-            PvLines."Account No." := Employee."Vendor No.";
+            PvLines."Account No." := Employee."Medical Claim Vendor No.";
             PvLines.Validate("Account No.");
             PvLines."Global Dimension 1 Code" := Claim."Global Dimension 1 Code";
             PvLines."Shortcut Dimension 2 Code" := Claim."Global Dimension 2 Code";
@@ -45,6 +45,7 @@ codeunit 50048 "Claims Handler"
             end;
         end;
     end;
+
     procedure getPayType(var PayTypes: Record "FIN-Receipts and Payment Types")
     begin
         PayTypes.Reset();
