@@ -442,6 +442,49 @@ page 51493 "Finance Management Rolecenter"
                     RunObject = Page "Posted Parttime Claim List";
                 }
             }
+            group("Medical Claims")
+            {
+                action("Open Medical Claims")
+                {
+                    Caption = 'Open Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Status = FILTER(Open));
+                }
+                action("Pending Medical Claims")
+                {
+                    Caption = 'Pending Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Status = FILTER(Pending));
+                }
+                action("Approved Medical Claims")
+                {
+                    Caption = 'Approved Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Status = FILTER(Approved));
+                }
+                action("Rejected Medical Claims")
+                {
+                    Caption = 'Rejected Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Status = FILTER(Rejected));
+                }
+                action("Posted Medical Claims")
+                {
+                    Caption = 'Posted Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Posted = const(true));
+                }
+            }
             group("Posted Documents")
             {
                 Caption = 'Posted Documents';
@@ -688,9 +731,10 @@ page 51493 "Finance Management Rolecenter"
                 {
                     ApplicationArea = All;
                     Image = Report;
-                    RunObject = Report  GeneralLedgerv3;
+                    RunObject = Report GeneralLedgerv3;
                 }
-            }            group(Reports)
+            }
+            group(Reports)
             {
 
                 Caption = 'Payroll Reports';
