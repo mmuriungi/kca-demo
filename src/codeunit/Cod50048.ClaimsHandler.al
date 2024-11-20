@@ -19,6 +19,7 @@ codeunit 50048 "Claims Handler"
         PVHeader."Pay Mode" := PVHeader."Pay Mode";
         PVHeader."Responsibility Center" := Claim."Responsibility Center";
         PVHeader."Payment Narration" := Claim.Comments;
+        PVHeader."Source Document Type" := PVHeader."Source Document Type"::"Medical Claim";
         PVHeader.Payee := Claim."Member Names";
         PVHeader."Source Document No" := Claim."Claim No";
         PVHeader."Source Table" := Claim.RecordId.TableNo;
