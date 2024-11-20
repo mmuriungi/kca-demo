@@ -733,6 +733,12 @@ page 51493 "Finance Management Rolecenter"
                     Image = Report;
                     RunObject = Report GeneralLedgerv3;
                 }
+                action("Budget Vs Commitment Analysis")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report "Votebook Summary";
+                }
             }
             group(Reports)
             {
