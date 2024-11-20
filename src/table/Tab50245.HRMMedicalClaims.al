@@ -7,6 +7,16 @@ table 50245 "HRM-Medical Claims"
         field(1; "Member No"; Code[10])
         {
             TableRelation = "HRM-Employee C"."No.";
+            trigger OnValidate()
+            var
+                HREmpl: Record "HRM-Employee C";
+            begin
+                HREmpl.RESET;
+                HREmpl.SETRANGE(HREmpl."No.", "Member No");
+                IF HREmpl.FIND('-') THEN BEGIN
+                    "Member Names" := HREmpl."First Name" + ' ' + HREmpl."Middle Name" + ' ' + HREmpl."Last Name";
+                end;
+            end;
         }
         field(2; "Claim Type"; Option)
         {
