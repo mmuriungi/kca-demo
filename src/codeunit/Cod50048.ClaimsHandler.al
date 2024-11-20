@@ -45,13 +45,10 @@ codeunit 50048 "Claims Handler"
             end;
         end;
     end;
-
     procedure getPayType(var PayTypes: Record "FIN-Receipts and Payment Types")
     begin
         PayTypes.Reset();
         PayTypes.SetRange("Medical Claim?", true);
         PayTypes.FindFirst();
     end;
-
-
 }
