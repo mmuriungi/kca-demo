@@ -1,7 +1,7 @@
 table 50245 "HRM-Medical Claims"
 {
-
-
+    DrillDownPageId = "Medical Claims List";
+    LookupPageId = "Medical Claims List";
     fields
     {
         field(1; "Member No"; Code[10])
@@ -131,12 +131,12 @@ table 50245 "HRM-Medical Claims"
 
             trigger OnValidate()
             begin
-                HRClaimTypes.GET("Claim Type");
-                HRClaimTypes.GET("Member No");
-                IF HRClaim."Claim Type" = HRClaimTypes."Scheme Type" THEN
-                    EXIT
-                ELSE
-                    ERROR('This scheme type is restricted to the ' + FORMAT(HRClaimTypes."Scheme Type") + ' Scheme Type');
+                // HRClaimTypes.GET("Claim Type");
+                // HRClaimTypes.GET("Member No");
+                // IF HRClaim."Claim Type" = HRClaimTypes."Scheme Type" THEN
+                //     EXIT
+                // ELSE
+                //     ERROR('This scheme type is restricted to the ' + FORMAT(HRClaimTypes."Scheme Type") + ' Scheme Type');
 
 
                 HRClaimTypes.Reset;
