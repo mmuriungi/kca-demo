@@ -409,7 +409,7 @@ table 50025 "FIN-Payments Header"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(88; "Payment Narration"; Text[200])
+        field(88; "Payment Narration"; Text[250])
         {
         }
         field(89; "Total PAYE Amount"; Decimal)

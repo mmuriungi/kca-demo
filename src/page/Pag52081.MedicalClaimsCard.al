@@ -181,6 +181,25 @@ page 52081 "Medical Claims Card"
                         ApprovMgmt.OnCancelDocApprovalRequest(variant);
                 end;
             }
+            action(Post)
+            {
+                Caption = 'Post';
+                Image = Post;
+                ApplicationArea = All;
+                Enabled = Rec."Status" = Rec."Status"::approved;
+                Visible = not Rec."Posted";
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                var
+                    ClaimHandler: Codeunit "Claims Handler";
+                begin
+                    if not confirm('Are you sure you want to post this claim? This will create a new payment voucher.') then
+                        exit;
+                    Rec."Posted" := ClaimHandler.createPaymentVoucher(Rec);
+                    Rec.Modify(true);
+                end;
+            }
         }
         area(Navigation)
         {
