@@ -651,6 +651,12 @@ table 50025 "FIN-Payments Header"
         {
             DataClassification = ToBeClassified;
         }
+        //Source document type
+        field(50169; "Source Document Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = " ","Part-time claim","Medical Claim";
+        }
 
     }
 
