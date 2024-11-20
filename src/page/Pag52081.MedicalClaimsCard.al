@@ -61,6 +61,11 @@ page 52081 "Medical Claims Card"
                     ApplicationArea = All;
                     Importance = Standard;
                 }
+                field("Scheme Name"; Rec."Scheme Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
             }
 
             group(PatientInfo)

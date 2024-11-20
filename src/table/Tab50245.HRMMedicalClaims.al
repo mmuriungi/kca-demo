@@ -1,7 +1,7 @@
 table 50245 "HRM-Medical Claims"
 {
-
-
+    DrillDownPageId = "Medical Claims List";
+    LookupPageId = "Medical Claims List";
     fields
     {
         field(1; "Member No"; Code[10])
@@ -127,22 +127,23 @@ table 50245 "HRM-Medical Claims"
         }
         field(3971; "Scheme No"; Code[10])
         {
-            // TableRelation = "HRM-Medical Schemes" WHERE(Status = FILTER(<> Closed));
+            TableRelation = "HRM-Medical Schemes" WHERE(Status = FILTER(<> Closed));
 
             trigger OnValidate()
             begin
-                HRClaimTypes.GET("Claim Type");
-                HRClaimTypes.GET("Member No");
-                IF HRClaim."Claim Type" = HRClaimTypes."Scheme Type" THEN
-                    EXIT
-                ELSE
-                    ERROR('This scheme type is restricted to the ' + FORMAT(HRClaimTypes."Scheme Type") + ' Scheme Type');
+                // HRClaimTypes.GET("Claim Type");
+                // HRClaimTypes.GET("Member No");
+                // IF HRClaim."Claim Type" = HRClaimTypes."Scheme Type" THEN
+                //     EXIT
+                // ELSE
+                //     ERROR('This scheme type is restricted to the ' + FORMAT(HRClaimTypes."Scheme Type") + ' Scheme Type');
 
 
                 HRClaimTypes.Reset;
                 HRClaimTypes.SetRange(HRClaimTypes."Scheme No", "Scheme No");
                 if HRClaimTypes.Find('-') then begin
                     "Scheme Currency Code" := HRClaimTypes.Currency;
+                    "Scheme Name" := HRClaimTypes."Scheme Name";
                     Modify;
                 end;
 
@@ -156,7 +157,7 @@ table 50245 "HRM-Medical Claims"
         }
         field(3974; "Responsibility Center"; Code[10])
         {
-            //TableRelation = "FIN-Responsibility Center BR".Code;
+            TableRelation = "Responsibility Center";
         }
         field(3975; "No Series."; Integer)
         {
@@ -227,6 +228,10 @@ table 50245 "HRM-Medical Claims"
             NotBlank = false;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
 
+        }
+        //scheme name
+        field(3987; "Scheme Name"; Text[150])
+        {
         }
     }
 
