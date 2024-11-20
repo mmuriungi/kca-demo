@@ -128,6 +128,10 @@ page 50019 "FIN-Payment Types"
                 {
                     ApplicationArea = All;
                 }
+                field("Medical Claim?"; Rec."Medical Claim?")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
