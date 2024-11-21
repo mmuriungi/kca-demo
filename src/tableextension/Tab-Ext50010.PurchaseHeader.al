@@ -295,7 +295,7 @@ tableextension 50010 "Purchase Header" extends "Purchase Header"
             TableRelation = "PROC-Purchase Quote Header";
             trigger OnValidate()
             var
-            ProcProcess: Codeunit "Procurement Process";
+                ProcProcess: Codeunit "Procurement Process";
             begin
 
             end;
@@ -429,6 +429,10 @@ tableextension 50010 "Purchase Header" extends "Purchase Header"
         {
             OptionMembers = LPO,LSO;
 
+        }
+        field(5666022; "Procurement Plan No."; code[20])
+        {
+            TableRelation = "PROC-Procurement Plan Header"."Budget Name" where("Department Code" = field("Shortcut Dimension 2 Code"));
         }
         modify("Responsibility Center")
         {

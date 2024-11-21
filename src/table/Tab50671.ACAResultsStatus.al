@@ -363,6 +363,11 @@ table 50671 "ACA-Results Status"
         {
             DataClassification = ToBeClassified;
         }
+        //Include CF% Fail
+        field(63074; "Include CF% Fail"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

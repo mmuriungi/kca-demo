@@ -1,4 +1,5 @@
-report 50527 "ACA-Consolidated Marksheet 1"
+#pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
+Report 78040 "ACA-Consolidated Marksheet 1"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/ACA-Consolidated Marksheet 1.rdlc';
@@ -305,7 +306,6 @@ report 50527 "ACA-Consolidated Marksheet 1"
         seq: Integer;
         ACAProgrammeOptions: Record "ACA-Programme Options";
         CfFailed: Decimal;
-        // ACAExamFilters: Record "ACA-Exam Filters";
         YosText: Integer;
 
     local procedure FormatNames(CommonName: Text[250]) NewName: Text[250]

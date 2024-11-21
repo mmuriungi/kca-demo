@@ -517,6 +517,16 @@ page 51456 "ACA-Academics Role Center&"
                 }
 
             }
+            group("Exam Paper Submission")
+            {
+                action("Exam Paper Submissions")
+                {
+                    Image = Report;
+
+                    RunObject = Page "Exam Paper Submission";
+                    ApplicationArea = All;
+                }
+            }
         }
         area(embedding)
         {
