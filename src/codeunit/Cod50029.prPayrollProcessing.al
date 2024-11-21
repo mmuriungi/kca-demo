@@ -62,8 +62,6 @@ codeunit 50029 prPayrollProcessing
         NHIFInsuranceCap: Decimal;
         curNHIFInsuranceReliefAmount: Decimal;
         EmpPensionContrib: Decimal;
-
-
         fNHIFReliefAmount: Decimal;
 
     procedure fnInitialize()
@@ -90,6 +88,47 @@ codeunit 50029 prPayrollProcessing
         NHIFInsuranceCap := VitalSetup."NHIF Insurance Relief Limit";
         NHIFInsurancePercentage := VitalSetup."NHIF Insurance Relief %";
 
+    end;
+
+    procedure fnHasOutstandinImprest(strEmpCode: Code[20]; dtOpenPeriod: Date; var imprestAmount: array[10] of decimal; var ImprestAcc: array[10] of Code[20];
+    var ImprestDoc: array[10] of Code[20]; AccNo: code[20]): Boolean
+    var
+        Imprest: record "FIN-Imprest Header";
+        Customer: record Customer;
+        Employee: record "HRM-Employee C";
+        ImpLine: record "FIN-Imprest Lines";
+        i: Integer;
+    begin
+        Employee.Reset();
+        Employee.SetRange("No.", strEmpCode);
+        if Employee.FindFirst() then begin
+            Customer.Reset();
+            Customer.SetRange("No.", Employee."Customer Acc");
+            Customer.SetFilter("Date Filter", '..%1', dtOpenPeriod);
+            Customer.SetAutoCalcFields("Balance (LCY)");
+            if Customer."Balance (LCY)" > 0 then begin
+                Imprest.Reset();
+                Imprest.SetRange("Account No.", Customer."No.");
+                Imprest.SetRange(Posted, true);
+                imprest.setfilter("Surrender Status", '%1|%2', Imprest."Surrender Status"::" ", Imprest."Surrender Status"::partial);
+                Imprest.SetFilter("Expected Date of Surrender", '<%1', dtOpenPeriod);
+                if Imprest.findset() then begin
+                    i := 1;
+                    repeat
+                        ImpLine.Reset();
+                        ImpLine.SetRange(No, Imprest."No.");
+                        if ImpLine.FindSet() then begin
+                            repeat
+                                imprestAmount[i] := ImpLine."Amount";
+                                ImprestAcc[i] := impline."Account No:";
+                                ImprestDoc[i] := Imprest."No.";
+                                i += 1;
+                            until ImpLine.Next() = 0;
+                        end;
+                    until Imprest.Next() = 0;
+                end;
+            end;
+        end;
     end;
 
     procedure fnProcesspayroll(strEmpCode: Code[20]; dtDOE: Date; curBasicPay: Decimal; blnPaysPaye: Boolean; blnPaysNssf: Boolean; blnPaysNhif: Boolean; SelectedPeriod: Date; dtOpenPeriod: Date; Membership: Text[30]; ReferenceNo: Text[30]; dtTermination: Date; blnGetsPAYERelief: Boolean; Dept: Code[20]; PayrollCode: Code[20]; blnInsuranceCertificate: Boolean)
@@ -157,6 +196,14 @@ codeunit 50029 prPayrollProcessing
         SumItems: Option " ","Basic","Basic & House";
         HousingLevyRelief: Decimal;
         ReliefhifAmount: Decimal;
+        imprestAmount: array[10] of decimal;
+        ImprestAcc: array[10] of Code[20];
+        ImprestDoc: array[10] of Code[20];
+        isImprest: Boolean;
+        PrTransactionCodes_1: Record "PRL-Transaction Codes";
+        i: Integer;
+        BalAccType: enum "Gen. Journal Account Type";
+        BalAccCode: Code[20];
     begin
         //Initialize
         if dtDOE = 0D then dtDOE := CalcDate('1M', Today);
@@ -1548,6 +1595,32 @@ SpecialTransType::SHIF, FALSE);
                     end;
 
                 until prEmployeeTransactions.Next = 0;
+
+                //Handle Imprest Recovery
+                PrTransactionCodes_1.Reset();
+                PrTransactionCodes_1.SetRange(PrTransactionCodes_1."Is an Imprest", TRUE);
+                if PrTransactionCodes_1.FindFirst() then begin
+                    fnHasOutstandinImprest(strEmpCode, fngetMinimumDate(CalcDate('CM', dtOpenPeriod), dtOpenPeriod), imprestAmount, ImprestAcc, ImprestDoc, BalAccCode);
+                    if ArrayLen(imprestAmount) > 0 then begin
+                        for i := 1 to ArrayLen(imprestAmount) do begin
+                            curTransAmount := imprestAmount[i];
+                            curTransBalance := 0;
+                            strTransCode := prTransactionCodes."Transaction Code";
+                            strTransDescription := 'IMPREST RECOVERY';
+                            TGroup := 'DEDUCTIONS';
+                            TGroupOrder := 8;
+                            TSubGroupOrder := 16;
+                            fnUpdatePeriodTrans(strEmpCode, strTransCode, TGroup, TGroupOrder, TSubGroupOrder,
+                              strTransDescription, curTransAmount, curTransBalance, intMonth, intYear,
+                              prEmployeeTransactions.Membership, prEmployeeTransactions."Reference No", SelectedPeriod, Dept,
+                              ImprestAcc[i], JournalPostAs::Debit, JournalPostingType::"G/L Account", '',
+                              CoopParameters::none, ImprestDoc[i], BalAccType::Customer, BalAccCode);
+                        end;
+                    end;
+                end;
+
+
+
                 //GET TOTAL DEDUCTIONS
 
                 //Added for NCA - To add Statutories to Total Deductions
@@ -1697,6 +1770,53 @@ SpecialTransType::SHIF, FALSE);
         // SysDate.SETFILTER(SysDate."Period No.",'1..5');
         if SysDate.Find('-') then
             DaysInMonth := SysDate.Count;
+    end;
+
+    procedure fnUpdatePeriodTrans(EmpCode: Code[20]; TCode: Code[20]; TGroup: Code[20]; GroupOrder: Integer; SubGroupOrder: Integer; Description: Text[50]; curAmount: Decimal; curBalance: Decimal; Month: Integer; Year: Integer; mMembership: Text[30]; ReferenceNo: Text[30]; dtOpenPeriod: Date; Department: Code[20]; JournalAC: Code[20]; PostAs: Option " ",Debit,Credit; JournalACType: Option " ","G/L Account",Customer,Vendor;
+     LoanNo: Code[20]; CoopParam: Option "none",shares,loan,"loan Interest","Emergency loan","Emergency loan Interest","School Fees loan","School Fees loan Interest",Welfare,Pension;
+      ImprestNO: Code[20]; BalAccType: enum "Gen. Journal Account Type"; BalAccCode: Code[20])
+    var
+        prPeriodTransactions: Record "PRL-Period Transactions";
+        prSalCard: Record "HRM-Employee (D)";
+    begin
+        if curAmount = 0 then exit;
+
+        prPeriodTransactions.Init;
+        prPeriodTransactions."Employee Code" := EmpCode;
+        prPeriodTransactions."Transaction Code" := TCode;
+        prPeriodTransactions."Group Text" := TGroup;
+        prPeriodTransactions."Transaction Name" := Description;
+        //  Amount := ROUND(curAmount,0.05,'=');
+        prPeriodTransactions.Amount := Round(curAmount);
+        prPeriodTransactions.Balance := curBalance;
+        prPeriodTransactions."Original Amount" := prPeriodTransactions.Balance;
+        prPeriodTransactions."Group Order" := GroupOrder;
+        prPeriodTransactions."Sub Group Order" := SubGroupOrder;
+        prPeriodTransactions.Membership := mMembership;
+        prPeriodTransactions."Reference No" := ReferenceNo;
+        prPeriodTransactions."Period Month" := Month;
+        prPeriodTransactions."Period Year" := Year;
+        prPeriodTransactions."Payroll Period" := dtOpenPeriod;
+        prPeriodTransactions."Department Code" := Department;
+        prPeriodTransactions."Journal Account Type" := JournalACType;
+        prPeriodTransactions."Post As" := PostAs;
+        prPeriodTransactions."Journal Account Code" := JournalAC;
+        prPeriodTransactions."Loan Number" := LoanNo;
+        prPeriodTransactions."coop parameters" := CoopParam;
+        prPeriodTransactions."Payroll Code" := PayrollType;
+        prPeriodTransactions."Imprest No." := ImprestNO;
+        if ImprestNO <> '' then
+            prPeriodTransactions."Is Imprest" := true;
+        prPeriodTransactions."Balancing Account Type" := BalAccType;
+        prPeriodTransactions."Balancing Account No." := BalAccCode;
+        //Paymode
+        if prSalCard.Get(EmpCode) then
+            prPeriodTransactions."Payment Mode" := prSalCard."Payment Mode";
+        prPeriodTransactions.Insert;
+        //Update the prEmployee Transactions  with the Amount
+        fnUpdateEmployeeTrans(prPeriodTransactions."Employee Code", prPeriodTransactions."Transaction Code", prPeriodTransactions.Amount,
+        prPeriodTransactions."Period Month", prPeriodTransactions."Period Year", prPeriodTransactions."Payroll Period");
+
     end;
 
     procedure fnUpdatePeriodTrans(EmpCode: Code[20]; TCode: Code[20]; TGroup: Code[20]; GroupOrder: Integer; SubGroupOrder: Integer; Description: Text[50]; curAmount: Decimal; curBalance: Decimal; Month: Integer; Year: Integer; mMembership: Text[30]; ReferenceNo: Text[30]; dtOpenPeriod: Date; Department: Code[20]; JournalAC: Code[20]; PostAs: Option " ",Debit,Credit; JournalACType: Option " ","G/L Account",Customer,Vendor; LoanNo: Code[20]; CoopParam: Option "none",shares,loan,"loan Interest","Emergency loan","Emergency loan Interest","School Fees loan","School Fees loan Interest",Welfare,Pension)
@@ -1952,6 +2072,14 @@ SpecialTransType::SHIF, FALSE);
         AccSchedMgt: Codeunit AccSchedManagement2;
     begin
         Results := AccSchedMgt.EvaluateExpression(true, strFormula, AccSchedLine, ColumnLayout, CalcAddCurr);
+    end;
+
+    procedure fngetMinimumDate(dtDate1: Date; dtDate2: Date) MinimumDate: Date
+    begin
+        if dtDate1 < dtDate2 then
+            MinimumDate := dtDate1
+        else
+            MinimumDate := dtDate2;
     end;
 
     procedure fnClosePayrollPeriod(dtOpenPeriod: Date; PayrollCode: Code[20]) Closed: Boolean
