@@ -2252,7 +2252,7 @@ table 50213 "HRM-Employee C"
         }
         field(60086; "Customer Acc"; code[20])
         {
-            TableRelation = Customer where("Customer Posting Group" = const('Imprest'));
+            TableRelation = Customer where("Customer Posting Group" = const('IMPREST'));
         }
         field(60087; "Spouse Name"; text[200])
         {

@@ -99,9 +99,8 @@ table 50387 "PRL-Period Transactions"
         field(23; "Journal Account Code"; Code[20])
         {
         }
-        field(24; "Journal Account Type"; Option)
+        field(24; "Journal Account Type"; enum "Gen. Journal Account Type")
         {
-            OptionMembers = " ","G/L Account",Customer,Vendor;
         }
         field(25; "Post As"; Option)
         {
@@ -154,6 +153,19 @@ table 50387 "PRL-Period Transactions"
         {
             OptionCaption = ' ,Header,Lines,Footer';
             OptionMembers = " ",Header,Lines,Footer;
+        }
+        field(50005; "Is Imprest"; Boolean)
+        {
+        }
+        field(50006; "Imprest No."; Code[20])
+        {
+        }
+        //Balancing acc type
+        field(50007; "Balancing Account Type"; enum "Gen. Journal Account Type")
+        {
+        }
+        field(50008; "Balancing Account No."; Code[20])
+        {
         }
     }
 

@@ -148,13 +148,18 @@ table 50377 "PRL-Transaction Codes"
             OptionCaption = 'Basic Pay';
             OptionMembers = "Basic Pay","Basic & House Allowance";
         }
-        field(2; "Prorate Payment"; Boolean)
+        field(49; "Prorate Payment"; Boolean)
         {
             trigger OnValidate()
             begin
                 IF Rec."Transaction Type" = Rec."Transaction Type"::Deduction THEN ERROR('Not an income!');
             end;
         }
+        field(50; "Is an Imprest"; Boolean)
+        {
+            Description = 'Is this a Imprest?';
+        }
+        
     }
 
     keys

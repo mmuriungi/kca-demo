@@ -119,6 +119,10 @@ page 50603 "PRL-Transaction Code"
                 {
                     ApplicationArea = all;
                 }
+                field("Is an Imprest"; Rec."Is an Imprest")
+                {
+                    ApplicationArea = all;
+                }
 
             }
         }
