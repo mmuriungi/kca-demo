@@ -586,9 +586,7 @@ table 51313 "Unit Exam Paper Submission"
         }
         field(50037; "Coordinator Name"; Text[250])
         {
-
         }
-        //Submission Date,time
         field(50038; "Submission Date"; Date)
         {
             Editable = false;
