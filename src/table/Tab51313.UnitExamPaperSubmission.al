@@ -570,21 +570,21 @@ table 51313 "Unit Exam Paper Submission"
             TableRelation = "ACA-Semesters".code;
         }
         //Lecture No., name
-        field(50036; "Lecture No."; Code[20])
+        field(50036; "Coordinator No."; Code[20])
         {
-            TableRelation = "HRM-Employee C"."No." WHERE(Lecturer = CONST(true));
+            TableRelation = "HRM-Employee C"."No." WHERE("Exam Coordinator" = CONST(true));
             trigger OnValidate()
             var
                 Lecturer: Record "HRM-Employee C";
             begin
                 Lecturer.Reset();
-                Lecturer.SetRange(Lecturer."No.", "Lecture No.");
+                Lecturer.SetRange(Lecturer."No.", "Coordinator No.");
                 if Lecturer.Find('-') then begin
-                    "Lecture Name" := Lecturer."First Name" + ' ' + Lecturer."Middle Name" + ' ' + Lecturer."Last Name";
+                    "Coordinator Name" := Lecturer."First Name" + ' ' + Lecturer."Middle Name" + ' ' + Lecturer."Last Name";
                 end;
             end;
         }
-        field(50037; "Lecture Name"; Text[250])
+        field(50037; "Coordinator Name"; Text[250])
         {
 
         }
@@ -637,7 +637,7 @@ table 51313 "Unit Exam Paper Submission"
         ExamR.SETRANGE(ExamR.Programmes, "Programme Code");
         IF ExamR.FIND('-') THEN
             ERROR(ExistsInResults); */
-        if UserId <> 'FRANKIE' then Error('This is prohibited');
+        //if UserId <> 'FRANKIE' then Error('This is prohibited');
     end;
 
     trigger OnModify()
