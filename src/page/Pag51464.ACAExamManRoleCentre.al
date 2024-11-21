@@ -205,7 +205,7 @@ page 51464 "ACA-Exam Man. Role Centre"
                     Caption = 'Senate Report';
                     Image = Agreement;
 
-                    RunObject = Report "Exams Final Pass List C 5";
+                    RunObject = Report "Aca-General Senate Summary";
                     ApplicationArea = All;
                 }
                 action("Senate Summary Report 1")
@@ -375,7 +375,7 @@ page 51464 "ACA-Exam Man. Role Centre"
                     Caption = 'Senate Report';
                     Image = Agreement;
 
-                    RunObject = Report "Exams Final Pass List C 5";
+                    RunObject = Report "Aca-General Senate Summary";
                     ApplicationArea = All;
                 }
                 action("Cummulative Resit List")
