@@ -1604,7 +1604,8 @@ SpecialTransType::SHIF, FALSE);
                     if ArrayLen(imprestAmount) > 0 then begin
                         for i := 1 to ArrayLen(imprestAmount) do begin
                             curTransAmount := imprestAmount[i];
-                            curTransBalance := 0;
+                            curTransBalance := curTransBalance;
+                            curTotalDeductions := curTotalDeductions + curTransAmount;
                             strTransCode := prTransactionCodes."Transaction Code";
                             strTransDescription := 'IMPREST RECOVERY';
                             TGroup := 'DEDUCTIONS';
