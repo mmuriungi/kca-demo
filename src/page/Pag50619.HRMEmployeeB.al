@@ -197,6 +197,11 @@ page 50619 "HRM-Employee (B)"
                     ToolTip = 'Specifies the value of the Lecturer field.';
                     ApplicationArea = All;
                 }
+                field("Exam Coordinator"; Rec."Exam Coordinator")
+                {
+                    ToolTip = 'Specifies the value of the Exam Coordinator field.';
+                    ApplicationArea = All;
+                }
                 field(HOD; Rec.HOD)
                 {
                     ToolTip = 'Specifies wether a person is Head of Department';
