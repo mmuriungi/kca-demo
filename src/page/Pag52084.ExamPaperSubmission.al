@@ -43,11 +43,11 @@ page 52084 "Exam Paper Submission"
                 {
                     ToolTip = 'Specifies the value of the Attachment Exists field.', Comment = '%';
                 }
-                field("Lecture No."; Rec."Lecture No.")
+                field("Lecture No."; Rec."Coordinator No.")
                 {
                     ToolTip = 'Specifies the value of the Lecture No. field.', Comment = '%';
                 }
-                field("Lecture Name"; Rec."Lecture Name")
+                field("Lecture Name"; Rec."Coordinator Name")
                 {
                     ToolTip = 'Specifies the value of the Lecture Name field.', Comment = '%';
                 }
