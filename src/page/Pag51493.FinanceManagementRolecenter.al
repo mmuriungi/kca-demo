@@ -739,6 +739,12 @@ page 51493 "Finance Management Rolecenter"
                     Image = Report;
                     RunObject = Report "Votebook Summary";
                 }
+                action("Cheque Buffer Report")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report "FIN-Cheque Collectio  Report";
+                }
             }
             group(Reports)
             {
@@ -909,6 +915,14 @@ page 51493 "Finance Management Rolecenter"
             }
             Group("Receivables")
             {
+                action("Receipt List")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Receipts List';
+                    Image = "Report";
+                    RunObject = Report "Receipts List";
+                    ToolTip = 'View a list of receipts that have been posted to the general ledger.';
+                }
                 action("C&ustomer - List")
                 {
                     ApplicationArea = Suite;

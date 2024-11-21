@@ -894,7 +894,7 @@ page 50017 "FIN-Payment Header"
         GenJnlLine.ValidateShortcutDimCode(3, Rec."Shortcut Dimension 3 Code");
         GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
-        GenJnlLine.Description := COPYSTR('Pay To:' + Payments.Payee, 1, 50);
+        GenJnlLine.Description := COPYSTR('Pay To:' + Payments.Payee, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
         GenJnlLine.VALIDATE(GenJnlLine.Description);
 
         IF Rec."Pay Mode" <> Rec."Pay Mode"::Cheque THEN BEGIN
@@ -1166,7 +1166,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine."Account No." := PayLine."Account No.";
                 GenJnlLine.VALIDATE(GenJnlLine."Account No.");
                 GenJnlLine."External Document No." := Payments."Cheque No.";
-                GenJnlLine.Description := COPYSTR(PayLine."Transaction Name" + ':' + Payment.Payee, 1, 50);
+                GenJnlLine.Description := COPYSTR(PayLine."Transaction Name" + ':' + Payment.Payee, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                 GenJnlLine."Currency Code" := Payments."Currency Code";
                 GenJnlLine.VALIDATE("Currency Code");
                 GenJnlLine."Currency Factor" := Payments."Currency Factor";
@@ -1295,7 +1295,7 @@ page 50017 "FIN-Payment Header"
                     GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                     GenJnlLine."Bal. Account No." := '';
                     GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
-                    GenJnlLine.Description := COPYSTR('VAT Withheld:' + FORMAT(PayLine."Account Name") + '::' + strText, 1, 50);
+                    GenJnlLine.Description := COPYSTR('VAT Withheld:' + FORMAT(PayLine."Account Name") + '::' + strText, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                     GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                     //GenJnlLine."Shortcut Dimension 2 Code" := Rec."Shortcut Dimension 2 Code";
                     //GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
@@ -1350,7 +1350,7 @@ page 50017 "FIN-Payment Header"
                     GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                     GenJnlLine."Bal. Account No." := '';
                     GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
-                    GenJnlLine.Description := COPYSTR('W/Tax:' + FORMAT(PayLine."Account Name") + '::' + strText, 1, 50);
+                    GenJnlLine.Description := COPYSTR('W/Tax:' + FORMAT(PayLine."Account Name") + '::' + strText, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                     GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                     // GenJnlLine."Shortcut Dimension 2 Code" := Rec."Shortcut Dimension 2 Code";
                     // GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
@@ -1420,7 +1420,7 @@ page 50017 "FIN-Payment Header"
                         GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                         GenJnlLine."Bal. Account No." := '';
                         GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
-                        GenJnlLine.Description := COPYSTR('Retension ' + FORMAT(PayLine."Account Name") + '::' + strText, 1, 50);
+                        GenJnlLine.Description := COPYSTR('Retension ' + FORMAT(PayLine."Account Name") + '::' + strText, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                         GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                         // GenJnlLine."Shortcut Dimension 2 Code" := Rec."Shortcut Dimension 2 Code";
                         // GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
@@ -1466,7 +1466,7 @@ page 50017 "FIN-Payment Header"
                         GenJnlLine.VALIDATE(GenJnlLine.Amount);
                         GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                         GenJnlLine."Bal. Account No." := '';
-                        GenJnlLine.Description := COPYSTR('Retension Balancing-' + Payments.Payee, 1, 50);
+                        GenJnlLine.Description := COPYSTR('Retension Balancing-' + Payments.Payee, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                         GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
                         GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
@@ -1572,7 +1572,7 @@ page 50017 "FIN-Payment Header"
                         GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                         GenJnlLine."Bal. Account No." := '';
                         GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
-                        GenJnlLine.Description := COPYSTR('PAYE ' + FORMAT(PayLine."Account Name") + '::' + strText, 1, 50);
+                        GenJnlLine.Description := COPYSTR('PAYE ' + FORMAT(PayLine."Account Name") + '::' + strText, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                         GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                         // GenJnlLine."Shortcut Dimension 2 Code" := Rec."Shortcut Dimension 2 Code";
                         // GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
@@ -1618,7 +1618,7 @@ page 50017 "FIN-Payment Header"
                         GenJnlLine.VALIDATE(GenJnlLine.Amount);
                         GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                         GenJnlLine."Bal. Account No." := '';
-                        GenJnlLine.Description := COPYSTR('PAYE Balancing-' + Payments.Payee, 1, 50);
+                        GenJnlLine.Description := COPYSTR('PAYE Balancing-' + Payments.Payee, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                         GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
                         GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
@@ -1778,7 +1778,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine.VALIDATE(GenJnlLine.Amount);
                 GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                 GenJnlLine."Bal. Account No." := '';
-                GenJnlLine.Description := COPYSTR(Payments.Payee, 1, 50);
+                GenJnlLine.Description := COPYSTR(Payments.Payee, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                 GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
                 GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                 GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
@@ -1830,7 +1830,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine.VALIDATE(GenJnlLine.Amount);
                 GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                 GenJnlLine."Bal. Account No." := '';
-                GenJnlLine.Description := COPYSTR('W/Tax Balancing-' + Payments.Payee, 1, 50);
+                GenJnlLine.Description := COPYSTR('W/Tax Balancing-' + Payments.Payee, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                 GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
                 GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                 GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
@@ -2108,7 +2108,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine."Applies-to Doc. No." := PayLine."Applies-to Doc. No.";
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Applies-to ID";
-                GenJnlLine.Description := Rec.Payee;
+                GenJnlLine.Description := Rec.Payee + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                 ///GenJnlLine."Received By":=Payee;
                 IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
 
