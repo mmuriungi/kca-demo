@@ -90,7 +90,7 @@ page 52028 "Project Header Card"
                 }
                 field("Actual Start Date"; Rec."Actual Start Date")
                 {
-                    Editable = false;
+                    //Editable = false;
                 }
                 field("Actual End Date"; Rec."Actual End Date")
                 {

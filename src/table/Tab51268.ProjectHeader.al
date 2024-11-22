@@ -113,7 +113,7 @@ table 51268 "Project Header"
         }
         field(19; "Contract Type"; Option)
         {
-            OptionMembers = " ",Insurance,Lease,"Supply Contract","Service Contract",Construction,Consultancy;
+            OptionMembers = " ",Insurance,Lease,"Supply Contract","Service Contract",Construction,Consultancy,Research, Colloboration;
         }
         field(20; "Extend From"; Date)
         {
