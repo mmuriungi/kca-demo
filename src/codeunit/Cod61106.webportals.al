@@ -6892,7 +6892,7 @@ Codeunit 61106 webportals
                 GenJnl.Reset;
                 GenJnl.SetRange("Journal Template Name", 'SUPP');
                 GenJnl.SetRange("Journal Batch Name", BatchNos);
-                if GenJnl.FindSet()then begin
+                if GenJnl.FindSet() then begin
                     Codeunit.Run(Codeunit::"Gen. Jnl.-Post Batch", GenJnl);
                 end;
                 /////////////////////////////////////////////////////////////////////////////////////
@@ -8506,13 +8506,14 @@ Codeunit 61106 webportals
         IF fablist.FIND('-') THEN BEGIN
             recRef.GetTable(fablist);
             tmpBlob.CreateOutStream(OutStr);
-            Report.SaveAs(51862, '', format::Pdf, OutStr, recRef);
+            Report.SaveAs(Report::"Student Applications Report", '', format::Pdf, OutStr, recRef);
             tmpBlob.CreateInStream(InStr);
             txtB64 := cnv64.ToBase64(InStr, true);
             bigtext.AddText(txtB64);
         END;
         EXIT(filename);
     end;
+
     procedure checkHOD(username: code[10]) ishod: Boolean
     begin
         EmployeeCard.RESET;
@@ -8522,6 +8523,7 @@ Codeunit 61106 webportals
             ishod := TRUE;
         END;
     end;
+
     procedure checkDean(username: code[10]) ishod: Boolean
     begin
         EmployeeCard.RESET;
@@ -8531,6 +8533,7 @@ Codeunit 61106 webportals
             ishod := TRUE;
         END;
     end;
+
     procedure GetDepartmentalApps(username: code[10]) apps: Text
     var
         progname: Text;
@@ -8555,6 +8558,7 @@ Codeunit 61106 webportals
             END;
         END;
     end;
+
     procedure GetFacultyApps(username: code[10]) apps: Text
     var
         progname: Text;
@@ -8579,6 +8583,7 @@ Codeunit 61106 webportals
             END;
         END;
     end;
+
     procedure RejectDepartmentalApps(appno: code[20]; staffno: code[20]; reason: Text[250]) rejected: Boolean
     begin
         fablist.RESET;
@@ -8592,6 +8597,7 @@ Codeunit 61106 webportals
             rejected := TRUE;
         END;
     end;
+
     procedure RejectFacultyApps(appno: code[20]; staffno: code[20]; reason: Text[250]) accepted: Boolean
     begin
         fablist.RESET;
@@ -8605,6 +8611,7 @@ Codeunit 61106 webportals
             accepted := TRUE;
         END;
     end;
+
     procedure AcceptDepartmentalApps(appno: code[20]; staffno: Code[20]) accepted: Boolean
     begin
         fablist.RESET;
@@ -8619,6 +8626,7 @@ Codeunit 61106 webportals
             accepted := TRUE;
         END;
     end;
+
     procedure AcceptFacultyApps(appno: code[20]; staffno: code[20]) accepted: Boolean
     begin
         fablist.RESET;
@@ -8631,6 +8639,7 @@ Codeunit 61106 webportals
             accepted := TRUE;
         END;
     end;
+
     procedure GetApplicantEmail(appno: code[50]) email: Text
     begin
         fablist.RESET;
