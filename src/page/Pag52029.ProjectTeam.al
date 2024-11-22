@@ -18,6 +18,9 @@ page 52029 "Project Team"
                 field(Company; Rec.Company)
                 {
                 }
+                field("Designation"; Rec."Designation")
+                {
+                }
             }
         }
     }

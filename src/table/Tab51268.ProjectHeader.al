@@ -113,7 +113,7 @@ table 51268 "Project Header"
         }
         field(19; "Contract Type"; Option)
         {
-            OptionMembers = " ",Insurance,Lease,"Supply Contract","Service Contract",Construction,Consultancy;
+            OptionMembers = " ",Insurance,Lease,"Supply Contract","Service Contract",Construction,Consultancy,Research, Colloboration;
         }
         field(20; "Extend From"; Date)
         {
@@ -280,6 +280,14 @@ table 51268 "Project Header"
             Caption = 'Shortcut Dimension 3 Code';
             Description = 'Stores the reference of the Third global dimension in the database';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
+        }
+        field(82; "Insurance Type"; Option)
+        {
+            OptionMembers = " ",Life,Health,Property,Vehicle,Travel,Fire,Engineering,Professional,General;
+        }
+        field(84; "Contract Category"; Option)
+        {
+            OptionMembers = " ","Fixed",Flactuating;
         }
 
     }
