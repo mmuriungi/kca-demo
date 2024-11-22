@@ -69,7 +69,7 @@ page 50319 "Event Feedback List"
                     Companyinforec: Record "Company Information";
                     Notification: Codeunit "Notifications Handler";
                 begin
-                    if Attendee.Get(Rec."Attendee No.") then begin
+                    if Attendee.Find(Rec."Attendee No.") then begin
                         recipientName := Attendee."Attendee No.";
                         recipientEmail := Attendee."Email";
                         
