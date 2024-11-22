@@ -320,6 +320,28 @@ page 51445 "HRM-Role Centre"
                     Caption = 'View Leave Applications';
                     RunObject = Page "HRM-View Leave List";
                 }
+                group("Medical Claims")
+                {
+                    Caption='Medical Claims';
+                    action("Medical Schemes")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Medical Schemes';
+                        RunObject = Page "Medical Schemes";
+                    }
+                    action("Medical Facilities")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Medical Facilities';
+                        RunObject = Page "Medical Facilities";
+                    }
+                    action("Medical & Claims")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Medical Claims';
+                        RunObject = Page "Medical Claims List";
+                    }
+                }
             }
             group(Payroll)
             {

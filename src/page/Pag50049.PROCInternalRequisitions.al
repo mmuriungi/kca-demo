@@ -60,22 +60,22 @@ page 50049 "PROC-Internal Requisitions"
                 {
                     // ApplicationArea = All;
                 }
-                field("Buy-from Vendor No."; Rec."Buy-from Vendor No.")
-                {
-                    ApplicationArea = Suite;
-                    Caption = 'Vendor No.';
-                    ToolTip = 'Specifies the number of the vendor who delivers the products.';
-                    trigger OnValidate()
-                    begin
-                        Rec.OnAfterValidateBuyFromVendorNo(Rec, xRec);
-                        CurrPage.Update();
-                    end;
-                }
-                field("Buy-from Vendor Name"; Rec."Buy-from Vendor Name")
-                {
-                    ApplicationArea = all;
-                    Editable = false;
-                }
+                // field("Buy-from Vendor No."; Rec."Buy-from Vendor No.")
+                // {
+                //     ApplicationArea = Suite;
+                //     Caption = 'Vendor No.';
+                //     ToolTip = 'Specifies the number of the vendor who delivers the products.';
+                //     trigger OnValidate()
+                //     begin
+                //         Rec.OnAfterValidateBuyFromVendorNo(Rec, xRec);
+                //         CurrPage.Update();
+                //     end;
+                // }
+                // field("Buy-from Vendor Name"; Rec."Buy-from Vendor Name")
+                // {
+                //     ApplicationArea = all;
+                //     Editable = false;
+                // }
 
                 field("Procurement Type Code"; Rec."Procurement Type Code")
                 {

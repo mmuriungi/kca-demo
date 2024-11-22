@@ -10,6 +10,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
         CertApplic: Record "Certificate Application";
         LeaveRequest: Record "Student Leave";
         medclaim: Record "HRM-Medical Claims";
+        PaperSubmission: Record "Unit Exam Paper Submission";
     begin
         case DocumentAttachment."Table ID" of
 
@@ -42,6 +43,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecRef.Open(Database::"HRM-Medical Claims");
                     if medclaim.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(medclaim);
+                end;
+            DATABASE::"Unit Exam Paper Submission":
+                begin
+                    RecRef.Open(DATABASE::"Unit Exam Paper Submission");
+                    if PaperSubmission.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(PaperSubmission);
                 end;
         end;
     end;
@@ -84,6 +91,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecNo := FieldRef.Value;
                     DocumentAttachment.SetRange("No.", RecNo);
                 end;
+            DATABASE::"Unit Exam Paper Submission":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.SetRange("No.", RecNo);
+                end;
         end;
     end;
 
@@ -122,6 +135,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
             Database::"HRM-Medical Claims":
                 begin
                     FieldRef := RecRef.Field(10);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                end;
+            DATABASE::"Unit Exam Paper Submission":
+                begin
+                    FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;
                     DocumentAttachment.Validate("No.", RecNo);
                 end;

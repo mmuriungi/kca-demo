@@ -2,6 +2,7 @@ page 52081 "Medical Claims Card"
 {
     SourceTable = "HRM-Medical Claims";
     Caption = 'Medical Claim Card';
+    PromotedActionCategories = 'New,Process,Reports,Approval';
 
     layout
     {
@@ -15,11 +16,11 @@ page 52081 "Medical Claims Card"
                     ApplicationArea = All;
                     Importance = Promoted;
 
-                    trigger OnAssistEdit()
-                    begin
-                        // if Rec.AssistEdit(xRec) then
-                        //     CurrPage.Update();
-                    end;
+                    // trigger OnAssistEdit()
+                    // begin
+                    //     // if Rec.AssistEdit(xRec) then
+                    //     //     CurrPage.Update();
+                    // end;
                 }
                 field("Claim Date"; Rec."Claim Date")
                 {
@@ -59,6 +60,11 @@ page 52081 "Medical Claims Card"
                 {
                     ApplicationArea = All;
                     Importance = Standard;
+                }
+                field("Scheme Name"; Rec."Scheme Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
             }
 
@@ -152,7 +158,8 @@ page 52081 "Medical Claims Card"
                 Caption = 'Send Approval Request';
                 Image = SendApprovalRequest;
                 Visible = Rec."Status" = Rec."Status"::open;
-
+                Promoted = true;
+                PromotedCategory = Category4;
                 trigger OnAction()
                 var
                     ApprovMgmt: Codeunit "Approval Workflows V1";
@@ -170,7 +177,8 @@ page 52081 "Medical Claims Card"
                 Caption = 'Cancel Approval';
                 Image = CancelApproval;
                 Visible = Rec."Status" = Rec."Status"::open;
-
+                Promoted = true;
+                PromotedCategory = Category4;
                 trigger OnAction()
                 var
                     ApprovMgmt: Codeunit "Approval Workflows V1";
@@ -179,6 +187,25 @@ page 52081 "Medical Claims Card"
                     variant := Rec;
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end;
+            }
+            action(Post)
+            {
+                Caption = 'Post';
+                Image = Post;
+                ApplicationArea = All;
+                Enabled = Rec."Status" = Rec."Status"::approved;
+                Visible = not Rec."Posted";
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                var
+                    ClaimHandler: Codeunit "Claims Handler";
+                begin
+                    if not confirm('Are you sure you want to post this claim? This will create a new payment voucher.') then
+                        exit;
+                    Rec."Posted" := ClaimHandler.createPaymentVoucher(Rec);
+                    Rec.Modify(true);
                 end;
             }
         }

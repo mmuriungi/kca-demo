@@ -409,7 +409,7 @@ table 50025 "FIN-Payments Header"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(88; "Payment Narration"; Text[200])
+        field(88; "Payment Narration"; Text[250])
         {
         }
         field(89; "Total PAYE Amount"; Decimal)
@@ -650,6 +650,12 @@ table 50025 "FIN-Payments Header"
         field(50168; "Source Table"; Integer)
         {
             DataClassification = ToBeClassified;
+        }
+        //Source document type
+        field(50169; "Source Document Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = " ","Part-time claim","Medical Claim";
         }
 
     }

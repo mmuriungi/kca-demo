@@ -28,6 +28,7 @@ report 50156 prPayrollJournalTransfer
                     PeriodTrans.RESET;
                     PeriodTrans.SETRANGE(PeriodTrans."Employee Code", "Employee Code");
                     PeriodTrans.SETRANGE(PeriodTrans."Payroll Period", SelectedPeriod);
+                    PeriodTrans.SetRange("Is Imprest", FALSE);
                     IF PeriodTrans.FIND('-') THEN BEGIN
                         REPEAT
 
@@ -152,6 +153,15 @@ report 50156 prPayrollJournalTransfer
                             END;
                         UNTIL PeriodTrans.NEXT = 0;
                     END;
+                    PeriodTrans.RESET;
+                    PeriodTrans.SETRANGE(PeriodTrans."Employee Code", "Employee Code");
+                    PeriodTrans.SETRANGE(PeriodTrans."Payroll Period", SelectedPeriod);
+                    PeriodTrans.SetRange("Is Imprest", true);
+                    IF PeriodTrans.FIND('-') THEN BEGIN
+                        REPEAT
+                            CreateJnlEntry(PeriodTrans."Journal Account Type", PeriodTrans."Journal Account Code", GlobalDim1, '', PeriodTrans."Transaction Name" + '-' + PeriodTrans."Employee Code", PeriodTrans.Amount, 0, 1, '', SaccoTransactionType, PeriodTrans."Balancing Account No.");
+                        UNTIL PeriodTrans.NEXT = 0;
+                    end;
                 END;
 
             end;
@@ -383,6 +393,41 @@ report 50156 prPayrollJournalTransfer
             GeneraljnlLine."Credit Amount" := CreditAmount;
             GeneraljnlLine.VALIDATE("Credit Amount");
         END;
+        GeneraljnlLine."Bal. Account No." := BalAccountNo;
+        GeneraljnlLine."Gen. Bus. Posting Group" := '';
+        GeneraljnlLine."Gen. Prod. Posting Group" := '';
+        GeneraljnlLine."Shortcut Dimension 1 Code" := 'Main';
+        GeneraljnlLine.VALIDATE(GeneraljnlLine."Shortcut Dimension 1 Code");
+        // GeneraljnlLine."Shortcut Dimension 2 Code":=GlobalDime2;
+        // GeneraljnlLine.VALIDATE(GeneraljnlLine."Shortcut Dimension 2 Code");
+        IF GeneraljnlLine.Amount <> 0 THEN
+            GeneraljnlLine.INSERT;
+    end;
+
+    procedure CreateJnlEntry(AccountType: Option "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner"; AccountNo: Code[20]; GlobalDime1: Code[20]; GlobalDime2: Code[20]; Description: Text[50]; DebitAmount: Decimal; CreditAmount: Decimal; PostAs: Option " ",Debit,Credit; LoanNo: Code[20]; TransType: Option " ","Registration Fee",Loan,Repayment,Withdrawal,"Interest Due","Interest Paid","Welfare Contribution","Deposit Contribution","Loan Penalty","Application Fee","Appraisal Fee",Investment,"Unallocated Funds","Shares Capital","Loan Adjustment",Dividend,"Withholding Tax","Administration Fee","Welfare Contribution 2"; BalAccType: enum "Gen. Journal Account Type"; BalAccountNo: Code[20])
+    begin
+
+        LineNumber := LineNumber + 100;
+        GeneraljnlLine.INIT;
+        GeneraljnlLine."Journal Template Name" := 'GENERAL';
+        GeneraljnlLine."Journal Batch Name" := 'SALARIES';
+        GeneraljnlLine."Line No." := LineNumber;
+        GeneraljnlLine."Document No." := "Slip/Receipt No";
+        //GeneraljnlLine."Loan No":=LoanNo;
+        //GeneraljnlLine."Transaction Type":=TransType;
+        GeneraljnlLine."Posting Date" := PostingDate;
+        GeneraljnlLine."Account Type" := AccountType;
+        GeneraljnlLine."Account No." := AccountNo;
+        GeneraljnlLine.VALIDATE(GeneraljnlLine."Account No.");
+        GeneraljnlLine.Description := Description;
+        IF PostAs = PostAs::Debit THEN BEGIN
+            GeneraljnlLine."Debit Amount" := DebitAmount;
+            GeneraljnlLine.VALIDATE("Debit Amount");
+        END ELSE BEGIN
+            GeneraljnlLine."Credit Amount" := CreditAmount;
+            GeneraljnlLine.VALIDATE("Credit Amount");
+        END;
+        GeneraljnlLine."Bal. Account Type" := BalAccType;
         GeneraljnlLine."Bal. Account No." := BalAccountNo;
         GeneraljnlLine."Gen. Bus. Posting Group" := '';
         GeneraljnlLine."Gen. Prod. Posting Group" := '';

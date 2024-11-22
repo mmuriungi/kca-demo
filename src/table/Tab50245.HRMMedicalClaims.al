@@ -1,12 +1,22 @@
 table 50245 "HRM-Medical Claims"
 {
- 
-
+    DrillDownPageId = "Medical Claims List";
+    LookupPageId = "Medical Claims List";
     fields
     {
         field(1; "Member No"; Code[10])
         {
             TableRelation = "HRM-Employee C"."No.";
+            trigger OnValidate()
+            var
+                HREmpl: Record "HRM-Employee C";
+            begin
+                HREmpl.RESET;
+                HREmpl.SETRANGE(HREmpl."No.", "Member No");
+                IF HREmpl.FIND('-') THEN BEGIN
+                    "Member Names" := HREmpl."First Name" + ' ' + HREmpl."Middle Name" + ' ' + HREmpl."Last Name";
+                end;
+            end;
         }
         field(2; "Claim Type"; Option)
         {
@@ -117,36 +127,37 @@ table 50245 "HRM-Medical Claims"
         }
         field(3971; "Scheme No"; Code[10])
         {
-            // TableRelation = "HRM-Medical Schemes" WHERE(Status = FILTER(<> Closed));
+            TableRelation = "HRM-Medical Schemes" WHERE(Status = FILTER(<> Closed));
 
             trigger OnValidate()
             begin
-                HRClaimTypes.GET("Claim Type");
-                HRClaimTypes.GET("Member No");
-                IF HRClaim."Claim Type" = HRClaimTypes."Scheme Type" THEN
-                    EXIT
-                ELSE
-                    ERROR('This scheme type is restricted to the ' + FORMAT(HRClaimTypes."Scheme Type") + ' Scheme Type');
+                // HRClaimTypes.GET("Claim Type");
+                // HRClaimTypes.GET("Member No");
+                // IF HRClaim."Claim Type" = HRClaimTypes."Scheme Type" THEN
+                //     EXIT
+                // ELSE
+                //     ERROR('This scheme type is restricted to the ' + FORMAT(HRClaimTypes."Scheme Type") + ' Scheme Type');
 
 
-                     HRClaimTypes.Reset;
+                HRClaimTypes.Reset;
                 HRClaimTypes.SetRange(HRClaimTypes."Scheme No", "Scheme No");
                 if HRClaimTypes.Find('-') then begin
                     "Scheme Currency Code" := HRClaimTypes.Currency;
+                    "Scheme Name" := HRClaimTypes."Scheme Name";
                     Modify;
                 end;
 
             end;
         }
-        field(3972; "Member Names"; Text[100])
+        field(3972; "Member Names"; Text[150])
         {
         }
-        field(3973; Status; enum "Custom Approval Status" )
+        field(3973; Status; enum "Custom Approval Status")
         {
         }
         field(3974; "Responsibility Center"; Code[10])
         {
-            //TableRelation = "FIN-Responsibility Center BR".Code;
+            TableRelation = "Responsibility Center";
         }
         field(3975; "No Series."; Integer)
         {
@@ -188,6 +199,40 @@ table 50245 "HRM-Medical Claims"
         field(3982; "Posted"; Boolean)
         {
         }
+        //PVNo
+        field(3983; "PV No."; Code[20])
+        {
+        }
+        field(3984; "Global Dimension 1 Code"; Code[30])
+        {
+            CaptionClass = '1,1,1';
+            Caption = 'Global Dimension 1 Code';
+            Description = 'Stores the reference to the first global dimension in the database';
+            NotBlank = false;
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
+        }
+        field(3985; "Global Dimension 2 Code"; Code[30])
+        {
+            CaptionClass = '1,2,2';
+            Caption = 'Global Dimension 2 Code';
+            Description = 'Stores the reference of the second global dimension in the database';
+            NotBlank = false;
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+
+        }
+        field(3986; "Shortcut Dimension 3 Code"; Code[30])
+        {
+            CaptionClass = '1,2,3';
+            Caption = 'Shortcut Dimension 3 Code';
+            Description = 'Stores the reference of the second Shortcut dimension in the database';
+            NotBlank = false;
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
+
+        }
+        //scheme name
+        field(3987; "Scheme Name"; Text[150])
+        {
+        }
     }
 
     keys
@@ -217,6 +262,9 @@ table 50245 "HRM-Medical Claims"
         if HREmp.Find('-') then begin
             "Member No" := HREmp."No.";
             "Member Names" := HREmp."First Name" + ' ' + HREmp."Middle Name" + ' ' + HREmp."Last Name";
+            // "Global Dimension 1 Code" := HREmp."Global Dimension 1 Code";
+            // "Global Dimension 2 Code" := HREmp."Global Dimension 2 Code";
+            // "Shortcut Dimension 3 Code" := HREmp."Shortcut Dimension 3 Code";
 
             HRMSMembers.Reset;
             HRMSMembers.SetCurrentKey(HRMSMembers."Employee No");
@@ -225,13 +273,6 @@ table 50245 "HRM-Medical Claims"
                 "Scheme No" := HRMSMembers."Scheme No";
             if MedicalSchemes.Find('-') then
                 "Scheme Currency Code" := MedicalSchemes.Currency;
-            //VALIDATE("Scheme No");
-            //MODIFY;
-
-            //IF MedicalSchemes.GET(HRMSMembers."Scheme No") THEN BEGIN
-
-            // END; }
-
         end;
     end;
 

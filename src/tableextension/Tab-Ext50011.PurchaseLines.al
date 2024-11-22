@@ -143,18 +143,20 @@ tableextension 50011 "Purchase Lines" extends "Purchase Line"
         field(56612; "Procurement Plan Item No"; Code[20])
         {
             DataClassification = ToBeClassified;
-
+            TableRelation = "PROC-Procurement Plan Lines"."Type No" where(Department = field("Shortcut Dimension 2 Code"));
             trigger OnValidate()
+            var
+                PrPlan: Record "PROC-Procurement Plan Lines";
             begin
-                /* TESTFIELD("Shortcut Dimension 2 Code");
-                 PrPlan.RESET;
-                 PrPlan.SETRANGE(PrPlan.Department,"Shortcut Dimension 2 Code");
-                 PrPlan.SETRANGE(PrPlan."Type No","Procurement Plan Item No");
-                 IF PrPlan.FIND('-') THEN BEGIN
-                 IF Quantity>PrPlan."Remaining Qty" THEN ERROR('The selected items is more than items on procurement plan');
-                 PrPlan."Remaining Qty":=PrPlan."Remaining Qty"-Quantity;
-                 PrPlan.MODIFY;
-                 END;*/
+                //TESTFIELD("Shortcut Dimension 2 Code");
+                PrPlan.RESET;
+                PrPlan.SETRANGE(PrPlan.Department, "Shortcut Dimension 2 Code");
+                PrPlan.SETRANGE(PrPlan."Type No", "Procurement Plan Item No");
+                IF PrPlan.FIND('-') THEN BEGIN
+                    IF Quantity > PrPlan."Remaining Qty" THEN ERROR('The selected items is more than items on procurement plan');
+                    PrPlan."Remaining Qty" := PrPlan."Remaining Qty" - Quantity;
+                    PrPlan.MODIFY;
+                END;
 
             end;
         }
@@ -317,6 +319,11 @@ tableextension 50011 "Purchase Lines" extends "Purchase Line"
 
         field(5100015; Decision; Option) { OptionMembers = Order; }
         field(5100016; "Selected By"; code[20]) { }
+        //proc plan number
+        field(5100017; "Procurement Plan No"; code[20]) 
+        { 
+            
+        }
     }
 
     procedure validateRequisitionLine()
