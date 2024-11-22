@@ -27,6 +27,10 @@ table 51246 "Event Attendee"
         {
             Caption = 'Check-in Time';
         }
+        field(6; Email; Code[30])
+        {
+            
+        }
     }
 
     keys
