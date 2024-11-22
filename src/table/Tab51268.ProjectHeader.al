@@ -287,7 +287,7 @@ table 51268 "Project Header"
         }
         field(84; "Contract Category"; Option)
         {
-            OptionMembers = " ","Fixed",Flactuating;
+            OptionMembers = " ","Fixed Priced Contract","Non Fixed Priced";
         }
 
     }

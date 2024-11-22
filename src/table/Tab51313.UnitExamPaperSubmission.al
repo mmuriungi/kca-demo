@@ -563,6 +563,8 @@ table 51313 "Unit Exam Paper Submission"
         field(50034; "Attachment Exists"; Boolean)
         {
             Editable = false;
+            FieldClass = FlowField;
+            calcformula = exist("Document Attachment" where("No." = field(code), "Line No." = field("Entry No"), "Table ID" = CONST(51313)));
         }
         //Semester
         field(50035; "Semester"; Code[20])
@@ -586,9 +588,7 @@ table 51313 "Unit Exam Paper Submission"
         }
         field(50037; "Coordinator Name"; Text[250])
         {
-
         }
-        //Submission Date,time
         field(50038; "Submission Date"; Date)
         {
             Editable = false;

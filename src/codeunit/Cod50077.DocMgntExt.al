@@ -58,6 +58,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
     var
         FieldRef: FieldRef;
         RecNo: Code[20];
+        LineNo: Integer;
     begin
         case RecRef.Number of
 
@@ -93,9 +94,13 @@ codeunit 50077 "Doc. Mgnt. Ext."
                 end;
             DATABASE::"Unit Exam Paper Submission":
                 begin
-                    FieldRef := RecRef.Field(1);
+                    FieldRef := RecRef.Field(3);
                     RecNo := FieldRef.Value;
-                    DocumentAttachment.SetRange("No.", RecNo);
+                    DocumentAttachment.Validate("No.", RecNo);
+                    Clear(FieldRef);
+                    FieldRef := RecRef.Field(89);
+                    LineNo := FieldRef.Value;
+                    DocumentAttachment.Validate("Line No.", LineNo);
                 end;
         end;
     end;
@@ -105,6 +110,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
     var
         FieldRef: FieldRef;
         RecNo: Code[20];
+        LineNo: Integer;
     begin
         case RecRef.Number of
 
@@ -140,9 +146,13 @@ codeunit 50077 "Doc. Mgnt. Ext."
                 end;
             DATABASE::"Unit Exam Paper Submission":
                 begin
-                    FieldRef := RecRef.Field(1);
+                    FieldRef := RecRef.Field(3);
                     RecNo := FieldRef.Value;
                     DocumentAttachment.Validate("No.", RecNo);
+                    Clear(FieldRef);
+                    FieldRef := RecRef.Field(89);
+                    LineNo := FieldRef.Value;
+                    DocumentAttachment.Validate("Line No.", LineNo);
                 end;
         end;
     end;

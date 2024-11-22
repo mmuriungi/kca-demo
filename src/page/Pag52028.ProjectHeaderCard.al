@@ -60,10 +60,11 @@ page 52028 "Project Header Card"
                 {
                     Editable = false;
                 }
-                field("Contract Category";Rec."Contract Category")
+                field("Contract Category"; Rec."Contract Category")
                 {
-                    ApplicationArea=All;
-                }                field("Contract Type"; Rec."Contract Type")
+                    ApplicationArea = All;
+                }
+                field("Contract Type"; Rec."Contract Type")
                 {
                     Editable = IsOpen;
                     trigger OnValidate()
@@ -77,19 +78,19 @@ page 52028 "Project Header Card"
                     end;
 
                 }
-                field("Insurance Type";Rec."Insurance Type")
+                field("Insurance Type"; Rec."Insurance Type")
                 {
                     Editable = isInsurance;
                 }
-                field("Global Dimension 1 Code";Rec."Global Dimension 1 Code")
+                field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {
                     Editable = IsOpen;
                 }
-                field("Shortcut Dimension 2 Code";Rec."Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     Editable = IsOpen;
                 }
-                field("Shortcut Dimension 3 Code";Rec."Shortcut Dimension 3 Code")
+                field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code")
                 {
                     Editable = IsOpen;
                 }
