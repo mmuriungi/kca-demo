@@ -69,9 +69,6 @@ page 50319 "Event Feedback List"
                     Companyinforec: Record "Company Information";
                     Notification: Codeunit "Notifications Handler";
                 begin
-                    if not Companyinforec.Get() then
-                        Error('Company Information record not found.');
-
                     if Attendee.Get(Rec."Attendee No.") then begin
                         recipientName := Attendee."Attendee No.";
                         recipientEmail := Attendee."Email";
@@ -86,12 +83,6 @@ page 50319 "Event Feedback List"
                             'Dear ' + recipientName + ',<br><br>' +
                             'Thank you for attending the event. We truly appreciate your time and effort in participating. Here is your feedback from the Event.<br><br>' +
                             '<hr>' +
-                            'Kind Regards,<br>' +
-                            Companyinforec.Name + '<br>' +
-                            Companyinforec.Address + '<br>' +
-                            'Tel: ' + Companyinforec."Phone No." + '<br>' +
-                            'Email: ' + Companyinforec."E-Mail" + '<br>' +
-                            'Website: ' + Companyinforec."Home Page" + '<br>' +
                             '</font></body></html>';
 
                         addCC := '';
