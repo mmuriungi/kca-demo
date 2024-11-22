@@ -1,4 +1,4 @@
-table 51313 "HRM-Staff Tansfer"
+table 51314 "HRM-Staff Tansfer"
 {
     Caption = 'HRM-Staff Tansfer';
     DataClassification = ToBeClassified;

@@ -1,4 +1,4 @@
-page 52083 "HRM-Staff Tansfers"
+page 52085 "HRM-Staff Tansfers"
 {
     ApplicationArea = All;
     Caption = 'HRM-Staff Tansfers';

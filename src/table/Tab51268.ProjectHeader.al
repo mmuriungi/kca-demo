@@ -281,6 +281,14 @@ table 51268 "Project Header"
             Description = 'Stores the reference of the Third global dimension in the database';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
         }
+        field(82; "Insurance Type"; Option)
+        {
+            OptionMembers = " ",Life,Health,Property,Vehicle,Travel,Fire,Engineering,Professional,General;
+        }
+        field(84; "Contract Category"; Option)
+        {
+            OptionMembers = " ","Fixed",Flactuating;
+        }
 
     }
 
