@@ -25,6 +25,10 @@ page 50319 "Event Feedback List"
                 {
                     ApplicationArea = All;
                 }
+                field(Email;Rec.Email)
+                {
+                    ApplicationArea = All;
+                }
                 field(Rating; Rec.Rating)
                 {
                     ApplicationArea = All;
@@ -45,64 +49,89 @@ page 50319 "Event Feedback List"
     {
         area(Navigation)
         {
-           action("Send Feedback")
+            action(SendFeedbackEmail)
             {
-                ApplicationArea = All;
+                Caption = 'Send Feedback';
+                Image = SendEmail;
                 Promoted = true;
                 PromotedCategory = Process;
-                Image = SendMail;
+                PromotedIsBig = true;
+                ToolTip = 'Send the selected feedback to the attendee via email.';
 
                 trigger OnAction()
                 var
-                    recipientName: Text;
-                    subject: Text;
-                    body: Text;
-                    recipientEmail: Text;
-                    addCC: Text;
-                    addBcc: Text;
-                    hasAttachment: Boolean;
-                    attachmentBase64: Text;
-                    attachmentName: Text;
-                    attachmentType: Text;
-                    response: Text;
-                    Attendee: Record "Event Attendee";
-                    Companyinforec: Record "Company Information";
-                    Notification: Codeunit "Notifications Handler";
+                    RecipientName: Text;
+                    Subject: Text;
+                    Body: Text;
+                    RecipientEmail: Text;
+                    AddCC: Text;
+                    AddBcc: Text;
+                    HasAttachment: Boolean;
+                    AttachmentBase64: Text;
+                    AttachmentName: Text;
+                    AttachmentType: Text;
+                    Res: Text;
+                    ResponseJson: JsonObject;
+                    Sent: Boolean;
+                    Status: Text;
+                    MessageText: Text;
+                    SentToken: JsonToken;
+                    StatusToken: JsonToken;
+                    MessageTextToken: JsonToken;
                 begin
-                    if Attendee.Find(Rec."Attendee No.") then begin
-                        recipientName := Attendee."Attendee No.";
-                        recipientEmail := Attendee."Email";
-                        
-                        if recipientEmail = '' then
-                            Error('Recipient email not provided for Attendee: %1', recipientName);
+                    RecipientName := Rec."Attendee No."; 
+                    RecipientEmail := Rec."Email"; 
+                    Subject := 'Feedback on ' + Rec."Event No."; 
+                    Body := Rec."Comment"; 
+                    AddCC := '';
+                    AddBcc := ''; 
+                    HasAttachment := false; 
+                    AttachmentBase64 := ''; 
+                    AttachmentName := ''; 
+                    AttachmentType := ''; 
 
-                        subject := 'Feedback for event ' + Rec."Event No.";
-                        body := 
-                            '<html><body>' +
-                            '<font face="Maiandra GD,Garamond,Tahoma" size="3">' +
-                            'Dear ' + recipientName + ',<br><br>' +
-                            'Thank you for attending the event. We truly appreciate your time and effort in participating. Here is your feedback from the Event.<br><br>' +
-                            '<hr>' +
-                            '</font></body></html>';
+                    
+                    Res := Notification.fnSendemail(
+                        RecipientName,
+                        Subject,
+                        Body,
+                        RecipientEmail,
+                        AddCC,
+                        AddBcc,
+                        HasAttachment,
+                        AttachmentBase64,
+                        AttachmentName,
+                        AttachmentType);
 
-                        addCC := '';
-                        addBcc := '';
-                        hasAttachment := false;
-                        attachmentBase64 := '';
-                        attachmentName := '';
-                        attachmentType := '';
+                    // Parse the JSON response
+                    if ResponseJson.ReadFrom(Res) then begin
+                        if ResponseJson.Get('sent', SentToken) then
+                            Sent := SentToken.AsValue().AsBoolean()
+                        else
+                            Sent := false; 
 
-                        response := Notification.fnSendemail(
-                            recipientName, subject, body, recipientEmail, addCC, addBcc,
-                            hasAttachment, attachmentBase64, attachmentName, attachmentType);
+                        if ResponseJson.Get('status', StatusToken) then
+                            Status := StatusToken.AsValue().AsText()
+                        else
+                            Status := '';
 
-                        if response <> '' then
-                            Message(response);
+                        if ResponseJson.Get('message', MessageTextToken) then
+                            MessageText := MessageTextToken.AsValue().AsText()
+                        else
+                            MessageText := '';
+
+
+                        if Sent then
+                            Message(MessageText)
+                        else
+                            Error(MessageText);
                     end else
-                        Error('Attendee record not found for No: %1', Rec."Attendee No.");
+                        Error('Invalid response from email procedure.');
                 end;
             }
-
         }
     }
+
+    var
+        Notification: Codeunit "Notifications Handler";
 }
