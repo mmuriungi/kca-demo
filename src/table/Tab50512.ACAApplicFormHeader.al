@@ -1066,6 +1066,12 @@ table 50512 "ACA-Applic. Form Header"
         field(50156; "School Name"; Text[250])
         {
         }
+        //Programme school code
+        field(50157; "Programme School"; Code[25])
+        {
+            FieldClass = FlowField;
+            CalcFormula = lookup("ACA-Programme"."School Code" where(Code = field("First Degree Choice")));
+        }
     }
 
     keys
