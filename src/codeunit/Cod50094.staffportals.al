@@ -3783,7 +3783,7 @@ codeunit 50094 staffportals
             IF fablist.FIND('-') THEN BEGIN
                 recRef.GetTable(fablist);
                 tmpBlob.CreateOutStream(OutStr);
-                Report.SaveAs(51862, '', format::Pdf, OutStr, recRef);
+                Report.SaveAs(Report::"Student Applications Report", '', format::Pdf, OutStr, recRef);
                 tmpBlob.CreateInStream(InStr);
                 txtB64 := cnv64.ToBase64(InStr, true);
                 bigtext.AddText(txtB64);
@@ -3827,7 +3827,7 @@ codeunit 50094 staffportals
         IF fablist.FIND('-') THEN BEGIN
             recRef.GetTable(fablist);
             tmpBlob.CreateOutStream(OutStr);
-            Report.SaveAs(51862, '', format::Pdf, OutStr, recRef);
+            Report.SaveAs(Report::"Student Applications Report", '', format::Pdf, OutStr, recRef);
             tmpBlob.CreateInStream(InStr);
             txtB64 := cnv64.ToBase64(InStr, true);
             bigtext.AddText(txtB64);
@@ -3857,7 +3857,7 @@ codeunit 50094 staffportals
             IF fablist.FIND('-') THEN BEGIN
                 recRef.GetTable(fablist);
                 tmpBlob.CreateOutStream(OutStr);
-                Report.SaveAs(51862, '', format::Pdf, OutStr, recRef);
+                Report.SaveAs(Report::"Student Applications Report", '', format::Pdf, OutStr, recRef);
                 tmpBlob.CreateInStream(InStr);
                 txtB64 := cnv64.ToBase64(InStr, true);
                 bigtext.AddText(txtB64);
