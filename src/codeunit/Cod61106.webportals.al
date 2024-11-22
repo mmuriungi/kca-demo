@@ -8568,7 +8568,8 @@ Codeunit 61106 webportals
         EmployeeCard.SETRANGE(EmployeeCard."No.", username);
         IF EmployeeCard.FIND('-') THEN BEGIN
             fablist.RESET;
-            fablist.SETRANGE(fablist."Programme Faculty", EmployeeCard."Faculty Code");
+            fablist.SetAutoCalcFields("Programme School");
+            fablist.SETRANGE(fablist."Programme School", EmployeeCard."Faculty Code");
             fablist.SETFILTER(fablist.Status, '%1|%2', fablist.Status::"Department Approved", fablist.Status::"Department Rejected");
             IF fablist.FIND('-') THEN BEGIN
                 REPEAT
