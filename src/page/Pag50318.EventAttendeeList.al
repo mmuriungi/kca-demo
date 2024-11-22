@@ -21,6 +21,10 @@ page 50318 "Event Attendee List"
                 {
                     ApplicationArea = All;
                 }
+                field("Email"; Rec."Email")
+                {
+                    ApplicationArea = All;
+                }
                 field("Registration Date"; Rec."Registration Date")
                 {
                     ApplicationArea = All;
