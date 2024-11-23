@@ -37,7 +37,7 @@ table 51309 "Scheduling Issue"
     }
     keys
     {
-        key(PK; "Academic Year", Semester, Programme, "Course Code", "Lecturer Code")
+        key(PK; "Academic Year", Semester, Programme, "Course Code", "Lecturer Code", "Entry No")
         {
             Clustered = true;
         }
