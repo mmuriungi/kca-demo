@@ -282,6 +282,18 @@ Codeunit 61106 webportals
         END;
     end;
 
+    procedure GetLecUnits(lecno: Code[20]) msg: Text
+    begin
+        lecturers.Reset;
+        lecturers.SetRange(Lecturer, lecno);
+        lecturers.SetRange(Semester, GetCurrentSemester());
+        if lecturers.Find('-') then begin
+            repeat
+                msg += lecturers.Unit + ' ::' + GetUnitDescription(Lecturers.Unit) + ' ::' + lecturers.ModeOfStudy + ' ::' + lecturers.Stream + ' ::' + lecturers.Day + ' ::' + lecturers.TimeSlot + ' ::' + GetAllocatedLectureHall(lecturers.Lecturer, lecturers.Unit, lecturers.stream, lecturers."Campus Code", lecturers.ModeOfStudy) + ' :::';
+            until lecturers.Next = 0;
+        end;
+    end;
+
     procedure ChangeLectureHall(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lechall: Code[20]) Details: Boolean
     begin
         offeredunits.RESET;
@@ -369,6 +381,7 @@ Codeunit 61106 webportals
             Message := EmployeeCard."Department Code";
         END
     end;
+
     procedure ClassAttendanceHeader(lectno: code[20]; unit: text; classtime: Code[20])
     begin
         AttendanceHeader.INIT;
@@ -380,6 +393,7 @@ Codeunit 61106 webportals
         //AttendanceHeader.Time := classtime;
         AttendanceHeader.INSERT;
     end;
+
     procedure ClassAttendanceDetails(counting: integer; stdno: code[20]; stdname: text; lectno: code[20]; unit: text; present: boolean)
     var
         entryno: integer;
@@ -395,7 +409,8 @@ Codeunit 61106 webportals
         AttendanceDetails.Semester := GetCurrentSem();
         AttendanceDetails.INSERT;
     end;
-procedure GenerateBS64ClassRegisterNew(lecturer: Code[20]; unitcode: Code[20]; mode: Code[20]; stream: Text; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
+
+    procedure GenerateBS64ClassRegisterNew(lecturer: Code[20]; unitcode: Code[20]; mode: Code[20]; stream: Text; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
     var
         tmpBlob: Codeunit "Temp Blob";
         cnv64: Codeunit "Base64 Convert";
@@ -428,6 +443,7 @@ procedure GenerateBS64ClassRegisterNew(lecturer: Code[20]; unitcode: Code[20]; m
         END;
         EXIT(filename);
     end;
+
     procedure GetLectureHalls(hodno: Code[20]; day: Code[20]; timeslot: Code[20]) Message: Text
     begin
         lecturehalls.Reset();
