@@ -414,8 +414,8 @@ report 50386 "Post Billing"
                             GenJnl.VALIDATE(GenJnl."Shortcut Dimension 1 Code");
                             GenJnl."Shortcut Dimension 2 Code" := Prog."Department Code";
                             GenJnl.VALIDATE(GenJnl."Shortcut Dimension 2 Code");
-                            GenJnl."Shortcut Dimension 3 code" := Prog.Faculty;
-                            GenJnl.Validate("Shortcut Dimension 3 code");
+                            // GenJnl."Shortcut Dimension 3 code" := Prog.Faculty;
+                            // GenJnl.Validate("Shortcut Dimension 3 code");
                             // GenJnl."Shortcut Dimension 4 code" := Prog."Code";
                             // GenJnl.Validate("Shortcut Dimension 4 code");
                             //GenJnl.VALIDATE(GenJnl."Due Date");
@@ -455,8 +455,8 @@ report 50386 "Post Billing"
                         GenJnl.VALIDATE(GenJnl."Shortcut Dimension 1 Code");
                         GenJnl."Shortcut Dimension 2 Code" := Prog."Department Code";
                         GenJnl.VALIDATE(GenJnl."Shortcut Dimension 2 Code");
-                        GenJnl."Shortcut Dimension 3 Code" := Prog.Faculty;
-                        GenJnl.Validate("Shortcut Dimension 3 code");
+                        // GenJnl."Shortcut Dimension 3 Code" := Prog.Faculty;
+                        // GenJnl.Validate("Shortcut Dimension 3 code");
                         //GenJnl."Shortcut Dimension 4 code" := Prog."Code";
                         //GenJnl.Validate("Shortcut Dimension 4 code");
 
