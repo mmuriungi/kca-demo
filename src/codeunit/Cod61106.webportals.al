@@ -191,7 +191,258 @@ Codeunit 61106 webportals
         acacentalsetup: Record "ACA-Academics Central Setups";
         fablist: Record "ACA-Applic. Form Header";
         programs: Record "ACA-Programme";
+        programstages: Record "ACA-Programme Stages";
+        studymodes: Record "ACA-Student Types";
+        offeredunits: Record "ACA-Units Offered";
+        HRMEmployeeD: Record "HRM-Employee C";
+        lecturers: Record "ACA-Lecturers Units";
+        lecturehalls: Record "ACA-Lecturer Halls Setup";
+        days: Record "TT-Days";
 
+    procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]) rtnMsg: Boolean
+    begin
+        offeredunits.Init;
+        programs.Reset;
+        programs.SetRange(Code, progcode);
+        if programs.Find('-') then begin
+            offeredunits.Programs := programs.Code;
+            offeredunits."Program Name" := programs.Description;
+            offeredunits.Department := programs."Department Code";
+        end;
+        offeredunits.Campus := GetHODCampus(hodno);
+        offeredunits.Semester := GetCurrentSemester();
+        offeredunits.ModeofStudy := studymode;
+        offeredunits.Stage := stage;
+        offeredunits."Unit Base Code" := unitcode;
+        offeredunits.Validate("Unit Base Code");
+        offeredunits."Academic Year" := GetCurrentAcademicYear();
+        offeredunits.Day := day;
+        offeredunits.TimeSlot := timeslot;
+        offeredunits."Lecture Hall" := lecturehall;
+        offeredunits.Lecturer := lecturer;
+        offeredunits.Validate(Lecturer);
+        offeredunits.Validate("Lecture Hall");
+        offeredunits.Insert;
+        lecturers.Init;
+        lecturers.Lecturer := lecturer;
+        lecturers.Programme := progcode;
+        lecturers.Stage := stage;
+        lecturers.Unit := unitcode;
+        lecturers.Description := GetUnitDescription(unitcode);
+        lecturers.ModeOfStudy := studymode;
+        lecturers."Campus Code" := GetHODCampus(lecturer);
+        lecturers.Stream := offeredunits.Stream;
+        lecturers.Semester := GetCurrentSemester();
+        lecturers.Day := day;
+        lecturers.TimeSlot := timeslot;
+        lecturers.Insert;
+        rtnMsg := true;
+    end;
+
+    procedure GetUnitDescription(UnitID: Code[20]) Message: Text
+    begin
+        UnitSubjects.RESET;
+        UnitSubjects.SETRANGE(UnitSubjects.Code, UnitID);
+        IF UnitSubjects.FIND('-') THEN BEGIN
+            Message := UnitSubjects.Desription;
+        END
+    end;
+
+    procedure GetProgramOfferedUnits(username: Code[20]; progcode: Code[20]; stagecode: Code[20]; studymode: Code[20]) Details: Text
+    begin
+        offeredunits.RESET;
+        offeredunits.SetCurrentKey(SystemCreatedAt);
+        offeredunits.Ascending(false);
+        offeredunits.SETRANGE(Programs, progcode);
+        offeredunits.SETRANGE(Stage, stagecode);
+        offeredunits.SETRANGE(ModeofStudy, studymode);
+        offeredunits.SETRANGE(Campus, GetHODCampus(username));
+        offeredunits.SETRANGE(Semester, GetCurrentSemester());
+        IF offeredunits.FIND('-') THEN BEGIN
+            repeat
+                offeredunits.CalcFields("Sitting Capacity", "Registered Students");
+                Details += offeredunits."Unit Base Code" + ' ::' + GetUnitDescription(offeredunits."Unit Base Code") + ' ::' + offeredunits."Program Name" + ' ::' + offeredunits.ModeofStudy + ' ::' + GetFullNames(offeredunits.Lecturer) + ' ::' + GetLectureHallName(offeredunits."Lecture Hall") + ' ::' + offeredunits.Day + ' ::' + offeredunits.TimeSlot + ' ::' + offeredunits.Programs + ' ::' + offeredunits.Stage + ' ::' + FORMAT(offeredunits."Sitting Capacity" - GetRegisteredStds(offeredunits."Unit Base Code", offeredunits.Programs, offeredunits.Stage, GetHODCampus(username), offeredunits.ModeofStudy)) + ' ::' + FORMAT(GetRegisteredStds(offeredunits."Unit Base Code", offeredunits.Programs, offeredunits.Stage, GetHODCampus(username), offeredunits.ModeofStudy)) + ' :::';
+            until offeredunits.Next = 0;
+        END;
+    end;
+
+    procedure GetRegisteredStds(unit: Code[20]; prog: Code[20]; stage: Code[20]; campus: Code[20]; mode: Code[20]) stds: Integer
+    var
+    begin
+        StudentUnits.Reset;
+        StudentUnits.SetRange("Campus Code", campus);
+        StudentUnits.SetRange(Unit, unit);
+        StudentUnits.SetRange(ModeofStudy, mode);
+        StudentUnits.SetRange(Stage, stage);
+        StudentUnits.SetRange(Programme, prog);
+        StudentUnits.SetRange(Semester, GetCurrentSemester());
+        if StudentUnits.Find('-') then begin
+            stds := StudentUnits.Count;
+        end;
+    end;
+
+    procedure GetLectureHallName(hallcode: Code[20]) hallname: text
+    begin
+        lecturehalls.Reset;
+        lecturehalls.SetRange("Lecture Room Code", hallcode);
+        if lecturehalls.Find('-') Then begin
+            hallname := lecturehalls."Lecture Room Name";
+        end;
+    end;
+
+    procedure GetLectureDays() Message: Text
+    begin
+        days.RESET;
+        days.SetCurrentKey("Day Order");
+        IF days.FIND('-') THEN BEGIN
+            REPEAT
+                Message += days."Day Code" + ' :::';
+            UNTIL days.NEXT = 0;
+        END;
+    end;
+
+    procedure GetHODDepartment(username: Text) Message: Text
+    begin
+        EmployeeCard.RESET;
+        EmployeeCard.SETRANGE(EmployeeCard."No.", username);
+        IF EmployeeCard.FIND('-') THEN BEGIN
+            Message := EmployeeCard."Department Code";
+        END
+    end;
+
+    procedure GetLectureHalls(hodno: Code[20]; day: Code[20]; timeslot: Code[20]) Message: Text
+    begin
+        lecturehalls.Reset();
+        lecturehalls.SetCurrentKey("Lecture Room Name");
+        lecturehalls.SetRange(Campus, GetHODCampus(hodno));
+        lecturehalls.SetRange(Department, GetHODDepartment(hodno));
+        IF lecturehalls.FIND('-') THEN BEGIN
+            repeat
+                offeredunits.Reset();
+                offeredunits.SetRange("Lecture Hall", lecturehalls."Lecture Room Code");
+                offeredunits.SetRange(Day, day);
+                offeredunits.SetRange(TimeSlot, timeslot);
+                if not offeredunits.find('-') then begin
+                    Message += lecturehalls."Lecture Room Code" + ' ::' + lecturehalls."Lecture Room Name" + ' (Capacity ' + FORMAT(lecturehalls."Sitting Capacity") + ') :::';
+                end;
+            until lecturehalls.Next = 0;
+        END
+    end;
+
+    procedure GetFullNames(no: Code[20]) fullname: Text
+    begin
+        EmployeeCard.RESET;
+        EmployeeCard.SetRange("No.", no);
+        IF EmployeeCard.FIND('-') THEN begin
+            fullname := '';
+            if EmployeeCard."First Name" <> '' then
+                fullname += EmployeeCard."First Name";
+            if EmployeeCard."Middle Name" <> '' then begin
+                if fullname <> '' then begin
+                    fullname += ' ' + EmployeeCard."Middle Name";
+                end else
+                    fullname += EmployeeCard."Middle Name";
+            end;
+            if EmployeeCard."Last Name" <> '' then
+                fullname += ' ' + EmployeeCard."Last Name";
+        end;
+    end;
+
+    procedure GetHODCampus(hod: Code[20]) campus: Text
+    begin
+        HRMEmployeeD.RESET;
+        HRMEmployeeD.SETRANGE("No.", hod);
+        IF HRMEmployeeD.FIND('-') THEN BEGIN
+            campus := HRMEmployeeD.Campus;
+        END
+    end;
+
+    procedure GetLecturers(hodno: Code[20]; day: Code[20]; timeslot: Code[20]) Message: Text
+    var
+        campus: Code[20];
+    begin
+        campus := GetHODCampus(hodno);
+        HRMEmployeeD.Reset();
+        HRMEmployeeD.SetRange(Lecturer, true);
+        HRMEmployeeD.SetRange(Campus, campus);
+        IF HRMEmployeeD.FIND('-') THEN BEGIN
+            repeat
+                lecturers.Reset();
+                lecturers.SetRange(Lecturer, HRMEmployeeD."No.");
+                lecturers.SetRange(Semester, GetCurrentSemester());
+                lecturers.SetRange(Day, day);
+                lecturers.SetRange(TimeSlot, timeslot);
+                if NOT lecturers.FIND('-') then begin
+                    Message += HRMEmployeeD."No." + ' ::' + GetFullNames(HRMEmployeeD."No.") + ' :::';
+                end;
+            until HRMEmployeeD.Next = 0;
+        END
+    end;
+
+    procedure GetCurrentSemester() Message: Text
+    begin
+        CurrentSem.RESET;
+        CurrentSem.SETRANGE("Current Semester", TRUE);
+        IF CurrentSem.FIND('-') THEN BEGIN
+            Message := CurrentSem.Code;
+        END;
+    end;
+
+    procedure GetUnitsToOffer(progcode: code[20]; stage: Code[20]; studymode: Code[20]) Details: Text
+    begin
+        UnitSubjects.RESET;
+        UnitSubjects.SETRANGE(UnitSubjects."Programme Code", progcode);
+        UnitSubjects.SETRANGE(UnitSubjects."Stage Code", stage);
+        IF UnitSubjects.FIND('-') THEN BEGIN
+            repeat
+                offeredunits.Reset;
+                offeredunits.SetRange("Unit Base Code", UnitSubjects.Code);
+                offeredunits.SetRange(Programs, progcode);
+                offeredunits.SetRange(Stage, stage);
+                offeredunits.SetRange(ModeofStudy, studymode);
+                offeredunits.SetRange(Semester, GetCurrentSemester());
+                if not offeredunits.Find('-') then begin
+                    Details += UnitSubjects.Code + ' ::' + UnitSubjects.Desription + ' :::';
+                end;
+            until UnitSubjects.Next = 0;
+        END;
+    end;
+
+    procedure GetModeofStudy() Message: Text
+    begin
+        studymodes.RESET;
+        IF studymodes.FIND('-') THEN BEGIN
+            REPEAT
+                Message := Message + studymodes.Code + ' ::' + studymodes.Description + ' :::';
+            UNTIL studymodes.NEXT = 0;
+        END;
+    end;
+
+    procedure GetProgramStages(progcode: Code[20]) Message: Text
+    begin
+        programstages.RESET;
+        programstages.SETRANGE(programstages."Programme Code", progcode);
+        IF programstages.FIND('-') THEN BEGIN
+            REPEAT
+                Message := Message + programstages.Code + ' ::' + programstages.Description + ' :::';
+            UNTIL programstages.NEXT = 0;
+        END;
+    end;
+
+    procedure GetDepartmentalPrograms(username: code[10]) progs: Text
+    begin
+        EmployeeCard.RESET;
+        EmployeeCard.SETRANGE(EmployeeCard."No.", username);
+        IF EmployeeCard.FIND('-') THEN BEGIN
+            programs.RESET;
+            programs.SETRANGE(programs."Department Code", EmployeeCard."Department Code");
+            IF programs.FIND('-') THEN BEGIN
+                REPEAT
+                    progs += programs.Code + ' ::' + programs.Description + ' :::';
+                UNTIL programs.Next = 0;
+            END;
+        END;
+    end;
 
     procedure ConfirmSupUnit(StdNo: Code[20]; unit: Code[20]) Message: Text
     var
