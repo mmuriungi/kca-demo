@@ -87,9 +87,9 @@ codeunit 60001 VendorsWebportals
                 tblBidder.SetRange("VAT Registration No.", KRAPin);
                 if tblBidder.Find('-') then
                     vendors.Password := tblBidder.Password;
-                vendors."Gen. Bus. Posting Group" := 'DOMESTIC';
+                vendors."Gen. Bus. Posting Group" := 'LOCAL';
                 vendors.Validate("Gen. Bus. Posting Group");
-                vendors."VAT Bus. Posting Group" := 'ZERO VAT';
+                vendors."VAT Bus. Posting Group" := 'ZERO RATED';
                 vendors.Validate("VAT Bus. Posting Group");
                 vendors."Vendor Posting Group" := 'TCREDITOR';
                 vendors.Validate("Vendor Posting Group");

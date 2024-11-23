@@ -144,9 +144,9 @@ table 52178541 "Prequalification Application"
             vend.Contact := preq.Phone;
             vend."Vendor Categorization" := Preq."Agpo Categorization";
             vend."Agpo Certification No." := Preq."Agpo Categorization";
-            vend."Gen. Bus. Posting Group" := 'DOMESTIC';
+            vend."Gen. Bus. Posting Group" := 'LOCAL';
             vend.Validate("Gen. Bus. Posting Group");
-            vend."VAT Bus. Posting Group" := 'ZERO VAT';
+            vend."VAT Bus. Posting Group" := 'ZERO RATED';
             vend.Validate("VAT Bus. Posting Group");
             vend."Invoice Disc. Code" := Preq."VAT Registration No.";
             vend."Vendor Posting Group" := 'TCREDITOR';

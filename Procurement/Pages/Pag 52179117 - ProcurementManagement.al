@@ -165,6 +165,7 @@ page 52179117 "Procurement Management"
                     action("Directorate Plan")
                     {
                         ApplicationArea = Suite;
+                        Caption = 'Department Plan';
 
                         RunObject = Page "PROC-Procurement Plan List";
                         ToolTip = 'Create purchase requisition from departments.';

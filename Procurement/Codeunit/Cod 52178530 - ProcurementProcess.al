@@ -1347,8 +1347,8 @@ codeunit 52178530 "Procurement Process"
                     ven."No." := noseries.GetNextNo(purpay."Vendor Nos.", 0D, True);
                     ven.Validate("No.");
                     ven.Name := Bidders.Name;
-                    ven."Gen. Bus. Posting Group" := 'DOMESTIC';
-                    ven."VAT Bus. Posting Group" := 'ZERO VAT';
+                    ven."Gen. Bus. Posting Group" := 'LOCAL';
+                    ven."VAT Bus. Posting Group" := 'ZERO RATED';
                     ven."Vendor Posting Group" := 'TRADE';
                     ven."Invoice Disc. Code" := ven."No.";
                     ven.Insert();
@@ -1413,8 +1413,8 @@ codeunit 52178530 "Procurement Process"
                     ven."No." := Bidders."Vendor No.";
                     ven.Validate("No.");
                     ven.Name := Bidders.Name;
-                    ven."Gen. Bus. Posting Group" := 'DOMESTIC';
-                    ven."VAT Bus. Posting Group" := 'ZERO VAT';
+                    ven."Gen. Bus. Posting Group" := 'LOCAL';
+                    ven."VAT Bus. Posting Group" := 'ZERO RATED';
                     ven."Vendor Posting Group" := 'TRADE';
                     ven."Invoice Disc. Code" := ven."No.";
                     ven.Insert();
