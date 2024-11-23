@@ -90,6 +90,20 @@ page 50846 "ACA-Semesters List"
                 ApplicationArea = All;
             }
         }
+        area(Processing)
+        {
+            action("ACA-Prog/Stage Sem. Schedule")
+            {
+                ApplicationArea = All;
+                Caption = 'ACA-Prog/Stage Sem. Schedule';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = Line;
+                RunObject = Page "ACA-Prog/Stage Sem. Schedule";
+                RunPageLink = Code = FIELD(Code);
+            }
+        }
     }
 }
 
