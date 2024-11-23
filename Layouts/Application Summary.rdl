@@ -11,127 +11,6 @@
       <rd:DataSourceID>b3cb2d1b-4ff9-47e1-b37f-16106bf311be</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="SUMMARY_LIST_FOR_SPECIAL_ADMISSION_______Application_Form_Header___Academic_Year_______">
-          <DataField>SUMMARY_LIST_FOR_SPECIAL_ADMISSION_______Application_Form_Header___Academic_Year_______</DataField>
-        </Field>
-        <Field Name="Surname________Other_Names_">
-          <DataField>Surname________Other_Names_</DataField>
-        </Field>
-        <Field Name="Application_Form_Header__Address_for_Correspondence1_">
-          <DataField>Application_Form_Header__Address_for_Correspondence1_</DataField>
-        </Field>
-        <Field Name="Application_Form_Header__Address_for_Correspondence2_">
-          <DataField>Application_Form_Header__Address_for_Correspondence2_</DataField>
-        </Field>
-        <Field Name="Application_Form_Header__Address_for_Correspondence3_">
-          <DataField>Application_Form_Header__Address_for_Correspondence3_</DataField>
-        </Field>
-        <Field Name="Application_Form_Header__Mean_Grade_Acquired_">
-          <DataField>Application_Form_Header__Mean_Grade_Acquired_</DataField>
-        </Field>
-        <Field Name="Application_Form_Header__HOD_Recommendations_">
-          <DataField>Application_Form_Header__HOD_Recommendations_</DataField>
-        </Field>
-        <Field Name="Application_Form_Header__Dean_Recommendations_">
-          <DataField>Application_Form_Header__Dean_Recommendations_</DataField>
-        </Field>
-        <Field Name="CourseName">
-          <DataField>CourseName</DataField>
-        </Field>
-        <Field Name="Qualifications">
-          <DataField>Qualifications</DataField>
-        </Field>
-        <Field Name="IntC">
-          <DataField>IntC</DataField>
-        </Field>
-        <Field Name="NAMECaption">
-          <DataField>NAMECaption</DataField>
-        </Field>
-        <Field Name="ADDRESSCaption">
-          <DataField>ADDRESSCaption</DataField>
-        </Field>
-        <Field Name="QUALIFICATIONCaption">
-          <DataField>QUALIFICATIONCaption</DataField>
-        </Field>
-        <Field Name="MEAN_GRADECaption">
-          <DataField>MEAN_GRADECaption</DataField>
-        </Field>
-        <Field Name="COURSE_REQUIREDCaption">
-          <DataField>COURSE_REQUIREDCaption</DataField>
-        </Field>
-        <Field Name="REMARKS_FROM_DEANS_HODCaption">
-          <DataField>REMARKS_FROM_DEANS_HODCaption</DataField>
-        </Field>
-        <Field Name="CONFIRMED_BY_Caption">
-          <DataField>CONFIRMED_BY_Caption</DataField>
-        </Field>
-        <Field Name="APPROVED_BY_Caption">
-          <DataField>APPROVED_BY_Caption</DataField>
-        </Field>
-        <Field Name="DATE_Caption">
-          <DataField>DATE_Caption</DataField>
-        </Field>
-        <Field Name="DATE_Caption_Control1102760039">
-          <DataField>DATE_Caption_Control1102760039</DataField>
-        </Field>
-        <Field Name="EmptyStringCaption">
-          <DataField>EmptyStringCaption</DataField>
-        </Field>
-        <Field Name="EmptyStringCaption_Control1102760041">
-          <DataField>EmptyStringCaption_Control1102760041</DataField>
-        </Field>
-        <Field Name="EmptyStringCaption_Control1102760042">
-          <DataField>EmptyStringCaption_Control1102760042</DataField>
-        </Field>
-        <Field Name="EmptyStringCaption_Control1102760043">
-          <DataField>EmptyStringCaption_Control1102760043</DataField>
-        </Field>
-        <Field Name="DEPUTY_REGISTRAR__ACADEMIC_AFFAIRSCaption">
-          <DataField>DEPUTY_REGISTRAR__ACADEMIC_AFFAIRSCaption</DataField>
-        </Field>
-        <Field Name="CHAIRMAN__DEANS_COMMITTEECaption">
-          <DataField>CHAIRMAN__DEANS_COMMITTEECaption</DataField>
-        </Field>
-        <Field Name="APPROVED_BY_Caption_Control1102760001">
-          <DataField>APPROVED_BY_Caption_Control1102760001</DataField>
-        </Field>
-        <Field Name="EmptyStringCaption_Control1102760004">
-          <DataField>EmptyStringCaption_Control1102760004</DataField>
-        </Field>
-        <Field Name="CHAIRMAN__SENATECaption">
-          <DataField>CHAIRMAN__SENATECaption</DataField>
-        </Field>
-        <Field Name="DATE_Caption_Control1102760048">
-          <DataField>DATE_Caption_Control1102760048</DataField>
-        </Field>
-        <Field Name="EmptyStringCaption_Control1102760049">
-          <DataField>EmptyStringCaption_Control1102760049</DataField>
-        </Field>
-        <Field Name="Application_Form_Header_Application_No_">
-          <DataField>Application_Form_Header_Application_No_</DataField>
-        </Field>
-        <Field Name="CompName">
-          <DataField>CompName</DataField>
-        </Field>
-        <Field Name="CompAddress">
-          <DataField>CompAddress</DataField>
-        </Field>
-        <Field Name="Picture">
-          <DataField>Picture</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2149,12 +2028,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2194,4 +2067,125 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>1149dc0d-cd8a-400a-ab63-e6bd62aaff3b</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="SUMMARY_LIST_FOR_SPECIAL_ADMISSION_______Application_Form_Header___Academic_Year_______">
+          <DataField>SUMMARY_LIST_FOR_SPECIAL_ADMISSION_______Application_Form_Header___Academic_Year_______</DataField>
+        </Field>
+        <Field Name="Surname________Other_Names_">
+          <DataField>Surname________Other_Names_</DataField>
+        </Field>
+        <Field Name="Application_Form_Header__Address_for_Correspondence1_">
+          <DataField>Application_Form_Header__Address_for_Correspondence1_</DataField>
+        </Field>
+        <Field Name="Application_Form_Header__Address_for_Correspondence2_">
+          <DataField>Application_Form_Header__Address_for_Correspondence2_</DataField>
+        </Field>
+        <Field Name="Application_Form_Header__Address_for_Correspondence3_">
+          <DataField>Application_Form_Header__Address_for_Correspondence3_</DataField>
+        </Field>
+        <Field Name="Application_Form_Header__Mean_Grade_Acquired_">
+          <DataField>Application_Form_Header__Mean_Grade_Acquired_</DataField>
+        </Field>
+        <Field Name="Application_Form_Header__HOD_Recommendations_">
+          <DataField>Application_Form_Header__HOD_Recommendations_</DataField>
+        </Field>
+        <Field Name="Application_Form_Header__Dean_Recommendations_">
+          <DataField>Application_Form_Header__Dean_Recommendations_</DataField>
+        </Field>
+        <Field Name="CourseName">
+          <DataField>CourseName</DataField>
+        </Field>
+        <Field Name="Qualifications">
+          <DataField>Qualifications</DataField>
+        </Field>
+        <Field Name="IntC">
+          <DataField>IntC</DataField>
+        </Field>
+        <Field Name="NAMECaption">
+          <DataField>NAMECaption</DataField>
+        </Field>
+        <Field Name="ADDRESSCaption">
+          <DataField>ADDRESSCaption</DataField>
+        </Field>
+        <Field Name="QUALIFICATIONCaption">
+          <DataField>QUALIFICATIONCaption</DataField>
+        </Field>
+        <Field Name="MEAN_GRADECaption">
+          <DataField>MEAN_GRADECaption</DataField>
+        </Field>
+        <Field Name="COURSE_REQUIREDCaption">
+          <DataField>COURSE_REQUIREDCaption</DataField>
+        </Field>
+        <Field Name="REMARKS_FROM_DEANS_HODCaption">
+          <DataField>REMARKS_FROM_DEANS_HODCaption</DataField>
+        </Field>
+        <Field Name="CONFIRMED_BY_Caption">
+          <DataField>CONFIRMED_BY_Caption</DataField>
+        </Field>
+        <Field Name="APPROVED_BY_Caption">
+          <DataField>APPROVED_BY_Caption</DataField>
+        </Field>
+        <Field Name="DATE_Caption">
+          <DataField>DATE_Caption</DataField>
+        </Field>
+        <Field Name="DATE_Caption_Control1102760039">
+          <DataField>DATE_Caption_Control1102760039</DataField>
+        </Field>
+        <Field Name="EmptyStringCaption">
+          <DataField>EmptyStringCaption</DataField>
+        </Field>
+        <Field Name="EmptyStringCaption_Control1102760041">
+          <DataField>EmptyStringCaption_Control1102760041</DataField>
+        </Field>
+        <Field Name="EmptyStringCaption_Control1102760042">
+          <DataField>EmptyStringCaption_Control1102760042</DataField>
+        </Field>
+        <Field Name="EmptyStringCaption_Control1102760043">
+          <DataField>EmptyStringCaption_Control1102760043</DataField>
+        </Field>
+        <Field Name="DEPUTY_REGISTRAR__ACADEMIC_AFFAIRSCaption">
+          <DataField>DEPUTY_REGISTRAR__ACADEMIC_AFFAIRSCaption</DataField>
+        </Field>
+        <Field Name="CHAIRMAN__DEANS_COMMITTEECaption">
+          <DataField>CHAIRMAN__DEANS_COMMITTEECaption</DataField>
+        </Field>
+        <Field Name="APPROVED_BY_Caption_Control1102760001">
+          <DataField>APPROVED_BY_Caption_Control1102760001</DataField>
+        </Field>
+        <Field Name="EmptyStringCaption_Control1102760004">
+          <DataField>EmptyStringCaption_Control1102760004</DataField>
+        </Field>
+        <Field Name="CHAIRMAN__SENATECaption">
+          <DataField>CHAIRMAN__SENATECaption</DataField>
+        </Field>
+        <Field Name="DATE_Caption_Control1102760048">
+          <DataField>DATE_Caption_Control1102760048</DataField>
+        </Field>
+        <Field Name="EmptyStringCaption_Control1102760049">
+          <DataField>EmptyStringCaption_Control1102760049</DataField>
+        </Field>
+        <Field Name="Application_Form_Header_Application_No_">
+          <DataField>Application_Form_Header_Application_No_</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="Picture">
+          <DataField>Picture</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
