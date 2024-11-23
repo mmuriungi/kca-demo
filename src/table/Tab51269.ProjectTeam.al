@@ -20,6 +20,10 @@ table 51269 "Project Team"
         {
             DataClassification = ToBeClassified;
         }
+        field(5; "Designation"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

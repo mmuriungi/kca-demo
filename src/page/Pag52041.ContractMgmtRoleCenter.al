@@ -17,10 +17,10 @@ page 52041 "Contract Mgmt Role Center"
             {
                 ApplicationArea = All;
             }
-            part(ContractChart; "Contract Chart")
-            {
-                ApplicationArea = All;
-            }
+            // part(ContractChart; "Contract Chart")
+            // {
+            //     ApplicationArea = All;
+            // }
             part(PowerBIEmbeddedReportPart; "Power BI Embedded Report Part")
             {
                 ApplicationArea = All;

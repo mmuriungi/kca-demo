@@ -614,6 +614,26 @@ page 50779 "ACA-Application Form Header"
                 PromotedCategory = process;
                 PromotedIsBig = true;
             }
+            action(sendBack)
+            {
+                Caption = 'Send Back To Applicant';
+                Image = SendTo;
+                Promoted = True;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    IF CONFIRM('Send This Application back to the Applicant', TRUE) = FALSE THEN EXIT;
+                    Rec.TestField("Student Feedback");
+                    Rec."User ID" := UserId;
+                    Rec.returned := True;
+                    Rec.Modify();
+                    SendFeedback();
+
+                end;
+
+            }
 
             action("Employement Details2")
             {
@@ -983,7 +1003,27 @@ page 50779 "ACA-Application Form Header"
     begin
         Rec."Settlement Type" := 'SSP';
     end;
-
+    local procedure SendFeedback()
+    var
+        salutation: Text[50];
+        FileMgt: Codeunit "File Management";
+        hrEmp: Record "HRM-Employee C";
+        progName: Record "ACA-Programme";
+        progLeader: text;
+        mail: Text;
+        EmailSubject: Text[50];
+        EmailBody: Text[700];
+        EmailRecipient: Text[200];
+    begin
+        Clear(EmailBody);
+        Clear(EmailSubject);
+        Clear(mail);
+        mail := Rec.Email;
+        EmailBody := 'Hello,' + ' ' + Rec.firstName + ' ' + Rec."Student Feedback" + ' This Is a system Generated Email. DO NOT REPLY!';
+        EmailSubject := 'APPLICATION REQUIRES YOUR ATTENTION';
+        SendMail.Create(mail, EmailSubject, EmailBody);
+        emailObj.Send(SendMail, Enum::"Email Scenario"::Notification);
+    end;
     var
         DMS: Record "EDMS Setups";
         DegreeName1: Text[200];
@@ -1019,6 +1059,8 @@ page 50779 "ACA-Application Form Header"
         AppSetup: Record "ACA-Applic. Setup";
         //AdmissionsQualif: Codeunit "50140";
         EnqH: Record "ACA-Enquiry Header";
+        SendMail: Codeunit "Email Message";
+        emailObj: Codeunit Email;
 
     /// <summary>
     /// GetDegree.
