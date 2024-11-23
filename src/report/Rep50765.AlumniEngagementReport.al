@@ -29,7 +29,7 @@ report 50765 "Alumni Engagement Report"
             column(Total_Donations; "Total Donations")
             {
             }
-             column(CompanyLogo; Company.Picture)
+            column(CompanyLogo; Company.Picture)
             {
 
             }
@@ -60,7 +60,7 @@ report 50765 "Alumni Engagement Report"
         }
     }
 
-     trigger OnInitReport()
+    trigger OnInitReport()
     begin
         Company.GET;
         Company.CALCFIELDS(Picture);
