@@ -34,6 +34,10 @@ table 51248 "Event Feedback"
         {
             Caption = 'Feedback Date';
         }
+        field(7; "Email"; Code[50])
+        {
+
+        }
     }
 
     keys
