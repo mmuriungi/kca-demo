@@ -5,7 +5,7 @@ page 50319 "Event Feedback List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Event Feedback";
-    Editable = false;
+    //Editable = false;
 
     layout
     {
@@ -28,7 +28,7 @@ page 50319 "Event Feedback List"
                 field(Email;Rec.Email)
                 {
                     ApplicationArea = All;
-                    Visible = false;
+                    //Visible = false;
                 }
                 field(Rating; Rec.Rating)
                 {

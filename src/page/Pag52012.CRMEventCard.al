@@ -102,24 +102,24 @@ page 52012 "CRM Event Card"
         }
         area(Processing)
         {
-            action(RegisterAttendee)
-            {
-                ApplicationArea = All;
-                Caption = 'Register Attendee';
-                Image = Add;
-                ToolTip = 'Register a new attendee for this event.';
+            // action(RegisterAttendee)
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Register Attendee';
+            //     Image = Add;
+            //     ToolTip = 'Register a new attendee for this event.';
 
-                trigger OnAction()
-                var
-                    CRMManagement: Codeunit "CRM Management";
-                    AttendeeNo: Code[20];
-                begin
-                    // AttendeeNo := Page.RunModal(Page::"Contact List"); 
-                    //  if Page.RunModal(Page::crm att) = Action::LookupOK then begin
-                    CRMManagement.RegisterAttendee(Rec."No.", AttendeeNo);
-                    //  end;
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         CRMManagement: Codeunit "CRM Management";
+            //         AttendeeNo: Code[20];
+            //     begin
+            //         // AttendeeNo := Page.RunModal(Page::"Contact List"); 
+            //         //  if Page.RunModal(Page::crm att) = Action::LookupOK then begin
+            //         CRMManagement.RegisterAttendee(Rec."No.", AttendeeNo);
+            //         //  end;
+            //     end;
+           // }
             action(CheckInAttendee)
             {
                 ApplicationArea = All;
