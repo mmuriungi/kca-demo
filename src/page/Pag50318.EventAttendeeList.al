@@ -5,7 +5,7 @@ page 50318 "Event Attendee List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Event Attendee";
-   // Editable = false;
+    Editable = false;
 
     layout
     {
@@ -24,6 +24,7 @@ page 50318 "Event Attendee List"
                 field("Email"; Rec."Email")
                 {
                     ApplicationArea = All;
+                   // Visible = false;
                 }
                 field("Registration Date"; Rec."Registration Date")
                 {
