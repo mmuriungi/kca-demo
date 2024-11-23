@@ -41,6 +41,10 @@ page 50893 "ACA-Lecturer Units Details"
                 {
                     ApplicationArea = All;
                 }
+                field("Time Table Hours"; Rec."Time Table Hours")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
