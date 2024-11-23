@@ -200,6 +200,8 @@ Codeunit 61106 webportals
         lecturehalls: Record "ACA-Lecturer Halls Setup";
         days: Record "TT-Days";
         timeslots: Record "TT-Daily Lessons";
+        AttendanceHeader: Record "Class Attendance Header";
+        AttendanceDetails: Record "Class Attendance Details";
 
     procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]) rtnMsg: Boolean
     begin
@@ -278,6 +280,46 @@ Codeunit 61106 webportals
                 Message += timeslots."Lesson Code" + ' :::';
             UNTIL timeslots.NEXT = 0;
         END;
+    end;
+
+    procedure GetLecUnits(lecno: Code[20]) msg: Text
+    begin
+        lecturers.Reset;
+        lecturers.SetRange(Lecturer, lecno);
+        lecturers.SetRange(Semester, GetCurrentSemester());
+        if lecturers.Find('-') then begin
+            repeat
+                msg += lecturers.Unit + ' ::' + GetUnitDescription(Lecturers.Unit) + ' ::' + lecturers.ModeOfStudy + ' ::' + lecturers.Stream + ' ::' + lecturers.Day + ' ::' + lecturers.TimeSlot + ' ::' + GetAllocatedLectureHall(lecturers.Lecturer, lecturers.Unit, lecturers.stream, lecturers."Campus Code", lecturers.ModeOfStudy) + ' :::';
+            until lecturers.Next = 0;
+        end;
+    end;
+
+    procedure GetAllocatedLectureHall(lecturer: Code[20]; unit: Code[20]; stream: Text; campus: Code[20]; mode: Code[20]) details: Text
+    begin
+        offeredunits.Reset;
+        offeredunits.SetRange("Unit Base Code", unit);
+        offeredunits.SetRange(Lecturer, lecturer);
+        offeredunits.SetRange(Campus, GetHODCampus(lecturer));
+        offeredunits.SetRange(Stream, stream);
+        offeredunits.SetRange(Semester, GetCurrentSemester());
+        if offeredunits.Find('-') then begin
+            details := GetLectureHallName(offeredunits."Lecture Hall") + ' ::' + Format(GetRegisteredStds(unit, stream, GetHODCampus(lecturer), mode));
+        end else begin
+            details := ' ::';
+        end;
+    end;
+
+    procedure GetRegisteredStds(unit: Code[20]; stream: Text; campus: Code[20]; mode: Code[20]) stds: Integer
+    begin
+        StudentUnits.Reset;
+        StudentUnits.SetRange("Campus Code", campus);
+        StudentUnits.SetRange(Unit, unit);
+        StudentUnits.SetRange(ModeofStudy, mode);
+        StudentUnits.SetRange(Stream, stream);
+        StudentUnits.SetRange(Semester, GetCurrentSemester());
+        if StudentUnits.Find('-') then begin
+            stds := StudentUnits.Count;
+        end;
     end;
 
     procedure ChangeLectureHall(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lechall: Code[20]) Details: Boolean
@@ -366,6 +408,68 @@ Codeunit 61106 webportals
         IF EmployeeCard.FIND('-') THEN BEGIN
             Message := EmployeeCard."Department Code";
         END
+    end;
+
+    procedure ClassAttendanceHeader(lectno: code[20]; unit: text; classtime: Code[20])
+    begin
+        AttendanceHeader.INIT;
+        AttendanceHeader."Attendance Date" := Today;
+        AttendanceHeader."Lecturer Code" := lectno;
+        AttendanceHeader.Semester := GetCurrentSem();
+        AttendanceHeader."Unit Code" := unit;
+        AttendanceHeader."Class Type" := AttendanceHeader."Class Type"::"Normal Single";
+        //AttendanceHeader.Time := classtime;
+        AttendanceHeader.INSERT;
+    end;
+
+    procedure ClassAttendanceDetails(counting: integer; stdno: code[20]; stdname: text; lectno: code[20]; unit: text; present: boolean)
+    var
+        entryno: integer;
+    begin
+        AttendanceDetails.INIT;
+        AttendanceDetails.Counting := counting;
+        AttendanceDetails."Lecturer Code" := lectno;
+        AttendanceDetails."Attendance Date" := Today;
+        AttendanceDetails."Unit Code" := unit;
+        AttendanceDetails."Student No." := stdno;
+        AttendanceDetails."Student Name" := stdname;
+        AttendanceDetails.Present := present;
+        AttendanceDetails.Semester := GetCurrentSem();
+        AttendanceDetails.INSERT;
+    end;
+
+    procedure GenerateBS64ClassRegisterNew(lecturer: Code[20]; unitcode: Code[20]; mode: Code[20]; stream: Text; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
+    var
+        tmpBlob: Codeunit "Temp Blob";
+        cnv64: Codeunit "Base64 Convert";
+        InStr: InStream;
+        OutStr: OutStream;
+        txtB64: Text;
+        format: ReportFormat;
+        recRef: RecordRef;
+        filename: Text;
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        IF EXISTS(filename) THEN
+            ERASE(filename);
+
+        StudentUnits.RESET;
+        StudentUnits.SETRANGE(StudentUnits.Unit, unitcode);
+        StudentUnits.SETRANGE(StudentUnits.ModeOfStudy, mode);
+        StudentUnits.SETRANGE(StudentUnits.Stream, stream);
+        StudentUnits.SETRANGE(StudentUnits.Semester, GetCurrentSem());
+        StudentUnits.SETRANGE(StudentUnits."Campus Code", GetHODCampus(lecturer));
+        IF StudentUnits.FIND('-') THEN BEGIN
+            recRef.GetTable(StudentUnits);
+            tmpBlob.CreateOutStream(OutStr);
+            Report.SaveAs(50324, '', format::Pdf, OutStr, recRef);
+            tmpBlob.CreateInStream(InStr);
+            txtB64 := cnv64.ToBase64(InStr, true);
+            bigtext.AddText(txtB64);
+        END ELSE BEGIN
+            Error('No class list for the details provided!');
+        END;
+        EXIT(filename);
     end;
 
     procedure GetLectureHalls(hodno: Code[20]; day: Code[20]; timeslot: Code[20]) Message: Text
