@@ -53,7 +53,7 @@ table 51276 "ACA-Prog/Stage Sem. Schedule"
         field(6; "Stage Code"; Code[20])
         {
             Caption = 'Stage Code';
-            TableRelation = "ACA-Programme Stages";
+            TableRelation = "ACA-Programme Stages".code where ("Programme Code" =field( "Programme Code"));
             trigger OnValidate()
             var
                 ACAProgrammeStages: Record "ACA-Programme Stages";
