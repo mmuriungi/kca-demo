@@ -212,6 +212,17 @@ page 50860 "ACA-General Set-Up"
 
 
             }
+            group("Time Table")
+            {
+                field("TImetable Start Time"; Rec."TImetable Start Time")
+                {
+                    ApplicationArea = All;
+                }
+                field("Timetable End Time"; Rec."Timetable End Time")
+                {
+                    ApplicationArea = All;
+                }
+            }
             group(Hostel)
             {
                 field("Available Accom. Spaces (Male)"; Rec."Available Accom. Spaces (Male)")
