@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="TransactionCode_PRTransactionCodes">
+          <DataField>TransactionCode_PRTransactionCodes</DataField>
+        </Field>
+        <Field Name="TransactionName_PRTransactionCodes">
+          <DataField>TransactionName_PRTransactionCodes</DataField>
+        </Field>
+        <Field Name="TransactionType_PRTransactionCodes">
+          <DataField>TransactionType_PRTransactionCodes</DataField>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+        </Field>
+        <Field Name="AmountFormat">
+          <DataField>AmountFormat</DataField>
+        </Field>
+        <Field Name="PeriodFilter">
+          <DataField>PeriodFilter</DataField>
+        </Field>
+        <Field Name="CompInfoName">
+          <DataField>CompInfoName</DataField>
+        </Field>
+        <Field Name="CompInfoAddress">
+          <DataField>CompInfoAddress</DataField>
+        </Field>
+        <Field Name="CompInfoCity">
+          <DataField>CompInfoCity</DataField>
+        </Field>
+        <Field Name="CompInfoPicture">
+          <DataField>CompInfoPicture</DataField>
+        </Field>
+        <Field Name="CompInfoEMail">
+          <DataField>CompInfoEMail</DataField>
+        </Field>
+        <Field Name="CompInfoHomePage">
+          <DataField>CompInfoHomePage</DataField>
+        </Field>
+        <Field Name="PeriodName">
+          <DataField>PeriodName</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="CurrNoNhif">
+          <DataField>CurrNoNhif</DataField>
+        </Field>
+        <Field Name="PrevNoNhif">
+          <DataField>PrevNoNhif</DataField>
+        </Field>
+        <Field Name="NhifNoVariance">
+          <DataField>NhifNoVariance</DataField>
+        </Field>
+        <Field Name="CurrNHIF">
+          <DataField>CurrNHIF</DataField>
+        </Field>
+        <Field Name="CurrNHIFFormat">
+          <DataField>CurrNHIFFormat</DataField>
+        </Field>
+        <Field Name="PrevNHIF">
+          <DataField>PrevNHIF</DataField>
+        </Field>
+        <Field Name="PrevNHIFFormat">
+          <DataField>PrevNHIFFormat</DataField>
+        </Field>
+        <Field Name="NhifVariance">
+          <DataField>NhifVariance</DataField>
+        </Field>
+        <Field Name="NhifVarianceFormat">
+          <DataField>NhifVarianceFormat</DataField>
+        </Field>
+        <Field Name="CurrNoNSSF">
+          <DataField>CurrNoNSSF</DataField>
+        </Field>
+        <Field Name="CurrNoNSSFVariance">
+          <DataField>CurrNoNSSFVariance</DataField>
+        </Field>
+        <Field Name="CurrNoNSSFVariance1">
+          <DataField>CurrNoNSSFVariance1</DataField>
+        </Field>
+        <Field Name="CurrNoNSSFVariance2">
+          <DataField>CurrNoNSSFVariance2</DataField>
+        </Field>
+        <Field Name="CurrNSSFVariance">
+          <DataField>CurrNSSFVariance</DataField>
+        </Field>
+        <Field Name="CurrNSSFVarianceFormat">
+          <DataField>CurrNSSFVarianceFormat</DataField>
+        </Field>
+        <Field Name="CurrNSSFVariance1">
+          <DataField>CurrNSSFVariance1</DataField>
+        </Field>
+        <Field Name="CurrNSSFVariance1Format">
+          <DataField>CurrNSSFVariance1Format</DataField>
+        </Field>
+        <Field Name="CurrNSSFVariance2">
+          <DataField>CurrNSSFVariance2</DataField>
+        </Field>
+        <Field Name="CurrNSSFVariance2Format">
+          <DataField>CurrNSSFVariance2Format</DataField>
+        </Field>
+        <Field Name="CurrNSSF">
+          <DataField>CurrNSSF</DataField>
+        </Field>
+        <Field Name="CurrNSSFFormat">
+          <DataField>CurrNSSFFormat</DataField>
+        </Field>
+        <Field Name="CurrNoNSSF1">
+          <DataField>CurrNoNSSF1</DataField>
+        </Field>
+        <Field Name="CurrNSSF1">
+          <DataField>CurrNSSF1</DataField>
+        </Field>
+        <Field Name="CurrNSSF1Format">
+          <DataField>CurrNSSF1Format</DataField>
+        </Field>
+        <Field Name="CurrNoNSSF2">
+          <DataField>CurrNoNSSF2</DataField>
+        </Field>
+        <Field Name="CurrNSSF2">
+          <DataField>CurrNSSF2</DataField>
+        </Field>
+        <Field Name="CurrNSSF2Format">
+          <DataField>CurrNSSF2Format</DataField>
+        </Field>
+        <Field Name="PrevNoNssf">
+          <DataField>PrevNoNssf</DataField>
+        </Field>
+        <Field Name="PrevNssf">
+          <DataField>PrevNssf</DataField>
+        </Field>
+        <Field Name="PrevNssfFormat">
+          <DataField>PrevNssfFormat</DataField>
+        </Field>
+        <Field Name="PrevNoNssf1">
+          <DataField>PrevNoNssf1</DataField>
+        </Field>
+        <Field Name="PrevNssf1">
+          <DataField>PrevNssf1</DataField>
+        </Field>
+        <Field Name="PrevNssf1Format">
+          <DataField>PrevNssf1Format</DataField>
+        </Field>
+        <Field Name="PrevNoNssf2">
+          <DataField>PrevNoNssf2</DataField>
+        </Field>
+        <Field Name="PrevNssf2">
+          <DataField>PrevNssf2</DataField>
+        </Field>
+        <Field Name="PrevNssf2Format">
+          <DataField>PrevNssf2Format</DataField>
+        </Field>
+        <Field Name="AppliedFilters">
+          <DataField>AppliedFilters</DataField>
+        </Field>
+        <Field Name="Variant_PeriodFilter">
+          <DataField>Variant_PeriodFilter</DataField>
+        </Field>
+        <Field Name="Variant_PeriodAmount">
+          <DataField>Variant_PeriodAmount</DataField>
+        </Field>
+        <Field Name="Variant_PeriodAmountFormat">
+          <DataField>Variant_PeriodAmountFormat</DataField>
+        </Field>
+        <Field Name="Variance_Amount">
+          <DataField>Variance_Amount</DataField>
+        </Field>
+        <Field Name="Variance_AmountFormat">
+          <DataField>Variance_AmountFormat</DataField>
+        </Field>
+        <Field Name="Cur_No_Assigned">
+          <DataField>Cur_No_Assigned</DataField>
+        </Field>
+        <Field Name="Var_No_Assigned">
+          <DataField>Var_No_Assigned</DataField>
+        </Field>
+        <Field Name="VarC_No_Assigned">
+          <DataField>VarC_No_Assigned</DataField>
+        </Field>
+        <Field Name="Cur_PNAME">
+          <DataField>Cur_PNAME</DataField>
+        </Field>
+        <Field Name="Var_PNAME">
+          <DataField>Var_PNAME</DataField>
+        </Field>
+        <Field Name="Num_I">
+          <DataField>Num_I</DataField>
+        </Field>
+        <Field Name="Num_D">
+          <DataField>Num_D</DataField>
+        </Field>
+        <Field Name="Variance_AmountPercentage">
+          <DataField>Variance_AmountPercentage</DataField>
+        </Field>
+        <Field Name="Variance_AmountPercentageFormat">
+          <DataField>Variance_AmountPercentageFormat</DataField>
+        </Field>
+        <Field Name="Cur_No_Assignedpension">
+          <DataField>Cur_No_Assignedpension</DataField>
+        </Field>
+        <Field Name="Prev_No_Assignedpension">
+          <DataField>Prev_No_Assignedpension</DataField>
+        </Field>
+        <Field Name="PensioNoVariance">
+          <DataField>PensioNoVariance</DataField>
+        </Field>
+        <Field Name="PensioAmtVariance">
+          <DataField>PensioAmtVariance</DataField>
+        </Field>
+        <Field Name="PensioAmtVarianceFormat">
+          <DataField>PensioAmtVarianceFormat</DataField>
+        </Field>
+        <Field Name="pensionemmployercur">
+          <DataField>pensionemmployercur</DataField>
+        </Field>
+        <Field Name="pensionemmployercurFormat">
+          <DataField>pensionemmployercurFormat</DataField>
+        </Field>
+        <Field Name="pensionemmployerprev">
+          <DataField>pensionemmployerprev</DataField>
+        </Field>
+        <Field Name="pensionemmployerprevFormat">
+          <DataField>pensionemmployerprevFormat</DataField>
+        </Field>
+        <Field Name="Pensionemployerlabel">
+          <DataField>Pensionemployerlabel</DataField>
+        </Field>
+        <Field Name="NSSFemployerlabel">
+          <DataField>NSSFemployerlabel</DataField>
+        </Field>
+        <Field Name="Cur_No_AssignedNsff">
+          <DataField>Cur_No_AssignedNsff</DataField>
+        </Field>
+        <Field Name="CurNoAssignedNsffVariance">
+          <DataField>CurNoAssignedNsffVariance</DataField>
+        </Field>
+        <Field Name="CurNoAssignedNsffVariance1">
+          <DataField>CurNoAssignedNsffVariance1</DataField>
+        </Field>
+        <Field Name="CurNoAssignedNsffVariance2">
+          <DataField>CurNoAssignedNsffVariance2</DataField>
+        </Field>
+        <Field Name="Cur_No_AssignedNsff1">
+          <DataField>Cur_No_AssignedNsff1</DataField>
+        </Field>
+        <Field Name="Cur_No_AssignedNsff2">
+          <DataField>Cur_No_AssignedNsff2</DataField>
+        </Field>
+        <Field Name="Prev_No_AssignedNSSF">
+          <DataField>Prev_No_AssignedNSSF</DataField>
+        </Field>
+        <Field Name="Prev_No_AssignedNSSF1">
+          <DataField>Prev_No_AssignedNSSF1</DataField>
+        </Field>
+        <Field Name="Prev_No_AssignedNSSF2">
+          <DataField>Prev_No_AssignedNSSF2</DataField>
+        </Field>
+        <Field Name="NSSFemmployercur">
+          <DataField>NSSFemmployercur</DataField>
+        </Field>
+        <Field Name="NSSFemmployercurFormat">
+          <DataField>NSSFemmployercurFormat</DataField>
+        </Field>
+        <Field Name="NSSFemmployercurVariance">
+          <DataField>NSSFemmployercurVariance</DataField>
+        </Field>
+        <Field Name="NSSFemmployercurVarianceFormat">
+          <DataField>NSSFemmployercurVarianceFormat</DataField>
+        </Field>
+        <Field Name="NSSFemmployercurVariance1">
+          <DataField>NSSFemmployercurVariance1</DataField>
+        </Field>
+        <Field Name="NSSFemmployercurVariance1Format">
+          <DataField>NSSFemmployercurVariance1Format</DataField>
+        </Field>
+        <Field Name="NSSFemmployercurVariance2">
+          <DataField>NSSFemmployercurVariance2</DataField>
+        </Field>
+        <Field Name="NSSFemmployercurVariance2Format">
+          <DataField>NSSFemmployercurVariance2Format</DataField>
+        </Field>
+        <Field Name="NSSFemmployercur1">
+          <DataField>NSSFemmployercur1</DataField>
+        </Field>
+        <Field Name="NSSFemmployercur1Format">
+          <DataField>NSSFemmployercur1Format</DataField>
+        </Field>
+        <Field Name="NSSFemmployercur2">
+          <DataField>NSSFemmployercur2</DataField>
+        </Field>
+        <Field Name="NSSFemmployercur2Format">
+          <DataField>NSSFemmployercur2Format</DataField>
+        </Field>
+        <Field Name="NSSFemmployerprev">
+          <DataField>NSSFemmployerprev</DataField>
+        </Field>
+        <Field Name="NSSFemmployerprevFormat">
+          <DataField>NSSFemmployerprevFormat</DataField>
+        </Field>
+        <Field Name="NSSFemmployerprev1">
+          <DataField>NSSFemmployerprev1</DataField>
+        </Field>
+        <Field Name="NSSFemmployerprev1Format">
+          <DataField>NSSFemmployerprev1Format</DataField>
+        </Field>
+        <Field Name="NSSFemmployerprev2">
+          <DataField>NSSFemmployerprev2</DataField>
+        </Field>
+        <Field Name="NSSFemmployerprev2Format">
+          <DataField>NSSFemmployerprev2Format</DataField>
+        </Field>
+        <Field Name="CurrNoPAYE">
+          <DataField>CurrNoPAYE</DataField>
+        </Field>
+        <Field Name="PrevNoPAYE">
+          <DataField>PrevNoPAYE</DataField>
+        </Field>
+        <Field Name="TotalAmatEmplVariance">
+          <DataField>TotalAmatEmplVariance</DataField>
+        </Field>
+        <Field Name="TotalAmatEmplVarianceFormat">
+          <DataField>TotalAmatEmplVarianceFormat</DataField>
+        </Field>
+        <Field Name="TotalSatVarianceAmt">
+          <DataField>TotalSatVarianceAmt</DataField>
+        </Field>
+        <Field Name="TotalSatVarianceAmtFormat">
+          <DataField>TotalSatVarianceAmtFormat</DataField>
+        </Field>
+        <Field Name="TotalCurrEmployerAmt">
+          <DataField>TotalCurrEmployerAmt</DataField>
+        </Field>
+        <Field Name="TotalCurrEmployerAmtFormat">
+          <DataField>TotalCurrEmployerAmtFormat</DataField>
+        </Field>
+        <Field Name="TotalPrevEmployerAmt">
+          <DataField>TotalPrevEmployerAmt</DataField>
+        </Field>
+        <Field Name="TotalPrevEmployerAmtFormat">
+          <DataField>TotalPrevEmployerAmtFormat</DataField>
+        </Field>
+        <Field Name="TotalStatuCurr">
+          <DataField>TotalStatuCurr</DataField>
+        </Field>
+        <Field Name="TotalStatuCurrFormat">
+          <DataField>TotalStatuCurrFormat</DataField>
+        </Field>
+        <Field Name="TotalStatuPrev">
+          <DataField>TotalStatuPrev</DataField>
+        </Field>
+        <Field Name="TotalStatuPrevFormat">
+          <DataField>TotalStatuPrevFormat</DataField>
+        </Field>
+        <Field Name="PAYENoVariance">
+          <DataField>PAYENoVariance</DataField>
+        </Field>
+        <Field Name="PAYEAmtVariance">
+          <DataField>PAYEAmtVariance</DataField>
+        </Field>
+        <Field Name="PAYEAmtVarianceFormat">
+          <DataField>PAYEAmtVarianceFormat</DataField>
+        </Field>
+        <Field Name="CurrPAYE">
+          <DataField>CurrPAYE</DataField>
+        </Field>
+        <Field Name="CurrPAYEFormat">
+          <DataField>CurrPAYEFormat</DataField>
+        </Field>
+        <Field Name="PrevPAYE">
+          <DataField>PrevPAYE</DataField>
+        </Field>
+        <Field Name="PrevPAYEFormat">
+          <DataField>PrevPAYEFormat</DataField>
+        </Field>
+        <Field Name="CurrBasicNoSalary">
+          <DataField>CurrBasicNoSalary</DataField>
+        </Field>
+        <Field Name="CurrBasicSalary">
+          <DataField>CurrBasicSalary</DataField>
+        </Field>
+        <Field Name="CurrBasicSalaryFormat">
+          <DataField>CurrBasicSalaryFormat</DataField>
+        </Field>
+        <Field Name="PrevBasicNoSalary">
+          <DataField>PrevBasicNoSalary</DataField>
+        </Field>
+        <Field Name="PrevBasicSalary">
+          <DataField>PrevBasicSalary</DataField>
+        </Field>
+        <Field Name="PrevBasicSalaryFormat">
+          <DataField>PrevBasicSalaryFormat</DataField>
+        </Field>
+        <Field Name="BasicSalNoVariance">
+          <DataField>BasicSalNoVariance</DataField>
+        </Field>
+        <Field Name="BasicSalAmtVariance">
+          <DataField>BasicSalAmtVariance</DataField>
+        </Field>
+        <Field Name="BasicSalAmtVarianceFormat">
+          <DataField>BasicSalAmtVarianceFormat</DataField>
+        </Field>
+        <Field Name="CurrNpayNo">
+          <DataField>CurrNpayNo</DataField>
+        </Field>
+        <Field Name="CurrNpay">
+          <DataField>CurrNpay</DataField>
+        </Field>
+        <Field Name="CurrNpayFormat">
+          <DataField>CurrNpayFormat</DataField>
+        </Field>
+        <Field Name="PrevNpayNo">
+          <DataField>PrevNpayNo</DataField>
+        </Field>
+        <Field Name="PrevNpay">
+          <DataField>PrevNpay</DataField>
+        </Field>
+        <Field Name="PrevNpayFormat">
+          <DataField>PrevNpayFormat</DataField>
+        </Field>
+        <Field Name="CurrHlevyNo">
+          <DataField>CurrHlevyNo</DataField>
+        </Field>
+        <Field Name="CurrHlevy">
+          <DataField>CurrHlevy</DataField>
+        </Field>
+        <Field Name="CurrHlevyFormat">
+          <DataField>CurrHlevyFormat</DataField>
+        </Field>
+        <Field Name="PrevHlevyNo">
+          <DataField>PrevHlevyNo</DataField>
+        </Field>
+        <Field Name="PrevHlevy">
+          <DataField>PrevHlevy</DataField>
+        </Field>
+        <Field Name="PrevHlevyFormat">
+          <DataField>PrevHlevyFormat</DataField>
+        </Field>
+        <Field Name="CurrGratuityNo">
+          <DataField>CurrGratuityNo</DataField>
+        </Field>
+        <Field Name="CurrGratuity">
+          <DataField>CurrGratuity</DataField>
+        </Field>
+        <Field Name="CurrGratuityFormat">
+          <DataField>CurrGratuityFormat</DataField>
+        </Field>
+        <Field Name="PrevGratuityNo">
+          <DataField>PrevGratuityNo</DataField>
+        </Field>
+        <Field Name="CurrGratuity2">
+          <DataField>CurrGratuity2</DataField>
+        </Field>
+        <Field Name="CurrGratuity2Format">
+          <DataField>CurrGratuity2Format</DataField>
+        </Field>
+        <Field Name="CurrHlevy2">
+          <DataField>CurrHlevy2</DataField>
+        </Field>
+        <Field Name="CurrHlevy2Format">
+          <DataField>CurrHlevy2Format</DataField>
+        </Field>
+        <Field Name="CurrNoGratuity1">
+          <DataField>CurrNoGratuity1</DataField>
+        </Field>
+        <Field Name="CurrHlevyNo1">
+          <DataField>CurrHlevyNo1</DataField>
+        </Field>
+        <Field Name="PrevGratuity">
+          <DataField>PrevGratuity</DataField>
+        </Field>
+        <Field Name="PrevGratuityFormat">
+          <DataField>PrevGratuityFormat</DataField>
+        </Field>
+        <Field Name="NpayNoVariance">
+          <DataField>NpayNoVariance</DataField>
+        </Field>
+        <Field Name="NpayAmtvariance">
+          <DataField>NpayAmtvariance</DataField>
+        </Field>
+        <Field Name="NpayAmtvarianceFormat">
+          <DataField>NpayAmtvarianceFormat</DataField>
+        </Field>
+        <Field Name="Currgrosspay">
+          <DataField>Currgrosspay</DataField>
+        </Field>
+        <Field Name="CurrgrosspayFormat">
+          <DataField>CurrgrosspayFormat</DataField>
+        </Field>
+        <Field Name="PrevGrosspay">
+          <DataField>PrevGrosspay</DataField>
+        </Field>
+        <Field Name="PrevGrosspayFormat">
+          <DataField>PrevGrosspayFormat</DataField>
+        </Field>
+        <Field Name="TotalCurrcodeAmount">
+          <DataField>TotalCurrcodeAmount</DataField>
+        </Field>
+        <Field Name="TotalCurrcodeAmountFormat">
+          <DataField>TotalCurrcodeAmountFormat</DataField>
+        </Field>
+        <Field Name="TotalPrevcodeAmount">
+          <DataField>TotalPrevcodeAmount</DataField>
+        </Field>
+        <Field Name="TotalPrevcodeAmountFormat">
+          <DataField>TotalPrevcodeAmountFormat</DataField>
+        </Field>
+        <Field Name="TotalEmployeeAmount">
+          <DataField>TotalEmployeeAmount</DataField>
+        </Field>
+        <Field Name="TotalEmployeeAmountFormat">
+          <DataField>TotalEmployeeAmountFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

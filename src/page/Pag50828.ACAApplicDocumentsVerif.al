@@ -499,7 +499,12 @@ page 50828 "ACA-Applic. Documents Verif."
 
 
                     TransferToAdmission(Rec."Admission No");
-
+                    Rec.Admitted := true;
+                    Rec.Status := Rec.Status::Admitted;
+                    Rec.VALIDATE(Status);
+                    Rec."Documents Verified" := TRUE;
+                    Rec."Payments Verified" := TRUE;
+                    Rec.MODIFY;
                     MESSAGE('The Application has been Processed');
 
                 end;
