@@ -60,19 +60,37 @@ page 52028 "Project Header Card"
                 {
                     Editable = false;
                 }
+                field("Contract Category"; Rec."Contract Category")
+                {
+                    ApplicationArea = All;
+                }
                 field("Contract Type"; Rec."Contract Type")
                 {
                     Editable = IsOpen;
+                    trigger OnValidate()
+                    var
+                        myInt: Integer;
+                    begin
+                        if Rec."Contract Type" = Rec."Contract Type"::Insurance then
+                            isInsurance := true
+                        else
+                            isInsurance := false;
+                    end;
+
                 }
-                field("Global Dimension 1 Code";Rec."Global Dimension 1 Code")
+                field("Insurance Type"; Rec."Insurance Type")
+                {
+                    Editable = isInsurance;
+                }
+                field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {
                     Editable = IsOpen;
                 }
-                field("Shortcut Dimension 2 Code";Rec."Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     Editable = IsOpen;
                 }
-                field("Shortcut Dimension 3 Code";Rec."Shortcut Dimension 3 Code")
+                field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code")
                 {
                     Editable = IsOpen;
                 }
@@ -90,7 +108,7 @@ page 52028 "Project Header Card"
                 }
                 field("Actual Start Date"; Rec."Actual Start Date")
                 {
-                    Editable = false;
+                    //Editable = false;
                 }
                 field("Actual End Date"; Rec."Actual End Date")
                 {
@@ -635,6 +653,7 @@ page 52028 "Project Header Card"
         Extend: Boolean;
         IsSubmitted: Boolean;
         IsApproved: Boolean;
+        isInsurance: Boolean;
         IsSuspended: Boolean;
         IsFinished: Boolean;
         ProjectTeam: Record "Project Team";

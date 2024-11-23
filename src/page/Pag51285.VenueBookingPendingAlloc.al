@@ -12,7 +12,7 @@ page 51285 "Venue Booking - Pending Alloc."
     layout
     {
         area(content)
-        {
+        {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
             repeater(General)
             {
                 field("Booking Id"; Rec."Booking Id")

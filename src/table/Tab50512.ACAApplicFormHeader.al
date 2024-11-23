@@ -722,10 +722,10 @@ table 50512 "ACA-Applic. Form Header"
         }
         field(50054; "FAB Staff ID"; Code[20])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee c"."No.";
             trigger OnValidate()
             var
-                hrmep: Record "HRM-Employee (D)";
+                hrmep: Record "HRM-Employee c";
             begin
                 if hrmep.get("FAB Staff ID") then
                     "FAB Chair Names" := hrmep."Last Name" + ' ' + hrmep."Middle Name" + ' ' + hrmep."First Name";
@@ -745,10 +745,10 @@ table 50512 "ACA-Applic. Form Header"
         }
         field(50058; "UAB Staff ID"; Code[20])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee c"."No.";
             trigger OnValidate()
             var
-                hrmep: Record "HRM-Employee (D)";
+                hrmep: Record "HRM-Employee c";
             begin
                 if hrmep.get("FAB Staff ID") then
                     "UAB  Staff Name" := hrmep."Last Name" + ' ' + hrmep."Middle Name" + ' ' + hrmep."First Name";
@@ -774,10 +774,10 @@ table 50512 "ACA-Applic. Form Header"
         }
         field(50086; "DAB Staff ID"; Code[20])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee c"."No.";
             trigger OnValidate()
             var
-                hrmep: Record "HRM-Employee (D)";
+                hrmep: Record "HRM-Employee c";
             begin
                 if hrmep.get("FAB Staff ID") then
                     "FAB Chair Names" := hrmep."Last Name" + ' ' + hrmep."Middle Name" + ' ' + hrmep."First Name";
@@ -1065,6 +1065,12 @@ table 50512 "ACA-Applic. Form Header"
         //school name
         field(50156; "School Name"; Text[250])
         {
+        }
+        //Programme school code
+        field(50157; "Programme School"; Code[25])
+        {
+            FieldClass = FlowField;
+            CalcFormula = lookup("ACA-Programme"."School Code" where(Code = field("First Degree Choice")));
         }
     }
 
