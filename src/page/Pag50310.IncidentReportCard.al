@@ -54,6 +54,32 @@ page 50310 "Incident Report Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Case Summary Desctiption";Rec."Case Summary Desctiption")
+                {
+                    ApplicationArea = All;
+                }
+            }
+        }
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action("Attachment Exhibit")
+            {
+                
+            }
+            action("Forward To DOS")
+            {
+                
+            }
+            action("Forward to Register")
+            {
+                
+            }
+            action("Close Case")
+            {
+                
             }
         }
     }

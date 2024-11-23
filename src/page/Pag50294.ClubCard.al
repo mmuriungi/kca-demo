@@ -80,7 +80,7 @@ page 50294 "Club Card"
                 ApplicationArea = All;
                 Caption = 'Cancel Approval';
                 Image = CancelApproval;
-                Visible = Rec."Approval Status" = Rec."Approval Status"::"Pending Approval";
+                Visible = Rec."Approval Status" = Rec."Approval Status"::"Pending";
 
                 trigger OnAction()
                 var

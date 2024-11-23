@@ -50,11 +50,9 @@ table 50377 "PRL-Transaction Codes"
             Description = 'Either (Posted Amount), (Take Higher) or (Take Lower)';
             OptionMembers = "Posted Amount","Take Higher","Take Lower ";
         }
-        field(18; "Special Transactions"; Option)
+        field(18; "Special Transactions"; enum "Payroll Special Transaction")
         {
             Description = 'Represents all Special Transactions';
-            OptionCaption = 'Ignore,Defined Contribution,Home Ownership Savings Plan,Life Insurance,Owner Occupier Interest,Prescribed Benefit,Salary Arrears,Staff Loan,Value of Quarters,Morgage,Gratuity,Insurance Relief,Allowance Recovery,Staff Welfare';
-            OptionMembers = Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage,Gratuity,"Insurance Relief","Allowance Recovery","Staff Welfare";
         }
         field(21; "Deduct Premium"; Boolean)
         {
@@ -150,13 +148,18 @@ table 50377 "PRL-Transaction Codes"
             OptionCaption = 'Basic Pay';
             OptionMembers = "Basic Pay","Basic & House Allowance";
         }
-        field(2; "Prorate Payment"; Boolean)
+        field(49; "Prorate Payment"; Boolean)
         {
             trigger OnValidate()
             begin
                 IF Rec."Transaction Type" = Rec."Transaction Type"::Deduction THEN ERROR('Not an income!');
             end;
         }
+        field(50; "Is an Imprest"; Boolean)
+        {
+            Description = 'Is this a Imprest?';
+        }
+        
     }
 
     keys

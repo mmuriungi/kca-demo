@@ -26,18 +26,19 @@ table 50079 "PROC-Procurement Plan Lines"
 
             trigger OnValidate()
             begin
-                IF Type = 1 THEN BEGIN
+                IF Type = type::"G/L Account" THEN BEGIN
                     IF GL.GET("Type No") THEN
                         Description := GL.Name;
                     // Category:=GL."Expense Code";
                 END;
-                IF Type = 2 THEN BEGIN
+                IF Type = type::Item THEN BEGIN
                     IF ITM.GET("Type No") THEN
                         Description := ITM.Description;
                     Category := ITM."Gen. Prod. Posting Group";
+                    "Unit Cost" := ITM."Unit Cost";
 
                 END;
-                IF Type = 3 THEN BEGIN
+                IF Type = type::"Fixed Asset" THEN BEGIN
                     IF FA.GET("Type No") THEN
                         Description := FA.Description;
                     Category := FA."FA Subclass Code";

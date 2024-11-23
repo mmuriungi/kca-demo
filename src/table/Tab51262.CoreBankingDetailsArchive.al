@@ -862,9 +862,9 @@ Table 51262 "Core_Banking_Details Archive"
                 GenJnl.Reset;
                 GenJnl.SetRange("Journal Template Name", 'SALES');
                 GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-                if GenJnl.Find('-') then begin
+                if GenJnl.FindSet() then begin
 
-                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post B2", GenJnl);
+                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post Batch", GenJnl);
                     ACAStdPayments.Posted := true;
                     ACAStdPayments.Modify;
                     Modify;

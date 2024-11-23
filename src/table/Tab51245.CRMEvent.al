@@ -49,8 +49,8 @@ table 51245 "CRM Event"
         field(10; "Feedback Score"; Decimal)
         {
             Caption = 'Feedback Score';
-            FieldClass = FlowField;
-            CalcFormula = average("Event Feedback".Rating where("Event No." = field("No.")));
+            // FieldClass = FlowField;
+            // CalcFormula = average("Event Feedback".Rating where("Event No." = field("No.")));
         }
     }
 

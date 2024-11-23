@@ -502,9 +502,9 @@ page 50888 "ACA-Student Payments Form"
                         GenJnl.RESET;
                         GenJnl.SETRANGE("Journal Template Name", 'SALES');
                         GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
-                        IF GenJnl.FIND('-') THEN BEGIN
-                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B2", GenJnl);
-                        END;
+                        if GenJnl.FindSet() then begin
+                            Codeunit.Run(Codeunit::"Gen. Jnl.-Post Batch", GenJnl);
+                        end;
 
                         //Post New
 

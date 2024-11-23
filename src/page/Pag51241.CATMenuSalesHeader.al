@@ -357,8 +357,8 @@ page 51241 "CAT-Menu Sales Header"
         GrnLine.RESET;
         GrnLine.SETRANGE(GrnLine."Journal Template Name", Temp);
         GrnLine.SETRANGE(GrnLine."Journal Batch Name", Batch);
-        IF GrnLine.FIND('-') THEN BEGIN
-            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B2", GrnLine);
+        IF GrnLine.FindSet() THEN BEGIN
+            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GrnLine);
         END;
         // Confirm if posted
         IF GLEntry.FINDLAST() THEN

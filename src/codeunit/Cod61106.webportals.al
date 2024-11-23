@@ -7087,8 +7087,8 @@ Codeunit 61106 webportals
                 GenJnl.Reset;
                 GenJnl.SetRange("Journal Template Name", 'SUPP');
                 GenJnl.SetRange("Journal Batch Name", BatchNos);
-                if GenJnl.Find('-') then begin
-                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post B2", GenJnl);
+                if GenJnl.FindSet() then begin
+                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post Batch", GenJnl);
                 end;
                 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -7143,8 +7143,8 @@ Codeunit 61106 webportals
                 GenJnl.Reset;
                 GenJnl.SetRange("Journal Template Name", 'SUPP');
                 GenJnl.SetRange("Journal Batch Name", BatchNos);
-                if GenJnl.Find('-') then begin
-                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post B2", GenJnl);
+                if GenJnl.FindSet() then begin
+                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post Batch", GenJnl);
                 end;
                 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -8757,7 +8757,7 @@ Codeunit 61106 webportals
         IF fablist.FIND('-') THEN BEGIN
             recRef.GetTable(fablist);
             tmpBlob.CreateOutStream(OutStr);
-            Report.SaveAs(51862, '', format::Pdf, OutStr, recRef);
+            Report.SaveAs(Report::"Student Applications Report", '', format::Pdf, OutStr, recRef);
             tmpBlob.CreateInStream(InStr);
             txtB64 := cnv64.ToBase64(InStr, true);
             bigtext.AddText(txtB64);
@@ -8819,7 +8819,7 @@ Codeunit 61106 webportals
         EmployeeCard.SETRANGE(EmployeeCard."No.", username);
         IF EmployeeCard.FIND('-') THEN BEGIN
             fablist.RESET;
-            fablist.SETRANGE(fablist."Programme Faculty", EmployeeCard."Faculty Code");
+            fablist.SETRANGE(fablist.School1, EmployeeCard."Faculty Code");
             fablist.SETFILTER(fablist.Status, '%1|%2', fablist.Status::"Department Approved", fablist.Status::"Department Rejected");
             IF fablist.FIND('-') THEN BEGIN
                 REPEAT

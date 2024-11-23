@@ -9,7 +9,6 @@ tableextension 50015 Vendors extends Vendor
         }
         field(50001; "Kra Pin"; text[50])
         {
-
         }
         field(50002; "Bank Account No"; code[30])
         {

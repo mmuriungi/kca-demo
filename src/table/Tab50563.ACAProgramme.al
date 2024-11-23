@@ -113,6 +113,7 @@ table 50563 "ACA-Programme"
         field(25; Faculty; Code[20])
         {
             // TableRelation = "GEN-Departments".Code;
+            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = CONST('SCHOOL'));
         }
         field(26; "Reg Prefix"; Code[20])
         {

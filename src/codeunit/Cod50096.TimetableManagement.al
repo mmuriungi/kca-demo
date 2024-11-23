@@ -28,9 +28,10 @@ codeunit 50096 "Timetable Management"
         RemainingHours: Integer;
     begin
         RemainingHours := CourseOffering."Time Table Hours";
+        CourseOffering.CalcFields("Unit Students Count");
         // Find suitable lecture hall
         LectureHall.Reset();
-        LectureHall.SetAutoCalcFields("Sitting Capacity");
+        //LectureHall.SetAutoCalcFields("Sitting Capacity");
         LectureHall.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Unit Students Count");
         LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
 

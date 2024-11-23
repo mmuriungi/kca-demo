@@ -172,7 +172,7 @@ table 50797 "ACA-Exam Classification Units"
         field(69; "Unit Stage"; Code[20])
         {
             FieldClass = FlowField;
-            CalcFormula=Lookup("ACA-Units/Subjects"."Stage Code" WHERE ("Programme Code"=FIELD(Programme),Code=FIELD("Unit Code")));
+            CalcFormula = Lookup("ACA-Units/Subjects"."Stage Code" WHERE("Programme Code" = FIELD(Programme), Code = FIELD("Unit Code")));
         }
         //Is Supp. Unit
         field(70; "Is Supp. Unit"; Boolean)
@@ -185,6 +185,12 @@ table 50797 "ACA-Exam Classification Units"
         {
             FieldClass = FlowField;
             CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."), "Unit Code" = FIELD("Unit Code"), Category = FILTER(Special), "Academic Year" = FIELD("Academic Year")));
+        }
+        //"Special Unit Reason"
+        field(72; "Special Unit Reason"; Code[250])
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("Aca-Special Exams Details"."Special Exam Reason" WHERE("Student No." = FIELD("Student No."), "Unit Code" = FIELD("Unit Code")));
         }
     }
 

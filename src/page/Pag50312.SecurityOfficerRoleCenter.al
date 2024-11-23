@@ -52,6 +52,20 @@ page 50312 "Security Officer Role Center"
                     Caption = 'Daily Occurrence Book';
                     RunObject = page "Daily Occurrence Book List";
                 }
+                action("Vehicle Logs")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Vehicle Daily Movement';
+                    RunObject = page "Vehicle Daily Movement List";
+                }
+            }
+            group("Security Setups")
+            {
+                action("Security Setup")
+                {
+                    ApplicationArea = All;
+                    RunObject = page "Security Setup";
+                }
             }
             group(Reports)
             {

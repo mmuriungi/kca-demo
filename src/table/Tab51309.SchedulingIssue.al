@@ -29,10 +29,15 @@ table 51309 "Scheduling Issue"
         {
             Caption = 'Issue Description';
         }
+        field(7; "Entry No"; Integer)
+        {
+            Caption = 'Entry No';
+            autoincrement = true;
+        }
     }
     keys
     {
-        key(PK; "Academic Year")
+        key(PK; "Academic Year", Semester, Programme, "Course Code", "Lecturer Code", "Entry No")
         {
             Clustered = true;
         }

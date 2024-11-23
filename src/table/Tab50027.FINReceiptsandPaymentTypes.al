@@ -155,6 +155,9 @@ table 50027 "FIN-Receipts and Payment Types"
         field(31; Fuel; Boolean)
         {
         }
+        field(32; "Medical Claim?"; Boolean)
+        {
+        }
     }
 
     keys

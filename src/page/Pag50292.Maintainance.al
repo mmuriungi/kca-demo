@@ -206,125 +206,125 @@ page 50292 Maintainance
                     RunObject = page "Maintenance Schedules";
                     RunPageLink = Status = filter(Open | Pending | Approved | Cancelled | Completed | Closed);
                 }
-                group("Utility Bills")
-                {
-                    group("Internal Bills")
-                    {
-                        action("Open Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = const(Open), "Bill Type" = const(Internal);
-                        }
-                        action("Pending Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = const(Pending), "Bill Type" = const(Internal);
-                        }
-                        action("Approved Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = const(Approved), "Bill Type" = const(Internal);
-                        }
-                        action("Cancelled Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = const(Cancelled), "Bill Type" = const(Internal);
-                        }
-                        action("All Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(Internal);
-                        }
-                    }
-                    group("External Bills")
-                    {
-                        Visible = false;
-                        action("&Open Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = const(Open), "Bill Type" = const(External);
-                        }
-                        action("&Pending Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = const(Pending), "Bill Type" = const(External);
-                        }
-                        action("&Approved Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = const(Approved), "Bill Type" = const(External);
-                        }
-                        action("&Cancelled Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = const(Cancelled), "Bill Type" = const(External);
-                        }
-                        action("&All Bills")
-                        {
-                            ApplicationArea = Basic, Suite;
-                            RunObject = page "Utility Bills";
-                            RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(External);
-                        }
-                    }
-                }
-                group("Projects Designs")
-                {
-                    action("&Open")
-                    {
-                        Caption = 'Project Design';
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page Projects;
-                        RunPageLink = Status = const(Open);
-                    }
-                    action("&Pending")
-                    {
-                        Caption = 'Pending Project Design';
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page Projects;
-                        RunPageLink = Status = const(Pending);
-                    }
-                    action("&Approved")
-                    {
-                        Caption = 'Approved Project Design';
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page Projects;
-                        RunPageLink = Status = const(Approved);
-                    }
-                    action("&Cancelled")
-                    {
-                        Caption = 'Cancelled Project Design';
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page Projects;
-                        RunPageLink = Status = const(Cancelled);
-                    }
-                }
-                group("Active Projects")
-                {
-                    action("Approved projects")
-                    {
-                        Caption = 'Approved Project Designs';
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page Projects;
-                        RunPageLink = Status = const(Approved);
-                    }
-                    action("Projects In-Progress ")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        RunObject = page Projects;
-                        RunPageLink = Status = filter(InProgress);
-                    }
+                // group("Utility Bills")
+                // {
+                //     group("Internal Bills")
+                //     {
+                //         action("Open Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = const(Open), "Bill Type" = const(Internal);
+                //         }
+                //         action("Pending Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = const(Pending), "Bill Type" = const(Internal);
+                //         }
+                //         action("Approved Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = const(Approved), "Bill Type" = const(Internal);
+                //         }
+                //         action("Cancelled Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = const(Cancelled), "Bill Type" = const(Internal);
+                //         }
+                //         action("All Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(Internal);
+                //         }
+                //     }
+                //     group("External Bills")
+                //     {
+                //         Visible = false;
+                //         action("&Open Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = const(Open), "Bill Type" = const(External);
+                //         }
+                //         action("&Pending Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = const(Pending), "Bill Type" = const(External);
+                //         }
+                //         action("&Approved Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = const(Approved), "Bill Type" = const(External);
+                //         }
+                //         action("&Cancelled Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = const(Cancelled), "Bill Type" = const(External);
+                //         }
+                //         action("&All Bills")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page "Utility Bills";
+                //             RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(External);
+                //         }
+                //     }
+                // }
+                // group("Projects Designs")
+                // {
+                //     action("&Open")
+                //     {
+                //         Caption = 'Project Design';
+                //         ApplicationArea = Basic, Suite;
+                //         RunObject = page Projects;
+                //         RunPageLink = Status = const(Open);
+                //     }
+                //     action("&Pending")
+                //     {
+                //         Caption = 'Pending Project Design';
+                //         ApplicationArea = Basic, Suite;
+                //         RunObject = page Projects;
+                //         RunPageLink = Status = const(Pending);
+                //     }
+                //     action("&Approved")
+                //     {
+                //         Caption = 'Approved Project Design';
+                //         ApplicationArea = Basic, Suite;
+                //         RunObject = page Projects;
+                //         RunPageLink = Status = const(Approved);
+                //     }
+                //     action("&Cancelled")
+                //     {
+                //         Caption = 'Cancelled Project Design';
+                //         ApplicationArea = Basic, Suite;
+                //         RunObject = page Projects;
+                //         RunPageLink = Status = const(Cancelled);
+                //     }
+                // }
+            //     group("Active Projects")
+            //     {
+            //         action("Approved projects")
+            //         {
+            //             Caption = 'Approved Project Designs';
+            //             ApplicationArea = Basic, Suite;
+            //             RunObject = page Projects;
+            //             RunPageLink = Status = const(Approved);
+            //         }
+            //         action("Projects In-Progress ")
+            //         {
+            //             ApplicationArea = Basic, Suite;
+            //             RunObject = page Projects;
+            //             RunPageLink = Status = filter(InProgress);
+            //         }
 
-                }
-            }
+            //     }
+             }
             group(Common_req)
             {
                 Caption = 'Common Requisitions';

@@ -62,8 +62,6 @@ codeunit 50029 prPayrollProcessing
         NHIFInsuranceCap: Decimal;
         curNHIFInsuranceReliefAmount: Decimal;
         EmpPensionContrib: Decimal;
-
-
         fNHIFReliefAmount: Decimal;
 
     procedure fnInitialize()
@@ -90,6 +88,47 @@ codeunit 50029 prPayrollProcessing
         NHIFInsuranceCap := VitalSetup."NHIF Insurance Relief Limit";
         NHIFInsurancePercentage := VitalSetup."NHIF Insurance Relief %";
 
+    end;
+
+    procedure fnHasOutstandinImprest(strEmpCode: Code[20]; dtOpenPeriod: Date; var imprestAmount: array[10] of decimal; var ImprestAcc: array[10] of Code[20];
+    var ImprestDoc: array[10] of Code[20]; AccNo: code[20]): Boolean
+    var
+        Imprest: record "FIN-Imprest Header";
+        Customer: record Customer;
+        Employee: record "HRM-Employee C";
+        ImpLine: record "FIN-Imprest Lines";
+        i: Integer;
+    begin
+        Employee.Reset();
+        Employee.SetRange("No.", strEmpCode);
+        if Employee.FindFirst() then begin
+            Customer.Reset();
+            Customer.SetRange("No.", Employee."Customer Acc");
+            Customer.SetFilter("Date Filter", '..%1', dtOpenPeriod);
+            Customer.SetAutoCalcFields("Balance (LCY)");
+            if Customer."Balance (LCY)" > 0 then begin
+                Imprest.Reset();
+                Imprest.SetRange("Account No.", Customer."No.");
+                Imprest.SetRange(Posted, true);
+                imprest.setfilter("Surrender Status", '%1|%2', Imprest."Surrender Status"::" ", Imprest."Surrender Status"::partial);
+                Imprest.SetFilter("Expected Date of Surrender", '<%1', dtOpenPeriod);
+                if Imprest.findset() then begin
+                    i := 1;
+                    repeat
+                        ImpLine.Reset();
+                        ImpLine.SetRange(No, Imprest."No.");
+                        if ImpLine.FindSet() then begin
+                            repeat
+                                imprestAmount[i] := ImpLine."Amount";
+                                ImprestAcc[i] := impline."Account No:";
+                                ImprestDoc[i] := Imprest."No.";
+                                i += 1;
+                            until ImpLine.Next() = 0;
+                        end;
+                    until Imprest.Next() = 0;
+                end;
+            end;
+        end;
     end;
 
     procedure fnProcesspayroll(strEmpCode: Code[20]; dtDOE: Date; curBasicPay: Decimal; blnPaysPaye: Boolean; blnPaysNssf: Boolean; blnPaysNhif: Boolean; SelectedPeriod: Date; dtOpenPeriod: Date; Membership: Text[30]; ReferenceNo: Text[30]; dtTermination: Date; blnGetsPAYERelief: Boolean; Dept: Code[20]; PayrollCode: Code[20]; blnInsuranceCertificate: Boolean)
@@ -131,7 +170,7 @@ codeunit 50029 prPayrollProcessing
         prEmployeeTransactions: Record "PRL-Employee Transactions";
         prTransactionCodes: Record "PRL-Transaction Codes";
         strExtractedFrml: Text[250];
-        SpecialTransType: Option Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage;
+        SpecialTransType: Enum "Payroll Special Transaction";
         TransactionType: Option Income,Deduction;
         curPensionCompany: Decimal;
         curTaxOnExcessPension: Decimal;
@@ -155,6 +194,16 @@ codeunit 50029 prPayrollProcessing
         IsCashBenefit: Decimal;
         PRLSalaryCard: Record "PRL-Salary Card";
         SumItems: Option " ","Basic","Basic & House";
+        HousingLevyRelief: Decimal;
+        ReliefhifAmount: Decimal;
+        imprestAmount: array[10] of decimal;
+        ImprestAcc: array[10] of Code[20];
+        ImprestDoc: array[10] of Code[20];
+        isImprest: Boolean;
+        PrTransactionCodes_1: Record "PRL-Transaction Codes";
+        i: Integer;
+        BalAccType: enum "Gen. Journal Account Type";
+        BalAccCode: Code[20];
     begin
         //Initialize
         if dtDOE = 0D then dtDOE := CalcDate('1M', Today);
@@ -676,7 +725,7 @@ codeunit 50029 prPayrollProcessing
                 curNhif_Base_Amount := curTaxablePay;
             //calculate NHIF and its relief
 
-            IF blnPaysNhif THEN BEGIN
+            /* IF blnPaysNhif THEN BEGIN
                 curNHIF := fnGetEmployeeNHIF(curNhif_Base_Amount);
                 curTransAmount := curNHIF;
                 NHIFEMPyee := PostingGroup."NHIF Employee Account";
@@ -711,7 +760,52 @@ codeunit 50029 prPayrollProcessing
                         END;
                     END;
                 END;
+            END; */
+
+            curNHIF := fnGetSpecialTransAmount(strEmpCode, intMonth, intYear,
+SpecialTransType::SHIF, FALSE);
+            curTransAmount := ROUND(curNHIF, 0.05, '=');
+            NHIFEMPyee := PostingGroup."NHIF Employee Account";
+            strTransDescription := 'SHIF';
+            TGroup := 'STATUTORIES';
+            TGroupOrder := 7;
+            TSubGroupOrder := 2;
+            fnUpdatePeriodTrans(strEmpCode, 'SHIF', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
+             curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept,
+             NHIFEMPyee, JournalPostAs::Credit, JournalPostingType::"G/L Account", '', CoopParameters::none);
+
+            ReliefhifAmount := 0;
+            IF blnPaysPaye THEN BEGIN
+
+                //IF curTaxablePay > 23999 THEN BEGIN
+                //Get Insurance Relief
+                //IF ((NhifInsuApplies) AND (NHIFInsurancePercentage > 0)) THEN BEGIN
+
+                //curNHIFInsuranceReliefAmount := ((NHIFInsurancePercentage / 100) * curNHIF);
+                curNHIFInsuranceReliefAmount := ((15 / 100) * curNHIF);
+                // IF curNHIFInsuranceReliefAmount > NHIFInsuranceCap THEN
+                //   curNHIFInsuranceReliefAmount := NHIFInsuranceCap;
+
+                //IF curNHIFInsuranceReliefAmount > 0 THEN BEGIN
+                curTransAmount := ROUND(curNHIFInsuranceReliefAmount, 0.05, '=');
+                ReliefhifAmount := ROUND(curTransAmount, 0.05, '=');
+                ;
+                //MESSAGE('%1',ReliefhifAmount);
+                strTransDescription := 'SHIF Insurance Relief';
+                TGroup := 'TAX COMPUTATION';
+                TGroupOrder := 6;
+                TSubGroupOrder := 8;
+                fnUpdatePeriodTrans(strEmpCode, 'SHIFINSR', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
+                curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" "
+                , '', CoopParameters::none);
+                //END;
+                //END;
+                //END;
             END;
+
+
+
+
 
             //Personal Relief
             // if get relief is ticked  - DENNO ADDED
@@ -776,21 +870,21 @@ codeunit 50029 prPayrollProcessing
                 fnUpdatePeriodTrans(strEmpCode, 'NEmprPension', 'NEmprPension', 14, 0, 'Employer Pension', EmpPensionContrib, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
 
             END;
-            PREmpTrans_2.Reset();
-            PREmpTrans_2.SetRange("Employee Code", strEmpCode);
-            PREmpTrans_2.SetRange("Payroll Period", SelectedPeriod);
-            PREmpTrans_2.SetFilter("Transaction Code", '%1', 'DS-025');
-            if PREmpTrans_2.Find('-') then begin
+            // PREmpTrans_2.Reset();
+            // PREmpTrans_2.SetRange("Employee Code", strEmpCode);
+            // PREmpTrans_2.SetRange("Payroll Period", SelectedPeriod);
+            // PREmpTrans_2.SetFilter("Transaction Code", '%1', 'DS-025');
+            // if PREmpTrans_2.Find('-') then begin
 
 
-                fnUpdatePeriodTrans(strEmpCode, 'HE-Levi', 'HE-Levi', 16, 0, 'Housing Levi Contrib Employee', curGrossPay * 0.015 + PREmpTrans_2.Amount, 0, intMonth,
-                intYear, '', '', SelectedPeriod, Dept, '5000080', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
+            //     fnUpdatePeriodTrans(strEmpCode, 'HE-Levi', 'HE-Levi', 16, 0, 'Housing Levi Contrib Employee', curGrossPay * 0.015 + PREmpTrans_2.Amount, 0, intMonth,
+            //     intYear, '', '', SelectedPeriod, Dept, '5000080', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
 
-            end else begin
-                fnUpdatePeriodTrans(strEmpCode, 'HE-Levi', 'HE-Levi', 16, 0, 'Housing Levi Contrib Employer', curGrossPay * 0.015, 0, intMonth,
-             intYear, '', '', SelectedPeriod, Dept, '5000080', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
+            // end else begin
+            //     fnUpdatePeriodTrans(strEmpCode, 'HE-Levi', 'HE-Levi', 16, 0, 'Housing Levi Contrib Employer', curGrossPay * 0.015, 0, intMonth,
+            //  intYear, '', '', SelectedPeriod, Dept, '5000080', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
 
-            end;
+            // end;
             TcurInsuranceReliefAmount := 0;
             //if he PAYS paye only*******************I
             if blnPaysPaye and blnGetsPAYERelief then begin
@@ -822,6 +916,22 @@ codeunit 50029 prPayrollProcessing
                     curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept,
                     '', JournalPostAs::Credit, JournalPostingType::" ", '', CoopParameters::none);
                 end;
+
+                /// Housing levy relief
+                CLEAR(HousingLevyRelief);
+                HousingLevyRelief := fnGetSpecialTransAmount(strEmpCode, intMonth, intYear,
+                SpecialTransType::"Housing Levy", FALSE);
+                IF HousingLevyRelief > 0 THEN BEGIN
+                    curTransAmount := ROUND(HousingLevyRelief, 0.05, '=');
+                    strTransDescription := 'Housing Levy Relief';
+                    TGroup := 'TAX COMPUTATION';
+                    TGroupOrder := 6;
+                    TSubGroupOrder := 10;
+                    fnUpdatePeriodTrans(strEmpCode, '903', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
+                    curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" "
+                    , '', CoopParameters::none);
+                END;
+                /// Ends Housing Levy Relief
                 //********************************************************************************************************************************************************
 
 
@@ -1130,14 +1240,14 @@ codeunit 50029 prPayrollProcessing
 
 
             //Get the Net PAYE amount to post for the month
-            if (curInsuranceReliefAmount + fNHIFReliefAmount) > curMaximumRelief then begin
+            if (curInsuranceReliefAmount + ReliefhifAmount + HousingLevyRelief) > curMaximumRelief then begin
                 curPAYE := curTaxCharged - curMaximumRelief;
             end else begin
                 //******************************************************************************************************************************************
                 //Added DW: Only for Employees who have brought their insurance Certificate are entitled to Insurance Relief Otherwise NO
                 //Place a check mark on the Salary Card to YES
                 // if (blnInsuranceCertificate) then begin
-                curPAYE := curTaxCharged - (curReliefPersonal + curInsuranceReliefAmount + fNHIFReliefAmount + curReliefMorgage);
+                curPAYE := curTaxCharged - (curReliefPersonal + curInsuranceReliefAmount + ReliefhifAmount + curReliefMorgage + HousingLevyRelief);
                 //  end else begin
                 //    curPAYE := curTaxCharged - (curReliefPersonal + fNHIFReliefAmount);
                 // end;
@@ -1485,6 +1595,33 @@ codeunit 50029 prPayrollProcessing
                     end;
 
                 until prEmployeeTransactions.Next = 0;
+
+                //Handle Imprest Recovery
+                PrTransactionCodes_1.Reset();
+                PrTransactionCodes_1.SetRange(PrTransactionCodes_1."Is an Imprest", TRUE);
+                if PrTransactionCodes_1.FindFirst() then begin
+                    fnHasOutstandinImprest(strEmpCode, fngetMinimumDate(CalcDate('CM', dtOpenPeriod), dtOpenPeriod), imprestAmount, ImprestAcc, ImprestDoc, BalAccCode);
+                    if ArrayLen(imprestAmount) > 0 then begin
+                        for i := 1 to ArrayLen(imprestAmount) do begin
+                            curTransAmount := imprestAmount[i];
+                            curTransBalance := curTransBalance;
+                            curTotalDeductions := curTotalDeductions + curTransAmount;
+                            strTransCode := prTransactionCodes."Transaction Code";
+                            strTransDescription := 'IMPREST RECOVERY';
+                            TGroup := 'DEDUCTIONS';
+                            TGroupOrder := 8;
+                            TSubGroupOrder := 16;
+                            fnUpdatePeriodTrans(strEmpCode, strTransCode, TGroup, TGroupOrder, TSubGroupOrder,
+                              strTransDescription, curTransAmount, curTransBalance, intMonth, intYear,
+                              prEmployeeTransactions.Membership, prEmployeeTransactions."Reference No", SelectedPeriod, Dept,
+                              ImprestAcc[i], JournalPostAs::Debit, JournalPostingType::"G/L Account", '',
+                              CoopParameters::none, ImprestDoc[i], BalAccType::Customer, BalAccCode);
+                        end;
+                    end;
+                end;
+
+
+
                 //GET TOTAL DEDUCTIONS
 
                 //Added for NCA - To add Statutories to Total Deductions
@@ -1636,6 +1773,53 @@ codeunit 50029 prPayrollProcessing
             DaysInMonth := SysDate.Count;
     end;
 
+    procedure fnUpdatePeriodTrans(EmpCode: Code[20]; TCode: Code[20]; TGroup: Code[20]; GroupOrder: Integer; SubGroupOrder: Integer; Description: Text[50]; curAmount: Decimal; curBalance: Decimal; Month: Integer; Year: Integer; mMembership: Text[30]; ReferenceNo: Text[30]; dtOpenPeriod: Date; Department: Code[20]; JournalAC: Code[20]; PostAs: Option " ",Debit,Credit; JournalACType: Option " ","G/L Account",Customer,Vendor;
+     LoanNo: Code[20]; CoopParam: Option "none",shares,loan,"loan Interest","Emergency loan","Emergency loan Interest","School Fees loan","School Fees loan Interest",Welfare,Pension;
+      ImprestNO: Code[20]; BalAccType: enum "Gen. Journal Account Type"; BalAccCode: Code[20])
+    var
+        prPeriodTransactions: Record "PRL-Period Transactions";
+        prSalCard: Record "HRM-Employee (D)";
+    begin
+        if curAmount = 0 then exit;
+
+        prPeriodTransactions.Init;
+        prPeriodTransactions."Employee Code" := EmpCode;
+        prPeriodTransactions."Transaction Code" := TCode;
+        prPeriodTransactions."Group Text" := TGroup;
+        prPeriodTransactions."Transaction Name" := Description;
+        //  Amount := ROUND(curAmount,0.05,'=');
+        prPeriodTransactions.Amount := Round(curAmount);
+        prPeriodTransactions.Balance := curBalance;
+        prPeriodTransactions."Original Amount" := prPeriodTransactions.Balance;
+        prPeriodTransactions."Group Order" := GroupOrder;
+        prPeriodTransactions."Sub Group Order" := SubGroupOrder;
+        prPeriodTransactions.Membership := mMembership;
+        prPeriodTransactions."Reference No" := ReferenceNo;
+        prPeriodTransactions."Period Month" := Month;
+        prPeriodTransactions."Period Year" := Year;
+        prPeriodTransactions."Payroll Period" := dtOpenPeriod;
+        prPeriodTransactions."Department Code" := Department;
+        prPeriodTransactions."Journal Account Type" := JournalACType;
+        prPeriodTransactions."Post As" := PostAs;
+        prPeriodTransactions."Journal Account Code" := JournalAC;
+        prPeriodTransactions."Loan Number" := LoanNo;
+        prPeriodTransactions."coop parameters" := CoopParam;
+        prPeriodTransactions."Payroll Code" := PayrollType;
+        prPeriodTransactions."Imprest No." := ImprestNO;
+        if ImprestNO <> '' then
+            prPeriodTransactions."Is Imprest" := true;
+        prPeriodTransactions."Balancing Account Type" := BalAccType;
+        prPeriodTransactions."Balancing Account No." := BalAccCode;
+        //Paymode
+        if prSalCard.Get(EmpCode) then
+            prPeriodTransactions."Payment Mode" := prSalCard."Payment Mode";
+        prPeriodTransactions.Insert;
+        //Update the prEmployee Transactions  with the Amount
+        fnUpdateEmployeeTrans(prPeriodTransactions."Employee Code", prPeriodTransactions."Transaction Code", prPeriodTransactions.Amount,
+        prPeriodTransactions."Period Month", prPeriodTransactions."Period Year", prPeriodTransactions."Payroll Period");
+
+    end;
+
     procedure fnUpdatePeriodTrans(EmpCode: Code[20]; TCode: Code[20]; TGroup: Code[20]; GroupOrder: Integer; SubGroupOrder: Integer; Description: Text[50]; curAmount: Decimal; curBalance: Decimal; Month: Integer; Year: Integer; mMembership: Text[30]; ReferenceNo: Text[30]; dtOpenPeriod: Date; Department: Code[20]; JournalAC: Code[20]; PostAs: Option " ",Debit,Credit; JournalACType: Option " ","G/L Account",Customer,Vendor; LoanNo: Code[20]; CoopParam: Option "none",shares,loan,"loan Interest","Emergency loan","Emergency loan Interest","School Fees loan","School Fees loan Interest",Welfare,Pension)
     var
         prPeriodTransactions: Record "PRL-Period Transactions";
@@ -1676,7 +1860,7 @@ codeunit 50029 prPayrollProcessing
 
     end;
 
-    procedure fnGetSpecialTransAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Option Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage,Gratuity,"Insurance Relief","Allowance Recovery"; blnCompDedc: Boolean) SpecialTransAmount: Decimal
+    procedure fnGetSpecialTransAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Enum "Payroll Special Transaction"; blnCompDedc: Boolean) SpecialTransAmount: Decimal
     var
         prEmployeeTransactions: Record "PRL-Employee Transactions";
         prTransactionCodes: Record "PRL-Transaction Codes";
@@ -1736,8 +1920,30 @@ codeunit 50029 prPayrollProcessing
                                 end;
 
                             end;
+                        intSpecTransID::"Housing Levy":
+                            BEGIN
+                                strExtractedFrml := '';
+                                strExtractedFrml := fnPureFormula(strEmpCode, intMonth, intYear, prTransactionCodes.Formula);
+                                SpecialTransAmount := SpecialTransAmount + (fnFormulaResult(strExtractedFrml)) * 0.15;
+                            END;
+                        intSpecTransID::SHIF:
+                            BEGIN
+                                strExtractedFrml := '';
+                                strExtractedFrml := fnPureFormula(strEmpCode, intMonth, intYear, prTransactionCodes.Formula);
+                                SpecialTransAmount := SpecialTransAmount + (fnFormulaResult(strExtractedFrml));
+                            END;
 
                     end;
+                end else begin
+                    //handle formularized first time base transactions.
+                    CASE intSpecTransID OF
+                        intSpecTransID::SHIF:
+                            BEGIN
+                                strExtractedFrml := '';
+                                strExtractedFrml := fnPureFormula(strEmpCode, intMonth, intYear, prTransactionCodes.Formula);
+                                SpecialTransAmount := SpecialTransAmount + (fnFormulaResult(strExtractedFrml));
+                            END;
+                    END;
                 end;
             until prTransactionCodes.Next = 0;
         end;
@@ -1867,6 +2073,14 @@ codeunit 50029 prPayrollProcessing
         AccSchedMgt: Codeunit AccSchedManagement2;
     begin
         Results := AccSchedMgt.EvaluateExpression(true, strFormula, AccSchedLine, ColumnLayout, CalcAddCurr);
+    end;
+
+    procedure fngetMinimumDate(dtDate1: Date; dtDate2: Date) MinimumDate: Date
+    begin
+        if dtDate1 < dtDate2 then
+            MinimumDate := dtDate1
+        else
+            MinimumDate := dtDate2;
     end;
 
     procedure fnClosePayrollPeriod(dtOpenPeriod: Date; PayrollCode: Code[20]) Closed: Boolean
@@ -2635,7 +2849,7 @@ codeunit 50029 prPayrollProcessing
         //End Get Payroll Posting Accounts
     end;
 
-    procedure fnGetSpecialTransAmount2(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Option Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage; blnCompDedc: Boolean)
+    procedure fnGetSpecialTransAmount2(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Enum "Payroll Special Transaction"; blnCompDedc: Boolean)
     var
         prEmployeeTransactions: Record "PRL-Employee Transactions";
         prTransactionCodes: Record "PRL-Transaction Codes";
@@ -2710,7 +2924,7 @@ codeunit 50029 prPayrollProcessing
         end;
     end;
 
-    procedure fnGetPensionAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Option Ignore,"Defined Contribution","Home Ownership Savings Plan","Life Insurance","Owner Occupier Interest","Prescribed Benefit","Salary Arrears","Staff Loan","Value of Quarters",Morgage,Gratuity,"Insurance Relief"; blnCompDedc: Boolean) SpecialTransAmount: Decimal
+    procedure fnGetPensionAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Enum "Payroll Special Transaction"; blnCompDedc: Boolean) SpecialTransAmount: Decimal
     var
         prEmployeeTransactions: Record "PRL-Employee Transactions";
         prTransactionCodes: Record "PRL-Transaction Codes";

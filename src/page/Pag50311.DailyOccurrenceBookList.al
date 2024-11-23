@@ -5,6 +5,7 @@ page 50311 "Daily Occurrence Book List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Daily Occurrence Book";
+    CardPageId = "Daily Occurrence Card";
 
     layout
     {
@@ -13,6 +14,10 @@ page 50311 "Daily Occurrence Book List"
             repeater(GroupName)
             {
                 field("Entry No."; Rec."Entry No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("OB No."; Rec."OB No.")
                 {
                     ApplicationArea = All;
                 }

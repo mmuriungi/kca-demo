@@ -164,12 +164,12 @@ table 50845 "ACA-Students Hostel Rooms"
         {
             //TableRelation = "HRM-Disciplinary Cases".Code;
         }
-        field(17; Gender; Option)
+        field(17; Gender; Enum Gender)
         {
-            CalcFormula = Lookup(Customer.Gender WHERE("No." = FIELD(Student)));
-            FieldClass = FlowField;
-            OptionCaption = ' ,Male,Female';
-            OptionMembers = " ",Male,Female;
+            // CalcFormula = Lookup(Customer.Gender WHERE("No." = FIELD(Student)));
+            // FieldClass = FlowField;
+            // OptionCaption = ' ,Male,Female';
+            // OptionMembers = ,Male,Female;
         }
         field(18; "Hostel Assigned"; Boolean)
         {
@@ -235,10 +235,10 @@ table 50845 "ACA-Students Hostel Rooms"
                         IF prog."Special Programme" THEN
                             settlementType := settlementType::"Special Programme"
                         ELSE
-                            IF courseReg."Settlement Type" = 'JAB' THEN
+                            IF courseReg."Settlement Type" = 'KUCCPS' THEN
                                 settlementType := settlementType::JAB
                             ELSE
-                                IF courseReg."Settlement Type" = 'SSP' THEN settlementType := settlementType::SSP;
+                                IF courseReg."Settlement Type" = 'PSSP' THEN settlementType := settlementType::SSP;
                     END;
                 END;
                 CLEAR(billAmount);
@@ -526,7 +526,7 @@ table 50845 "ACA-Students Hostel Rooms"
 
     keys
     {
-        key(Key1; Student, "Line No")
+        key(Key1; Student, Gender,"Line No")
         {
         }
         key(Key2; "Hostel No")
@@ -538,6 +538,7 @@ table 50845 "ACA-Students Hostel Rooms"
         key(Key4; "Allocation Date")
         {
         }
+       
     }
 
     fieldgroups

@@ -348,7 +348,7 @@ table 50048 "PROC-Purchase Quote Header"
         field(69; Status; Option)
         {
             Caption = 'Status';
-            Editable = false;
+            //Editable = false;
             OptionCaption = 'Open,Released,Pending Approval,Pending Prepayment,Closed,Cancelled,Stopped';
             OptionMembers = Open,Released,"Pending Approval","Pending Prepayment",Closed,Cancelled,Stopped;
         }

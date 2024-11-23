@@ -410,26 +410,7 @@ page 50828 "ACA-Applic. Documents Verif."
                     DocumentAttachment.RUNMODAL;
                 end;
             }
-            action(sendBack)
-            {
-                Caption = 'Send Back To Applicant';
-                Image = SendTo;
-                Promoted = True;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-                    IF CONFIRM('Send This Application back to the Applicant', TRUE) = FALSE THEN EXIT;
-                    Rec.TestField("Student Feedback");
-                    Rec."User ID" := UserId;
-                    Rec.returned := True;
-                    Rec.Modify();
-                    SendFeedback();
-
-                end;
-
-            }
+            
             action(GenerateAdmissionNo)
             {
                 Caption = 'Generate Admn. No.';
@@ -518,7 +499,12 @@ page 50828 "ACA-Applic. Documents Verif."
 
 
                     TransferToAdmission(Rec."Admission No");
-
+                    Rec.Admitted := true;
+                    Rec.Status := Rec.Status::Admitted;
+                    Rec.VALIDATE(Status);
+                    Rec."Documents Verified" := TRUE;
+                    Rec."Payments Verified" := TRUE;
+                    Rec.MODIFY;
                     MESSAGE('The Application has been Processed');
 
                 end;
@@ -917,27 +903,7 @@ page 50828 "ACA-Applic. Documents Verif."
         end;
     end;
 
-    local procedure SendFeedback()
-    var
-        salutation: Text[50];
-        FileMgt: Codeunit "File Management";
-        hrEmp: Record "HRM-Employee C";
-        progName: Record "ACA-Programme";
-        progLeader: text;
-        mail: Text;
-        EmailSubject: Text[50];
-        EmailBody: Text[700];
-        EmailRecipient: Text[200];
-    begin
-        Clear(EmailBody);
-        Clear(EmailSubject);
-        Clear(mail);
-        mail := Rec.Email;
-        EmailBody := 'Hello,' + ' ' + Rec.firstName + ' ' + Rec."Student Feedback" + ' This Is a system Generated Email. DO NOT REPLY!';
-        EmailSubject := 'APPLICATION REQUIRES YOUR ATTENTION';
-        SendMail.Create(mail, EmailSubject, EmailBody);
-        emailObj.Send(SendMail, Enum::"Email Scenario"::Notification);
-    end;
+    
 
 
     procedure GetReligionName(var ReligionCode: Code[20]; var ReligionName: Text[30])

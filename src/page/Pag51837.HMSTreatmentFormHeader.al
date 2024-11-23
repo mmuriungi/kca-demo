@@ -209,16 +209,24 @@ page 51837 "HMS-Treatment Form Header"
                     SubPageLink = "Treatment No." = field("Treatment No.");
                 }
             }
-            // group(History)
-            // {
-            //     Caption = 'History';
-            //     part(Part3; "HMS Treatment History")
-            //     {
-            //         SubPageLink = "Treatment No." = FIELD("Treatment No.");
-            //         ApplicationArea = All;
-            //     }
-            // }
-
+            group(History)
+            {
+                Caption = 'History';
+                part(Part3; "HMS Treatment History")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
+             group("Lab")
+            {
+                Caption = 'Labaratory';
+                part(Part4; "HMS-Treatment Form Laboratory")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
             group(Radiology)
             {
                 Caption = 'Radiology';

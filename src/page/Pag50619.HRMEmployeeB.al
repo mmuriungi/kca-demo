@@ -140,6 +140,11 @@ page 50619 "HRM-Employee (B)"
                     ToolTip = 'Specifies County Code';
                     ApplicationArea = All;
                 }
+                field(Tribe; Rec.Tribe)
+                {
+                    ToolTip = 'Specifies the value of the Tribe field.';
+                    ApplicationArea = All;
+                }
                 field("Work Permit No."; Rec."Work Permit No.")
                 {
                     ToolTip = 'Specifies the value of the Work Permit No. field.';
@@ -190,6 +195,11 @@ page 50619 "HRM-Employee (B)"
                 {
                     Caption = 'Teaching';
                     ToolTip = 'Specifies the value of the Lecturer field.';
+                    ApplicationArea = All;
+                }
+                field("Exam Coordinator"; Rec."Exam Coordinator")
+                {
+                    ToolTip = 'Specifies the value of the Exam Coordinator field.';
                     ApplicationArea = All;
                 }
                 field(HOD; Rec.HOD)
@@ -455,6 +465,15 @@ page 50619 "HRM-Employee (B)"
                     ApplicationArea = all;
                 }
                 field("Vendor Name"; Rec."Vendor Name")
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+                }
+                field("Medical Claim Vendor No."; Rec."Medical Claim Vendor No.")
+                {
+                    ApplicationArea = all;
+                }
+                field("Medical Claim Vendor Name"; Rec."Medical Claim Vendor Name")
                 {
                     ApplicationArea = all;
                     Editable = false;
@@ -1106,6 +1125,17 @@ page 50619 "HRM-Employee (B)"
                     RunObject = Page "Books Written List";
                     RunPageLink = "Employee No." = FIELD("No.");
                 }
+                action("Certifications")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Certifications';
+                    Image = Certificate;
+                    Promoted = true;
+                    PromotedCategory = Category6;
+                    RunObject = Page "HRM-Certifications";
+                    RunPageLink = "Employee Code" = FIELD("No.");
+                }
+
                 action("Proffessional Membership")
                 {
                     ApplicationArea = all;

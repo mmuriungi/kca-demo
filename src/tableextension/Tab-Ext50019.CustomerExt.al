@@ -110,11 +110,11 @@ tableextension 50019 "Customer Ext" extends Customer
             FieldClass = FlowField;
             CalcFormula = Sum("CAT-Det. Students Cafe Ledgers"."Credit Amount" WHERE("Customer No." = FIELD("No.")));
         }
-        field(63000; Gender; Option)
+        field(63000; Gender; Enum Gender)
         {
             Caption = 'Gender';
-            OptionCaption = ' ,Male,Female';
-            OptionMembers = " ",Male,Female;
+            // OptionCaption = '" ",Male,Female';
+            // OptionMembers = ,Male,Female;
             DataClassification = CustomerContent;
         }
         field(63001; "Date Of Birth"; Date)
@@ -1997,9 +1997,9 @@ tableextension 50019 "Customer Ext" extends Customer
 
         //Unsupported feature: Deletion (KeyCollection) on ""Primary Contact No."(Key)".
 
-        //key(Key1;"Salesperson Code")
-        // {
-        // }
+        key(PK;Gender)
+        {
+        }
     }
 
 

@@ -9,6 +9,8 @@ codeunit 50077 "Doc. Mgnt. Ext."
         UtilityBill: Record "Utility Bill";
         CertApplic: Record "Certificate Application";
         LeaveRequest: Record "Student Leave";
+        medclaim: Record "HRM-Medical Claims";
+        PaperSubmission: Record "Unit Exam Paper Submission";
     begin
         case DocumentAttachment."Table ID" of
 
@@ -36,6 +38,18 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     if LeaveRequest.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(LeaveRequest);
                 end;
+            Database::"HRM-Medical Claims":
+                begin
+                    RecRef.Open(Database::"HRM-Medical Claims");
+                    if medclaim.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(medclaim);
+                end;
+            DATABASE::"Unit Exam Paper Submission":
+                begin
+                    RecRef.Open(DATABASE::"Unit Exam Paper Submission");
+                    if PaperSubmission.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(PaperSubmission);
+                end;
         end;
     end;
 
@@ -44,6 +58,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
     var
         FieldRef: FieldRef;
         RecNo: Code[20];
+        LineNo: Integer;
     begin
         case RecRef.Number of
 
@@ -70,6 +85,22 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;
                     DocumentAttachment.SetRange("No.", RecNo);
+                end;
+            Database::"HRM-Medical Claims":
+                begin
+                    FieldRef := RecRef.Field(10);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.SetRange("No.", RecNo);
+                end;
+            DATABASE::"Unit Exam Paper Submission":
+                begin
+                    FieldRef := RecRef.Field(3);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                    Clear(FieldRef);
+                    FieldRef := RecRef.Field(89);
+                    LineNo := FieldRef.Value;
+                    DocumentAttachment.Validate("Line No.", LineNo);
                 end;
         end;
     end;
@@ -79,6 +110,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
     var
         FieldRef: FieldRef;
         RecNo: Code[20];
+        LineNo: Integer;
     begin
         case RecRef.Number of
 
@@ -105,6 +137,22 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;
                     DocumentAttachment.Validate("No.", RecNo);
+                end;
+            Database::"HRM-Medical Claims":
+                begin
+                    FieldRef := RecRef.Field(10);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                end;
+            DATABASE::"Unit Exam Paper Submission":
+                begin
+                    FieldRef := RecRef.Field(3);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
+                    Clear(FieldRef);
+                    FieldRef := RecRef.Field(89);
+                    LineNo := FieldRef.Value;
+                    DocumentAttachment.Validate("Line No.", LineNo);
                 end;
         end;
     end;
