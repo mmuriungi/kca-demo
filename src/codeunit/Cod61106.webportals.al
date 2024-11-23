@@ -294,6 +294,34 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure GetAllocatedLectureHall(lecturer: Code[20]; unit: Code[20]; stream: Text; campus: Code[20]; mode: Code[20]) details: Text
+    begin
+        offeredunits.Reset;
+        offeredunits.SetRange("Unit Base Code", unit);
+        offeredunits.SetRange(Lecturer, lecturer);
+        offeredunits.SetRange(Campus, GetHODCampus(lecturer));
+        offeredunits.SetRange(Stream, stream);
+        offeredunits.SetRange(Semester, GetCurrentSemester());
+        if offeredunits.Find('-') then begin
+            details := GetLectureHallName(offeredunits."Lecture Hall") + ' ::' + Format(GetRegisteredStds(unit, stream, GetHODCampus(lecturer), mode));
+        end else begin
+            details := ' ::';
+        end;
+    end;
+
+    procedure GetRegisteredStds(unit: Code[20]; stream: Text; campus: Code[20]; mode: Code[20]) stds: Integer
+    begin
+        StudentUnits.Reset;
+        StudentUnits.SetRange("Campus Code", campus);
+        StudentUnits.SetRange(Unit, unit);
+        StudentUnits.SetRange(ModeofStudy, mode);
+        StudentUnits.SetRange(Stream, stream);
+        StudentUnits.SetRange(Semester, GetCurrentSemester());
+        if StudentUnits.Find('-') then begin
+            stds := StudentUnits.Count;
+        end;
+    end;
+
     procedure ChangeLectureHall(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lechall: Code[20]) Details: Boolean
     begin
         offeredunits.RESET;
