@@ -1,6 +1,6 @@
 report 50782 "PRL Payroll Comparison"
 {
-   DefaultLayout = RDLC;
+    DefaultLayout = RDLC;
     RDLCLayout = './Layout/PR Payroll Summary - Variance Copy.rdl';
 
     dataset
