@@ -26,7 +26,7 @@ table 50674 "ACA-Imp. Receipts Buffer"
         }
         field(7; "Student No."; Code[20])
         {
-            //TableRelation = Customer;
+            TableRelation = Customer;
             // ValidateTableRelation = false;
             trigger OnValidate()
             var
