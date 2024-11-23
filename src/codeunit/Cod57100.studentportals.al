@@ -4676,7 +4676,7 @@ codeunit 57100 studentportals
         IF fablist.FIND('-') THEN BEGIN
             recRef.GetTable(fablist);
             tmpBlob.CreateOutStream(OutStr);
-            Report.SaveAs(51968, '', format::Pdf, OutStr, recRef);
+            Report.SaveAs(Report::"ADM Admission Letter", '', format::Pdf, OutStr, recRef);
             tmpBlob.CreateInStream(InStr);
             txtB64 := cnv64.ToBase64(InStr, true);
             bigtext.AddText(txtB64);
@@ -4892,7 +4892,7 @@ codeunit 57100 studentportals
         fablist.RESET;
         fablist.SETRANGE("Index Number", index);
         IF fablist.FIND('-') THEN BEGIN
-            REPORT.SAVEASPDF(51968, filename, fablist);
+            REPORT.SAVEASPDF(Report::"ADM Admission Letter", filename, fablist);
         END;
         EXIT(filename);
     end;
