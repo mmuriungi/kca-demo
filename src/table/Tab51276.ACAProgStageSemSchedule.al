@@ -34,7 +34,7 @@ table 51276 "ACA-Prog/Stage Sem. Schedule"
             TableRelation = "ACA-Programme";
             trigger OnValidate()
             begin
-                progs.GET(progs.Code);
+                progs.GET("Programme Code");
                 "Programme Name" := progs.description;
             end;
         }
