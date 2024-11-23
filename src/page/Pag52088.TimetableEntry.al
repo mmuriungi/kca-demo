@@ -4,7 +4,7 @@ page 52088 "Timetable Entry"
     Caption = 'Timetable Entry';
     PageType = ListPart;
     SourceTable = "Timetable Entry";
-    
+
     layout
     {
         area(Content)
@@ -38,4 +38,21 @@ page 52088 "Timetable Entry"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action(Timeslot)
+            {
+                ApplicationArea = All;
+                Caption = 'Time Slot';
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = TimeSlot;
+                RunObject = page "Time Slots";
+                RunPageLink = Code = field("Time Slot Code");
+            }
+        }
+    }
+
 }
