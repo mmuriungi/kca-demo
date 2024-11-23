@@ -46,6 +46,7 @@ codeunit 50096 "Timetable Management"
                         TimetableEntry."Unit Code" := CourseOffering.Unit;
                         TimetableEntry.Semester := CourseOffering.Semester;
                         TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
+                        TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
                         TimetableEntry."Time Slot Code" := TimeSlot.Code;
                         if TimetableEntry.Insert() then
                             exit(true);
@@ -58,6 +59,7 @@ codeunit 50096 "Timetable Management"
                             TimetableEntry."Unit Code" := CourseOffering.Unit;
                             TimetableEntry.Semester := CourseOffering.Semester;
                             TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
+                            TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
                             TimetableEntry."Time Slot Code" := TimeSlot.Code;
                             if TimetableEntry.Insert() then
                                 exit(true);

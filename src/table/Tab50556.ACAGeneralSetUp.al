@@ -317,6 +317,12 @@ table 50556 "ACA-General Set-Up"
         {
             TableRelation = "Contact";
         }
+        field(50084; "TImetable Start Time"; Time)
+        {
+        }
+        field(50085; "Timetable End Time"; Time)
+        {
+        }
     }
 
     keys
