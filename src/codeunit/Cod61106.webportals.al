@@ -266,6 +266,50 @@ Codeunit 61106 webportals
         END;
     end;
 
+    procedure ChangeLectureHall(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lechall: Code[20]) Details: Boolean
+    begin
+        offeredunits.RESET;
+        offeredunits.SETRANGE("Unit Base Code", unitcode);
+        offeredunits.SETRANGE(Programs, progcode);
+        offeredunits.SETRANGE(ModeofStudy, studymode);
+        offeredunits.SETRANGE(Stage, stage);
+        offeredunits.SETRANGE(Semester, GetCurrentSemester());
+        offeredunits.SetRange(Campus, GetHODCampus(hodno));
+        IF offeredunits.FIND('-') THEN BEGIN
+            offeredunits."Lecture Hall" := lechall;
+            offeredunits.Modify();
+            Details := true;
+        END;
+    end;
+
+    procedure ChangeLecturer(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lec: Code[20]) Details: Boolean
+    begin
+        offeredunits.RESET;
+        offeredunits.SETRANGE("Unit Base Code", unitcode);
+        offeredunits.SETRANGE(Programs, progcode);
+        offeredunits.SETRANGE(ModeofStudy, studymode);
+        offeredunits.SETRANGE(Stage, stage);
+        offeredunits.SETRANGE(Semester, GetCurrentSemester());
+        offeredunits.SetRange(Campus, GetHODCampus(hodno));
+        IF offeredunits.FIND('-') THEN BEGIN
+            offeredunits.Lecturer := lec;
+            offeredunits.Modify();
+            //change allocated lecturers
+            lecturers.Reset;
+            lecturers.SetRange(Unit, offeredunits."Unit Base Code");
+            lecturers.SetRange(ModeOfStudy, offeredunits.ModeofStudy);
+            lecturers.SetRange(Stage, offeredunits.Stage);
+            lecturers.SetRange(Semester, offeredunits.Semester);
+            lecturers.SetRange("Campus Code", GetHODCampus(hodno));
+            lecturers.SetRange(Day, offeredunits.Day);
+            lecturers.SetRange(TimeSlot, offeredunits.TimeSlot);
+            if lecturers.Find('-') then begin
+                lecturers.Rename(lecturers.Programme, lecturers.Stage, lecturers."Campus Code", lecturers."Group Type", lecturers.Class, lec, lecturers.Unit, lecturers.Semester, Lecturers.Description, lecturers.TimeSlot, lecturers.Day);
+            end;
+            Details := true;
+        END;
+    end;
+
     procedure GetRegisteredStds(unit: Code[20]; prog: Code[20]; stage: Code[20]; campus: Code[20]; mode: Code[20]) stds: Integer
     var
     begin
