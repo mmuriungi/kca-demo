@@ -289,3 +289,32 @@ codeunit 52178866 "Notifications Handler"
         body: Text;
 
 }
+
+
+    codeunit 52178867 "Assessment"
+    {
+        procedure PopulatePostGraduate(Stud: Record "ACA-Course Registration")
+        var
+            //Stud: Record "ACA-Course Registration";
+            Graduate: Record "Postgrad Supervisor Applic.";
+            Cust: Record Customer;
+        begin
+            Graduate.Delete();
+
+            Stud.SetRange("Academic Year", Stud."Academic Year");
+            Stud.SetRange(Stage, Stud.Stage);
+            Stud.SetRange(Programmes, Stud.Programmes);
+            Stud.SetRange(Semester, Stud.Semester);
+            Stud.SetRange(Status, Stud.Status::Current);
+
+        if Stud.FindSet() then begin
+                if not Graduate.Get(Stud."Student No.") then begin
+                    Graduate.Init();
+                    Graduate."Student No." := Stud."Student No.";
+                    
+                    Graduate.Insert();
+                end;
+        end;
+    end;
+
+    }
