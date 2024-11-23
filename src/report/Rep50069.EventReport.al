@@ -68,8 +68,17 @@ report 50069 "Event Report"
             {
                 
             }
+
+            trigger OnPreDataItem()
+            begin
+                Company.GET;
+                Company.CALCFIELDS(Picture);
+            end;
         }
+
+        
     }
     var
         Company: Record "Company Information";
+        
 }
