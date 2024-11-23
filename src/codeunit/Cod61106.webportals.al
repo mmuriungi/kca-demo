@@ -198,6 +198,7 @@ Codeunit 61106 webportals
         lecturers: Record "ACA-Lecturers Units";
         lecturehalls: Record "ACA-Lecturer Halls Setup";
         days: Record "TT-Days";
+        timeslots: Record "TT-Daily Lessons";
 
     procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]) rtnMsg: Boolean
     begin
@@ -265,7 +266,17 @@ Codeunit 61106 webportals
             until offeredunits.Next = 0;
         END;
     end;
-
+procedure GetLectureTimeSlots(day: Code[20]) Message: Text
+    begin
+        timeslots.Reset;
+        timeslots.SetRange("Day Code", day);
+        timeslots.SetCurrentKey("Lesson Code");
+        IF timeslots.FIND('-') THEN BEGIN
+            REPEAT
+                Message += timeslots."Lesson Code" + ' :::';
+            UNTIL timeslots.NEXT = 0;
+        END;
+    end;
     procedure ChangeLectureHall(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lechall: Code[20]) Details: Boolean
     begin
         offeredunits.RESET;
