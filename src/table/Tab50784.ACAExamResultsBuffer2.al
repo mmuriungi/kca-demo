@@ -44,7 +44,7 @@ table 50784 "ACA-Exam Results Buffer 2"
         }
         field(6; "Unit Code"; Code[30])
         {
-            //TableRelation = "ACA-Units/Subjects".Code WHERE("Programme Code" = FIELD(Programme));
+            TableRelation = "ACA-Units/Subjects".Code WHERE("Programme Code" = FIELD(Programme));
         }
         field(7; "Unit Name"; Text[250])
         {

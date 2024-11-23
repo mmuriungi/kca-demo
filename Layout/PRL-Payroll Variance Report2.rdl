@@ -64,62 +64,68 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
         </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
+        <Field Name="Address1">
+          <DataField>Address1</DataField>
         </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
+        <Field Name="Address2">
+          <DataField>Address2</DataField>
         </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
+        <Field Name="Phone1">
+          <DataField>Phone1</DataField>
         </Field>
-        <Field Name="Course_Registration__Student_Type_">
-          <DataField>Course_Registration__Student_Type_</DataField>
+        <Field Name="Phone2">
+          <DataField>Phone2</DataField>
         </Field>
-        <Field Name="Course_Registration__Student_No__">
-          <DataField>Course_Registration__Student_No__</DataField>
+        <Field Name="pics">
+          <DataField>pics</DataField>
         </Field>
-        <Field Name="Course_Registration_Semester">
-          <DataField>Course_Registration_Semester</DataField>
+        <Field Name="Emails">
+          <DataField>Emails</DataField>
         </Field>
-        <Field Name="Course_Registration_Programme">
-          <DataField>Course_Registration_Programme</DataField>
+        <Field Name="Homep">
+          <DataField>Homep</DataField>
         </Field>
-        <Field Name="Course_RegistrationCaption">
-          <DataField>Course_RegistrationCaption</DataField>
+        <Field Name="DateFilter">
+          <DataField>DateFilter</DataField>
         </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
+        <Field Name="TransCode">
+          <DataField>TransCode</DataField>
         </Field>
-        <Field Name="Course_Registration__Student_No__Caption">
-          <DataField>Course_Registration__Student_No__Caption</DataField>
+        <Field Name="EmpCode">
+          <DataField>EmpCode</DataField>
         </Field>
-        <Field Name="Course_Registration_SemesterCaption">
-          <DataField>Course_Registration_SemesterCaption</DataField>
+        <Field Name="TransName">
+          <DataField>TransName</DataField>
         </Field>
-        <Field Name="Course_Registration_ProgrammeCaption">
-          <DataField>Course_Registration_ProgrammeCaption</DataField>
+        <Field Name="EmpName">
+          <DataField>EmpName</DataField>
         </Field>
-        <Field Name="Course_Registration__Student_Type_Caption">
-          <DataField>Course_Registration__Student_Type_Caption</DataField>
+        <Field Name="CurrAmount">
+          <DataField>CurrAmount</DataField>
         </Field>
-        <Field Name="Course_Registration_Reg__Transacton_ID">
-          <DataField>Course_Registration_Reg__Transacton_ID</DataField>
+        <Field Name="CurrAmountFormat">
+          <DataField>CurrAmountFormat</DataField>
         </Field>
-        <Field Name="Course_Registration_Register_for">
-          <DataField>Course_Registration_Register_for</DataField>
+        <Field Name="PrevAmount">
+          <DataField>PrevAmount</DataField>
         </Field>
-        <Field Name="Course_Registration_Stage">
-          <DataField>Course_Registration_Stage</DataField>
+        <Field Name="PrevAmountFormat">
+          <DataField>PrevAmountFormat</DataField>
         </Field>
-        <Field Name="Course_Registration_Unit">
-          <DataField>Course_Registration_Unit</DataField>
+        <Field Name="CurrPeriod">
+          <DataField>CurrPeriod</DataField>
         </Field>
-        <Field Name="Course_Registration_Entry_No_">
-          <DataField>Course_Registration_Entry_No_</DataField>
+        <Field Name="PrevPeriod">
+          <DataField>PrevPeriod</DataField>
+        </Field>
+        <Field Name="variance">
+          <DataField>variance</DataField>
+        </Field>
+        <Field Name="varianceFormat">
+          <DataField>varianceFormat</DataField>
         </Field>
       </Fields>
       <Query>
