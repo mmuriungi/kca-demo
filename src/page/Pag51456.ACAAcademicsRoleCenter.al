@@ -527,6 +527,30 @@ page 51456 "ACA-Academics Role Center&"
                     ApplicationArea = All;
                 }
             }
+            group("Timetabling")
+            {
+                action("Timetable Header List")
+                {
+                    Image = Report;
+
+                    RunObject = Page "Timetable Header List";
+                    ApplicationArea = All;
+                }
+                action(timeslots)
+                {
+                    Caption = 'Time Slots';
+                    Image = Setup;
+                    RunObject = Page "Time Slots";
+                    ApplicationArea = All;
+                }
+                action("Timetable Entry")
+                {
+                    Image = Report;
+
+                    RunObject = Page "Timetable Entry";
+                    ApplicationArea = All;
+                }
+            }
         }
         area(embedding)
         {
