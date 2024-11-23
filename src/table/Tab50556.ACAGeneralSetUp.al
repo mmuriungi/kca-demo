@@ -323,6 +323,10 @@ table 50556 "ACA-General Set-Up"
         field(50085; "Timetable End Time"; Time)
         {
         }
+        //Min Class Attendance %
+        field(50086; "Min Class Attendance %"; Decimal)
+        {
+        }
     }
 
     keys

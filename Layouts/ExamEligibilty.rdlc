@@ -1,0 +1,1494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>c0476811-160c-4804-960c-72835089b493</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="CompCity">
+          <DataField>CompCity</DataField>
+        </Field>
+        <Field Name="CompPhone">
+          <DataField>CompPhone</DataField>
+        </Field>
+        <Field Name="CompPic">
+          <DataField>CompPic</DataField>
+        </Field>
+        <Field Name="AcademicYear">
+          <DataField>AcademicYear</DataField>
+        </Field>
+        <Field Name="AcademicYearFlow">
+          <DataField>AcademicYearFlow</DataField>
+        </Field>
+        <Field Name="ActualFees">
+          <DataField>ActualFees</DataField>
+        </Field>
+        <Field Name="ActualFeesFormat">
+          <DataField>ActualFeesFormat</DataField>
+        </Field>
+        <Field Name="AllowSupplementary">
+          <DataField>AllowSupplementary</DataField>
+        </Field>
+        <Field Name="AssTotalMarks">
+          <DataField>AssTotalMarks</DataField>
+        </Field>
+        <Field Name="AssTotalMarksFormat">
+          <DataField>AssTotalMarksFormat</DataField>
+        </Field>
+        <Field Name="AttachmentUnit">
+          <DataField>AttachmentUnit</DataField>
+        </Field>
+        <Field Name="Attendance">
+          <DataField>Attendance</DataField>
+        </Field>
+        <Field Name="AttendanceFormat">
+          <DataField>AttendanceFormat</DataField>
+        </Field>
+        <Field Name="Audit">
+          <DataField>Audit</DataField>
+        </Field>
+        <Field Name="BalanceDue">
+          <DataField>BalanceDue</DataField>
+        </Field>
+        <Field Name="BalanceDueFormat">
+          <DataField>BalanceDueFormat</DataField>
+        </Field>
+        <Field Name="Blocked">
+          <DataField>Blocked</DataField>
+        </Field>
+        <Field Name="CATTotalMarks">
+          <DataField>CATTotalMarks</DataField>
+        </Field>
+        <Field Name="CATTotalMarksFormat">
+          <DataField>CATTotalMarksFormat</DataField>
+        </Field>
+        <Field Name="CAT1">
+          <DataField>CAT1</DataField>
+        </Field>
+        <Field Name="CAT1Format">
+          <DataField>CAT1Format</DataField>
+        </Field>
+        <Field Name="CAT2">
+          <DataField>CAT2</DataField>
+        </Field>
+        <Field Name="CAT2Format">
+          <DataField>CAT2Format</DataField>
+        </Field>
+        <Field Name="CATsMarks">
+          <DataField>CATsMarks</DataField>
+        </Field>
+        <Field Name="CATsMarksFormat">
+          <DataField>CATsMarksFormat</DataField>
+        </Field>
+        <Field Name="CATsMarksExists">
+          <DataField>CATsMarksExists</DataField>
+        </Field>
+        <Field Name="CFScore">
+          <DataField>CFScore</DataField>
+        </Field>
+        <Field Name="CFScoreFormat">
+          <DataField>CFScoreFormat</DataField>
+        </Field>
+        <Field Name="CampusCode">
+          <DataField>CampusCode</DataField>
+        </Field>
+        <Field Name="CancelledScore">
+          <DataField>CancelledScore</DataField>
+        </Field>
+        <Field Name="CancelledScoreFormat">
+          <DataField>CancelledScoreFormat</DataField>
+        </Field>
+        <Field Name="CategoryCode">
+          <DataField>CategoryCode</DataField>
+        </Field>
+        <Field Name="ConsolidatedMarkIdentifier">
+          <DataField>ConsolidatedMarkIdentifier</DataField>
+        </Field>
+        <Field Name="ConsolidatedMarkPref">
+          <DataField>ConsolidatedMarkPref</DataField>
+        </Field>
+        <Field Name="CourseEvaluated">
+          <DataField>CourseEvaluated</DataField>
+        </Field>
+        <Field Name="CourseRegistrationCancelled">
+          <DataField>CourseRegistrationCancelled</DataField>
+        </Field>
+        <Field Name="CourseType">
+          <DataField>CourseType</DataField>
+        </Field>
+        <Field Name="CoursesEvaluated">
+          <DataField>CoursesEvaluated</DataField>
+        </Field>
+        <Field Name="Createdby">
+          <DataField>Createdby</DataField>
+        </Field>
+        <Field Name="CreditHours">
+          <DataField>CreditHours</DataField>
+        </Field>
+        <Field Name="CreditHoursFormat">
+          <DataField>CreditHoursFormat</DataField>
+        </Field>
+        <Field Name="CreditedHours">
+          <DataField>CreditedHours</DataField>
+        </Field>
+        <Field Name="CreditedHoursFormat">
+          <DataField>CreditedHoursFormat</DataField>
+        </Field>
+        <Field Name="CustExist">
+          <DataField>CustExist</DataField>
+        </Field>
+        <Field Name="DateEdited">
+          <DataField>DateEdited</DataField>
+        </Field>
+        <Field Name="Datecreated">
+          <DataField>Datecreated</DataField>
+        </Field>
+        <Field Name="DefenceOutCome">
+          <DataField>DefenceOutCome</DataField>
+        </Field>
+        <Field Name="Defense">
+          <DataField>Defense</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="DetailsCount">
+          <DataField>DetailsCount</DataField>
+        </Field>
+        <Field Name="ENo">
+          <DataField>ENo</DataField>
+        </Field>
+        <Field Name="EXAMsMarks">
+          <DataField>EXAMsMarks</DataField>
+        </Field>
+        <Field Name="EXAMsMarksFormat">
+          <DataField>EXAMsMarksFormat</DataField>
+        </Field>
+        <Field Name="EXAMsMarksExists">
+          <DataField>EXAMsMarksExists</DataField>
+        </Field>
+        <Field Name="EditedBy">
+          <DataField>EditedBy</DataField>
+        </Field>
+        <Field Name="EntryNo">
+          <DataField>EntryNo</DataField>
+        </Field>
+        <Field Name="Evaluated">
+          <DataField>Evaluated</DataField>
+        </Field>
+        <Field Name="EvaluatedDate">
+          <DataField>EvaluatedDate</DataField>
+        </Field>
+        <Field Name="Evaluatedsemester">
+          <DataField>Evaluatedsemester</DataField>
+        </Field>
+        <Field Name="ExamCategory">
+          <DataField>ExamCategory</DataField>
+        </Field>
+        <Field Name="ExamMarks">
+          <DataField>ExamMarks</DataField>
+        </Field>
+        <Field Name="ExamMarksFormat">
+          <DataField>ExamMarksFormat</DataField>
+        </Field>
+        <Field Name="ExamPeriod">
+          <DataField>ExamPeriod</DataField>
+        </Field>
+        <Field Name="ExamStatus">
+          <DataField>ExamStatus</DataField>
+        </Field>
+        <Field Name="Examiner1">
+          <DataField>Examiner1</DataField>
+        </Field>
+        <Field Name="Examiner2">
+          <DataField>Examiner2</DataField>
+        </Field>
+        <Field Name="Examiner3">
+          <DataField>Examiner3</DataField>
+        </Field>
+        <Field Name="Examiner4">
+          <DataField>Examiner4</DataField>
+        </Field>
+        <Field Name="Examiners">
+          <DataField>Examiners</DataField>
+        </Field>
+        <Field Name="Exempted">
+          <DataField>Exempted</DataField>
+        </Field>
+        <Field Name="ExemptedinEvaluation">
+          <DataField>ExemptedinEvaluation</DataField>
+        </Field>
+        <Field Name="ExistsFinalStage">
+          <DataField>ExistsFinalStage</DataField>
+        </Field>
+        <Field Name="Failed">
+          <DataField>Failed</DataField>
+        </Field>
+        <Field Name="FailedUnitsCount">
+          <DataField>FailedUnitsCount</DataField>
+        </Field>
+        <Field Name="FinalScore">
+          <DataField>FinalScore</DataField>
+        </Field>
+        <Field Name="FinalScoreFormat">
+          <DataField>FinalScoreFormat</DataField>
+        </Field>
+        <Field Name="FinalStage">
+          <DataField>FinalStage</DataField>
+        </Field>
+        <Field Name="FinalAcademicYear">
+          <DataField>FinalAcademicYear</DataField>
+        </Field>
+        <Field Name="FinalConsMarkIdentifier">
+          <DataField>FinalConsMarkIdentifier</DataField>
+        </Field>
+        <Field Name="FinalConsMarkPref">
+          <DataField>FinalConsMarkPref</DataField>
+        </Field>
+        <Field Name="FinalExamMarks">
+          <DataField>FinalExamMarks</DataField>
+        </Field>
+        <Field Name="FinalExamMarksFormat">
+          <DataField>FinalExamMarksFormat</DataField>
+        </Field>
+        <Field Name="FinalExamPeriod">
+          <DataField>FinalExamPeriod</DataField>
+        </Field>
+        <Field Name="FinalFinalScore">
+          <DataField>FinalFinalScore</DataField>
+        </Field>
+        <Field Name="FinalFinalScoreFormat">
+          <DataField>FinalFinalScoreFormat</DataField>
+        </Field>
+        <Field Name="FinalGrade">
+          <DataField>FinalGrade</DataField>
+        </Field>
+        <Field Name="FinalTotalMarks">
+          <DataField>FinalTotalMarks</DataField>
+        </Field>
+        <Field Name="FinalTotalMarksFormat">
+          <DataField>FinalTotalMarksFormat</DataField>
+        </Field>
+        <Field Name="FinalTotalScore">
+          <DataField>FinalTotalScore</DataField>
+        </Field>
+        <Field Name="FinalTotalScoreFormat">
+          <DataField>FinalTotalScoreFormat</DataField>
+        </Field>
+        <Field Name="FinalWeightedUnits">
+          <DataField>FinalWeightedUnits</DataField>
+        </Field>
+        <Field Name="FinalWeightedUnitsFormat">
+          <DataField>FinalWeightedUnitsFormat</DataField>
+        </Field>
+        <Field Name="Grade">
+          <DataField>Grade</DataField>
+        </Field>
+        <Field Name="GradeFlow">
+          <DataField>GradeFlow</DataField>
+        </Field>
+        <Field Name="HasSupplementary">
+          <DataField>HasSupplementary</DataField>
+        </Field>
+        <Field Name="IgnoreinCummAverage">
+          <DataField>IgnoreinCummAverage</DataField>
+        </Field>
+        <Field Name="IgnoreinFinalAverage">
+          <DataField>IgnoreinFinalAverage</DataField>
+        </Field>
+        <Field Name="IncludeinGraduation">
+          <DataField>IncludeinGraduation</DataField>
+        </Field>
+        <Field Name="IntakeCode">
+          <DataField>IntakeCode</DataField>
+        </Field>
+        <Field Name="Lecturer">
+          <DataField>Lecturer</DataField>
+        </Field>
+        <Field Name="MainProgramme">
+          <DataField>MainProgramme</DataField>
+        </Field>
+        <Field Name="MarksExists">
+          <DataField>MarksExists</DataField>
+        </Field>
+        <Field Name="MarksStatus">
+          <DataField>MarksStatus</DataField>
+        </Field>
+        <Field Name="ModeOfStudy">
+          <DataField>ModeOfStudy</DataField>
+        </Field>
+        <Field Name="Multiple">
+          <DataField>Multiple</DataField>
+        </Field>
+        <Field Name="NoofSupplementaries">
+          <DataField>NoofSupplementaries</DataField>
+        </Field>
+        <Field Name="NoOfUnits">
+          <DataField>NoOfUnits</DataField>
+        </Field>
+        <Field Name="NoOfUnitsFormat">
+          <DataField>NoOfUnitsFormat</DataField>
+        </Field>
+        <Field Name="Occurances">
+          <DataField>Occurances</DataField>
+        </Field>
+        <Field Name="OldUnit">
+          <DataField>OldUnit</DataField>
+        </Field>
+        <Field Name="OldUnitLk">
+          <DataField>OldUnitLk</DataField>
+        </Field>
+        <Field Name="PassExists">
+          <DataField>PassExists</DataField>
+        </Field>
+        <Field Name="Passed">
+          <DataField>Passed</DataField>
+        </Field>
+        <Field Name="PassedUnit">
+          <DataField>PassedUnit</DataField>
+        </Field>
+        <Field Name="ProcessedMarks">
+          <DataField>ProcessedMarks</DataField>
+        </Field>
+        <Field Name="ProgCategory">
+          <DataField>ProgCategory</DataField>
+        </Field>
+        <Field Name="ProgramOptionFlow">
+          <DataField>ProgramOptionFlow</DataField>
+        </Field>
+        <Field Name="Programme">
+          <DataField>Programme</DataField>
+        </Field>
+        <Field Name="ProgressDate">
+          <DataField>ProgressDate</DataField>
+        </Field>
+        <Field Name="ProgressReport">
+          <DataField>ProgressReport</DataField>
+        </Field>
+        <Field Name="ProjectStatus">
+          <DataField>ProjectStatus</DataField>
+        </Field>
+        <Field Name="ProposalDate">
+          <DataField>ProposalDate</DataField>
+        </Field>
+        <Field Name="ProposalStatus">
+          <DataField>ProposalStatus</DataField>
+        </Field>
+        <Field Name="ReTake">
+          <DataField>ReTake</DataField>
+        </Field>
+        <Field Name="ReasonforSpecialExamSusp">
+          <DataField>ReasonforSpecialExamSusp</DataField>
+        </Field>
+        <Field Name="RegOption">
+          <DataField>RegOption</DataField>
+        </Field>
+        <Field Name="Reg_Reversed">
+          <DataField>Reg_Reversed</DataField>
+        </Field>
+        <Field Name="RegResultsStatus">
+          <DataField>RegResultsStatus</DataField>
+        </Field>
+        <Field Name="RegReversed">
+          <DataField>RegReversed</DataField>
+        </Field>
+        <Field Name="RegTransactonID">
+          <DataField>RegTransactonID</DataField>
+        </Field>
+        <Field Name="Registerfor">
+          <DataField>Registerfor</DataField>
+        </Field>
+        <Field Name="Registered">
+          <DataField>Registered</DataField>
+        </Field>
+        <Field Name="RegisteredPrograme">
+          <DataField>RegisteredPrograme</DataField>
+        </Field>
+        <Field Name="RegistrationStatus">
+          <DataField>RegistrationStatus</DataField>
+        </Field>
+        <Field Name="ReleasedResults">
+          <DataField>ReleasedResults</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="RepeatMarks">
+          <DataField>RepeatMarks</DataField>
+        </Field>
+        <Field Name="RepeatMarksFormat">
+          <DataField>RepeatMarksFormat</DataField>
+        </Field>
+        <Field Name="RepeatUnit">
+          <DataField>RepeatUnit</DataField>
+        </Field>
+        <Field Name="Research">
+          <DataField>Research</DataField>
+        </Field>
+        <Field Name="ResultStatus">
+          <DataField>ResultStatus</DataField>
+        </Field>
+        <Field Name="ResultsCancelled">
+          <DataField>ResultsCancelled</DataField>
+        </Field>
+        <Field Name="ResultsExistsStatus">
+          <DataField>ResultsExistsStatus</DataField>
+        </Field>
+        <Field Name="Reversed">
+          <DataField>Reversed</DataField>
+        </Field>
+        <Field Name="SatSupplementary">
+          <DataField>SatSupplementary</DataField>
+        </Field>
+        <Field Name="SchoolCode">
+          <DataField>SchoolCode</DataField>
+        </Field>
+        <Field Name="Semester">
+          <DataField>Semester</DataField>
+        </Field>
+        <Field Name="SemesterRegistered">
+          <DataField>SemesterRegistered</DataField>
+        </Field>
+        <Field Name="SenateProposal">
+          <DataField>SenateProposal</DataField>
+        </Field>
+        <Field Name="SenateResearch">
+          <DataField>SenateResearch</DataField>
+        </Field>
+        <Field Name="SessionCode">
+          <DataField>SessionCode</DataField>
+        </Field>
+        <Field Name="SettlementType">
+          <DataField>SettlementType</DataField>
+        </Field>
+        <Field Name="Show">
+          <DataField>Show</DataField>
+        </Field>
+        <Field Name="SpecialExam">
+          <DataField>SpecialExam</DataField>
+        </Field>
+        <Field Name="SpecialProgrammeClass">
+          <DataField>SpecialProgrammeClass</DataField>
+        </Field>
+        <Field Name="Stage">
+          <DataField>Stage</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="Stream">
+          <DataField>Stream</DataField>
+        </Field>
+        <Field Name="StudentClass">
+          <DataField>StudentClass</DataField>
+        </Field>
+        <Field Name="StudentCode">
+          <DataField>StudentCode</DataField>
+        </Field>
+        <Field Name="StudentName">
+          <DataField>StudentName</DataField>
+        </Field>
+        <Field Name="StudentNo">
+          <DataField>StudentNo</DataField>
+        </Field>
+        <Field Name="StudentType">
+          <DataField>StudentType</DataField>
+        </Field>
+        <Field Name="Supervisor">
+          <DataField>Supervisor</DataField>
+        </Field>
+        <Field Name="SuppTaken">
+          <DataField>SuppTaken</DataField>
+        </Field>
+        <Field Name="SuppAcademicYear">
+          <DataField>SuppAcademicYear</DataField>
+        </Field>
+        <Field Name="SuppConsMarkIdentifier">
+          <DataField>SuppConsMarkIdentifier</DataField>
+        </Field>
+        <Field Name="SuppConsMarkPref">
+          <DataField>SuppConsMarkPref</DataField>
+        </Field>
+        <Field Name="SuppExamMarks">
+          <DataField>SuppExamMarks</DataField>
+        </Field>
+        <Field Name="SuppExamMarksFormat">
+          <DataField>SuppExamMarksFormat</DataField>
+        </Field>
+        <Field Name="SuppExamPeriod">
+          <DataField>SuppExamPeriod</DataField>
+        </Field>
+        <Field Name="SuppExamScore">
+          <DataField>SuppExamScore</DataField>
+        </Field>
+        <Field Name="SuppExamScoreFormat">
+          <DataField>SuppExamScoreFormat</DataField>
+        </Field>
+        <Field Name="SuppFailed">
+          <DataField>SuppFailed</DataField>
+        </Field>
+        <Field Name="SuppFinalScore">
+          <DataField>SuppFinalScore</DataField>
+        </Field>
+        <Field Name="SuppFinalScoreFormat">
+          <DataField>SuppFinalScoreFormat</DataField>
+        </Field>
+        <Field Name="SuppGrade">
+          <DataField>SuppGrade</DataField>
+        </Field>
+        <Field Name="SuppRegisteredPassed">
+          <DataField>SuppRegisteredPassed</DataField>
+        </Field>
+        <Field Name="SuppTotalMarks">
+          <DataField>SuppTotalMarks</DataField>
+        </Field>
+        <Field Name="SuppTotalMarksFormat">
+          <DataField>SuppTotalMarksFormat</DataField>
+        </Field>
+        <Field Name="SuppTotalScore">
+          <DataField>SuppTotalScore</DataField>
+        </Field>
+        <Field Name="SuppTotalScoreFormat">
+          <DataField>SuppTotalScoreFormat</DataField>
+        </Field>
+        <Field Name="SuppWeightedUnits">
+          <DataField>SuppWeightedUnits</DataField>
+        </Field>
+        <Field Name="SuppWeightedUnitsFormat">
+          <DataField>SuppWeightedUnitsFormat</DataField>
+        </Field>
+        <Field Name="SystemCreated">
+          <DataField>SystemCreated</DataField>
+        </Field>
+        <Field Name="SystemTaken">
+          <DataField>SystemTaken</DataField>
+        </Field>
+        <Field Name="SystemCreatedAt">
+          <DataField>SystemCreatedAt</DataField>
+        </Field>
+        <Field Name="SystemCreatedBy">
+          <DataField>SystemCreatedBy</DataField>
+        </Field>
+        <Field Name="SystemId">
+          <DataField>SystemId</DataField>
+        </Field>
+        <Field Name="SystemModifiedAt">
+          <DataField>SystemModifiedAt</DataField>
+        </Field>
+        <Field Name="SystemModifiedBy">
+          <DataField>SystemModifiedBy</DataField>
+        </Field>
+        <Field Name="Taken">
+          <DataField>Taken</DataField>
+        </Field>
+        <Field Name="TotalMarks">
+          <DataField>TotalMarks</DataField>
+        </Field>
+        <Field Name="TotalMarksFormat">
+          <DataField>TotalMarksFormat</DataField>
+        </Field>
+        <Field Name="TotalScore">
+          <DataField>TotalScore</DataField>
+        </Field>
+        <Field Name="TotalScoreFormat">
+          <DataField>TotalScoreFormat</DataField>
+        </Field>
+        <Field Name="Unit">
+          <DataField>Unit</DataField>
+        </Field>
+        <Field Name="UnitDescription">
+          <DataField>UnitDescription</DataField>
+        </Field>
+        <Field Name="UnitFees">
+          <DataField>UnitFees</DataField>
+        </Field>
+        <Field Name="UnitFeesFormat">
+          <DataField>UnitFeesFormat</DataField>
+        </Field>
+        <Field Name="UnitName">
+          <DataField>UnitName</DataField>
+        </Field>
+        <Field Name="UnitPoints">
+          <DataField>UnitPoints</DataField>
+        </Field>
+        <Field Name="UnitPointsFormat">
+          <DataField>UnitPointsFormat</DataField>
+        </Field>
+        <Field Name="UnitRegCount">
+          <DataField>UnitRegCount</DataField>
+        </Field>
+        <Field Name="UnitStage">
+          <DataField>UnitStage</DataField>
+        </Field>
+        <Field Name="UnitType">
+          <DataField>UnitType</DataField>
+        </Field>
+        <Field Name="UnitTypeFlow">
+          <DataField>UnitTypeFlow</DataField>
+        </Field>
+        <Field Name="UnitYearofStudy">
+          <DataField>UnitYearofStudy</DataField>
+        </Field>
+        <Field Name="UnitnotinCatalogue">
+          <DataField>UnitnotinCatalogue</DataField>
+        </Field>
+        <Field Name="UnitCount">
+          <DataField>UnitCount</DataField>
+        </Field>
+        <Field Name="Units">
+          <DataField>Units</DataField>
+        </Field>
+        <Field Name="UnitsRegStatus">
+          <DataField>UnitsRegStatus</DataField>
+        </Field>
+        <Field Name="WeightedUnits">
+          <DataField>WeightedUnits</DataField>
+        </Field>
+        <Field Name="WeightedUnitsFormat">
+          <DataField>WeightedUnitsFormat</DataField>
+        </Field>
+        <Field Name="YearOfStudy">
+          <DataField>YearOfStudy</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="Tablix1">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>1in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.40972in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.40972in</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Semester2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Semester.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Semester</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox10">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Unit2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Unit.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <ListLevel>1</ListLevel>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Unit</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox11">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox11</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Programme2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Programme.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <ListLevel>2</ListLevel>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Programme</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox12">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>#</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox12</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox42">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Student No.</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox42</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox43">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Student Name</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox43</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox13">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=RowNumber(Nothing)</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox13</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="StudentNo">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!StudentNo.Value</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>StudentNo</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="StudentName">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!StudentName.Value</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>StudentName</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox14">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox19">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox19</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox20">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox20</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>White</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="Semester">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!Semester.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Semester.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixMembers>
+                    <TablixMember />
+                    <TablixMember>
+                      <Group Name="Unit">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!Unit.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
+                      <SortExpressions>
+                        <SortExpression>
+                          <Value>=Fields!Unit.Value</Value>
+                        </SortExpression>
+                      </SortExpressions>
+                      <TablixMembers>
+                        <TablixMember>
+                          <KeepWithGroup>After</KeepWithGroup>
+                        </TablixMember>
+                        <TablixMember>
+                          <Group Name="Programme">
+                            <GroupExpressions>
+                              <GroupExpression>=Fields!Programme.Value</GroupExpression>
+                            </GroupExpressions>
+                          </Group>
+                          <SortExpressions>
+                            <SortExpression>
+                              <Value>=Fields!Programme.Value</Value>
+                            </SortExpression>
+                          </SortExpressions>
+                          <TablixMembers>
+                            <TablixMember>
+                              <KeepWithGroup>After</KeepWithGroup>
+                            </TablixMember>
+                            <TablixMember>
+                              <KeepWithGroup>After</KeepWithGroup>
+                            </TablixMember>
+                            <TablixMember>
+                              <Group Name="Details" />
+                            </TablixMember>
+                          </TablixMembers>
+                        </TablixMember>
+                      </TablixMembers>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+                <TablixMember />
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DataSet_Result</DataSetName>
+            <Top>0.06944in</Top>
+            <Height>1.5in</Height>
+            <Width>3.81944in</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+        </ReportItems>
+        <Height>1.69792in</Height>
+        <Style />
+      </Body>
+      <Width>3.81944in</Width>
+      <Page>
+        <PageHeader>
+          <Height>1.66667in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Image Name="Image1">
+              <Source>Database</Source>
+              <Value>=First(Fields!CompPic.Value, "DataSet_Result")</Value>
+              <MIMEType>image/png</MIMEType>
+              <Sizing>FitProportional</Sizing>
+              <Left>0.86333in</Left>
+              <Height>0.79639in</Height>
+              <Width>1.08333in</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+            <Textbox Name="Textbox1">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CompName.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox1</rd:DefaultName>
+              <Top>0.92583in</Top>
+              <Height>0.25in</Height>
+              <Width>2.81944in</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox2">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Exam Eligibility by Class Attendance</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox1</rd:DefaultName>
+              <Top>1.23139in</Top>
+              <Height>0.25in</Height>
+              <Width>2.81945in</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageHeader>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+</Report>

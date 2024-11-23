@@ -113,7 +113,7 @@ table 51268 "Project Header"
         }
         field(19; "Contract Type"; Option)
         {
-            OptionMembers = " ",Insurance,Lease,"Supply Contract","Service Contract",Construction,Consultancy,Research, Colloboration;
+            OptionMembers = " ",Insurance,Lease,"Supply Contract","Service Contract",Construction,Consultancy,Research,Colloboration;
         }
         field(20; "Extend From"; Date)
         {
@@ -289,7 +289,25 @@ table 51268 "Project Header"
         {
             OptionMembers = " ","Fixed Priced Contract","Non Fixed Priced";
         }
-
+        //"Reference No"
+        field(85; "Reference No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        //"Created By"
+        field(86; "Created By"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        //"Shortcut Dimension 4 Code"
+        field(87; "Shortcut Dimension 4 Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            CaptionClass = '1,2,4';
+            Caption = 'Shortcut Dimension 4 Code';
+            Description = 'Stores the reference of the Third global dimension in the database';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(4));
+        }
     }
 
     keys
