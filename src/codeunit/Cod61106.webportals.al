@@ -20,7 +20,8 @@ Codeunit 61106 webportals
         //Generatep9Report(2020, '0366', 'Juma.pdf');
         //GenerateClearanceForm('E100/0513G/17','E1000513G17');
         //GenerateTranscript('E100/0525G/18','Test.pdf','2019/2020');
-        // MESSAGE(InsertExamResults('P106','P106/1731G/20','SEM1 23/24','BOT 110', 25,'FINAL EXAM','0410','Kendagor Ruth 325345436666666666'));
+        MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 25, 'CAT', '0689', 'JOY AWUOR OKOTH'));
+        MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 30, 'FINAL EXAM', '0689', 'JOY AWUOR OKOTH'));
         // MESSAGE(InsertExamResults('P106','P106/1731G/20','SEM1 23/24','BOT 110',22,'CAT','0410','Kendagor Ruth 325345436666666666'));
         // MESSAGE(InsertExamResults('E111','E111/1489G/21','Sem1 21/22','HIS 111',10,'CAT','0007','Prof. Mwaruvie'));
         //MESSAGE(CaptureMarksValidation('B105','Sem2 19/20','BHM 105','PT-0603','Wsanjay'));
@@ -266,7 +267,8 @@ Codeunit 61106 webportals
             until offeredunits.Next = 0;
         END;
     end;
-procedure GetLectureTimeSlots(day: Code[20]) Message: Text
+
+    procedure GetLectureTimeSlots(day: Code[20]) Message: Text
     begin
         timeslots.Reset;
         timeslots.SetRange("Day Code", day);
@@ -277,6 +279,7 @@ procedure GetLectureTimeSlots(day: Code[20]) Message: Text
             UNTIL timeslots.NEXT = 0;
         END;
     end;
+
     procedure ChangeLectureHall(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lechall: Code[20]) Details: Boolean
     begin
         offeredunits.RESET;
