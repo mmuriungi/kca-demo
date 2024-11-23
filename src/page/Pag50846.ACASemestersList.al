@@ -103,6 +103,21 @@ page 50846 "ACA-Semesters List"
                 RunObject = Page "ACA-Prog/Stage Sem. Schedule";
                 RunPageLink = Code = FIELD(Code);
             }
+            action(TEstMArks)
+            {
+                ApplicationArea = All;
+                Caption = 'TEst MArks';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = Line;
+                trigger OnAction()
+                var
+                    myInt: codeunit webportals;
+                begin
+                    myInt.Run();
+                end;
+            }
         }
     }
 }

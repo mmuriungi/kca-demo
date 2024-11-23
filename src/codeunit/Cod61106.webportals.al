@@ -20,7 +20,8 @@ Codeunit 61106 webportals
         //Generatep9Report(2020, '0366', 'Juma.pdf');
         //GenerateClearanceForm('E100/0513G/17','E1000513G17');
         //GenerateTranscript('E100/0525G/18','Test.pdf','2019/2020');
-        // MESSAGE(InsertExamResults('P106','P106/1731G/20','SEM1 23/24','BOT 110', 25,'FINAL EXAM','0410','Kendagor Ruth 325345436666666666'));
+        MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 25, 'CAT', '0689', 'JOY AWUOR OKOTH'));
+        MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 30, 'FINAL EXAM', '0689', 'JOY AWUOR OKOTH'));
         // MESSAGE(InsertExamResults('P106','P106/1731G/20','SEM1 23/24','BOT 110',22,'CAT','0410','Kendagor Ruth 325345436666666666'));
         // MESSAGE(InsertExamResults('E111','E111/1489G/21','Sem1 21/22','HIS 111',10,'CAT','0007','Prof. Mwaruvie'));
         //MESSAGE(CaptureMarksValidation('B105','Sem2 19/20','BHM 105','PT-0603','Wsanjay'));
@@ -198,6 +199,7 @@ Codeunit 61106 webportals
         lecturers: Record "ACA-Lecturers Units";
         lecturehalls: Record "ACA-Lecturer Halls Setup";
         days: Record "TT-Days";
+        timeslots: Record "TT-Daily Lessons";
 
     procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]) rtnMsg: Boolean
     begin
@@ -263,6 +265,62 @@ Codeunit 61106 webportals
                 offeredunits.CalcFields("Sitting Capacity", "Registered Students");
                 Details += offeredunits."Unit Base Code" + ' ::' + GetUnitDescription(offeredunits."Unit Base Code") + ' ::' + offeredunits."Program Name" + ' ::' + offeredunits.ModeofStudy + ' ::' + GetFullNames(offeredunits.Lecturer) + ' ::' + GetLectureHallName(offeredunits."Lecture Hall") + ' ::' + offeredunits.Day + ' ::' + offeredunits.TimeSlot + ' ::' + offeredunits.Programs + ' ::' + offeredunits.Stage + ' ::' + FORMAT(offeredunits."Sitting Capacity" - GetRegisteredStds(offeredunits."Unit Base Code", offeredunits.Programs, offeredunits.Stage, GetHODCampus(username), offeredunits.ModeofStudy)) + ' ::' + FORMAT(GetRegisteredStds(offeredunits."Unit Base Code", offeredunits.Programs, offeredunits.Stage, GetHODCampus(username), offeredunits.ModeofStudy)) + ' :::';
             until offeredunits.Next = 0;
+        END;
+    end;
+
+    procedure GetLectureTimeSlots(day: Code[20]) Message: Text
+    begin
+        timeslots.Reset;
+        timeslots.SetRange("Day Code", day);
+        timeslots.SetCurrentKey("Lesson Code");
+        IF timeslots.FIND('-') THEN BEGIN
+            REPEAT
+                Message += timeslots."Lesson Code" + ' :::';
+            UNTIL timeslots.NEXT = 0;
+        END;
+    end;
+
+    procedure ChangeLectureHall(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lechall: Code[20]) Details: Boolean
+    begin
+        offeredunits.RESET;
+        offeredunits.SETRANGE("Unit Base Code", unitcode);
+        offeredunits.SETRANGE(Programs, progcode);
+        offeredunits.SETRANGE(ModeofStudy, studymode);
+        offeredunits.SETRANGE(Stage, stage);
+        offeredunits.SETRANGE(Semester, GetCurrentSemester());
+        offeredunits.SetRange(Campus, GetHODCampus(hodno));
+        IF offeredunits.FIND('-') THEN BEGIN
+            offeredunits."Lecture Hall" := lechall;
+            offeredunits.Modify();
+            Details := true;
+        END;
+    end;
+
+    procedure ChangeLecturer(hodno: Code[20]; unitcode: code[20]; progcode: code[20]; studymode: code[20]; stage: Code[20]; lec: Code[20]) Details: Boolean
+    begin
+        offeredunits.RESET;
+        offeredunits.SETRANGE("Unit Base Code", unitcode);
+        offeredunits.SETRANGE(Programs, progcode);
+        offeredunits.SETRANGE(ModeofStudy, studymode);
+        offeredunits.SETRANGE(Stage, stage);
+        offeredunits.SETRANGE(Semester, GetCurrentSemester());
+        offeredunits.SetRange(Campus, GetHODCampus(hodno));
+        IF offeredunits.FIND('-') THEN BEGIN
+            offeredunits.Lecturer := lec;
+            offeredunits.Modify();
+            //change allocated lecturers
+            lecturers.Reset;
+            lecturers.SetRange(Unit, offeredunits."Unit Base Code");
+            lecturers.SetRange(ModeOfStudy, offeredunits.ModeofStudy);
+            lecturers.SetRange(Stage, offeredunits.Stage);
+            lecturers.SetRange(Semester, offeredunits.Semester);
+            lecturers.SetRange("Campus Code", GetHODCampus(hodno));
+            lecturers.SetRange(Day, offeredunits.Day);
+            lecturers.SetRange(TimeSlot, offeredunits.TimeSlot);
+            if lecturers.Find('-') then begin
+                lecturers.Rename(lecturers.Programme, lecturers.Stage, lecturers."Campus Code", lecturers."Group Type", lecturers.Class, lec, lecturers.Unit, lecturers.Semester, Lecturers.Description, lecturers.TimeSlot, lecturers.Day);
+            end;
+            Details := true;
         END;
     end;
 
