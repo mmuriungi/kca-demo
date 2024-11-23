@@ -29,6 +29,43 @@ report 50765 "Alumni Engagement Report"
             column(Total_Donations; "Total Donations")
             {
             }
+            column(CompanyLogo; Company.Picture)
+            {
+
+            }
+            column(CompanyName; Company.Name)
+            {
+
+            }
+            column(CompanyAddress; Company.Address)
+            {
+
+            }
+            column(Company_Add; Company."Address 2")
+            {
+
+            }
+            column(CompanyPhone; Company."Phone No.")
+            {
+                
+            }
+            column(CompanyPostCode; Company."Post Code")
+            {
+                
+            }
+            column(CompanyCity; Company.City)
+            {
+                
+            }
         }
     }
+
+    trigger OnInitReport()
+    begin
+        Company.GET;
+        Company.CALCFIELDS(Picture);
+    end;
+
+     var
+        Company: Record "Company Information";
 }
