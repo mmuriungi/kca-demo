@@ -4635,13 +4635,6 @@ codeunit 57100 studentportals
 
         if tableFound = true then begin
             if FileName <> '' then begin
-                DocAttachment1.Reset();
-                DocAttachment1.SetRange("No.", retNo);
-                DocAttachment1.SetRange("Table ID", FromRecRef.Number);
-                DocAttachment1.SetRange("File Name", CopyStr(FileManagement.GetFileNameWithoutExtension(FileName), 1, MaxStrLen(FileName)));
-                if DocAttachment1.Find('-') then begin
-                    DocAttachment1.DeleteAll;
-                end;
                 Clear(DocAttachment);
                 DocAttachment.Init();
                 DocAttachment.Validate("Table ID", FromRecRef.Number);
@@ -4651,7 +4644,9 @@ codeunit 57100 studentportals
                 Bytes := Convert.FromBase64String(Attachment);
                 MemoryStream := MemoryStream.MemoryStream(Bytes);
                 DocAttachment."Document Reference ID".ImportStream(MemoryStream, '', FileName);
-                DocAttachment.Insert(true);
+                IF NOT DocAttachment.get(DocAttachment."Table ID", DocAttachment."No.", DocAttachment."Document Type", DocAttachment."Line No.", DocAttachment.ID) then
+                    DocAttachment.Insert(true) else
+                    DocAttachment.Modify(true);
                 return_value := true;
 
             end else

@@ -1376,7 +1376,18 @@ page 51448 "PRL-Payroll Role Center"
                     Image = Aging;
                     RunObject = Report "Gross Pay Per Period Report";
                 }
-
+                action("Variance Report Three")
+                {
+                    ApplicationArea = all;
+                    Image = Aging;
+                    RunObject = Report "PRL Payroll Comparison";
+                }
+                action("Variance Report Four")
+                {
+                    ApplicationArea = all;
+                    Image = Aging;
+                    RunObject = Report "PRL Payroll Trans Comparison";
+                }
             }
         }
     }
