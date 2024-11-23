@@ -34,4 +34,10 @@ page 52072 "Time Slots"
             }
         }
     }
+    trigger OnOpenPage()
+    var
+        TTSetup: Codeunit "Timetable setup";
+    begin
+        TTSetup.Run();
+    end;
 }
