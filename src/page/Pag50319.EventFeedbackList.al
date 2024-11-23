@@ -28,6 +28,7 @@ page 50319 "Event Feedback List"
                 field(Email;Rec.Email)
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Rating; Rec.Rating)
                 {
@@ -103,7 +104,6 @@ page 50319 "Event Feedback List"
                         AttachmentName,
                         AttachmentType);
 
-                    // Parse the JSON response
                     if ResponseJson.ReadFrom(Res) then begin
                         if ResponseJson.Get('sent', SentToken) then
                             Sent := SentToken.AsValue().AsBoolean()
