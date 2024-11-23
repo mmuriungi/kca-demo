@@ -111,7 +111,15 @@ report 50247 "Application Summary"
             column(Application_Form_Header_Application_No_; "Application No.")
             {
             }
-
+            column(CompName; Companyinfo.Name)
+            {
+            }
+            column(CompAddress; Companyinfo.Address)
+            {
+            }
+            column(Picture; Companyinfo.Picture)
+            {
+            }
             trigger OnAfterGetRecord()
             begin
                 /*Get the name of the course from the database*/
@@ -135,6 +143,7 @@ report 50247 "Application Summary"
             end;
         }
     }
+   
 
     requestpage
     {
@@ -151,11 +160,22 @@ report 50247 "Application Summary"
     labels
     {
     }
+     trigger OnInitReport()
+    var
+        myInt: Integer;
+    begin
+        Companyinfo.Reset();
+        if Companyinfo.Get then
+        begin
+            Companyinfo.CalcFields(Picture);
+        end;
+    end;
 
     var
         CourseName: Text[100];
         Qualifications: Text[200];
         IntC: Integer;
+        Companyinfo: Record "Company Information";
         Programme: Record "ACA-Programme";
         AppSubject: Record "ACA-Applic. Form Academic";
         NAMECaptionLbl: Label 'NAME';

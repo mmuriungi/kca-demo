@@ -8,6 +8,7 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>b3cb2d1b-4ff9-47e1-b37f-16106bf311be</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <ReportSections>
@@ -20,7 +21,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!COMPANYNAME.Value)</Value>
+                    <Value>=First(Fields!CompName.Value, "DataSet_Result")</Value>
                     <Style>
                       <FontSize>18pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -32,10 +33,10 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>0.423cm</Top>
-            <Left>0cm</Left>
+            <Top>1.7565cm</Top>
+            <Left>6.48033cm</Left>
             <Height>0.846cm</Height>
-            <Width>23.1cm</Width>
+            <Width>16.91967cm</Width>
             <Style>
               <VerticalAlign>Middle</VerticalAlign>
             </Style>
@@ -53,12 +54,14 @@
                     </Style>
                   </TextRun>
                 </TextRuns>
+                <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>2.961cm</Top>
-            <Left>1.8cm</Left>
+            <Top>3.90611cm</Top>
+            <Left>1.88467cm</Left>
             <Height>0.423cm</Height>
             <Width>4.35cm</Width>
+            <ZIndex>1</ZIndex>
             <Style>
               <VerticalAlign>Middle</VerticalAlign>
             </Style>
@@ -76,12 +79,14 @@
                     </Style>
                   </TextRun>
                 </TextRuns>
+                <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>2.961cm</Top>
-            <Left>6.3cm</Left>
+            <Top>3.90611cm</Top>
+            <Left>6.38467cm</Left>
             <Height>0.423cm</Height>
             <Width>3.3cm</Width>
+            <ZIndex>2</ZIndex>
             <Style>
               <VerticalAlign>Middle</VerticalAlign>
             </Style>
@@ -99,12 +104,14 @@
                     </Style>
                   </TextRun>
                 </TextRuns>
+                <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>2.961cm</Top>
-            <Left>9.75cm</Left>
+            <Top>3.94139cm</Top>
+            <Left>9.82578cm</Left>
             <Height>0.423cm</Height>
             <Width>4.35cm</Width>
+            <ZIndex>3</ZIndex>
             <Style>
               <VerticalAlign>Middle</VerticalAlign>
             </Style>
@@ -127,10 +134,11 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>2.961cm</Top>
-            <Left>14.25cm</Left>
+            <Top>3.90611cm</Top>
+            <Left>14.35217cm</Left>
             <Height>0.846cm</Height>
             <Width>1.8cm</Width>
+            <ZIndex>4</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="COURSE_REQUIREDCaption">
@@ -146,12 +154,14 @@
                     </Style>
                   </TextRun>
                 </TextRuns>
+                <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>2.961cm</Top>
-            <Left>16.2cm</Left>
+            <Top>3.90611cm</Top>
+            <Left>16.28467cm</Left>
             <Height>0.846cm</Height>
             <Width>2.85cm</Width>
+            <ZIndex>5</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="REMARKS_FROM_DEANS_HODCaption">
@@ -172,10 +182,11 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>2.961cm</Top>
-            <Left>19.2cm</Left>
+            <Top>3.90611cm</Top>
+            <Left>19.27578cm</Left>
             <Height>0.846cm</Height>
             <Width>3.9cm</Width>
+            <ZIndex>6</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="SUMMARY_LIST_FOR_SPECIAL_ADMISSION_______Application_Form_Header___Academic_Year_______">
@@ -196,10 +207,11 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <Top>1.692cm</Top>
-            <Left>0cm</Left>
+            <Top>3.30672cm</Top>
+            <Left>0.71967cm</Left>
             <Height>0.423cm</Height>
             <Width>23.1cm</Width>
+            <ZIndex>7</ZIndex>
             <Style>
               <VerticalAlign>Middle</VerticalAlign>
             </Style>
@@ -208,30 +220,30 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.5cm</Width>
+                  <Width>2.55cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.575cm</Width>
+                  <Width>4.35cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.45cm</Width>
+                  <Width>11.1cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.425cm</Width>
+                  <Width>4.2cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.025cm</Width>
+                  <Width>1.2cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3cm</Width>
+                  <Width>7.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.825cm</Width>
+                  <Width>3.75cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.269cm</Height>
+                  <Height>0.423cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -252,10 +264,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0cm</Top>
-                          <Left>0.15cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>1.35cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -285,10 +293,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0cm</Top>
-                          <Left>1.8cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>4.35cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.15cm</PaddingLeft>
@@ -318,10 +322,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0cm</Top>
-                          <Left>6.3cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>3.3cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -346,12 +346,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0cm</Top>
-                          <Left>9.75cm</Left>
-                          <Height>1.269cm</Height>
-                          <Width>4.2cm</Width>
                           <Style>
                             <PaddingLeft>0.075cm</PaddingLeft>
                             <PaddingRight>0.15cm</PaddingRight>
@@ -380,10 +377,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0cm</Top>
-                          <Left>14.25cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>1.8cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.15cm</PaddingLeft>
@@ -408,12 +401,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0cm</Top>
-                          <Left>16.2cm</Left>
-                          <Height>1.269cm</Height>
-                          <Width>2.85cm</Width>
                           <Style>
                             <PaddingLeft>0.075cm</PaddingLeft>
                             <PaddingRight>0.075cm</PaddingRight>
@@ -442,10 +432,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0cm</Top>
-                          <Left>19.2cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>3.75cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -473,6 +459,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -497,6 +484,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -528,10 +516,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0.423cm</Top>
-                          <Left>6.3cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>3.3cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -554,6 +538,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -578,6 +563,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -602,6 +588,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -626,6 +613,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -655,6 +643,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -679,6 +668,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -710,10 +700,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0.846cm</Top>
-                          <Left>6.3cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>3.3cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -736,6 +722,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -760,6 +747,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -784,6 +772,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -815,10 +804,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Top>0.846cm</Top>
-                          <Left>19.2cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>3.75cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -849,12 +834,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>1.692cm</Top>
-                          <Left>0cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>2.55cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -877,6 +859,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -903,12 +886,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>1.692cm</Top>
-                          <Left>2.55cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>11.1cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -931,6 +911,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -958,12 +939,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>1.692cm</Top>
-                          <Left>14.1cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>1.2cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.15cm</PaddingLeft>
@@ -988,12 +966,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>1.692cm</Top>
-                          <Left>15.3cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>7.8cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -1016,6 +991,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1045,6 +1021,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1069,6 +1046,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1096,12 +1074,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>2.115cm</Top>
-                          <Left>2.55cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>11.1cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -1124,6 +1099,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1148,6 +1124,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1172,6 +1149,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1196,6 +1174,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1228,12 +1207,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>3.384cm</Top>
-                          <Left>0cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>2.55cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -1256,6 +1232,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1282,12 +1259,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>3.384cm</Top>
-                          <Left>2.55cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>11.1cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -1310,6 +1284,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1337,12 +1312,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>3.384cm</Top>
-                          <Left>14.1cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>1.2cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.15cm</PaddingLeft>
@@ -1367,12 +1339,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>3.384cm</Top>
-                          <Left>15.3cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>7.8cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -1395,6 +1364,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1424,6 +1394,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1448,6 +1419,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1475,12 +1447,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>3.807cm</Top>
-                          <Left>2.55cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>11.1cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -1503,6 +1472,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1527,6 +1497,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1551,6 +1522,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1575,6 +1547,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1607,12 +1580,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>5.076cm</Top>
-                          <Left>0cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>2.55cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -1635,6 +1605,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1661,12 +1632,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>5.076cm</Top>
-                          <Left>2.55cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>11.1cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -1689,6 +1657,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1716,12 +1685,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>5.076cm</Top>
-                          <Left>14.1cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>1.2cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.15cm</PaddingLeft>
@@ -1746,12 +1712,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>5.076cm</Top>
-                          <Left>15.3cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>7.8cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -1774,6 +1737,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1803,6 +1767,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1827,6 +1792,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1854,12 +1820,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <Top>5.499cm</Top>
-                          <Left>2.55cm</Left>
-                          <Height>0.423cm</Height>
-                          <Width>11.1cm</Width>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.075cm</PaddingLeft>
@@ -1882,6 +1845,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1906,6 +1870,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1930,6 +1895,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -1954,6 +1920,7 @@
                                   <Style />
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
@@ -2023,13 +1990,33 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>3.807cm</Top>
-            <Height>4.653cm</Height>
+            <Top>4.5055cm</Top>
+            <Height>3.807cm</Height>
+            <Width>34.95cm</Width>
+            <ZIndex>8</ZIndex>
+            <Style />
           </Tablix>
+          <Image Name="Image1">
+            <Source>Database</Source>
+            <Value>=First(Fields!Picture.Value, "DataSet_Result")</Value>
+            <MIMEType>image/jpeg</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>0.80617cm</Top>
+            <Left>2.943cm</Left>
+            <Height>1.79633cm</Height>
+            <Width>2.40087cm</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
         </ReportItems>
-        <Height>5cm</Height>
+        <Height>8.46cm</Height>
+        <Style />
       </Body>
-      <Width>23.1cm</Width>
+      <Width>35.03467cm</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>25.9cm</PageWidth>
@@ -2037,6 +2024,7 @@
         <RightMargin>0cm</RightMargin>
         <TopMargin>2cm</TopMargin>
         <BottomMargin>2cm</BottomMargin>
+        <Style />
       </Page>
     </ReportSection>
   </ReportSections>
@@ -2077,7 +2065,8 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Invalid</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>1149dc0d-cd8a-400a-ab63-e6bd62aaff3b</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
@@ -2182,6 +2171,15 @@ End Function
         </Field>
         <Field Name="Application_Form_Header_Application_No_">
           <DataField>Application_Form_Header_Application_No_</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="Picture">
+          <DataField>Picture</DataField>
         </Field>
       </Fields>
       <Query>

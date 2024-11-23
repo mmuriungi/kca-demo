@@ -31,6 +31,12 @@ table 51276 "ACA-Prog/Stage Sem. Schedule"
         field(2; "Programme Code"; Code[50])
         {
             Caption = 'Programme Code';
+            TableRelation = "ACA-Programme";
+            trigger OnValidate()
+            begin
+                progs.GET("Programme Code");
+                "Programme Name" := progs.description;
+            end;
         }
         field(3; "Programme Name"; Text[250])
         {
@@ -47,6 +53,7 @@ table 51276 "ACA-Prog/Stage Sem. Schedule"
         field(6; "Stage Code"; Code[20])
         {
             Caption = 'Stage Code';
+            TableRelation = "ACA-Programme Stages".code where ("Programme Code" =field( "Programme Code"));
             trigger OnValidate()
             var
                 ACAProgrammeStages: Record "ACA-Programme Stages";
@@ -196,7 +203,7 @@ table 51276 "ACA-Prog/Stage Sem. Schedule"
 
     keys
     {
-        key(PK; "Code")
+        key(PK; "Code", "Programme Code", "Stage Code")
         {
             Clustered = true;
         }

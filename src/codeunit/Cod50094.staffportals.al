@@ -3951,7 +3951,7 @@ codeunit 50094 staffportals
         IF StudentUnits.FIND('-') THEN BEGIN
             recRef.GetTable(StudentUnits);
             tmpBlob.CreateOutStream(OutStr);
-            Report.SaveAs(51864, '', format::Pdf, OutStr, recRef);
+            Report.SaveAs(50324, '', format::Pdf, OutStr, recRef);
             tmpBlob.CreateInStream(InStr);
             txtB64 := cnv64.ToBase64(InStr, true);
             bigtext.AddText(txtB64);

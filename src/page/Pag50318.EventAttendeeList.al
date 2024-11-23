@@ -5,7 +5,7 @@ page 50318 "Event Attendee List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Event Attendee";
-    Editable = false;
+    //Editable = false;
 
     layout
     {

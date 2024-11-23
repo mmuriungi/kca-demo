@@ -69,6 +69,7 @@ page 52044 "Post Graduate Management"
                     Caption = 'Supervisor Applications';
                     RunObject = Page "Supervisor Applications";
                     ToolTip = 'Review and process supervisor applications';
+                    //Visible = false;
                 }
                 action(StudentSubmissions)
                 {

@@ -39,6 +39,47 @@ report 50069 "Event Report"
             column(Feedback_Score; "Feedback Score")
             {
             }
+
+            column(CompanyLogo; Company.Picture)
+            {
+
+            }
+            column(CompanyName; Company.Name)
+            {
+
+            }
+            column(CompanyAddress; Company.Address)
+            {
+
+            }
+            column(Company_Add; Company."Address 2")
+            {
+
+            }
+            column(CompanyPhone; Company."Phone No.")
+            {
+                
+            }
+            column(CompanyPostCode; Company."Post Code")
+            {
+                
+            }
+            column(CompanyCity; Company.City)
+            {
+                
+            }
         }
+
     }
+
+        trigger OnInitReport()
+        begin
+            Company.GET;
+            Company.CALCFIELDS(Picture);
+        end;
+
+    
+    var
+        Company: Record "Company Information";
+        
 }

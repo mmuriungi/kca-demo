@@ -1,7 +1,7 @@
 report 50783 "PRL Payroll Trans Comparison"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layout/PRL-Payroll Variance Report2.rdl';
+    RDLCLayout = './Layouts/PRL-Payroll Variance Report2 Copy.rdl';
 
     dataset
     {
