@@ -1,7 +1,7 @@
 /// <summary>
 /// Page Procurement Management (ID 52179117).
 /// </summary>
-page 52179117 "Procurement Management"
+page 50046 "Procurement Management"
 {
     Caption = 'Purchasing Agent', Comment = '{Dependency=Match,"ProfileDescription_PURCHASINGAGENT"}';
     PageType = RoleCenter;
