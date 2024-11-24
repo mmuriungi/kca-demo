@@ -1930,23 +1930,11 @@ kYrCCqVtiTe6pXyavb2DUEgy3XlWvm7NAaLRbyhmKoqGmlhYtDZu0T2T42EUmJdXacPhFbAsOyTPyoy+
         <Field Name="Names">
           <DataField>Names</DataField>
         </Field>
-        <Field Name="Campus">
-          <DataField>Campus</DataField>
-        </Field>
-        <Field Name="Department_Name">
-          <DataField>Department_Name</DataField>
-        </Field>
-        <Field Name="Salary_Grade">
-          <DataField>Salary_Grade</DataField>
-        </Field>
         <Field Name="DOJ">
           <DataField>DOJ</DataField>
         </Field>
         <Field Name="PinNo">
           <DataField>PinNo</DataField>
-        </Field>
-        <Field Name="PerName">
-          <DataField>PerName</DataField>
         </Field>
         <Field Name="PeriodFilter">
           <DataField>PeriodFilter</DataField>
@@ -1960,8 +1948,17 @@ kYrCCqVtiTe6pXyavb2DUEgy3XlWvm7NAaLRbyhmKoqGmlhYtDZu0T2T42EUmJdXacPhFbAsOyTPyoy+
         <Field Name="Grade_Level">
           <DataField>Grade_Level</DataField>
         </Field>
+        <Field Name="Salary_Grade">
+          <DataField>Salary_Grade</DataField>
+        </Field>
         <Field Name="Job_Name">
           <DataField>Job_Name</DataField>
+        </Field>
+        <Field Name="Department_Name">
+          <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="Campus">
+          <DataField>Campus</DataField>
         </Field>
         <Field Name="ClosureSectionRemark">
           <DataField>ClosureSectionRemark</DataField>
@@ -1998,6 +1995,9 @@ kYrCCqVtiTe6pXyavb2DUEgy3XlWvm7NAaLRbyhmKoqGmlhYtDZu0T2T42EUmJdXacPhFbAsOyTPyoy+
         </Field>
         <Field Name="GO">
           <DataField>GO</DataField>
+        </Field>
+        <Field Name="PerName">
+          <DataField>PerName</DataField>
         </Field>
       </Fields>
       <Query>

@@ -841,12 +841,12 @@ page 51192 "ACA-Hostel Bookings (Unalloc.)"
             */
 
             //Post New
-            GenJnl.RESET;
-            GenJnl.SETRANGE("Journal Template Name", 'SALES');
-            GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
-            IF GenJnl.FindSet()THEN BEGIN
-                CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
-            END;
+            // GenJnl.RESET;
+            // GenJnl.SETRANGE("Journal Template Name", 'SALES');
+            // GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
+            // IF GenJnl.FindSet()THEN BEGIN
+            //     CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
+            // END;
 
             //Post New
 
