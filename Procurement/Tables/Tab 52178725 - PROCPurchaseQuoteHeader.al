@@ -374,20 +374,16 @@ table 52178725 "Proc-Purchase Quote Header"
     }
 
     trigger OnInsert()
-    begin
-        //Check if the number has been inserted by the user
-        IF "No." = '' THEN BEGIN
-            // PurchSetup.RESET;
-            // PurchSetup.GET();
-            // PurchSetup.TESTFIELD(PurchSetup."Quotation Request No");
-            // "No." := NoSeriesMgt.GetNextNo(PurchSetup."Quotation Request No", TODAY, true);
-            PurchSetup.GET();
-
-
-
-
-        END;
+var
+    PurchSetup: Record "Purchases & Payables Setup";
+    NoSeriesMgt: Codeunit NoSeriesManagement;
+begin
+    if "No." = '' then begin
+        PurchSetup.Get();
+        PurchSetup.TestField("Quotation Request No");  // Notice the period after No
+        "No." := NoSeriesMgt.GetNextNo(PurchSetup."Quotation Request No", WorkDate(), true);
     end;
+end;
 
     trigger OnModify()
     begin
