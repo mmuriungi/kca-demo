@@ -1585,6 +1585,22 @@ page 51454 "ACA-Exam & Acad. Role Center"
                 {
                     Caption = 'Before Exams';
                     Image = Report;
+                    action("Exam Eligibity")
+                    {
+                        Caption = 'Exam Eligibity';
+                        Image = CheckMark;
+
+                        RunObject = Report "Exam Eligibility";
+                        ApplicationArea = All;
+                    }
+                    action("Students Per Unit")
+                    {
+                        Caption = 'Students Per Unit';
+                        Image = CheckMark;
+
+                        RunObject = Report "Students Per Unit";
+                        ApplicationArea = All;
+                    }
                     action("Examination Cards")
                     {
                         Caption = 'Examination Cards';

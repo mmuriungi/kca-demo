@@ -97,6 +97,10 @@ tableextension 50012 "ExtPurchases & Payables Setup" extends "Purchases & Payabl
             TableRelation = "No. Series";
             Caption = 'Contract Nos';
         }
+        field(56619; "Contract End Days"; DateFormula)
+        {
+            
+        }
     }
 
 

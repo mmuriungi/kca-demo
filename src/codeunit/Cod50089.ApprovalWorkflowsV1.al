@@ -34,8 +34,21 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelMedicalClaimsRequestTxt: Label 'An Approval request for Medical Claims is Cancelled';
         RunWorkflowOnSendMedicalClaimsForApprovalCode: Label 'RUNWORKFLOWONSENDMEDICALCLAIMSFORAPPROVAL';
         RunWorkflowOnCancelMedicalClaimsForApprovalCode: Label 'RUNWORKFLOWONCANCELMEDICALCLAIMSFORAPPROVAL';
-
-
+        //PROC-Procurement Plan Header
+        OnSendProcurementPlanRequestTxt: Label 'Approval request for Procurement Plan is requested';
+        OnCancelProcurementPlanRequestTxt: Label 'An Approval request for Procurement Plan is Cancelled';
+        RunWorkflowOnSendProcurementPlanForApprovalCode: Label 'RUNWORKFLOWONSENDPROCUREMENTPLANFORAPPROVAL';
+        RunWorkflowOnCancelProcurementPlanForApprovalCode: Label 'RUNWORKFLOWONCANCELPROCUREMENTPLANFORAPPROVAL';
+        //Proc-Committee Appointment H
+        OnSendCommitteeAppointmentRequestTxt: Label 'Approval request for Committee Appointment is requested';
+        OnCancelCommitteeAppointmentRequestTxt: Label 'An Approval request for Committee Appointment is Cancelled';
+        RunWorkflowOnSendCommitteeAppointmentForApprovalCode: Label 'RUNWORKFLOWONSENDCOMMITTEEAPPOINTMENTFORAPPROVAL';
+        RunWorkflowOnCancelCommitteeAppointmentForApprovalCode: Label 'RUNWORKFLOWONCANCELCOMMITTEEAPPOINTMENTFORAPPROVAL';
+        //"Tender Header"
+        OnSendTenderRequestTxt: Label 'Approval request for Tender is requested';
+        OnCancelTenderRequestTxt: Label 'An Approval request for Tender is Cancelled';
+        RunWorkflowOnSendTenderForApprovalCode: Label 'RUNWORKFLOWONSENDTENDERFORAPPROVAL';
+        RunWorkflowOnCancelTenderForApprovalCode: Label 'RUNWORKFLOWONCANCELTENDERFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -57,7 +70,12 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendPhamacyRequestForApprovalCode));
             Database::"HRM-Medical Claims":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendMedicalClaimsForApprovalCode));
-
+            Database::"PROC-Procurement Plan Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendProcurementPlanForApprovalCode));
+            Database::"Proc-Committee Appointment H":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendCommitteeAppointmentForApprovalCode));
+            Database::"Tender Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendTenderForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -110,6 +128,16 @@ codeunit 50089 "Approval Workflows V1"
         //"HRM-Medical Claims"
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendMedicalClaimsForApprovalCode, Database::"HRM-Medical Claims", OnSendMedicalClaimsRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelMedicalClaimsForApprovalCode, Database::"HRM-Medical Claims", OnCancelMedicalClaimsRequestTxt, 0, false);
+        //PROC-Procurement Plan Header
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendProcurementPlanForApprovalCode, Database::"PROC-Procurement Plan Header", OnSendProcurementPlanRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelProcurementPlanForApprovalCode, Database::"PROC-Procurement Plan Header", OnCancelProcurementPlanRequestTxt, 0, false);
+        //Proc-Committee Appointment H
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendCommitteeAppointmentForApprovalCode, Database::"Proc-Committee Appointment H", OnSendCommitteeAppointmentRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelCommitteeAppointmentForApprovalCode, Database::"Proc-Committee Appointment H", OnCancelCommitteeAppointmentRequestTxt, 0, false);
+        //"Tender Header"
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendTenderForApprovalCode, Database::"Tender Header", OnSendTenderRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelTenderForApprovalCode, Database::"Tender Header", OnCancelTenderRequestTxt, 0, false);
+
     end;
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
@@ -137,6 +165,12 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendPhamacyRequestForApprovalCode, Variant);
             Database::"HRM-Medical Claims":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendMedicalClaimsForApprovalCode, Variant);
+            Database::"PROC-Procurement Plan Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendProcurementPlanForApprovalCode, Variant);
+            Database::"Proc-Committee Appointment H":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendCommitteeAppointmentForApprovalCode, Variant);
+            Database::"Tender Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendTenderForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -162,6 +196,12 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelPhamacyRequestForApprovalCode, Variant);
             Database::"HRM-Medical Claims":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelMedicalClaimsForApprovalCode, Variant);
+            Database::"PROC-Procurement Plan Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelProcurementPlanForApprovalCode, Variant);
+            Database::"Proc-Committee Appointment H":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelCommitteeAppointmentForApprovalCode, Variant);
+            Database::"Tender Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelTenderForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -177,6 +217,9 @@ codeunit 50089 "Approval Workflows V1"
         CertApplic: Record "Certificate Application";
         PhamacyHeader: Record "Pharmacy Requests Header";
         Medclaims: Record "HRM-Medical Claims";
+        ProcPlanHeader: Record "PROC-Procurement Plan Header";
+        CommiteeAppoint: Record "Proc-Committee Appointment H";
+        TenderHeader: Record "Tender Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -221,6 +264,27 @@ codeunit 50089 "Approval Workflows V1"
                     Medclaims.Modify();
                     Handled := true;
                 end;
+            Database::"PROC-Procurement Plan Header":
+                begin
+                    RecRef.SetTable(ProcPlanHeader);
+                    ProcPlanHeader.Validate("Status", ProcPlanHeader.Status::Open);
+                    ProcPlanHeader.Modify();
+                    Handled := true;
+                end;
+            Database::"Proc-Committee Appointment H":
+                begin
+                    RecRef.SetTable(CommiteeAppoint);
+                    CommiteeAppoint.Validate("Status", CommiteeAppoint.Status::Open);
+                    CommiteeAppoint.Modify();
+                    Handled := true;
+                end;
+            Database::"Tender Header":
+                begin
+                    RecRef.SetTable(TenderHeader);
+                    TenderHeader.Validate("Status", TenderHeader.Status::Open);
+                    TenderHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -233,6 +297,9 @@ codeunit 50089 "Approval Workflows V1"
         CertApplic: Record "Certificate Application";
         PhamacyHeader: Record "Pharmacy Requests Header";
         Medclaims: Record "HRM-Medical Claims";
+        ProcplanHeader: Record "PROC-Procurement Plan Header";
+        CommitteAppointment: Record "Proc-Committee Appointment H";
+        TenderHEader: Record "Tender Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -283,6 +350,27 @@ codeunit 50089 "Approval Workflows V1"
                     Medclaims.Modify();
                     IsHandled := true;
                 end;
+            Database::"PROC-Procurement Plan Header":
+                begin
+                    RecRef.SetTable(ProcplanHeader);
+                    ProcplanHeader.Validate("Status", ProcplanHeader.Status::"Pending Approval");
+                    ProcplanHeader.Modify();
+                    IsHandled := true;
+                end;
+            Database::"Proc-Committee Appointment H":
+                begin
+                    RecRef.SetTable(CommitteAppointment);
+                    CommitteAppointment.Validate("Status", CommitteAppointment.Status::"Pending Approval");
+                    CommitteAppointment.Modify();
+                    IsHandled := true;
+                end;
+            Database::"Tender Header":
+                begin
+                    RecRef.SetTable(TenderHEader);
+                    TenderHEader.Validate("Status", TenderHEader.Status::"Pending Approval");
+                    TenderHEader.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -295,6 +383,9 @@ codeunit 50089 "Approval Workflows V1"
         certApplic: Record "Certificate Application";
         PhamacyHeader: Record "Pharmacy Requests Header";
         Medclaims: Record "HRM-Medical Claims";
+        ProcplanHeader: Record "PROC-Procurement Plan Header";
+        CommitteAppoint: Record "Proc-Committee Appointment H";
+        TenderHeader: Record "Tender Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -327,6 +418,21 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(Medclaims);
                     ApprovalEntryArgument."Document No." := Medclaims."Claim No";
                 end;
+            Database::"PROC-Procurement Plan Header":
+                begin
+                    RecRef.SetTable(ProcplanHeader);
+                    ApprovalEntryArgument."Document No." := ProcplanHeader."Budget Name";
+                end;
+            Database::"Proc-Committee Appointment H":
+                begin
+                    RecRef.SetTable(CommitteAppoint);
+                    ApprovalEntryArgument."Document No." := CommitteAppoint."Ref No";
+                end;
+            Database::"Tender Header":
+                begin
+                    RecRef.SetTable(TenderHeader);
+                    ApprovalEntryArgument."Document No." := TenderHeader."No.";
+                end;
         end;
     end;
 
@@ -342,6 +448,9 @@ codeunit 50089 "Approval Workflows V1"
         PgHandler: Codeunit "PostGraduate Handler";
         PhamacyHeader: Record "Pharmacy Requests Header";
         Medclaims: Record "HRM-Medical Claims";
+        ProcPlanHeader: Record "PROC-Procurement Plan Header";
+        CommitteAppoint: Record "Proc-Committee Appointment H";
+        TenderHeader: Record "Tender Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -389,6 +498,27 @@ codeunit 50089 "Approval Workflows V1"
                     Medclaims.Modify();
                     Handled := true;
                 end;
+            Database::"PROC-Procurement Plan Header":
+                begin
+                    RecRef.SetTable(ProcPlanHeader);
+                    ProcPlanHeader.Validate("Status", ProcPlanHeader.Status::Approved);
+                    ProcPlanHeader.Modify();
+                    Handled := true;
+                end;
+            Database::"Proc-Committee Appointment H":
+                begin
+                    RecRef.SetTable(CommitteAppoint);
+                    CommitteAppoint.Validate("Status", CommitteAppoint.Status::Approved);
+                    CommitteAppoint.Modify();
+                    Handled := true;
+                end;
+            Database::"Tender Header":
+                begin
+                    RecRef.SetTable(TenderHeader);
+                    TenderHeader.Validate("Status", TenderHeader.Status::Released);
+                    TenderHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -401,6 +531,9 @@ codeunit 50089 "Approval Workflows V1"
         CertApplic: Record "Certificate Application";
         PhamacyHeader: Record "Pharmacy Requests Header";
         Medclaims: Record "HRM-Medical Claims";
+        ProcPlanHeader: Record "PROC-Procurement Plan Header";
+        CommitteAppoint: Record "Proc-Committee Appointment H";
+        TenderHeader: Record "Tender Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -445,6 +578,27 @@ codeunit 50089 "Approval Workflows V1"
                         Medclaims.Modify(true);
                     end;
                 end;
+            Database::"PROC-Procurement Plan Header":
+                begin
+                    if ProcPlanHeader.Get(ApprovalEntry."Document No.") then begin
+                        ProcPlanHeader.Status := ProcPlanHeader.Status::Rejected;
+                        ProcPlanHeader.Modify(true);
+                    end;
+                end;
+            Database::"Proc-Committee Appointment H":
+                begin
+                    if CommitteAppoint.Get(ApprovalEntry."Document No.") then begin
+                        CommitteAppoint.Status := CommitteAppoint.Status::Rejected;
+                        CommitteAppoint.Modify(true);
+                    end;
+                end;
+            Database::"Tender Header":
+                begin
+                    if TenderHeader.Get(ApprovalEntry."Document No.") then begin
+                        TenderHeader.Status := TenderHeader.Status::Rejected;
+                        TenderHeader.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -457,6 +611,8 @@ codeunit 50089 "Approval Workflows V1"
         CertApplic: Record "Certificate Application";
         PhamacyHeader: Record "Pharmacy Requests Header";
         Medclaims: Record "HRM-Medical Claims";
+        ProcplanHeader: Record "PROC-Procurement Plan Header";
+        TenderHeader: Record "Tender HEader";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -502,6 +658,20 @@ codeunit 50089 "Approval Workflows V1"
                     Medclaims.Modify();
                     Variant := Medclaims;
                 end;
+            Database::"PROC-Procurement Plan Header":
+                begin
+                    RecRef.SetTable(ProcplanHeader);
+                    ProcplanHeader.Validate("Status", ProcplanHeader.Status::Open);
+                    ProcplanHeader.Modify();
+                    Variant := ProcplanHeader;
+                end;
+            Database::"Tender Header":
+                begin
+                    RecRef.SetTable(TenderHeader);
+                    TenderHeader.Validate("Status", TenderHeader.Status::Open);
+                    TenderHeader.Modify();
+                    Variant := TenderHeader;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -516,6 +686,8 @@ codeunit 50089 "Approval Workflows V1"
         CertApplic: Record "Certificate Application";
         PhamacyHeader: Record "Pharmacy Requests Header";
         Medclaims: Record "HRM-Medical Claims";
+        ProcplanHeader: Record "PROC-Procurement Plan Header";
+        TenderHeader: Record "Tender Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -560,6 +732,20 @@ codeunit 50089 "Approval Workflows V1"
                     Medclaims.Validate("Status", Medclaims.Status::Pending);
                     Medclaims.Modify();
                     Variant := Medclaims;
+                end;
+            Database::"PROC-Procurement Plan Header":
+                begin
+                    RecRef.SetTable(ProcplanHeader);
+                    ProcplanHeader.Validate("Status", ProcplanHeader.Status::"Pending Approval");
+                    ProcplanHeader.Modify();
+                    Variant := ProcplanHeader;
+                end;
+            Database::"Tender Header":
+                begin
+                    RecRef.SetTable(TenderHeader);
+                    TenderHeader.Validate("Status", TenderHeader.Status::"Pending Approval");
+                    TenderHeader.Modify();
+                    Variant := TenderHeader;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);

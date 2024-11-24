@@ -212,6 +212,13 @@ page 50860 "ACA-General Set-Up"
 
 
             }
+            group(Exam)
+            {
+                field("Min Class Attendance %";Rec."Min Class Attendance %" )
+                {
+                    ApplicationArea = All;
+                }
+            }
             group("Time Table")
             {
                 field("TImetable Start Time"; Rec."TImetable Start Time")
