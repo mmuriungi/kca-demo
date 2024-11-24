@@ -26,6 +26,43 @@ report 50766 "Donation Report"
             column(Campaign_Code; "Campaign Code")
             {
             }
+            column(CompanyLogo; Company.Picture)
+            {
+
+            }
+            column(CompanyName; Company.Name)
+            {
+
+            }
+            column(CompanyAddress; Company.Address)
+            {
+
+            }
+            column(Company_Add; Company."Address 2")
+            {
+
+            }
+            column(CompanyPhone; Company."Phone No.")
+            {
+                
+            }
+            column(CompanyPostCode; Company."Post Code")
+            {
+                
+            }
+            column(CompanyCity; Company.City)
+            {
+                
+            }
         }
     }
+
+    trigger OnInitReport()
+    begin
+        Company.GET;
+        Company.CALCFIELDS(Picture);
+    end;
+
+     var
+        Company: Record "Company Information";
 }
