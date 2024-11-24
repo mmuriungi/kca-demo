@@ -36,14 +36,9 @@ enum 50001 "Proc Document Types"
     {
         Caption = 'Two Stage Tender';
     }
-
-
-
-
-
-
-
-
-
-
+    //"Restricted Tendering"
+    value(10; "Restricted Tendering")
+    {
+        Caption = 'Restricted Tendering';
+    }
 }

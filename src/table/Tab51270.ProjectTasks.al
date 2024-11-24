@@ -117,6 +117,57 @@ table 51270 "Project Tasks"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+        field(17; Type; Enum "Purchase Line Type")
+        {
+
+        }
+        field(18; Quantity; Integer)
+        {
+
+            trigger OnValidate()
+            begin
+                Amount := Quantity * "Unit Cost";
+                Validate(Amount);
+            end;
+        }
+        field(19; "Unit Cost"; Decimal)
+        {
+            trigger OnValidate()
+            begin
+                Amount := "Unit Cost" * Quantity;
+                Validate(Amount);
+            end;
+        }
+        field(20; Select; boolean)
+        {
+
+
+        }
+        field(21; Amount; Decimal)
+        {
+            Editable = false;
+            Caption = 'Amount';
+            trigger OnValidate()
+            begin
+                SetCurrentKey("Task No");
+                Balance := Amount - "Amount to Pay";
+            end;
+        }
+        field(22; "Amount to Pay"; Decimal)
+        {
+
+            trigger OnValidate()
+            begin
+                if "Amount to Pay" > Amount then error('You are not allowed to pay more than the initial Amount!');
+                SetCurrentKey("Task No");
+                Balance := Amount - "Amount to Pay";
+            end;
+        }
+        field(23; Balance; Decimal)
+        {
+            Editable = false;
+
+        }
     }
 
     keys

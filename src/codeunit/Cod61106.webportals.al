@@ -281,7 +281,123 @@ Codeunit 61106 webportals
             UNTIL timeslots.NEXT = 0;
         END;
     end;
+    procedure ChechPostedSemReg(StudNo: Code[30]; Sem: Code[30]) Message: Text
+    begin
+        CourseReg.RESET;
+        CourseReg.SETRANGE(CourseReg."Student No.", StudNo);
+        CourseReg.SETRANGE(CourseReg.Semester, Sem);
+        IF CourseReg.FIND('-') THEN BEGIN
+            IF CourseReg.Posted = TRUE THEN BEGIN
+                Message := 'YES' + '::';
+            END
+            ELSE BEGIN
+                Message := 'NO' + '::';
+            END
+        END;
+    end;
+procedure GetUnitsToRegister(stdno: Code[20]; progcode: Code[20]; studymode: Code[20]; day: Code[20]; timeslot: Code[20]) Details: Text
+    begin
+        offeredunits.RESET;
+        //offeredunits.SetRange(Campus, GetStdCampus(stdno));
+        offeredunits.SetFilter(ModeofStudy, '%1|%2', studymode, 'ODEL');
+        offeredunits.SETRANGE(Semester, GetCurrentSemester());
+        offeredunits.SETRANGE(Day, day);
+        offeredunits.SETRANGE(TimeSlot, timeslot);
+        IF offeredunits.FIND('-') then begin
+            repeat
+                UnitSubjects.Reset;
+                UnitSubjects.SetRange("Programme Code", progcode);
+                UnitSubjects.SetRange(Code, offeredunits."Unit Base Code");
+                UnitSubjects.SetRange("Stage Code", GetStudentCurrentStage(stdno));
+                if UnitSubjects.Find('-') then begin
+                    /*offeredunits.CalcFields("Sitting Capacity");
+                    if offeredunits."Sitting Capacity" > GetRegisteredStds(offeredunits."Unit Base Code", offeredunits.Stream, GetStdCampus(stdno)) then begin
+                    StudentUnits.Reset;
+                    StudentUnits.CalcFields(Ge);
+                    StudentUnits.SetRange("Student No.", stdno);
+                    StudentUnits.SetRange(Unit, offeredunits."Unit Base Code");
+                    StudentUnits.SetFilter(Grade, '<>%1&<>%2', '', 'Z');
+                    If NOT StudentUnits.Find('-') then begin
+                        trscripttbl.Reset;
+                        trscripttbl.SetRange(StudentID, stdno);
+                        trscripttbl.SetRange(UnitCode, offeredunits."Unit Base Code");
+                        trscripttbl.SetFilter(MeanGrade, '<>%1&<>%2&<>%3', 'F', 'FF', 'Z');
+                        if NOT trscripttbl.Find('-') then begin
+                            if NOT UndonePrerequisite(offeredunits."Unit Base Code", stdno) then begin*/
+                    Details += offeredunits."Unit Base Code" + ' ::' + GetUnitDescription(offeredunits."Unit Base Code") + ' ::' + GetFullNames(offeredunits.Lecturer) + ' ::' + GetLectureHallName(offeredunits."Lecture Hall") + ' ::' + offeredunits.Stream + ' :::';
+                end;
+            /*end;
+        end;*/
+            //end;
+            until offeredunits.Next = 0;
+        end;
+    end;
+    /*procedure GetRegisteredUnits(stdno: Code[20]; progcode: Code[20]) Details: Text
+    begin
+        StudentUnits.Reset;
+        StudentUnits.SetRange("Student No.", stdno);
+        StudentUnits.SetRange(Programme, progcode);
+        StudentUnits.SetRange(Semester, GetCurrentSemester());
+        If StudentUnits.Find('-') then begin
+            Repeat
+                StudentUnits.CalcFields("Unit Description", Lecturer);
+                Details += StudentUnits.Unit + ' ::' + StudentUnits."Unit Description" + ' ::' + GetFullNames(StudentUnits.Lecturer) + ' ::' + GetLectureHallName("StudentUnits.Lecture Hall") + ' ::' + StudentUnits.Stream + ' ::' + StudentUnits.Day + ' ::' + StudentUnits.TimeSlot + ' :::';
+            Until StudentUnits.Next = 0;
+        end;
+    end;*/
+    procedure GetStudentCurrentStage(StudentNo: Code[20]) Message: Text
+    begin
+        CourseRegistration.RESET;
+        CourseRegistration.SETRANGE(CourseRegistration."Student No.", StudentNo);
+        CourseRegistration.SETRANGE(CourseRegistration.Semester, GetCurrentSemester());
+        CourseRegistration.SETRANGE(CourseRegistration.Reversed, FALSE);
+        IF CourseRegistration.FIND('+') THEN BEGIN
+            Message := CourseRegistration.Stage;
+        END;
+    end;
+    procedure CheckFeeStatus(StudentN: Code[20]; Semest: Code[20]) Register: Code[20]
+    var
+        BilledAmount: Decimal;
+        "50Percent": Decimal;
+        Customerz1: Record Customer;
+        ACACourseRegistrationz: Record "ACA-Course Registration";
+    begin
+        Register := 'NO';
+        Customerz1.RESET;
+        Customerz1.SETRANGE("No.", StudentN);
+        IF Customerz1.FIND('-') THEN BEGIN
+            IF Customerz1.CALCFIELDS(Balance) THEN;
+            ACACourseRegistrationz.RESET;
+            ACACourseRegistrationz.SETRANGE("Student No.", StudentN);
+            ACACourseRegistrationz.SETRANGE(Semester, Semest);
+            IF ACACourseRegistrationz.FIND('-') THEN BEGIN
+                //IF ACACourseRegistrationz.CALCFIELDS("Total Billed") THEN BEGIN
+                IF NOT (Customerz1.Balance > ((ACACourseRegistrationz."Total Billed") / 2)) THEN Register := 'YES';
+                //END;
+            END;
+        END;
 
+        //MESSAGE('Register Status: '+Register);
+    end;
+procedure GetLectureDays() Message: Text
+    begin
+        days.RESET;
+        days.SetCurrentKey("Day Order");
+        IF days.FIND('-') THEN BEGIN
+            REPEAT
+                Message += days."Day Code" + ' :::';
+            UNTIL days.NEXT = 0;
+        END;
+    end;
+    procedure GetStudentCampus(username: Text) Message: Text
+    begin
+        Customer.RESET;
+        Customer.SETRANGE(Customer."No.", username);
+        IF Customer.FIND('-') THEN BEGIN
+            Message := Customer."Global Dimension 1 Code";
+
+        END
+    end;
     procedure GetLecUnits(lecno: Code[20]) msg: Text
     begin
         lecturers.Reset;
@@ -390,17 +506,6 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure GetLectureDays() Message: Text
-    begin
-        days.RESET;
-        days.SetCurrentKey("Day Order");
-        IF days.FIND('-') THEN BEGIN
-            REPEAT
-                Message += days."Day Code" + ' :::';
-            UNTIL days.NEXT = 0;
-        END;
-    end;
-
     procedure GetHODDepartment(username: Text) Message: Text
     begin
         EmployeeCard.RESET;
@@ -421,7 +526,6 @@ Codeunit 61106 webportals
         //AttendanceHeader.Time := classtime;
         AttendanceHeader.INSERT;
     end;
-
     procedure ClassAttendanceDetails(counting: integer; stdno: code[20]; stdname: text; lectno: code[20]; unit: text; present: boolean)
     var
         entryno: integer;
@@ -471,7 +575,6 @@ Codeunit 61106 webportals
         END;
         EXIT(filename);
     end;
-
     procedure GetLectureHalls(hodno: Code[20]; day: Code[20]; timeslot: Code[20]) Message: Text
     begin
         lecturehalls.Reset();
@@ -4213,31 +4316,6 @@ Codeunit 61106 webportals
         VoteElection.Voted := true;
         VoteElection.Insert(true);
     end;
-
-    local procedure CheckFeeStatus(StudentN: Code[20]; Semest: Code[20]) Register: Code[10]
-    var
-        BilledAmount: Decimal;
-        "50Percent": Decimal;
-        Customerz1: Record Customer;
-        ACACourseRegistrationz: Record "ACA-Course Registration";
-    begin
-        Register := 'NO';
-        Customerz1.Reset;
-        Customerz1.SetRange("No.", StudentN);
-        if Customerz1.Find('-') then begin
-            if Customerz1.CalcFields(Balance) then;
-            //  ACACourseRegistrationz.RESET;
-            //  ACACourseRegistrationz.SETRANGE("Student No.",StudentN);
-            //  ACACourseRegistrationz.SETRANGE(Semester,Semest);
-            //  IF ACACourseRegistrationz.FIND('-') THEN BEGIN
-            //    IF ACACourseRegistrationz.CALCFIELDS("Total Billed") THEN BEGIN
-            if not (Customerz1.Balance > 0) then Register := 'YES';
-            //      END;
-            //    END;
-        end;
-    end;
-
-
     procedure KUCCPSLogin(username: Text) Message: Text
     var
         FullNames: Text;

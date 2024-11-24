@@ -278,6 +278,39 @@ codeunit 52178866 "Notifications Handler"
         end;
     end;
 
+    procedure fnGetEmployeeName(UserID: Code[50])
+    var
+        Emp: Record "HRM-Employee C";
+    begin
+        Emp.Reset();
+        Emp.SetRange("User ID");
+    end;
+
+    procedure FnSendEndofContractNotification()
+    var
+        EmailBody: Label 'This is to notify you that the contract %1 with %2 is set to expire in three months on %3';
+        ObjContractsHeader: record "Project Header";
+        PurchSetup: Record "Purchases & Payables Setup";
+        RecipientsEmail: Text;
+    begin
+        ObjContractsHeader.Reset();
+        ObjContractsHeader.SetRange("No.", ObjContractsHeader."No.");
+        if ObjContractsHeader.FindSet() then begin
+            repeat
+                if (CalcDate(PurchSetup."Contract End Days", Today) = ObjContractsHeader."Estimated End Date") then begin
+
+                    UserSetup.Reset();
+                    UserSetup.SetRange(UserSetup."User ID", ObjContractsHeader."User ID");
+                    if UserSetup.FindFirst() then begin
+                        RecipientsEmail := UserSetup."E-Mail";
+                        fnSendemail(UserSetup."User ID", 'Three Months Prior Contract Expiry Notice', StrSubstNo(EmailBody, ObjContractsHeader."No.", ObjContractsHeader."Name", ObjContractsHeader."Estimated End Date"), RecipientsEmail, '', '', false, '', '', '');
+                    end;
+                end;
+            until ObjContractsHeader.Next() = 0;
+        end;
+
+    end;
+
     var
         Approvals: Record "Approval Entry";
         Employees: Record "HRM-Employee C";
@@ -291,30 +324,32 @@ codeunit 52178866 "Notifications Handler"
 }
 
 
-    codeunit 52178867 "Assessment"
-    {
-        procedure PopulatePostGraduate(Stud: Record "ACA-Course Registration")
-        var
-            //Stud: Record "ACA-Course Registration";
-            Graduate: Record "Postgrad Supervisor Applic.";
-            Cust: Record Customer;
-        begin
-            Graduate.Delete();
 
-            Stud.SetRange("Academic Year", Stud."Academic Year");
-            Stud.SetRange(Stage, Stud.Stage);
-            Stud.SetRange(Programmes, Stud.Programmes);
-            Stud.SetRange(Semester, Stud.Semester);
-            Stud.SetRange(Status, Stud.Status::Current);
+
+codeunit 52178867 "Assessment"
+{
+    procedure PopulatePostGraduate(Stud: Record "ACA-Course Registration")
+    var
+        //Stud: Record "ACA-Course Registration";
+        Graduate: Record "Postgrad Supervisor Applic.";
+        Cust: Record Customer;
+    begin
+        Graduate.Delete();
+
+        Stud.SetRange("Academic Year", Stud."Academic Year");
+        Stud.SetRange(Stage, Stud.Stage);
+        Stud.SetRange(Programmes, Stud.Programmes);
+        Stud.SetRange(Semester, Stud.Semester);
+        Stud.SetRange(Status, Stud.Status::Current);
 
         if Stud.FindSet() then begin
-                if not Graduate.Get(Stud."Student No.") then begin
-                    Graduate.Init();
-                    Graduate."Student No." := Stud."Student No.";
-                    
-                    Graduate.Insert();
-                end;
+            if not Graduate.Get(Stud."Student No.") then begin
+                Graduate.Init();
+                Graduate."Student No." := Stud."Student No.";
+
+                Graduate.Insert();
+            end;
         end;
     end;
 
-    }
+}

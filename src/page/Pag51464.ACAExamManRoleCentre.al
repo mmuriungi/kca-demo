@@ -809,7 +809,7 @@ page 51464 "ACA-Exam Man. Role Centre"
                         Caption = 'Individual Marksheet';
                         Image = CompleteLine;
 
-                        //RunObject = Report "Check Marks2";
+                        RunObject = Report "Individual Marksheet";
                         ApplicationArea = All;
                     }
                     action(ConsMarkssheet3)
@@ -817,7 +817,7 @@ page 51464 "ACA-Exam Man. Role Centre"
                         Caption = 'Consolidated Marksheet';
                         Image = CompleteLine;
 
-                        //RunObject = Report "Cons Marksheet";
+                        RunObject = Report "Individual Marksheet";
                         ApplicationArea = All;
                     }
                     action(SenSummary)

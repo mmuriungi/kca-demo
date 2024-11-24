@@ -6,7 +6,7 @@ page 50123 "Approved Purchase Requisition"
     Editable = false;
     SourceTable = "Purchase Header";
     UsageCategory = Lists;
-    CardPageID = "PROC-Internal Requisitions1";
+    CardPageID = "PROC-Internal Requisitions";
     SourceTableView = WHERE("Document Type" = FILTER(Quote),
                             DocApprovalType = FILTER(Requisition),
                             Status = FILTER(Released));
