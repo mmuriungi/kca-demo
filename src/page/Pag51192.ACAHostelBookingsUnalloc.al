@@ -445,11 +445,11 @@ page 51192 "ACA-Hostel Bookings (Unalloc.)"
             //    PostOverPayment();
             // END;
             UNTIL StudentHostel.NEXT = 0;
-            MESSAGE('Room Allocated Successfully');
+            
         END;
 
         postCharge();
-
+        MESSAGE('Room Allocated Successfully');
     end;
 
     local procedure postCharge()

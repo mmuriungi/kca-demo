@@ -7,7 +7,7 @@ table 50866 "ACA-Hostel Inventory"
     {
         field(1; Item; Code[30])
         {
-            //TableRelation = Item."No.";
+            TableRelation = Item."No.";
         }
         field(2; Description; Text[150])
         {

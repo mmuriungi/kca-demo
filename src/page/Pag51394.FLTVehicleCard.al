@@ -12,7 +12,7 @@ page 51394 "FLT-Vehicle Card"
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
-                    TableRelation = "Fixed Asset"."FA Class Code";
+                    // TableRelation = "Fixed Asset"."FA Class Code";
 
                     trigger OnValidate()
                     var
