@@ -252,6 +252,7 @@ codeunit 50057 "Senate Processing"
                 if studunits.Find('-') then begin
                     unitsSub.Reset();
                     unitsSub.SetRange(Code, studunits.Unit);
+                    unitsSub.SetRange("Programme Code", creg.Programmes);
                     if unitsSub.Find('-') then begin
                         examCategory := unitsSub."Default Exam Category";
                     end;
