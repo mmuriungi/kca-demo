@@ -8991,5 +8991,125 @@ Codeunit 61106 webportals
         END;
     end;
     #endregion
+
+    procedure SubmitPartimerClaim(pfNO: code[25]; Sem: code[25]; Purpose: Text[250]) msg: Code[25]
+    var
+        HrmEmployeeC: record "HRM-Employee C";
+        PartTImer: record "Parttime Claim Header";
+        ParttimeLines: record "Parttime Claim Lines";
+    begin
+        HrmEmployeeC.reset;
+        hrmemployeec.setrange("No.", pfNO);
+        if HrmEmployeeC.findfirst then begin
+            PartTImer.Init();
+            PartTImer."No." := '';
+            partTimer."Account No." := pfNO;
+            PartTImer.Validate("Account No.");
+            PartTImer.date := today;
+            parttimer."Global Dimension 1 Code" := hrmemployeec.Campus;
+            PartTImer."Global Dimension 2 Code" := hrmemployeec."Department Code";
+            PartTImer.Validate("Global Dimension 1 Code");
+            PartTImer.Validate("Global Dimension 2 Code");
+            PartTImer."Responsibility Center" := hrmemployeec."Responsibility Center";
+            PartTImer.Validate("Responsibility Center");
+            PartTImer."Purpose" := Purpose;
+            PartTImer."Semester" := Sem;
+            PartTImer.Validate("Semester");
+            if PartTImer.Insert(true) then
+                msg := PartTImer."No.";
+        end;
+    end;
+
+    procedure SubmitPartimerClaimLine(pfNO: code[25]; Sem: code[25]; Programme: code[25]; ClaimNo: Code[25]; UnitCode: Code[25]) msg: Boolean
+    var
+        ParttimeLines: record "Parttime Claim Lines";
+        AcadYear: Code[25];
+        Semesters: Record "ACA-Semesters";
+    begin
+        Semesters.Reset();
+        Semesters.SetRange(code, Sem);
+        if Semesters.FindFirst() then
+            AcadYear := semesters."Academic Year";
+        ParttimeLines.Init();
+        ParttimeLines."Document No." := ClaimNo;
+        ParttimeLines."Academic Year" := acadyear;
+        ParttimeLines.Validate("Academic Year");
+        ParttimeLines.Semester := sem;
+        ParttimeLines.Validate(Semester);
+        ParttimeLines.programme := Programme;
+        ParttimeLines.Validate("Programme");
+        ParttimeLines."Unit" := UnitCode;
+        ParttimeLines.Validate("Unit");
+        msg := ParttimeLines.Insert(true);
+    end;
+
+    procedure getParttimeclaimDetails(ClaimNo: Code[25]) msg: Text
+    var
+        ParttimeClaimHeader: record "Parttime Claim Header";
+    begin
+        ParttimeClaimHeader.RESET;
+        ParttimeClaimHeader.SETRANGE("No.", ClaimNo);
+        if ParttimeClaimHeader.FINDFIRST then begin
+            ParttimeClaimHeader.CalcFields("Payment Amount");
+            msg := ParttimeClaimHeader."No." + ' ::' + ParttimeClaimHeader."Account No." + ' ::' + ParttimeClaimHeader.payee + ' ::' + format(ParttimeClaimHeader."Payment Amount") + ' ::' + ParttimeClaimHeader."Global Dimension 1 Code" + ' ::' + ParttimeClaimHeader."Global Dimension 2 Code" + ' ::' + ParttimeClaimHeader."Responsibility Center" + ' ::' + ParttimeClaimHeader."Purpose" + ' ::' + ParttimeClaimHeader."Semester" + ' :::';
+        end;
+    end;
+
+    procedure getParttimeclaimLines(ClaimNo: Code[25]) msg: Text
+    var
+        ParttimeClaimLines: record "Parttime Claim Lines";
+    begin
+        ParttimeClaimLines.RESET;
+        ParttimeClaimLines.SETRANGE("Document No.", ClaimNo);
+        if ParttimeClaimLines.FIND('-') then begin
+            repeat
+                msg += ParttimeClaimLines."Document No." + ' ::' + ParttimeClaimLines.Semester + ' ::' + ParttimeClaimLines.programme + ' ::' + ParttimeClaimLines."Unit" + ' ::' + Format(ParttimeClaimLines.Amount) + ' :::';
+            until ParttimeClaimLines.NEXT = 0;
+        end;
+    end;
+
+    procedure getLecSemesters(lec: Code[20]) msg: Text
+    var
+        LecUnits: Record "ACA-Lecturers Units";
+    begin
+        LecUnits.RESET;
+        LecUnits.SETRANGE(Lecturer, lec);
+        if LecUnits.FIND('-') then begin
+            repeat
+                msg += LecUnits.Semester + ' ::';
+            until LecUnits.NEXT = 0;
+        end;
+    end;
+
+    procedure getLecProgrammes(lec: Code[20]; Sem: code[25]) msg: Text
+    var
+        LecUnits: Record "ACA-Lecturers Units";
+    begin
+        LecUnits.RESET;
+        LecUnits.SETRANGE(Lecturer, lec);
+        LecUnits.SETRANGE(Semester, Sem);
+        if LecUnits.FIND('-') then begin
+            repeat
+                msg += LecUnits.Programme + ' ::';
+            until LecUnits.NEXT = 0;
+        end;
+    end;
+
+    procedure getLecUnits(lec: Code[20]; Sem: code[25]; prog: code[25]) msg: Text
+    var
+        LecUnits: Record "ACA-Lecturers Units";
+    begin
+        LecUnits.RESET;
+        LecUnits.SETRANGE(Lecturer, lec);
+        LecUnits.SETRANGE(Semester, Sem);
+        LecUnits.SETRANGE(Programme, prog);
+        if LecUnits.FIND('-') then begin
+            repeat
+                msg += LecUnits.Unit + ' ::' + LecUnits.Description + ' :::';
+            until LecUnits.NEXT = 0;
+        end;
+    end;
+
+
 }
 
