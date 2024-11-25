@@ -486,6 +486,7 @@ codeunit 50089 "Approval Workflows V1"
         ProcPlanHeader: Record "PROC-Procurement Plan Header";
         CommitteAppoint: Record "Proc-Committee Appointment H";
         TenderHeader: Record "Tender Header";
+        RFQHeader: Record "Proc-Purchase Quote Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -556,9 +557,9 @@ codeunit 50089 "Approval Workflows V1"
                 end;
             Database::"Proc-Purchase Quote Header":
                 begin
-                    RecRef.SetTable(TenderHeader);
-                    TenderHeader.Validate("Status", TenderHeader.Status::Released);
-                    TenderHeader.Modify();
+                    RecRef.SetTable(RFQHeader);
+                    RFQHeader.Validate("Status", RFQHeader.Status::Released);
+                    RFQHeader.Modify();
                     Handled := true;
                 end;
         end;
@@ -576,6 +577,7 @@ codeunit 50089 "Approval Workflows V1"
         ProcPlanHeader: Record "PROC-Procurement Plan Header";
         CommitteAppoint: Record "Proc-Committee Appointment H";
         TenderHeader: Record "Tender Header";
+        RFQHeader: Record "Proc-Purchase Quote Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -643,9 +645,9 @@ codeunit 50089 "Approval Workflows V1"
                 end;
             Database::"Proc-Purchase Quote Header":
                 begin
-                    if TenderHeader.Get(ApprovalEntry."Document No.") then begin
-                        TenderHeader.Status := TenderHeader.Status::Rejected;
-                        TenderHeader.Modify(true);
+                    if RFQHeader.Get(ApprovalEntry."Document No.") then begin
+                        RFQHeader.Status := RFQHeader.Status::Cancelled;
+                        RFQHeader.Modify(true);
                     end;
                 end;
         end;
