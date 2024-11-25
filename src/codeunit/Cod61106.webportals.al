@@ -9103,7 +9103,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure getLecUnits(lec: Code[20]; Sem: code[25]; prog: code[25]) msg: Text
+    procedure getLecturerUnits(lec: Code[20]; Sem: code[25]; prog: code[25]) msg: Text
     var
         LecUnits: Record "ACA-Lecturers Units";
     begin
