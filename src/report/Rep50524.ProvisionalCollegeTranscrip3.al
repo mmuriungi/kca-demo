@@ -580,7 +580,6 @@ report 50524 "Provisional College Transcrip3"
         FinalCATMarks: Decimal;
         Gradez: Code[10];
         Gredi: Code[20];
-
         TotalMarks: Decimal;
         LastGrade: Code[20];
         LastScore: Decimal;
