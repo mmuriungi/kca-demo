@@ -61,6 +61,7 @@ page 50963 "Process Exams Central Gen."
                 PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
+                Caption = 'Process Suppleme';
                 trigger OnAction()
                 var
                     senateReportNew: Codeunit "Senate Processing";
