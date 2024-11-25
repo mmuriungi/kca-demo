@@ -88,7 +88,7 @@ report 50532 "Official University Resultslip"
                 column(Unit; "ACA-Student Units".Unit)
                 {
                 }
-                column(Desc; "ACA-Student Units".Description)
+                column(Desc; UnitDescription)
                 {
                 }
                 column(Score; "ACA-Student Units"."Total Score")
@@ -106,7 +106,7 @@ report 50532 "Official University Resultslip"
                 column(ResultsStatus; "ACA-Student Units"."Result Status")
                 {
                 }
-                column(CF; "ACA-Student Units".Units)
+                column(CF; unitstotal)
                 {
                 }
 
@@ -115,6 +115,18 @@ report 50532 "Official University Resultslip"
                     "ACA-Student Units".CalcFields("ACA-Student Units"."Total Score");
                     if "ACA-Student Units"."Total Score" = 0 then
                         "ACA-Student Units".Grade := 'E';
+
+                    Description := '';
+                    UnitsTotal := 0;
+
+
+                    units_Subjects.Reset;
+                    units_Subjects.SetRange(Code, "ACA-Student Units".Unit);
+                    units_Subjects.SetRange("Programme Code", "ACA-Student Units".Programme);
+                    if units_Subjects.FindFirst() then begin
+                        Description := units_Subjects.Desription;
+                        UnitsTotal := units_Subjects."Credit Hours";
+                    end
                 end;
             }
 
@@ -246,5 +258,7 @@ report 50532 "Official University Resultslip"
         Info: Record "Company Information";
         IntakeRec: Record "ACA-Intake";
         Deptname: Text[100];
+        UnitDescription: Text[250];
+        UnitsTotal: Decimal;
 }
 
