@@ -220,7 +220,7 @@ table 50556 "ACA-General Set-Up"
         }
         field(50063; "Supplimentary Fee"; Decimal)
         {
-            DataClassification = ToBeClassified;
+            //DataClassification = ToBeClassified;
         }
         field(50064; "Special Exam Fee"; Decimal)
         {
