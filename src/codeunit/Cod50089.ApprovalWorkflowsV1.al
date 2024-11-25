@@ -49,6 +49,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelTenderRequestTxt: Label 'An Approval request for Tender is Cancelled';
         RunWorkflowOnSendTenderForApprovalCode: Label 'RUNWORKFLOWONSENDTENDERFORAPPROVAL';
         RunWorkflowOnCancelTenderForApprovalCode: Label 'RUNWORKFLOWONCANCELTENDERFORAPPROVAL';
+        //RFQ Workflow
+        OnSendRFQRequestTxt: Label 'Approval request for RFQ is requested';
+        OnCancelRFQRequestTxt: Label 'An Approval request for RFQ is Cancelled';
+        RunWorkflowOnSendRFQForApprovalCode: Label 'RUNWORKFLOWONSENDRFQFORAPPROVAL';
+        RunWorkflowOnCancelRFQForApprovalCode: Label 'RUNWORKFLOWONCANCELRFQFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -76,6 +81,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendCommitteeAppointmentForApprovalCode));
             Database::"Tender Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendTenderForApprovalCode));
+            Database:: "Proc-Purchase Quote Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendRFQForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -137,7 +144,9 @@ codeunit 50089 "Approval Workflows V1"
         //"Tender Header"
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendTenderForApprovalCode, Database::"Tender Header", OnSendTenderRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelTenderForApprovalCode, Database::"Tender Header", OnCancelTenderRequestTxt, 0, false);
-
+        //RFQ Workflow
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendRFQForApprovalCode, Database::"Proc-Purchase Quote Header", OnSendRFQRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelRFQForApprovalCode, Database::"Proc-Purchase Quote Header", OnCancelRFQRequestTxt, 0, false);
     end;
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
@@ -171,6 +180,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendCommitteeAppointmentForApprovalCode, Variant);
             Database::"Tender Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendTenderForApprovalCode, Variant);
+            Database::"Proc-Purchase Quote Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendRFQForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -202,6 +213,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelCommitteeAppointmentForApprovalCode, Variant);
             Database::"Tender Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelTenderForApprovalCode, Variant);
+            Database::"Proc-Purchase Quote Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelRFQForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -220,6 +233,7 @@ codeunit 50089 "Approval Workflows V1"
         ProcPlanHeader: Record "PROC-Procurement Plan Header";
         CommiteeAppoint: Record "Proc-Committee Appointment H";
         TenderHeader: Record "Tender Header";
+        RFQHeader: Record "Proc-Purchase Quote Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -285,6 +299,13 @@ codeunit 50089 "Approval Workflows V1"
                     TenderHeader.Modify();
                     Handled := true;
                 end;
+                Database::"Proc-Purchase Quote Header":
+                begin
+                    RecRef.SetTable(RFQHeader);
+                    RFQHeader.Validate("Status", RFQHeader.Status::Open);
+                    RFQHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -300,6 +321,7 @@ codeunit 50089 "Approval Workflows V1"
         ProcplanHeader: Record "PROC-Procurement Plan Header";
         CommitteAppointment: Record "Proc-Committee Appointment H";
         TenderHEader: Record "Tender Header";
+        RFQHeader: Record "Proc-Purchase Quote Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -371,6 +393,13 @@ codeunit 50089 "Approval Workflows V1"
                     TenderHEader.Modify();
                     IsHandled := true;
                 end;
+            Database::"Proc-Purchase Quote Header":
+                begin
+                    RecRef.SetTable(RFQHeader);
+                    RFQHeader.Validate("Status", RFQHeader.Status::"Pending Approval");
+                    RFQHeader.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -386,6 +415,7 @@ codeunit 50089 "Approval Workflows V1"
         ProcplanHeader: Record "PROC-Procurement Plan Header";
         CommitteAppoint: Record "Proc-Committee Appointment H";
         TenderHeader: Record "Tender Header";
+        RFQHeader: Record "Proc-Purchase Quote Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -432,6 +462,11 @@ codeunit 50089 "Approval Workflows V1"
                 begin
                     RecRef.SetTable(TenderHeader);
                     ApprovalEntryArgument."Document No." := TenderHeader."No.";
+                end;
+            Database::"Proc-Purchase Quote Header":
+                begin
+                    RecRef.SetTable(RFQHeader);
+                    ApprovalEntryArgument."Document No." := RFQHeader."No.";
                 end;
         end;
     end;
@@ -519,6 +554,13 @@ codeunit 50089 "Approval Workflows V1"
                     TenderHeader.Modify();
                     Handled := true;
                 end;
+            Database::"Proc-Purchase Quote Header":
+                begin
+                    RecRef.SetTable(TenderHeader);
+                    TenderHeader.Validate("Status", TenderHeader.Status::Released);
+                    TenderHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -599,6 +641,13 @@ codeunit 50089 "Approval Workflows V1"
                         TenderHeader.Modify(true);
                     end;
                 end;
+            Database::"Proc-Purchase Quote Header":
+                begin
+                    if TenderHeader.Get(ApprovalEntry."Document No.") then begin
+                        TenderHeader.Status := TenderHeader.Status::Rejected;
+                        TenderHeader.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -613,6 +662,7 @@ codeunit 50089 "Approval Workflows V1"
         Medclaims: Record "HRM-Medical Claims";
         ProcplanHeader: Record "PROC-Procurement Plan Header";
         TenderHeader: Record "Tender HEader";
+        RFQHeader: Record "Proc-Purchase Quote Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -672,6 +722,13 @@ codeunit 50089 "Approval Workflows V1"
                     TenderHeader.Modify();
                     Variant := TenderHeader;
                 end;
+            Database::"Proc-Purchase Quote Header":
+                begin
+                    RecRef.SetTable(RFQHeader);
+                    RFQHeader.Validate("Status", RFQHeader.Status::Open);
+                    RFQHeader.Modify();
+                    Variant := RFQHeader;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -688,6 +745,7 @@ codeunit 50089 "Approval Workflows V1"
         Medclaims: Record "HRM-Medical Claims";
         ProcplanHeader: Record "PROC-Procurement Plan Header";
         TenderHeader: Record "Tender Header";
+        RFQHeader: Record "Proc-Purchase Quote Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -746,6 +804,13 @@ codeunit 50089 "Approval Workflows V1"
                     TenderHeader.Validate("Status", TenderHeader.Status::"Pending Approval");
                     TenderHeader.Modify();
                     Variant := TenderHeader;
+                end;
+            Database::"Proc-Purchase Quote Header":
+                begin
+                    RecRef.SetTable(RFQHeader);
+                    RFQHeader.Validate("Status", RFQHeader.Status::"Pending Approval");
+                    RFQHeader.Modify();
+                    Variant := RFQHeader;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
