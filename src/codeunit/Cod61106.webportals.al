@@ -8992,7 +8992,7 @@ Codeunit 61106 webportals
     end;
     #endregion
 
-    procedure SubmitPartimerClaim(pfNO: code[25]; Sem: code[25]; Purpose: Text[250]) msg: Code[25]
+    procedure CreatePartimerClaim(pfNO: code[25]; Sem: code[25]; Purpose: Text[250]) msg: Code[25]
     var
         HrmEmployeeC: record "HRM-Employee C";
         PartTImer: record "Parttime Claim Header";
@@ -9020,30 +9020,35 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure SubmitPartimerClaimLine(pfNO: code[25]; Sem: code[25]; Programme: code[25]; ClaimNo: Code[25]; UnitCode: Code[25]) msg: Boolean
+    procedure addParttimeClaimLine(ClaimNo: Code[25]; Programme: code[25]; UnitCode: Code[25]) msg: Boolean
     var
         ParttimeLines: record "Parttime Claim Lines";
         AcadYear: Code[25];
+        PartTImer: record "Parttime Claim Header";
         Semesters: Record "ACA-Semesters";
     begin
-        Semesters.Reset();
-        Semesters.SetRange(code, Sem);
-        if Semesters.FindFirst() then
-            AcadYear := semesters."Academic Year";
-        ParttimeLines.Init();
-        ParttimeLines."Document No." := ClaimNo;
-        ParttimeLines."Academic Year" := acadyear;
-        ParttimeLines.Validate("Academic Year");
-        ParttimeLines.Semester := sem;
-        ParttimeLines.Validate(Semester);
-        ParttimeLines.programme := Programme;
-        ParttimeLines.Validate("Programme");
-        ParttimeLines."Unit" := UnitCode;
-        ParttimeLines.Validate("Unit");
-        msg := ParttimeLines.Insert(true);
+        PartTImer.RESET;
+        PartTImer.SetRange("No.", ClaimNo);
+        if PartTImer.FindFirst() then begin
+            Semesters.Reset();
+            Semesters.SetRange(code, PartTImer.Semester);
+            if Semesters.FindFirst() then
+                AcadYear := semesters."Academic Year";
+            ParttimeLines.Init();
+            ParttimeLines."Document No." := ClaimNo;
+            ParttimeLines."Academic Year" := acadyear;
+            ParttimeLines.Validate("Academic Year");
+            ParttimeLines.Semester := PartTImer.Semester;
+            ParttimeLines.Validate(Semester);
+            ParttimeLines.programme := Programme;
+            ParttimeLines.Validate("Programme");
+            ParttimeLines."Unit" := UnitCode;
+            ParttimeLines.Validate("Unit");
+            msg := ParttimeLines.Insert(true);
+        end;
     end;
 
-    procedure getParttimeclaimDetails(ClaimNo: Code[25]) msg: Text
+    procedure getParttimeclaims(ClaimNo: Code[25]) msg: Text
     var
         ParttimeClaimHeader: record "Parttime Claim Header";
     begin
@@ -9051,7 +9056,7 @@ Codeunit 61106 webportals
         ParttimeClaimHeader.SETRANGE("No.", ClaimNo);
         if ParttimeClaimHeader.FINDFIRST then begin
             ParttimeClaimHeader.CalcFields("Payment Amount");
-            msg := ParttimeClaimHeader."No." + ' ::' + ParttimeClaimHeader."Account No." + ' ::' + ParttimeClaimHeader.payee + ' ::' + format(ParttimeClaimHeader."Payment Amount") + ' ::' + ParttimeClaimHeader."Global Dimension 1 Code" + ' ::' + ParttimeClaimHeader."Global Dimension 2 Code" + ' ::' + ParttimeClaimHeader."Responsibility Center" + ' ::' + ParttimeClaimHeader."Purpose" + ' ::' + ParttimeClaimHeader."Semester" + ' :::';
+            msg := ParttimeClaimHeader."No." + ' ::' + ParttimeClaimHeader."Semester" + ' ::' + ParttimeClaimHeader."Purpose" + ' ::' + Format(ParttimeClaimHeader."Payment Amount") + ' ::' + Format(ParttimeClaimHeader.Status) + ' :::';
         end;
     end;
 
@@ -9063,7 +9068,7 @@ Codeunit 61106 webportals
         ParttimeClaimLines.SETRANGE("Document No.", ClaimNo);
         if ParttimeClaimLines.FIND('-') then begin
             repeat
-                msg += ParttimeClaimLines."Document No." + ' ::' + ParttimeClaimLines.Semester + ' ::' + ParttimeClaimLines.programme + ' ::' + ParttimeClaimLines."Unit" + ' ::' + Format(ParttimeClaimLines.Amount) + ' :::';
+                msg += Format(ParttimeClaimLines."Line No.") + ' ::' + ParttimeClaimLines.Semester + ' ::' + ParttimeClaimLines."Academic Year" + ' ::' + ParttimeClaimLines.programme + ' ::' + ParttimeClaimLines."Unit" + ' ::' + ' ::' + Format(ParttimeClaimLines."Hours Done") + Format(ParttimeClaimLines.Amount) + ' :::';
             until ParttimeClaimLines.NEXT = 0;
         end;
     end;
@@ -9090,7 +9095,10 @@ Codeunit 61106 webportals
         LecUnits.SETRANGE(Semester, Sem);
         if LecUnits.FIND('-') then begin
             repeat
-                msg += LecUnits.Programme + ' ::';
+                programs.RESET;
+                programs.SETRANGE(Code, LecUnits.Programme);
+                if programs.FIND('-') then
+                    msg += LecUnits.Programme + ' ::' + programs.Description + ' :::';
             until LecUnits.NEXT = 0;
         end;
     end;
@@ -9110,6 +9118,53 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure CheckPartTimeLine(appno: Code[20]) exists: Boolean
+    var
+        PartTimeClaimLn: record "Parttime Claim Lines";
+    begin
+        PartTimeClaimLn.Reset();
+        PartTimeClaimLn.SETRANGE("Document No.", appno);
+        IF PartTimeClaimLn.FIND('-') THEN BEGIN
+            exists := true;
+        END
+    end;
 
+    procedure CheckPartTimeApproval(appno: Code[20]) exists: Boolean
+    begin
+        ApprovalEntry.Reset();
+        ApprovalEntry.SETRANGE("Document No.", appno);
+        IF ApprovalEntry.FIND('-') THEN BEGIN
+            exists := true;
+        END
+    end;
+
+    procedure PartTimeApprovalRequest(ReqNo: Code[20])
+    var
+        Approvalmgt: codeunit "Workflow Initialization";
+        PartTimeClaimHd: record "Parttime Claim Header";
+    begin
+        PartTimeClaimHd.Reset();
+        PartTimeClaimHd.SETRANGE("No.", ReqNo);
+        IF PartTimeClaimHd.FIND('-')
+        THEN BEGIN
+            if Approvalmgt.IsParttimeClaimEnabled(PartTimeClaimHd) = true then begin
+                PartTimeClaimHd.CommitBudget();
+                Approvalmgt.OnSendParttimeClaimforApproval(PartTimeClaimHd);
+            end
+        END;
+    end;
+
+    procedure DeletePartTimeClaimLine(claimno: code[20]; lineno: integer) deleted: boolean
+    var
+        PartTimeClaimLn: record "Parttime Claim Lines";
+    begin
+        PartTimeClaimLn.reset();
+        PartTimeClaimLn.SETRANGE(PartTimeClaimLn."Document No.", claimno);
+        PartTimeClaimLn.SETRANGE(PartTimeClaimLn."Line No.", lineno);
+        IF PartTimeClaimLn.FIND('-') THEN begin
+            PartTimeClaimLn.Delete();
+            DELETED := true;
+        end;
+    END;
 }
 
