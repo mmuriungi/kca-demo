@@ -281,6 +281,7 @@ Codeunit 61106 webportals
             UNTIL timeslots.NEXT = 0;
         END;
     end;
+
     procedure ChechPostedSemReg(StudNo: Code[30]; Sem: Code[30]) Message: Text
     begin
         CourseReg.RESET;
@@ -295,7 +296,8 @@ Codeunit 61106 webportals
             END
         END;
     end;
-procedure GetUnitsToRegister(stdno: Code[20]; progcode: Code[20]; studymode: Code[20]; day: Code[20]; timeslot: Code[20]) Details: Text
+
+    procedure GetUnitsToRegister(stdno: Code[20]; progcode: Code[20]; studymode: Code[20]; day: Code[20]; timeslot: Code[20]) Details: Text
     begin
         offeredunits.RESET;
         //offeredunits.SetRange(Campus, GetStdCampus(stdno));
@@ -355,6 +357,7 @@ procedure GetUnitsToRegister(stdno: Code[20]; progcode: Code[20]; studymode: Cod
             Message := CourseRegistration.Stage;
         END;
     end;
+
     procedure CheckFeeStatus(StudentN: Code[20]; Semest: Code[20]) Register: Code[20]
     var
         BilledAmount: Decimal;
@@ -379,7 +382,8 @@ procedure GetUnitsToRegister(stdno: Code[20]; progcode: Code[20]; studymode: Cod
 
         //MESSAGE('Register Status: '+Register);
     end;
-procedure GetLectureDays() Message: Text
+
+    procedure GetLectureDays() Message: Text
     begin
         days.RESET;
         days.SetCurrentKey("Day Order");
@@ -389,6 +393,7 @@ procedure GetLectureDays() Message: Text
             UNTIL days.NEXT = 0;
         END;
     end;
+
     procedure GetStudentCampus(username: Text) Message: Text
     begin
         Customer.RESET;
@@ -398,6 +403,7 @@ procedure GetLectureDays() Message: Text
 
         END
     end;
+
     procedure GetLecUnits(lecno: Code[20]) msg: Text
     begin
         lecturers.Reset;
@@ -526,6 +532,7 @@ procedure GetLectureDays() Message: Text
         //AttendanceHeader.Time := classtime;
         AttendanceHeader.INSERT;
     end;
+
     procedure ClassAttendanceDetails(counting: integer; stdno: code[20]; stdname: text; lectno: code[20]; unit: text; present: boolean)
     var
         entryno: integer;
@@ -575,6 +582,7 @@ procedure GetLectureDays() Message: Text
         END;
         EXIT(filename);
     end;
+
     procedure GetLectureHalls(hodno: Code[20]; day: Code[20]; timeslot: Code[20]) Message: Text
     begin
         lecturehalls.Reset();
@@ -914,10 +922,10 @@ procedure GetLectureDays() Message: Text
                     IF AcademicYr.FIND('-') THEN BEGIN*/
                     SupUnits.CalcFields("Unit Description", "2nd Supp Marks");
                     if not (SupUnits."Charge Posted") and ((SupUnits."Exam Marks" < 40) and (SupUnits."2nd Supp Marks" < 40)) then begin
-                        if not (((SupUnits.Semester = 'SEM1 23/24') and (SupUnits.Stage = 'Y1S1')) or ((SupUnits.Semester = 'SEM2 23/24') and (SupUnits.Stage = 'Y1S2')))
-                        then begin
-                            Message += SupUnits."Unit Code" + ' ::' + SupUnits."Unit Description" + ' :::';
-                        end;
+                        // if not (((SupUnits.Semester = 'SEM1 23/24') and (SupUnits.Stage = 'Y1S1')) or ((SupUnits.Semester = 'SEM2 23/24') and (SupUnits.Stage = 'Y1S2')))
+                        // then begin
+                        Message += SupUnits."Unit Code" + ' ::' + SupUnits."Unit Description" + ' :::';
+                        //end;
                     end;
                 //END;
                 until SupUnits.Next = 0;
@@ -4316,6 +4324,7 @@ procedure GetLectureDays() Message: Text
         VoteElection.Voted := true;
         VoteElection.Insert(true);
     end;
+
     procedure KUCCPSLogin(username: Text) Message: Text
     var
         FullNames: Text;
