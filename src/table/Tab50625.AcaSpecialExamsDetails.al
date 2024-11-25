@@ -54,6 +54,8 @@ table 50625 "Aca-Special Exams Details"
         field(8; "Unit Description"; Text[150])
         {
             Caption = 'Unit Description';
+            FieldClass=FlowField;
+            CalcFormula=lookup("ACA-Units/Subjects".Desription where(Code=FIELD("Unit Code")));
         }
         field(10; Status; Option)
         {
