@@ -9048,15 +9048,17 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure getParttimeclaims(ClaimNo: Code[25]) msg: Text
+    procedure getParttimeclaims(pfNo: Code[25]) msg: Text
     var
         ParttimeClaimHeader: record "Parttime Claim Header";
     begin
         ParttimeClaimHeader.RESET;
-        ParttimeClaimHeader.SETRANGE("No.", ClaimNo);
-        if ParttimeClaimHeader.FINDFIRST then begin
-            ParttimeClaimHeader.CalcFields("Payment Amount");
-            msg := ParttimeClaimHeader."No." + ' ::' + ParttimeClaimHeader."Semester" + ' ::' + ParttimeClaimHeader."Purpose" + ' ::' + Format(ParttimeClaimHeader."Payment Amount") + ' ::' + Format(ParttimeClaimHeader.Status) + ' :::';
+        ParttimeClaimHeader.SETRANGE("Account No.", pfNo);
+        if ParttimeClaimHeader.Find('-') then begin
+            Repeat
+                ParttimeClaimHeader.CalcFields("Payment Amount");
+                msg := ParttimeClaimHeader."No." + ' ::' + ParttimeClaimHeader."Semester" + ' ::' + ParttimeClaimHeader."Purpose" + ' ::' + Format(ParttimeClaimHeader."Payment Amount") + ' ::' + Format(ParttimeClaimHeader.Status) + ' :::';
+            Until ParttimeClaimHeader.NEXT = 0;
         end;
     end;
 
