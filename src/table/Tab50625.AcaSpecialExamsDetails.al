@@ -251,6 +251,8 @@ table 50625 "Aca-Special Exams Details"
         field(46; "2nd Supp Marks"; Decimal)
         {
             Caption = '2nd Supp Marks';
+            FieldClass=FlowField;
+            CalcFormula=Lookup("Aca-2nd Supp. Exams Details"."Total Marks" WHERE ("Student No."=FIELD("Student No."),"Unit Code"=FIELD("Unit Code"),"Academic Year"=FIELD("Academic Year"),Programme=FIELD(Programme),Stage=FIELD(Stage),Semester=FIELD(Semester),Category=FIELD(Category)));
         }
     }
 
