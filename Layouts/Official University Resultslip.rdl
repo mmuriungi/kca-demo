@@ -2115,6 +2115,9 @@ tN/xNshgLUpWwgCiLCag5NPUZPGHvPZ8+kt44EX6IJJeNMLXhKeYz+Lps6EzBBgCvQEBCokQbEShQfzZ
         <Field Name="CF">
           <DataField>CF</DataField>
         </Field>
+        <Field Name="CFFormat">
+          <DataField>CFFormat</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>
