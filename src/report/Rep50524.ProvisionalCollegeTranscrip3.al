@@ -317,7 +317,7 @@ report 50524 "Provisional College Transcrip3"
                 column(Final; StudUnitsss."Total Score")
                 {
                 }
-                column(Grade; StudUnitsss.Grade)
+                column(Grade; Gredi)
                 {
                 }
                 column(Status; StudUnitsss."Grade Comment")
@@ -344,7 +344,19 @@ report 50524 "Provisional College Transcrip3"
                 var
                     ProgCategory: Code[20];
                     ACAExamGraddingSetup: Record "ACA-Exam Gradding Setup";
+                    AcaStdUnits: Record "ACA-Student Units";
                 begin
+                    Gredi := '';
+                    AcaStdUnits.Reset;
+                    AcaStdUnits.SetRange("Student No.", CourseRegs."Student Number");
+                    AcaStdUnits.SetRange(Programme, CourseRegs.Programme);
+                    AcaStdUnits.SetRange("Year of Study", CourseRegs."Year of Study");
+                    AcaStdUnits.SetRange("Academic Year", CourseRegs."Academic Year");
+                    AcaStdUnits.SetRange(Unit, StudUnitsss."Unit Code");
+                    if AcaStdUnits.FindFirst() then begin
+                        AcaStdUnits.CalcFields(Grade);
+                        Gredi := AcaStdUnits.Grade;
+                    end;
                 end;
             }
 
@@ -567,6 +579,8 @@ report 50524 "Provisional College Transcrip3"
         FinalExamMark: Decimal;
         FinalCATMarks: Decimal;
         Gradez: Code[10];
+        Gredi: Code[20];
+
         TotalMarks: Decimal;
         LastGrade: Code[20];
         LastScore: Decimal;
