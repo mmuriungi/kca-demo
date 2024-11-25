@@ -782,14 +782,14 @@ SpecialTransType::SHIF, FALSE);
                 //IF ((NhifInsuApplies) AND (NHIFInsurancePercentage > 0)) THEN BEGIN
 
                 //curNHIFInsuranceReliefAmount := ((NHIFInsurancePercentage / 100) * curNHIF);
-                curNHIFInsuranceReliefAmount := ((15 / 100) * curNHIF);
+                //curNHIFInsuranceReliefAmount := ((15 / 100) * curNHIF);
                 // IF curNHIFInsuranceReliefAmount > NHIFInsuranceCap THEN
                 //   curNHIFInsuranceReliefAmount := NHIFInsuranceCap;
 
                 //IF curNHIFInsuranceReliefAmount > 0 THEN BEGIN
                 curTransAmount := ROUND(curNHIFInsuranceReliefAmount, 0.05, '=');
                 ReliefhifAmount := ROUND(curTransAmount, 0.05, '=');
-                ;
+                
                 //MESSAGE('%1',ReliefhifAmount);
                 strTransDescription := 'SHIF Insurance Relief';
                 TGroup := 'TAX COMPUTATION';
