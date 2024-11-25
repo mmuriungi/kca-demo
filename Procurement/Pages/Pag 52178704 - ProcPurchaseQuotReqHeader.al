@@ -635,7 +635,7 @@ page 52178704 "Proc-Purchase Quot Req. Header"
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         ApprovMgmt.OnCancelDocApprovalRequest(variant);
                 end;
-            }
+                }
                 action("Send Mails")
                 {
                     ApplicationArea = all;
