@@ -9042,6 +9042,8 @@ Codeunit 61106 webportals
             ParttimeLines.Validate(Semester);
             ParttimeLines.programme := Programme;
             ParttimeLines.Validate("Programme");
+            ParttimeLines."Lecture No." := PartTImer."Account No.";
+            ParttimeLines.Validate("Lecture No.");
             ParttimeLines."Unit" := UnitCode;
             ParttimeLines.Validate("Unit");
             msg := ParttimeLines.Insert(true);
