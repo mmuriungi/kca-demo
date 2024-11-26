@@ -2326,6 +2326,10 @@ table 50213 "HRM-Employee C"
         field(60099; "Exam Coordinator"; Boolean)
         {
         }
+        //Is supervisor
+        field(60100; "Is Supervisor"; Boolean)
+        {
+        }
     }
 
     keys

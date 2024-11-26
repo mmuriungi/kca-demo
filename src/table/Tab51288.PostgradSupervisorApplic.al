@@ -40,6 +40,16 @@ table 51288 "Postgrad Supervisor Applic."
         {
             Caption = 'Assigned Supervisor Code';
             tableRelation = "HRM-Employee C" where(Lecturer = Const(true));
+            trigger OnValidate()
+            var
+                Employee: Record "HRM-Employee C";
+            begin
+                Employee.Reset();
+                Employee.SetRange("No.", Rec."Assigned Supervisor Code");
+                if Employee.FindFirst() then begin
+                    Rec."Assigned Supervisor Name" := Employee.FullName();
+                end;
+            end;
         }
         field(7; "Assigned Supervisor Name"; Text[150])
         {
@@ -54,10 +64,19 @@ table 51288 "Postgrad Supervisor Applic."
         {
             DataClassification = ToBeClassified;
         }
+        //Assigned by
+        field(10; "Assigned By"; Code[25])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(11; "Semester"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
     keys
     {
-        key(PK; "No.")
+        key(PK; "No.", Semester)
         {
             Clustered = true;
         }
@@ -69,12 +88,12 @@ table 51288 "Postgrad Supervisor Applic."
         Setup: Record "PostGraduate Setup";
     begin
         if "No." = '' then begin
-        Setup.Get();
-        setup.TestField("Supervisor Assignment Nos.");
-        NoSeries.InitSeries(setup."Supervisor Assignment Nos.", xRec."No. Series", 0D, Rec."No.", xRec."No. Series");
-        "Application Date" := today;
+            Setup.Get();
+            setup.TestField("Supervisor Assignment Nos.");
+            NoSeries.InitSeries(setup."Supervisor Assignment Nos.", xRec."No. Series", 0D, Rec."No.", xRec."No. Series");
+            "Application Date" := today;
         end
     end;
 
-    
+
 }
