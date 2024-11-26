@@ -56,13 +56,13 @@ codeunit 52178530 "Procurement Process"
         rfq.Reset();
         rfq.SetRange("No.", QuoteNo);
         if rfq.Find('-') then begin
-            if rfq."Expected Opening Date" > System.CurrentDateTime then Error('Expected opening date and time is %1', rfq."Expected Opening Date");
-            if rfq."Expected Closing Date" > System.CurrentDateTime then Error('Cannot Initiate opening before %1', rfq."Expected Closing Date");
+            // if rfq."Expected Opening Date" > System.CurrentDateTime then Error('Expected opening date and time is %1', rfq."Expected Opening Date");
+            // if rfq."Expected Closing Date" > System.CurrentDateTime then Error('Cannot Initiate opening before %1', rfq."Expected Closing Date");
             if rfq."Procurement methods" = rfq."Procurement methods"::"Request for Quotation" then begin
                 Pheader.Reset();
                 Pheader.SetRange("Request for Quote No.", QuoteNo);
                 Pheader.SetRange("Quote Status", Pheader."Quote Status"::Submitted);
-                if Pheader.Count < 3 then Error('Submitted bids are less than 3!');
+              //  if Pheader.Count < 3 then Error('Submitted bids are less than 3!');
             end;
             committe.Reset();
             committe.SetRange("No.", QuoteNo);
