@@ -2,7 +2,7 @@ page 50032 "FIN-Purchase Requisition"
 {
     CardPageID = "PROC-Internal Requisitions";
     PageType = List;
-    Editable = false;
+    //Editable = false;
     SourceTable = "Purchase Header";
     SourceTableView = WHERE("Document Type" = FILTER(Quote));
     //                         
