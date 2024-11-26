@@ -9168,5 +9168,132 @@ Codeunit 61106 webportals
             DELETED := true;
         end;
     END;
+    #region Postgraduate
+    procedure GetPostgraduateStudents(pfNo: Code[25]; Sem: code[25]; Programme: code[25]) msg: Text
+    var
+        PostGradStudents: Record "ACA-Course Registration";
+        Emp: Record "HRM-Employee C";
+        Customer: Record Customer;
+    begin
+        emp.RESET;
+        emp.SETRANGE(emp."No.", pfNo);
+        if emp.FIND('-') then begin
+            PostGradStudents.RESET;
+            PostGradStudents.SETRANGE(PostGradStudents.Semester, Sem);
+            PostGradStudents.SetAutoCalcFields("Is Postgraduate", "Programme Description");
+            PostGradStudents.SETRANGE(PostGradStudents."Is Postgraduate", true);
+            PostGradStudents.SETRANGE(PostGradStudents.Programmes, Programme);
+            if PostGradStudents.FIND('-') then begin
+                repeat
+                    Customer.RESET;
+                    Customer.SETRANGE("No.", PostGradStudents."Student No.");
+                    Customer.SetRange("Global Dimension 2 Code", emp."Department Code");
+                    if Customer.FIND('-') then begin
+                        msg += Customer."No." + ' ::' + Customer.Name + ' ::' + PostGradStudents."Programmes" + ' ::' + PostGradStudents."Programme Description" + ' :::';
+                    end;
+                until PostGradStudents.NEXT = 0;
+            end;
+        end;
+    end;
+
+    procedure GetPostgraduateProgrammes(pfNo: Code[25]; Sem: code[25]) msg: Text
+    var
+        Progs: Record "ACA-Programme";
+        Emp: Record "HRM-Employee C";
+    begin
+        emp.RESET;
+        emp.SETRANGE(emp."No.", pfNo);
+        if emp.FIND('-') then begin
+            Progs.RESET;
+            Progs.SETRANGE(Progs."Department Code", Emp."Department Code");
+            Progs.SETRANGE(Progs.Category, Progs.Category::Postgraduate);
+            if Progs.FIND('-') then begin
+                repeat
+                    msg += Progs.Code + ' ::' + Progs.Description + ' :::';
+                until Progs.NEXT = 0;
+            end;
+        end;
+    end;
+
+    procedure getSupervisors(pfNo: Code[25]; Sem: code[25]; Programme: code[25]) msg: Text
+    var
+        Emp: Record "HRM-Employee C";
+        Supervisors: Record "HRM-Employee C";
+    begin
+        emp.RESET;
+        emp.SETRANGE(emp."No.", pfNo);
+        if emp.FIND('-') then begin
+            Supervisors.RESET;
+            Supervisors.SETRANGE(Supervisors."Department Code", Emp."Department Code");
+            if Supervisors.FIND('-') then begin
+                repeat
+                    msg += Supervisors."No." + ' ::' + Supervisors."First Name" + ' ::' + Supervisors."Middle Name" + ' ::' + Supervisors."Last Name" + ' :::';
+                until Supervisors.NEXT = 0;
+            end;
+        end;
+    end;
+
+    procedure AssignSupervisor(pfNo: Code[25]; Sem: code[25]; Programme: code[25]; Supervisor: code[25]; StudentNo: Code[25]) msg: Text
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+    begin
+        SuperVisorApplic.Init();
+        SuperVisorApplic."No." := '';
+        SuperVisorApplic."Student No." := StudentNo;
+        SuperVisorApplic.Validate("Student No.");
+        SuperVisorApplic."Application Date" := Today;
+        SuperVisorApplic.Status := SuperVisorApplic.Status::open;
+        SuperVisorApplic."Assigned Supervisor Code" := Supervisor;
+        SuperVisorApplic.Validate("Assigned Supervisor Code");
+        SuperVisorApplic."Semester" := Sem;
+        SuperVisorApplic.Validate("Semester");
+        SupervisorApplic."Assigned By" := pfNo;
+        SupervisorApplic.Validate("Assigned By");
+        if SuperVisorApplic.Insert(true) then
+            msg := SuperVisorApplic."No.";
+    end;
+
+    procedure GetSupervisorApplications(pfNo: Code[25]; Sem: code[25]; Programme: code[25]) msg: Text
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+        Emp: Record "HRM-Employee C";
+    begin
+        emp.RESET;
+        emp.SETRANGE(emp."No.", pfNo);
+        if emp.FIND('-') then begin
+            SuperVisorApplic.RESET;
+            SuperVisorApplic.SETRANGE(SuperVisorApplic."Assigned By", pfNo);
+            SuperVisorApplic.SETRANGE(SuperVisorApplic."Semester", Sem);
+            if SuperVisorApplic.FIND('-') then begin
+                repeat
+                    msg += SuperVisorApplic."No." + ' ::' + SuperVisorApplic."Student No." + ' ::' + SuperVisorApplic."Assigned Supervisor Code" + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
+                until SuperVisorApplic.NEXT = 0;
+            end;
+        end;
+    end;
+
+    procedure sendVariantApprovalWorkflow(DocNo: Code[25]; TableId: Integer)
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+        varVariant: Variant;
+        ApprovMgmt: Codeunit "Approval Workflows V1";
+    begin
+        case
+            TableId of
+            Database::"Postgrad Supervisor Applic.":
+                begin
+                    SuperVisorApplic.RESET;
+                    SuperVisorApplic.SETRANGE("No.", DocNo);
+                    if SuperVisorApplic.FIND('-') then begin
+                        varVariant := SuperVisorApplic;
+                    end;
+                end;
+        end;
+        if varVariant.IsRecord then begin
+            if ApprovMgmt.CheckApprovalsWorkflowEnabled(varVariant) then
+                ApprovMgmt.OnSendDocForApproval(varVariant);
+        end;
+    end;
+    #endregion
 }
 
