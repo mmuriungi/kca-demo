@@ -239,7 +239,7 @@ codeunit 50010 "Init Code"
                 end;
             Database::"PROC-Purchase Quote Header":
                 begin
-                    RecRef.SetTable(PurchaseRequisition);
+                    RecRef.SetTable(PurchQuote);
                     ApprovalEntryArgument."Document No." := PurchQuote."No.";
                 end;
 
