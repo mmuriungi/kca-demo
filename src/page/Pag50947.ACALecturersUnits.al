@@ -77,6 +77,7 @@ page 50947 "ACA-Lecturers Units"
                 {
                     ApplicationArea = All;
                 }
+                field("Is Supervisor";Rec."Is Supervisor")
             }
             group("Units/Subjects")
             {
