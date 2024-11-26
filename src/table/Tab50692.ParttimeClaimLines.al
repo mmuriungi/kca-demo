@@ -32,12 +32,12 @@ table 50692 "Parttime Claim Lines"
                 ParttimerMgmt: Codeunit "Parttimer Management";
             begin
                 TestField(Programme);
-                pplines.Reset();
-                pplines.SetRange("Lecture No.", rec."Lecture No.");
-                pplines.SetRange(Semester, Rec.Semester);
-                pplines.SetRange("Academic Year", Rec."Academic Year");
-                pplines.SetRange(Unit, Rec.Unit);
-                if pplines.Find('-') then Error('A unit is only paid once irregardless of number classes offered');
+                // pplines.Reset();
+                // pplines.SetRange("Lecture No.", rec."Lecture No.");
+                // pplines.SetRange(Semester, Rec.Semester);
+                // pplines.SetRange("Academic Year", Rec."Academic Year");
+                // pplines.SetRange(Unit, Rec.Unit);
+                // if pplines.Find('-') then Error('A unit is only paid once irregardless of number classes offered');
                 lecunits.Reset();
                 lecunits.SetRange(Semester, Semester);
                 lecunits.SetRange(Programme, Programme);
