@@ -251,21 +251,46 @@ page 50045 "FIN-Travel Advance Req. UP"
             }
             action(cancellsApproval)
             {
+                // Caption = 'Cancel Approval Re&quest';
+                // Image = Cancel;
+                // Promoted = true;
+                // PromotedCategory = Process;
+                // PromotedIsBig = true;
+                // ApplicationArea = All;
+
+                // trigger OnAction()
+                // var
+                //     ApprovalMgt: Codeunit "Init Code";
+                // begin
+                //     //IF CONFIRM('This will also reverse Busget Commitment, Continue?', FALSE) = FALSE THEN ERROR('Cancelled by user!');
+                //     CancelCommitment();
+                //     ApprovalMgt.OnCancelImprestForApproval(Rec);
+
+                // end;
+                ApplicationArea = All;
                 Caption = 'Cancel Approval Re&quest';
                 Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
+                    //ApprovalMgt: Codeunit 439;
                     ApprovalMgt: Codeunit "Init Code";
+                    showmessage: Boolean;
+                    ManualCancel: Boolean;
+                    State: Option Open,"Pending Approval",Cancelled,Approved;
+                    DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
+                    tableNo: Integer;
                 begin
-                    //IF CONFIRM('This will also reverse Busget Commitment, Continue?', FALSE) = FALSE THEN ERROR('Cancelled by user!');
-                    CancelCommitment();
+                    IF CONFIRM('This will also reverse Busget Commitment, Continue?', FALSE) = FALSE THEN ERROR('Cancelled by user!');
+                    CancelCommitment;
+                    DocType := DocType::Imprest;
+                    showmessage := TRUE;
+                    ManualCancel := TRUE;
+                    CLEAR(tableNo);
                     ApprovalMgt.OnCancelImprestForApproval(Rec);
-
                 end;
             }
             separator(_______________________)
@@ -1035,7 +1060,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                 , FINBudgetEntries."Transaction Type"::Allocation);
                 FINBudgetEntries.SETFILTER("Commitment Status", '%1|%2|%3', FINBudgetEntries."Commitment Status"::" ", FINBudgetEntries."Commitment Status"::"Commited/Posted",
                 FINBudgetEntries."Commitment Status"::Commitment);
-                FINBudgetEntries.SETFILTER(Date, PostBudgetEnties.GetBudgetStartAndEndDates(Rec.Date));
+                //FINBudgetEntries.SETFILTER(Date, PostBudgetEnties.GetBudgetStartAndEndDates(Rec.Date));
                 IF FINBudgetEntries.FIND('-') THEN BEGIN
                     IF FINBudgetEntries.CALCSUMS(Amount) THEN BEGIN
                         IF FINBudgetEntries.Amount > 0 THEN BEGIN
@@ -1099,6 +1124,40 @@ page 50045 "FIN-Travel Advance Req. UP"
 
     end;
 
+    // local procedure CancelCommitment()
+    // var
+    //     GLAccount: Record "G/L Account";
+    //     DimensionValue: Record "Dimension Value";
+    //     PostBudgetEnties: Codeunit "Post Budget Enties";
+    // begin
+    //     BCSetup.GET;
+    //     IF NOT (BCSetup.Mandatory) THEN EXIT;
+    //     BCSetup.TESTFIELD("Current Budget Code");
+    //     Rec.TESTFIELD("Shortcut Dimension 2 Code");
+    //     //Get Current Lines to loop through
+    //     FINImprestLines.RESET;
+    //     FINImprestLines.SETRANGE(No, Rec."No.");
+    //     IF FINImprestLines.FIND('-') THEN BEGIN
+    //         REPEAT
+    //         BEGIN
+    //             // Expense Budget Here
+    //             FINImprestLines.TESTFIELD("Account No:");
+    //             GLAccount.RESET;
+    //             GLAccount.SETRANGE("No.", FINImprestLines."Account No:");
+    //             IF GLAccount.FIND('-') THEN GLAccount.TESTFIELD(Name);
+    //             DimensionValue.RESET;
+    //             DimensionValue.SETRANGE(Code, Rec."Shortcut Dimension 2 Code");
+    //             DimensionValue.SETRANGE("Global Dimension No.", 2);
+    //             IF DimensionValue.FIND('-') THEN DimensionValue.TESTFIELD(Name);
+    //             IF (FINImprestLines.Amount > 0) THEN BEGIN
+    //                 // Commit Budget Here
+    //                 PostBudgetEnties.CancelBudgetCommitment(FINImprestLines."Account No:", Rec.Date, Rec."Global Dimension 1 Code", Rec."Shortcut Dimension 2 Code",
+    //                 FINImprestLines.Amount, FINImprestLines."Account Name", USERID, 'IMPREST', Rec."No." + FINImprestLines."Account No:", Rec.Purpose);
+    //             END;
+    //         END;
+    //         UNTIL FINImprestLines.NEXT = 0;
+    //     END;
+    // end;
     local procedure CancelCommitment()
     var
         GLAccount: Record "G/L Account";
@@ -1106,7 +1165,7 @@ page 50045 "FIN-Travel Advance Req. UP"
         PostBudgetEnties: Codeunit "Post Budget Enties";
     begin
         BCSetup.GET;
-        IF NOT (BCSetup.Mandatory) THEN EXIT;
+        IF NOT ((BCSetup.Mandatory) AND (BCSetup."Imprest Budget mandatory")) THEN EXIT;
         BCSetup.TESTFIELD("Current Budget Code");
         Rec.TESTFIELD("Shortcut Dimension 2 Code");
         //Get Current Lines to loop through
@@ -1126,7 +1185,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                 IF DimensionValue.FIND('-') THEN DimensionValue.TESTFIELD(Name);
                 IF (FINImprestLines.Amount > 0) THEN BEGIN
                     // Commit Budget Here
-                    PostBudgetEnties.CancelBudgetCommitment(FINImprestLines."Account No:", Rec.Date, Rec."Global Dimension 1 Code", Rec."Shortcut Dimension 2 Code",
+                    PostBudgetEnties.CancelBudgetCommitment(FINImprestLines."Account No:", Rec.Date, '', Rec."Shortcut Dimension 2 Code",
                     FINImprestLines.Amount, FINImprestLines."Account Name", USERID, 'IMPREST', Rec."No." + FINImprestLines."Account No:", Rec.Purpose);
                 END;
             END;
