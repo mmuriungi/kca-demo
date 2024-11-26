@@ -3163,6 +3163,18 @@ table 50555 "ACA-Course Registration"
         {
             DataClassification = ToBeClassified;
         }
+        //Is Postgraduate
+        field(60199; "Is Postgraduate"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = exist("ACA-Programme" WHERE(Code = FIELD(Programmes), Category = const(Postgraduate)));
+        }
+        //."Programme Description"
+        field(60200; "Programme Description"; Text[50])
+        {
+            FieldClass = FlowField;
+            CalcFormula = lookup("ACA-Programme".Description WHERE(Code = FIELD(Programmes)));
+        }
 
     }
 

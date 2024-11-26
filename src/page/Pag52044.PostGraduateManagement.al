@@ -60,7 +60,7 @@ page 52044 "Post Graduate Management"
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Supervisors';
-                    RunObject = Page "ACA-Lecturer List";
+                    RunObject = Page "Supervisor List";
                     ToolTip = 'View and manage supervisors';
                 }
                 action(SupervisorApplications)
