@@ -54,6 +54,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelRFQRequestTxt: Label 'An Approval request for RFQ is Cancelled';
         RunWorkflowOnSendRFQForApprovalCode: Label 'RUNWORKFLOWONSENDRFQFORAPPROVAL';
         RunWorkflowOnCancelRFQForApprovalCode: Label 'RUNWORKFLOWONCANCELRFQFORAPPROVAL';
+        //Part time claim
+        OnSendPartTimeClaimRequestTxt: Label 'Approval request for Part Time Claim is requested';
+        OnCancelPartTimeClaimRequestTxt: Label 'An Approval request for Part Time Claim is Cancelled';
+        RunWorkflowOnSendPartTimeClaimForApprovalCode: Label 'RUNWORKFLOWONSENDPARTTIMECLAIMFORAPPROVAL';
+        RunWorkflowOnCancelPartTimeClaimForApprovalCode: Label 'RUNWORKFLOWONCANCELPARTTIMECLAIMFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -83,6 +88,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendTenderForApprovalCode));
             Database:: "Proc-Purchase Quote Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendRFQForApprovalCode));
+            Database::"Parttime Claim Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendPartTimeClaimForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -147,6 +154,9 @@ codeunit 50089 "Approval Workflows V1"
         //RFQ Workflow
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendRFQForApprovalCode, Database::"Proc-Purchase Quote Header", OnSendRFQRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelRFQForApprovalCode, Database::"Proc-Purchase Quote Header", OnCancelRFQRequestTxt, 0, false);
+        //Part time claim
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendPartTimeClaimForApprovalCode, Database::"Parttime Claim Header", OnSendPartTimeClaimRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelPartTimeClaimForApprovalCode, Database::"Parttime Claim Header", OnCancelPartTimeClaimRequestTxt, 0, false);
     end;
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
@@ -182,6 +192,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendTenderForApprovalCode, Variant);
             Database::"Proc-Purchase Quote Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendRFQForApprovalCode, Variant);
+            Database::"Parttime Claim Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendPartTimeClaimForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -215,6 +227,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelTenderForApprovalCode, Variant);
             Database::"Proc-Purchase Quote Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelRFQForApprovalCode, Variant);
+            Database::"Parttime Claim Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelPartTimeClaimForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -234,6 +248,7 @@ codeunit 50089 "Approval Workflows V1"
         CommiteeAppoint: Record "Proc-Committee Appointment H";
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
+        PartTimeClaim: Record "Parttime Claim Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -306,6 +321,13 @@ codeunit 50089 "Approval Workflows V1"
                     RFQHeader.Modify();
                     Handled := true;
                 end;
+            Database::"Parttime Claim Header":
+                begin
+                    RecRef.SetTable(PartTimeClaim);
+                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::Open);
+                    PartTimeClaim.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -322,6 +344,7 @@ codeunit 50089 "Approval Workflows V1"
         CommitteAppointment: Record "Proc-Committee Appointment H";
         TenderHEader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
+        PartTimeClaim: Record "Parttime Claim Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -400,6 +423,13 @@ codeunit 50089 "Approval Workflows V1"
                     RFQHeader.Modify();
                     IsHandled := true;
                 end;
+            Database::"Parttime Claim Header":
+                begin
+                    RecRef.SetTable(PartTimeClaim);
+                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::"Pending Approval");
+                    PartTimeClaim.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -416,6 +446,7 @@ codeunit 50089 "Approval Workflows V1"
         CommitteAppoint: Record "Proc-Committee Appointment H";
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
+        PartTimeClaim: Record "Parttime Claim Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -468,6 +499,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(RFQHeader);
                     ApprovalEntryArgument."Document No." := RFQHeader."No.";
                 end;
+            Database::"Parttime Claim Header":
+                begin
+                    RecRef.SetTable(PartTimeClaim);
+                    ApprovalEntryArgument."Document No." := PartTimeClaim."No.";
+                end;
         end;
     end;
 
@@ -487,6 +523,7 @@ codeunit 50089 "Approval Workflows V1"
         CommitteAppoint: Record "Proc-Committee Appointment H";
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
+        PartTimeClaim: Record "Parttime Claim Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -562,6 +599,13 @@ codeunit 50089 "Approval Workflows V1"
                     RFQHeader.Modify();
                     Handled := true;
                 end;
+            Database::"Parttime Claim Header":
+                begin
+                    RecRef.SetTable(PartTimeClaim);
+                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::Approved);
+                    PartTimeClaim.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -578,6 +622,7 @@ codeunit 50089 "Approval Workflows V1"
         CommitteAppoint: Record "Proc-Committee Appointment H";
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
+        PartTimeClaim: Record "Parttime Claim Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -650,6 +695,13 @@ codeunit 50089 "Approval Workflows V1"
                         RFQHeader.Modify(true);
                     end;
                 end;
+            Database::"Parttime Claim Header":
+                begin
+                    if PartTimeClaim.Get(ApprovalEntry."Document No.") then begin
+                        PartTimeClaim.Status := PartTimeClaim.Status::Cancelled;
+                        PartTimeClaim.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -665,6 +717,7 @@ codeunit 50089 "Approval Workflows V1"
         ProcplanHeader: Record "PROC-Procurement Plan Header";
         TenderHeader: Record "Tender HEader";
         RFQHeader: Record "Proc-Purchase Quote Header";
+        PartTimeClaim: Record "Parttime Claim Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -731,6 +784,13 @@ codeunit 50089 "Approval Workflows V1"
                     RFQHeader.Modify();
                     Variant := RFQHeader;
                 end;
+            Database::"Parttime Claim Header":
+                begin
+                    RecRef.SetTable(PartTimeClaim);
+                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::Pending);
+                    PartTimeClaim.Modify();
+                    Variant := PartTimeClaim;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -748,6 +808,7 @@ codeunit 50089 "Approval Workflows V1"
         ProcplanHeader: Record "PROC-Procurement Plan Header";
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
+        PartTimeClaim: Record "Parttime Claim Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -813,6 +874,13 @@ codeunit 50089 "Approval Workflows V1"
                     RFQHeader.Validate("Status", RFQHeader.Status::"Pending Approval");
                     RFQHeader.Modify();
                     Variant := RFQHeader;
+                end;
+            Database::"Parttime Claim Header":
+                begin
+                    RecRef.SetTable(PartTimeClaim);
+                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::"Pending Approval");
+                    PartTimeClaim.Modify();
+                    Variant := PartTimeClaim;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);

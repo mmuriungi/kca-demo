@@ -11,7 +11,7 @@ page 50970 "Parttime Claim List"
         {
             repeater(General)
             {
-
+ 
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
@@ -120,13 +120,15 @@ page 50970 "Parttime Claim List"
                 Image = SendApprovalRequest;
 
                 trigger OnAction()
+                var
+                ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-                    if Approvalmgt.IsParttimeClaimEnabled(Rec) = true then begin
-                        Rec.CommitBudget();
-                        Approvalmgt.OnSendParttimeClaimforApproval(Rec)
-                    end
-                    ELSE
-                        error('Check workflow');
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                    Rec.CommitBudget();
+                        ApprovMgmt.OnSendDocForApproval(variant);
+
                 end;
             }
             action("Approvals")
@@ -144,16 +146,26 @@ page 50970 "Parttime Claim List"
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = SendApprovalRequest;
-
-                trigger OnAction()
+                 trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-                    if Approvalmgt.IsParttimeClaimEnabled(Rec) = true
-                     then begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         Rec.CancelCommitment();
-                        Approvalmgt.OnSendParttimeClaimforApproval(Rec);
-                    end ELSE
-                        error('Cwheck Your workflow');
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                 end;
+
+                // trigger OnAction()
+                // begin
+                //     if Approvalmgt.IsParttimeClaimEnabled(Rec) = true
+                //      then begin
+                //         Rec.CancelCommitment();
+                //         Approvalmgt.OnSendParttimeClaimforApproval(Rec);
+                //     end ELSE
+                //         error('Cwheck Your workflow');
+                // end;
             }
             action(EDMS)
             {
