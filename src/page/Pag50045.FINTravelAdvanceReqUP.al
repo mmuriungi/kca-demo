@@ -284,7 +284,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                     DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
                     tableNo: Integer;
                 begin
-                    IF CONFIRM('This will also reverse Busget Commitment, Continue?', FALSE) = FALSE THEN ERROR('Cancelled by user!');
+                    IF CONFIRM('This will also reverse Budget Commitment, Continue?', FALSE) = FALSE THEN ERROR('Cancelled by user!');
                     CancelCommitment;
                     DocType := DocType::Imprest;
                     showmessage := TRUE;

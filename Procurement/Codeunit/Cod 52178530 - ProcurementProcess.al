@@ -62,7 +62,7 @@ codeunit 52178530 "Procurement Process"
                 Pheader.Reset();
                 Pheader.SetRange("Request for Quote No.", QuoteNo);
                 Pheader.SetRange("Quote Status", Pheader."Quote Status"::Submitted);
-              //  if Pheader.Count < 3 then Error('Submitted bids are less than 3!');
+                //  if Pheader.Count < 3 then Error('Submitted bids are less than 3!');
             end;
             committe.Reset();
             committe.SetRange("No.", QuoteNo);
@@ -165,7 +165,7 @@ codeunit 52178530 "Procurement Process"
             mem.Reset();
             mem.SetRange("No.", QuoteNo);
             mem.SetRange("Committee Type", mem."Committee Type"::"Evaluation Committee");
-            mem.Setfilter(Role, '%1|%2', mem.Role::Chairperson, mem.Role::Member);
+            // mem.Setfilter(Role, '%1|%2', mem.Role::Chairperson, mem.Role::Member);
             mem.SetFilter("Entry No.", '<>%1', 0);
             if mem.Find('-') then begin
                 repeat
@@ -963,7 +963,7 @@ codeunit 52178530 "Procurement Process"
             committe.Reset();
             committe.SetRange("No.", TenderNo);
             committe.SetRange("Committee Type", committe."Committee Type"::"Evaluation Committee");
-            committe.Setfilter(role, '%1|%2', committe.role::Chairperson, committe.role::Member);
+            // committe.Setfilter(role, '%1|%2', committe.role::Chairperson, committe.role::Member);
             if committe.Find('-') then begin
                 repeat
                     confrm.Init();
@@ -1588,9 +1588,10 @@ codeunit 52178530 "Procurement Process"
     procedure IntentionToAward(var eval: Record "Proc Proffessional Opinion")
     var
         Intention: Record "Proc-Intention To Award";
+        Bids: record "Proc Bidder Quoted Amounts";
     begin
         // if Confirm('Initiate Opinion ?', true) = false then Error('Cancelled');
-        eval.TestField("Recommended for Award");
+
         Intention.Reset();
         Intention.SetRange("No.", eval."No.");
         if not Intention.Find('-') then begin
@@ -1761,7 +1762,7 @@ codeunit 52178530 "Procurement Process"
         sno := 0;
         pheader.Init();
         prpay.get;
-        pheader."No." := NoSeriesMgt.GetNextNo(prpay."Tender Submission", 0D, True);
+        pheader."No." := NoSeriesMgt.GetNextNo(prpay."Bid No.", 0D, True);
         pheader."Quote No." := header."No.";
         pheader."Request for Quote No." := header."No.";
         pheader."Posting Description" := header.Description;

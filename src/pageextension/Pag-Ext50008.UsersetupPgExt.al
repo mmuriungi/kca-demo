@@ -50,6 +50,16 @@ pageextension 50008 UsersetupPgExt extends "User Setup"
             {
                 ApplicationArea = All;
             }
+            field("Proffessional OP"; Rec."Proffessional OP")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Proffessional OP field.', Comment = '%';
+            }
+            field("Accounting Officer"; Rec."Accounting Officer")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Accounting Officer field.', Comment = '%';
+            }
             field("Can View Payroll"; rec."Can View Payroll")
             {
                 ApplicationArea = All;

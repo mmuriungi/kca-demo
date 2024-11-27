@@ -3,13 +3,17 @@
 /// </summary>
 page 51453 "ACA-Hostels Role Center"
 {
-    Caption = 'Hostels/Cafeteria Roles';
+    Caption = 'Hostels Role Center';
     PageType = RoleCenter;
 
     layout
     {
         area(rolecenter)
         {
+            part(Headlines; "Team Member Activities")
+            {
+                ApplicationArea = All;
+            }
             // group(gre)
             // {
             //     part("POS Menu Items"; "POS Menu List")
@@ -38,75 +42,7 @@ page 51453 "ACA-Hostels Role Center"
 
         area(creation)
         {
-            action("Hostel Status Summary Report")
-            {
-                Caption = 'Hostel Status Summary Report';
-                Image = Status;
-
-
-                RunObject = Report "Hostel Status Summary Report";
-                ApplicationArea = All;
-            }
-            action("AlloCation Analysis")
-            {
-                Caption = 'AlloCation Analysis';
-                Image = Interaction;
-
-
-                RunObject = Report "Hostel Status Summary Graph";
-                ApplicationArea = All;
-            }
-            action("Incidents Report")
-            {
-                Caption = 'Incidents Report';
-                Image = Register;
-
-
-                RunObject = Report "Hostel Incidents Report";
-                ApplicationArea = All;
-            }
-            action("Hostel Allocations")
-            {
-                Caption = 'Hostel Allocations';
-                Image = Allocations;
-
-
-                RunObject = Report "Hostel Allocations Per Block";
-                ApplicationArea = All;
-            }
-            action("Detailled Allocations")
-            {
-                Caption = 'Detailled Allocations';
-                Image = AllocatedCapacity;
-
-
-                RunObject = Report "Hostel Allo. Per Room/Block";
-                ApplicationArea = All;
-            }
-            action("Room Status")
-            {
-                Caption = 'Room Status';
-                Image = Status;
-
-
-                RunObject = Report "Hostel Vaccant Per Room/Block";
-                ApplicationArea = All;
-            }
-            action("Allocations List")
-            {
-                Caption = 'Allocations List';
-                Image = Allocate;
-
-
-                RunObject = Report "Hostel Allo. Per Room (Det.)";
-                ApplicationArea = All;
-            }
-            action("Hostels Collection Report")
-            {
-                Image = "Report";
-                RunObject = Report "Aca-Hostel Charge Collection";
-                ApplicationArea = All;
-            }
+           
         }
         area(reporting)
         {
@@ -301,229 +237,77 @@ page 51453 "ACA-Hostels Role Center"
                         ApplicationArea = All;
                     }
                 } */
+            action("Hostel Status Summary Report")
+            {
+                Caption = 'Hostel Status Summary Report';
+                Image = Status;
 
+
+                RunObject = Report "Hostel Status Summary Report";
+                ApplicationArea = All;
+            }
+            action("AlloCation Analysis")
+            {
+                Caption = 'AlloCation Analysis';
+                Image = Interaction;
+
+
+                RunObject = Report "Hostel Status Summary Graph";
+                ApplicationArea = All;
+            }
+            action("Incidents Report")
+            {
+                Caption = 'Incidents Report';
+                Image = Register;
+
+
+                RunObject = Report "Hostel Incidents Report";
+                ApplicationArea = All;
+            }
+            action("Hostel Allocations")
+            {
+                Caption = 'Hostel Allocations';
+                Image = Allocations;
+
+
+                RunObject = Report "Hostel Allocations Per Block";
+                ApplicationArea = All;
+            }
+            action("Detailled Allocations")
+            {
+                Caption = 'Detailled Allocations';
+                Image = AllocatedCapacity;
+
+
+                RunObject = Report "Hostel Allo. Per Room/Block";
+                ApplicationArea = All;
+            }
+            action("Room Status")
+            {
+                Caption = 'Room Status';
+                Image = Status;
+
+
+                RunObject = Report "Hostel Vaccant Per Room/Block";
+                ApplicationArea = All;
+            }
+            action("Allocations List")
+            {
+                Caption = 'Allocations List';
+                Image = Allocate;
+                RunObject = Report "Hostel Allo. Per Room (Det.)";
+                ApplicationArea = All;
+            }
+            action("Hostels Collection Report")
+            {
+                Image = "Report";
+                RunObject = Report "Aca-Hostel Charge Collection";
+                ApplicationArea = All;
+            }
             }
         }
         area(sections)
         {
-            // group(CafeMan)
-            // {
-            //     Caption = 'POS';
-
-            //     action(MealsPhyInvJournal)
-
-            //     {
-            //         Caption = 'Meals Phy. Inv. Journa';
-            //         RunObject = Page "Meals Phy. Inv. Journal";
-            //         Image = InventoryJournal;
-            //     }
-            //     action("Food Item Inventory ")
-            //     {
-            //         Caption = 'Cafe Menu Items';
-            //         RunObject = page "Food Item Inventory";
-            //         Image = LinesFromTimesheet;
-            //     }
-            //     action("CAFE Food Item List")
-            //     {
-            //         Caption = 'Food Inventory';
-            //         RunObject = page "CAFE Food Item List";
-
-            //     }
-            //     action(CafeteriaMenuPrices)
-
-            //     {
-            //         Caption = 'Food Price List';
-            //         RunObject = Page "Cafeteria Menu Prices";
-            //         Image = PostedCreditMemo;
-            //     }
-
-            //     action("Cash Sale Header-Staff")
-            //     {
-            //         Caption = 'Staff Cash Sale';
-            //         RunObject = Page "Cash Sale Header-Staff";
-            //         
-            //         PromotedOnly = true;
-            //         Visible = false;
-            //         
-            //     }
-            //     action("Cash Sale Header-Student")
-            //     {
-            //         Caption = 'Student Cash Sale';
-            //         RunObject = Page "Cash Sale Header-Student";
-            //         
-            //         PromotedOnly = true;
-            //         Visible = false;
-            //         
-            //     }
-            //     action("POS Reports")
-            //     {
-            //         Caption = 'POS Reports';
-            //         RunObject = Page "POS Sales Reports";
-            //         
-            //         Visible = false;
-            //         PromotedOnly = true;
-            //         
-            //     }
-            //     action(PostedMealProcBatches)
-            //     {
-            //         Caption = 'Posted Batches';
-            //         RunObject = Page "Posted Meal-Proc. Batches";
-            //         Image = ProfileCalendar;
-            //     }
-            //     action("Sales Receipts (New)")
-            //     {
-            //         Caption = 'Sales Receipts (New)';
-            //         RunObject = Page "CAT-Cafe. Rec. List (Filtered)";
-            //         
-            //         PromotedOnly = true;
-            //         Visible = false;
-            //         
-            //     }
-            //     action("Receipts (Unprinted)")
-            //     {
-            //         Caption = 'Receipts (Unprinted)';
-            //         RunObject = Page "CAT-Unprinted Cafeteria Recpts";
-            //     }
-            //     action("Receipts (UnPosted)")
-            //     {
-            //         Caption = 'Receipts (UnPosted)';
-            //         RunObject = Page "CAT-Unposted Cafeteria Recpts";
-            //     }
-            //     action("Receipts (Cancelled)")
-            //     {
-            //         Caption = 'Receipts (Cancelled)';
-            //         Visible = false;
-            //         RunObject = Page "CAT-Cancelled Cafeteria Recpts";
-            //     }
-            //     action("Receipts (Posted)")
-            //     {
-            //         Caption = 'Receipts (Posted)';
-            //         RunObject = Page "CAT-Posted Cafeteria Receipts";
-            //     }
-
-
-
-
-
-
-            //     action(MealsCentralSetup)
-
-            //     {
-            //         Caption = 'Meals Proc. Central Setup';
-            //         RunObject = Page "Meal-Proc. Central Setup";
-            //         Image = CancelledEntries;
-            //     }
-            //     action(MealBatchNoSetup)
-
-            //     {
-            //         Caption = 'Meal Batch No Setup';
-            //         RunObject = Page "Meal Batch No. Setup";
-            //         Image = ChangeBatch;
-            //     }
-            //     action(CafeteriaLocations)
-
-            //     {
-            //         Caption = 'Cafeteria Locations';
-            //         RunObject = Page "Cafeteria Locations";
-            //         Image = PostedDeposit;
-            //     }
-
-            //     action(MealsProductionPermissions)
-
-            //     {
-            //         Caption = 'Meals Prod. Permissions';
-            //         RunObject = Page "Meal-Proc. Permissions";
-            //         Image = PrepaymentInvoice;
-            //     }
-
-            //     action(CashUserTemplate)
-
-            //     {
-            //         Caption = 'Cash Office User Template';
-            //         RunObject = Page "Cash Office User Template UP";
-            //         Visible = false;
-            //         Image = CashFlowSetup;
-            //     }
-            //     action(PostedFoodStocksDate)
-
-            //     {
-            //         Caption = 'Posted Stocks';
-            //         RunObject = Page "Posted Food Stocks/Date";
-            //         Image = PostedCreditMemo;
-            //     }
-            //     action("Cash Sale List-Student")
-            //     {
-            //         Caption = 'Staff Sales';
-            //         RunObject = page "Cash Sale List-Student";
-            //     }
-            // }
-            // group("POS Sales")
-            // {
-
-            //     action("POS Setup")
-            //     {
-            //         ApplicationArea = All;
-            //         Image = SetupPayment;
-            //         RunObject = Page "POS Setup";
-
-            //     }
-            //     action("POS Items")
-            //     {
-            //         ApplicationArea = All;
-
-
-            //         Image = SalesInvoice;
-            //         RunObject = Page "POS Items";
-
-            //     }
-            //     action("Stock Adjuctment")
-            //     {
-            //         ApplicationArea = All;
-
-
-            //         Image = AdjustEntries;
-            //         RunObject = Page "POS Stock Header List";
-            //     }
-            //     action("POSSales")
-            //     {
-            //         Caption = 'POS Sales';
-            //         ApplicationArea = All;
-
-
-            //         Image = PostedPayment;
-            //         RunObject = Page "POS Sales Header List";
-            //     }
-
-            // }
-            // group(SalesPos)
-            // {
-            //     action("StudentsSales")
-            //     {
-            //         AccessByPermission = TableData "POS Sales Header" = IMD;
-            //         ApplicationArea = Basic, suite;
-            //         Caption = 'Student sales';
-
-            //         Image = ExportMessage;
-            //         ShortcutKey = 'F7';
-            //         RunObject = Page "POS Sales Student Card";
-            //         RunPageMode = Create;
-            //     }
-            //     action("StaffSales")
-            //     {
-
-            //         AccessByPermission = TableData "POS Sales Header" = IMD;
-            //         ApplicationArea = Basic, suite;
-            //         Caption = 'Staff sales';
-
-            //         Image = ExportMessage;
-            //         ShortcutKey = 'F9';
-            //         RunObject = Page "POS Sales Staff";
-            //         RunPageMode = Create;
-            //     }
-            // }
-
-
-
             group("Hostel Management")
             {
                 Caption = 'Hostel Management';

@@ -145,18 +145,7 @@ page 52178567 "PROC Proff Opinion.Quote"
                     end;
                 end;
             }
-            action("Intention To Award ")
-            {
-                ApplicationArea = all;
-                Image = SalutationFormula;
-                Promoted = true;
-                PromotedCategory = Process;
-                trigger OnAction()
-                begin
-                    procProcess.IntentionToAward(rec);
-                end;
-            }
-            action("Recommend For Award")
+             action("Recommend For Award")
             {
                 ApplicationArea = All;
                 Image = Process;
@@ -183,6 +172,18 @@ page 52178567 "PROC Proff Opinion.Quote"
                     CurrPage.Close();
                 end;
             }
+            action("Intention To Award ")
+            {
+                ApplicationArea = all;
+                Image = SalutationFormula;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                begin
+                    procProcess.IntentionToAward(rec);
+                end;
+            }
+           
             action("Award")
             {
                 ApplicationArea = All;

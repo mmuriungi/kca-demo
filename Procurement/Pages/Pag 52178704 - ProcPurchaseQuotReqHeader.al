@@ -547,7 +547,7 @@ page 52178704 "Proc-Purchase Quot Req. Header"
             }
             group("Bids")
             {
-                Visible = false;
+               // Visible = false;
                 action("Bid")
                 {
                     ApplicationArea = All;

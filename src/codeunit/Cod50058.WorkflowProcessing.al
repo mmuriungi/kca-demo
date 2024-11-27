@@ -26,15 +26,15 @@ codeunit 50058 "Workflow Processing"
         //End MealBooking Responses 
         //ParttimeClaim REssponses
         //ParttimeClaimS
-        SendParttimeClaimReq: TextConst ENU = 'Approval Request for ParttimeClaim is requested', ENG = 'Approval Request for ParttimeClaim is requested';
-        AppReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is approved', ENG = 'Approval Request for ParttimeClaim is approved';
-        RejReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is rejected', ENG = 'Approval Request for ParttimeClaim is rejected';
-        CanReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is cancelled', ENG = 'Approval Request for ParttimeClaim is cancelled';
-        UserCanReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is cancelled by User', ENG = 'Approval Request for ParttimeClaim is cancelled by User';
-        DelReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is delegated', ENG = 'Approval Request for ParttimeClaim is delegated';
-        ParttimeClaimPendAppTxt: TextConst ENU = 'Status of ParttimeClaim changed to Pending approval', ENG = 'Status of ParttimeClaim changed to Pending approval';
-        ReleaseParttimeClaimTxt: TextConst ENU = 'Release ParttimeClaim', ENG = 'Release ParttimeClaim';
-        ReOpenParttimeClaimTxt: TextConst ENU = 'ReOpen ParttimeClaim', ENG = 'ReOpen ParttimeClaim';
+        // SendParttimeClaimReq: TextConst ENU = 'Approval Request for ParttimeClaim is requested', ENG = 'Approval Request for ParttimeClaim is requested';
+        // AppReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is approved', ENG = 'Approval Request for ParttimeClaim is approved';
+        // RejReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is rejected', ENG = 'Approval Request for ParttimeClaim is rejected';
+        // CanReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is cancelled', ENG = 'Approval Request for ParttimeClaim is cancelled';
+        // UserCanReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is cancelled by User', ENG = 'Approval Request for ParttimeClaim is cancelled by User';
+        // DelReqParttimeClaim: TextConst ENU = 'Approval Request for ParttimeClaim is delegated', ENG = 'Approval Request for ParttimeClaim is delegated';
+        // ParttimeClaimPendAppTxt: TextConst ENU = 'Status of ParttimeClaim changed to Pending approval', ENG = 'Status of ParttimeClaim changed to Pending approval';
+        // ReleaseParttimeClaimTxt: TextConst ENU = 'Release ParttimeClaim', ENG = 'Release ParttimeClaim';
+        // ReOpenParttimeClaimTxt: TextConst ENU = 'ReOpen ParttimeClaim', ENG = 'ReOpen ParttimeClaim';
     //END ParttimeClaimS
     //End ParttimeClaim Responses 
 
@@ -349,95 +349,95 @@ codeunit 50058 "Workflow Processing"
         end;
     end;
 
-    procedure ReOpenParttimeClaimCode(): Code[128]
-    begin
-        exit(UpperCase('ReOpenParttimeClaim'));
-    end;
+    // procedure ReOpenParttimeClaimCode(): Code[128]
+    // begin
+    //     exit(UpperCase('ReOpenParttimeClaim'));
+    // end;
 
-    procedure ReOpenParttimeClaim(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        ParttimeClaim: Record "Parttime Claim Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReOpenParttimeClaim(Variant);
-                end;
-            DATABASE::"Parttime Claim Header":
-                begin
-                    RecRef.SetTable(ParttimeClaim);
-                    ParttimeClaim.Validate(Status, ParttimeClaim.Status::Pending);
-                    ParttimeClaim.Modify();
-                    Variant := ParttimeClaim;
-                end;
-        end;
-    end;
+    // procedure ReOpenParttimeClaim(var Variant: Variant)
+    // var
+    //     RecRef: RecordRef;
+    //     TargetRecRef: RecordRef;
+    //     ApprovalEntry: Record "Approval Entry";
+    //     ParttimeClaim: Record "Parttime Claim Header";
+    // begin
+    //     RecRef.GetTable(Variant);
+    //     case RecRef.Number() of
+    //         DATABASE::"Approval Entry":
+    //             begin
+    //                 ApprovalEntry := Variant;
+    //                 TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
+    //                 Variant := TargetRecRef;
+    //                 ReOpenParttimeClaim(Variant);
+    //             end;
+    //         DATABASE::"Parttime Claim Header":
+    //             begin
+    //                 RecRef.SetTable(ParttimeClaim);
+    //                 ParttimeClaim.Validate(Status, ParttimeClaim.Status::Pending);
+    //                 ParttimeClaim.Modify();
+    //                 Variant := ParttimeClaim;
+    //             end;
+    //     end;
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
-    procedure AddParttimeClaimEventToLibrary()
-    begin
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendParttimeClaimApprovalCode(), Database::"Parttime Claim Header", SendParttimeClaimReq, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveParttimeClaimApprovalCode(), Database::"Approval Entry", AppReqParttimeClaim, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectParttimeClaimApprovalCode(), Database::"Approval Entry", RejReqParttimeClaim, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateParttimeClaimApprovalCode(), Database::"Approval Entry", DelReqParttimeClaim, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnCancelledParttimeClaimApprovalCode(), Database::"Approval Entry", CanReqParttimeClaim, 0, false);
-        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelParttimeClaimApprovalCode, Database::"Parttime Claim Header", UserCanReqParttimeClaim, 0, false);
-    end;
+    //[EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
+    // procedure AddParttimeClaimEventToLibrary()
+    // begin
+        // WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendParttimeClaimApprovalCode(), Database::"Parttime Claim Header", SendParttimeClaimReq, 0, false);
+        // WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveParttimeClaimApprovalCode(), Database::"Approval Entry", AppReqParttimeClaim, 0, false);
+        // WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectParttimeClaimApprovalCode(), Database::"Approval Entry", RejReqParttimeClaim, 0, false);
+        // WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateParttimeClaimApprovalCode(), Database::"Approval Entry", DelReqParttimeClaim, 0, false);
+        // WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnCancelledParttimeClaimApprovalCode(), Database::"Approval Entry", CanReqParttimeClaim, 0, false);
+        // WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelParttimeClaimApprovalCode, Database::"Parttime Claim Header", UserCanReqParttimeClaim, 0, false);
+   // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
-    procedure AddParttimeClaimRespToLibrary()
-    begin
-        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeParttimeClaim(), 0, ParttimeClaimPendAppTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReleaseParttimeClaimCode(), 0, ReleaseParttimeClaimTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReOpenParttimeClaimCode(), 0, ReOpenParttimeClaimTxt, 'GROUP 0');
-    end;
+    //[EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
+    // procedure AddParttimeClaimRespToLibrary()
+    // begin
+        // WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeParttimeClaim(), 0, ParttimeClaimPendAppTxt, 'GROUP 0');
+        // WorkflowResponseHandling.AddResponseToLibrary(ReleaseParttimeClaimCode(), 0, ReleaseParttimeClaimTxt, 'GROUP 0');
+        // WorkflowResponseHandling.AddResponseToLibrary(ReOpenParttimeClaimCode(), 0, ReOpenParttimeClaimTxt, 'GROUP 0');
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
-    procedure ExeRespForParttimeClaim(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
-    var
-        WorkflowResponse: Record "Workflow Response";
-    begin
-        IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
-            case WorkflowResponse."Function Name" of
-                SetStatusToPendingApprovalCodeParttimeClaim():
-                    begin
-                        SetStatusToPendingApprovalParttimeClaim(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReleaseParttimeClaimCode():
-                    begin
-                        ReleaseParttimeClaim(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReOpenParttimeClaimCode():
-                    begin
-                        ReOpenParttimeClaim(Variant);
-                        ResponseExecuted := true;
-                    end;
-            end;
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
+    // procedure ExeRespForParttimeClaim(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
+    // var
+    //     WorkflowResponse: Record "Workflow Response";
+    // begin
+    //     IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
+    //         case WorkflowResponse."Function Name" of
+    //             SetStatusToPendingApprovalCodeParttimeClaim():
+    //                 begin
+    //                     SetStatusToPendingApprovalParttimeClaim(Variant);
+    //                     ResponseExecuted := true;
+    //                 end;
+    //             ReleaseParttimeClaimCode():
+    //                 begin
+    //                     ReleaseParttimeClaim(Variant);
+    //                     ResponseExecuted := true;
+    //                 end;
+    //             ReOpenParttimeClaimCode():
+    //                 begin
+    //                     ReOpenParttimeClaim(Variant);
+    //                     ResponseExecuted := true;
+    //                 end;
+    //         end;
+    // end;
 
 
-    //Cancelling of ParttimeClaim Code
-    procedure RunWorkflowOnCancelParttimeClaimApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnCancelParttimeClaimApproval'))
-    end;
+    // //Cancelling of ParttimeClaim Code
+    // procedure RunWorkflowOnCancelParttimeClaimApprovalCode(): Code[128]
+    // begin
+    //     exit(UpperCase('RunWorkflowOnCancelParttimeClaimApproval'))
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Initialization", 'OnCancelParttimeClaimForApproval', '', false, false)]
-    procedure RunWorkflowOnCancelParttimeClaimApproval(VAR ParttimeClaim: Record "Parttime Claim Header")
-    begin
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Initialization", 'OnCancelParttimeClaimForApproval', '', false, false)]
+    // procedure RunWorkflowOnCancelParttimeClaimApproval(VAR ParttimeClaim: Record "Parttime Claim Header")
+    // begin
 
-        WFMngt.HandleEvent(RunWorkflowOnCancelParttimeClaimApprovalCode(), ParttimeClaim);
+    //     WFMngt.HandleEvent(RunWorkflowOnCancelParttimeClaimApprovalCode(), ParttimeClaim);
 
-    end;
+    // end;
     //End Cancelling ParttimeClaim Code
 
     //End ParttimeClaim Workflow

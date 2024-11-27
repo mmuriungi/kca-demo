@@ -82,6 +82,11 @@ page 52178621 "Proc-Intention To Award"
                     ToolTip = 'Specifies the value of the Phone No field.';
                 }
             }
+              part("Recommended Bidder(s)"; "Proc Bidder Quoted Amounts")
+            {
+                ApplicationArea = all;
+                SubPageLink = "Document No" = field("No.");
+            }
         }
     }
     actions

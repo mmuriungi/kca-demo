@@ -324,7 +324,7 @@ codeunit 50089 "Approval Workflows V1"
             Database::"Parttime Claim Header":
                 begin
                     RecRef.SetTable(PartTimeClaim);
-                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::Open);
+                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::Pending);
                     PartTimeClaim.Modify();
                     Handled := true;
                 end;
