@@ -155,17 +155,7 @@ page 50970 "Parttime Claim List"
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         Rec.CancelCommitment();
                         ApprovMgmt.OnCancelDocApprovalRequest(variant);
-                end;
-
-                // trigger OnAction()
-                // begin
-                //     if Approvalmgt.IsParttimeClaimEnabled(Rec) = true
-                //      then begin
-                //         Rec.CancelCommitment();
-                //         Approvalmgt.OnSendParttimeClaimforApproval(Rec);
-                //     end ELSE
-                //         error('Cwheck Your workflow');
-                // end;
+                end; 
             }
             action(EDMS)
             {
