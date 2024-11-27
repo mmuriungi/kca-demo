@@ -279,7 +279,10 @@ page 52178704 "Proc-Purchase Quot Req. Header"
                 PromotedCategory = New;
                 Image = Process;
                 trigger OnAction()
+                var
+                    Comm: record "Proc-Committee Appointment H";
                 begin
+                   
                     procProcess.InitiateOpening(rec."No.");
                 end;
             }

@@ -2164,7 +2164,7 @@ page 50017 "FIN-Payment Header"
                  FINBudgetEntries."Transaction Type"::Commitment, FINBudgetEntries."Transaction Type"::Allocation);
                 // FINBudgetEntries.SETFILTER("Commitment Status", '%1|%2|%3', FINBudgetEntries."Commitment Status"::Cancelled,
                 // FINBudgetEntries."Commitment Status"::"Commited/Posted", FINBudgetEntries."Commitment Status"::Commitment);
-                FINBudgetEntries.SETFILTER(Date, PostBudgetEnties.GetBudgetStartAndEndDates(Rec.Date));
+                //FINBudgetEntries.SETFILTER(Date, PostBudgetEnties.GetBudgetStartAndEndDates(Rec.Date));
                 IF FINBudgetEntries.FIND('-') THEN BEGIN
                     IF FINBudgetEntries.CALCSUMS(Amount) THEN BEGIN
                         IF FINBudgetEntries.Amount > 0 THEN BEGIN
@@ -2181,7 +2181,6 @@ page 50017 "FIN-Payment Header"
             UNTIL FINPaymentLine.NEXT = 0;
         END;
     end;
-
     local procedure ExpenseBudget()
     var
         GLAccount: Record "G/L Account";
