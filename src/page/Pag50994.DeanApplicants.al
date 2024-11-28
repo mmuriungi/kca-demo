@@ -78,7 +78,7 @@ page 50994 "Dean-Applicants"
                 {
                     ApplicationArea = All;
                 }
-                field(School1;Rec.School1)
+                field(School;Rec.School1)
                 {
                     ApplicationArea = All;
                 }

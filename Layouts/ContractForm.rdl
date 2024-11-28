@@ -11,79 +11,6 @@
       <rd:DataSourceID>a8e4efdc-0c51-4301-b069-c823f8d0e870</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="CompanyLogo">
-          <DataField>CompanyLogo</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="CompanyAddress">
-          <DataField>CompanyAddress</DataField>
-        </Field>
-        <Field Name="CompanyAddress2">
-          <DataField>CompanyAddress2</DataField>
-        </Field>
-        <Field Name="CompanyPostCode">
-          <DataField>CompanyPostCode</DataField>
-        </Field>
-        <Field Name="CompanyCity">
-          <DataField>CompanyCity</DataField>
-        </Field>
-        <Field Name="CompanyPhone">
-          <DataField>CompanyPhone</DataField>
-        </Field>
-        <Field Name="CompanyFax">
-          <DataField>CompanyFax</DataField>
-        </Field>
-        <Field Name="CompanyEmail">
-          <DataField>CompanyEmail</DataField>
-        </Field>
-        <Field Name="CompanyWebsite">
-          <DataField>CompanyWebsite</DataField>
-        </Field>
-        <Field Name="ISOCert">
-          <DataField>ISOCert</DataField>
-        </Field>
-        <Field Name="Contract_Date">
-          <DataField>Contract_Date</DataField>
-        </Field>
-        <Field Name="Date_of_Award">
-          <DataField>Date_of_Award</DataField>
-        </Field>
-        <Field Name="Creation_Date">
-          <DataField>Creation_Date</DataField>
-        </Field>
-        <Field Name="Ref_No_">
-          <DataField>Ref_No_</DataField>
-        </Field>
-        <Field Name="Quote_No">
-          <DataField>Quote_No</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Vendor_Name">
-          <DataField>Vendor_Name</DataField>
-        </Field>
-        <Field Name="Vendor_No">
-          <DataField>Vendor_No</DataField>
-        </Field>
-        <Field Name="Amount">
-          <DataField>Amount</DataField>
-        </Field>
-        <Field Name="AmountFormat">
-          <DataField>AmountFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -614,12 +541,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -659,4 +580,77 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyLogo">
+          <DataField>CompanyLogo</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="CompanyAddress">
+          <DataField>CompanyAddress</DataField>
+        </Field>
+        <Field Name="CompanyAddress2">
+          <DataField>CompanyAddress2</DataField>
+        </Field>
+        <Field Name="CompanyPostCode">
+          <DataField>CompanyPostCode</DataField>
+        </Field>
+        <Field Name="CompanyCity">
+          <DataField>CompanyCity</DataField>
+        </Field>
+        <Field Name="CompanyPhone">
+          <DataField>CompanyPhone</DataField>
+        </Field>
+        <Field Name="CompanyFax">
+          <DataField>CompanyFax</DataField>
+        </Field>
+        <Field Name="CompanyEmail">
+          <DataField>CompanyEmail</DataField>
+        </Field>
+        <Field Name="CompanyWebsite">
+          <DataField>CompanyWebsite</DataField>
+        </Field>
+        <Field Name="ISOCert">
+          <DataField>ISOCert</DataField>
+        </Field>
+        <Field Name="Contract_Date">
+          <DataField>Contract_Date</DataField>
+        </Field>
+        <Field Name="Date_of_Award">
+          <DataField>Date_of_Award</DataField>
+        </Field>
+        <Field Name="Creation_Date">
+          <DataField>Creation_Date</DataField>
+        </Field>
+        <Field Name="Ref_No_">
+          <DataField>Ref_No_</DataField>
+        </Field>
+        <Field Name="Quote_No">
+          <DataField>Quote_No</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Vendor_Name">
+          <DataField>Vendor_Name</DataField>
+        </Field>
+        <Field Name="Vendor_No">
+          <DataField>Vendor_No</DataField>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+        </Field>
+        <Field Name="AmountFormat">
+          <DataField>AmountFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
