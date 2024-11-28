@@ -197,6 +197,61 @@ page 50046 "Procurement Management"
                 }
 
             }
+             group("Procurement Process")
+            {
+                action("Procurement Plan")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Procurement Plan';
+                    RunObject = Page "PROC-Procurement Plan list";
+                    ToolTip = 'Create Procurement Plan';
+                }
+                action("Departmental Requisition")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Purchase Requisition';
+                    RunObject = Page "FIN-Purchase Requisition";
+                    ToolTip = 'Raise Purchase Requisition or Departmental Requisition';
+
+                }
+                action("Approved-Purchase Requisition")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Approved-Purchase Requisition';
+                    RunObject = Page "Approved-Purchase Requisition";
+                    ToolTip = 'View a list of Approved Purchase requisitions';
+                    //"Approved-Purchase Requisition"
+                }
+                action("Request for Quatation")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Request for Quotation';
+                    RunObject = Page "PROC-Purchase Quote List";
+                    ToolTip = 'Request for quatation';
+                }
+                action("Quatation")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Purchase Quotes';
+                    RunObject = Page "PROC-Purchase Quotes";
+
+                    ToolTip = 'Raise A purchase Quote';
+                }
+                action("Purchase Order")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Purchase Order';
+                    RunObject = Page "Purchase Order";
+                    ToolTip = 'View Archived Store Requisition';
+                }
+                action(ApprovedPurchase2)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Approved Purchase Orders';
+                    RunObject = Page "Approved Purchase Order";
+                    ToolTip = 'Create purchase orders to mirror sales documents that vendors send to you. This enables you to record the cost of purchases and to track accounts payable. Posting purchase orders dynamically updates inventory levels so that you can minimize inventory costs and provide better customer service. Purchase orders allow partial receipts, unlike with purchase invoices, and enable drop shipment directly from your vendor to your customer. Purchase orders can be created automatically from PDF or image files from your vendors by using the Incoming Documents feature.';
+                }
+            }
 
             group("Committee Selection")
             {

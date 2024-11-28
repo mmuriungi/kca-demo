@@ -481,23 +481,57 @@ page 52178563 "Proc Open.Tender Header"
             } */
             group("Approval")
             {
-                action("Send For Approval")
-                {
-                    ApplicationArea = All;
-                    Promoted = true;
-                    Image = SendApprovalRequest;
-                    PromotedCategory = Category7;
-                    trigger OnAction()
-                    var
-                        approvalmgt: Codeunit "Init Code";
-                    begin
-                        if approvalmgt.IsPurchQuoteEnabled(Rec) = true then
-                            approvalmgt.OnSendPurchQuoteforApproval(Rec)
-                        else
-                            Message('Check Your workflow if enabled');
-                    end;
-                }
+                // action("Send For Approval")
+                // {
+                //     ApplicationArea = All;
+                //     Promoted = true;
+                //     Image = SendApprovalRequest;
+                //     PromotedCategory = Category7;
+                //     trigger OnAction()
+                //     var
+                //         approvalmgt: Codeunit "Init Code";
+                //     begin
+                //         if approvalmgt.IsPurchQuoteEnabled(Rec) = true then
+                //             approvalmgt.OnSendPurchQuoteforApproval(Rec)
+                //         else
+                //             Message('Check Your workflow if enabled');
+                //     end;
+                // }
+                action(SendApprovalRequest)
+            {
+                ApplicationArea = All;
+                Caption = 'Send Approval Request';
+                Image = SendApprovalRequest;
+                Visible = Rec."Status" = Rec.Status::"Open";
 
+                trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
+                begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnSendDocForApproval(variant);
+                end;
+            }
+            //cancelapproval
+            action(CancelApproval)
+            {
+                ApplicationArea = All;
+                Caption = 'Cancel Approval';
+                Image = CancelApproval;
+                Visible = Rec."Status" = Rec."Status"::"Pending Approval";
+
+                trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
+                begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end;
+            }
                 action(Approvals)
                 {
                     ApplicationArea = All;
@@ -508,20 +542,20 @@ page 52178563 "Proc Open.Tender Header"
                     RunPageLink = "Document No." = field("No.");
 
                 }
-                action("Cancel Approval Request")
-                {
-                    ApplicationArea = All;
-                    Image = CancelApprovalRequest;
-                    Promoted = true;
-                    PromotedCategory = Category7;
-                    trigger OnAction()
-                    var
-                        approvalmgt: Codeunit "Init Code";
-                    begin
-                        //if Confirm('Cancel Request ?', true) = false then Error('Cancelled');
-                        approvalmgt.OnCancelPurchQuoteforApproval(Rec);
-                    end;
-                }
+                // action("Cancel Approval Request")
+                // {
+                //     ApplicationArea = All;
+                //     Image = CancelApprovalRequest;
+                //     Promoted = true;
+                //     PromotedCategory = Category7;
+                //     trigger OnAction()
+                //     var
+                //         approvalmgt: Codeunit "Init Code";
+                //     begin
+                //         //if Confirm('Cancel Request ?', true) = false then Error('Cancelled');
+                //         approvalmgt.OnCancelPurchQuoteforApproval(Rec);
+                //     end;
+                // }
             }
             group("Attachments")
             {

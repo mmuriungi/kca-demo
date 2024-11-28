@@ -5,7 +5,7 @@ page 52178701 "PROC-Internal Requisitions"
 {
     Caption = 'Internal Requisition';
     DeleteAllowed = true;
-    InsertAllowed = false;
+    // InsertAllowed = false;
     PageType = Card;
     RefreshOnActivate = true;
     SourceTable = "Purchase Header";
@@ -73,11 +73,7 @@ page 52178701 "PROC-Internal Requisitions"
 
 
 
-                field("Buy-from Vendor No."; Rec."Buy-from Vendor No.")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
+                
 
 
                 field("Assigned User ID"; Rec."Assigned User ID")
@@ -94,7 +90,11 @@ page 52178701 "PROC-Internal Requisitions"
                     Editable = false;
                     Visible = false;
                 }
-
+                field("Buy-from Vendor No."; Rec."Buy-from Vendor No.")
+                {
+                    ApplicationArea = All;
+                    //Editable = false;
+                }
 
                 field(Status; Rec.Status)
                 {

@@ -3,7 +3,6 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
     fields
     {
 
-
         field(6063; "Quote Status"; Option)
         {
             OptionMembers = Pending,Submitted,Recalled,"Prelim Qualif","Prelim Disqualif","Tech Qualf","Tech Disqualif","Demo Qualif","Demo Disqualif","Fin Qualif","Fin Disqualif","Recommended Award";

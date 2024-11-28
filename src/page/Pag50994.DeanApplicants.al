@@ -78,6 +78,10 @@ page 50994 "Dean-Applicants"
                 {
                     ApplicationArea = All;
                 }
+                field(School1;Rec.School1)
+                {
+                    ApplicationArea = All;
+                }
                 field("Intake Code"; Rec."Intake Code")
                 {
                     ApplicationArea = All;

@@ -229,6 +229,12 @@ page 51156 "Deans Applicants CARD"
 
                     end;
                 }
+                field(School1; Rec.School1)
+                {
+                    ApplicationArea = All;
+                    Caption = 'School Code';
+                    Editable = false;
+                }
 
                 field(programName; Rec.programName)
                 {
