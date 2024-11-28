@@ -12,7 +12,7 @@ page 51400 "FLT-Submitted Transport Req"
         {
             Group("PART ONE: APPLICANT")
             {
-                Editable = False;
+                //Editable = False;
                 field("Transport Requisition No"; Rec."Transport Requisition No")
                 {
                     ApplicationArea = All;
@@ -75,7 +75,7 @@ page 51400 "FLT-Submitted Transport Req"
                 }
                 field(Status; Rec.Status)
                 {
-                    Editable = false;
+                    //Editable = false;
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Status field.';
                 }

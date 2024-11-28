@@ -9,7 +9,7 @@ page 51397 "FLT-Transport Req."
         {
             Group("PART ONE: APPLICANT")
             {
-                Editable = group1;
+                //Editable = group1;
                 field("Transport Requisition No"; Rec."Transport Requisition No")
                 {
                     ApplicationArea = All;

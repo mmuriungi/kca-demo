@@ -7,7 +7,7 @@ table 50950 "FLT-Driver"
     {
         field(1; Driver; Code[10])
         {
-            TableRelation = "HRM-Employee C"."No." where(Driver = filter('True'));
+            TableRelation = "HRM-Employee C"."No." where(Driver = const(true));
 
             trigger OnValidate()
             begin
@@ -17,7 +17,7 @@ table 50950 "FLT-Driver"
                 "Driver License Number" := emp."Driver License Number";
                 "Driver Contact" := emp."Cellular Phone Number";
                 Designation := emp."Job Specification";
-                rec.Modify();
+                //rec.Modify();
                 //grade := emp.Grade;
             end;
         }

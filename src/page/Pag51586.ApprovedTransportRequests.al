@@ -82,7 +82,7 @@ page 51586 "Approved Transport Requests"
             }
             Group("PART TWO: HEAD OF DEPARTMENT/FACULTY/SECTION")
             {
-                Editable = group2;
+                //Editable = group2;
                 field("Recommed this Request"; Rec."Recommed this Request")
                 {
                     ApplicationArea = All;
@@ -106,7 +106,7 @@ page 51586 "Approved Transport Requests"
             }
             group("PART THREE: TRANSPORT AND OPERATIONS OFFICER")
             {
-                Editable = group3;
+                //Editable = group3;
                 field("Mileage Before Trip";
                 Rec."Mileage Before Trip")
                 {
@@ -152,7 +152,7 @@ page 51586 "Approved Transport Requests"
             }
             group("PART FOUR: ADMINISTRATION AND CENTRAL SERVICES")
             {
-                Editable = group4;
+                //Editable = group4;
 
                 field("Approved/Not Approved"; Rec."Approved Request ?")
                 {
