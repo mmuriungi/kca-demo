@@ -466,6 +466,29 @@ page 51449 "HMS-Hospital Role Centre"
                 }
 
             }
+            group("Medical Claims")
+                {
+                    Caption='Medical Claims';
+                    action("Medical Schemes")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Medical Schemes';
+                        RunObject = Page "Medical Schemes";
+                    }
+                    action("Medical Facilities")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Medical Facilities';
+                        RunObject = Page "Medical Facilities";
+                    }
+                    action("Medical & Claims")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Medical Claims';
+                        RunObject = Page "Medical Claims List";
+                    }
+                }
+            
             group(HMS_Admissions)
             {
                 Caption = 'Admissions';
