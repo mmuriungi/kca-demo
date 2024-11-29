@@ -20,10 +20,10 @@ page 52017 "Sports Equip. Manager RC"
             {
                 ApplicationArea = All;
             }
-            part(EquipmentChart; "Equipment Usage Chart")
-            {
-                ApplicationArea = All;
-            }
+            // part(EquipmentChart; "Equipment Usage Chart")
+            // {
+            //     ApplicationArea = All;
+            // }
             part(GameList; "Game List Part")
             {
                 ApplicationArea = All;
@@ -82,7 +82,7 @@ page 52017 "Sports Equip. Manager RC"
             {
                 ApplicationArea = All;
                 Caption = 'Equipment Issuance';
-                RunObject = page "Equipment Issuance";
+                RunObject = page "Equipment Issuance List";
             }
         }
         area(Processing)
