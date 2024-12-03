@@ -68,7 +68,7 @@ report 50629 "Hostel Invoice"
             column(Footer3; 'THIS INVOICE IS VALID ONLY FOR 24 HOURS')
             {
             }
-            column(hEADER1; 'MASENO UNIVERSITY P.O. BOX 1957 - 10101 MASENO TEL: 05920091')
+            column(hEADER1; Companyinfo.Name)
             {
             }
             column(invpost; invpost)
@@ -147,5 +147,6 @@ report 50629 "Hostel Invoice"
         bals: Decimal;
         bal2: Decimal;
         invpost: Code[30];
+        CompanyInfo: Record "Company Information";
 }
 

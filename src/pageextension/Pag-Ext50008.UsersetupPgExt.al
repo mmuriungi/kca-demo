@@ -259,10 +259,14 @@ pageextension 50008 UsersetupPgExt extends "User Setup"
                 ToolTip = 'Specifies the value of the Post Bank Rec field.';
                 ApplicationArea = All;
             }
-            // field(Registrar;Rec.Registrar)
-            // {
-            //     ApplicationArea = All;
-            // }
+            field(Registrar;Rec.Registrar)
+            {
+                ApplicationArea = All;
+            }
+            field("Procurement Notification";Rec."Procurement Notification")
+            {
+                ApplicationArea = All;
+            }
 
         }
     }

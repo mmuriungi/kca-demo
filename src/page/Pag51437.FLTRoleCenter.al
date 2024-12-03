@@ -103,7 +103,7 @@ page 51437 "FLT-Role Center"
                 Image = Travel;
                 action("Transport Requisition")
                 {
-                    Caption = 'Transport Requisition';
+                    Caption = 'Transport Requisitions';
                     RunObject = Page "FLT-Transport Req. List";
                     ApplicationArea = All;
                 }
@@ -117,12 +117,6 @@ page 51437 "FLT-Role Center"
                 {
                     Caption = 'Approved Transport Requisition';
                     RunObject = Page "FLT-Approved transport Req";
-                    ApplicationArea = All;
-                }
-                action("Car Pool Requests")
-                {
-                    Caption = 'Merged Transport Requisition';
-                    RunObject = Page "Merged Requests";
                     ApplicationArea = All;
                 }
                 action("Closed Transport Requisition")
@@ -178,9 +172,9 @@ page 51437 "FLT-Role Center"
 
 
             }
-            group(Fuel_reqs)
+            group("Fuel Consumption")
             {
-                Caption = 'Fuel Requisitions';
+                Caption = 'Fuel Consumption';
                 Image = Intrastat;
                 action(Fuel_Req)
                 {

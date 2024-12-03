@@ -629,10 +629,6 @@ table 50953 "FLT-Transport Requisition"
         {
 
         }
-        field(50053; "Merged Request"; Boolean)
-        {
-
-        }
     }
 
     keys

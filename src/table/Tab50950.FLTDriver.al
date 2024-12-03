@@ -87,6 +87,15 @@ table 50950 "FLT-Driver"
         {
             DataClassification = ToBeClassified;
         }
+        field(13; "PSV License Number"; Code[20])
+        {
+        }
+        field(14; "PSV License Expiry"; Date)
+        {
+        }
+        field(15; "Driver Grade"; Code[20])
+        {
+        }
     }
 
     keys

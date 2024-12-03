@@ -6,6 +6,7 @@ codeunit 52178509 "Requisition Management"
     end;
 
     var
+        NotificationHander: Codeunit "Notifications Handler";
         GLSetup: Record "General Ledger Setup";
         SalesSetup: Record "Sales & Receivables Setup";
         PurchSetup: Record "Purchases & Payables Setup";
@@ -245,6 +246,86 @@ codeunit 52178509 "Requisition Management"
                 DocLines.Select2 := FALSE;
             UNTIL DocLines.NEXT = 0;
         END;
+    end;
+    procedure CheckItemReorderLevel(ReqNo: Code[20])
+    var
+        item: Record Item;
+        RequisitionLines: Record "PROC-Store Requistion Lines";
+        usersetup: Record "User Setup";
+
+        recipientName: Text;
+        recipientEmail: Text;
+        addBcc: Text;
+        body: Text;
+        addCC: Text;
+        hasAttachment: Boolean;
+        attachmentBase64: Text;
+        attachmentName: Text;
+        attachmentType: Text;
+    begin
+        usersetup.Reset();
+        usersetup.SetRange("Procurement Notification", true);
+
+        if usersetup.FindSet() then begin
+            addBcc := '';
+            addCC := '';
+
+            repeat
+                if (recipientName = '') then begin
+                    recipientName := usersetup.UserName;
+                    recipientEmail := usersetup."E-Mail";
+                end
+                else begin
+                    // Add subsequent users to CC or BCC
+                    if (addCC = '') then
+                        addCC := usersetup."E-Mail"
+                    else
+                        addCC += ';' + usersetup."E-Mail";
+
+                    if (addBcc = '') then
+                        addBcc := usersetup."E-Mail"
+                    else
+                        addBcc += ';' + usersetup."E-Mail";
+                end;
+            until usersetup.Next() = 0;
+
+            if addCC <> '' then
+                addCC := DelChr(addCC, '>', ';');
+            if addBcc <> '' then
+                addBcc := DelChr(addBcc, '>', ';');
+        end;
+
+
+        RequisitionLines.SetRange("Requistion No", ReqNo);
+
+        if RequisitionLines.FindSet() then begin
+            repeat
+                item.Get(RequisitionLines."No.");
+
+                if (item."Reorder Point" > 0) and (item."Reorder Point" > item."Stockout Warning") then begin
+
+                    body := StrSubstNo(
+                        'Item %1 has reached its reorder point of %2 and is below the stockout warning level of %3',
+                        item."No.",
+                        item."Reorder Point",
+                        item."Stockout Warning"
+                    );
+
+                    NotificationHander.fnSendemail(
+                        recipientName,
+                        'Reorder Level Notification',
+                        body,
+                        recipientEmail,
+                        addCC,
+                        addBcc,
+                        false,
+                        attachmentBase64,
+                        attachmentName,
+                        attachmentType
+                    );
+                end;
+            until RequisitionLines.Next() = 0;
+        end;
     end;
 }
 

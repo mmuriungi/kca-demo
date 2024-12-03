@@ -15,66 +15,6 @@
     <ReportSection>
       <Body>
         <ReportItems>
-          <Image Name="Image2">
-            <Source>Embedded</Source>
-            <Value>MasenoUniversityLogo</Value>
-            <Sizing>FitProportional</Sizing>
-            <Top>0.08208in</Top>
-            <Left>0.33208in</Left>
-            <Height>1.29167in</Height>
-            <Width>1.3125in</Width>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Image>
-          <Textbox Name="Textbox1">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value EvaluationMode="Auto">Maseno University</Value>
-                    <Style>
-                      <FontFamily>Cambria</FontFamily>
-                      <FontSize>18pt</FontSize>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value EvaluationMode="Auto">
-Private Bag,Maseno, Kenya
-Tel: +254 - 57 - 351620/22
-Fax: +254 - 57 - 351221
-info@maseno.ac.ke</Value>
-                    <Style>
-                      <FontFamily>Cambria</FontFamily>
-                      <FontSize>11pt</FontSize>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.18625in</Top>
-            <Left>2.57167in</Left>
-            <Height>1.08333in</Height>
-            <Width>4.30208in</Width>
-            <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="Textbox2">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -82,7 +22,7 @@ info@maseno.ac.ke</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Hostel Charge Collection</Value>
+                    <Value>Hostel Charge Collection</Value>
                     <Style>
                       <FontFamily>Cambria</FontFamily>
                       <FontSize>11pt</FontSize>
@@ -94,11 +34,10 @@ info@maseno.ac.ke</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.45708in</Top>
-            <Left>1.55083in</Left>
+            <Top>1.19041in</Top>
+            <Left>1.81333in</Left>
             <Height>0.25in</Height>
             <Width>2.19792in</Width>
-            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -150,7 +89,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Student</Value>
+                                  <Value>Student</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -180,7 +119,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Hostel</Value>
+                                  <Value>Hostel</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -210,7 +149,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Room</Value>
+                                  <Value>Room</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -240,7 +179,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Space No</Value>
+                                  <Value>Space No</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -270,7 +209,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Academic Year</Value>
+                                  <Value>Academic Year</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -300,7 +239,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Semester</Value>
+                                  <Value>Semester</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -330,7 +269,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Date Billed</Value>
+                                  <Value>Date Billed</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -360,7 +299,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Charges</Value>
+                                  <Value>Charges</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -395,7 +334,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!SNo.Value</Value>
+                                  <Value>=Fields!SNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -425,7 +364,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!HNo.Value</Value>
+                                  <Value>=Fields!HNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -455,7 +394,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!RNo.Value</Value>
+                                  <Value>=Fields!RNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -485,7 +424,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!SpaceNo.Value</Value>
+                                  <Value>=Fields!SpaceNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -515,7 +454,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!AYear.Value</Value>
+                                  <Value>=Fields!AYear.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -545,7 +484,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Sem.Value</Value>
+                                  <Value>=Fields!Sem.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -575,7 +514,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!BDate.Value</Value>
+                                  <Value>=Fields!BDate.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -605,7 +544,7 @@ info@maseno.ac.ke</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Scharges.Value</Value>
+                                  <Value>=Fields!Scharges.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -653,11 +592,11 @@ info@maseno.ac.ke</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>1.92583in</Top>
-            <Left>0.26958in</Left>
+            <Top>1.50986in</Top>
+            <Left>0.18755in</Left>
             <Height>0.5in</Height>
             <Width>9.88669in</Width>
-            <ZIndex>3</ZIndex>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -671,14 +610,14 @@ info@maseno.ac.ke</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">TOTALS: </Value>
+                    <Value>TOTALS: </Value>
                     <Style>
                       <FontFamily>Cambria</FontFamily>
                       <FontSize>12pt</FontSize>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value EvaluationMode="Auto">=Sum(Fields!Scharges.Value)</Value>
+                    <Value>=Sum(Fields!Scharges.Value)</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -690,6 +629,52 @@ info@maseno.ac.ke</Value>
             <Left>8.00917in</Left>
             <Height>0.25in</Height>
             <Width>2.06507in</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image1">
+            <Source>Database</Source>
+            <Value>=First(Fields!pic.Value, "DataSet_Result")</Value>
+            <MIMEType>image/jpeg</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>0.205in</Top>
+            <Left>0.46619in</Left>
+            <Height>0.7493in</Height>
+            <Width>0.875in</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="Textbox17">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!compName.Value, "DataSet_Result")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>0.69667in</Top>
+            <Left>1.81333in</Left>
+            <Height>0.25in</Height>
+            <Width>4.39167in</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -702,11 +687,18 @@ info@maseno.ac.ke</Value>
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>3.35417in</Height>
+        <Height>8.51959cm</Height>
         <Style />
       </Body>
-      <Width>10.20835in</Width>
+      <Width>25.92921cm</Width>
       <Page>
+        <PageHeight>21.59cm</PageHeight>
+        <PageWidth>27.94cm</PageWidth>
+        <LeftMargin>0cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>0cm</TopMargin>
+        <BottomMargin>0cm</BottomMargin>
+        <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>
     </ReportSection>
@@ -1558,7 +1550,7 @@ uVACJrfspJ38n3Et0BtLx6Xjh1/Vh67YrzudJeNaMW08HMRckcLV3I9ReffroRvXwcO1acn8hrrla7We
   </EmbeddedImages>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">

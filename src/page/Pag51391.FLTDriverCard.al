@@ -18,10 +18,7 @@ page 51391 "FLT-Driver Card"
                 {
                     ApplicationArea = All;
                 }
-                // field(Grade; Rec.Grade)
-                // {
-                //     ApplicationArea = All;
-                // }
+                
                 field("Driver License Number"; Rec."Driver License Number")
                 {
                     ApplicationArea = All;
@@ -43,6 +40,18 @@ page 51391 "FLT-Driver Card"
                     ApplicationArea = All;
                 }
                 field("Next License Renewal"; Rec."Next License Renewal")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver Grade";Rec."Driver Grade")
+                {
+                    ApplicationArea = All;
+                }
+                field("PSV License Number";Rec."PSV License Number")
+                {
+                    ApplicationArea = All;
+                }
+                field("PSV License Expiry";Rec."PSV License Expiry")
                 {
                     ApplicationArea = All;
                 }

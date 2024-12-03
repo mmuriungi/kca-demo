@@ -245,6 +245,7 @@ page 52178503 "PROC-Store Req. Header (B)"
                         rec.Issuer := UserId;
                         Rec.MODIFY;
                         ExpenseBudget();
+                       RequisitionMgnt.CheckItemReorderLevel(Rec."No.");
                     END;
                     // CurrPage.UPDATE;
 
@@ -373,6 +374,7 @@ page 52178503 "PROC-Store Req. Header (B)"
         PROCStoreRequistionLines: Record "PROC-Store Requistion Lines";
         Item: Record Item;
         RespCentre: Record "Responsibility Center";
+        RequisitionMgnt: Codeunit "Requisition Management";
 
 
     procedure LinesExists(): Boolean
