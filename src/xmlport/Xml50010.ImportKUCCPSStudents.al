@@ -1,6 +1,7 @@
 xmlport 50010 "Import KUCCPS Students"
 {
-    Format = VariableText;
+    Direction = Both;
+    Format = VariableText;   
 
     schema
     {

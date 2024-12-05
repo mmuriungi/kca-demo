@@ -2886,19 +2886,21 @@ codeunit 50094 staffportals
 
     procedure PartTimeApprovalRequest(ReqNo: Code[20])
     var
-        Approvalmgt: codeunit "Workflow Initialization";
-
+        ApprovMgmt: Codeunit "Approval Workflows V1";
+        PartTimeClaimHd: record "Parttime Claim Header";
+        variant: Variant;
     begin
         PartTimeClaimHd.Reset();
         PartTimeClaimHd.SETRANGE("No.", ReqNo);
         IF PartTimeClaimHd.FIND('-')
         THEN BEGIN
-            if Approvalmgt.IsParttimeClaimEnabled(PartTimeClaimHd) = true then begin
-                PartTimeClaimHd.CommitBudget();
-                Approvalmgt.OnSendParttimeClaimforApproval(PartTimeClaimHd);
+            variant := partTimeClaimHd;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                    PartTimeClaimHd.CommitBudget();
+                        ApprovMgmt.OnSendDocForApproval(variant);
+
             end
         END;
-    end;
 
     procedure GetProgFaculty(Prog: Code[20]) FactName: Text
     begin

@@ -196,7 +196,7 @@ page 50732 "KUCCPS Imports"
                         '\Town' +
                         '\Email' +
                         '\Slt Mail') = false then;
-                        Xmlport.Run(50187, false, true);
+                        Xmlport.Run(XmlPort::"Import KUCCPS Students", false, true);
                     end;
                 }
                 action(SelectAll)

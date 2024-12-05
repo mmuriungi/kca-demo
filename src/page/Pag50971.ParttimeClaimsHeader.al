@@ -141,7 +141,7 @@ page 50971 "Parttime Claims Header"
     {
         area(Processing)
         {
-            action("Request Approval")
+             action("Request Approval")
             {
                 ApplicationArea = All;
                 Promoted = true;
@@ -149,13 +149,15 @@ page 50971 "Parttime Claims Header"
                 Image = SendApprovalRequest;
 
                 trigger OnAction()
+                var
+                ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-                    if Approvalmgt.IsParttimeClaimEnabled(Rec) = true then begin
-                        Rec.CommitBudget();
-                        Approvalmgt.OnSendParttimeClaimforApproval(Rec)
-                    end
-                    ELSE
-                        error('Check workflow');
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                    Rec.CommitBudget();
+                        ApprovMgmt.OnSendDocForApproval(variant);
+
                 end;
             }
             action("Approvals")
@@ -173,16 +175,16 @@ page 50971 "Parttime Claims Header"
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = SendApprovalRequest;
-
-                trigger OnAction()
+                 trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-                    if Approvalmgt.IsParttimeClaimEnabled(Rec) = true
-                     then begin
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         Rec.CancelCommitment();
-                        Approvalmgt.OnSendParttimeClaimforApproval(Rec);
-                    end ELSE
-                        error('Cwheck Your workflow');
-                end;
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end; 
             }
             action(EDMS)
             {
@@ -213,7 +215,5 @@ page 50971 "Parttime Claims Header"
             }
         }
     }
-    var
-        Approvalmgt: Codeunit "Workflow Initialization";
 
 }

@@ -118,6 +118,8 @@ page 51276 "CAT-Meal Booking Header"
 
                 trigger OnAction()
                 var
+                    ApprovalMgnt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
                     Rec.TESTFIELD(Department);
                     Rec.TESTFIELD("Request Date");
@@ -128,27 +130,29 @@ page 51276 "CAT-Meal Booking Header"
                     Rec.TESTFIELD("Contact Person");
                     Rec.TESTFIELD("Contact Number");
                     Rec.TESTFIELD(Pax);
-                    if ApprovalMgt.IsMealBookingEnabled(Rec) = true then
-                        ApprovalMgt.OnSendMealBookingforApproval(Rec)
+                    variant := Rec;
+                    if ApprovalMgnt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovalMgnt.OnSendDocForApproval(variant)
+
                     else
                         Error('Check your workflow');
 
                 end;
             }
-            action(cancellsApproval)
+            action("Cancel Approval")
             {
-                Caption = 'Cancel Approval Re&quest';
-                Image = Cancel;
+                ApplicationArea = All;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
+                Image = SendApprovalRequest;
                 trigger OnAction()
+                var
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-
-                    if ApprovalMgt.IsMealBookingEnabled(Rec) = true then
-                        ApprovalMgt.OnCancelMealBookingforApproval(Rec)
-                    else
-                        Error('Check your workflow');
+                    variant := Rec;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                 end;
             }
             separator(g12)
@@ -262,7 +266,6 @@ page 51276 "CAT-Meal Booking Header"
         AllKeyFieldsEntered: Boolean;
         FixedAsset: Record "Fixed Asset";
         ApprovalEntries: Page "Approval Entries";
-        ApprovalMgt: Codeunit "Workflow Initialization";
         DocumentType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application";
         RelNoEditable: Boolean;
         RelNameEditable: Boolean;

@@ -2629,13 +2629,14 @@ Codeunit 61106 webportals
 
     procedure MealBookingApprovalRequest(ReqNo: Text)
     var
-        ApprovalMgt: Codeunit "Workflow Initialization";
+        ApprovalMgt: Codeunit "Approval Workflows V1";
         showmessage: Boolean;
         ManualCancel: Boolean;
         State: Option Open,"Pending Approval",Cancelled,Approved;
         DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
         tableNo: Integer;
         RespCenter: Text[10];
+        variant: Variant;
     begin
         MealBookingHeader.Reset;
         MealBookingHeader.SetRange(MealBookingHeader."Booking Id", ReqNo);
@@ -2660,7 +2661,11 @@ Codeunit 61106 webportals
                 Clear(tableNo);
                 tableNo := 61778;
                 Clear(RespCenter);
-                ApprovalMgt.OnSendMealBookingforApproval(MealBookingHeader);
+                variant := MealBookingHeader;
+                    if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovalMgt.OnSendDocForApproval(variant);
+
+                //ApprovalMgt.OnSendMealBookingforApproval(MealBookingHeader);
                 //  IF ApprovalMgt.SendLeaveApprovalRequest(Rec) THEN;
                 //  AppMgt.SendMealsApprovalRequest(MealBookingHeader);
             end;
@@ -9142,19 +9147,21 @@ Codeunit 61106 webportals
 
     procedure PartTimeApprovalRequest(ReqNo: Code[20])
     var
-        Approvalmgt: codeunit "Workflow Initialization";
+        ApprovMgmt: Codeunit "Approval Workflows V1";
         PartTimeClaimHd: record "Parttime Claim Header";
+        variant: Variant;
     begin
         PartTimeClaimHd.Reset();
         PartTimeClaimHd.SETRANGE("No.", ReqNo);
         IF PartTimeClaimHd.FIND('-')
         THEN BEGIN
-            if Approvalmgt.IsParttimeClaimEnabled(PartTimeClaimHd) = true then begin
-                PartTimeClaimHd.CommitBudget();
-                Approvalmgt.OnSendParttimeClaimforApproval(PartTimeClaimHd);
+            variant := partTimeClaimHd;
+                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                    PartTimeClaimHd.CommitBudget();
+                        ApprovMgmt.OnSendDocForApproval(variant);
+
             end
         END;
-    end;
 
     procedure DeletePartTimeClaimLine(claimno: code[20]; lineno: integer) deleted: boolean
     var

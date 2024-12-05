@@ -473,7 +473,7 @@ page 50828 "ACA-Applic. Documents Verif."
             }
             action(Admit)
             {
-                Caption = 'Report Student';
+                Caption = 'Admit Student';
                 Image = PostApplication;
                 Promoted = true;
                 ApplicationArea = All;

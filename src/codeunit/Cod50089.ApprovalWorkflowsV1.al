@@ -59,6 +59,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelPartTimeClaimRequestTxt: Label 'An Approval request for Part Time Claim is Cancelled';
         RunWorkflowOnSendPartTimeClaimForApprovalCode: Label 'RUNWORKFLOWONSENDPARTTIMECLAIMFORAPPROVAL';
         RunWorkflowOnCancelPartTimeClaimForApprovalCode: Label 'RUNWORKFLOWONCANCELPARTTIMECLAIMFORAPPROVAL';
+        //meal booking
+        OnsendMealBookingRequestTxt: Label 'Approval request for Meal Booking is requested';
+        OnCancelMealBookingRequestTxt: Label 'An Approval request for Meal Booking is Cancelled';
+        RunWorkflowOnSendMealBookingApprovalCode: Label 'RUNWORKFLOWONSENDMEALBOOKINGFORAPPROVAL';
+        RunWorkflowOnCancelMealBookingApprovalCode: Label 'RUNWORKFLOWONCANCELMEALBOOKINGFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -90,6 +95,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendRFQForApprovalCode));
             Database::"Parttime Claim Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendPartTimeClaimForApprovalCode));
+            Database::"CAT-Meal Booking Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendMealBookingApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -157,6 +164,9 @@ codeunit 50089 "Approval Workflows V1"
         //Part time claim
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendPartTimeClaimForApprovalCode, Database::"Parttime Claim Header", OnSendPartTimeClaimRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelPartTimeClaimForApprovalCode, Database::"Parttime Claim Header", OnCancelPartTimeClaimRequestTxt, 0, false);
+        //meal booking
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendMealBookingApprovalCode, Database::"CAT-Meal Booking Header", OnsendMealBookingRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelMealBookingApprovalCode, Database::"CAT-Meal Booking Header", OnCancelMealBookingRequestTxt, 0, false);
     end;
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
@@ -194,6 +204,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendRFQForApprovalCode, Variant);
             Database::"Parttime Claim Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendPartTimeClaimForApprovalCode, Variant);
+            Database::"CAT-Meal Booking Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendMealBookingApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -229,6 +241,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelRFQForApprovalCode, Variant);
             Database::"Parttime Claim Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelPartTimeClaimForApprovalCode, Variant);
+            Database::"CAT-Meal Booking Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelMealBookingApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -249,6 +263,7 @@ codeunit 50089 "Approval Workflows V1"
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -328,6 +343,13 @@ codeunit 50089 "Approval Workflows V1"
                     PartTimeClaim.Modify();
                     Handled := true;
                 end;
+            Database::"CAT-Meal Booking Header":
+                begin
+                    RecRef.SetTable(MealBooking);
+                    MealBooking.Validate("Status", MealBooking.Status::New);
+                    MealBooking.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -345,6 +367,7 @@ codeunit 50089 "Approval Workflows V1"
         TenderHEader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -430,6 +453,13 @@ codeunit 50089 "Approval Workflows V1"
                     PartTimeClaim.Modify();
                     IsHandled := true;
                 end;
+            Database::"CAT-Meal Booking Header":
+                begin
+                    RecRef.SetTable(MealBooking);
+                    MealBooking.Validate("Status", MealBooking.Status::"Pending Approval");
+                    MealBooking.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -447,6 +477,7 @@ codeunit 50089 "Approval Workflows V1"
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -504,6 +535,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(PartTimeClaim);
                     ApprovalEntryArgument."Document No." := PartTimeClaim."No.";
                 end;
+            Database::"CAT-Meal Booking Header":
+                begin
+                    RecRef.SetTable(MealBooking);
+                    ApprovalEntryArgument."Document No." := MealBooking."Booking Id";
+                end;
         end;
     end;
 
@@ -524,6 +560,7 @@ codeunit 50089 "Approval Workflows V1"
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -606,6 +643,13 @@ codeunit 50089 "Approval Workflows V1"
                     PartTimeClaim.Modify();
                     Handled := true;
                 end;
+            Database::"CAT-Meal Booking Header":
+                begin
+                    RecRef.SetTable(MealBooking);
+                    MealBooking.Validate("Status", MealBooking.Status::Approved);
+                    MealBooking.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -623,6 +667,7 @@ codeunit 50089 "Approval Workflows V1"
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -702,6 +747,13 @@ codeunit 50089 "Approval Workflows V1"
                         PartTimeClaim.Modify(true);
                     end;
                 end;
+            Database::"CAT-Meal Booking Header":
+                begin
+                    if MealBooking.Get(ApprovalEntry."Document No.") then begin
+                        MealBooking.Status := MealBooking.Status::Cancelled;
+                        MealBooking.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -718,6 +770,7 @@ codeunit 50089 "Approval Workflows V1"
         TenderHeader: Record "Tender HEader";
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -791,6 +844,13 @@ codeunit 50089 "Approval Workflows V1"
                     PartTimeClaim.Modify();
                     Variant := PartTimeClaim;
                 end;
+            Database::"CAT-Meal Booking Header":
+                begin
+                    RecRef.SetTable(MealBooking);
+                    MealBooking.Validate("Status", MealBooking.Status::New);
+                    MealBooking.Modify();
+                    Variant := MealBooking;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -809,6 +869,7 @@ codeunit 50089 "Approval Workflows V1"
         TenderHeader: Record "Tender Header";
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -881,6 +942,13 @@ codeunit 50089 "Approval Workflows V1"
                     PartTimeClaim.Validate("Status", PartTimeClaim.Status::"Pending Approval");
                     PartTimeClaim.Modify();
                     Variant := PartTimeClaim;
+                end;
+            Database::"CAT-Meal Booking Header":
+                begin
+                    RecRef.SetTable(MealBooking);
+                    MealBooking.Validate("Status", MealBooking.Status::"Pending Approval");
+                    MealBooking.Modify();
+                    Variant := MealBooking;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);

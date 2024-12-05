@@ -183,7 +183,4 @@ page 50970 "Parttime Claim List"
             }
         }
     }
-
-    var
-        Approvalmgt: Codeunit "Workflow Initialization";
 }

@@ -302,7 +302,7 @@ codeunit 52178509 "Requisition Management"
             repeat
                 item.Get(RequisitionLines."No.");
 
-                if (item."Reorder Point" > 0) and (item."Reorder Point" > item."Stockout Warning") then begin
+                if (item."Reorder Point" > 0) and (item."Reorder Point" > item.Inventory) then begin
 
                     body := StrSubstNo(
                         'Item %1 has reached its reorder point of %2 and is below the stockout warning level of %3',
