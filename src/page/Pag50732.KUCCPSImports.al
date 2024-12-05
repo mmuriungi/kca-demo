@@ -171,13 +171,23 @@ page 50732 "KUCCPS Imports"
                         CurrPage.Update;
                     end;
                 }
+                action(ExportKUCCPSTemplate)
+                {
+                    Caption = 'Export KUCCPS Import Template';
+                    Image = ExportFile;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    trigger OnAction()
+                    begin
+                        Report.Run(Report::"Export KUCCPS Std Template");
+                    end;
+                }
                 action(Import)
                 {
-                    ApplicationArea = Basic;
-                    Caption = 'Import';
-                    Image = Import;
+                    Caption = 'Import KUCCPS Students';
+                    Image = ExportFile;
                     Promoted = true;
-                    PromotedIsBig = true;
+                    PromotedCategory = Process;
 
                     trigger OnAction()
                     begin

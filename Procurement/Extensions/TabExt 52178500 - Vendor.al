@@ -141,8 +141,6 @@ tableextension 52178500 ExtVendor extends Vendor
         USetup.SETRANGE(USetup."Create Supplier", false);
         IF USetup.FIND('-') THEN ERROR('You are not authorised');
 
-
-
     end;
 
 

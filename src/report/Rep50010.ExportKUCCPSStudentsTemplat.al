@@ -1,0 +1,62 @@
+report 50010 "Export KUCCPS Std Template"
+{
+   UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = All;
+    ProcessingOnly = true;
+    
+    dataset
+    {
+        dataitem(Integer; Integer)
+        {
+            MaxIteration = 1;
+            
+            trigger OnPreDataItem()
+            var
+                TempBlob: Codeunit "Temp Blob";
+                OutStream: OutStream;
+                InStream: InStream;
+                FileName: Text;
+            begin
+                // Create the header row
+                TemplateCSV += 
+                    'Ser,' +
+                    'Index,' +
+                    'Admin,' +
+                    'Student No,' +
+                    'Names,' +
+                    'Gender,' +
+                    'Phone,' +
+                    'Alt. Phone,' +
+                    'Email,' +
+                    'Slt Mail,' +
+                    'Box,' +
+                    'Codes,' +
+                    'Town,' +
+                    'Prog,' +
+                    'Any Other Institution Attended' + 
+                    CR;
+
+                // Create a temporary blob
+                TempBlob.CreateOutStream(OutStream, TextEncoding::UTF8);
+                OutStream.WriteText(TemplateCSV);
+                
+                // Prepare file for download
+                TempBlob.CreateInStream(InStream, TextEncoding::UTF8);
+                FileName := 'KUCCPS_Students_Import_Template.csv';
+                
+                // Download the file
+                File.DownloadFromStreamHandler(InStream, 'Export Template', '', 'CSV Files (*.csv)|*.csv', FileName);
+            end;
+        }
+    }
+
+    var
+        TemplateCSV: Text;
+        CR: Char;
+        File: Codeunit "File Management";
+
+    trigger OnInitReport()
+    begin
+        CR := 10; // Carriage return
+    end;
+}
