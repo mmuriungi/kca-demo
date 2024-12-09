@@ -9,6 +9,7 @@ codeunit 50068 "Estates Management"
         EmailMessage: Codeunit "Email Message";
         Email: Codeunit Email;
         EstateSetup: Record "Estates Setup";
+        NotificationHandler: Codeunit "Notifications Handler";
 
 
     procedure ValidateEmail(Email: Text)
@@ -80,7 +81,7 @@ codeunit 50068 "Estates Management"
                     MaintenanceScheduleLine."Maintenance Year" := MaintenanceRequest."Maintenance Year";
                     MaintenanceScheduleLine."Maintenance Period" := MaintenanceRequest."Maintenance Period";
                     MaintenanceScheduleLine.AssignedMo := MaintenanceRequest.AssignedMo;
-                    
+
                     MaintenanceScheduleLine.Insert();
                     MaintenanceRequest.Status := MaintenanceRequest.Status::Scheduled;
                     MaintenanceRequest."Scheduled Date" := Today;
@@ -144,5 +145,78 @@ codeunit 50068 "Estates Management"
             if Repair.Status = Repair.Status::Open then
                 Error(DocNotOpen, DocNo) else
                 exit(true);
+    end;
+
+    procedure SendEmailsForRepairsApproval(RepairRequest: Record "Repair Request")
+    var
+        EmailBody: Text;
+        RecipientName: Text;
+        RecipientEmail: Text;
+    begin
+        if RepairRequest.IsEmpty then
+            exit;
+
+        RecipientName := RepairRequest."User ID";
+        RecipientEmail := RepairRequest."E-Mail";
+
+        EmailBody := StrSubstNo(
+            'Your repair request has been approved.<br><br>' +
+            'Regards,<br>' +
+            'Estates Management',
+            RecipientName
+        );
+
+        NotificationHandler.fnSendEmail(
+            UserId,
+            'Repair Approval Notification',
+            EmailBody,
+            RecipientEmail,
+            '', 
+            '', 
+            false, 
+            '', 
+            '',
+            '' 
+        );
+    end;
+
+    Procedure SendEmailsforRepairsClosed(RepairRequest: Record "Repair Request")
+    var
+        recipientName: Text;
+        recipientEmail: Text;
+        addBcc: Text;
+        body: Text;
+        addCC: Text;
+        hasAttachment: Boolean;
+        attachmentBase64: Text;
+        attachmentName: Text;
+        attachmentType: Text;
+    begin
+        if RepairRequest.IsEmpty then
+            exit;
+
+        RecipientName := RepairRequest."User ID";
+        RecipientEmail := RepairRequest."E-Mail";
+
+        Body := StrSubstNo(
+            'Your repair request has been Closed.<br><br>' +
+            'Regards,<br>' +
+            'Estates Management',
+            RecipientName
+        );
+
+        NotificationHandler.fnSendEmail(
+            UserId,
+            'Repair Closure Notification',
+           Body,
+            RecipientEmail, 
+            '', 
+            '', 
+            false, 
+            '', 
+            '',
+            '' 
+        );
+
     end;
 }

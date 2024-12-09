@@ -152,12 +152,14 @@ page 51510 "Repair Request"
                 trigger OnAction()
                 var
                     suggmessage: Label 'Repair request have been fully confirmed and moved for assignment request list';
+                    EstateMgnt: Codeunit "Estates Management";
                 begin
                     rec.Status := rec.Status::Approved;
                     rec.Modify();
+
                     Message(suggmessage);
                     CurrPage.Update();
-
+                    EstateMgnt.SendEmailsforRepairsApproval(Rec);
                     // If ApprovalsMgmt.CheckRepairRequestsWorkflowEnable(Rec) then
                     //     ApprovalsMgmt.OnSendRepairRequestForApproval(Rec);
 
@@ -204,11 +206,13 @@ page 51510 "Repair Request"
                 trigger OnAction()
                 var
                     SuccessMsg: Label 'The repair request  has been closed successfully';
+                    EstateMgnt: Codeunit "Estates Management";
                 begin
                     Rec.Status := Rec.Status::Closed;
                     Rec."End Date" := Today;
                     Rec.Validate("End Date");
                     Rec.Modify();
+                    EstateMgnt.SendEmailsforRepairsClosed(Rec);
                     Message(SuccessMsg);
                     CurrPage.Update();
                 end;
@@ -226,4 +230,5 @@ page 51510 "Repair Request"
 
     var
         ApprovalsMgmt: Codeunit "Approval Mgnt. Util.";
+        
 }

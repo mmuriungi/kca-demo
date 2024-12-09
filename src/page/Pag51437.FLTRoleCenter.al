@@ -178,7 +178,7 @@ page 51437 "FLT-Role Center"
                 Image = Intrastat;
                 action(Fuel_Req)
                 {
-                    Caption = 'Fuel Requisitions';
+                    Caption = 'Fuel Consumption(Open)';
                     Image = Register;
 
                     RunObject = Page "FLT-Fuel Req. List";

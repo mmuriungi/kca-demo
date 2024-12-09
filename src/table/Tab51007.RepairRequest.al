@@ -53,6 +53,19 @@ table 51007 "Repair Request"
             //Editable = false;
             Caption = 'Status';
             OptionMembers = Open,Pending,Approved,Closed,Cancelled,Rejected,Completed,Scheduled;
+            trigger OnValidate()
+            var
+                EstateMgnt: Codeunit "Estates Management";
+            begin
+                if Status = Status::Approved then
+                    begin
+                        EstateMgnt.SendEmailsforRepairsApproval(Rec);
+                    end;
+                if Status = Status::Closed then
+                    begin
+                        EstateMgnt.SendEmailsforRepairsClosed(Rec);
+                    end;
+            end;
         }
         field(10; "Start Date"; Date)
         {
@@ -153,6 +166,8 @@ table 51007 "Repair Request"
             "Repair Period" := "End Date" - "Start Date";
     end;
 
+
     var
         FixedAsset: Record "Fixed Asset";
+        
 }

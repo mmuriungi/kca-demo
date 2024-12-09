@@ -17,7 +17,6 @@ report 50010 "Export KUCCPS Std Template"
                 InStream: InStream;
                 FileName: Text;
             begin
-                // Create the header row
                 TemplateCSV += 
                     'Ser,' +
                     'Index,' +
@@ -36,15 +35,12 @@ report 50010 "Export KUCCPS Std Template"
                     'Any Other Institution Attended' + 
                     CR;
 
-                // Create a temporary blob
                 TempBlob.CreateOutStream(OutStream, TextEncoding::UTF8);
                 OutStream.WriteText(TemplateCSV);
                 
-                // Prepare file for download
                 TempBlob.CreateInStream(InStream, TextEncoding::UTF8);
                 FileName := 'KUCCPS_Students_Import_Template.csv';
-                
-                // Download the file
+
                 File.DownloadFromStreamHandler(InStream, 'Export Template', '', 'CSV Files (*.csv)|*.csv', FileName);
             end;
         }
@@ -57,6 +53,6 @@ report 50010 "Export KUCCPS Std Template"
 
     trigger OnInitReport()
     begin
-        CR := 10; // Carriage return
+        CR := 10;
     end;
 }
