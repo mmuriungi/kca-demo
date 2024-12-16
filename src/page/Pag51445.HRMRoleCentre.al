@@ -342,6 +342,43 @@ page 51445 "HRM-Role Centre"
                         RunObject = Page "Medical Claims List";
                     }
                 }
+                group("Disciplinary Setups")
+            {
+                Caption = 'Disciplinary Setups';
+                Image = Reconcile;
+                action("Disciplinary Case Ratings")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Disciplinary Case Ratings';
+                    Image = QualificationOverview;
+                    Promoted = true;
+                    RunObject = Page "HRM-Disciplinary Case Ratings";
+                }
+                action("Disciplinary Remarks")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Disciplinary Remarks';
+                    Image = Group;
+                    Promoted = true;
+                    RunObject = Page "HRM-Disciplinary Remarks";
+                }
+                action("Disciplinary  Cases")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Disciplinary  Cases';
+                    Image = SetPriorities;
+                    Promoted = true;
+                    RunObject = Page "HRM-Disciplinary Cases (B)";
+                }
+                action("Disciplinary Actions")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Disciplinary Actions';
+                    Image = AccountingPeriods;
+                    Promoted = true;
+                    RunObject = Page "HRM-Disciplinary Actions";
+                }
+            }
             }
             group(Payroll)
             {
@@ -425,6 +462,7 @@ page 51445 "HRM-Role Centre"
                 }
 
             }
+            
             group(Appraisals)
             {
                 Caption = 'Perfomance Appraisal';
