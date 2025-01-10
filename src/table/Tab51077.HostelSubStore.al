@@ -30,14 +30,14 @@ table 51077 "Hostel Sub-Store"
     }
     var
 
-        HMSSetup: Record "HMS-Setup";
+        HMSSetup: Record "ACA-Hostel No Series";
         NoSeriesManagement: Codeunit NoSeriesManagement;
 
     trigger OnInsert()
     begin
         IF HMSSetup.GET THEN BEGIN
-            HMSSetup.TESTFIELD("Pharmacy Items Nos");
-            "No." := NoSeriesManagement.GetNextNo(HMSSetup."Pharmacy Items Nos", TODAY, TRUE);
+            HMSSetup.TESTFIELD("Sub Store Nos");
+            "No." := NoSeriesManagement.GetNextNo(HMSSetup."Sub Store Nos", TODAY, TRUE);
         end;
 
     End;

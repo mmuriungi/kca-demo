@@ -406,6 +406,12 @@ page 51453 "ACA-Hostels Role Center"
                     RunObject = Page "ACA-Hostel Invtry Items List";
                     ApplicationArea = All;
                 }
+                action(" Hostel No series")
+                {
+                    Caption = 'Hostels No Series';
+                    RunObject = Page "ACA-Hostel No Series";
+                    ApplicationArea = All;
+                }
             }
             group(hist)
             {
