@@ -1,5 +1,5 @@
 #pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
-Table 51255 "Core_Banking_Details"
+Table 77382 Core_Banking_Details
 {
 
     fields
@@ -123,7 +123,7 @@ Table 51255 "Core_Banking_Details"
     begin
         Clear(UserSetup);
         UserSetup.Reset;
-        UserSetup.SetRange(UserSetup."User ID", UserId);
+        UserSetup.SetRange("User ID", UserId);
         if not (UserSetup.Find('-')) then Error('Access denied!');
         if UserSetup."Can Edit Core Banking" = false then Error('Access denied!');
 
@@ -153,12 +153,12 @@ Table 51255 "Core_Banking_Details"
     begin
         Clear(UserSetup);
         UserSetup.Reset;
-        UserSetup.SetRange(UserSetup."User ID", UserId);
+        UserSetup.SetRange("User ID", UserId);
         if not (UserSetup.Find('-')) then Error('Access denied!');
         if UserSetup."Can Edit Core Banking" = false then Error('Access denied!');
         Clear(Core_Banking_ActiveStatements);
         Core_Banking_ActiveStatements.Reset;
-        Core_Banking_ActiveStatements.SetRange(Core_Banking_ActiveStatements.User_Id, UserId);
+        Core_Banking_ActiveStatements.SetRange(User_Id, UserId);
         if Core_Banking_ActiveStatements.Find('-') then begin
             if Core_Banking_ActiveStatements."Statement No" = '' then Error('No Statement specified');
             "Statement No" := Core_Banking_ActiveStatements."Statement No";
@@ -170,7 +170,7 @@ Table 51255 "Core_Banking_Details"
     begin
         Clear(UserSetup);
         UserSetup.Reset;
-        UserSetup.SetRange(UserSetup."User ID", UserId);
+        UserSetup.SetRange("User ID", UserId);
         if not (UserSetup.Find('-')) then Error('Access denied!');
         if UserSetup."Can Edit Core Banking" = false then Error('Access denied!');
     end;
@@ -179,7 +179,7 @@ Table 51255 "Core_Banking_Details"
     begin
         Clear(UserSetup);
         UserSetup.Reset;
-        UserSetup.SetRange(UserSetup."User ID", UserId);
+        UserSetup.SetRange("User ID", UserId);
         if not (UserSetup.Find('-')) then Error('Access denied!');
         if UserSetup."Can Edit Core Banking" = false then Error('Access denied!');
     end;
@@ -244,8 +244,8 @@ Table 51255 "Core_Banking_Details"
         GenJnl: Record "Gen. Journal Line";
         Stages: Record "ACA-Programme Stages";
         Units: Record "ACA-Units/Subjects";
-        ExamsByStage: Record "ACA-Exams";
-        ExamsByUnit: Record "ACA-Exams By Units";
+        // ExamsByStage: Record UnknownRecord61526;
+        // ExamsByUnit: Record UnknownRecord61527;
         Charges: Record "ACA-Charge";
         Receipt: Record "ACA-Receipt";
         ReceiptItems: Record "ACA-Receipt Items";
@@ -408,7 +408,7 @@ Table 51255 "Core_Banking_Details"
             IF CReg.FIND('-') THEN BEGIN
             IF CReg."Register for"=CReg."Register for"::Stage THEN BEGIN
             Stages.RESET;
-            Stages.SETRANGE(Stages."Programme Code",creg.Programmes);
+            Stages.SETRANGE(Stages."Programme Code",CReg.Programme);
             Stages.SETRANGE(Stages.Code,CReg.Stage);
             IF Stages.FIND('-') THEN BEGIN
             IF (Stages."Modules Registration" = TRUE) AND (Stages."Ignore No. Of Units"= FALSE) THEN BEGIN
@@ -457,7 +457,7 @@ Table 51255 "Core_Banking_Details"
             CReg.SETRANGE(CReg."Student No.","Student No.");
             CReg.SETRANGE(CReg.Reversed,FALSE) ;
             IF CReg.FIND('+') THEN BEGIN
-            IF ProgrammeSetUp.GET(creg.Programmes) THEN BEGIN
+            IF ProgrammeSetUp.GET(CReg.Programme) THEN BEGIN
             ProgrammeSetUp.TESTFIELD(ProgrammeSetUp."Department Code");
             //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
             GenJnl."Shortcut Dimension 1 Code":=Cust."Global Dimension 1 Code";
@@ -518,7 +518,7 @@ Table 51255 "Core_Banking_Details"
             CReg.SETRANGE(CReg."Student No.","Student No.");
             CReg.SETRANGE(CReg.Reversed,FALSE) ;
             IF CReg.FIND('+') THEN BEGIN
-            IF ProgrammeSetUp.GET(creg.Programmes) THEN BEGIN
+            IF ProgrammeSetUp.GET(CReg.Programme) THEN BEGIN
             ProgrammeSetUp.TESTFIELD(ProgrammeSetUp."Department Code");
             GenJnl."Shortcut Dimension 1 Code":=Cust."Global Dimension 1 Code";
             GenJnl."Shortcut Dimension 2 Code":=ProgrammeSetUp."Department Code";
@@ -559,7 +559,7 @@ Table 51255 "Core_Banking_Details"
             CReg.SETRANGE(CReg."Student No.","Student No.");
             CReg.SETRANGE(CReg.Reversed,FALSE) ;
             IF CReg.FIND('+') THEN BEGIN
-            IF ProgrammeSetUp.GET(creg.Programmes) THEN BEGIN
+            IF ProgrammeSetUp.GET(CReg.Programme) THEN BEGIN
             ProgrammeSetUp.TESTFIELD(ProgrammeSetUp."Department Code");
             GenJnl."Shortcut Dimension 1 Code":=Cust."Global Dimension 1 Code";
             GenJnl."Shortcut Dimension 2 Code":=ProgrammeSetUp."Department Code";
@@ -795,7 +795,7 @@ Table 51255 "Core_Banking_Details"
                     CReg.SetRange(CReg."Student No.", "Student No.");
                     CReg.SetRange(CReg.Reversed, false);
                     if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.Programmes) then begin
+                        if ProgrammeSetUp.Get(CReg.Programmes) then begin
                             ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
                             //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
                             GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
@@ -832,7 +832,7 @@ Table 51255 "Core_Banking_Details"
                     CReg.SetRange(CReg."Student No.", "Student No.");
                     CReg.SetRange(CReg.Reversed, false);
                     if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.Programmes) then begin
+                        if ProgrammeSetUp.Get(CReg.Programmes) then begin
                             ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
                             //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
                             GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
@@ -863,7 +863,7 @@ Table 51255 "Core_Banking_Details"
                     CReg.SetRange(CReg."Student No.", "Student No.");
                     CReg.SetRange(CReg.Reversed, false);
                     if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.Programmes) then begin
+                        if ProgrammeSetUp.Get(CReg.Programmes) then begin
                             ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
                             //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
                             GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
@@ -901,7 +901,7 @@ Table 51255 "Core_Banking_Details"
                     CReg.SetRange(CReg."Student No.", "Student No.");
                     CReg.SetRange(CReg.Reversed, false);
                     if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.Programmes) then begin
+                        if ProgrammeSetUp.Get(CReg.Programmes) then begin
                             GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
                         end;
                     end;

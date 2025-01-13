@@ -110,6 +110,7 @@ page 51507 "PesaFlow Integration"
                 trigger OnAction()
                 var
                     pint: Codeunit "PesaFlow Integration";
+                    pint2: Codeunit "PesaFlow Integration old";
                 begin
                     if Confirm('Post Unposted Transactions ?', true) = false then Error('Cancelled');
                     pint.PostBatchPesaFlow();
