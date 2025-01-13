@@ -3,7 +3,6 @@ page 52178595 "Proc-Committee Card"
     Caption = 'Committee Card';
     PageType = Card;
     SourceTable = "Proc-Committee Appointment H";
-    PromotedActionCategories = 'New,Process,Report,Approvals';
     layout
     {
         area(content)
@@ -74,6 +73,14 @@ page 52178595 "Proc-Committee Card"
     {
         area(Processing)
         {
+            action("Update Committee")
+            {
+                ApplicationArea=all;
+                trigger OnAction()
+                begin
+                    rec.UpdateCommitteeMembership();
+                end;
+            }
             action(SendApprovalRequest)
             {
                 ApplicationArea = All;
@@ -114,16 +121,12 @@ page 52178595 "Proc-Committee Card"
                 ApplicationArea = All;
                 Caption = 'Approvals';
                 Image = Approvals;
-                Promoted = true;
-                PromotedCategory = category4;
                 RunObject = page "Fin-Approval Entries";
                 RunPageLink = "Document No." = field("Ref No");
             }
             action(Email)
             {
                 ApplicationArea = all;
-                Promoted = true;
-                PromotedCategory = Process;
                 Image = SendEmailPDF;
                 Visible = ACtionVisi;
                 trigger OnAction()
@@ -136,8 +139,6 @@ page 52178595 "Proc-Committee Card"
             {
                 ApplicationArea = all;
                 Image = Report;
-                Promoted = true;
-                PromotedCategory = report;
                 trigger OnAction()
                 begin
 
@@ -151,8 +152,6 @@ page 52178595 "Proc-Committee Card"
             {
                 ApplicationArea = all;
                 Image = Report;
-                Promoted = true;
-                PromotedCategory = report;
                 trigger OnAction()
                 begin
                     Appointedmbrs.Reset();
@@ -163,6 +162,39 @@ page 52178595 "Proc-Committee Card"
                 end;
             }
 
+        }
+        area(Promoted)
+        {
+            group(Category_Process)
+            {
+                Caption = 'Process', Comment = 'Generated from the PromotedActionCategories property index 1.';
+
+                actionref("Update Committee_Promoted"; "Update Committee")
+                {
+                }
+                actionref(Email_Promoted; Email)
+                {
+                }
+            }
+            group(Category_Report)
+            {
+                Caption = 'Report', Comment = 'Generated from the PromotedActionCategories property index 2.';
+
+                actionref("Opening Appointment_Promoted"; "Opening Appointment")
+                {
+                }
+                actionref("Evaluation Appointment_Promoted"; "Evaluation Appointment")
+                {
+                }
+            }
+            group(Category_Category4)
+            {
+                Caption = 'Approvals', Comment = 'Generated from the PromotedActionCategories property index 3.';
+
+                actionref(Approvals_Promoted; Approvals)
+                {
+                }
+            }
         }
     }
     trigger OnOpenPage()
