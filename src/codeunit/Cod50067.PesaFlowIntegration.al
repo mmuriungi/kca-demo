@@ -1,4 +1,4 @@
-codeunit 50067 "PesaFlow Integration"
+codeunit 50067 "PesaFlow Integration Old"
 {
     var
         PesaflowIntegration: Record "PesaFlow Integration";

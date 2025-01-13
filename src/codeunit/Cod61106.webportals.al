@@ -9273,7 +9273,7 @@ Codeunit 61106 webportals
             SuperVisorApplic.SETRANGE(SuperVisorApplic."Semester", Sem);
             if SuperVisorApplic.FIND('-') then begin
                 repeat
-                    msg += SuperVisorApplic."No." + ' ::' + SuperVisorApplic."Student No." + ' ::' + SuperVisorApplic."Assigned Supervisor Code" + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
+                    msg += SuperVisorApplic."No."+ ' ::' + SuperVisorApplic.Semester + ' ::' + SuperVisorApplic."Student No." + SuperVisorApplic."Student Name" + ' ::' + SuperVisorApplic."Assigned Supervisor Code"+ ' ::'+ SuperVisorApplic."Assigned Supervisor Name" + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
                 until SuperVisorApplic.NEXT = 0;
             end;
         end;
