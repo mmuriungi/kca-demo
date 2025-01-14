@@ -3,7 +3,7 @@ page 51531 "Room Setup"
     Caption = 'Room Setup';
     PageType = List;
     SourceTable = RoomSetUp;
-    
+
     layout
     {
         area(content)
@@ -15,7 +15,7 @@ page 51531 "Room Setup"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Room Code field.';
                 }
-                field("Room Type";Rec."Room Type")
+                field("Room Type"; Rec."Room Type")
                 {
                     ApplicationArea = All;
                 }

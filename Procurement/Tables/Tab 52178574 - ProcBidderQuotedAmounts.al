@@ -135,18 +135,18 @@ table 52178574 "Proc Bidder Quoted Amounts"
         {
 
         }
-        field(13;"Order No";Code[50])
+        field(13; "Order No"; Code[50])
         {
-            
+
         }
-        field(14;"Entry No";Integer)
+        field(14; "Entry No"; Integer)
         {
 
         }
     }
     keys
     {
-        key(PK; "Document No", "Bid No", "Item No","Entry No")
+        key(PK; "Document No", "Bid No", "Item No", "Entry No")
         {
             Clustered = true;
         }
@@ -160,12 +160,14 @@ table 52178574 "Proc Bidder Quoted Amounts"
         fa: Record "Fixed Asset";
         CItem: Record "Item Charge";
         Vend: Record Vendor;
-          trigger OnInsert()
+
+    trigger OnInsert()
     begin
         if "Entry No" = 0 then
             "Entry No" := GetLastEntryNo() + 1;
     end;
-     procedure GetLastEntryNo(): Integer;
+
+    procedure GetLastEntryNo(): Integer;
     var
         FindRecordManagement: Codeunit "Find Record Management";
     begin

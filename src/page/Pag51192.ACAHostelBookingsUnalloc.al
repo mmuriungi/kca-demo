@@ -445,7 +445,7 @@ page 51192 "ACA-Hostel Bookings (Unalloc.)"
             //    PostOverPayment();
             // END;
             UNTIL StudentHostel.NEXT = 0;
-            
+
         END;
 
         postCharge();

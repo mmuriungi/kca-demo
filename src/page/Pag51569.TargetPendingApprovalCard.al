@@ -59,8 +59,8 @@ page 51569 "Target Pending Approval Card"
             }
             part(lines; "Employee Perf Line")
             {
-                
-               // SubPageLink = "Document No." = field("No.");
+
+                // SubPageLink = "Document No." = field("No.");
                 ApplicationArea = all;
                 Caption = 'Employee Perf Line';
             }

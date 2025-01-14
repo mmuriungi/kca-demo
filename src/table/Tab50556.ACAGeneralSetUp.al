@@ -327,6 +327,11 @@ table 50556 "ACA-General Set-Up"
         field(50086; "Min Class Attendance %"; Decimal)
         {
         }
+        //"Fund Band Batch Nos"
+        field(50087; "Fund Band Batch Nos"; code[20])
+        {
+            TableRelation = "No. Series";
+        }
     }
 
     keys

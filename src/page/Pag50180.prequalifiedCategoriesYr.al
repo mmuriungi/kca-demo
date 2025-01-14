@@ -3,7 +3,7 @@ page 50180 "prequalified Categories/Yr"
     Caption = 'prequalified Categories/Yr';
     PageType = Card;
     SourceTable = "Preq Categories/Years";
-    
+
     layout
     {
         area(content)
@@ -11,7 +11,7 @@ page 50180 "prequalified Categories/Yr"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("Preq Category"; Rec."Preq Category")
                 {
                     ApplicationArea = All;

@@ -14,7 +14,7 @@ page 50703 "HRM-Rejected App"
             {
                 Editable = false;
                 ShowCaption = false;
-                 field("Application No"; Rec."Application No")
+                field("Application No"; Rec."Application No")
                 {
                     ApplicationArea = all;
                     Importance = Promoted;
@@ -49,7 +49,7 @@ page 50703 "HRM-Rejected App"
                     ToolTip = 'Specifies the value of the Job Type field.';
                     ApplicationArea = All;
                 }
-               
+
             }
         }
         area(factboxes)
@@ -76,7 +76,7 @@ page 50703 "HRM-Rejected App"
                     Image = ImportDatabase;
                     Promoted = true;
                     PromotedCategory = Category4;
-                    
+
 
                     trigger OnAction()
                     begin

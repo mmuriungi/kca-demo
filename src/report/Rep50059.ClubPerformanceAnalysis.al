@@ -25,13 +25,13 @@ report 50059 "Club Performance Analysis"
             column(AverageAttendance; AverageAttendance)
             {
             }
-             column(CompanyName;CompanyInformation.Name)
+            column(CompanyName; CompanyInformation.Name)
             {
             }
-            column(CompanyPhone;CompanyInformation."Phone No.")
-            {}
-            column(Logo;CompanyInformation.Picture)
-            {}
+            column(CompanyPhone; CompanyInformation."Phone No.")
+            { }
+            column(Logo; CompanyInformation.Picture)
+            { }
             trigger OnAfterGetRecord()
             begin
                 CalcFields("Member Count", "Activity Count");
@@ -83,8 +83,7 @@ report 50059 "Club Performance Analysis"
     begin
         ClubActivity.SetRange("Club/Society Code", Club.Code);
         ClubActivity.SetFilter("Activity Date", Club.GetFilter("Date Filter"));
-        if ClubActivity.FindSet() then
-        begin
+        if ClubActivity.FindSet() then begin
             repeat
                 TotalAttendance += ClubActivity.Attendance;
             until ClubActivity.Next() = 0;
@@ -96,13 +95,14 @@ report 50059 "Club Performance Analysis"
         else
             AverageAttendance := 0;
     end;
-  
+
     trigger OnInitReport()
     var
     begin
         CompanyInformation.Get();
         CompanyInformation.CalcFields(Picture)
     end;
+
     var
         StartDate: Date;
         EndDate: Date;

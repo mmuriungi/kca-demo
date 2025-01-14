@@ -68,7 +68,7 @@ table 51033 "Employee Perf Targets Line"
             Editable = false;
         }
         field(4; "Performance Criteria"; Text[250])
-        {           
+        {
             Caption = 'Performance Criteria';
             DataClassification = ToBeClassified;
             Editable = false;

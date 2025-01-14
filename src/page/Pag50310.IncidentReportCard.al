@@ -54,7 +54,7 @@ page 50310 "Incident Report Card"
                 {
                     ApplicationArea = All;
                 }
-                field("Case Summary Desctiption";Rec."Case Summary Desctiption")
+                field("Case Summary Desctiption"; Rec."Case Summary Desctiption")
                 {
                     ApplicationArea = All;
                 }
@@ -67,19 +67,19 @@ page 50310 "Incident Report Card"
         {
             action("Attachment Exhibit")
             {
-                
+
             }
             action("Forward To DOS")
             {
-                
+
             }
             action("Forward to Register")
             {
-                
+
             }
             action("Close Case")
             {
-                
+
             }
         }
     }

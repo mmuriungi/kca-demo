@@ -91,7 +91,7 @@ page 50380 "HRM-Leave Requisition"
                     ApplicationArea = all;
                     Editable = false;
                 }
-                field("Responsibility Center";Rec."Responsibility Center")
+                field("Responsibility Center"; Rec."Responsibility Center")
                 {
                     ApplicationArea = All;
                 }
@@ -144,11 +144,11 @@ page 50380 "HRM-Leave Requisition"
                 begin
                     if Rec.Status = Rec.Status::Open then
                         approvalmgt.OnSendLeavesforApproval(Rec)
-                   else
-                     Error('Status is not open');
+                    else
+                        Error('Status is not open');
                 end;
             }
-           action(cancellsApproval)
+            action(cancellsApproval)
             {
                 Caption = 'Cancel Approval Re&quest';
                 Image = Cancel;

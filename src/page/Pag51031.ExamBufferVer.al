@@ -4,7 +4,7 @@ page 51031 "Exam Buffer Ver"
     PageType = List;
     CardPageId = "Exam Ver Card";
     SourceTable = "Buffer Exam Header";
-    
+
     layout
     {
         area(Content)

@@ -377,7 +377,7 @@ page 51229 "POS Sales Reports"
 
     local procedure SetSocialListeningFactboxVisibility()
     var
-        //SocialListeningMgt: Codeunit "Social Listening Management";
+    //SocialListeningMgt: Codeunit "Social Listening Management";
     begin
         //SocialListeningMgt.GetCustFactboxVisibility(Rec,SocialListeningSetupVisible,SocialListeningVisible);
     end;

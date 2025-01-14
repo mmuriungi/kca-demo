@@ -243,20 +243,20 @@ codeunit 50029 prPayrollProcessing
 
         begin
             //Get the Basic Salary (prorate basc pay if needed) //Termination Remaining
-             IF (DATE2DMY(dtDOE,2)=DATE2DMY(dtOpenPeriod,2)) AND (DATE2DMY(dtDOE,3)=DATE2DMY(dtOpenPeriod,3))THEN BEGIN
-                 CountDaysofMonth:=fnDaysInMonth(dtDOE);
-                 DaysWorked:=fnDaysWorked(dtDOE,FALSE);
-                 curBasicPay := fnBasicPayProrated(strEmpCode, intMonth, intYear, curBasicPay,DaysWorked,CountDaysofMonth)
-              END;
+            IF (DATE2DMY(dtDOE, 2) = DATE2DMY(dtOpenPeriod, 2)) AND (DATE2DMY(dtDOE, 3) = DATE2DMY(dtOpenPeriod, 3)) THEN BEGIN
+                CountDaysofMonth := fnDaysInMonth(dtDOE);
+                DaysWorked := fnDaysWorked(dtDOE, FALSE);
+                curBasicPay := fnBasicPayProrated(strEmpCode, intMonth, intYear, curBasicPay, DaysWorked, CountDaysofMonth)
+            END;
 
             //Prorate Basic Pay on    {What if someone leaves within the same month they are employed}
-             IF dtTermination<>0D THEN BEGIN
-              IF (DATE2DMY(dtTermination,2)=DATE2DMY(dtOpenPeriod,2)) AND (DATE2DMY(dtTermination,3)=DATE2DMY(dtOpenPeriod,3))THEN BEGIN
-                CountDaysofMonth:=fnDaysInMonth(dtTermination);
-                DaysWorked:=fnDaysWorked(dtTermination,TRUE);
-                curBasicPay := fnBasicPayProrated(strEmpCode, intMonth, intYear, curBasicPay,DaysWorked,CountDaysofMonth)
-              END;
-             END;
+            IF dtTermination <> 0D THEN BEGIN
+                IF (DATE2DMY(dtTermination, 2) = DATE2DMY(dtOpenPeriod, 2)) AND (DATE2DMY(dtTermination, 3) = DATE2DMY(dtOpenPeriod, 3)) THEN BEGIN
+                    CountDaysofMonth := fnDaysInMonth(dtTermination);
+                    DaysWorked := fnDaysWorked(dtTermination, TRUE);
+                    curBasicPay := fnBasicPayProrated(strEmpCode, intMonth, intYear, curBasicPay, DaysWorked, CountDaysofMonth)
+                END;
+            END;
 
             curTransAmount := curBasicPay;
             //Added for NCA - If contract type is Casual Description should be Daily Wage
@@ -789,7 +789,7 @@ SpecialTransType::SHIF, FALSE);
                 //IF curNHIFInsuranceReliefAmount > 0 THEN BEGIN
                 curTransAmount := ROUND(curNHIFInsuranceReliefAmount, 0.05, '=');
                 ReliefhifAmount := ROUND(curTransAmount, 0.05, '=');
-                
+
                 //MESSAGE('%1',ReliefhifAmount);
                 strTransDescription := 'SHIF Insurance Relief';
                 TGroup := 'TAX COMPUTATION';

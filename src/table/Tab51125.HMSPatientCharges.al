@@ -124,9 +124,9 @@ table 51125 "HMS-Patient Charges"
                     StudentCharges.RESET;
                     StudentCharges.SETRANGE(StudentCharges."Customer No.", "Customer No.");
                     IF StudentCharges.FIND('-') THEN BEGIN
-                                                         REPEAT
-                                                             TotalApplied := TotalApplied + StudentCharges."Applied Amount";
-                                                         UNTIL StudentCharges.NEXT = 0;
+                        REPEAT
+                            TotalApplied := TotalApplied + StudentCharges."Applied Amount";
+                        UNTIL StudentCharges.NEXT = 0;
 
                     END;
 

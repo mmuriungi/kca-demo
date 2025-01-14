@@ -34,7 +34,7 @@ codeunit 50024 "Leave Carry Forward"
 
                         ints := ints + 1;
 
-                        CFDays := salaryGrades."Annual Leave Days"/2;
+                        CFDays := salaryGrades."Annual Leave Days" / 2;
                         if bal > 0 then begin
                             if bal > CFDays then
                                 bal := CFDays;

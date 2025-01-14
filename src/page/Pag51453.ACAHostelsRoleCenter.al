@@ -42,7 +42,7 @@ page 51453 "ACA-Hostels Role Center"
 
         area(creation)
         {
-           
+
         }
         area(reporting)
         {
@@ -237,73 +237,73 @@ page 51453 "ACA-Hostels Role Center"
                         ApplicationArea = All;
                     }
                 } */
-            action("Hostel Status Summary Report")
-            {
-                Caption = 'Hostel Status Summary Report';
-                Image = Status;
+                action("Hostel Status Summary Report")
+                {
+                    Caption = 'Hostel Status Summary Report';
+                    Image = Status;
 
 
-                RunObject = Report "Hostel Status Summary Report";
-                ApplicationArea = All;
-            }
-            action("AlloCation Analysis")
-            {
-                Caption = 'AlloCation Analysis';
-                Image = Interaction;
+                    RunObject = Report "Hostel Status Summary Report";
+                    ApplicationArea = All;
+                }
+                action("AlloCation Analysis")
+                {
+                    Caption = 'AlloCation Analysis';
+                    Image = Interaction;
 
 
-                RunObject = Report "Hostel Status Summary Graph";
-                ApplicationArea = All;
-            }
-            action("Incidents Report")
-            {
-                Caption = 'Incidents Report';
-                Image = Register;
+                    RunObject = Report "Hostel Status Summary Graph";
+                    ApplicationArea = All;
+                }
+                action("Incidents Report")
+                {
+                    Caption = 'Incidents Report';
+                    Image = Register;
 
 
-                RunObject = Report "Hostel Incidents Report";
-                ApplicationArea = All;
-            }
-            action("Hostel Allocations")
-            {
-                Caption = 'Hostel Allocations';
-                Image = Allocations;
+                    RunObject = Report "Hostel Incidents Report";
+                    ApplicationArea = All;
+                }
+                action("Hostel Allocations")
+                {
+                    Caption = 'Hostel Allocations';
+                    Image = Allocations;
 
 
-                RunObject = Report "Hostel Allocations Per Block";
-                ApplicationArea = All;
-            }
-            action("Detailled Allocations")
-            {
-                Caption = 'Detailled Allocations';
-                Image = AllocatedCapacity;
+                    RunObject = Report "Hostel Allocations Per Block";
+                    ApplicationArea = All;
+                }
+                action("Detailled Allocations")
+                {
+                    Caption = 'Detailled Allocations';
+                    Image = AllocatedCapacity;
 
 
-                RunObject = Report "Hostel Allo. Per Room/Block";
-                ApplicationArea = All;
-            }
-            action("Room Status")
-            {
-                Caption = 'Room Status';
-                Image = Status;
+                    RunObject = Report "Hostel Allo. Per Room/Block";
+                    ApplicationArea = All;
+                }
+                action("Room Status")
+                {
+                    Caption = 'Room Status';
+                    Image = Status;
 
 
-                RunObject = Report "Hostel Vaccant Per Room/Block";
-                ApplicationArea = All;
-            }
-            action("Allocations List")
-            {
-                Caption = 'Allocations List';
-                Image = Allocate;
-                RunObject = Report "Hostel Allo. Per Room (Det.)";
-                ApplicationArea = All;
-            }
-            action("Hostels Collection Report")
-            {
-                Image = "Report";
-                RunObject = Report "Aca-Hostel Charge Collection";
-                ApplicationArea = All;
-            }
+                    RunObject = Report "Hostel Vaccant Per Room/Block";
+                    ApplicationArea = All;
+                }
+                action("Allocations List")
+                {
+                    Caption = 'Allocations List';
+                    Image = Allocate;
+                    RunObject = Report "Hostel Allo. Per Room (Det.)";
+                    ApplicationArea = All;
+                }
+                action("Hostels Collection Report")
+                {
+                    Image = "Report";
+                    RunObject = Report "Aca-Hostel Charge Collection";
+                    ApplicationArea = All;
+                }
             }
         }
         area(sections)

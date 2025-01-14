@@ -3,7 +3,7 @@ page 51026 ExtensionLines
     Caption = 'ExtensionLines';
     PageType = ListPart;
     SourceTable = "Trainning Facilittaor";
-    
+
     layout
     {
         area(Content)

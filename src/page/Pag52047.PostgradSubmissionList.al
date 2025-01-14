@@ -4,7 +4,7 @@ page 52047 "Postgrad Submission List"
     Caption = 'Postgrad Submission List';
     PageType = List;
     SourceTable = "Student Submission";
-    
+
     layout
     {
         area(Content)

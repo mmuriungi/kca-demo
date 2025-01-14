@@ -21,7 +21,7 @@ page 51509 Estates
     {
         area(Sections)
         {
-          
+
             group("Projects Designs")
             {
                 action("&Open")
@@ -141,191 +141,191 @@ page 51509 Estates
                         RunPageLink = Status = filter(Open | Pending | Approved | Cancelled), "Bill Type" = const(External);
                     }
                 }
-              group("Repair Requests")
-            {
-                action("Pending Assigning")
+                group("Repair Requests")
                 {
-                    caption = 'Open Request';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Repair Requests";
-                    RunPageLink = Status = const(Open);
+                    action("Pending Assigning")
+                    {
+                        caption = 'Open Request';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Repair Requests";
+                        RunPageLink = Status = const(Open);
+                    }
+                    // action(" Pending approval")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     RunObject = page "Repair Requests";
+                    //     RunPageLink = Status = const(Pending);
+                    // }
+                    action("Approved")
+                    {
+                        Caption = 'Pending Assignment ';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Repair Requests";
+                        RunPageLink = Status = const(Approved);
+                    }
+                    action("Closed")
+                    {
+                        Caption = 'Maintainance Officer Completed';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "maintenance request list";
+                        RunPageLink = Completed = const(true);
+                    }
+                    action("Client Closed")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "maintenance request list";
+                        RunPageLink = "client Closed" = const(true);
+                    }
+                    action("Closed Repair Requests")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Repair Requests";
+                        RunPageLink = Status = const(Closed);
+                    }
+                    // action("Cancelled")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     RunObject = page "Repair Requests";
+                    //     RunPageLink = Status = const(Cancelled);
+                    // }
+                    // // action("Completed")
+                    // // {
+                    // //     ApplicationArea = Basic, Suite;
+                    // //     RunObject = page "Repair Requests";
+                    // //     RunPageLink = Status = const(Completed);
+                    // // }
+                    // action("&All Requests")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     RunObject = page "Repair Requests";
+                    //     RunPageLink = Status = filter(Open | Pending | Approved | Cancelled | Completed | Closed | Rejected | Scheduled);
+                    // }
                 }
-                // action(" Pending approval")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     RunObject = page "Repair Requests";
-                //     RunPageLink = Status = const(Pending);
-                // }
-                action("Approved")
+                group("Maintenance Requests")
                 {
-                    Caption = 'Pending Assignment ';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Repair Requests";
-                    RunPageLink = Status = const(Approved);
+                    //Visible = false;
+                    action("Open Requests")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Requests";
+                        RunPageLink = Status = const(Open);
+                    }
+                    // action("Pending Requests")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     RunObject = page "Maintenance Requests";
+                    //     RunPageLink = Status = const(Pending);
+                    // }
+                    action("Classified  Request")
+                    {
+                        Caption = 'unClassified  Requests';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Requests";
+                        RunPageLink = Status = const(unClassified);
+                    }
+                    action("Classified Maintenance Request")
+                    {
+                        Caption = 'Classified Maintenance Request';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Requests";
+                        RunPageLink = "Type Of Request" = const(Maintenance);
+                    }
+                    action("Classified repair Request")
+                    {
+                        Caption = 'Classified Repair Request';
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Requests";
+                        RunPageLink = "Type Of Request" = const(Repair);
+                    }
+                    action("All Requests")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Requests";
+                        RunPageLink = Status = filter(Open | Pending | Approved | Cancelled | Completed | Closed | Rejected | Scheduled);
+                    }
+                    // action("Posted Requests")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     RunObject = page "Maintenance Requests";
+                    //     RunPageLink = Status = const(Posted);
+                    // }
+                    // action("Cancelled Requests")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     RunObject = page "Maintenance Requests";
+                    //     RunPageLink = Status = const(Cancelled);
+                    // }
+                    // action("Rejected Requests")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     RunObject = page "Maintenance Requests";
+                    //     RunPageLink = Status = const(Rejected);
+                    // }
+
                 }
-                action("Closed")
+                group("Maintenance Schedules")
                 {
-                    Caption = 'Maintainance Officer Completed';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "maintenance request list";
-                    RunPageLink = Completed = const(true);
+
+                    action("Scheduled Requests")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Requests";
+                        RunPageLink = Status = const(Scheduled);
+                    }
+                    // action("Completed Requests")
+                    // {
+                    //     ApplicationArea = Basic, Suite;
+                    //     RunObject = page "Maintenance Requests";
+                    //     RunPageLink = Status = const(Completed);
+                    // }
+
+                    action("Open Schedules")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Schedules";
+                        RunPageLink = Status = const(Open);
+                    }
+                    action("Pending Schedules")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Schedules";
+                        RunPageLink = Status = const(Pending);
+                    }
+                    action("Approved Schedules")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Schedules";
+                        RunPageLink = Status = const(Approved);
+                    }
+                    action("Closed Schedules")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Schedules";
+                        RunPageLink = Status = const(Closed);
+                    }
+                    action("Cancelled Schedules")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Schedules";
+                        RunPageLink = Status = const(Cancelled);
+                    }
+                    action("Completed Schedules")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Schedules";
+                        RunPageLink = Status = const(Completed);
+                    }
+                    action("All Schedules")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = page "Maintenance Schedules";
+                        RunPageLink = Status = filter(Open | Pending | Approved | Cancelled | Completed | Closed);
+                    }
+
                 }
-                action("Client Closed")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "maintenance request list";
-                    RunPageLink = "client Closed" = const(true);
-                }
-                action("Closed Repair Requests")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Repair Requests";
-                    RunPageLink = Status = const(Closed);
-                }
-                // action("Cancelled")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     RunObject = page "Repair Requests";
-                //     RunPageLink = Status = const(Cancelled);
-                // }
-                // // action("Completed")
-                // // {
-                // //     ApplicationArea = Basic, Suite;
-                // //     RunObject = page "Repair Requests";
-                // //     RunPageLink = Status = const(Completed);
-                // // }
-                // action("&All Requests")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     RunObject = page "Repair Requests";
-                //     RunPageLink = Status = filter(Open | Pending | Approved | Cancelled | Completed | Closed | Rejected | Scheduled);
-                // }
-            }
-                        group("Maintenance Requests")
-            {
-                //Visible = false;
-                action("Open Requests")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Requests";
-                    RunPageLink = Status = const(Open);
-                }
-                // action("Pending Requests")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     RunObject = page "Maintenance Requests";
-                //     RunPageLink = Status = const(Pending);
-                // }
-                action("Classified  Request")
-                {
-                    Caption = 'unClassified  Requests';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Requests";
-                    RunPageLink = Status = const(unClassified);
-                }
-                action("Classified Maintenance Request")
-                {
-                    Caption = 'Classified Maintenance Request';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Requests";
-                    RunPageLink = "Type Of Request" = const(Maintenance);
-                }
-                action("Classified repair Request")
-                {
-                    Caption = 'Classified Repair Request';
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Requests";
-                    RunPageLink = "Type Of Request" = const(Repair);
-                }
-                action("All Requests")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Requests";
-                    RunPageLink = Status = filter(Open | Pending | Approved | Cancelled | Completed | Closed | Rejected | Scheduled);
-                }
-                // action("Posted Requests")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     RunObject = page "Maintenance Requests";
-                //     RunPageLink = Status = const(Posted);
-                // }
-                // action("Cancelled Requests")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     RunObject = page "Maintenance Requests";
-                //     RunPageLink = Status = const(Cancelled);
-                // }
-                // action("Rejected Requests")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     RunObject = page "Maintenance Requests";
-                //     RunPageLink = Status = const(Rejected);
-                // }
+
 
             }
-            group("Maintenance Schedules")
-            {
-
-                action("Scheduled Requests")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Requests";
-                    RunPageLink = Status = const(Scheduled);
-                }
-                // action("Completed Requests")
-                // {
-                //     ApplicationArea = Basic, Suite;
-                //     RunObject = page "Maintenance Requests";
-                //     RunPageLink = Status = const(Completed);
-                // }
-
-                action("Open Schedules")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Schedules";
-                    RunPageLink = Status = const(Open);
-                }
-                action("Pending Schedules")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Schedules";
-                    RunPageLink = Status = const(Pending);
-                }
-                action("Approved Schedules")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Schedules";
-                    RunPageLink = Status = const(Approved);
-                }
-                action("Closed Schedules")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Schedules";
-                    RunPageLink = Status = const(Closed);
-                }
-                action("Cancelled Schedules")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Schedules";
-                    RunPageLink = Status = const(Cancelled);
-                }
-                action("Completed Schedules")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Schedules";
-                    RunPageLink = Status = const(Completed);
-                }
-                action("All Schedules")
-                {
-                    ApplicationArea = Basic, Suite;
-                    RunObject = page "Maintenance Schedules";
-                    RunPageLink = Status = filter(Open | Pending | Approved | Cancelled | Completed | Closed);
-                }
-
-            }
-            
-
-            }  
         }
         area(Processing)
         {

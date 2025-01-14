@@ -50,7 +50,7 @@ codeunit 50083 WorkFlowEventHandling
         //WorkFlowEventHandling.AddEventToLibrary(RunWorkFlowOnCancelMemoImprestForApprovalCode(), Database::"FIN-Memo Header", MemoImprestApprovalRequestCancelEventDescTxt, 0, false);
         //WorkFlowEventHandling.AddEventToLibrary(RunWorkFlowOnSendMemoImprestForApprovalCode, Database::"FIN-Memo Header", MemoImprestSentForApprovalEventDescTxt, 0, false);
         /*Internal Audit Workplan*/
-      
+
 
     end;
 

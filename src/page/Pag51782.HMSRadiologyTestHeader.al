@@ -105,11 +105,11 @@ page 51782 "HMS-Radiology Test Header"
                     RadLines.RESET;
                     RadLines.SETRANGE(RadLines."Radiology no.", Rec."Radiology No.");
                     IF RadLines.FIND('-') THEN BEGIN
-                                                   REPEAT
-                                                       IF RadLines.Completed = FALSE THEN BEGIN
-                                                           ERROR('Please ensure that the tests listed are completed first');
-                                                       END;
-                                                   UNTIL RadLines.NEXT = 0;
+                        REPEAT
+                            IF RadLines.Completed = FALSE THEN BEGIN
+                                ERROR('Please ensure that the tests listed are completed first');
+                            END;
+                        UNTIL RadLines.NEXT = 0;
                     END;
                     Rec.Status := Rec.Status::Completed;
                     Rec.MODIFY;

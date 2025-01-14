@@ -5,7 +5,7 @@ page 50139 "Tax Payment Ledgers"
     PageType = List;
     SourceTable = "FIN-Tax Payment Ledgers";
     UsageCategory = Administration;
-    
+
     layout
     {
         area(content)

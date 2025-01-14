@@ -71,7 +71,7 @@ page 51760 "HMS Patient Relative Card"
                     trigger OnValidate()
                     begin
                         IF Rec."Date Of Birth" <> 0D THEN BEGIN
-                            Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
+                            Rec.Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
                         END;
                     end;
                 }
@@ -83,7 +83,7 @@ page 51760 "HMS Patient Relative Card"
                 {
                     ApplicationArea = All;
                 }
-                field(Age; Age)
+                field(Age; Rec.Age)
                 {
                     Editable = false;
                     ApplicationArea = All;
@@ -405,7 +405,7 @@ page 51760 "HMS Patient Relative Card"
         xRec := Rec;
         CheckPatientType();
         IF Rec."Date Of Birth" <> 0D THEN BEGIN
-            Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
+            Rec.Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
         END;
     end;
 }

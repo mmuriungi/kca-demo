@@ -2,7 +2,7 @@ table 51310 "Vehicle Daily Movement"
 {
     Caption = 'Vehicle Daily Movement';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Entry No."; Integer)

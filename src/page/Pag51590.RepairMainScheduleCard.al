@@ -3,7 +3,7 @@ page 51590 "Repair Main  Schedule Card"
     Caption = 'Repair Main  Schedule Card';
     PageType = Card;
     SourceTable = "Repair Maintenance  Schedule";
-    
+
     layout
     {
         area(Content)
@@ -11,7 +11,7 @@ page 51590 "Repair Main  Schedule Card"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("Reg No"; Rec."Reg No")
                 {
                     ApplicationArea = All;

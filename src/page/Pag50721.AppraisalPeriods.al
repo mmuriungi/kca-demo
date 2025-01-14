@@ -11,17 +11,17 @@ page 50721 "Appraisal Periods"
             {
                 field(Period; Rec.Period)
                 {
-                   // Editable = Fieldeditable;
+                    // Editable = Fieldeditable;
                     ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
-                   // Editable = Fieldeditable;
+                    // Editable = Fieldeditable;
                     ApplicationArea = All;
                 }
                 field(Closed; Rec.Closed)
                 {
-                   // Editable = Fieldeditable;
+                    // Editable = Fieldeditable;
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Closed field.';
                 }

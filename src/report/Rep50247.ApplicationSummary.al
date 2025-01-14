@@ -143,7 +143,7 @@ report 50247 "Application Summary"
             end;
         }
     }
-   
+
 
     requestpage
     {
@@ -160,13 +160,12 @@ report 50247 "Application Summary"
     labels
     {
     }
-     trigger OnInitReport()
+    trigger OnInitReport()
     var
         myInt: Integer;
     begin
         Companyinfo.Reset();
-        if Companyinfo.Get then
-        begin
+        if Companyinfo.Get then begin
             Companyinfo.CalcFields(Picture);
         end;
     end;

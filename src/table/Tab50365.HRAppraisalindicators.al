@@ -1,4 +1,4 @@
-table  50365 "HR Appraisal indicators"
+table 50365 "HR Appraisal indicators"
 {
 
     fields

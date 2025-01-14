@@ -127,7 +127,7 @@ page 50532 "HRM-Posted Leave Journal"
 
                 trigger OnAction()
                 begin
-                    CODEUNIT.Run(Codeunit ::"HR Post Leave Journal Ent.");
+                    CODEUNIT.Run(Codeunit::"HR Post Leave Journal Ent.");
                 end;
             }
             group(Import)

@@ -4,22 +4,22 @@ Table 51257 "Core_Banking_Stud_Exists_Statu"
 
     fields
     {
-        field(1;"Core_Banking Status";Option)
+        field(1; "Core_Banking Status"; Option)
         {
             OptionCaption = ' ,Student,KUCCPS Import';
             OptionMembers = " ",Student,"KUCCPS Import";
         }
-        field(2;"Exists in Customer";Boolean)
+        field(2; "Exists in Customer"; Boolean)
         {
         }
-        field(3;"Exists in KUCCPS Import";Boolean)
+        field(3; "Exists in KUCCPS Import"; Boolean)
         {
         }
     }
 
     keys
     {
-        key(Key1;"Core_Banking Status")
+        key(Key1; "Core_Banking Status")
         {
             Clustered = true;
         }

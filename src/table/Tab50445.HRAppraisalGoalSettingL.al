@@ -1,4 +1,4 @@
-table  50445 "HR Appraisal Goal Setting L"
+table 50445 "HR Appraisal Goal Setting L"
 {
 
     fields

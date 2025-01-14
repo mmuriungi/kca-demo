@@ -12,7 +12,7 @@ page 52178708 "Quotation Request Vendors"
                 field("Vendor No."; Rec."Vendor No.")
                 {
                     ApplicationArea = All;
-                    Editable=false;
+                    Editable = false;
                 }
                 field("Vendor Name"; Rec."Vendor Name")
                 {

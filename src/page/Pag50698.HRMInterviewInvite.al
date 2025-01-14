@@ -3,7 +3,7 @@ page 50698 "HRM-Interview Invite"
     CardPageID = "HRM Interview Candidate";
     PageType = List;
     PromotedActionCategories = 'New,Process,Report,Applicant,Functions,Print';
-    SourceTableView = WHERE( "Interview Status" = FILTER(Invited), Sifted =  Filter(Interview));
+    SourceTableView = WHERE("Interview Status" = FILTER(Invited), Sifted = Filter(Interview));
     SourceTable = "HRM-Job Applications (B)";
 
     layout
@@ -14,7 +14,7 @@ page 50698 "HRM-Interview Invite"
             {
                 Editable = false;
                 ShowCaption = false;
-                 field("Application No"; Rec."Application No")
+                field("Application No"; Rec."Application No")
                 {
                     ApplicationArea = all;
                     Importance = Promoted;
@@ -49,7 +49,7 @@ page 50698 "HRM-Interview Invite"
                     ToolTip = 'Specifies the value of the Job Type field.';
                     ApplicationArea = All;
                 }
-               
+
             }
         }
         area(factboxes)
@@ -76,7 +76,7 @@ page 50698 "HRM-Interview Invite"
                     Image = ImportDatabase;
                     Promoted = true;
                     PromotedCategory = Category4;
-                    
+
 
                     trigger OnAction()
                     begin

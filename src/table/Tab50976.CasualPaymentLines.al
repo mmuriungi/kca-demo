@@ -149,20 +149,20 @@ table 50976 "Casual Payment Lines."
                     prPAYE.RESET;
                     IF prPAYE.FINDFIRST THEN BEGIN
                         IF "Basic Amount" < prPAYE."PAYE Tier" THEN EXIT;
-                                                 REPEAT
-                                                     KeepCount += 1;
-                                                     curTempAmount := "Basic Amount";
-                                                     IF "Basic Amount" = 0 THEN EXIT;
+                        REPEAT
+                            KeepCount += 1;
+                            curTempAmount := "Basic Amount";
+                            IF "Basic Amount" = 0 THEN EXIT;
 
-                                                     IF "Basic Amount" >= prPAYE."PAYE Tier" THEN BEGIN
-                                                         curTempAmount := prPAYE."PAYE Tier";
+                            IF "Basic Amount" >= prPAYE."PAYE Tier" THEN BEGIN
+                                curTempAmount := prPAYE."PAYE Tier";
 
-                                                         curTempAmount := curTempAmount - 200;
+                                curTempAmount := curTempAmount - 200;
 
-                                                         PAYE := PAYE + (curTempAmount * (prPAYE.Rate / 100));
-                                                     END;
-                                                     "PAYE Amount" := PAYE - 1408;
-                                                 UNTIL prPAYE.NEXT = 0;
+                                PAYE := PAYE + (curTempAmount * (prPAYE.Rate / 100));
+                            END;
+                            "PAYE Amount" := PAYE - 1408;
+                        UNTIL prPAYE.NEXT = 0;
                         "Net Pay" := "Basic Amount" - PAYE;
                         MESSAGE('payeamount%1,Netpayamount%2', (prPAYE.Rate / 100), "Net Pay");
                     END;
@@ -174,11 +174,11 @@ table 50976 "Casual Payment Lines."
                     prNHIF.RESET;
                     prNHIF.SETCURRENTKEY(prNHIF."Tier Code");
                     IF prNHIF.FINDFIRST THEN BEGIN
-                                                 REPEAT
-                                                     IF (("Basic Amount" >= prNHIF."Lower Limit") AND ("Basic Amount" <= prNHIF."Upper Limit")) THEN
-                                                         NHIF := prNHIF.Amount;
-                                                     "NHIF Amount" := NHIF;
-                                                 UNTIL prNHIF.NEXT = 0;
+                        REPEAT
+                            IF (("Basic Amount" >= prNHIF."Lower Limit") AND ("Basic Amount" <= prNHIF."Upper Limit")) THEN
+                                NHIF := prNHIF.Amount;
+                            "NHIF Amount" := NHIF;
+                        UNTIL prNHIF.NEXT = 0;
                         "Net Pay" := "Net Pay" - "NHIF Amount";
                     END;
                 END ELSE

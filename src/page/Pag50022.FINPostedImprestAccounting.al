@@ -364,7 +364,7 @@ page 50022 "FIN-Posted Imprest Accounting"
                 var
                     Txt0001: Label 'Actual Spent and the Cash Receipt Amount should be equal to the amount Issued';
                 begin
-                    ExpenseBudget;
+                    Rec.ExpenseBudget;
 
 
                     Rec.TESTFIELD(Status, Rec.Status::Approved);

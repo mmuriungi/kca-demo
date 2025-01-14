@@ -62,7 +62,7 @@ table 50727 "CRM Mail Parameters"
         field(11; "Email Body"; Text[250])
         {
             DataClassification = ToBeClassified;
-            
+
         }
 
         field(12; "Email Body 2"; Text[250])

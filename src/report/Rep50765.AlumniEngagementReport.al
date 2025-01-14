@@ -47,15 +47,15 @@ report 50765 "Alumni Engagement Report"
             }
             column(CompanyPhone; Company."Phone No.")
             {
-                
+
             }
             column(CompanyPostCode; Company."Post Code")
             {
-                
+
             }
             column(CompanyCity; Company.City)
             {
-                
+
             }
         }
     }
@@ -66,6 +66,6 @@ report 50765 "Alumni Engagement Report"
         Company.CALCFIELDS(Picture);
     end;
 
-     var
+    var
         Company: Record "Company Information";
 }

@@ -1,7 +1,7 @@
 // Page: Headline RC CRM
 page 50322 "Headline RC CRM"
 {
-    PageType = HeadlinePart; 
+    PageType = HeadlinePart;
     Caption = 'CRM Headline';
 
     layout

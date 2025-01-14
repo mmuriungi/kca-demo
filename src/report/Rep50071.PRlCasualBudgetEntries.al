@@ -27,128 +27,128 @@ report 50071 "PRl-Casual BudgetEntries"
                     PeriodTrans.SETRANGE(PeriodTrans."Employee Code", "Employee Code");
                     PeriodTrans.SETRANGE(PeriodTrans."Payroll Period", SelectedPeriod);
                     IF PeriodTrans.FIND('-') THEN BEGIN
-                                                      REPEAT
+                        REPEAT
 
-                                                          IF PeriodTrans."Journal Account Code" <> '' THEN BEGIN
+                            IF PeriodTrans."Journal Account Code" <> '' THEN BEGIN
 
-                                                              /* SaccoTransactionType:=SaccoTransactionType::" ";
+                                /* SaccoTransactionType:=SaccoTransactionType::" ";
 
-                                                              IF PeriodTrans."coop parameters" = PeriodTrans."coop parameters"::loan THEN
-                                                                 SaccoTransactionType:=SaccoTransactionType::Repayment;
+                                IF PeriodTrans."coop parameters" = PeriodTrans."coop parameters"::loan THEN
+                                   SaccoTransactionType:=SaccoTransactionType::Repayment;
 
-                                                              IF PeriodTrans."coop parameters" = PeriodTrans."coop parameters"::"loan Interest" THEN
-                                                                 SaccoTransactionType:=SaccoTransactionType::"Interest Paid";
+                                IF PeriodTrans."coop parameters" = PeriodTrans."coop parameters"::"loan Interest" THEN
+                                   SaccoTransactionType:=SaccoTransactionType::"Interest Paid";
 
-                                                              IF PeriodTrans."coop parameters" = PeriodTrans."coop parameters"::Welfare THEN
-                                                                 SaccoTransactionType:=SaccoTransactionType::"Welfare Contribution";
+                                IF PeriodTrans."coop parameters" = PeriodTrans."coop parameters"::Welfare THEN
+                                   SaccoTransactionType:=SaccoTransactionType::"Welfare Contribution";
 
-                                                              IF PeriodTrans."coop parameters" = PeriodTrans."coop parameters"::shares THEN
-                                                                 SaccoTransactionType:=SaccoTransactionType::"Deposit Contribution";
-                                                              */
-
-
-                                                              // Insert into Journal Details
-
-                                                              PayrollJournalDetails.RESET;
-                                                              PayrollJournalDetails.SETRANGE(PayrollJournalDetails."Employee Code", PeriodTrans."Employee Code");
-                                                              PayrollJournalDetails.SETRANGE(PayrollJournalDetails."Transaction Code", PeriodTrans."Transaction Code");
-                                                              PayrollJournalDetails.SETRANGE(PayrollJournalDetails."Period Month", PeriodTrans."Period Month");
-                                                              PayrollJournalDetails.SETRANGE(PayrollJournalDetails."Period Year", PeriodTrans."Period Year");
-                                                              IF PayrollJournalDetails.FIND('-') THEN BEGIN
-                                                                  PayrollJournalDetails."G/L Account" := PeriodTrans."Journal Account Code";
-                                                                  PayrollJournalDetails."Posting Description" := COPYSTR(objPeriod."Period Name" + ' - ' + PeriodTrans."Transaction Name", 1, 50);
-                                                                  PayrollJournalDetails.Amount := PeriodTrans.Amount;
-                                                                  PayrollJournalDetails."Post as" := PeriodTrans."Post As";
-                                                                  PayrollJournalDetails."coop parameters" := PeriodTrans."coop parameters";
-                                                                  PayrollJournalDetails."Journal Account Type" := PeriodTrans."Journal Account Type";
-                                                                  PayrollJournalDetails.MODIFY;
-                                                              END ELSE BEGIN
-                                                                  PayrollJournalDetails.INIT;
-                                                                  PayrollJournalDetails."Employee Code" := PeriodTrans."Employee Code";
-                                                                  PayrollJournalDetails."Transaction Code" := PeriodTrans."Transaction Code";
-                                                                  PayrollJournalDetails."Period Month" := PeriodTrans."Period Month";
-                                                                  PayrollJournalDetails."Period Year" := PeriodTrans."Period Year";
-                                                                  PayrollJournalDetails."Transaction Name" := PeriodTrans."Transaction Name";
-                                                                  PayrollJournalDetails."G/L Account" := PeriodTrans."Journal Account Code";
-                                                                  PayrollJournalDetails."Posting Description" := COPYSTR(objPeriod."Period Name" + ' - ' + PeriodTrans."Transaction Name", 1, 50);
-                                                                  PayrollJournalDetails.Amount := PeriodTrans.Amount;
-                                                                  PayrollJournalDetails."Post as" := PeriodTrans."Post As";
-                                                                  PayrollJournalDetails."coop parameters" := PeriodTrans."coop parameters";
-                                                                  PayrollJournalDetails."Journal Account Type" := PeriodTrans."Journal Account Type";
-                                                                  PayrollJournalDetails.INSERT;
-                                                              END;// Does not exist, Insert
-
-                                                              // Insert into Journal Summary
-                                                              PayrollJournalSummary.RESET;
-                                                              PayrollJournalSummary.SETRANGE(PayrollJournalSummary."Transaction Code", PeriodTrans."Transaction Code");
-                                                              PayrollJournalSummary.SETRANGE(PayrollJournalSummary."Period Month", PeriodTrans."Period Month");
-                                                              PayrollJournalSummary.SETRANGE(PayrollJournalSummary."Period YearS", PeriodTrans."Period Year");
-                                                              IF PayrollJournalSummary.FIND('-') THEN BEGIN
-                                                                  PayrollJournalSummary."G/L Account" := PeriodTrans."Journal Account Code";
-                                                                  PayrollJournalSummary."Transaction Name" := PeriodTrans."Transaction Name";
-                                                                  PayrollJournalSummary."Posting Description" := COPYSTR(objPeriod."Period Name" + ' - ' + PeriodTrans."Transaction Name", 1, 50);
-                                                                  PayrollJournalSummary."Post as" := PeriodTrans."Post As";
-                                                                  PayrollJournalSummary."coop parameters" := PeriodTrans."coop parameters";
-                                                                  PayrollJournalSummary."Journal Account Type" := PeriodTrans."Journal Account Type";
-                                                                  PayrollJournalSummary.MODIFY;
-                                                              END ELSE BEGIN
-                                                                  PayrollJournalSummary.INIT;
-                                                                  PayrollJournalSummary."Transaction Code" := PeriodTrans."Transaction Code";
-                                                                  PayrollJournalSummary."Transaction Name" := PeriodTrans."Transaction Name";
-                                                                  PayrollJournalSummary."G/L Account" := PeriodTrans."Journal Account Code";
-                                                                  PayrollJournalSummary."Period Month" := PeriodTrans."Period Month";
-                                                                  PayrollJournalSummary."Period YearS" := PeriodTrans."Period Year";
-                                                                  PayrollJournalSummary."Posting Description" := COPYSTR(objPeriod."Period Name" + ' - ' + PeriodTrans."Transaction Name", 1, 50);
-                                                                  PayrollJournalSummary."Post as" := PeriodTrans."Post As";
-                                                                  PayrollJournalSummary."coop parameters" := PeriodTrans."coop parameters";
-                                                                  PayrollJournalSummary."Journal Account Type" := PeriodTrans."Journal Account Type";
-                                                                  PayrollJournalSummary.INSERT;
-                                                              END;
-
-                                                              /*
-
-                                                                  //Pension
-                                                                  IF PeriodTrans."coop parameters"=PeriodTrans."coop parameters"::Pension THEN BEGIN
-                                                                    //Get from Employer Deduction
-                                                                    EmployerDed.RESET;
-                                                                    EmployerDed.SETRANGE(EmployerDed."Employee Code",PeriodTrans."Employee Code");
-                                                                    EmployerDed.SETRANGE(EmployerDed."Transaction Code",PeriodTrans."Transaction Code");
-                                                                    EmployerDed.SETRANGE(EmployerDed."Payroll Period",PeriodTrans."Payroll Period");
-                                                                    IF EmployerDed.FIND('-') THEN BEGIN
-                                                                    //Credit Payables
-                                                                        CreateJnlEntry(0,PostingGroup."Pension Employee Acc",
-                                                                        GlobalDim1,'',PeriodTrans."Transaction Name"+'-'+PeriodTrans."Employee Code",0,
-                                                                        EmployerDed.Amount,PeriodTrans."Post As",'',SaccoTransactionType,PostingGroup."Pension Payable Acc");
-
-                                                                    //Debit Staff Expense
-                                                                        CreateJnlEntry(0,PostingGroup."Pension Employer Acc",
-                                                                        GlobalDim1,'',PeriodTrans."Transaction Name"+'-'+PeriodTrans."Employee Code",EmployerDed.Amount,0,1,'',
-                                                                        SaccoTransactionType,PostingGroup."Pension Payable Acc");
-
-                                                                    END;
-                                                                  END;
-
-                                                                  //NSSF
-                                                                  IF PeriodTrans."coop parameters"=PeriodTrans."coop parameters"::NSSF THEN BEGIN
-                                                                     //Credit Payables
-                                                                    //Credit Payables
-
-                                                                        CreateJnlEntry(0,PostingGroup."NSSF Employee Account",
-                                                                        GlobalDim1,'',PeriodTrans."Transaction Name"+'-'+PeriodTrans."Employee Code",0,PeriodTrans.Amount,
-                                                                        PeriodTrans."Post As",'',SaccoTransactionType,PostingGroup."NSSF Payable Acc");
-
-                                                                    //Debit Staff Expense
-
-                                                                        CreateJnlEntry(0,PostingGroup."NSSF Employer Account",
-                                                                        GlobalDim1,'',PeriodTrans."Transaction Name"+'-'+PeriodTrans."Employee Code",PeriodTrans.Amount,0,1,'',
-                                                                        SaccoTransactionType,PostingGroup."NSSF Payable Acc");
+                                IF PeriodTrans."coop parameters" = PeriodTrans."coop parameters"::shares THEN
+                                   SaccoTransactionType:=SaccoTransactionType::"Deposit Contribution";
+                                */
 
 
-                                                                  END;*/
+                                // Insert into Journal Details
+
+                                PayrollJournalDetails.RESET;
+                                PayrollJournalDetails.SETRANGE(PayrollJournalDetails."Employee Code", PeriodTrans."Employee Code");
+                                PayrollJournalDetails.SETRANGE(PayrollJournalDetails."Transaction Code", PeriodTrans."Transaction Code");
+                                PayrollJournalDetails.SETRANGE(PayrollJournalDetails."Period Month", PeriodTrans."Period Month");
+                                PayrollJournalDetails.SETRANGE(PayrollJournalDetails."Period Year", PeriodTrans."Period Year");
+                                IF PayrollJournalDetails.FIND('-') THEN BEGIN
+                                    PayrollJournalDetails."G/L Account" := PeriodTrans."Journal Account Code";
+                                    PayrollJournalDetails."Posting Description" := COPYSTR(objPeriod."Period Name" + ' - ' + PeriodTrans."Transaction Name", 1, 50);
+                                    PayrollJournalDetails.Amount := PeriodTrans.Amount;
+                                    PayrollJournalDetails."Post as" := PeriodTrans."Post As";
+                                    PayrollJournalDetails."coop parameters" := PeriodTrans."coop parameters";
+                                    PayrollJournalDetails."Journal Account Type" := PeriodTrans."Journal Account Type";
+                                    PayrollJournalDetails.MODIFY;
+                                END ELSE BEGIN
+                                    PayrollJournalDetails.INIT;
+                                    PayrollJournalDetails."Employee Code" := PeriodTrans."Employee Code";
+                                    PayrollJournalDetails."Transaction Code" := PeriodTrans."Transaction Code";
+                                    PayrollJournalDetails."Period Month" := PeriodTrans."Period Month";
+                                    PayrollJournalDetails."Period Year" := PeriodTrans."Period Year";
+                                    PayrollJournalDetails."Transaction Name" := PeriodTrans."Transaction Name";
+                                    PayrollJournalDetails."G/L Account" := PeriodTrans."Journal Account Code";
+                                    PayrollJournalDetails."Posting Description" := COPYSTR(objPeriod."Period Name" + ' - ' + PeriodTrans."Transaction Name", 1, 50);
+                                    PayrollJournalDetails.Amount := PeriodTrans.Amount;
+                                    PayrollJournalDetails."Post as" := PeriodTrans."Post As";
+                                    PayrollJournalDetails."coop parameters" := PeriodTrans."coop parameters";
+                                    PayrollJournalDetails."Journal Account Type" := PeriodTrans."Journal Account Type";
+                                    PayrollJournalDetails.INSERT;
+                                END;// Does not exist, Insert
+
+                                // Insert into Journal Summary
+                                PayrollJournalSummary.RESET;
+                                PayrollJournalSummary.SETRANGE(PayrollJournalSummary."Transaction Code", PeriodTrans."Transaction Code");
+                                PayrollJournalSummary.SETRANGE(PayrollJournalSummary."Period Month", PeriodTrans."Period Month");
+                                PayrollJournalSummary.SETRANGE(PayrollJournalSummary."Period YearS", PeriodTrans."Period Year");
+                                IF PayrollJournalSummary.FIND('-') THEN BEGIN
+                                    PayrollJournalSummary."G/L Account" := PeriodTrans."Journal Account Code";
+                                    PayrollJournalSummary."Transaction Name" := PeriodTrans."Transaction Name";
+                                    PayrollJournalSummary."Posting Description" := COPYSTR(objPeriod."Period Name" + ' - ' + PeriodTrans."Transaction Name", 1, 50);
+                                    PayrollJournalSummary."Post as" := PeriodTrans."Post As";
+                                    PayrollJournalSummary."coop parameters" := PeriodTrans."coop parameters";
+                                    PayrollJournalSummary."Journal Account Type" := PeriodTrans."Journal Account Type";
+                                    PayrollJournalSummary.MODIFY;
+                                END ELSE BEGIN
+                                    PayrollJournalSummary.INIT;
+                                    PayrollJournalSummary."Transaction Code" := PeriodTrans."Transaction Code";
+                                    PayrollJournalSummary."Transaction Name" := PeriodTrans."Transaction Name";
+                                    PayrollJournalSummary."G/L Account" := PeriodTrans."Journal Account Code";
+                                    PayrollJournalSummary."Period Month" := PeriodTrans."Period Month";
+                                    PayrollJournalSummary."Period YearS" := PeriodTrans."Period Year";
+                                    PayrollJournalSummary."Posting Description" := COPYSTR(objPeriod."Period Name" + ' - ' + PeriodTrans."Transaction Name", 1, 50);
+                                    PayrollJournalSummary."Post as" := PeriodTrans."Post As";
+                                    PayrollJournalSummary."coop parameters" := PeriodTrans."coop parameters";
+                                    PayrollJournalSummary."Journal Account Type" := PeriodTrans."Journal Account Type";
+                                    PayrollJournalSummary.INSERT;
+                                END;
+
+                                /*
+
+                                    //Pension
+                                    IF PeriodTrans."coop parameters"=PeriodTrans."coop parameters"::Pension THEN BEGIN
+                                      //Get from Employer Deduction
+                                      EmployerDed.RESET;
+                                      EmployerDed.SETRANGE(EmployerDed."Employee Code",PeriodTrans."Employee Code");
+                                      EmployerDed.SETRANGE(EmployerDed."Transaction Code",PeriodTrans."Transaction Code");
+                                      EmployerDed.SETRANGE(EmployerDed."Payroll Period",PeriodTrans."Payroll Period");
+                                      IF EmployerDed.FIND('-') THEN BEGIN
+                                      //Credit Payables
+                                          CreateJnlEntry(0,PostingGroup."Pension Employee Acc",
+                                          GlobalDim1,'',PeriodTrans."Transaction Name"+'-'+PeriodTrans."Employee Code",0,
+                                          EmployerDed.Amount,PeriodTrans."Post As",'',SaccoTransactionType,PostingGroup."Pension Payable Acc");
+
+                                      //Debit Staff Expense
+                                          CreateJnlEntry(0,PostingGroup."Pension Employer Acc",
+                                          GlobalDim1,'',PeriodTrans."Transaction Name"+'-'+PeriodTrans."Employee Code",EmployerDed.Amount,0,1,'',
+                                          SaccoTransactionType,PostingGroup."Pension Payable Acc");
+
+                                      END;
+                                    END;
+
+                                    //NSSF
+                                    IF PeriodTrans."coop parameters"=PeriodTrans."coop parameters"::NSSF THEN BEGIN
+                                       //Credit Payables
+                                      //Credit Payables
+
+                                          CreateJnlEntry(0,PostingGroup."NSSF Employee Account",
+                                          GlobalDim1,'',PeriodTrans."Transaction Name"+'-'+PeriodTrans."Employee Code",0,PeriodTrans.Amount,
+                                          PeriodTrans."Post As",'',SaccoTransactionType,PostingGroup."NSSF Payable Acc");
+
+                                      //Debit Staff Expense
+
+                                          CreateJnlEntry(0,PostingGroup."NSSF Employer Account",
+                                          GlobalDim1,'',PeriodTrans."Transaction Name"+'-'+PeriodTrans."Employee Code",PeriodTrans.Amount,0,1,'',
+                                          SaccoTransactionType,PostingGroup."NSSF Payable Acc");
 
 
-                                                          END;
-                                                      UNTIL PeriodTrans.NEXT = 0;
+                                    END;*/
+
+
+                            END;
+                        UNTIL PeriodTrans.NEXT = 0;
                     END;
                 END;
 

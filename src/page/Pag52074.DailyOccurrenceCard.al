@@ -4,7 +4,7 @@ page 52074 "Daily Occurrence Card"
     Caption = 'Daily Occurrence Card';
     PageType = Card;
     SourceTable = "Daily Occurrence Book";
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 52074 "Daily Occurrence Card"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("Entry No."; Rec."Entry No.")
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
@@ -49,12 +49,12 @@ page 52074 "Daily Occurrence Card"
                 ApplicationArea = All;
                 Promoted = true;
                 RunObject = page "Incident Report Card";
-                RunPageLink = "OB No." =field("OB No.");
+                RunPageLink = "OB No." = field("OB No.");
                 // trigger OnAction()
                 // var
                 //     Incident: Record "Incident Report";
                 // begin
-                    
+
                 // end;
             }
         }

@@ -33,8 +33,8 @@ page 50584 "HRM-Employee-List2"
                 {
                     ApplicationArea = all;
                 }
-      
-               
+
+
                 field("Work Phone Number"; Rec."Work Phone Number")
                 {
                 }
@@ -253,7 +253,7 @@ page 50584 "HRM-Employee-List2"
                     SalCard.SetRange(SalCard."Employee Code", Rec."No.");
                     SalCard.SetRange(SalCard."Payroll Period", SelectedPeriod);
                     if SalCard.Find('-') then
-                        REPORT.Run(report:: prPaySlip3, true, false, SalCard);
+                        REPORT.Run(report::prPaySlip3, true, false, SalCard);
                 end;
             }
             action("vew payslip")
@@ -700,7 +700,7 @@ page 50584 "HRM-Employee-List2"
                                 dateofLeaving, false, HrEmployee."Department Code"); */
                                 ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
                     , salaryCard."Pays NSSF", salaryCard."Pays NHIF", SelectedPeriod, SelectedPeriod, '', '',
-                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code",PayrollCode,true);
+                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", PayrollCode, true);
 
 
                                 //END;// Has Transaction
@@ -736,7 +736,7 @@ page 50584 "HRM-Employee-List2"
 
                                                 ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
                     , salaryCard."Pays NSSF", salaryCard."Pays NHIF", SelectedPeriod, SelectedPeriod, '', '',
-                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code",PayrollCode,true);
+                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", PayrollCode, true);
 
                                                 Clear(Var1);
                                                 counts := counts + 1;

@@ -73,7 +73,7 @@ page 52178701 "PROC-Internal Requisitions"
 
 
 
-                
+
 
 
                 field("Assigned User ID"; Rec."Assigned User ID")

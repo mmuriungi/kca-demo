@@ -1,9 +1,9 @@
 page 50582 "HRM-Time Register"
 {
     PageType = List;
-    InsertAllowed=false;
-    DeleteAllowed=false;
-    ModifyAllowed=false;
+    InsertAllowed = false;
+    DeleteAllowed = false;
+    ModifyAllowed = false;
 
     SourceTable = "HRM-Time Register";
 

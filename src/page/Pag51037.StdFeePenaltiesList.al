@@ -5,7 +5,7 @@ page 51037 "Std Fee Penalties List"
     PageType = List;
     SourceTable = "Std-Fee Penalties Header";
     UsageCategory = Administration;
-    
+
     layout
     {
         area(Content)

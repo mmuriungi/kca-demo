@@ -16,7 +16,7 @@ table 50881 "CAT-Cafeteria Receipts Line"
         }
         field(3; "Meal Code"; Code[20])
         {
-            TableRelation = Item."No." where("Item Category Code"= const('FOOD'));
+            TableRelation = Item."No." where("Item Category Code" = const('FOOD'));
 
             trigger OnValidate()
             begin

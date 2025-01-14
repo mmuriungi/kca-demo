@@ -4,7 +4,7 @@ page 52085 "HRM-Staff Tansfers"
     Caption = 'HRM-Staff Tansfers';
     PageType = List;
     SourceTable = "HRM-Staff Tansfer";
-    
+
     layout
     {
         area(Content)
@@ -52,6 +52,6 @@ page 52085 "HRM-Staff Tansfers"
     }
     actions
     {
-        
+
     }
 }

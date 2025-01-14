@@ -197,7 +197,7 @@ page 50046 "Procurement Management"
                 }
 
             }
-             group("Procurement Process")
+            group("Procurement Process")
             {
                 action("Procurement Plan")
                 {

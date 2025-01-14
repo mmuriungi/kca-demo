@@ -34,7 +34,7 @@ table 51012 "Maintenance Schedule"
         {
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = count("Maintenance Schedule Line" where("Maintence No." = field("No."),"Repair Request Generated" = const(True)));
+            CalcFormula = count("Maintenance Schedule Line" where("Maintence No." = field("No."), "Repair Request Generated" = const(True)));
         }
 
     }

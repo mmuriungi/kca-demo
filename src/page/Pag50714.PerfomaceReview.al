@@ -39,7 +39,7 @@ page 50714 "Perfomace Review"
                 }
                 field("Agreed Targets"; Rec."Agreed Targets")
                 {
-                    
+
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Agreed Targets field.';
                 }

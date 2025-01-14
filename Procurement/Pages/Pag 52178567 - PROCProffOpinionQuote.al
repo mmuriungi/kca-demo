@@ -145,7 +145,7 @@ page 52178567 "PROC Proff Opinion.Quote"
                     end;
                 end;
             }
-             action("Recommend For Award")
+            action("Recommend For Award")
             {
                 ApplicationArea = All;
                 Image = Process;
@@ -183,7 +183,7 @@ page 52178567 "PROC Proff Opinion.Quote"
                     procProcess.IntentionToAward(rec);
                 end;
             }
-           
+
             action("Award")
             {
                 ApplicationArea = All;

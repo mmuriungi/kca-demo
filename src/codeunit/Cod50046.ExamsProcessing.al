@@ -280,7 +280,7 @@ codeunit 50046 "Exams Processing"
         LowerLimit: Decimal;
         UpperLimit: Decimal;
         LimitDif: Decimal;
-    begin 
+    begin
         ACAExamGradingSource.RESET;
         ACAExamGradingSource.SETRANGE("Academic Year", acadYears);
         IF ACAExamGradingSource.FIND('-') THEN ACAExamGradingSource.DELETEALL;

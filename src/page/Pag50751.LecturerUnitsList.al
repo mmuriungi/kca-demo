@@ -95,7 +95,7 @@ page 50751 "Lecturer Units List"
                 {
                     ApplicationArea = All;
                 }
-                field("Required Equipment";Rec."Required Equipment")
+                field("Required Equipment"; Rec."Required Equipment")
                 {
                     ApplicationArea = All;
                 }

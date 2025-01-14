@@ -14,9 +14,9 @@ table 50339 "HRM-Employee Categories"
             OptionCaption = ' ,Payroll,HR';
             OptionMembers = " ",Payroll,HR;
         }
-        field(4;"Retirement Age";Integer)
+        field(4; "Retirement Age"; Integer)
         {
-            
+
         }
     }
 

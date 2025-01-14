@@ -89,11 +89,11 @@ page 51716 "HMS-Immunization Header List"
                     Imm.SETRANGE(Imm.Posted, FALSE);
                     Imm.SETRANGE(Imm.Select, TRUE);
                     IF Imm.FIND('-') THEN BEGIN
-                                              REPEAT
-                                                  Imm.Posted := TRUE;
-                                                  Imm.Select := FALSE;
-                                                  Imm.MODIFY;
-                                              UNTIL Imm.NEXT = 0;
+                        REPEAT
+                            Imm.Posted := TRUE;
+                            Imm.Select := FALSE;
+                            Imm.MODIFY;
+                        UNTIL Imm.NEXT = 0;
                         MESSAGE('Immunization records made permanent');
                     END;
                 end;

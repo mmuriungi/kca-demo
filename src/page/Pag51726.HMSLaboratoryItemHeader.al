@@ -90,30 +90,30 @@ page 51726 "HMS Laboratory Item Header"
                     PharmLine.SETRANGE(PharmLine."Specimen Code", Rec."Specimen Code");
                     PharmLine.SETRANGE(PharmLine.Posted, FALSE);
                     IF PharmLine.FIND('-') THEN BEGIN
-                                                    REPEAT
-                                                        ItemJnlLine.INIT;
-                                                        ItemJnlLine."Journal Template Name" := HMSSetup."Laboratory Item Journal Temp";
-                                                        ItemJnlLine."Journal Batch Name" := HMSSetup."Laboratory Item Journal Batch";
-                                                        ItemJnlLine."Line No." := LineNo;
-                                                        ItemJnlLine."Posting Date" := TODAY;
-                                                        ItemJnlLine."Entry Type" := ItemJnlLine."Entry Type"::"Negative Adjmt.";
+                        REPEAT
+                            ItemJnlLine.INIT;
+                            ItemJnlLine."Journal Template Name" := HMSSetup."Laboratory Item Journal Temp";
+                            ItemJnlLine."Journal Batch Name" := HMSSetup."Laboratory Item Journal Batch";
+                            ItemJnlLine."Line No." := LineNo;
+                            ItemJnlLine."Posting Date" := TODAY;
+                            ItemJnlLine."Entry Type" := ItemJnlLine."Entry Type"::"Negative Adjmt.";
 
-                                                        ItemJnlLine."Document No." := PharmLine."Laboratory No." + ':' + PharmLine."Item No.";
-                                                        ItemJnlLine."Item No." := PharmLine."Item No.";
-                                                        ItemJnlLine.VALIDATE(ItemJnlLine."Item No.");
-                                                        ItemJnlLine."Location Code" := HMSSetup."Laboratory Room";
-                                                        ItemJnlLine.VALIDATE(ItemJnlLine."Location Code");
-                                                        ItemJnlLine.Quantity := PharmLine."Item Quantity";
-                                                        ItemJnlLine.VALIDATE(ItemJnlLine.Quantity);
-                                                        ItemJnlLine."Unit of Measure Code" := PharmLine."Item Unit Of Measure";
-                                                        ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
-                                                        ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
-                                                        ItemJnlLine.INSERT();
-                                                        PharmLine.Posted := TRUE;
-                                                        PharmLine.MODIFY;
-                                                        LineNo := LineNo + 1;
-                                                    /*Update the treatment lines*/
-                                                    UNTIL PharmLine.NEXT = 0;
+                            ItemJnlLine."Document No." := PharmLine."Laboratory No." + ':' + PharmLine."Item No.";
+                            ItemJnlLine."Item No." := PharmLine."Item No.";
+                            ItemJnlLine.VALIDATE(ItemJnlLine."Item No.");
+                            ItemJnlLine."Location Code" := HMSSetup."Laboratory Room";
+                            ItemJnlLine.VALIDATE(ItemJnlLine."Location Code");
+                            ItemJnlLine.Quantity := PharmLine."Item Quantity";
+                            ItemJnlLine.VALIDATE(ItemJnlLine.Quantity);
+                            ItemJnlLine."Unit of Measure Code" := PharmLine."Item Unit Of Measure";
+                            ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
+                            ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
+                            ItemJnlLine.INSERT();
+                            PharmLine.Posted := TRUE;
+                            PharmLine.MODIFY;
+                            LineNo := LineNo + 1;
+                        /*Update the treatment lines*/
+                        UNTIL PharmLine.NEXT = 0;
                         CODEUNIT.RUN(CODEUNIT::"Item Jnl.-Post Batch", ItemJnlLine);
 
 

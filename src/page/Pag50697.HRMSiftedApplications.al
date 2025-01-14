@@ -3,7 +3,7 @@ page 50697 "HRM-Sifted Applications"
     CardPageID = "HRM Sifted Card";
     PageType = List;
     PromotedActionCategories = 'New,Process,Report,Applicant,Functions,Print';
-    SourceTableView = WHERE( Sifted = FILTER(Accepted));
+    SourceTableView = WHERE(Sifted = FILTER(Accepted));
     SourceTable = "HRM-Job Applications (B)";
 
     layout
@@ -14,7 +14,7 @@ page 50697 "HRM-Sifted Applications"
             {
                 Editable = false;
                 ShowCaption = false;
-                 field("Application No"; Rec."Application No")
+                field("Application No"; Rec."Application No")
                 {
                     ApplicationArea = all;
                     Importance = Promoted;
@@ -49,7 +49,7 @@ page 50697 "HRM-Sifted Applications"
                     ToolTip = 'Specifies the value of the Job Type field.';
                     ApplicationArea = All;
                 }
-               
+
             }
         }
         area(factboxes)
@@ -76,7 +76,7 @@ page 50697 "HRM-Sifted Applications"
                     Image = ImportDatabase;
                     Promoted = true;
                     PromotedCategory = Category4;
-                    
+
 
                     trigger OnAction()
                     begin

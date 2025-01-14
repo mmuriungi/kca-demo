@@ -25,12 +25,12 @@ page 50315 "Guest Registration Chart"
         }
     }
 
-local procedure UpdateChart()
-var
-    GuestRegistration: Record "Guest Registration";
-    BusinessChartBuffer: Record "Business Chart Buffer" temporary;
-    i: Integer;
-begin
+    local procedure UpdateChart()
+    var
+        GuestRegistration: Record "Guest Registration";
+        BusinessChartBuffer: Record "Business Chart Buffer" temporary;
+        i: Integer;
+    begin
 
-end;
+    end;
 }

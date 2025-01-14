@@ -140,7 +140,7 @@ page 52178582 "Preq Application Card"
                         RecRef: RecordRef;
                         DocumentAttachment: Page "Document Attachment Details";
                     begin
-                        
+
                         RecRef.GETTABLE(Rec);
                         DocumentAttachment.OpenForRecRef(RecRef);
                         DocumentAttachment.RUN();

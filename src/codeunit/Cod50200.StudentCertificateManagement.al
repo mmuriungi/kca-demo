@@ -1,6 +1,6 @@
 codeunit 50200 "Student Certificate Management"
 {
-    procedure CreateApplication(StudentNo: Code[20]; ApplicationType: Option)ret_value: Code[20]
+    procedure CreateApplication(StudentNo: Code[20]; ApplicationType: Option) ret_value: Code[20]
     var
         CertApp: Record "Certificate Application";
     begin
@@ -102,7 +102,7 @@ codeunit 50200 "Student Certificate Management"
     begin
         if not Student.Get(CertApp."Student No.") then
             exit;
-            //TODO
+        //TODO
         Message('Rejection notification sent to %1: Your application has been rejected. Please contact the examinations office for more information.', Student."E-Mail");
     end;
 

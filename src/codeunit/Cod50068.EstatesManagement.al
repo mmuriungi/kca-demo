@@ -171,12 +171,12 @@ codeunit 50068 "Estates Management"
             'Repair Approval Notification',
             EmailBody,
             RecipientEmail,
-            '', 
-            '', 
-            false, 
-            '', 
             '',
-            '' 
+            '',
+            false,
+            '',
+            '',
+            ''
         );
     end;
 
@@ -209,13 +209,13 @@ codeunit 50068 "Estates Management"
             UserId,
             'Repair Closure Notification',
            Body,
-            RecipientEmail, 
-            '', 
-            '', 
-            false, 
-            '', 
+            RecipientEmail,
             '',
-            '' 
+            '',
+            false,
+            '',
+            '',
+            ''
         );
 
     end;

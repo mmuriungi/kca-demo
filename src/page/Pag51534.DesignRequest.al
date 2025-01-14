@@ -4,7 +4,7 @@ page 51534 "Design Request"
     CardPageId = "Design Request Card";
     PageType = List;
     SourceTable = "Graphics Desing Request";
-    
+
     layout
     {
         area(content)

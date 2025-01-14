@@ -96,7 +96,7 @@ page 51156 "Deans Applicants CARD"
 
                     end;
                 }
-                field(School;Rec.School1)
+                field(School; Rec.School1)
                 {
                     ApplicationArea = All;
                 }

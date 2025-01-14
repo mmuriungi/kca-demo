@@ -44,15 +44,15 @@ report 50766 "Donation Report"
             }
             column(CompanyPhone; Company."Phone No.")
             {
-                
+
             }
             column(CompanyPostCode; Company."Post Code")
             {
-                
+
             }
             column(CompanyCity; Company.City)
             {
-                
+
             }
         }
     }
@@ -63,6 +63,6 @@ report 50766 "Donation Report"
         Company.CALCFIELDS(Picture);
     end;
 
-     var
+    var
         Company: Record "Company Information";
 }

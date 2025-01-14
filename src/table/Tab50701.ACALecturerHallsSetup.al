@@ -1,7 +1,7 @@
 table 50701 "ACA-Lecturer Halls Setup"
 {
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Lecture Room Code"; Code[20])
@@ -26,7 +26,7 @@ table 50701 "ACA-Lecturer Halls Setup"
         }
         field(6; Campus; Code[20])
         {
-             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
         field(7; Department; code[20])
         {
@@ -43,36 +43,36 @@ table 50701 "ACA-Lecturer Halls Setup"
         }
 
     }
-    
+
     keys
     {
-        key(Key1; "Lecture Room Code", "Building Code",Serial)
+        key(Key1; "Lecture Room Code", "Building Code", Serial)
         {
             Clustered = true;
         }
     }
-    
+
     var
         myInt: Integer;
-    
+
     trigger OnInsert()
     begin
-        
+
     end;
-    
+
     trigger OnModify()
     begin
-        
+
     end;
-    
+
     trigger OnDelete()
     begin
-        
+
     end;
-    
+
     trigger OnRename()
     begin
-        
+
     end;
-    
+
 }

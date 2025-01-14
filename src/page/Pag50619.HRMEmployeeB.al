@@ -222,7 +222,7 @@ page 50619 "HRM-Employee (B)"
                     Caption = 'Is Dean';
                     ApplicationArea = All;
                 }
-                field(Driver;Rec.Driver)
+                field(Driver; Rec.Driver)
                 {
                     ToolTip = 'Specifies if Employee Is Driver';
                     ApplicationArea = All;

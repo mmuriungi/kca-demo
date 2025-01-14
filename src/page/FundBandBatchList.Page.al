@@ -1,0 +1,49 @@
+#pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
+Page 78124 "Fund Band Batch List"
+{
+    CardPageID = "Fund Band Batch Card";
+    DeleteAllowed = false;
+    PageType = List;
+    SourceTable = "Fund Band Batch";
+    SourceTableView = where(Archived = const(false));
+
+    layout
+    {
+        area(content)
+        {
+            repeater(Group)
+            {
+                Editable = false;
+                field("Document No."; Rec."Document No.")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Academic Year"; Rec."Academic Year")
+                {
+                    ApplicationArea = Basic;
+                }
+                field(Remarks; Rec.Remarks)
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Student Count"; Rec."Student Count")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Created DateTime"; Rec."Created DateTime")
+                {
+                    ApplicationArea = Basic;
+                }
+                field(Semester; Rec.Semester)
+                {
+                    ApplicationArea = Basic;
+                }
+            }
+        }
+    }
+
+    actions
+    {
+    }
+}
+

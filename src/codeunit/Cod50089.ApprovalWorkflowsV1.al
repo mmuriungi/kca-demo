@@ -91,7 +91,7 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendCommitteeAppointmentForApprovalCode));
             Database::"Tender Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendTenderForApprovalCode));
-            Database:: "Proc-Purchase Quote Header":
+            Database::"Proc-Purchase Quote Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendRFQForApprovalCode));
             Database::"Parttime Claim Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendPartTimeClaimForApprovalCode));
@@ -329,7 +329,7 @@ codeunit 50089 "Approval Workflows V1"
                     TenderHeader.Modify();
                     Handled := true;
                 end;
-                Database::"Proc-Purchase Quote Header":
+            Database::"Proc-Purchase Quote Header":
                 begin
                     RecRef.SetTable(RFQHeader);
                     RFQHeader.Validate("Status", RFQHeader.Status::Open);

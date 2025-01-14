@@ -1,4 +1,4 @@
-table  50444 "HR Appraisal Ratings"
+table 50444 "HR Appraisal Ratings"
 {
     //LookupPageID = "HR Appraisal Ratings";
 

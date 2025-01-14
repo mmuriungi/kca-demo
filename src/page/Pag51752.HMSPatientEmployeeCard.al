@@ -69,7 +69,7 @@ page 51752 "HMS Patient Employee Card"
                     trigger OnValidate()
                     begin
                         IF Rec."Date Of Birth" <> 0D THEN BEGIN
-                            Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
+                            Rec.Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
                         END;
                     end;
                 }
@@ -81,7 +81,7 @@ page 51752 "HMS Patient Employee Card"
                 {
                     ApplicationArea = All;
                 }
-                field(Age; Age)
+                field(Age; Rec.Age)
                 {
                     Editable = false;
                     ApplicationArea = All;
@@ -406,7 +406,7 @@ page 51752 "HMS Patient Employee Card"
         xRec := Rec;
         CheckPatientType();
         IF Rec."Date Of Birth" <> 0D THEN BEGIN
-            Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
+            Rec.Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
         END;
     end;
 }

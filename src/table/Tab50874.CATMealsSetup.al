@@ -8,7 +8,7 @@ table 50874 "CAT-Meals Setup"
     {
         field(1; "Code"; Code[10])
         {
-            TableRelation = Item."No." where("Item Category Code"= const('FOOD'));
+            TableRelation = Item."No." where("Item Category Code" = const('FOOD'));
             NotBlank = true;
         }
         field(2; Discription; Text[250])

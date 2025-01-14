@@ -4,7 +4,7 @@ page 52076 "Vehicle Daily Movement Card"
     Caption = 'Vehicle Daily Movement Card';
     PageType = Card;
     SourceTable = "Vehicle Daily Movement";
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 52076 "Vehicle Daily Movement Card"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("Entry No."; Rec."Entry No.")
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';

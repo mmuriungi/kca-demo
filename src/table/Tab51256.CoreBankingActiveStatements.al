@@ -4,17 +4,17 @@ Table 51256 "Core_Banking_Active Statements"
 
     fields
     {
-        field(1;"Statement No";Code[20])
+        field(1; "Statement No"; Code[20])
         {
         }
-        field(2;User_Id;Code[20])
+        field(2; User_Id; Code[20])
         {
         }
     }
 
     keys
     {
-        key(Key1;User_Id)
+        key(Key1; User_Id)
         {
             Clustered = true;
         }

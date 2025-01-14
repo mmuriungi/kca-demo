@@ -106,9 +106,9 @@ table 50386 "PRL-Employee Transactions"
         }
         //field(24; "Transaction Type"; Option)
         //{
-            //CalcFormula = Lookup("PRL-Transaction Codes"."Transaction Type" WHERE("Transaction Code" = FIELD("Transaction Code")));
-           // FieldClass = FlowField;
-           // OptionMembers = Income,Deduction;
+        //CalcFormula = Lookup("PRL-Transaction Codes"."Transaction Type" WHERE("Transaction Code" = FIELD("Transaction Code")));
+        // FieldClass = FlowField;
+        // OptionMembers = Income,Deduction;
         //}
         field(25; "Loan Account No"; Code[30])
         {

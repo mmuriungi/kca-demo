@@ -30,7 +30,7 @@ table 51063 "Teaching Practice Lines"
         }
         field(6; Question; text[200])
         {
-            
+
         }
     }
     keys

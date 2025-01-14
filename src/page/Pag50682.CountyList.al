@@ -3,7 +3,7 @@ page 50682 "County List"
     Caption = 'County List';
     PageType = List;
     SourceTable = County;
-    
+
     layout
     {
         area(content)

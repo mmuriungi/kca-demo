@@ -25,7 +25,7 @@ page 50319 "Event Feedback List"
                 {
                     ApplicationArea = All;
                 }
-                field(Email;Rec.Email)
+                field(Email; Rec.Email)
                 {
                     ApplicationArea = All;
                     //Visible = false;
@@ -80,18 +80,18 @@ page 50319 "Event Feedback List"
                     StatusToken: JsonToken;
                     MessageTextToken: JsonToken;
                 begin
-                    RecipientName := Rec."Attendee No."; 
-                    RecipientEmail := Rec."Email"; 
-                    Subject := 'Feedback on ' + Rec."Event No."; 
-                    Body := Rec."Comment"; 
+                    RecipientName := Rec."Attendee No.";
+                    RecipientEmail := Rec."Email";
+                    Subject := 'Feedback on ' + Rec."Event No.";
+                    Body := Rec."Comment";
                     AddCC := '';
-                    AddBcc := ''; 
-                    HasAttachment := false; 
-                    AttachmentBase64 := ''; 
-                    AttachmentName := ''; 
-                    AttachmentType := ''; 
+                    AddBcc := '';
+                    HasAttachment := false;
+                    AttachmentBase64 := '';
+                    AttachmentName := '';
+                    AttachmentType := '';
 
-                    
+
                     Res := Notification.fnSendemail(
                         RecipientName,
                         Subject,
@@ -108,7 +108,7 @@ page 50319 "Event Feedback List"
                         if ResponseJson.Get('sent', SentToken) then
                             Sent := SentToken.AsValue().AsBoolean()
                         else
-                            Sent := false; 
+                            Sent := false;
 
                         if ResponseJson.Get('status', StatusToken) then
                             Status := StatusToken.AsValue().AsText()

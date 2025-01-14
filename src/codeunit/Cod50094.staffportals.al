@@ -2895,12 +2895,12 @@ codeunit 50094 staffportals
         IF PartTimeClaimHd.FIND('-')
         THEN BEGIN
             variant := partTimeClaimHd;
-                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
-                    PartTimeClaimHd.CommitBudget();
-                        ApprovMgmt.OnSendDocForApproval(variant);
+            if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                PartTimeClaimHd.CommitBudget();
+            ApprovMgmt.OnSendDocForApproval(variant);
 
-            end
-        END;
+        end
+    END;
 
     procedure GetProgFaculty(Prog: Code[20]) FactName: Text
     begin

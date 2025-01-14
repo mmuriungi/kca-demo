@@ -3,7 +3,7 @@ page 50176 "Proc-Prequlification Dates"
     Caption = 'Proc-Prequlification Dates';
     PageType = List;
     SourceTable = "Prequalifications Date";
-    
+
     layout
     {
         area(content)

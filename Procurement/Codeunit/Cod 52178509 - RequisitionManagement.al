@@ -247,6 +247,7 @@ codeunit 52178509 "Requisition Management"
             UNTIL DocLines.NEXT = 0;
         END;
     end;
+
     procedure CheckItemReorderLevel(ReqNo: Code[20])
     var
         item: Record Item;

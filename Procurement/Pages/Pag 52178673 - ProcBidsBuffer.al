@@ -3,7 +3,7 @@ page 52178673 "Proc Bids Buffer"
     Caption = 'Proc Bids Buffer';
     PageType = List;
     SourceTable = "Proc Bids Buffer";
-    
+
     layout
     {
         area(content)

@@ -214,9 +214,9 @@ table 50399 "PRL-Vital Setup Info"
             //DataClassification = ToBeClassified;
             //TableRelation = "PRL-Transaction Codes"."Transaction Code";
         }
-        field(44;"NSSF Employees";Decimal)
+        field(44; "NSSF Employees"; Decimal)
         {
-            
+
         }
         field(50; "Apply NHIF Insurance Relief"; Boolean)
         {

@@ -55,7 +55,7 @@ page 50441 "HRM-Jobs List"
                     Style = StandardAccent;
                     StyleExpr = TRUE;
                 }
-                field("Job Category";Rec."Job Category")
+                field("Job Category"; Rec."Job Category")
                 {
                     ApplicationArea = all;
                 }

@@ -1,4 +1,4 @@
-table  50447 "Appraisal Card"
+table 50447 "Appraisal Card"
 {
 
     fields

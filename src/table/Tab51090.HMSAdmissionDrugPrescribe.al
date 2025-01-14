@@ -23,36 +23,36 @@ table 51090 "HMS-Admission Drug Prescribe"
                 Interaction.RESET;
                 Interaction.SETRANGE(Interaction."Drug No.", "Drug No.");
                 IF Interaction.FIND('-') THEN BEGIN
-                                                  REPEAT
-                                                      /*Get the lines of drugs that have been identified as being incompatible with the drug selected*/
-                                                      Line.RESET;
-                                                      Line.SETRANGE(Line."Admission No.", "Admission No.");
-                                                      Line.SETRANGE(Line."Drug No.", Interaction."Drug No. 1");
-                                                      IF Line.FIND('-') THEN BEGIN
-                                                          Line.CALCFIELDS(Line."Drug Name");
-                                                          IF CONFIRM('Drug:' + Line."Drug Name" + '::' + Interaction."Alert Remarks" + '. CONTINUE?', FALSE) = TRUE THEN BEGIN
-                                                              Line."Marked as Incompatible" := TRUE;
-                                                              Line.MODIFY;
-                                                          END
-                                                          ELSE BEGIN
-                                                              ERROR('Drug Incompatible.Operation Cancelled');
-                                                          END;
-                                                      END;
-                                                      Line.RESET;
-                                                      Line.SETRANGE(Line."Admission No.", "Admission No.");
-                                                      Line.SETRANGE(Line."Drug No.", Interaction."Drug No.");
-                                                      IF Line.FIND('-') THEN BEGIN
-                                                          Line.CALCFIELDS(Line."Drug Name");
-                                                          IF CONFIRM('Drug:' + Line."Drug Name" + '::' + Interaction."Alert Remarks" + '. CONTINUE?', FALSE) = TRUE THEN BEGIN
-                                                              Line."Marked as Incompatible" := TRUE;
-                                                              Line.MODIFY;
-                                                          END
-                                                          ELSE BEGIN
-                                                              ERROR('Drug Incompatible.Operation Cancelled');
-                                                          END;
-                                                      END;
+                    REPEAT
+                        /*Get the lines of drugs that have been identified as being incompatible with the drug selected*/
+                        Line.RESET;
+                        Line.SETRANGE(Line."Admission No.", "Admission No.");
+                        Line.SETRANGE(Line."Drug No.", Interaction."Drug No. 1");
+                        IF Line.FIND('-') THEN BEGIN
+                            Line.CALCFIELDS(Line."Drug Name");
+                            IF CONFIRM('Drug:' + Line."Drug Name" + '::' + Interaction."Alert Remarks" + '. CONTINUE?', FALSE) = TRUE THEN BEGIN
+                                Line."Marked as Incompatible" := TRUE;
+                                Line.MODIFY;
+                            END
+                            ELSE BEGIN
+                                ERROR('Drug Incompatible.Operation Cancelled');
+                            END;
+                        END;
+                        Line.RESET;
+                        Line.SETRANGE(Line."Admission No.", "Admission No.");
+                        Line.SETRANGE(Line."Drug No.", Interaction."Drug No.");
+                        IF Line.FIND('-') THEN BEGIN
+                            Line.CALCFIELDS(Line."Drug Name");
+                            IF CONFIRM('Drug:' + Line."Drug Name" + '::' + Interaction."Alert Remarks" + '. CONTINUE?', FALSE) = TRUE THEN BEGIN
+                                Line."Marked as Incompatible" := TRUE;
+                                Line.MODIFY;
+                            END
+                            ELSE BEGIN
+                                ERROR('Drug Incompatible.Operation Cancelled');
+                            END;
+                        END;
 
-                                                  UNTIL Interaction.NEXT = 0;
+                    UNTIL Interaction.NEXT = 0;
                 END;
 
             end;

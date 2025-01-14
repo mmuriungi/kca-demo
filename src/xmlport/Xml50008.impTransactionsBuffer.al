@@ -7,30 +7,30 @@ xmlport 50008 "imp. Transactions Buffer"
     {
         textelement(Root)
         {
-            tableelement(Trans;"HRM-Emp. Trans. Adjst Buffer")
+            tableelement(Trans; "HRM-Emp. Trans. Adjst Buffer")
             {
-               
-                fieldelement(TransactionCode;Trans."Transaction Code")
+
+                fieldelement(TransactionCode; Trans."Transaction Code")
                 {
                 }
-                fieldelement(EmployeeNo;Trans."Employee No")
+                fieldelement(EmployeeNo; Trans."Employee No")
                 {
                 }
-                fieldelement(Period;Trans.Period)
+                fieldelement(Period; Trans.Period)
                 {
                 }
-                fieldelement(Amount;Trans.Amount)
+                fieldelement(Amount; Trans.Amount)
                 {
                 }
 
                 trigger OnBeforeInsertRecord()
                 begin
-                        //Programme."School Code":='003';
+                    //Programme."School Code":='003';
                 end;
             }
         }
     }
-   
+
 
     requestpage
     {

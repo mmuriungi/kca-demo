@@ -141,7 +141,7 @@ page 50971 "Parttime Claims Header"
     {
         area(Processing)
         {
-             action("Request Approval")
+            action("Request Approval")
             {
                 ApplicationArea = All;
                 Promoted = true;
@@ -150,13 +150,13 @@ page 50971 "Parttime Claims Header"
 
                 trigger OnAction()
                 var
-                ApprovMgmt: Codeunit "Approval Workflows V1";
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
                     variant: Variant;
                 begin
                     variant := Rec;
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
-                    Rec.CommitBudget();
-                        ApprovMgmt.OnSendDocForApproval(variant);
+                        Rec.CommitBudget();
+                    ApprovMgmt.OnSendDocForApproval(variant);
 
                 end;
             }
@@ -175,7 +175,7 @@ page 50971 "Parttime Claims Header"
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = SendApprovalRequest;
-                 trigger OnAction()
+                trigger OnAction()
                 var
                     ApprovMgmt: Codeunit "Approval Workflows V1";
                     variant: Variant;
@@ -183,8 +183,8 @@ page 50971 "Parttime Claims Header"
                     variant := Rec;
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         Rec.CancelCommitment();
-                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
-                end; 
+                    ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end;
             }
             action(EDMS)
             {
@@ -207,10 +207,10 @@ page 50971 "Parttime Claims Header"
 
                 trigger OnAction()
                 var
-                ParttimerMgmt: Codeunit "PartTimer Management";
+                    ParttimerMgmt: Codeunit "PartTimer Management";
                 begin
                     ParttimerMgmt.createPaymentVoucher(Rec);
-                   // Rec.PostClaim();
+                    // Rec.PostClaim();
                 end;
             }
         }

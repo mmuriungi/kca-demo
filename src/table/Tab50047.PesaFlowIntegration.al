@@ -1,4 +1,4 @@
-table 50047 "PesaFlow Integration"
+table 50049 "PesaFlow Integration"
 {
     Caption = 'PesaFlow Integration';
     DataClassification = ToBeClassified;

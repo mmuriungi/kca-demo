@@ -1,15 +1,15 @@
 report 50010 "Export KUCCPS Std Template"
 {
-   UsageCategory = ReportsAndAnalysis;
+    UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     ProcessingOnly = true;
-    
+
     dataset
     {
         dataitem(Integer; Integer)
         {
             MaxIteration = 1;
-            
+
             trigger OnPreDataItem()
             var
                 TempBlob: Codeunit "Temp Blob";
@@ -17,7 +17,7 @@ report 50010 "Export KUCCPS Std Template"
                 InStream: InStream;
                 FileName: Text;
             begin
-                TemplateCSV += 
+                TemplateCSV +=
                     'Ser,' +
                     'Index,' +
                     'Admin,' +
@@ -32,12 +32,12 @@ report 50010 "Export KUCCPS Std Template"
                     'Codes,' +
                     'Town,' +
                     'Prog,' +
-                    'Any Other Institution Attended' + 
+                    'Any Other Institution Attended' +
                     CR;
 
                 TempBlob.CreateOutStream(OutStream, TextEncoding::UTF8);
                 OutStream.WriteText(TemplateCSV);
-                
+
                 TempBlob.CreateInStream(InStream, TextEncoding::UTF8);
                 FileName := 'KUCCPS_Students_Import_Template.csv';
 

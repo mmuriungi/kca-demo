@@ -62,7 +62,7 @@ page 51764 "HMS-Patient Student List"
                     trigger OnValidate()
                     begin
                         IF Rec."Date Of Birth" <> 0D THEN BEGIN
-                            Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
+                            Rec.Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
                         END;
                     end;
                 }
@@ -74,7 +74,7 @@ page 51764 "HMS-Patient Student List"
                 {
                     ApplicationArea = All;
                 }
-                field(Age; Age)
+                field(Age; Rec.Age)
                 {
                     Editable = false;
                     ApplicationArea = All;
@@ -272,7 +272,7 @@ page 51764 "HMS-Patient Student List"
         xRec := Rec;
         CheckPatientType();
         IF Rec."Date Of Birth" <> 0D THEN BEGIN
-            Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
+            Rec.Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
         END;
     end;
 }

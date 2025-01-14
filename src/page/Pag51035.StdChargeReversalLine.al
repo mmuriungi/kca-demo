@@ -3,7 +3,7 @@ page 51035 "Std-Charge  Reversal Line"
     Caption = 'Std-Charge  Reversal Line';
     PageType = ListPart;
     SourceTable = "Std-Charger Reversal Lines";
-    
+
     layout
     {
         area(Content)

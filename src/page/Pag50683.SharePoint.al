@@ -64,7 +64,7 @@ page 50683 SharePoint
 
     procedure SetURL(NavigateToURL: Text)
     begin
-        Url := NavigateToURL;
+        Rec.Url := NavigateToURL;
     end;
 }
 

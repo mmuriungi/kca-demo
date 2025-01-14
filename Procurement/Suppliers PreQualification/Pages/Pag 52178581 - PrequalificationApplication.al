@@ -96,7 +96,7 @@ page 52178581 "Prequalification Application"
                     if Confirm('Post Approved Categories ?', true) = false then Error('Cancelled');
                     Rec.Prequlification(Rec);
 
-                    
+
 
                 end;
             }

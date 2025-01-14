@@ -74,7 +74,7 @@ table 50843 "Receipts Buffer"
         }
         field(13; Cafeteria; Boolean)
         {
-            
+
         }
     }
 

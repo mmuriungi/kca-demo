@@ -7,7 +7,7 @@ table 51019 MeeingAgenda
     {
         field(1; "Meeting Code"; Code[20])
         {
-           
+
         }
         field(2; LineNo; Integer)
         {

@@ -62,7 +62,7 @@ page 51545 "Employee Perf Target Card"
                 SubPageLink = "Document No." = field("No.");
                 ApplicationArea = all;
                 Caption = 'Employee Perf Line';
-                
+
             }
             // part(line2; "WorkPlan Sub Categories List")
             // {

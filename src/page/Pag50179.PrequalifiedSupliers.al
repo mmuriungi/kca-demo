@@ -3,7 +3,7 @@ page 50179 "Prequalified Supliers"
     Caption = 'Prequalified Supliers';
     PageType = ListPart;
     SourceTable = "Preq Suppliers/Category";
-    
+
     layout
     {
         area(content)

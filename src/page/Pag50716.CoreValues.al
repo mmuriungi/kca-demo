@@ -36,7 +36,7 @@ page 50716 "Core Values"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Line No field.';
                 }
-                
+
                 field("Self Assement"; Rec."Self Assement")
                 {
                     ApplicationArea = All;

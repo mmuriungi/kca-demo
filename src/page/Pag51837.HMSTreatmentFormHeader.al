@@ -218,7 +218,7 @@ page 51837 "HMS-Treatment Form Header"
                     ApplicationArea = All;
                 }
             }
-             group("Lab")
+            group("Lab")
             {
                 Caption = 'Labaratory';
                 part(Part4; "HMS-Treatment Form Laboratory")
@@ -279,7 +279,7 @@ page 51837 "HMS-Treatment Form Header"
     {
         area(processing)
         {
-           
+
             action("Lab Test Results")
             {
                 //Caption = 'History';

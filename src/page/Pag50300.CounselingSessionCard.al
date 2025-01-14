@@ -2,7 +2,7 @@ page 50300 "Counseling Session Card"
 {
     PageType = Card;
     SourceTable = "Counseling Session";
-    
+
     layout
     {
         area(Content)
@@ -18,9 +18,10 @@ page 50300 "Counseling Session Card"
                     ApplicationArea = All;
                 }
                 field("Counselor No."; Rec."Counselor No.")
-                {ApplicationArea = All;
+                {
+                    ApplicationArea = All;
                 }
-                field("Counsellor Name";Rec."Counsellor Name")
+                field("Counsellor Name"; Rec."Counsellor Name")
                 {
                     ApplicationArea = All;
                     Editable = false;

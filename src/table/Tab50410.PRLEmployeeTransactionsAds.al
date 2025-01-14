@@ -56,7 +56,7 @@ table 50410 "PRL-Employee Transactions Ads"
     {
         key(Key1; "Employee Code", "Transaction Code", "Period Month", "Period Year", "Payroll Period", "Reference No")
         {
-           SumIndexFields = Amount;
+            SumIndexFields = Amount;
         }
     }
 

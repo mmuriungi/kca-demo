@@ -410,7 +410,7 @@ page 50828 "ACA-Applic. Documents Verif."
                     DocumentAttachment.RUNMODAL;
                 end;
             }
-            
+
             action(GenerateAdmissionNo)
             {
                 Caption = 'Generate Admn. No.';
@@ -903,7 +903,7 @@ page 50828 "ACA-Applic. Documents Verif."
         end;
     end;
 
-    
+
 
 
     procedure GetReligionName(var ReligionCode: Code[20]; var ReligionName: Text[30])

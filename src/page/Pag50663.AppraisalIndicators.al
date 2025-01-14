@@ -1,4 +1,4 @@
-page  50663 "Appraisal Indicators"
+page 50663 "Appraisal Indicators"
 {
     PageType = List;
     SourceTable = "HR Appraisal indicators";

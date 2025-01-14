@@ -4,7 +4,7 @@ page 52082 "Medical Dependants"
     Caption = 'Medical Dependants';
     PageType = List;
     SourceTable = "HRM-Medical Dependants";
-    
+
     layout
     {
         area(Content)

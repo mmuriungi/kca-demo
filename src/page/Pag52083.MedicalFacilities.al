@@ -4,7 +4,7 @@ page 52083 "Medical Facilities"
     Caption = 'Medical Facilities';
     PageType = List;
     SourceTable = "HRM-Medical Facility";
-    
+
     layout
     {
         area(Content)

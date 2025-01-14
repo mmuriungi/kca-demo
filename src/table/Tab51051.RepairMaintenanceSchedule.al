@@ -2,7 +2,7 @@ table 51051 "Repair Maintenance  Schedule"
 {
     Caption = 'Repair Maintenance  Schedule';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Reg No"; Code[40])

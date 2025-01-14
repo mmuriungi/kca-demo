@@ -2,7 +2,7 @@ page 50295 "Club/Society Activity ListPart"
 {
     PageType = ListPart;
     SourceTable = "Club/Society Activity";
-    
+
     layout
     {
         area(Content)

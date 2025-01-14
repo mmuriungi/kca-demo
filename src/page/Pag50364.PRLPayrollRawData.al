@@ -1601,7 +1601,7 @@ page 50364 "PRL-Payroll Raw Data"
 
                     ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
                     , salaryCard."Pays NSSF", salaryCard."Pays NHIF", SelectedPeriod, SelectedPeriod, '', '',
-                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code",PayrollCode,true);
+                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", PayrollCode, true);
 
 
                     //END;// Has Transaction
@@ -1636,7 +1636,7 @@ page 50364 "PRL-Payroll Raw Data"
                                     //    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code");
                                     ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
                     , salaryCard."Pays NSSF", salaryCard."Pays NHIF", SelectedPeriod, SelectedPeriod, '', '',
-                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code",PayrollCode,true);
+                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", PayrollCode, true);
                                     CLEAR(Var1);
 
                                     counts := counts + 1;

@@ -49,7 +49,7 @@ page 50374 "HRM-Employee-List"
                 {
                     Applicationarea = all;
                 }
-              
+
                 field("Home Phone Number"; Rec."Home Phone Number")
                 {
                     Applicationarea = all;

@@ -125,9 +125,9 @@ page 51731 "HMS-Laboratory View Test"
                     LabLine.RESET;
                     LabLine.SETRANGE(LabLine."Laboratory No.", Rec."Laboratory No.");
                     IF LabLine.FIND('-') THEN BEGIN
-                                                  REPEAT
-                                                      IF LabLine.Completed = FALSE THEN blnCompleted := FALSE;
-                                                  UNTIL LabLine.NEXT = 0;
+                        REPEAT
+                            IF LabLine.Completed = FALSE THEN blnCompleted := FALSE;
+                        UNTIL LabLine.NEXT = 0;
                     END;
 
                     IF blnCompleted = FALSE THEN BEGIN

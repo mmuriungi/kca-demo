@@ -136,38 +136,38 @@ page 51768 "HMS-Pharmacy Header List"
         PharmLine.SETRANGE(PharmLine."Pharmacy No.", Rec."Pharmacy No.");
         IF PharmLine.FIND('-') THEN BEGIN
 
-                                        REPEAT
-                                            LineNo := LineNo + 1000;
-                                            ItemJnlLine.INIT;
-                                            ItemJnlLine."Journal Template Name" := HMSSetup."Pharmacy Item Journal Template";
-                                            ItemJnlLine."Journal Batch Name" := HMSSetup."Pharmacy Item Journal Batch";
-                                            ItemJnlLine."Line No." := LineNo;
-                                            ItemJnlLine."Posting Date" := TODAY;
-                                            ItemJnlLine."Entry Type" := ItemJnlLine."Entry Type"::"Negative Adjmt.";
-                                            ItemJnlLine."Document No." := PharmLine."Pharmacy No." + ':' + PharmLine."Drug No.";
-                                            ItemJnlLine."Item No." := PharmLine."Drug No.";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine."Item No.");
-                                            ItemJnlLine."Location Code" := HMSSetup."Pharmacy Location";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine."Location Code");
-                                            ItemJnlLine.Quantity := PharmLine."Issued Quantity";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine.Quantity);
-                                            ItemJnlLine."Unit of Measure Code" := PharmLine."Measuring Unit";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
-                                            ItemJnlLine."Unit Amount" := PharmLine."Unit Price";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
-                                            ItemJnlLine.INSERT();
-                                            PharmLine.Remaining := PharmLine.Remaining - PharmLine."Issued Units";
-                                            PharmLine.MODIFY;
-                                            LineNo := LineNo + 1;
-                                            /*Update the treatment lines*/
-                                            TreatmentLine.RESET;
-                                            TreatmentLine.SETRANGE(TreatmentLine."Treatment No.", Rec."Link No.");
-                                            TreatmentLine.SETRANGE(TreatmentLine."Drug No.", PharmLine."Drug No.");
-                                            IF TreatmentLine.FIND('-') THEN BEGIN
-                                                TreatmentLine.Issued := TRUE;
-                                                TreatmentLine.MODIFY;
-                                            END;
-                                        UNTIL PharmLine.NEXT = 0;
+            REPEAT
+                LineNo := LineNo + 1000;
+                ItemJnlLine.INIT;
+                ItemJnlLine."Journal Template Name" := HMSSetup."Pharmacy Item Journal Template";
+                ItemJnlLine."Journal Batch Name" := HMSSetup."Pharmacy Item Journal Batch";
+                ItemJnlLine."Line No." := LineNo;
+                ItemJnlLine."Posting Date" := TODAY;
+                ItemJnlLine."Entry Type" := ItemJnlLine."Entry Type"::"Negative Adjmt.";
+                ItemJnlLine."Document No." := PharmLine."Pharmacy No." + ':' + PharmLine."Drug No.";
+                ItemJnlLine."Item No." := PharmLine."Drug No.";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Item No.");
+                ItemJnlLine."Location Code" := HMSSetup."Pharmacy Location";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Location Code");
+                ItemJnlLine.Quantity := PharmLine."Issued Quantity";
+                ItemJnlLine.VALIDATE(ItemJnlLine.Quantity);
+                ItemJnlLine."Unit of Measure Code" := PharmLine."Measuring Unit";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
+                ItemJnlLine."Unit Amount" := PharmLine."Unit Price";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
+                ItemJnlLine.INSERT();
+                PharmLine.Remaining := PharmLine.Remaining - PharmLine."Issued Units";
+                PharmLine.MODIFY;
+                LineNo := LineNo + 1;
+                /*Update the treatment lines*/
+                TreatmentLine.RESET;
+                TreatmentLine.SETRANGE(TreatmentLine."Treatment No.", Rec."Link No.");
+                TreatmentLine.SETRANGE(TreatmentLine."Drug No.", PharmLine."Drug No.");
+                IF TreatmentLine.FIND('-') THEN BEGIN
+                    TreatmentLine.Issued := TRUE;
+                    TreatmentLine.MODIFY;
+                END;
+            UNTIL PharmLine.NEXT = 0;
             CODEUNIT.RUN(CODEUNIT::"Item Jnl.-Post Batch", ItemJnlLine);
 
             Rec.Status := Rec.Status::Completed;

@@ -1,4 +1,4 @@
-page  50664 "Appraisal Header"
+page 50664 "Appraisal Header"
 {
     PageType = Document;
     SourceTable = "Appraisal Card";

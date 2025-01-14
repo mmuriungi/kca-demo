@@ -3,7 +3,7 @@ page 50685 "Publications Recruitment list"
     Caption = 'Publications Recruitment list';
     PageType = List;
     SourceTable = "Publications Recruitment";
-    
+
     layout
     {
         area(Content)

@@ -8,11 +8,11 @@ table 51115 "HMS-Observation Dressings"
         }
         field(2; "Process No."; Code[20])
         {
-          
+
         }
         field(3; Description; text[250])
         {
-            
+
         }
         field(4; "Item No."; Code[20])
         {
@@ -20,16 +20,16 @@ table 51115 "HMS-Observation Dressings"
             trigger OnValidate()
             begin
                 item.reset();
-               if item.get("Item No.") then
-               rec."Item Description":= item.Description;
-               rec.Quantity:=item.Inventory;
-                 
+                if item.get("Item No.") then
+                    rec."Item Description" := item.Description;
+                rec.Quantity := item.Inventory;
+
 
             end;
         }
         field(5; "Item Description"; Text[100])
         {
-         
+
         }
         field(6; "Unit of Measure"; Code[20])
         {
@@ -37,7 +37,7 @@ table 51115 "HMS-Observation Dressings"
         }
         field(7; Quantity; Decimal)
         {
-            
+
         }
         field(8; Remarks; Text[200])
         {
@@ -45,11 +45,11 @@ table 51115 "HMS-Observation Dressings"
         field(9; Posted; Boolean)
         {
         }
-        
+
 
     }
-   
-    
+
+
 
     keys
     {
@@ -58,12 +58,12 @@ table 51115 "HMS-Observation Dressings"
             Clustered = true;
         }
     }
-    
+
 
     fieldgroups
     {
     }
     var
-    item: Record item;
+        item: Record item;
 }
 

@@ -1281,260 +1281,256 @@ Table 51250 "ACA-New Stud. Documents"
     begin
         /*This function transfers the fieldsin the application to the fields in the admissions table*/
         /*Get the new admission code for the selected application*/
-        with ApplicationFormHeader do begin
-            TestField("Settlement Type");
-            SettlmentType.Get("Settlement Type");
-            //IF AdmissionNumber='' THEN BEGIN
-            Cust.Init;
-            Cust."No." := ApplicationFormHeader."Admission No";
-            Cust.Name := CopyStr(ApplicationFormHeader.Surname + ' ' + ApplicationFormHeader."Other Names", 1, 80);
-            Cust."Search Name" := UpperCase(CopyStr(ApplicationFormHeader.Surname + ' ' + ApplicationFormHeader."Other Names", 1, 80));
-            Cust.Address := ApplicationFormHeader."Address for Correspondence1";
-            if ApplicationFormHeader."Address for Correspondence3" <> '' then
-                Cust."Address 2" := CopyStr(ApplicationFormHeader."Address for Correspondence2" + ',' + ApplicationFormHeader."Address for Correspondence3", 1, 30);
-            if ApplicationFormHeader."Telephone No. 2" <> '' then
-                Cust."Phone No." := ApplicationFormHeader."Telephone No. 1" + ',' + ApplicationFormHeader."Telephone No. 2";
-            //  Cust."Telex No.":=ApplicationFormHeader."Fax No.";
-            Cust."E-Mail" := ApplicationFormHeader.Email;
-            if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Female then
-                Cust.Gender := Cust.Gender::Female
-            else if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Male then
+        ApplicationFormHeader.TestField("Settlement Type");
+        SettlmentType.Get(ApplicationFormHeader."Settlement Type");
+        //IF AdmissionNumber='' THEN BEGIN
+        Cust.Init;
+        Cust."No." := ApplicationFormHeader."Admission No";
+        Cust.Name := CopyStr(ApplicationFormHeader.Surname + ' ' + ApplicationFormHeader."Other Names", 1, 80);
+        Cust."Search Name" := UpperCase(CopyStr(ApplicationFormHeader.Surname + ' ' + ApplicationFormHeader."Other Names", 1, 80));
+        Cust.Address := ApplicationFormHeader."Address for Correspondence1";
+        if ApplicationFormHeader."Address for Correspondence3" <> '' then
+            Cust."Address 2" := CopyStr(ApplicationFormHeader."Address for Correspondence2" + ',' + ApplicationFormHeader."Address for Correspondence3", 1, 30);
+        if ApplicationFormHeader."Telephone No. 2" <> '' then
+            Cust."Phone No." := ApplicationFormHeader."Telephone No. 1" + ',' + ApplicationFormHeader."Telephone No. 2";
+        //  Cust."Telex No.":=ApplicationFormHeader."Fax No.";
+        Cust."E-Mail" := ApplicationFormHeader.Email;
+        if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Female then
+            Cust.Gender := Cust.Gender::Female
+        else if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Male then
+            Cust.Gender := Cust.Gender::Male;
+        Cust."Date Of Birth" := ApplicationFormHeader."Date Of Birth";
+        Cust."Date Registered" := Today;
+        Cust."Customer Type" := Cust."customer type"::Student;
+        //        Cust."Student Type":=FORMAT(Enrollment."Student Type");
+        Cust."Date Of Birth" := ApplicationFormHeader."Date Of Birth";
+        // Cust."ID No":=ApplicationFormHeader."ID Number";
+        Cust."Application No." := ApplicationFormHeader."Admission No";
+        Cust."Marital Status" := ApplicationFormHeader."Marital Status";
+        Cust.Citizenship := Format(ApplicationFormHeader.Nationality);
+        Cust."Current Programme" := ApplicationFormHeader."Admitted Degree";
+        Cust."Current Semester" := ApplicationFormHeader."Admitted Semester";
+        Cust."Current Stage" := ApplicationFormHeader."Admitted To Stage";
+        // Cust.Religion:=FORMAT(ApplicationFormHeader.Religion);
+        Cust."Application Method" := Cust."application method"::"Apply to Oldest";
+        Cust."Customer Posting Group" := 'STUDENT';
+        Cust.Validate(Cust."Customer Posting Group");
+        Cust."ID No" := ApplicationFormHeader."ID Number";
+        Cust.Password := ApplicationFormHeader."ID Number";
+        Cust."Changed Password" := true;
+        Cust."Global Dimension 1 Code" := ApplicationFormHeader.Campus;
+        Cust.County := ApplicationFormHeader.County;
+        Cust.Status := Cust.Status::Registration;
+        Cust.Insert();
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+
+        Cust.Reset;
+        Cust.SetRange("No.", ApplicationFormHeader."Admission No");
+        //Customer.SETFILTER("Date Registered",'=%1',TODAY);
+        if Cust.Find('-') then begin
+            Cust.Status := Cust.Status::"New Admission";
+            if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Female then begin
+                Cust.Gender := Cust.Gender::Female;
+            end else begin
                 Cust.Gender := Cust.Gender::Male;
-            Cust."Date Of Birth" := ApplicationFormHeader."Date Of Birth";
-            Cust."Date Registered" := Today;
-            Cust."Customer Type" := Cust."customer type"::Student;
-            //        Cust."Student Type":=FORMAT(Enrollment."Student Type");
-            Cust."Date Of Birth" := ApplicationFormHeader."Date Of Birth";
-            // Cust."ID No":=ApplicationFormHeader."ID Number";
-            Cust."Application No." := ApplicationFormHeader."Admission No";
-            Cust."Marital Status" := ApplicationFormHeader."Marital Status";
-            Cust.Citizenship := Format(ApplicationFormHeader.Nationality);
-            Cust."Current Programme" := ApplicationFormHeader."Admitted Degree";
-            Cust."Current Semester" := ApplicationFormHeader."Admitted Semester";
-            Cust."Current Stage" := ApplicationFormHeader."Admitted To Stage";
-            // Cust.Religion:=FORMAT(ApplicationFormHeader.Religion);
-            Cust."Application Method" := Cust."application method"::"Apply to Oldest";
-            Cust."Customer Posting Group" := 'STUDENT';
-            Cust.Validate(Cust."Customer Posting Group");
-            Cust."ID No" := ApplicationFormHeader."ID Number";
-            Cust.Password := ApplicationFormHeader."ID Number";
-            Cust."Changed Password" := true;
-            Cust."Global Dimension 1 Code" := ApplicationFormHeader.Campus;
-            Cust.County := ApplicationFormHeader.County;
-            Cust.Status := Cust.Status::Registration;
-            Cust.Insert();
-
-            ////////////////////////////////////////////////////////////////////////////////////////
-
-
-            Cust.Reset;
-            Cust.SetRange("No.", ApplicationFormHeader."Admission No");
-            //Customer.SETFILTER("Date Registered",'=%1',TODAY);
-            if Cust.Find('-') then begin
-                Cust.Status := Cust.Status::"New Admission";
-                if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Female then begin
-                    Cust.Gender := Cust.Gender::Female;
-                end else begin
-                    Cust.Gender := Cust.Gender::Male;
-                end;
-                Cust.Modify;
             end;
+            Cust.Modify;
+        end;
 
-            Cust.Reset;
-            Cust.SetRange("No.", ApplicationFormHeader."Admission No");
-            Cust.SetFilter("Date Registered", '=%1', Today);
-            if Cust.Find('-') then begin
+        Cust.Reset;
+        Cust.SetRange("No.", ApplicationFormHeader."Admission No");
+        Cust.SetFilter("Date Registered", '=%1', Today);
+        if Cust.Find('-') then begin
+            CourseRegistration.Reset;
+            CourseRegistration.SetRange("Student No.", ApplicationFormHeader."Admission No");
+            CourseRegistration.SetRange("Settlement Type", ApplicationFormHeader."Settlement Type");
+            CourseRegistration.SetRange(Programmes, ApplicationFormHeader."First Degree Choice");
+            CourseRegistration.SetRange(Semester, ApplicationFormHeader."Admitted Semester");
+            if not CourseRegistration.Find('-') then begin
+                CourseRegistration.Init;
+                CourseRegistration."Reg. Transacton ID" := '';
+                CourseRegistration.Validate(CourseRegistration."Reg. Transacton ID");
+                CourseRegistration."Student No." := ApplicationFormHeader."Admission No";
+                CourseRegistration.Programmes := ApplicationFormHeader."Admitted Degree";
+                CourseRegistration.Semester := ApplicationFormHeader."Admitted Semester";
+                CourseRegistration.Stage := ApplicationFormHeader."Admitted To Stage";
+                CourseRegistration."Year Of Study" := 1;
+                CourseRegistration."Student Type" := CourseRegistration."student type"::"Full Time";
+                CourseRegistration."Registration Date" := Today;
+                CourseRegistration."Settlement Type" := ApplicationFormHeader."Settlement Type";
+                CourseRegistration."Academic Year" := ApplicationFormHeader.GetCurrYear();
+                CourseRegistration.Insert;
                 CourseRegistration.Reset;
                 CourseRegistration.SetRange("Student No.", ApplicationFormHeader."Admission No");
                 CourseRegistration.SetRange("Settlement Type", ApplicationFormHeader."Settlement Type");
                 CourseRegistration.SetRange(Programmes, ApplicationFormHeader."First Degree Choice");
                 CourseRegistration.SetRange(Semester, ApplicationFormHeader."Admitted Semester");
-                if not CourseRegistration.Find('-') then begin
-                    CourseRegistration.Init;
-                    CourseRegistration."Reg. Transacton ID" := '';
-                    CourseRegistration.Validate(CourseRegistration."Reg. Transacton ID");
-                    CourseRegistration."Student No." := ApplicationFormHeader."Admission No";
-                    CourseRegistration.Programmes := ApplicationFormHeader."Admitted Degree";
-                    CourseRegistration.Semester := ApplicationFormHeader."Admitted Semester";
-                    CourseRegistration.Stage := ApplicationFormHeader."Admitted To Stage";
-                    CourseRegistration."Year Of Study" := 1;
-                    CourseRegistration."Student Type" := CourseRegistration."student type"::"Full Time";
-                    CourseRegistration."Registration Date" := Today;
+                if CourseRegistration.Find('-') then begin
                     CourseRegistration."Settlement Type" := ApplicationFormHeader."Settlement Type";
-                    CourseRegistration."Academic Year" := GetCurrYear();
-                    CourseRegistration.Insert;
-                    CourseRegistration.Reset;
-                    CourseRegistration.SetRange("Student No.", ApplicationFormHeader."Admission No");
-                    CourseRegistration.SetRange("Settlement Type", ApplicationFormHeader."Settlement Type");
-                    CourseRegistration.SetRange(Programmes, ApplicationFormHeader."First Degree Choice");
-                    CourseRegistration.SetRange(Semester, ApplicationFormHeader."Admitted Semester");
-                    if CourseRegistration.Find('-') then begin
-                        CourseRegistration."Settlement Type" := ApplicationFormHeader."Settlement Type";
-                        CourseRegistration.Validate(CourseRegistration."Settlement Type");
-                        CourseRegistration."Academic Year" := GetCurrYear();
-                        CourseRegistration."Registration Date" := Today;
-                        CourseRegistration.Validate(CourseRegistration."Registration Date");
-                        CourseRegistration.Modify;
-                    end;
-                end else begin
-                    CourseRegistration.Reset;
-                    CourseRegistration.SetRange("Student No.", ApplicationFormHeader."Admission No");
-                    CourseRegistration.SetRange("Settlement Type", ApplicationFormHeader."Settlement Type");
-                    CourseRegistration.SetRange(Programmes, ApplicationFormHeader."First Degree Choice");
-                    CourseRegistration.SetRange(Semester, ApplicationFormHeader."Admitted Semester");
-                    CourseRegistration.SetFilter(Posted, '=%1', false);
-                    if CourseRegistration.Find('-') then begin
-                        CourseRegistration."Settlement Type" := ApplicationFormHeader."Settlement Type";
-                        CourseRegistration.Validate(CourseRegistration."Settlement Type");
-                        CourseRegistration."Academic Year" := GetCurrYear();
-                        CourseRegistration."Registration Date" := Today;
-                        CourseRegistration.Validate(CourseRegistration."Registration Date");
-                        CourseRegistration.Modify;
+                    CourseRegistration.Validate(CourseRegistration."Settlement Type");
+                    CourseRegistration."Academic Year" := ApplicationFormHeader.GetCurrYear();
+                    CourseRegistration."Registration Date" := Today;
+                    CourseRegistration.Validate(CourseRegistration."Registration Date");
+                    CourseRegistration.Modify;
+                end;
+            end else begin
+                CourseRegistration.Reset;
+                CourseRegistration.SetRange("Student No.", ApplicationFormHeader."Admission No");
+                CourseRegistration.SetRange("Settlement Type", ApplicationFormHeader."Settlement Type");
+                CourseRegistration.SetRange(Programmes, ApplicationFormHeader."First Degree Choice");
+                CourseRegistration.SetRange(Semester, ApplicationFormHeader."Admitted Semester");
+                CourseRegistration.SetFilter(Posted, '=%1', false);
+                if CourseRegistration.Find('-') then begin
+                    CourseRegistration."Settlement Type" := ApplicationFormHeader."Settlement Type";
+                    CourseRegistration.Validate(CourseRegistration."Settlement Type");
+                    CourseRegistration."Academic Year" := ApplicationFormHeader.GetCurrYear();
+                    CourseRegistration."Registration Date" := Today;
+                    CourseRegistration.Validate(CourseRegistration."Registration Date");
+                    CourseRegistration.Modify;
 
-                    end;
                 end;
             end;
-
-            ////////////////////////////////////////////////////////////////////////////////////////
-
-            /*Get the record and transfer the details to the admissions database*/
-            //ERROR('TEST- '+NewAdminCode);
-            /*Transfer the details into the admission database table*/
-            Init;
-            Admissions."Admission No." := AdmissionNumber;
-            Admissions.Validate("Admission No.");
-            Admissions.Date := Today;
-            Admissions."Application No." := ApplicationFormHeader."Application No.";
-            Admissions."Admission Type" := ApplicationFormHeader."Settlement Type";
-            Admissions."Academic Year" := ApplicationFormHeader."Academic Year";
-            Admissions.Surname := ApplicationFormHeader.Surname;
-            Admissions."Other Names" := ApplicationFormHeader."Other Names";
-            Admissions.Status := Admissions.Status::Admitted;
-            Admissions."Degree Admitted To" := ApplicationFormHeader."Admitted Degree";
-            Admissions.Validate("Degree Admitted To");
-            Admissions."Date Of Birth" := ApplicationFormHeader."Date Of Birth";
-            if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Female then
-                Admissions.Gender := Admissions.Gender::Female
-            else if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Male then
-                Admissions.Gender := Admissions.Gender::Male;
-
-            Admissions."Marital Status" := ApplicationFormHeader."Marital Status";
-            Admissions.County := ApplicationFormHeader.County;
-            Admissions.Campus := ApplicationFormHeader.Campus;
-            Admissions.Nationality := ApplicationFormHeader.Nationality;
-            Admissions."Correspondence Address 1" := ApplicationFormHeader."Address for Correspondence1";
-            Admissions."Correspondence Address 2" := ApplicationFormHeader."Address for Correspondence2";
-            Admissions."Correspondence Address 3" := ApplicationFormHeader."Address for Correspondence3";
-            Admissions."Telephone No. 1" := ApplicationFormHeader."Telephone No. 1";
-            Admissions."Telephone No. 2" := ApplicationFormHeader."Telephone No. 2";
-            Admissions."Former School Code" := ApplicationFormHeader."Former School Code";
-            Admissions."Index Number" := ApplicationFormHeader."Index Number";
-            Admissions."Stage Admitted To" := ApplicationFormHeader."Admitted To Stage";
-            Admissions."Semester Admitted To" := ApplicationFormHeader."Admitted Semester";
-            Admissions."Settlement Type" := ApplicationFormHeader."Settlement Type";
-            Admissions."Intake Code" := ApplicationFormHeader."Intake Code";
-            Admissions."ID Number" := ApplicationFormHeader."ID Number";
-            Admissions."E-Mail" := ApplicationFormHeader.Email;
-            // Admissions."Telephone No. 1":=ApplicationFormHeader."Telephone No. 1";
-            // Admissions."Telephone No. 2":=ApplicationFormHeader."Telephone No. 1";
-            Admissions.Insert();
-            ApplicationFormHeader."Admission No" := AdmissionNumber;
-            /*Get the subject details and transfer the  same to the admissions subject*/
-            ApplicationSubject.Reset;
-            ApplicationSubject.SetRange(ApplicationSubject."Application No.", ApplicationFormHeader."Application No.");
-            if ApplicationSubject.Find('-') then begin
-                /*Get the last number in the admissions table*/
-                AdmissionSubject.Reset;
-                if AdmissionSubject.Find('+') then begin
-                    LineNo := AdmissionSubject."Line No." + 1;
-                end
-                else begin
-                    LineNo := 1;
-                end;
-
-                /*Insert the new records into the database table*/
-                repeat
-                    with AdmissionSubject do begin
-                        Init;
-                        "Line No." := LineNo + 1;
-                        "Admission No." := AdmissionNumber;
-                        "Subject Code" := ApplicationSubject."Subject Code";
-                        Grade := Grade;
-                        Insert();
-                        LineNo := LineNo + 1;
-                    end;
-                until ApplicationSubject.Next = 0;
-            end;
-            /*Insert the medical conditions into the admission database table containing the medical condition*/
-            MedicalCondition.Reset;
-            MedicalCondition.SetRange(MedicalCondition.Mandatory, true);
-            if MedicalCondition.Find('-') then begin
-                /*Get the last line number from the medical condition table for the admissions module*/
-                AdmissionMedical.Reset;
-                if AdmissionMedical.Find('+') then begin
-                    LineNo := AdmissionMedical."Line No." + 1;
-                end
-                else begin
-                    LineNo := 1;
-                end;
-                AdmissionMedical.Reset;
-                /*Loop thru the medical conditions*/
-                repeat
-                    AdmissionMedical.Init;
-                    AdmissionMedical."Line No." := LineNo + 1;
-                    AdmissionMedical."Admission No." := AdmissionNumber;
-                    AdmissionMedical."Medical Condition Code" := MedicalCondition.Code;
-                    AdmissionMedical.Insert();
-                    LineNo := LineNo + 1;
-                until MedicalCondition.Next = 0;
-            end;
-            /*Insert the details into the family table*/
-            MedicalCondition.Reset;
-            MedicalCondition.SetRange(MedicalCondition.Mandatory, true);
-            MedicalCondition.SetRange(MedicalCondition.Family, true);
-            if MedicalCondition.Find('-') then begin
-                /*Get the last number in the family table*/
-                AdmissionFamily.Reset;
-                if AdmissionFamily.Find('+') then begin
-                    LineNo := AdmissionFamily."Line No.";
-                end
-                else begin
-                    LineNo := 0;
-                end;
-                repeat
-                    AdmissionFamily.Init;
-                    AdmissionFamily."Line No." := LineNo + 1;
-                    AdmissionFamily."Medical Condition Code" := MedicalCondition.Code;
-                    AdmissionFamily."Admission No." := AdmissionNumber;
-                    AdmissionFamily.Insert();
-                    LineNo := LineNo + 1;
-                until MedicalCondition.Next = 0;
-            end;
-
-            /*Insert the immunization details into the database*/
-            Immunization.Reset;
-            //Immunization.SETRANGE(Immunization.Mandatory,TRUE);
-            if Immunization.Find('-') then begin
-                /*Get the last line number from the database*/
-                AdmissionImmunization.Reset;
-                if AdmissionImmunization.Find('+') then begin
-                    LineNo := AdmissionImmunization."Line No." + 1;
-                end
-                else begin
-                    LineNo := 1;
-                end;
-                /*loop thru the immunizations table adding the details into the admissions table for immunizations*/
-                repeat
-                    AdmissionImmunization.Init;
-                    AdmissionImmunization."Line No." := LineNo + 1;
-                    AdmissionImmunization."Admission No." := AdmissionNumber;
-                    AdmissionImmunization."Immunization Code" := Immunization.Code;
-                    AdmissionImmunization.Insert();
-                until Immunization.Next = 0;
-            end;
-
-            TakeStudentToRegistration(AdmissionNumber);
         end;
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        /*Get the record and transfer the details to the admissions database*/
+        //ERROR('TEST- '+NewAdminCode);
+        /*Transfer the details into the admission database table*/
+        ApplicationFormHeader.Init;
+        Admissions."Admission No." := AdmissionNumber;
+        Admissions.Validate("Admission No.");
+        Admissions.Date := Today;
+        Admissions."Application No." := ApplicationFormHeader."Application No.";
+        Admissions."Admission Type" := ApplicationFormHeader."Settlement Type";
+        Admissions."Academic Year" := ApplicationFormHeader."Academic Year";
+        Admissions.Surname := ApplicationFormHeader.Surname;
+        Admissions."Other Names" := ApplicationFormHeader."Other Names";
+        Admissions.Status := Admissions.Status::Admitted;
+        Admissions."Degree Admitted To" := ApplicationFormHeader."Admitted Degree";
+        Admissions.Validate("Degree Admitted To");
+        Admissions."Date Of Birth" := ApplicationFormHeader."Date Of Birth";
+        if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Female then
+            Admissions.Gender := Admissions.Gender::Female
+        else if ApplicationFormHeader.Gender = ApplicationFormHeader.Gender::Male then
+            Admissions.Gender := Admissions.Gender::Male;
+
+        Admissions."Marital Status" := ApplicationFormHeader."Marital Status";
+        Admissions.County := ApplicationFormHeader.County;
+        Admissions.Campus := ApplicationFormHeader.Campus;
+        Admissions.Nationality := ApplicationFormHeader.Nationality;
+        Admissions."Correspondence Address 1" := ApplicationFormHeader."Address for Correspondence1";
+        Admissions."Correspondence Address 2" := ApplicationFormHeader."Address for Correspondence2";
+        Admissions."Correspondence Address 3" := ApplicationFormHeader."Address for Correspondence3";
+        Admissions."Telephone No. 1" := ApplicationFormHeader."Telephone No. 1";
+        Admissions."Telephone No. 2" := ApplicationFormHeader."Telephone No. 2";
+        Admissions."Former School Code" := ApplicationFormHeader."Former School Code";
+        Admissions."Index Number" := ApplicationFormHeader."Index Number";
+        Admissions."Stage Admitted To" := ApplicationFormHeader."Admitted To Stage";
+        Admissions."Semester Admitted To" := ApplicationFormHeader."Admitted Semester";
+        Admissions."Settlement Type" := ApplicationFormHeader."Settlement Type";
+        Admissions."Intake Code" := ApplicationFormHeader."Intake Code";
+        Admissions."ID Number" := ApplicationFormHeader."ID Number";
+        Admissions."E-Mail" := ApplicationFormHeader.Email;
+        // Admissions."Telephone No. 1":=ApplicationFormHeader."Telephone No. 1";
+        // Admissions."Telephone No. 2":=ApplicationFormHeader."Telephone No. 1";
+        Admissions.Insert();
+        ApplicationFormHeader."Admission No" := AdmissionNumber;
+        /*Get the subject details and transfer the  same to the admissions subject*/
+        ApplicationSubject.Reset;
+        ApplicationSubject.SetRange(ApplicationSubject."Application No.", ApplicationFormHeader."Application No.");
+        if ApplicationSubject.Find('-') then begin
+            /*Get the last number in the admissions table*/
+            AdmissionSubject.Reset;
+            if AdmissionSubject.Find('+') then begin
+                LineNo := AdmissionSubject."Line No." + 1;
+            end
+            else begin
+                LineNo := 1;
+            end;
+
+            /*Insert the new records into the database table*/
+            repeat
+                AdmissionSubject.Init;
+                AdmissionSubject."Line No." := LineNo + 1;
+                AdmissionSubject."Admission No." := AdmissionNumber;
+                AdmissionSubject."Subject Code" := ApplicationSubject."Subject Code";
+                AdmissionSubject.Grade := AdmissionSubject.Grade;
+                AdmissionSubject.Insert();
+                LineNo := LineNo + 1;
+            until ApplicationSubject.Next = 0;
+        end;
+        /*Insert the medical conditions into the admission database table containing the medical condition*/
+        MedicalCondition.Reset;
+        MedicalCondition.SetRange(MedicalCondition.Mandatory, true);
+        if MedicalCondition.Find('-') then begin
+            /*Get the last line number from the medical condition table for the admissions module*/
+            AdmissionMedical.Reset;
+            if AdmissionMedical.Find('+') then begin
+                LineNo := AdmissionMedical."Line No." + 1;
+            end
+            else begin
+                LineNo := 1;
+            end;
+            AdmissionMedical.Reset;
+            /*Loop thru the medical conditions*/
+            repeat
+                AdmissionMedical.Init;
+                AdmissionMedical."Line No." := LineNo + 1;
+                AdmissionMedical."Admission No." := AdmissionNumber;
+                AdmissionMedical."Medical Condition Code" := MedicalCondition.Code;
+                AdmissionMedical.Insert();
+                LineNo := LineNo + 1;
+            until MedicalCondition.Next = 0;
+        end;
+        /*Insert the details into the family table*/
+        MedicalCondition.Reset;
+        MedicalCondition.SetRange(MedicalCondition.Mandatory, true);
+        MedicalCondition.SetRange(MedicalCondition.Family, true);
+        if MedicalCondition.Find('-') then begin
+            /*Get the last number in the family table*/
+            AdmissionFamily.Reset;
+            if AdmissionFamily.Find('+') then begin
+                LineNo := AdmissionFamily."Line No.";
+            end
+            else begin
+                LineNo := 0;
+            end;
+            repeat
+                AdmissionFamily.Init;
+                AdmissionFamily."Line No." := LineNo + 1;
+                AdmissionFamily."Medical Condition Code" := MedicalCondition.Code;
+                AdmissionFamily."Admission No." := AdmissionNumber;
+                AdmissionFamily.Insert();
+                LineNo := LineNo + 1;
+            until MedicalCondition.Next = 0;
+        end;
+
+        /*Insert the immunization details into the database*/
+        Immunization.Reset;
+        //Immunization.SETRANGE(Immunization.Mandatory,TRUE);
+        if Immunization.Find('-') then begin
+            /*Get the last line number from the database*/
+            AdmissionImmunization.Reset;
+            if AdmissionImmunization.Find('+') then begin
+                LineNo := AdmissionImmunization."Line No." + 1;
+            end
+            else begin
+                LineNo := 1;
+            end;
+            /*loop thru the immunizations table adding the details into the admissions table for immunizations*/
+            repeat
+                AdmissionImmunization.Init;
+                AdmissionImmunization."Line No." := LineNo + 1;
+                AdmissionImmunization."Admission No." := AdmissionNumber;
+                AdmissionImmunization."Immunization Code" := Immunization.Code;
+                AdmissionImmunization.Insert();
+            until Immunization.Next = 0;
+        end;
+
+        TakeStudentToRegistration(AdmissionNumber);
 
     end;
 
@@ -1798,279 +1794,235 @@ Table 51250 "ACA-New Stud. Documents"
         HostLedg: Record "ACA-Hostel Ledger";
         BankName: Text[100];
     begin
-        with ACAStdPayments do begin
 
-            Validate("Cheque No");
-            if Posted then exit;//ERROR('Already Posted');
-            TestField("Transaction Date");
+        ACAStdPayments.Validate("Cheque No");
+        if ACAStdPayments.Posted then exit;//ERROR('Already Posted');
+        ACAStdPayments.TestField("Transaction Date");
 
-            //IF CONFIRM('Do you want to post the transaction?',TRUE) = FALSE THEN BEGIN
+        //IF CONFIRM('Do you want to post the transaction?',TRUE) = FALSE THEN BEGIN
+        //EXIT;
+        //END;
+
+        if ((ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::"Bank Slip") or (ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::Cheque)) then begin
+            ACAStdPayments.TestField("Bank Slip Date");
+            ACAStdPayments.TestField("Bank No.");
+        end;
+        CustLedg.Reset;
+        CustLedg.SetRange(CustLedg."Customer No.", ACAStdPayments."Student No.");
+        //CustLedg.SETRANGE(CustLedg."Apply to",TRUE);
+        CustLedg.SetRange(CustLedg.Open, true);
+        CustLedg.SetRange(CustLedg.Reversed, false);
+        if CustLedg.Find('-') then begin
+            repeat
+                TotalApplied := TotalApplied + CustLedg."Amount Applied";
+            until CustLedg.Next = 0;
+        end;
+
+        if ACAStdPayments."Amount to pay" > TotalApplied then begin
+            //IF CONFIRM('There is an overpayment. Do you want to continue?',FALSE) = FALSE THEN BEGIN
             //EXIT;
             //END;
 
-            if (("Payment Mode" = "payment mode"::"Bank Slip") or ("Payment Mode" = "payment mode"::Cheque)) then begin
-                TestField("Bank Slip Date");
-                TestField("Bank No.");
-            end;
-            CustLedg.Reset;
-            CustLedg.SetRange(CustLedg."Customer No.", "Student No.");
-            //CustLedg.SETRANGE(CustLedg."Apply to",TRUE);
-            CustLedg.SetRange(CustLedg.Open, true);
-            CustLedg.SetRange(CustLedg.Reversed, false);
-            if CustLedg.Find('-') then begin
-                repeat
-                    TotalApplied := TotalApplied + CustLedg."Amount Applied";
-                until CustLedg.Next = 0;
-            end;
-
-            if "Amount to pay" > TotalApplied then begin
-                //IF CONFIRM('There is an overpayment. Do you want to continue?',FALSE) = FALSE THEN BEGIN
-                //EXIT;
-                //END;
-
-            end;
+        end;
 
 
-            if Cust.Get("Student No.") then begin
-                Cust."Application Method" := Cust."application method"::"Apply to Oldest";
-                Cust.CalcFields(Balance);
-                if Cust.Status = Cust.Status::"New Admission" then begin
-                    if ((Cust.Balance = 0) or (Cust.Balance < 0)) then begin
-                        Cust.Status := Cust.Status::Current;
-                    end else begin
-                        Cust.Status := Cust.Status::"New Admission";
-                    end;
-                end else begin
+        if Cust.Get(ACAStdPayments."Student No.") then begin
+            Cust."Application Method" := Cust."application method"::"Apply to Oldest";
+            Cust.CalcFields(Balance);
+            if Cust.Status = Cust.Status::"New Admission" then begin
+                if ((Cust.Balance = 0) or (Cust.Balance < 0)) then begin
                     Cust.Status := Cust.Status::Current;
+                end else begin
+                    Cust.Status := Cust.Status::"New Admission";
                 end;
-                Cust.Modify;
+            end else begin
+                Cust.Status := Cust.Status::Current;
             end;
+            Cust.Modify;
+        end;
 
-            if Cust.Get("Student No.") then
-                GenJnl.Reset;
-            GenJnl.SetRange("Journal Template Name", 'SALES');
-            GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-            GenJnl.DeleteAll;
-
-            GenSetUp.Get();
-
-
+        if Cust.Get(ACAStdPayments."Student No.") then
             GenJnl.Reset;
-            GenJnl.SetRange("Journal Template Name", 'SALES');
-            GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-            GenJnl.DeleteAll;
+        GenJnl.SetRange("Journal Template Name", 'SALES');
+        GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
+        GenJnl.DeleteAll;
 
-            GenSetUp.TestField(GenSetUp."Pre-Payment Account");
+        GenSetUp.Get();
+
+
+        GenJnl.Reset;
+        GenJnl.SetRange("Journal Template Name", 'SALES');
+        GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
+        GenJnl.DeleteAll;
+
+        GenSetUp.TestField(GenSetUp."Pre-Payment Account");
 
 
 
-            //Charge Student if not charged
-            StudentCharges.Reset;
-            StudentCharges.SetRange(StudentCharges."Student No.", "Student No.");
-            StudentCharges.SetRange(StudentCharges.Recognized, false);
-            if StudentCharges.Find('-') then begin
+        //Charge Student if not charged
+        StudentCharges.Reset;
+        StudentCharges.SetRange(StudentCharges."Student No.", ACAStdPayments."Student No.");
+        StudentCharges.SetRange(StudentCharges.Recognized, false);
+        if StudentCharges.Find('-') then begin
 
-                repeat
+            repeat
 
-                    DueDate := StudentCharges.Date;
-                    if Sems.Get(StudentCharges.Semester) then begin
-                        if Sems.From <> 0D then begin
-                            if Sems.From > DueDate then
-                                DueDate := Sems.From;
-                        end;
+                DueDate := StudentCharges.Date;
+                if Sems.Get(StudentCharges.Semester) then begin
+                    if Sems.From <> 0D then begin
+                        if Sems.From > DueDate then
+                            DueDate := Sems.From;
                     end;
+                end;
 
 
-                    GenJnl.Init;
-                    GenJnl."Line No." := GenJnl."Line No." + 10000;
-                    GenJnl."Posting Date" := Today;
-                    GenJnl."Document No." := ACAStdPayments."Cheque No";//StudentCharges."Transacton ID";
-                    GenJnl.Validate(GenJnl."Document No.");
-                    GenJnl."Journal Template Name" := 'SALES';
-                    GenJnl."Journal Batch Name" := 'STUD PAY';
-                    GenJnl."Account Type" := GenJnl."account type"::Customer;
-                    //
-                    if Cust.Get("Student No.") then begin
-                        if Cust."Bill-to Customer No." <> '' then
-                            GenJnl."Account No." := Cust."Bill-to Customer No."
-                        else
-                            GenJnl."Account No." := "Student No.";
-                    end;
+                GenJnl.Init;
+                GenJnl."Line No." := GenJnl."Line No." + 10000;
+                GenJnl."Posting Date" := Today;
+                GenJnl."Document No." := ACAStdPayments."Cheque No";//StudentCharges."Transacton ID";
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SALES';
+                GenJnl."Journal Batch Name" := 'STUD PAY';
+                GenJnl."Account Type" := GenJnl."account type"::Customer;
+                //
+                if Cust.Get(ACAStdPayments."Student No.") then begin
+                    if Cust."Bill-to Customer No." <> '' then
+                        GenJnl."Account No." := Cust."Bill-to Customer No."
+                    else
+                        GenJnl."Account No." := ACAStdPayments."Student No.";
+                end;
 
-                    GenJnl.Amount := StudentCharges.Amount;
-                    GenJnl.Validate(GenJnl."Account No.");
-                    GenJnl.Validate(GenJnl.Amount);
-                    GenJnl.Description := StudentCharges.Description;
-                    GenJnl."Bal. Account Type" := GenJnl."account type"::"G/L Account";
+                GenJnl.Amount := StudentCharges.Amount;
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := StudentCharges.Description;
+                GenJnl."Bal. Account Type" := GenJnl."account type"::"G/L Account";
 
-                    if (StudentCharges."Transaction Type" = StudentCharges."transaction type"::"Stage Fees") and
-                      (StudentCharges.Charge = false) then begin
-                        GenJnl."Bal. Account No." := GenSetUp."Pre-Payment Account";
-
-                        CReg.Reset;
-                        CReg.SetCurrentkey(CReg."Reg. Transacton ID");
-                        CReg.SetRange(CReg."Reg. Transacton ID", StudentCharges."Reg. Transacton ID");
-                        CReg.SetRange(CReg."Student No.", StudentCharges."Student No.");
-                        if CReg.Find('-') then begin
-                            if CReg."Register for" = CReg."register for"::Stage then begin
-                                Stages.Reset;
-                                Stages.SetRange(Stages."Programme Code", creg.programmes);
-                                Stages.SetRange(Stages.Code, CReg.Stage);
-                                if Stages.Find('-') then begin
-                                    if (Stages."Modules Registration" = true) and (Stages."Ignore No. Of Units" = false) then begin
-                                        CReg.CalcFields(CReg."Units Taken");
-                                        if CReg.Modules <> CReg."Units Taken" then
-                                            Error('Units Taken must be equal to the no of modules registered for.');
-
-                                    end;
-                                end;
-                            end;
-
-                            //CReg.Posted:=TRUE;
-                            CReg.Modify;
-                        end;
-
-
-                    end else if (StudentCharges."Transaction Type" = StudentCharges."transaction type"::"Unit Fees") and
-                               (StudentCharges.Charge = false) then begin
-                        GenJnl."Bal. Account No." := GenSetUp."Pre-Payment Account";
-
-                        CReg.Reset;
-                        CReg.SetCurrentkey(CReg."Reg. Transacton ID");
-                        CReg.SetRange(CReg."Reg. Transacton ID", StudentCharges."Reg. Transacton ID");
-                        if CReg.Find('-') then begin
-                            //CReg.Posted:=TRUE;
-                            CReg.Modify;
-                        end;
-
-
-
-                    end else if StudentCharges."Transaction Type" = StudentCharges."transaction type"::"Stage Exam Fees" then begin
-                        if ExamsByStage.Get(StudentCharges.Programme, StudentCharges.Stage, StudentCharges.Semester, StudentCharges.Code) then
-                            GenJnl."Bal. Account No." := ExamsByStage."G/L Account";
-
-                    end else if StudentCharges."Transaction Type" = StudentCharges."transaction type"::"Unit Exam Fees" then begin
-                        if ExamsByUnit.Get(StudentCharges.Programme, StudentCharges.Stage, ExamsByUnit."Unit Code", StudentCharges.Semester,
-                        StudentCharges.Code) then
-                            GenJnl."Bal. Account No." := ExamsByUnit."G/L Account";
-
-                    end else if (StudentCharges."Transaction Type" = StudentCharges."transaction type"::Charges) or
-                               (StudentCharges.Charge = true) then begin
-                        if Charges.Get(StudentCharges.Code) then
-                            GenJnl."Bal. Account No." := Charges."G/L Account";
-                    end;
-                    GenJnl.Validate(GenJnl."Bal. Account No.");
+                if (StudentCharges."Transaction Type" = StudentCharges."transaction type"::"Stage Fees") and
+                  (StudentCharges.Charge = false) then begin
+                    GenJnl."Bal. Account No." := GenSetUp."Pre-Payment Account";
 
                     CReg.Reset;
-                    CReg.SetRange(CReg."Student No.", "Student No.");
-                    CReg.SetRange(CReg.Reversed, false);
-                    if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.programmes) then begin
-                            ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
-                            //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
-                            GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
-                            if cust2.Get("Student No.") then;
-                            if cust2."Global Dimension 2 Code" = '' then
-                                cust2."Global Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                            if cust2."Global Dimension 2 Code" <> '' then begin
-
-                                GenJnl."Shortcut Dimension 2 Code" := cust2."Global Dimension 2 Code"
-                            end
-                            else
-                                GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                            if cust2."Global Dimension 2 Code" = '' then
-                                Error('Department code is missing!')
-
-                            //else
-                            //GenJnl."Shortcut Dimension 2 Code":=ProgrammeSetUp."Department Code";
-                        end;
-                    end;
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
-
-
-                    GenJnl."Due Date" := DueDate;
-                    GenJnl.Validate(GenJnl."Due Date");
-                    if StudentCharges."Recovery Priority" <> 0 then
-                        GenJnl."Recovery Priority" := StudentCharges."Recovery Priority"
-                    else
-                        GenJnl."Recovery Priority" := 25;
-                    if GenJnl.Amount <> 0 then
-                        GenJnl.Insert;
-
-                    //Distribute Money
-                    if StudentCharges."Tuition Fee" = true then begin
-                        if Stages.Get(StudentCharges.Programme, StudentCharges.Stage) then begin
-                            if (Stages."Distribution Full Time (%)" > 0) or (Stages."Distribution Part Time (%)" > 0) then begin
-                                Stages.TestField(Stages."Distribution Account");
-                                StudentCharges.TestField(StudentCharges.Distribution);
-                                if Cust.Get("Student No.") then begin
-                                    CustPostGroup.Get(Cust."Customer Posting Group");
-
-                                    GenJnl.Init;
-                                    GenJnl."Line No." := GenJnl."Line No." + 10000;
-                                    GenJnl."Posting Date" := Today;
-                                    GenJnl."Document No." := ACAStdPayments."Cheque No";//StudentCharges."Transacton ID";
-                                                                                        //GenJnl."Document Type":=GenJnl."Document Type"::Payment;
-                                    GenJnl.Validate(GenJnl."Document No.");
-                                    GenJnl."Journal Template Name" := 'SALES';
-                                    GenJnl."Journal Batch Name" := 'STUD PAY';
-                                    GenJnl."Account Type" := GenJnl."account type"::"G/L Account";
-                                    GenSetUp.TestField(GenSetUp."Pre-Payment Account");
-                                    GenJnl."Account No." := GenSetUp."Pre-Payment Account";
-                                    GenJnl.Amount := StudentCharges.Amount * (StudentCharges.Distribution / 100);
-                                    GenJnl.Validate(GenJnl."Account No.");
-                                    GenJnl.Validate(GenJnl.Amount);
-                                    GenJnl.Description := 'Fee Distribution';
-                                    GenJnl."Bal. Account Type" := GenJnl."bal. account type"::"G/L Account";
-                                    GenJnl."Bal. Account No." := Stages."Distribution Account";
-                                    GenJnl.Validate(GenJnl."Bal. Account No.");
-
-                                    CReg.Reset;
-                                    CReg.SetRange(CReg."Student No.", "Student No.");
-                                    CReg.SetRange(CReg.Reversed, false);
-                                    if CReg.Find('+') then begin
-                                        if ProgrammeSetUp.Get(creg.programmes) then begin
-                                            ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
-                                            //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
-                                            GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
-                                            GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                                        end;
-                                    end;
-                                    GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
-                                    GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
-                                    if GenJnl.Amount <> 0 then
-                                        GenJnl.Insert;
+                    CReg.SetCurrentkey(CReg."Reg. Transacton ID");
+                    CReg.SetRange(CReg."Reg. Transacton ID", StudentCharges."Reg. Transacton ID");
+                    CReg.SetRange(CReg."Student No.", StudentCharges."Student No.");
+                    if CReg.Find('-') then begin
+                        if CReg."Register for" = CReg."register for"::Stage then begin
+                            Stages.Reset;
+                            Stages.SetRange(Stages."Programme Code", creg.programmes);
+                            Stages.SetRange(Stages.Code, CReg.Stage);
+                            if Stages.Find('-') then begin
+                                if (Stages."Modules Registration" = true) and (Stages."Ignore No. Of Units" = false) then begin
+                                    CReg.CalcFields(CReg."Units Taken");
+                                    if CReg.Modules <> CReg."Units Taken" then
+                                        Error('Units Taken must be equal to the no of modules registered for.');
 
                                 end;
                             end;
                         end;
-                    end else begin
-                        //Distribute Charges
-                        if StudentCharges.Distribution > 0 then begin
-                            StudentCharges.TestField(StudentCharges."Distribution Account");
-                            if Charges.Get(StudentCharges.Code) then begin
-                                Charges.TestField(Charges."G/L Account");
+
+                        //CReg.Posted:=TRUE;
+                        CReg.Modify;
+                    end;
+
+
+                end else if (StudentCharges."Transaction Type" = StudentCharges."transaction type"::"Unit Fees") and
+                           (StudentCharges.Charge = false) then begin
+                    GenJnl."Bal. Account No." := GenSetUp."Pre-Payment Account";
+
+                    CReg.Reset;
+                    CReg.SetCurrentkey(CReg."Reg. Transacton ID");
+                    CReg.SetRange(CReg."Reg. Transacton ID", StudentCharges."Reg. Transacton ID");
+                    if CReg.Find('-') then begin
+                        //CReg.Posted:=TRUE;
+                        CReg.Modify;
+                    end;
+
+
+
+                end else if StudentCharges."Transaction Type" = StudentCharges."transaction type"::"Stage Exam Fees" then begin
+                    if ExamsByStage.Get(StudentCharges.Programme, StudentCharges.Stage, StudentCharges.Semester, StudentCharges.Code) then
+                        GenJnl."Bal. Account No." := ExamsByStage."G/L Account";
+
+                end else if StudentCharges."Transaction Type" = StudentCharges."transaction type"::"Unit Exam Fees" then begin
+                    if ExamsByUnit.Get(StudentCharges.Programme, StudentCharges.Stage, ExamsByUnit."Unit Code", StudentCharges.Semester,
+                    StudentCharges.Code) then
+                        GenJnl."Bal. Account No." := ExamsByUnit."G/L Account";
+
+                end else if (StudentCharges."Transaction Type" = StudentCharges."transaction type"::Charges) or
+                           (StudentCharges.Charge = true) then begin
+                    if Charges.Get(StudentCharges.Code) then
+                        GenJnl."Bal. Account No." := Charges."G/L Account";
+                end;
+                GenJnl.Validate(GenJnl."Bal. Account No.");
+
+                CReg.Reset;
+                CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+                CReg.SetRange(CReg.Reversed, false);
+                if CReg.Find('+') then begin
+                    if ProgrammeSetUp.Get(creg.programmes) then begin
+                        ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
+                        //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
+                        GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
+                        if cust2.Get(ACAStdPayments."Student No.") then;
+                        if cust2."Global Dimension 2 Code" = '' then
+                            cust2."Global Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                        if cust2."Global Dimension 2 Code" <> '' then begin
+
+                            GenJnl."Shortcut Dimension 2 Code" := cust2."Global Dimension 2 Code"
+                        end
+                        else
+                            GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                        if cust2."Global Dimension 2 Code" = '' then
+                            Error('Department code is missing!')
+
+                        //else
+                        //GenJnl."Shortcut Dimension 2 Code":=ProgrammeSetUp."Department Code";
+                    end;
+                end;
+                GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+
+
+                GenJnl."Due Date" := DueDate;
+                GenJnl.Validate(GenJnl."Due Date");
+                if StudentCharges."Recovery Priority" <> 0 then
+                    GenJnl."Recovery Priority" := StudentCharges."Recovery Priority"
+                else
+                    GenJnl."Recovery Priority" := 25;
+                if GenJnl.Amount <> 0 then
+                    GenJnl.Insert;
+
+                //Distribute Money
+                if StudentCharges."Tuition Fee" = true then begin
+                    if Stages.Get(StudentCharges.Programme, StudentCharges.Stage) then begin
+                        if (Stages."Distribution Full Time (%)" > 0) or (Stages."Distribution Part Time (%)" > 0) then begin
+                            Stages.TestField(Stages."Distribution Account");
+                            StudentCharges.TestField(StudentCharges.Distribution);
+                            if Cust.Get(ACAStdPayments."Student No.") then begin
+                                CustPostGroup.Get(Cust."Customer Posting Group");
+
                                 GenJnl.Init;
                                 GenJnl."Line No." := GenJnl."Line No." + 10000;
                                 GenJnl."Posting Date" := Today;
                                 GenJnl."Document No." := ACAStdPayments."Cheque No";//StudentCharges."Transacton ID";
+                                                                                    //GenJnl."Document Type":=GenJnl."Document Type"::Payment;
                                 GenJnl.Validate(GenJnl."Document No.");
                                 GenJnl."Journal Template Name" := 'SALES';
                                 GenJnl."Journal Batch Name" := 'STUD PAY';
                                 GenJnl."Account Type" := GenJnl."account type"::"G/L Account";
-                                GenJnl."Account No." := StudentCharges."Distribution Account";
+                                GenSetUp.TestField(GenSetUp."Pre-Payment Account");
+                                GenJnl."Account No." := GenSetUp."Pre-Payment Account";
                                 GenJnl.Amount := StudentCharges.Amount * (StudentCharges.Distribution / 100);
                                 GenJnl.Validate(GenJnl."Account No.");
                                 GenJnl.Validate(GenJnl.Amount);
                                 GenJnl.Description := 'Fee Distribution';
                                 GenJnl."Bal. Account Type" := GenJnl."bal. account type"::"G/L Account";
-                                GenJnl."Bal. Account No." := Charges."G/L Account";
+                                GenJnl."Bal. Account No." := Stages."Distribution Account";
                                 GenJnl.Validate(GenJnl."Bal. Account No.");
 
-                                //Stages.TESTFIELD(Stages.Department);
                                 CReg.Reset;
-                                CReg.SetRange(CReg."Student No.", "Student No.");
+                                CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
                                 CReg.SetRange(CReg.Reversed, false);
                                 if CReg.Find('+') then begin
                                     if ProgrammeSetUp.Get(creg.programmes) then begin
@@ -2088,384 +2040,426 @@ Table 51250 "ACA-New Stud. Documents"
                             end;
                         end;
                     end;
-                    //End Distribution
+                end else begin
+                    //Distribute Charges
+                    if StudentCharges.Distribution > 0 then begin
+                        StudentCharges.TestField(StudentCharges."Distribution Account");
+                        if Charges.Get(StudentCharges.Code) then begin
+                            Charges.TestField(Charges."G/L Account");
+                            GenJnl.Init;
+                            GenJnl."Line No." := GenJnl."Line No." + 10000;
+                            GenJnl."Posting Date" := Today;
+                            GenJnl."Document No." := ACAStdPayments."Cheque No";//StudentCharges."Transacton ID";
+                            GenJnl.Validate(GenJnl."Document No.");
+                            GenJnl."Journal Template Name" := 'SALES';
+                            GenJnl."Journal Batch Name" := 'STUD PAY';
+                            GenJnl."Account Type" := GenJnl."account type"::"G/L Account";
+                            GenJnl."Account No." := StudentCharges."Distribution Account";
+                            GenJnl.Amount := StudentCharges.Amount * (StudentCharges.Distribution / 100);
+                            GenJnl.Validate(GenJnl."Account No.");
+                            GenJnl.Validate(GenJnl.Amount);
+                            GenJnl.Description := 'Fee Distribution';
+                            GenJnl."Bal. Account Type" := GenJnl."bal. account type"::"G/L Account";
+                            GenJnl."Bal. Account No." := Charges."G/L Account";
+                            GenJnl.Validate(GenJnl."Bal. Account No.");
 
+                            //Stages.TESTFIELD(Stages.Department);
+                            CReg.Reset;
+                            CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+                            CReg.SetRange(CReg.Reversed, false);
+                            if CReg.Find('+') then begin
+                                if ProgrammeSetUp.Get(creg.programmes) then begin
+                                    ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
+                                    //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
+                                    GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
+                                    GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                                end;
+                            end;
+                            GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                            GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+                            if GenJnl.Amount <> 0 then
+                                GenJnl.Insert;
 
-                    StudentCharges.Recognized := true;
-                    StudentCharges.Modify;
-
-                until StudentCharges.Next = 0;
-
-
-
-                //Post New
-                GenJnl.Reset;
-                GenJnl.SetRange("Journal Template Name", 'SALES');
-                GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-                if GenJnl.Find('-') then begin
-                    //CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B2",GenJnl);
+                        end;
+                    end;
                 end;
-
-                //Post New
-
+                //End Distribution
 
 
-            end;
+                StudentCharges.Recognized := true;
+                StudentCharges.Modify;
+
+            until StudentCharges.Next = 0;
 
 
-            //BILLING
 
-            "Last No" := '';
-            "No. Series Line".Reset;
-            BankRec.Get("Bank No.");
-            BankRec.TestField(BankRec."Receipt No. Series");
-            "No. Series Line".SetRange("No. Series Line"."Series Code", BankRec."Receipt No. Series");
-            if "No. Series Line".Find('-') then begin
-
-                "Last No" := IncStr("No. Series Line"."Last No. Used");
-                "No. Series Line"."Last No. Used" := IncStr("No. Series Line"."Last No. Used");
-                "No. Series Line".Modify;
-            end;
-
-
+            //Post New
             GenJnl.Reset;
             GenJnl.SetRange("Journal Template Name", 'SALES');
             GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-            GenJnl.DeleteAll;
-
-
-
-            Cust.CalcFields(Balance);
-            if Cust.Status = Cust.Status::"New Admission" then begin
-                if ((Cust.Balance = 0) or (Cust.Balance < 0)) then begin
-                    Cust.Status := Cust.Status::Current;
-                end else begin
-                    Cust.Status := Cust.Status::"New Admission";
-                end;
-            end else begin
-                Cust.Status := Cust.Status::Current;
+            if GenJnl.Find('-') then begin
+                //CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post B2",GenJnl);
             end;
-            //Cust.MODIFY;
+
+            //Post New
 
 
-            if "Payment Mode" = "payment mode"::"Applies to Overpayment" then
-                Error('Overpayment must be applied manualy.');
+
+        end;
 
 
-            /////////////////////////////////////////////////////////////////////////////////
-            //Receive payments
-            if "Payment Mode" <> "payment mode"::"Applies to Overpayment" then begin
+        //BILLING
 
-                //Over Payment
-                TotalApplied := 0;
+        "Last No" := '';
+        "No. Series Line".Reset;
+        BankRec.Get(ACAStdPayments."Bank No.");
+        BankRec.TestField(BankRec."Receipt No. Series");
+        "No. Series Line".SetRange("No. Series Line"."Series Code", BankRec."Receipt No. Series");
+        if "No. Series Line".Find('-') then begin
+
+            "Last No" := IncStr("No. Series Line"."Last No. Used");
+            "No. Series Line"."Last No. Used" := IncStr("No. Series Line"."Last No. Used");
+            "No. Series Line".Modify;
+        end;
+
+
+        GenJnl.Reset;
+        GenJnl.SetRange("Journal Template Name", 'SALES');
+        GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
+        GenJnl.DeleteAll;
+
+
+
+        Cust.CalcFields(Balance);
+        if Cust.Status = Cust.Status::"New Admission" then begin
+            if ((Cust.Balance = 0) or (Cust.Balance < 0)) then begin
+                Cust.Status := Cust.Status::Current;
+            end else begin
+                Cust.Status := Cust.Status::"New Admission";
+            end;
+        end else begin
+            Cust.Status := Cust.Status::Current;
+        end;
+        //Cust.MODIFY;
+
+
+        if ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::"Applies to Overpayment" then
+            Error('Overpayment must be applied manualy.');
+
+
+        /////////////////////////////////////////////////////////////////////////////////
+        //Receive payments
+        if ACAStdPayments."Payment Mode" <> ACAStdPayments."payment mode"::"Applies to Overpayment" then begin
+
+            //Over Payment
+            TotalApplied := 0;
+
+            CustLedg.Reset;
+            CustLedg.SetRange(CustLedg."Customer No.", ACAStdPayments."Student No.");
+            //CustLedg.SETRANGE(CustLedg."Apply to",TRUE);
+            CustLedg.SetRange(CustLedg.Open, true);
+            CustLedg.SetRange(CustLedg.Reversed, false);
+            if CustLedg.Find('-') then begin
+                repeat
+                    TotalApplied := TotalApplied + CustLedg."Amount Applied";
+                until CustLedg.Next = 0;
+            end;
+
+            CReg.Reset;
+            CReg.SetCurrentkey(CReg."Reg. Transacton ID");
+            //CReg.SETRANGE(CReg."Reg. Transacton ID",StudentCharges."Reg. Transacton ID");
+            CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+            if CReg.Find('+') then
+                CourseReg := CReg."Reg. Transacton ID";
+
+
+
+
+
+            Receipt.Init;
+            Receipt."Receipt No." := "Last No";
+            //Receipt.VALIDATE(Receipt."Receipt No.");
+            Receipt."Student No." := ACAStdPayments."Student No.";
+            Receipt.Date := ACAStdPayments."Transaction Date";
+            Receipt."KCA Rcpt No" := ACAStdPayments."KCA Receipt No";
+            Receipt."Bank Slip Date" := ACAStdPayments."Bank Slip Date";
+            Receipt."Bank Slip/Cheque No" := ACAStdPayments."Cheque No";
+            Receipt.Validate("Bank Slip/Cheque No");
+            Receipt."Bank Account" := ACAStdPayments."Bank No.";
+            if ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::"Bank Slip" then
+                Receipt."Payment Mode" := Receipt."payment mode"::"Bank Slip" else
+                if ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::Cheque then
+                    Receipt."Payment Mode" := Receipt."payment mode"::Cheque else
+                    if ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::Cash then
+                        Receipt."Payment Mode" := Receipt."payment mode"::Cash else
+                        Receipt."Payment Mode" := ACAStdPayments."Payment Mode";
+            Receipt.Amount := ACAStdPayments."Amount to pay";
+            Receipt."Payment By" := ACAStdPayments."Payment By";
+            Receipt."Transaction Date" := Today;
+            Receipt."Transaction Time" := Time;
+            Receipt."User ID" := User_id;
+            Receipt."Reg ID" := CourseReg;
+            Receipt.Insert;
+
+            Receipt.Reset;
+            if Receipt.Find('+') then begin
+
 
                 CustLedg.Reset;
-                CustLedg.SetRange(CustLedg."Customer No.", "Student No.");
+                CustLedg.SetRange(CustLedg."Customer No.", ACAStdPayments."Student No.");
                 //CustLedg.SETRANGE(CustLedg."Apply to",TRUE);
                 CustLedg.SetRange(CustLedg.Open, true);
                 CustLedg.SetRange(CustLedg.Reversed, false);
                 if CustLedg.Find('-') then begin
-                    repeat
-                        TotalApplied := TotalApplied + CustLedg."Amount Applied";
-                    until CustLedg.Next = 0;
+
+                    GenSetUp.Get();
+
+
                 end;
+
+            end;
+
+            //Bank Entry
+            if BankRec.Get(ACAStdPayments."Bank No.") then
+                BankName := BankRec.Name;
+
+            if (ACAStdPayments."Payment Mode" <> ACAStdPayments."payment mode"::Unreferenced) and (ACAStdPayments."Payment Mode" <> ACAStdPayments."payment mode"::"Staff Invoice")
+            and (ACAStdPayments."Payment Mode" <> ACAStdPayments."payment mode"::Weiver) and (ACAStdPayments."Payment Mode" <> ACAStdPayments."payment mode"::CDF)
+            and (ACAStdPayments."Payment Mode" <> ACAStdPayments."payment mode"::HELB) then begin
+
+                GenJnl.Init;
+                GenJnl."Line No." := GenJnl."Line No." + 10000;
+                GenJnl."Posting Date" := ACAStdPayments."Bank Slip Date";
+                GenJnl."Document No." := "Last No";
+                GenJnl."External Document No." := ACAStdPayments."Cheque No";
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SALES';
+                GenJnl."Journal Batch Name" := 'STUD PAY';
+                GenJnl."Account Type" := GenJnl."account type"::"Bank Account";
+                GenJnl."Account No." := ACAStdPayments."Bank No.";
+                GenJnl.Amount := ACAStdPayments."Amount to pay";
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := Format(ACAStdPayments."Payment Mode") + '-' + Format(ACAStdPayments."Bank Slip Date") + '-' + BankName;
+                GenJnl."Bal. Account Type" := GenJnl."bal. account type"::Customer;
+                if Cust."Bill-to Customer No." <> '' then
+                    GenJnl."Bal. Account No." := Cust."Bill-to Customer No."
+                else
+                    GenJnl."Bal. Account No." := ACAStdPayments."Student No.";
+
+
+                GenJnl.Validate(GenJnl."Bal. Account No.");
 
                 CReg.Reset;
-                CReg.SetCurrentkey(CReg."Reg. Transacton ID");
-                //CReg.SETRANGE(CReg."Reg. Transacton ID",StudentCharges."Reg. Transacton ID");
-                CReg.SetRange(CReg."Student No.", "Student No.");
-                if CReg.Find('+') then
-                    CourseReg := CReg."Reg. Transacton ID";
-
-
-
-
-
-                Receipt.Init;
-                Receipt."Receipt No." := "Last No";
-                //Receipt.VALIDATE(Receipt."Receipt No.");
-                Receipt."Student No." := "Student No.";
-                Receipt.Date := "Transaction Date";
-                Receipt."KCA Rcpt No" := "KCA Receipt No";
-                Receipt."Bank Slip Date" := "Bank Slip Date";
-                Receipt."Bank Slip/Cheque No" := "Cheque No";
-                Receipt.Validate("Bank Slip/Cheque No");
-                Receipt."Bank Account" := "Bank No.";
-                if "Payment Mode" = "payment mode"::"Bank Slip" then
-                    Receipt."Payment Mode" := Receipt."payment mode"::"Bank Slip" else
-                    if "Payment Mode" = "payment mode"::Cheque then
-                        Receipt."Payment Mode" := Receipt."payment mode"::Cheque else
-                        if "Payment Mode" = "payment mode"::Cash then
-                            Receipt."Payment Mode" := Receipt."payment mode"::Cash else
-                            Receipt."Payment Mode" := "Payment Mode";
-                Receipt.Amount := "Amount to pay";
-                Receipt."Payment By" := "Payment By";
-                Receipt."Transaction Date" := Today;
-                Receipt."Transaction Time" := Time;
-                Receipt."User ID" := User_id;
-                Receipt."Reg ID" := CourseReg;
-                Receipt.Insert;
-
-                Receipt.Reset;
-                if Receipt.Find('+') then begin
-
-
-                    CustLedg.Reset;
-                    CustLedg.SetRange(CustLedg."Customer No.", "Student No.");
-                    //CustLedg.SETRANGE(CustLedg."Apply to",TRUE);
-                    CustLedg.SetRange(CustLedg.Open, true);
-                    CustLedg.SetRange(CustLedg.Reversed, false);
-                    if CustLedg.Find('-') then begin
-
-                        GenSetUp.Get();
-
-
+                CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+                CReg.SetRange(CReg.Reversed, false);
+                if CReg.Find('+') then begin
+                    if ProgrammeSetUp.Get(creg.programmes) then begin
+                        ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
+                        //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
+                        GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
+                        GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
                     end;
+                end;
+                GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+                if GenJnl.Amount <> 0 then
+                    GenJnl.Insert;
+            end;
+            if ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::Unreferenced then begin
+                GenJnl.Init;
+                GenJnl."Line No." := GenJnl."Line No." + 10000;
+                GenJnl."Posting Date" := ACAStdPayments."Bank Slip Date";
+                GenJnl."Document No." := "Last No";
+                GenJnl."External Document No." := ACAStdPayments."Drawer Name";
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SALES';
+                GenJnl."Journal Batch Name" := 'STUD PAY';
+                GenJnl."Account Type" := GenJnl."account type"::Customer;
+                GenJnl."Account No." := 'UNREF';
+                GenJnl.Amount := ACAStdPayments."Amount to pay";
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := Cust.Name;
+                GenJnl."Bal. Account Type" := GenJnl."bal. account type"::Customer;
+                if Cust."Bill-to Customer No." <> '' then
+                    GenJnl."Bal. Account No." := Cust."Bill-to Customer No."
+                else
+                    GenJnl."Bal. Account No." := ACAStdPayments."Student No.";
 
+                GenJnl."Applies-to Doc. No." := ACAStdPayments."Unref Document No.";
+                GenJnl.Validate(GenJnl."Applies-to Doc. No.");
+                if GenJnl.Amount <> 0 then
+                    GenJnl.Insert;
+
+                CReg.Reset;
+                CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+                CReg.SetRange(CReg.Reversed, false);
+                if CReg.Find('+') then begin
+                    if ProgrammeSetUp.Get(creg.programmes) then begin
+                        ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
+                        //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
+                        GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
+                        GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                    end;
+                end;
+                GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+
+
+            end;
+            // Tripple - T...Staff Invoice
+            if ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::"Staff Invoice" then begin
+                GenJnl.Init;
+                GenJnl."Line No." := GenJnl."Line No." + 10000;
+                GenJnl."Posting Date" := ACAStdPayments."Bank Slip Date";
+                GenJnl."Document No." := "Last No";
+                GenJnl."External Document No." := '';
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SALES';
+                GenJnl."Journal Batch Name" := 'STUD PAY';
+                GenJnl."Account Type" := GenJnl."account type"::Customer;
+                GenJnl."Account No." := ACAStdPayments."Student No.";
+                GenJnl.Amount := -ACAStdPayments."Amount to pay";
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := 'Staff Invoice No. ' + ACAStdPayments."Staff Invoice No.";
+                GenJnl."Bal. Account Type" := GenJnl."bal. account type"::"G/L Account";
+                GenJnl."Bal. Account No." := '200012';
+
+                CReg.Reset;
+                CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+                CReg.SetRange(CReg.Reversed, false);
+                if CReg.Find('+') then begin
+                    if ProgrammeSetUp.Get(creg.programmes) then begin
+                        ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
+                        //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
+                        GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
+                        GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                    end;
+                end;
+                GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+                if GenJnl.Amount <> 0 then
+                    GenJnl.Insert;
+
+
+            end;
+            // Tripple - T...CDF
+            if ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::CDF then begin
+                GenSetUp.TestField(GenSetUp."CDF Account");
+                GenJnl.Init;
+                GenJnl."Line No." := GenJnl."Line No." + 10000;
+                GenJnl."Posting Date" := ACAStdPayments."Bank Slip Date";
+                GenJnl."Document No." := "Last No";
+                GenJnl."External Document No." := 'CDF';
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SALES';
+                GenJnl."Journal Batch Name" := 'STUD PAY';
+                GenJnl."Account Type" := GenJnl."account type"::Customer;
+                GenJnl."Account No." := ACAStdPayments."Student No.";
+                GenJnl.Amount := -ACAStdPayments."Amount to pay";
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := ACAStdPayments."CDF Description";
+                //GenJnl."Bal. Account Type":=GenJnl."Bal. Account Type"::"G/L Account";
+                //GenJnl."Bal. Account No.":=;
+                CReg.Reset;
+                CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+                CReg.SetRange(CReg.Reversed, false);
+                if CReg.Find('+') then begin
+                    if ProgrammeSetUp.Get(creg.programmes) then begin
+                        ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
+                        //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
+                        GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
+                        GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                    end;
+                end;
+                GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+                if GenJnl.Amount <> 0 then
+                    GenJnl.Insert;
+
+                GenJnl.Init;
+                GenJnl."Line No." := GenJnl."Line No." + 10000;
+                GenJnl."Posting Date" := ACAStdPayments."Bank Slip Date";
+                GenJnl."Document No." := "Last No";
+                GenJnl."External Document No." := 'CDF';
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SALES';
+                GenJnl."Journal Batch Name" := 'STUD PAY';
+                GenJnl."Account Type" := GenJnl."account type"::"G/L Account";
+                GenJnl."Account No." := GenSetUp."CDF Account";
+                GenJnl.Amount := ACAStdPayments."Amount to pay";
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := ACAStdPayments."Student No.";
+
+                CReg.Reset;
+                CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+                CReg.SetRange(CReg.Reversed, false);
+                if CReg.Find('+') then begin
+                    if ProgrammeSetUp.Get(creg.programmes) then begin
+                        ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
+                        //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
+                        GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
+                        GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                    end;
+                end;
+                GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+                if GenJnl.Amount <> 0 then
+                    GenJnl.Insert;
+
+
+            end;
+
+
+            if ACAStdPayments."Payment Mode" = ACAStdPayments."payment mode"::HELB then begin
+                GenSetUp.TestField(GenSetUp."Helb Account");
+                GenJnl.Init;
+                GenJnl."Line No." := GenJnl."Line No." + 10000;
+                GenJnl."Posting Date" := ACAStdPayments."Bank Slip Date";
+                GenJnl."Document No." := "Last No";
+                GenJnl."External Document No." := '';
+                GenJnl.Validate(GenJnl."Document No.");
+                GenJnl."Journal Template Name" := 'SALES';
+                GenJnl."Journal Batch Name" := 'STUD PAY';
+                GenJnl."Account Type" := GenJnl."account type"::Customer;
+                GenJnl."Account No." := ACAStdPayments."Student No.";
+                GenJnl.Amount := -ACAStdPayments."Amount to pay";
+                GenJnl.Validate(GenJnl."Account No.");
+                GenJnl.Validate(GenJnl.Amount);
+                GenJnl.Description := 'HELB';
+                GenJnl."Bal. Account Type" := GenJnl."bal. account type"::"G/L Account";
+                GenJnl."Bal. Account No." := GenSetUp."Helb Account";
+                CReg.Reset;
+                CReg.SetRange(CReg."Student No.", ACAStdPayments."Student No.");
+                CReg.SetRange(CReg.Reversed, false);
+                if CReg.Find('+') then begin
+                    if ProgrammeSetUp.Get(creg.programmes) then begin
+                        GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                    end;
                 end;
 
-                //Bank Entry
-                if BankRec.Get("Bank No.") then
-                    BankName := BankRec.Name;
-
-                if ("Payment Mode" <> "payment mode"::Unreferenced) and ("Payment Mode" <> "payment mode"::"Staff Invoice")
-                and ("Payment Mode" <> "payment mode"::Weiver) and ("Payment Mode" <> "payment mode"::CDF)
-                and ("Payment Mode" <> "payment mode"::HELB) then begin
-
-                    GenJnl.Init;
-                    GenJnl."Line No." := GenJnl."Line No." + 10000;
-                    GenJnl."Posting Date" := "Bank Slip Date";
-                    GenJnl."Document No." := "Last No";
-                    GenJnl."External Document No." := "Cheque No";
-                    GenJnl.Validate(GenJnl."Document No.");
-                    GenJnl."Journal Template Name" := 'SALES';
-                    GenJnl."Journal Batch Name" := 'STUD PAY';
-                    GenJnl."Account Type" := GenJnl."account type"::"Bank Account";
-                    GenJnl."Account No." := "Bank No.";
-                    GenJnl.Amount := "Amount to pay";
-                    GenJnl.Validate(GenJnl."Account No.");
-                    GenJnl.Validate(GenJnl.Amount);
-                    GenJnl.Description := Format("Payment Mode") + '-' + Format("Bank Slip Date") + '-' + BankName;
-                    GenJnl."Bal. Account Type" := GenJnl."bal. account type"::Customer;
-                    if Cust."Bill-to Customer No." <> '' then
-                        GenJnl."Bal. Account No." := Cust."Bill-to Customer No."
-                    else
-                        GenJnl."Bal. Account No." := "Student No.";
+                GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
+                if GenJnl.Amount <> 0 then
+                    GenJnl.Insert;
 
 
-                    GenJnl.Validate(GenJnl."Bal. Account No.");
+            end;
 
-                    CReg.Reset;
-                    CReg.SetRange(CReg."Student No.", "Student No.");
-                    CReg.SetRange(CReg.Reversed, false);
-                    if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.programmes) then begin
-                            ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
-                            //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
-                            GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
-                            GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                        end;
-                    end;
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
-                    if GenJnl.Amount <> 0 then
-                        GenJnl.Insert;
-                end;
-                if "Payment Mode" = "payment mode"::Unreferenced then begin
-                    GenJnl.Init;
-                    GenJnl."Line No." := GenJnl."Line No." + 10000;
-                    GenJnl."Posting Date" := "Bank Slip Date";
-                    GenJnl."Document No." := "Last No";
-                    GenJnl."External Document No." := "Drawer Name";
-                    GenJnl.Validate(GenJnl."Document No.");
-                    GenJnl."Journal Template Name" := 'SALES';
-                    GenJnl."Journal Batch Name" := 'STUD PAY';
-                    GenJnl."Account Type" := GenJnl."account type"::Customer;
-                    GenJnl."Account No." := 'UNREF';
-                    GenJnl.Amount := "Amount to pay";
-                    GenJnl.Validate(GenJnl."Account No.");
-                    GenJnl.Validate(GenJnl.Amount);
-                    GenJnl.Description := Cust.Name;
-                    GenJnl."Bal. Account Type" := GenJnl."bal. account type"::Customer;
-                    if Cust."Bill-to Customer No." <> '' then
-                        GenJnl."Bal. Account No." := Cust."Bill-to Customer No."
-                    else
-                        GenJnl."Bal. Account No." := "Student No.";
+            //Post
 
-                    GenJnl."Applies-to Doc. No." := "Unref Document No.";
-                    GenJnl.Validate(GenJnl."Applies-to Doc. No.");
-                    if GenJnl.Amount <> 0 then
-                        GenJnl.Insert;
+            GenJnl.Reset;
+            GenJnl.SetRange("Journal Template Name", 'SALES');
+            GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
+            IF GenJnl.FindSet() THEN BEGIN
+                CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
 
-                    CReg.Reset;
-                    CReg.SetRange(CReg."Student No.", "Student No.");
-                    CReg.SetRange(CReg.Reversed, false);
-                    if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.programmes) then begin
-                            ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
-                            //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
-                            GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
-                            GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                        end;
-                    end;
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
-
-
-                end;
-                // Tripple - T...Staff Invoice
-                if "Payment Mode" = "payment mode"::"Staff Invoice" then begin
-                    GenJnl.Init;
-                    GenJnl."Line No." := GenJnl."Line No." + 10000;
-                    GenJnl."Posting Date" := "Bank Slip Date";
-                    GenJnl."Document No." := "Last No";
-                    GenJnl."External Document No." := '';
-                    GenJnl.Validate(GenJnl."Document No.");
-                    GenJnl."Journal Template Name" := 'SALES';
-                    GenJnl."Journal Batch Name" := 'STUD PAY';
-                    GenJnl."Account Type" := GenJnl."account type"::Customer;
-                    GenJnl."Account No." := "Student No.";
-                    GenJnl.Amount := -"Amount to pay";
-                    GenJnl.Validate(GenJnl."Account No.");
-                    GenJnl.Validate(GenJnl.Amount);
-                    GenJnl.Description := 'Staff Invoice No. ' + "Staff Invoice No.";
-                    GenJnl."Bal. Account Type" := GenJnl."bal. account type"::"G/L Account";
-                    GenJnl."Bal. Account No." := '200012';
-
-                    CReg.Reset;
-                    CReg.SetRange(CReg."Student No.", "Student No.");
-                    CReg.SetRange(CReg.Reversed, false);
-                    if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.programmes) then begin
-                            ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
-                            //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
-                            GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
-                            GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                        end;
-                    end;
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
-                    if GenJnl.Amount <> 0 then
-                        GenJnl.Insert;
-
-
-                end;
-                // Tripple - T...CDF
-                if "Payment Mode" = "payment mode"::CDF then begin
-                    GenSetUp.TestField(GenSetUp."CDF Account");
-                    GenJnl.Init;
-                    GenJnl."Line No." := GenJnl."Line No." + 10000;
-                    GenJnl."Posting Date" := "Bank Slip Date";
-                    GenJnl."Document No." := "Last No";
-                    GenJnl."External Document No." := 'CDF';
-                    GenJnl.Validate(GenJnl."Document No.");
-                    GenJnl."Journal Template Name" := 'SALES';
-                    GenJnl."Journal Batch Name" := 'STUD PAY';
-                    GenJnl."Account Type" := GenJnl."account type"::Customer;
-                    GenJnl."Account No." := "Student No.";
-                    GenJnl.Amount := -"Amount to pay";
-                    GenJnl.Validate(GenJnl."Account No.");
-                    GenJnl.Validate(GenJnl.Amount);
-                    GenJnl.Description := "CDF Description";
-                    //GenJnl."Bal. Account Type":=GenJnl."Bal. Account Type"::"G/L Account";
-                    //GenJnl."Bal. Account No.":=;
-                    CReg.Reset;
-                    CReg.SetRange(CReg."Student No.", "Student No.");
-                    CReg.SetRange(CReg.Reversed, false);
-                    if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.programmes) then begin
-                            ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
-                            //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
-                            GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
-                            GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                        end;
-                    end;
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
-                    if GenJnl.Amount <> 0 then
-                        GenJnl.Insert;
-
-                    GenJnl.Init;
-                    GenJnl."Line No." := GenJnl."Line No." + 10000;
-                    GenJnl."Posting Date" := "Bank Slip Date";
-                    GenJnl."Document No." := "Last No";
-                    GenJnl."External Document No." := 'CDF';
-                    GenJnl.Validate(GenJnl."Document No.");
-                    GenJnl."Journal Template Name" := 'SALES';
-                    GenJnl."Journal Batch Name" := 'STUD PAY';
-                    GenJnl."Account Type" := GenJnl."account type"::"G/L Account";
-                    GenJnl."Account No." := GenSetUp."CDF Account";
-                    GenJnl.Amount := "Amount to pay";
-                    GenJnl.Validate(GenJnl."Account No.");
-                    GenJnl.Validate(GenJnl.Amount);
-                    GenJnl.Description := "Student No.";
-
-                    CReg.Reset;
-                    CReg.SetRange(CReg."Student No.", "Student No.");
-                    CReg.SetRange(CReg.Reversed, false);
-                    if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.programmes) then begin
-                            ProgrammeSetUp.TestField(ProgrammeSetUp."Department Code");
-                            //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
-                            GenJnl."Shortcut Dimension 1 Code" := Cust."Global Dimension 1 Code";
-                            GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                        end;
-                    end;
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 1 Code");
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
-                    if GenJnl.Amount <> 0 then
-                        GenJnl.Insert;
-
-
-                end;
-
-
-                if "Payment Mode" = "payment mode"::HELB then begin
-                    GenSetUp.TestField(GenSetUp."Helb Account");
-                    GenJnl.Init;
-                    GenJnl."Line No." := GenJnl."Line No." + 10000;
-                    GenJnl."Posting Date" := "Bank Slip Date";
-                    GenJnl."Document No." := "Last No";
-                    GenJnl."External Document No." := '';
-                    GenJnl.Validate(GenJnl."Document No.");
-                    GenJnl."Journal Template Name" := 'SALES';
-                    GenJnl."Journal Batch Name" := 'STUD PAY';
-                    GenJnl."Account Type" := GenJnl."account type"::Customer;
-                    GenJnl."Account No." := "Student No.";
-                    GenJnl.Amount := -"Amount to pay";
-                    GenJnl.Validate(GenJnl."Account No.");
-                    GenJnl.Validate(GenJnl.Amount);
-                    GenJnl.Description := 'HELB';
-                    GenJnl."Bal. Account Type" := GenJnl."bal. account type"::"G/L Account";
-                    GenJnl."Bal. Account No." := GenSetUp."Helb Account";
-                    CReg.Reset;
-                    CReg.SetRange(CReg."Student No.", "Student No.");
-                    CReg.SetRange(CReg.Reversed, false);
-                    if CReg.Find('+') then begin
-                        if ProgrammeSetUp.Get(creg.programmes) then begin
-                            GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
-                        end;
-                    end;
-
-                    GenJnl.Validate(GenJnl."Shortcut Dimension 2 Code");
-                    if GenJnl.Amount <> 0 then
-                        GenJnl.Insert;
-
-
-                end;
-
-                //Post
-
-                GenJnl.Reset;
-                GenJnl.SetRange("Journal Template Name", 'SALES');
-                GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-                IF GenJnl.FindSet() THEN BEGIN
-                            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
-                        
-                    ACAStdPayments.Posted := true;
-                    ACAStdPayments.Modify;
-                    Modify;
-                end;
+                ACAStdPayments.Posted := true;
+                ACAStdPayments.Modify;
+                ACAStdPayments.Modify;
             end;
         end;
     end;
@@ -2551,156 +2545,154 @@ Table 51250 "ACA-New Stud. Documents"
         allocations: Record "ACA-Students Hostel Rooms";
         "Settlement Type": Record "ACA-Settlement Type";
     begin
-        with ACAStudentsHostelRooms do begin
-            // --------Check If More Than One Room Has Been Selected
-            Clear(billAmount);
-            rooms.Reset;
-            rooms.SetRange(rooms."Hostel Code", "Hostel No");
-            rooms.SetRange(rooms."Room Code", "Room No");
-            if rooms.Find('-') then begin
-                if settle_m = Settle_m::"Special Programme" then
-                    billAmount := rooms."Special Programme"
-                else if settle_m = Settle_m::JAB then
-                    billAmount := rooms."JAB Fees"
-                else if settle_m = Settle_m::SSP then
-                    billAmount := rooms."SSP Fees"
+        // --------Check If More Than One Room Has Been Selected
+        Clear(billAmount);
+        rooms.Reset;
+        rooms.SetRange(rooms."Hostel Code", ACAStudentsHostelRooms."Hostel No");
+        rooms.SetRange(rooms."Room Code", ACAStudentsHostelRooms."Room No");
+        if rooms.Find('-') then begin
+            if settle_m = Settle_m::"Special Programme" then
+                billAmount := rooms."Special Programme"
+            else if settle_m = Settle_m::JAB then
+                billAmount := rooms."JAB Fees"
+            else if settle_m = Settle_m::SSP then
+                billAmount := rooms."SSP Fees"
 
-            end;
-            Cust.Reset;
-            Cust.SetRange(Cust."No.", Student);
-            if Cust.Find('-') then begin
-            end;
-            Clear(StudentHostel);
-            StudentHostel.Reset;
-            NoRoom := 0;
-            StudentHostel.SetRange(StudentHostel.Student, Cust."No.");
-            StudentHostel.SetRange(StudentHostel.Cleared, false);
-            StudentHostel.SetFilter(StudentHostel."Space No", '<>%1', '');
-            if StudentHostel.Find('-') then begin
-                repeat
-                    // Get the Hostel Name
-                    StudentHostel.TestField(StudentHostel.Semester);
-                    // StudentHostel.TESTFIELD(StudentHostel."Academic Year");
-                    StudentHostel.TestField(StudentHostel."Space No");
-                    NoRoom := NoRoom + 1;
-                    if NoRoom > 1 then begin
-                        Error('Please Note That You Can Not Select More Than One Room')
-                    end;
-                    // check if the room is still vacant
-                    Rooms_Spaces.Reset;
-                    Rooms_Spaces.SetRange(Rooms_Spaces."Space Code", StudentHostel."Space No");
-                    Rooms_Spaces.SetRange(Rooms_Spaces."Room Code", StudentHostel."Room No");
-                    Rooms_Spaces.SetRange(Rooms_Spaces."Hostel Code", StudentHostel."Hostel No");
-                    if Rooms_Spaces.Find('-') then begin
-                        if Rooms_Spaces.Status <> Rooms_Spaces.Status::Vaccant then Error('The selected room is nolonger vacant');
-                    end;
-                    // ----------Check If He has UnCleared Room
-                    StudentHostel.Reset;
-                    StudentHostel.SetRange(StudentHostel.Student, Cust."No.");
-                    StudentHostel.SetRange(StudentHostel.Cleared, false);
-                    if StudentHostel.Find('-') then begin
-                        if StudentHostel.Count > 1 then begin
-                            Error('Please Note That You Must First Clear Your Old Rooms Before You Allocate Another Room')
-                        end;
-                    end;
-                    //---Check if The Student Have Paid The Accomodation Fee
-                    charges1.Reset;
-                    charges1.SetRange(charges1.Hostel, true);
-                    if charges1.Find('-') then begin
-                    end else
-                        Error('Accommodation not setup.');
-
-                    StudentCharges.Reset;
-                    StudentCharges.SetRange(StudentCharges."Student No.", Student);
-                    StudentCharges.SetRange(StudentCharges.Semester, Semester);
-                    StudentCharges.SetRange(StudentCharges.Code, charges1.Code);
-                    //StudentCharges.SETRANGE(Posted,TRUE);
-                    if Blocks.Get("Hostel No") then begin
-                    end;
-
-                    if not StudentCharges.Find('-') then begin
-                        coReg.Reset;
-                        coReg.SetRange(coReg."Student No.", Student);
-                        coReg.SetRange(coReg.Semester, Semester);
-                        if coReg.Find('-') then begin
-                            StudentCharges.Init;
-                            StudentCharges."Transacton ID" := '';
-                            StudentCharges.Validate(StudentCharges."Transacton ID");
-                            StudentCharges."Student No." := coReg."Student No.";
-                            StudentCharges."Reg. Transacton ID" := coReg."Reg. Transacton ID";
-                            StudentCharges."Transaction Type" := StudentCharges."transaction type"::Charges;
-                            StudentCharges.Code := charges1.Code;
-                            StudentCharges.Description := 'Accommodation Fees';
-                            StudentCharges.Amount := billAmount;
-                            StudentCharges.Date := Today;
-                            StudentCharges.Programme := coReg.Programmes;
-                            StudentCharges.Stage := coReg.Stage;
-                            StudentCharges.Semester := coReg.Semester;
-                            StudentCharges.Insert();
-                        end;
-                    end;
-
-                    if PaidAmt > StudentHostel."Accomodation Fee" then begin
-                        StudentHostel."Over Paid" := true;
-                        StudentHostel."Over Paid Amt" := PaidAmt - StudentHostel."Accomodation Fee";
-                        StudentHostel.Modify;
-                    end;
-
-                    Rooms_Spaces.Reset;
-                    Rooms_Spaces.SetRange(Rooms_Spaces."Space Code", StudentHostel."Space No");
-                    if Rooms_Spaces.Find('-') then begin
-                        Rooms_Spaces.Status := Rooms_Spaces.Status::"Fully Occupied";
-                        Rooms_Spaces.Modify;
-                        Clear(counts);
-                        // Post to  the Ledger Tables
-                        Host_Ledger.Reset;
-                        if Host_Ledger.Find('-') then counts := Host_Ledger.Count;
-                        Host_Ledger.Init;
-                        Host_Ledger."Space No" := "Space No";
-                        Host_Ledger."Room No" := "Room No";
-                        Host_Ledger."Hostel No" := "Hostel No";
-                        Host_Ledger.No := counts;
-                        Host_Ledger.Status := Host_Ledger.Status::"Fully Occupied";
-                        Host_Ledger."Room Cost" := StudentHostel.Charges;
-                        Host_Ledger."Student No" := StudentHostel.Student;
-                        Host_Ledger."Receipt No" := '';
-                        Host_Ledger.Semester := StudentHostel.Semester;
-                        Host_Ledger.Gender := Gender;
-                        Host_Ledger."Hostel Name" := '';
-                        Host_Ledger.Campus := Cust."Global Dimension 1 Code";
-                        Host_Ledger."Academic Year" := StudentHostel."Academic Year";
-                        Host_Ledger.Insert(true);
-
-
-                        Hostel_Rooms.Reset;
-                        Hostel_Rooms.SetRange(Hostel_Rooms."Hostel Code", StudentHostel."Hostel No");
-                        Hostel_Rooms.SetRange(Hostel_Rooms."Room Code", StudentHostel."Room No");
-                        if Hostel_Rooms.Find('-') then begin
-                            Hostel_Rooms.CalcFields(Hostel_Rooms."Bed Spaces", Hostel_Rooms."Occupied Spaces");
-                            if Hostel_Rooms."Bed Spaces" = Hostel_Rooms."Occupied Spaces" then
-                                Hostel_Rooms.Status := Hostel_Rooms.Status::"Fully Occupied"
-                            else if Hostel_Rooms."Occupied Spaces" < Hostel_Rooms."Bed Spaces" then
-                                Hostel_Rooms.Status := Hostel_Rooms.Status::"Partially Occupied";
-                            Hostel_Rooms.Modify;
-                        end;
-
-                        StudentHostel.Billed := false;
-                        StudentHostel.Charges := 6500;
-                        //  StudentHostel."Billed Date":=TODAY;
-                        // StudentHostel."Allocation Date":=TODAY;
-                        //  StudentHostel.Allocated:=TRUE;
-                        //  StudentHostel."Allocated By":=USERID;
-                        //  StudentHostel."Time allocated":=TIME;
-                        StudentHostel.Modify;
-
-
-                    end;
-                until StudentHostel.Next = 0;
-                Message('Room Allocated Successfully');
-            end;
-
-            postCharge(ACAStudentsHostelRooms);  // Do not post Hostel Charges
         end;
+        Cust.Reset;
+        Cust.SetRange(Cust."No.", ACAStudentsHostelRooms.Student);
+        if Cust.Find('-') then begin
+        end;
+        Clear(StudentHostel);
+        StudentHostel.Reset;
+        NoRoom := 0;
+        StudentHostel.SetRange(StudentHostel.Student, Cust."No.");
+        StudentHostel.SetRange(StudentHostel.Cleared, false);
+        StudentHostel.SetFilter(StudentHostel."Space No", '<>%1', '');
+        if StudentHostel.Find('-') then begin
+            repeat
+                // Get the Hostel Name
+                StudentHostel.TestField(StudentHostel.Semester);
+                // StudentHostel.TESTFIELD(StudentHostel."Academic Year");
+                StudentHostel.TestField(StudentHostel."Space No");
+                NoRoom := NoRoom + 1;
+                if NoRoom > 1 then begin
+                    Error('Please Note That You Can Not Select More Than One Room')
+                end;
+                // check if the room is still vacant
+                Rooms_Spaces.Reset;
+                Rooms_Spaces.SetRange(Rooms_Spaces."Space Code", StudentHostel."Space No");
+                Rooms_Spaces.SetRange(Rooms_Spaces."Room Code", StudentHostel."Room No");
+                Rooms_Spaces.SetRange(Rooms_Spaces."Hostel Code", StudentHostel."Hostel No");
+                if Rooms_Spaces.Find('-') then begin
+                    if Rooms_Spaces.Status <> Rooms_Spaces.Status::Vaccant then Error('The selected room is nolonger vacant');
+                end;
+                // ----------Check If He has UnCleared Room
+                StudentHostel.Reset;
+                StudentHostel.SetRange(StudentHostel.Student, Cust."No.");
+                StudentHostel.SetRange(StudentHostel.Cleared, false);
+                if StudentHostel.Find('-') then begin
+                    if StudentHostel.Count > 1 then begin
+                        Error('Please Note That You Must First Clear Your Old Rooms Before You Allocate Another Room')
+                    end;
+                end;
+                //---Check if The Student Have Paid The Accomodation Fee
+                charges1.Reset;
+                charges1.SetRange(charges1.Hostel, true);
+                if charges1.Find('-') then begin
+                end else
+                    Error('Accommodation not setup.');
+
+                StudentCharges.Reset;
+                StudentCharges.SetRange(StudentCharges."Student No.", ACAStudentsHostelRooms.Student);
+                StudentCharges.SetRange(StudentCharges.Semester, ACAStudentsHostelRooms.Semester);
+                StudentCharges.SetRange(StudentCharges.Code, charges1.Code);
+                //StudentCharges.SETRANGE(Posted,TRUE);
+                if Blocks.Get(ACAStudentsHostelRooms."Hostel No") then begin
+                end;
+
+                if not StudentCharges.Find('-') then begin
+                    coReg.Reset;
+                    coReg.SetRange(coReg."Student No.", ACAStudentsHostelRooms.Student);
+                    coReg.SetRange(coReg.Semester, ACAStudentsHostelRooms.Semester);
+                    if coReg.Find('-') then begin
+                        StudentCharges.Init;
+                        StudentCharges."Transacton ID" := '';
+                        StudentCharges.Validate(StudentCharges."Transacton ID");
+                        StudentCharges."Student No." := coReg."Student No.";
+                        StudentCharges."Reg. Transacton ID" := coReg."Reg. Transacton ID";
+                        StudentCharges."Transaction Type" := StudentCharges."transaction type"::Charges;
+                        StudentCharges.Code := charges1.Code;
+                        StudentCharges.Description := 'Accommodation Fees';
+                        StudentCharges.Amount := billAmount;
+                        StudentCharges.Date := Today;
+                        StudentCharges.Programme := coReg.Programmes;
+                        StudentCharges.Stage := coReg.Stage;
+                        StudentCharges.Semester := coReg.Semester;
+                        StudentCharges.Insert();
+                    end;
+                end;
+
+                if PaidAmt > StudentHostel."Accomodation Fee" then begin
+                    StudentHostel."Over Paid" := true;
+                    StudentHostel."Over Paid Amt" := PaidAmt - StudentHostel."Accomodation Fee";
+                    StudentHostel.Modify;
+                end;
+
+                Rooms_Spaces.Reset;
+                Rooms_Spaces.SetRange(Rooms_Spaces."Space Code", StudentHostel."Space No");
+                if Rooms_Spaces.Find('-') then begin
+                    Rooms_Spaces.Status := Rooms_Spaces.Status::"Fully Occupied";
+                    Rooms_Spaces.Modify;
+                    Clear(counts);
+                    // Post to  the Ledger Tables
+                    Host_Ledger.Reset;
+                    if Host_Ledger.Find('-') then counts := Host_Ledger.Count;
+                    Host_Ledger.Init;
+                    Host_Ledger."Space No" := ACAStudentsHostelRooms."Space No";
+                    Host_Ledger."Room No" := ACAStudentsHostelRooms."Room No";
+                    Host_Ledger."Hostel No" := ACAStudentsHostelRooms."Hostel No";
+                    Host_Ledger.No := counts;
+                    Host_Ledger.Status := Host_Ledger.Status::"Fully Occupied";
+                    Host_Ledger."Room Cost" := StudentHostel.Charges;
+                    Host_Ledger."Student No" := StudentHostel.Student;
+                    Host_Ledger."Receipt No" := '';
+                    Host_Ledger.Semester := StudentHostel.Semester;
+                    Host_Ledger.Gender := ACAStudentsHostelRooms.Gender;
+                    Host_Ledger."Hostel Name" := '';
+                    Host_Ledger.Campus := Cust."Global Dimension 1 Code";
+                    Host_Ledger."Academic Year" := StudentHostel."Academic Year";
+                    Host_Ledger.Insert(true);
+
+
+                    Hostel_Rooms.Reset;
+                    Hostel_Rooms.SetRange(Hostel_Rooms."Hostel Code", StudentHostel."Hostel No");
+                    Hostel_Rooms.SetRange(Hostel_Rooms."Room Code", StudentHostel."Room No");
+                    if Hostel_Rooms.Find('-') then begin
+                        Hostel_Rooms.CalcFields(Hostel_Rooms."Bed Spaces", Hostel_Rooms."Occupied Spaces");
+                        if Hostel_Rooms."Bed Spaces" = Hostel_Rooms."Occupied Spaces" then
+                            Hostel_Rooms.Status := Hostel_Rooms.Status::"Fully Occupied"
+                        else if Hostel_Rooms."Occupied Spaces" < Hostel_Rooms."Bed Spaces" then
+                            Hostel_Rooms.Status := Hostel_Rooms.Status::"Partially Occupied";
+                        Hostel_Rooms.Modify;
+                    end;
+
+                    StudentHostel.Billed := false;
+                    StudentHostel.Charges := 6500;
+                    //  StudentHostel."Billed Date":=TODAY;
+                    // StudentHostel."Allocation Date":=TODAY;
+                    //  StudentHostel.Allocated:=TRUE;
+                    //  StudentHostel."Allocated By":=USERID;
+                    //  StudentHostel."Time allocated":=TIME;
+                    StudentHostel.Modify;
+
+
+                end;
+            until StudentHostel.Next = 0;
+            Message('Room Allocated Successfully');
+        end;
+
+        postCharge(ACAStudentsHostelRooms);  // Do not post Hostel Charges
     end;
 
     local procedure postCharge(ACAStudentsHostelRooms: Record "ACA-Students Hostel Rooms")
@@ -2781,10 +2773,8 @@ Table 51250 "ACA-New Stud. Documents"
         allocations: Record "ACA-Students Hostel Rooms";
         "Settlement Type": Record "ACA-Settlement Type";
     begin
-        with ACAStudentsHostelRooms do begin
-            ACAStudentsHostelRooms.Charges := 6500;
-            ACAStudentsHostelRooms.Modify;
-        end;
+        ACAStudentsHostelRooms.Charges := 6500;
+        ACAStudentsHostelRooms.Modify;
         /*
 
       //BILLING

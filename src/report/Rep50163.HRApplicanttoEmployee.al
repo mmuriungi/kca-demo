@@ -119,7 +119,7 @@ report 50163 "HR Applicant to Employee"
                             HREmp."Second Language Speak" := "Second Language Speak";
                             HREmp."PIN Number" := "PIN Number";
                             HREmp."Job Application No" := "Application No";
-                            
+
 
                             "HRM-Job Applications (B)".Modify;
                             HREmp.Insert;

@@ -4,7 +4,7 @@ page 51655 "Student clearance List"
     PageType = List;
     CardPageId = "Student Clearance Card";
     SourceTable = "Student Clerance";
-    
+
     layout
     {
         area(Content)

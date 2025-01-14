@@ -136,6 +136,11 @@ table 50609 "ACA-Semesters"
         {
             DataClassification = ToBeClassified;
         }
+        //"HEF Processing Fee"
+        field(26; "HEF Processing Fee"; Decimal)
+        {
+
+        }
     }
 
     keys

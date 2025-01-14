@@ -5,20 +5,20 @@ page 50692 "HRM-Religions"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "ACA-Religions";
-    
+
     layout
     {
         area(Content)
         {
             repeater(GroupName)
             {
-                
-                field(Religion;Rec.Religion)
+
+                field(Religion; Rec.Religion)
                 {
                     ToolTip = 'Specifies the value of the Code field.';
                     ApplicationArea = All;
                 }
-                field(Remarks;Rec.Remarks)
+                field(Remarks; Rec.Remarks)
                 {
                     ToolTip = 'Specifies the value of the Name field.';
                     ApplicationArea = All;
@@ -27,10 +27,10 @@ page 50692 "HRM-Religions"
         }
         area(Factboxes)
         {
-            
+
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -38,10 +38,10 @@ page 50692 "HRM-Religions"
             action(ActionName)
             {
                 ApplicationArea = All;
-                
+
                 trigger OnAction();
                 begin
-                    
+
                 end;
             }
         }

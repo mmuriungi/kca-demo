@@ -42,7 +42,7 @@ page 51162 "ACA-Scholarships"
                     ToolTip = 'Specifies the value of the G/L Account field.';
                     ApplicationArea = All;
                 }
-                
+
             }
         }
         area(Factboxes)

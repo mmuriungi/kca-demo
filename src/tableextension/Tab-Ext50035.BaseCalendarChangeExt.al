@@ -3,7 +3,7 @@ tableextension 50035 "Base Calendar Change Ext" extends "Base Calendar Change"
     fields
     {
         // Add changes to table fields here
-         field(56601; "Date Day"; Integer)
+        field(56601; "Date Day"; Integer)
         {
             Caption = 'Day Date';
             DataClassification = ToBeClassified;
@@ -14,7 +14,7 @@ tableextension 50035 "Base Calendar Change Ext" extends "Base Calendar Change"
             DataClassification = ToBeClassified;
         }
     }
-    
+
     var
         myInt: Integer;
 }

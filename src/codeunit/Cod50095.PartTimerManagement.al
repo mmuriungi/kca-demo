@@ -67,7 +67,7 @@ codeunit 50095 "PartTimer Management"
         end;
     end;
 
-  procedure createPaymentVoucher(Var PartTime: Record "Parttime Claim Header")
+    procedure createPaymentVoucher(Var PartTime: Record "Parttime Claim Header")
     var
         PVHeader: Record "FIN-Payments Header";
         PvLines: Record "FIN-Payment Line";
