@@ -413,6 +413,8 @@ table 50019 "FIN-Imprest Header"
             TableRelation = IF ("Account Type" = CONST(Customer)) Customer WHERE("Customer Posting Group" = filter('IMPREST'));
 
             trigger OnValidate()
+            var
+                Emp: Record "HRM-Employee C";
             begin
                 Cust.RESET;
                 IF Cust.GET("Account No.") THEN BEGIN
@@ -420,6 +422,10 @@ table 50019 "FIN-Imprest Header"
                     Cust.TESTFIELD(Blocked, Cust.Blocked::" ");
                     Payee := Cust.Name;
                     "On Behalf Of" := Cust.Name;
+                    Emp.Reset();
+                    emp.SetRange("Customer Acc", Cust."No.");
+                    if emp.FindFirst() then
+                        "Staff No" := Emp."No.";
                 END;
                 //Check CreditLimit Here In cases where you have a credit limit set for employees
                 //      Cust.CALCFIELDS(Cust."Balance (LCY)");
@@ -579,10 +585,10 @@ table 50019 "FIN-Imprest Header"
         {
 
         }
+        field(50032; "Staff No"; Code[25])
+        {
 
-
-
-
+        }
 
     }
 
@@ -626,8 +632,8 @@ table 50019 "FIN-Imprest Header"
             VALIDATE("Paying Bank Account");
           END;
            */
-
-        Date := TODAY;
+        if date = 0D then
+            Date := TODAY;
         Cashier := USERID;
         "Requested By" := USERID;
         VALIDATE(Cashier);

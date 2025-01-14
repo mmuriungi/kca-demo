@@ -21,6 +21,11 @@ Table 77392 "Pesa-Flow_Service-IDs"
             CalcFormula = lookup("Bank Account".Name where("No." = field(Bank_Id)));
             FieldClass = FlowField;
         }
+        field(5; "Programme Category"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = " ","Proffesional Course",Certificate,Diploma,Bachelor,"Post-Graduate Diploma",Masters,PHD;
+        }
     }
 
     keys

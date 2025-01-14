@@ -361,6 +361,11 @@ page 51493 "Finance Management Rolecenter"
                     Image = Journal;
                     RunObject = Page "FIN-Budget Periods Setup";
                 }
+                action("PesaFlow Service Codes")
+                {
+                    ApplicationArea = all;
+                    RunObject = page "Pesaflow_Service-Ids";
+                }
             }
             Group("Student Finance")
             {
