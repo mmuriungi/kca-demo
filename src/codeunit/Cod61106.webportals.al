@@ -203,6 +203,124 @@ Codeunit 61106 webportals
         AttendanceHeader: Record "Class Attendance Header";
         AttendanceDetails: Record "Class Attendance Details";
 
+    procedure CreateImprestLine(
+            ImprestNo: Code[20];
+            AdvanceType: Code[20];
+            Amount: Decimal;
+            Purpose: Text[100]): Boolean
+    var
+        ImprestLine: Record "FIN-Imprest Lines";
+        ImprestHeader: Record "FIN-Imprest Header";
+        ReceiptPaymentType: Record "FIN-Receipts and Payment Types";
+        GLAccount: Record "G/L Account";
+    begin
+        // Validate header exists and is in proper state
+        if not ImprestHeader.Get(ImprestNo) then
+            exit(false);
+
+        if ImprestHeader.Status <> ImprestHeader.Status::Pending then
+            Error('Cannot add lines to Imprest that is not in Pending status');
+
+        // Get GL Account from Receipt Payment Type
+        ReceiptPaymentType.Reset();
+        ReceiptPaymentType.SetRange(Code, AdvanceType);
+        ReceiptPaymentType.SetRange(Type, ReceiptPaymentType.Type::Imprest);
+        if not ReceiptPaymentType.FindFirst() then
+            exit(false);
+
+        ReceiptPaymentType.TestField("G/L Account");
+
+        // Initialize line
+        ImprestLine.Init();
+        ImprestLine.No := ImprestNo;
+        ImprestLine.Validate("Advance Type", AdvanceType);
+        ImprestLine.Validate(Amount, Amount);
+        ImprestLine.Purpose := Purpose;
+
+        // Set defaults from header
+        ImprestLine."Date Taken" := ImprestHeader.Date;
+        ImprestLine."Global Dimension 1 Code" := ImprestHeader."Global Dimension 1 Code";
+        ImprestLine."Shortcut Dimension 2 Code" := ImprestHeader."Shortcut Dimension 2 Code";
+        ImprestLine."Shortcut Dimension 3 Code" := ImprestHeader."Shortcut Dimension 3 Code";
+        ImprestLine."Shortcut Dimension 4 Code" := ImprestHeader."Shortcut Dimension 4 Code";
+        ImprestLine."Currency Factor" := ImprestHeader."Currency Factor";
+        ImprestLine."Currency Code" := ImprestHeader."Currency Code";
+        ImprestLine."Due Date" := Today;
+        ImprestLine."Date Issued" := Today;
+
+        // Insert the line
+        if ImprestLine.Insert(true) then
+            exit(true)
+        else
+            exit(false);
+    end;
+
+    procedure CreateImprest(PayeeCode: Code[50]; CurrencyCode: Code[10]; CampusCode: Code[30]; DepartmentCode: Code[30]; ResponsibilityCenter: Code[50]; Purpose: Text[200]): Code[20]
+    var
+        ImprestHeader: Record "FIN-Imprest Header";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        CashOfficeSetup: Record "Cash Office Setup";
+        DimValue: Record "Dimension Value";
+        Customer: Record Customer;
+        ImprestLine: Record "FIN-Imprest Lines";
+    begin
+        // Get setup
+        CashOfficeSetup.Get();
+        CashOfficeSetup.TestField("Imprest Req No");
+
+        // Initialize header
+        ImprestHeader.Init();
+
+        // Set No. Series
+        NoSeriesMgt.InitSeries(
+            CashOfficeSetup."Imprest Req No",
+            ImprestHeader."No. Series",
+            WorkDate(),
+            ImprestHeader."No.",
+            ImprestHeader."No. Series"
+        );
+
+        // Set basic fields
+        ImprestHeader.Date := WorkDate();
+        ImprestHeader.Validate("Currency Code", CurrencyCode);
+        ImprestHeader."Account Type" := ImprestHeader."Account Type"::Customer;
+        ImprestHeader.Validate("Account No.", PayeeCode);
+
+        // Set dimensions
+        ImprestHeader.Validate("Global Dimension 1 Code", CampusCode);
+        ImprestHeader.Validate("Shortcut Dimension 2 Code", DepartmentCode);
+        ImprestHeader.Validate("Responsibility Center", ResponsibilityCenter);
+
+        // Set payee information
+        if Customer.Get(PayeeCode) then begin
+            ImprestHeader.Payee := Customer.Name;
+            ImprestHeader."On Behalf Of" := Customer.Name;
+        end;
+
+        // Set user information
+        ImprestHeader.Cashier := UserId;
+        ImprestHeader."Requested By" := UserId;
+
+        // Set purpose
+        ImprestHeader.Purpose := Purpose;
+
+        // Set default status
+        ImprestHeader.Status := ImprestHeader.Status::Pending;
+
+        // Set surrender dates
+        ImprestHeader."Surrender Days" := CashOfficeSetup."Surrender Dates";
+        ImprestHeader."Expected Date of Surrender" := CalcDate(
+            Format(CashOfficeSetup."Surrender Dates") + 'D',
+            WorkDate()
+        );
+
+        // Insert record
+        if ImprestHeader.Insert(true) then
+            exit(ImprestHeader."No.")
+        else
+            exit('');
+    end;
+
     procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]) rtnMsg: Boolean
     begin
         offeredunits.Init;
@@ -2663,9 +2781,9 @@ Codeunit 61106 webportals
             variant := MealBookingHeader;
             if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
                 ApprovalMgt.OnSendDocForApproval(variant);
-                //ApprovalMgt.OnSendMealBookingforApproval(MealBookingHeader);
-                //  IF ApprovalMgt.SendLeaveApprovalRequest(Rec) THEN;
-                //  AppMgt.SendMealsApprovalRequest(MealBookingHeader);
+            //ApprovalMgt.OnSendMealBookingforApproval(MealBookingHeader);
+            //  IF ApprovalMgt.SendLeaveApprovalRequest(Rec) THEN;
+            //  AppMgt.SendMealsApprovalRequest(MealBookingHeader);
         end;
     end;
 

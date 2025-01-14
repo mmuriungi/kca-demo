@@ -11,90 +11,6 @@
       <rd:DataSourceID>2f9a506b-f421-463a-921c-0b0cfeb10c92</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="StudentNo_FundingBandEntries">
-          <DataField>StudentNo_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="StudentName_FundingBandEntries">
-          <DataField>StudentName_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="AcademicYear_FundingBandEntries">
-          <DataField>AcademicYear_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="AdmissionYear_FundingBandEntries">
-          <DataField>AdmissionYear_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="KCSEIndexNo_FundingBandEntries">
-          <DataField>KCSEIndexNo_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="BandCode_FundingBandEntries">
-          <DataField>BandCode_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="BandDescription_FundingBandEntries">
-          <DataField>BandDescription_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="ProgrammeCode_FundingBandEntries">
-          <DataField>ProgrammeCode_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="ProgrammeCost_FundingBandEntries">
-          <DataField>ProgrammeCost_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="ProgrammeCost_FundingBandEntriesFormat">
-          <DataField>ProgrammeCost_FundingBandEntriesFormat</DataField>
-        </Field>
-        <Field Name="HouseHoldPercentage_FundingBandEntries">
-          <DataField>HouseHoldPercentage_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="HouseHoldPercentage_FundingBandEntriesFormat">
-          <DataField>HouseHoldPercentage_FundingBandEntriesFormat</DataField>
-        </Field>
-        <Field Name="HouseHoldFee_FundingBandEntries">
-          <DataField>HouseHoldFee_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="HouseHoldFee_FundingBandEntriesFormat">
-          <DataField>HouseHoldFee_FundingBandEntriesFormat</DataField>
-        </Field>
-        <Field Name="ProgrammDescription_FundingBandEntries">
-          <DataField>ProgrammDescription_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="LastModifiedBy_FundingBandEntries">
-          <DataField>LastModifiedBy_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="LastModifiedDateTime_FundingBandEntries">
-          <DataField>LastModifiedDateTime_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="CreatedBy_FundingBandEntries">
-          <DataField>CreatedBy_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="CreatedDateTime_FundingBandEntries">
-          <DataField>CreatedDateTime_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="BatchNo_FundingBandEntries">
-          <DataField>BatchNo_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="Archived_FundingBandEntries">
-          <DataField>Archived_FundingBandEntries</DataField>
-        </Field>
-        <Field Name="CompName">
-          <DataField>CompName</DataField>
-        </Field>
-        <Field Name="CompPic">
-          <DataField>CompPic</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -895,4 +811,86 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="StudentNo_FundingBandEntries">
+          <DataField>StudentNo_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="StudentName_FundingBandEntries">
+          <DataField>StudentName_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="AcademicYear_FundingBandEntries">
+          <DataField>AcademicYear_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="AdmissionYear_FundingBandEntries">
+          <DataField>AdmissionYear_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="KCSEIndexNo_FundingBandEntries">
+          <DataField>KCSEIndexNo_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="BandCode_FundingBandEntries">
+          <DataField>BandCode_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="BandDescription_FundingBandEntries">
+          <DataField>BandDescription_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="ProgrammeCode_FundingBandEntries">
+          <DataField>ProgrammeCode_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="ProgrammeCost_FundingBandEntries">
+          <DataField>ProgrammeCost_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="ProgrammeCost_FundingBandEntriesFormat">
+          <DataField>ProgrammeCost_FundingBandEntriesFormat</DataField>
+        </Field>
+        <Field Name="HouseHoldPercentage_FundingBandEntries">
+          <DataField>HouseHoldPercentage_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="HouseHoldPercentage_FundingBandEntriesFormat">
+          <DataField>HouseHoldPercentage_FundingBandEntriesFormat</DataField>
+        </Field>
+        <Field Name="HouseHoldFee_FundingBandEntries">
+          <DataField>HouseHoldFee_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="HouseHoldFee_FundingBandEntriesFormat">
+          <DataField>HouseHoldFee_FundingBandEntriesFormat</DataField>
+        </Field>
+        <Field Name="ProgrammDescription_FundingBandEntries">
+          <DataField>ProgrammDescription_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="LastModifiedBy_FundingBandEntries">
+          <DataField>LastModifiedBy_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="LastModifiedDateTime_FundingBandEntries">
+          <DataField>LastModifiedDateTime_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="CreatedBy_FundingBandEntries">
+          <DataField>CreatedBy_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="CreatedDateTime_FundingBandEntries">
+          <DataField>CreatedDateTime_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="BatchNo_FundingBandEntries">
+          <DataField>BatchNo_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="Archived_FundingBandEntries">
+          <DataField>Archived_FundingBandEntries</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="CompPic">
+          <DataField>CompPic</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -11,138 +11,6 @@
       <rd:DataSourceID>cb0a0786-9a8e-4fe4-ae43-0ae7236357f4</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="StudNo">
-          <DataField>StudNo</DataField>
-        </Field>
-        <Field Name="StudName">
-          <DataField>StudName</DataField>
-        </Field>
-        <Field Name="campus">
-          <DataField>campus</DataField>
-        </Field>
-        <Field Name="ProgName">
-          <DataField>ProgName</DataField>
-        </Field>
-        <Field Name="Progs">
-          <DataField>Progs</DataField>
-        </Field>
-        <Field Name="Semesters">
-          <DataField>Semesters</DataField>
-        </Field>
-        <Field Name="Stages">
-          <DataField>Stages</DataField>
-        </Field>
-        <Field Name="Settlement">
-          <DataField>Settlement</DataField>
-        </Field>
-        <Field Name="AcadYear">
-          <DataField>AcadYear</DataField>
-        </Field>
-        <Field Name="compName">
-          <DataField>compName</DataField>
-        </Field>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="phones">
-          <DataField>phones</DataField>
-        </Field>
-        <Field Name="pics">
-          <DataField>pics</DataField>
-        </Field>
-        <Field Name="mails">
-          <DataField>mails</DataField>
-        </Field>
-        <Field Name="Balance_NFMStatementEntry">
-          <DataField>Balance_NFMStatementEntry</DataField>
-        </Field>
-        <Field Name="Balance_NFMStatementEntryFormat">
-          <DataField>Balance_NFMStatementEntryFormat</DataField>
-        </Field>
-        <Field Name="pDate">
-          <DataField>pDate</DataField>
-        </Field>
-        <Field Name="DocNo">
-          <DataField>DocNo</DataField>
-        </Field>
-        <Field Name="Desc">
-          <DataField>Desc</DataField>
-        </Field>
-        <Field Name="Amount">
-          <DataField>Amount</DataField>
-        </Field>
-        <Field Name="AmountFormat">
-          <DataField>AmountFormat</DataField>
-        </Field>
-        <Field Name="DebitAm">
-          <DataField>DebitAm</DataField>
-        </Field>
-        <Field Name="DebitAmFormat">
-          <DataField>DebitAmFormat</DataField>
-        </Field>
-        <Field Name="CreditAm">
-          <DataField>CreditAm</DataField>
-        </Field>
-        <Field Name="CreditAmFormat">
-          <DataField>CreditAmFormat</DataField>
-        </Field>
-        <Field Name="Semester">
-          <DataField>Semester</DataField>
-        </Field>
-        <Field Name="EntryNo_NFMStatementEntrys">
-          <DataField>EntryNo_NFMStatementEntrys</DataField>
-        </Field>
-        <Field Name="StudentNo_NFMStatementEntry">
-          <DataField>StudentNo_NFMStatementEntry</DataField>
-        </Field>
-        <Field Name="Description_NFMStatementEntry">
-          <DataField>Description_NFMStatementEntry</DataField>
-        </Field>
-        <Field Name="Amount_NFMStatementEntry">
-          <DataField>Amount_NFMStatementEntry</DataField>
-        </Field>
-        <Field Name="Amount_NFMStatementEntryFormat">
-          <DataField>Amount_NFMStatementEntryFormat</DataField>
-        </Field>
-        <Field Name="Semester_NFMStatementEntry">
-          <DataField>Semester_NFMStatementEntry</DataField>
-        </Field>
-        <Field Name="Date_NFMStatementEntry">
-          <DataField>Date_NFMStatementEntry</DataField>
-        </Field>
-        <Field Name="Debitamount_NFMStatementEntry">
-          <DataField>Debitamount_NFMStatementEntry</DataField>
-        </Field>
-        <Field Name="Debitamount_NFMStatementEntryFormat">
-          <DataField>Debitamount_NFMStatementEntryFormat</DataField>
-        </Field>
-        <Field Name="Creditamount_NFMStatementEntry">
-          <DataField>Creditamount_NFMStatementEntry</DataField>
-        </Field>
-        <Field Name="Creditamount_NFMStatementEntryFormat">
-          <DataField>Creditamount_NFMStatementEntryFormat</DataField>
-        </Field>
-        <Field Name="runningBal">
-          <DataField>runningBal</DataField>
-        </Field>
-        <Field Name="runningBalFormat">
-          <DataField>runningBalFormat</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1696,4 +1564,140 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="StudNo">
+          <DataField>StudNo</DataField>
+        </Field>
+        <Field Name="StudName">
+          <DataField>StudName</DataField>
+        </Field>
+        <Field Name="campus">
+          <DataField>campus</DataField>
+        </Field>
+        <Field Name="ProgName">
+          <DataField>ProgName</DataField>
+        </Field>
+        <Field Name="Progs">
+          <DataField>Progs</DataField>
+        </Field>
+        <Field Name="Semesters">
+          <DataField>Semesters</DataField>
+        </Field>
+        <Field Name="Stages">
+          <DataField>Stages</DataField>
+        </Field>
+        <Field Name="Settlement">
+          <DataField>Settlement</DataField>
+        </Field>
+        <Field Name="AcadYear">
+          <DataField>AcadYear</DataField>
+        </Field>
+        <Field Name="compName">
+          <DataField>compName</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="phones">
+          <DataField>phones</DataField>
+        </Field>
+        <Field Name="pics">
+          <DataField>pics</DataField>
+        </Field>
+        <Field Name="mails">
+          <DataField>mails</DataField>
+        </Field>
+        <Field Name="Balance_NFMStatementEntry">
+          <DataField>Balance_NFMStatementEntry</DataField>
+        </Field>
+        <Field Name="Balance_NFMStatementEntryFormat">
+          <DataField>Balance_NFMStatementEntryFormat</DataField>
+        </Field>
+        <Field Name="ReportForNavId_1000000001">
+          <DataField>ReportForNavId_1000000001</DataField>
+        </Field>
+        <Field Name="pDate">
+          <DataField>pDate</DataField>
+        </Field>
+        <Field Name="DocNo">
+          <DataField>DocNo</DataField>
+        </Field>
+        <Field Name="Desc">
+          <DataField>Desc</DataField>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+        </Field>
+        <Field Name="AmountFormat">
+          <DataField>AmountFormat</DataField>
+        </Field>
+        <Field Name="DebitAm">
+          <DataField>DebitAm</DataField>
+        </Field>
+        <Field Name="DebitAmFormat">
+          <DataField>DebitAmFormat</DataField>
+        </Field>
+        <Field Name="CreditAm">
+          <DataField>CreditAm</DataField>
+        </Field>
+        <Field Name="CreditAmFormat">
+          <DataField>CreditAmFormat</DataField>
+        </Field>
+        <Field Name="Semester">
+          <DataField>Semester</DataField>
+        </Field>
+        <Field Name="ReportForNavId_1000000025">
+          <DataField>ReportForNavId_1000000025</DataField>
+        </Field>
+        <Field Name="EntryNo_NFMStatementEntrys">
+          <DataField>EntryNo_NFMStatementEntrys</DataField>
+        </Field>
+        <Field Name="StudentNo_NFMStatementEntry">
+          <DataField>StudentNo_NFMStatementEntry</DataField>
+        </Field>
+        <Field Name="Description_NFMStatementEntry">
+          <DataField>Description_NFMStatementEntry</DataField>
+        </Field>
+        <Field Name="Amount_NFMStatementEntry">
+          <DataField>Amount_NFMStatementEntry</DataField>
+        </Field>
+        <Field Name="Amount_NFMStatementEntryFormat">
+          <DataField>Amount_NFMStatementEntryFormat</DataField>
+        </Field>
+        <Field Name="Semester_NFMStatementEntry">
+          <DataField>Semester_NFMStatementEntry</DataField>
+        </Field>
+        <Field Name="Date_NFMStatementEntry">
+          <DataField>Date_NFMStatementEntry</DataField>
+        </Field>
+        <Field Name="Debitamount_NFMStatementEntry">
+          <DataField>Debitamount_NFMStatementEntry</DataField>
+        </Field>
+        <Field Name="Debitamount_NFMStatementEntryFormat">
+          <DataField>Debitamount_NFMStatementEntryFormat</DataField>
+        </Field>
+        <Field Name="Creditamount_NFMStatementEntry">
+          <DataField>Creditamount_NFMStatementEntry</DataField>
+        </Field>
+        <Field Name="Creditamount_NFMStatementEntryFormat">
+          <DataField>Creditamount_NFMStatementEntryFormat</DataField>
+        </Field>
+        <Field Name="runningBal">
+          <DataField>runningBal</DataField>
+        </Field>
+        <Field Name="runningBalFormat">
+          <DataField>runningBalFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
