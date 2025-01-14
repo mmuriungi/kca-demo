@@ -3,6 +3,7 @@ Page 77392 "Pesaflow_Service-Ids"
 {
     PageType = List;
     SourceTable = "Pesa-Flow_Service-IDs";
+    ApplicationArea = all;
 
     layout
     {
@@ -27,6 +28,10 @@ Page 77392 "Pesaflow_Service-Ids"
                     ApplicationArea = Basic;
                     Editable = false;
                     Enabled = false;
+                }
+                field("Programme Category"; Rec."Programme Category")
+                {
+                    ApplicationArea = Basic;
                 }
             }
         }

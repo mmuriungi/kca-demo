@@ -255,7 +255,38 @@ Codeunit 61106 webportals
             exit(false);
     end;
 
-    procedure CreateImprest(PayeeCode: Code[50]; CurrencyCode: Code[10]; CampusCode: Code[30]; DepartmentCode: Code[30]; ResponsibilityCenter: Code[50]; Purpose: Text[200]): Code[20]
+    procedure getEmployeeDetails(employeeNo: code[25]) msg: Text
+    var
+        Emp: record "HRM-Employee C";
+        dimensionValue: Record "Dimension Value";
+        RespCenter: Record "Responsibility Center";
+        CampusCode: Text[130];
+        DepartmentCode: Text[130];
+        ResponsibilityCenter: Text[150];
+    begin
+        Emp.Reset();
+        Emp.SetRange("No.", employeeNo);
+        if emp.FindFirst() then begin
+            dimensionValue.Reset();
+            dimensionValue.SetRange("Dimension Code", 'CAMPUS');
+            dimensionValue.SetRange(Code, Emp.Campus);
+            if dimensionValue.Find('-') then
+                CampusCode := dimensionValue.name;
+            dimensionValue.Reset();
+            dimensionValue.SetRange("Dimension Code", 'DEPARTMENT');
+            dimensionValue.SetRange(Code, Emp.Campus);
+            if dimensionValue.Find('-') then
+                DepartmentCode := dimensionValue.name;
+            RespCenter.Reset();
+            RespCenter.SetRange(Code, Emp."Responsibility Center");
+            if respcenter.findfirst then begin
+                ResponsibilityCenter := RespCenter.Name;
+            end;
+            msg := CampusCode + '::' + DepartmentCode + '::' + ResponsibilityCenter;
+        end;
+    end;
+
+    procedure CreateImprest(PayeeCode: Code[50]; CurrencyCode: Code[10]; Purpose: Text[200]; applicationDate: date): Code[20]
     var
         ImprestHeader: Record "FIN-Imprest Header";
         NoSeriesMgt: Codeunit NoSeriesManagement;
@@ -263,7 +294,22 @@ Codeunit 61106 webportals
         DimValue: Record "Dimension Value";
         Customer: Record Customer;
         ImprestLine: Record "FIN-Imprest Lines";
+        emp: Record "HRM-Employee C";
+        staffno: code[25];
+        AccNO: Code[25];
+        CampusCode: Code[30];
+        DepartmentCode: Code[30];
+        ResponsibilityCenter: Code[50];
     begin
+        staffno := PayeeCode;
+        emp.Reset();
+        emp.SetRange("No.", PayeeCode);
+        if emp.Find('-') then begin
+            AccNO := emp."Customer Acc";
+            CampusCode := emp.Campus;
+            DepartmentCode := emp."Department Code";
+            ResponsibilityCenter := emp."Responsibility Center";
+        end;
         // Get setup
         CashOfficeSetup.Get();
         CashOfficeSetup.TestField("Imprest Req No");
@@ -284,7 +330,8 @@ Codeunit 61106 webportals
         ImprestHeader.Date := WorkDate();
         ImprestHeader.Validate("Currency Code", CurrencyCode);
         ImprestHeader."Account Type" := ImprestHeader."Account Type"::Customer;
-        ImprestHeader.Validate("Account No.", PayeeCode);
+        ImprestHeader."Account No." := AccNO;
+        ImprestHeader.Validate("Account No.");
 
         // Set dimensions
         ImprestHeader.Validate("Global Dimension 1 Code", CampusCode);
@@ -292,7 +339,7 @@ Codeunit 61106 webportals
         ImprestHeader.Validate("Responsibility Center", ResponsibilityCenter);
 
         // Set payee information
-        if Customer.Get(PayeeCode) then begin
+        if Customer.Get(AccNO) then begin
             ImprestHeader.Payee := Customer.Name;
             ImprestHeader."On Behalf Of" := Customer.Name;
         end;
@@ -303,9 +350,11 @@ Codeunit 61106 webportals
 
         // Set purpose
         ImprestHeader.Purpose := Purpose;
+        ImprestHeader."Staff No" := staffno;
 
         // Set default status
         ImprestHeader.Status := ImprestHeader.Status::Pending;
+        ImprestHeader.Date := applicationDate;
 
         // Set surrender dates
         ImprestHeader."Surrender Days" := CashOfficeSetup."Surrender Dates";
@@ -7877,6 +7926,36 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure GetApplicationFee(appno: Code[20]) appfee: Decimal
+    var
+        Programme: Record "ACA-Programme";
+    begin
+        fablist.reset;
+        fablist.SETRANGE(fablist."Application No.", appno);
+        IF fabList.FIND('-') THEN begin
+            Programme.Reset;
+            Programme.SetRange(Programme.Code, fablist."First Degree Choice");
+            IF Programme.FIND('-') THEN begin
+                appfee := ROUND(Programme.ApplicationFee, 0.01, '>');
+            end;
+        end;
+    end;
+
+    procedure GetApplicationCategory(applicationNo: code[25]) msg: Text
+    var
+        Applic: Record "ACA-Applic. Form Header";
+        Programme: Record "ACA-Programme";
+    begin
+        applic.Reset();
+        Applic.SetRange("Application No.", applicationNo);
+        if applic.FindFirst() then begin
+            Programme.Reset();
+            Programme.SetRange(Code, Applic."First Degree Choice");
+            if programme.FindFirst() then begin
+                msg := Format(Programme.Levels);
+            end;
+        end;
+    end;
 
     procedure GetApplicantDetails(username: Text) Msg: Text
     var
