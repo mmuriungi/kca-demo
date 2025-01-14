@@ -50,7 +50,7 @@ page 50638 "PRL-Transaction Codes List"
                 {
                     ApplicationArea = all;
                 }
-                field("Is an Imprest";Rec."Is an Imprest")
+                field("Is an Imprest"; Rec."Is an Imprest")
                 {
                     ApplicationArea = all;
                 }

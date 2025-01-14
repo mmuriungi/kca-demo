@@ -19,7 +19,7 @@ table 50708 "MOU JIC"
         }
         field(4; "E-mail"; text[20])
         {
-            
+
         }
     }
     keys

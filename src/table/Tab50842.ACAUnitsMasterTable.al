@@ -1,7 +1,7 @@
 table 50842 "ACA-Units Master Table"
 {
     DrillDownPageID = "ACA-Units Master";
-    LookupPageID =  "ACA-Units Master";
+    LookupPageID = "ACA-Units Master";
     DataClassification = ToBeClassified;
 
     fields
@@ -61,7 +61,7 @@ table 50842 "ACA-Units Master Table"
         }
         field(12; "Prerequisite Unit Code 3"; code[20])
         {
- }
+        }
 
     }
 

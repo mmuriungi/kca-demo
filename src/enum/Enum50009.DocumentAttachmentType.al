@@ -13,5 +13,5 @@ enum 50009 "Document Attachment Type"
     value(3; "Police Abstract")
     {
     }
-    
+
 }

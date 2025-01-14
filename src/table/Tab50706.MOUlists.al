@@ -40,7 +40,7 @@ table 50706 "MOU lists"
         }
         field(8; validity; text[20])
         {
-            
+
         }
         field(9; Type; Option)
         {

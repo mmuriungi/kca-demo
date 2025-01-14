@@ -40,11 +40,11 @@ page 52016 "Equipment Issuance"
                 {
                     ApplicationArea = All;
                 }
-                                field("Receipient No.";Rec."Receipient No.")
+                field("Receipient No."; Rec."Receipient No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Receipient Name";Rec."Receipient Name")
+                field("Receipient Name"; Rec."Receipient Name")
                 {
                     ApplicationArea = All;
                 }

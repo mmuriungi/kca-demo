@@ -374,16 +374,16 @@ table 52178725 "Proc-Purchase Quote Header"
     }
 
     trigger OnInsert()
-var
-    PurchSetup: Record "Purchases & Payables Setup";
-    NoSeriesMgt: Codeunit NoSeriesManagement;
-begin
-    if "No." = '' then begin
-        PurchSetup.Get();
-        PurchSetup.TestField("Quotation Request No");  // Notice the period after No
-        "No." := NoSeriesMgt.GetNextNo(PurchSetup."Quotation Request No", WorkDate(), true);
+    var
+        PurchSetup: Record "Purchases & Payables Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+    begin
+        if "No." = '' then begin
+            PurchSetup.Get();
+            PurchSetup.TestField("Quotation Request No");  // Notice the period after No
+            "No." := NoSeriesMgt.GetNextNo(PurchSetup."Quotation Request No", WorkDate(), true);
+        end;
     end;
-end;
 
     trigger OnModify()
     begin
@@ -391,7 +391,7 @@ end;
     end;
 
 
- procedure SendMail();
+    procedure SendMail();
     var
         vends: Record "PROC-Quotation Request Vendors";
         Vendor: Record Vendor;

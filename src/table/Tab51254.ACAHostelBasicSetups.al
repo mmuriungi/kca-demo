@@ -4,22 +4,22 @@ Table 51254 "ACA-Hostel Basic Setups"
 
     fields
     {
-        field(1;"Current Academic Year";Code[20])
+        field(1; "Current Academic Year"; Code[20])
         {
             TableRelation = "ACA-Academic Year".Code;
         }
-        field(2;"Current Semester";Code[20])
+        field(2; "Current Semester"; Code[20])
         {
             TableRelation = "ACA-Semesters".Code;
         }
-        field(3;Rec_Id;Integer)
+        field(3; Rec_Id; Integer)
         {
         }
     }
 
     keys
     {
-        key(Key1;Rec_Id)
+        key(Key1; Rec_Id)
         {
             Clustered = true;
         }

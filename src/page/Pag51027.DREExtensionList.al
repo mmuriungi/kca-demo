@@ -4,7 +4,7 @@ page 51027 "DRE Extension List"
     CardPageId = "DRE extension Request";
     PageType = List;
     SourceTable = "Extension Services";
-    
+
     layout
     {
         area(Content)

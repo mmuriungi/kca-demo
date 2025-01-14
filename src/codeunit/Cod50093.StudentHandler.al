@@ -94,15 +94,15 @@ codeunit 50093 "Student Handler"
             CertApp."Application Type" of
             certapp."Application Type"::"New Certificate",
             certapp."Application Type"::"Special Examination":
-                exit(false);            
+                exit(false);
         end;
-            findCustomer(CertApp."Student No.", Cust);
-            CreateStudentSalesInvoiceHeader(CertApp."Student No.", CertApp."No.", CertApp."No.", Cust."Global Dimension 1 Code", Cust."Global Dimension 2 Code", SalesHeader);
-            CreateStudentSalesInvoiceLine(SalesHeader."No.", Enum::"Sales Line Type"::"G/L Account", fnGetCertApplicChargeAccount(CertApp), 1, fnGetCertApplicChargeAmount(CertApp), Cust."Global Dimension 1 Code", Cust."Global Dimension 2 Code");
-            PostSalesInvoice(SalesHeader."No.");
-            CertApp."Invoice Date" := Today;
-            CertApp.Invoiced := true;
-        end;
+        findCustomer(CertApp."Student No.", Cust);
+        CreateStudentSalesInvoiceHeader(CertApp."Student No.", CertApp."No.", CertApp."No.", Cust."Global Dimension 1 Code", Cust."Global Dimension 2 Code", SalesHeader);
+        CreateStudentSalesInvoiceLine(SalesHeader."No.", Enum::"Sales Line Type"::"G/L Account", fnGetCertApplicChargeAccount(CertApp), 1, fnGetCertApplicChargeAmount(CertApp), Cust."Global Dimension 1 Code", Cust."Global Dimension 2 Code");
+        PostSalesInvoice(SalesHeader."No.");
+        CertApp."Invoice Date" := Today;
+        CertApp.Invoiced := true;
+    end;
 
     procedure fnGetCertApplicChargeAmount(var CertApp: Record "Certificate Application"): Decimal
     var

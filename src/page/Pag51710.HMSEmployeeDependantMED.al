@@ -107,11 +107,11 @@ page 51710 "HMS Employee Dependant MED"
                         Line.SETRANGE(Line.Select, TRUE);
                         IF Line.FIND('-') THEN BEGIN
                             IF CONFIRM('Do you wish to Approve the Selected requests?', TRUE) = FALSE THEN BEGIN EXIT END;
-                                                   REPEAT
-                                                       Line.Status := Line.Status::"HOD Medical Approved";
+                            REPEAT
+                                Line.Status := Line.Status::"HOD Medical Approved";
 
-                                                       Line.MODIFY;
-                                                   UNTIL Line.NEXT = 0;
+                                Line.MODIFY;
+                            UNTIL Line.NEXT = 0;
                             MESSAGE('The Selected Dependants Registration Request have been marked as Approved');
                         END;
                     end;
@@ -129,10 +129,10 @@ page 51710 "HMS Employee Dependant MED"
                         Line.SETRANGE(Line.Select, TRUE);
                         IF Line.FIND('-') THEN BEGIN
                             IF CONFIRM('Do you wish to Reject the Selected requests?', TRUE) = FALSE THEN BEGIN EXIT END;
-                                                   REPEAT
-                                                       Line.Status := Line.Status::"HOD Medical Rejected";
-                                                       Line.MODIFY;
-                                                   UNTIL Line.NEXT = 0;
+                            REPEAT
+                                Line.Status := Line.Status::"HOD Medical Rejected";
+                                Line.MODIFY;
+                            UNTIL Line.NEXT = 0;
                             MESSAGE('The Selected Dependants Registration Request have been marked as REJECTED');
                         END;
                     end;

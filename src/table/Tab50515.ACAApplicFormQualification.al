@@ -29,13 +29,13 @@ table 50515 "ACA-Applic. Form Qualification"
         {
             DataClassification = ToBeClassified;
         }
-        field(9; "Employer Name" ; Text[100])
+        field(9; "Employer Name"; Text[100])
         {
 
         }
         field(10; "Position(Role)"; text[50])
         {
-            
+
         }
     }
 

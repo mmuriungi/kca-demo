@@ -97,39 +97,39 @@ report 50780 "GeneralLedgerv3"
                     {
                         IncludeCaption = true;
                     }
-                    column(Item_Specification;"Item Specification")
+                    column(Item_Specification; "Item Specification")
                     {
 
                     }
-                    column(Payee;Payee)
+                    column(Payee; Payee)
                     {
 
                     }
-                    column(Global_Dimension_1_Code;"Global Dimension 1 Code")
+                    column(Global_Dimension_1_Code; "Global Dimension 1 Code")
                     {
 
                     }
-                    column(Global_Dimension_2_Code;"Global Dimension 2 Code")
+                    column(Global_Dimension_2_Code; "Global Dimension 2 Code")
                     {
 
                     }
-                    column(Shortcut_Dimension_3_Code;"Shortcut Dimension 3 Code")
+                    column(Shortcut_Dimension_3_Code; "Shortcut Dimension 3 Code")
                     {
 
                     }
-                    column(Shortcut_Dimension_4_Code;"Shortcut Dimension 4 Code")
+                    column(Shortcut_Dimension_4_Code; "Shortcut Dimension 4 Code")
                     {
 
                     }
-                    column(Shortcut_Dimension_5_Code;"Shortcut Dimension 5 Code")
+                    column(Shortcut_Dimension_5_Code; "Shortcut Dimension 5 Code")
                     {
 
                     }
-                    column(Shortcut_Dimension_6_Code;"Shortcut Dimension 6 Code")
+                    column(Shortcut_Dimension_6_Code; "Shortcut Dimension 6 Code")
                     {
 
                     }
-                    column(Shortcut_Dimension_7_Code;"Shortcut Dimension 7 Code")
+                    column(Shortcut_Dimension_7_Code; "Shortcut Dimension 7 Code")
                     {
 
                     }
@@ -139,32 +139,32 @@ report 50780 "GeneralLedgerv3"
                     column(CreditAmount_GLEntry; "Credit Amount")
                     {
                     }
-                    column(Add__Currency_Debit_Amount;"Add.-Currency Debit Amount")
+                    column(Add__Currency_Debit_Amount; "Add.-Currency Debit Amount")
                     {
 
                     }
-                    column(Add__Currency_Credit_Amount;"Add.-Currency Credit Amount")
+                    column(Add__Currency_Credit_Amount; "Add.-Currency Credit Amount")
                     {
 
                     }
-                    column(GetCurrencyCode;GetCurrencyCode)
+                    column(GetCurrencyCode; GetCurrencyCode)
                     {
 
                     }
-                    column(Currency_Code;"Currency Code")
+                    column(Currency_Code; "Currency Code")
                     {
 
                     }
-                    column(Exchange_Rate_to_Base_Currency;"Exchange Rate to Base Currency")
-                    {
-                        
-                    }
-            
-                    column(G_L_Account_No_;"G/L Account No.")
+                    column(Exchange_Rate_to_Base_Currency; "Exchange Rate to Base Currency")
                     {
 
                     }
-                    column(G_L_Account_Name;"G/L Account Name")
+
+                    column(G_L_Account_No_; "G/L Account No.")
+                    {
+
+                    }
+                    column(G_L_Account_Name; "G/L Account Name")
                     {
 
                     }

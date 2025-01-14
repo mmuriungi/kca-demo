@@ -230,5 +230,5 @@ page 51510 "Repair Request"
 
     var
         ApprovalsMgmt: Codeunit "Approval Mgnt. Util.";
-        
+
 }

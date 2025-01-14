@@ -217,7 +217,7 @@ table 50237 "HRM-Jobs"
         //Job category
         field(50008; "Job Category"; enum "Job Category")
         {
-            
+
         }
         field(50009; "Specialization"; Code[20])
         {

@@ -75,7 +75,7 @@ page 52178595 "Proc-Committee Card"
         {
             action("Update Committee")
             {
-                ApplicationArea=all;
+                ApplicationArea = all;
                 trigger OnAction()
                 begin
                     rec.UpdateCommitteeMembership();

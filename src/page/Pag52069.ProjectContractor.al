@@ -4,7 +4,7 @@ page 52069 "Project Contractor"
     Caption = 'Project Contractor';
     PageType = ListPart;
     SourceTable = "Project Contractors";
-    
+
     layout
     {
         area(Content)

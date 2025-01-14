@@ -205,6 +205,10 @@ page 50860 "ACA-General Set-Up"
                 {
                     ApplicationArea = All;
                 }
+                field("Fund Band Batch Nos"; Rec."Fund Band Batch Nos")
+                {
+                    ApplicationArea = All;
+                }
                 field("Restrict to Year 1"; Rec."Restrict to Year 1")
                 {
                     ApplicationArea = All;
@@ -214,7 +218,7 @@ page 50860 "ACA-General Set-Up"
             }
             group(Exam)
             {
-                field("Min Class Attendance %";Rec."Min Class Attendance %" )
+                field("Min Class Attendance %"; Rec."Min Class Attendance %")
                 {
                     ApplicationArea = All;
                 }

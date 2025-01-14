@@ -39,12 +39,13 @@ table 52178576 "Proc Bids Buffer"
             Clustered = true;
         }
     }
-     trigger OnInsert()
+    trigger OnInsert()
     begin
         if "Entry No" = 0 then
             "Entry No" := GetLastEntryNo() + 1;
     end;
-     procedure GetLastEntryNo(): Integer;
+
+    procedure GetLastEntryNo(): Integer;
     var
         FindRecordManagement: Codeunit "Find Record Management";
     begin

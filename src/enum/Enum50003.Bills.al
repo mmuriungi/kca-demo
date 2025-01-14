@@ -1,7 +1,7 @@
 enum 50003 Bills
 {
     Extensible = true;
-    
+
     value(0; " ")
     {
         Caption = ' ';

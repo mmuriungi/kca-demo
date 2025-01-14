@@ -444,7 +444,7 @@ page 50929 "ACA-Pending Admissions PSSP"
                         Rec.MODIFY;
 
 
-                         TransferToAdmission(Rec."Admission No");
+                        TransferToAdmission(Rec."Admission No");
 
                         // MESSAGE('The Application has been sent to ''Pending Admission Confirmation''');
 

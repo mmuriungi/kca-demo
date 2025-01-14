@@ -2,7 +2,7 @@ table 50117 "Prequalification Years"
 {
     Caption = 'Prequalification Years';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Preq Years"; Code[20])

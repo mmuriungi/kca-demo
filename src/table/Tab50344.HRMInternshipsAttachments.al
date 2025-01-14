@@ -16,7 +16,7 @@ table 50344 "HRM-Internships&Attachments"
         {
             DataClassification = ToBeClassified;
         }
-        
+
         field(4; "ID No"; Code[30])
         {
             DataClassification = ToBeClassified;
@@ -126,7 +126,7 @@ table 50344 "HRM-Internships&Attachments"
         {
             DataClassification = ToBeClassified;
         }
-    
+
     }
 
     keys

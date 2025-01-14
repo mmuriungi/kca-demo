@@ -44,7 +44,7 @@ page 51043 "ACA-LectureHalls Setup"
                 {
                     ApplicationArea = ALL;
                 }
-                field("Available Equipment";Rec."Available Equipment")
+                field("Available Equipment"; Rec."Available Equipment")
                 {
                     ApplicationArea = All;
                 }
@@ -59,7 +59,7 @@ page 51043 "ACA-LectureHalls Setup"
 
         }
     }
-   
+
 
     var
         myInt: Integer;

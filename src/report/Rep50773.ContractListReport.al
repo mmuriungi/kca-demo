@@ -53,8 +53,9 @@ report 50773 "Contract List Report"
     begin
         CompInfo.Reset();
         if CompInfo.GET then
-        CompInfo.CalcFields("Picture");
+            CompInfo.CalcFields("Picture");
     end;
+
     var
-    CompInfo:Record "Company Information";
+        CompInfo: Record "Company Information";
 }

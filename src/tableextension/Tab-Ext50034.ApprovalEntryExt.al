@@ -3,7 +3,7 @@ tableextension 50034 "Approval Entry Ext" extends "Approval Entry"
     fields
     {
         // Add changes to table fields here
-         field(56601; "Approved The Document"; Boolean)
+        field(56601; "Approved The Document"; Boolean)
         {
             DataClassification = ToBeClassified;
         }
@@ -12,7 +12,7 @@ tableextension 50034 "Approval Entry Ext" extends "Approval Entry"
             DataClassification = ToBeClassified;
         }
     }
-    
+
     var
         myInt: Integer;
 }

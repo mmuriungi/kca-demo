@@ -119,7 +119,7 @@ page 52012 "CRM Event Card"
             //         CRMManagement.RegisterAttendee(Rec."No.", AttendeeNo);
             //         //  end;
             //     end;
-           // }
+            // }
             action(CheckInAttendee)
             {
                 ApplicationArea = All;

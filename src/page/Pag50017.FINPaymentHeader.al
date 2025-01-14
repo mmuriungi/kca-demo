@@ -2181,6 +2181,7 @@ page 50017 "FIN-Payment Header"
             UNTIL FINPaymentLine.NEXT = 0;
         END;
     end;
+
     local procedure ExpenseBudget()
     var
         GLAccount: Record "G/L Account";

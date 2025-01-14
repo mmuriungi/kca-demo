@@ -22,8 +22,8 @@ table 51064 "Merged Requisitions"
                     "Duration to be Away" := transport."Duration to be Away";
                     "Number of Passenger" := transport."Number of Passangers";
                     Destination := transport.Destination;
-                    "Requested By":= transport."Requested By";
-                    transport.Status := transport.Status::Approved;                             
+                    "Requested By" := transport."Requested By";
+                    transport.Status := transport.Status::Approved;
                 end;
             end;
         }

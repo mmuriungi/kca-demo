@@ -39,7 +39,7 @@ table 50713 "Internal Vc Grants"
         }
         field(9; "Description"; Text[200])
         {
-            
+
         }
     }
     keys

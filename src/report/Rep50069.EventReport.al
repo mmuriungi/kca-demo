@@ -58,28 +58,28 @@ report 50069 "Event Report"
             }
             column(CompanyPhone; Company."Phone No.")
             {
-                
+
             }
             column(CompanyPostCode; Company."Post Code")
             {
-                
+
             }
             column(CompanyCity; Company.City)
             {
-                
+
             }
         }
 
     }
 
-        trigger OnInitReport()
-        begin
-            Company.GET;
-            Company.CALCFIELDS(Picture);
-        end;
+    trigger OnInitReport()
+    begin
+        Company.GET;
+        Company.CALCFIELDS(Picture);
+    end;
 
-    
+
     var
         Company: Record "Company Information";
-        
+
 }

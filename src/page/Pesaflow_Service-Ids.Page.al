@@ -10,19 +10,19 @@ Page 77392 "Pesaflow_Service-Ids"
         {
             repeater(Group)
             {
-                field(Service_ID;Rec.Service_ID)
+                field(Service_ID; Rec.Service_ID)
                 {
                     ApplicationArea = Basic;
                 }
-                field("Service ID Description";Rec."Service ID Description")
+                field("Service ID Description"; Rec."Service ID Description")
                 {
                     ApplicationArea = Basic;
                 }
-                field(Bank_Id;Rec.Bank_Id)
+                field(Bank_Id; Rec.Bank_Id)
                 {
                     ApplicationArea = Basic;
                 }
-                field("Bank Name";Rec."Bank Name")
+                field("Bank Name"; Rec."Bank Name")
                 {
                     ApplicationArea = Basic;
                     Editable = false;

@@ -49,7 +49,7 @@ table 50702 "CAFE Studentledger"
         }
         field(17; StudentId; code[20])
         {
-            
+
         }
     }
     trigger OnInsert()

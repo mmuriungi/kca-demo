@@ -1299,7 +1299,7 @@ tableextension 50019 "Customer Ext" extends Customer
             begin
                 Employee.reset;
                 employee.SETRANGE("No.", "Supervisor No.");
-                if employee.findfirst then  begin
+                if employee.findfirst then begin
                     "Supervisor Name" := employee.fullname();
                 end;
             end;
@@ -1997,7 +1997,7 @@ tableextension 50019 "Customer Ext" extends Customer
 
         //Unsupported feature: Deletion (KeyCollection) on ""Primary Contact No."(Key)".
 
-        key(PK;Gender)
+        key(PK; Gender)
         {
         }
     }

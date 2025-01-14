@@ -1003,6 +1003,7 @@ page 50779 "ACA-Application Form Header"
     begin
         Rec."Settlement Type" := 'SSP';
     end;
+
     local procedure SendFeedback()
     var
         salutation: Text[50];
@@ -1024,6 +1025,7 @@ page 50779 "ACA-Application Form Header"
         SendMail.Create(mail, EmailSubject, EmailBody);
         emailObj.Send(SendMail, Enum::"Email Scenario"::Notification);
     end;
+
     var
         DMS: Record "EDMS Setups";
         DegreeName1: Text[200];

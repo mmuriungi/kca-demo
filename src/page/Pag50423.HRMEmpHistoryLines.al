@@ -10,7 +10,7 @@ page 50423 "HRM-Emp. History Lines"
             repeater(Control1000000000)
             {
                 ShowCaption = false;
-                 field("Employee No."; Rec."Employee No.")
+                field("Employee No."; Rec."Employee No.")
                 {
                     Caption = 'Payroll No.';
                     Editable = false;

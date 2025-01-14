@@ -2,7 +2,7 @@ table 51312 "HRM-Calendar"
 {
     Caption = 'HRM-Calendar';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; Year; Code[20])

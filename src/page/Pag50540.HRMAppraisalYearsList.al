@@ -51,7 +51,7 @@ page 50540 "HRM-Appraisal Years List"
                     Promoted = true;
                     PromotedIsBig = true;
                     RunObject = Page "HRM-Appraisal Periods List";
-                    RunPageLink = "Appraisal Year Code"=FIELD(Code);
+                    RunPageLink = "Appraisal Year Code" = FIELD(Code);
                 }
                 action(AppraisalSummaryLabels)
                 {
@@ -60,7 +60,7 @@ page 50540 "HRM-Appraisal Years List"
                     Promoted = true;
                     PromotedIsBig = true;
                     RunObject = Page "HRM-Appraisal Recomm List";
-                    RunPageLink = "Appraisal Year Code"=FIELD(Code);
+                    RunPageLink = "Appraisal Year Code" = FIELD(Code);
                 }
                 action(Jobs)
                 {
@@ -69,7 +69,7 @@ page 50540 "HRM-Appraisal Years List"
                     Promoted = true;
                     PromotedIsBig = true;
                     RunObject = Page "HRM-Appraisal Jobs List";
-                    RunPageLink = "Appraisal Year Code"=FIELD(Code);
+                    RunPageLink = "Appraisal Year Code" = FIELD(Code);
                 }
                 action("Period Sets")
                 {

@@ -6,7 +6,7 @@ query 50002 "Student Submission"
     EntityName = 'studentSubmission';
     EntitySetName = 'studentSubmissions';
     QueryType = API;
-    
+
     elements
     {
         dataitem(studentSubmission; "Student Submission")
@@ -52,9 +52,9 @@ query 50002 "Student Submission"
             }
         }
     }
-    
+
     trigger OnBeforeOpen()
     begin
-    
+
     end;
 }

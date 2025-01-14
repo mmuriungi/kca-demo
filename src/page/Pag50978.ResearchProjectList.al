@@ -43,7 +43,7 @@ page 50978 "Research Project List"
                     ApplicationArea = All;
                 }
             }
-            }
+        }
         area(Factboxes)
         {
 

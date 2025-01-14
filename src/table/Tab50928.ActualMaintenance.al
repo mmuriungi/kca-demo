@@ -54,17 +54,17 @@ table 50928 "Actual Maintenance "
                     MaintLines.SETRANGE(MaintLines."Maintenance No.", "Maintenance No.");
                     IF MaintLines.FINDSET THEN MaintLines.DELETEALL;
 
-                                                   REPEAT
-                                                       MaintLines.RESET;
-                                                       MaintLines.INIT;
-                                                       MaintLines."Maintenance No." := "Maintenance No.";
-                                                       MaintLines."Line No." := 0;
-                                                       MaintLines."Fixed Asset No." := MaintPlanLines."Fixed Asset No.";
-                                                       MaintLines.VALIDATE(MaintLines."Fixed Asset No.");
-                                                       MaintLines."Dimension 1 Code" := MaintPlanLines."Dimension 1 Code";
-                                                       MaintLines."Dimension 2 Code" := MaintPlanLines."Dimension 2 Code";
-                                                       MaintLines.INSERT(TRUE);
-                                                   UNTIL MaintPlanLines.NEXT = 0;
+                    REPEAT
+                        MaintLines.RESET;
+                        MaintLines.INIT;
+                        MaintLines."Maintenance No." := "Maintenance No.";
+                        MaintLines."Line No." := 0;
+                        MaintLines."Fixed Asset No." := MaintPlanLines."Fixed Asset No.";
+                        MaintLines.VALIDATE(MaintLines."Fixed Asset No.");
+                        MaintLines."Dimension 1 Code" := MaintPlanLines."Dimension 1 Code";
+                        MaintLines."Dimension 2 Code" := MaintPlanLines."Dimension 2 Code";
+                        MaintLines.INSERT(TRUE);
+                    UNTIL MaintPlanLines.NEXT = 0;
 
                 END
                 ELSE

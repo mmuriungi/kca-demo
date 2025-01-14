@@ -40,7 +40,7 @@ xmlport 50011 "Grading Source Import"
                 }
                 fieldelement(examResults; GradingSource.ExamMarksExist)
                 {
-                    
+
                 }
                 fieldelement(ConsolidatedPrefix; GradingSource."Consolidated Prefix")
                 {

@@ -52,7 +52,7 @@ table 50412 "PRL-Employee Trans IMP BAL"
     {
         key(Key1; "Employee Code", "Transaction Code", "Period Month", "Period Year", "Payroll Period", "Reference No")
         {
-           SumIndexFields = Amount;
+            SumIndexFields = Amount;
         }
     }
 

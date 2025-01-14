@@ -11,7 +11,7 @@ page 50970 "Parttime Claim List"
         {
             repeater(General)
             {
- 
+
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
@@ -121,13 +121,13 @@ page 50970 "Parttime Claim List"
 
                 trigger OnAction()
                 var
-                ApprovMgmt: Codeunit "Approval Workflows V1";
+                    ApprovMgmt: Codeunit "Approval Workflows V1";
                     variant: Variant;
                 begin
                     variant := Rec;
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
-                    Rec.CommitBudget();
-                        ApprovMgmt.OnSendDocForApproval(variant);
+                        Rec.CommitBudget();
+                    ApprovMgmt.OnSendDocForApproval(variant);
 
                 end;
             }
@@ -146,7 +146,7 @@ page 50970 "Parttime Claim List"
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = SendApprovalRequest;
-                 trigger OnAction()
+                trigger OnAction()
                 var
                     ApprovMgmt: Codeunit "Approval Workflows V1";
                     variant: Variant;
@@ -154,8 +154,8 @@ page 50970 "Parttime Claim List"
                     variant := Rec;
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         Rec.CancelCommitment();
-                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
-                end; 
+                    ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end;
             }
             action(EDMS)
             {

@@ -69,10 +69,10 @@ table 50563 "ACA-Programme"
             TableRelation = "Dimension Value".Code WHERE("Dimension Code" = CONST('SCHOOL'));
             trigger OnValidate()
             var
-            "Dimension Value": Record "Dimension Value";
+                "Dimension Value": Record "Dimension Value";
             begin
                 IF GradeSetup.GET("School Code") THEN BEGIN
-                    "School Name":= "Dimension Value".Name;
+                    "School Name" := "Dimension Value".Name;
                 END;
             end;
         }
@@ -302,7 +302,7 @@ table 50563 "ACA-Programme"
         }
         field(105; "School Name"; Code[20])
         {
-            
+
         }
         field(50000; "Campus Code"; Code[20])
         {

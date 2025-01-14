@@ -1,9 +1,9 @@
-table  50448 "HRM-Career Developement Plan"
+table 50448 "HRM-Career Developement Plan"
 {
 
     fields
     {
-        field(1;"Employee No";Code[20])
+        field(1; "Employee No"; Code[20])
         {
             NotBlank = true;
             TableRelation = "HRM-Employee C"."No.";
@@ -11,56 +11,55 @@ table  50448 "HRM-Career Developement Plan"
             trigger OnValidate()
             begin
                 IF Employee.GET("Employee No") THEN
-                "Job ID":=Employee.Position;
+                    "Job ID" := Employee.Position;
             end;
         }
-        field(2;"Appraisal Type";Code[20])
+        field(2; "Appraisal Type"; Code[20])
         {
             TableRelation = "HRM-Appraisal Types".Code;
         }
-        field(3;"Appraisal Period";Code[20])
+        field(3; "Appraisal Period"; Code[20])
         {
             NotBlank = true;
             TableRelation = "HRM-Appraisal Periods".Period;
         }
-        field(4;"Job ID";Code[20])
+        field(4; "Job ID"; Code[20])
         {
             TableRelation = "HRM-Company Jobs"."Job ID";
         }
-        field(5;Type;Option)
+        field(5; Type; Option)
         {
             OptionMembers = "Major Strenghts","Areas for Development","Training Needs","On Job Activities","Job Rotation";
         }
-        field(6;Description;Code[20])
+        field(6; Description; Code[20])
         {
             NotBlank = true;
-            TableRelation = IF (Type=CONST("Major Strenghts")) "HRM-Job Requirement"."Qualification Code" WHERE ("Qualification Type"=CONST(Experience),
-                                                                                                              "Qualification Type"=CONST("Personal Attributes"),
-                                                                                                               "Job Id"=FIELD("Job ID"))
-                                                                                                               ELSE IF (Type=CONST("Areas for Development")) "HRM-Job Requirement"."Qualification Code" WHERE ("Job Id"=FIELD("Job ID"))
-                                                                                                               ELSE IF (Type=CONST("Training Needs")) "HRM-Training Needs Analysis".Code;
+            TableRelation = IF (Type = CONST("Major Strenghts")) "HRM-Job Requirement"."Qualification Code" WHERE("Qualification Type" = CONST(Experience),
+                                                                                                              "Qualification Type" = CONST("Personal Attributes"),
+                                                                                                               "Job Id" = FIELD("Job ID"))
+            ELSE IF (Type = CONST("Areas for Development")) "HRM-Job Requirement"."Qualification Code" WHERE("Job Id" = FIELD("Job ID"))
+            ELSE IF (Type = CONST("Training Needs")) "HRM-Training Needs Analysis".Code;
 
             trigger OnValidate()
             begin
-                IF Type=Type::"Training Needs" THEN
-                BEGIN
-                TrainingReq.INIT;
-                TrainingReq."Application No":=xRec."Employee No";
-                TrainingReq."Employee Name":=Description;
-                TrainingReq.VALIDATE(TrainingReq."Employee Name");
-                //TrainingReq."Need Source":=TrainingReq."Need Source"::"0";
-                TrainingReq.INSERT;
+                IF Type = Type::"Training Needs" THEN BEGIN
+                    TrainingReq.INIT;
+                    TrainingReq."Application No" := xRec."Employee No";
+                    TrainingReq."Employee Name" := Description;
+                    TrainingReq.VALIDATE(TrainingReq."Employee Name");
+                    //TrainingReq."Need Source":=TrainingReq."Need Source"::"0";
+                    TrainingReq.INSERT;
                 END;
             end;
         }
-        field(7;Remarks;Text[250])
+        field(7; Remarks; Text[250])
         {
         }
     }
 
     keys
     {
-        key(Key1;"Employee No","Appraisal Type","Appraisal Period","Job ID",Type,Description)
+        key(Key1; "Employee No", "Appraisal Type", "Appraisal Period", "Job ID", Type, Description)
         {
         }
     }
@@ -71,6 +70,6 @@ table  50448 "HRM-Career Developement Plan"
 
     var
         Employee: Record "HRM-Employee C";
-        TrainingReq: Record  "HRM-Training Applications";
+        TrainingReq: Record "HRM-Training Applications";
 }
 

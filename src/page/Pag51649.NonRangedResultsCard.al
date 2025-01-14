@@ -3,7 +3,7 @@ page 51649 NonRangedResultsCard
     Caption = 'NonRangedResultsCard';
     PageType = Card;
     SourceTable = NonRangedResults;
-    
+
     layout
     {
         area(Content)
@@ -11,7 +11,7 @@ page 51649 NonRangedResultsCard
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("result Code"; Rec."result Code")
                 {
                     ApplicationArea = All;

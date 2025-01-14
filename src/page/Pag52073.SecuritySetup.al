@@ -4,7 +4,7 @@ page 52073 "Security Setup"
     Caption = 'Security Setup';
     PageType = Card;
     SourceTable = "Security Setup";
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 52073 "Security Setup"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("Incident Nos"; Rec."Incident Nos")
                 {
                     ToolTip = 'Specifies the value of the Incident Nos field.', Comment = '%';

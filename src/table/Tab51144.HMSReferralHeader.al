@@ -69,7 +69,7 @@ table 51144 "HMS-Referral Header"
         //"Staff No,"No. Series" 
         field(35; "Staff No"; Code[20])
         {
-           
+
         }
         field(36; "No. Series"; Code[20])
         {

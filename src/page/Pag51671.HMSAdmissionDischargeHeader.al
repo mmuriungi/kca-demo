@@ -123,13 +123,13 @@ page 51671 "HMS Admission Discharge Header"
                     Lines.RESET;
                     Lines.SETRANGE(Lines."Admission No.", Rec."Admission No.");
                     IF Lines.FIND('-') THEN BEGIN
-                                                REPEAT
-                                                    Lines.CALCFIELDS(Lines.Mandatory);
-                                                    blnMand := Lines.Mandatory;
-                                                    IF blnMand <> Lines.Done THEN BEGIN
-                                                        MESSAGE('Please ensure that the Mandatory processes are finished first');
-                                                    END;
-                                                UNTIL Lines.NEXT = 0;
+                        REPEAT
+                            Lines.CALCFIELDS(Lines.Mandatory);
+                            blnMand := Lines.Mandatory;
+                            IF blnMand <> Lines.Done THEN BEGIN
+                                MESSAGE('Please ensure that the Mandatory processes are finished first');
+                            END;
+                        UNTIL Lines.NEXT = 0;
                     END;
 
                     Admission.RESET;

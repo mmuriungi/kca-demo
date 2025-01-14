@@ -4,7 +4,7 @@ page 52077 "HRM-Certifications"
     Caption = 'HRM-Certifications';
     PageType = List;
     SourceTable = "HRM-Certifications";
-    
+
     layout
     {
         area(Content)

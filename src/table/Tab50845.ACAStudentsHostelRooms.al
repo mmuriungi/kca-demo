@@ -526,7 +526,7 @@ table 50845 "ACA-Students Hostel Rooms"
 
     keys
     {
-        key(Key1; Student, Gender,"Line No")
+        key(Key1; Student, Gender, "Line No")
         {
         }
         key(Key2; "Hostel No")
@@ -538,7 +538,7 @@ table 50845 "ACA-Students Hostel Rooms"
         key(Key4; "Allocation Date")
         {
         }
-       
+
     }
 
     fieldgroups

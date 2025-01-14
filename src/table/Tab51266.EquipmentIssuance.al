@@ -20,8 +20,8 @@ table 51266 "Equipment Issuance"
             begin
                 if Item.Get("Item No.") then
                     "Item Description" := Item.Description;
-                    "Game Code" := Item."Game Code";
-                    "Game Name" := Item."Game Name";
+                "Game Code" := Item."Game Code";
+                "Game Name" := Item."Game Name";
 
             end;
         }

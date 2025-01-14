@@ -3,7 +3,7 @@ page 51536 "Design Request Lines"
     Caption = 'Design Request Lines';
     PageType = ListPart;
     SourceTable = "Design Request Lines";
-    
+
     layout
     {
         area(content)

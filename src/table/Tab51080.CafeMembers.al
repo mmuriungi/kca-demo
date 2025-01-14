@@ -16,7 +16,7 @@ table 51080 "Cafe Members"
                 cust.Get("No.");
                 Names := cust.Name;
                 "Card Serial" := posCod.GenerateHexadecimal("No.");
-               
+
 
 
             end;

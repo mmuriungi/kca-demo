@@ -4,7 +4,7 @@ page 52068 "Part timer Rates"
     Caption = 'Part timer Rates';
     PageType = Card;
     SourceTable = "Part-Timer Rates";
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 52068 "Part timer Rates"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("Programme Category"; Rec."Programme Category")
                 {
                     ToolTip = 'Specifies the value of the Programme Category field.', Comment = '%';

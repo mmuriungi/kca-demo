@@ -55,18 +55,18 @@ table 50971 "FLT-Driver Rotation"
         Drivers.Reset;
         Drivers.SetRange(Drivers.Active, true);
         if Drivers.Find('-') then begin
-                                      repeat
-                                          DriverLines.Reset;
-                                          DriverLines.SetRange(DriverLines."Rotation No", "Rotation No");
-                                          DriverLines.SetRange(DriverLines.Driver, Drivers.Driver);
-                                          if not DriverLines.Find('-') then begin
-                                              DriverLines."Rotation No" := "Rotation No";
-                                              DriverLines.Driver := Drivers.Driver;
-                                              DriverLines.Validate(Driver);
-                                              DriverLines.Insert;
+            repeat
+                DriverLines.Reset;
+                DriverLines.SetRange(DriverLines."Rotation No", "Rotation No");
+                DriverLines.SetRange(DriverLines.Driver, Drivers.Driver);
+                if not DriverLines.Find('-') then begin
+                    DriverLines."Rotation No" := "Rotation No";
+                    DriverLines.Driver := Drivers.Driver;
+                    DriverLines.Validate(Driver);
+                    DriverLines.Insert;
 
-                                          end;
-                                      until Drivers.Next = 0;
+                end;
+            until Drivers.Next = 0;
         end;
     end;
 

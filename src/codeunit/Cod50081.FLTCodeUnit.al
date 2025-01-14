@@ -25,7 +25,7 @@ codeunit 50081 "FLT- Code Unit"
             transR."Requested By" := UserId;
             transR."Number of Passangers" := transRe."Number of Passangers";
             transR.Status := transR.Status::"Pending Approval";
-            transR."Approval Stage":= transRe."Approval Stage"::"Transport Officer";
+            transR."Approval Stage" := transRe."Approval Stage"::"Transport Officer";
             transR."Date of Trip" := transRe."Date of Trip";
             transR.Insert();
         end;

@@ -22,7 +22,7 @@ page 50402 "HRM-Jobs Card"
                     ApplicationArea = all;
                     Importance = Promoted;
                 }
-                field(Specialization;Rec.Specialization)
+                field(Specialization; Rec.Specialization)
                 {
                     ApplicationArea = All;
                 }

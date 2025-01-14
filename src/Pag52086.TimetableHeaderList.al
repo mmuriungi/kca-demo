@@ -4,7 +4,7 @@ page 52086 "Timetable Header List"
     Caption = 'Timetable Header List';
     PageType = List;
     SourceTable = "Timetable Header";
-    CardPageId="Timetable Header";
+    CardPageId = "Timetable Header";
 
     layout
     {

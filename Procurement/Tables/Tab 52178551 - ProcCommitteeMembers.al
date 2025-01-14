@@ -21,8 +21,8 @@ table 52178551 "Proc-Committee Members"
             TableRelation = If ("Member Type" = filter(Staff)) "HRM-Employee C"."No.";
             trigger OnValidate()
             begin
-Hremp.Reset();
-Hremp.SetRange("No.","Member No");
+                Hremp.Reset();
+                Hremp.SetRange("No.", "Member No");
 
             end;
         }

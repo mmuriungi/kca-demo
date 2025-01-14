@@ -105,12 +105,12 @@ table 51088 "HMS-Admission Discharge Header"
         /*Insert the processes to the database*/
         Process.RESET;
         IF Process.FIND('-') THEN BEGIN
-                                      REPEAT
-                                          Line.INIT;
-                                          Line."Admission No." := "Admission No.";
-                                          Line."Process Code" := Process.Code;
-                                          Line.INSERT();
-                                      UNTIL Process.NEXT = 0;
+            REPEAT
+                Line.INIT;
+                Line."Admission No." := "Admission No.";
+                Line."Process Code" := Process.Code;
+                Line.INSERT();
+            UNTIL Process.NEXT = 0;
         END;
 
     end;

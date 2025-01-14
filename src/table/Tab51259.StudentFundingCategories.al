@@ -4,25 +4,25 @@ Table 51259 "Student Funding Categories"
 
     fields
     {
-        field(1;"Category Code";Code[20])
+        field(1; "Category Code"; Code[20])
         {
         }
-        field(2;"Funding Sources";Integer)
+        field(2; "Funding Sources"; Integer)
         {
-            CalcFormula = count("Category Funding Sources" where ("Category Code"=field("Category Code")));
+            CalcFormula = count("Category Funding Sources" where("Category Code" = field("Category Code")));
             Caption = 'Funding Sources';
             FieldClass = FlowField;
         }
-        field(3;"Total Funding Amount";Decimal)
+        field(3; "Total Funding Amount"; Decimal)
         {
-            CalcFormula = sum("Category Funding Sources"."Funding %" where ("Category Code"=field("Category Code")));
+            CalcFormula = sum("Category Funding Sources"."Funding %" where("Category Code" = field("Category Code")));
             FieldClass = FlowField;
         }
     }
 
     keys
     {
-        key(Key1;"Category Code")
+        key(Key1; "Category Code")
         {
             Clustered = true;
         }

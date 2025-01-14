@@ -3,7 +3,7 @@ page 50178 "Prequalification Categories"
     Caption = 'Prequalification Categories';
     PageType = List;
     SourceTable = "Prequalification Categories";
-    
+
     layout
     {
         area(content)

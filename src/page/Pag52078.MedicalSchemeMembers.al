@@ -4,7 +4,7 @@ page 52078 "Medical Scheme Members"
     Caption = 'Medical Scheme Members';
     PageType = List;
     SourceTable = "HRM-Medical Scheme Members";
-    
+
     layout
     {
         area(Content)

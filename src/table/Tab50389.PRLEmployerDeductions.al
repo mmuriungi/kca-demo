@@ -34,7 +34,7 @@ table 50389 "PRL-Employer Deductions"
     {
         key(Key1; "Employee Code", "Transaction Code", "Period Month", "Period Year", "Payroll Period")
         {
-           SumIndexFields = Amount;
+            SumIndexFields = Amount;
         }
     }
 

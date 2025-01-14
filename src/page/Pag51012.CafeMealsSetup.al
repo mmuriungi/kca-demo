@@ -3,7 +3,7 @@ page 51012 "Cafe Meals Setup"
     Caption = 'Cafe Meals Setup';
     PageType = List;
     SourceTable = "CAT-Meals Setup";
-    
+
     layout
     {
         area(content)

@@ -70,7 +70,7 @@ table 50171 "Incident Report"
     }
     keys
     {
-        key(PK; "Case No.","OB No.")
+        key(PK; "Case No.", "OB No.")
         {
             Clustered = true;
         }

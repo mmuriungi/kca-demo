@@ -6,26 +6,26 @@ Table 77392 "Pesa-Flow_Service-IDs"
 
     fields
     {
-        field(1;Service_ID;Code[20])
+        field(1; Service_ID; Code[20])
         {
         }
-        field(2;"Service ID Description";Text[150])
+        field(2; "Service ID Description"; Text[150])
         {
         }
-        field(3;Bank_Id;Code[20])
+        field(3; Bank_Id; Code[20])
         {
             TableRelation = "Bank Account"."No.";
         }
-        field(4;"Bank Name";Text[150])
+        field(4; "Bank Name"; Text[150])
         {
-            CalcFormula = lookup("Bank Account".Name where ("No."=field(Bank_Id)));
+            CalcFormula = lookup("Bank Account".Name where("No." = field(Bank_Id)));
             FieldClass = FlowField;
         }
     }
 
     keys
     {
-        key(Key1;Service_ID)
+        key(Key1; Service_ID)
         {
             Clustered = true;
         }

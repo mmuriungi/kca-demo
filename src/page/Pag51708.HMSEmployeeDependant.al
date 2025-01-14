@@ -106,11 +106,11 @@ page 51708 "HMS Employee Dependant"
 
                     IF Line.FIND('-') THEN BEGIN
                         IF CONFIRM('Place Registration Request for selected dependants?', TRUE) = FALSE THEN BEGIN EXIT END;
-                                               REPEAT
-                                                   Line.Status := Line.Status::"Request Made";
-                                                   Line."Request Registration" := TRUE;
-                                                   Line.MODIFY;
-                                               UNTIL Line.NEXT = 0;
+                        REPEAT
+                            Line.Status := Line.Status::"Request Made";
+                            Line."Request Registration" := TRUE;
+                            Line.MODIFY;
+                        UNTIL Line.NEXT = 0;
                         MESSAGE('Registration Request placed for the selected dependants.');
                     END;
                 end;

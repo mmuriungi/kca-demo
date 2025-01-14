@@ -4,7 +4,7 @@ page 52066 "Expense Code"
     Caption = 'Expense Code';
     PageType = List;
     SourceTable = "Expense Code";
-    
+
     layout
     {
         area(Content)

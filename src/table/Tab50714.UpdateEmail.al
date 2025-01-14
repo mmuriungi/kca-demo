@@ -2,7 +2,7 @@ table 50714 UpdateEmail
 {
     Caption = 'UpdateEmail';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; lineNo; Integer)

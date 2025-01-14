@@ -504,7 +504,7 @@ table 51183 "HMIS-Patient"
                 IF Customer.FIND('-') THEN BEGIN
                     IF Customer.Image.HASVALUE THEN BEGIN
                         Customer.CALCFIELDS(Image);
-                       // Rec.Picture := Customer.Picture;
+                        // Rec.Picture := Customer.Picture;
                     END;
                     "First Name" := Customer.Name;
                     "ID/B.c. No./Passport no." := Customer."ID No";

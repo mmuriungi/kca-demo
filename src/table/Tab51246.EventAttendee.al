@@ -29,7 +29,7 @@ table 51246 "Event Attendee"
         }
         field(6; Email; Code[30])
         {
-            
+
         }
     }
 

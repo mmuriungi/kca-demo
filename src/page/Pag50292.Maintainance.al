@@ -307,24 +307,24 @@ page 50292 Maintainance
                 //         RunPageLink = Status = const(Cancelled);
                 //     }
                 // }
-            //     group("Active Projects")
-            //     {
-            //         action("Approved projects")
-            //         {
-            //             Caption = 'Approved Project Designs';
-            //             ApplicationArea = Basic, Suite;
-            //             RunObject = page Projects;
-            //             RunPageLink = Status = const(Approved);
-            //         }
-            //         action("Projects In-Progress ")
-            //         {
-            //             ApplicationArea = Basic, Suite;
-            //             RunObject = page Projects;
-            //             RunPageLink = Status = filter(InProgress);
-            //         }
+                //     group("Active Projects")
+                //     {
+                //         action("Approved projects")
+                //         {
+                //             Caption = 'Approved Project Designs';
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page Projects;
+                //             RunPageLink = Status = const(Approved);
+                //         }
+                //         action("Projects In-Progress ")
+                //         {
+                //             ApplicationArea = Basic, Suite;
+                //             RunObject = page Projects;
+                //             RunPageLink = Status = filter(InProgress);
+                //         }
 
-            //     }
-             }
+                //     }
+            }
             group(Common_req)
             {
                 Caption = 'Common Requisitions';

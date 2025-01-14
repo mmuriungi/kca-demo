@@ -75,7 +75,7 @@ page 51535 "Design Request Card"
                     DocumentAttachment.RUNMODAL;
                 end;
             }
-           
+
             action("Request Approval")
             {
                 ApplicationArea = Basic, Suite;

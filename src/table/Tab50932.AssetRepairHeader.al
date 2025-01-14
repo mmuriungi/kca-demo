@@ -61,17 +61,17 @@ table 50932 "Asset Repair Header"
                     AssetRepReqLines.SETRANGE(AssetRepReqLines."Request No.", "Request No.");
                     IF AssetRepReqLines.FINDSET THEN AssetRepReqLines.DELETEALL;
 
-                                                   REPEAT
-                                                       AssetRepReqLines.RESET;
-                                                       AssetRepReqLines.INIT;
-                                                       AssetRepReqLines."Request No." := "Request No.";
-                                                       AssetRepReqLines."Line No." := 0;
-                                                       AssetRepReqLines."Fixed Asset No." := AssetInciLines."Fixed Asset No.";
-                                                       AssetRepReqLines.VALIDATE(AssetRepReqLines."Fixed Asset No.");
-                                                       // AssetRepReqLines."Dimension 1 Code" := AssetInciLines."Dimension 1 Code";
-                                                       // AssetRepReqLines."Dimension 2 Code" := AssetInciLines."Dimension 2 Code";
-                                                       AssetRepReqLines.INSERT(TRUE);
-                                                   UNTIL AssetInciLines.NEXT = 0;
+                    REPEAT
+                        AssetRepReqLines.RESET;
+                        AssetRepReqLines.INIT;
+                        AssetRepReqLines."Request No." := "Request No.";
+                        AssetRepReqLines."Line No." := 0;
+                        AssetRepReqLines."Fixed Asset No." := AssetInciLines."Fixed Asset No.";
+                        AssetRepReqLines.VALIDATE(AssetRepReqLines."Fixed Asset No.");
+                        // AssetRepReqLines."Dimension 1 Code" := AssetInciLines."Dimension 1 Code";
+                        // AssetRepReqLines."Dimension 2 Code" := AssetInciLines."Dimension 2 Code";
+                        AssetRepReqLines.INSERT(TRUE);
+                    UNTIL AssetInciLines.NEXT = 0;
 
                 END
                 ELSE

@@ -21,7 +21,7 @@ page 52010 "Dashboard Greetings"
                     Editable = false;
                 }
             }
-            
+
         }
     }
 

@@ -117,27 +117,27 @@ page 51774 "HMS-Pharm. Header Hist List"
         PharmLine.RESET;
         PharmLine.SETRANGE(PharmLine."Pharmacy No.", Rec."Pharmacy No.");
         IF PharmLine.FIND('-') THEN BEGIN
-                                        REPEAT
-                                            ItemJnlLine.INIT;
-                                            ItemJnlLine."Line No." := LineNo;
-                                            ItemJnlLine."Posting Date" := TODAY;
-                                            ItemJnlLine."Entry Type" := ItemJnlLine."Entry Type"::"Negative Adjmt.";
-                                            ItemJnlLine."Document No." := PharmLine."Pharmacy No." + ':' + PharmLine."Drug No.";
-                                            ItemJnlLine."Item No." := PharmLine."Drug No.";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine."Item No.");
-                                            ItemJnlLine."Location Code" := PharmLine.Pharmacy;
-                                            ItemJnlLine.VALIDATE(ItemJnlLine."Location Code");
-                                            ItemJnlLine.Quantity := PharmLine."Issued Quantity";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine.Quantity);
-                                            ItemJnlLine."Unit of Measure Code" := PharmLine."Measuring Unit";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
-                                            ItemJnlLine."Unit Amount" := PharmLine."Unit Price";
-                                            ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
-                                            ItemJnlLine.INSERT();
-                                            PharmLine.Remaining := PharmLine.Remaining - PharmLine."Issued Units";
-                                            PharmLine.MODIFY;
-                                            LineNo := LineNo + 1;
-                                        UNTIL PharmLine.NEXT = 0;
+            REPEAT
+                ItemJnlLine.INIT;
+                ItemJnlLine."Line No." := LineNo;
+                ItemJnlLine."Posting Date" := TODAY;
+                ItemJnlLine."Entry Type" := ItemJnlLine."Entry Type"::"Negative Adjmt.";
+                ItemJnlLine."Document No." := PharmLine."Pharmacy No." + ':' + PharmLine."Drug No.";
+                ItemJnlLine."Item No." := PharmLine."Drug No.";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Item No.");
+                ItemJnlLine."Location Code" := PharmLine.Pharmacy;
+                ItemJnlLine.VALIDATE(ItemJnlLine."Location Code");
+                ItemJnlLine.Quantity := PharmLine."Issued Quantity";
+                ItemJnlLine.VALIDATE(ItemJnlLine.Quantity);
+                ItemJnlLine."Unit of Measure Code" := PharmLine."Measuring Unit";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
+                ItemJnlLine."Unit Amount" := PharmLine."Unit Price";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
+                ItemJnlLine.INSERT();
+                PharmLine.Remaining := PharmLine.Remaining - PharmLine."Issued Units";
+                PharmLine.MODIFY;
+                LineNo := LineNo + 1;
+            UNTIL PharmLine.NEXT = 0;
             CODEUNIT.RUN(CODEUNIT::"Item Jnl.-Post Batch", ItemJnlLine);
         END;
     end;

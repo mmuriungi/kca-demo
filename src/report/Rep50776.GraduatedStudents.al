@@ -53,6 +53,6 @@ report 50776 "Graduated Students"
 
     trigger OnPreReport()
     begin
-       
+
     end;
 }

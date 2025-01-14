@@ -148,7 +148,7 @@ codeunit 50008 "User Management 2"
         UserTimeRegister: Record 51;
         PrinterSelection: Record 78;
         SelectedDimension: Record 369;
-      //  OutlookSynchUserSetup: Record 5305;
+        //  OutlookSynchUserSetup: Record 5305;
         FAJournalSetup: Record 5605;
         AnalysisSelectedDimension: Record 7159;
         WarehouseEmployee: Record 7301;

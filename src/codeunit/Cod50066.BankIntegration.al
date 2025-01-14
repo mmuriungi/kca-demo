@@ -1520,15 +1520,13 @@ codeunit 50066 BankIntegration
 
                 /*Insert the new records into the database table*/
                 repeat
-                    with AdmissionSubject do begin
-                        Init;
-                        "Line No." := LineNo + 1;
-                        "Admission No." := NewAdminCode;
-                        "Subject Code" := ApplicationSubject."Subject Code";
-                        Grade := Grade;
-                        Insert();
-                        LineNo := LineNo + 1;
-                    end;
+                    AdmissionSubject.Init;
+                    AdmissionSubject."Line No." := LineNo + 1;
+                    AdmissionSubject."Admission No." := NewAdminCode;
+                    AdmissionSubject."Subject Code" := ApplicationSubject."Subject Code";
+                    AdmissionSubject.Grade := AdmissionSubject.Grade;
+                    AdmissionSubject.Insert();
+                    LineNo := LineNo + 1;
                 until ApplicationSubject.Next = 0;
             end;
             /*Insert the medical conditions into the admission database table containing the medical condition*/
@@ -1758,113 +1756,111 @@ codeunit 50066 BankIntegration
         Admissions.SetRange("Admission No.", AdmissionNoz);
         if Admissions.Find('-') then begin
             if not Cust.Get(AdmissionNoz) then begin
-                with Admissions do begin
-                    Cust.Init;
-                    Cust."No." := "Admission No.";
-                    Cust.Name := CopyStr(Surname + ' ' + "Other Names", 1, 30);
-                    Cust."Search Name" := UpperCase(CopyStr(Surname + ' ' + "Other Names", 1, 30));
-                    Cust.Address := "Correspondence Address 1";
-                    Cust."Address 2" := CopyStr("Correspondence Address 2" + ',' + "Correspondence Address 3", 1, 30);
-                    Cust."Phone No." := "Telephone No. 1" + ',' + "Telephone No. 2";
-                    Cust."Telex No." := "Fax No.";
-                    Cust."E-Mail" := "E-Mail";
-                    Cust.Gender := Gender;
-                    Cust."Date Of Birth" := "Date Of Birth";
-                    Cust."Date Registered" := Today;
-                    Cust."Customer Type" := Cust."Customer Type"::Student;
-                    //        Cust."Student Type":=FORMAT(Enrollment."Student Type");
-                    //        Cust."ID No":=;
-                    Cust."Application No." := "Admission No.";
-                    Cust."Marital Status" := "Marital Status";
-                    Cust.Citizenship := Format(Nationality);
-                    Cust.Religion := Format(Religion);
-                    Cust."Application Method" := Cust."Application Method"::"Apply to Oldest";
-                    Cust."Customer Posting Group" := 'STUDENT';
-                    Cust.Validate(Cust."Customer Posting Group");
-                    Cust."ID No" := "ID Number";
-                    Cust."Global Dimension 1 Code" := Campus;
-                    Cust.Insert();
+                Cust.Init;
+                Cust."No." := Admissions."Admission No.";
+                Cust.Name := CopyStr(Admissions.Surname + ' ' + Admissions."Other Names", 1, 30);
+                Cust."Search Name" := UpperCase(CopyStr(Admissions.Surname + ' ' + Admissions."Other Names", 1, 30));
+                Cust.Address := Admissions."Correspondence Address 1";
+                Cust."Address 2" := CopyStr(Admissions."Correspondence Address 2" + ',' + Admissions."Correspondence Address 3", 1, 30);
+                Cust."Phone No." := Admissions."Telephone No. 1" + ',' + Admissions."Telephone No. 2";
+                Cust."Telex No." := Admissions."Fax No.";
+                Cust."E-Mail" := Admissions."E-Mail";
+                Cust.Gender := Admissions.Gender;
+                Cust."Date Of Birth" := Admissions."Date Of Birth";
+                Cust."Date Registered" := Today;
+                Cust."Customer Type" := Cust."Customer Type"::Student;
+                //        Cust."Student Type":=FORMAT(Enrollment."Student Type");
+                //        Cust."ID No":=;
+                Cust."Application No." := Admissions."Admission No.";
+                Cust."Marital Status" := Admissions."Marital Status";
+                Cust.Citizenship := Format(Admissions.Nationality);
+                Cust.Religion := Format(Admissions.Religion);
+                Cust."Application Method" := Cust."Application Method"::"Apply to Oldest";
+                Cust."Customer Posting Group" := 'STUDENT';
+                Cust.Validate(Cust."Customer Posting Group");
+                Cust."ID No" := Admissions."ID Number";
+                Cust."Global Dimension 1 Code" := Admissions.Campus;
+                Cust.Insert();
 
 
-                    //insert the course registration details
-                    CourseRegistration.Reset;
-                    CourseRegistration.Init;
-                    CourseRegistration."Reg. Transacton ID" := '';
-                    CourseRegistration.Validate(CourseRegistration."Reg. Transacton ID");
-                    CourseRegistration."Student No." := "Admission No.";
-                    CourseRegistration.Programmes := "Degree Admitted To";
-                    CourseRegistration.Semester := "Semester Admitted To";
-                    CourseRegistration.Stage := "Stage Admitted To";
-                    CourseRegistration."Student Type" := CourseRegistration."Student Type"::"Full Time";
+                //insert the course registration details
+                CourseRegistration.Reset;
+                CourseRegistration.Init;
+                CourseRegistration."Reg. Transacton ID" := '';
+                CourseRegistration.Validate(CourseRegistration."Reg. Transacton ID");
+                CourseRegistration."Student No." := Admissions."Admission No.";
+                CourseRegistration.Programmes := Admissions."Degree Admitted To";
+                CourseRegistration.Semester := Admissions."Semester Admitted To";
+                CourseRegistration.Stage := Admissions."Stage Admitted To";
+                CourseRegistration."Student Type" := CourseRegistration."Student Type"::"Full Time";
+                CourseRegistration."Registration Date" := Today;
+                CourseRegistration."Settlement Type" := Admissions."Settlement Type";
+                CourseRegistration."Academic Year" := GetCurrYear();
+
+                //CourseRegistration.VALIDATE(CourseRegistration."Settlement Type");
+                CourseRegistration.Insert;
+
+                CourseRegistration.Reset;
+                CourseRegistration.SetRange(CourseRegistration."Student No.", Admissions."Admission No.");
+                if CourseRegistration.Find('+') then begin
                     CourseRegistration."Registration Date" := Today;
-                    CourseRegistration."Settlement Type" := "Settlement Type";
+                    CourseRegistration.Validate(CourseRegistration."Registration Date");
+                    CourseRegistration."Settlement Type" := Admissions."Settlement Type";
+                    CourseRegistration.Validate(CourseRegistration."Settlement Type");
                     CourseRegistration."Academic Year" := GetCurrYear();
+                    CourseRegistration.Modify;
 
-                    //CourseRegistration.VALIDATE(CourseRegistration."Settlement Type");
-                    CourseRegistration.Insert;
+                end;
 
-                    CourseRegistration.Reset;
-                    CourseRegistration.SetRange(CourseRegistration."Student No.", "Admission No.");
-                    if CourseRegistration.Find('+') then begin
-                        CourseRegistration."Registration Date" := Today;
-                        CourseRegistration.Validate(CourseRegistration."Registration Date");
-                        CourseRegistration."Settlement Type" := "Settlement Type";
-                        CourseRegistration.Validate(CourseRegistration."Settlement Type");
-                        CourseRegistration."Academic Year" := GetCurrYear();
-                        CourseRegistration.Modify;
 
+
+                //insert the details related to the next of kin of the student into the database
+                AdminKin.Reset;
+                AdminKin.SetRange(AdminKin."Admission No.", Admissions."Admission No.");
+                if AdminKin.Find('-') then begin
+                    repeat
+                        StudentKin.Reset;
+                        StudentKin.Init;
+                        StudentKin."Student No" := Admissions."Admission No.";
+                        StudentKin.Relationship := AdminKin.Relationship;
+                        StudentKin.Name := AdminKin."Full Name";
+                        //StudentKin."Other Names":=EnrollmentNextofKin."Other Names";
+                        //StudentKin."ID No/Passport No":=EnrollmentNextofKin."ID No/Passport No";
+                        //StudentKin."Date Of Birth":=EnrollmentNextofKin."Date Of Birth";
+                        //StudentKin.Occupation:=EnrollmentNextofKin.Occupation;
+                        StudentKin."Office Tel No" := AdminKin."Telephone No. 1";
+                        StudentKin."Home Tel No" := AdminKin."Telephone No. 2";
+                        //StudentKin.Remarks:=EnrollmentNextofKin.Remarks;
+                        StudentKin.Insert;
+                    until AdminKin.Next = 0;
+                end;
+
+                //insert the details in relation to the guardian/sponsor into the database in relation to the current student
+                if Admissions."Mother Alive Or Dead" = Admissions."Mother Alive Or Dead"::Alive then begin
+                    if Admissions."Mother Full Name" <> '' then begin
+                        StudentGuardian.Reset;
+                        StudentGuardian.Init;
+                        StudentGuardian."Student No." := Admissions."Admission No.";
+                        StudentGuardian.Names := Admissions."Mother Full Name";
+                        StudentGuardian.Insert;
                     end;
-
-
-
-                    //insert the details related to the next of kin of the student into the database
-                    AdminKin.Reset;
-                    AdminKin.SetRange(AdminKin."Admission No.", "Admission No.");
-                    if AdminKin.Find('-') then begin
-                        repeat
-                            StudentKin.Reset;
-                            StudentKin.Init;
-                            StudentKin."Student No" := "Admission No.";
-                            StudentKin.Relationship := AdminKin.Relationship;
-                            StudentKin.Name := AdminKin."Full Name";
-                            //StudentKin."Other Names":=EnrollmentNextofKin."Other Names";
-                            //StudentKin."ID No/Passport No":=EnrollmentNextofKin."ID No/Passport No";
-                            //StudentKin."Date Of Birth":=EnrollmentNextofKin."Date Of Birth";
-                            //StudentKin.Occupation:=EnrollmentNextofKin.Occupation;
-                            StudentKin."Office Tel No" := AdminKin."Telephone No. 1";
-                            StudentKin."Home Tel No" := AdminKin."Telephone No. 2";
-                            //StudentKin.Remarks:=EnrollmentNextofKin.Remarks;
-                            StudentKin.Insert;
-                        until AdminKin.Next = 0;
+                end;
+                if Admissions."Father Alive Or Dead" = Admissions."Father Alive Or Dead"::Alive then begin
+                    if Admissions."Father Full Name" <> '' then begin
+                        StudentGuardian.Reset;
+                        StudentGuardian.Init;
+                        StudentGuardian."Student No." := Admissions."Admission No.";
+                        StudentGuardian.Names := Admissions."Father Full Name";
+                        StudentGuardian.Insert;
                     end;
-
-                    //insert the details in relation to the guardian/sponsor into the database in relation to the current student
-                    if "Mother Alive Or Dead" = "Mother Alive Or Dead"::Alive then begin
-                        if "Mother Full Name" <> '' then begin
-                            StudentGuardian.Reset;
-                            StudentGuardian.Init;
-                            StudentGuardian."Student No." := "Admission No.";
-                            StudentGuardian.Names := "Mother Full Name";
-                            StudentGuardian.Insert;
-                        end;
-                    end;
-                    if "Father Alive Or Dead" = "Father Alive Or Dead"::Alive then begin
-                        if "Father Full Name" <> '' then begin
-                            StudentGuardian.Reset;
-                            StudentGuardian.Init;
-                            StudentGuardian."Student No." := "Admission No.";
-                            StudentGuardian.Names := "Father Full Name";
-                            StudentGuardian.Insert;
-                        end;
-                    end;
-                    if "Guardian Full Name" <> '' then begin
-                        if "Guardian Full Name" <> '' then begin
-                            StudentGuardian.Reset;
-                            StudentGuardian.Init;
-                            StudentGuardian."Student No." := "Admission No.";
-                            StudentGuardian.Names := "Guardian Full Name";
-                            StudentGuardian.Insert;
-                        end;
+                end;
+                if Admissions."Guardian Full Name" <> '' then begin
+                    if Admissions."Guardian Full Name" <> '' then begin
+                        StudentGuardian.Reset;
+                        StudentGuardian.Init;
+                        StudentGuardian."Student No." := Admissions."Admission No.";
+                        StudentGuardian.Names := Admissions."Guardian Full Name";
+                        StudentGuardian.Insert;
                     end;
                 end;
             end;

@@ -39,7 +39,7 @@ page 51008 "Project Resource Lines"
                 }
             }
         }
-        
+
     }
 
     actions

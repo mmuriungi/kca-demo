@@ -30,10 +30,10 @@ page 50977 "ACA-Academic Referees"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Mobile No field.';
                 }
-              
+
             }
         }
-       
+
     }
 
     actions

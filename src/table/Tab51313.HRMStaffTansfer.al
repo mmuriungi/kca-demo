@@ -2,7 +2,7 @@ table 51314 "HRM-Staff Tansfer"
 {
     Caption = 'HRM-Staff Tansfer';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Staff No."; Code[50])
@@ -12,7 +12,7 @@ table 51314 "HRM-Staff Tansfer"
         field(2; "Type of transfer"; Option)
         {
             Caption = 'Type of transfer';
-            OptionMembers= ,"Temporary",Permanent;
+            OptionMembers = ,"Temporary",Permanent;
         }
         field(3; "Previous Designation"; Text[40])
         {
@@ -37,11 +37,11 @@ table 51314 "HRM-Staff Tansfer"
         field(8; "Payable Allowances"; Option)
         {
             Caption = 'Payable Allowances';
-            OptionMembers= ,Settling,Passage,Baggage;
+            OptionMembers = ,Settling,Passage,Baggage;
         }
-        field(9;Date;Date)
+        field(9; Date; Date)
         {
-            
+
         }
     }
     keys

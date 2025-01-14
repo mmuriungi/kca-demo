@@ -159,7 +159,7 @@ table 50377 "PRL-Transaction Codes"
         {
             Description = 'Is this a Imprest?';
         }
-        
+
     }
 
     keys

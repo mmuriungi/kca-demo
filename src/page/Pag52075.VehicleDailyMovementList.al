@@ -5,7 +5,7 @@ page 52075 "Vehicle Daily Movement List"
     PageType = List;
     SourceTable = "Vehicle Daily Movement";
     CardPageId = "Vehicle Daily Movement Card";
-    
+
     layout
     {
         area(Content)

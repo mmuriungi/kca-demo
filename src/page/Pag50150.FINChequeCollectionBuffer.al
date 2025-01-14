@@ -3,7 +3,7 @@ page 50150 "FIN-Cheque Collection Buffer "
     Caption = 'FIN-Cheque Collection Buffer ';
     PageType = ListPart;
     SourceTable = "FIN-Collection  Header Buffer";
-    
+
     layout
     {
         area(content)

@@ -84,7 +84,7 @@ page 51553 "Appraisal Level"
                 trigger OnAction()
                 var
                     WorkplanLines: Record "Work Plan Lines";
-                    EmployeePerfTargets: Record "Employee Perf Targets Line" ;
+                    EmployeePerfTargets: Record "Employee Perf Targets Line";
                     LineNo: Integer;
                 begin
                     EmployeePerfTargets.Init();

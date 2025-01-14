@@ -352,9 +352,8 @@ report 50067 "Trial Balance Detail/Summary2"
                 COPYFILTER("Business Unit Filter", "GLENTRY"."Business Unit Code");
 
 #pragma warning disable AL0606
-                WITH "GLENTRY" DO
 #pragma warning restore AL0606
-                    SETCURRENTKEY("G/L Account No.", "Business Unit Code", "Global Dimension 1 Code", "Global Dimension 2 Code", "Posting Date");
+                "GLENTRY".SETCURRENTKEY("G/L Account No.", "Business Unit Code", "Global Dimension 1 Code", "Global Dimension 2 Code", "Posting Date");
                 AnyEntries := "GLENTRY".FIND('-');
 
                 // Is there any reason to skip this account?

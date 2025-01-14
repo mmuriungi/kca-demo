@@ -117,13 +117,13 @@ page 51683 "HMS-Admission Progress List"
                     IF DischargeLine.FIND('-') THEN BEGIN DischargeLine.DELETEALL END;
                     DischargeProcesses.RESET;
                     IF DischargeProcesses.FIND('-') THEN BEGIN
-                                                             REPEAT
-                                                                 DischargeLine.INIT;
-                                                                 DischargeLine."Admission No." := Rec."Admission No.";
-                                                                 DischargeLine."Process Code" := DischargeProcesses.Code;
-                                                                 DischargeLine.VALIDATE(DischargeLine."Process Code");
-                                                                 DischargeLine.INSERT();
-                                                             UNTIL DischargeProcesses.NEXT = 0;
+                        REPEAT
+                            DischargeLine.INIT;
+                            DischargeLine."Admission No." := Rec."Admission No.";
+                            DischargeLine."Process Code" := DischargeProcesses.Code;
+                            DischargeLine.VALIDATE(DischargeLine."Process Code");
+                            DischargeLine.INSERT();
+                        UNTIL DischargeProcesses.NEXT = 0;
                     END;
 
                     Rec.Status := Rec.Status::"Discharge Pending";

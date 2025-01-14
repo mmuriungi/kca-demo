@@ -3,7 +3,7 @@ page 50686 "Membership to proff Bodies"
     Caption = 'Membership to proff Bodies';
     PageType = List;
     SourceTable = "Membership to proff Bodies";
-    
+
     layout
     {
         area(Content)

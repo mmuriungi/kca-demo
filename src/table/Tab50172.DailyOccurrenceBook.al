@@ -30,12 +30,12 @@ table 50172 "Daily Occurrence Book"
 
     keys
     {
-        key(PK; "Entry No.","OB No.")
+        key(PK; "Entry No.", "OB No.")
         {
             Clustered = true;
         }
     }
-    
+
     trigger OnInsert()
     var
         SecuritySetup: Record "Security Setup";

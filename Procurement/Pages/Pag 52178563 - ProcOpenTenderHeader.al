@@ -498,40 +498,40 @@ page 52178563 "Proc Open.Tender Header"
                 //     end;
                 // }
                 action(SendApprovalRequest)
-            {
-                ApplicationArea = All;
-                Caption = 'Send Approval Request';
-                Image = SendApprovalRequest;
-                Visible = Rec."Status" = Rec.Status::"Open";
+                {
+                    ApplicationArea = All;
+                    Caption = 'Send Approval Request';
+                    Image = SendApprovalRequest;
+                    Visible = Rec."Status" = Rec.Status::"Open";
 
-                trigger OnAction()
-                var
-                    ApprovMgmt: Codeunit "Approval Workflows V1";
-                    variant: Variant;
-                begin
-                    variant := Rec;
-                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
-                        ApprovMgmt.OnSendDocForApproval(variant);
-                end;
-            }
-            //cancelapproval
-            action(CancelApproval)
-            {
-                ApplicationArea = All;
-                Caption = 'Cancel Approval';
-                Image = CancelApproval;
-                Visible = Rec."Status" = Rec."Status"::"Pending Approval";
+                    trigger OnAction()
+                    var
+                        ApprovMgmt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
+                    begin
+                        variant := Rec;
+                        if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                            ApprovMgmt.OnSendDocForApproval(variant);
+                    end;
+                }
+                //cancelapproval
+                action(CancelApproval)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Cancel Approval';
+                    Image = CancelApproval;
+                    Visible = Rec."Status" = Rec."Status"::"Pending Approval";
 
-                trigger OnAction()
-                var
-                    ApprovMgmt: Codeunit "Approval Workflows V1";
-                    variant: Variant;
-                begin
-                    variant := Rec;
-                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
-                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
-                end;
-            }
+                    trigger OnAction()
+                    var
+                        ApprovMgmt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
+                    begin
+                        variant := Rec;
+                        if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                            ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                    end;
+                }
                 action(Approvals)
                 {
                     ApplicationArea = All;

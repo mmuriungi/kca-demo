@@ -18,7 +18,7 @@ table 50608 "ACA-Academics Central Setups"
         }
         field(4; "Country Code"; code[20])
         {
-            
+
         }
     }
 

@@ -72,7 +72,7 @@ table 51042 "Incoming Mail"
             TableRelation = "HRM-Employee C";
             trigger OnValidate()
             begin
-              
+
             end;
         }
         field(18; "Name"; text[200])

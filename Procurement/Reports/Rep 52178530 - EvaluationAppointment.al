@@ -5,7 +5,7 @@ report 52178530 "Evaluation Appointment"
     RDLCLayout = './Procurement/Reports/SSR/Evaluation Appointment.rdl';
     dataset
     {
-       dataitem(ProcCommitteeMembers; "Proc-Committee Members")
+        dataitem(ProcCommitteeMembers; "Proc-Committee Members")
         {
             RequestFilterFields = "Ref No", "Member No";
             DataItemTableView = where(Committee = filter(Evaluation));
@@ -136,7 +136,7 @@ report 52178530 "Evaluation Appointment"
         {
             area(content)
             {
-               
+
             }
         }
         actions

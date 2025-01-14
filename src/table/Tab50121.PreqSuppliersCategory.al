@@ -16,7 +16,7 @@ table 50121 "Preq Suppliers/Category"
         field(3; Supplier_Code; Code[20])
         {
             Caption = 'Supplier_Code';
-            TableRelation=Vendor."No.";
+            TableRelation = Vendor."No.";
         }
         field(4; "Supplier Name"; Text[250])
         {

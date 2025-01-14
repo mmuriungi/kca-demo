@@ -203,6 +203,124 @@ Codeunit 61106 webportals
         AttendanceHeader: Record "Class Attendance Header";
         AttendanceDetails: Record "Class Attendance Details";
 
+    procedure CreateImprestLine(
+            ImprestNo: Code[20];
+            AdvanceType: Code[20];
+            Amount: Decimal;
+            Purpose: Text[100]): Boolean
+    var
+        ImprestLine: Record "FIN-Imprest Lines";
+        ImprestHeader: Record "FIN-Imprest Header";
+        ReceiptPaymentType: Record "FIN-Receipts and Payment Types";
+        GLAccount: Record "G/L Account";
+    begin
+        // Validate header exists and is in proper state
+        if not ImprestHeader.Get(ImprestNo) then
+            exit(false);
+
+        if ImprestHeader.Status <> ImprestHeader.Status::Pending then
+            Error('Cannot add lines to Imprest that is not in Pending status');
+
+        // Get GL Account from Receipt Payment Type
+        ReceiptPaymentType.Reset();
+        ReceiptPaymentType.SetRange(Code, AdvanceType);
+        ReceiptPaymentType.SetRange(Type, ReceiptPaymentType.Type::Imprest);
+        if not ReceiptPaymentType.FindFirst() then
+            exit(false);
+
+        ReceiptPaymentType.TestField("G/L Account");
+
+        // Initialize line
+        ImprestLine.Init();
+        ImprestLine.No := ImprestNo;
+        ImprestLine.Validate("Advance Type", AdvanceType);
+        ImprestLine.Validate(Amount, Amount);
+        ImprestLine.Purpose := Purpose;
+
+        // Set defaults from header
+        ImprestLine."Date Taken" := ImprestHeader.Date;
+        ImprestLine."Global Dimension 1 Code" := ImprestHeader."Global Dimension 1 Code";
+        ImprestLine."Shortcut Dimension 2 Code" := ImprestHeader."Shortcut Dimension 2 Code";
+        ImprestLine."Shortcut Dimension 3 Code" := ImprestHeader."Shortcut Dimension 3 Code";
+        ImprestLine."Shortcut Dimension 4 Code" := ImprestHeader."Shortcut Dimension 4 Code";
+        ImprestLine."Currency Factor" := ImprestHeader."Currency Factor";
+        ImprestLine."Currency Code" := ImprestHeader."Currency Code";
+        ImprestLine."Due Date" := Today;
+        ImprestLine."Date Issued" := Today;
+
+        // Insert the line
+        if ImprestLine.Insert(true) then
+            exit(true)
+        else
+            exit(false);
+    end;
+
+    procedure CreateImprest(PayeeCode: Code[50]; CurrencyCode: Code[10]; CampusCode: Code[30]; DepartmentCode: Code[30]; ResponsibilityCenter: Code[50]; Purpose: Text[200]): Code[20]
+    var
+        ImprestHeader: Record "FIN-Imprest Header";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        CashOfficeSetup: Record "Cash Office Setup";
+        DimValue: Record "Dimension Value";
+        Customer: Record Customer;
+        ImprestLine: Record "FIN-Imprest Lines";
+    begin
+        // Get setup
+        CashOfficeSetup.Get();
+        CashOfficeSetup.TestField("Imprest Req No");
+
+        // Initialize header
+        ImprestHeader.Init();
+
+        // Set No. Series
+        NoSeriesMgt.InitSeries(
+            CashOfficeSetup."Imprest Req No",
+            ImprestHeader."No. Series",
+            WorkDate(),
+            ImprestHeader."No.",
+            ImprestHeader."No. Series"
+        );
+
+        // Set basic fields
+        ImprestHeader.Date := WorkDate();
+        ImprestHeader.Validate("Currency Code", CurrencyCode);
+        ImprestHeader."Account Type" := ImprestHeader."Account Type"::Customer;
+        ImprestHeader.Validate("Account No.", PayeeCode);
+
+        // Set dimensions
+        ImprestHeader.Validate("Global Dimension 1 Code", CampusCode);
+        ImprestHeader.Validate("Shortcut Dimension 2 Code", DepartmentCode);
+        ImprestHeader.Validate("Responsibility Center", ResponsibilityCenter);
+
+        // Set payee information
+        if Customer.Get(PayeeCode) then begin
+            ImprestHeader.Payee := Customer.Name;
+            ImprestHeader."On Behalf Of" := Customer.Name;
+        end;
+
+        // Set user information
+        ImprestHeader.Cashier := UserId;
+        ImprestHeader."Requested By" := UserId;
+
+        // Set purpose
+        ImprestHeader.Purpose := Purpose;
+
+        // Set default status
+        ImprestHeader.Status := ImprestHeader.Status::Pending;
+
+        // Set surrender dates
+        ImprestHeader."Surrender Days" := CashOfficeSetup."Surrender Dates";
+        ImprestHeader."Expected Date of Surrender" := CalcDate(
+            Format(CashOfficeSetup."Surrender Dates") + 'D',
+            WorkDate()
+        );
+
+        // Insert record
+        if ImprestHeader.Insert(true) then
+            exit(ImprestHeader."No.")
+        else
+            exit('');
+    end;
+
     procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]) rtnMsg: Boolean
     begin
         offeredunits.Init;
@@ -2641,34 +2759,31 @@ Codeunit 61106 webportals
         MealBookingHeader.Reset;
         MealBookingHeader.SetRange(MealBookingHeader."Booking Id", ReqNo);
         if MealBookingHeader.Find('-') then begin
-            with MealBookingHeader do begin
-                TestField(Department);
-                TestField("Request Date");
-                TestField("Booking Date");
-                TestField("Meeting Name");
-                TestField("Required Time");
-                TestField(Venue);
-                TestField("Contact Person");
-                TestField("Contact Number");
-                TestField(Pax);
+            MealBookingHeader.TestField(Department);
+            MealBookingHeader.TestField("Request Date");
+            MealBookingHeader.TestField("Booking Date");
+            MealBookingHeader.TestField("Meeting Name");
+            MealBookingHeader.TestField("Required Time");
+            MealBookingHeader.TestField(Venue);
+            MealBookingHeader.TestField("Contact Person");
+            MealBookingHeader.TestField("Contact Number");
+            MealBookingHeader.TestField(Pax);
 
-                // IF "Availlable Days"<1 THEN ERROR('Please note that you dont have enough leave balance');
+            // IF "Availlable Days"<1 THEN ERROR('Please note that you dont have enough leave balance');
 
-                //Release the Bookingfor Approval
-                State := State::Open;
-                if Status <> Status::New then State := State::"Pending Approval";
-                DocType := Doctype::"Meals Bookings";
-                Clear(tableNo);
-                tableNo := 61778;
-                Clear(RespCenter);
-                variant := MealBookingHeader;
-                    if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
-                        ApprovalMgt.OnSendDocForApproval(variant);
-
-                //ApprovalMgt.OnSendMealBookingforApproval(MealBookingHeader);
-                //  IF ApprovalMgt.SendLeaveApprovalRequest(Rec) THEN;
-                //  AppMgt.SendMealsApprovalRequest(MealBookingHeader);
-            end;
+            //Release the Bookingfor Approval
+            State := State::Open;
+            if MealBookingHeader.Status <> MealBookingHeader.Status::New then State := State::"Pending Approval";
+            DocType := Doctype::"Meals Bookings";
+            Clear(tableNo);
+            tableNo := 61778;
+            Clear(RespCenter);
+            variant := MealBookingHeader;
+            if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMgt.OnSendDocForApproval(variant);
+            //ApprovalMgt.OnSendMealBookingforApproval(MealBookingHeader);
+            //  IF ApprovalMgt.SendLeaveApprovalRequest(Rec) THEN;
+            //  AppMgt.SendMealsApprovalRequest(MealBookingHeader);
         end;
     end;
 
@@ -5727,15 +5842,13 @@ Codeunit 61106 webportals
 
                 /*Insert the new records into the database table*/
                 repeat
-                    with AdmissionSubject do begin
-                        Init;
-                        "Line No." := LineNo + 1;
-                        "Admission No." := NewAdminCode;
-                        "Subject Code" := ApplicationSubject."Subject Code";
-                        Grade := Grade;
-                        Insert();
-                        LineNo := LineNo + 1;
-                    end;
+                    AdmissionSubject.Init;
+                    AdmissionSubject."Line No." := LineNo + 1;
+                    AdmissionSubject."Admission No." := NewAdminCode;
+                    AdmissionSubject."Subject Code" := ApplicationSubject."Subject Code";
+                    AdmissionSubject.Grade := AdmissionSubject.Grade;
+                    AdmissionSubject.Insert();
+                    LineNo := LineNo + 1;
                 until ApplicationSubject.Next = 0;
             end;
             /*Insert the medical conditions into the admission database table containing the medical condition*/
@@ -6219,172 +6332,171 @@ Codeunit 61106 webportals
         ACAClearanceApprovalEntries1.SetRange("Student ID", StudentNo);
         ACAClearanceApprovalEntries1.SetRange("Clearance Level Code", Clearance_Level_Code);
         if ACAClearanceApprovalEntries1.Find('-') then begin
-            with ACAClearanceApprovalEntries1 do begin
-                if "Clearance Level Code" = '' then Error('Nothing to clear!');
-                Clear(counted);
-                Clear(stringval);
-                // // //         conditions.RESET;
-                // // //         conditions.SETRANGE(conditions."Clearance Level Code","Clearance Level Code");
-                // // //         conditions.SETFILTER(conditions."Condition to Check",'<>%1','');
-                // // //         IF conditions.FIND('-') THEN BEGIN
-                // // //         stringval:='\-----------------------***** ATTENTION *****------------------------';
-                // // //           stringval:=stringval+'\Ensure that the following conditions are met';
-                // // //           REPEAT
-                // // //           BEGIN
-                // // //             stringval:=stringval+'\'+FORMAT(conditions.Sequence)+'). '+conditions."Condition to Check";
-                // // //           END;
-                // // //           UNTIL conditions.NEXT=0;
-                // // //           stringval:=stringval+'\'+'                             CONTINUE?                              ';
-                // // //           stringval:=stringval+'\-----------------------*********************------------------------';
-                // // //         END ELSE stringval:='Ensure that all the conditions required for clearance are met. Continue?';
-                // // //
-                // // // IF CONFIRM(stringval,TRUE)=FALSE THEN ERROR('Cancelled!');
-                // //         ACAClearanceApprovalEntries1
-                // //         enties.RESET;
-                // //         enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
-                // //         enties.SETRANGE(enties."Student ID",StudentNo);
-                // //         enties.SETFILTER(enties."Clear By ID",User_ID);
-                // //         IF enties.FIND('-') THEN BEGIN
-                Cleared := true;
-                "Last Date Modified" := Today;
-                "Last Time Modified" := Time;
-                Status := Status::Cleared;
-                Modify;
-                // END;
-                enties2.Reset;
-                enties2.SetRange(enties2."Clearance Level Code", "Clearance Level Code");
-                enties2.SetRange(enties2."Student ID", "Student ID");
-                enties2.SetRange(enties2.Sequence, Sequence);
-                if enties2.Find('-') then begin
+            if ACAClearanceApprovalEntries1."Clearance Level Code" = '' then Error('Nothing to clear!');
+            Clear(counted);
+            Clear(stringval);
+            // // //         conditions.RESET;
+            // // //         conditions.SETRANGE(conditions."Clearance Level Code","Clearance Level Code");
+            // // //         conditions.SETFILTER(conditions."Condition to Check",'<>%1','');
+            // // //         IF conditions.FIND('-') THEN BEGIN
+            // // //         stringval:='\-----------------------***** ATTENTION *****------------------------';
+            // // //           stringval:=stringval+'\Ensure that the following conditions are met';
+            // // //           REPEAT
+            // // //           BEGIN
+            // // //             stringval:=stringval+'\'+FORMAT(conditions.Sequence)+'). '+conditions."Condition to Check";
+            // // //           END;
+            // // //           UNTIL conditions.NEXT=0;
+            // // //           stringval:=stringval+'\'+'                             CONTINUE?                              ';
+            // // //           stringval:=stringval+'\-----------------------*********************------------------------';
+            // // //         END ELSE stringval:='Ensure that all the conditions required for clearance are met. Continue?';
+            // // //
+            // // // IF CONFIRM(stringval,TRUE)=FALSE THEN ERROR('Cancelled!');
+            // //         ACAClearanceApprovalEntries1
+            // //         enties.RESET;
+            // //         enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
+            // //         enties.SETRANGE(enties."Student ID",StudentNo);
+            // //         enties.SETFILTER(enties."Clear By ID",User_ID);
+            // //         IF enties.FIND('-') THEN BEGIN
+            ACAClearanceApprovalEntries1.Cleared := true;
+            ACAClearanceApprovalEntries1."Last Date Modified" := Today;
+            ACAClearanceApprovalEntries1."Last Time Modified" := Time;
+            ACAClearanceApprovalEntries1.Status := ACAClearanceApprovalEntries1.Status::Cleared;
+            ACAClearanceApprovalEntries1.Modify;
+            // END;
+            enties2.Reset;
+            enties2.SetRange(enties2."Clearance Level Code", ACAClearanceApprovalEntries1."Clearance Level Code");
+            enties2.SetRange(enties2."Student ID", ACAClearanceApprovalEntries1."Student ID");
+            enties2.SetRange(enties2.Sequence, ACAClearanceApprovalEntries1.Sequence);
+            if enties2.Find('-') then begin
+                repeat
+                begin
+                    enties2."Last Date Modified" := Today;
+                    enties2."Last Time Modified" := Time;
+                    enties2.Status := enties.Status::Cleared;
+                    enties2.Modify;
+                end;
+                until enties2.Next = 0;
+            end;
+
+            // Approval for the 1st Approval
+            if ACAClearanceApprovalEntries1."Priority Level" = ACAClearanceApprovalEntries1."priority level"::"1st Level" then begin
+                enties.Reset;
+                enties.SetRange(enties."Student ID", ACAClearanceApprovalEntries1."Student ID");
+                enties.SetFilter(enties.Status, '=%1', enties.Status::Created);
+                enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Normal);
+                if enties.Find('-') then begin
                     repeat
                     begin
-                        enties2."Last Date Modified" := Today;
-                        enties2."Last Time Modified" := Time;
-                        enties2.Status := enties.Status::Cleared;
-                        enties2.Modify;
-                    end;
-                    until enties2.Next = 0;
-                end;
+                        enties."Last Date Modified" := Today;
+                        enties."Last Time Modified" := Time;
+                        enties.Status := enties.Status::Open;
+                        enties.Modify;
+                        ///////////////////////////////////////////////////////////////////////////////////
+                        UserSetup.Reset;
+                        UserSetup.SetRange("User ID", enties."Clear By ID");
+                        if UserSetup.Find('-') then begin
 
-                // Approval for the 1st Approval
-                if "Priority Level" = "priority level"::"1st Level" then begin
-                    enties.Reset;
-                    enties.SetRange(enties."Student ID", "Student ID");
-                    enties.SetFilter(enties.Status, '=%1', enties.Status::Created);
-                    enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Normal);
-                    if enties.Find('-') then begin
+                            webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + ACAClearanceApprovalEntries1."Student ID",
+                            'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                            'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
+                        end;
+                        ///////////////////////////////////////////////////////////////////////////////////
+                    end;
+                    until enties.Next = 0;
+                end;
+            end else if ACAClearanceApprovalEntries1."Priority Level" = ACAClearanceApprovalEntries1."priority level"::Normal then begin
+                //Search where Final Level and set to open
+                enties.Reset;
+                enties.SetRange(enties.Department, ACAClearanceApprovalEntries1.Department);
+                enties.SetRange(enties."Student ID", ACAClearanceApprovalEntries1."Student ID");
+                enties.SetFilter(enties.Status, '=%1', enties.Status::Open);
+                enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Normal);
+                if not enties.Find('-') then begin
+                    // If All other Clearances are done, Open the final Clearance
+                    /////////////////////////////////////////////////////////////
+                    //enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
+                    ACAClearanceApprovalEntries.Reset;
+                    //    ACAClearanceApprovalEntries.SETRANGE(ACAClearanceApprovalEntries.Department,Department);
+                    ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", ACAClearanceApprovalEntries1."Student ID");
+                    ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries.Status, '=%1', ACAClearanceApprovalEntries.Status::Created);
+                    ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries."Priority Level", '=%1',
+                             ACAClearanceApprovalEntries."priority level"::Finance);
+                    if ACAClearanceApprovalEntries.Find('-') then begin
                         repeat
                         begin
-                            enties."Last Date Modified" := Today;
-                            enties."Last Time Modified" := Time;
-                            enties.Status := enties.Status::Open;
-                            enties.Modify;
+                            ACAClearanceApprovalEntries."Last Date Modified" := Today;
+                            ACAClearanceApprovalEntries."Last Time Modified" := Time;
+                            ACAClearanceApprovalEntries.Status := ACAClearanceApprovalEntries.Status::Open;
+                            ACAClearanceApprovalEntries.Modify;
                             ///////////////////////////////////////////////////////////////////////////////////
                             UserSetup.Reset;
-                            UserSetup.SetRange("User ID", enties."Clear By ID");
+                            UserSetup.SetRange("User ID", ACAClearanceApprovalEntries."Clear By ID");
                             if UserSetup.Find('-') then begin
-
-                                webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + "Student ID",
+                                webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + StudentNo,
                                 'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
                                 'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
                             end;
                             ///////////////////////////////////////////////////////////////////////////////////
                         end;
-                        until enties.Next = 0;
+                        until ACAClearanceApprovalEntries.Next = 0;
                     end;
-                end else if "Priority Level" = "priority level"::Normal then begin
-                    //Search where Final Level and set to open
-                    enties.Reset;
-                    enties.SetRange(enties.Department, Department);
-                    enties.SetRange(enties."Student ID", "Student ID");
-                    enties.SetFilter(enties.Status, '=%1', enties.Status::Open);
-                    enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Normal);
-                    if not enties.Find('-') then begin
-                        // If All other Clearances are done, Open the final Clearance
-                        /////////////////////////////////////////////////////////////
-                        //enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
-                        ACAClearanceApprovalEntries.Reset;
-                        //    ACAClearanceApprovalEntries.SETRANGE(ACAClearanceApprovalEntries.Department,Department);
-                        ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", "Student ID");
-                        ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries.Status, '=%1', ACAClearanceApprovalEntries.Status::Created);
-                        ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries."Priority Level", '=%1',
-                                 ACAClearanceApprovalEntries."priority level"::Finance);
-                        if ACAClearanceApprovalEntries.Find('-') then begin
-                            repeat
-                            begin
-                                ACAClearanceApprovalEntries."Last Date Modified" := Today;
-                                ACAClearanceApprovalEntries."Last Time Modified" := Time;
-                                ACAClearanceApprovalEntries.Status := ACAClearanceApprovalEntries.Status::Open;
-                                ACAClearanceApprovalEntries.Modify;
-                                ///////////////////////////////////////////////////////////////////////////////////
-                                UserSetup.Reset;
-                                UserSetup.SetRange("User ID", ACAClearanceApprovalEntries."Clear By ID");
-                                if UserSetup.Find('-') then begin
-                                    webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + StudentNo,
-                                    'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
-                                    'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
-                                end;
-                                ///////////////////////////////////////////////////////////////////////////////////
-                            end;
-                            until ACAClearanceApprovalEntries.Next = 0;
-                        end;
 
-                        /////////////////////////////////////////////////////////////
-                    end;
-                end else if "Priority Level" = "priority level"::Finance then begin
-                    //Search where Final Level and set to open
-                    enties.Reset;
-                    enties.SetRange(enties.Department, Department);
-                    enties.SetRange(enties."Student ID", "Student ID");
-                    enties.SetFilter(enties.Status, '=%1', enties.Status::Open);
-                    enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Finance);
-                    if not enties.Find('-') then begin
-                        // If All other Clearances are done, Open the final Clearance
-                        /////////////////////////////////////////////////////////////
-                        //enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
-                        ACAClearanceApprovalEntries.Reset;
-                        //    ACAClearanceApprovalEntries.SETRANGE(ACAClearanceApprovalEntries.Department,Department);
-                        ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", "Student ID");
-                        ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries.Status, '=%1', ACAClearanceApprovalEntries.Status::Created);
-                        ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries."Priority Level", '=%1',
-                                 ACAClearanceApprovalEntries."priority level"::"Final level");
-                        if ACAClearanceApprovalEntries.Find('-') then begin
-                            repeat
-                            begin
-                                ACAClearanceApprovalEntries."Last Date Modified" := Today;
-                                ACAClearanceApprovalEntries."Last Time Modified" := Time;
-                                ACAClearanceApprovalEntries.Status := ACAClearanceApprovalEntries.Status::Open;
-                                ACAClearanceApprovalEntries.Modify;
-                                ///////////////////////////////////////////////////////////////////////////////////
-                                UserSetup.Reset;
-                                UserSetup.SetRange("User ID", ACAClearanceApprovalEntries."Clear By ID");
-                                if UserSetup.Find('-') then begin
-                                    webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + StudentNo,
-                                    'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
-                                    'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
-                                end;
-                                ///////////////////////////////////////////////////////////////////////////////////
-                            end;
-                            until ACAClearanceApprovalEntries.Next = 0;
-                        end;
-
-                        /////////////////////////////////////////////////////////////
-                    end;
-                end else if "Priority Level" = "priority level"::"Final level" then begin
-                    // Change status of the clearance of the student card
-                    if cust.Get("Student ID") then begin
-                        cust."Clearance Status" := cust."clearance status"::Cleared;
-                        cust.Modify;
-                        ///////////////////////////////////////////////////////////////////////////////////
-                        if cust."E-Mail" <> '' then begin
-                            webportals.SendEmailEasy('Hi ', cust.Name, ' Your application for clearance has been Approved',
-                            'Download your signed clearance form from the portal', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
-                            'In case of Challenges, Kindly Talk to your department head', UserSetup."E-Mail", 'STUDENT APPROVED CLEARANCE');
-                        end;
-                        ///////////////////////////////////////////////////////////////////////////////////
-                    end;
+                    /////////////////////////////////////////////////////////////
                 end;
-            end; // end with ACAClearanceApprovalEntries1 do
+            end else if ACAClearanceApprovalEntries1."Priority Level" = ACAClearanceApprovalEntries1."priority level"::Finance then begin
+                //Search where Final Level and set to open
+                enties.Reset;
+                enties.SetRange(enties.Department, ACAClearanceApprovalEntries1.Department);
+                enties.SetRange(enties."Student ID", ACAClearanceApprovalEntries1."Student ID");
+                enties.SetFilter(enties.Status, '=%1', enties.Status::Open);
+                enties.SetFilter(enties."Priority Level", '=%1', enties."priority level"::Finance);
+                if not enties.Find('-') then begin
+                    // If All other Clearances are done, Open the final Clearance
+                    /////////////////////////////////////////////////////////////
+                    //enties.SETRANGE(enties."Clearance Level Code","Clearance Level Code");
+                    ACAClearanceApprovalEntries.Reset;
+                    //    ACAClearanceApprovalEntries.SETRANGE(ACAClearanceApprovalEntries.Department,Department);
+                    ACAClearanceApprovalEntries.SetRange(ACAClearanceApprovalEntries."Student ID", ACAClearanceApprovalEntries1."Student ID");
+                    ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries.Status, '=%1', ACAClearanceApprovalEntries.Status::Created);
+                    ACAClearanceApprovalEntries.SetFilter(ACAClearanceApprovalEntries."Priority Level", '=%1',
+                             ACAClearanceApprovalEntries."priority level"::"Final level");
+                    if ACAClearanceApprovalEntries.Find('-') then begin
+                        repeat
+                        begin
+                            ACAClearanceApprovalEntries."Last Date Modified" := Today;
+                            ACAClearanceApprovalEntries."Last Time Modified" := Time;
+                            ACAClearanceApprovalEntries.Status := ACAClearanceApprovalEntries.Status::Open;
+                            ACAClearanceApprovalEntries.Modify;
+                            ///////////////////////////////////////////////////////////////////////////////////
+                            UserSetup.Reset;
+                            UserSetup.SetRange("User ID", ACAClearanceApprovalEntries."Clear By ID");
+                            if UserSetup.Find('-') then begin
+                                webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + StudentNo,
+                                'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                                'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
+                            end;
+                            ///////////////////////////////////////////////////////////////////////////////////
+                        end;
+                        until ACAClearanceApprovalEntries.Next = 0;
+                    end;
+
+                    /////////////////////////////////////////////////////////////
+                end;
+            end else if ACAClearanceApprovalEntries1."Priority Level" = ACAClearanceApprovalEntries1."priority level"::"Final level" then begin
+                // Change status of the clearance of the student card
+                if cust.Get(ACAClearanceApprovalEntries1."Student ID") then begin
+                    cust."Clearance Status" := cust."clearance status"::Cleared;
+                    cust.Modify;
+                    ///////////////////////////////////////////////////////////////////////////////////
+                    if cust."E-Mail" <> '' then begin
+                        webportals.SendEmailEasy('Hi ', cust.Name, ' Your application for clearance has been Approved',
+                        'Download your signed clearance form from the portal', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                        'In case of Challenges, Kindly Talk to your department head', UserSetup."E-Mail", 'STUDENT APPROVED CLEARANCE');
+                    end;
+                    ///////////////////////////////////////////////////////////////////////////////////
+                end;
+            end;
+            // end with ACAClearanceApprovalEntries1 do
 
         end;
     end;
@@ -6621,83 +6733,130 @@ Codeunit 61106 webportals
         Rec.Reset;
         Rec.SetRange("No.", username);
         if Rec.Find('-') then begin
-            with Rec do begin
-                Clear(ACACourseRegistration);
-                ACACourseRegistration.Reset;
-                ACACourseRegistration.SetRange("Student No.", Rec."No.");
-                ACACourseRegistration.SetFilter(Programmes, '<>%1', '');
-                ACACourseRegistration.SetFilter(Reversed, '=%1', false);
-                if ACACourseRegistration.Find('+') then begin
-                end;
-                progs.Reset;
-                progs.SetRange(Code, ACACourseRegistration.Programmes);
-                if progs.Find('-') then;
-                "Global Dimension 2 Code" := progs."Department Code";
-                sems.Reset;
-                sems.SetRange(sems."Current Semester", true);
-                if sems.Find('-') then
-                    if not (sems.Code = '') then;
-                "Clearance Semester" := ACACourseRegistration.Semester;
-                "Programme End Date" := ACACourseRegistration."Registration Date";
-                AcadYear.Reset;
-                AcadYear.SetRange(AcadYear.Current, true);
-                if AcadYear.Find('-') then
-                    if not (AcadYear.Code = '') then;
-                "Clearance Academic Year" := ACACourseRegistration."Academic Year";
-                "Clearance Reason" := "clearance reason"::Graduation;
-                Modify;
+            Clear(ACACourseRegistration);
+            ACACourseRegistration.Reset;
+            ACACourseRegistration.SetRange("Student No.", Rec."No.");
+            ACACourseRegistration.SetFilter(Programmes, '<>%1', '');
+            ACACourseRegistration.SetFilter(Reversed, '=%1', false);
+            if ACACourseRegistration.Find('+') then begin
+            end;
+            progs.Reset;
+            progs.SetRange(Code, ACACourseRegistration.Programmes);
+            if progs.Find('-') then;
+            Rec."Global Dimension 2 Code" := progs."Department Code";
+            sems.Reset;
+            sems.SetRange(sems."Current Semester", true);
+            if sems.Find('-') then
+                if not (sems.Code = '') then;
+            Rec."Clearance Semester" := ACACourseRegistration.Semester;
+            Rec."Programme End Date" := ACACourseRegistration."Registration Date";
+            AcadYear.Reset;
+            AcadYear.SetRange(AcadYear.Current, true);
+            if AcadYear.Find('-') then
+                if not (AcadYear.Code = '') then;
+            Rec."Clearance Academic Year" := ACACourseRegistration."Academic Year";
+            Rec."Clearance Reason" := Rec."clearance reason"::Graduation;
+            Rec.Modify;
 
-                CalcFields("Balance (LCY)");
-                // CALCFIELDS("Refund on PV");
-                if ("Balance (LCY)" > 0) then Error('The student''s balance must be zero (0).\The Balance is ' + Format("Balance (LCY)"));
-                //  IF NOT (CONFIRM('Initiate student clearance for '+"No."+': '+Name,FALSE)=TRUE) THEN ERROR('Cancelled!');
-                //TESTFIELD("Clearance Reason");
-                TestField("Global Dimension 2 Code");
-                //TESTFIELD("Clearance Semester");
-                //TESTFIELD("Clearance Academic Year");
-                TestField("Current Programme");
-                TestField("Programme End Date");
-                //TESTFIELD("Intake Code");
-                deptemp.Reset;
-                deptemp.SetRange(deptemp."Clearance Level Code", 'HOD');
-                deptemp.SetRange(deptemp.Department, "Global Dimension 2 Code");
-                if not (deptemp.Find('-')) then Error('Departmental approver for ''' + "Global Dimension 2 Code" + ''' missing');
-                ClearLevela.Reset;
-                ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
-                ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::"1st Level");
-                if not (ClearLevela.Find('-')) then Error('1st Approval Level is missing!');
+            Rec.CalcFields("Balance (LCY)");
+            // CALCFIELDS("Refund on PV");
+            if (Rec."Balance (LCY)" > 0) then Error('The student''s balance must be zero (0).\The Balance is ' + Format(Rec."Balance (LCY)"));
+            //  IF NOT (CONFIRM('Initiate student clearance for '+"No."+': '+Name,FALSE)=TRUE) THEN ERROR('Cancelled!');
+            //TESTFIELD("Clearance Reason");
+            Rec.TestField("Global Dimension 2 Code");
+            //TESTFIELD("Clearance Semester");
+            //TESTFIELD("Clearance Academic Year");
+            Rec.TestField("Current Programme");
+            Rec.TestField("Programme End Date");
+            //TESTFIELD("Intake Code");
+            deptemp.Reset;
+            deptemp.SetRange(deptemp."Clearance Level Code", 'HOD');
+            deptemp.SetRange(deptemp.Department, Rec."Global Dimension 2 Code");
+            if not (deptemp.Find('-')) then Error('Departmental approver for ''' + Rec."Global Dimension 2 Code" + ''' missing');
+            ClearLevela.Reset;
+            ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
+            ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::"1st Level");
+            if not (ClearLevela.Find('-')) then Error('1st Approval Level is missing!');
 
-                ClearLevela.Reset;
-                ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
-                ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::Finance);
-                if not (ClearLevela.Find('-')) then Error('Finance Approval Level is missing!');
-
-
-                ClearLevela.Reset;
-                ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
-                ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::"Final level");
-                if not (ClearLevela.Find('-')) then Error('Final Approval Level is missing!');
+            ClearLevela.Reset;
+            ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
+            ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::Finance);
+            if not (ClearLevela.Find('-')) then Error('Finance Approval Level is missing!');
 
 
+            ClearLevela.Reset;
+            ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
+            ClearLevela.SetFilter(ClearLevela."Priority Level", '=%1', ClearLevela."priority level"::"Final level");
+            if not (ClearLevela.Find('-')) then Error('Final Approval Level is missing!');
 
-                ClearLevela.Reset;
-                ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
-                if ClearLevela.Find('-') then begin //5
-                    repeat
-                    begin  //4
-                        if (ClearLevela.Standard) then begin  //3
-                                                              // Pick from the standard Approvals and insert into the Entries table
-                            ClearStandardApp.Reset;
-                            ClearStandardApp.SetRange(ClearStandardApp."Clearance Level Code", ClearLevela."Clearance Level Code");
-                            ClearStandardApp.SetFilter(ClearStandardApp.Active, '=%1', true);
-                            if ClearStandardApp.Find('-') then begin //2
-                                repeat  // Rep1
-                                begin //1
+
+
+            ClearLevela.Reset;
+            ClearLevela.SetRange(ClearLevela.Status, ClearLevela.Status::Active);
+            if ClearLevela.Find('-') then begin //5
+                repeat
+                begin  //4
+                    if (ClearLevela.Standard) then begin  //3
+                                                          // Pick from the standard Approvals and insert into the Entries table
+                        ClearStandardApp.Reset;
+                        ClearStandardApp.SetRange(ClearStandardApp."Clearance Level Code", ClearLevela."Clearance Level Code");
+                        ClearStandardApp.SetFilter(ClearStandardApp.Active, '=%1', true);
+                        if ClearStandardApp.Find('-') then begin //2
+                            repeat  // Rep1
+                            begin //1
+                                ClearEntries.Init;
+                                ClearEntries."Clearance Level Code" := ClearStandardApp."Clearance Level Code";
+                                ClearEntries.Department := Rec."Global Dimension 2 Code";
+                                ClearEntries."Student ID" := Rec."No.";
+                                ClearEntries."Clear By ID" := ClearStandardApp."Clear By Id";
+                                ClearEntries."Initiated By" := UserId;
+                                ClearEntries."Initiated Date" := Today;
+                                ClearEntries."Initiated Time" := Time;
+                                ClearEntries."Last Date Modified" := Today;
+                                ClearEntries."Last Time Modified" := Time;
+                                ClearEntries.Cleared := false;
+                                ClearEntries."Priority Level" := ClearLevela."Priority Level";
+                                ClearEntries."Academic Year" := ACACourseRegistration."Academic Year";
+                                ClearEntries.Semester := ACACourseRegistration.Semester;
+                                if ClearLevela."Priority Level" = ClearLevela."priority level"::"1st Level" then begin
+                                    ClearEntries.Status := ClearEntries.Status::Open;
+                                    ClearEntries.Insert;
+                                    UserSetup.Reset;
+                                    UserSetup.SetRange("User ID", ClearStandardApp."Clear By Id");
+                                    if UserSetup.Find('-') then begin
+
+                                        webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + Rec."No.",
+                                        'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
+                                        'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
+                                    end;
+                                end else begin
+                                    ClearEntries.Status := ClearEntries.Status::Created;
+                                    ClearEntries.Insert;
+                                end;
+
+                            end; //1
+                            until ClearStandardApp.Next = 0; //  Rep1
+                        end else
+                            Error('Setup for Clearance Templates not found;');  // 2
+                    end else begin    //3
+                                      // Check templates for the related Clearance Approvals
+                        ClearTemplates.Reset;
+                        ClearTemplates.SetRange(ClearTemplates."Clearance Level Code", ClearLevela."Clearance Level Code");
+                        ClearTemplates.SetRange(ClearTemplates.Department, Rec."Global Dimension 2 Code");
+                        ClearTemplates.SetFilter(ClearTemplates.Active, '=%1', true);
+                        if ClearTemplates.Find('-') then begin  //6
+                            ClearDepTemplates.Reset;
+                            ClearDepTemplates.SetRange(ClearDepTemplates."Clearance Level Code", ClearLevela."Clearance Level Code");
+                            ClearDepTemplates.SetRange(ClearDepTemplates.Department, Rec."Global Dimension 2 Code");
+                            ClearDepTemplates.SetFilter(ClearDepTemplates.Active, '=%1', true);
+                            if ClearDepTemplates.Find('-') then begin//7
+                                repeat
+                                begin
                                     ClearEntries.Init;
-                                    ClearEntries."Clearance Level Code" := ClearStandardApp."Clearance Level Code";
-                                    ClearEntries.Department := "Global Dimension 2 Code";
-                                    ClearEntries."Student ID" := "No.";
-                                    ClearEntries."Clear By ID" := ClearStandardApp."Clear By Id";
+                                    ClearEntries."Clearance Level Code" := ClearDepTemplates."Clearance Level Code";
+                                    ClearEntries.Department := Rec."Global Dimension 2 Code";
+                                    ClearEntries."Student ID" := Rec."No.";
+                                    ClearEntries."Clear By ID" := ClearDepTemplates."Clear By Id";
                                     ClearEntries."Initiated By" := UserId;
                                     ClearEntries."Initiated Date" := Today;
                                     ClearEntries."Initiated Time" := Time;
@@ -6713,7 +6872,6 @@ Codeunit 61106 webportals
                                         UserSetup.Reset;
                                         UserSetup.SetRange("User ID", ClearStandardApp."Clear By Id");
                                         if UserSetup.Find('-') then begin
-
                                             webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + Rec."No.",
                                             'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
                                             'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
@@ -6722,66 +6880,18 @@ Codeunit 61106 webportals
                                         ClearEntries.Status := ClearEntries.Status::Created;
                                         ClearEntries.Insert;
                                     end;
-
-                                end; //1
-                                until ClearStandardApp.Next = 0; //  Rep1
-                            end else
-                                Error('Setup for Clearance Templates not found;');  // 2
-                        end else begin    //3
-                                          // Check templates for the related Clearance Approvals
-                            ClearTemplates.Reset;
-                            ClearTemplates.SetRange(ClearTemplates."Clearance Level Code", ClearLevela."Clearance Level Code");
-                            ClearTemplates.SetRange(ClearTemplates.Department, "Global Dimension 2 Code");
-                            ClearTemplates.SetFilter(ClearTemplates.Active, '=%1', true);
-                            if ClearTemplates.Find('-') then begin  //6
-                                ClearDepTemplates.Reset;
-                                ClearDepTemplates.SetRange(ClearDepTemplates."Clearance Level Code", ClearLevela."Clearance Level Code");
-                                ClearDepTemplates.SetRange(ClearDepTemplates.Department, "Global Dimension 2 Code");
-                                ClearDepTemplates.SetFilter(ClearDepTemplates.Active, '=%1', true);
-                                if ClearDepTemplates.Find('-') then begin//7
-                                    repeat
-                                    begin
-                                        ClearEntries.Init;
-                                        ClearEntries."Clearance Level Code" := ClearDepTemplates."Clearance Level Code";
-                                        ClearEntries.Department := "Global Dimension 2 Code";
-                                        ClearEntries."Student ID" := "No.";
-                                        ClearEntries."Clear By ID" := ClearDepTemplates."Clear By Id";
-                                        ClearEntries."Initiated By" := UserId;
-                                        ClearEntries."Initiated Date" := Today;
-                                        ClearEntries."Initiated Time" := Time;
-                                        ClearEntries."Last Date Modified" := Today;
-                                        ClearEntries."Last Time Modified" := Time;
-                                        ClearEntries.Cleared := false;
-                                        ClearEntries."Priority Level" := ClearLevela."Priority Level";
-                                        ClearEntries."Academic Year" := ACACourseRegistration."Academic Year";
-                                        ClearEntries.Semester := ACACourseRegistration.Semester;
-                                        if ClearLevela."Priority Level" = ClearLevela."priority level"::"1st Level" then begin
-                                            ClearEntries.Status := ClearEntries.Status::Open;
-                                            ClearEntries.Insert;
-                                            UserSetup.Reset;
-                                            UserSetup.SetRange("User ID", ClearStandardApp."Clear By Id");
-                                            if UserSetup.Find('-') then begin
-                                                webportals.SendEmailEasy('Hi ', UserSetup.UserName, 'A Student clearance request has been sent to your email for student:' + Rec."No.",
-                                                'Kindly expedite.', 'This is a system generated mail. Kindly do not respond. Unless you want to talk to a Robot!',
-                                                'In case of Challenges, Kindly Talk to the ICT department', UserSetup."E-Mail", 'STUDENT CLEARANCE APPROVAL');
-                                            end;
-                                        end else begin
-                                            ClearEntries.Status := ClearEntries.Status::Created;
-                                            ClearEntries.Insert;
-                                        end;
-                                    end;
-                                    until ClearDepTemplates.Next = 0;
-                                end;//7
-                            end //6
-                        end;   //3
-                    end;  //4
-                    until ClearLevela.Next = 0;
-                end else
-                    Error('No Clearance levels specified.');  //5
-                Message := 'Clearance Initiated successfully.';
-                "Clearance Status" := "clearance status"::Active;
-                Modify;
-            end;
+                                end;
+                                until ClearDepTemplates.Next = 0;
+                            end;//7
+                        end //6
+                    end;   //3
+                end;  //4
+                until ClearLevela.Next = 0;
+            end else
+                Error('No Clearance levels specified.');  //5
+            Message := 'Clearance Initiated successfully.';
+            Rec."Clearance Status" := Rec."clearance status"::Active;
+            Rec.Modify;
         end;
 
     end;
@@ -9156,12 +9266,12 @@ Codeunit 61106 webportals
         IF PartTimeClaimHd.FIND('-')
         THEN BEGIN
             variant := partTimeClaimHd;
-                    if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
-                    PartTimeClaimHd.CommitBudget();
-                        ApprovMgmt.OnSendDocForApproval(variant);
+            if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                PartTimeClaimHd.CommitBudget();
+            ApprovMgmt.OnSendDocForApproval(variant);
 
-            end
-        END;
+        end
+    END;
 
     procedure DeletePartTimeClaimLine(claimno: code[20]; lineno: integer) deleted: boolean
     var
@@ -9273,7 +9383,7 @@ Codeunit 61106 webportals
             SuperVisorApplic.SETRANGE(SuperVisorApplic."Semester", Sem);
             if SuperVisorApplic.FIND('-') then begin
                 repeat
-                    msg += SuperVisorApplic."No."+ ' ::' + SuperVisorApplic.Semester + ' ::' + SuperVisorApplic."Student No." + SuperVisorApplic."Student Name" + ' ::' + SuperVisorApplic."Assigned Supervisor Code"+ ' ::'+ SuperVisorApplic."Assigned Supervisor Name" + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
+                    msg += SuperVisorApplic."No." + ' ::' + SuperVisorApplic.Semester + ' ::' + SuperVisorApplic."Student No." + SuperVisorApplic."Student Name" + ' ::' + SuperVisorApplic."Assigned Supervisor Code" + ' ::' + SuperVisorApplic."Assigned Supervisor Name" + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
                 until SuperVisorApplic.NEXT = 0;
             end;
         end;

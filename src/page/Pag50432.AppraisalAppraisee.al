@@ -1,4 +1,4 @@
-page  50432 "Appraisal Appraisee"
+page 50432 "Appraisal Appraisee"
 {
     CardPageID = "Appraisal Header";
     PageType = List;

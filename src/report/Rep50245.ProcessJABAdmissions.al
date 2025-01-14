@@ -121,7 +121,7 @@ report 50245 "Process JAB Admissions"
 
     trigger OnInitReport()
     begin
-    
+
         acadYears.RESET;
         acadYears.SETRANGE(acadYears.Current, TRUE);
         sems.RESET;

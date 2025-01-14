@@ -3,7 +3,7 @@ page 50287 "Eft Batch Line"
     Caption = 'Eft Batch Line';
     PageType = ListPart;
     SourceTable = "EFT batch Lines";
-    
+
     layout
     {
         area(content)

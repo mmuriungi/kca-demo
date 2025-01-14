@@ -81,6 +81,6 @@ page 51614 "Pending Mails"
 
     }
     var
-       DMS: Record "EDMS Setups";
+        DMS: Record "EDMS Setups";
 
 }

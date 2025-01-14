@@ -43,12 +43,12 @@ pageextension 50025 "ExtPurchases & Payables Setup" extends "Purchases & Payable
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Vendor Categories field.';
             }
-            field("Project Mgt Nos";Rec."Project Mgt Nos")
+            field("Project Mgt Nos"; Rec."Project Mgt Nos")
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the contract Nos field.';
             }
-            field("Task Nos";Rec."Task Nos")
+            field("Task Nos"; Rec."Task Nos")
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Task Nos field.';

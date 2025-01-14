@@ -761,28 +761,26 @@ report 50031 "Aged Accounts Payable 2"
     var
         Currency: Record Currency;
     begin
-        with TempVendorLedgEntry do begin
-            if Get(VendorLedgEntry."Entry No.") then
-                exit;
-            TempVendorLedgEntry := VendorLedgEntry;
-            Insert;
-            if PrintAmountInLCY then begin
-                Clear(TempCurrency);
-                TempCurrency."Amount Rounding Precision" := GLSetup."Amount Rounding Precision";
-                if TempCurrency.Insert() then;
-                exit;
-            end;
-            if TempCurrency.Get("Currency Code") then
-                exit;
-            if "Currency Code" <> '' then
-                Currency.Get("Currency Code")
-            else begin
-                Clear(Currency);
-                Currency."Amount Rounding Precision" := GLSetup."Amount Rounding Precision";
-            end;
-            TempCurrency := Currency;
-            TempCurrency.Insert();
+        if TempVendorLedgEntry.Get(VendorLedgEntry."Entry No.") then
+            exit;
+        TempVendorLedgEntry := VendorLedgEntry;
+        TempVendorLedgEntry.Insert;
+        if PrintAmountInLCY then begin
+            Clear(TempCurrency);
+            TempCurrency."Amount Rounding Precision" := GLSetup."Amount Rounding Precision";
+            if TempCurrency.Insert() then;
+            exit;
         end;
+        if TempCurrency.Get(TempVendorLedgEntry."Currency Code") then
+            exit;
+        if TempVendorLedgEntry."Currency Code" <> '' then
+            Currency.Get(TempVendorLedgEntry."Currency Code")
+        else begin
+            Clear(Currency);
+            Currency."Amount Rounding Precision" := GLSetup."Amount Rounding Precision";
+        end;
+        TempCurrency := Currency;
+        TempCurrency.Insert();
     end;
 
     local procedure GetPeriodIndex(Date: Date): Integer
@@ -800,31 +798,29 @@ report 50031 "Aged Accounts Payable 2"
     begin
         TempCurrency2.Code := CurrencyCode;
         if TempCurrency2.Insert() then;
-        with TempCurrencyAmount do begin
-            for i := 1 to ArrayLen(TotalVendorLedgEntry) do begin
-                "Currency Code" := CurrencyCode;
-                Date := PeriodStartDate[i];
-                if Find then begin
-                    Amount := Amount + TotalVendorLedgEntry[i]."Remaining Amount";
-                    Modify;
-                end else begin
-                    "Currency Code" := CurrencyCode;
-                    Date := PeriodStartDate[i];
-                    Amount := TotalVendorLedgEntry[i]."Remaining Amount";
-                    Insert;
-                end;
-            end;
-            "Currency Code" := CurrencyCode;
-            Date := DMY2Date(31, 12, 9999);
-            if Find then begin
-                Amount := Amount + TotalVendorLedgEntry[1].Amount;
-                Modify;
+        for i := 1 to ArrayLen(TotalVendorLedgEntry) do begin
+            TempCurrencyAmount."Currency Code" := CurrencyCode;
+            TempCurrencyAmount.Date := PeriodStartDate[i];
+            if TempCurrencyAmount.Find then begin
+                TempCurrencyAmount.Amount := TempCurrencyAmount.Amount + TotalVendorLedgEntry[i]."Remaining Amount";
+                TempCurrencyAmount.Modify;
             end else begin
-                "Currency Code" := CurrencyCode;
-                Date := DMY2Date(31, 12, 9999);
-                Amount := TotalVendorLedgEntry[1].Amount;
-                Insert;
+                TempCurrencyAmount."Currency Code" := CurrencyCode;
+                TempCurrencyAmount.Date := PeriodStartDate[i];
+                TempCurrencyAmount.Amount := TotalVendorLedgEntry[i]."Remaining Amount";
+                TempCurrencyAmount.Insert;
             end;
+        end;
+        TempCurrencyAmount."Currency Code" := CurrencyCode;
+        TempCurrencyAmount.Date := DMY2Date(31, 12, 9999);
+        if TempCurrencyAmount.Find then begin
+            TempCurrencyAmount.Amount := TempCurrencyAmount.Amount + TotalVendorLedgEntry[1].Amount;
+            TempCurrencyAmount.Modify;
+        end else begin
+            TempCurrencyAmount."Currency Code" := CurrencyCode;
+            TempCurrencyAmount.Date := DMY2Date(31, 12, 9999);
+            TempCurrencyAmount.Amount := TotalVendorLedgEntry[1].Amount;
+            TempCurrencyAmount.Insert;
         end;
     end;
 

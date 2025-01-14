@@ -5,7 +5,7 @@ page 50265 "Departmental  Procurement List"
     PageType = List;
     SourceTable = "PROC-Procurement Plan Header1";
     UsageCategory = Administration;
-    
+
     layout
     {
         area(content)

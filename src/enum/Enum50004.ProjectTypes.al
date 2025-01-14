@@ -1,7 +1,7 @@
 enum 50004 "Project Types"
 {
     Extensible = true;
-    
+
     value(0; " ")
     {
         Caption = ' ';

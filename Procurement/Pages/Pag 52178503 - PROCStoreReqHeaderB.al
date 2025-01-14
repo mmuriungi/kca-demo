@@ -245,7 +245,7 @@ page 52178503 "PROC-Store Req. Header (B)"
                         rec.Issuer := UserId;
                         Rec.MODIFY;
                         ExpenseBudget();
-                       RequisitionMgnt.CheckItemReorderLevel(Rec."No.");
+                        RequisitionMgnt.CheckItemReorderLevel(Rec."No.");
                     END;
                     // CurrPage.UPDATE;
 

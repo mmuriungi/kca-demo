@@ -6,7 +6,7 @@ page 50719 "Response Scales"
     Caption = 'Response Scales';
     PageType = List;
     SourceTable = "Response Scales";
-    
+
     layout
     {
         area(content)

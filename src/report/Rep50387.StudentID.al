@@ -151,7 +151,7 @@ report 50387 "Student ID"
     begin
         CompInfo.GET;
         CompInfo.CALCFIELDS(CompInfo.Picture);
-        
+
     end;
 
     var

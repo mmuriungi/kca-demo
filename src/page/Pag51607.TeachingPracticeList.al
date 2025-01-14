@@ -4,7 +4,7 @@ page 51607 "Teaching Practice List"
     CardPageId = "Teaching Practice Card";
     PageType = List;
     SourceTable = "Teaching Practice Header";
-    
+
     layout
     {
         area(Content)

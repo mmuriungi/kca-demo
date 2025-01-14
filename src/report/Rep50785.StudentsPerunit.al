@@ -9,7 +9,7 @@ report 50785 "Students Per unit"
     {
         dataitem(ACAStudentUnits; "ACA-Student Units")
         {
-            RequestFilterFields="Academic Year",Semester,Unit,"Student No.";
+            RequestFilterFields = "Academic Year", Semester, Unit, "Student No.";
             column(CompName; CompanyInformation.Name)
             {
             }

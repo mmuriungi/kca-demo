@@ -77,7 +77,7 @@ page 50842 "ACA-Programmes"
                 {
                     ApplicationArea = ALL;
                 }
-                field("School Name";Rec."School Name")
+                field("School Name"; Rec."School Name")
                 {
                     ApplicationArea = All;
                 }

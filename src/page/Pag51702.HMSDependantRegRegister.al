@@ -33,13 +33,13 @@ page 51702 "HMS Dependant Reg Register"
                             Dependant.RESET;
                             Dependant.SETRANGE(Dependant."Patient Type", Dependant."Patient Type"::Employee);
                             IF Dependant.FIND('-') THEN BEGIN
-                                                            REPEAT
-                                                                IF Dependant.Blocked = FALSE THEN BEGIN
-                                                                    IF Dependant."Employee No." = Rec."Employee No." THEN BEGIN
-                                                                        IntC := IntC + 1;
-                                                                    END;
-                                                                END;
-                                                            UNTIL Dependant.NEXT = 0;
+                                REPEAT
+                                    IF Dependant.Blocked = FALSE THEN BEGIN
+                                        IF Dependant."Employee No." = Rec."Employee No." THEN BEGIN
+                                            IntC := IntC + 1;
+                                        END;
+                                    END;
+                                UNTIL Dependant.NEXT = 0;
                             END;
                             IntC := IntC + 1;
                             IF IntC > IntD THEN BEGIN

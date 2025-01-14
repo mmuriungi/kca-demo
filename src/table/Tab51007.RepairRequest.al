@@ -57,14 +57,12 @@ table 51007 "Repair Request"
             var
                 EstateMgnt: Codeunit "Estates Management";
             begin
-                if Status = Status::Approved then
-                    begin
-                        EstateMgnt.SendEmailsforRepairsApproval(Rec);
-                    end;
-                if Status = Status::Closed then
-                    begin
-                        EstateMgnt.SendEmailsforRepairsClosed(Rec);
-                    end;
+                if Status = Status::Approved then begin
+                    EstateMgnt.SendEmailsforRepairsApproval(Rec);
+                end;
+                if Status = Status::Closed then begin
+                    EstateMgnt.SendEmailsforRepairsClosed(Rec);
+                end;
             end;
         }
         field(10; "Start Date"; Date)
@@ -169,5 +167,5 @@ table 51007 "Repair Request"
 
     var
         FixedAsset: Record "Fixed Asset";
-        
+
 }
