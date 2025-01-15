@@ -589,6 +589,10 @@ table 50019 "FIN-Imprest Header"
         {
 
         }
+        field(50033; "Surrender Notification Sent"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 

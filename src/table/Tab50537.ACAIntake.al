@@ -24,7 +24,7 @@ table 50537 "ACA-Intake"
         }
         field(9; "Faculty"; text[100])
         {
-            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = CONST('FACULTY'));
+            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = filter('FACULTY|SCHOOL'));
         }
     }
 

@@ -26,13 +26,18 @@ codeunit 52178866 "Notifications Handler"
     begin
         Imprest.Reset();
         Imprest.SetRange("Expected Date of Surrender", CalcDate('1D', Today));
+        Imprest.SetRange("Surrender Notification Sent", false);
         if Imprest.FindSet() then begin
-            Clear(TxtList);
-            TxtList := GetNotificationDetails(Enum::"Notification Type"::"Imprest Due");
-            employeeDetails := getEmployeeDetails(Imprest."Staff No");
-            if employeeDetails.Get(2) <> '' then begin
-                fnSendemail(employeeDetails.Get(1), TxtList.Get(1), TxtList.Get(2), employeeDetails.Get(2), '', '', false, '', '', '');
-            end;
+            repeat
+                Clear(TxtList);
+                TxtList := GetNotificationDetails(Enum::"Notification Type"::"Imprest Due");
+                employeeDetails := getEmployeeDetails(Imprest."Staff No");
+                if employeeDetails.Get(2) <> '' then begin
+                    fnSendemail(employeeDetails.Get(1), TxtList.Get(1), TxtList.Get(2), employeeDetails.Get(2), '', '', false, '', '', '');
+                end;
+                Imprest."Surrender Notification Sent" := true;
+                Imprest.Modify();
+            until Imprest.Next() = 0;
         end;
     end;
 
