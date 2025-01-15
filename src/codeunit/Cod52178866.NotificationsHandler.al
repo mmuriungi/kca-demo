@@ -10,17 +10,75 @@ dotnet
 }
 codeunit 52178866 "Notifications Handler"
 {
+    var
+        TxtList: List of [TExt];
 
     trigger OnRun()
     begin
-
+        SendImprestDueDateReminder();
     end;
 
     procedure SendImprestDueDateReminder()
     var
-        myInt: Integer;
+        Imprest: Record "FIN-Imprest Header";
+        Msg: Text;
+        employeeDetails: List of [Text];
     begin
-        
+        Imprest.Reset();
+        Imprest.SetRange("Expected Date of Surrender", CalcDate('1D', Today));
+        if Imprest.FindSet() then begin
+            Clear(TxtList);
+            TxtList := GetNotificationDetails(Enum::"Notification Type"::"Imprest Due");
+            employeeDetails := getEmployeeDetails(Imprest."Staff No");
+            if employeeDetails.Get(2) <> '' then begin
+                fnSendemail(employeeDetails.Get(1), TxtList.Get(1), TxtList.Get(2), employeeDetails.Get(2), '', '', false, '', '', '');
+            end;
+        end;
+    end;
+
+    procedure getEmployeeEmail(empNo: code[25]): Text
+    var
+        Employee: Record "HRM-Employee C";
+    begin
+        Employee.Reset();
+        Employee.SetRange("No.", empNo);
+        if Employee.FindFirst() then begin
+            exit(Employee."E-Mail");
+        end;
+    end;
+
+    procedure getEmployeeDetails(empNo: code[25]) ret_value: List of [text];
+    var
+        Employee: Record "HRM-Employee C";
+    begin
+        Employee.Reset();
+        Employee.SetRange("No.", empNo);
+        if Employee.FindFirst() then begin
+            ret_value.Add(Employee."First Name");
+            ret_value.Add(Employee."E-Mail");
+            exit(ret_value);
+        end;
+    end;
+
+    procedure GetNotificationMessage(NotifType: enum "Notification Type"): Text
+    var
+        NotificationSetup: Record "Automated Notification Setup";
+    begin
+        NotificationSetup.Reset();
+        NotificationSetup.SetRange("Notification Type", NotifType);
+        if NotificationSetup.FindFirst() then
+            exit(NotificationSetup."Notification Message");
+    end;
+
+    procedure GetNotificationDetails(NotifType: enum "Notification Type") ret_evalu: List of [Text]
+    var
+        NotificationSetup: Record "Automated Notification Setup";
+    begin
+        NotificationSetup.Reset();
+        NotificationSetup.SetRange("Notification Type", NotifType);
+        if NotificationSetup.FindFirst() then
+            ret_evalu.Add(NotificationSetup.Subject);
+        ret_evalu.Add(NotificationSetup."Notification Message");
     end;
 
     procedure fnSendemail(recipientName: Text;

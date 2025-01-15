@@ -67,5 +67,19 @@ pageextension 50014 "IT Manager Ext" extends "Administrator Role Center"
 
             }
         }
+        addafter("&Change Setup")
+        {
+            group("Notification Setup")
+            {
+                action("Automated Notifications")
+                {
+                    ApplicationArea = Suite;
+                    Caption = 'Automated Notifications';
+                    RunObject = Page "Automated Notification Setup";
+                    Image = Setup;
+
+                }
+            }
+        }
     }
 }
