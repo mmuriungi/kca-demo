@@ -274,7 +274,7 @@ Codeunit 61106 webportals
                 CampusCode := dimensionValue.name;
             dimensionValue.Reset();
             dimensionValue.SetRange("Dimension Code", 'DEPARTMENT');
-            dimensionValue.SetRange(Code, Emp.Campus);
+            dimensionValue.SetRange(Code, Emp."Department Code");
             if dimensionValue.Find('-') then
                 DepartmentCode := dimensionValue.name;
             RespCenter.Reset();
@@ -282,7 +282,7 @@ Codeunit 61106 webportals
             if respcenter.findfirst then begin
                 ResponsibilityCenter := RespCenter.Name;
             end;
-            msg := CampusCode + '::' + DepartmentCode + '::' + ResponsibilityCenter;
+            msg := CampusCode + ' ::' + DepartmentCode + ' :: ' + ResponsibilityCenter;
         end;
     end;
 

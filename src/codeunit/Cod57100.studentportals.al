@@ -2635,7 +2635,11 @@ codeunit 57100 studentportals
         END;
     end;
 
-
+procedure GetServiceID(applicationNo: Code[25]): Code[25]
+    var PesaFlow: Codeunit "PesaFlow Integration";
+    begin
+        PesaFlow.GetServiceID(applicationNo);
+    end;
     procedure UpdateStudentProfile(username: Text; genderz: Integer; DoB: Date; Countyz: Text; Tribes: Text; Disabled: Integer)
     begin
         StudentCard.RESET;
