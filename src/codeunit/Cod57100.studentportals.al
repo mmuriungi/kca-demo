@@ -4747,7 +4747,7 @@ codeunit 57100 studentportals
         IF programs.FIND('-') THEN BEGIN
             intakes.RESET;
             intakes.SetRange(Current, true);
-            intakes.SetRange(Faculty, programs.Faculty);
+            intakes.SetRange(Faculty, programs."School Code");
             IF intakes.FIND('-') THEN BEGIN
                 REPEAT
                     Message := Message + intakes.Code + ' ::' + intakes.Description + ' :::';
