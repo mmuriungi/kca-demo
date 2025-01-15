@@ -88,7 +88,7 @@ Codeunit 50152 "PesaFlow Integration"
                 ERROR('invalid transaction id');
             END;
             if inserted then begin
-                applicheader.Status := applicheader.Status::"Department Approved";
+                applicheader."Application Fee Paid" := true;
                 applicheader.Modify;
             end;
         END ELSE BEGIN

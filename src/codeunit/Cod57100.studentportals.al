@@ -2635,11 +2635,13 @@ codeunit 57100 studentportals
         END;
     end;
 
-procedure GetServiceID(applicationNo: Code[25]): Code[25]
-    var PesaFlow: Codeunit "PesaFlow Integration";
+    procedure GetServiceID(applicationNo: Code[25]): Code[25]
+    var
+        PesaFlow: Codeunit "PesaFlow Integration";
     begin
-        PesaFlow.GetServiceID(applicationNo);
+        exit(PesaFlow.GetServiceID(applicationNo));
     end;
+
     procedure UpdateStudentProfile(username: Text; genderz: Integer; DoB: Date; Countyz: Text; Tribes: Text; Disabled: Integer)
     begin
         StudentCard.RESET;
@@ -4132,7 +4134,7 @@ procedure GetServiceID(applicationNo: Code[25]): Code[25]
                 IF programs.FIND('-') THEN BEGIN
                     progname := programs.Description;
                 END;
-                apps := apps + fablist."Application No." + ' ::' + progname + ' ::' + FORMAT(fablist."Application Date") + ' ::' + FORMAT(fablist.Status) + ' ::' + FORMAT(fablist."Process Application") + ' :::';
+                apps := apps + fablist."Application No." + ' ::' + progname + ' ::' + FORMAT(fablist."Application Date") + ' ::' + FORMAT(fablist.Status) + ' ::' + FORMAT(fablist."Application Fee Paid") + ' :::';
             UNTIL fablist.Next = 0;
         END;
     end;
