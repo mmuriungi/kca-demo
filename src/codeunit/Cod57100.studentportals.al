@@ -4134,7 +4134,7 @@ codeunit 57100 studentportals
                 IF programs.FIND('-') THEN BEGIN
                     progname := programs.Description;
                 END;
-                apps := apps + fablist."Application No." + ' ::' + progname + ' ::' + FORMAT(fablist."Application Date") + ' ::' + FORMAT(fablist.Status) + ' ::' + FORMAT(fablist."Process Application") + ' :::';
+                apps := apps + fablist."Application No." + ' ::' + progname + ' ::' + FORMAT(fablist."Application Date") + ' ::' + FORMAT(fablist.Status) + ' ::' + FORMAT(fablist."Application Fee Paid") + ' :::';
             UNTIL fablist.Next = 0;
         END;
     end;
