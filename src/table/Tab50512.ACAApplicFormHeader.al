@@ -1072,6 +1072,9 @@ table 50512 "ACA-Applic. Form Header"
             FieldClass = FlowField;
             CalcFormula = lookup("ACA-Programme"."School Code" where(Code = field("First Degree Choice")));
         }
+        field(50158; "Application Fee Paid"; Boolean)
+        {
+        }
     }
 
     keys
