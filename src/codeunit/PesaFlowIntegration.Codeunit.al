@@ -58,6 +58,81 @@ Codeunit 50152 "PesaFlow Integration"
         Message('Complete');
     end;
 
+    procedure InsertApplicationFee(paymentrefid: Code[50]; customerrefno: Code[20]; invoiceno: Code[20]; invoiceamt: Decimal; paidamt: Decimal; paymentchannel: Text; paymentdate: Text; status: Text) inserted: Boolean
+    var
+        applicheader: Record "ACA-Applic. Form Header";
+        pesaflowserviceCodes: Record "Pesa-Flow_Service-IDs";
+    begin
+        applicheader.RESET;
+        applicheader.SETRANGE("Application No.", customerrefno);
+        IF applicheader.FIND('-') THEN BEGIN
+            PesaFlowIntegration.RESET;
+            PesaFlowIntegration.SETRANGE(PaymentRefID, paymentrefid);
+            IF NOT PesaFlowIntegration.FIND('-') THEN BEGIN
+                PesaFlowIntegration.INIT;
+                PesaFlowIntegration.PaymentRefID := paymentrefid;
+                PesaFlowIntegration.CustomerRefNo := applicheader."Application No.";
+                PesaFlowIntegration."Customer Name" := applicheader."Full Names";
+                PesaFlowIntegration.InvoiceNo := invoiceno;
+                PesaFlowIntegration.InvoiceAmount := invoiceamt;
+                PesaFlowIntegration.PaidAmount := paidamt;
+                PesaFlowIntegration.ServiceID := GetServiceID(applicheader."Application No.");
+                PesaFlowIntegration.Description := 'Payment for course application fee';
+                PesaFlowIntegration.PaymentChannel := paymentchannel;
+                PesaFlowIntegration.PaymentDate := paymentdate;
+                PesaFlowIntegration.Status := status;
+                PesaFlowIntegration."Date Received" := TODAY;
+                PesaFlowIntegration.INSERT;
+                inserted := TRUE;
+            END ELSE BEGIN
+                ERROR('invalid transaction id');
+            END;
+            if inserted then begin
+                applicheader.Status := applicheader.Status::"Department Approved";
+                applicheader.Modify;
+            end;
+        END ELSE BEGIN
+            ERROR('invalid invoice');
+        END
+    end;
+
+    procedure GetApplicationCategory(applicationNo: code[25]) msg: Text
+    var
+        Applic: Record "ACA-Applic. Form Header";
+        Programme: Record "ACA-Programme";
+    begin
+        applic.Reset();
+        Applic.SetRange("Application No.", applicationNo);
+        if applic.FindFirst() then begin
+            Programme.Reset();
+            Programme.SetRange(Code, Applic."First Degree Choice");
+            if programme.FindFirst() then begin
+                msg := Format(Programme.Levels);
+            end;
+        end;
+    end;
+
+    procedure GetServiceID(applicationNo: Code[25]): Code[25]
+    var
+        Applic: Record "ACA-Applic. Form Header";
+        Programme: Record "ACA-Programme";
+        serviceIDs: Record "Pesa-Flow_Service-IDs";
+    begin
+        applic.Reset();
+        Applic.SetRange("Application No.", applicationNo);
+        if applic.FindFirst() then begin
+            Programme.Reset();
+            Programme.SetRange(Code, Applic."First Degree Choice");
+            if programme.FindFirst() then begin
+                serviceIDs.Reset();
+                serviceIDs.SetRange("Programme Category", Programme.Levels);
+                if serviceIDs.FindFirst() then begin
+                    exit(serviceIDs.Service_ID);
+                end;
+            end;
+        end;
+    end;
+
     procedure InsertAccomodationFee(paymentrefid: Code[20]; customerref: Code[50]; invoiceno: Code[20]; invoiceamt: Decimal; paidamt: Decimal; channel: Text; paymentdate: Text; status: Text) inserted: Boolean
     var
         KUCCPSRaw: Record "KUCCPS Imports";

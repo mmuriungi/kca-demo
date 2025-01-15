@@ -16,6 +16,13 @@ codeunit 52178866 "Notifications Handler"
 
     end;
 
+    procedure SendImprestDueDateReminder()
+    var
+        myInt: Integer;
+    begin
+        
+    end;
+
     procedure fnSendemail(recipientName: Text;
         subject: Text;
         body: text;

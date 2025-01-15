@@ -337,6 +337,25 @@ page 51459 "ACA-Std Finance Role Center"
                 }
 
             }
+            group("NFM")
+            {
+                action("NFM Bands")
+                {
+                    RunObject = page "Fund Band Categories";
+                    ApplicationArea = all;
+
+                }
+                action("NFM Batch List")
+                {
+                    RunObject = page "Fund Band Batch List";
+                    ApplicationArea = all;
+                }
+                action("NFM Batch Archived")
+                {
+                    RunObject = page "Band Batch List Archived";
+                    ApplicationArea = all;
+                }
+            }
             group(Approvals)
             {
                 Caption = 'Approvals';
