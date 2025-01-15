@@ -292,6 +292,8 @@ table 50020 "FIN-Imprest Lines"
     end;
 
     trigger OnInsert()
+    var
+        GLBudget: Record "G/L Budget Name";
     begin
         ImprestHeader.RESET;
         ImprestHeader.SETRANGE(ImprestHeader."No.", No);
@@ -312,6 +314,12 @@ table 50020 "FIN-Imprest Lines"
             "Currency Factor" := ImprestHeader."Currency Factor";
             "Currency Code" := ImprestHeader."Currency Code";
         END;
+        GLBudget.Reset();
+        GLBudget.SetRange(Active, true);
+        if GLBudget.FindFirst() then begin
+            "Budget Name" := GLBudget.Name;
+            Validate("Budget Name");
+        end;
     end;
 
     trigger OnModify()

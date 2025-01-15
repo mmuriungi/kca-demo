@@ -202,6 +202,178 @@ Codeunit 61106 webportals
         timeslots: Record "TT-Daily Lessons";
         AttendanceHeader: Record "Class Attendance Header";
         AttendanceDetails: Record "Class Attendance Details";
+        ImprestSurrHeader: Record "FIN-Imprest Surr. Header";
+        ImprestSurrDetails: Record "FIN-Imprest Surrender Details";
+        ImprestRequisitionLines: Record "FIN-Imprest Lines";
+        ApprovalMgmt: Codeunit "Init Code";
+
+    procedure FnImpSurrAttachement(retNo: Code[50]; fileName: Text; attachment: BigText; tableId: Integer) return_value: Boolean
+    var
+        DocAttachment: Record "Document Attachment";
+        FromRecRef: RecordRef;
+        FileManagement: Codeunit "File Management";
+        Bytes: dotnet Array;
+        Convert: dotnet Convert;
+        MemoryStream: dotnet MemoryStream;
+        Ostream: OutStream;
+        tableFound: Boolean;
+        ObjAppliRec: Record "FIN-Imprest Surr. Header";
+
+    begin
+
+        tableFound := false;
+        return_value := false;
+        if TableID = Database::"FIN-Imprest Surr. Header" then begin
+            ObjAppliRec.RESET;
+            ObjAppliRec.SETRANGE(ObjAppliRec.No, retNo);
+            if ObjAppliRec.FIND('-') then begin
+                FromRecRef.GETTABLE(ObjAppliRec);
+            end;
+            tableFound := true;
+        end;
+
+        if tableFound = true then begin
+            if FileName <> '' then begin
+                Clear(DocAttachment);
+                DocAttachment.Init();
+                DocAttachment.Validate("File Extension", FileManagement.GetExtension(FileName));
+                DocAttachment.Validate("File Name", CopyStr(FileManagement.GetFileNameWithoutExtension(FileName), 1, MaxStrLen(FileName)));
+                DocAttachment.Validate("Table ID", FromRecRef.Number);
+                DocAttachment.Validate("No.", retNo);
+                Bytes := Convert.FromBase64String(Attachment);
+                MemoryStream := MemoryStream.MemoryStream(Bytes);
+                DocAttachment."Document Reference ID".ImportStream(MemoryStream, '', FileName);
+                DocAttachment.Insert(true);
+                return_value := true;
+
+            end else
+                Error('No file to upload');
+        end else
+            Error('File not uploaded. No table filter found');
+
+    end;
+
+    procedure SubmitImprestSurrHeader(ImprestNo: Code[20]) Message: Text
+    begin
+        ImprestSurrHeader.RESET;
+        ImprestSurrHeader.SETRANGE(ImprestSurrHeader."Imprest Issue Doc. No", ImprestNo);
+        IF NOT ImprestSurrHeader.FIND('-') THEN BEGIN
+            NextJobapplicationNo := NoSeriesMgt.GetNextNo('SURR', 0D, TRUE);
+            ImprestRequisition.RESET;
+            ImprestRequisition.GET(ImprestNo);
+            /*Copy the details to the user interface*/
+            ImprestSurrHeader.No := NextJobapplicationNo;
+            ImprestSurrHeader."Imprest Issue Doc. No" := ImprestNo;
+            ImprestSurrHeader."Paying Bank Account" := ImprestRequisition."Paying Bank Account";
+            ImprestSurrHeader.Payee := ImprestRequisition.Payee;
+            ImprestSurrHeader."Surrender Date" := TODAY;
+            ImprestSurrHeader."Account Type" := ImprestSurrHeader."Account Type"::Customer;
+            ImprestSurrHeader."Account No." := ImprestRequisition."Account No.";
+            HRMEmployeeD.GET(ImprestRequisition.Cashier);
+            ImprestSurrHeader."Responsibility Center" := HRMEmployeeD."Responsibility Center";
+            ImprestRequisition.CALCFIELDS(ImprestRequisition."Total Net Amount");
+            ImprestSurrHeader.Amount := ImprestRequisition."Total Net Amount";
+            ImprestSurrHeader."Amount Surrendered LCY" := ImprestRequisition."Total Net Amount LCY";
+            //Currencies
+            ImprestSurrHeader."Currency Factor" := ImprestRequisition."Currency Factor";
+            ImprestSurrHeader."Currency Code" := ImprestRequisition."Currency Code";
+
+            ImprestSurrHeader."Date Posted" := ImprestRequisition."Date Posted";
+            ImprestSurrHeader."Global Dimension 1 Code" := ImprestRequisition."Global Dimension 1 Code";
+            ImprestSurrHeader."Shortcut Dimension 2 Code" := ImprestRequisition."Shortcut Dimension 2 Code";
+            ImprestSurrHeader."Shortcut Dimension 3 Code" := ImprestRequisition."Shortcut Dimension 3 Code";
+            ImprestSurrHeader.Dim3 := ImprestRequisition.Dim3;
+            ImprestSurrHeader."Shortcut Dimension 4 Code" := ImprestRequisition."Shortcut Dimension 4 Code";
+            ImprestSurrHeader.Dim4 := ImprestRequisition.Dim4;
+            ImprestSurrHeader."Imprest Issue Date" := ImprestRequisition.Date;
+            ImprestSurrHeader.INSERT;
+            Message := NextJobapplicationNo;
+        END ELSE BEGIN
+
+            //MODIFY
+            ImprestRequisition.GET(ImprestNo);
+            HRMEmployeeD.GET(ImprestRequisition.Cashier);
+            ImprestSurrHeader."Responsibility Center" := HRMEmployeeD."Responsibility Center";
+            IF ImprestSurrHeader.Modify() THEN BEGIN
+                ImprestSurrDetails.Reset;
+                ImprestSurrDetails.SetRange("Surrender Doc No.", ImprestSurrHeader.No);
+                if ImprestSurrDetails.Find('-') then BEGIN
+                    ImprestSurrDetails.DeleteAll;
+                END;
+                Message := ImprestSurrHeader.No;
+            END;
+        END;
+
+    end;
+
+    procedure SubmitImprestSurrDetails(lineNo: Integer; DocumentNo: Text; ActualSpent: Decimal; CashAmount: Decimal; ImprestNo: Text) Message: Text
+    begin
+
+        /*Copy the detail lines from the imprest details table in the database*/
+        ImprestRequisitionLines.RESET;
+        ImprestRequisitionLines.SETRANGE(ImprestRequisitionLines.No, ImprestNo);
+        ImprestRequisitionLines.SETRANGE(ImprestRequisitionLines.LineNo, lineNo);
+        IF ImprestRequisitionLines.FIND('-') THEN /*Copy the lines to the line table in the database*/
+          BEGIN
+            ImprestSurrDetails.SetRange("Surrender Doc No.", DocumentNo);
+            ImprestSurrDetails.SetRange("LineNo", lineNo);
+            if ImprestSurrDetails.Find('-') then BEGIN
+                ImprestSurrDetails."Actual Spent" := ActualSpent;
+                ImprestSurrDetails."Cash Receipt Amount" := CashAmount;
+                ImprestSurrDetails.Modify(true)
+            END else BEGIN
+                ImprestSurrDetails.INIT;
+                ImprestSurrDetails."Surrender Doc No." := DocumentNo;
+                ImprestSurrDetails.LineNo := lineNo;
+                ImprestSurrDetails."Account No:" := ImprestRequisitionLines."Account No:";
+                ImprestSurrDetails."Imprest Type" := ImprestRequisitionLines."Advance Type";
+                ImprestSurrDetails.VALIDATE(ImprestSurrDetails."Account No:");
+                ImprestSurrDetails."Account Name" := ImprestRequisitionLines."Account Name";
+                ImprestSurrDetails.Amount := ImprestRequisitionLines.Amount;
+                ImprestSurrDetails."Due Date" := ImprestRequisitionLines."Due Date";
+                ImprestSurrDetails."Imprest Holder" := ImprestRequisitionLines."Imprest Holder";
+                ImprestSurrDetails."Actual Spent" := ActualSpent;
+                ImprestSurrDetails."Cash Surrender Amt" := CashAmount;
+                ImprestSurrDetails."Apply to" := ImprestRequisitionLines."Apply to";
+                ImprestSurrDetails."Apply to ID" := ImprestRequisitionLines."Apply to ID";
+                ImprestSurrDetails."Surrender Date" := ImprestRequisitionLines."Surrender Date";
+                ImprestSurrDetails.Surrendered := ImprestRequisitionLines.Surrendered;
+                ImprestSurrDetails."Cash Receipt No" := ImprestRequisitionLines."M.R. No";
+                ImprestSurrDetails."Date Issued" := ImprestRequisitionLines."Date Issued";
+                ImprestSurrDetails."Type of Surrender" := ImprestRequisitionLines."Type of Surrender";
+                ImprestSurrDetails."Dept. Vch. No." := ImprestRequisitionLines."Dept. Vch. No.";
+                ImprestSurrDetails."Currency Factor" := ImprestRequisitionLines."Currency Factor";
+                ImprestSurrDetails."Currency Code" := ImprestRequisitionLines."Currency Code";
+                ImprestSurrDetails."Imprest Req Amt LCY" := ImprestRequisitionLines."Amount LCY";
+                ImprestSurrDetails."Shortcut Dimension 1 Code" := ImprestRequisitionLines."Global Dimension 1 Code";
+                ImprestSurrDetails."Shortcut Dimension 2 Code" := ImprestRequisitionLines."Shortcut Dimension 2 Code";
+                ImprestSurrDetails."Shortcut Dimension 3 Code" := ImprestRequisitionLines."Shortcut Dimension 3 Code";
+                ImprestSurrDetails."Shortcut Dimension 4 Code" := ImprestRequisitionLines."Shortcut Dimension 4 Code";
+                if ImprestSurrDetails.INSERT(true, true) then begin
+                    Message := 'Line added successfully';
+                end;
+            END
+        END
+    END;
+
+    procedure SendImpSurrAppReq(docNo: Code[20]) msg: Boolean
+    begin
+        ImprestSurrHeader.Reset;
+        ImprestSurrHeader.SETRANGE(ImprestSurrHeader.No, docNo);
+        IF ImprestSurrHeader.FIND('-') THEN BEGIN
+            ApprovalMgmt.OnSendImprestAccForApproval(ImprestSurrHeader);
+            msg := true;
+        end;
+    end;
+
+    procedure GetImprestAccountNo(username: Code[30]) Message: Text
+    begin
+        EmployeeCard.Reset();
+        EmployeeCard.SETRANGE("No.", username);
+        IF EmployeeCard.FIND('+') THEN BEGIN
+            Message := EmployeeCard."Customer Acc";
+        END
+    end;
 
     procedure CreateImprestLine(
             ImprestNo: Code[20];
