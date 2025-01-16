@@ -269,7 +269,7 @@ Codeunit 61106 webportals
             ImprestSurrHeader."Surrender Date" := TODAY;
             ImprestSurrHeader."Account Type" := ImprestSurrHeader."Account Type"::Customer;
             ImprestSurrHeader."Account No." := ImprestRequisition."Account No.";
-            HRMEmployeeD.GET(ImprestRequisition.Cashier);
+            HRMEmployeeD.GET(ImprestRequisition."Staff No");
             ImprestSurrHeader."Responsibility Center" := HRMEmployeeD."Responsibility Center";
             ImprestRequisition.CALCFIELDS(ImprestRequisition."Total Net Amount");
             ImprestSurrHeader.Amount := ImprestRequisition."Total Net Amount";
