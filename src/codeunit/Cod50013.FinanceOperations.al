@@ -83,7 +83,7 @@ codeunit 50013 "Finance Operations"
                     Payline.Amount := ImpHeader."Total Net Amount";
                     Payline.Validate(Amount);
                     Payline."Imprest Processed" := true;
-                    Payline.Insert();
+                    PayLine.INSERT(True);
 
                 until ImpHeader.Next() = 0;
 
@@ -137,7 +137,7 @@ codeunit 50013 "Finance Operations"
 
                  Payline.Amount := ImpHeader."Total Net Amount";
                  Payline.Validate(Amount);
-                 Payline.Insert();
+                 PayLine.INSERT(True);
                  ImpHeader."Pay Using Pv" := true;
                  ImpHeader.Modify()
                  //until ImpHeader.next = 0;
@@ -419,7 +419,7 @@ codeunit 50013 "Finance Operations"
                 END;
 
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
             //Post Interest
             /*if ImprestDetails."Acc interest Amount" <> 0 then begin
@@ -481,7 +481,7 @@ codeunit 50013 "Finance Operations"
                 END;
 
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
                 ImprestReq.reset;
                 ImprestReq.SetRange("No.", Surrender.No);
                 if ImprestReq.find('-') then begin
@@ -545,7 +545,7 @@ codeunit 50013 "Finance Operations"
                     GenJnlLine."Applies-to ID" := Rec."Apply to ID";
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
 
                 END;
             END;*/

@@ -547,7 +547,7 @@ page 51269 "CAT-Unposted Cafeteria Recpts"
                         END;
                 IF Receipts."Transaction Type" <> Receipts."Transaction Type"::"ADVANCE PAYMENT" THEN BEGIN
 
-                    GenLine.INSERT(TRUE);
+                    GenLine.INSERT(True);
                 END;
                 Approve(Receipts);
             UNTIL Receipts.NEXT = 0;
@@ -743,7 +743,7 @@ page 51269 "CAT-Unposted Cafeteria Recpts"
                    GenLine.VALIDATE(GenLine."Shortcut Dimension 1 Code");
                    GenLine.VALIDATE(GenLine."Shortcut Dimension 2 Code");
                     END;
-                   GenLine.INSERT(TRUE);
+                   GenLine.INSERT(True);
                     Approve(Receipts);
                    UNTIL  Receipts.NEXT=0;
         END;  */
@@ -810,7 +810,7 @@ page 51269 "CAT-Unposted Cafeteria Recpts"
        GenLine."Bal. Account Type":=GenLine."Bal. Account Type"::"Bank Account";
        GenLine."Bal. Account No.":="Cashier Bank";
        GenLine.VALIDATE(GenLine.Amount);
-       GenLine.INSERT(TRUE);
+       GenLine.INSERT(True);
         */
 
         Receipts.RESET;
@@ -838,7 +838,7 @@ page 51269 "CAT-Unposted Cafeteria Recpts"
                 GenLine."Bal. Account Type" := GenLine."Bal. Account Type"::"Bank Account";
                 GenLine."Bal. Account No." := Receipts."Cashier Bank";
                 GenLine.VALIDATE(GenLine.Amount);
-                GenLine.INSERT(TRUE);
+                GenLine.INSERT(True);
             UNTIL Receipts.NEXT = 0;
         END;
 

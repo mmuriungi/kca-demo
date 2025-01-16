@@ -132,7 +132,7 @@ page 51034 "Std Charge Reversal Card"
                     genline.Amount := Rec."Total Amount" * -1;
                     genline.Validate(Amount);
                     if genline.Amount <> 0 then
-                        genline.Insert()
+                        genLine.INSERT(True)
                 end;
 
 
@@ -156,7 +156,7 @@ page 51034 "Std Charge Reversal Card"
                     genline."Amount" := reversalLine.amount;
                     genline.Validate(Amount);
                     if genline.Amount <> 0 then
-                        genline.INSERT;
+                        genLine.INSERT(True);
 
 
 

@@ -221,7 +221,7 @@ page 50025 "FIN-Posted Interbank Trans2"
                     END;
                     GenJnlLine.Amount := Rec."Amount 2";
                     GenJnlLine.VALIDATE(GenJnlLine.Amount);
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
 
                     GenJnlLine.INIT;
@@ -260,7 +260,7 @@ page 50025 "FIN-Posted Interbank Trans2"
                     END;
                     GenJnlLine.Amount := -Rec.Amount;
                     GenJnlLine.VALIDATE(GenJnlLine.Amount);
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
                     Post := FALSE;
                     CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", GenJnlLine);
                     Post := JournalPostedSuccessfully.PostedSuccessfully();

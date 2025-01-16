@@ -336,7 +336,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                             END;
 
                             IF GenJnlLine.Amount <> 0 THEN
-                                GenJnlLine.INSERT;
+                                GenJnlLine.INSERT(True);
 
                             //Post Interest
                             if ImprestDetails."Acc interest Amount" <> 0 then begin
@@ -398,7 +398,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                                 END;
 
                                 IF GenJnlLine.Amount <> 0 THEN
-                                    GenJnlLine.INSERT;
+                                    GenJnlLine.INSERT(True);
                                 ImprestReq.reset;
                                 ImprestReq.SetRange("No.", Rec.No);
                                 if ImprestReq.find('-') then begin
@@ -462,7 +462,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                                 GenJnlLine."Applies-to ID" := Rec."Apply to ID";
 
                                 IF GenJnlLine.Amount <> 0 THEN
-                                    GenJnlLine.INSERT;
+                                    GenJnlLine.INSERT(True);
 
                             END;
                         END;*/
@@ -875,7 +875,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
              RecLine."Pay Mode" := ImprestDetails."Cash Pay Mode";
 
              IF ImprestDetails."Cash Surrender Amt" <> 0 THEN
-                 RecLine.INSERT;
+                 RecLine.INSERT(True);
          END;
      end;*/
 

@@ -72,7 +72,7 @@ codeunit 50055 "Bank Rec.-Post"
                 PostedBankRecCommentLine.Init;
                 PostedBankRecCommentLine.TransferFields(BankRecCommentLine, true);
                 PostedBankRecCommentLine."Table Name" := PostedBankRecCommentLine."Table Name"::"Posted Bank Rec.";
-                PostedBankRecCommentLine.Insert;
+                PostedBankRecCommentLine.INSERT(True);
             until BankRecCommentLine.Next = 0;
         BankRecCommentLine.DeleteAll;
 
@@ -101,7 +101,7 @@ codeunit 50055 "Bank Rec.-Post"
 
                 PostedBankRecLine.Init;
                 PostedBankRecLine.TransferFields(BankRecLine, true);
-                PostedBankRecLine.Insert;
+                PostedBankRecLine.INSERT(True);
             until BankRecLine.Next = 0;
         BankRecLine.DeleteAll;
         BankRecSubLine.Reset;

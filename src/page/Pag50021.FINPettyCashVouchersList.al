@@ -516,7 +516,7 @@ page 50021 "FIN-Petty Cash Vouchers List"
 
         END;
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         //Post Other Payment Journal Entries
         PostPV(Payments);
@@ -710,7 +710,7 @@ page 50021 "FIN-Petty Cash Vouchers List"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Applies-to ID";
 
-                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
 
                 //Post VAT to GL[VAT GL]
                 TarriffCodes.RESET;
@@ -761,7 +761,7 @@ page 50021 "FIN-Petty Cash Vouchers List"
                     GenJnlLine.ValidateShortcutDimCode(3, PayLine."Shortcut Dimension 3 Code");
                     GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
-                    IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                    IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
                 END;
 
                 //POST W/TAX to Respective W/TAX GL Account
@@ -814,7 +814,7 @@ page 50021 "FIN-Petty Cash Vouchers List"
                     GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
                 END;
 
                 //Post VAT Balancing Entry Goes to Vendor
@@ -861,7 +861,7 @@ page 50021 "FIN-Petty Cash Vouchers List"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
                 //Post W/TAX Balancing Entry Goes to Vendor
                 LineNo := LineNo + 1000;
@@ -912,7 +912,7 @@ page 50021 "FIN-Petty Cash Vouchers List"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
 
             UNTIL PayLine.NEXT = 0;

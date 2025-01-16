@@ -401,7 +401,7 @@ report 50156 prPayrollJournalTransfer
         // GeneraljnlLine."Shortcut Dimension 2 Code":=GlobalDime2;
         // GeneraljnlLine.VALIDATE(GeneraljnlLine."Shortcut Dimension 2 Code");
         IF GeneraljnlLine.Amount <> 0 THEN
-            GeneraljnlLine.INSERT;
+            GeneraljnlLine.INSERT(True);
     end;
 
     procedure CreateJnlEntry(AccountType: Option "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner"; AccountNo: Code[20]; GlobalDime1: Code[20]; GlobalDime2: Code[20]; Description: Text[50]; DebitAmount: Decimal; CreditAmount: Decimal; PostAs: Option " ",Debit,Credit; LoanNo: Code[20]; TransType: Option " ","Registration Fee",Loan,Repayment,Withdrawal,"Interest Due","Interest Paid","Welfare Contribution","Deposit Contribution","Loan Penalty","Application Fee","Appraisal Fee",Investment,"Unallocated Funds","Shares Capital","Loan Adjustment",Dividend,"Withholding Tax","Administration Fee","Welfare Contribution 2"; BalAccType: enum "Gen. Journal Account Type"; BalAccountNo: Code[20])
@@ -436,7 +436,7 @@ report 50156 prPayrollJournalTransfer
         // GeneraljnlLine."Shortcut Dimension 2 Code":=GlobalDime2;
         // GeneraljnlLine.VALIDATE(GeneraljnlLine."Shortcut Dimension 2 Code");
         IF GeneraljnlLine.Amount <> 0 THEN
-            GeneraljnlLine.INSERT;
+            GeneraljnlLine.INSERT(True);
     end;
 }
 

@@ -191,7 +191,7 @@ table 50987 "POS Sales Header"
         GenJnLine."Bal. Account Type" := GenJnLine."Bal. Account Type"::"G/L Account";
         GenJnLine."Bal. Account No." := "Income Account";
         IF GenJnLine.Amount <> 0 THEN
-            GenJnLine.INSERT;
+            GenJnLine.INSERT(True);
         // CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post2", GenJnLine);
         Codeunit.Run(Codeunit::"Gen. Jnl.-Post", GenJnLine);
         Batch.setrange("Journal Template Name", PosSetup."Journal Template Name");

@@ -423,7 +423,7 @@ page 50015 "FIN-Imprests List"
         GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         IF GLEntry.FINDLAST THEN LastEntry := GLEntry."Entry No.";
 

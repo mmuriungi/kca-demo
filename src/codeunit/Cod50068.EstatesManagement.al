@@ -82,7 +82,7 @@ codeunit 50068 "Estates Management"
                     MaintenanceScheduleLine."Maintenance Period" := MaintenanceRequest."Maintenance Period";
                     MaintenanceScheduleLine.AssignedMo := MaintenanceRequest.AssignedMo;
 
-                    MaintenanceScheduleLine.Insert();
+                    MaintenanceScheduleLine.INSERT(True);
                     MaintenanceRequest.Status := MaintenanceRequest.Status::Scheduled;
                     MaintenanceRequest."Scheduled Date" := Today;
                     MaintenanceRequest.Modify();

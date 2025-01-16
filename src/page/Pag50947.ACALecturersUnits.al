@@ -181,7 +181,7 @@ page 50947 "ACA-Lecturers Units"
                                         gnLine."Bal. Account Type" := gnLine."Bal. Account Type"::"G/L Account";
                                         gnLine."Bal. Account No." := '70310';//GeneralSetup."Lecturers Expense Account";
                                         gnLine.Amount := LecUnits."Claimed Amount" * -1;
-                                        gnLine.INSERT;
+                                        gnLine.INSERT(True);
                                     END;
                                 UNTIL LecUnits.NEXT = 0;
                             END;

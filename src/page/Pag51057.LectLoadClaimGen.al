@@ -167,7 +167,7 @@ page 51057 "Lect Load Claim Gen."
                                         PurchasesLine.VALIDATE("Unit Cost");
                                         //PurchasesLine."Line Amount":=LectLoadCustProdSource."Unit Cost";
                                         //PurchasesLine.VALIDATE("Line Amount");
-                                        PurchasesLine.INSERT(TRUE);
+                                        PurchasesLine.INSERT(True);
 
                                         counted := counted + 1;
 

@@ -668,7 +668,7 @@ then
             BankRecLine."Shortcut Dimension 2 Code" := BankLedgerEntry."Global Dimension 2 Code";
             BankRecLine."Dimension Set ID" := BankLedgerEntry."Dimension Set ID";
             BankRecLine.Validate(Cleared, DepositBankRecLine.Cleared);
-            BankRecLine.Insert(true);
+            BankRecLine.INSERT(True);
             BankRecSubLine.Delete;
             NextBankRecLineNo := NextBankRecLineNo + 10000;
         until BankRecSubLine.Next = 0;
@@ -710,7 +710,7 @@ then
                     BankRecSubLine."Statement No." := DepositBankRecLine."Statement No.";
                     BankRecSubLine."Bank Rec. Line No." := DepositBankRecLine."Line No.";
                     BankRecSubLine."Line No." := NextSubLineNo;
-                    BankRecSubLine.Insert;
+                    BankRecSubLine.INSERT(True);
                     NextSubLineNo += 1;
                     CopyBankRecSubLineToTemp(TempBankRecSubLine, BankRecSubLine);
                     BankRecSubLine.Delete;
@@ -736,7 +736,7 @@ then
             DepositBankRecLine."Shortcut Dimension 2 Code" := '';
             DepositBankRecLine."Collapse Status" := DepositBankRecLine."Collapse Status"::"Collapsed Deposit";
 
-            DepositBankRecLine.Insert;
+            DepositBankRecLine.INSERT(True);
         end else begin
             DepositBankRecLine."Collapse Status" := 0;
             DepositBankRecLine.Modify;
@@ -759,7 +759,7 @@ then
     local procedure CopyBankRecSubLineToTemp(var TempBankRecSubLine: Record "Bank Rec. Sub-line" temporary; BankRecSubLine: Record "Bank Rec. Sub-line")
     begin
         TempBankRecSubLine := BankRecSubLine;
-        TempBankRecSubLine.Insert;
+        TempBankRecSubLine.INSERT(True);
     end;
 
     local procedure CopyBankRecSubLineFromTemp(var TempBankRecSubLine: Record "Bank Rec. Sub-line" temporary; LineNo: Integer)
@@ -773,7 +773,7 @@ then
                 BankRecSubLine := TempBankRecSubLine;
                 BankRecSubLine."Bank Rec. Line No." := LineNo;
                 BankRecSubLine."Line No." := NextSubLineNo;
-                BankRecSubLine.Insert;
+                BankRecSubLine.INSERT(True);
             until TempBankRecSubLine.Next = 0;
             TempBankRecSubLine.DeleteAll;
         end;

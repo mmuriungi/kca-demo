@@ -381,7 +381,7 @@ page 50002 "FIN-Bank & Cash Trans. Req. UP"
                         END;
                         GenJnlLine.Amount := Rec."Amount 2";
                         GenJnlLine.VALIDATE(GenJnlLine.Amount);
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
 
 
                         GenJnlLine.INIT;
@@ -420,7 +420,7 @@ page 50002 "FIN-Bank & Cash Trans. Req. UP"
                         END;
                         GenJnlLine.Amount := -Rec.Amount;
                         GenJnlLine.VALIDATE(GenJnlLine.Amount);
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
                         Post := FALSE;
                         CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", GenJnlLine);
                         Post := JournalPostedSuccessfully.PostedSuccessfully();

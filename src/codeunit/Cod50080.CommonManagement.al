@@ -70,7 +70,7 @@ codeunit 50080 "Common Management"
                     GenJnLine."Bal. Account Type" := GenJnLine."Bal. Account Type"::"G/L Account";
                     GenJnLine."Bal. Account No." := POSSaleHeader."Income Account";
                     IF GenJnLine.Amount <> 0 THEN
-                        GenJnLine.INSERT;
+                        GenJnLine.INSERT(True);
                     Codeunit.Run(Codeunit::"Gen. Jnl.-Post", GenJnLine);
                     POSSaleHeader.Posted := True;
                     POSSaleHeader.Modify(true);
@@ -157,7 +157,7 @@ codeunit 50080 "Common Management"
                     GenJnLine."Bal. Account Type" := GenJnLine."Bal. Account Type"::"G/L Account";
                     //GenJnLine."Bal. Account No." := PosSetup."Cafeteria Account";
                     IF GenJnLine.Amount <> 0 THEN
-                        GenJnLine.INSERT;
+                        GenJnLine.INSERT(True);
                     GenJnLine.Reset();
                     GenJnLine.SETRANGE("Journal Template Name", PosSetup."Journal Template Name");
                     GenJnLine.SETRANGE("Journal Batch Name", ReceiptNo);

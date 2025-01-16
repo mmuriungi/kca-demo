@@ -105,7 +105,7 @@ page 51674 "HMS Admission Form Drug"
                                 PharmLine.VALIDATE(PharmLine.Quantity);
                                 PharmLine.Dosage := AdmissionLine.Dosage;
                                 PharmLine.Pharmacy := AdmissionLine."Pharmacy Code";
-                                PharmLine.INSERT();
+                                PharmLine.INSERT(True);
                             UNTIL AdmissionLine.NEXT = 0;
                         END;
                         MESSAGE('The Prescription has been sent to the Pharmacy for Issuance');

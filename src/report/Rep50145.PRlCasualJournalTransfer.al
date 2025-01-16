@@ -389,7 +389,7 @@ report 50145 "PRl-Casual Journal Transfer"
         // GeneraljnlLine."Shortcut Dimension 2 Code":=GlobalDime2;
         // GeneraljnlLine.VALIDATE(GeneraljnlLine."Shortcut Dimension 2 Code");
         IF GeneraljnlLine.Amount <> 0 THEN
-            GeneraljnlLine.INSERT;
+            GeneraljnlLine.INSERT(True);
     end;
 }
 

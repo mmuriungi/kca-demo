@@ -66,7 +66,7 @@ table 52178794 "Tender Submission Header"
                 //             tsline.Validate(Quantity);
                 //             tsline."Unit of Measure" := tline."Unit of Measure";
                 //             tsline."Tender No." := Rec."Tender No.";
-                //             tsline.Insert();
+                //             tsLine.INSERT(True);
                 //         until tline.Next() = 0;
                 //     end;
                 // end;
@@ -276,7 +276,7 @@ table 52178794 "Tender Submission Header"
                         sbline."Direct Unit Cost" := RFQ_Line."Direct Unit Cost";
                         sbline.VALIDATE("Direct Unit Cost");
                         sbline.Amount := RFQ_Line.Amount;
-                        sbline.INSERT;
+                        sbLine.INSERT(True);
                     UNTIL RFQ_Line.NEXT = 0;
                 END;
 

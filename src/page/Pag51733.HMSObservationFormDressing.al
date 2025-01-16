@@ -82,7 +82,7 @@ page 51733 "HMS-Observation Form Dressing"
                             ItemJnlLine."Unit of Measure Code" := PharmLine."Unit of Measure";
                             ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
                             ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
-                            ItemJnlLine.INSERT();
+                            ItemJnlLine.INSERT(True);
                             PharmLine.Posted := TRUE;
                             PharmLine.MODIFY;
                             LineNo := LineNo + 1;

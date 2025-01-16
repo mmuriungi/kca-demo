@@ -314,7 +314,7 @@ page 51241 "CAT-Menu Sales Header"
             // GrnLine.VALIDATE(GrnLine."Shortcut Dimension 1 Code");
             // GrnLine."Shortcut Dimension 3 Code":='170';
             // GrnLine.VALIDATE(GrnLine."Shortcut Dimension 2 Code");
-            GrnLine.INSERT(TRUE);
+            GrnLine.INSERT(True);
 
         END;
 
@@ -350,7 +350,7 @@ page 51241 "CAT-Menu Sales Header"
             // GrnLine.VALIDATE(GrnLine."Shortcut Dimension 1 Code");
             // GrnLine."Shortcut Dimension 3 Code":='170';
             // GrnLine.VALIDATE(GrnLine."Shortcut Dimension 2 Code");
-            GrnLine.INSERT(TRUE);
+            GrnLine.INSERT(True);
 
         END;
         IF GLEntry.FINDLAST() THEN LastEntry := GLEntry."Entry No.";

@@ -417,7 +417,7 @@ page 50010 "FIN-Imprest Accounting"
                             END;
 
                             IF GenJnlLine.Amount <> 0 THEN
-                                GenJnlLine.INSERT;
+                                GenJnlLine.INSERT(True);
 
                             //Post Cash Surrender
                             IF ImprestDetails."Cash Receipt Amount" > 0 THEN BEGIN
@@ -472,7 +472,7 @@ page 50010 "FIN-Imprest Accounting"
                                     GenJnlLine."Applies-to ID" := Rec."Apply to ID";
 
                                     IF GenJnlLine.Amount <> 0 THEN
-                                        GenJnlLine.INSERT;
+                                        GenJnlLine.INSERT(True);
 
                                 END;
                             END;

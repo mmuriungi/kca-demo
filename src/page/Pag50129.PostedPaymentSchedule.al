@@ -257,7 +257,7 @@ page 50129 "Posted Payment Schedule"
         GenJnlLine."Bank Payment Type" := GenJnlLine."Bank Payment Type"::"Computer Check";
 
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         //Before posting if paymode is cheque print the cheque
         //IF ("Pay Mode"="Pay Mode"::Cheque) AND ("Cheque Type"="Cheque Type"::"Computer Check") THEN BEGIN

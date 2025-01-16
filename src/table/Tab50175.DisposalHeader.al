@@ -126,7 +126,7 @@ table 50175 "Disposal Header"
                         Header.Date := DisposalPlan.Date;
                         Line."No." := "No.";
                         Line."Disposal Period" := "Disposal Period";
-                        Line.INSERT();
+                        Line.INSERT(True);
                     //lastno:=lastno+100;
                     //MESSAGE(FORMAT(lastno)+', '+FORMAT(DisposalPlanL."Ref. No.")+', '+DisposalPlanL."Item description");
                     UNTIL DisposalPlanL.NEXT = 0;
@@ -163,7 +163,7 @@ table 50175 "Disposal Header"
                         Line."Planned Quantity" := DisposalPlanL.Quantity;
                         Line."Item/Tag No" := DisposalPlanL."Item/Tag No";
 
-                        Line.INSERT;
+                        Line.INSERT(True);
                     UNTIL DisposalPlanL.NEXT = 0;
                 END;
                 //delete if this is blank

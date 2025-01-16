@@ -97,7 +97,7 @@ page 51839 "HMS-Treatment Form Injection"
                             ItemJnlLine."Unit of Measure Code" := Rec."Injection Unit of Measure";
                             ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
                             ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
-                            ItemJnlLine.INSERT();
+                            ItemJnlLine.INSERT(True);
                             PharmLine.Posted := TRUE;
                             PharmLine.MODIFY;
                             LineNo := LineNo + 1;

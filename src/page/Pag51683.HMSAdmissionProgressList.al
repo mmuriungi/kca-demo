@@ -122,7 +122,7 @@ page 51683 "HMS-Admission Progress List"
                             DischargeLine."Admission No." := Rec."Admission No.";
                             DischargeLine."Process Code" := DischargeProcesses.Code;
                             DischargeLine.VALIDATE(DischargeLine."Process Code");
-                            DischargeLine.INSERT();
+                            DischargeLine.INSERT(True);
                         UNTIL DischargeProcesses.NEXT = 0;
                     END;
 

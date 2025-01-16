@@ -109,7 +109,7 @@ table 51088 "HMS-Admission Discharge Header"
                 Line.INIT;
                 Line."Admission No." := "Admission No.";
                 Line."Process Code" := Process.Code;
-                Line.INSERT();
+                Line.INSERT(True);
             UNTIL Process.NEXT = 0;
         END;
 

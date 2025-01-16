@@ -58,7 +58,7 @@ table 51137 "HMS-Patients Test"
                 SalesLine.Quantity:=1;
                 SalesLine."Unit Price":=PatientsTest.Charge;
                 SalesLine.VALIDATE("Unit Price");
-                SalesLine.INSERT;
+                SalesLine.INSERT(True);
                  LineNo := LineNo + 1;
                 PatientsTest.Posted:=TRUE;
                 PatientsTest.MODIFY;

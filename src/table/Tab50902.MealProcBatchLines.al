@@ -417,7 +417,7 @@ table 50902 "Meal-Proc. Batch Lines"
                     TransferLine."Document No." := TransferHeader."No.";
                     TransferLine."Unit of Measure" := ItmJnl."Unit of Measure Code";
                     TransferLine.VALIDATE("Unit of Measure Code");
-                    TransferLine.INSERT(TRUE);
+                    TransferLine.INSERT(True);
                 UNTIL ItmJnl.NEXT = 0;
             END;
             //"Transfer Order No.":=TransferHeader."No.";

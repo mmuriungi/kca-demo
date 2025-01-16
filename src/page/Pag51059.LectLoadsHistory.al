@@ -131,7 +131,7 @@ page 51059 "Lect Loads History"
                     //SalesLine.VALIDATE("No.");
                     //SalesLine.VALIDATE("Location Code");
                     
-                    SalesLine.INSERT(TRUE);
+                    SalesLine.INSERT(True);
                           END;
                     END;
                     UNTIL LectLoadCustProdSource.NEXT=0;

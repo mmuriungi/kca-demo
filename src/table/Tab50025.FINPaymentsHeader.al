@@ -466,7 +466,7 @@ table 50025 "FIN-Payments Header"
                             PLine.VALIDATE(PLine.Amount);
                             PLine."Global Dimension 1 Code" := ImpLines."Global Dimension 1 Code";
                             PLine."Shortcut Dimension 2 Code" := ImpLines."Shortcut Dimension 2 Code";
-                            PLine.INSERT;
+                            PLine.INSERT(True);
                         UNTIL ImpLines.NEXT = 0;
                     END;
 
@@ -500,7 +500,7 @@ table 50025 "FIN-Payments Header"
                             PLine.VALIDATE(PLine.Amount);
                             PLine."Global Dimension 1 Code" := ClaimLines."Global Dimension 1 Code";
                             PLine."Shortcut Dimension 2 Code" := ClaimLines."Shortcut Dimension 2 Code";
-                            PLine.INSERT;
+                            PLine.INSERT(True);
                         UNTIL ClaimLines.NEXT = 0;
                     END;
 

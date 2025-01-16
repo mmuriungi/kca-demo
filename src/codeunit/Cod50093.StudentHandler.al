@@ -64,7 +64,7 @@ codeunit 50093 "Student Handler"
         SalesLine.Validate("Shortcut Dimension 1 Code");
         SalesLine."Shortcut Dimension 2 Code" := Dim2Code;
         SalesLine.Validate("Shortcut Dimension 2 Code");
-        if SalesLine.Insert(true) then
+        if SalesLine.INSERT(True) then
             exit(SalesLine."Line No.");
     end;
 

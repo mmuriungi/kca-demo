@@ -567,7 +567,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                                 EFTline.Amount := PayLine.Amount;
                                 EFTline."PV Number" := PayLine.No;
                                 EFTline.Description := Rec.Payee;
-                                EFTline.INSERT;
+                                EFTLine.INSERT(True);
 
                             END;
                         END;
@@ -826,7 +826,7 @@ page 50045 "FIN-Travel Advance Req. UP"
         GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         IF Payments."Pay Mode" = Payments."Pay Mode"::Cheque THEN BEGIN
             ChequeBuffer.reset;
@@ -1260,7 +1260,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                 //GenJnlLine."Applies-to ID":=PayLine."Applies-to ID";
                 GenJnlLine.Description := Rec.Payee;
                 ///GenJnlLine."Received By":=Payee;
-                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
 
 
             UNTIL PayLine.NEXT = 0;

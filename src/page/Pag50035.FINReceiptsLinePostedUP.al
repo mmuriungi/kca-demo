@@ -178,7 +178,7 @@ page 50035 "FIN-Receipts Line Posted UP"
                     GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
 
 
                     GenJnlLine.INIT;
@@ -204,7 +204,7 @@ page 50035 "FIN-Receipts Line Posted UP"
                     GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
 
                     GenJnlLine.RESET;
                     GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", 'CASH RECEI');

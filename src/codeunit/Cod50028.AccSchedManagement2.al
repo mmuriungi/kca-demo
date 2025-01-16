@@ -1330,7 +1330,7 @@ codeunit 50028 AccSchedManagement2
                         else
                             AccSchedLine."Totaling Type" := AccSchedLine."Totaling Type"::"Posting Accounts";
                         OnInsertGLAccountsOnBeforeAccSchedLineInsert(AccSchedLine, GLAcc);
-                        AccSchedLine.Insert();
+                        AccSchedLine.INSERT(True);
                     until GLAcc.Next() = 0;
             end;
         end;
@@ -1370,7 +1370,7 @@ codeunit 50028 AccSchedManagement2
                             AccSchedLine."Totaling Type" := AccSchedLine."Totaling Type"::"Cash Flow Total Accounts"
                         else
                             AccSchedLine."Totaling Type" := AccSchedLine."Totaling Type"::"Cash Flow Entry Accounts";
-                        AccSchedLine.Insert();
+                        AccSchedLine.INSERT(True);
                     until CashFlowAcc.Next() = 0;
             end;
         end;
@@ -1408,7 +1408,7 @@ codeunit 50028 AccSchedManagement2
                             AccSchedLine."Totaling Type" := AccSchedLine."Totaling Type"::"Cost Type Total"
                         else
                             AccSchedLine."Totaling Type" := AccSchedLine."Totaling Type"::"Cost Type";
-                        AccSchedLine.Insert();
+                        AccSchedLine.INSERT(True);
                     until CostType.Next() = 0;
             end;
         end;
@@ -1830,7 +1830,7 @@ codeunit 50028 AccSchedManagement2
                     AccSchedLine.Delete();
                     OnMoveAccSchedLinesOnAfterAccSchedLineDelete(AccSchedLine, Place);
                     AccSchedLine."Line No." := I + 10000 * Place;
-                    AccSchedLine.Insert();
+                    AccSchedLine.INSERT(True);
                     OnAfterAccSchedLineInsert(AccSchedLine);
                 end;
             until (I <= AccSchedLineNo) or (AccSchedLine.Next(-1) = 0);

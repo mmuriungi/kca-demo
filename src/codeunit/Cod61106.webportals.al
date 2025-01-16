@@ -421,7 +421,7 @@ Codeunit 61106 webportals
         ImprestLine."Date Issued" := Today;
 
         // Insert the line
-        if ImprestLine.Insert(true) then
+        if ImprestLine.INSERT(True) then
             exit(true)
         else
             exit(false);
@@ -7539,7 +7539,7 @@ Codeunit 61106 webportals
             //         ApprovalCommentLine."User ID" := ApproverID;
             //         ApprovalCommentLine."Date and Time" := CreateDatetime(Today, Time);
             //         ApprovalCommentLine.Comment := RejectReason;
-            //         if ApprovalCommentLine.Insert then;
+            //         if ApprovalCommentLine.INSERT(True) then;
             //     end;
             // end else if ApprovalActions = 'CANCEL' then begin
             //     AppMgt.CancelApproval(ApprovalEntry."Table ID", ApprovalEntry."Document Type", ApprovalEntry."Document No.", false, false);
@@ -7554,7 +7554,7 @@ Codeunit 61106 webportals
             //         ApprovalCommentLine."User ID" := ApproverID;
             //         ApprovalCommentLine."Date and Time" := CreateDatetime(Today, Time);
             //         ApprovalCommentLine.Comment := RejectReason;
-            //         if ApprovalCommentLine.Insert then;
+            //         if ApprovalCommentLine.INSERT(True) then;
             //     end;
             // end else if ApprovalActions = 'DELEGATE' then
             //         AppMgt.DelegateApprovalRequest(ApprovalEntry);

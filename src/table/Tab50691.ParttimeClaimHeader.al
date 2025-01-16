@@ -493,7 +493,7 @@ table 50691 "Parttime Claim Header"
         GenJnlLine.Amount := "Payment Amount";
         GenJnlLine.VALIDATE(GenJnlLine.Amount);
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         //Bank Account
         LineNo := LineNo + 1000;
@@ -527,7 +527,7 @@ table 50691 "Parttime Claim Header"
         GenJnlLine.VALIDATE(GenJnlLine.Amount);
 
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         //Payee Account
         LineNo := LineNo + 1000;
@@ -561,7 +561,7 @@ table 50691 "Parttime Claim Header"
         GenJnlLine.VALIDATE(GenJnlLine.Amount);
 
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", GenJnlLine);
         Post := JournlPosted.PostedSuccessfully();

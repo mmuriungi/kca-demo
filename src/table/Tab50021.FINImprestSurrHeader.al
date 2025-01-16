@@ -356,7 +356,7 @@ table 50021 "FIN-Imprest Surr. Header"
 
 
                         //end;
-                        ImpSurrLine.INSERT;
+                        ImpSurrLine.INSERT(True);
                     UNTIL PayLine.NEXT = 0;
                 END;
 
@@ -681,7 +681,7 @@ table 50021 "FIN-Imprest Surr. Header"
                         END;
 
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
 
                         //Post Interest
                         if ImprestDetails."Acc interest Amount" <> 0 then begin
@@ -743,7 +743,7 @@ table 50021 "FIN-Imprest Surr. Header"
                             END;
 
                             IF GenJnlLine.Amount <> 0 THEN
-                                GenJnlLine.INSERT;
+                                GenJnlLine.INSERT(True);
                             ImprestReq.reset;
                             ImprestReq.SetRange("No.", Rec.No);
                             if ImprestReq.find('-') then begin
@@ -807,7 +807,7 @@ table 50021 "FIN-Imprest Surr. Header"
                             GenJnlLine."Applies-to ID" := Rec."Apply to ID";
 
                             IF GenJnlLine.Amount <> 0 THEN
-                                GenJnlLine.INSERT;
+                                GenJnlLine.INSERT(True);
 
                         END;
                     END;*/

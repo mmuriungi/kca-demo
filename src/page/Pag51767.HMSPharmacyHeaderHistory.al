@@ -123,7 +123,7 @@ page 51767 "HMS Pharmacy Header History"
                 ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
                 ItemJnlLine."Unit Amount" := PharmLine."Unit Price";
                 ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
-                ItemJnlLine.INSERT();
+                ItemJnlLine.INSERT(True);
                 PharmLine.Remaining := PharmLine.Remaining - PharmLine."Issued Units";
                 PharmLine.MODIFY;
                 LineNo := LineNo + 1;

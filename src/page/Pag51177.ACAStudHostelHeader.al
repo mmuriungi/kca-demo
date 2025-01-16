@@ -447,7 +447,7 @@ page 51177 "ACA-Stud. Hostel Header"
                 //GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
                 //GenJnlLine."Document No.":="Doc No";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
             //END;
             UNTIL StudentHostel.NEXT = 0;
         END;

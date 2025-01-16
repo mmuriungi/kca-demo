@@ -208,7 +208,7 @@ page 52178503 "PROC-Store Req. Header (B)"
                             // GenJnline.VALIDATE("Reason Code");
                             GenJnline.VALIDATE("Item No.");
                             if GenJnline.Quantity <> 0 then
-                                GenJnline.INSERT(TRUE);
+                                GenJnLine.INSERT(True);
                             ReqLine."Quantity Issued" := ReqLine."Quantity Issued" + ReqLine."Quantity To Issue";
                             ReqLine."Quantity To Issue" := 0;
                             IF ReqLine."Quantity Issued" = ReqLine."Quantity Requested" THEN

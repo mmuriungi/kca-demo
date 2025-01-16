@@ -185,7 +185,7 @@ codeunit 52178509 "Requisition Management"
             LastReqDocNoProcessed := RequisitionLine."Document No.";
         END;
         Window.UPDATE(4, PurchaseLine."Line No.");
-        PurchaseLine.INSERT(TRUE);
+        PurchaseLine.INSERT(True);
         page.Run(page::"Purchase Order", PurchaseHeader, PurchaseHeader."No.");
     end;
 

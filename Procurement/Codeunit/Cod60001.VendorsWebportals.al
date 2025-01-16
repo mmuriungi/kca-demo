@@ -290,7 +290,7 @@ codeunit 60001 VendorsWebportals
                     purchaseline.Quantity := proclines.Quantity;
                     purchaseline.Validate(Quantity);
                     purchaseline.Validate("Direct Unit Cost");
-                    purchaseline.insert;
+                    purchaseLine.INSERT(True);
                     msg := true;
                 end else begin
                     Error('Tender line already added!');
