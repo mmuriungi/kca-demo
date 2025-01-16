@@ -292,7 +292,7 @@ Codeunit 61106 webportals
 
             //MODIFY
             ImprestRequisition.GET(ImprestNo);
-            HRMEmployeeD.GET(ImprestRequisition.Cashier);
+            HRMEmployeeD.GET(ImprestRequisition."Staff No");
             ImprestSurrHeader."Responsibility Center" := HRMEmployeeD."Responsibility Center";
             IF ImprestSurrHeader.Modify() THEN BEGIN
                 ImprestSurrDetails.Reset;
