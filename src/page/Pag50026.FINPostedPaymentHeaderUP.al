@@ -398,7 +398,7 @@ page 50026 "FIN-Posted Payment Header UP"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         Payments.RESET;

@@ -207,7 +207,7 @@ page 51372 "Casual Header Card."
         GenJnlLine.RESET;
         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JournalTemplate);
         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JournalBatch);
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
 
         //.................INSERT THE NET AMOUNT TRANSACTION................
 

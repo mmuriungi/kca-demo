@@ -1,6 +1,5 @@
 table 50051 "General Journal Archive"
 {
-    Caption = 'General Journal Archive';
     DataClassification = ToBeClassified;
 
     fields
@@ -1308,7 +1307,14 @@ table 50051 "General Journal Archive"
             begin
             end;
         }
+        field(80010; Posted; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = exist("G/L Entry" where("Document No." = field("Document No.")));
+        }
+
     }
+
     keys
     {
         key(Key1; "Journal Template Name", "Journal Batch Name", "Line No.")
@@ -1349,4 +1355,5 @@ table 50051 "General Journal Archive"
             IncludedFields = Amount;
         }
     }
+
 }

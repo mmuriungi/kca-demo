@@ -448,7 +448,7 @@ table 50691 "Parttime Claim Header"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         GenJnlLine.RESET;

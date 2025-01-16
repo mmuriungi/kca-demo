@@ -600,7 +600,7 @@ table 50021 "FIN-Imprest Surr. Header"
                     GenJnlLine.RESET;
                     GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", GenledSetup."Surrender Template");
                     GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", GenledSetup."Surrender  Batch");
-                    GenJnlLine.DELETEALL;
+                    GenJnlLine.DELETEALL(true);
                 END;
 
                 IF DefaultBatch.GET(GenledSetup."Surrender Template", GenledSetup."Surrender  Batch") THEN BEGIN

@@ -419,7 +419,7 @@ page 50040 "FIN-Staff Claim List Posted"
             GenJnlLine.RESET;
             GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
             GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-            GenJnlLine.DELETEALL;
+            GenJnlLine.DELETEALL(true);
         END;
 
         //CREDIT BANK

@@ -38,20 +38,6 @@ codeunit 50011 WFCode
         ReOpenImprestTxt: TextConst ENU = 'ReOpen Imprest', ENG = 'ReOpen Imprest';
         //End Imprest
 
-        //Imprest Accounting
-        SendImprestAccReq: TextConst ENU = 'Approval Request for Imprest Accounting is requested', ENG = 'Approval Request for Imprest Accounting is requested';
-        AppReqImprestAcc: TextConst ENU = 'Approval Request for Imprest Accounting is approved', ENG = 'Approval Request for Imprest Accounting is approved';
-        RejReqImprestAcc: TextConst ENU = 'Approval Request for Imprest Accounting is rejected', ENG = 'Approval Request for Imprest Accounting is rejected';
-        CanReqImprestAcc: TextConst ENU = 'Approval Request for Imprest Accounting is cancelled', ENG = 'Approval Request for Imprest Accounting is cancelled';
-
-
-        DelReqImprestAcc: TextConst ENU = 'Approval Request for Imprest Accounting is delegated', ENG = 'Approval Request for Imprest Accounting is delegated';
-        ImprestAccPendAppTxt: TextConst ENU = 'Status of Imprest Accounting changed to Pending approval',
-                                        ENG = 'Status of Imprest Accounting changed to Pending approval';
-        ReleaseImprestAccTxt: TextConst ENU = 'Release Imprest Accounting', ENG = 'Release Imprest Accounting';
-        ReOpenImprestAccTxt: TextConst ENU = 'ReOpen Imprest Accounting', ENG = 'ReOpen Imprest Accounting';
-        //End Imprest Accounting
-
         //Claims
         SendClaimReq: TextConst ENU = 'Approval Request for Claim is requested', ENG = 'Approval Request for Claim is requested';
         AppReqClaim: TextConst ENU = 'Approval Request for Claim is approved', ENG = 'Approval Request for Claim is approved';
@@ -104,7 +90,6 @@ codeunit 50011 WFCode
         UserCanReqPVS: TextConst ENU = 'Approval Request for PVS is cancelled by user', ENG = 'Approval Request for PVS is cancelled by user';
         UserCanReqImprest: TextConst ENU = 'Approval Request for Imprest is cancelled by user', ENG = 'Approval Request for Imprest is cancelled by user';
         UserCanReqClaim: TextConst ENU = 'Approval Request for Claim is cancelled by user', ENG = 'Approval Request for Claim is cancelled by user';
-        UserCanReqImprestAcc: TextConst ENU = 'Approval Request for ImprestAcc is cancelled by user', ENG = 'Approval Request for ImprestAcc is cancelled by user';
         UserCanReqSRN: TextConst ENU = 'Approval Request for Store Requisition is cancelled by user', ENG = 'Approval Request for Store Requisition is cancelled by user';
         UserCanReqInterBank: TextConst ENU = 'Approval Request for Inter-bank Transfer is cancelled by user', ENG = 'Approval Request for Inter-bank Transfer is cancelled by user';
         UserCanReqPurchQuote: TextConst ENU = 'Approval Request for Purchase Quotes is cancelled by user', ENG = 'Approval Request for Purchase Quotes is cancelled by user';
@@ -266,7 +251,6 @@ codeunit 50011 WFCode
         //cancelling of douments
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelPVSApprovalCode, Database::"FIN-Payments Header", UserCanReqPVS, 0, false);
 
-        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelImprestAccApprovalCode, Database::"FIN-Imprest Surr. Header", UserCanReqImprestAcc, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelClaimsApprovalCode, Database::"FIN-Staff Claims Header", UserCanReqClaim, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelSRNApprovalCode, Database::"PROC-Store Requistion Header", UserCanReqSRN, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelInterBankApprovalCode, Database::"FIN-InterBank Transfers", UserCanReqInterBank, 0, false);
@@ -496,234 +480,7 @@ codeunit 50011 WFCode
             end;
     end;
 
-    //End of Imprest
-
-    //Imprest Accounting
-    procedure RunWorkflowOnSendImprestAccApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnSendImprestAccApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Init Code", 'OnSendImprestAccforApproval', '', false, false)]
-    procedure RunWorkflowOnSendImprestAccApproval(var ImprestAcc: Record "FIN-Imprest Surr. Header")
-    begin
-        WFMngt.HandleEvent(RunWorkflowOnSendImprestAccApprovalCode(), ImprestAcc);
-    end;
-
-    procedure RunWorkflowOnApproveImprestAccApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnApproveImprestAccApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnApproveImprestAccApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveImprestAccApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnRejectImprestAccApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectImprestAccApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnRejectImprestAccApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectImprestAccApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnCancelledImprestAccApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectImprestAccApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnCancelledImprestAccApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnCancelledImprestAccApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnDelegateImprestAccApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnDelegateImprestAccApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnDelegateImprestAccApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateImprestAccApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure SetStatusToPendingApprovalCodeImprestAcc(): Code[128]
-    begin
-        exit(UpperCase('Set Imprest Accounting Status to pending Approval'));
-    end;
-
-    procedure SetStatusToPendingApprovalImprestAcc(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        ImprestAcc: Record "FIN-Imprest Surr. Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"FIN-Imprest Surr. Header":
-                begin
-                    RecRef.SetTable(ImprestAcc);
-                    ImprestAcc.Validate(Status, ImprestAcc.Status::"Pending Approval");
-                    ImprestAcc.Modify();
-                    Variant := ImprestAcc;
-                end;
-        end;
-    end;
-
-    procedure ReleaseImprestAccCode(): Code[128]
-    begin
-        exit(UpperCase('Release Imprest Accounting'));
-    end;
-
-    procedure ReleaseImprestAcc(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        ImprestAcc: Record "FIN-Imprest Surr. Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReleaseImprestAcc(Variant);
-                end;
-            DATABASE::"FIN-Imprest Surr. Header":
-                begin
-                    RecRef.SetTable(ImprestAcc);
-                    ImprestAcc.Validate(Status, ImprestAcc.Status::Approved);
-                    ImprestAcc.Modify();
-                    Variant := ImprestAcc;
-                end;
-        end;
-    end;
-
-    procedure ReOpenImprestAccCode(): Code[128]
-    begin
-        exit(UpperCase('Re Open Imprest Accounting'));
-    end;
-
-    procedure CancImprestAccCode(): Code[128]
-    begin
-        exit(UpperCase('Cancel Imprest Accounting'));
-    end;
-
-
-    procedure ReOpenImprestAcc(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        ImprestAcc: Record "FIN-Imprest Surr. Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReOpenImprestAcc(Variant);
-                end;
-            DATABASE::"FIN-Imprest Surr. Header":
-                begin
-                    RecRef.SetTable(ImprestAcc);
-                    ImprestAcc.Validate(Status, ImprestAcc.Status::Pending);
-                    ImprestAcc.Modify();
-                    Variant := ImprestAcc;
-                end;
-        end;
-    end;
-
-    //Added Functionallity to test
-
-    procedure CancImprestAcc(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        ImprestAcc: Record "FIN-Imprest Surr. Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReOpenImprestAcc(Variant);
-                end;
-            DATABASE::"FIN-Imprest Surr. Header":
-                begin
-                    RecRef.SetTable(ImprestAcc);
-                    ImprestAcc.Validate(Status, ImprestAcc.Status::Cancelled);
-                    ImprestAcc.Modify();
-                    Variant := ImprestAcc;
-                end;
-        end;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
-    procedure AddImprestAccEventToLibrary()
-    begin
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendImprestAccApprovalCode(), Database::"FIN-Imprest Surr. Header", SendImprestAccReq, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveImprestAccApprovalCode(), Database::"Approval Entry", AppReqImprestAcc, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectImprestAccApprovalCode(), Database::"Approval Entry", RejReqImprestAcc, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateImprestAccApprovalCode(), Database::"Approval Entry", DelReqImprestAcc, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnCancelledImprestAccApprovalCode(), Database::"Approval Entry", CanReqImprestAcc, 0, false);
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
-    procedure AddImprestAccRespToLibrary()
-    begin
-        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeImprestAcc(), 0, ImprestAccPendAppTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReleaseImprestAccCode(), 0, ReleaseImprestAccTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReOpenImprestAccCode(), 0, ReOpenImprestAccTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(CancImprestAccCode(), 0, CanReqImprestAcc, 'GROUP 0')
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
-    procedure ExeRespForImprestAcc(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
-    var
-        WorkflowResponse: Record "Workflow Response";
-    begin
-        IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
-            case WorkflowResponse."Function Name" of
-                SetStatusToPendingApprovalCodeImprestAcc():
-                    begin
-                        SetStatusToPendingApprovalImprestAcc(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReleaseImprestAccCode():
-                    begin
-                        ReleaseImprestAcc(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReOpenImprestAccCode():
-                    begin
-                        ReOpenImprestAcc(Variant);
-                        ResponseExecuted := true;
-                    end;
-                CancImprestAccCode():
-                    begin
-                        CancImprestAcc(Variant);
-                        ResponseExecuted := true;
-                    end;
-            end;
-    end;
-
-
-
-    //End of Imprest Accounting
+    //End of Imprest   
 
     //Claims WFCode
 
@@ -1592,22 +1349,7 @@ codeunit 50011 WFCode
         WFMngt.HandleEvent(RunWorkflowOnCancelClaimsApprovalCode(), Claims);
 
     end;
-    //End cancelling Claims
-
-    //Cancelling of ImprestAcc
-    procedure RunWorkflowOnCancelImprestAccApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnCancelImprestAccApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Init Code", 'OnCancelImprestAccForApproval', '', false, false)]
-    procedure RunWorkflowOnCancelImprestAccApproval(VAR ImprestAcc: Record "FIN-Imprest Surr. Header")
-    begin
-
-        WFMngt.HandleEvent(RunWorkflowOnCancelImprestAccApprovalCode(), ImprestAcc);
-
-    end;
-    //End cancelling ImprestAcc
+    //End cancelling Claims    
 
     //Cancelling of SRN
     procedure RunWorkflowOnCancelSRNApprovalCode(): Code[128]

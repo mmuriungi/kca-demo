@@ -396,7 +396,7 @@ page 50021 "FIN-Petty Cash Vouchers List"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         Payments.RESET;

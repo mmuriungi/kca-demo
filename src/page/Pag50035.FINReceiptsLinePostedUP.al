@@ -140,7 +140,7 @@ page 50035 "FIN-Receipts Line Posted UP"
                     GenJnlLine.RESET;
                     GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", 'CASH RECEI');
                     GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", Rec.No);
-                    GenJnlLine.DELETEALL;
+                    GenJnlLine.DELETEALL(true);
 
                     IF DefaultBatch.GET('CASH RECEI', Rec.No) THEN
                         DefaultBatch.DELETE;

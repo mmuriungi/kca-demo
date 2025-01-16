@@ -143,7 +143,7 @@ page 50129 "Posted Payment Schedule"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         IF Payments.GET(Rec.No) THEN PostHeader(Payments);

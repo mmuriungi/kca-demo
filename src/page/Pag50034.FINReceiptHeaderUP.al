@@ -414,7 +414,7 @@ page 50034 "FIN-Receipt Header UP"
         GenJnlLine.RESET;
         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
 
         IF DefaultBatch.GET(JTemplate, JBatch) THEN
             DefaultBatch.DELETE;

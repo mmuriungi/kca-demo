@@ -505,7 +505,7 @@ page 50017 "FIN-Payment Header"
                         // GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
                         // GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
                         // IF GenJnlLine.FIND('+') THEN
-                        //     GenJnlLine.DELETEALL;
+                        //     GenJnlLine.DELETEALL(true);
                         //GenJnlLine.RESET;
 
                         // PopulateCheckJournal(Payments);
@@ -782,7 +782,7 @@ page 50017 "FIN-Payment Header"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         Payments.RESET;

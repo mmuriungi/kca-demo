@@ -3138,11 +3138,16 @@ codeunit 50094 staffportals
     END;
 
     procedure SendImpSurrAppReq(docNo: Code[20]) msg: Boolean
+    var
+        ApprovMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
     begin
         ImprestSurrHeader.Reset;
         ImprestSurrHeader.SETRANGE(ImprestSurrHeader.No, docNo);
         IF ImprestSurrHeader.FIND('-') THEN BEGIN
-            ApprovalMgmt.OnSendImprestAccForApproval(ImprestSurrHeader);
+            variant := ImprestSurrHeader;
+            if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovMgmt.OnSendDocForApproval(variant);
             msg := true;
         end;
     end;

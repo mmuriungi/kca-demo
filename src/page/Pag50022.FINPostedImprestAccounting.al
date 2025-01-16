@@ -386,7 +386,7 @@ page 50022 "FIN-Posted Imprest Accounting"
                         GenJnlLine.RESET;
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", GenledSetup."Surrender Template");
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", GenledSetup."Surrender  Batch");
-                        GenJnlLine.DELETEALL;
+                        GenJnlLine.DELETEALL(true);
                     END;
 
                     IF DefaultBatch.GET(GenledSetup."Surrender Template", GenledSetup."Surrender  Batch") THEN BEGIN

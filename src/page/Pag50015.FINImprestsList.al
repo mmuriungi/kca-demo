@@ -383,7 +383,7 @@ page 50015 "FIN-Imprests List"
             GenJnlLine.RESET;
             GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
             GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-            GenJnlLine.DELETEALL;
+            GenJnlLine.DELETEALL(true);
         END;
 
         LineNo := LineNo + 1000;

@@ -206,7 +206,7 @@ codeunit 50053 "Deposit-Post"
         GenJnlLine.Reset;
         GenJnlLine.SetRange("Journal Template Name", Rec."Journal Template Name");
         GenJnlLine.SetRange("Journal Batch Name", Rec."Journal Batch Name");
-        GenJnlLine.DeleteAll;
+        GenJnlLine.DELETEALL(true);
         GenJnlBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");
         if IncStr(Rec."Journal Batch Name") <> '' then begin
             GenJnlBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");

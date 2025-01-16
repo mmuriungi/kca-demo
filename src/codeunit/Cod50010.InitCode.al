@@ -31,34 +31,6 @@ codeunit 50010 "Init Code"
     end;
     //End of Imprest
 
-    //Imprest Accounting
-    //ImprestAcc Accounting Workflow
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnSendImprestAccforApproval(VAR ImprestAcc: Record "FIN-Imprest Surr. Header");
-    begin
-    end;
-
-    procedure IsImprestAccEnabled(var ImprestAcc: Record "FIN-Imprest Surr. Header"): Boolean
-    var
-        WFMngt: Codeunit "Workflow Management";
-        WFCode: Codeunit WFCode;
-    begin
-        exit(WFMngt.CanExecuteWorkflow(ImprestAcc, WFCode.RunWorkflowOnSendImprestAccApprovalCode()))
-    end;
-
-    local procedure CheckImprestAccWorkflowEnabled(): Boolean
-    var
-        ImprestAcc: Record "FIN-Imprest Surr. Header";
-        NoWorkflowEnb: TextConst ENU = 'No workflow Enabled for this Record type',
-         ENG = 'No workflow Enabled for this Record type';
-    begin
-        if not IsImprestAccEnabled(ImprestAcc) then
-            Error(NoWorkflowEnb);
-    end;
-
-
-    //End of Imprest Accountion
-
 
     //payment Vouchers Approvals
     [IntegrationEvent(false, false)]
@@ -277,13 +249,7 @@ codeunit 50010 "Init Code"
     end;
     //End cancel of Claim
 
-    //Cancel ImprestAcc Accounting Workflow
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnCancelImprestAccforApproval(VAR ImprestAcc: Record "FIN-Imprest Surr. Header");
-    begin
-    end;
-
-    //End Imprest Accounting workflow
+  
 
     //Cancel Store Requisition
     [IntegrationEvent(false, false)]

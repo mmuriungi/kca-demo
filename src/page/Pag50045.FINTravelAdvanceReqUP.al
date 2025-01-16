@@ -480,7 +480,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
                         IF GenJnlLine.FIND('+') THEN
-                            GenJnlLine.DELETEALL;
+                            GenJnlLine.DELETEALL(true);
                         GenJnlLine.RESET;
 
                         PopulateCheckJournal(Payments);
@@ -786,7 +786,7 @@ page 50045 "FIN-Travel Advance Req. UP"
             GenJnlLine.RESET;
             GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
             GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-            GenJnlLine.DELETEALL;
+            GenJnlLine.DELETEALL(true);
         END;
 
         LineNo := LineNo + 1000;
