@@ -51,7 +51,8 @@ Codeunit 61106 webportals
         //  ERASE(RptFilename);
         //END;
         //GenerateSuppExamCard('E107/1130G/20','D:\rpp.pdf');
-        MarkKUCCPSDetailsUpdated('A100/00111G/24');
+        // MarkKUCCPSDetailsUpdated('A100/00111G/24');
+        GenerateStudentExamCard('A101/1001029/2024', 'S1', 'excard.pdf');
     end;
 
     var
@@ -574,9 +575,9 @@ Codeunit 61106 webportals
         offeredunits.Semester := GetCurrentSemester();
         offeredunits.ModeofStudy := studymode;
         if progoption = 'ALL' then
-        offeredunits."Program Option" := ''
+            offeredunits."Program Option" := ''
         else
-        offeredunits."Program Option" := progoption;
+            offeredunits."Program Option" := progoption;
         offeredunits.Stage := stage;
         offeredunits."Unit Base Code" := unitcode;
         offeredunits.Validate("Unit Base Code");
@@ -2842,14 +2843,13 @@ Codeunit 61106 webportals
         if StudentUnits.Find('-') then Error('YOU HAVE NOT EVALUATED ALL COURSES FOR ' + Sem);
 
         StudUnits.Reset;
-        //// STUDUNITS.SETRANGE(STUDUNITS.PROGRAMME,ACACOURSEREGISTRATIONZ1.PROGRAMME);
-        StudentUnits.SetRange(Semester, Sem);
-        StudentUnits.SetRange("Student No.", StudentNo);
-        StudentUnits.SetFilter(Unit, '<>%1', '');
-        if StudentUnits.Findset then begin
+        StudUnits.SetRange(Semester, Sem);
+        StudUnits.SetRange("Student No.", StudentNo);
+        StudUnits.SetFilter(Unit, '<>%1', '');
+        if StudUnits.Findset then begin
             repeat
-                if not checkClassAttendanceMet(StudentNo, Sem, StudentUnits.unit) then error('You did not attend the required number of classes for unit ' + StudUnits.unit)
-            until StudentUnits.next = 0;
+                if not checkClassAttendanceMet(StudentNo, Sem, StudUnits.unit) then error('You did not attend the required number of classes for unit ' + StudUnits.unit)
+            until StudUnits.next = 0;
         end;
 
 

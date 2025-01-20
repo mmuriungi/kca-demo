@@ -152,9 +152,17 @@ page 51464 "ACA-Exam Man. Role Centre"
                 action("Exam Eligibity")
                 {
                     Caption = 'Exam Eligibity';
-                    Image = CheckMark;
+                    Image = ValidateEmailLoggingSetup;
 
                     RunObject = Report "Exam Eligibility";
+                    ApplicationArea = All;
+                }
+                action("Check Attendance")
+                {
+                    Caption = 'Check Attendance';
+                    Image = ValidateEmailLoggingSetup;
+
+                    RunObject = codeunit webportals;
                     ApplicationArea = All;
                 }
                 action("Resit Card")
