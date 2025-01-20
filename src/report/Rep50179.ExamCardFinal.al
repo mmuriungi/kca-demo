@@ -634,6 +634,7 @@ report 50179 "Exam Card Final"
                                             u2[k] := Format(k) + ' - ' + StudUnits.Unit + ' - ' + Format(StudUnits."Unit Description");
                                             k := k + 1;
                                         end;
+                                    end;
                                 until StudUnits.Next = 0;
                                     end;
 
