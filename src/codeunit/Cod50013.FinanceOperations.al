@@ -588,10 +588,16 @@ codeunit 50013 "Finance Operations"
     var
         JnlArchive: Record "General Journal Archive";
         rpt: Report 2;
+        jnlarchive2: Record "General Journal Archive";
     begin
         JnlArchive.Init();
         JnlArchive.TransferFields(Rec);
-        JnlArchive.Insert();
+        jnlarchive2.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+        jnlarchive2.SetRange("Journal Template Name", Rec."Journal Template Name");
+        jnlarchive2.SetRange("Line No.", Rec."Line No.");
+        if not jnlarchive2.Find('-') then begin
+            JnlArchive.Insert();
+        end;
     end;
 
 }

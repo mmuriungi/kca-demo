@@ -352,7 +352,7 @@ table 50483 "KUCCPS Imports"
         {
         }
         field(96; "Residential Owner Phone"; Text[20])
-        {
+        { 
         }
         field(97; "Assigned Room"; Code[20])
         {
