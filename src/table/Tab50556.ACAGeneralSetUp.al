@@ -332,6 +332,10 @@ table 50556 "ACA-General Set-Up"
         {
             TableRelation = "No. Series";
         }
+        field(50088; "Unit Reg. Fee Policy"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -2783,9 +2783,8 @@ Codeunit 61106 webportals
     procedure checkClassAttendanceMet(studNO: Code[25]; semester: code[25]; unit: code[25]): Boolean
     var
         ClassAtt: Record "Class Attendance Details";
-        GenSetup: Record "ACA-General Set-Up";
         MinPerce: Decimal;
-        CurrPerce: Decimal;
+        CurrPerc: Decimal;
         TotalClasses: Integer;
         AttendedClasses: Integer;
     begin
@@ -2797,8 +2796,8 @@ Codeunit 61106 webportals
         ClassAtt.SetRange("Unit Code", unit);
         if ClassAtt.FindFirst() then begin
             ClassAtt.CalcFields("Total Classes", "Present Counting");
-            CurrPerce := (ClassAtt."Present Counting" / ClassAtt."Total Classes") * 100;
-            if CurrPerce < MinPerce then exit(false);
+            CurrPerc := (ClassAtt."Present Counting" / ClassAtt."Total Classes") * 100;
+            if CurrPerc < MinPerce then exit(false);
         end else
             exit(false);
         exit(true);
@@ -2919,12 +2918,20 @@ Codeunit 61106 webportals
     var
         FundingBands: record "Funding Band Entries";
         NFMStatement: Record "NFM Statement Entry";
+        GenSetup: Record "ACA-General Set-Up";
+        FeePolicyPerc: Decimal;
+        SemFees: Decimal;
+        CurrPerc: Decimal;
     begin
+        GenSetup.Get();
+        FeePolicyPerc := GenSetup."Unit Reg. Fee Policy";
         coreg.Reset;
         coreg.SetRange("Student No.", StudentNo);
         coreg.SetRange(Semester, Semester);
         coreg.SetRange(Reversed, false);
         if coreg.Find('-') then begin
+            coreg.CalcFields("Total Billed");
+            SemFees := coreg."Total Billed";
             FundingBands.RESET;
             FundingBands.SETRANGE("Student No.", StudentNo);
             IF FundingBands.FIND('-') THEN BEGIN
@@ -2937,14 +2944,32 @@ Codeunit 61106 webportals
                     NFMStatement.SETRANGE("Student No.", StudentNo);
                     IF NFMStatement.FINDSET THEN BEGIN
                         NFMStatement.CALCFIELDS(Balance);
-                        IF NFMStatement.Balance > 0 THEN ERROR('Fee policy Not met!');
+                        CurrPerc := Round(((NFMStatement.Balance / SemFees) * 100), 0.5, '=');
+                        if CurrPerc < FeePolicyPerc then Error('Fee policy Not met!');
                     END;
                 END;
-            END ELSE
-                if Customer.Balance > 0 then Error('Fee policy Not met!');
+            END ELSE begin
+                CurrPerc := Round(((Customer.Balance / SemFees) * 100), 0.5, '=');
+                if CurrPerc < FeePolicyPerc then Error('Fee policy Not met!');
+            end;
 
         end else
             Error('No registration for found');
+    end;
+
+    procedure getSemesterFees(StudentNo: code[25]; Semester: code[25]): Decimal
+    var
+
+    begin
+        coreg.Reset;
+        coreg.SetRange("Student No.", StudentNo);
+        coreg.SetRange(Semester, Semester);
+        coreg.SetRange(Reversed, false);
+        if coreg.Find('-') then begin
+            coreg.CalcFields("Total Billed");
+            exit(coreg."Total Billed");
+        end else
+            exit(0);
     end;
 
     procedure GenerateStudentProvisionalResults(StudentNo: Text[20]; filenameFromApp: Text[150]; sem: Text[20]) ReturnMessage: Text[250]
