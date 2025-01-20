@@ -573,6 +573,9 @@ Codeunit 61106 webportals
         offeredunits.Campus := GetHODCampus(hodno);
         offeredunits.Semester := GetCurrentSemester();
         offeredunits.ModeofStudy := studymode;
+        if progoption = 'ALL' then
+        offeredunits."Program Option" := ''
+        else
         offeredunits."Program Option" := progoption;
         offeredunits.Stage := stage;
         offeredunits."Unit Base Code" := unitcode;
