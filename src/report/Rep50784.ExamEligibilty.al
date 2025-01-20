@@ -574,7 +574,9 @@ report 50784 "Exam Eligibility"
                     ClassAtt.CalcFields("Total Classes", "Present Counting");
                     CurrPerce := (ClassAtt."Present Counting" / ClassAtt."Total Classes") * 100;
                     if CurrPerce < MinPerce then CurrReport.Skip;
-                end;
+                end
+                else
+                    currReport.Skip;
 
             end;
         }
