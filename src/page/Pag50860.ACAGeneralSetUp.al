@@ -213,6 +213,11 @@ page 50860 "ACA-General Set-Up"
                 {
                     ApplicationArea = All;
                 }
+                field("Unit Reg. Fee Policy"; Rec."Unit Reg. Fee Policy")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Unit Registration Fee Policy';
+                }
 
 
             }

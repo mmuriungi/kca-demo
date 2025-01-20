@@ -443,6 +443,8 @@ report 50179 "Exam Card Final"
             }
 
             trigger OnAfterGetRecord()
+            var
+                Webportal: codeunit webportals;
             begin
 
                 Customer.Reset;
@@ -522,20 +524,22 @@ report 50179 "Exam Card Final"
                                 repeat
                                     //      StudUnits.CALCFIELDS("Course Evaluated");
                                     //      IF NOT StudUnits."Course Evaluated" THEN ERROR('Not evaluated all courses');
-                                    subjz.Reset;
-                                    subjz.SetRange(subjz."Programme Code", StudUnits.Programme);
-                                    subjz.SetRange(subjz."Stage Code", StudUnits.Stage);
-                                    subjz.SetRange(subjz.Code, StudUnits.Unit);
-                                    subjz.SetRange(subjz."Old Unit", false);
-                                    if k < 16 then begin
-                                        if subjz.Find('-') then begin
-                                            U1Code[k] := subjz.Code;
-                                            U1Desc[k] := subjz.Desription;
-                                            U1Units[k] := subjz."No. Units";
+                                    if Webportal.checkClassAttendanceMet(StudUnits."Student No.", StudUnits.Semester, StudUnits.unit) then begin
+                                        subjz.Reset;
+                                        subjz.SetRange(subjz."Programme Code", StudUnits.Programme);
+                                        subjz.SetRange(subjz."Stage Code", StudUnits.Stage);
+                                        subjz.SetRange(subjz.Code, StudUnits.Unit);
+                                        subjz.SetRange(subjz."Old Unit", false);
+                                        if k < 16 then begin
+                                            if subjz.Find('-') then begin
+                                                U1Code[k] := subjz.Code;
+                                                U1Desc[k] := subjz.Desription;
+                                                U1Units[k] := subjz."No. Units";
+                                            end;
+                                            StudUnits.CalcFields(StudUnits."Unit Description");
+                                            u1[k] := Format(k) + ' - ' + StudUnits.Unit + ' - ' + Format(StudUnits."Unit Description");
+                                            k := k + 1;
                                         end;
-                                        StudUnits.CalcFields(StudUnits."Unit Description");
-                                        u1[k] := Format(k) + ' - ' + StudUnits.Unit + ' - ' + Format(StudUnits."Unit Description");
-                                        k := k + 1;
                                     end;
                                 until StudUnits.Next = 0;
                             end;
@@ -562,21 +566,23 @@ report 50179 "Exam Card Final"
                                 repeat
                                     //      StudUnits.CALCFIELDS("Course Evaluated");
                                     //      IF NOT StudUnits."Course Evaluated" THEN ERROR('Not evaluated all courses');
-                                    subjz.Reset;
-                                    subjz.SetRange(subjz."Programme Code", StudUnits.Programme);
-                                    subjz.SetRange(subjz."Stage Code", StudUnits.Stage);
-                                    subjz.SetRange(subjz.Code, StudUnits.Unit);
-                                    subjz.SetRange(subjz."Old Unit", false);
-                                    if k < 16 then begin
-                                        if subjz.Find('-') then begin
-                                            U1Code[k] := subjz.Code;
-                                            U1Desc[k] := subjz.Desription;
-                                            U1Units[k] := subjz."No. Units";
-                                        end;
+                                    if Webportal.checkClassAttendanceMet(StudUnits."Student No.", StudUnits.Semester, StudUnits.unit) then begin
+                                        subjz.Reset;
+                                        subjz.SetRange(subjz."Programme Code", StudUnits.Programme);
+                                        subjz.SetRange(subjz."Stage Code", StudUnits.Stage);
+                                        subjz.SetRange(subjz.Code, StudUnits.Unit);
+                                        subjz.SetRange(subjz."Old Unit", false);
+                                        if k < 16 then begin
+                                            if subjz.Find('-') then begin
+                                                U1Code[k] := subjz.Code;
+                                                U1Desc[k] := subjz.Desription;
+                                                U1Units[k] := subjz."No. Units";
+                                            end;
 
-                                        StudUnits.CalcFields(StudUnits."Unit Description");
-                                        u1[k] := Format(k) + ' - ' + StudUnits.Unit + ' - ' + Format(StudUnits."Unit Description");
-                                        k := k + 1;
+                                            StudUnits.CalcFields(StudUnits."Unit Description");
+                                            u1[k] := Format(k) + ' - ' + StudUnits.Unit + ' - ' + Format(StudUnits."Unit Description");
+                                            k := k + 1;
+                                        end;
                                     end;
                                 until StudUnits.Next = 0;
                             end;
@@ -611,29 +617,30 @@ report 50179 "Exam Card Final"
                                 repeat
                                     //      StudUnits.CALCFIELDS("Course Evaluated");
                                     //      IF NOT StudUnits."Course Evaluated" THEN ERROR('Not evaluated all courses');
-                                    subjz.Reset;
-                                    subjz.SetRange(subjz."Programme Code", StudUnits.Programme);
-                                    subjz.SetRange(subjz."Stage Code", StudUnits.Stage);
-                                    subjz.SetRange(subjz.Code, StudUnits.Unit);
-                                    subjz.SetRange(subjz."Old Unit", false);
-                                    if k < 16 then begin
-                                        if subjz.Find('-') then begin
-                                            U2Code[k] := subjz.Code;
-                                            U2Desc[k] := subjz.Desription;
-                                            U2Units[k] := subjz."No. Units";
-                                        end;
+                                    if Webportal.checkClassAttendanceMet(StudUnits."Student No.", StudUnits.Semester, StudUnits.unit) then begin
+                                        subjz.Reset;
+                                        subjz.SetRange(subjz."Programme Code", StudUnits.Programme);
+                                        subjz.SetRange(subjz."Stage Code", StudUnits.Stage);
+                                        subjz.SetRange(subjz.Code, StudUnits.Unit);
+                                        subjz.SetRange(subjz."Old Unit", false);
+                                        if k < 16 then begin
+                                            if subjz.Find('-') then begin
+                                                U2Code[k] := subjz.Code;
+                                                U2Desc[k] := subjz.Desription;
+                                                U2Units[k] := subjz."No. Units";
+                                            end;
 
-                                        StudUnits.CalcFields(StudUnits."Unit Description");
-                                        u2[k] := Format(k) + ' - ' + StudUnits.Unit + ' - ' + Format(StudUnits."Unit Description");
-                                        k := k + 1;
-                                    end;
+                                            StudUnits.CalcFields(StudUnits."Unit Description");
+                                            u2[k] := Format(k) + ' - ' + StudUnits.Unit + ' - ' + Format(StudUnits."Unit Description");
+                                            k := k + 1;
+                                        end;
                                 until StudUnits.Next = 0;
-                            end;
+                                    end;
 
                         end;
+                            end;
+                        end;
                     end;
-                end;
-            end;
 
             trigger OnPreDataItem()
             begin
