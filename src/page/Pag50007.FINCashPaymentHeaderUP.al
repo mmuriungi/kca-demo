@@ -360,7 +360,7 @@ page 50007 "FIN-Cash Payment Header UP"
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
                         IF GenJnlLine.FIND('+') THEN
-                            GenJnlLine.DELETEALL;
+                            GenJnlLine.DELETEALL(true);
                         GenJnlLine.RESET;
 
                         PopulateCheckJournal(Payments);
@@ -540,7 +540,7 @@ page 50007 "FIN-Cash Payment Header UP"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         Payments.RESET;
@@ -646,7 +646,7 @@ page 50007 "FIN-Cash Payment Header UP"
         GenJnlLine."Bank Payment Type" := GenJnlLine."Bank Payment Type"::" ";
 
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         //Post Other Payment Journal Entries
         PostPV(Payments);
@@ -819,7 +819,7 @@ page 50007 "FIN-Cash Payment Header UP"
                 GenJnlLine."Applies-to Doc. No." := PayLine."Apply to";
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
-                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
 
                 //Post VAT to GL[VAT GL]
                 TarriffCodes.RESET;
@@ -866,7 +866,7 @@ page 50007 "FIN-Cash Payment Header UP"
                     GenJnlLine.ValidateShortcutDimCode(3, PayLine."Shortcut Dimension 3 Code");
                     GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
-                    IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                    IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
                 END;
 
                 //POST W/TAX to Respective W/TAX GL Account
@@ -915,7 +915,7 @@ page 50007 "FIN-Cash Payment Header UP"
                     GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
                 END;
 
                 //Post VAT Balancing Entry Goes to Vendor
@@ -958,7 +958,7 @@ page 50007 "FIN-Cash Payment Header UP"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
                 //Post W/TAX Balancing Entry Goes to Vendor
                 LineNo := LineNo + 1000;
@@ -1005,7 +1005,7 @@ page 50007 "FIN-Cash Payment Header UP"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
 
             UNTIL PayLine.NEXT = 0;
@@ -1326,7 +1326,7 @@ page 50007 "FIN-Cash Payment Header UP"
                 GenJnlLine."Applies-to ID" := PayLine."Applies-to ID";
                 GenJnlLine.Description := Rec.Payee;
                 ///GenJnlLine."Received By":=Payee;
-                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
 
 
             UNTIL PayLine.NEXT = 0;

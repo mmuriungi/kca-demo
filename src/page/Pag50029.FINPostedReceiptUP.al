@@ -350,7 +350,7 @@ page 50029 "FIN-Posted Receipt UP"
         GenJnlLine.RESET;
         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
 
         IF DefaultBatch.GET(JTemplate, JBatch) THEN
             DefaultBatch.DELETE;
@@ -389,7 +389,7 @@ page 50029 "FIN-Posted Receipt UP"
             GenJnlLine.Description := COPYSTR('On Behalf Of:' + Rec."Received From" + 'Invoices:' + StrInvoices, 1, 50);
             GenJnlLine.VALIDATE(GenJnlLine.Description);
             IF GenJnlLine.Amount <> 0 THEN
-                GenJnlLine.INSERT;
+                GenJnlLine.INSERT(True);
 
 
 
@@ -458,7 +458,7 @@ page 50029 "FIN-Posted Receipt UP"
                         GenJnlLine.ValidateShortcutDimCode(3, Rec."Shortcut Dimension 3 Code");
                         GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
-                        IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                        IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
                     END
                     ELSE
                         IF ReceiptLine."Pay Mode" = ReceiptLine."Pay Mode"::Cheque THEN BEGIN
@@ -503,7 +503,7 @@ page 50029 "FIN-Posted Receipt UP"
                                 GenJnlLine.ValidateShortcutDimCode(3, Rec."Shortcut Dimension 3 Code");
                                 GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
-                                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
                             END;
                         END;
                 UNTIL ReceiptLine.NEXT = 0;

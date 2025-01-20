@@ -738,6 +738,18 @@ page 51493 "Finance Management Rolecenter"
                     Image = Report;
                     RunObject = Report GeneralLedgerv3;
                 }
+                action("Reversal Register")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report "Reversal Register";
+                }
+                action("Posted Journal Report")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report "General Journal Report";
+                }
                 action("Budget Vs Commitment Analysis")
                 {
                     ApplicationArea = All;

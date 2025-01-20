@@ -182,7 +182,7 @@ page 50025 "FIN-Posted Interbank Trans2"
                     GenJnlLine.RESET;
                     GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", Rec."Inter Bank Template Name");
                     GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", Rec."Inter Bank Journal Batch");
-                    GenJnlLine.DELETEALL;
+                    GenJnlLine.DELETEALL(true);
 
                     LineNo := 1000;
                     /*Insert the new lines to be updated*/
@@ -221,7 +221,7 @@ page 50025 "FIN-Posted Interbank Trans2"
                     END;
                     GenJnlLine.Amount := Rec."Amount 2";
                     GenJnlLine.VALIDATE(GenJnlLine.Amount);
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
 
                     GenJnlLine.INIT;
@@ -260,7 +260,7 @@ page 50025 "FIN-Posted Interbank Trans2"
                     END;
                     GenJnlLine.Amount := -Rec.Amount;
                     GenJnlLine.VALIDATE(GenJnlLine.Amount);
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
                     Post := FALSE;
                     CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", GenJnlLine);
                     Post := JournalPostedSuccessfully.PostedSuccessfully();

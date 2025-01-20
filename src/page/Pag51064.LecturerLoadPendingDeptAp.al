@@ -183,7 +183,7 @@ page 51064 "Lecturer Load Pending Dept. Ap"
                 //         FINPaymentLine."Shortcut Dimension 2 Code" := Rec."Department Code";
                 //         FINPaymentLine."Journal Template" := FINCashOfficeSetup."PV Template";
                 //         FINPaymentLine."Journal Batch" := FINCashOfficeSetup."PV  Batch";
-                //         FINPaymentLine.INSERT;
+                //         FINPaymentLine.INSERT(True);
 
 
 

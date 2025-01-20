@@ -419,7 +419,7 @@ page 50040 "FIN-Staff Claim List Posted"
             GenJnlLine.RESET;
             GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
             GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-            GenJnlLine.DELETEALL;
+            GenJnlLine.DELETEALL(true);
         END;
 
         //CREDIT BANK
@@ -454,7 +454,7 @@ page 50040 "FIN-Staff Claim List Posted"
         GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
 
 
@@ -492,7 +492,7 @@ page 50040 "FIN-Staff Claim List Posted"
                 GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
             UNTIL PayLine.NEXT = 0
         END;

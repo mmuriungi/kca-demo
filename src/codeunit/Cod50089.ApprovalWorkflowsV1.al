@@ -64,6 +64,12 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelMealBookingRequestTxt: Label 'An Approval request for Meal Booking is Cancelled';
         RunWorkflowOnSendMealBookingApprovalCode: Label 'RUNWORKFLOWONSENDMEALBOOKINGFORAPPROVAL';
         RunWorkflowOnCancelMealBookingApprovalCode: Label 'RUNWORKFLOWONCANCELMEALBOOKINGFORAPPROVAL';
+        //Imprest Surrender
+        OnSendImprestSurrenderRequestTxt: Label 'Approval request for Imprest Surrender is requested';
+        OnCancelImprestSurrenderRequestTxt: Label 'An Approval request for Imprest Surrender is Cancelled';
+        RunWorkflowOnSendImprestSurrenderForApprovalCode: Label 'RUNWORKFLOWONSENDIMPRESTSURRENDERFORAPPROVAL';
+        RunWorkflowOnCancelImprestSurrenderForApprovalCode: Label 'RUNWORKFLOWONCANCELIMPRESTSURRENDERFORAPPROVAL';
+
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -97,6 +103,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendPartTimeClaimForApprovalCode));
             Database::"CAT-Meal Booking Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendMealBookingApprovalCode));
+            Database::"FIN-Imprest Surr. Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendImprestSurrenderForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -167,6 +175,9 @@ codeunit 50089 "Approval Workflows V1"
         //meal booking
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendMealBookingApprovalCode, Database::"CAT-Meal Booking Header", OnsendMealBookingRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelMealBookingApprovalCode, Database::"CAT-Meal Booking Header", OnCancelMealBookingRequestTxt, 0, false);
+        //Imprest Surrender
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendImprestSurrenderForApprovalCode, Database::"FIN-Imprest Surr. Header", OnSendImprestSurrenderRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelImprestSurrenderForApprovalCode, Database::"FIN-Imprest Surr. Header", OnCancelImprestSurrenderRequestTxt, 0, false);
     end;
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
@@ -206,6 +217,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendPartTimeClaimForApprovalCode, Variant);
             Database::"CAT-Meal Booking Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendMealBookingApprovalCode, Variant);
+            Database::"FIN-Imprest Surr. Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendImprestSurrenderForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -243,6 +256,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelPartTimeClaimForApprovalCode, Variant);
             Database::"CAT-Meal Booking Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelMealBookingApprovalCode, Variant);
+            Database::"FIN-Imprest Surr. Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelImprestSurrenderForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -264,6 +279,7 @@ codeunit 50089 "Approval Workflows V1"
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
+        ImpSurrHeader: Record "FIN-Imprest Surr. Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -350,6 +366,13 @@ codeunit 50089 "Approval Workflows V1"
                     MealBooking.Modify();
                     Handled := true;
                 end;
+            Database::"FIN-Imprest Surr. Header":
+                begin
+                    RecRef.SetTable(ImpSurrHeader);
+                    ImpSurrHeader.Validate("Status", ImpSurrHeader.Status::Pending);
+                    ImpSurrHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -368,6 +391,7 @@ codeunit 50089 "Approval Workflows V1"
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
+        ImpsurHeader: Record "FIN-Imprest Surr. Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -460,6 +484,13 @@ codeunit 50089 "Approval Workflows V1"
                     MealBooking.Modify();
                     IsHandled := true;
                 end;
+            Database::"FIN-Imprest Surr. Header":
+                begin
+                    RecRef.SetTable(ImpsurHeader);
+                    ImpsurHeader.Validate("Status", ImpsurHeader.Status::"Pending Approval");
+                    ImpsurHeader.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -478,6 +509,7 @@ codeunit 50089 "Approval Workflows V1"
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
+        impSurrHeader: Record "FIN-Imprest Surr. Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -540,6 +572,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(MealBooking);
                     ApprovalEntryArgument."Document No." := MealBooking."Booking Id";
                 end;
+            Database::"FIN-Imprest Surr. Header":
+                begin
+                    RecRef.SetTable(impSurrHeader);
+                    ApprovalEntryArgument."Document No." := impSurrHeader.No;
+                end;
         end;
     end;
 
@@ -561,6 +598,7 @@ codeunit 50089 "Approval Workflows V1"
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
+        impSurHeader: Record "FIN-Imprest Surr. Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -650,6 +688,13 @@ codeunit 50089 "Approval Workflows V1"
                     MealBooking.Modify();
                     Handled := true;
                 end;
+            Database::"FIN-Imprest Surr. Header":
+                begin
+                    RecRef.SetTable(impSurHeader);
+                    impSurHeader.Validate("Status", impSurHeader.Status::Approved);
+                    impSurHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -668,6 +713,7 @@ codeunit 50089 "Approval Workflows V1"
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
+        impsurHeader: Record "FIN-Imprest Surr. Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -754,6 +800,13 @@ codeunit 50089 "Approval Workflows V1"
                         MealBooking.Modify(true);
                     end;
                 end;
+            Database::"FIN-Imprest Surr. Header":
+                begin
+                    if impsurHeader.Get(ApprovalEntry."Document No.") then begin
+                        impsurHeader.Status := impsurHeader.Status::Cancelled;
+                        impsurHeader.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -771,6 +824,7 @@ codeunit 50089 "Approval Workflows V1"
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
+        impSurHeader: Record "FIN-Imprest Surr. Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -851,6 +905,13 @@ codeunit 50089 "Approval Workflows V1"
                     MealBooking.Modify();
                     Variant := MealBooking;
                 end;
+            Database::"FIN-Imprest Surr. Header":
+                begin
+                    RecRef.SetTable(impSurHeader);
+                    impSurHeader.Validate("Status", impSurHeader.Status::Pending);
+                    impSurHeader.Modify();
+                    Variant := impSurHeader;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -870,6 +931,7 @@ codeunit 50089 "Approval Workflows V1"
         RFQHeader: Record "Proc-Purchase Quote Header";
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
+        impsurHeader: Record "FIN-Imprest Surr. Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -949,6 +1011,13 @@ codeunit 50089 "Approval Workflows V1"
                     MealBooking.Validate("Status", MealBooking.Status::"Pending Approval");
                     MealBooking.Modify();
                     Variant := MealBooking;
+                end;
+            Database::"FIN-Imprest Surr. Header":
+                begin
+                    RecRef.SetTable(impSurHeader);
+                    impSurHeader.Validate("Status", impSurHeader.Status::"Pending Approval");
+                    impSurHeader.Modify();
+                    Variant := impSurHeader;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);

@@ -80,7 +80,7 @@ codeunit 50053 "Deposit-Post"
                 PostedDepositLine."Shortcut Dimension 2 Code" := GenJnlLine."Shortcut Dimension 2 Code";
                 PostedDepositLine."Dimension Set ID" := GenJnlLine."Dimension Set ID";
                 PostedDepositLine."Posting Date" := Rec."Posting Date";
-                PostedDepositLine.Insert;
+                PostedDepositLine.INSERT(True);
                 if GenJnlTemplate."Force Doc. Balance" then
                     AddBalancingAccount(GenJnlLine, Rec)
                 else
@@ -206,7 +206,7 @@ codeunit 50053 "Deposit-Post"
         GenJnlLine.Reset;
         GenJnlLine.SetRange("Journal Template Name", Rec."Journal Template Name");
         GenJnlLine.SetRange("Journal Batch Name", Rec."Journal Batch Name");
-        GenJnlLine.DeleteAll;
+        GenJnlLine.DELETEALL(true);
         GenJnlBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");
         if IncStr(Rec."Journal Batch Name") <> '' then begin
             GenJnlBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");

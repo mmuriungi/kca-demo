@@ -183,7 +183,7 @@ page 51836 "HMS-Treatment Form Drug"
                                 PharmLine.Dosage := TreatmentLine.Dosage;
                                 PharmLine.Pharmacy := TreatmentLine."Pharmacy Code";
                                 PharmLine."No Stock Drugs" := TreatmentLine."No stock Drugs";
-                                PharmLine.INSERT();
+                                PharmLine.INSERT(True);
                             UNTIL TreatmentLine.NEXT = 0;
                         END;
                         MESSAGE('The Prescription has been sent to the Pharmacy for Issuance');

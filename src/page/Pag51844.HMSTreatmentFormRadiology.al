@@ -75,7 +75,7 @@ page 51844 "HMS-Treatment Form Radiology"
                                 RadiologyLine.INIT;
                                 RadiologyLine."Radiology no." := NewNo;
                                 RadiologyLine."Radiology Type Code" := TreatmentLine."Radiology Type Code";
-                                RadiologyLine.INSERT();
+                                RadiologyLine.INSERT(True);
                             UNTIL TreatmentLine.NEXT = 0;
                         END;
                     END;

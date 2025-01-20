@@ -172,7 +172,7 @@ codeunit 52178511 "Purch.-Quote to Order Modified"
                     ValidatePurchOrderLinePrepaymentPct(PurchOrderLine);
                     PurchOrderLine.DefaultDeferralCode;
                     OnBeforeInsertPurchOrderLine(PurchOrderLine, PurchOrderHeader, PurchQuoteLine, PurchQuoteHeader);
-                    PurchOrderLine.Insert();
+                    PurchOrderLine.INSERT(True);
                     OnAfterInsertPurchOrderLine(PurchQuoteLine, PurchOrderLine);
                     PurchLineReserve.VerifyQuantity(PurchOrderLine, PurchQuoteLine);
                     OnTransferQuoteToOrderLinesOnAfterVerifyQuantity(PurchOrderLine, PurchOrderHeader, PurchQuoteLine, PurchQuoteHeader);

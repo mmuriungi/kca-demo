@@ -374,7 +374,7 @@ report 50071 "PRl-Casual BudgetEntries"
         // // // // GeneraljnlLine."Shortcut Dimension 2 Code":=GlobalDime2;
         // // // // GeneraljnlLine.VALIDATE(GeneraljnlLine."Shortcut Dimension 2 Code");
         // // // IF GeneraljnlLine.Amount<>0 THEN
-        // // //      GeneraljnlLine.INSERT;
+        // // //      GeneraljnlLine.INSERT(True);
     end;
 }
 

@@ -697,9 +697,9 @@ page 50795 "ACA-Pending Admissions List"
                     CourseRegistration."Registration Date" := TODAY;
                     CourseRegistration.VALIDATE(CourseRegistration."Registration Date");
                     CourseRegistration.MODIFY;
-
                 END;
             END;
+            CreateHostelBooking(Cust);
         END;
         /*
                 //insert the course registration details
@@ -1066,5 +1066,9 @@ page 50795 "ACA-Pending Admissions List"
     //     END ELSE
     //         ERROR('No current academic year specified.');
     // end;
+    procedure CreateHostelBooking(Customer: Record Customer)
+    begin
+
+    end;
 }
 

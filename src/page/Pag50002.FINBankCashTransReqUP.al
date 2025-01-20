@@ -342,7 +342,7 @@ page 50002 "FIN-Bank & Cash Trans. Req. UP"
                         GenJnlLine.RESET;
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", Rec."Inter Bank Template Name");
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", Rec."Inter Bank Journal Batch");
-                        GenJnlLine.DELETEALL;
+                        GenJnlLine.DELETEALL(true);
 
                         LineNo := 1000;
                         /*Insert the new lines to be updated*/
@@ -381,7 +381,7 @@ page 50002 "FIN-Bank & Cash Trans. Req. UP"
                         END;
                         GenJnlLine.Amount := Rec."Amount 2";
                         GenJnlLine.VALIDATE(GenJnlLine.Amount);
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
 
 
                         GenJnlLine.INIT;
@@ -420,7 +420,7 @@ page 50002 "FIN-Bank & Cash Trans. Req. UP"
                         END;
                         GenJnlLine.Amount := -Rec.Amount;
                         GenJnlLine.VALIDATE(GenJnlLine.Amount);
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
                         Post := FALSE;
                         CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", GenJnlLine);
                         Post := JournalPostedSuccessfully.PostedSuccessfully();

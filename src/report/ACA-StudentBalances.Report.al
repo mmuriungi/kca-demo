@@ -1,27 +1,28 @@
-report 50507 "ACA-Student Balances"
+#pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
+Report 70092 "ACA-Student Balances"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/ACA-Student Balances.rdl';
+    RDLCLayout = './Layouts/ACA-Student Balances.rdlc';
 
     dataset
     {
         dataitem("ACA-Programme"; "ACA-Programme")
         {
-            DataItemTableView = SORTING(Code)
-                                ORDER(Ascending);
+            DataItemTableView = sorting(Code) order(ascending);
             PrintOnlyIfDetail = true;
-            column(USERID; USERID)
+            column(ReportForNavId_1410; 1410)
+            {
+            }
+            column(USERID; UserId)
             {
             }
             column(COMPANYNAME; COMPANYNAME)
             {
             }
-#pragma warning disable AL0667
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
-#pragma warning restore AL0667
+            column(CurrReport_PAGENO; CurrReport.PageNo)
             {
             }
-            column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
+            column(FORMAT_TODAY_0_4_; Format(Today, 0, 4))
             {
             }
             column(Totald; Totald)
@@ -44,26 +45,26 @@ report 50507 "ACA-Student Balances"
             }
             dataitem("ACA-Course Registration"; "ACA-Course Registration")
             {
-                DataItemLink = Programmes = FIELD(Code);
-                DataItemTableView = SORTING("Student No.")
-                                    ORDER(Ascending)
-                                    WHERE(Reversed = CONST(false),
-                                          Posted = CONST(true));
+                DataItemLink = Programmes = field(Code);
+                DataItemTableView = sorting("Student No.") order(ascending) where(Reversed = const(false), Posted = const(true));
                 PrintOnlyIfDetail = true;
-                RequestFilterFields = Programmes, "Settlement Type", Stage, Session, Semester, Faculty;
-                column(Customer__No__Caption; Customer.FIELDCAPTION("No."))
+                RequestFilterFields = Programmes, "Settlement Type", Stage, Session, Semester;
+                column(ReportForNavId_2901; 2901)
                 {
                 }
-                column(Customer_NameCaption; Customer.FIELDCAPTION(Name))
+                column(Customer__No__Caption; Customer.FieldCaption("No."))
                 {
                 }
-                column(Customer__Debit_Amount__LCY__Caption; Customer.FIELDCAPTION("Debit Amount (LCY)"))
+                column(Customer_NameCaption; Customer.FieldCaption(Name))
                 {
                 }
-                column(Customer__Credit_Amount__LCY__Caption; Customer.FIELDCAPTION("Credit Amount (LCY)"))
+                column(Customer__Debit_Amount__LCY__Caption; Customer.FieldCaption("Debit Amount (LCY)"))
                 {
                 }
-                column(Customer__Balance__LCY__Caption; Customer.FIELDCAPTION("Balance (LCY)"))
+                column(Customer__Credit_Amount__LCY__Caption; Customer.FieldCaption("Credit Amount (LCY)"))
+                {
+                }
+                column(Customer__Balance__LCY__Caption; Customer.FieldCaption("Balance (LCY)"))
                 {
                 }
                 column(StageCaption; StageCaptionLbl)
@@ -107,12 +108,13 @@ report 50507 "ACA-Student Balances"
                 }
                 dataitem(Customer; Customer)
                 {
-                    DataItemLink = "No." = FIELD("Student No.");
-                    DataItemTableView = SORTING("No.")
-                                        ORDER(Ascending)
-                                        WHERE("Customer Type" = CONST(Student),
-                                              Status = FILTER(Current | Registration));
-                    RequestFilterFields = "No.", "Date Filter", "Balance (LCY)", "Debit Amount (LCY)", "Credit Amount (LCY)", "Credit Amount", Status;
+                    CalcFields = "Debit Amount", "Credit Amount", Balance;
+                    DataItemLink = "No." = field("Student No.");
+                    DataItemTableView = sorting("No.") order(ascending) where("Customer Type" = const(Student));
+                    RequestFilterFields = "No.", "Date Filter", "Balance (LCY)", "Debit Amount (LCY)", "Credit Amount (LCY)", "Credit Amount";
+                    column(ReportForNavId_6836; 6836)
+                    {
+                    }
                     column(NCount; NCount)
                     {
                     }
@@ -155,6 +157,14 @@ report 50507 "ACA-Student Balances"
 
         layout
         {
+            area(content)
+            {
+                field(SemesterFilter; SemesterFilter)
+                {
+                    ApplicationArea = Basic;
+                    TableRelation = "ACA-Semesters".Code;
+                }
+            }
         }
 
         actions
@@ -171,9 +181,16 @@ report 50507 "ACA-Student Balances"
         totalc: Decimal;
         Totald: Decimal;
         totalb: Decimal;
-        CurrReport_PAGENOCaptionLbl: Label 'Page';
-        CustomerCaptionLbl: Label 'Customer';
-        StageCaptionLbl: Label 'Stage';
+        CurrReport_PAGENOCaptionLbl: label 'Page';
+        CustomerCaptionLbl: label 'Customer';
+        StageCaptionLbl: label 'Stage';
         NCount: Integer;
+        DebitAmount: Decimal;
+        CreditAmount: Decimal;
+        Balance: Decimal;
+        Sems: Record "ACA-Semesters";
+        SemDate: Date;
+        DetailedLedgers: Record "Detailed Cust. Ledg. Entry";
+        SemesterFilter: Code[20];
 }
 

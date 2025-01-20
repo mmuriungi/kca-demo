@@ -108,7 +108,7 @@ page 51726 "HMS Laboratory Item Header"
                             ItemJnlLine."Unit of Measure Code" := PharmLine."Item Unit Of Measure";
                             ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
                             ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
-                            ItemJnlLine.INSERT();
+                            ItemJnlLine.INSERT(True);
                             PharmLine.Posted := TRUE;
                             PharmLine.MODIFY;
                             LineNo := LineNo + 1;

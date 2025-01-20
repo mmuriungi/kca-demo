@@ -76,7 +76,7 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
                         PurchLine."Direct Unit Cost" := RFQ_Line."Direct Unit Cost";
                         PurchLine.VALIDATE("Direct Unit Cost");
                         PurchLine.Amount := RFQ_Line.Amount;
-                        PurchLine.INSERT;
+                        PurchLine.INSERT(True);
                     UNTIL RFQ_Line.NEXT = 0;
                 END;
                 vend.Reset();

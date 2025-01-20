@@ -59,7 +59,7 @@ table 50147 "Proc-Purchase Quote Header1"
                         RFQ_Line."Description 2" := PurchLine."Description 2";
                         RFQ_Line."Direct Unit Cost" := PurchLine."Direct Unit Cost";
                         RFQ_Line."Line Amount" := PurchLine.Amount;
-                        RFQ_Line.Insert();
+                        RFQ_Line.INSERT(True);
 
                     UNTIL PurchLine.NEXT = 0;
                 END;

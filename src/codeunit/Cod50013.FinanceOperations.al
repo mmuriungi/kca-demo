@@ -83,7 +83,7 @@ codeunit 50013 "Finance Operations"
                     Payline.Amount := ImpHeader."Total Net Amount";
                     Payline.Validate(Amount);
                     Payline."Imprest Processed" := true;
-                    Payline.Insert();
+                    PayLine.INSERT(True);
 
                 until ImpHeader.Next() = 0;
 
@@ -137,7 +137,7 @@ codeunit 50013 "Finance Operations"
 
                  Payline.Amount := ImpHeader."Total Net Amount";
                  Payline.Validate(Amount);
-                 Payline.Insert();
+                 PayLine.INSERT(True);
                  ImpHeader."Pay Using Pv" := true;
                  ImpHeader.Modify()
                  //until ImpHeader.next = 0;
@@ -344,7 +344,7 @@ codeunit 50013 "Finance Operations"
             GenJnlLine.RESET;
             GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", GenledSetup."Surrender Template");
             GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", GenledSetup."Surrender  Batch");
-            GenJnlLine.DELETEALL;
+            GenJnlLine.DELETEALL(true);
         END;
 
         IF DefaultBatch.GET(GenledSetup."Surrender Template", GenledSetup."Surrender  Batch") THEN BEGIN
@@ -419,7 +419,7 @@ codeunit 50013 "Finance Operations"
                 END;
 
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
             //Post Interest
             /*if ImprestDetails."Acc interest Amount" <> 0 then begin
@@ -481,7 +481,7 @@ codeunit 50013 "Finance Operations"
                 END;
 
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
                 ImprestReq.reset;
                 ImprestReq.SetRange("No.", Surrender.No);
                 if ImprestReq.find('-') then begin
@@ -545,7 +545,7 @@ codeunit 50013 "Finance Operations"
                     GenJnlLine."Applies-to ID" := Rec."Apply to ID";
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
 
                 END;
             END;*/
@@ -583,6 +583,21 @@ codeunit 50013 "Finance Operations"
 
 
 
-
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", OnAfterInsertEvent, '', false, false)]
+    local procedure InsertToArchive(var Rec: Record "Gen. Journal Line")
+    var
+        JnlArchive: Record "General Journal Archive";
+        rpt: Report 2;
+        jnlarchive2: Record "General Journal Archive";
+    begin
+        JnlArchive.Init();
+        JnlArchive.TransferFields(Rec);
+        jnlarchive2.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+        jnlarchive2.SetRange("Journal Template Name", Rec."Journal Template Name");
+        jnlarchive2.SetRange("Line No.", Rec."Line No.");
+        if not jnlarchive2.Find('-') then begin
+            JnlArchive.Insert();
+        end;
+    end;
 
 }

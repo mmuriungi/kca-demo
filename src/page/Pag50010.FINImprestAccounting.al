@@ -268,8 +268,9 @@ page 50010 "FIN-Imprest Accounting"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
                         showmessage: Boolean;
+                        variant: Variant;
                     begin
                         //First Check whether all amount entered tally
                         ImprestDetails.RESET;
@@ -281,7 +282,9 @@ page 50010 "FIN-Imprest Accounting"
 
                             UNTIL ImprestDetails.NEXT = 0;
                         END;
-                        ApprovalMgt.OnSendImprestAccforApproval(Rec);
+                        variant := Rec;
+                        if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
+                            ApprovalMgt.OnSendDocForApproval(variant);
                     end;
                 }
                 action(cancellsApproval)
@@ -294,11 +297,14 @@ page 50010 "FIN-Imprest Accounting"
                     ApplicationArea = All;
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
                         showmessage: Boolean;
                         ManualCancel: Boolean;
+                        variant: Variant;
                     begin
-                        ApprovalMgt.OnCancelImprestAccforApproval(Rec);
+                        variant := Rec;
+                        if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
+                            ApprovalMgt.OnCancelDocApprovalRequest(variant);
                     end;
                 }
             }
@@ -337,7 +343,7 @@ page 50010 "FIN-Imprest Accounting"
                         GenJnlLine.RESET;
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", GenledSetup."Surrender Template");
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", GenledSetup."Surrender  Batch");
-                        GenJnlLine.DELETEALL;
+                        GenJnlLine.DELETEALL(true);
                     END;
 
                     IF DefaultBatch.GET(GenledSetup."Surrender Template", GenledSetup."Surrender  Batch") THEN BEGIN
@@ -417,7 +423,7 @@ page 50010 "FIN-Imprest Accounting"
                             END;
 
                             IF GenJnlLine.Amount <> 0 THEN
-                                GenJnlLine.INSERT;
+                                GenJnlLine.INSERT(True);
 
                             //Post Cash Surrender
                             IF ImprestDetails."Cash Receipt Amount" > 0 THEN BEGIN
@@ -472,7 +478,7 @@ page 50010 "FIN-Imprest Accounting"
                                     GenJnlLine."Applies-to ID" := Rec."Apply to ID";
 
                                     IF GenJnlLine.Amount <> 0 THEN
-                                        GenJnlLine.INSERT;
+                                        GenJnlLine.INSERT(True);
 
                                 END;
                             END;

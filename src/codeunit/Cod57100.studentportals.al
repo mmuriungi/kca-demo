@@ -5000,6 +5000,38 @@ codeunit 57100 studentportals
         END
     end;
 
+    procedure CheckRoomBookingPossibility(email: Text[120]): Boolean
+    var
+        ApplicFormHeader: Record "ACA-Applic. Form Header";
+    begin
+        ApplicFormHeader.RESET;
+        ApplicFormHeader.SETRANGE(ApplicFormHeader.Email, email);
+        ApplicFormHeader.SetRange("Assigned Space", '');
+        ApplicFormHeader.SetRange(Admitted, true);
+        ApplicFormHeader.SetFilter("Admission No", '<>%1', '');
+        IF ApplicFormHeader.FIND('-') THEN BEGIN
+            ApplicFormHeader.CalcFields("Total Resident Students", "Available Room Spaces (M)", "Available Room Spaces (F)");
+            if ApplicFormHeader.Gender = ApplicFormHeader.Gender::Male then begin
+                if ApplicFormHeader."Total Resident Students" > ApplicFormHeader."Available Room Spaces (M)" then begin
+                    Error('Accomodation spaces are exhausted.\Kindly make private arrangements for accomodation.');
+                end;
+            end else if ApplicFormHeader.Gender = ApplicFormHeader.Gender::Female then begin
+                if ApplicFormHeader."Total Resident Students" > ApplicFormHeader."Available Room Spaces (F)" then begin
+                    Error('Accomodation spaces are exhausted.\Kindly make private arrangements for accomodation.');
+                end;
+            end;
+            exit(true);
+        END else
+            exit(false);
+    end;
+
+    procedure assigngSpaceForApplicant(applicNo: Code[25])
+    var
+
+    begin
+
+    end;
+
     procedure SubmitStudentRequest(stdNo: Code[20]; type: option; reason: option; otherreason: text) submitted: Boolean
     begin
         DefferedStudents.Reset;

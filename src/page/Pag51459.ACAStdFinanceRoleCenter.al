@@ -46,6 +46,12 @@ page 51459 "ACA-Std Finance Role Center"
                     RunObject = Report "ACA-Student Balances";
                     ApplicationArea = All;
                 }
+                action("Student Balances Per Semester")
+                {
+                    Caption = 'Student Balances Per Semester';
+                    RunObject = Report "Student Balances Per Semester";
+                    ApplicationArea = All;
+                }
                 action("Statement 1")
                 {
                     Caption = 'Statement 1';

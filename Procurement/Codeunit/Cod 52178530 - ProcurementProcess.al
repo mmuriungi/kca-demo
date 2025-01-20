@@ -1740,7 +1740,7 @@ codeunit 52178530 "Procurement Process"
                 tsline.Quantity := qlines.Quantity;
                 tsline."Type" := qlines."Type";
                 tsline."Document Date" := Today;
-                tsline.Insert();
+                tsLine.INSERT(True);
 
             until qlines.Next() = 0;
 
@@ -1800,7 +1800,7 @@ codeunit 52178530 "Procurement Process"
                 prLine.Validate(Quantity);
                 prLine."Type" := qlines."Type";
                 prLine."Order Date" := Today;
-                prLine.Insert();
+                prLine.INSERT(True);
             until qlines.Next() = 0;
         end;
         Page.Run(Page::"Proc-Purchase Quote.Card", pheader);

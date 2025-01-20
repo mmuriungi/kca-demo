@@ -113,7 +113,7 @@ page 50065 "Payment Schedule"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         IF Payments.GET(Rec.No) THEN PostHeader(Payments);
@@ -248,7 +248,7 @@ page 50065 "Payment Schedule"
         GenJnlLine."Bank Payment Type" := GenJnlLine."Bank Payment Type"::"Computer Check";
         GenJnlLine.Payee := Rec.Payee;
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
 
         //
@@ -334,7 +334,7 @@ page 50065 "Payment Schedule"
         GenJnlLine."Bank Payment Type" := GenJnlLine."Bank Payment Type"::"Computer Check";
         GenJnlLine.Payee := Rec.Payee;
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
     end;
 

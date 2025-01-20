@@ -207,7 +207,7 @@ page 51372 "Casual Header Card."
         GenJnlLine.RESET;
         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JournalTemplate);
         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JournalBatch);
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
 
         //.................INSERT THE NET AMOUNT TRANSACTION................
 
@@ -243,7 +243,7 @@ page 51372 "Casual Header Card."
         //Validate dimensionsSH
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
-        GenJnlLine.INSERT;
+        GenJnlLine.INSERT(True);
         //*************** INSERT PAYE Transactions**************************
         GenJnlLine.INIT;
         GenJnlLine."Journal Template Name" := CashMgtSetup."Payroll Template";
@@ -277,7 +277,7 @@ page 51372 "Casual Header Card."
         //Validate dimensionsSH
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
-        GenJnlLine.INSERT;
+        GenJnlLine.INSERT(True);
         //************INSERT NHIF TRANSACTIONS ***********
         GenJnlLine.INIT;
         GenJnlLine."Journal Template Name" := CashMgtSetup."Payroll Template";
@@ -311,7 +311,7 @@ page 51372 "Casual Header Card."
         //Validate dimensionsSH
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
-        GenJnlLine.INSERT;
+        GenJnlLine.INSERT(True);
         //*******************Insert NSSF Transactions***********
         GenJnlLine.INIT;
         GenJnlLine."Journal Template Name" := CashMgtSetup."Payroll Template";
@@ -345,7 +345,7 @@ page 51372 "Casual Header Card."
         //Validate dimensionsSH
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
-        GenJnlLine.INSERT;
+        GenJnlLine.INSERT(True);
         ///************************Insert Balancing Transactions******************
 
         GenJnlLine.INIT;
@@ -383,7 +383,7 @@ page 51372 "Casual Header Card."
         //Validate dimensionsSH
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
-        GenJnlLine.INSERT;
+        GenJnlLine.INSERT(True);
         GenJnlLine.RESET;
         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JournalTemplate);
         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JournalBatch);

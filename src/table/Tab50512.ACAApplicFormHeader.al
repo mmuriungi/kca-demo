@@ -1075,6 +1075,47 @@ table 50512 "ACA-Applic. Form Header"
         field(50158; "Application Fee Paid"; Boolean)
         {
         }
+        field(115; "Available Room Spaces (M)"; Integer)
+        {
+            CalcFormula = lookup("ACA-General Set-Up"."Available Accom. Spaces (Male)");
+            FieldClass = FlowField;
+        }
+        field(116; "Available Room Spaces (F)"; Integer)
+        {
+            CalcFormula = lookup("ACA-General Set-Up"."Available Acc. Spaces(Female)");
+            FieldClass = FlowField;
+        }
+        field(117; "Total Resident Students"; Integer)
+        {
+            CalcFormula = count("KUCCPS Imports" where("Academic Year" = field("Academic Year"),
+                                                        Accomodation = filter(Resident),
+                                                        Gender = field(Gender)));
+            FieldClass = FlowField;
+        }
+        field(93; Accomodation; Option)
+        {
+            OptionCaption = ' ,Resident,Non-resident';
+            OptionMembers = " ",Resident,"Non-resident";
+        }
+        field(94; "Non-Resident Owner"; Text[50])
+        {
+        }
+        field(95; "Non-Resident Address"; Text[50])
+        {
+        }
+        field(96; "Residential Owner Phone"; Text[20])
+        {
+        }
+        field(97; "Assigned Room"; Code[20])
+        {
+        }
+        field(98; "Assigned Space"; Code[20])
+        {
+        }
+        field(99; "Assigned Block"; Code[20])
+        {
+        }
+
     }
 
     keys

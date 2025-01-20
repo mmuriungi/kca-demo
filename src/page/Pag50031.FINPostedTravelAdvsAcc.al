@@ -313,7 +313,7 @@ page 50031 "FIN-Posted Travel Advs. Acc."
                         GenJnlLine.RESET;
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", GenledSetup."Surrender Template");
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", GenledSetup."Surrender  Batch");
-                        GenJnlLine.DELETEALL;
+                        GenJnlLine.DELETEALL(true);
                     END;
 
                     IF DefaultBatch.GET(GenledSetup."Surrender Template", GenledSetup."Surrender  Batch") THEN BEGIN
@@ -394,7 +394,7 @@ page 50031 "FIN-Posted Travel Advs. Acc."
                             END;
 
                             IF GenJnlLine.Amount <> 0 THEN
-                                GenJnlLine.INSERT;
+                                GenJnlLine.INSERT(True);
 
                             //Post Cash Surrender
                             IF ImprestDetails."Cash Receipt Amount" > 0 THEN BEGIN
@@ -449,7 +449,7 @@ page 50031 "FIN-Posted Travel Advs. Acc."
                                     GenJnlLine."Applies-to ID" := Rec."Apply to ID";
 
                                     IF GenJnlLine.Amount <> 0 THEN
-                                        GenJnlLine.INSERT;
+                                        GenJnlLine.INSERT(True);
 
                                 END;
                             END;
@@ -755,7 +755,7 @@ page 50031 "FIN-Posted Travel Advs. Acc."
             RecLine."Pay Mode" := ImprestDetails."Cash Pay Mode";
 
             IF ImprestDetails."Cash Surrender Amt" <> 0 THEN
-                RecLine.INSERT;
+                RecLine.INSERT(True);
         END;
     end;
 

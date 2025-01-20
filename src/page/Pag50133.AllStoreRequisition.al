@@ -177,7 +177,7 @@ page 50133 "All Store Requisition"
                                 GenJnline.VALIDATE("Unit Amount");
                                 GenJnline."Reason Code" := '221';
                                 GenJnline.VALIDATE("Reason Code");
-                                GenJnline.INSERT(TRUE);
+                                GenJnLine.INSERT(True);
 
                                 ReqLine."Quantity Issued" := ReqLine."Quantity Issued" + ReqLine."Quantity To Issue";
                                 ReqLine."Quantity To Issue" := 0;

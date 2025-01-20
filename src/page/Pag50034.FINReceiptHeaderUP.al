@@ -414,7 +414,7 @@ page 50034 "FIN-Receipt Header UP"
         GenJnlLine.RESET;
         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
 
         IF DefaultBatch.GET(JTemplate, JBatch) THEN
             DefaultBatch.DELETE;
@@ -453,7 +453,7 @@ page 50034 "FIN-Receipt Header UP"
             // GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
             GenJnlLine.VALIDATE(GenJnlLine.Description);
             IF GenJnlLine.Amount <> 0 THEN
-                GenJnlLine.INSERT;
+                GenJnlLine.INSERT(True);
 
 
 
@@ -530,7 +530,7 @@ page 50034 "FIN-Receipt Header UP"
                         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
                         GenJnlLine.ValidateShortcutDimCode(3, Rec."Shortcut Dimension 3 Code");
                         GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
-                        IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                        IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
                     END
                     ELSE
                         IF ReceiptLine."Pay Mode" = ReceiptLine."Pay Mode"::Cheque THEN BEGIN
@@ -578,7 +578,7 @@ page 50034 "FIN-Receipt Header UP"
                                 GenJnlLine.ValidateShortcutDimCode(3, Rec."Shortcut Dimension 3 Code");
                                 GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
-                                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
                             END;
                         END;
                 UNTIL ReceiptLine.NEXT = 0;

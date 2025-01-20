@@ -292,7 +292,7 @@ Codeunit 61106 webportals
 
             //MODIFY
             ImprestRequisition.GET(ImprestNo);
-            HRMEmployeeD.GET(ImprestRequisition.Cashier);
+            HRMEmployeeD.GET(ImprestRequisition."Staff No");
             ImprestSurrHeader."Responsibility Center" := HRMEmployeeD."Responsibility Center";
             IF ImprestSurrHeader.Modify() THEN BEGIN
                 ImprestSurrDetails.Reset;
@@ -357,11 +357,16 @@ Codeunit 61106 webportals
     END;
 
     procedure SendImpSurrAppReq(docNo: Code[20]) msg: Boolean
+    var
+        ApprovMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
     begin
         ImprestSurrHeader.Reset;
         ImprestSurrHeader.SETRANGE(ImprestSurrHeader.No, docNo);
         IF ImprestSurrHeader.FIND('-') THEN BEGIN
-            ApprovalMgmt.OnSendImprestAccForApproval(ImprestSurrHeader);
+            variant := ImprestSurrHeader;
+            if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovMgmt.OnSendDocForApproval(variant);
             msg := true;
         end;
     end;
@@ -421,7 +426,7 @@ Codeunit 61106 webportals
         ImprestLine."Date Issued" := Today;
 
         // Insert the line
-        if ImprestLine.Insert(true) then
+        if ImprestLine.INSERT(True) then
             exit(true)
         else
             exit(false);
@@ -7539,7 +7544,7 @@ Codeunit 61106 webportals
             //         ApprovalCommentLine."User ID" := ApproverID;
             //         ApprovalCommentLine."Date and Time" := CreateDatetime(Today, Time);
             //         ApprovalCommentLine.Comment := RejectReason;
-            //         if ApprovalCommentLine.Insert then;
+            //         if ApprovalCommentLine.INSERT(True) then;
             //     end;
             // end else if ApprovalActions = 'CANCEL' then begin
             //     AppMgt.CancelApproval(ApprovalEntry."Table ID", ApprovalEntry."Document Type", ApprovalEntry."Document No.", false, false);
@@ -7554,7 +7559,7 @@ Codeunit 61106 webportals
             //         ApprovalCommentLine."User ID" := ApproverID;
             //         ApprovalCommentLine."Date and Time" := CreateDatetime(Today, Time);
             //         ApprovalCommentLine.Comment := RejectReason;
-            //         if ApprovalCommentLine.Insert then;
+            //         if ApprovalCommentLine.INSERT(True) then;
             //     end;
             // end else if ApprovalActions = 'DELEGATE' then
             //         AppMgt.DelegateApprovalRequest(ApprovalEntry);

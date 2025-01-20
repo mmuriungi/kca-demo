@@ -223,7 +223,7 @@ page 50260 "PROC-Store Req. Header"
             //                             GenJnline."Reason Code" := 'STOCK';
             //                             GenJnline.VALIDATE("Reason Code");
             //                             if GenJnline.Quantity <> 0 then
-            //                                 GenJnline.INSERT(TRUE);
+            //                                 GenJnLine.INSERT(True);
             //                             ReqLine."Quantity Issued" := ReqLine."Quantity Issued" + ReqLine."Quantity To Issue";
             //                             ReqLine."Quantity To Issue" := 0;
             //                             IF ReqLine."Quantity Issued" = ReqLine."Quantity Requested" THEN
@@ -352,7 +352,7 @@ page 50260 "PROC-Store Req. Header"
                             // GenJnline.VALIDATE("Reason Code");
                             GenJnline.VALIDATE("Item No.");
                             if GenJnline.Quantity <> 0 then
-                                GenJnline.INSERT(TRUE);
+                                GenJnLine.INSERT(True);
                             ReqLine."Quantity Issued" := ReqLine."Quantity Issued" + ReqLine."Quantity To Issue";
                             ReqLine."Quantity To Issue" := 0;
                             IF ReqLine."Quantity Issued" = ReqLine."Quantity Requested" THEN

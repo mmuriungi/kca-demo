@@ -424,7 +424,7 @@ page 50024 "FIN-Posted Imprest Req. UP"
             GenJnlLine.RESET;
             GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
             GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-            GenJnlLine.DELETEALL;
+            GenJnlLine.DELETEALL(true);
         END;
 
         LineNo := LineNo + 1000;
@@ -454,7 +454,7 @@ page 50024 "FIN-Posted Imprest Req. UP"
         GenJnlLine.ValidateShortcutDimCode(4, Rec."Shortcut Dimension 4 Code");
 
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
 
         GenJnlLine.RESET;

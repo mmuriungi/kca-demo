@@ -170,11 +170,12 @@ page 50044 "FIN-Travel Advance Acc. UP"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
                         showmessage: Boolean;
                         ManualCancel: Boolean;
                         State: Option Open,"Pending Approval",Cancelled,Approved;
                         rpmgmt: Codeunit ReportManagement;
+                        variant: Variant;
                     begin
                         //First Check whether all amount entered tally
                         // ImprestDetails.RESET;
@@ -190,8 +191,9 @@ page 50044 "FIN-Travel Advance Acc. UP"
                         // END;
 
                         //Release the Imprest for Approval
-                        if ApprovalMgt.IsImprestAccEnabled(Rec) then
-                            ApprovalMgt.OnSendImprestAccforApproval(Rec)
+                        variant := Rec;
+                        if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
+                            ApprovalMgt.OnSendDocForApproval(variant)
                         else
                             Error('No Approval Workflow has been setup for this record type.');
 
@@ -208,14 +210,18 @@ page 50044 "FIN-Travel Advance Acc. UP"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
                         showmessage: Boolean;
                         ManualCancel: Boolean;
+                        variant: Variant;
                     begin
                         showmessage := TRUE;
                         ManualCancel := TRUE;
-                        if Rec.Status = Rec.Status::"Pending Approval" then
-                            ApprovalMgt.OnCancelImprestAccforApproval(Rec);
+                        if Rec.Status = Rec.Status::"Pending Approval" then begin
+                            variant := Rec;
+                            if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
+                                ApprovalMgt.OnCancelDocApprovalRequest(variant);
+                        end;
                     end;
                 }
             }
@@ -255,7 +261,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                         GenJnlLine.RESET;
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", GenledSetup."Surrender Template");
                         GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", GenledSetup."Surrender  Batch");
-                        GenJnlLine.DELETEALL;
+                        GenJnlLine.DELETEALL(true);
                     END;
 
                     IF DefaultBatch.GET(GenledSetup."Surrender Template", GenledSetup."Surrender  Batch") THEN BEGIN
@@ -336,7 +342,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                             END;
 
                             IF GenJnlLine.Amount <> 0 THEN
-                                GenJnlLine.INSERT;
+                                GenJnlLine.INSERT(True);
 
                             //Post Interest
                             if ImprestDetails."Acc interest Amount" <> 0 then begin
@@ -398,7 +404,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                                 END;
 
                                 IF GenJnlLine.Amount <> 0 THEN
-                                    GenJnlLine.INSERT;
+                                    GenJnlLine.INSERT(True);
                                 ImprestReq.reset;
                                 ImprestReq.SetRange("No.", Rec.No);
                                 if ImprestReq.find('-') then begin
@@ -462,7 +468,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                                 GenJnlLine."Applies-to ID" := Rec."Apply to ID";
 
                                 IF GenJnlLine.Amount <> 0 THEN
-                                    GenJnlLine.INSERT;
+                                    GenJnlLine.INSERT(True);
 
                             END;
                         END;*/
@@ -875,7 +881,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
              RecLine."Pay Mode" := ImprestDetails."Cash Pay Mode";
 
              IF ImprestDetails."Cash Surrender Amt" <> 0 THEN
-                 RecLine.INSERT;
+                 RecLine.INSERT(True);
          END;
      end;*/
 

@@ -2272,7 +2272,7 @@
                         PurchLine."Direct Unit Cost" := RFQ_Line."Direct Unit Cost";
                         PurchLine.VALIDATE("Direct Unit Cost");
                         PurchLine.Amount := RFQ_Line.Amount;
-                        PurchLine.INSERT;
+                        PurchLine.INSERT(True);
                     UNTIL RFQ_Line.NEXT = 0;
                 END;
 
@@ -2961,7 +2961,7 @@ IF PurchLinesExist THEN BEGIN
                     PurchLine.Nonstock := FALSE;
                     PurchLine.MODIFY;
                 END;
-                TempPurchLine.INSERT;
+                TempPurchLine.INSERT(True);
             UNTIL PurchLine.NEXT = 0;
 
             ItemChargeAssgntPurch.SETRANGE("Document Type", "Document Type");
@@ -3058,7 +3058,7 @@ IF PurchLinesExist THEN BEGIN
                             END;
                     END;
 
-                    PurchLine.INSERT;
+                    PurchLine.INSERT(True);
                     ExtendedTextAdded := FALSE;
 
                     IF PurchLine.Type = PurchLine.Type::Item THEN BEGIN
@@ -4002,7 +4002,7 @@ TempPurchaseLine."Work Center No." := PurchaseLine."Work Center No.";
 TempPurchaseLine."Gen. Bus. Posting Group" := PurchaseLine."Gen. Bus. Posting Group";
 TempPurchaseLine."Gen. Prod. Posting Group" := PurchaseLine."Gen. Prod. Posting Group";
 TempPurchaseLine.MARK := DefaultDimenstionsNotExist;
-TempPurchaseLine.INSERT;
+TempPurchaseLine.INSERT(True);
 end;
 
 procedure OpenPurchaseOrderStatistics()

@@ -161,7 +161,7 @@ table 50183 "FIN-Memo Header"
                             PurchLine."Qty. to Invoice" := MemoPRNDetails.Quantity;
                             PurchLine."Planned Receipt Date" := TODAY;
                             PurchLine.VALIDATE(PurchLine."Unit Cost", MemoPRNDetails."Unit Cost");
-                            PurchLine.INSERT(TRUE);
+                            PurchLine.INSERT(True);
                         END;
                         UNTIL MemoPRNDetails.NEXT = 0;
                         PurchHeader.RESET;

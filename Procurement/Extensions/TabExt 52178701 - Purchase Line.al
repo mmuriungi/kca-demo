@@ -113,7 +113,7 @@ tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
                        PurchLine."Direct Unit Cost":=RFQ."Direct Unit Cost";
                        PurchLine.VALIDATE("Direct Unit Cost");
                        PurchLine.Amount:=RFQ.Amount;
-                       PurchLine.INSERT;
+                       PurchLine.INSERT(True);
                    UNTIL RFQ.NEXT=0;
                  END;
                 */

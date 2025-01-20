@@ -493,7 +493,7 @@ page 50175 "FIN-Imprest Voucher Card"
                         // GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
                         // GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
                         // IF GenJnlLine.FIND('+') THEN
-                        //     GenJnlLine.DELETEALL;
+                        //     GenJnlLine.DELETEALL(true);
                         //GenJnlLine.RESET;
 
                         // PopulateCheckJournal(Payments);
@@ -578,7 +578,7 @@ page 50175 "FIN-Imprest Voucher Card"
                                 EFTline.Amount := PayLine."Net Amount";
                                 EFTline."PV Number" := PayLine.No;
                                 EFTline.Description := Rec."Payment Narration";
-                                EFTline.INSERT;
+                                EFTLine.INSERT(True);
 
                             END;
                         END;
@@ -761,7 +761,7 @@ page 50175 "FIN-Imprest Voucher Card"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         Payments.RESET;
@@ -886,7 +886,7 @@ page 50175 "FIN-Imprest Voucher Card"
 
         END;
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
 
         //Post Other Payment Journal Entries
@@ -1163,7 +1163,7 @@ page 50175 "FIN-Imprest Voucher Card"
                 END;
                 //JEFF
 
-                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
                 /*
                 //Post VAT to GL[VAT GL]
                 TarriffCodes.RESET;
@@ -1214,7 +1214,7 @@ page 50175 "FIN-Imprest Voucher Card"
                 GenJnlLine.ValidateShortcutDimCode(3,PayLine."Shortcut Dimension 3 Code");
                 GenJnlLine.ValidateShortcutDimCode(4,PayLine."Shortcut Dimension 4 Code");
 
-                IF GenJnlLine.Amount<>0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount<>0 THEN GenJnlLine.INSERT(True);
                 END;
                  */
 
@@ -1269,7 +1269,7 @@ page 50175 "FIN-Imprest Voucher Card"
                     // GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
 
 
                 END;
@@ -1324,7 +1324,7 @@ page 50175 "FIN-Imprest Voucher Card"
                     // GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
                 END;
 
                 //////////////////////////////////////////////////////////////////////////////////////
@@ -1394,7 +1394,7 @@ page 50175 "FIN-Imprest Voucher Card"
                         // GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
                         //Post Retension Balancing Account
                         LineNo := LineNo + 1000;
                         GenJnlLine.INIT;
@@ -1444,7 +1444,7 @@ page 50175 "FIN-Imprest Voucher Card"
                         GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                         GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
 
                     END;
                 END;
@@ -1546,7 +1546,7 @@ page 50175 "FIN-Imprest Voucher Card"
                         // GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
                         //Post PAYE Balancing Account
                         LineNo := LineNo + 1000;
                         GenJnlLine.INIT;
@@ -1596,7 +1596,7 @@ page 50175 "FIN-Imprest Voucher Card"
                         GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                         GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
 
                     END;
                 END;
@@ -1655,7 +1655,7 @@ page 50175 "FIN-Imprest Voucher Card"
                 // // // // //    GenJnlLine.ValidateShortcutDimCode(4,PayLine."Shortcut Dimension 4 Code");
                 // // // // //
                 // // // // //    IF GenJnlLine.Amount<>0 THEN
-                // // // // //    GenJnlLine.INSERT;
+                // // // // //    GenJnlLine.INSERT(True);
                 // // // // //    END;
 
                 /*
@@ -1705,7 +1705,7 @@ page 50175 "FIN-Imprest Voucher Card"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID":=PayLine."Apply to ID";
                 IF GenJnlLine.Amount<>0 THEN
-                GenJnlLine.INSERT;
+                GenJnlLine.INSERT(True);
                  */
                 //Post VAt WithHeld Balancing Entry Goes to Vendor
                 LineNo := LineNo + 1000;
@@ -1756,7 +1756,7 @@ page 50175 "FIN-Imprest Voucher Card"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
 
                 //Post W/TAX Balancing Entry Goes to Vendor
@@ -1808,7 +1808,7 @@ page 50175 "FIN-Imprest Voucher Card"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
             //end;
 
@@ -2075,7 +2075,7 @@ page 50175 "FIN-Imprest Voucher Card"
                 GenJnlLine."Applies-to ID" := PayLine."Applies-to ID";
                 GenJnlLine.Description := Rec.Payee;
                 ///GenJnlLine."Received By":=Payee;
-                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
 
 
             UNTIL PayLine.NEXT = 0;

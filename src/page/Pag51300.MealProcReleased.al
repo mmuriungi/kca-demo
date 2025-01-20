@@ -184,7 +184,7 @@ page 51300 "Meal-Proc. Released"
                                         ItemJnlLine."Reason Code" := ItemJnlBatch."Reason Code";
                                         ItemJnlLine."Posting No. Series" := ItemJnlBatch."Posting No. Series";
                                         IF ItemJnlLine.Quantity <> 0 THEN
-                                            ItemJnlLine.INSERT;
+                                            ItemJnlLine.INSERT(True);
                                     END;
                                     UNTIL ProductionBOMProdSource.NEXT = 0;
                                 END;
@@ -245,7 +245,7 @@ page 51300 "Meal-Proc. Released"
                                 ItemJnlLine."Posting No. Series" := ItemJnlBatch."Posting No. Series";
 
                                 IF ItemJnlLine.Quantity <> 0 THEN
-                                    ItemJnlLine.INSERT;
+                                    ItemJnlLine.INSERT(True);
 
                                 ProductionBatchLines.Posted := TRUE;
                                 ProductionBatchLines.MODIFY;
@@ -528,7 +528,7 @@ page 51300 "Meal-Proc. Released"
                     TransferLine."Document No." := TransferHeader."No.";
                     TransferLine."Unit of Measure" := ItmJnl."Requirered Unit of Measure";
                     TransferLine.VALIDATE("Unit of Measure Code");
-                    TransferLine.INSERT(TRUE);
+                    TransferLine.INSERT(True);
                 UNTIL ItmJnl.NEXT = 0;
             END;
             //"Transfer Order No.":=TransferHeader."No.";

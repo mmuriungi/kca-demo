@@ -58,7 +58,7 @@ page 51233 "ACA-Catering Funds Transfer"
                             JournLine.Description := 'Fees to Catering Transfer';
                             JournLine."Bal. Account No." := CateringSetUp."Catering Control Account";
                             JournLine.Amount := Rec.Amount;
-                            JournLine.INSERT;
+                            JournLine.INSERT(True);
 
                             IF CLedger.FINDLAST THEN LastEntry := CLedger."Entry No";
                             CLedger.INIT;
@@ -85,7 +85,7 @@ page 51233 "ACA-Catering Funds Transfer"
                             JournLine.Description := 'Fees from Catering Tution';
                             JournLine."Bal. Account No." := CateringSetUp."Catering Control Account";
                             JournLine.Amount := -Rec.Amount;
-                            JournLine.INSERT;
+                            JournLine.INSERT(True);
 
                             IF CLedger.FINDLAST THEN LastEntry := CLedger."Entry No";
                             CLedger.INIT;

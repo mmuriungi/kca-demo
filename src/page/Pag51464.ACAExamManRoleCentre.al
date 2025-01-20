@@ -148,7 +148,15 @@ page 51464 "ACA-Exam Man. Role Centre"
                 //     Image = Card;
                 //     RunObject = Report "Exam Card Final";
                 //     ApplicationArea = All;
-                // }
+                // }action("ExaminationCards")
+                action("Exam Eligibity")
+                {
+                    Caption = 'Exam Eligibity';
+                    Image = CheckMark;
+
+                    RunObject = Report "Exam Eligibility";
+                    ApplicationArea = All;
+                }
                 action("Resit Card")
                 {
                     ApplicationArea = All;

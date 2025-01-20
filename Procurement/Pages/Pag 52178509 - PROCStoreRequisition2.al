@@ -157,7 +157,7 @@ page 52178509 "PROC-Store Requisition2"
                                 GenJnline.VALIDATE("Unit Amount");
                                 GenJnline."Reason Code" := 'STOCK';
                                 GenJnline.VALIDATE("Reason Code");
-                                GenJnline.INSERT(TRUE);
+                                GenJnLine.INSERT(True);
 
 
                                 ReqLine."Quantity Issued" := ReqLine."Quantity Issued" + ReqLine."Quantity To Issue";

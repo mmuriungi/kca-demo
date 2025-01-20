@@ -343,7 +343,7 @@ table 50032 "FIN-Staff Advance Surr. Header"
                         ImpSurrLine."Line on Original Document" := TRUE;
                         LineNo += 1;
                         ImpSurrLine."Line No." := LineNo;
-                        ImpSurrLine.INSERT;
+                        ImpSurrLine.INSERT(True);
                     UNTIL PayLine.NEXT = 0;
                 END;
 

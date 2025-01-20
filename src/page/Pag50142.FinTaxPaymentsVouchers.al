@@ -436,7 +436,7 @@ page 50142 "Fin-Tax Payments Vouchers"
         ELSE BEGIN
             LineNo := 1000;
         END;
-        GenJnlLine.DELETEALL;
+        GenJnlLine.DELETEALL(true);
         GenJnlLine.RESET;
 
         Payments.RESET;
@@ -561,7 +561,7 @@ page 50142 "Fin-Tax Payments Vouchers"
 
         END;
         IF GenJnlLine.Amount <> 0 THEN
-            GenJnlLine.INSERT;
+            GenJnlLine.INSERT(True);
 
         //Post Other Payment Journal Entries
 
@@ -768,7 +768,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                 END;
                 //JEFF
 
-                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
                 /*
                 //Post VAT to GL[VAT GL]
                 TarriffCodes.RESET;
@@ -819,7 +819,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                 GenJnlLine.ValidateShortcutDimCode(3,PayLine."Shortcut Dimension 3 Code");
                 GenJnlLine.ValidateShortcutDimCode(4,PayLine."Shortcut Dimension 4 Code");
 
-                IF GenJnlLine.Amount<>0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount<>0 THEN GenJnlLine.INSERT(True);
                 END;
                  */
 
@@ -900,7 +900,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                     GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
                 END;
 
                 //POST W/TAX to Respective W/TAX GL Account
@@ -953,7 +953,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                     GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                     IF GenJnlLine.Amount <> 0 THEN
-                        GenJnlLine.INSERT;
+                        GenJnlLine.INSERT(True);
                 END;
 
                 //////////////////////////////////////////////////////////////////////////////////////
@@ -1022,7 +1022,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                         GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
                         //Post Retension Balancing Account
                         LineNo := LineNo + 1000;
                         GenJnlLine.INIT;
@@ -1072,7 +1072,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                         GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                         GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
 
                     END;
                 END;
@@ -1141,7 +1141,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                         GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
 
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
                         //Post PAYE Balancing Account
                         LineNo := LineNo + 1000;
                         GenJnlLine.INIT;
@@ -1191,7 +1191,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                         GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                         GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                         IF GenJnlLine.Amount <> 0 THEN
-                            GenJnlLine.INSERT;
+                            GenJnlLine.INSERT(True);
 
                     END;
                 END;
@@ -1250,7 +1250,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                 // // // // //    GenJnlLine.ValidateShortcutDimCode(4,PayLine."Shortcut Dimension 4 Code");
                 // // // // //
                 // // // // //    IF GenJnlLine.Amount<>0 THEN
-                // // // // //    GenJnlLine.INSERT;
+                // // // // //    GenJnlLine.INSERT(True);
                 // // // // //    END;
 
                 /*
@@ -1300,7 +1300,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID":=PayLine."Apply to ID";
                 IF GenJnlLine.Amount<>0 THEN
-                GenJnlLine.INSERT;
+                GenJnlLine.INSERT(True);
                  */
                 //Post VAt WithHeld Balancing Entry Goes to Vendor
                 LineNo := LineNo + 1000;
@@ -1351,7 +1351,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
 
                 //Post W/TAX Balancing Entry Goes to Vendor
@@ -1403,7 +1403,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
                 IF GenJnlLine.Amount <> 0 THEN
-                    GenJnlLine.INSERT;
+                    GenJnlLine.INSERT(True);
 
 
             UNTIL PayLine.NEXT = 0;
@@ -1610,7 +1610,7 @@ page 50142 "Fin-Tax Payments Vouchers"
                 GenJnlLine."Applies-to ID" := PayLine."Applies-to ID";
                 GenJnlLine.Description := Rec.Payee;
                 ///GenJnlLine."Received By":=Payee;
-                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
 
 
             UNTIL PayLine.NEXT = 0;
