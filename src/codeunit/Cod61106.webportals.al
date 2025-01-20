@@ -1381,7 +1381,7 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure LoadSemUnits(ProgCode: Code[20]; StageCode: Code[20]) Message: Text
+    procedure LoadSemUnits(ProgCode: Code[20]; StageCode: Code[20]; option:Code[20]) Message: Text
     begin
         begin
             ACAUnitsSubjects.Reset;
@@ -1389,7 +1389,7 @@ Codeunit 61106 webportals
             ACAUnitsSubjects.SetRange("Stage Code", StageCode);
             ACAUnitsSubjects.SetRange("Time Table", true);
             ACAUnitsSubjects.SetRange("Old Unit", false);
-
+            UnitSubjects.SETFILTER(UnitSubjects."Programme Option", '%1|%2', option, '');
             if ACAUnitsSubjects.FindSet then begin
                 Message := '';
                 repeat
@@ -3851,7 +3851,7 @@ Codeunit 61106 webportals
         CourseRegistration.SetCurrentkey(Stage);
         if CourseRegistration.Find('+') then begin
             Message := CourseRegistration.Stage + '::' + CourseRegistration.Programmes + '::' + CourseRegistration."Reg. Transacton ID" + '::' + CourseRegistration.Semester + '::'
-    + CourseRegistration."Settlement Type" + '::' + GetProgram(CourseRegistration.Programmes) + '::' + GetSchool(CourseRegistration.Programmes);
+    + CourseRegistration."Settlement Type" + '::' + GetProgram(CourseRegistration.Programmes) + '::' + GetSchool(CourseRegistration.Programmes)+'::'+CourseRegistration.Options;
         end;
     end;
 
