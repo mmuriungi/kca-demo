@@ -2780,6 +2780,29 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure checkClassAttendanceMet(studNO: Code[25]; semester: code[25]; unit: code[25]): Boolean
+    var
+        ClassAtt: Record "Class Attendance Details";
+        GenSetup: Record "ACA-General Set-Up";
+        MinPerce: Decimal;
+        CurrPerce: Decimal;
+        TotalClasses: Integer;
+        AttendedClasses: Integer;
+    begin
+        GenSetup.GET;
+        MinPerce := GenSetup."Min Class Attendance %";
+        ClassAtt.Reset();
+        ClassAtt.SETRANGE("Student No.", studNO);
+        ClassAtt.SETRANGE("Semester", semester);
+        ClassAtt.SetRange("Unit Code", unit);
+        if ClassAtt.FindFirst() then begin
+            ClassAtt.CalcFields("Total Classes", "Present Counting");
+            CurrPerce := (ClassAtt."Present Counting" / ClassAtt."Total Classes") * 100;
+            if CurrPerce < MinPerce then exit(false);
+        end else
+            exit(false);
+        exit(true);
+    end;
 
     procedure GenerateStudentExamCard(StudentNo: Text; Sem: Text; filenameFromApp: Text): Text
     var
@@ -2813,6 +2836,19 @@ Codeunit 61106 webportals
         StudentUnits.SetFilter("Exempted in Evaluation", '%1', false);
         StudentUnits.SetFilter(Unit, '<>%1', '');
         if StudentUnits.Find('-') then Error('YOU HAVE NOT EVALUATED ALL COURSES FOR ' + Sem);
+
+        StudUnits.Reset;
+        //// STUDUNITS.SETRANGE(STUDUNITS.PROGRAMME,ACACOURSEREGISTRATIONZ1.PROGRAMME);
+        StudentUnits.SetRange(Semester, Sem);
+        StudentUnits.SetRange("Student No.", StudentNo);
+        StudentUnits.SetFilter(Unit, '<>%1', '');
+        if StudentUnits.Findset then begin
+            repeat
+                if not checkClassAttendanceMet(StudentNo, Sem, StudentUnits.unit) then error('You did not attend the required number of classes for unit ' + StudUnits.unit)
+            until StudentUnits.next = 0;
+        end;
+
+
 
         ////////////////////
 
