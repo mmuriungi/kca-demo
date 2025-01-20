@@ -190,6 +190,10 @@ table 50700 "ACA-Units Offered"
         {
 
         }
+        field(26; "Program Option"; Code[20])
+        {
+
+        }
 
     }
     keys

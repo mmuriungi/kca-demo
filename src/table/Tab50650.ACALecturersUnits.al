@@ -273,6 +273,10 @@ table 50650 "ACA-Lecturers Units"
         {
             TableRelation = "ACA-Academic Year".Code;
         }
+        field(50; "Program Option"; Code[20])
+        {
+
+        }
     }
 
     keys

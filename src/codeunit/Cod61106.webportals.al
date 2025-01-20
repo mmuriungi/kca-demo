@@ -253,6 +253,19 @@ Codeunit 61106 webportals
 
     end;
 
+    procedure GetProgramOptions(progcode: Code[20]) msg: Text
+    var
+        programOptions: Record "ACA-Programme Options";
+    begin
+        programOptions.RESET;
+        programOptions.SETRANGE(programOptions."Programme Code", progcode);
+        if programOptions.FIND('-') then begin
+            repeat
+                msg += programOptions.Code + '::' + programOptions."Desription" + ':::';
+            until programOptions.NEXT = 0;
+        end;
+    end;
+
     procedure SubmitImprestSurrHeader(ImprestNo: Code[20]) Message: Text
     begin
         ImprestSurrHeader.RESET;
@@ -547,7 +560,7 @@ Codeunit 61106 webportals
             exit('');
     end;
 
-    procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]) rtnMsg: Boolean
+    procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]; progoption:Code[20]) rtnMsg: Boolean
     begin
         offeredunits.Init;
         programs.Reset;
@@ -560,6 +573,7 @@ Codeunit 61106 webportals
         offeredunits.Campus := GetHODCampus(hodno);
         offeredunits.Semester := GetCurrentSemester();
         offeredunits.ModeofStudy := studymode;
+        offeredunits."Program Option" := progoption;
         offeredunits.Stage := stage;
         offeredunits."Unit Base Code" := unitcode;
         offeredunits.Validate("Unit Base Code");
@@ -575,6 +589,7 @@ Codeunit 61106 webportals
         lecturers.Lecturer := lecturer;
         lecturers.Programme := progcode;
         lecturers.Stage := stage;
+        lecturers."Program Option" := progoption;
         lecturers.Unit := unitcode;
         lecturers.Description := GetUnitDescription(unitcode);
         lecturers.ModeOfStudy := studymode;
@@ -1005,7 +1020,7 @@ Codeunit 61106 webportals
         END;
     end;
 
-    procedure GetUnitsToOffer(progcode: code[20]; stage: Code[20]; studymode: Code[20]) Details: Text
+    procedure GetUnitsToOffer(progcode: code[20]; stage: Code[20]; studymode: Code[20]; progoption: Code[20]) Details: Text
     begin
         UnitSubjects.RESET;
         UnitSubjects.SETRANGE(UnitSubjects."Programme Code", progcode);
@@ -1018,6 +1033,7 @@ Codeunit 61106 webportals
                 offeredunits.SetRange(Stage, stage);
                 offeredunits.SetRange(ModeofStudy, studymode);
                 offeredunits.SetRange(Semester, GetCurrentSemester());
+                offeredunits.SetFilter(offeredunits."Program Option", '%1|%2', '', progoption);
                 if not offeredunits.Find('-') then begin
                     Details += UnitSubjects.Code + ' ::' + UnitSubjects.Desription + ' :::';
                 end;
