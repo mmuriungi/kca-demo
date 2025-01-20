@@ -20,8 +20,8 @@ Codeunit 61106 webportals
         //Generatep9Report(2020, '0366', 'Juma.pdf');
         //GenerateClearanceForm('E100/0513G/17','E1000513G17');
         //GenerateTranscript('E100/0525G/18','Test.pdf','2019/2020');
-        MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 25, 'CAT', '0689', 'JOY AWUOR OKOTH'));
-        MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 30, 'FINAL EXAM', '0689', 'JOY AWUOR OKOTH'));
+        //MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 25, 'CAT', '0689', 'JOY AWUOR OKOTH'));
+        //MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 30, 'FINAL EXAM', '0689', 'JOY AWUOR OKOTH'));
         // MESSAGE(InsertExamResults('P106','P106/1731G/20','SEM1 23/24','BOT 110',22,'CAT','0410','Kendagor Ruth 325345436666666666'));
         // MESSAGE(InsertExamResults('E111','E111/1489G/21','Sem1 21/22','HIS 111',10,'CAT','0007','Prof. Mwaruvie'));
         //MESSAGE(CaptureMarksValidation('B105','Sem2 19/20','BHM 105','PT-0603','Wsanjay'));
@@ -251,6 +251,19 @@ Codeunit 61106 webportals
         end else
             Error('File not uploaded. No table filter found');
 
+    end;
+
+    procedure GetProgramOptions(progcode: Code[20]) msg: Text
+    var
+        programOptions: Record "ACA-Programme Options";
+    begin
+        programOptions.RESET;
+        programOptions.SETRANGE(programOptions."Programme Code", progcode);
+        if programOptions.FIND('-') then begin
+            repeat
+                msg += programOptions.Code + '::' + programOptions."Desription" + ':::';
+            until programOptions.NEXT = 0;
+        end;
     end;
 
     procedure SubmitImprestSurrHeader(ImprestNo: Code[20]) Message: Text
@@ -547,7 +560,7 @@ Codeunit 61106 webportals
             exit('');
     end;
 
-    procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]) rtnMsg: Boolean
+    procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]; progoption:Code[20]) rtnMsg: Boolean
     begin
         offeredunits.Init;
         programs.Reset;
@@ -560,6 +573,7 @@ Codeunit 61106 webportals
         offeredunits.Campus := GetHODCampus(hodno);
         offeredunits.Semester := GetCurrentSemester();
         offeredunits.ModeofStudy := studymode;
+        offeredunits."Program Option" := progoption;
         offeredunits.Stage := stage;
         offeredunits."Unit Base Code" := unitcode;
         offeredunits.Validate("Unit Base Code");
@@ -575,6 +589,7 @@ Codeunit 61106 webportals
         lecturers.Lecturer := lecturer;
         lecturers.Programme := progcode;
         lecturers.Stage := stage;
+        lecturers."Program Option" := progoption;
         lecturers.Unit := unitcode;
         lecturers.Description := GetUnitDescription(unitcode);
         lecturers.ModeOfStudy := studymode;
@@ -1005,7 +1020,7 @@ Codeunit 61106 webportals
         END;
     end;
 
-    procedure GetUnitsToOffer(progcode: code[20]; stage: Code[20]; studymode: Code[20]) Details: Text
+    procedure GetUnitsToOffer(progcode: code[20]; stage: Code[20]; studymode: Code[20]; progoption: Code[20]) Details: Text
     begin
         UnitSubjects.RESET;
         UnitSubjects.SETRANGE(UnitSubjects."Programme Code", progcode);
@@ -1018,6 +1033,7 @@ Codeunit 61106 webportals
                 offeredunits.SetRange(Stage, stage);
                 offeredunits.SetRange(ModeofStudy, studymode);
                 offeredunits.SetRange(Semester, GetCurrentSemester());
+                offeredunits.SetFilter(offeredunits."Program Option", '%1|%2', '', progoption);
                 if not offeredunits.Find('-') then begin
                     Details += UnitSubjects.Code + ' ::' + UnitSubjects.Desription + ' :::';
                 end;
