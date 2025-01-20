@@ -560,7 +560,7 @@ Codeunit 61106 webportals
             exit('');
     end;
 
-    procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]; progoption:Code[20]) rtnMsg: Boolean
+    procedure OfferUnit(hodno: Code[20]; progcode: Code[20]; stage: code[20]; unitcode: Code[20]; studymode: Code[20]; lecturer: Code[20]; lecturehall: Code[20]; day: Code[20]; timeslot: Code[20]; progoption: Code[20]) rtnMsg: Boolean
     begin
         offeredunits.Init;
         programs.Reset;
@@ -2811,6 +2811,8 @@ Codeunit 61106 webportals
         ACACourseRegistrationz1: Record "ACA-Course Registration";
         ACALecturersEvaluation: Record "ACA-Lecturers Evaluation";
         StudUnits: Record "ACA-Student Units";
+        FundingBands: record "Funding Band Entries";
+        NFMStatement: Record "NFM Statement Entry";
     begin
         filename := FILESPATH + filenameFromApp;
         if Exists(filename) then
@@ -2880,7 +2882,23 @@ Codeunit 61106 webportals
             coreg.SetRange(Semester, Sem);
             coreg.SetRange(Reversed, false);
             if coreg.Find('-') then begin
-                if Customer.Balance > 0 then Error('Fee policy Not met!');
+                FundingBands.RESET;
+                FundingBands.SETRANGE("Student No.", StudentNo);
+                IF FundingBands.FIND('-') THEN BEGIN
+                    Customer.RESET;
+                    Customer.SETRANGE(Customer."No.", StudentNo);
+                    IF Customer.FIND('-') THEN BEGIN
+                        REPORT.RUN(78095, FALSE, FALSE, Customer);
+                        COMMIT();
+                        NFMStatement.RESET;
+                        NFMStatement.SETRANGE("Student No.", StudentNo);
+                        IF NFMStatement.FINDSET THEN BEGIN
+                            NFMStatement.CALCFIELDS(Balance);
+                            IF NFMStatement.Balance > 0 THEN ERROR('Fee policy Not met!');
+                        END;
+                    END;
+                END ELSE
+                    if Customer.Balance > 0 then Error('Fee policy Not met!');
 
             end else
                 Error('No registration for found');
@@ -2897,6 +2915,37 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure CheckStudentFeePolicyMetForUnitRegistration(StudentNo: code[25]; Semester: code[25])
+    var
+        FundingBands: record "Funding Band Entries";
+        NFMStatement: Record "NFM Statement Entry";
+    begin
+        coreg.Reset;
+        coreg.SetRange("Student No.", StudentNo);
+        coreg.SetRange(Semester, Semester);
+        coreg.SetRange(Reversed, false);
+        if coreg.Find('-') then begin
+            FundingBands.RESET;
+            FundingBands.SETRANGE("Student No.", StudentNo);
+            IF FundingBands.FIND('-') THEN BEGIN
+                Customer.RESET;
+                Customer.SETRANGE(Customer."No.", StudentNo);
+                IF Customer.FIND('-') THEN BEGIN
+                    REPORT.RUN(78095, FALSE, FALSE, Customer);
+                    COMMIT();
+                    NFMStatement.RESET;
+                    NFMStatement.SETRANGE("Student No.", StudentNo);
+                    IF NFMStatement.FINDSET THEN BEGIN
+                        NFMStatement.CALCFIELDS(Balance);
+                        IF NFMStatement.Balance > 0 THEN ERROR('Fee policy Not met!');
+                    END;
+                END;
+            END ELSE
+                if Customer.Balance > 0 then Error('Fee policy Not met!');
+
+        end else
+            Error('No registration for found');
+    end;
 
     procedure GenerateStudentProvisionalResults(StudentNo: Text[20]; filenameFromApp: Text[150]; sem: Text[20]) ReturnMessage: Text[250]
     var
