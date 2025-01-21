@@ -1701,12 +1701,11 @@ table 50555 "ACA-Course Registration"
         field(60; "System Created"; Boolean)
         {
         }
-        field(61; Gender; Option)
+        field(61; Gender; enum gender)
         {
             CalcFormula = Lookup(Customer.Gender WHERE("No." = FIELD("Student No.")));
             Description = 'to be used in summary by gender report';
             FieldClass = FlowField;
-            OptionMembers = " ",Male,Female;
         }
         field(62; Faculty; Code[20])
         {
