@@ -222,6 +222,19 @@ page 50438 "HRM-Employee Requisition Card"
                     Visible = Rec.Status = Rec.Status::Approved;
 
                     trigger OnAction()
+                    var
+                        EmailMsg: Text;
+                        NotifHandler: Codeunit "Notifications Handler";
+                        recipientName: list of [Text];
+                        subject: Text;
+                        body: text;
+                        recipientEmail: list of [Text];
+                        addCC: Text;
+                        addBcc: text;
+                        hasAttachment: Boolean;
+                        attachmentBase64: Text;
+                        attachmentName: Text;
+                        attachmentType: Text;
                     begin
                         //For external advertisement
                         //TESTFIELD("Requisition Type","Requisition Type"::Internal);
@@ -243,24 +256,18 @@ page 50438 "HRM-Employee Requisition Card"
                             if Rec."Requisition Type" = Rec."Requisition Type"::Internal then
                                 HREmp.SetRange(HREmp.Status, HREmp.Status::Active);
                         if HREmp.Find('-') then
-
-                            //GET E-MAIL PARAMETERS FOR JOB APPLICATIONS
-                            HREmailParameters.Reset;
-                        HREmailParameters.SetRange(HREmailParameters."Associate With", HREmailParameters."Associate With"::"Vacancy Advertisements");
-                        if HREmailParameters.Find('-') then begin
                             repeat
-                            //todo   HREmp.TestField(HREmp."Company E-Mail");
-                            //todo  SMTP.CreateMessage(HREmailParameters."Sender Name", HREmailParameters."Sender Address", HREmp."Company E-Mail",
-                            //todo  HREmailParameters.Subject, 'Dear' + ' ' + HREmp."First Name" + ' ' +
-                            //todo   HREmailParameters.Body + ' ' + Rec."Job Description" + ' ' + HREmailParameters."Body 2" + ' ' + Format(Rec."Closing Date") + '. ' +
-                            //todo   HREmailParameters."Body 3", true);
-                            //todo   SMTP.Send();
+                                recipientEmail.Add(HREmp."Company E-Mail");
+                                recipientName.Add(HREmp."First Name");
+                                subject := 'Job Vacancy ' + Rec."Job Ref No" + ' ' + Rec."Position Description";
+                                body := 'We have a job vacancy for' + ' ' + Rec."Position Description" + ' ' + 'Please apply if you are interested';
+                                NotifHandler.fnSendemail(recipientName, subject, body, recipientEmail, addCC, addBcc, hasAttachment, attachmentBase64, attachmentName, attachmentType);
                             until HREmp.Next = 0;
 
-                            Message('All Employees have been notified about this vacancy');
-                            HREmpReq.Advertised := true;
+                        Message('All Employees have been notified about this vacancy');
+                        Rec.Advertised := true;
+                        Rec.Modify();
 
-                        end;
                     end;
                 }
                 // action(Approvals)
