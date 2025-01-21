@@ -219,7 +219,7 @@ page 50438 "HRM-Employee Requisition Card"
                     Image = Salutation;
                     Promoted = true;
                     PromotedCategory = Category10;
-                    Visible = false;
+                    Visible = Rec.Status = Rec.Status::Approved;
 
                     trigger OnAction()
                     begin
