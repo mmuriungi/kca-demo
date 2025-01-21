@@ -33,7 +33,7 @@ report 50014 "KNBS Enrollment Data"
             column(SchoolCode_ACAProgramme; "School Code")
             {
             }
-            column(SchoolName_ACAProgramme; "School Name")
+            column(SchoolName_ACAProgramme; GetSchoolName("School Code"))
             {
             }
             dataitem(Integer; Integer)
@@ -90,11 +90,13 @@ report 50014 "KNBS Enrollment Data"
                     CourseReg.SetFilter(Stage, '%1', '*S1*');
                     FemaleCountArray[i] := CourseReg.Count;
                 end;
+                i += 1;
                 //Sub-Total
-                MaleCountArray[7] := MaleCountArray[1] + MaleCountArray[2] + MaleCountArray[3] + MaleCountArray[4] + MaleCountArray[5] + MaleCountArray[6];
-                FemaleCountArray[7] := FemaleCountArray[1] + FemaleCountArray[2] + FemaleCountArray[3] + FemaleCountArray[4] + FemaleCountArray[5] + FemaleCountArray[6];
+                MaleCountArray[i] := MaleCountArray[1] + MaleCountArray[2] + MaleCountArray[3] + MaleCountArray[4] + MaleCountArray[5] + MaleCountArray[6];
+                FemaleCountArray[i] := FemaleCountArray[1] + FemaleCountArray[2] + FemaleCountArray[3] + FemaleCountArray[4] + FemaleCountArray[5] + FemaleCountArray[6];
                 //Grand Total
-                MaleCountArray[8] := MaleCountArray[7] + FemaleCountArray[7];
+                i += 1;
+                MaleCountArray[i] := MaleCountArray[7] + FemaleCountArray[7];
             end;
         }
     }
@@ -123,7 +125,9 @@ report 50014 "KNBS Enrollment Data"
         for i := 1 to 6 do begin
             YearArray[i] := Format(i) + 'TH YEAR';
         end;
+        i += 1;
         YearArray[7] := 'SUB-TOTAL';
+        i += 1;
         YearArray[8] := 'GRAND TOTAL';
         CompInfo.get;
         CompInfo.CalcFields(Picture);
@@ -137,5 +141,17 @@ report 50014 "KNBS Enrollment Data"
         AcadYear: Record "ACA-Academic Year";
         CompInfo: Record "Company Information";
         i: Integer;
+        DimValues: Record "Dimension Value";
+
+    procedure GetSchoolName(code: Code[25]): Text[50]
+    begin
+        DimValues.Reset;
+        DimValues.SetRange("Dimension Code", 'SCHOOL');
+        DimValues.SetRange("Code", code);
+        if DimValues.Find() then
+            exit(DimValues.Name)
+        else
+            exit('');
+    end;
 
 }

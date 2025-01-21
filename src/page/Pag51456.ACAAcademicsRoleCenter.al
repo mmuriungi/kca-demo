@@ -515,6 +515,12 @@ page 51456 "ACA-Academics Role Center&"
                     RunObject = Report AutoRegisterUnits;
                     ApplicationArea = All;
                 }
+                action("Lecturer Course Loading")
+                {
+                    Image = Statistics;
+                    RunObject = Report "Lecturer Course Loading";
+                    ApplicationArea = All;
+                }
 
             }
             group("Exam Paper Submission")
@@ -1143,6 +1149,15 @@ page 51456 "ACA-Academics Role Center&"
                     Image = Report;
 
                     RunObject = Report "KNBS Enrollment Data";
+                    ApplicationArea = All;
+                }
+                //Cue report
+                action("CUE & Report")
+                {
+                    Image = Report;
+                    Caption = 'CUE Report';
+
+                    RunObject = Report "CUE Report";
                     ApplicationArea = All;
                 }
             }

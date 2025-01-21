@@ -1,4 +1,4 @@
-report 50425 "CUE Report"
+report 50425 "CUE Report Old"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/CUE Report.rdl';

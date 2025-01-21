@@ -210,13 +210,13 @@ Codeunit 61106 webportals
 
     end;
 
-    procedure GetProgramOptions(progcode: Code[20]; stagecode:Code[20]) msg: Text
+    procedure GetProgramOptions(progcode: Code[20]; stagecode: Code[20]) msg: Text
     var
         programOptions: Record "ACA-Programme Options";
     begin
         programOptions.RESET;
         programOptions.SETRANGE(programOptions."Programme Code", progcode);
-        programOptions.SETRANGE(programOptions."Stage Code", stagecode);
+        //programOptions.SETRANGE(programOptions."Stage Code", stagecode);
         if programOptions.FIND('-') then begin
             repeat
                 msg += programOptions.Code + '::' + programOptions."Desription" + ':::';
@@ -1347,7 +1347,7 @@ Codeunit 61106 webportals
             ACAUnitsSubjects.SetRange("Stage Code", StageCode);
             ACAUnitsSubjects.SetRange("Time Table", true);
             ACAUnitsSubjects.SetRange("Old Unit", false);
-            UnitSubjects.SETFILTER(UnitSubjects."Programme Option", '%1|%2', option, '');
+            ACAUnitsSubjects.SETFILTER(ACAUnitsSubjects."Programme Option", '%1|%2', option, '');
             if ACAUnitsSubjects.FindSet then begin
                 Message := '';
                 repeat
@@ -2874,7 +2874,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure CheckStudentFeePolicyMetForUnitRegistration(StudentNo: code[25]; Semester: code[25])
+    procedure CheckStudentFeePolicyMetForUnitRegistration(StudentNo: code[25]; Semester: code[25]): Boolean
     var
         FundingBands: record "Funding Band Entries";
         NFMStatement: Record "NFM Statement Entry";
@@ -2905,16 +2905,17 @@ Codeunit 61106 webportals
                     IF NFMStatement.FINDSET THEN BEGIN
                         NFMStatement.CALCFIELDS(Balance);
                         CurrPerc := Round(((NFMStatement.Balance / SemFees) * 100), 0.5, '=');
-                        if CurrPerc < FeePolicyPerc then Error('Fee policy Not met!');
+                        if CurrPerc < FeePolicyPerc then exit(false);
                     END;
                 END;
             END ELSE begin
                 CurrPerc := Round(((Customer.Balance / SemFees) * 100), 0.5, '=');
-                if CurrPerc < FeePolicyPerc then Error('Fee policy Not met!');
+                if CurrPerc < FeePolicyPerc then exit(false);
             end;
 
         end else
-            Error('No registration for found');
+            exit(false);
+        exit(true);
     end;
 
     procedure getSemesterFees(StudentNo: code[25]; Semester: code[25]): Decimal
@@ -3922,8 +3923,9 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure RequireProgramOption(ProgID: Code[20]; stageCode:Code[20]) Message: Boolean
-    var progstage: Record "ACA-Programme Stages";
+    procedure RequireProgramOption(ProgID: Code[20]; stageCode: Code[20]) Message: Boolean
+    var
+        progstage: Record "ACA-Programme Stages";
     begin
         Progstage.RESET;
         progstage.SETRANGE("Programme Code", ProgID);
