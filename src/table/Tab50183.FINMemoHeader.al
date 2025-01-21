@@ -416,7 +416,7 @@ table 50183 "FIN-Memo Header"
         FinMemoDetails: Record "FIN-Memo Details";
         FinMemoDetails2: Record "FIN-Memo Details";
         GenLedgerSetup: Record "Cash Office Setup";
-        HRMempD: Record "HRM-Employee (D)";
+        HRMempD: Record "HRM-Employee C";
 
     procedure GenerateImprests()
     var

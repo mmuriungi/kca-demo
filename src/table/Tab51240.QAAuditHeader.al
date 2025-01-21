@@ -55,10 +55,10 @@ table 51240 "QA Audit Header"
         {
             Caption = 'Audit Team Leader';
 
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
             trigger OnValidate()
             var
-                HRMEmp: Record "HRM-Employee (D)";
+                HRMEmp: Record "HRM-Employee C";
             begin
                 if HRMEmp.Get("Audit team leader") then begin
                     "Audit team leader Name" := HRMEmp.FullName;

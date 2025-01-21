@@ -501,7 +501,7 @@ page 50696 "HRM Sifted Card"
         appQual: Record "HRM-Applicant Qualifications";
         SMTP: Codeunit "Email Message";
         HREmailParameters: Record "HRM-EMail Parameters";
-        Employee: Record "HRM-Employee (D)";
+        Employee: Record "HRM-Employee C";
         Text19064672: Label 'Shortlisting Summary';
         enabledisFields: Boolean;
         CTEXTURL: Text[30];

@@ -15,7 +15,7 @@ table 50695 "Research Projects"
         }
         field(3; "Researcher Name"; text[200])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
         }
         field(4; "Department Code"; code[20])
         {

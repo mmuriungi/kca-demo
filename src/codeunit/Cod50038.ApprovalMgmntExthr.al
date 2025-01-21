@@ -45,19 +45,6 @@ codeunit 50038 "Approval Mgmnt. Ext(hr)"
 
     end;
     /// END OF Payroll TRIGGERS
-    ///  EMPLOYEE REQ
-    [IntegrationEvent(false, false)]
-    procedure OnSendEmployeeRequisitionForApproval(var EmployeeRequsition: Record "HRM-Employee Requisitions")
-    begin
-
-    end;
-
-    [IntegrationEvent(false, false)]
-    procedure OnCancelEmployeeRequisitionForApproval(var EmployeeRequsition: Record "HRM-Employee Requisitions")
-    begin
-
-    end;
-
     /// END OF EMPLOYEE REQ
 
     /// ///  Training Applicaction
@@ -191,29 +178,8 @@ codeunit 50038 "Approval Mgmnt. Ext(hr)"
     //END Payroll FUNCTIONS
 
 
-    //Employee req  FUNCTIONS
-    procedure CheckEmployeeRequisitionApprovalPossible(var EmployeeRequitision: Record "HRM-Employee Requisitions"): Boolean
-    begin
-        if not IsEmployeeRequisitionApprovalWorkFlowEnable(EmployeeRequitision) then
-            Error(NoWorkflowEnabledErr);
-
-        // if not Payroll.ImpLinesExist then
-        //     Error(NothingToApproveErr);
-
-        // OnAfterCheckLeaveApplicationPossible(LeaveApplication);
-
-        exit(true);
-    end;
 
 
-    procedure IsEmployeeRequisitionApprovalWorkFlowEnable(var EmployeeRequisition: Record "HRM-Employee Requisitions"): Boolean
-    begin
-
-        if EmployeeRequisition.Status <> EmployeeRequisition.Status::New then
-            exit(false);
-
-        exit(WorkflowMngnt.CanExecuteWorkflow(EmployeeRequisition, WorkFlowEventHandlingHR.RunWorkFlowOnSendEmployeeRequisitionForApprovalCode));
-    end;
 
     //END OF CHECKING employee req ACTIVE
 
@@ -334,7 +300,6 @@ codeunit 50038 "Approval Mgmnt. Ext(hr)"
     var
         LeaveApplication: Record "HRM-Leave Requisition";
         Payroll: Record "PRL-Payroll Periods";
-        EmployeeReq: Record "HRM-Employee Requisitions";
         TrainingApplication: Record "HRM-Training Applications";
         TrainingNeeds: Record "HRM-Training Needs Analysis";
         ExitInterview: Record "HRM-Employee Exit Interviews";
@@ -348,11 +313,6 @@ codeunit 50038 "Approval Mgmnt. Ext(hr)"
                 begin
                     RecRef.SetTable(LeaveApplication);
                     ApprovalEntryArgument."Document No." := LeaveApplication."No.";
-                end;
-            Database::"HRM-Employee Requisitions":
-                begin
-                    RecRef.SetTable(EmployeeReq);
-                    ApprovalEntryArgument."Document No." := EmployeeReq."Requisition No.";
                 end;
 
             Database::"HRM-Training Applications":

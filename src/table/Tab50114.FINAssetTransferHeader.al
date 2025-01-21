@@ -193,7 +193,7 @@ table 50114 "FIN-Asset Transfer Header"
         FA: Record "Fixed Asset";
         usersetup: Record "User Setup";
 
-        ObjEmp: record "HRM-Employee (D)";
+        ObjEmp: Record "HRM-Employee C";
 
 
 

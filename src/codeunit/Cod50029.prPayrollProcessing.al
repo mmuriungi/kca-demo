@@ -1778,7 +1778,7 @@ SpecialTransType::SHIF, FALSE);
       ImprestNO: Code[20]; BalAccType: enum "Gen. Journal Account Type"; BalAccCode: Code[20])
     var
         prPeriodTransactions: Record "PRL-Period Transactions";
-        prSalCard: Record "HRM-Employee (D)";
+        prSalCard: Record "HRM-Employee C";
     begin
         if curAmount = 0 then exit;
 
@@ -1823,7 +1823,7 @@ SpecialTransType::SHIF, FALSE);
     procedure fnUpdatePeriodTrans(EmpCode: Code[20]; TCode: Code[20]; TGroup: Code[20]; GroupOrder: Integer; SubGroupOrder: Integer; Description: Text[50]; curAmount: Decimal; curBalance: Decimal; Month: Integer; Year: Integer; mMembership: Text[30]; ReferenceNo: Text[30]; dtOpenPeriod: Date; Department: Code[20]; JournalAC: Code[20]; PostAs: Option " ",Debit,Credit; JournalACType: Option " ","G/L Account",Customer,Vendor; LoanNo: Code[20]; CoopParam: Option "none",shares,loan,"loan Interest","Emergency loan","Emergency loan Interest","School Fees loan","School Fees loan Interest",Welfare,Pension)
     var
         prPeriodTransactions: Record "PRL-Period Transactions";
-        prSalCard: Record "HRM-Employee (D)";
+        prSalCard: Record "HRM-Employee C";
     begin
         if curAmount = 0 then exit;
 
@@ -2424,7 +2424,7 @@ SpecialTransType::SHIF, FALSE);
         P9Deductions: Decimal;
         P9NetPay: Decimal;
         prPeriodTransactions: Record "PRL-Period Transactions";
-        prEmployee: Record "HRM-Employee (D)";
+        prEmployee: Record "HRM-Employee C";
     begin
         P9BasicPay := 0;
         P9Allowances := 0;
@@ -2822,7 +2822,7 @@ SpecialTransType::SHIF, FALSE);
 
     procedure fnGetJournalDet(strEmpCode: Code[20])
     var
-        SalaryCard: Record "HRM-Employee (D)";
+        SalaryCard: Record "HRM-Employee C";
     begin
         //Get Payroll Posting Accounts
         if SalaryCard.Get(strEmpCode) then begin
@@ -2965,7 +2965,7 @@ SpecialTransType::SHIF, FALSE);
 
     procedure disabled_emp(var empNo: Code[20]; var Gross: Decimal) Dis_A: Boolean
     var
-        hrEmp: Record "HRM-Employee (D)";
+        hrEmp: Record "HRM-Employee C";
     begin
         if hrEmp.Get(empNo) then
             Dis_A := hrEmp."Physical Disability";

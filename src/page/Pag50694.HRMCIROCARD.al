@@ -337,7 +337,7 @@ page 50694 "HRM CIRO CARD"
         SMTP: Codeunit "Email Message";
         HRSetup: Record "HRM-Setup";
         CTEXTURL: Text[30];
-        HREmp: Record "HRM-Employee (D)";
+        HREmp: Record "HRM-Employee C";
         HREmailParameters: Record "HRM-EMail Parameters";
         ContractDesc: Text[30];
         HRLookupValues: Record "HRM-Lookup Values";

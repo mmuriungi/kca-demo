@@ -92,7 +92,7 @@ page 51003 "Class Attendance List"
     end;
 
     var
-        HRMEmployeeC: Record "HRM-Employee (D)";
+        HRMEmployeeC: Record "HRM-Employee C";
         ACAUnitsSubjects: Record "ACA-Units/Subjects";
         UnitName: Code[150];
         LectName: Code[150];

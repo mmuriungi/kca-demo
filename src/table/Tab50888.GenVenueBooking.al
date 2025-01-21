@@ -137,7 +137,7 @@ table 50888 "Gen-Venue Booking"
     var
         NoSeries: Record "No. Series";
         NoSeriesMgt: Codeunit NoSeriesManagement;
-        HRMEmployeeC: Record "HRM-Employee (D)";
+        HRMEmployeeC: Record "HRM-Employee C";
     //  VenueBookingPermissions: Record "77710";
 }
 

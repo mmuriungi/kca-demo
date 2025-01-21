@@ -104,7 +104,7 @@ page 51004 "Class Attendance Card"
     end;
 
     var
-        HRMEmployeeC: Record "HRM-Employee (D)";
+        HRMEmployeeC: Record "HRM-Employee C";
         ACAUnitsSubjects: Record "ACA-Units/Subjects";
         UnitName: Code[150];
         LectName: Code[150];

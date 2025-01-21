@@ -69,6 +69,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelImprestSurrenderRequestTxt: Label 'An Approval request for Imprest Surrender is Cancelled';
         RunWorkflowOnSendImprestSurrenderForApprovalCode: Label 'RUNWORKFLOWONSENDIMPRESTSURRENDERFORAPPROVAL';
         RunWorkflowOnCancelImprestSurrenderForApprovalCode: Label 'RUNWORKFLOWONCANCELIMPRESTSURRENDERFORAPPROVAL';
+        //Employee Requisition
+        OnSendEmployeeRequisitionRequestTxt: Label 'An Approval request for Employee Requisition is requested';
+        OnCancelEmployeeRequisitionRequestTxt: Label 'An Approval request for Employee Requisition is Cancelled';
+        RunWorkflowOnSendEmployeeRequisitionForApprovalCode: Label 'RUNWORKFLOWONSENDEMPLOYEEREQUISITIONFORAPPROVAL';
+        RunWorkflowOnCancelEmployeeRequisitionForApprovalCode: Label 'RUNWORKFLOWONCANCELEMPLOYEEREQUISITIONFORAPPROVAL';
 
 
 
@@ -105,6 +110,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendMealBookingApprovalCode));
             Database::"FIN-Imprest Surr. Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendImprestSurrenderForApprovalCode));
+            Database::"HRM-Employee Requisitions":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendEmployeeRequisitionForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -178,6 +185,9 @@ codeunit 50089 "Approval Workflows V1"
         //Imprest Surrender
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendImprestSurrenderForApprovalCode, Database::"FIN-Imprest Surr. Header", OnSendImprestSurrenderRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelImprestSurrenderForApprovalCode, Database::"FIN-Imprest Surr. Header", OnCancelImprestSurrenderRequestTxt, 0, false);
+        //Employee Requisition
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendEmployeeRequisitionForApprovalCode, Database::"HRM-Employee Requisitions", OnSendEmployeeRequisitionRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelEmployeeRequisitionForApprovalCode, Database::"HRM-Employee Requisitions", OnCancelEmployeeRequisitionRequestTxt, 0, false);
     end;
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
@@ -219,6 +229,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendMealBookingApprovalCode, Variant);
             Database::"FIN-Imprest Surr. Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendImprestSurrenderForApprovalCode, Variant);
+            Database::"HRM-Employee Requisitions":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendEmployeeRequisitionForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -258,6 +270,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelMealBookingApprovalCode, Variant);
             Database::"FIN-Imprest Surr. Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelImprestSurrenderForApprovalCode, Variant);
+            Database::"HRM-Employee Requisitions":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelEmployeeRequisitionForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -280,6 +294,7 @@ codeunit 50089 "Approval Workflows V1"
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
         ImpSurrHeader: Record "FIN-Imprest Surr. Header";
+        EmployeeRequisition: Record "HRM-Employee Requisitions";
     begin
         case RecRef.Number of
             Database::club:
@@ -373,6 +388,13 @@ codeunit 50089 "Approval Workflows V1"
                     ImpSurrHeader.Modify();
                     Handled := true;
                 end;
+            Database::"HRM-Employee Requisitions":
+                begin
+                    RecRef.SetTable(EmployeeRequisition);
+                    EmployeeRequisition.Validate("Status", EmployeeRequisition.Status::New);
+                    EmployeeRequisition.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -392,6 +414,7 @@ codeunit 50089 "Approval Workflows V1"
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
         ImpsurHeader: Record "FIN-Imprest Surr. Header";
+        Emprequisition: Record "HRM-Employee Requisitions";
     begin
         case RecRef.Number of
             Database::club:
@@ -491,6 +514,13 @@ codeunit 50089 "Approval Workflows V1"
                     ImpsurHeader.Modify();
                     IsHandled := true;
                 end;
+            Database::"HRM-Employee Requisitions":
+                begin
+                    RecRef.SetTable(Emprequisition);
+                    Emprequisition.Validate("Status", Emprequisition.Status::"Pending Approval");
+                    Emprequisition.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -510,6 +540,7 @@ codeunit 50089 "Approval Workflows V1"
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
         impSurrHeader: Record "FIN-Imprest Surr. Header";
+        EmployeeRequisition: Record "HRM-Employee Requisitions";
     begin
         case RecRef.number of
             Database::Club:
@@ -577,6 +608,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(impSurrHeader);
                     ApprovalEntryArgument."Document No." := impSurrHeader.No;
                 end;
+            Database::"HRM-Employee Requisitions":
+                begin
+                    RecRef.SetTable(EmployeeRequisition);
+                    ApprovalEntryArgument."Document No." := EmployeeRequisition."Requisition No.";
+                end;
         end;
     end;
 
@@ -599,6 +635,7 @@ codeunit 50089 "Approval Workflows V1"
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
         impSurHeader: Record "FIN-Imprest Surr. Header";
+        Emprequisition: Record "HRM-Employee Requisitions";
     begin
         case RecRef.Number of
             Database::Club:
@@ -695,6 +732,13 @@ codeunit 50089 "Approval Workflows V1"
                     impSurHeader.Modify();
                     Handled := true;
                 end;
+            Database::"HRM-Employee Requisitions":
+                begin
+                    RecRef.SetTable(Emprequisition);
+                    Emprequisition.Validate("Status", Emprequisition.Status::Approved);
+                    Emprequisition.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -714,6 +758,7 @@ codeunit 50089 "Approval Workflows V1"
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
         impsurHeader: Record "FIN-Imprest Surr. Header";
+        Emprequisition: Record "HRM-Employee Requisitions";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -807,6 +852,13 @@ codeunit 50089 "Approval Workflows V1"
                         impsurHeader.Modify(true);
                     end;
                 end;
+            Database::"HRM-Employee Requisitions":
+                begin
+                    if Emprequisition.Get(ApprovalEntry."Document No.") then begin
+                        Emprequisition.Status := Emprequisition.Status::Rejected;
+                        Emprequisition.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -825,6 +877,7 @@ codeunit 50089 "Approval Workflows V1"
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
         impSurHeader: Record "FIN-Imprest Surr. Header";
+        EmployeeRequisition: Record "HRM-Employee Requisitions";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -912,6 +965,13 @@ codeunit 50089 "Approval Workflows V1"
                     impSurHeader.Modify();
                     Variant := impSurHeader;
                 end;
+            Database::"HRM-Employee Requisitions":
+                begin
+                    RecRef.SetTable(EmployeeRequisition);
+                    EmployeeRequisition.Validate("Status", EmployeeRequisition.Status::New);
+                    EmployeeRequisition.Modify();
+                    Variant := EmployeeRequisition;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -932,6 +992,7 @@ codeunit 50089 "Approval Workflows V1"
         PartTimeClaim: Record "Parttime Claim Header";
         MealBooking: Record "CAT-Meal Booking Header";
         impsurHeader: Record "FIN-Imprest Surr. Header";
+        emprequisition: Record "HRM-Employee Requisitions";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -1018,6 +1079,13 @@ codeunit 50089 "Approval Workflows V1"
                     impSurHeader.Validate("Status", impSurHeader.Status::"Pending Approval");
                     impSurHeader.Modify();
                     Variant := impSurHeader;
+                end;
+            Database::"HRM-Employee Requisitions":
+                begin
+                    RecRef.SetTable(emprequisition);
+                    emprequisition.Validate("Status", emprequisition.Status::"Pending Approval");
+                    emprequisition.Modify();
+                    Variant := emprequisition;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);

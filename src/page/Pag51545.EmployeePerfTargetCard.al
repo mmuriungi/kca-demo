@@ -21,7 +21,7 @@ page 51545 "Employee Perf Target Card"
                     ToolTip = 'Specifies the value of the Employee No. field.';
                     trigger OnValidate()
                     var
-                        Employee: Record "HRM-Employee (D)";
+                        Employee: Record "HRM-Employee C";
                     begin
                         if Employee.Get(rec."Employee No.") then begin
                             Rec."Employee Name" := Employee.FullName();

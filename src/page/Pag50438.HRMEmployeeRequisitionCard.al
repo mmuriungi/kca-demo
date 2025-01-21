@@ -299,11 +299,12 @@ page 50438 "HRM-Employee Requisition Card"
 
                     trigger OnAction()
                     var
-                        approvalMang: Codeunit "Approval Mgmnt. Ext(hr)";
+                        ApprovMgmt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                     begin
-                        approvalMang.CheckEmployeeRequisitionApprovalPossible(Rec);
-                        approvalMang.OnSendEmployeeRequisitionForApproval(Rec);
-
+                        variant := Rec;
+                        if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                            ApprovMgmt.OnSendDocForApproval(variant);
                         //Rec."Job ID" := USERID;
                         Rec."Requisition Date" := TODAY;
                         Rec.Status := Rec.Status::Approved;
@@ -388,11 +389,14 @@ page 50438 "HRM-Employee Requisition Card"
                     PromotedCategory = Category5;
                     ApplicationArea = All;
 
+
                     trigger OnAction()
                     var
-                        approvalMang: Codeunit "Approval Mgmnt. Ext(hr)";
+                        ApprovMgmt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                     begin
-                        approvalMang.OnCancelEmployeeRequisitionForApproval(Rec);
+                        variant := Rec;
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                     end;
                 }
                 action("Mark as Closed/Open")
@@ -497,7 +501,7 @@ page 50438 "HRM-Employee Requisition Card"
         SMTP: Codeunit "Email Message";
         HRSetup: Record "HRM-Setup";
         CTEXTURL: Text[30];
-        HREmp: Record "HRM-Employee (D)";
+        HREmp: Record "HRM-Employee C";
         HREmailParameters: Record "HRM-EMail Parameters";
         ContractDesc: Text[30];
         HRLookupValues: Record "HRM-Lookup Values";

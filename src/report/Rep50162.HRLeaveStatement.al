@@ -133,7 +133,7 @@ report 50162 "HR Leave Statement"
 
                 trigger OnPreDataItem()
                 var
-                    hrm: Record "HRM-Employee (D)";
+                    hrm: Record "HRM-Employee C";
                 begin
                     //SETFILTER(hrm."Leave Type", GETFILTER(hrm."Leave Type Filter"));
                 end;
