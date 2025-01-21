@@ -103,7 +103,7 @@ table 50217 "HRM-Employee Requisitions"
         }
         field(28; Status; Option)
         {
-            Editable = true;
+            Editable = false;
             OptionCaption = 'New,Pending Approval,Approved,Rejected';
             OptionMembers = New,"Pending Approval",Approved,Rejected;
         }
