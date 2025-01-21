@@ -1339,7 +1339,7 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure LoadSemUnits(ProgCode: Code[20]; StageCode: Code[20]; option:Code[20]) Message: Text
+    procedure LoadSemUnits(ProgCode: Code[20]; StageCode: Code[20]; option: Code[20]) Message: Text
     begin
         begin
             ACAUnitsSubjects.Reset;
@@ -2799,15 +2799,15 @@ Codeunit 61106 webportals
         StudentUnits.SetFilter(Unit, '<>%1', '');
         if StudentUnits.Find('-') then Error('YOU HAVE NOT EVALUATED ALL COURSES FOR ' + Sem);
 
-        StudUnits.Reset;
-        StudUnits.SetRange(Semester, Sem);
-        StudUnits.SetRange("Student No.", StudentNo);
-        StudUnits.SetFilter(Unit, '<>%1', '');
-        if StudUnits.Findset then begin
-            repeat
-                if not checkClassAttendanceMet(StudentNo, Sem, StudUnits.unit) then error('You did not attend the required number of classes for unit ' + StudUnits.unit)
-            until StudUnits.next = 0;
-        end;
+        // StudUnits.Reset;
+        // StudUnits.SetRange(Semester, Sem);
+        // StudUnits.SetRange("Student No.", StudentNo);
+        // StudUnits.SetFilter(Unit, '<>%1', '');
+        // if StudUnits.Findset then begin
+        //     repeat
+        //         if not checkClassAttendanceMet(StudentNo, Sem, StudUnits.unit) then error('You did not attend the required number of classes for unit ' + StudUnits.unit)
+        //     until StudUnits.next = 0;
+        // end;
 
 
 
@@ -3918,7 +3918,7 @@ Codeunit 61106 webportals
         CourseRegistration.SetCurrentkey(Stage);
         if CourseRegistration.Find('+') then begin
             Message := CourseRegistration.Stage + '::' + CourseRegistration.Programmes + '::' + CourseRegistration."Reg. Transacton ID" + '::' + CourseRegistration.Semester + '::'
-    + CourseRegistration."Settlement Type" + '::' + GetProgram(CourseRegistration.Programmes) + '::' + GetSchool(CourseRegistration.Programmes)+'::'+CourseRegistration.Options;
+    + CourseRegistration."Settlement Type" + '::' + GetProgram(CourseRegistration.Programmes) + '::' + GetSchool(CourseRegistration.Programmes) + '::' + CourseRegistration.Options;
         end;
     end;
 

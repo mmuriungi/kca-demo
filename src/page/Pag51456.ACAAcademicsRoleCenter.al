@@ -1136,6 +1136,16 @@ page 51456 "ACA-Academics Role Center&"
         }
         area(reporting)
         {
+            group("Student Reports")
+            {
+                action("KNBS Enrollment Report")
+                {
+                    Image = Report;
+
+                    RunObject = Report "KNBS Enrollment Data";
+                    ApplicationArea = All;
+                }
+            }
             group(Periodic)
             {
                 Caption = 'Periodic Reports';

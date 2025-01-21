@@ -433,6 +433,12 @@ table 50563 "ACA-Programme"
         {
             DataClassification = ToBeClassified;
         }
+        //Academic YEar Filter
+        field(50034; "Academic Year Filter"; Code[20])
+        {
+            FieldClass = FlowFilter;
+            TableRelation = "ACA-Academic Year".Code;
+        }
     }
 
     keys
