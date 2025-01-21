@@ -8,51 +8,7 @@ Codeunit 61106 webportals
         RptFileName: Text;
         MailBody: Text;
     begin
-        //GenerateAdmLetter('B100/0029G/19','AdmLetter'+'B1000029G19');
-        //GenerateStudentExamCard('A102/0039G/20','SEM1 22/23','');SendEmailEasy_WithAttachment
-        // //  SendEmailEasy('Hallo','Wanjala Tinga','We are Simply Testing the Mailing Functionality Here','If you received this, we Love you',
-        // //  'System Generated Mails are not to be replied to','Contact 0704121064 for Assistance','wanjalatom2003@gmail.com','AUTOMATIC MAILS TEST');
-        // SendEmailEasy_WithAttachment('Hallo','Wanjala Tinga','We are Simply Testing the Mailing Functionality Here','If you received this, we Love you',
-        // 'System Generated Mails are not to be replied to','Contact 0704121064 for Assistance','muriungimmwiti@gmail.com','AUTOMATIC MAILS TEST',
-        // 'D:\NavInstallationTools.psm1','D:\NavInstallationTools.psm1');
-        //GenerateStudentExamCard('E100/0405G/18','SEM2 20/21','Wanjala');
-        //MESSAGE(GetEvaluated('A100/0018G/17',' ',' ','ARE 463','SEM2 20/21'));
-        //Generatep9Report(2020, '0366', 'Juma.pdf');
-        //GenerateClearanceForm('E100/0513G/17','E1000513G17');
-        //GenerateTranscript('E100/0525G/18','Test.pdf','2019/2020');
-        //MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 25, 'CAT', '0689', 'JOY AWUOR OKOTH'));
-        //MESSAGE(InsertExamResults('A101', 'A101/1001027/2024', 'S1', 'BOT 110', 30, 'FINAL EXAM', '0689', 'JOY AWUOR OKOTH'));
-        // MESSAGE(InsertExamResults('P106','P106/1731G/20','SEM1 23/24','BOT 110',22,'CAT','0410','Kendagor Ruth 325345436666666666'));
-        // MESSAGE(InsertExamResults('E111','E111/1489G/21','Sem1 21/22','HIS 111',10,'CAT','0007','Prof. Mwaruvie'));
-        //MESSAGE(CaptureMarksValidation('B105','Sem2 19/20','BHM 105','PT-0603','Wsanjay'));
-        //GenerateStudentProvisionalResults('E100/0525G/18','','SEM2 19/20');
-        //ConfirmSupplementary('P101/1393G/20','MAT 125','2021/2022', 'SEM2 21/22',2);
-        //CheckRecruitmentApplicantLogin('bonfacekamau.com@gmail.com','123');
-        //MESSAGE(AdmissionDocApprovalRequests('KUCSERVER\TWANJALA'));
-        //MESSAGE(GetCurrentAcademicYear());
-        //Send_SMS_Easy('0704121064','Testing SMS Function Message 1','Testing Message 2','Testing Message 3');
-
-        //MESSAGE('res% 1',FnBookSpecialExam('A102/0002G/21','A102','SEM1 23/24','AEE 315','Test'));
-        //MESSAGE(GetUnconfirmedSupUnits('A102/0002G/23'));
-        // Cust.RESET;
-        //    Cust.SETRANGE("No.",'P100/9595G/24');
-        //    IF Cust.FINDFIRST THEN BEGIN
-        //      Cust.TESTFIELD("E-Mail");
-        //      MailBody:='This is to notify you that you have been allocated accommodation at the university. '+
-        // 'You have been allocated Block '+'AAA'+', Room no: '+'"Room No"'+', Space: '+'"Space No"'+
-        // 'Kindly collect the keys and other items from the Hostel manager on the reporting day. Fill the attached form and present it to the hostel manager';
-        // RptFileName:='D:\'+'Room Agreement_'+'P1009595G24'+'.pdf';
-        //
-        // IF EXISTS(RptFileName) THEN
-        //  ERASE(RptFileName);
-        // REPORT.SAVEASPDF(REPORT::"Resident Room Agreement",RptFileName,Cust);
-        //      SendEmailEasy_WithAttachment('Dear ',Cust.Name,MailBody,'','Karatina University','Hostel Manager','muriungimmwiti@gmail.com','HOSTEL ALLOCATION BLOCK',RptFileName,RptFileName);
-        // // IF EXISTS(RptFilename) THEN
-        //  ERASE(RptFilename);
-        //END;
-        //GenerateSuppExamCard('E107/1130G/20','D:\rpp.pdf');
-        // MarkKUCCPSDetailsUpdated('A100/00111G/24');
-        GenerateStudentExamCard('A101/1001029/2024', 'S1', 'excard.pdf');
+        MarkKUCCPSDetailsUpdated('A100/00111G/24');
     end;
 
     var
@@ -254,12 +210,13 @@ Codeunit 61106 webportals
 
     end;
 
-    procedure GetProgramOptions(progcode: Code[20]) msg: Text
+    procedure GetProgramOptions(progcode: Code[20]; stagecode:Code[20]) msg: Text
     var
         programOptions: Record "ACA-Programme Options";
     begin
         programOptions.RESET;
         programOptions.SETRANGE(programOptions."Programme Code", progcode);
+        programOptions.SETRANGE(programOptions."Stage Code", stagecode);
         if programOptions.FIND('-') then begin
             repeat
                 msg += programOptions.Code + '::' + programOptions."Desription" + ':::';
@@ -3965,6 +3922,16 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure RequireProgramOption(ProgID: Code[20]; stageCode:Code[20]) Message: Boolean
+    var progstage: Record "ACA-Programme Stages";
+    begin
+        Progstage.RESET;
+        progstage.SETRANGE("Programme Code", ProgID);
+        progstage.SETRANGE(Code, stageCode);
+        IF progstage.FIND('-') THEN BEGIN
+            Message := progstage."Allow Programme Options";
+        END
+    end;
 
     procedure GetProgram(ProgID: Text) Message: Text
     begin
