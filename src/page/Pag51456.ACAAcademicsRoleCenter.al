@@ -521,6 +521,12 @@ page 51456 "ACA-Academics Role Center&"
                     RunObject = Report "Lecturer Course Loading";
                     ApplicationArea = All;
                 }
+                action("Number of Students Per Unit")
+                {
+                    Image = Statistics;
+                    RunObject = Report "Number of Students Per Unit";
+                    ApplicationArea = All;
+                }
 
             }
             group("Exam Paper Submission")

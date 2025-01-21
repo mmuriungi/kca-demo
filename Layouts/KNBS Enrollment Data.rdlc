@@ -11,52 +11,6 @@
       <rd:DataSourceID>9b7a7939-356d-4095-9708-345495ee704c</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="CompInfo_Name">
-          <DataField>CompInfo_Name</DataField>
-        </Field>
-        <Field Name="Code_ACAProgramme">
-          <DataField>Code_ACAProgramme</DataField>
-        </Field>
-        <Field Name="CampusCode_ACAProgramme">
-          <DataField>CampusCode_ACAProgramme</DataField>
-        </Field>
-        <Field Name="Description_ACAProgramme">
-          <DataField>Description_ACAProgramme</DataField>
-        </Field>
-        <Field Name="Faculty_ACAProgramme">
-          <DataField>Faculty_ACAProgramme</DataField>
-        </Field>
-        <Field Name="FacultyName_ACAProgramme">
-          <DataField>FacultyName_ACAProgramme</DataField>
-        </Field>
-        <Field Name="SchoolCode_ACAProgramme">
-          <DataField>SchoolCode_ACAProgramme</DataField>
-        </Field>
-        <Field Name="SchoolName_ACAProgramme">
-          <DataField>SchoolName_ACAProgramme</DataField>
-        </Field>
-        <Field Name="YearArray">
-          <DataField>YearArray</DataField>
-        </Field>
-        <Field Name="MaleCountArray">
-          <DataField>MaleCountArray</DataField>
-        </Field>
-        <Field Name="FemaleCountArray">
-          <DataField>FemaleCountArray</DataField>
-        </Field>
-        <Field Name="Integer_Number">
-          <DataField>Integer_Number</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -879,12 +833,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -924,4 +872,50 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompInfo_Name">
+          <DataField>CompInfo_Name</DataField>
+        </Field>
+        <Field Name="Code_ACAProgramme">
+          <DataField>Code_ACAProgramme</DataField>
+        </Field>
+        <Field Name="CampusCode_ACAProgramme">
+          <DataField>CampusCode_ACAProgramme</DataField>
+        </Field>
+        <Field Name="Description_ACAProgramme">
+          <DataField>Description_ACAProgramme</DataField>
+        </Field>
+        <Field Name="Faculty_ACAProgramme">
+          <DataField>Faculty_ACAProgramme</DataField>
+        </Field>
+        <Field Name="FacultyName_ACAProgramme">
+          <DataField>FacultyName_ACAProgramme</DataField>
+        </Field>
+        <Field Name="SchoolCode_ACAProgramme">
+          <DataField>SchoolCode_ACAProgramme</DataField>
+        </Field>
+        <Field Name="SchoolName_ACAProgramme">
+          <DataField>SchoolName_ACAProgramme</DataField>
+        </Field>
+        <Field Name="YearArray">
+          <DataField>YearArray</DataField>
+        </Field>
+        <Field Name="MaleCountArray">
+          <DataField>MaleCountArray</DataField>
+        </Field>
+        <Field Name="FemaleCountArray">
+          <DataField>FemaleCountArray</DataField>
+        </Field>
+        <Field Name="Integer_Number">
+          <DataField>Integer_Number</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
