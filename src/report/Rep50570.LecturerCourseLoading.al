@@ -1,4 +1,4 @@
-report 50570 "Lecturer Course Loading"
+report 50570 "Lecturer Course Loading Old"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Lecturer Course Loading.rdl';
