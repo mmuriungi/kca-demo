@@ -602,7 +602,7 @@ page 50699 "HRM Interview Candidate"
         appQual: Record "HRM-Applicant Qualifications";
         SMTP: Codeunit "Email Message";
         HREmailParameters: Record "HRM-EMail Parameters";
-        Employee: Record "HRM-Employee (D)";
+        Employee: Record "HRM-Employee C";
         Text19064672: Label 'Shortlisting Summary';
         enabledisFields: Boolean;
         CTEXTURL: Text[30];

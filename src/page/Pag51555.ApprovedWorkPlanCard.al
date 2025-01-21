@@ -95,7 +95,7 @@ page 51555 "Approved WorkPlan Card"
                 Image = SendTo;
                 trigger OnAction()
                 var
-                    Employee: Record "HRM-Employee (D)";
+                    Employee: Record "HRM-Employee C";
                     Recipients: list of [Text];
                     EmailMessage: Codeunit "Email Message";
                     Email: Codeunit Email;

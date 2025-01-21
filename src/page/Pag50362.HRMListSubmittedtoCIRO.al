@@ -244,10 +244,12 @@ page 50362 "HRM List Submitted to CIRO"
 
                     trigger OnAction()
                     var
-                        approvalMang: Codeunit "Approval Mgmnt. Ext(hr)";
+                        ApprovMgmt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                     begin
-                        approvalMang.CheckEmployeeRequisitionApprovalPossible(Rec);
-                        approvalMang.OnSendEmployeeRequisitionForApproval(Rec);
+                        variant := Rec;
+                        if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                            ApprovMgmt.OnSendDocForApproval(variant);
 
                         //Rec."Job ID" := USERID;
                         Rec."Requisition Date" := TODAY;
@@ -266,9 +268,11 @@ page 50362 "HRM List Submitted to CIRO"
 
                     trigger OnAction()
                     var
-                        approvalMang: Codeunit "Approval Mgmnt. Ext(hr)";
+                        ApprovMgmt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                     begin
-                        approvalMang.OnCancelEmployeeRequisitionForApproval(Rec);
+                        variant := Rec;
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                     end;
                 }
                 action("Mark as Closed/Open")
@@ -372,7 +376,7 @@ page 50362 "HRM List Submitted to CIRO"
         SMTP: Codeunit "Email Message";
         HRSetup: Record "HRM-Setup";
         CTEXTURL: Text[30];
-        HREmp: Record "HRM-Employee (D)";
+        HREmp: Record "HRM-Employee C";
         HREmailParameters: Record "HRM-EMail Parameters";
         ContractDesc: Text[30];
         HRLookupValues: Record "HRM-Lookup Values";

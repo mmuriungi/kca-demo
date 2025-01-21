@@ -65,7 +65,7 @@ table 51235 "CA-Complaints"
         field(9; "Staff No"; Code[30])
         {
             Caption = 'Staff No';
-            TableRelation = "HRM-Employee (D)";
+            TableRelation = "HRM-Employee C";
         }
         field(10; "Status"; Option)
         {

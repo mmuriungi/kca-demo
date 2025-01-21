@@ -195,7 +195,7 @@ page 50154 "FIN-Asset Transfer Card"
     var
         AssLedger1: Record "Asset Movement Ledgers";
         usersetup: Record "User Setup";
-        ObjEmp: record "HRM-Employee (D)";
+        ObjEmp: Record "HRM-Employee C";
 
     trigger OnOpenPage()
 

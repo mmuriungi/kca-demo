@@ -96,5 +96,5 @@ report 50764 "Complaints report"
 
     var
         CI: Record "Company Information";
-        HrEmp: Record "HRM-Employee (D)";
+        HrEmp: Record "HRM-Employee C";
 }

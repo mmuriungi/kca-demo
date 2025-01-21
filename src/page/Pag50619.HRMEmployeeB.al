@@ -1393,11 +1393,11 @@ page 50619 "HRM-Employee (B)"
         Text19012299: Label 'Per Week';
         FrmCalendar: Page "GEN--Calendar Small";
         "FORM HR Employee": Page "HRM-Employee-List";
-        HREmp: Record "HRM-Employee (D)";
+        HREmp: Record "HRM-Employee C";
         RetirementDur: Text[250];
         DoclLink: Record "HRM-Employee Attachments";
         "Filter": Boolean;
-        prEmployees: Record "HRM-Employee (D)";
+        prEmployees: Record "HRM-Employee C";
         prPayrollType: Record "PRL-Payroll Type";
         Mail: Codeunit Mail;
         SupervisorNames: Text[30];

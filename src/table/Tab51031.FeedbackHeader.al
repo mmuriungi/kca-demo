@@ -28,10 +28,10 @@ table 51031 "Feedback Header"
         {
             Caption = 'Employee No.';
             DataClassification = ToBeClassified;
-            TableRelation = "HRM-Employee (D)";
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
-                Employee: Record "HRM-Employee (D)";
+                Employee: Record "HRM-Employee C";
             begin
                 if Employee.Get("Employee No.") then begin
                     "Employee Name" := Employee.FullName();

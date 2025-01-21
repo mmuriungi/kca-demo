@@ -2732,7 +2732,8 @@ codeunit 50094 staffportals
     procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; reason: Option; contractType: Option; priority: Option; posts: Integer; startDate: Date)
     var
         NextEmpReqNo: Code[20];
-        ApprMgmt: Codeunit "Approval Mgmnt. Ext(hr)";
+        ApprMgmt: Codeunit "Approval Workflows V1";
+        Variant: variant;
     begin
         EmpReq.INIT;
         NextEmpReqNo := NoSeriesMgt.GetNextNo('EMPREQ', 0D, TRUE);
@@ -2773,8 +2774,9 @@ codeunit 50094 staffportals
         EmpReq.SETRANGE(EmpReq."Requisition No.", NextEmpReqNo);
         IF EmpReq.FIND('-')
         THEN BEGIN
+            Variant := EmpReq;
             //ApprovalMgmtHr.CheckEmployeeRequisitionApprovalPossible(EmpReq);
-            ApprMgmt.OnSendEmployeeRequisitionForApproval(EmpReq);
+            ApprMgmt.OnSendDocForApproval(Variant);
         end
     end;
 

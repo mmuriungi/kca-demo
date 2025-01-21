@@ -171,7 +171,7 @@ table 50180 "FIN-Memo Details"
         }
         field(20; "Bank Code"; Code[50])
         {
-            CalcFormula = Lookup("HRM-Employee (D)"."Main Bank" WHERE("No." = FIELD("Staff no.")));
+            CalcFormula = Lookup("HRM-Employee C"."Main Bank" WHERE("No." = FIELD("Staff no.")));
             FieldClass = FlowField;
 
             trigger OnValidate()
@@ -194,7 +194,7 @@ table 50180 "FIN-Memo Details"
         }
         field(21; "Branch Code"; Code[50])
         {
-            CalcFormula = Lookup("HRM-Employee (D)"."Branch Bank" WHERE("No." = FIELD("Staff no.")));
+            CalcFormula = Lookup("HRM-Employee C"."Branch Bank" WHERE("No." = FIELD("Staff no.")));
             FieldClass = FlowField;
 
             trigger OnValidate()
@@ -215,7 +215,7 @@ table 50180 "FIN-Memo Details"
         }
         field(22; "Account Number"; Code[100])
         {
-            CalcFormula = Lookup("HRM-Employee (D)"."Bank Account Number" WHERE("No." = FIELD("Staff no.")));
+            CalcFormula = Lookup("HRM-Employee C"."Bank Account Number" WHERE("No." = FIELD("Staff no.")));
             FieldClass = FlowField;
 
             trigger OnValidate()
@@ -249,7 +249,7 @@ table 50180 "FIN-Memo Details"
         }
         field(26; "Is Disabled"; Boolean)
         {
-            CalcFormula = Lookup("HRM-Employee (D)"."Physical Disability" WHERE("No." = FIELD("Staff no.")));
+            CalcFormula = Lookup("HRM-Employee C"."Physical Disability" WHERE("No." = FIELD("Staff no.")));
             FieldClass = FlowField;
         }
         field(27; "Imprest Created"; Boolean)
@@ -364,7 +364,7 @@ table 50180 "FIN-Memo Details"
         prPayroll: Codeunit "prPayrollProcessing";
         Gross: Record "PRL-Employee P9 Info";
         //AmountMemo: Record "64604";
-        HRMEmployeeD: Record "HRM-Employee (D)";
+        HRMEmployeeD: Record "HRM-Employee C";
         HRMOtherPayees: Record "HRM-Other Payees";
 }
 

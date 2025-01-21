@@ -101,7 +101,7 @@ table 51042 "Incoming Mail"
     var
         salutation: Text[50];
         FileMgt: Codeunit "File Management";
-        hrEmp: Record "HRM-Employee (D)";
+        hrEmp: Record "HRM-Employee C";
         progLeader: text;
         mail: Text;
         SendMail: Codeunit "Email Message";

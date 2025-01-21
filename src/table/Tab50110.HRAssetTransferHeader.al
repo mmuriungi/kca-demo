@@ -11,7 +11,7 @@ table 50110 "HR Asset Transfer Header"
         }
         field(5; "Issuing Admin/Asst"; Code[20])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
 
             trigger OnValidate()
             begin
@@ -135,7 +135,7 @@ table 50110 "HR Asset Transfer Header"
 
     var
         fasetup: Record "FA Setup";
-        hremployee: Record "HRM-Employee (D)";
+        hremployee: Record "HRM-Employee C";
         fasset: Record "Fixed Asset";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         DimValue: Record "Dimension Value";

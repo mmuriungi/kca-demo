@@ -17,10 +17,7 @@ codeunit 50039 "Workflow Event Handling (hr)"
         PayrollSentForApprovalEventDescTxt: TextConst ENU = 'Approval of Payroll is Requested';
 
         PayrollApprovalRequestCancelEventDescTxt: TextConst ENU = 'Approval of Payroll is Canceled';
-        //employee req
-        EmployeeRequisitionSentForApprovalEventDescTxt: TextConst ENU = 'Approval of Employee Requisition is Requested';
 
-        EmployeeRequisitionApprovalRequestCancelEventDescTxt: TextConst ENU = 'Approval of Employee Requisition is Canceled';
         //training application
         TrainingApplicationSentForApprovalEventDescTxt: TextConst ENU = 'Approval of Training Application is Requested';
 
@@ -65,19 +62,6 @@ codeunit 50039 "Workflow Event Handling (hr)"
     begin
         WorkFlowManagement.HandleEvent(RunWorkFlowOnSendPayrollForApprovalCode, Payroll);
     end;
-
-    //Employee Requisition
-    procedure RunWorkFlowOnSendEmployeeRequisitionForApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkFlowOnSendEmployeeRequisitionForApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approval Mgmnt. Ext(hr)", 'OnSendEmployeeRequisitionForApproval', '', true, true)]
-    procedure RunWorkFlowOnSendEmployeeRequisitionForApproval(var EmployeeRequsition: Record "HRM-Employee Requisitions")
-    begin
-        WorkFlowManagement.HandleEvent(RunWorkFlowOnSendEmployeeRequisitionForApprovalCode, EmployeeRequsition);
-    end;
-
     //Training Application
     procedure RunWorkFlowOnSendTrainingApplicationForApprovalCode(): Code[128]
     begin
@@ -151,18 +135,6 @@ codeunit 50039 "Workflow Event Handling (hr)"
         WorkFlowManagement.HandleEvent(RunWorkFlowOnCancelPayrollForApprovalCode, Payroll);
     end;
 
-    //employee req
-    procedure RunWorkFlowOnCancelEmployeeRequisitionForApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkFlowOnCancelEmployeeRequisitionForApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approval Mgmnt. Ext(hr)", 'OnCancelEmployeeRequisitionForApproval', '', true, true)]
-    procedure RunWorkFlowOnCancelEmployeeRequisitionForApproval(var EmployeeRequsition: Record "HRM-Employee Requisitions")
-    begin
-        WorkFlowManagement.HandleEvent(RunWorkFlowOnCancelEmployeeRequisitionForApprovalCode, EmployeeRequsition);
-    end;
-
     //Training Application
     procedure RunWorkFlowOnCancelTrainingApplicationForApprovalCode(): Code[128]
     begin
@@ -223,11 +195,6 @@ codeunit 50039 "Workflow Event Handling (hr)"
         WorkFlowEventHandling.AddEventToLibrary(RunWorkFlowOnSendPayrollForApprovalCode, Database::"PRL-Payroll Periods", PayrollSentForApprovalEventDescTxt, 0, false);
 
         WorkFlowEventHandling.AddEventToLibrary(RunWorkFlowOnCancelPayrollForApprovalCode, Database::"PRL-Payroll Periods", PayrollApprovalRequestCancelEventDescTxt, 0, false);
-
-        //employee req
-        WorkFlowEventHandling.AddEventToLibrary(RunWorkFlowOnSendEmployeeRequisitionForApprovalCode, Database::"HRM-Employee Requisitions", EmployeeRequisitionSentForApprovalEventDescTxt, 0, false);
-
-        WorkFlowEventHandling.AddEventToLibrary(RunWorkFlowOnCancelEmployeeRequisitionForApprovalCode, Database::"HRM-Employee Requisitions", EmployeeRequisitionApprovalRequestCancelEventDescTxt, 0, false);
         //training application
         WorkFlowEventHandling.AddEventToLibrary(RunWorkFlowOnSendTrainingApplicationForApprovalCode, Database::"HRM-Training Applications", TrainingApplicationSentForApprovalEventDescTxt, 0, false);
 
@@ -257,9 +224,6 @@ codeunit 50039 "Workflow Event Handling (hr)"
             RunWorkFlowOnCancelPayrollForApprovalCode:
                 WorkFlowEventHandling.AddEventPredecessor(RunWorkFlowOnCancelPayrollForApprovalCode, RunWorkFlowOnSendPayrollForApprovalCode);
 
-            RunWorkFlowOnCancelEmployeeRequisitionForApprovalCode:
-                WorkFlowEventHandling.AddEventPredecessor(RunWorkFlowOnCancelEmployeeRequisitionForApprovalCode, RunWorkFlowOnSendEmployeeRequisitionForApprovalCode);
-
             RunWorkFlowOnCancelTrainingApplicationForApprovalCode:
                 WorkFlowEventHandling.AddEventPredecessor(RunWorkFlowOnCancelTrainingApplicationForApprovalCode, RunWorkFlowOnSendTrainingApplicationForApprovalCode);
             RunWorkFlowOnCancelTrainingNeedsForApprovalCode:
@@ -276,7 +240,6 @@ codeunit 50039 "Workflow Event Handling (hr)"
                     WorkFlowEventHandling.AddEventPredecessor(WorkFlowEventHandling.RunWorkflowOnApproveApprovalRequestCode, RunWorkFlowOnSendLeaveApplicationForApprovalCode);
                     WorkFlowEventHandling.AddEventPredecessor(WorkFlowEventHandling.RunWorkflowOnApproveApprovalRequestCode, RunWorkFlowOnSendPayrollForApprovalCode);
 
-                    WorkFlowEventHandling.AddEventPredecessor(WorkFlowEventHandling.RunWorkflowOnApproveApprovalRequestCode, RunWorkFlowOnSendEmployeeRequisitionForApprovalCode);
                     WorkFlowEventHandling.AddEventPredecessor(WorkFlowEventHandling.RunWorkflowOnApproveApprovalRequestCode, RunWorkFlowOnSendTrainingApplicationForApprovalCode);
                     WorkFlowEventHandling.AddEventPredecessor(WorkFlowEventHandling.RunWorkflowOnApproveApprovalRequestCode, RunWorkFlowOnSendTrainingNeedsForApprovalCode);
                     WorkFlowEventHandling.AddEventPredecessor(WorkFlowEventHandling.RunWorkflowOnApproveApprovalRequestCode, RunWorkFlowOnSendExitInterviewsForApprovalCode);
