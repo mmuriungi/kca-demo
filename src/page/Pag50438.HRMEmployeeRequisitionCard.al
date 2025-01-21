@@ -255,6 +255,7 @@ page 50438 "HRM-Employee Requisition Card"
                             //For Internal advertisement.
                             if Rec."Requisition Type" = Rec."Requisition Type"::Internal then
                                 HREmp.SetRange(HREmp.Status, HREmp.Status::Active);
+                        HREmp.SetFilter(HREmp."Company E-Mail", '<>%1', '');
                         if HREmp.Find('-') then
                             repeat
                                 recipientEmail.Add(HREmp."Company E-Mail");
