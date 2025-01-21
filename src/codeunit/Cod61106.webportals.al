@@ -731,11 +731,18 @@ Codeunit 61106 webportals
         lecturers.SetRange(Semester, GetCurrentSemester());
         if lecturers.Find('-') then begin
             repeat
-                msg += lecturers.Unit + ' ::' + GetUnitDescription(Lecturers.Unit) + ' ::' + lecturers.ModeOfStudy + ' ::' + lecturers.Stream + ' ::' + lecturers.Day + ' ::' + lecturers.TimeSlot + ' ::' + GetAllocatedLectureHall(lecturers.Lecturer, lecturers.Unit, lecturers.stream, lecturers."Campus Code", lecturers.ModeOfStudy) + ' :::';
+                msg += lecturers.Unit + ' ::' + GetUnitDescription(Lecturers.Unit) + ' ::' + lecturers.Programme + '::'+ GetProgramDescription(lecturers.Programme) + '::'+ lecturers.Stage + ' :::';
             until lecturers.Next = 0;
         end;
     end;
-
+procedure GetProgramDescription(progcode: Code[20]) Message: Text
+begin
+    programs.RESET;
+    programs.SETRANGE(Code, progcode);
+    IF programs.FIND('-') THEN BEGIN
+        Message := programs.Description;
+    END
+end;
     procedure GetAllocatedLectureHall(lecturer: Code[20]; unit: Code[20]; stream: Text; campus: Code[20]; mode: Code[20]) details: Text
     begin
         offeredunits.Reset;
@@ -841,15 +848,16 @@ Codeunit 61106 webportals
         END
     end;
 
-    procedure ClassAttendanceHeader(lectno: code[20]; unit: text; classtime: Code[20])
+    procedure ClassAttendanceHeader(lectno: code[20]; unit: text; starttime: Time; endtime:Time)
     begin
         AttendanceHeader.INIT;
         AttendanceHeader."Attendance Date" := Today;
         AttendanceHeader."Lecturer Code" := lectno;
         AttendanceHeader.Semester := GetCurrentSem();
         AttendanceHeader."Unit Code" := unit;
+        AttendanceHeader."From Time" := starttime;
+        AttendanceHeader."To Time" := endtime;
         AttendanceHeader."Class Type" := AttendanceHeader."Class Type"::"Normal Single";
-        //AttendanceHeader.Time := classtime;
         AttendanceHeader.INSERT;
     end;
 
@@ -869,7 +877,7 @@ Codeunit 61106 webportals
         AttendanceDetails.INSERT;
     end;
 
-    procedure GenerateBS64ClassRegisterNew(lecturer: Code[20]; unitcode: Code[20]; mode: Code[20]; stream: Text; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
+    procedure GenerateBS64ClassRegisterNew(unitcode: Code[20]; prog: Code[20]; stage: Text; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
     var
         tmpBlob: Codeunit "Temp Blob";
         cnv64: Codeunit "Base64 Convert";
@@ -886,10 +894,9 @@ Codeunit 61106 webportals
 
         StudentUnits.RESET;
         StudentUnits.SETRANGE(StudentUnits.Unit, unitcode);
-        StudentUnits.SETRANGE(StudentUnits.ModeOfStudy, mode);
-        StudentUnits.SETRANGE(StudentUnits.Stream, stream);
+        StudentUnits.SETRANGE(StudentUnits.Programme, prog);
+        StudentUnits.SETRANGE(StudentUnits.Stage, stage);
         StudentUnits.SETRANGE(StudentUnits.Semester, GetCurrentSem());
-        StudentUnits.SETRANGE(StudentUnits."Campus Code", GetHODCampus(lecturer));
         IF StudentUnits.FIND('-') THEN BEGIN
             recRef.GetTable(StudentUnits);
             tmpBlob.CreateOutStream(OutStr);
