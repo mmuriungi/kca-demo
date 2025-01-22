@@ -56,7 +56,7 @@ page 51030 "Email Validate"
                 updates.Reset();
                 updates.SetRange(indexNo, apps."Index Number");
                 if updates.Find('-') then begin
-                    //apps."Student E-mail" := updates.indexNo + '@student.embuni.ac.ke';
+                    //apps."Student E-mail" := updates.indexNo + '@student.karu.ac.ke';
                     apps."Other Names" := updates.adm;
                     apps.Modify();
                 end;
