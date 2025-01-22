@@ -6,7 +6,7 @@ table 50219 "HRM-Employment History"
         field(1; "Employee No."; Code[20])
         {
             NotBlank = false;
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
             trigger OnValidate()
             begin
                 if hrEmp.Get("Employee No.") then begin
@@ -78,7 +78,7 @@ table 50219 "HRM-Employment History"
         }
         field(14; "Supervisor Staff ID"; Code[20])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
         }
         field(15; "Supervisor Title"; Text[100])
         {
@@ -142,7 +142,7 @@ table 50219 "HRM-Employment History"
     }
 
     var
-        hrEmp: Record "HRM-Employee (D)";
+        hrEmp: Record "HRM-Employee C";
         Dimn: Record "Dimension Value";
         OK: Boolean;
 }

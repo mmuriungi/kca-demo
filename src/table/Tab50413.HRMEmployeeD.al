@@ -4,6 +4,8 @@ table 50413 "HRM-Employee (D)"
     DataCaptionFields = "No.", "First Name", "Middle Name", "Last Name", "Job Title", "Search Name";
     DrillDownPageID = "HRM-Employee-List2";
     LookupPageID = "HRM-Employee-List2";
+    ObsoleteState = Removed;
+    ObsoleteReason = 'Moved to HRM-Employee C';
 
     fields
     {

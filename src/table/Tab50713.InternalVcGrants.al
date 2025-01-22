@@ -15,7 +15,7 @@ table 50713 "Internal Vc Grants"
         }
         field(3; "PF No."; code[20])
         {
-            TableRelation = "HRM-Employee (D)";
+            TableRelation = "HRM-Employee C";
         }
         field(4; "Name of Researcher"; Text[200])
         {

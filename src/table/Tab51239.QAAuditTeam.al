@@ -13,10 +13,10 @@ table 51239 "QA Audit Team"
         field(2; "Staff No."; Code[50])
         {
             Caption = 'Staff No';
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
             trigger OnValidate()
             var
-                HRMEmp: Record "HRM-Employee (D)";
+                HRMEmp: Record "HRM-Employee C";
             begin
                 if HRMEmp.Get("Staff No.") then begin
                     "Staff Name" := HRMEmp.FullName;

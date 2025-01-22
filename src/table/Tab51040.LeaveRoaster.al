@@ -160,6 +160,6 @@ table 51040 "Leave Roaster"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         GenLedgerSet: Record "General Ledger Setup";
         StaffLedger: Record "Casuals Attendance Ledger";
-        StaffCard: Record "HRM-Employee (D)";
+        StaffCard: Record "HRM-Employee C";
 }
 

@@ -156,7 +156,7 @@ table 50978 "Casual Employees."
         }
         field(28; "Employee Code"; Code[20])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
 
             trigger OnValidate()
             begin
@@ -202,7 +202,7 @@ table 50978 "Casual Employees."
         CasualEmployees: Record "Casual Employees.";
         DimensionValue: Record 349;
         CasualTiers: Record "Casual Tiers.";
-        HrEmployees: Record "HRM-Employee (D)";
+        HrEmployees: Record "HRM-Employee C";
         Ok: Boolean;
 }
 

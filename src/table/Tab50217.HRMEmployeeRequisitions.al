@@ -103,9 +103,9 @@ table 50217 "HRM-Employee Requisitions"
         }
         field(28; Status; Option)
         {
-            Editable = true;
-            OptionCaption = 'New,Pending Approval,Approved';
-            OptionMembers = New,"Pending Approval",Approved;
+            Editable = false;
+            OptionCaption = 'New,Pending Approval,Approved,Rejected';
+            OptionMembers = New,"Pending Approval",Approved,Rejected;
         }
         field(38; "Required Positions"; Decimal)
         {
@@ -131,7 +131,7 @@ table 50217 "HRM-Employee Requisitions"
         }
         field(41; "Requestor Staff ID"; code[20])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
             trigger OnValidate()
             begin
                 if hrEmp.Get("Requestor Staff ID") then begin
@@ -147,7 +147,7 @@ table 50217 "HRM-Employee Requisitions"
         }
         field(43; "Staff Exiting StaffID"; code[20])
         {
-            TableRelation = "HRM-Employee (D)"."No.";
+            TableRelation = "HRM-Employee C"."No.";
             trigger OnValidate()
             begin
                 if hrEmp.Get("Staff Exiting StaffID") then begin
@@ -276,6 +276,6 @@ table 50217 "HRM-Employee Requisitions"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         HRJobs: Record "HRM-Jobs";
         HREmployeeReq: Record "HRM-Employee Requisitions";
-        hrEmp: Record "HRM-Employee (D)";
+        hrEmp: Record "HRM-Employee C";
 }
 

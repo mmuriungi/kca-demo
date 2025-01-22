@@ -11,7 +11,7 @@ table 51287 "PRl 13thSlip DaysComp"
 
             trigger OnValidate()
             var
-                HRMEmployee: Record "HRM-Employee (D)";
+                HRMEmployee: Record "HRM-Employee C";
             begin
                 if Rec."Employee Code" <> '' then begin
                     HRMEmployee.Reset();
@@ -26,7 +26,7 @@ table 51287 "PRl 13thSlip DaysComp"
         {
             Caption = 'F. Name';
             FieldClass = FlowField;
-            CalcFormula = Lookup("HRM-Employee (D)"."First Name" where("No." = field("Employee Code")));
+            CalcFormula = Lookup("HRM-Employee C"."First Name" where("No." = field("Employee Code")));
         }
         field(3; "Payroll Period"; Date)
         {
@@ -74,13 +74,13 @@ table 51287 "PRl 13thSlip DaysComp"
         {
             Caption = 'M. Name';
             FieldClass = FlowField;
-            CalcFormula = Lookup("HRM-Employee (D)"."Middle Name" where("No." = field("Employee Code")));
+            CalcFormula = Lookup("HRM-Employee C"."Middle Name" where("No." = field("Employee Code")));
         }
         field(11; "L. Name"; Text[50])
         {
             Caption = 'L. Name';
             FieldClass = FlowField;
-            CalcFormula = Lookup("HRM-Employee (D)"."Last Name" where("No." = field("Employee Code")));
+            CalcFormula = Lookup("HRM-Employee C"."Last Name" where("No." = field("Employee Code")));
         }
     }
 
@@ -93,7 +93,7 @@ table 51287 "PRl 13thSlip DaysComp"
     }
 
     var
-        HRMEmployee: Record "HRM-Employee (D)";
+        HRMEmployee: Record "HRM-Employee C";
         //StaffAttendanceLedger: Record 99210;
         Dates: Record Date;
 }

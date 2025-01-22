@@ -176,5 +176,5 @@ page 51573 "Leave Roaster"
         users1: Record User;
         editableBool: Boolean;
         LeaveBalance: Integer;
-        StaffCard: Record "HRM-Employee (D)";
+        StaffCard: Record "HRM-Employee C";
 }

@@ -13,10 +13,10 @@ table 51242 "Complaint Committee"
         }
         field(3; "Staff No"; Code[30])
         {
-            TableRelation = "HRM-Employee (D)";
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
-                HRMEmp: Record "HRM-Employee (D)";
+                HRMEmp: Record "HRM-Employee C";
             begin
                 if HRMEmp.Get("Staff No") then begin
                     "Staff Name" := HRMEmp.FullName;

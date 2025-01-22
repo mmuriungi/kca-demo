@@ -393,7 +393,7 @@ page 50485 "HRM-Job Applications Card"
                         if Rec."Employee No" = '' then begin
                             //IF NOT CONFIRM('Are you sure you want to Upload Applicants information to the Employee Card',FALSE) THEN EXIT;
                             HRJobApplications.SetFilter(HRJobApplications."Application No", Rec."Application No");
-                            REPORT.Run(51177, true, false, HRJobApplications);
+                            REPORT.Run(Report::"HR Applicant to Employee", true, false, HRJobApplications);
 
                             // AcademicQual.Reset();
                             // AcademicQual.SetRange(AcademicQual."Employee No.", Rec."Employee No");
@@ -511,8 +511,8 @@ page 50485 "HRM-Job Applications Card"
                         HRJobApplications.Reset;
                         HRJobApplications.SetRange(HRJobApplications."Application No", Rec."Application No");
                         if HRJobApplications.Find('-') then
-                            REPORT.Run(51153, true, true, HRJobApplications);
-                        //REPORT.Run(51153, true, true);"Licensing List"Supervision
+                            REPORT.Run(Report::"HR Job Applications", true, true, HRJobApplications);
+                        //REPORT.Run(51153 , true, true);"Licensing List"Supervision
 
                     end;
                 }
@@ -594,7 +594,7 @@ page 50485 "HRM-Job Applications Card"
         appQual: Record "HRM-Applicant Qualifications";
         SMTP: Codeunit "Email Message";
         HREmailParameters: Record "HRM-EMail Parameters";
-        Employee: Record "HRM-Employee (D)";
+        Employee: Record "HRM-Employee C";
         Text19064672: Label 'Shortlisting Summary';
         enabledisFields: Boolean;
         kenyan: Boolean;

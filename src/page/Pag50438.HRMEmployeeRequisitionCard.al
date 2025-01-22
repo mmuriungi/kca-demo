@@ -219,9 +219,22 @@ page 50438 "HRM-Employee Requisition Card"
                     Image = Salutation;
                     Promoted = true;
                     PromotedCategory = Category10;
-                    Visible = false;
+                    Visible = Rec.Status = Rec.Status::Approved;
 
                     trigger OnAction()
+                    var
+                        EmailMsg: Text;
+                        NotifHandler: Codeunit "Notifications Handler";
+                        recipientName: list of [Text];
+                        subject: Text;
+                        body: text;
+                        recipientEmail: list of [Text];
+                        addCC: Text;
+                        addBcc: text;
+                        hasAttachment: Boolean;
+                        attachmentBase64: Text;
+                        attachmentName: Text;
+                        attachmentType: Text;
                     begin
                         //For external advertisement
                         //TESTFIELD("Requisition Type","Requisition Type"::Internal);
@@ -231,7 +244,6 @@ page 50438 "HRM-Employee Requisition Card"
                                 Rec.Advertised := false;
                                 Rec.Modify;
                                 Message('Are you sure you want to Un do advertisement for this job', Rec."Job Ref No");
-
                             end else begin
                                 if not Confirm('Are you sure you want to advertise this Job', false) then exit;
                                 Rec.Advertised := true;
@@ -242,25 +254,18 @@ page 50438 "HRM-Employee Requisition Card"
                             //For Internal advertisement.
                             if Rec."Requisition Type" = Rec."Requisition Type"::Internal then
                                 HREmp.SetRange(HREmp.Status, HREmp.Status::Active);
+                        HREmp.SetFilter(HREmp."Company E-Mail", '<>%1', '');
                         if HREmp.Find('-') then
-
-                            //GET E-MAIL PARAMETERS FOR JOB APPLICATIONS
-                            HREmailParameters.Reset;
-                        HREmailParameters.SetRange(HREmailParameters."Associate With", HREmailParameters."Associate With"::"Vacancy Advertisements");
-                        if HREmailParameters.Find('-') then begin
                             repeat
-                            //todo   HREmp.TestField(HREmp."Company E-Mail");
-                            //todo  SMTP.CreateMessage(HREmailParameters."Sender Name", HREmailParameters."Sender Address", HREmp."Company E-Mail",
-                            //todo  HREmailParameters.Subject, 'Dear' + ' ' + HREmp."First Name" + ' ' +
-                            //todo   HREmailParameters.Body + ' ' + Rec."Job Description" + ' ' + HREmailParameters."Body 2" + ' ' + Format(Rec."Closing Date") + '. ' +
-                            //todo   HREmailParameters."Body 3", true);
-                            //todo   SMTP.Send();
+                                recipientEmail.Add(HREmp."Company E-Mail");
+                                recipientName.Add(HREmp."First Name");
+                                subject := 'Job Vacancy ' + Rec."Job Ref No" + ' ' + Rec."Position Description";
+                                body := 'We have a job vacancy for' + ' ' + Rec."Position Description" + ' ' + 'Please apply if you are interested';
+                                NotifHandler.fnSendemail(recipientName, subject, body, recipientEmail, addCC, addBcc, hasAttachment, attachmentBase64, attachmentName, attachmentType);
                             until HREmp.Next = 0;
-
-                            Message('All Employees have been notified about this vacancy');
-                            HREmpReq.Advertised := true;
-
-                        end;
+                        Message('All Employees have been notified about this vacancy');
+                        Rec.Advertised := true;
+                        Rec.Modify();
                     end;
                 }
                 // action(Approvals)
@@ -299,11 +304,12 @@ page 50438 "HRM-Employee Requisition Card"
 
                     trigger OnAction()
                     var
-                        approvalMang: Codeunit "Approval Mgmnt. Ext(hr)";
+                        ApprovMgmt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                     begin
-                        approvalMang.CheckEmployeeRequisitionApprovalPossible(Rec);
-                        approvalMang.OnSendEmployeeRequisitionForApproval(Rec);
-
+                        variant := Rec;
+                        if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                            ApprovMgmt.OnSendDocForApproval(variant);
                         //Rec."Job ID" := USERID;
                         Rec."Requisition Date" := TODAY;
                         Rec.Status := Rec.Status::Approved;
@@ -388,11 +394,14 @@ page 50438 "HRM-Employee Requisition Card"
                     PromotedCategory = Category5;
                     ApplicationArea = All;
 
+
                     trigger OnAction()
                     var
-                        approvalMang: Codeunit "Approval Mgmnt. Ext(hr)";
+                        ApprovMgmt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                     begin
-                        approvalMang.OnCancelEmployeeRequisitionForApproval(Rec);
+                        variant := Rec;
+                        ApprovMgmt.OnCancelDocApprovalRequest(variant);
                     end;
                 }
                 action("Mark as Closed/Open")
@@ -497,7 +506,7 @@ page 50438 "HRM-Employee Requisition Card"
         SMTP: Codeunit "Email Message";
         HRSetup: Record "HRM-Setup";
         CTEXTURL: Text[30];
-        HREmp: Record "HRM-Employee (D)";
+        HREmp: Record "HRM-Employee C";
         HREmailParameters: Record "HRM-EMail Parameters";
         ContractDesc: Text[30];
         HRLookupValues: Record "HRM-Lookup Values";

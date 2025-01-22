@@ -165,6 +165,85 @@ codeunit 52178866 "Notifications Handler"
         exit(res);
     end;
 
+    procedure fnSendemail(recipientName: list of [Text];
+    subject: Text;
+    body: text;
+    recipientEmail: list of [Text];
+    addCC: Text;
+    addBcc: text;
+    hasAttachment: Boolean;
+    attachmentBase64: Text;
+    attachmentName: Text;
+    attachmentType: Text
+) res: Text
+    var
+        Companyinforec: Record "Company Information";
+        CuEmail: Codeunit Email;
+        CuEmailMessage: Codeunit "Email Message";
+        EmailReceipientType: Enum "Email Recipient Type";
+        Response: JsonObject;
+        InputTkn: JsonToken;
+        EmailAccount: Record "Email Account";
+        templobCu: Codeunit "Temp Blob";
+        i: Integer;
+        Detail: Text;
+        Dict: Dictionary of [Integer, Text];
+        j: Integer;
+        Receipient: Text;
+    begin
+        Companyinforec.GET;
+        if RecipientEmail.Count <> 0 then begin
+            CuEmailMessage.Create('', Subject, '');
+            CuEmailMessage.SetBodyHTMLFormatted(true);
+            CuEmailMessage.SetRecipients(EmailReceipientType::"To", RecipientEmail);
+            if AddCC <> '' then
+                CuEmailMessage.SetRecipients(EmailReceipientType::CC, AddCC);
+            if AddBcc <> '' then
+                CuEmailMessage.SetRecipients(EmailReceipientType::BCC, AddBcc);
+            if hasAttachment then begin
+                CuEmailMessage.AddAttachment(AttachmentName + '.' + attachmentType, AttachmentType, AttachmentBase64);
+            end;
+            CuEmailMessage.AppendToBody('<html> <body> <font face="Maiandra GD,Garamond,Tahoma", size = "3">');
+            CuEmailMessage.AppendToBody('Dear ' + 'Sir/Madam' + ',');
+            CuEmailMessage.AppendToBody('<br><br>');
+            CuEmailMessage.AppendToBody(Body);
+            CuEmailMessage.AppendToBody('<br><br>');
+            CuEmailMessage.AppendToBody('<HR>');
+            CuEmailMessage.AppendToBody('Kind Regards');
+            CuEmailMessage.AppendToBody('<br>');
+            //CuEmailMessage.AppendToBody('<img src="https://telpostapension.org/img/logo-full.jpg" alt="Logo" />');
+            CuEmailMessage.AppendToBody('<br>');
+            CuEmailMessage.AppendToBody(Companyinforec.Name);
+            CuEmailMessage.AppendToBody('<br>');
+            CuEmailMessage.AppendToBody(Companyinforec.Address);
+            CuEmailMessage.AppendToBody('<br>');
+            CuEmailMessage.AppendToBody('Tel: ' + Companyinforec."Phone No.");
+            CuEmailMessage.AppendToBody('<br>');
+            CuEmailMessage.AppendToBody(Companyinforec."E-Mail");
+            CuEmailMessage.AppendToBody('<br>');
+            CuEmailMessage.AppendToBody(Companyinforec."Home Page");
+            CuEmailMessage.AppendToBody('<br>');
+            CuEmailMessage.AppendToBody('<br>');
+            if CuEmail.Send(CuEmailMessage) then begin
+                Response.Add('sent', true);
+                Response.Add('status', '200');
+                Response.Add('message', 'Email Sent Successfully');
+            end else begin
+                Response.Add('sent', false);
+                Response.Add('status', '400');
+                Response.Add('message', 'Email Not Sent');
+                Response.Add('error', GetLastErrorText());
+            end;
+        end else begin
+            Response.Add('sent', false);
+            Response.Add('status', '400');
+            Response.Add('message', 'Invalid Email Address');
+            response.Add('error', 'Invalid Email Address. Please check email format and try again');
+        end;
+        Response.WriteTo(res);
+        exit(res);
+    end;
+
     procedure fnSendemail(recipientName: Text;
         subject: Text;
         body: text;

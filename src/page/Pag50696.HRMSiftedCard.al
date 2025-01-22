@@ -370,7 +370,7 @@ page 50696 "HRM Sifted Card"
                         HRJobApplications.Reset;
                         HRJobApplications.SetRange(HRJobApplications."Application No", Rec."Application No");
                         if HRJobApplications.Find('-') then
-                            REPORT.Run(50984, true, false, HRJobApplications);
+                            REPORT.Run(Report::"HRM-InterviewInv", true, false, HRJobApplications);
                         if Confirm('Send Interview Invitation', false) = false then begin exit end;
                         Rec.TestField("Application No");
                         Rec.Sifted := Rec.Sifted::Interview;
@@ -464,7 +464,7 @@ page 50696 "HRM Sifted Card"
                         HRJobApplications.Reset;
                         HRJobApplications.SetRange(HRJobApplications."Application No", Rec."Application No");
                         if HRJobApplications.Find('-') then
-                            REPORT.Run(51153, true, true, HRJobApplications);
+                            REPORT.Run(Report::"HR Job Applications", true, true, HRJobApplications);
                         //REPORT.Run(51153, true, true);
 
                     end;
@@ -501,7 +501,7 @@ page 50696 "HRM Sifted Card"
         appQual: Record "HRM-Applicant Qualifications";
         SMTP: Codeunit "Email Message";
         HREmailParameters: Record "HRM-EMail Parameters";
-        Employee: Record "HRM-Employee (D)";
+        Employee: Record "HRM-Employee C";
         Text19064672: Label 'Shortlisting Summary';
         enabledisFields: Boolean;
         CTEXTURL: Text[30];
@@ -535,7 +535,7 @@ page 50696 "HRM Sifted Card"
         Clear(EmailSubject);
         Clear(mail);
         mail := Rec."E-Mail";
-        EmailBody := 'Hello, Reference is made to your application for the position of' + ' ' + Rec."Job Applied for Description" + ' ' + 'at our institution.We are glad to inform you that you have been shortlisted for an interview scheduled on' + ' ' + Format(Rec."Interview date") + ' ' + 'on' + ' ' + Rec."Interview Time" + ' ' + 'at' + ' ' + Rec."Interview venue" + '. Please note that this is a system generated E-mail. Please send your Reponse to hr@cuea.edu';
+        EmailBody := 'Hello, Reference is made to your application for the position of' + ' ' + Rec."Job Applied for Description" + ' ' + 'at our institution.We are glad to inform you that you have been shortlisted for an interview scheduled on' + ' ' + Format(Rec."Interview date") + ' ' + 'on' + ' ' + Rec."Interview Time" + ' ' + 'at' + ' ' + Rec."Interview venue" + '. Please note that this is a system generated E-mail. Please send your Reponse to hr@karu.ac.ke';
         EmailSubject := 'INTERVIEW INVITE';
         SendMail.Create(mail, EmailSubject, EmailBody);
         emailObj.Send(SendMail, Enum::"Email Scenario"::Notification);
@@ -549,6 +549,7 @@ page 50696 "HRM Sifted Card"
         AttachmentOutStream: OutStream;
         TempBlob: Codeunit "Temp Blob";
         mail: Text;
+        RecRef: RecordRef;
     begin
 
         Clear(EmailBody);
@@ -561,8 +562,9 @@ page 50696 "HRM Sifted Card"
         EmailBody := 'Hello, Reference is made to your application for the position of' + ' ' + Rec."Job Applied for Description" + ' ' + 'at our institution.We are glad to inform you that you have been shortlisted for an interview scheduled on' + ' ' + Format(Rec."Interview date") + ' ' + 'on' + ' ' + Rec."Interview Time" + ' ' + 'at' + ' ' + Rec."Interview venue" + '. Please note that this is a system generated E-mail. Please send your Reponse to hr@embuni.ac.ke';
         EmailSubject := 'INTERVIEW INVITE';
         TempBlob.CreateOutStream(AttachmentOutStream);
+        RecRef.SetTable(Rec);
 
-        Report.SaveAs(50984, Rec."Application No", ReportFormat::Pdf, AttachmentOutStream);
+        Report.SaveAs(Report::"HRM-InterviewInv", Rec."Application No", ReportFormat::Pdf, AttachmentOutStream, RecRef);
 
         TempBlob.CreateInStream(AttachmentInStream);
         SendMail.Create(mail, EmailSubject, EmailBody);

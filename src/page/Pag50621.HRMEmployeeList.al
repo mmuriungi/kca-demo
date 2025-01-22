@@ -47,7 +47,7 @@ page 50621 "HRM-Employee List"
                 field("Company E-Mail"; Rec."Company E-Mail")
                 {
                     ApplicationArea = all;
-                    Caption = 'MNU E-mail';
+                    Caption = 'KaRU E-mail';
                 }
                 field("ID Number"; Rec."ID Number")
                 {
