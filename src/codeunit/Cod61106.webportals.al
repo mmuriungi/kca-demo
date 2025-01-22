@@ -163,7 +163,77 @@ Codeunit 61106 webportals
         ImprestSurrDetails: Record "FIN-Imprest Surrender Details";
         ImprestRequisitionLines: Record "FIN-Imprest Lines";
         ApprovalMgmt: Codeunit "Init Code";
+        EmpReq: Record "HRM-Employee Requisitions";
+        jobPosts: Record "HRM-Jobs";
+procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; reason: Option; contractType: Option; priority: Option; posts: Integer; startDate: Date)
+    var
+        NextEmpReqNo: Text;
+        ApprovalMgmtHr: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        EmpReq.INIT;
+        NextEmpReqNo := NoSeriesMgt.GetNextNo('EMPREQ', 0D, TRUE);
+        jobPosts.Reset();
+        jobPosts.SETRANGE(jobPosts."Job ID", jobid);
+        IF jobPosts.FIND('-')
+        THEN BEGIN
+            EmpReq."Job ID" := jobPosts."Job ID";
+            EmpReq."Job Description" := jobPosts."Job Description";
+            EmpReq."Job Ref No" := jobPosts."Job Reference Number";
+            EmpReq."Vacant Positions" := jobPosts."Vacant Positions";
+            EmpReq."Reporting To:" := jobPosts."Position Reporting to";
+        END;
+        "Employee Card".Reset;
+        "Employee Card".SetRange("No.", requestorid);
+        if "Employee Card".FIND('-') THEN BEGIN
+            EmpReq."Requestor Name" := "Employee Card".FullName();
+            EmpReq.Department := "Employee Card"."Department Code";
+        END;
+        EmpReq."Requisition No." := NextEmpReqNo;
+        EmpReq.Requestor := requestorid;
+        EmpReq."Requestor Staff ID" := requestorid;
+        EmpReq."Requisition Date" := TODAY;
+        EmpReq.Priority := priority;
+        EmpReq."Proposed Starting Date" := startDate;
+        EmpReq."Required Positions" := posts;
+        EmpReq."Reason For Request" := reason;
+        if replacedemp <> '' then begin
+            "Employee Card".RESET;
+            "Employee Card".SetRange("No.", replacedemp);
+            if "Employee Card".FIND('-') THEN begin
+                EmpReq."Staff Exiting StaffID" := replacedemp;
+                EmpReq."Staff Exiting Name" := "Employee Card".FullName();
+            end;
+        end;
+        EmpReq.INSERT;
+        EmpReq.Reset();
+        EmpReq.SETRANGE(EmpReq."Requisition No.", NextEmpReqNo);
+        IF EmpReq.FIND('-')
+        THEN BEGIN
+            variant := EmpReq;
+            ApprovalMgmtHr.OnSendDocForApproval(variant);
+        end
+    end;
 
+    procedure GetJobPosts() Message: Text
+    begin
+        jobPosts.Reset();
+        jobPosts.SETFILTER(jobPosts."Vacant Positions", '>%1', 0);
+        IF jobPosts.FIND('-') THEN BEGIN
+            repeat
+                Message := Message + jobPosts."Job ID" + ' ::' + jobPosts."Job Description" + ' :::';
+            until jobPosts.Next = 0;
+        END
+    end;
+
+    procedure GetJobPostDetails(id: Code[10]) Message: Text
+    begin
+        jobPosts.Reset();
+        jobPosts.SETRANGE(jobPosts."Job ID", id);
+        IF jobPosts.FIND('-') THEN BEGIN
+            Message := jobPosts."Job Reference Number" + ' ::' + FORMAT(jobPosts."No of Posts") + ' ::' + jobPosts."Position Reporting to" + ' ';
+        END
+    end;
     procedure FnImpSurrAttachement(retNo: Code[50]; fileName: Text; attachment: BigText; tableId: Integer) return_value: Boolean
     var
         DocAttachment: Record "Document Attachment";
