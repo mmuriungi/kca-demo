@@ -284,6 +284,7 @@ page 50402 "HRM-Jobs Card"
                     Promoted = true;
                     PromotedCategory = Category4;
                     RunObject = Page "HRM-Job Shortlist Qualif.";
+                    RunPageLink = "Job Id" = field("Job ID");
                     Visible = true;
                 }
             }

@@ -244,7 +244,6 @@ page 50438 "HRM-Employee Requisition Card"
                                 Rec.Advertised := false;
                                 Rec.Modify;
                                 Message('Are you sure you want to Un do advertisement for this job', Rec."Job Ref No");
-
                             end else begin
                                 if not Confirm('Are you sure you want to advertise this Job', false) then exit;
                                 Rec.Advertised := true;
@@ -264,11 +263,9 @@ page 50438 "HRM-Employee Requisition Card"
                                 body := 'We have a job vacancy for' + ' ' + Rec."Position Description" + ' ' + 'Please apply if you are interested';
                                 NotifHandler.fnSendemail(recipientName, subject, body, recipientEmail, addCC, addBcc, hasAttachment, attachmentBase64, attachmentName, attachmentType);
                             until HREmp.Next = 0;
-
                         Message('All Employees have been notified about this vacancy');
                         Rec.Advertised := true;
                         Rec.Modify();
-
                     end;
                 }
                 // action(Approvals)

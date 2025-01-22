@@ -19,6 +19,11 @@ page 50448 "HRM-Job Shortlist Qualif."
                 field(Description; Rec.Description)
                 {
                 }
+                field("Desired Score"; Rec."Desired Score")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Desired Score field.', Comment = '%';
+                }
             }
         }
     }
