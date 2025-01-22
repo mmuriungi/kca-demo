@@ -575,7 +575,7 @@ page 50696 "HRM Sifted Card"
 
         // emailObj.Send(SendMail);
 
-        emailObj.Send(SendMail, Enum::"Email Scenario"::Notification);
+        emailObj.Send(SendMail);
 
     end;
 
