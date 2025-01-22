@@ -93,6 +93,7 @@ table 50245 "HRM-Medical Claims"
             begin
                 MDependants.Reset;
                 MDependants.SetRange(MDependants."Employee Code", "Member No");
+                MDependants.SetRange(MDependants."Other Names", Dependants);
                 if MDependants.Find('-') then begin
                     "Patient Name" := MDependants.SurName + ' ' + MDependants."Other Names";
                 end;
@@ -232,6 +233,12 @@ table 50245 "HRM-Medical Claims"
         //scheme name
         field(3987; "Scheme Name"; Text[150])
         {
+        }
+        //Patient type
+        field(3988; "Patient Type"; Option)
+        {
+            OptionCaption = 'Self,Depedant';
+            OptionMembers = Self,Depedant;
         }
     }
 
