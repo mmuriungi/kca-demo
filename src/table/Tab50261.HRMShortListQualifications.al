@@ -20,11 +20,22 @@ table 50261 "HRM-ShortListQualifications"
             Caption = 'Description';
             NotBlank = true;
         }
+        field(7; "Job Id"; Code[25])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        //"Desired Score"
+        field(8; "Desired Score"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
     {
-        key(Key1; "ShortList Type", "Code")
+        key(Key1; "ShortList Type", "Code", "Job Id")
         {
         }
     }

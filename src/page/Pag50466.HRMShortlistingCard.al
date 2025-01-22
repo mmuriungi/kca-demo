@@ -260,7 +260,7 @@ page 50466 "HRM-Shortlisting Card"
                                             //GET THE APPLICANTS QUALIFICATIONS AND COMPARE THEM WITH THE JOB REQUIREMENTS
                                             AppQualifications.Reset;
                                             AppQualifications.SetRange(AppQualifications."Application No", HRJobApplications."Application No");
-                                            AppQualifications.SetRange(AppQualifications."Qualification Code", "HRJobShortList Criteria"."ShortList Code");
+                                            AppQualifications.SetRange(AppQualifications."Qualification Code", "HRJobShortList Criteria"."Code");
                                             if AppQualifications.Find('-') then begin
                                                 Rec.Score := Rec.Score + AppQualifications."Score ID";
                                                 if AppQualifications."Score ID" < "HRJobShortList Criteria"."Desired Score" then
@@ -364,7 +364,7 @@ page 50466 "HRM-Shortlisting Card"
         [InDataSet]
         "Required PositionsEditable": Boolean;
         Text19057439: Label 'Short Listed Candidates';
-        "HRJobShortList Criteria": Record "HRM-ShortList Requirements";
+        "HRJobShortList Criteria": Record "HRM-ShortListQualifications";
         "Applicant Criteria Score": Text;
 
     procedure UpdateControls()
