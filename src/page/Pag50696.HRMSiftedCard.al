@@ -538,7 +538,7 @@ page 50696 "HRM Sifted Card"
         EmailBody := 'Hello, Reference is made to your application for the position of' + ' ' + Rec."Job Applied for Description" + ' ' + 'at our institution.We are glad to inform you that you have been shortlisted for an interview scheduled on' + ' ' + Format(Rec."Interview date") + ' ' + 'on' + ' ' + Rec."Interview Time" + ' ' + 'at' + ' ' + Rec."Interview venue" + '. Please note that this is a system generated E-mail. Please send your Reponse to hr@karu.ac.ke';
         EmailSubject := 'INTERVIEW INVITE';
         SendMail.Create(mail, EmailSubject, EmailBody);
-        emailObj.Send(SendMail, Enum::"Email Scenario"::Notification);
+        emailObj.Send(SendMail);
     end;
 
     local procedure SendWithAttachemnt()
@@ -559,10 +559,10 @@ page 50696 "HRM Sifted Card"
         rec.SetRange("Application No", rec."Application No");
         if rec.Find('-') then
             mail := Rec."E-Mail";
-        EmailBody := 'Hello, Reference is made to your application for the position of' + ' ' + Rec."Job Applied for Description" + ' ' + 'at our institution.We are glad to inform you that you have been shortlisted for an interview scheduled on' + ' ' + Format(Rec."Interview date") + ' ' + 'on' + ' ' + Rec."Interview Time" + ' ' + 'at' + ' ' + Rec."Interview venue" + '. Please note that this is a system generated E-mail. Please send your Reponse to hr@embuni.ac.ke';
+        EmailBody := 'Hello, Reference is made to your application for the position of' + ' ' + Rec."Job Applied for Description" + ' ' + 'at our institution.We are glad to inform you that you have been shortlisted for an interview scheduled on' + ' ' + Format(Rec."Interview date") + ' ' + 'on' + ' ' + Rec."Interview Time" + ' ' + 'at' + ' ' + Rec."Interview venue" + '. Please note that this is a system generated E-mail. Please send your Reponse to hr@karu.ac.ke';
         EmailSubject := 'INTERVIEW INVITE';
         TempBlob.CreateOutStream(AttachmentOutStream);
-        RecRef.SetTable(Rec);
+        RecRef.GetTable(Rec);
 
         Report.SaveAs(Report::"HRM-InterviewInv", Rec."Application No", ReportFormat::Pdf, AttachmentOutStream, RecRef);
 
@@ -575,7 +575,7 @@ page 50696 "HRM Sifted Card"
 
         // emailObj.Send(SendMail);
 
-        emailObj.Send(SendMail, Enum::"Email Scenario"::Notification);
+        emailObj.Send(SendMail);
 
     end;
 

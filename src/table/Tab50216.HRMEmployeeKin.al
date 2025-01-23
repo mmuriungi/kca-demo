@@ -1,6 +1,8 @@
 table 50216 "HRM-Employee Kin"
 {
     Caption = 'Employee Relative';
+    DrillDownPageId = "HRM-Employee Kin SF";
+    LookupPageId = "HRM-Employee Kin SF";
 
     fields
     {
