@@ -329,7 +329,7 @@ Codeunit 61106 webportals
         jobPosts.SETFILTER(jobPosts."Vacant Positions", '>%1', 0);
         IF jobPosts.FIND('-') THEN BEGIN
             repeat
-                Message := Message + jobPosts."Job ID" + ' ::' + jobPosts."Job Description" + ' :::';
+                Message := Message + jobPosts."Job ID" + ' ::' + jobPosts."Job Title" + ' :::';
             until jobPosts.Next = 0;
         END
     end;

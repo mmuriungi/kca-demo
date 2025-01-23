@@ -174,12 +174,12 @@ table 50217 "HRM-Employee Requisitions"
         }
         field(3964; "Type of Contract Required"; Option)
         {
-            OptionCaption = ',Permanent and Pensionable,Contract with Gratituity,Contract less than 1 Year,Contract without Gratituity';
-            OptionMembers = ,"Permanent and Pensionable","Contract with Gratituity","Contract less than 1 Year","Contract without Gratituity";
+            OptionCaption = ' ,Permanent and Pensionable,Contract with Gratituity,Contract less than 1 Year,Contract without Gratituity';
+            OptionMembers = " ","Permanent and Pensionable","Contract with Gratituity","Contract less than 1 Year","Contract without Gratituity";
         }
         field(3965; "Reason For Request"; Option)
         {
-            OptionMembers = "New Vacancy",Replacement,Retirement,Retrenchment,Demise,Other;
+            OptionMembers = " ","New Vacancy",Replacement,Retirement,Retrenchment,Demise,Other;
         }
         field(3966; Requestor; Code[50])
         {
