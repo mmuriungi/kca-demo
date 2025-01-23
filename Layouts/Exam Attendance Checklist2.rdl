@@ -1677,6 +1677,9 @@ End Function
         <Field Name="UName">
           <DataField>UName</DataField>
         </Field>
+        <Field Name="RegNo">
+          <DataField>RegNo</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

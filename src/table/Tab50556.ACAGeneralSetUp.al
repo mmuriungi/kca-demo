@@ -304,15 +304,7 @@ table 50556 "ACA-General Set-Up"
         {
 
         }
-        //"Supplementary Fee","Supplementary Fee Code"
-        field(50081; "Supplementary Fee Code"; code[20])
-        {
-            TableRelation = "ACA-Charge".Code;
-        }
-        field(50082; "Supplementary Fee"; decimal)
-        {
-        }
-        //Registrar_Mail
+
         field(50083; Registrar_Mail; code[20])
         {
             TableRelation = "Contact";

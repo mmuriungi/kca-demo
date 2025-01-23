@@ -67,9 +67,9 @@ table 50625 "Aca-Special Exams Details"
                 IF Status = Status::Approved THEN BEGIN// Bill the student for the Unit
                     ACAGeneralSetUp.RESET;
                     IF ACAGeneralSetUp.FIND('-') THEN BEGIN
-                        IF GENGeneralSetUp."Supplementary Fee" <> 0 THEN "Cost Per Exam" := GENGeneralSetUp."Supplementary Fee";
-                        ACAGeneralSetUp.TESTFIELD("Supplementary Fee");
-                        ACAGeneralSetUp.TESTFIELD("Supplementary Fee Code");
+                        IF GENGeneralSetUp."Supplimentary Fee" <> 0 THEN "Cost Per Exam" := GENGeneralSetUp."Supplimentary Fee";
+                        ACAGeneralSetUp.TESTFIELD("Supplimentary Fee");
+                        ACAGeneralSetUp.TESTFIELD("Supplimentary Fee Code");
                         ACAGeneralSetUp.TESTFIELD("Transaction Nos.");
                         ACAStdCharges.RESET;
                         ACAStdCharges.SETRANGE("Student No.", Rec."Student No.");
@@ -85,9 +85,9 @@ table 50625 "Aca-Special Exams Details"
                                 ACAStdCharges."Student No." := ACACourseRegistration."Student No.";
                                 ACAStdCharges."Reg. Transacton ID" := ACACourseRegistration."Reg. Transacton ID";
                                 ACAStdCharges."Reg. Transaction ID" := ACACourseRegistration."Reg. Transacton ID";
-                                ACAStdCharges.Code := ACAGeneralSetUp."Supplementary Fee Code";
+                                ACAStdCharges.Code := ACAGeneralSetUp."Supplimentary Fee Code";
                                 ACAStdCharges."Transaction Type" := ACAStdCharges."Transaction Type"::Charges;
-                                ACAStdCharges.Amount := ACAGeneralSetUp."Supplementary Fee";
+                                ACAStdCharges.Amount := ACAGeneralSetUp."Supplimentary Fee";
                                 ACAStdCharges.INSERT;
                                 ACAUnitsSubjects.RESET;
                                 ACAUnitsSubjects.SETRANGE("Programme Code", Rec.Programme);

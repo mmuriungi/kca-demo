@@ -227,7 +227,7 @@ Codeunit 61106 webportals
         if MedClaims.FIND('-') then begin
             repeat
                 //display all details
-                Msg += MedClaims."Claim No" + ' ::' + Format(MedClaims."Scheme Name") + ' ::' + Format(MedClaims."Claim Type") + ' ::' + Format(MedClaims."Patient Type") + ' ::' + MedClaims."Patient Name" + ' ::' + Format(MedClaims."Facility Name") + ' ::' + FORMAT(MedClaims."Date of Service") + ' ::' + Format(medclaims."Claim Date") + ' ::' + FORMAT(MedClaims."Claim Amount") + ' ::' + Format(MedClaims.Status) + MedClaims.Comments + ' :::';
+                Msg += MedClaims."Claim No" + ' ::' + Format(MedClaims."Scheme Name") + ' ::' + Format(MedClaims."Claim Type") + ' ::' + Format(MedClaims."Patient Type") + ' ::' + MedClaims."Patient Name" + ' ::' + Format(MedClaims."Facility Name") + ' ::' + FORMAT(MedClaims."Date of Service") + ' ::' + Format(medclaims."Claim Date") + ' ::' + FORMAT(MedClaims."Claim Amount") + ' ::' + Format(MedClaims.Status) + ' :::';
             until MedClaims.NEXT = 0;
         end;
     end;
@@ -1259,10 +1259,10 @@ Codeunit 61106 webportals
                 StudentCard.Reset;
                 StudentCard.SetRange("No.", StdNo);
                 if StudentCard.FindFirst then begin
-                    GenSetup.Reset;
+                    GenSetup.Get();
                     //IF (StudentCard.Balance < 0) OR (StudentCard.Balance >= -1000)
                     //IF (StudentCard.Balance < 0) OR (StudentCard.Balance >= GenSetup."Supplementary Fee") THEN BEGIN
-                    if (StudentCard.Balance < 0) or (Abs(StudentCard.Balance) >= Abs(GenSetup."Supplementary Fee")) then begin
+                    if (StudentCard.Balance < 0) or (Abs(StudentCard.Balance) >= Abs(GenSetup."Supplimentary Fee")) then begin
 
                         SupUnits.Status := SupUnits.Status::Approved;
                         SupUnits.Validate(Status);
@@ -7883,7 +7883,6 @@ Codeunit 61106 webportals
         BatchNos: Code[20];
     begin
         //Create and delete Journal Template & Batch
-        Clear(ACAGeneralSetUp);
         Clear(ACACharge);
         Clear(BatchNos);
         Clear(cust);
@@ -7894,11 +7893,11 @@ Codeunit 61106 webportals
         cust.Reset;
         cust.SetRange("No.", StudentNo);
         if cust.Find('-') then;
-        if ACAGeneralSetUp.Get then;
-        ACAGeneralSetUp.TestField("Supplementary Fee");
-        ACAGeneralSetUp.TestField("Supplementary Fee Code");
+        ACAGeneralSetUp.Get();
+        ACAGeneralSetUp.TestField("Supplimentary Fee");
+        ACAGeneralSetUp.TestField("Supplimentary Fee Code");
         ACACharge.Reset;
-        ACACharge.SetRange(Code, ACAGeneralSetUp."Supplementary Fee Code");
+        ACACharge.SetRange(Code, ACAGeneralSetUp."Supplimentary Fee Code");
         if ACACharge.Find('-') then begin
             ACACharge.TestField(Amount);
             ACACharge.TestField("G/L Account");
