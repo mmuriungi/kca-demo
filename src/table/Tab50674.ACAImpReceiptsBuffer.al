@@ -21,6 +21,7 @@ table 50674 "ACA-Imp. Receipts Buffer"
         }
         field(5; Posted; Boolean)
         {
+            Editable = false;
         }
         field(6; "Receipt No"; Code[20])
         {

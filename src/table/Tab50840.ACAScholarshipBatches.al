@@ -10,10 +10,7 @@ table 50840 "ACA-Scholarship Batches"
     {
         field(1; "No."; Code[20])
         {
-            // Editable = false;
-
-            //DataClassification = ToBeClassified;
-            NotBlank = true;
+            Editable = false;
             trigger OnValidate()
             begin
                 if "No." = '' then begin
@@ -132,7 +129,8 @@ table 50840 "ACA-Scholarship Batches"
                 Receipts.SetRange("No.", "Receipt No");
                 if Receipts.FindFirst() then begin
                     Receipts.CalcFields("Total Batch Allocation");
-                    "Receipt Amount" := Receipts."Amount Recieved" - Receipts."Total Batch Allocation";
+                    "Receipt Amount" := Receipts."Amount Recieved";
+                    "Unallocated Amount" := Receipts."Amount Recieved" - Receipts."Total Batch Allocation";
                 end;
             end;
         }
@@ -147,6 +145,12 @@ table 50840 "ACA-Scholarship Batches"
         field(19; "created by"; Code[20])
         {
             DataClassification = ToBeClassified;
+        }
+        //Unallocated Amount
+        field(20; "Unallocated Amount"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
         }
     }
 

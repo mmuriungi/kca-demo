@@ -87,6 +87,11 @@ page 51159 "ACA-Scholarship Batches Card"
                     ToolTip = 'Specifies the value of the Allocated Amount field.';
                     ApplicationArea = All;
                 }
+                field("Unallocated Amount"; Rec."Unallocated Amount")
+                {
+                    ToolTip = 'Specifies the value of the Unallocated Amount field.';
+                    ApplicationArea = All;
+                }
                 field("No. of Students "; Rec."No. of Students ")
                 {
                     ToolTip = 'Specifies the value of the No. of Students  field.';
@@ -125,6 +130,9 @@ page 51159 "ACA-Scholarship Batches Card"
 
                 trigger OnAction();
                 begin
+                    rec.CalcFields("Allocated Amount");
+                    if rec."Allocated Amount" > rec."Unallocated Amount" then
+                        Error('Allocated Amount cannot be greater than the available Unallocated Amount');
                     PostReceipts.PostReceiptBuffer(Rec);
                 end;
             }
