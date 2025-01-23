@@ -37,8 +37,8 @@ table 50217 "HRM-Employee Requisitions"
         }
         field(4; Priority; Option)
         {
-            OptionCaption = 'High,Medium,Low';
-            OptionMembers = High,Medium,Low;
+            OptionCaption = ' ,High,Medium,Low';
+            OptionMembers = " ",High,Medium,Low;
         }
         field(5; Positions; Integer)
         {
