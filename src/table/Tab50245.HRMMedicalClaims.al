@@ -145,7 +145,6 @@ table 50245 "HRM-Medical Claims"
                 if HRClaimTypes.Find('-') then begin
                     "Scheme Currency Code" := HRClaimTypes.Currency;
                     "Scheme Name" := HRClaimTypes."Scheme Name";
-                    Modify;
                 end;
 
             end;
@@ -188,7 +187,6 @@ table 50245 "HRM-Medical Claims"
                 Curr.SetRange(Curr.Code, "Scheme Currency Code");
                 if Curr.Find('-') then begin
                     "Currency Factor" := Curr."Currency Factor";
-                    Modify;
                 end;
             end;
         }

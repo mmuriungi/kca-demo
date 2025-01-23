@@ -146,18 +146,7 @@ codeunit 50060 "Post Stud Receipt Buffer"
         GenJnl.SETRANGE("Journal Template Name", 'SALES');
         GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
         IF GenJnl.FindSet() THEN BEGIN
-            if CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl) then begin
-                //mark all lines as posted
-                receiptsBuffer.RESET;
-                receiptsBuffer.SetRange("Transaction Code", scholarshipHeader."No.");
-                receiptsBuffer.SetRange(Posted, false);
-                if receiptsBuffer.FindSet() then begin
-                    repeat
-                        receiptsBuffer.Posted := TRUE;
-                        receiptsBuffer.MODIFY;
-                    until receiptsBuffer.NEXT = 0;
-                end;
-            end;
+            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
 
         end;
 
