@@ -165,7 +165,116 @@ Codeunit 61106 webportals
         ApprovalMgmt: Codeunit "Init Code";
         EmpReq: Record "HRM-Employee Requisitions";
         jobPosts: Record "HRM-Jobs";
-procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; reason: Option; contractType: Option; priority: Option; posts: Integer; startDate: Date)
+        GLsetup: Record "General Ledger Setup";
+
+    procedure createMedicalClaim(staffNo: Code[25]; claimType: Option inpatient,Outpatient; DocumentRef: Code[25]; SchemeNo: Code[25]; PatientType: Option Self,Depedant; Dependant: Text[100]; Facility: code[25]; DateOfService: Date; Amount: Decimal; Currency: Code[20]; Comments: Text): Boolean
+    var
+        MedClaim: Record "HRM-Medical Claims";
+        pg: Page 50;
+    begin
+        MedClaim.INIT;
+        MedClaim."Claim No" := '';
+        MedClaim."Member No" := staffNo;
+        medclaim.validate("Member No");
+        MedClaim."Claim Type" := claimType;
+        MedClaim."Document Ref" := DocumentRef;
+        MedClaim."Scheme No" := SchemeNo;
+        MedClaim.Validate("Scheme No");
+        MedClaim."Patient Type" := PatientType;
+        MedClaim.Dependants := Dependant;
+        MedClaim.Validate("Dependants");
+        MedClaim."Facility Attended" := Facility;
+        medclaim.validate("Facility Attended");
+        MedClaim."Date of Service" := DateOfService;
+        MedClaim."Claim Currency Code" := Currency;
+        MedClaim."Claim Amount" := Amount;
+        MedClaim.Validate("Claim Amount");
+        MedClaim.Comments := Comments;
+        if MedClaim.INSERT(true) then begin
+            exit(SendMedicalClaimForApproval(MedClaim."Claim No"));
+        end
+    end;
+
+    procedure getMedicalSchemes() Msg: Text
+    var
+        MedSchemes: Record "HRM-Medical Schemes";
+    begin
+        MedSchemes.RESET;
+        if MedSchemes.FIND('-') then begin
+            repeat
+                Msg += MedSchemes."Scheme No" + ' ::' + MedSchemes."Scheme Name" + ' :::';
+            until MedSchemes.NEXT = 0;
+        end;
+    end;
+
+    procedure getMedicalFacilities() Msg: Text
+    var
+        MedFacilities: Record "HRM-Medical Facility";
+    begin
+        MedFacilities.RESET;
+        if MedFacilities.FIND('-') then begin
+            repeat
+                Msg += MedFacilities."Code" + ' ::' + MedFacilities."Facility Name" + ' :::';
+            until MedFacilities.NEXT = 0;
+        end;
+    end;
+
+    procedure getMedicalClaims(staffNo: Code[25]) Msg: Text
+    var
+        MedClaims: Record "HRM-Medical Claims";
+    begin
+        MedClaims.RESET;
+        MedClaims.SETRANGE("Member No", staffNo);
+        if MedClaims.FIND('-') then begin
+            repeat
+                //display all details
+                Msg += MedClaims."Claim No" + '::' + Format(MedClaims."Claim Type") + '::' + MedClaims."Document Ref" + '::' + MedClaims."Scheme No" + '::' + Format(MedClaims."Patient Type") + '::' + MedClaims.Dependants + '::' + MedClaims."Facility Attended" + '::' + FORMAT(MedClaims."Date of Service") + '::' + FORMAT(MedClaims."Claim Amount") + '::' + MedClaims."Claim Currency Code" + '::' + MedClaims.Comments + ':::';
+            until MedClaims.NEXT = 0;
+        end;
+    end;
+
+    procedure getDependants(staffNo: Code[25]) Msg: Text
+    var
+        Kin: Record "HRM-Employee Kin";
+    begin
+        Kin.RESET;
+        Kin.SETRANGE("Employee Code", staffNo);
+        if Kin.FIND('-') then begin
+            repeat
+                Msg += Kin."Other Names" + ' ::' + Kin.SurName + ' :::';
+            until Kin.NEXT = 0;
+        end;
+    end;
+
+    procedure getCurrencies() Msg: Text
+    var
+        Currencies: Record "Currency";
+    begin
+        Currencies.RESET;
+        if Currencies.FIND('-') then begin
+            repeat
+                Msg += Currencies.Code + ' ::' + Currencies.Description + ' :::';
+            until Currencies.NEXT = 0;
+        end;
+    end;
+
+    procedure SendMedicalClaimForApproval(claimNo: Code[20]) msg: Boolean
+    var
+        ApprovMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+        MedClaim: Record "HRM-Medical Claims";
+    begin
+        MedClaim.RESET;
+        MedClaim.SETRANGE("Claim No", claimNo);
+        IF MedClaim.FIND('-') THEN BEGIN
+            variant := MedClaim;
+            if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovMgmt.OnSendDocForApproval(variant);
+            msg := true;
+        end;
+    end;
+
+    procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; reason: Option; contractType: Option; priority: Option; posts: Integer; startDate: Date)
     var
         NextEmpReqNo: Text;
         ApprovalMgmtHr: Codeunit "Approval Workflows V1";
@@ -234,6 +343,7 @@ procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; 
             Message := jobPosts."Job Reference Number" + ' ::' + FORMAT(jobPosts."No of Posts") + ' ::' + jobPosts."Position Reporting to" + ' ';
         END
     end;
+
     procedure FnImpSurrAttachement(retNo: Code[50]; fileName: Text; attachment: BigText; tableId: Integer) return_value: Boolean
     var
         DocAttachment: Record "Document Attachment";
@@ -801,18 +911,20 @@ procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; 
         lecturers.SetRange(Semester, GetCurrentSemester());
         if lecturers.Find('-') then begin
             repeat
-                msg += lecturers.Unit + ' ::' + GetUnitDescription(Lecturers.Unit) + ' ::' + lecturers.Programme + '::'+ GetProgramDescription(lecturers.Programme) + '::'+ lecturers.Stage + ' :::';
+                msg += lecturers.Unit + ' ::' + GetUnitDescription(Lecturers.Unit) + ' ::' + lecturers.Programme + '::' + GetProgramDescription(lecturers.Programme) + '::' + lecturers.Stage + ' :::';
             until lecturers.Next = 0;
         end;
     end;
-procedure GetProgramDescription(progcode: Code[20]) Message: Text
-begin
-    programs.RESET;
-    programs.SETRANGE(Code, progcode);
-    IF programs.FIND('-') THEN BEGIN
-        Message := programs.Description;
-    END
-end;
+
+    procedure GetProgramDescription(progcode: Code[20]) Message: Text
+    begin
+        programs.RESET;
+        programs.SETRANGE(Code, progcode);
+        IF programs.FIND('-') THEN BEGIN
+            Message := programs.Description;
+        END
+    end;
+
     procedure GetAllocatedLectureHall(lecturer: Code[20]; unit: Code[20]; stream: Text; campus: Code[20]; mode: Code[20]) details: Text
     begin
         offeredunits.Reset;
@@ -918,7 +1030,7 @@ end;
         END
     end;
 
-    procedure ClassAttendanceHeader(lectno: code[20]; unit: text; starttime: Time; endtime:Time)
+    procedure ClassAttendanceHeader(lectno: code[20]; unit: text; starttime: Time; endtime: Time)
     begin
         AttendanceHeader.INIT;
         AttendanceHeader."Attendance Date" := Today;
@@ -1346,7 +1458,7 @@ end;
             LecturerUnits.SetRange(Semester, Sem);
             // LecturerUnits.SETRANGE("Company Name", @Company_Name);
 
-            // LectLoadBatch.SETRANGE("Semester Code", LecturerUnits."Semester");
+            //LectLoadBatch.SETRANGE("Semester Code", LecturerUnits."Semester");
 
             if LecturerUnits.FindSet then begin
                 Message := '';

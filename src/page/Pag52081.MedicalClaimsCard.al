@@ -41,6 +41,10 @@ page 52081 "Medical Claims Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Patient Type"; Rec."Patient Type")
+                {
+                    ApplicationArea = All;
+                }
             }
 
             group(MemberDetails)
@@ -71,6 +75,7 @@ page 52081 "Medical Claims Card"
             group(PatientInfo)
             {
                 Caption = 'Patient Information';
+                Visible = Rec."Patient Type" = Rec."Patient Type"::Depedant;
                 field(Dependants; Rec.Dependants)
                 {
                     ApplicationArea = All;
