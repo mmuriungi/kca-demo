@@ -165,7 +165,21 @@ Codeunit 61106 webportals
         ApprovalMgmt: Codeunit "Init Code";
         EmpReq: Record "HRM-Employee Requisitions";
         jobPosts: Record "HRM-Jobs";
-procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; reason: Option; contractType: Option; priority: Option; posts: Integer; startDate: Date)
+        MedicalSchemes: Record "HRM-Medical Schemes";
+        MedicalClaims: Record "HRM-Medical Claims";
+
+        procedure GetMedicalClaims(staffNo:Code[20]) Msg: Text
+        begin
+            MedicalClaims.RESET;
+            MedicalClaims.SETRANGE(MedicalClaims."Member No", staffNo);
+            IF MedicalClaims.FIND('-') THEN BEGIN
+                repeat
+                    Msg += MedicalClaims."Claim No" + ' ::'+ MedicalClaims."Scheme Name"+' ::' + Format(MedicalClaims."Claim Type") + ' ::' + Format(MedicalClaims."Patient Type)" + ' ::' + MedicalClaims."Facility Name" + ' ::' + Format(MedicalClaims."Date of Service") + ' ::' + Format(MedicalClaims."Claim Date") + ' ::' + Format(MedicalClaims."Claim Amount") + ' ::' + MedicalClaims."Status" +' :::';
+                until MedicalClaims.Next = 0;
+            END;
+        end;
+
+    procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; reason: Option; contractType: Option; priority: Option; posts: Integer; startDate: Date)
     var
         NextEmpReqNo: Text;
         ApprovalMgmtHr: Codeunit "Approval Workflows V1";
@@ -234,6 +248,7 @@ procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; 
             Message := jobPosts."Job Reference Number" + ' ::' + FORMAT(jobPosts."No of Posts") + ' ::' + jobPosts."Position Reporting to" + ' ';
         END
     end;
+
     procedure FnImpSurrAttachement(retNo: Code[50]; fileName: Text; attachment: BigText; tableId: Integer) return_value: Boolean
     var
         DocAttachment: Record "Document Attachment";
@@ -801,18 +816,20 @@ procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; 
         lecturers.SetRange(Semester, GetCurrentSemester());
         if lecturers.Find('-') then begin
             repeat
-                msg += lecturers.Unit + ' ::' + GetUnitDescription(Lecturers.Unit) + ' ::' + lecturers.Programme + '::'+ GetProgramDescription(lecturers.Programme) + '::'+ lecturers.Stage + ' :::';
+                msg += lecturers.Unit + ' ::' + GetUnitDescription(Lecturers.Unit) + ' ::' + lecturers.Programme + '::' + GetProgramDescription(lecturers.Programme) + '::' + lecturers.Stage + ' :::';
             until lecturers.Next = 0;
         end;
     end;
-procedure GetProgramDescription(progcode: Code[20]) Message: Text
-begin
-    programs.RESET;
-    programs.SETRANGE(Code, progcode);
-    IF programs.FIND('-') THEN BEGIN
-        Message := programs.Description;
-    END
-end;
+
+    procedure GetProgramDescription(progcode: Code[20]) Message: Text
+    begin
+        programs.RESET;
+        programs.SETRANGE(Code, progcode);
+        IF programs.FIND('-') THEN BEGIN
+            Message := programs.Description;
+        END
+    end;
+
     procedure GetAllocatedLectureHall(lecturer: Code[20]; unit: Code[20]; stream: Text; campus: Code[20]; mode: Code[20]) details: Text
     begin
         offeredunits.Reset;
@@ -918,7 +935,7 @@ end;
         END
     end;
 
-    procedure ClassAttendanceHeader(lectno: code[20]; unit: text; starttime: Time; endtime:Time)
+    procedure ClassAttendanceHeader(lectno: code[20]; unit: text; starttime: Time; endtime: Time)
     begin
         AttendanceHeader.INIT;
         AttendanceHeader."Attendance Date" := Today;
