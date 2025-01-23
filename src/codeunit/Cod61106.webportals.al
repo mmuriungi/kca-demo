@@ -227,7 +227,7 @@ Codeunit 61106 webportals
         if MedClaims.FIND('-') then begin
             repeat
                 //display all details
-                Msg += MedClaims."Claim No" + '::' + Format(MedClaims."Claim Type") + '::' + MedClaims."Document Ref" + '::' + MedClaims."Scheme No" + '::' + Format(MedClaims."Patient Type") + '::' + MedClaims.Dependants + '::' + MedClaims."Facility Attended" + '::' + FORMAT(MedClaims."Date of Service") + '::' + FORMAT(MedClaims."Claim Amount") + '::' + MedClaims."Claim Currency Code" + '::' + MedClaims.Comments + ':::';
+                Msg += MedClaims."Claim No" + ' ::' + Format(MedClaims."Scheme Name") + ' ::' + Format(MedClaims."Claim Type") + ' ::' + Format(MedClaims."Patient Type") + ' ::' + MedClaims."Patient Name" + ' ::' + Format(MedClaims."Facility Name") + ' ::' + FORMAT(MedClaims."Date of Service") + ' ::' + Format(medclaims."Claim Date") + ' ::' + FORMAT(MedClaims."Claim Amount") + ' ::' + Format(MedClaims.Status) + MedClaims.Comments + ' :::';
             until MedClaims.NEXT = 0;
         end;
     end;

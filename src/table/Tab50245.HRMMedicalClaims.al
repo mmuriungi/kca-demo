@@ -262,23 +262,23 @@ table 50245 "HRM-Medical Claims"
         "Member No" := HREmp."No.";
         "Claim Date" := Today;
 
-        HREmp.Reset;
-        HREmp.SetRange(HREmp."User ID", "Member ID");
-        if HREmp.Find('-') then begin
-            "Member No" := HREmp."No.";
-            "Member Names" := HREmp."First Name" + ' ' + HREmp."Middle Name" + ' ' + HREmp."Last Name";
-            // "Global Dimension 1 Code" := HREmp."Global Dimension 1 Code";
-            // "Global Dimension 2 Code" := HREmp."Global Dimension 2 Code";
-            // "Shortcut Dimension 3 Code" := HREmp."Shortcut Dimension 3 Code";
+        // HREmp.Reset;
+        // HREmp.SetRange(HREmp."User ID", "Member ID");
+        // if HREmp.Find('-') then begin
+        //     "Member No" := HREmp."No.";
+        //     "Member Names" := HREmp."First Name" + ' ' + HREmp."Middle Name" + ' ' + HREmp."Last Name";
+        //     // "Global Dimension 1 Code" := HREmp."Global Dimension 1 Code";
+        //     // "Global Dimension 2 Code" := HREmp."Global Dimension 2 Code";
+        //     // "Shortcut Dimension 3 Code" := HREmp."Shortcut Dimension 3 Code";
 
-            HRMSMembers.Reset;
-            HRMSMembers.SetCurrentKey(HRMSMembers."Employee No");
-            HRMSMembers.SetRange(HRMSMembers."Employee No", "Member No");
-            if HRMSMembers.Find('-') then
-                "Scheme No" := HRMSMembers."Scheme No";
-            if MedicalSchemes.Find('-') then
-                "Scheme Currency Code" := MedicalSchemes.Currency;
-        end;
+        //     HRMSMembers.Reset;
+        //     HRMSMembers.SetCurrentKey(HRMSMembers."Employee No");
+        //     HRMSMembers.SetRange(HRMSMembers."Employee No", "Member No");
+        //     if HRMSMembers.Find('-') then
+        //         "Scheme No" := HRMSMembers."Scheme No";
+        //     if MedicalSchemes.Find('-') then
+        //         "Scheme Currency Code" := MedicalSchemes.Currency;
+        // end;
     end;
 
     var
