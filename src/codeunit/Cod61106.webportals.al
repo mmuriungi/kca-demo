@@ -170,6 +170,7 @@ Codeunit 61106 webportals
     procedure createMedicalClaim(staffNo: Code[25]; claimType: Option inpatient,Outpatient; DocumentRef: Code[25]; SchemeNo: Code[25]; PatientType: Option Self,Depedant; Dependant: Text[100]; Facility: code[25]; DateOfService: Date; Amount: Decimal; Currency: Code[20]; Comments: Text): Boolean
     var
         MedClaim: Record "HRM-Medical Claims";
+        pg: Page 50;
     begin
         MedClaim.INIT;
         MedClaim."Claim No" := '';
@@ -189,7 +190,9 @@ Codeunit 61106 webportals
         MedClaim."Claim Amount" := Amount;
         MedClaim.Validate("Claim Amount");
         MedClaim.Comments := Comments;
-        exit(MedClaim.INSERT(true));
+        if MedClaim.INSERT(true) then begin
+            exit(SendMedicalClaimForApproval(MedClaim."Claim No"));
+        end
     end;
 
     procedure getMedicalSchemes() Msg: Text
