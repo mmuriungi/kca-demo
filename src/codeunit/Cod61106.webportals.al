@@ -273,6 +273,17 @@ Codeunit 61106 webportals
         end;
     end;
 
+    Procedure GetStaffRequisitions(staffNo: Code[25]) Msg: Text
+    begin
+        EmpReq.RESET;
+        EmpReq.SETRANGE(EmpReq.Requestor, staffNo);
+        if EmpReq.FIND('-') then begin
+            repeat
+                Msg += EmpReq."Requisition No." + ' ::' + EmpReq."Job Description" + ' ::' + Format(EmpReq."Reason for Request") + ' ::' + Format(EmpReq."Type of Contract Required") + ' ::' + Format(EmpReq."Required Positions") + ' ::' + Format(EmpReq."Requisition Date") + ' ::' + Format(EmpReq."Requisition Status") + ':::';
+            until EmpReq.NEXT = 0;
+        end;
+    end;
+
     procedure SendEmpReq(requestorid: code[20]; replacedemp: code[20]; jobid: Text; reason: Option; contractType: Option; priority: Option; posts: Integer; startDate: Date)
     var
         NextEmpReqNo: Text;
@@ -286,7 +297,7 @@ Codeunit 61106 webportals
         IF jobPosts.FIND('-')
         THEN BEGIN
             EmpReq."Job ID" := jobPosts."Job ID";
-            EmpReq."Job Description" := jobPosts."Job Description";
+            EmpReq."Job Description" := jobPosts."Job Title";
             EmpReq."Job Ref No" := jobPosts."Job Reference Number";
             EmpReq."Vacant Positions" := jobPosts."Vacant Positions";
             EmpReq."Reporting To:" := jobPosts."Position Reporting to";
@@ -302,6 +313,7 @@ Codeunit 61106 webportals
         EmpReq."Requestor Staff ID" := requestorid;
         EmpReq."Requisition Date" := TODAY;
         EmpReq.Priority := priority;
+        EmpReq."Type of Contract Required" := contractType;
         EmpReq."Proposed Starting Date" := startDate;
         EmpReq."Required Positions" := posts;
         EmpReq."Reason For Request" := reason;
