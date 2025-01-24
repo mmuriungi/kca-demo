@@ -167,6 +167,70 @@ Codeunit 61106 webportals
         jobPosts: Record "HRM-Jobs";
         GLsetup: Record "General Ledger Setup";
 
+    procedure GetSpecialExamReasons() Msg: Text
+    var
+        SpecialExmResons: Record "ACA-Special Exams Reason";
+    begin
+        SpecialExmResons.RESET;
+        if SpecialExmResons.FIND('-') then begin
+            repeat
+                Msg += SpecialExmResons."Reason Code" + ' ::' + SpecialExmResons.Description + ' :::';
+            until SpecialExmResons.NEXT = 0;
+        end;
+    end;
+
+    procedure GetUnitsForSpecialApplication(stdNo: code[25]) Msg: Text
+    var
+        StudentUnits: Record "ACA-Student Units";
+        Sems: Record "ACA-Semesters";
+    begin
+        StudentUnits.RESET;
+        Sems.RESET;
+        Sems.SETRANGE("Current Semester", false);
+        if Sems.FindSet() then begin
+            repeat
+                StudentUnits.RESET;
+                StudentUnits.SETRANGE("Semester", Sems.Code);
+                StudentUnits.SETRANGE("Student No.", stdNo);
+                StudentUnits.SetAutoCalcFields("Exam Marks");
+                StudentUnits.SetRange("Exam Marks", 0);
+                if StudentUnits.FIND('-') then begin
+                    repeat
+                        Msg += StudentUnits."Unit" + ' ::' + StudentUnits.Description + ' :::';
+                    until StudentUnits.NEXT = 0;
+                end;
+            until Sems.NEXT = 0;
+        end;
+    end;
+
+    procedure getCurrentSemester() Msg: Text
+    var
+        Sems: Record "ACA-Semesters";
+    begin
+        Sems.RESET;
+        Sems.SETRANGE("Current Semester", true);
+        if Sems.FIND('-') then begin
+            Msg := Sems.Code;
+        end;
+    end;
+
+    procedure SubmitSpecialExamApplication(stdNo: code[25]; unitCode: Code[20]; reasonCode: Code[20]) Msg: Boolean
+    var
+        SpecialExams: Record "ACA-Special Exams Details";
+        Sems: Record "ACA-Semesters";
+        StudentUnits: Record "ACA-Student Units";
+    begin
+        SpecialExams.INIT;
+        // SpecialExams."Student No." := stdNo;
+        // SpecialExams."Unit Code" := unitCode;
+        // SpecialExams."Reason Code" := reasonCode;
+        // SpecialExams."Application Date" := TODAY;
+        // SpecialExams."Status" := SpecialExams."Status"::Pending;
+        if SpecialExams.INSERT then;
+    end;
+
+
+
     procedure createMedicalClaim(staffNo: Code[25]; claimType: Option inpatient,Outpatient; DocumentRef: Code[25]; SchemeNo: Code[25]; PatientType: Option Self,Depedant; Dependant: Text[100]; Facility: code[25]; DateOfService: Date; Amount: Decimal; Currency: Code[20]; Comments: Text): Boolean
     var
         MedClaim: Record "HRM-Medical Claims";
@@ -1172,14 +1236,14 @@ Codeunit 61106 webportals
         END
     end;
 
-    procedure GetCurrentSemester() Message: Text
-    begin
-        CurrentSem.RESET;
-        CurrentSem.SETRANGE("Current Semester", TRUE);
-        IF CurrentSem.FIND('-') THEN BEGIN
-            Message := CurrentSem.Code;
-        END;
-    end;
+    // procedure GetCurrentSemester() Message: Text
+    // begin
+    //     CurrentSem.RESET;
+    //     CurrentSem.SETRANGE("Current Semester", TRUE);
+    //     IF CurrentSem.FIND('-') THEN BEGIN
+    //         Message := CurrentSem.Code;
+    //     END;
+    // end;
 
     procedure GetUnitsToOffer(progcode: code[20]; stage: Code[20]; studymode: Code[20]; progoption: Code[20]) Details: Text
     begin
@@ -1242,8 +1306,11 @@ Codeunit 61106 webportals
     var
         LecturerUnits: Record "ACA-Lecturers Units";
         LectLoadBatch: Record "Lect Load Batch Lines";
+        Balance: Decimal;
     begin
         begin
+            Clear(Balance);
+
             CurrentSem.Reset;
             //CurrentSem.SETRANGE("Current Semester",TRUE);
             //IF CurrentSem.FIND('-') THEN BEGIN
@@ -1255,15 +1322,15 @@ Codeunit 61106 webportals
             SupUnits.SetRange(Category, SupUnits.Category::Supplementary);
             SupUnits.SetRange(Status, SupUnits.Status::New);
             if SupUnits.Find('-') then begin
-                //
                 StudentCard.Reset;
                 StudentCard.SetRange("No.", StdNo);
                 if StudentCard.FindFirst then begin
                     GenSetup.Get();
-                    //IF (StudentCard.Balance < 0) OR (StudentCard.Balance >= -1000)
-                    //IF (StudentCard.Balance < 0) OR (StudentCard.Balance >= GenSetup."Supplementary Fee") THEN BEGIN
-                    if (StudentCard.Balance < 0) or (Abs(StudentCard.Balance) >= Abs(GenSetup."Supplimentary Fee")) then begin
-
+                    StudentCard.CalcFields(Balance);
+                    Balance := StudentCard.Balance;
+                    if isStudentNFMLegible(StdNo) then
+                        Balance := getNfmBalance(StdNo);
+                    if (Balance <= 0) /* or (Abs(StudentCard.Balance) >= Abs(GenSetup."Supplimentary Fee")) */ then begin
                         SupUnits.Status := SupUnits.Status::Approved;
                         SupUnits.Validate(Status);
                         SupUnits.Modify;
@@ -1274,11 +1341,55 @@ Codeunit 61106 webportals
                 end else begin
                     Error('Student not found');
                 end;
-
                 //end student search
                 //END  ELSE Message:='FAILED: Supplementary not confirmed';
             end;
         end;
+    end;
+
+    procedure isStudentNFMLegible(StdNo: Code[20]): Boolean
+    var
+        FundingBands: record "Funding Band Entries";
+        NFMStatement: Record "NFM Statement Entry";
+        Customer: Record Customer;
+    begin
+        Customer.RESET;
+        Customer.SETRANGE("No.", StdNo);
+        IF Customer.FIND('-') THEN BEGIN
+            FundingBands.RESET;
+            FundingBands.SETRANGE("Student No.", StdNo);
+            IF FundingBands.FIND('-') THEN BEGIN
+                EXIT(TRUE);
+            END
+            ELSE BEGIN
+                EXIT(FALSE);
+            END;
+        END
+        ELSE BEGIN
+            EXIT(FALSE);
+        END;
+    end;
+
+    procedure getNfmBalance(StdNo: Code[20]): Decimal
+    var
+        FundingBands: record "Funding Band Entries";
+        NFMStatement: Record "NFM Statement Entry";
+        Customer: Record Customer;
+    begin
+        FundingBands.RESET;
+        FundingBands.SETRANGE("Student No.", StdNo);
+        IF FundingBands.FIND('-') THEN BEGIN
+            Customer.RESET;
+            Customer.SETRANGE("No.", StdNo);
+            IF Customer.FIND('-') THEN BEGIN
+                REPORT.RUN(78095, FALSE, FALSE, Customer);
+                NFMStatement.RESET;
+                NFMStatement.SETRANGE("Student No.", StdNo);
+                IF NFMStatement.FINDLAST THEN BEGIN
+                    EXIT(NFMStatement."Balance");
+                END;
+            END;
+        END;
     end;
 
 

@@ -142,10 +142,12 @@ table 50625 "Aca-Special Exams Details"
         field(19; Sequence; Integer)
         {
             Caption = 'Sequence';
+            AutoIncrement = true;
         }
         field(20; "Special Exam Reason"; Code[20])
         {
             Caption = 'Special Exam Reason';
+            TableRelation = "ACA-Special Exams Reason"."Reason Code";
         }
         field(21; "Current Semester"; Code[20])
         {

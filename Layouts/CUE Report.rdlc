@@ -11,76 +11,6 @@
       <rd:DataSourceID>18235a7a-c2fa-420f-9437-5c967c5aee16</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="ReportForNavId_1000000000">
-          <DataField>ReportForNavId_1000000000</DataField>
-        </Field>
-        <Field Name="IDNo">
-          <DataField>IDNo</DataField>
-        </Field>
-        <Field Name="No">
-          <DataField>No</DataField>
-        </Field>
-        <Field Name="Names">
-          <DataField>Names</DataField>
-        </Field>
-        <Field Name="FirstNames">
-          <DataField>FirstNames</DataField>
-        </Field>
-        <Field Name="MiddleNames">
-          <DataField>MiddleNames</DataField>
-        </Field>
-        <Field Name="LastNames">
-          <DataField>LastNames</DataField>
-        </Field>
-        <Field Name="Addr">
-          <DataField>Addr</DataField>
-        </Field>
-        <Field Name="Addre2">
-          <DataField>Addre2</DataField>
-        </Field>
-        <Field Name="PhoneNo">
-          <DataField>PhoneNo</DataField>
-        </Field>
-        <Field Name="Gender">
-          <DataField>Gender</DataField>
-        </Field>
-        <Field Name="DoB">
-          <DataField>DoB</DataField>
-        </Field>
-        <Field Name="YoS">
-          <DataField>YoS</DataField>
-        </Field>
-        <Field Name="Country">
-          <DataField>Country</DataField>
-        </Field>
-        <Field Name="County">
-          <DataField>County</DataField>
-        </Field>
-        <Field Name="Tribe">
-          <DataField>Tribe</DataField>
-        </Field>
-        <Field Name="ProGCode">
-          <DataField>ProGCode</DataField>
-        </Field>
-        <Field Name="AdmissionDate">
-          <DataField>AdmissionDate</DataField>
-        </Field>
-        <Field Name="Campus">
-          <DataField>Campus</DataField>
-        </Field>
-        <Field Name="seq">
-          <DataField>seq</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1145,12 +1075,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1190,4 +1114,74 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="IDNo">
+          <DataField>IDNo</DataField>
+        </Field>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="Names">
+          <DataField>Names</DataField>
+        </Field>
+        <Field Name="FirstNames">
+          <DataField>FirstNames</DataField>
+        </Field>
+        <Field Name="MiddleNames">
+          <DataField>MiddleNames</DataField>
+        </Field>
+        <Field Name="LastNames">
+          <DataField>LastNames</DataField>
+        </Field>
+        <Field Name="Addr">
+          <DataField>Addr</DataField>
+        </Field>
+        <Field Name="Addre2">
+          <DataField>Addre2</DataField>
+        </Field>
+        <Field Name="PhoneNo">
+          <DataField>PhoneNo</DataField>
+        </Field>
+        <Field Name="Gender">
+          <DataField>Gender</DataField>
+        </Field>
+        <Field Name="DoB">
+          <DataField>DoB</DataField>
+        </Field>
+        <Field Name="YoS">
+          <DataField>YoS</DataField>
+        </Field>
+        <Field Name="Country">
+          <DataField>Country</DataField>
+        </Field>
+        <Field Name="County">
+          <DataField>County</DataField>
+        </Field>
+        <Field Name="Tribe">
+          <DataField>Tribe</DataField>
+        </Field>
+        <Field Name="ProGCode">
+          <DataField>ProGCode</DataField>
+        </Field>
+        <Field Name="AdmissionDate">
+          <DataField>AdmissionDate</DataField>
+        </Field>
+        <Field Name="Campus">
+          <DataField>Campus</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
