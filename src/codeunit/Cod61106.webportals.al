@@ -3216,12 +3216,12 @@ Codeunit 61106 webportals
                     IF NFMStatement.FINDSET THEN BEGIN
                         NFMStatement.CALCFIELDS(Balance);
                         CurrPerc := Round(((NFMStatement.Balance / SemFees) * 100), 0.5, '=');
-                        if CurrPerc < FeePolicyPerc then exit(false);
+                        if CurrPerc > FeePolicyPerc then exit(false);
                     END;
                 END;
             END ELSE begin
                 CurrPerc := Round(((Customer.Balance / SemFees) * 100), 0.5, '=');
-                if CurrPerc < FeePolicyPerc then exit(false);
+                if CurrPerc > FeePolicyPerc then exit(false);
             end;
 
         end else
