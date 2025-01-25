@@ -21,6 +21,7 @@ table 50674 "ACA-Imp. Receipts Buffer"
         }
         field(5; Posted; Boolean)
         {
+            Editable = false;
         }
         field(6; "Receipt No"; Code[20])
         {
@@ -90,6 +91,11 @@ table 50674 "ACA-Imp. Receipts Buffer"
         field(21; "User ID"; Code[30])
         {
         }
+        field(22; "Ack. Receipt No."; Code[20])
+        {
+            Caption = 'Acknowledgement Receipt No.';
+        }
+
     }
 
     keys
@@ -109,5 +115,16 @@ table 50674 "ACA-Imp. Receipts Buffer"
     var
         genSetup: Record "ACA-General Set-Up";
         NoSeriesManagement: Codeunit NoSeriesManagement;
+        BatchHeader: Record "ACA-Scholarship Batches";
+
+
+    trigger OnInsert()
+    begin
+        BatchHeader.Reset();
+        BatchHeader.SetRange("No.", Rec."Transaction Code");
+        if BatchHeader.FindFirst() then begin
+            Rec."Ack. Receipt No." := BatchHeader."Receipt No";
+        end;
+    end;
 }
 

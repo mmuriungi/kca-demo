@@ -13,6 +13,7 @@ page 51160 "ACA-Scholarship Allocation"
         {
             repeater(general)
             {
+                Editable = (not Rec.posted);
                 field("Transaction Code"; Rec."Transaction Code")
                 {
                     ApplicationArea = All;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -37,7 +37,7 @@
                   <Width>1.33333in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.79167in</Width>
+                  <Width>1in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1in</Width>
@@ -77,11 +77,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>#</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">#</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -90,6 +87,7 @@
                           <rd:DefaultName>Textbox15</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -109,11 +107,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Birth Cert/ID No/Passport No</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Birth Cert/ID No/Passport No</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -122,6 +117,7 @@
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -141,11 +137,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Admission No</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Admission No</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -154,6 +147,7 @@
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -173,11 +167,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>First Name</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">First Name</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -186,6 +177,7 @@
                           <rd:DefaultName>Textbox5</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -205,11 +197,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Middle Name</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Middle Name</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -218,6 +207,7 @@
                           <rd:DefaultName>Textbox7</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -237,11 +227,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Last Name</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Last Name</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -250,6 +237,7 @@
                           <rd:DefaultName>Textbox9</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -269,11 +257,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Year of Study</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Year of Study</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -282,6 +267,7 @@
                           <rd:DefaultName>Textbox2</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -301,11 +287,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Gender</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Gender</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -314,6 +297,7 @@
                           <rd:DefaultName>Textbox6</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -333,11 +317,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Date of Birth</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Date o Birth</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -346,6 +327,7 @@
                           <rd:DefaultName>Textbox10</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -365,11 +347,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Country Code</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Country Code</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -378,6 +357,7 @@
                           <rd:DefaultName>Textbox12</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -397,11 +377,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Home County Code</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Home County Code</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -410,6 +387,7 @@
                           <rd:DefaultName>Textbox14</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -429,11 +407,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Ethnic Background</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Ethnic Background</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -442,6 +417,7 @@
                           <rd:DefaultName>Textbox16</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -461,11 +437,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Program Code</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Program Code</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -474,6 +447,7 @@
                           <rd:DefaultName>Textbox18</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -493,11 +467,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Date of Admission</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Date of Admission</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -506,6 +477,7 @@
                           <rd:DefaultName>Textbox22</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -525,11 +497,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Campus Code</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">Campus Code</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -538,6 +507,7 @@
                           <rd:DefaultName>Textbox20</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -562,10 +532,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!seq.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!seq.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -574,6 +542,7 @@
                           <rd:DefaultName>seq</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -593,10 +562,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!IDNo.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!IDNo.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -605,6 +572,7 @@
                           <rd:DefaultName>IDNo</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -624,10 +592,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!No.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!No.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -636,6 +602,7 @@
                           <rd:DefaultName>No</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -655,10 +622,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FirstNames.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!FirstNames.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -667,6 +632,7 @@
                           <rd:DefaultName>FirstNames</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -686,10 +652,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!MiddleNames.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!MiddleNames.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -698,6 +662,7 @@
                           <rd:DefaultName>MiddleNames</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -717,10 +682,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!LastNames.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!LastNames.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -729,6 +692,7 @@
                           <rd:DefaultName>LastNames</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -748,10 +712,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!YoS.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!YoS.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -760,6 +722,7 @@
                           <rd:DefaultName>YoS</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -779,10 +742,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Gender.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!Gender.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -791,6 +752,7 @@
                           <rd:DefaultName>Gender</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -810,9 +772,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!DoB.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!DoB.Value</Value>
                                   <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
                                     <Format>M/d/yyyy</Format>
                                   </Style>
                                 </TextRun>
@@ -823,6 +784,7 @@
                           <rd:DefaultName>DoB</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -842,10 +804,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Country.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!Country.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -854,6 +814,7 @@
                           <rd:DefaultName>Country</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -873,10 +834,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!County.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!County.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -885,6 +844,7 @@
                           <rd:DefaultName>County</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -904,10 +864,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Tribe.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!Tribe.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -916,6 +874,7 @@
                           <rd:DefaultName>Tribe</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -935,10 +894,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ProGCode.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!ProGCode.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -947,6 +904,7 @@
                           <rd:DefaultName>ProGCode</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -966,9 +924,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!AdmissionDate.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!AdmissionDate.Value</Value>
                                   <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
                                     <Format>M/d/yyyy</Format>
                                   </Style>
                                 </TextRun>
@@ -979,6 +936,7 @@
                           <rd:DefaultName>AdmissionDate</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -998,10 +956,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Campus.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                  </Style>
+                                  <Value EvaluationMode="Auto">=Fields!Campus.Value</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1010,6 +966,7 @@
                           <rd:DefaultName>Campus</rd:DefaultName>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -1056,7 +1013,7 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>0.13833in</Top>
             <Height>0.75in</Height>
-            <Width>16.425in</Width>
+            <Width>16.63333in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1067,10 +1024,8 @@
         <Height>0.88833in</Height>
         <Style />
       </Body>
-      <Width>16.425in</Width>
+      <Width>16.63333in</Width>
       <Page>
-        <PageHeight>8.5in</PageHeight>
-        <PageWidth>13in</PageWidth>
         <Style />
       </Page>
     </ReportSection>
