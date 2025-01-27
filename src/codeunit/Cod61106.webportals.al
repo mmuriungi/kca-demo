@@ -9815,6 +9815,7 @@ Codeunit 61106 webportals
                 AcadYear := semesters."Academic Year";
             ParttimeLines.Init();
             ParttimeLines."Document No." := ClaimNo;
+            ParttimeLines."Lecture No.":=PartTImer."Account No.";
             ParttimeLines."Academic Year" := acadyear;
             ParttimeLines.Validate("Academic Year");
             ParttimeLines.Semester := PartTImer.Semester;
