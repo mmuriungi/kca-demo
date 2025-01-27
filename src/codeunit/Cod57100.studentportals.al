@@ -99,7 +99,7 @@ codeunit 57100 studentportals
         CourseReg: Record "ACA-Course Registration";
         filename: Text;
         IStream: InStream;
-        Bytes: DotNet Bytes;
+        //Bytes: DotNet Bytes;
         Convert: DotNet Convert;
         MemStream: DotNet MemoryStream;
         TTTimetableFInalCollector: Record "ACA-Time Table";
