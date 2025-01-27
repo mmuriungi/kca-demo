@@ -9815,7 +9815,7 @@ Codeunit 61106 webportals
                 AcadYear := semesters."Academic Year";
             ParttimeLines.Init();
             ParttimeLines."Document No." := ClaimNo;
-            ParttimeLines."Lecture No.":=PartTImer."Account No.";
+            ParttimeLines."Lecture No." := PartTImer."Account No.";
             ParttimeLines."Academic Year" := acadyear;
             ParttimeLines.Validate("Academic Year");
             ParttimeLines.Semester := PartTImer.Semester;
@@ -9888,6 +9888,7 @@ Codeunit 61106 webportals
     procedure getLecturerUnits(lec: Code[20]; Sem: code[25]; prog: code[25]) msg: Text
     var
         LecUnits: Record "ACA-Lecturers Units";
+        ParttimeLines: record "Parttime Claim Lines";
     begin
         LecUnits.RESET;
         LecUnits.SETRANGE(Lecturer, lec);
@@ -9895,7 +9896,13 @@ Codeunit 61106 webportals
         LecUnits.SETRANGE(Programme, prog);
         if LecUnits.FIND('-') then begin
             repeat
-                msg += LecUnits.Unit + ' ::' + LecUnits.Description + ' :::';
+                ParttimeLines.Reset();
+                ParttimeLines.SetRange("Lecture No.", lec);
+                ParttimeLines.SetRange(Semester, sem);
+                ParttimeLines.SetRange(Programme, prog);
+                ParttimeLines.SetRange(Unit, LecUnits.Unit);
+                if not ParttimeLines.FindFirst() then
+                    msg += LecUnits.Unit + ' ::' + LecUnits.Description + ' :::';
             until LecUnits.NEXT = 0;
         end;
     end;
