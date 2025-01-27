@@ -87,7 +87,7 @@ table 50245 "HRM-Medical Claims"
         }
         field(11; Dependants; Code[50])
         {
-            TableRelation = "HRM-Employee Kin"."Other Names" WHERE("Employee Code" = FIELD("Member No"));
+            TableRelation = "HRM-Employee Kin"."Other Names" WHERE("Employee Code" = FIELD("Member No"), Type = FILTER(Dependant)                       );
 
             trigger OnValidate()
             begin
