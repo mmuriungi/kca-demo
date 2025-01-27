@@ -1054,17 +1054,28 @@ page 50619 "HRM-Employee (B)"
                     RunPageLink = "Employee Code" = FIELD("No.");
                     RunPageView = WHERE(Type = FILTER(Beneficiary));
                 }
+                // action(Dependants)
+                // {
+                //     Visible = false;
+                //     ApplicationArea = all;
+                //     Caption = 'Dependants';
+                //     Image = Relatives;
+                //     Promoted = true;
+                //     PromotedCategory = Category6;
+                //     RunObject = Page "HRM-Employees Dependants";
+                //     RunPageLink = "Employee Code" = FIELD("No."),
+                //                   Type = FILTER(Dependant);
+                //     RunPageView = WHERE(Type = FILTER(Dependant));
+                // }
                 action(Dependants)
                 {
-                    Visible = false;
-                    ApplicationArea = all;
+                    ApplicationArea = All;
                     Caption = 'Dependants';
                     Image = Relatives;
                     Promoted = true;
                     PromotedCategory = Category6;
                     RunObject = Page "HRM-Employees Dependants";
-                    RunPageLink = "Employee Code" = FIELD("No."),
-                                  Type = FILTER(Dependant);
+                    RunPageLink = "Employee Code" = FIELD("No."), Type = FILTER(Dependant);
                     RunPageView = WHERE(Type = FILTER(Dependant));
                 }
                 // action("Employee Medical Insurance")
