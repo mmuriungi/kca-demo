@@ -100,6 +100,90 @@ page 51459 "ACA-Std Finance Role Center"
                     ApplicationArea = All;
                 }
             }
+            Group("Receivables")
+            {
+                action("Receipt List")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Receipts List';
+                    Image = "Report";
+                    RunObject = Report "Receipts List";
+                    ToolTip = 'View a list of receipts that have been posted to the general ledger.';
+                }
+                action("C&ustomer - List")
+                {
+                    ApplicationArea = Suite;
+                    Caption = 'C&ustomer - List';
+                    Image = "Report";
+                    RunObject = Report "Customer - List";
+                    ToolTip = 'View various information for customers, such as customer posting group, discount group, finance charge and payment information, salesperson, the customer''s default currency and credit limit (in LCY), and the customer''s current balance (in LCY).';
+                }
+                action("Customer - &Balance to Date")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Customer - &Balance to Date';
+                    Image = "Report";
+                    RunObject = Report "Customer - Balance to Date";
+                    ToolTip = 'View a list with customers'' payment history up until a certain date. You can use the report to extract your total sales income at the close of an accounting period or fiscal year.';
+                }
+                action("Aged &Accounts Receivable")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Aged &Accounts Receivable';
+                    Image = "Report";
+                    RunObject = Report "Aged Accounts Receivable";
+                    ToolTip = 'View an overview of when your receivables from customers are due or overdue (divided into four periods). You must specify the date you want aging calculated from and the length of the period that each column will contain data for.';
+                }
+                action("Customer - &Summary Aging Simp.")
+                {
+                    ApplicationArea = Suite;
+                    Caption = 'Customer - &Summary Aging Simp.';
+                    Image = "Report";
+                    RunObject = Report "Customer - Summary Aging Simp.";
+                    ToolTip = 'View, print, or save a summary of each customer''s total payments due, divided into three time periods. The report can be used to decide when to issue reminders, to evaluate a customer''s creditworthiness, or to prepare liquidity analyses.';
+                }
+                action("Customer - Trial Balan&ce")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Customer - Trial Balan&ce';
+                    Image = "Report";
+                    RunObject = Report "Customer - Trial Balance";
+                    ToolTip = 'View the beginning and ending balance for customers with entries within a specified period. The report can be used to verify that the balance for a customer posting group is equal to the balance on the corresponding general ledger account on a certain date.';
+                }
+                action("Cus&tomer/Item Sales")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Cus&tomer/Item Sales';
+                    Image = "Report";
+                    RunObject = Report "Customer/Item Sales";
+                    ToolTip = 'View a list of item sales for each customer during a selected time period. The report contains information on quantity, sales amount, profit, and possible discounts. It can be used, for example, to analyze a company''s customer groups.';
+                }
+                action("Sales Invoices")
+                {
+                    ApplicationArea = All;
+                    Image = SalesInvoice;
+                    RunObject = page "Sales Invoice List";
+                }
+                action("Posted Invoices")
+                {
+                    ApplicationArea = All;
+                    Image = SalesInvoice;
+                    RunObject = page "Posted Sales Invoices";
+                }
+                action("Credit Notes")
+                {
+                    ApplicationArea = All;
+                    Image = SalesInvoice;
+                    RunObject = page "Sales Credit Memos";
+                }
+                action("Posted Credit Notes")
+                {
+                    ApplicationArea = All;
+                    Image = PostedCreditMemo;
+                    RunObject = Page "Posted Sales Credit Memos";
+                }
+
+            }
         }
         area(embedding)
         {
