@@ -181,6 +181,7 @@ page 51457 "ACA-Admissions Role Center"
             }
             group("Admission Reports")
             {
+                Caption = 'Application Reports';
                 action("New Applications")
                 {
                     Image = "Report";
@@ -245,9 +246,56 @@ page 51457 "ACA-Admissions Role Center"
                     ApplicationArea = All;
                 }
             }
+
+            group("&Admission Reports")
+            {
+
+                //Caption = 'Admission Reports';
+                Image = ResourcePlanning;
+                action("Admissions Summary")
+                {
+                    Caption = 'Admissions Summary';
+                    Image = Report;
+
+                    RunObject = Report "KUCCPS & PSSP Admissions List";
+                    ApplicationArea = All;
+                }
+                action("Admission By Program")
+                {
+                    Caption = 'Admission By Program';
+                    Image = Report;
+
+                    RunObject = Report "KUCCPS & PSSP Adm. By Program";
+                    ApplicationArea = All;
+                }
+                action("Admission Per School")
+                {
+                    Image = Report;
+                    ApplicationArea = All;
+                    RunObject = Report "ACA-Senate Report";
+                }
+
+
+        }
         }
         area(embedding)
         {
+            action("Program List")
+            {
+
+                Image = FixedAssets;
+
+                RunObject = Page "ACA-Programmes List";
+                ApplicationArea = All;
+            }
+            action("Semester Setup")
+            {
+                Caption = 'Semester Setup';
+                Image = FixedAssetLedger;
+
+                RunObject = Page "ACA-Semesters List";
+                ApplicationArea = All;
+            }
 
             action("Academic Year Manager")
             {
@@ -291,6 +339,139 @@ page 51457 "ACA-Admissions Role Center"
         }
         area(sections)
         {
+            group("SSS Admissions")
+            {
+
+                Image = RegisteredDocs;
+                // action("Enquiry list")
+                // {
+                //     Caption = 'Enquiry list';
+                //     RunObject = Page "ACA-Enquiry List";
+                //     ApplicationArea = All;
+                // }
+                // action("Enquiry List (Pending)")
+                // {
+                //     Caption = 'Enquiry List (Pending)';
+                //     RunObject = Page "ACA-Enquiry (Pending Approval)";
+                //     ApplicationArea = All;
+                // }
+                // action("Enquiry List (Rejected)")
+                // {
+                //     Caption = 'Enquiry List (Rejected)';
+                //     RunObject = Page "ACA-Enquiry (Rejected)";
+                //     ApplicationArea = All;
+                // }
+                action(Applications)
+                {
+                    Caption = 'Applications';
+                    RunObject = Page "ACA-Application Form H. list";
+                    ApplicationArea = All;
+                }
+                action(HOD)
+                {
+                    //Caption = 'Deans Commitee';
+                    RunObject = Page "HOD-Applicants";
+                    ApplicationArea = All;
+                }
+                action("HOD Rejected")
+                {
+                    RunObject = Page "HOD Rejections";
+                    ApplicationArea = All;
+                }
+                action("Deans Applicantions")
+                {
+                    RunObject = page "Dean-Applicants";
+                    ApplicationArea = All;
+                }
+                action("Dean Rejections")
+                {
+                    RunObject = Page "Dean Rejections";
+                    ApplicationArea = All;
+                }
+                action(Registrar)
+                {
+                    RunObject = page "Deans comitte";
+                    ApplicationArea = All;
+                }
+
+                action("Admissionsletters list")
+                {
+                    Caption = 'Admissions letters list';
+                    RunObject = Page "ACA-Print Admn Letter SSP/DIP";
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                action("pending documents verification (PSSP)")
+                {
+                    Caption = 'Registration';
+                    RunObject = Page "ACA-Pending Admissions PSSP";
+                    ApplicationArea = All;
+                }
+                action(Admitted_PSSP)
+                {
+                    Caption = 'Admitted Students';
+                    RunObject = Page "ACA-Admitted PSSP";
+                    ApplicationArea = All;
+                }
+            }
+            group("KUCCPS Admission")
+            {
+                Caption = 'KUCCPS Admission';
+                Image = Transactions;
+                action("Import Jab Admissions")
+                {
+                    Caption = 'Import KUCCPS Admissions';
+                    RunObject = Page "KUCCPS Imports";
+                    ApplicationArea = All;
+                }
+                action("Registration KUCCP")
+                {
+                    RunObject = Page "ACA-KUCCPS Student Reg";
+                    Visible = true;
+                    ApplicationArea = All;
+                }
+                action("Processed Jab Admissions")
+                {
+                    Caption = 'Processed Jab Admissions';
+                    RunObject = Page "ACA-Print Admn Letter JAb";
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                action("Admissions letters list")
+                {
+                    Caption = 'Admissions letters list';
+                    RunObject = Page "ACA-Print Admn Letter SSP/DIP";
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                action("pending documents verification")
+                {
+                    Visible = false;
+                    Caption = 'pending documents verification';
+                    RunObject = Page "ACA-Pending Admissions List";
+                    ApplicationArea = All;
+                }
+                action("pending payments confirmation")
+                {
+                    Caption = 'pending payments confirmation';
+                    RunObject = Page "ACA-Pending Payments List";
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                action("pending Admission confirmation")
+                {
+                    Caption = 'pending Admission confirmation';
+                    RunObject = Page "ACA-Pending Admission Confirm.";
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                action(Admitted_Kuccps)
+                {
+                    Caption = 'Admitted Students - KUCCPS';
+                    RunObject = Page "ACA-Admitted KUCCPS";
+                    ApplicationArea = All;
+                }
+            }
             group(Approvals)
             {
                 Caption = 'Approvals';
@@ -382,6 +563,221 @@ page 51457 "ACA-Admissions Role Center"
 
 
             }
+        }
+
+        area(reporting)
+        {
+            group("Student Reports")
+            {
+                action("KNBS Enrollment Report")
+                {
+                    Image = Report;
+
+                    RunObject = Report "KNBS Enrollment Data";
+                    ApplicationArea = All;
+                }
+                //Cue report
+                action("CUE & Report")
+                {
+                    Image = Report;
+                    Caption = 'CUE Report';
+
+                    RunObject = Report "CUE Report";
+                    ApplicationArea = All;
+                }
+            }
+
+            group(AcadReports2)
+                {
+                    Caption = 'Academic Reports';
+                    Image = AnalysisView;
+                    action("All Students")
+                    {
+                        Image = Report2;
+                        RunObject = Report "All Students";
+                        ApplicationArea = All;
+                    }
+                    action("Student Applications Report")
+                    {
+                        Caption = 'Student Applications Report';
+                        Image = Report;
+                        RunObject = Report "Student Applications Report";
+                        ApplicationArea = All;
+                    }
+                    action("Norminal Roll")
+                    {
+                        Caption = 'Norminal Roll';
+                        Image = Report2;
+                        RunObject = Report "Norminal Roll (Cont. Students)";
+                        ApplicationArea = All;
+                    }
+                    action("Class List (By Stage)")
+                    {
+                        Caption = 'Class List (By Stage)';
+                        Image = List;
+
+                        RunObject = Report "ACA-Class List (List By Stage)";
+                        ApplicationArea = All;
+                    }
+                    action("Signed Norminal Roll")
+                    {
+                        Caption = 'Signed Norminal Roll';
+                        Image = Report2;
+
+                        RunObject = Report "Signed Norminal Role";
+                        ApplicationArea = All;
+                    }
+                    action("Program List By Gender && Type")
+                    {
+                        Caption = 'Program List By Gender && Type';
+                        Image = PrintReport;
+
+                        RunObject = Report "Pop. By Prog./Gender/Settl.";
+                        ApplicationArea = All;
+                    }
+                    action("population By Faculty")
+                    {
+                        Caption = 'population By Faculty';
+                        Image = PrintExcise;
+
+                        RunObject = Report "Population By Faculty";
+                        ApplicationArea = All;
+                    }
+                    // action("Multiple Record")
+                    // {
+                    //     Caption = 'Multiple Record';
+                    //     Image = Report2;
+                    //     RunObject = Report "Official College Transcript Nu";
+                    //     ApplicationArea = All;
+                    // }
+                    action("Classification By Campus")
+                    {
+                        Caption = 'Classification By Campus';
+                        Image = Report2;
+                        RunObject = Report "Population Class By Campus";
+                        ApplicationArea = All;
+                    }
+                    action("Population By Campus")
+                    {
+                        Caption = 'Population By Campus';
+                        Image = Report2;
+                        RunObject = Report "Population By Campus";
+                        ApplicationArea = All;
+                    }
+                    action("Population by Programme")
+                    {
+                        Caption = 'Population by Programme';
+                        Image = Report2;
+                        RunObject = Report "Population By Programme";
+                        ApplicationArea = All;
+                    }
+                    action("Prog. Category")
+                    {
+                        Caption = 'Prog. Category';
+                        Image = Report2;
+                        RunObject = Report "Population By Prog. Category";
+                        ApplicationArea = All;
+                    }
+                    action("List By Programme")
+                    {
+                        Caption = 'List By Programme';
+                        Image = Report;
+                        RunObject = Report "List By Programme";
+                        ApplicationArea = All;
+                    }
+                    action("List By Programme (With Balances)")
+                    {
+                        Caption = 'List By Programme (With Balances)';
+                        Image = PrintReport;
+
+                        RunObject = Report "ACA-List By Prog.(Balances)";
+                        ApplicationArea = All;
+                    }
+                    action("Type. Study Mode, & Gender")
+                    {
+                        Caption = 'Type. Study Mode, & Gender';
+                        Image = Report;
+                        RunObject = Report "Stud Type, Study Mode & Gende";
+                        ApplicationArea = All;
+                    }
+                    action("Study Mode & Gender")
+                    {
+                        Caption = 'Study Mode & Gender';
+                        Image = Report;
+                        RunObject = Report "List By Study Mode & Gender";
+                        ApplicationArea = All;
+                    }
+                    action("County & Gender")
+                    {
+                        Caption = 'County & Gender';
+                        Image = Report;
+                        RunObject = Report "List By County & Gender";
+                        ApplicationArea = All;
+                    }
+                    action("List By County")
+                    {
+                        Caption = 'List By County';
+                        Image = Report;
+                        RunObject = Report "List By County";
+                        ApplicationArea = All;
+                    }
+                    action("Prog. Units")
+                    {
+                        Caption = 'Prog. Units';
+                        Image = Report;
+                        RunObject = Report "Programme Units";
+                        ApplicationArea = All;
+                    }
+                    action("Enrollment By Stage")
+                    {
+                        Caption = 'Enrollment By Stage';
+                        Image = Report2;
+                        RunObject = Report "Enrollment by Stage";
+                        ApplicationArea = All;
+                    }
+                    action("Import Units")
+                    {
+                        Caption = 'Import Units';
+                        Image = ImportExcel;
+
+                        RunObject = Page "ACA-Prog. Units Buffer";
+                        ApplicationArea = All;
+                    }
+                    // action("Hostel Allocations")
+                    // {
+                    //     Caption = 'Hostel Allocations';
+                    //     Image = PrintCover;
+                    //     
+                    //     PromotedIsBig = true;
+                    //     RunObject = Report "Hostel Allocations";
+                    //     ApplicationArea = All;
+                    // }
+                    action("Students List (By Program)")
+                    {
+                        Caption = 'Students List (By Program)';
+                        Image = Report;
+
+                        RunObject = Report "ACA-Norminal Roll (New Stud)";
+                        ApplicationArea = All;
+                    }
+                    action("Programme Units")
+                    {
+                        Caption = 'Programme Units';
+                        Image = Report;
+
+                        RunObject = Report "Programme Units";
+                        ApplicationArea = All;
+                    }
+                    action("CUE Report")
+                    {
+                        Caption = 'CUE Report';
+                        Image = Agreement;
+
+                        RunObject = Report "CUE Report";
+                        ApplicationArea = All;
+                        Visible = false;
+                    }
+                }
         }
     }
 }

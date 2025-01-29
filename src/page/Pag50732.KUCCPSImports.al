@@ -192,20 +192,20 @@ page 50732 "KUCCPS Imports"
                     trigger OnAction()
                     begin
                         if Confirm('Import KUCCPS Students', true) = false then exit;
-                        if Confirm('Arrange your CSV in the forllowing order:\' +
-                        'ser' +
-                        '\Index' +
-                        '\Admin' +
-                        '\Prog' +
-                        '\Names' +
-                        '\Gender' +
-                        '\Phone' +
-                        '\Alt. Phone' +
-                        '\Box' +
-                        '\Codes' +
-                        '\Town' +
-                        '\Email' +
-                        '\Slt Mail') = false then;
+                        // if Confirm('Arrange your CSV in the forllowing order:\' +
+                        // 'ser' +
+                        // '\Index' +
+                        // '\Admin' +
+                        // '\Prog' +
+                        // '\Names' +
+                        // '\Gender' +
+                        // '\Phone' +
+                        // '\Alt. Phone' +
+                        // '\Box' +
+                        // '\Codes' +
+                        // '\Town' +
+                        // '\Email' +
+                        // '\Slt Mail') = false then;
                         Xmlport.Run(XmlPort::"Import KUCCPS Students", false, true);
                     end;
                 }

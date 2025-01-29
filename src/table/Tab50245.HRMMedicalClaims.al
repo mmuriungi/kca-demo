@@ -53,6 +53,9 @@ table 50245 "HRM-Medical Claims"
         {
 
             trigger OnValidate()
+            Var
+                scheme: Record "HRM-Medical Schemes";
+                ExceedLimitErr: Label 'The claim amount %1 exceeds the %2 limit of %3.';
             begin
                 if "Claim Currency Code" <> "Scheme Currency Code" then begin
                     UpdateCurrencyFactor;
@@ -67,6 +70,20 @@ table 50245 "HRM-Medical Claims"
                     "Scheme Amount Charged" := "Claim Amount" * "Currency Factor"
                 else
                     "Scheme Amount Charged" := "Claim Amount";
+
+                if scheme.Get("Scheme No") then begin
+                case "Claim Type" of
+                    "Claim Type"::Inpatient:
+                        if "Claim Amount" > scheme."In-patient limit" then
+                            Error(ExceedLimitErr, "Claim Amount", 'In-patient', scheme."In-patient limit");
+                    
+                    "Claim Type"::Outpatient:
+                        if "Claim Amount" > scheme."Out-patient limit" then
+                            Error(ExceedLimitErr, "Claim Amount", 'Out-patient', scheme."Out-patient limit");
+
+            end;
+        end;
+
             end;
         }
         field(9; Comments; Text[250])
