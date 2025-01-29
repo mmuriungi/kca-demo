@@ -61,6 +61,9 @@ XmlPort 50187 "Import KUCCPS Students"
                 fieldelement(o; "Text KUCCPS Jab".Prog)
                 {
                 }
+                fieldelement(p; "Text KUCCPS Jab"."Settlement Type")
+                {
+                }
                 fieldelement(n; "Text KUCCPS Jab"."Any Other Institution Attended")
                 {
                     MinOccurs = Zero;

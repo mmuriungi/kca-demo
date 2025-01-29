@@ -32,6 +32,7 @@ report 50010 "Export KUCCPS Std Template"
                     'Codes,' +
                     'Town,' +
                     'Prog,' +
+                    'Settlement Type,' +
                     'Any Other Institution Attended' +
                     CR;
 
