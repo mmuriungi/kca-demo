@@ -44,7 +44,8 @@ codeunit 50095 "PartTimer Management"
         LecturerUnits: Record "ACA-Lecturers Units";
     begin
         if parttimeLine.Excluded then
-            parttimeLine.Amount := 0
+            //parttimeLine.Amount := 0
+            Error('You cannot claim for this unit because either CAT or EXAM is missing')
         else begin
             AcaUnits.Reset();
             AcaUnits.SetRange(Code, parttimeLine."Unit");
@@ -60,7 +61,8 @@ codeunit 50095 "PartTimer Management"
                 PartTimeRates.Reset();
                 PartTimeRates.SetRange("Programme Category", parttimeLine."Programme Category");
                 if PartTimeRates.FindFirst() then begin
-                    parttimeLine."Hourly Rate" := PartTimeRates."Rate per Hour";
+                   // parttimeLine."Hourly Rate" := PartTimeRates."Rate per Hour";
+                   parttimeLine."Hourly Rate" := LecturerUnits.Rate;
                     parttimeLine.Validate("Hourly Rate");
                 end;
             end;
