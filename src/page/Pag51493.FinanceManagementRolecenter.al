@@ -932,6 +932,7 @@ page 51493 "Finance Management Rolecenter"
             }
             Group("Receivables")
             {
+                Visible = false;
                 action("Receipt List")
                 {
                     ApplicationArea = Basic, Suite;
