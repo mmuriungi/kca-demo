@@ -621,6 +621,17 @@ page 52178704 "Proc-Purchase Quot Req. Header"
                             ApprovMgmt.OnSendDocForApproval(variant);
                     end;
                 }
+
+                action(Approvals)
+                {
+                    ApplicationArea = All;
+                    Image = Approvals;
+                    Promoted = true;
+                    PromotedCategory = Category7;
+                    RunObject = page "Fin-Approval Entries";
+                    RunPageLink = "Document No." = field("No.");
+                }
+
                 //cancelapproval
                 action(CancelApproval)
                 {
@@ -639,6 +650,7 @@ page 52178704 "Proc-Purchase Quot Req. Header"
                             ApprovMgmt.OnCancelDocApprovalRequest(variant);
                     end;
                 }
+
                 action("Send Mails")
                 {
                     ApplicationArea = all;

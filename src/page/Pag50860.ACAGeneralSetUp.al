@@ -31,6 +31,10 @@ page 50860 "ACA-General Set-Up"
                 {
                     ApplicationArea = All;
                 }
+                field("Charge Addition";Rec."Charge Addition")
+                {
+                    ApplicationArea = all;
+                }
                 field("Class Allocation Nos."; Rec."Class Allocation Nos.")
                 {
                     ApplicationArea = All;

@@ -178,6 +178,14 @@ report 50278 "All Students"
             column(School; Faculty)
             {
             }
+            column(Email; Cust."E-Mail")
+            {
+                
+            }
+            column(ShowEmail; ShowEmail)
+            {
+                
+            }
 
             trigger OnAfterGetRecord()
             begin
@@ -237,6 +245,11 @@ report 50278 "All Students"
         {
             area(content)
             {
+                field(ShowEmail; ShowEmail)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Show Email';
+                }
             }
         }
 
@@ -282,5 +295,6 @@ report 50278 "All Students"
         ValUnits: Boolean;
         cust2: Record Customer;
         faculty: Record "Dimension Value";
+        ShowEmail: Boolean;
 }
 
