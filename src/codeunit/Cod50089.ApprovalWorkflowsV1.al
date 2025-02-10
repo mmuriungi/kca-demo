@@ -74,6 +74,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelEmployeeRequisitionRequestTxt: Label 'An Approval request for Employee Requisition is Cancelled';
         RunWorkflowOnSendEmployeeRequisitionForApprovalCode: Label 'RUNWORKFLOWONSENDEMPLOYEEREQUISITIONFORAPPROVAL';
         RunWorkflowOnCancelEmployeeRequisitionForApprovalCode: Label 'RUNWORKFLOWONCANCELEMPLOYEEREQUISITIONFORAPPROVAL';
+        //Special Exams
+        OnSendSpecialExamsRequestTxt: Label 'Approval request for Special Exams is requested';
+        OnCancelSpecialExamsRequestTxt: Label 'An Approval request for Special Exams is Cancelled';
+        RunWorkflowOnSendSpecialExamsForApprovalCode: Label 'RUNWORKFLOWONSENDSPECIALSEXAMSFORAPPROVAL';
+        RunWorkflowOnCancelSpecialExamsForApprovalCode: Label 'RUNWORKFLOWONCANCELSPECIALSEXAMSFORAPPROVAL';
 
 
 
@@ -112,9 +117,12 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendImprestSurrenderForApprovalCode));
             Database::"HRM-Employee Requisitions":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendEmployeeRequisitionForApprovalCode));
+            Database::"Aca-Special Exams Details":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendSpecialExamsForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
+
     end;
 
     procedure CheckApprovalsWorkflowEnabledCode(var Variant: Variant; CheckApprovalsWorkflowTxt: Text): Boolean
@@ -188,7 +196,12 @@ codeunit 50089 "Approval Workflows V1"
         //Employee Requisition
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendEmployeeRequisitionForApprovalCode, Database::"HRM-Employee Requisitions", OnSendEmployeeRequisitionRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelEmployeeRequisitionForApprovalCode, Database::"HRM-Employee Requisitions", OnCancelEmployeeRequisitionRequestTxt, 0, false);
+        //Special Exams
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendSpecialExamsForApprovalCode, Database::"Aca-Special Exams Details", OnSendSpecialExamsRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelSpecialExamsForApprovalCode, Database::"Aca-Special Exams Details", OnCancelSpecialExamsRequestTxt, 0, false);
+
     end;
+
 
     local procedure RunWorkflowOnSendApprovalRequestCode(): Code[128]
     begin
@@ -231,9 +244,12 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendImprestSurrenderForApprovalCode, Variant);
             Database::"HRM-Employee Requisitions":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendEmployeeRequisitionForApprovalCode, Variant);
+            Database::"Aca-Special Exams Details":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendSpecialExamsForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
+
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approval Workflows V1", 'OnCancelDocApprovalRequest', '', false, false)]
@@ -272,9 +288,12 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelImprestSurrenderForApprovalCode, Variant);
             Database::"HRM-Employee Requisitions":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelEmployeeRequisitionForApprovalCode, Variant);
+            Database::"Aca-Special Exams Details":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelSpecialExamsForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
+
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", OnOpenDocument, '', false, false)]
@@ -295,6 +314,7 @@ codeunit 50089 "Approval Workflows V1"
         MealBooking: Record "CAT-Meal Booking Header";
         ImpSurrHeader: Record "FIN-Imprest Surr. Header";
         EmployeeRequisition: Record "HRM-Employee Requisitions";
+        SpecialExams: Record "Aca-Special Exams Details";
     begin
         case RecRef.Number of
             Database::club:
@@ -395,6 +415,12 @@ codeunit 50089 "Approval Workflows V1"
                     EmployeeRequisition.Modify();
                     Handled := true;
                 end;
+            Database::"Aca-Special Exams Details":
+                begin
+                    RecRef.SetTable(SpecialExams);
+                    SpecialExams.Validate("Status", SpecialExams.Status::New);
+                    SpecialExams.Modify();
+                end;
         end;
     end;
 
@@ -415,6 +441,7 @@ codeunit 50089 "Approval Workflows V1"
         MealBooking: Record "CAT-Meal Booking Header";
         ImpsurHeader: Record "FIN-Imprest Surr. Header";
         Emprequisition: Record "HRM-Employee Requisitions";
+        SpecialExams: Record "Aca-Special Exams Details";
     begin
         case RecRef.Number of
             Database::club:
@@ -521,6 +548,13 @@ codeunit 50089 "Approval Workflows V1"
                     Emprequisition.Modify();
                     IsHandled := true;
                 end;
+            Database::"Aca-Special Exams Details":
+                begin
+                    RecRef.SetTable(SpecialExams);
+                    SpecialExams.Validate("Status", SpecialExams.Status::"Pending Approval");
+                    SpecialExams.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -541,6 +575,7 @@ codeunit 50089 "Approval Workflows V1"
         MealBooking: Record "CAT-Meal Booking Header";
         impSurrHeader: Record "FIN-Imprest Surr. Header";
         EmployeeRequisition: Record "HRM-Employee Requisitions";
+        SpecialExams: Record "Aca-Special Exams Details";
     begin
         case RecRef.number of
             Database::Club:
@@ -613,8 +648,14 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(EmployeeRequisition);
                     ApprovalEntryArgument."Document No." := EmployeeRequisition."Requisition No.";
                 end;
+            Database::"Aca-Special Exams Details":
+                begin
+                    RecRef.SetTable(SpecialExams);
+                    ApprovalEntryArgument."Document No." := SpecialExams."Document No.";
+                end;
         end;
     end;
+
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnReleaseDocument', '', false, false)]
     local procedure OnReleaseDocument(RecRef: RecordRef; var Handled: boolean)
@@ -636,6 +677,7 @@ codeunit 50089 "Approval Workflows V1"
         MealBooking: Record "CAT-Meal Booking Header";
         impSurHeader: Record "FIN-Imprest Surr. Header";
         Emprequisition: Record "HRM-Employee Requisitions";
+        SpecialExams: Record "Aca-Special Exams Details";
     begin
         case RecRef.Number of
             Database::Club:
@@ -739,8 +781,16 @@ codeunit 50089 "Approval Workflows V1"
                     Emprequisition.Modify();
                     Handled := true;
                 end;
+            Database::"Aca-Special Exams Details":
+                begin
+                    RecRef.SetTable(SpecialExams);
+                    SpecialExams.Validate("Status", SpecialExams.Status::Approved);
+                    SpecialExams.Modify();
+                    Handled := true;
+                end;
         end;
     end;
+
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
     local procedure OnRejectApprovalRequest(var ApprovalEntry: Record "Approval Entry")
@@ -759,10 +809,12 @@ codeunit 50089 "Approval Workflows V1"
         MealBooking: Record "CAT-Meal Booking Header";
         impsurHeader: Record "FIN-Imprest Surr. Header";
         Emprequisition: Record "HRM-Employee Requisitions";
+        SpecialExams: Record "Aca-Special Exams Details";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
                 begin
+
                     if club.Get(ApprovalEntry."Document No.") then begin
                         club.validate("Approval Status", club."Approval Status"::Rejected);
                         club.Modify(true);
@@ -859,8 +911,16 @@ codeunit 50089 "Approval Workflows V1"
                         Emprequisition.Modify(true);
                     end;
                 end;
+            Database::"Aca-Special Exams Details":
+                begin
+                    if SpecialExams.Get(ApprovalEntry."Document No.") then begin
+                        SpecialExams.Status := SpecialExams.Status::Rejected;
+                        SpecialExams.Modify(true);
+                    end;
+                end;
         end;
     end;
+
 
     procedure ReOpen(var Variant: Variant)
     var
@@ -878,9 +938,11 @@ codeunit 50089 "Approval Workflows V1"
         MealBooking: Record "CAT-Meal Booking Header";
         impSurHeader: Record "FIN-Imprest Surr. Header";
         EmployeeRequisition: Record "HRM-Employee Requisitions";
+        SpecialExams: Record "Aca-Special Exams Details";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
+
             Database::club:
                 begin
                     RecRef.SetTable(club);
@@ -972,8 +1034,16 @@ codeunit 50089 "Approval Workflows V1"
                     EmployeeRequisition.Modify();
                     Variant := EmployeeRequisition;
                 end;
+            Database::"Aca-Special Exams Details":
+                begin
+                    RecRef.SetTable(SpecialExams);
+                    SpecialExams.Validate("Status", SpecialExams.Status::New);
+                    SpecialExams.Modify();
+                    Variant := SpecialExams;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
+
         end;
     end;
 
@@ -993,9 +1063,11 @@ codeunit 50089 "Approval Workflows V1"
         MealBooking: Record "CAT-Meal Booking Header";
         impsurHeader: Record "FIN-Imprest Surr. Header";
         emprequisition: Record "HRM-Employee Requisitions";
+        SpecialExams: Record "Aca-Special Exams Details";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
+
             Database::Club:
                 begin
                     RecRef.SetTable(club);
@@ -1086,6 +1158,13 @@ codeunit 50089 "Approval Workflows V1"
                     emprequisition.Validate("Status", emprequisition.Status::"Pending Approval");
                     emprequisition.Modify();
                     Variant := emprequisition;
+                end;
+            Database::"Aca-Special Exams Details":
+                begin
+                    RecRef.SetTable(SpecialExams);
+                    SpecialExams.Validate("Status", SpecialExams.Status::"Pending Approval");
+                    SpecialExams.Modify();
+                    Variant := SpecialExams;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
