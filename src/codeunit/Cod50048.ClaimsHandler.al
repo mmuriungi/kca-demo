@@ -114,8 +114,8 @@ codeunit 50048 "Claims Handler"
         PurchLine.VALIDATE("No.");
         PurchLine.Quantity := Quantity;
         PurchLine.VALIDATE(Quantity);
-        PurchLine."Unit Cost" := UnitCost;
-        PurchLine.VALIDATE("Unit Cost");
+        PurchLine."Direct Unit Cost" := UnitCost;
+        PurchLine.VALIDATE("Direct Unit Cost");
         PurchLine.INSERT(TRUE);
     end;
 
