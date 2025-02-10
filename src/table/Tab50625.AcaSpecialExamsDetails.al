@@ -41,10 +41,10 @@ table 50625 "Aca-Special Exams Details"
                     ACAStudentUnits.SETRANGE(Unit, Rec."Unit Code");
                     ACAStudentUnits.SETRANGE("Student No.", Rec."Student No.");
                     IF ACAStudentUnits.FIND('+') THEN BEGIN
-                        //  "Academic Year":=ACAStudentUnits."Academic Year";
-                        //  Semester:=ACAStudentUnits.Semester;
-                        //  Stage:=ACAStudentUnits.Stage;
-                        //  Programme:=ACAStudentUnits.Programme;
+                        "Academic Year" := ACAStudentUnits."Academic Year";
+                        Semester := ACAStudentUnits.Semester;
+                        Stage := ACAStudentUnits.Stage;
+                        Programme := ACAStudentUnits.Programme;
                         //  Category:=Rec.Category::Supplementary;
                     END;// ELSE ERROR('The unit selected is not available for Supplementary');
                 END;
