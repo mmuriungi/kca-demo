@@ -328,7 +328,12 @@ table 50556 "ACA-General Set-Up"
         {
             DataClassification = ToBeClassified;
         }
+        field(50089; "Special Exam Reg. Nos."; Code[20])
+        {
+            TableRelation = "No. Series";
+        }
     }
+
 
     keys
     {
