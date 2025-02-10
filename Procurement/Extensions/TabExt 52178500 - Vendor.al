@@ -126,9 +126,25 @@ tableextension 52178500 ExtVendor extends Vendor
         field(50001; "Kra Pin"; text[50])
         {
         }
+        //MedClaim Balance
+        field(50002; "Medical Claim Balance"; Decimal)
+        {
+            Caption = 'Medical Claim Balance';
+            FieldClass = FlowField;
+            CalcFormula = sum("Detailed Vendor Ledg. Entry"."Credit Amount" where("Vendor No." = field("No."),
+             "Vendor Transaction Type" = field("Transaction Type Filter"), "Posting Date" = field("Date Filter")));
+        }
+        //Transaction Type Filter
+        field(50003; "Transaction Type Filter"; enum "Vendor Transaction Type")
+
+        {
+            FieldClass = FlowFilter;
+        }
     }
     var
         PurchSetup: Record "Purchases & Payables Setup";
+
+
         Vend: Record Vendor;
         NoSeriesMgt: Codeunit NoSeriesManagement;
 
