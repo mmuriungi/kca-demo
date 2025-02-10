@@ -61,7 +61,7 @@ table 50625 "Aca-Special Exams Details"
         field(10; Status; Option)
         {
             Caption = 'Status';
-            OptionMembers = New,Approved,Rejected;
+            OptionMembers = New,"Pending Approval",Approved,Rejected;
             trigger OnValidate()
             begin
 
@@ -257,7 +257,18 @@ table 50625 "Aca-Special Exams Details"
             FieldClass = FlowField;
             CalcFormula = Lookup("Aca-2nd Supp. Exams Details"."Total Marks" WHERE("Student No." = FIELD("Student No."), "Unit Code" = FIELD("Unit Code"), "Academic Year" = FIELD("Academic Year"), Programme = FIELD(Programme), Stage = FIELD(Stage), Semester = FIELD(Semester), Category = FIELD(Category)));
         }
+        //Document No
+        field(47; "Document No."; Code[20])
+        {
+            Caption = 'Document No.';
+        }
+        //no series 
+        field(48; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+        }
     }
+
 
     keys
     {
@@ -271,10 +282,23 @@ table 50625 "Aca-Special Exams Details"
         key(SK2; Programme, "Unit Code", "Student No.")
         {
         }
+        key(SK3; "Document No.")
+        {
+        }
     }
 
+
     trigger OnInsert()
+    var
+        GenSetup: Record "ACA-General Set-Up";
+        Noseriesmgmt: Codeunit NoSeriesManagement;
     begin
+        IF Rec."No. Series" = '' THEN begin
+            GenSetup.Get();
+            genSetup.TESTFIELD("Special Exam Reg. Nos.");
+            NoSeriesManagement.InitSeries(genSetup."Special Exam Reg. Nos.", xRec."No. Series", 0D, Rec."No. Series", Rec."No. Series");
+        end;
+
         ACAAcademicYear.RESET;
         ACAAcademicYear.SETRANGE(Current, TRUE);
         IF ACAAcademicYear.FIND('-') THEN BEGIN
