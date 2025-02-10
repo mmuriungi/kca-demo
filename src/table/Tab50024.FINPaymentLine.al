@@ -1172,11 +1172,15 @@ table 50024 "FIN-Payment Line"
         {
 
         }
-
+        field(50027; "Vendor Transaction Type"; Enum "Vendor Transaction Type")
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 
     keys
+
     {
         key(Key1; "Line No.", No, Type, "Account No.")
         {

@@ -321,7 +321,15 @@ table 50352 "HRM-Setup"
         {
             TableRelation = "No. Series";
         }
-
+        //Medical Claim Posting Group, Parttimer Posting Group
+        field(50078; "Medical Claim Posting Group"; Code[20])
+        {
+            TableRelation = "Vendor Posting Group";
+        }
+        field(50079; "Parttimer Posting Group"; Code[20])
+        {
+            TableRelation = "Vendor Posting Group";
+        }
     }
 
     keys

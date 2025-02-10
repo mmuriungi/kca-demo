@@ -175,8 +175,20 @@ page 50657 "HRM-Setup"
                 }
 
             }
+            group(Posting)
+            {
+                field("Medical Claim Posting Group"; Rec."Medical Claim Posting Group")
+                {
+                    ApplicationArea = all;
+                }
+                field("Parttimer Posting Group"; Rec."Parttimer Posting Group")
+                {
+                    ApplicationArea = all;
+                }
+            }
         }
     }
+
 
     actions
     {

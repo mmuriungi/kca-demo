@@ -221,15 +221,34 @@ Codeunit 61106 webportals
         StudentUnits: Record "ACA-Student Units";
     begin
         SpecialExams.INIT;
-        // SpecialExams."Student No." := stdNo;
-        // SpecialExams."Unit Code" := unitCode;
-        // SpecialExams."Reason Code" := reasonCode;
-        // SpecialExams."Application Date" := TODAY;
-        // SpecialExams."Status" := SpecialExams."Status"::Pending;
-        if SpecialExams.INSERT then;
+        SpecialExams."Student No." := stdNo;
+        SpecialExams.Validate("Student No.");
+        SpecialExams."Unit Code" := unitCode;
+        SpecialExams.Validate("Unit Code");
+        SpecialExams."Created Date/Time" := CurrentDateTime;
+        SpecialExams."Special Exam Reason" := reasonCode;
+        SpecialExams.Validate("Special Exam Reason");
+        SpecialExams."Status" := SpecialExams."Status"::New;
+        if SpecialExams.INSERT(true) then
+            exit(true)
+        else
+            exit(false);
     end;
 
 
+    procedure GetAppliedSpecialUnits(studentNo: Code[20]) msg: Text
+    var
+        SpecialExams: Record "ACA-Special Exams Details";
+    begin
+        SpecialExams.RESET;
+        SpecialExams.SETRANGE("Student No.", studentNo);
+        SpecialExams.SETRANGE(Category, SpecialExams.Category::Special);
+        if SpecialExams.FIND('-') then begin
+            repeat
+                Msg += SpecialExams."Unit Code" + ' ::' + SpecialExams."Unit Description" + ' ::' + Format(SpecialExams.Status) + ' :::';
+            until SpecialExams.NEXT = 0;
+        end;
+    end;
 
     procedure createMedicalClaim(staffNo: Code[25]; claimType: Option inpatient,Outpatient; DocumentRef: Code[25]; SchemeNo: Code[25]; PatientType: Option Self,Depedant; Dependant: Text[100]; Facility: code[25]; DateOfService: Date; Amount: Decimal; Currency: Code[20]; Comments: Text): Boolean
     var
@@ -8568,7 +8587,6 @@ Codeunit 61106 webportals
             Msg := 'Not found';
     end;
 
-
     procedure Check_Hostel_Availability(Index_No: Code[20]) AvailabilityStatus: Text[50]
     var
         KUCCPSImports: Record "KUCCPS Imports";
@@ -9817,9 +9835,9 @@ Codeunit 61106 webportals
             ParttimeLines."Document No." := ClaimNo;
             ParttimeLines."Lecture No." := PartTImer."Account No.";
             ParttimeLines."Academic Year" := acadyear;
-            ParttimeLines.Validate("Academic Year");
+            //ParttimeLines.Validate("Academic Year");
             ParttimeLines.Semester := PartTImer.Semester;
-            ParttimeLines.Validate(Semester);
+            //ParttimeLines.Validate(Semester);
             ParttimeLines.programme := Programme;
             ParttimeLines.Validate("Programme");
             ParttimeLines."Unit" := UnitCode;
@@ -9850,7 +9868,7 @@ Codeunit 61106 webportals
         ParttimeClaimLines.SETRANGE("Document No.", ClaimNo);
         if ParttimeClaimLines.FIND('-') then begin
             repeat
-                msg += Format(ParttimeClaimLines."Line No.") + ' ::' + ParttimeClaimLines.Semester + ' ::' + ParttimeClaimLines."Academic Year" + ' ::' + ParttimeClaimLines.programme + ' ::' + ParttimeClaimLines."Unit" + ' ::' + ' ::' + Format(ParttimeClaimLines."Hours Done") + Format(ParttimeClaimLines.Amount) + ' :::';
+                msg += Format(ParttimeClaimLines."Line No.") + ' ::' + ParttimeClaimLines.Semester + ' ::' + ParttimeClaimLines."Academic Year" + ' ::' + ParttimeClaimLines.programme + ' ::' + ParttimeClaimLines."Unit" + ' ::' + Format(ParttimeClaimLines."Hours Done") + ' ::' + Format(ParttimeClaimLines.Amount) + ' :::';
             until ParttimeClaimLines.NEXT = 0;
         end;
     end;
