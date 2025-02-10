@@ -9817,9 +9817,9 @@ Codeunit 61106 webportals
             ParttimeLines."Document No." := ClaimNo;
             ParttimeLines."Lecture No." := PartTImer."Account No.";
             ParttimeLines."Academic Year" := acadyear;
-            ParttimeLines.Validate("Academic Year");
+            //ParttimeLines.Validate("Academic Year");
             ParttimeLines.Semester := PartTImer.Semester;
-            ParttimeLines.Validate(Semester);
+            //ParttimeLines.Validate(Semester);
             ParttimeLines.programme := Programme;
             ParttimeLines.Validate("Programme");
             ParttimeLines."Unit" := UnitCode;

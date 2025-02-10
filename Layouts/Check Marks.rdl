@@ -1156,18 +1156,6 @@ End Function
         <Field Name="Stage">
           <DataField>Stage</DataField>
         </Field>
-        <Field Name="InfoPic">
-          <DataField>InfoPic</DataField>
-        </Field>
-        <Field Name="Infoname">
-          <DataField>Infoname</DataField>
-        </Field>
-        <Field Name="infoAddress">
-          <DataField>infoAddress</DataField>
-        </Field>
-        <Field Name="infoPhone">
-          <DataField>infoPhone</DataField>
-        </Field>
         <Field Name="Unit">
           <DataField>Unit</DataField>
         </Field>
@@ -1197,93 +1185,6 @@ End Function
         </Field>
         <Field Name="TotScoreFormat">
           <DataField>TotScoreFormat</DataField>
-        </Field>
-        <Field Name="Cat">
-          <DataField>Cat</DataField>
-        </Field>
-        <Field Name="CatFormat">
-          <DataField>CatFormat</DataField>
-        </Field>
-        <Field Name="exam">
-          <DataField>exam</DataField>
-        </Field>
-        <Field Name="examFormat">
-          <DataField>examFormat</DataField>
-        </Field>
-        <Field Name="ProgCode">
-          <DataField>ProgCode</DataField>
-        </Field>
-        <Field Name="ProgDesc">
-          <DataField>ProgDesc</DataField>
-        </Field>
-        <Field Name="UnitName">
-          <DataField>UnitName</DataField>
-        </Field>
-        <Field Name="UnitDesc">
-          <DataField>UnitDesc</DataField>
-        </Field>
-        <Field Name="StudName">
-          <DataField>StudName</DataField>
-        </Field>
-        <Field Name="names">
-          <DataField>names</DataField>
-        </Field>
-        <Field Name="seq">
-          <DataField>seq</DataField>
-        </Field>
-        <Field Name="Exam_Category">
-          <DataField>Exam_Category</DataField>
-        </Field>
-        <Field Name="CompanyInfo">
-          <DataField>CompanyInfo</DataField>
-        </Field>
-        <Field Name="gradeA">
-          <DataField>gradeA</DataField>
-        </Field>
-        <Field Name="gradeAFormat">
-          <DataField>gradeAFormat</DataField>
-        </Field>
-        <Field Name="gradeB">
-          <DataField>gradeB</DataField>
-        </Field>
-        <Field Name="gradeBFormat">
-          <DataField>gradeBFormat</DataField>
-        </Field>
-        <Field Name="gradeC">
-          <DataField>gradeC</DataField>
-        </Field>
-        <Field Name="gradeCFormat">
-          <DataField>gradeCFormat</DataField>
-        </Field>
-        <Field Name="gradeD">
-          <DataField>gradeD</DataField>
-        </Field>
-        <Field Name="gradeDFormat">
-          <DataField>gradeDFormat</DataField>
-        </Field>
-        <Field Name="gradeE">
-          <DataField>gradeE</DataField>
-        </Field>
-        <Field Name="gradeEFormat">
-          <DataField>gradeEFormat</DataField>
-        </Field>
-        <Field Name="gradeF">
-          <DataField>gradeF</DataField>
-        </Field>
-        <Field Name="gradeFFormat">
-          <DataField>gradeFFormat</DataField>
-        </Field>
-        <Field Name="gradeI">
-          <DataField>gradeI</DataField>
-        </Field>
-        <Field Name="gradeIFormat">
-          <DataField>gradeIFormat</DataField>
-        </Field>
-        <Field Name="gradeZ">
-          <DataField>gradeZ</DataField>
-        </Field>
-        <Field Name="gradeZFormat">
-          <DataField>gradeZFormat</DataField>
         </Field>
       </Fields>
       <Query>
