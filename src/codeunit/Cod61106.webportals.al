@@ -279,7 +279,7 @@ Codeunit 61106 webportals
         EmpReq.SETRANGE(EmpReq.Requestor, staffNo);
         if EmpReq.FIND('-') then begin
             repeat
-                Msg += EmpReq."Requisition No." + ' ::' + EmpReq."Job Description" + ' ::' + Format(EmpReq."Reason for Request") + ' ::' + Format(EmpReq."Type of Contract Required") + ' ::' + Format(EmpReq."Required Positions") + ' ::' + Format(EmpReq."Requisition Date") + ' ::' + Format(EmpReq."Requisition Status") + ':::';
+                Msg += EmpReq."Requisition No." + ' ::' + EmpReq."Job Description" + ' ::' + Format(EmpReq."Reason for Request") + ' ::' + Format(EmpReq."Type of Contract Required") + ' ::' + Format(EmpReq."Required Positions") + ' ::' + Format(EmpReq."Requisition Date") + ' ::' + Format(EmpReq.Status) + ':::';
             until EmpReq.NEXT = 0;
         end;
     end;
