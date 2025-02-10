@@ -293,11 +293,13 @@ table 50625 "Aca-Special Exams Details"
         GenSetup: Record "ACA-General Set-Up";
         Noseriesmgmt: Codeunit NoSeriesManagement;
     begin
-        IF Rec."No. Series" = '' THEN begin
+        IF Rec."Document No." = '' THEN begin
             GenSetup.Get();
             genSetup.TESTFIELD("Special Exam Reg. Nos.");
-            NoSeriesManagement.InitSeries(genSetup."Special Exam Reg. Nos.", xRec."No. Series", 0D, Rec."No. Series", Rec."No. Series");
+            NoSeriesManagement.InitSeries(genSetup."Special Exam Reg. Nos.", xRec."No. Series", 0D, Rec."Document No.", Rec."No. Series");
+
         end;
+
 
         ACAAcademicYear.RESET;
         ACAAcademicYear.SETRANGE(Current, TRUE);
