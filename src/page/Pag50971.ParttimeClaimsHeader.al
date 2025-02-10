@@ -209,9 +209,13 @@ page 50971 "Parttime Claims Header"
                 var
                     ParttimerMgmt: Codeunit "PartTimer Management";
                 begin
+                    if not confirm('Are you sure you want to post this claim? This will create a new purchase invoice.') then
+                        exit;
+                    ParttimerMgmt.createPurchaseInvoice(Rec);
                     ParttimerMgmt.createPaymentVoucher(Rec);
                     // Rec.PostClaim();
                 end;
+
             }
         }
     }
