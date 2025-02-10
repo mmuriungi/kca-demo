@@ -472,6 +472,105 @@ page 51457 "ACA-Admissions Role Center"
                     ApplicationArea = All;
                 }
             }
+            group("Students Management")
+            {
+                Caption = 'Students Management';
+                Image = ResourcePlanning;
+                action(Registration)
+                {
+                    Image = Register;
+
+                    RunObject = Page "ACA-Std Registration List";
+                    ApplicationArea = All;
+                }
+                action("Students Card")
+                {
+                    Image = Registered;
+
+                    RunObject = Page "ACA-Std Card List";
+                    ApplicationArea = All;
+                }
+                action(Programme)
+                {
+                    Caption = 'Programmes';
+                    RunObject = Page "ACA-Programmes List";
+                    ApplicationArea = All;
+                }
+                action("Signing of Norminal Role")
+                {
+                    Caption = 'Signing of Norminal Role';
+                    RunObject = Page "ACA-Norminal Role Signing";
+                    ApplicationArea = All;
+                }
+                // action("Class Allocations")
+                // {
+                //     Image = Allocate;
+                //     RunObject = Page "HRM-Class Allocation List";
+                //     ApplicationArea = All;
+                // }
+            }
+            group("NFM")
+            {
+                action("NFM Bands")
+                {
+                    RunObject = page "Fund Band Categories";
+                    ApplicationArea = all;
+
+                }
+                action("NFM Batch List")
+                {
+                    RunObject = page "Fund Band Batch List";
+                    ApplicationArea = all;
+                }
+                action("NFM Batch Archived")
+                {
+                    RunObject = page "Band Batch List Archived";
+                    ApplicationArea = all;
+                }
+            }
+
+            group(Defferment)
+            {
+                action(DefferedStudents)
+                {
+                    RunObject = Page "Deffered Students";
+                    ApplicationArea = All;
+                }
+            }
+            group(Clearances)
+            {
+                Caption = 'Student Clearance';
+                Image = Intrastat;
+                action(OpenClearance)
+                {
+                    Caption = 'Student Clearance (Open)';
+                    Image = Register;
+
+                    RunObject = Page "ACA-Student Clearance (Open)";
+                    ApplicationArea = All;
+                }
+                action(ActiveClearance)
+                {
+                    Caption = 'Student Clearance (Active)';
+                    Image = Registered;
+
+                    RunObject = Page "ACA-Student Clearance (Active)";
+                    ApplicationArea = All;
+                }
+                action(Cleared)
+                {
+                    Caption = 'Student Clearance(Cleared)';
+                    RunObject = Page "ACA-Student Clearance(Cleared)";
+                    ApplicationArea = All;
+                }
+                action(AllumniList)
+                {
+                    Caption = 'Student Aluminae List';
+                    RunObject = Page "ACA-Student Aluminae List";
+                    ApplicationArea = All;
+                }
+            }
+
             group(Approvals)
             {
                 Caption = 'Approvals';

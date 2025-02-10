@@ -446,6 +446,16 @@ page 51459 "ACA-Std Finance Role Center"
                     ApplicationArea = all;
                 }
             }
+
+            group("Charge Additions")
+            {
+                action("&Charge Additions")
+                {
+                    Caption = 'Charge Additions';
+                    RunObject = Page "ACA-Charge Additions";
+                    ApplicationArea = All;
+                }
+            }
             group(Approvals)
             {
                 Caption = 'Approvals';

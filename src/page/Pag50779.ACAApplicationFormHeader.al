@@ -659,7 +659,7 @@ page 50779 "ACA-Application Form Header"
             }
             action(sendApproval)
             {
-                Caption = 'Send To COD';
+                Caption = 'Send To HOD';
                 Image = SendApprovalRequest;
                 Promoted = true;
                 PromotedCategory = process;
