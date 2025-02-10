@@ -105,6 +105,7 @@ codeunit 50095 "PartTimer Management"
             PvLines."Shortcut Dimension 2 Code" := PartTime."Global Dimension 2 Code";
             PvLines."Shortcut Dimension 3 Code" := PartTime."Shortcut Dimension 3 Code";
             PvLines.Amount := PartTime."Payment Amount";
+            PvLines."Vendor Transaction Type" := PvLines."Vendor Transaction Type"::"Part timer";
             PvLines.Validate("Amount");
             if PvLines.Insert(true) then begin
                 Message('Payment Voucher Created Successfully');

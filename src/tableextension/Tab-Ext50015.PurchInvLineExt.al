@@ -1,4 +1,4 @@
-tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
+tableextension 50015 "Purch. Inv. Line Ext" extends "Purch. Inv. Line"
 {
     fields
     {
@@ -46,8 +46,7 @@ tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
         {
             FieldClass = FlowField;
             Editable = false;
-            CalcFormula = Lookup("Purchase Header".Status WHERE("No." = FIELD("Document No."),
-                                                                 "Document Type" = FIELD("Document Type")));
+            CalcFormula = Lookup("Purchase Header".Status WHERE("No." = FIELD("Document No.")));
         }
         field(6009; "Asset No."; Code[10])
         {
@@ -80,8 +79,7 @@ tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
         field(6012; "Request for Quote No."; Code[20])
         {
             FieldClass = FlowField;
-            CalcFormula = Lookup("Purchase Header".Lost WHERE("Document Type" = FIELD("Document Type"),
-                                                               "No." = FIELD("Document No.")));
+            CalcFormula = Lookup("Purchase Header".Lost WHERE("No." = FIELD("Document No.")));
             Editable = false;
             trigger OnValidate()
             begin
@@ -250,18 +248,6 @@ tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
             trigger OnValidate()
             begin
 
-                //Ushindi
-
-                TestStatusOpen;
-                IF Category = Category::Item THEN BEGIN
-                    //INSERT(TRUE);
-                    // MODIFY(TRUE);
-                    Type := Type::Item
-                    //END ELSE IF Category=Category::Service THEN BEGIN
-                    //Type:=Type::"G/L Account";
-
-
-                END;
             end;
         }
         field(6033; "Ordered by"; code[100])
@@ -309,82 +295,5 @@ tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
         {
             DataClassification = ToBeClassified;
         }
-
-
     }
-
-
-    trigger OnInsert()
-
-    var
-        pheader: Record "PROC-Procurement Plan Header";
-    begin
-        Rec."Location Code" := 'MAIN STORE';
-        pheader.Reset();
-        pheader.SetRange("Global Dimension 1 Code", "Shortcut Dimension 1 Code");
-        pheader.SetRange(Active, true);
-        if pheader.Find('-') then begin
-            Rec."Procurement Plan" := pheader."Budget Name";
-        end;
-        ;// else
-         // Error('No Active Procurement Plan');
-    end;
-
-    procedure CheckPlan(var prline: Record "Purchase Line")
-    var
-        plHead: Record "PROC-Procurement Plan Header";
-        pLine: Record "PROC-Procurement Plan Lines";
-        Pperiods: Record "Proc Plan Periods";
-    begin
-        Pperiods.Reset();
-        Pperiods.SetRange(Current, true);
-        Pperiods.SetRange(Closed, false);
-        if Pperiods.Find('-') then begin
-            plHead.Reset();
-            plhead.SetRange("Global Dimension 1 Code", "Shortcut Dimension 1 Code");
-            plHead.SetRange(Active, true);
-            if plHead.Find('+') then begin
-                pLine.Reset();
-                pline.SetRange("Budget Name", plHead."Budget Name");
-                pline.SetRange("No.", prline."No.");
-                if not pLine.Find('-') then begin
-                    Error('The Item is not budgeted for');
-                end;
-            end;// else
-                //  Error('No Active Procurement Plan');
-        end else
-            Error('No open period available');
-
-    end;
-
-    procedure CheckPlanQTY(var prline: Record "Purchase Line")
-    var
-        plHead: Record "PROC-Procurement Plan Header";
-        pLine: Record "PROC-Procurement Plan Lines";
-        qty: Decimal;
-        qtyp: Decimal;
-        qtyR: Decimal;
-    begin
-        qty := 0;
-        plHead.Reset();
-        plHead.SetRange("Global Dimension 1 Code", plHead."Global Dimension 1 Code");
-        plHead.SetRange(Active, true);
-        if plHead.Find('+') then begin
-            pLine.Reset();
-            pLine.SetRange("Global Dimension 1 Code", plHead."Global Dimension 1 Code");
-            pline.SetRange("Budget Name", plHead."Budget Name");
-            pline.SetRange("No.", prline."No.");
-            if pLine.Find('-') then begin
-                repeat
-                    pLine.CalcFields("Quantity Requisitioned");
-                    qty := qty + pLine.Quantity;
-                    qtyp := pLine."Quantity Requisitioned";
-                until pLine.Next() = 0;
-            end;
-            qtyR := qty - qtyp;
-
-            if prline.Quantity > qtyR then Error('You cannot requisition above the budgeted quantity in the Plan');
-
-        end;
-    end;
 }

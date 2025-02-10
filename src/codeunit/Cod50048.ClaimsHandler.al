@@ -32,15 +32,26 @@ codeunit 50048 "Claims Handler"
             PvLines.No := PVHeader."No.";
             PvLines.Type := PayTypes.Code;
             PvLines.Validate("Type");
-            PvLines."Account No." := Employee."Medical Claim Vendor No.";
+            PvLines."Account No." := Employee."Vendor No.";
             PvLines.Validate("Account No.");
             PvLines."Global Dimension 1 Code" := Claim."Global Dimension 1 Code";
             PvLines."Shortcut Dimension 2 Code" := Claim."Global Dimension 2 Code";
+
             PvLines."Shortcut Dimension 3 Code" := Claim."Shortcut Dimension 3 Code";
             PvLines.Amount := Claim."Claim Amount";
+            case
+                Claim."Claim Type" of
+                Claim."Claim Type"::Inpatient:
+                    PvLines."Vendor Transaction Type" := PvLines."Vendor Transaction Type"::"Inpatient Claim";
+                Claim."Claim Type"::Outpatient:
+                    PvLines."Vendor Transaction Type" := PvLines."Vendor Transaction Type"::"Outpatient Claim";
+                Claim."Claim Type"::Optical:
+                    PvLines."Vendor Transaction Type" := PvLines."Vendor Transaction Type"::"Optical Claim";
+            end;
             PvLines.Validate("Amount");
             if PvLines.Insert(true) then begin
                 Message('Payment Voucher Created Successfully');
+
                 posted := true;
             end;
         end;
@@ -64,7 +75,7 @@ codeunit 50048 "Claims Handler"
         PurchHeader.Init();
         PurchHeader."Document Type" := PurchHeader."Document Type"::Invoice;
         PurchHeader."No." := '';
-        PurchHeader."Buy-from Vendor No." := PurchSetup."Requisition Default Vendor";
+        PurchHeader."Buy-from Vendor No." := VendorNo;
         PurchHeader.VALIDATE(PurchHeader."Buy-from Vendor No.");
         PurchHeader."Document Date" := TODAY;
         PurchHeader."Posting Date" := TODAY;
@@ -103,8 +114,8 @@ codeunit 50048 "Claims Handler"
         PurchLine.VALIDATE("No.");
         PurchLine.Quantity := Quantity;
         PurchLine.VALIDATE(Quantity);
-        PurchLine."Unit Cost" := UnitCost;
-        PurchLine.VALIDATE("Unit Cost");
+        PurchLine."Direct Unit Cost" := UnitCost;
+        PurchLine.VALIDATE("Direct Unit Cost");
         PurchLine.INSERT(TRUE);
     end;
 
