@@ -232,6 +232,7 @@ Codeunit 61106 webportals
         SpecialExams.Validate("Special Exam Reason");
         SpecialExams."Status" := SpecialExams."Status"::New;
         SpecialExams.Category := SpecialExams.Category::Special;
+        SpecialExams."Document No." := '';
         if SpecialExams.INSERT(true) then begin
             variant := SpecialExams;
             if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
