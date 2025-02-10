@@ -214,11 +214,13 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure SubmitSpecialExamApplication(stdNo: code[25]; unitCode: Code[20]; reasonCode: Code[20]) Msg: Boolean
+    procedure SubmitSpecialExamApplication(stdNo: code[25]; unitCode: Code[20]; reasonCode: Code[20]) Msg: Code[25]
     var
         SpecialExams: Record "ACA-Special Exams Details";
         Sems: Record "ACA-Semesters";
         StudentUnits: Record "ACA-Student Units";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
     begin
         SpecialExams.INIT;
         SpecialExams."Student No." := stdNo;
@@ -230,11 +232,16 @@ Codeunit 61106 webportals
         SpecialExams.Validate("Special Exam Reason");
         SpecialExams."Status" := SpecialExams."Status"::New;
         SpecialExams.Category := SpecialExams.Category::Special;
-        if SpecialExams.INSERT(true) then
-            exit(true)
+        if SpecialExams.INSERT(true) then begin
+            variant := SpecialExams;
+            if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMgmt.OnSendDocForApproval(variant);
+            exit(SpecialExams."Document No.")
+        end
         else
-            exit(false);
+            exit('');
     end;
+
 
 
     procedure GetAppliedSpecialUnits(studentNo: Code[20]) msg: Text
@@ -251,7 +258,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure createMedicalClaim(staffNo: Code[25]; claimType: Option inpatient,Outpatient; DocumentRef: Code[25]; SchemeNo: Code[25]; PatientType: Option Self,Depedant; Dependant: Text[100]; Facility: code[25]; DateOfService: Date; Amount: Decimal; Currency: Code[20]; Comments: Text): Boolean
+    procedure createMedicalClaim(staffNo: Code[25]; claimType: Option inpatient,Outpatient; DocumentRef: Code[25]; SchemeNo: Code[25]; PatientType: Option Self,Depedant; Dependant: Text[100]; Facility: code[25]; DateOfService: Date; Amount: Decimal; Currency: Code[20]; Comments: Text): Code[25]
     var
         MedClaim: Record "HRM-Medical Claims";
     begin
@@ -274,9 +281,12 @@ Codeunit 61106 webportals
         MedClaim.Validate("Claim Amount");
         MedClaim.Comments := Comments;
         if MedClaim.INSERT(true) then begin
-            exit(SendMedicalClaimForApproval(MedClaim."Claim No"));
-        end
+            if (SendMedicalClaimForApproval(MedClaim."Claim No")) then
+                exit(MedClaim."Claim No");
+        end else
+            exit('');
     end;
+
 
     procedure getMedicalSchemes() Msg: Text
     var
