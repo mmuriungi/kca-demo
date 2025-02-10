@@ -913,9 +913,12 @@ codeunit 50089 "Approval Workflows V1"
                 end;
             Database::"Aca-Special Exams Details":
                 begin
-                    if SpecialExams.Get(ApprovalEntry."Document No.") then begin
+                    SpecialExams.Reset();
+                    SpecialExams.SetRange("Document No.", ApprovalEntry."Document No.");
+                    if SpecialExams.FindFirst() then begin
                         SpecialExams.Status := SpecialExams.Status::Rejected;
                         SpecialExams.Modify(true);
+
                     end;
                 end;
         end;
