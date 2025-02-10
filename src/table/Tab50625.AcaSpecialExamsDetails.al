@@ -31,23 +31,24 @@ table 50625 "Aca-Special Exams Details"
             Caption = 'Unit Code';
             trigger OnValidate()
             begin
-                IF Category = Category::Supplementary THEN BEGIN
-                    ACAAcademicYear.RESET;
-                    ACAAcademicYear.SETRANGE(Current, TRUE);
-                    IF ACAAcademicYear.FIND('-') THEN BEGIN
-                        Rec."Current Academic Year" := ACAAcademicYear.Code;
-                    END;
-                    ACAStudentUnits.RESET;
-                    ACAStudentUnits.SETRANGE(Unit, Rec."Unit Code");
-                    ACAStudentUnits.SETRANGE("Student No.", Rec."Student No.");
-                    IF ACAStudentUnits.FIND('+') THEN BEGIN
-                        "Academic Year" := ACAStudentUnits."Academic Year";
-                        Semester := ACAStudentUnits.Semester;
-                        Stage := ACAStudentUnits.Stage;
-                        Programme := ACAStudentUnits.Programme;
-                        //  Category:=Rec.Category::Supplementary;
-                    END;// ELSE ERROR('The unit selected is not available for Supplementary');
+                //IF Category = Category::Supplementary THEN BEGIN
+                ACAAcademicYear.RESET;
+                ACAAcademicYear.SETRANGE(Current, TRUE);
+                IF ACAAcademicYear.FIND('-') THEN BEGIN
+                    Rec."Current Academic Year" := ACAAcademicYear.Code;
                 END;
+                ACAStudentUnits.RESET;
+                ACAStudentUnits.SETRANGE(Unit, Rec."Unit Code");
+                ACAStudentUnits.SETRANGE("Student No.", Rec."Student No.");
+                IF ACAStudentUnits.FIND('+') THEN BEGIN
+                    "Academic Year" := ACAStudentUnits."Academic Year";
+                    Semester := ACAStudentUnits.Semester;
+                    Stage := ACAStudentUnits.Stage;
+                    Programme := ACAStudentUnits.Programme;
+                    //  Category:=Rec.Category::Supplementary;
+                END;// ELSE ERROR('The unit selected is not available for Supplementary');
+                    //  END;
+
 
             end;
         }

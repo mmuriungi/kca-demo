@@ -185,6 +185,20 @@ page 50657 "HRM-Setup"
                 {
                     ApplicationArea = all;
                 }
+                field("Claim G/L Account"; Rec."Claim G/L Account")
+                {
+                    ApplicationArea = all;
+                }
+                field("Claim G/L Account Name"; Rec."Claim G/L Account Name")
+                {
+                }
+                field("Parttimer G/L Account"; Rec."Parttimer G/L Account")
+                {
+                    ApplicationArea = all;
+                }
+                field("Parttimer G/L Account Name"; Rec."Parttimer G/L Account Name")
+                {
+                }
             }
         }
     }

@@ -61,8 +61,8 @@ codeunit 50095 "PartTimer Management"
                 PartTimeRates.Reset();
                 PartTimeRates.SetRange("Programme Category", parttimeLine."Programme Category");
                 if PartTimeRates.FindFirst() then begin
-                   // parttimeLine."Hourly Rate" := PartTimeRates."Rate per Hour";
-                   parttimeLine."Hourly Rate" := LecturerUnits.Rate;
+                    // parttimeLine."Hourly Rate" := PartTimeRates."Rate per Hour";
+                    parttimeLine."Hourly Rate" := LecturerUnits.Rate;
                     parttimeLine.Validate("Hourly Rate");
                 end;
             end;
@@ -125,4 +125,17 @@ codeunit 50095 "PartTimer Management"
         Employee.SetRange("No.", No);
         Employee.FindFirst();
     end;
+
+    procedure createPurchaseInvoice(Var PartTime: Record "Parttime Claim Header")
+    var
+        claimHandler: Codeunit "Claims Handler";
+        PurchHeader: Record "Purchase Header";
+        HrSetup: Record "HRM-Setup";
+        PurchLine: Record "Purchase Line";
+    begin
+        PurchHeader := claimHandler.CreatePurchaseHeader(PartTime."Account No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime);
+        HrSetup.Get();
+        claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Claim G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
+    end;
+
 }

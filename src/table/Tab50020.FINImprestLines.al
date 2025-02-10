@@ -21,6 +21,8 @@ table 50020 "FIN-Imprest Lines"
             TableRelation = "G/L Account"."No.";
 
             trigger OnValidate()
+            var
+                Emp: Record "HRM-Employee C";
             begin
                 IF GLAcc.GET("Account No:") THEN GLAcc.VALIDATE(GLAcc."No.");
                 "Account Name" := GLAcc.Name;
@@ -30,9 +32,18 @@ table 50020 "FIN-Imprest Lines"
                 IF Pay.FINDFIRST THEN BEGIN
                     IF Pay."Account No." <> '' THEN
                         "Imprest Holder" := Pay."Account No."
-                    ELSE
-                        ERROR('Please Enter the Customer/Account Number');
+                    ELSE begin
+                        if Pay."Staff No" <> '' then begin
+                            if Emp.GET(Pay."Staff No") then
+                                "Imprest Holder" := Emp."Customer Acc";
+                        end else
+                            ERROR('Please Enter the Customer/Account Number');
+                    end;
+                    // ERROR('Please Enter the Customer/Account Number');
                 END;
+
+
+
             end;
         }
         field(3; "Account Name"; Text[80])

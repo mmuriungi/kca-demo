@@ -330,7 +330,33 @@ table 50352 "HRM-Setup"
         {
             TableRelation = "Vendor Posting Group";
         }
+        //Claim G/l Account
+        field(50080; "Claim G/L Account"; Code[20])
+        {
+            TableRelation = "G/L Account";
+        }
+        //name
+        field(50081; "Claim G/L Account Name"; Text[100])
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("G/L Account".Name WHERE("No." = FIELD("Claim G/L Account")));
+        }
+        //Parttimer G/L Account
+        field(50082; "Parttimer G/L Account"; Code[20])
+        {
+            TableRelation = "G/L Account";
+        }
+        //name
+        field(50083; "Parttimer G/L Account Name"; Text[100])
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("G/L Account".Name WHERE("No." = FIELD("Parttimer G/L Account")));
+        }
     }
+
+
+
+
 
     keys
     {
