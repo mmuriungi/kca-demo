@@ -148,6 +148,7 @@ page 50971 "Parttime Claims Header"
                 PromotedCategory = Process;
                 Image = SendApprovalRequest;
 
+                Visible = not Rec.Posted;
                 trigger OnAction()
                 var
                     ApprovMgmt: Codeunit "Approval Workflows V1";
@@ -175,6 +176,7 @@ page 50971 "Parttime Claims Header"
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = SendApprovalRequest;
+                Visible = not Rec.Posted;
                 trigger OnAction()
                 var
                     ApprovMgmt: Codeunit "Approval Workflows V1";
@@ -204,6 +206,7 @@ page 50971 "Parttime Claims Header"
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = PostBatch;
+                Visible = not Rec.Posted;
 
                 trigger OnAction()
                 var
@@ -213,6 +216,8 @@ page 50971 "Parttime Claims Header"
                         exit;
                     ParttimerMgmt.createPurchaseInvoice(Rec);
                     ParttimerMgmt.createPaymentVoucher(Rec);
+                    Rec.Posted := true;
+                    Rec.Modify();
                     // Rec.PostClaim();
                 end;
 

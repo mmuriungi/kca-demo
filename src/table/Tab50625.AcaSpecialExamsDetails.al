@@ -30,12 +30,19 @@ table 50625 "Aca-Special Exams Details"
         {
             Caption = 'Unit Code';
             trigger OnValidate()
+            var
+                Sems: Record "ACA-Semester";
             begin
                 //IF Category = Category::Supplementary THEN BEGIN
                 ACAAcademicYear.RESET;
                 ACAAcademicYear.SETRANGE(Current, TRUE);
                 IF ACAAcademicYear.FIND('-') THEN BEGIN
                     Rec."Current Academic Year" := ACAAcademicYear.Code;
+                END;
+                Sems.RESET;
+                Sems.SETRANGE("Current Semester", TRUE);
+                IF Sems.FIND('-') THEN BEGIN
+                    Rec.Semester := Sems.Code;
                 END;
                 ACAStudentUnits.RESET;
                 ACAStudentUnits.SETRANGE(Unit, Rec."Unit Code");
