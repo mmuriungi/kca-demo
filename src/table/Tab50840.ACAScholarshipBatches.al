@@ -10,10 +10,15 @@ table 50840 "ACA-Scholarship Batches"
     {
         field(1; "No."; Code[20])
         {
-            // Editable = false;
-
-            //DataClassification = ToBeClassified;
-            NotBlank = true;
+            Editable = false;
+            trigger OnValidate()
+            begin
+                if "No." = '' then begin
+                    genSetUp.Get();
+                    genSetUp.TestField("Scholarship Nos.");
+                    noseries.TestManual(genSetUp."Scholarship Nos.");
+                end;
+            end;
         }
         field(2; "Document Date"; Date)
         {
@@ -65,7 +70,9 @@ table 50840 "ACA-Scholarship Batches"
         }
         field(6; "No. of Students "; Integer)
         {
-            DataClassification = ToBeClassified;
+            FieldClass = FlowField;
+            CalcFormula = count("ACA-Imp. Receipts Buffer" WHERE("Transaction Code" = field("No.")));
+            Editable = false;
         }
         field(7; "Batch No."; Code[20])
         {
@@ -79,12 +86,14 @@ table 50840 "ACA-Scholarship Batches"
         field(9; "Receipt Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
+            Editable = false;
         }
         field(10; "Allocated Amount"; Decimal)
         {
             //DataClassification = ToBeClassified;
             FieldClass = FlowField;
             CalcFormula = sum("ACA-Imp. Receipts Buffer".Amount WHERE("Transaction Code" = field("No.")));
+            Editable = false;
 
         }
         field(11; "Academic Year"; Code[20])
@@ -119,9 +128,9 @@ table 50840 "ACA-Scholarship Batches"
                 Receipts.Reset();
                 Receipts.SetRange("No.", "Receipt No");
                 if Receipts.FindFirst() then begin
-                    //CalcFields("Allocated Amount");
+                    Receipts.CalcFields("Total Batch Allocation");
                     "Receipt Amount" := Receipts."Amount Recieved";
-                    //Rec:= ("Receipt Amount" - "Allocated Amount");
+                    "Unallocated Amount" := Receipts."Amount Recieved" - Receipts."Total Batch Allocation";
                 end;
             end;
         }
@@ -137,8 +146,12 @@ table 50840 "ACA-Scholarship Batches"
         {
             DataClassification = ToBeClassified;
         }
-
-
+        //Unallocated Amount
+        field(20; "Unallocated Amount"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
     }
 
     keys
@@ -164,19 +177,14 @@ table 50840 "ACA-Scholarship Batches"
 
     trigger OnInsert()
     begin
-        IF rec."No." = '' THEN BEGIN
+        IF "No." = '' THEN BEGIN
             GenLedgerSetup.Get();
 
             GenLedgerSetup.TESTFIELD(GenLedgerSetup."Scholarship Nos.");
-            "No." := noseries.GetNextNo(GenLedgerSetup."Scholarship Nos.", TODAY, TRUE);
-            // NoSeriesMgt.InitSeries(GenLedgerSetup."Scholarship Nos.", xRec."No. Series", 0D, "No.", "No. Series");
+            NoSeriesMgt.InitSeries(GenLedgerSetup."Scholarship Nos.", xRec."No. Series", 0D, "No.", "No. Series");
         END;
         Rec."Document Date" := Today;
         Rec."created by" := UserId;
-
-
-
-
     end;
 
     trigger OnModify()

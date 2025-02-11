@@ -305,7 +305,7 @@ page 50700 "HRM Successfull Candidate"
                         if Rec."Employee No" = '' then begin
                             IF NOT CONFIRM('Are you sure you want to Upload Applicants information to the Employee Card', FALSE) THEN EXIT;
                             HRJobApplications.SetFilter(HRJobApplications."Application No", Rec."Application No");
-                            REPORT.Run(51177, true, false, HRJobApplications);
+                            REPORT.Run(Report::"HR Applicant to Employee", true, false, HRJobApplications);
 
                             // AcademicQual.Reset();
                             // AcademicQual.SetRange(AcademicQual."Employee No.", Rec."Employee No");
@@ -335,7 +335,7 @@ page 50700 "HRM Successfull Candidate"
                     begin
                         inv.Reset();
                         inv.SetRange("Application No", Rec."Application No");
-                        Report.Run(51226, true, true, inv);
+                        Report.Run(Report::"HRM-Offer letter", true, true, inv);
                     end;
 
                     //RunObject = Report "HRM-Offer letter";
@@ -385,8 +385,15 @@ page 50700 "HRM Successfull Candidate"
                     Promoted = True;
                     PromotedCategory = Category4;
                     PromotedIsBig = True;
-                    RunObject = Page "Document Attachment Details";
-                    RunPageLink = "No." = field("Application No");
+                    trigger OnAction()
+                    var
+                        DocumentAttachmentDetails: Page 1173;
+                        RecRef: RecordRef;
+                    begin
+                        RecRef.GETTABLE(Rec);
+                        DocumentAttachmentDetails.OpenForRecRef(RecRef);
+                        DocumentAttachmentDetails.RUNMODAL;
+                    end;
 
 
 
@@ -471,7 +478,7 @@ page 50700 "HRM Successfull Candidate"
                         HRJobApplications.Reset;
                         HRJobApplications.SetRange(HRJobApplications."Application No", Rec."Application No");
                         if HRJobApplications.Find('-') then
-                            REPORT.Run(51153, true, true, HRJobApplications);
+                            REPORT.Run(Report::"HR Job Applications", true, true, HRJobApplications);
                         //REPORT.Run(51153, true, true);
 
                     end;

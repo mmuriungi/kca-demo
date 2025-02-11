@@ -446,6 +446,24 @@ page 51493 "Finance Management Rolecenter"
                     Image = PriceAdjustment;
                     RunObject = Page "Posted Parttime Claim List";
                 }
+                action("Parttime Claim Purchase Invoice")
+                {
+                    Caption = 'Parttime Claim Purchase Invoice';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Purchase Invoices";
+                    RunPageView = WHERE("Claim Type" = FILTER("Parttime"));
+                }
+                action("Posted Parttime Claim Purchase Invoice")
+                {
+                    Caption = 'Posted Parttime Claim Purchase Invoice';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Posted Purchase Invoices";
+                    RunPageView = WHERE("Claim Type" = FILTER("Parttime"));
+                }
+
+
             }
             group("Medical Claims")
             {
@@ -489,8 +507,28 @@ page 51493 "Finance Management Rolecenter"
                     RunObject = Page "Medical Claims List";
                     RunPageView = WHERE(Posted = const(true));
                 }
+                //Medical Claim Purchase Invoice
+                action("Medical Claim Purchase Invoice")
+                {
+                    Caption = 'Medical Claim Purchase Invoice';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Purchase Invoices";
+                    RunPageView = WHERE("Claim Type" = FILTER("Medical"));
+                }
+                //posted Medical Claim Purchase Invoice
+                action("Posted Medical Claim Purchase Invoice")
+                {
+                    Caption = 'Posted Medical Claim Purchase Invoice';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Posted Purchase Invoices";
+                    RunPageView = WHERE("Claim Type" = FILTER("Medical"));
+                }
             }
             group("Posted Documents")
+
+
             {
                 Caption = 'Posted Documents';
                 Image = FiledPosted;
@@ -932,6 +970,7 @@ page 51493 "Finance Management Rolecenter"
             }
             Group("Receivables")
             {
+                Visible = false;
                 action("Receipt List")
                 {
                     ApplicationArea = Basic, Suite;

@@ -482,6 +482,13 @@ table 50028 "FIN-Receipts Header"
         }
         field(50018; "Reference No"; code[50]) { }
 
+        //Total Batch allocation
+        field(23; "Total Batch Allocation"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("ACA-Imp. Receipts Buffer".Amount WHERE("Ack. Receipt No." = FIELD("No."), Posted = const(true)));
+            Editable = false;
+        }
 
     }
 

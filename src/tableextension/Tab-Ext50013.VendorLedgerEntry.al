@@ -18,5 +18,9 @@ tableextension 50013 "Vendor Ledger Entry" extends "Vendor Ledger Entry"
         {
             DataClassification = ToBeClassified;
         }
+        field(56605; "Vendor Transaction Type"; Enum "Vendor Transaction Type")
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

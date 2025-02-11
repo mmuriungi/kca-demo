@@ -84,7 +84,7 @@ codeunit 50094 staffportals
         pAddress: Text;
         filename: Text;
         IStream: InStream;
-        Bytes: DotNet Bytes;
+        //Bytes: DotNet Bytes;
         Convert: DotNet Convert;
         MemStream: DotNet MemoryStream;
         ExamResults: Record "ACA-Exam Results";

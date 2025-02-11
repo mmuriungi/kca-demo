@@ -1165,6 +1165,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine."Account Type" := PayLine."Account Type";
                 GenJnlLine."Account No." := PayLine."Account No.";
                 GenJnlLine.VALIDATE(GenJnlLine."Account No.");
+                GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
                 GenJnlLine."External Document No." := Payments."Cheque No.";
                 GenJnlLine.Description := COPYSTR(PayLine."Transaction Name" + ':' + Payment.Payee, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
                 GenJnlLine."Currency Code" := Payments."Currency Code";
@@ -1279,6 +1280,7 @@ page 50017 "FIN-Payment Header"
                     //CurrFactor
                     GenJnlLine."Currency Factor" := Payments."Currency Factor";
                     GenJnlLine.VALIDATE("Currency Factor");
+                    GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
 
                     GenJnlLine."Gen. Posting Type" := GenJnlLine."Gen. Posting Type"::" ";
                     GenJnlLine.VALIDATE(GenJnlLine."Gen. Posting Type");
@@ -1331,6 +1333,7 @@ page 50017 "FIN-Payment Header"
                     GenJnlLine.VALIDATE(GenJnlLine."Account No.");
                     GenJnlLine."Currency Code" := Payments."Currency Code";
                     GenJnlLine.VALIDATE(GenJnlLine."Currency Code");
+                    GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
                     //CurrFactor
                     GenJnlLine."Currency Factor" := Payments."Currency Factor";
                     GenJnlLine.VALIDATE("Currency Factor");
@@ -1401,6 +1404,7 @@ page 50017 "FIN-Payment Header"
                         GenJnlLine.VALIDATE(GenJnlLine."Account No.");
                         GenJnlLine."Currency Code" := Payments."Currency Code";
                         GenJnlLine.VALIDATE(GenJnlLine."Currency Code");
+                        GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
                         //CurrFactor
                         GenJnlLine."Currency Factor" := Payments."Currency Factor";
                         GenJnlLine.VALIDATE("Currency Factor");
@@ -1467,6 +1471,7 @@ page 50017 "FIN-Payment Header"
                         GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                         GenJnlLine."Bal. Account No." := '';
                         GenJnlLine.Description := COPYSTR('Retension Balancing-' + Payments.Payee, 1, 50) + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
+                        GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
                         GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
                         GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
                         GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
@@ -1553,9 +1558,11 @@ page 50017 "FIN-Payment Header"
                         GenJnlLine.VALIDATE(GenJnlLine."Account No.");
                         GenJnlLine."Currency Code" := Payments."Currency Code";
                         GenJnlLine.VALIDATE(GenJnlLine."Currency Code");
+                        GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
                         //CurrFactor
                         GenJnlLine."Currency Factor" := Payments."Currency Factor";
                         GenJnlLine.VALIDATE("Currency Factor");
+
 
                         GenJnlLine."Gen. Posting Type" := GenJnlLine."Gen. Posting Type"::" ";
                         GenJnlLine.VALIDATE(GenJnlLine."Gen. Posting Type");
@@ -1607,6 +1614,7 @@ page 50017 "FIN-Payment Header"
                         GenJnlLine."Gen. Posting Type" := GenJnlLine."Gen. Posting Type"::" ";
                         GenJnlLine.VALIDATE(GenJnlLine."Gen. Posting Type");
                         GenJnlLine."Gen. Bus. Posting Group" := '';
+                        GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
                         GenJnlLine.VALIDATE(GenJnlLine."Gen. Bus. Posting Group");
                         GenJnlLine."Gen. Prod. Posting Group" := '';
                         GenJnlLine.VALIDATE(GenJnlLine."Gen. Prod. Posting Group");
@@ -1757,6 +1765,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine."External Document No." := Payments."Cheque No.";
                 GenJnlLine."Account Type" := PayLine."Account Type";
                 GenJnlLine."Account No." := PayLine."Account No.";
+                GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
                 GenJnlLine.VALIDATE(GenJnlLine."Account No.");
                 GenJnlLine."Currency Code" := Payments."Currency Code";
                 GenJnlLine.VALIDATE(GenJnlLine."Currency Code");
@@ -1820,6 +1829,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine.VALIDATE(GenJnlLine."Gen. Posting Type");
                 GenJnlLine."Gen. Bus. Posting Group" := '';
                 GenJnlLine.VALIDATE(GenJnlLine."Gen. Bus. Posting Group");
+                GenJnlLine."Vendor Transaction Type" := PayLine."Vendor Transaction Type";
                 GenJnlLine."Gen. Prod. Posting Group" := '';
                 GenJnlLine.VALIDATE(GenJnlLine."Gen. Prod. Posting Group");
                 GenJnlLine."VAT Bus. Posting Group" := '';

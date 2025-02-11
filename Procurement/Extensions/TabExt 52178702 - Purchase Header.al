@@ -632,10 +632,15 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
         {
 
         }
-
-
-
-
+        field(52178511; "Claim No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        //claim type
+        field(52178512; "Claim Type"; Enum "Claim Type")
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 

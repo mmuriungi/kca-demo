@@ -535,6 +535,12 @@ page 50046 "Procurement Management"
                     ApplicationArea = all;
                     RunObject = page "Proc Number Setups";
                 }
+                action("Vendor Categories")
+                {
+                    ApplicationArea = all;
+                    RunObject = page "Vendor Categories";
+                    Image = Category;
+                }
                 action("Goods Categories")
                 {
                     ApplicationArea = All;

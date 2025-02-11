@@ -5,12 +5,19 @@ report 50521 "Reasons for Incomplete"
 
     dataset
     {
+
         dataitem(StudentsClassification; "ACA-Classification Students")
         {
             CalcFields = "Status Students Count";
-            DataItemTableView = WHERE("Final Classification Pass" = FILTER(false), "Final Classification" = FILTER(<> ''));
+            DataItemTableView = where("Final Classification Pass" = filter(false), "Final Classification" = filter(<> ''));
             PrintOnlyIfDetail = true;
-            RequestFilterFields = "Graduation Academic Year", "School Code";
+            RequestFilterFields = "Graduation Academic Year", "School Code", Programme;
+            column(ReportForNavId_2; 2)
+            {
+            }
+            column(Filtersz; StudentsClassification.GetFilters)
+            {
+            }
             column(ClassCode; StudentsClassification."Final Classification")
             {
             }
@@ -115,7 +122,10 @@ report 50521 "Reasons for Incomplete"
             }
             dataitem(NotGradReason; "ACA-Not Graduating Reasons")
             {
-                DataItemLink = "Student No." = FIELD("Student Number"), "Graduation Academic Year" = FIELD("Graduation Academic Year");
+                DataItemLink = "Student No." = field("Student Number"), "Graduation Academic Year" = field("Graduation Academic Year");
+                column(ReportForNavId_28; 28)
+                {
+                }
                 column(ResonCode; NotGradReason."Reason Code")
                 {
                 }
@@ -179,7 +189,8 @@ report 50521 "Reasons for Incomplete"
                 if NoOfStudents <> 0 then NoOfStudentInText := ConvertDecimalToText.InitiateConvertion(NoOfStudents);
                 if ACAResultsStatus.Find('-') then begin
                     if ACAResultsStatus."Include Class Variable 1" then SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + NoOfStudentInText + ' (' + Format(NoOfStudents) + ') ' + ACAResultsStatus."Classification Msg2";
-                    if ACAResultsStatus."Include Class Variable 2" then SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + FacDesc + ' ' + ACAResultsStatus."Classification Msg3";///+' '+progName+' '+Prog."Exam Category";
+                    if ACAResultsStatus."Include Class Variable 2" then
+                        SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + FacDesc + ' ' + ACAResultsStatus."Classification Msg3" + ' ' + progName + ' ' + Prog."Exam Category";
                     if ACAResultsStatus."Include Class Variable 3" then SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + ACAResultsStatus."Classification Msg4";
                     //IF ACAResultsStatus."Include Class Variable 4" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+progName+' '+ClassHeader.Msg5;
                     // IF ACAResultsStatus."Include Class Variable 5" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc;//+' '+NextYear;
@@ -218,7 +229,7 @@ report 50521 "Reasons for Incomplete"
     trigger OnInitReport()
     begin
         CompInf.Get();
-        CompInf.CalcFields(CompInf.Picture);
+        //CompInf.CALCFIELDS(CompInf.Picture);
     end;
 
     trigger OnPreReport()
@@ -567,7 +578,7 @@ report 50521 "Reasons for Incomplete"
         if StrLen(CommonName) > 100 then CommonName := CopyStr(CommonName, 1, 100);
         Strlegnth := StrLen(CommonName);
         if StrLen(CommonName) > 4 then begin
-            NamesSmall := LowerCase(CommonName);
+            NamesSmall := Lowercase(CommonName);
             repeat
             begin
                 SpaceCount += 1;
@@ -593,4 +604,3 @@ report 50521 "Reasons for Incomplete"
         NewName := FirsName + ',' + OtherNames;
     end;
 }
-

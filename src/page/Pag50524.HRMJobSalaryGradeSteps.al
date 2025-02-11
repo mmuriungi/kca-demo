@@ -44,6 +44,22 @@ page 50524 "HRM-Job_Salary Grade/Steps"
                 field("Medical Ceilling"; Rec."Medical Ceilling")
                 {
                     ApplicationArea = all;
+                    Visible = false;
+                }
+                field("Inpatient Medical Ceiling"; Rec."Inpatient Medical Ceiling")
+                {
+                    //DataClassification = ToBeClassified;
+                    ApplicationArea = All;
+                }
+                field("Outpatient Medical Ceiling"; Rec."Outpatient Medical Ceiling")
+                {
+                    //DataClassification = ToBeClassified;
+                    ApplicationArea = All;
+                }
+                field("Optical Medical Ceiling"; Rec."Optical Medical Ceiling")
+                {
+                    //DataClassification = ToBeClassified;
+                    ApplicationArea = All;
                 }
                 field("Annual Leave Days"; Rec."Annual Leave Days")
                 {

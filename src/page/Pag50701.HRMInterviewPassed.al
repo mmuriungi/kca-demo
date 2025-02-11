@@ -88,7 +88,7 @@ page 50701 "HRM-Interview Passed"
                         if Rec."Employee No" = '' then begin
                             //IF NOT CONFIRM('Are you sure you want to Upload Applicants information to the Employee Card',FALSE) THEN EXIT;
                             HRJobApplications.SetFilter(HRJobApplications."Application No", Rec."Application No");
-                            REPORT.Run(51177, true, false, HRJobApplications);
+                            REPORT.Run(Report::"HR Applicant to Employee", true, false, HRJobApplications);
                             //MESSAGE('Requires a setup of the number series for it to work!');
                         end else begin
                             Message('This applicants information already exists in the employee card');
@@ -152,7 +152,7 @@ page 50701 "HRM-Interview Passed"
                         HRJobApplications.Reset;
                         HRJobApplications.SetRange(HRJobApplications."Application No", Rec."Application No");
                         if HRJobApplications.Find('-') then
-                            REPORT.Run(51153, true, true, HRJobApplications);
+                            REPORT.Run(Report::"HR Job Applications", true, true, HRJobApplications);
                     end;
                 }
             }

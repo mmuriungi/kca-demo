@@ -47,6 +47,10 @@ table 50692 "Parttime Claim Lines"
                     "Unit Description" := lecunits.Description;
                     Stage := lecunits.Stage;
                     "Student Count" := lecunits."Registered Students";
+                    //"Hours Done" := lecunits."No. Of Hours";
+                    //"Hourly Rate" := lecunits.Rate;
+                   // Amount := lecunits."Unit Cost";
+                   //Amount := lecunits."No. Of Hours" * lecunits.Rate;
                     #region "Invigillation Done" = false
                     /*
                     if "Invigillation Done" = false then begin

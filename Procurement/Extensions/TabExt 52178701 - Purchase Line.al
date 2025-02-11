@@ -301,14 +301,21 @@ tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
         {
 
         }
-
-
+        field(6042; "Claim No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(6043; "Claim Type"; Enum "Claim Type")
+        {
+            DataClassification = ToBeClassified;
+        }
 
 
     }
 
 
     trigger OnInsert()
+
     var
         pheader: Record "PROC-Procurement Plan Header";
     begin

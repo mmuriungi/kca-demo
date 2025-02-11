@@ -13,15 +13,19 @@ page 52178602 "Vendor Categories"
         {
             repeater(General)
             {
+                field("Preq Year"; Rec."Preq Year")
+                {
+                   ApplicationArea = All;
+                }
                 field("Code"; Rec."Code")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Code field.';
+                
                 }
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Description field.';
+                   
                 }
             }
         }

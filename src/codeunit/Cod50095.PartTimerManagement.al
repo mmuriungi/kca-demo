@@ -44,7 +44,8 @@ codeunit 50095 "PartTimer Management"
         LecturerUnits: Record "ACA-Lecturers Units";
     begin
         if parttimeLine.Excluded then
-            parttimeLine.Amount := 0
+            //parttimeLine.Amount := 0
+            Error('You cannot claim for this unit because either CAT or EXAM is missing')
         else begin
             AcaUnits.Reset();
             AcaUnits.SetRange(Code, parttimeLine."Unit");
@@ -60,7 +61,8 @@ codeunit 50095 "PartTimer Management"
                 PartTimeRates.Reset();
                 PartTimeRates.SetRange("Programme Category", parttimeLine."Programme Category");
                 if PartTimeRates.FindFirst() then begin
-                    parttimeLine."Hourly Rate" := PartTimeRates."Rate per Hour";
+                    // parttimeLine."Hourly Rate" := PartTimeRates."Rate per Hour";
+                    parttimeLine."Hourly Rate" := LecturerUnits.Rate;
                     parttimeLine.Validate("Hourly Rate");
                 end;
             end;
@@ -103,6 +105,7 @@ codeunit 50095 "PartTimer Management"
             PvLines."Shortcut Dimension 2 Code" := PartTime."Global Dimension 2 Code";
             PvLines."Shortcut Dimension 3 Code" := PartTime."Shortcut Dimension 3 Code";
             PvLines.Amount := PartTime."Payment Amount";
+            PvLines."Vendor Transaction Type" := PvLines."Vendor Transaction Type"::"Part timer";
             PvLines.Validate("Amount");
             if PvLines.Insert(true) then begin
                 Message('Payment Voucher Created Successfully');
@@ -123,4 +126,19 @@ codeunit 50095 "PartTimer Management"
         Employee.SetRange("No.", No);
         Employee.FindFirst();
     end;
+
+    procedure createPurchaseInvoice(Var PartTime: Record "Parttime Claim Header")
+    var
+        claimHandler: Codeunit "Claims Handler";
+        PurchHeader: Record "Purchase Header";
+        HrSetup: Record "HRM-Setup";
+        PurchLine: Record "Purchase Line";
+        Employee: Record "HRM-Employee C";
+    begin
+        getEmployee(Employee, PartTime."Account No.");
+        PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime);
+        HrSetup.Get();
+        claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Claim G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
+    end;
+
 }

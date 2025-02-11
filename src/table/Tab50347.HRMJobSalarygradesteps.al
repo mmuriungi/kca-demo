@@ -45,6 +45,18 @@ table 50347 "HRM-Job_Salary grade/steps"
         {
 
         }
+        field(13; "Inpatient Medical Ceiling"; Decimal)
+        {
+           
+        }
+         field(14; "Outpatient Medical Ceiling"; Decimal)
+        {
+           
+        }
+         field(15; "Optical Medical Ceiling"; Decimal)
+        {
+           
+        }
     }
 
     keys

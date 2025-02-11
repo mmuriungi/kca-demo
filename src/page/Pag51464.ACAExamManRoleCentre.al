@@ -191,6 +191,14 @@ page 51464 "ACA-Exam Man. Role Centre"
                     RunObject = Report "ACA-Consolidated Marksheet 1";
                     ApplicationArea = All;
                 }
+                action("&ConsMarkssheet")
+                {
+                    Caption = 'Supp. Consolidated Marksheet';
+                    Image = CompleteLine;
+
+                    RunObject = Report "ACA-Supp. Cons. Marksheet";
+                    ApplicationArea = All;
+                }
                 action("Consolidated Marksheet")
                 {
                     Caption = 'Consolidated Marksheet';
@@ -222,6 +230,14 @@ page 51464 "ACA-Exam Man. Role Centre"
                     Image = Agreement;
 
                     RunObject = Report "Aca-General Senate Summary";
+                    ApplicationArea = All;
+                }
+                action("&Senate Summary Report")
+                {
+                    Caption = 'Senate Summary Report';
+                    Image = Agreement;
+
+                    RunObject = Report "Aca-Supp. Senate Summary";
                     ApplicationArea = All;
                 }
                 action("Senate Summary Report 1")
