@@ -91,6 +91,7 @@ codeunit 50048 "Claims Handler"
         PurchHeader.Validate("Shortcut Dimension 3 Code");
         PurchHeader."Claim No." := ClaimNo;
         PurchHeader."Claim Type" := ClaimType;
+        PurchHeader."Vendor Invoice No." := ClaimNo;
         if PurchHeader.INSERT(TRUE) then begin
             exit(PurchHeader);
 

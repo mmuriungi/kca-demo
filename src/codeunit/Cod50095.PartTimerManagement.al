@@ -75,6 +75,8 @@ codeunit 50095 "PartTimer Management"
         PvLines: Record "FIN-Payment Line";
         Employee: Record "HRM-Employee C";
         PayTypes: Record "FIN-Receipts and Payment Types";
+        Vendor: Record Vendor;
+        HrSetup: Record "HRM-Setup";
     begin
         PVHeader.Init();
         PVHeader."Document Type" := PVHeader."Document Type"::"Payment Voucher";
@@ -95,6 +97,13 @@ codeunit 50095 "PartTimer Management"
             PartTime.CalcFields("Payment Amount");
             getPayType(PayTypes);
             getEmployee(Employee, PartTime."Account No.");
+            Vendor.Reset();
+            Vendor.SetRange("No.", Employee."Vendor No.");
+            if Vendor.FindFirst() then begin
+                HrSetup.Get();
+                Vendor."Vendor Posting Group" := HrSetup."Parttimer Posting Group";
+                Vendor.Modify();
+            end;
             PvLines.Init();
             PvLines.No := PVHeader."No.";
             PvLines.Type := PayTypes.Code;
