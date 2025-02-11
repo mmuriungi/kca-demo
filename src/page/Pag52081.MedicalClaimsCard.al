@@ -209,9 +209,11 @@ page 52081 "Medical Claims Card"
                 begin
                     if not confirm('Are you sure you want to post this claim? This will create a new payment voucher.') then
                         exit;
+                    ClaimHandler.CreatePurchaseInvoiceFromClaim(Rec);
                     Rec."Posted" := ClaimHandler.createPaymentVoucher(Rec);
                     Rec.Modify(true);
                 end;
+
             }
         }
         area(Navigation)

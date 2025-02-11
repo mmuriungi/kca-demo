@@ -31,23 +31,24 @@ table 50625 "Aca-Special Exams Details"
             Caption = 'Unit Code';
             trigger OnValidate()
             begin
-                IF Category = Category::Supplementary THEN BEGIN
-                    ACAAcademicYear.RESET;
-                    ACAAcademicYear.SETRANGE(Current, TRUE);
-                    IF ACAAcademicYear.FIND('-') THEN BEGIN
-                        Rec."Current Academic Year" := ACAAcademicYear.Code;
-                    END;
-                    ACAStudentUnits.RESET;
-                    ACAStudentUnits.SETRANGE(Unit, Rec."Unit Code");
-                    ACAStudentUnits.SETRANGE("Student No.", Rec."Student No.");
-                    IF ACAStudentUnits.FIND('+') THEN BEGIN
-                        //  "Academic Year":=ACAStudentUnits."Academic Year";
-                        //  Semester:=ACAStudentUnits.Semester;
-                        //  Stage:=ACAStudentUnits.Stage;
-                        //  Programme:=ACAStudentUnits.Programme;
-                        //  Category:=Rec.Category::Supplementary;
-                    END;// ELSE ERROR('The unit selected is not available for Supplementary');
+                //IF Category = Category::Supplementary THEN BEGIN
+                ACAAcademicYear.RESET;
+                ACAAcademicYear.SETRANGE(Current, TRUE);
+                IF ACAAcademicYear.FIND('-') THEN BEGIN
+                    Rec."Current Academic Year" := ACAAcademicYear.Code;
                 END;
+                ACAStudentUnits.RESET;
+                ACAStudentUnits.SETRANGE(Unit, Rec."Unit Code");
+                ACAStudentUnits.SETRANGE("Student No.", Rec."Student No.");
+                IF ACAStudentUnits.FIND('+') THEN BEGIN
+                    "Academic Year" := ACAStudentUnits."Academic Year";
+                    Semester := ACAStudentUnits.Semester;
+                    Stage := ACAStudentUnits.Stage;
+                    Programme := ACAStudentUnits.Programme;
+                    //  Category:=Rec.Category::Supplementary;
+                END;// ELSE ERROR('The unit selected is not available for Supplementary');
+                    //  END;
+
 
             end;
         }
@@ -60,7 +61,7 @@ table 50625 "Aca-Special Exams Details"
         field(10; Status; Option)
         {
             Caption = 'Status';
-            OptionMembers = New,Approved,Rejected;
+            OptionMembers = New,"Pending Approval",Approved,Rejected;
             trigger OnValidate()
             begin
 
@@ -256,7 +257,18 @@ table 50625 "Aca-Special Exams Details"
             FieldClass = FlowField;
             CalcFormula = Lookup("Aca-2nd Supp. Exams Details"."Total Marks" WHERE("Student No." = FIELD("Student No."), "Unit Code" = FIELD("Unit Code"), "Academic Year" = FIELD("Academic Year"), Programme = FIELD(Programme), Stage = FIELD(Stage), Semester = FIELD(Semester), Category = FIELD(Category)));
         }
+        //Document No
+        field(47; "Document No."; Code[20])
+        {
+            Caption = 'Document No.';
+        }
+        //no series 
+        field(48; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+        }
     }
+
 
     keys
     {
@@ -270,10 +282,25 @@ table 50625 "Aca-Special Exams Details"
         key(SK2; Programme, "Unit Code", "Student No.")
         {
         }
+        key(SK3; "Document No.")
+        {
+        }
     }
 
+
     trigger OnInsert()
+    var
+        GenSetup: Record "ACA-General Set-Up";
+        Noseriesmgmt: Codeunit NoSeriesManagement;
     begin
+        IF Rec."Document No." = '' THEN begin
+            GenSetup.Get();
+            genSetup.TESTFIELD("Special Exam Reg. Nos.");
+            NoSeriesManagement.InitSeries(genSetup."Special Exam Reg. Nos.", xRec."No. Series", 0D, Rec."Document No.", Rec."No. Series");
+
+        end;
+
+
         ACAAcademicYear.RESET;
         ACAAcademicYear.SETRANGE(Current, TRUE);
         IF ACAAcademicYear.FIND('-') THEN BEGIN

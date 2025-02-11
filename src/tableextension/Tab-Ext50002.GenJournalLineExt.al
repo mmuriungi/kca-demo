@@ -32,9 +32,13 @@ tableextension 50002 "GenJournalLine Ext" extends "Gen. Journal Line"
         {
             TableRelation = "Dimension Value".Code where("Global Dimension No." = const(4));
         }
-
-
+        field(56608; "Vendor Transaction Type"; Enum "Vendor Transaction Type")
+        {
+            DataClassification = ToBeClassified;
+        }
     }
+
+
 
     var
         myInt: Integer;

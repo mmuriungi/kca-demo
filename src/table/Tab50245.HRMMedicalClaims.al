@@ -15,12 +15,23 @@ table 50245 "HRM-Medical Claims"
                 HREmpl.SETRANGE(HREmpl."No.", "Member No");
                 IF HREmpl.FIND('-') THEN BEGIN
                     "Member Names" := HREmpl."First Name" + ' ' + HREmpl."Middle Name" + ' ' + HREmpl."Last Name";
+
+                    HREmpl.TestField("Responsibility Center");
+                    HREmpl.TestField(Campus);
+                    HREmpl.TestField("Department Code");
+                    HREmpl.TestField("Faculty Code");
+                    "Global Dimension 1 Code" := HREmpl.Campus;
+                    "Global Dimension 2 Code" := HREmpl."Department Code";
+                    "Shortcut Dimension 3 Code" := HREmpl."Faculty Code";
+                    "Responsibility Center" := HREmpl."Responsibility Center";
+                    HREmpl.TestField("Responsibility Center");
                 end;
+                fnCheckCeilingAndBalance();
             end;
         }
         field(2; "Claim Type"; Option)
         {
-            OptionMembers = Inpatient,Outpatient;
+            OptionMembers = Inpatient,Outpatient,Optical;
         }
         field(3; "Claim Date"; Date)
         {
@@ -56,9 +67,11 @@ table 50245 "HRM-Medical Claims"
             Var
                 scheme: Record "HRM-Medical Schemes";
                 ExceedLimitErr: Label 'The claim amount %1 exceeds the %2 limit of %3.';
+                Employee: Record "HRM-Employee C";
             begin
                 if "Claim Currency Code" <> "Scheme Currency Code" then begin
                     UpdateCurrencyFactor;
+
 
                     if "Claim Currency Code" <> xRec."Claim Currency Code" then
                         UpdateCurrencyFactor;
@@ -71,18 +84,18 @@ table 50245 "HRM-Medical Claims"
                 else
                     "Scheme Amount Charged" := "Claim Amount";
 
-                if scheme.Get("Scheme No") then begin
-                case "Claim Type" of
-                    "Claim Type"::Inpatient:
-                        if "Claim Amount" > scheme."In-patient limit" then
-                            Error(ExceedLimitErr, "Claim Amount", 'In-patient', scheme."In-patient limit");
-                    
-                    "Claim Type"::Outpatient:
-                        if "Claim Amount" > scheme."Out-patient limit" then
-                            Error(ExceedLimitErr, "Claim Amount", 'Out-patient', scheme."Out-patient limit");
+                // if scheme.Get("Scheme No") then begin
+                //     case "Claim Type" of
+                //         "Claim Type"::Inpatient:
+                //             if "Claim Amount" > scheme."In-patient limit" then
+                //                 Error(ExceedLimitErr, "Claim Amount", 'In-patient', scheme."In-patient limit");
 
-            end;
-        end;
+                //         "Claim Type"::Outpatient:
+                //             if "Claim Amount" > scheme."Out-patient limit" then
+                //                 Error(ExceedLimitErr, "Claim Amount", 'Out-patient', scheme."Out-patient limit");
+
+                //     end;
+                // end;
 
             end;
         }
@@ -104,7 +117,7 @@ table 50245 "HRM-Medical Claims"
         }
         field(11; Dependants; Code[50])
         {
-            TableRelation = "HRM-Employee Kin"."Other Names" WHERE("Employee Code" = FIELD("Member No"), Type = FILTER(Dependant)                       );
+            TableRelation = "HRM-Employee Kin"."Other Names" WHERE("Employee Code" = FIELD("Member No"), Type = FILTER(Dependant));
 
             trigger OnValidate()
             begin
@@ -275,9 +288,11 @@ table 50245 "HRM-Medical Claims"
             HRSetup.TestField(HRSetup."Medical Claims Nos");
             NoSeriesMgt.InitSeries(HRSetup."Medical Claims Nos", xRec."No. Series", 0D, "Claim No", "No. Series");
         end;
-        "Member ID" := UserId;
-        "Member No" := HREmp."No.";
+        if "Member ID" = '' then begin
+            "Member ID" := UserId;
+        end;
         "Claim Date" := Today;
+
 
         // HREmp.Reset;
         // HREmp.SetRange(HREmp."User ID", "Member ID");
@@ -321,6 +336,77 @@ table 50245 "HRM-Medical Claims"
             "Currency Factor" := CurrExchRate.ExchangeRate(CurrencyDate, "Claim Currency Code");
         end else
             "Currency Factor" := 0;
+    end;
+
+    procedure fnCheckCeilingAndBalance()
+    var
+        HrmSetup: Record "HRM-Setup";
+        Grades: Record "HRM-Job_Salary grade/steps";
+        Employee: Record "HRM-Employee C";
+        Vendors: Record Vendor;
+        Periods: Record "Accounting Period";
+        StartDate: Date;
+        EndDate: Date;
+    begin
+        Periods.Reset();
+        Periods.SetRange("New Fiscal Year", true);
+        if Periods.FindFirst() then
+            StartDate := Periods."Starting Date";
+        Periods.Reset();
+        Periods.SetRange("New Fiscal Year", false);
+        if Periods.FindLast() then
+            EndDate := Periods."Starting Date";
+
+
+        if Employee.get(rec."Member No") then begin
+            Employee.TestField("Salary Category");
+            Employee.TestField("Salary Grade");
+            Grades.Reset();
+            Grades.SetRange(Grades."Employee Category", Employee."Salary Category");
+            Grades.SetRange("Salary Grade code", Employee."Salary Grade");
+            if Grades.FindFirst() then begin
+                case rec."Claim Type" of
+                    rec."Claim Type"::Inpatient:
+                        begin
+                            Vendors.Reset();
+                            Vendors.SetRange("No.", Employee."Vendor No.");
+                            Vendors.SetFilter("Date Filter", '%1..%2', StartDate, EndDate);
+                            Vendors.SetRange("Transaction Type Filter", Vendors."Transaction Type Filter"::"Inpatient Claim");
+                            if Vendors.FindFirst() then begin
+                                Vendors.CalcFields("Medical Claim Balance");
+                            end;
+                            if Vendors."Medical Claim Balance" + rec."Claim Amount" > Grades."Inpatient Medical Ceiling" then
+                                Error('Claim amount exceeds the inpatient medical ceiling');
+                        end;
+                    rec."Claim Type"::Outpatient:
+                        begin
+                            Vendors.Reset();
+                            Vendors.SetRange("No.", Employee."Vendor No.");
+                            Vendors.SetFilter("Date Filter", '%1..%2', StartDate, EndDate);
+                            Vendors.SetRange("Transaction Type Filter", Vendors."Transaction Type Filter"::"Outpatient Claim");
+                            if Vendors.FindFirst() then begin
+                                Vendors.CalcFields("Medical Claim Balance");
+                            end;
+                            if Vendors."Medical Claim Balance" + rec."Claim Amount" > Grades."Outpatient Medical Ceiling" then
+                                Error('Claim amount exceeds the outpatient medical ceiling');
+                        end;
+                    rec."Claim Type"::Optical:
+                        begin
+
+                            Vendors.Reset();
+                            Vendors.SetRange("No.", Employee."Vendor No.");
+                            Vendors.SetFilter("Date Filter", '%1..%2', StartDate, EndDate);
+                            Vendors.SetRange("Transaction Type Filter", Vendors."Transaction Type Filter"::"Optical Claim");
+                            if Vendors.FindFirst() then begin
+                                Vendors.CalcFields("Medical Claim Balance");
+                            end;
+                            if Vendors."Medical Claim Balance" + rec."Claim Amount" > Grades."Optical Medical Ceiling" then
+                                Error('Claim amount exceeds the optical medical ceiling');
+                        end;
+                end;
+            end;
+
+        end;
     end;
 }
 

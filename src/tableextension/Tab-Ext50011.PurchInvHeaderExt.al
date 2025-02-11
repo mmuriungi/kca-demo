@@ -1,4 +1,4 @@
-tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
+tableextension 50011 "Purch. Inv. Header Ext" extends "Purch. Inv. Header"
 {
     fields
     {
@@ -42,63 +42,7 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
             trigger OnValidate()
             var
             begin
-                IF NOT CONFIRM('If you change the Request for Quote No. the current lines will be deleted. Do you want to continue?', FALSE)
-              THEN
-                    ERROR('You have selected to abort the process');
-
-                PurchLine.RESET;
-                PurchLine.SETRANGE(PurchLine."Document No.", "No.");
-                PurchLine.DELETEALL;
-
-                RFQ_Line.RESET;
-                RFQ_Line.SETRANGE(RFQ_Line."Document No.", "Request for Quote No.");
-                IF RFQ_Line.FIND('-') THEN BEGIN
-                    REPEAT
-                        PurchLine.RESET;
-                        PurchLine.SETRANGE("Document No.", "No.");
-                        IF PurchLine.FIND('-') THEN BEGIN
-                            countedRec := PurchLine.COUNT + 1;
-                        END ELSE
-                            countedRec := 1;
-                        PurchLine.INIT;
-                        PurchLine."Document Type" := PurchLine."Document Type"::Quote;
-                        PurchLine."Document No." := "No.";
-                        PurchLine."Line No." := countedRec;
-                        PurchLine."Type" := RFQ_Line."Type";
-                        PurchLine."No." := RFQ_Line."No.";
-                        PurchLine."RFQ No." := RFQ_Line."Document No.";
-                        PurchLine.VALIDATE("No.");
-                        PurchLine."Location Code" := RFQ_Line."Location Code";
-                        PurchLine.VALIDATE("Location Code");
-                        PurchLine.Quantity := RFQ_Line.Quantity;
-                        PurchLine."Description 2" := RFQ_Line."Description 2";
-                        PurchLine.VALIDATE(Quantity);
-                        PurchLine."Direct Unit Cost" := RFQ_Line."Direct Unit Cost";
-                        PurchLine.VALIDATE("Direct Unit Cost");
-                        PurchLine.Amount := RFQ_Line.Amount;
-                        PurchLine.INSERT(True);
-                    UNTIL RFQ_Line.NEXT = 0;
-                END;
-                vend.Reset();
-                vend.SetRange("No.", "Bidder No.");
-                if vend.find('-') then begin
-                    "Buy-from Vendor No." := vend."No.";
-                    "Buy-from Vendor Name" := vend.Name;
-                    "Pay-to Name" := vend.Name;
-
-                    purline.Reset();
-                    purline.SetRange("Document No.", "No.");
-                    purline.SetRange("Document Type", "Document Type");
-                    if purline.find('-') then begin
-                        repeat
-                            purline."Buy-from Vendor No." := vend."No.";
-                            purline."Pay-to Vendor No." := vend."No.";
-                            purline.Modify();
-                        until purline.Next() = 0;
-                    end;
-
-                end;
-
+             
             end;
 
 
@@ -134,43 +78,7 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
                 vend: Record Vendor;
                 purline: Record "Purchase Line";
             begin
-                vend.Reset();
-                vend.SetRange("No.", "Bidder No.");
-                if vend.find('-') then begin
-                    "Buy-from Vendor No." := vend."No.";
-                    "Buy-from Vendor Name" := vend.Name;
-                    "Pay-to Name" := vend.Name;
-                    Validate("Buy-from Vendor No.");
-                    purline.Reset();
-                    purline.SetRange("Document No.", "No.");
-                    purline.SetRange("Document Type", "Document Type");
-                    if purline.find('-') then begin
-                        repeat
-                            purline."Buy-from Vendor No." := vend."No.";
-                            Validate("Buy-from Vendor No.");
-                            purline."Pay-to Vendor No." := vend."No.";
-                            Validate("Pay-to Vendor No.");
-                            purline.Modify();
-                        until purline.Next() = 0;
-                    end;
-                end;
-                TenderBidders.Reset();
-                TenderBidders.SetRange("No.", "Bidder No.");
-                if TenderBidders.find('-') then begin
-                    "Buy-from Vendor No." := TenderBidders."No.";
-                    "Buy-from Vendor Name" := TenderBidders.Name;
-                    "Pay-to Name" := TenderBidders.Name;
-                    purline.Reset();
-                    purline.SetRange("Document No.", "No.");
-                    purline.SetRange("Document Type", "Document Type");
-                    if purline.find('-') then begin
-                        repeat
-                            purline."Buy-from Vendor No." := TenderBidders."No.";
-                            purline."Pay-to Vendor No." := TenderBidders."No.";
-                            purline.Modify();
-                        until purline.Next() = 0;
-                    end;
-                end;
+             
             end;
         }
         field(6076; "Technical Evaluation"; Decimal)
@@ -263,7 +171,7 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
             FieldClass = FlowField;
             Editable = false;
             CalcFormula = Sum("Purchase Line"."Line Amount"
-            WHERE("Document Type" = FIELD("Document Type"), "Document No." = FIELD("No.")));
+            WHERE("Document No." = FIELD("No.")));
 
 
         }
@@ -358,9 +266,7 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
                 Commit: record "FIN-Committment";
 
             begin
-                CalcFields("Document Type");
-                REC.TestField("Document Type");
-                commit."Document Type" := rec."Document Type 2";
+
             end;
         }
         field(50040; "Tendor Number"; Code[15])
@@ -461,11 +367,6 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
             DataClassification = ToBeClassified;
             OptionCaption = 'Expensed,Recovered';
             OptionMembers = Expensed,Recovered;
-        }
-        field(50072; Cancelled; Boolean)
-        {
-            DataClassification = ToBeClassified;
-            Editable = false;
         }
         field(50073; "Cancelled By"; Code[20])
         {
@@ -607,13 +508,6 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
         {
 
         }
-        field(52178503; "User Id"; code[50])
-        {
-            caption = 'Created By';
-            DataClassification = ToBeClassified;
-            //tablerelation = "User Setup"."User ID";
-
-        }
         field(52178504; "PO Type"; Option)
         {
             OptionCaption = ' ,LSO,LPO';
@@ -642,95 +536,4 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
             DataClassification = ToBeClassified;
         }
     }
-
-
-
-
-    trigger OnInsert()
-    begin
-        if "No." = ' ' then begin
-
-
-        end;
-
-
-        PurchSetup.Reset();
-        if PurchSetup.find('-') then;
-        PurchSetup.TestField("Requisition Default Vendor");
-        if vend.get(PurchSetup."Requisition Default Vendor") then;
-        IF DocApprovalType = DocApprovalType::Requisition THEN BEGIN
-            "Buy-from Vendor No." := PurchSetup."Requisition Default Vendor";
-            VALIDATE("Buy-from Vendor No.");
-            Rec.Validate("Buy-from Vendor Name", vend.Name);
-            // "Quote No." := "No."
-        END
-    end;
-
-
-
-
-
-
-    procedure FeatureonPlan(var pheader: Record "Purchase Header")
-    var
-        purline: record "Purchase Line";
-        plan: Record "PROC-Procurement Plan Header";
-
-    begin
-        if Rec.DocApprovalType = Rec.DocApprovalType::Requisition then begin
-            plan.Reset();
-            plan.SetRange(Active, true);
-            if plan.Find('-') then begin
-
-                purline.Reset();
-                purline.SetRange("Document No.", pheader."No.");
-                if purline.Find('-') then begin
-                    repeat
-                        purline."Feature On The Plan" := true;
-                        purline.DocApprovalType := purline.DocApprovalType::Requisition;
-                        purline."Procurement Plan" := plan."Budget Name";
-                        purline.Modify();
-
-                    until purline.Next() = 0;
-                end;
-            end else
-                Error('No Active Plan');
-        end;
-
-    end;
-
-    procedure RemoveFromPlan(var pheader: Record "Purchase Header")
-    var
-        purline: record "Purchase Line";
-    begin
-        if Rec.DocApprovalType = Rec.DocApprovalType::Requisition then begin
-            purline.Reset();
-            purline.SetRange("Document No.", pheader."No.");
-            if purline.Find('-') then begin
-                repeat
-                    purline."Feature On The Plan" := false;
-                    purline.Modify();
-                until purline.Next() = 0;
-            end;
-
-        end;
-
-    end;
-
-    var
-        PurchSetup: Record "Purchases & Payables Setup";
-        Vend: Record Vendor;
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-        usersetup: record "User Setup";
-        employee: Record "HRM-Employee C";
-        "Employee Name": text[100];
-        "Job titile": text[100];
-        purline: Record "Purchase Line";
-        RFQ: Record "PROC-Purchase Quote Line";
-        RFQ_Line: Record "PROC-Purchase Quote Line";
-        countedRec: Integer;
-        PurchLine: Record "Purchase Line";
-
-
-
 }

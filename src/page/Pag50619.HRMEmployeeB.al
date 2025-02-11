@@ -474,15 +474,6 @@ page 50619 "HRM-Employee (B)"
                     ApplicationArea = all;
                     Editable = false;
                 }
-                field("Medical Claim Vendor No."; Rec."Medical Claim Vendor No.")
-                {
-                    ApplicationArea = all;
-                }
-                field("Medical Claim Vendor Name"; Rec."Medical Claim Vendor Name")
-                {
-                    ApplicationArea = all;
-                    Editable = false;
-                }
 
             }
             group(Leave)

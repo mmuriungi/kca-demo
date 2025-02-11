@@ -2307,21 +2307,6 @@ table 50213 "HRM-Employee C"
 
         }
         //Medical Claim Vendor No., Medical Claim Vendor Name
-        field(60097; "Medical Claim Vendor No."; Code[20])
-        {
-            TableRelation = Vendor."No." where("Vendor Posting Group" = const('STAFFMEDIC'));
-            trigger OnValidate()
-            var
-                vendor: Record Vendor;
-            begin
-                if vendor.Get("Vendor No.") then
-                    "Medical Claim Vendor Name" := vendor.Name;
-            end;
-        }
-        field(60098; "Medical Claim Vendor Name"; Text[150])
-        {
-
-        }
         //Exam Coordinator
         field(60099; "Exam Coordinator"; Boolean)
         {

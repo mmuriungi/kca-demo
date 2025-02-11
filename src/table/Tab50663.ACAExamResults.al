@@ -458,7 +458,7 @@ table 50663 "ACA-Exam Results"
         field(50021; "Credit Hours"; Decimal)
         {
         }
-        field(50022; "User Name"; Code[20])
+        field(50022; "User Name"; Code[250])
         {
         }
         field(50023; "Edit Count"; Integer)

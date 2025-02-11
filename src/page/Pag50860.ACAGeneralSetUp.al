@@ -31,7 +31,7 @@ page 50860 "ACA-General Set-Up"
                 {
                     ApplicationArea = All;
                 }
-                field("Charge Addition";Rec."Charge Addition")
+                field("Charge Addition"; Rec."Charge Addition")
                 {
                     ApplicationArea = all;
                 }
@@ -222,6 +222,11 @@ page 50860 "ACA-General Set-Up"
                     ApplicationArea = All;
                     Caption = 'Unit Registration Fee Policy';
                 }
+                field("Special Exam Reg. Nos."; Rec."Special Exam Reg. Nos.")
+                {
+                    ApplicationArea = All;
+                }
+
 
 
             }

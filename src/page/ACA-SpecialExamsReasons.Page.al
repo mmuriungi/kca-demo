@@ -13,12 +13,12 @@ Page 78023 "ACA-Special Exams Reasons"
                 field("Reason Code";Rec."Reason Code")
                 {
                     ApplicationArea = Basic;
-                    Editable = false;
+                    Editable = true;
                 }
                 field(Description;Rec.Description)
                 {
                     ApplicationArea = Basic;
-                    Editable = false;
+                    Editable = true;
                 }
             }
         }
