@@ -8999,6 +8999,261 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure InsertSpecialExamResults(Programz: Code[20]; StudNoz: Code[20]; Semesterz: Code[20]; Unitz: Code[20]; Scorez: Decimal; ExamTypez: Code[20]; UserNamez: Code[50]; LecturerNamez: Text[250]) MarksCaptureReturn: Text[250]
+    var
+        ACAExamResults: Record "ACA-Exam Results";
+        ACAStudentUnits: Record "ACA-Student Units";
+        Customer: Record Customer;
+        AcaProgram: Record "ACA-Programme";
+        ACAExamsSetup: Record "ACA-Exams Setup";
+        HRMEmployeeC: Record "HRM-Employee C";
+        ACASemesters: Record "ACA-Semesters";
+        LectLoadBatchLines: Record "Lect Load Batch Lines";
+        ACALecturersUnits: Record "ACA-Lecturers Units";
+        ACACourseRegistration: Record "ACA-Course Registration";
+        ACAProgSemesterSchedule: Record "ACA-Prog. Semester Schedule";
+        ACAProgStageSemSchedule: Record "ACA-Prog/Stage Sem. Schedule";
+        ACAProgStageUnitSemSche: Record "ACA-Prog/Stage/Unit Sem. Sche.";
+        ACALectureMarksPermissions: Record "ACA-Lecture Marks Permissions";
+        ACAUnitsSubjects: Record "ACA-Units/Subjects";
+        EdittingLocked: Boolean;
+        ProgCat: Code[20];
+        ACAUnitsSubjects4: Record "ACA-Units/Subjects";
+        ACASemesters2: Record "ACA-Semesters";
+        SpecialExams: Record "Aca-Special Exams Details";
+        // ACAResultsBufferHeader: Record "ACA-Results Buffer Header";
+        // ACAResultsBufferDetails: Record "ACA-Results Buffer Details";
+        // ACAResultsBufferMarks: Record "ACA-Results Buffer Marks";
+        Programmezz: Record "ACA-Programme";
+    // ACAResultsBufferUnits: Record "ACA-Results Buffer Units";
+    // ACAResultsBufferStudents: Record "ACA-Results Buffer Students";
+    // ACAResultsBufferProgStage: Record "ACA-Results Buffer Prog. Stage";
+    // ACAResultsBufferSetup: Record "ACA-Results Buffer Setup";
+    begin
+
+        Clear(Programmezz);
+        Programmezz.Reset;
+        Programmezz.SetRange(Code, Programz);
+        if Programmezz.Find('-') then begin
+            Programmezz.TestField("Exam Category");
+        end;
+        Clear(Customer);
+        Customer.Reset;
+        Customer.SetRange("No.", StudNoz);
+        if Customer.Find('-') then Customer.CalcFields(Balance);
+        Clear(MarksCaptureReturn);
+        Clear(ACASemesters);
+        ACASemesters.Reset;
+        ACASemesters.SetRange(ACASemesters.Code, Semesterz);
+        if ACASemesters.Find('-') then;
+        if ExamTypez = 'EXAM' then ExamTypez := 'FINAL EXAM';
+        if Customer.Get(StudNoz) then begin
+            ACACourseRegistration.Reset;
+            ACACourseRegistration.SetRange("Student No.", StudNoz);
+            ACACourseRegistration.SetRange(Semester, Semesterz);
+            ACACourseRegistration.SetRange(Reversed, false);
+            if ACACourseRegistration.Find('-') then;
+            ACAUnitsSubjects.Reset;
+            ACAUnitsSubjects.SetRange("Programme Code", Programz);
+            ACAUnitsSubjects.SetRange(Code, Unitz);
+            if ACAUnitsSubjects.Find('-') then;
+            ACAStudentUnits.Reset;
+            //ACAStudentUnits.SetRange(Semester, Semesterz);
+            ACAStudentUnits.SetRange(Programme, Programz);
+            ACAStudentUnits.SetRange("Student No.", StudNoz);
+            ACAStudentUnits.SetRange(Unit, Unitz);
+            if ACAStudentUnits.Find('-') then begin
+                SpecialExams.Reset;
+                SpecialExams.SetRange("Student No.", ACAStudentUnits."Student No.");
+                SpecialExams.SetRange("Unit Code", Unitz);
+                SpecialExams.SetRange("Programme", Programz);
+                SpecialExams.SetRange("Current Semester", Semesterz);
+                SpecialExams.SetRange("Category", SpecialExams.Category::Special);
+                SpecialExams.SetRange("Status", SpecialExams.Status::Approved);
+                if SpecialExams.Find('-') then;
+                AcaProgram.Reset;
+                AcaProgram.SetRange(Code, Programz);
+                if AcaProgram.Find('-') then begin
+                    AcaProgram.TestField("Exam Category");
+                    Clear(ACAExamsSetup);
+                    Clear(ProgCat);
+                    ProgCat := AcaProgram."Exam Category";
+                    Clear(ACAUnitsSubjects4);
+                    ACAUnitsSubjects4.Reset;
+                    ACAUnitsSubjects4.SetRange(Code, Unitz);
+                    ACAUnitsSubjects4.SetRange("Programme Code", Programz);
+                    if ACAUnitsSubjects4.Find('-') then
+                        if ACAUnitsSubjects4."Default Exam Category" <> '' then ProgCat := ACAUnitsSubjects4."Default Exam Category";
+                    ACAExamsSetup.Reset;
+                    ACAExamsSetup.SetRange(Category, ProgCat);
+                    if ((ExamTypez = 'CAT') or (ExamTypez = 'CATS')) then
+                        ACAExamsSetup.SetFilter(Code, '%1|%2', 'CAT', 'CATS')
+                    else if ((ExamTypez = 'EXAM') or (ExamTypez = 'MAIN EXAM') or (ExamTypez = 'FINAL EXAM')) then
+                        ACAExamsSetup.SetFilter(Code, '%1|%2|%3', 'MAIN EXAM', 'EXAM', 'FINAL EXAM');
+                    if ACAExamsSetup.Find('-') then begin
+                        //Check from Prog, Stage, Unit and Lecturer Units if Capture of Marks is allowed
+                        ///////////////////////////////////////////////////////////////////////////////////////////////////
+                        ACAProgSemesterSchedule.Reset;
+                        ACAProgSemesterSchedule.SetRange(Code, Semesterz);
+                        ACAProgSemesterSchedule.SetRange("Programme Code", AcaProgram.Code);
+                        if ACAProgSemesterSchedule.Find('-') then;
+                        ACAProgStageSemSchedule.Reset;
+                        ACAProgStageSemSchedule.SetRange(Code, Semesterz);
+                        ACAProgStageSemSchedule.SetRange("Programme Code", AcaProgram.Code);
+                        ACAProgStageSemSchedule.SetRange("Stage Code", ACAUnitsSubjects."Stage Code");
+                        if ACAProgStageSemSchedule.Find('-') then;
+                        ACAProgStageUnitSemSche.Reset;
+                        ACAProgStageUnitSemSche.SetRange(Code, Semesterz);
+                        ACAProgStageUnitSemSche.SetRange("Programme Code", AcaProgram.Code);
+                        ACAProgStageUnitSemSche.SetRange("Unit Code", ACAUnitsSubjects.Code);
+                        if ACAProgStageUnitSemSche.Find('-') then;
+                        ACALectureMarksPermissions.Reset;
+                        ACALectureMarksPermissions.SetRange(Code, Semesterz);
+                        ACALectureMarksPermissions.SetRange("Programme Code", AcaProgram.Code);
+                        ACALectureMarksPermissions.SetRange("Unit Code", ACAUnitsSubjects.Code);
+                        ACALectureMarksPermissions.SetRange("Lecturer Code", UserNamez);
+                        if ACALectureMarksPermissions.Find('-') then;
+                        ///////////////////////////////////////////////////////////////////////////////////////////////////
+                        // Check if Marks exceeds Maximum Defined
+                        // (ACALectureMarksPermissions."Lock Exam Editting") AND
+                        Clear(EdittingLocked);
+                        if ((ACAProgSemesterSchedule."Lock Exam Editing")
+                          and (ACAProgStageUnitSemSche."Lock Exam Editting") and
+                          (ACAProgStageSemSchedule."Lock Exam Editting") and
+                            (ACASemesters."Lock Exam Editting"))
+                           //       AND
+                           //       (ACAProgStageUnitSemSche."Mark entry Dealine"<TODAY)
+                           //      AND (ACAProgStageSemSchedule."Mark entry Dealine"<TODAY) AND
+                           //       (ACAProgSemesterSchedule."Mark entry Dealine"<TODAY)
+                           then
+                            EdittingLocked := true;
+                        if not (Scorez > ACAExamsSetup."Max. Score") then begin
+                            ACASemesters.Reset;
+                            ACASemesters.SetRange(ACASemesters.Code, Semesterz);
+                            //    ACASemesters.SETRANGE(ACASemesters."Programme Code",Programz);
+                            if ACASemesters.Find('-') then begin
+                                HRMEmployeeC.Reset;
+                                HRMEmployeeC.SetRange("No.", UserNamez);
+                                if HRMEmployeeC.Find('-') then begin
+                                    if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
+                                    // IF  ((HRMEmployeeC.Lecturer=FALSE) AND ((HRMEmployeeC."Is HOD"=FALSE) AND (HRMEmployeeC."Has HOD Rights"=FALSE))) THEN MarksCaptureReturn:='Access Denied: Not Lecturer Not HOD';
+
+                                    if ((ExamTypez = 'CAT') or (ExamTypez = 'CATS')) then begin
+                                        if ((ACASemesters."Lock CAT Editting") and (HRMEmployeeC."Is HOD" = false)) then
+                                            MarksCaptureReturn := 'CAT Marks editing locked';
+                                        if ((ACASemesters."Lock CAT Editting") and (HRMEmployeeC."Is HOD" = true) and (ACASemesters."Evaluate Lecture" = false)) then
+                                            MarksCaptureReturn := 'CAT Marks editing locked';
+                                    end;
+                                    // -------------------------------------------------------------- Exams
+
+                                    if ((ExamTypez = 'EXAM') or (ExamTypez = 'MAIN EXAM') or (ExamTypez = 'FINAL EXAM')) then begin
+                                        if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
+                                            MarksCaptureReturn := 'EXAM Marks editing locked';
+                                        if ((EdittingLocked = false) and (HRMEmployeeC.Lecturer = false)) then MarksCaptureReturn := 'Not Lecturer: Access denied!';
+                                        if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
+                                            MarksCaptureReturn := 'EXAM Marks editing locked';
+                                    end;
+                                    if (((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
+                                        MarksCaptureReturn := 'HOD editing not allowed';
+
+
+                                    if (((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (EdittingLocked = true) and
+                                      (AcaProgram."Department Code" <> HRMEmployeeC."Department Code")) then
+                                        MarksCaptureReturn := AcaProgram."Department Code" + ' is not your department!';
+
+
+
+                                    ACALecturersUnits.Reset;
+                                    ACALecturersUnits.SetRange(Programme, AcaProgram.Code);
+                                    ACALecturersUnits.SetRange(Unit, Unitz);
+                                    ACALecturersUnits.SetRange(Semester, Semesterz);
+                                    ACALecturersUnits.SetRange(Lecturer, UserNamez);
+                                    if not (ACALecturersUnits.Find('-')) then begin
+                                        if ((EdittingLocked = true)) then MarksCaptureReturn := 'Access Denied. No allocation done';
+                                    end;
+                                    //-------------------------------------------------------------------------
+                                    // Create Approval Entries for the marks
+                                    // -- Create Marks Approval Entries
+                                    CreateMarksApprovalEntries(AcaProgram, ACASemesters, UserNamez, ACAStudentUnits);
+                                    // Create A single unit Entry for the Approval Units Reference
+
+                                    if MarksCaptureReturn = '' then begin
+                                        ////////////////////////////////////////////////////////////////////////////////////////////////
+                                        ACAExamResults.Reset;
+                                        ACAExamResults.SetRange("Student No.", StudNoz);
+                                        ACAExamResults.SetRange(Programmes, Programz);
+                                        ACAExamResults.SetRange(Unit, Unitz);
+                                        ACAExamResults.SetRange(Semester, Semesterz);
+                                        ACAExamResults.SetRange(ExamType, ExamTypez);
+                                        if ACAExamResults.Find('-') then begin
+                                            ACAExamResults.Score := Scorez;
+                                            ACAExamResults.Validate(Score);
+                                            ACAExamResults.Modify;
+                                            ACAExamResults.Validate(ExamType);
+                                            MarksCaptureReturn := 'SUCCESS:: Marks inserted';
+                                        end else begin
+                                            ACAExamResults.Init;
+                                            ACAExamResults."Student No." := StudNoz;
+                                            ACAExamResults.Programmes := Programz;
+                                            ACAExamResults.Stage := ACAStudentUnits.Stage;
+                                            ACAExamResults.Unit := Unitz;
+                                            ACAExamResults.Semester := Semesterz;
+                                            ACAExamResults.Exam := ExamTypez;
+                                            ACAExamResults."Reg. Transaction ID" := ACAStudentUnits."Reg. Transacton ID";
+                                            ACAExamResults.ExamType := ExamTypez;
+                                            ACAExamResults."Exam Category" := Programmezz."Exam Category";
+                                            ACAExamResults."Lecturer Names" := LecturerNamez;
+                                            ACAExamResults."User Name" := LecturerNamez;
+                                            ACAExamResults.User_ID := UserNamez;
+                                            ACAExamResults.Submitted := true;
+                                            ACAExamResults."Submitted By" := UserNamez;
+                                            ACAExamResults."Submitted On" := Today;
+                                            ACAExamResults.Category := Programmezz."Exam Category";
+                                            ACAExamResults.Department := Programmezz."Department Code";
+                                            ACAExamResults."Admission No" := StudNoz;
+                                            ACAExamResults."Academic Year" := ACASemesters."Academic Year";
+                                            ACAExamResults.Score := Scorez;
+                                            ACAExamResults.Insert;
+                                            ACAExamResults.Reset;
+                                            ACAExamResults.SetRange("Student No.", StudNoz);
+                                            ACAExamResults.SetRange(Programmes, Programz);
+                                            ACAExamResults.SetRange(Unit, Unitz);
+                                            ACAExamResults.SetRange(Semester, Semesterz);
+                                            ACAExamResults.SetRange(ExamType, ExamTypez);
+                                            if ACAExamResults.Find('-') then begin
+                                                ACAExamResults.Score := Scorez;
+                                                ACAExamResults.Validate(Score);
+                                                ACAExamResults.Validate(ExamType);
+                                                ACAExamResults.Modify;
+                                            end;
+                                            MarksCaptureReturn := 'SUCCESS:: Marks inserted';
+                                        end;
+                                        ///////////////////////////////////////////////////////////////////////////////////////////
+                                    end;
+                                    //------------------------------------------------------------------
+                                end else
+                                    MarksCaptureReturn := 'Invalid Staff No. ' + Semesterz;
+                            end else
+                                MarksCaptureReturn := 'Invalid Semester ' + Semesterz;
+
+                        end else
+                            MarksCaptureReturn := 'Invalid Marks on ' + Unitz + ' Student: ' + StudNoz + ': ' + Customer.Name + ', Exam type: ' +
+                   ExamTypez + '. Not to exceed: ' + Format(ACAExamsSetup."Max. Score");
+                    end else begin
+                        // Exams Setup Missing
+                        MarksCaptureReturn := 'No defined maximum mark values for ' + Unitz + ' Student: ' + StudNoz + ': ' + Customer.Name;
+                    end;
+                end else begin
+                    // Program Missing
+                    MarksCaptureReturn := 'Program ' + Programz + ' Missing in Registration for: ' + StudNoz + ': ' + Customer.Name;
+                end;
+            end else begin
+                MarksCaptureReturn := 'Unit ' + Unitz + ' Missing in Registration for: ' + StudNoz + ': ' + Customer.Name;
+            end;
+        end;
+    end;
+
+
     local procedure CreateMarksApprovalEntries(var AcaProgram: Record "ACA-Programme"; var ACASemesters: Record "ACA-Semesters"; UserNamez: Text[150]; var ACAStudentUnits: Record "ACA-Student Units")
     var
     // ACAResultsWorkflowTemplates: Record "ACA-Results Workflow Templates";
@@ -9234,6 +9489,58 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure FnGetLecturerSpecialStudentsWithSearch(unit: Code[20]; prog: Code[20]; sem: Code[20]; stage: Code[20]; searchParam: Text) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        SpecialExams: Record "Aca-Special Exams Details";
+    begin
+        Customer.Reset;
+        Customer.SetCurrentkey("No.");
+        Customer.SetFilter("No.", '%1', '*' + searchParam + '*');
+        if Customer.Find('-') then begin
+            repeat
+                StdUnits.Reset;
+                StdUnits.SetRange("Student No.", Customer."No.");
+                StdUnits.SetRange(Unit, unit);
+                StdUnits.SetRange(Programme, prog);
+                StdUnits.SetRange(Stage, stage);
+                if StdUnits.Find('-') then begin
+                    repeat
+                        SpecialExams.Reset;
+                        SpecialExams.SetRange("Student No.", StdUnits."Student No.");
+                        SpecialExams.SetRange("Unit Code", unit);
+                        SpecialExams.SetRange("Programme", prog);
+                        SpecialExams.SetRange("Current Semester", sem);
+                        SpecialExams.SetRange("Stage", stage);
+                        SpecialExams.SetRange("Category", SpecialExams.Category::Special);
+                        SpecialExams.SetRange("Status", SpecialExams.Status::Approved);
+                        if SpecialExams.Find('-') then begin
+                            Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                        end;
+                    until StdUnits.Next = 0;
+                end;
+            until Customer.Next = 0;
+        end else begin
+            Customer.Reset;
+            Customer.SetCurrentkey("No.");
+            Customer.SetFilter(Name, '%1', '*' + searchParam + '*');
+            if Customer.Find('-') then begin
+                repeat
+                    StdUnits.Reset;
+                    StdUnits.SetRange("Student No.", Customer."No.");
+                    StdUnits.SetRange(Unit, unit);
+                    StdUnits.SetRange(Programme, prog);
+                    StdUnits.SetRange(Semester, sem);
+                    StdUnits.SetRange(Stage, stage);
+                    if StdUnits.Find('-') then begin
+                        repeat
+                            Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                        until StdUnits.Next = 0;
+                    end;
+                until Customer.Next = 0;
+            end;
+        end;
+    end;
 
     procedure FnGetLecturerStudents(unit: Code[20]; prog: Code[20]; sem: Code[20]; stage: Code[20]) Msg: Text
     var
@@ -9256,6 +9563,36 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure FnGetLecturerSpecialStudents(unit: Code[20]; prog: Code[20]; sem: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        SpecialExams: Record "Aca-Special Exams Details";
+    begin
+        StdUnits.Reset;
+        StdUnits.SetCurrentkey("Student No.");
+        StdUnits.SetRange(Unit, unit);
+        StdUnits.SetRange(Programme, prog);
+        StdUnits.SetRange(Stage, stage);
+        if StdUnits.Find('-') then begin
+            repeat
+                SpecialExams.Reset;
+                SpecialExams.SetRange("Student No.", StdUnits."Student No.");
+                SpecialExams.SetRange("Unit Code", unit);
+                SpecialExams.SetRange("Programme", prog);
+                SpecialExams.SetRange("Current Semester", sem);
+                SpecialExams.SetRange("Stage", stage);
+                SpecialExams.SetRange("Category", SpecialExams.Category::Special);
+                SpecialExams.SetRange("Status", SpecialExams.Status::Approved);
+                if SpecialExams.Find('-') then begin
+                    Customer.Reset;
+                    Customer.SetRange("No.", StdUnits."Student No.");
+                    if Customer.Find('-') then begin
+                        Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + StdUnits.Unit + ' ::' + StdUnits.Description + ' ::' + StdUnits."Reg. Transacton ID" + ' :::';
+                    end;
+                end;
+            until StdUnits.Next = 0;
+        end;
+    end;
 
     procedure FnGetScore(stdNo: Code[20]; unit: Code[20]; sem: Code[20]; examType: Code[20]) Msg: Text
     var
