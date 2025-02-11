@@ -15,7 +15,18 @@ table 50245 "HRM-Medical Claims"
                 HREmpl.SETRANGE(HREmpl."No.", "Member No");
                 IF HREmpl.FIND('-') THEN BEGIN
                     "Member Names" := HREmpl."First Name" + ' ' + HREmpl."Middle Name" + ' ' + HREmpl."Last Name";
+
+                    HREmpl.TestField("Responsibility Center");
+                    HREmpl.TestField(Campus);
+                    HREmpl.TestField("Department Code");
+                    HREmpl.TestField("Faculty Code");
+                    "Global Dimension 1 Code" := HREmpl.Campus;
+                    "Global Dimension 2 Code" := HREmpl."Department Code";
+                    "Shortcut Dimension 3 Code" := HREmpl."Faculty Code";
+                    "Responsibility Center" := HREmpl."Responsibility Center";
+                    HREmpl.TestField("Responsibility Center");
                 end;
+                fnCheckCeilingAndBalance();
             end;
         }
         field(2; "Claim Type"; Option)
@@ -73,18 +84,18 @@ table 50245 "HRM-Medical Claims"
                 else
                     "Scheme Amount Charged" := "Claim Amount";
 
-                if scheme.Get("Scheme No") then begin
-                    case "Claim Type" of
-                        "Claim Type"::Inpatient:
-                            if "Claim Amount" > scheme."In-patient limit" then
-                                Error(ExceedLimitErr, "Claim Amount", 'In-patient', scheme."In-patient limit");
+                // if scheme.Get("Scheme No") then begin
+                //     case "Claim Type" of
+                //         "Claim Type"::Inpatient:
+                //             if "Claim Amount" > scheme."In-patient limit" then
+                //                 Error(ExceedLimitErr, "Claim Amount", 'In-patient', scheme."In-patient limit");
 
-                        "Claim Type"::Outpatient:
-                            if "Claim Amount" > scheme."Out-patient limit" then
-                                Error(ExceedLimitErr, "Claim Amount", 'Out-patient', scheme."Out-patient limit");
+                //         "Claim Type"::Outpatient:
+                //             if "Claim Amount" > scheme."Out-patient limit" then
+                //                 Error(ExceedLimitErr, "Claim Amount", 'Out-patient', scheme."Out-patient limit");
 
-                    end;
-                end;
+                //     end;
+                // end;
 
             end;
         }
@@ -277,9 +288,11 @@ table 50245 "HRM-Medical Claims"
             HRSetup.TestField(HRSetup."Medical Claims Nos");
             NoSeriesMgt.InitSeries(HRSetup."Medical Claims Nos", xRec."No. Series", 0D, "Claim No", "No. Series");
         end;
-        "Member ID" := UserId;
-        "Member No" := HREmp."No.";
+        if "Member ID" = '' then begin
+            "Member ID" := UserId;
+        end;
         "Claim Date" := Today;
+
 
         // HREmp.Reset;
         // HREmp.SetRange(HREmp."User ID", "Member ID");
@@ -346,6 +359,8 @@ table 50245 "HRM-Medical Claims"
 
 
         if Employee.get(rec."Member No") then begin
+            Employee.TestField("Salary Category");
+            Employee.TestField("Salary Grade");
             Grades.Reset();
             Grades.SetRange(Grades."Employee Category", Employee."Salary Category");
             Grades.SetRange("Salary Grade code", Employee."Salary Grade");

@@ -8,6 +8,7 @@ codeunit 50048 "Claims Handler"
         PayTypes: Record "FIN-Receipts and Payment Types";
         Ptimer: Codeunit "PartTimer Management";
     begin
+        Ptimer.getEmployee(Employee, Claim."Member No");
         PVHeader.Init();
         PVHeader."Document Type" := PVHeader."Document Type"::"Payment Voucher";
         PVHeader."No." := '';
