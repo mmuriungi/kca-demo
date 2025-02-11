@@ -7,93 +7,96 @@ report 50516 "Student Progress Report"
     {
         dataitem("ACA-Student Units"; "ACA-Student Units")
         {
-            CalcFields = "CATs Marks Exists", "EXAMs Marks Exists";
-            DataItemTableView = SORTING(Stage) ORDER(Ascending) WHERE(Reversed = FILTER(false));
-            RequestFilterFields = Programme, Stage, Semester, Unit, "Student No.";
-            column(No; "ACA-Student Units"."Student No.")
+            CalcFields = "CATs Marks Exists","EXAMs Marks Exists";
+            DataItemTableView = sorting(Stage) order(ascending) where(Reversed=filter(false));
+            RequestFilterFields = Programme,Stage,Semester,Unit,"Student No.";
+            column(ReportForNavId_1; 1)
             {
             }
-            column(Prog; "ACA-Student Units".Programme)
+            column(No;"ACA-Student Units"."Student No.")
             {
             }
-            column(Stage; "ACA-Student Units".Stage)
+            column(Prog;"ACA-Student Units".Programme)
             {
             }
-            column(Unit; "ACA-Student Units".Unit)
+            column(Stage;"ACA-Student Units".Stage)
             {
             }
-            column(Sem; "ACA-Student Units".Semester)
+            column(Unit;"ACA-Student Units".Unit)
             {
             }
-            column(Year; "ACA-Student Units"."Academic Year")
+            column(Sem;"ACA-Student Units".Semester)
             {
             }
-            column(Grade; "ACA-Student Units".Grade)
+            column(Year;"ACA-Student Units"."Academic Year")
             {
             }
-            column(Fin_Score; "ACA-Student Units"."Final Score")
+            column(Grade;"ACA-Student Units".Grade)
             {
             }
-            column(Total_Score; "ACA-Student Units"."Total Score")
+            column(Fin_Score;"ACA-Student Units"."Final Score")
             {
             }
-            column(TotScore; "ACA-Student Units"."Total Score")
+            column(Total_Score;"ACA-Student Units"."Total Score")
             {
             }
-            column(Cat; "ACA-Student Units"."CATs Marks")
+            column(TotScore;"ACA-Student Units"."Total Score")
             {
             }
-            column(exam; "ACA-Student Units"."EXAMs Marks")
+            column(Cat;"ACA-Student Units"."CATs Marks")
             {
             }
-            column(ProgCode; ACAProgramme.Code)
+            column(exam;"ACA-Student Units"."EXAMs Marks")
             {
             }
-            column(ProgDesc; ACAProgramme.Description)
+            column(ProgCode;ACAProgramme.Code)
             {
             }
-            column(UnitName; "ACA-Student Units"."Unit Name")
+            column(ProgDesc;ACAProgramme.Description)
             {
             }
-            column(UnitDesc; "ACA-Student Units"."Unit Description")
+            column(UnitName;"ACA-Student Units"."Unit Name")
             {
             }
-            column(StudName; Customer.Name)
+            column(UnitDesc;"ACA-Student Units"."Unit Description")
             {
             }
-            column(seq; seq)
+            column(StudName;Customer.Name)
+            {
+            }
+            column(seq;seq)
             {
             }
 
             trigger OnAfterGetRecord()
             begin
-                CalcFields("ACA-Student Units"."Total Score", "ACA-Student Units"."Unit Description");
-                ACAProgramme.Reset;
-                ACAProgramme.SetRange(Code, "ACA-Student Units".Programme);
-                if ACAProgramme.Find('-') then begin
+                   CalcFields("ACA-Student Units"."Total Score","ACA-Student Units"."Unit Description");
+                   ACAProgramme.Reset;
+                   ACAProgramme.SetRange(Code,"ACA-Student Units".Programme);
+                   if ACAProgramme.Find('-') then begin
 
-                end;
-                Customer.Reset;
-                Customer.SetRange("No.", "ACA-Student Units"."Student No.");
-                if Customer.Find('-') then begin
-                end;
-                seq += 1;
+                     end;
+                     Customer.Reset;
+                     Customer.SetRange("No.","ACA-Student Units"."Student No.");
+                     if Customer.Find('-') then begin
+                       end;
+                seq+=1;
                 "ACA-Student Units".CalcFields("Total Score");
-                "ACA-Student Units"."Total Marks" := "ACA-Student Units"."Total Score";
-                if (("ACA-Student Units"."EXAMs Marks Exists" = false) or ("ACA-Student Units"."CATs Marks Exists" = false)) then begin
-                    "ACA-Student Units".Grade := '!';
-                    "ACA-Student Units".Failed := true;
-                    //"ACA-Student Units".MODIFY;
+                "ACA-Student Units"."Total Marks":="ACA-Student Units"."Total Score";
+                if (("ACA-Student Units"."EXAMs Marks Exists"=false) or ("ACA-Student Units"."CATs Marks Exists"=false)) then begin
+                "ACA-Student Units".Grade:='!';
+                "ACA-Student Units".Failed:=true;
+                //"ACA-Student Units".MODIFY;
                 end else begin
-                    "ACA-Student Units".Grade := GetGrade("ACA-Student Units"."Total Score", "ACA-Student Units".Unit, "ACA-Student Units".Programme);
-                    "ACA-Student Units".Failed := GetUnitPassStatus("ACA-Student Units"."Total Score", "ACA-Student Units".Unit, "ACA-Student Units".Programme);
-                    //  "ACA-Student Units".MODIFY;
-                end;
+                  "ACA-Student Units".Grade:=GetGrade("ACA-Student Units"."Total Score","ACA-Student Units".Unit,"ACA-Student Units".Programme);
+                "ACA-Student Units".Failed:=GetUnitPassStatus("ACA-Student Units"."Total Score","ACA-Student Units".Unit,"ACA-Student Units".Programme);
+                //  "ACA-Student Units".MODIFY;
+                  end;
             end;
 
             trigger OnPreDataItem()
             begin
-                seq := 0;
+                seq:=0;
             end;
         }
     }
@@ -120,9 +123,10 @@ report 50516 "Student Progress Report"
         Customer: Record Customer;
         seq: Integer;
 
-    procedure GetGrade(EXAMMark: Decimal; UnitG: Code[20]; Proga: Code[20]) xGrade: Text[100]
+
+    procedure GetGrade(EXAMMark: Decimal;UnitG: Code[20];Proga: Code[20]) xGrade: Text[100]
     var
-        UnitsRR: Record "ACA-Units/Subjects";
+        UnitsRR: Record  "ACA-Units/Subjects";
         ProgrammeRec: Record "ACA-Programme";
         LastGrade: Code[20];
         LastRemark: Code[20];
@@ -131,64 +135,65 @@ report 50516 "Student Progress Report"
         Gradings: Record "ACA-Exam Gradding Setup";
         Gradings2: Record "ACA-Exam Gradding Setup";
         GradeCategory: Code[20];
-        GLabel: array[6] of Code[20];
+        GLabel: array [6] of Code[20];
         i: Integer;
-        GLabel2: array[6] of Code[100];
+        GLabel2: array [6] of Code[100];
         FStatus: Boolean;
         Grd: Code[80];
         Grade: Code[20];
         Marks: Decimal;
     begin
-        Clear(Marks);
-        Marks := EXAMMark;
-        GradeCategory := '';
+         Clear(Marks);
+        Marks:=EXAMMark;
+        GradeCategory:='';
         UnitsRR.Reset;
-        UnitsRR.SetRange(UnitsRR."Programme Code", Proga);
-        UnitsRR.SetRange(UnitsRR.Code, UnitG);
+        UnitsRR.SetRange(UnitsRR."Programme Code",Proga);
+        UnitsRR.SetRange(UnitsRR.Code,UnitG);
         //UnitsRR.SETRANGE(UnitsRR."Stage Code","Student Units".Stage);
         if UnitsRR.Find('-') then begin
-            if UnitsRR."Default Exam Category" <> '' then begin
-                GradeCategory := UnitsRR."Default Exam Category";
-            end else begin
-                ProgrammeRec.Reset;
-                if ProgrammeRec.Get(UnitG) then
-                    GradeCategory := ProgrammeRec."Exam Category";
-                if GradeCategory = '' then GradeCategory := 'DEFAULT';
-            end;
+        if UnitsRR."Default Exam Category"<>'' then begin
+        GradeCategory:=UnitsRR."Default Exam Category";
+        end else begin
+        ProgrammeRec.Reset;
+        if ProgrammeRec.Get(UnitG) then
+        GradeCategory:=ProgrammeRec."Exam Category";
+        if GradeCategory='' then  GradeCategory:='DEFAULT';
         end;
-        xGrade := '';
+        end;
+        xGrade:='';
         if Marks > 0 then begin
-            Gradings.Reset;
-            Gradings.SetRange(Gradings.Category, GradeCategory);
-            Gradings.SetFilter(Gradings."Lower Limit", '<%1|=%2', Marks, Marks);
-            Gradings.SetFilter(Gradings."Upper Limit", '>%1|=%2', Marks, Marks);
-            LastGrade := '';
-            LastRemark := '';
-            LastScore := 0;
-            if Gradings.Find('-') then begin
-                ExitDo := false;
-                //REPEAT
-                LastScore := Gradings."Up to";
-                if Marks < LastScore then begin
-                    if ExitDo = false then begin
-                        xGrade := Gradings.Grade;
-                        if Gradings.Failed = false then
-                            LastRemark := 'PASS'
-                        else
-                            LastRemark := 'FAIL';
-                        ExitDo := true;
-                    end;
-                end;
+        Gradings.Reset;
+        Gradings.SetRange(Gradings.Category,GradeCategory);
+        Gradings.SetFilter(Gradings."Lower Limit",'<%1|=%2',Marks,Marks);
+        Gradings.SetFilter(Gradings."Upper Limit",'>%1|=%2',Marks,Marks);
+        LastGrade:='';
+        LastRemark:='';
+        LastScore:=0;
+        if Gradings.Find('-') then begin
+        ExitDo:=false;
+        //REPEAT
+        LastScore:=Gradings."Up to";
+        if Marks < LastScore then begin
+        if ExitDo = false then begin
+        xGrade:=Gradings.Grade;
+        if Gradings.Failed=false then
+        LastRemark:='PASS'
+        else
+        LastRemark:='FAIL';
+        ExitDo:=true;
+        end;
+        end;
 
 
-            end;
+        end;
 
         end else begin
-            Grade := '';
+        Grade:='';
         end;
     end;
 
-    procedure GetUnitPassStatus(EXAMMark: Decimal; UnitG: Code[20]; Proga: Code[20]) Passed: Boolean
+
+    procedure GetUnitPassStatus(EXAMMark: Decimal;UnitG: Code[20];Proga: Code[20]) Passed: Boolean
     var
         UnitsRR: Record "ACA-Units/Subjects";
         ProgrammeRec: Record "ACA-Programme";
@@ -196,65 +201,64 @@ report 50516 "Student Progress Report"
         LastRemark: Code[20];
         ExitDo: Boolean;
         LastScore: Decimal;
-        Gradings: Record "ACA-Exam Gradding Setup";
+        Gradings: Record  "ACA-Exam Gradding Setup";
         Gradings2: Record "ACA-Exam Gradding Setup";
         GradeCategory: Code[20];
-        GLabel: array[6] of Code[20];
+        GLabel: array [6] of Code[20];
         i: Integer;
-        GLabel2: array[6] of Code[100];
+        GLabel2: array [6] of Code[100];
         FStatus: Boolean;
         Grd: Code[80];
         Grade: Code[20];
         Marks: Decimal;
     begin
-        Clear(Marks);
-        Marks := EXAMMark;
-        GradeCategory := '';
+         Clear(Marks);
+        Marks:=EXAMMark;
+        GradeCategory:='';
         UnitsRR.Reset;
-        UnitsRR.SetRange(UnitsRR."Programme Code", Proga);
-        UnitsRR.SetRange(UnitsRR.Code, UnitG);
+        UnitsRR.SetRange(UnitsRR."Programme Code",Proga);
+        UnitsRR.SetRange(UnitsRR.Code,UnitG);
         //UnitsRR.SETRANGE(UnitsRR."Stage Code","Student Units".Stage);
         if UnitsRR.Find('-') then begin
-            if UnitsRR."Default Exam Category" <> '' then begin
-                GradeCategory := UnitsRR."Default Exam Category";
-            end else begin
-                ProgrammeRec.Reset;
-                if ProgrammeRec.Get(UnitG) then
-                    GradeCategory := ProgrammeRec."Exam Category";
-                if GradeCategory = '' then GradeCategory := 'DEFAULT';
-            end;
+        if UnitsRR."Default Exam Category"<>'' then begin
+        GradeCategory:=UnitsRR."Default Exam Category";
+        end else begin
+        ProgrammeRec.Reset;
+        if ProgrammeRec.Get(UnitG) then
+        GradeCategory:=ProgrammeRec."Exam Category";
+        if GradeCategory='' then  GradeCategory:='DEFAULT';
         end;
-        Passed := false;
+        end;
+        Passed:=false;
         if Marks > 0 then begin
-            Gradings.Reset;
-            Gradings.SetRange(Gradings.Category, GradeCategory);
-            Gradings.SetFilter(Gradings."Lower Limit", '<%1|=%2', Marks, Marks);
-            Gradings.SetFilter(Gradings."Upper Limit", '>%1|=%2', Marks, Marks);
-            LastGrade := '';
-            LastRemark := '';
-            LastScore := 0;
-            if Gradings.Find('-') then begin
-                ExitDo := false;
-                //REPEAT
-                LastScore := Gradings."Up to";
-                if Marks < LastScore then begin
-                    if ExitDo = false then begin
-                        if Gradings.Failed then
-                            Passed := false else
-                            Passed := true;
-                        if Gradings.Failed = false then
-                            LastRemark := 'PASS'
-                        else
-                            LastRemark := 'FAIL';
-                        ExitDo := true;
-                    end;
-                end;
+        Gradings.Reset;
+        Gradings.SetRange(Gradings.Category,GradeCategory);
+        Gradings.SetFilter(Gradings."Lower Limit",'<%1|=%2',Marks,Marks);
+        Gradings.SetFilter(Gradings."Upper Limit",'>%1|=%2',Marks,Marks);
+        LastGrade:='';
+        LastRemark:='';
+        LastScore:=0;
+        if Gradings.Find('-') then begin
+        ExitDo:=false;
+        //REPEAT
+        LastScore:=Gradings."Up to";
+        if Marks < LastScore then begin
+        if ExitDo = false then begin
+          if Gradings.Failed then
+        Passed:=false else Passed:=true;
+        if Gradings.Failed=false then
+        LastRemark:='PASS'
+        else
+        LastRemark:='FAIL';
+        ExitDo:=true;
+        end;
+        end;
 
 
-            end;
+        end;
 
         end else begin
-            Passed := false;
+        Passed:=false;
         end;
     end;
 }

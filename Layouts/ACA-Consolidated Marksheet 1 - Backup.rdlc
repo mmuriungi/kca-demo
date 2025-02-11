@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
-  <am:AuthoringMetadata>
-    <am:CreatedBy>
-      <am:Name>MSRB</am:Name>
-      <am:Version>15.0.20283.0</am:Version>
-    </am:CreatedBy>
-    <am:UpdatedBy>
-      <am:Name>MSRB</am:Name>
-      <am:Version>15.0.20283.0</am:Version>
-    </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-02-10T13:19:53.2356195Z</am:LastModifiedTimestamp>
-  </am:AuthoringMetadata>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -22,6 +11,225 @@
       <rd:DataSourceID>398892d3-115c-45e2-b30f-84e7068dd7e9</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="exclude">
+          <DataField>exclude</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+        <Field Name="COmpName">
+          <DataField>COmpName</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="CompPhone">
+          <DataField>CompPhone</DataField>
+        </Field>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="mails">
+          <DataField>mails</DataField>
+        </Field>
+        <Field Name="StudNumber">
+          <DataField>StudNumber</DataField>
+        </Field>
+        <Field Name="Progs">
+          <DataField>Progs</DataField>
+        </Field>
+        <Field Name="progNames">
+          <DataField>progNames</DataField>
+        </Field>
+        <Field Name="YearofStudy">
+          <DataField>YearofStudy</DataField>
+        </Field>
+        <Field Name="AcadYear">
+          <DataField>AcadYear</DataField>
+        </Field>
+        <Field Name="StudentName">
+          <DataField>StudentName</DataField>
+        </Field>
+        <Field Name="Dept">
+          <DataField>Dept</DataField>
+        </Field>
+        <Field Name="SchCode">
+          <DataField>SchCode</DataField>
+        </Field>
+        <Field Name="DeptName">
+          <DataField>DeptName</DataField>
+        </Field>
+        <Field Name="SchName">
+          <DataField>SchName</DataField>
+        </Field>
+        <Field Name="Class">
+          <DataField>Class</DataField>
+        </Field>
+        <Field Name="NAverage">
+          <DataField>NAverage</DataField>
+        </Field>
+        <Field Name="NAverageFormat">
+          <DataField>NAverageFormat</DataField>
+        </Field>
+        <Field Name="WAverage">
+          <DataField>WAverage</DataField>
+        </Field>
+        <Field Name="WAverageFormat">
+          <DataField>WAverageFormat</DataField>
+        </Field>
+        <Field Name="ProgOption">
+          <DataField>ProgOption</DataField>
+        </Field>
+        <Field Name="PercentageFailedCourses">
+          <DataField>PercentageFailedCourses</DataField>
+        </Field>
+        <Field Name="PercentageFailedCoursesFormat">
+          <DataField>PercentageFailedCoursesFormat</DataField>
+        </Field>
+        <Field Name="PercentageFailedUnits">
+          <DataField>PercentageFailedUnits</DataField>
+        </Field>
+        <Field Name="PercentageFailedUnitsFormat">
+          <DataField>PercentageFailedUnitsFormat</DataField>
+        </Field>
+        <Field Name="TotPassedUnits">
+          <DataField>TotPassedUnits</DataField>
+        </Field>
+        <Field Name="TotPassedUnitsFormat">
+          <DataField>TotPassedUnitsFormat</DataField>
+        </Field>
+        <Field Name="TotalPassed">
+          <DataField>TotalPassed</DataField>
+        </Field>
+        <Field Name="TotalCourseDone">
+          <DataField>TotalCourseDone</DataField>
+        </Field>
+        <Field Name="TotalUnits">
+          <DataField>TotalUnits</DataField>
+        </Field>
+        <Field Name="TotalUnitsFormat">
+          <DataField>TotalUnitsFormat</DataField>
+        </Field>
+        <Field Name="TotalMarks">
+          <DataField>TotalMarks</DataField>
+        </Field>
+        <Field Name="TotalMarksFormat">
+          <DataField>TotalMarksFormat</DataField>
+        </Field>
+        <Field Name="TotFailedCourses">
+          <DataField>TotFailedCourses</DataField>
+        </Field>
+        <Field Name="TotFailedUnits">
+          <DataField>TotFailedUnits</DataField>
+        </Field>
+        <Field Name="TotFailedUnitsFormat">
+          <DataField>TotFailedUnitsFormat</DataField>
+        </Field>
+        <Field Name="FailedCourses">
+          <DataField>FailedCourses</DataField>
+        </Field>
+        <Field Name="FailedUnits">
+          <DataField>FailedUnits</DataField>
+        </Field>
+        <Field Name="FailedUnitsFormat">
+          <DataField>FailedUnitsFormat</DataField>
+        </Field>
+        <Field Name="OptionNames">
+          <DataField>OptionNames</DataField>
+        </Field>
+        <Field Name="TotalCoursesPassed">
+          <DataField>TotalCoursesPassed</DataField>
+        </Field>
+        <Field Name="TotWeightedMarks">
+          <DataField>TotWeightedMarks</DataField>
+        </Field>
+        <Field Name="TotWeightedMarksFormat">
+          <DataField>TotWeightedMarksFormat</DataField>
+        </Field>
+        <Field Name="ClassOrder">
+          <DataField>ClassOrder</DataField>
+        </Field>
+        <Field Name="UnitCode">
+          <DataField>UnitCode</DataField>
+        </Field>
+        <Field Name="UnitDescription">
+          <DataField>UnitDescription</DataField>
+        </Field>
+        <Field Name="CreditHours">
+          <DataField>CreditHours</DataField>
+        </Field>
+        <Field Name="CreditHoursFormat">
+          <DataField>CreditHoursFormat</DataField>
+        </Field>
+        <Field Name="CATScore">
+          <DataField>CATScore</DataField>
+        </Field>
+        <Field Name="ExamScore">
+          <DataField>ExamScore</DataField>
+        </Field>
+        <Field Name="TotalScore">
+          <DataField>TotalScore</DataField>
+        </Field>
+        <Field Name="Pass">
+          <DataField>Pass</DataField>
+        </Field>
+        <Field Name="UnitYearOfStudy">
+          <DataField>UnitYearOfStudy</DataField>
+        </Field>
+        <Field Name="ExamScoreDecimal">
+          <DataField>ExamScoreDecimal</DataField>
+        </Field>
+        <Field Name="ExamScoreDecimalFormat">
+          <DataField>ExamScoreDecimalFormat</DataField>
+        </Field>
+        <Field Name="CATScoreDecimal">
+          <DataField>CATScoreDecimal</DataField>
+        </Field>
+        <Field Name="CATScoreDecimalFormat">
+          <DataField>CATScoreDecimalFormat</DataField>
+        </Field>
+        <Field Name="TotalScoreDecimal">
+          <DataField>TotalScoreDecimal</DataField>
+        </Field>
+        <Field Name="TotalScoreDecimalFormat">
+          <DataField>TotalScoreDecimalFormat</DataField>
+        </Field>
+        <Field Name="UnitGrade">
+          <DataField>UnitGrade</DataField>
+        </Field>
+        <Field Name="UnitSchoolCode">
+          <DataField>UnitSchoolCode</DataField>
+        </Field>
+        <Field Name="UnitDepartmentCode">
+          <DataField>UnitDepartmentCode</DataField>
+        </Field>
+        <Field Name="GradeComment">
+          <DataField>GradeComment</DataField>
+        </Field>
+        <Field Name="Prefix">
+          <DataField>Prefix</DataField>
+        </Field>
+        <Field Name="isRepeatOrResit">
+          <DataField>isRepeatOrResit</DataField>
+        </Field>
+        <Field Name="UnitStage">
+          <DataField>UnitStage</DataField>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DataSet</rd:DataSetName>
+        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
+        <rd:TableName>Result</rd:TableName>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -70,7 +278,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -90,6 +298,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -101,7 +310,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -132,7 +341,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -163,7 +372,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -192,7 +401,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -221,7 +430,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -250,7 +459,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -279,7 +488,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -308,7 +517,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -342,7 +551,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -373,7 +582,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -404,7 +613,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -435,7 +644,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -464,7 +673,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -493,7 +702,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -522,7 +731,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -551,7 +760,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -580,7 +789,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -614,7 +823,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -645,7 +854,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -676,7 +885,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -707,7 +916,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -736,7 +945,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -765,7 +974,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -794,7 +1003,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -823,7 +1032,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -852,7 +1061,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -886,7 +1095,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -917,7 +1126,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -948,7 +1157,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -979,7 +1188,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1008,7 +1217,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1037,7 +1246,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1066,7 +1275,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1095,7 +1304,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1124,7 +1333,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1158,7 +1367,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -1189,7 +1398,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -1220,7 +1429,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -1251,7 +1460,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1280,7 +1489,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1309,7 +1518,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1338,7 +1547,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1367,7 +1576,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1396,7 +1605,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1430,7 +1639,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UnitCode.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!UnitCode.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1482,7 +1691,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total</Value>
+                                  <Value EvaluationMode="Auto">Total</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1528,7 +1737,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Weighted</Value>
+                                  <Value EvaluationMode="Auto">Weighted</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1574,7 +1783,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Units</Value>
+                                  <Value EvaluationMode="Auto">Units</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1589,7 +1798,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1635,7 +1844,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Units</Value>
+                                  <Value EvaluationMode="Auto">Units</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1681,7 +1890,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>CF%</Value>
+                                  <Value EvaluationMode="Auto">CF%</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1696,7 +1905,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1742,7 +1951,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Courses</Value>
+                                  <Value EvaluationMode="Auto">Courses</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1788,7 +1997,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Current</Value>
+                                  <Value EvaluationMode="Auto">Current</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1834,7 +2043,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Remarks</Value>
+                                  <Value EvaluationMode="Auto">Remarks</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1884,7 +2093,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!CreditHours.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!CreditHours.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1936,7 +2145,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Units</Value>
+                                  <Value EvaluationMode="Auto">Units</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1976,7 +2185,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total</Value>
+                                  <Value EvaluationMode="Auto">Total</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2016,7 +2225,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Passed</Value>
+                                  <Value EvaluationMode="Auto">Passed</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2056,7 +2265,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Failed</Value>
+                                  <Value EvaluationMode="Auto">Failed</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2096,7 +2305,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Failed</Value>
+                                  <Value EvaluationMode="Auto">Failed</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2136,7 +2345,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Failed</Value>
+                                  <Value EvaluationMode="Auto">Failed</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2176,7 +2385,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Average</Value>
+                                  <Value EvaluationMode="Auto">Average</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2216,7 +2425,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2261,14 +2470,14 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TotalScoreDecimal.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!TotalScoreDecimal.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>0;(0);''</Format>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!Prefix.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!Prefix.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -2299,7 +2508,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TotalUnits.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!TotalUnits.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2348,7 +2557,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TotWeightedMarks.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!TotWeightedMarks.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00);'-'</Format>
                                   </Style>
@@ -2379,7 +2588,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TotPassedUnits.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!TotPassedUnits.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00);'-'</Format>
                                   </Style>
@@ -2410,7 +2619,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TotFailedUnits.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!TotFailedUnits.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00);'-'</Format>
                                   </Style>
@@ -2441,7 +2650,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PercentageFailedUnits.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!PercentageFailedUnits.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
@@ -2472,7 +2681,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FailedCourses.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!FailedCourses.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00);'-'</Format>
                                   </Style>
@@ -2503,7 +2712,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!NAverage.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!NAverage.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00);'-'</Format>
                                   </Style>
@@ -2554,7 +2763,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Class.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!Class.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2608,7 +2817,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -2639,7 +2848,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2668,7 +2877,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2697,7 +2906,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2726,7 +2935,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2755,7 +2964,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2784,7 +2993,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2813,7 +3022,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2842,7 +3051,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2876,7 +3085,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UnitCode.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!UnitCode.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2928,7 +3137,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2957,7 +3166,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2986,7 +3195,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3015,7 +3224,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3044,7 +3253,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3073,7 +3282,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3102,7 +3311,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3131,7 +3340,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3165,7 +3374,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Avg(Fields!TotalScoreDecimal.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Avg(Fields!TotalScoreDecimal.Value)</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>f2</Format>
@@ -3217,7 +3426,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3246,7 +3455,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3275,7 +3484,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3304,7 +3513,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3333,7 +3542,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3362,7 +3571,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3391,7 +3600,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3420,7 +3629,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3454,7 +3663,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Max(Fields!TotalScoreDecimal.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Max(Fields!TotalScoreDecimal.Value)</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>f2</Format>
@@ -3506,7 +3715,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3535,7 +3744,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3564,7 +3773,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3593,7 +3802,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3622,7 +3831,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3651,7 +3860,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3680,7 +3889,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3709,7 +3918,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3743,7 +3952,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Min(Fields!TotalScoreDecimal.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Min(Fields!TotalScoreDecimal.Value)</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>f2</Format>
@@ -3795,7 +4004,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3824,7 +4033,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3853,7 +4062,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3882,7 +4091,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3911,7 +4120,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3940,7 +4149,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3969,7 +4178,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3998,7 +4207,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4032,7 +4241,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=StDev(Fields!TotalScoreDecimal.Value)</Value>
+                                  <Value EvaluationMode="Auto">=StDev(Fields!TotalScoreDecimal.Value)</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>f2</Format>
@@ -4084,7 +4293,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4113,7 +4322,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4142,7 +4351,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4171,7 +4380,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4200,7 +4409,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4229,7 +4438,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4258,7 +4467,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4287,7 +4496,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -4408,7 +4617,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -4458,7 +4667,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value>=Fields!COmpName.Value</Value>
+                                                            <Value EvaluationMode="Auto">=Fields!COmpName.Value</Value>
                                                             <Style>
                                                               <FontWeight>Bold</FontWeight>
                                                             </Style>
@@ -4469,7 +4678,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value>=Fields!CompAddress.Value</Value>
+                                                            <Value EvaluationMode="Auto">=Fields!CompAddress.Value</Value>
                                                             <Style>
                                                               <FontSize>9pt</FontSize>
                                                             </Style>
@@ -4480,7 +4689,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value>=Fields!CompPhone.Value</Value>
+                                                            <Value EvaluationMode="Auto">=Fields!CompPhone.Value</Value>
                                                             <Style>
                                                               <FontSize>9pt</FontSize>
                                                             </Style>
@@ -4491,7 +4700,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value>=Fields!mails.Value</Value>
+                                                            <Value EvaluationMode="Auto">=Fields!mails.Value</Value>
                                                             <Style>
                                                               <FontSize>9pt</FontSize>
                                                               <Color>Blue</Color>
@@ -4531,7 +4740,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>CONSOLIDATED MARKSHEET</Value>
+                                                    <Value EvaluationMode="Auto">CONSOLIDATED MARKSHEET</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -4568,20 +4777,20 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>School:</Value>
+                                                    <Value EvaluationMode="Auto">School:</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value xml:space="preserve"> </Value>
+                                                    <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>=Fields!SchName.Value</Value>
+                                                    <Value EvaluationMode="Auto">=Fields!SchName.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -4592,14 +4801,14 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Programme: </Value>
+                                                    <Value EvaluationMode="Auto">Programme: </Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>=Fields!progNames.Value</Value>
+                                                    <Value EvaluationMode="Auto">=Fields!progNames.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -4634,14 +4843,14 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Option: </Value>
+                                                    <Value EvaluationMode="Auto">Option: </Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>=Fields!OptionNames.Value</Value>
+                                                    <Value EvaluationMode="Auto">=Fields!OptionNames.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -4679,20 +4888,20 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Year of Study:</Value>
+                                                    <Value EvaluationMode="Auto">Year of Study:</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value xml:space="preserve"> </Value>
+                                                    <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>=Fields!YearofStudy.Value</Value>
+                                                    <Value EvaluationMode="Auto">=Fields!YearofStudy.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -4703,20 +4912,20 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Academic Year:</Value>
+                                                    <Value EvaluationMode="Auto">Academic Year:</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value xml:space="preserve"> </Value>
+                                                    <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>=Fields!AcadYear.Value</Value>
+                                                    <Value EvaluationMode="Auto">=Fields!AcadYear.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -4751,7 +4960,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -4796,7 +5005,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style>
                                                           <FontSize>9pt</FontSize>
                                                           <FontWeight>Bold</FontWeight>
@@ -4841,7 +5050,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style>
                                                               <FontSize>9pt</FontSize>
                                                               <FontWeight>Bold</FontWeight>
@@ -4891,7 +5100,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>#</Value>
+                                                    <Value EvaluationMode="Auto">#</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -4931,7 +5140,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value>Reg. No.</Value>
+                                                        <Value EvaluationMode="Auto">Reg. No.</Value>
                                                         <Style>
                                                           <FontSize>9pt</FontSize>
                                                           <FontWeight>Bold</FontWeight>
@@ -4971,7 +5180,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value>Student Name</Value>
+                                                            <Value EvaluationMode="Auto">Student Name</Value>
                                                             <Style>
                                                               <FontSize>9pt</FontSize>
                                                               <FontWeight>Bold</FontWeight>
@@ -5026,11 +5235,11 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!seq.Value</Value>
+                                                    <Value EvaluationMode="Auto">=Fields!seq.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>.</Value>
+                                                    <Value EvaluationMode="Auto">.</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -5082,7 +5291,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value>=Fields!StudNumber.Value</Value>
+                                                        <Value EvaluationMode="Auto">=Fields!StudNumber.Value</Value>
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -5134,7 +5343,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value>=Fields!StudentName.Value</Value>
+                                                            <Value EvaluationMode="Auto">=Fields!StudentName.Value</Value>
                                                             <Style />
                                                           </TextRun>
                                                         </TextRuns>
@@ -5193,7 +5402,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -5225,7 +5434,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -5257,7 +5466,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style />
                                                           </TextRun>
                                                         </TextRuns>
@@ -5291,7 +5500,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value />
+                                                                <Value EvaluationMode="Auto" />
                                                                 <Style />
                                                               </TextRun>
                                                             </TextRuns>
@@ -5332,7 +5541,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -5364,7 +5573,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -5396,7 +5605,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style>
                                                               <FontWeight>Bold</FontWeight>
                                                             </Style>
@@ -5432,7 +5641,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value>SUMMARY </Value>
+                                                                <Value EvaluationMode="Auto">SUMMARY </Value>
                                                                 <Style>
                                                                   <FontWeight>Bold</FontWeight>
                                                                 </Style>
@@ -5475,7 +5684,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -5507,7 +5716,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -5539,7 +5748,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style>
                                                               <FontWeight>Bold</FontWeight>
                                                             </Style>
@@ -5575,7 +5784,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value>Mean: </Value>
+                                                                <Value EvaluationMode="Auto">Mean: </Value>
                                                                 <Style>
                                                                   <FontWeight>Bold</FontWeight>
                                                                 </Style>
@@ -5618,7 +5827,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -5650,7 +5859,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -5682,7 +5891,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style>
                                                               <FontWeight>Bold</FontWeight>
                                                             </Style>
@@ -5718,7 +5927,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value>Maximum: </Value>
+                                                                <Value EvaluationMode="Auto">Maximum: </Value>
                                                                 <Style>
                                                                   <FontWeight>Bold</FontWeight>
                                                                 </Style>
@@ -5761,7 +5970,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -5793,7 +6002,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -5825,7 +6034,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style>
                                                               <FontWeight>Bold</FontWeight>
                                                             </Style>
@@ -5861,7 +6070,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value>Minimum: </Value>
+                                                                <Value EvaluationMode="Auto">Minimum: </Value>
                                                                 <Style>
                                                                   <FontWeight>Bold</FontWeight>
                                                                 </Style>
@@ -5904,7 +6113,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -5936,7 +6145,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -5968,7 +6177,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style>
                                                               <FontWeight>Bold</FontWeight>
                                                             </Style>
@@ -6004,7 +6213,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value>Standard Diviation: </Value>
+                                                                <Value EvaluationMode="Auto">Standard Diviation: </Value>
                                                                 <Style>
                                                                   <FontWeight>Bold</FontWeight>
                                                                 </Style>
@@ -6077,14 +6286,14 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TotalScoreDecimal.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!TotalScoreDecimal.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>0;(0);''</Format>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!Prefix.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!Prefix.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6120,7 +6329,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6156,7 +6365,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6192,7 +6401,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6228,7 +6437,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6264,7 +6473,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6300,7 +6509,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -6431,11 +6640,11 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!seq.Value</Value>
+                                                    <Value EvaluationMode="Auto">=Fields!seq.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>.</Value>
+                                                    <Value EvaluationMode="Auto">.</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -6487,7 +6696,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value>=Fields!StudNumber.Value</Value>
+                                                        <Value EvaluationMode="Auto">=Fields!StudNumber.Value</Value>
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -6539,7 +6748,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value>=Fields!StudentName.Value</Value>
+                                                            <Value EvaluationMode="Auto">=Fields!StudentName.Value</Value>
                                                             <Style />
                                                           </TextRun>
                                                         </TextRuns>
@@ -6601,7 +6810,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -6633,7 +6842,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -6665,7 +6874,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style />
                                                           </TextRun>
                                                         </TextRuns>
@@ -6699,7 +6908,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value />
+                                                                <Value EvaluationMode="Auto" />
                                                                 <Style />
                                                               </TextRun>
                                                             </TextRuns>
@@ -6740,7 +6949,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -6772,7 +6981,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -6810,7 +7019,7 @@
                                                                   <Paragraph>
                                                                     <TextRuns>
                                                                       <TextRun>
-                                                                        <Value />
+                                                                        <Value EvaluationMode="Auto" />
                                                                         <Style />
                                                                       </TextRun>
                                                                     </TextRuns>
@@ -6852,7 +7061,7 @@
                                                                     <Paragraph>
                                                                       <TextRuns>
                                                                         <TextRun>
-                                                                          <Value />
+                                                                          <Value EvaluationMode="Auto" />
                                                                           <Style />
                                                                         </TextRun>
                                                                       </TextRuns>
@@ -6906,7 +7115,7 @@
                                                                     <Paragraph>
                                                                       <TextRuns>
                                                                         <TextRun>
-                                                                          <Value>=CountDistinct(Fields!StudNumber.Value)</Value>
+                                                                          <Value EvaluationMode="Auto">=CountDistinct(Fields!StudNumber.Value)</Value>
                                                                           <Style />
                                                                         </TextRun>
                                                                       </TextRuns>
@@ -6973,7 +7182,7 @@
                                                                   <Paragraph>
                                                                     <TextRuns>
                                                                       <TextRun>
-                                                                        <Value>=Fields!Class.Value</Value>
+                                                                        <Value EvaluationMode="Auto">=Fields!Class.Value</Value>
                                                                         <Style />
                                                                       </TextRun>
                                                                     </TextRuns>
@@ -7039,7 +7248,7 @@
                                                                   <Paragraph>
                                                                     <TextRuns>
                                                                       <TextRun>
-                                                                        <Value>=Fields!StudNumber.Value</Value>
+                                                                        <Value EvaluationMode="Auto">=Fields!StudNumber.Value</Value>
                                                                         <Style />
                                                                       </TextRun>
                                                                     </TextRuns>
@@ -7074,7 +7283,7 @@
                                                                   <Paragraph>
                                                                     <TextRuns>
                                                                       <TextRun>
-                                                                        <Value />
+                                                                        <Value EvaluationMode="Auto" />
                                                                         <Style />
                                                                       </TextRun>
                                                                     </TextRuns>
@@ -7120,7 +7329,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value />
+                                                                <Value EvaluationMode="Auto" />
                                                                 <Style />
                                                               </TextRun>
                                                             </TextRuns>
@@ -7159,7 +7368,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -7191,7 +7400,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value />
+                                                        <Value EvaluationMode="Auto" />
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -7223,7 +7432,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style />
                                                           </TextRun>
                                                         </TextRuns>
@@ -7260,7 +7469,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -7292,7 +7501,7 @@
                                                   <Paragraph>
                                                     <TextRuns>
                                                       <TextRun>
-                                                        <Value>Key:</Value>
+                                                        <Value EvaluationMode="Auto">Key:</Value>
                                                         <Style />
                                                       </TextRun>
                                                     </TextRuns>
@@ -7324,7 +7533,7 @@
                                                       <Paragraph>
                                                         <TextRuns>
                                                           <TextRun>
-                                                            <Value />
+                                                            <Value EvaluationMode="Auto" />
                                                             <Style />
                                                           </TextRun>
                                                         </TextRuns>
@@ -7356,7 +7565,7 @@
                                                           <Paragraph>
                                                             <TextRuns>
                                                               <TextRun>
-                                                                <Value />
+                                                                <Value EvaluationMode="Auto" />
                                                                 <Style />
                                                               </TextRun>
                                                             </TextRuns>
@@ -7395,7 +7604,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -7443,7 +7652,7 @@
                                                                 <Paragraph>
                                                                   <TextRuns>
                                                                     <TextRun>
-                                                                      <Value>Code</Value>
+                                                                      <Value EvaluationMode="Auto">Code</Value>
                                                                       <Style>
                                                                         <FontSize>9pt</FontSize>
                                                                         <FontWeight>Bold</FontWeight>
@@ -7476,7 +7685,7 @@
                                                                 <Paragraph>
                                                                   <TextRuns>
                                                                     <TextRun>
-                                                                      <Value>Description</Value>
+                                                                      <Value EvaluationMode="Auto">Description</Value>
                                                                       <Style>
                                                                         <FontSize>9pt</FontSize>
                                                                         <FontWeight>Bold</FontWeight>
@@ -7514,7 +7723,7 @@
                                                                 <Paragraph>
                                                                   <TextRuns>
                                                                     <TextRun>
-                                                                      <Value>=Fields!UnitCode.Value</Value>
+                                                                      <Value EvaluationMode="Auto">=Fields!UnitCode.Value</Value>
                                                                       <Style>
                                                                         <FontSize>9pt</FontSize>
                                                                       </Style>
@@ -7546,7 +7755,7 @@
                                                                 <Paragraph>
                                                                   <TextRuns>
                                                                     <TextRun>
-                                                                      <Value>=Fields!UnitDescription.Value</Value>
+                                                                      <Value EvaluationMode="Auto">=Fields!UnitDescription.Value</Value>
                                                                       <Style>
                                                                         <FontSize>9pt</FontSize>
                                                                       </Style>
@@ -7627,7 +7836,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>     Guide on Remarks</Value>
+                                                    <Value EvaluationMode="Auto">     Guide on Remarks</Value>
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -7635,7 +7844,7 @@
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value xml:space="preserve">    </Value>
+                                                    <Value xml:space="preserve" EvaluationMode="Auto">    </Value>
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                       <TextDecoration>None</TextDecoration>
@@ -7647,7 +7856,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>           ^=Failed Score, X=Missing Mark, -=Elective Unit, </Value>
+                                                    <Value EvaluationMode="Auto">           ^=Failed Score, X=Missing Mark, -=Elective Unit, </Value>
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                       <TextDecoration>None</TextDecoration>
@@ -7659,7 +7868,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>e=Missing Cat, c=Missing Exam</Value>
+                                                    <Value EvaluationMode="Auto">e=Missing Cat, c=Missing Exam</Value>
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                       <TextDecoration>None</TextDecoration>
@@ -7671,7 +7880,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>          1-25%=Fail, 26-50%=Repeat, 51 and Above =Discontinued on Academic Grounds</Value>
+                                                    <Value EvaluationMode="Auto">          1-25%=Fail, 26-50%=Repeat, 51 and Above =Discontinued on Academic Grounds</Value>
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                       <TextDecoration>None</TextDecoration>
@@ -7683,7 +7892,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value EvaluationMode="Auto" />
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -7696,7 +7905,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>HOD Signed _________________ Dean Signed: ___________</Value>
+                                                    <Value EvaluationMode="Auto">HOD Signed _________________ Dean Signed: ___________</Value>
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -7859,224 +8068,4 @@ iaz2Y2EzVs27ttmIygabeBgWPyTsbgArAQUb/o4nlhha26VpZlUhknyr/TjBGAP3xnJDqoofm5XFkH8c
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="ReportForNavId_1">
-          <DataField>ReportForNavId_1</DataField>
-        </Field>
-        <Field Name="exclude">
-          <DataField>exclude</DataField>
-        </Field>
-        <Field Name="seq">
-          <DataField>seq</DataField>
-        </Field>
-        <Field Name="COmpName">
-          <DataField>COmpName</DataField>
-        </Field>
-        <Field Name="CompAddress">
-          <DataField>CompAddress</DataField>
-        </Field>
-        <Field Name="CompPhone">
-          <DataField>CompPhone</DataField>
-        </Field>
-        <Field Name="pic">
-          <DataField>pic</DataField>
-        </Field>
-        <Field Name="mails">
-          <DataField>mails</DataField>
-        </Field>
-        <Field Name="StudNumber">
-          <DataField>StudNumber</DataField>
-        </Field>
-        <Field Name="Progs">
-          <DataField>Progs</DataField>
-        </Field>
-        <Field Name="progNames">
-          <DataField>progNames</DataField>
-        </Field>
-        <Field Name="YearofStudy">
-          <DataField>YearofStudy</DataField>
-        </Field>
-        <Field Name="AcadYear">
-          <DataField>AcadYear</DataField>
-        </Field>
-        <Field Name="StudentName">
-          <DataField>StudentName</DataField>
-        </Field>
-        <Field Name="Dept">
-          <DataField>Dept</DataField>
-        </Field>
-        <Field Name="SchCode">
-          <DataField>SchCode</DataField>
-        </Field>
-        <Field Name="DeptName">
-          <DataField>DeptName</DataField>
-        </Field>
-        <Field Name="SchName">
-          <DataField>SchName</DataField>
-        </Field>
-        <Field Name="Class">
-          <DataField>Class</DataField>
-        </Field>
-        <Field Name="NAverage">
-          <DataField>NAverage</DataField>
-        </Field>
-        <Field Name="NAverageFormat">
-          <DataField>NAverageFormat</DataField>
-        </Field>
-        <Field Name="WAverage">
-          <DataField>WAverage</DataField>
-        </Field>
-        <Field Name="WAverageFormat">
-          <DataField>WAverageFormat</DataField>
-        </Field>
-        <Field Name="ProgOption">
-          <DataField>ProgOption</DataField>
-        </Field>
-        <Field Name="PercentageFailedCourses">
-          <DataField>PercentageFailedCourses</DataField>
-        </Field>
-        <Field Name="PercentageFailedCoursesFormat">
-          <DataField>PercentageFailedCoursesFormat</DataField>
-        </Field>
-        <Field Name="PercentageFailedUnits">
-          <DataField>PercentageFailedUnits</DataField>
-        </Field>
-        <Field Name="PercentageFailedUnitsFormat">
-          <DataField>PercentageFailedUnitsFormat</DataField>
-        </Field>
-        <Field Name="TotPassedUnits">
-          <DataField>TotPassedUnits</DataField>
-        </Field>
-        <Field Name="TotPassedUnitsFormat">
-          <DataField>TotPassedUnitsFormat</DataField>
-        </Field>
-        <Field Name="TotalPassed">
-          <DataField>TotalPassed</DataField>
-        </Field>
-        <Field Name="TotalCourseDone">
-          <DataField>TotalCourseDone</DataField>
-        </Field>
-        <Field Name="TotalUnits">
-          <DataField>TotalUnits</DataField>
-        </Field>
-        <Field Name="TotalUnitsFormat">
-          <DataField>TotalUnitsFormat</DataField>
-        </Field>
-        <Field Name="TotalMarks">
-          <DataField>TotalMarks</DataField>
-        </Field>
-        <Field Name="TotalMarksFormat">
-          <DataField>TotalMarksFormat</DataField>
-        </Field>
-        <Field Name="TotFailedCourses">
-          <DataField>TotFailedCourses</DataField>
-        </Field>
-        <Field Name="TotFailedUnits">
-          <DataField>TotFailedUnits</DataField>
-        </Field>
-        <Field Name="TotFailedUnitsFormat">
-          <DataField>TotFailedUnitsFormat</DataField>
-        </Field>
-        <Field Name="FailedCourses">
-          <DataField>FailedCourses</DataField>
-        </Field>
-        <Field Name="FailedUnits">
-          <DataField>FailedUnits</DataField>
-        </Field>
-        <Field Name="FailedUnitsFormat">
-          <DataField>FailedUnitsFormat</DataField>
-        </Field>
-        <Field Name="OptionNames">
-          <DataField>OptionNames</DataField>
-        </Field>
-        <Field Name="TotalCoursesPassed">
-          <DataField>TotalCoursesPassed</DataField>
-        </Field>
-        <Field Name="TotWeightedMarks">
-          <DataField>TotWeightedMarks</DataField>
-        </Field>
-        <Field Name="TotWeightedMarksFormat">
-          <DataField>TotWeightedMarksFormat</DataField>
-        </Field>
-        <Field Name="ClassOrder">
-          <DataField>ClassOrder</DataField>
-        </Field>
-        <Field Name="ReportForNavId_30">
-          <DataField>ReportForNavId_30</DataField>
-        </Field>
-        <Field Name="UnitCode">
-          <DataField>UnitCode</DataField>
-        </Field>
-        <Field Name="UnitDescription">
-          <DataField>UnitDescription</DataField>
-        </Field>
-        <Field Name="CreditHours">
-          <DataField>CreditHours</DataField>
-        </Field>
-        <Field Name="CreditHoursFormat">
-          <DataField>CreditHoursFormat</DataField>
-        </Field>
-        <Field Name="CATScore">
-          <DataField>CATScore</DataField>
-        </Field>
-        <Field Name="ExamScore">
-          <DataField>ExamScore</DataField>
-        </Field>
-        <Field Name="TotalScore">
-          <DataField>TotalScore</DataField>
-        </Field>
-        <Field Name="Pass">
-          <DataField>Pass</DataField>
-        </Field>
-        <Field Name="UnitYearOfStudy">
-          <DataField>UnitYearOfStudy</DataField>
-        </Field>
-        <Field Name="ExamScoreDecimal">
-          <DataField>ExamScoreDecimal</DataField>
-        </Field>
-        <Field Name="ExamScoreDecimalFormat">
-          <DataField>ExamScoreDecimalFormat</DataField>
-        </Field>
-        <Field Name="CATScoreDecimal">
-          <DataField>CATScoreDecimal</DataField>
-        </Field>
-        <Field Name="CATScoreDecimalFormat">
-          <DataField>CATScoreDecimalFormat</DataField>
-        </Field>
-        <Field Name="TotalScoreDecimal">
-          <DataField>TotalScoreDecimal</DataField>
-        </Field>
-        <Field Name="TotalScoreDecimalFormat">
-          <DataField>TotalScoreDecimalFormat</DataField>
-        </Field>
-        <Field Name="UnitGrade">
-          <DataField>UnitGrade</DataField>
-        </Field>
-        <Field Name="UnitSchoolCode">
-          <DataField>UnitSchoolCode</DataField>
-        </Field>
-        <Field Name="UnitDepartmentCode">
-          <DataField>UnitDepartmentCode</DataField>
-        </Field>
-        <Field Name="GradeComment">
-          <DataField>GradeComment</DataField>
-        </Field>
-        <Field Name="Prefix">
-          <DataField>Prefix</DataField>
-        </Field>
-        <Field Name="isRepeatOrResit">
-          <DataField>isRepeatOrResit</DataField>
-        </Field>
-        <Field Name="UnitStage">
-          <DataField>UnitStage</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

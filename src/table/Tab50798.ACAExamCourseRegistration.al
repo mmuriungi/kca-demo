@@ -1126,6 +1126,12 @@ table 50798 "ACA-Exam. Course Registration"
             FieldClass = FlowField;
             CalcFormula = Exist("ACA-Exam Classification Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Is Supp. Unit" = const(true)));
         }
+        field(172; "Supp/Special Exists"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Is Supp. Unit"=FILTER(True),"Academic Year"=FIELD("Academic Year")));
+        }
+
     }
 
     keys
