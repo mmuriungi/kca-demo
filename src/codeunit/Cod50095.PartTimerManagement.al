@@ -133,8 +133,10 @@ codeunit 50095 "PartTimer Management"
         PurchHeader: Record "Purchase Header";
         HrSetup: Record "HRM-Setup";
         PurchLine: Record "Purchase Line";
+        Employee: Record "HRM-Employee C";
     begin
-        PurchHeader := claimHandler.CreatePurchaseHeader(PartTime."Account No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime);
+        getEmployee(Employee, PartTime."Account No.");
+        PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime);
         HrSetup.Get();
         claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Claim G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
     end;
