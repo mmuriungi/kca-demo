@@ -1,14 +1,13 @@
-#pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
-Report 78051 "Aca-General Senate Summary"
+report 50018 "Aca-Supp. Senate Summary"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/Aca-General Senate Summary.rdlc';
+    RDLCLayout = './Layouts/Aca-Supp. Senate Summary.rdlc';
 
     dataset
     {
-
-        dataitem(ExamCoregcs; "ACA-Exam. Course Registration")
+        dataitem(ExamCoregcs; "ACA-SuppExam. Co. Reg.")
         {
+            DataItemTableView = where("Supp or Special Exists"=filter(True));
             RequestFilterFields = Programme,"Academic Year","Year of Study";
             column(ReportForNavId_2901; 2901)
             {
@@ -17,9 +16,6 @@ Report 78051 "Aca-General Senate Summary"
             {
             }
             column(RubricDesc;ACAResultsStatus.Description)
-            {
-            }
-            column(IncludeCfFailed;ACAResultsStatus."Include CF% Fail")
             {
             }
             column(RegNo;RegNo)
@@ -40,10 +36,7 @@ Report 78051 "Aca-General Senate Summary"
             column(StatusDesc;ExamCoregcs.Classification)
             {
             }
-            column(SummaryPageCaption;ACAResultsStatusez."Summary Page Caption")
-            {
-            }
-            column(StatusOrder;ACAResultsStatus."Order No")
+            column(SummaryPageCaption;ACAResultsStatus."Summary Page Caption")
             {
             }
             column(IncVar1;IncVar1)
@@ -64,7 +57,10 @@ Report 78051 "Aca-General Senate Summary"
             column(IncVar6;IncVar6)
             {
             }
-            column(StatCodes;ACAResultsStatusez.Code)
+            column(StatusOrder;ACAResultsStatus."Order No")
+            {
+            }
+            column(StatCodes;ExamCoregcs.Classification)
             {
             }
             column(ApprovalsClaimer;'Approved by the board of the Examiners of the  '+ExamCoregcs."School Name"+' at a meeting held on:')
@@ -172,11 +168,15 @@ Report 78051 "Aca-General Senate Summary"
             column(ProgClassCount;ACASenateReportsHeader.Prog_AcadYear_Status_Count)
             {
             }
-            dataitem(ExamStudUnits; "ACA-Exam Classification Units")
+            dataitem(ExamStudUnits; "ACA-SuppExam Class. Units")
             {
                 CalcFields = "Is Supp. Unit","Special Unit Reason",Pass;
                 DataItemLink = "Student No."=field("Student Number"),Programme=field(Programme),"Year of Study"=field("Year of Study"),"Academic Year"=field("Academic Year");
+                DataItemTableView = where(Pass=filter(false));
                 column(ReportForNavId_1000000014; 1000000014)
+                {
+                }
+                column(RegCategory;RegCategory)
                 {
                 }
                 column(UnitCode;ExamStudUnits."Unit Code")
@@ -185,54 +185,40 @@ Report 78051 "Aca-General Senate Summary"
                 column(UnitDesc;ExamStudUnits."Unit Description")
                 {
                 }
-                column(IsSpecialUnit;varIsSpecialUnit)
+                column(IsSpecialUnit;ExamStudUnits."Is Supp. Unit")
                 {
                 }
-                column(SpecialReason;TxtSpecialReason)
-                {
-                }
-                column(VarIsSuppUnit;VarIsSupp)
+                column(SpecialReason;ExamStudUnits."Special Unit Reason")
                 {
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-                    TxtUnitCode:='';
-                    TxtUnitDesc:='';
-                    TxtSpecialReason:='';
-                    TxtUnitCode:=ExamStudUnits."Unit Code";
-                    TxtUnitDesc:=ExamStudUnits."Unit Description";
-                    ExamStudUnits.CalcFields("Special Unit Reason","Is Special Unit","Is Supp. Unit");
-                    TxtSpecialReason:=ExamStudUnits."Special Unit Reason";
-                    TxtSpecialReason:=Lowercase(TxtSpecialReason);
-                    TxtSpecialReason:=ToTitleCase(TxtSpecialReason);
-                    
-                    if not NotSpecialNotSuppSpecial then begin
-                      varIsSpecialUnit:=true;
-                      end;
-                    
-                    varIsSpecialUnit:=ExamStudUnits."Is Special Unit" or/* ExamStudUnits."Is Supp. Unit"*/( ExamStudUnits."Special Unit Reason"<>'');
-                    VarIsSupp:= ExamStudUnits."Is Supp. Unit";
+                    // CLEAR(IsSpecialUnit);//IsSpecialUnit:=TRUE;
+                    // IF ((isSpecialOnly) OR (IsSpecialAndSupp)) THEN BEGIN
+                    // IF "ACA-Student Units"."Special Exam"<>"ACA-Student Units"."Special Exam"::" " THEN  IsSpecialUnit:=TRUE;
+                    // IF "ACA-Student Units".Grade IN ['E','X','F',''] THEN  IsSpecialUnit:=TRUE;
+                    //  END;
+                    Clear(RegCategory);
+                    if ExamStudUnits."Is Special Unit" then begin
+                      RegCategory:= ' (SPCL)';
+                      end else if ExamStudUnits."Is Supp. Unit" then begin
+                      RegCategory:= ' (SUPP)';
+                        end;
                     if UnitCodeLabel='' then CurrReport.Skip;
                     //IF "ACA-Student Units".Grade<>'E' THEN CurrReport.SKIP;
                     if ((ExamStudUnits.Pass=true) and (ExamStudUnits."Is Supp. Unit"=false)) then
                       CurrReport.Skip;
-
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
+                
                 Clear(SpecialUnitReg);
-                Clear(SpecialUnitReg);
-                Clear(NotSpecialNotSuppSpecial);
                 Clear(NextYear);
                 Clear(YearOfStudyText);
-                // ExamCoregcs.CALCFIELDS("Supp. Registration Exists");
-                // NotSpecialNotSuppSpecial:=;
-                
                 Clear(YoS);
-                
                 // // IF ExamCoregcs."Year Of Study"<>0 THEN BEGIN
                 // //  IF ExamCoregcs."Year Of Study"=1 THEN BEGIN
                 // //    YearOfStudyText:='First Year (1)';
@@ -267,7 +253,6 @@ Report 78051 "Aca-General Senate Summary"
                 YearText2:=YoSText;
                   Clear(IsaForthYear);
                     IsaForthYear:=ExamCoregcs.Finalist;
-                 //   CLEAR(ACASenateReportsHeader);
                 ACASenateReportsHeader.Reset;
                 ACASenateReportsHeader.SetRange("Academic Year",ExamCoregcs."Academic Year");
                 ACASenateReportsHeader.SetRange("Programme Code",ExamCoregcs.Programme);
@@ -280,7 +265,6 @@ Report 78051 "Aca-General Senate Summary"
                   end;
                 
                 Clear(progName);
-                Clear(Prog);
                 Prog.Reset;
                 Prog.SetRange(Code,ExamCoregcs.Programme);
                 if Prog.Find('-') then begin
@@ -297,12 +281,10 @@ Report 78051 "Aca-General Senate Summary"
                 Clear(FacDesc);
                 Clear(facCode);
                 FacDesc:='';
-                Clear(Prog);
                 Prog.Reset;
                 Prog.SetRange(Code,ExamCoregcs.Programme);
                 Prog.SetFilter("School Code",'<>%1','');
                 if Prog.Find('-') then begin
-                  Clear(Dimensions2);
                 Dimensions2.Reset;
                 Dimensions2.SetRange("Dimension Code",'SCHOOL');
                 Dimensions2.SetRange(Code,Prog."School Code");
@@ -322,7 +304,6 @@ Report 78051 "Aca-General Senate Summary"
                   Clear(NumberOfCoursesFailedCaption);
                   Clear(PercentageFailedValue);
                   Clear(NoOfCausesFailedValue);
-                  Clear(ACAResultsStatus);
                 ACAResultsStatus.Reset;
                 ACAResultsStatus.SetRange(Code,ExamCoregcs.Classification);
                 ACAResultsStatus.SetRange("Academic Year",ExamCoregcs."Academic Year");
@@ -344,6 +325,7 @@ Report 78051 "Aca-General Senate Summary"
                 
                       end;
                     end;
+                
                     end;
                 // //    ExamCoregcs.CALCFIELDS(ExamCoregcs."Special Exam Exists");
                 // //    IF ExamCoregcs."Special Exam Exists"<>ExamCoregcs."Special Exam Exists"::" " THEN BEGIN
@@ -356,10 +338,15 @@ Report 78051 "Aca-General Senate Summary"
                 //  IF (ACASenateReportsHeader.Prog_AcadYear_Status_Count>1) THEN Msg3:='in their'
                 //  ELSE Msg3:='in His/Her';
                   Msg4:=ACAResultsStatus."Status Msg4";
+                
                   if  IsaForthYear then
                     if ACAResultsStatus."Final Year Comment"='' then IsaForthYear:=false;
                   Msg5:=ACAResultsStatus."Status Msg5";
-                  Msg6:=ACAResultsStatus."Status Msg6";
+                
+                ///////////////////////////////////////////////////////////////////////////////////////
+                Clear(FinalTexts);
+                ////////////////////////////////////////////////////////////////////////////////////////
+                
                 Clear(SaltedExamStatus);
                 Clear(SaltedExamStatusDesc);
                 SaltedExamStatus:=ACAResultsStatus.Code+facCode+Prog.Code+
@@ -367,7 +354,6 @@ Report 78051 "Aca-General Senate Summary"
                 ExamCoregcs."Academic Year";
                 Clear(NoOfStudents);
                 Clear(NoOfStudentsDecimal);
-                Clear(CReg);
                 CReg.Reset;
                 CReg.SetRange(Classification,ExamCoregcs.Classification);
                 CReg.SetRange("Academic Year",ExamCoregcs."Academic Year");
@@ -381,7 +367,6 @@ Report 78051 "Aca-General Senate Summary"
                 // // // // //  //NoOfStudents:=CReg.COUNT;
                 // // // // //  END;
                   //---------------------------------------------------------
-                  Clear(ACASenateReportCounts);
                   ACASenateReportCounts.Reset;
                 ACASenateReportCounts.SetRange("Prog. Code",ExamCoregcs.Programme);
                 ACASenateReportCounts.SetRange(StatusCode,ExamCoregcs.Classification);
@@ -406,7 +391,6 @@ Report 78051 "Aca-General Senate Summary"
                 // // END ELSE SaltedExamStatusDesc:= SaltedExamStatusDesc+' '+ACAResultsStatus."Final Year Comment";
                   end;
                   Clear(CurrNo);
-                  Clear(ACASenateReportStatusBuff);
                 ACASenateReportStatusBuff.Reset;
                 ACASenateReportStatusBuff.SetRange("Prog. Code",ExamCoregcs.Programme);
                 ACASenateReportStatusBuff.SetRange(StatusCode,ExamCoregcs.Classification);
@@ -423,7 +407,6 @@ Report 78051 "Aca-General Senate Summary"
                     ACASenateReportStatusBuff."Academic Year":=ExamCoregcs."Academic Year";
                     ACASenateReportStatusBuff.Insert;
                     end;
-                    Clear(ACASenateReportStatusBuff);
                 ACASenateReportStatusBuff.Reset;
                 ACASenateReportStatusBuff.SetRange("Prog. Code",ExamCoregcs.Programme);
                 ACASenateReportStatusBuff.SetRange(StatusCode,ExamCoregcs.Classification);
@@ -441,7 +424,7 @@ Report 78051 "Aca-General Senate Summary"
                     ACASenateReportStatusBuff."Academic Year":=ExamCoregcs."Academic Year";
                     ACASenateReportStatusBuff.INSERT;
                     END;*/
-                 Clear(ResultsStatus3);
+                
                 ResultsStatus3.Reset;
                 ResultsStatus3.SetRange(Code,ExamCoregcs.Classification);
                 Clear(SpecialUnitReg1);
@@ -452,64 +435,80 @@ Report 78051 "Aca-General Senate Summary"
                 
                  Clear(isSpecialOnly);
                  Clear(IsSpecialAndSupp);
-                 ExamCoregcs.CalcFields("Supp. Registration Exists");
-                 IsSpecialAndSupp:=ExamCoregcs."Supp. Registration Exists";
                  if (ExamCoregcs.Classification='SPECIAL') then begin isSpecialOnly:=true;
                  SpecialUnitReg1:=isSpecialOnly;
                  end;
-                 if isSpecialOnly then NotSpecialNotSuppSpecial:=true;
-                 if isSpecialOnly then IsSpecialAndSupp:=false;
+                //      PercentageFailedCaption:='';
+                //      PercentageFailedValue:=0;
+                //      NumberOfCoursesFailedCaption:='Reason';
+                // END;
+                // IF (ExamCoregcs."Yearly Remarks"='SUPP/SPECIAL') THEN BEGIN IsSpecialAndSupp:=TRUE;
+                //      PercentageFailedCaption:='% Failed';
+                //      NumberOfCoursesFailedCaption:='Reason';
+                // END;
+                // NotSpecialNotSuppSpecial:=FALSE;
+                // IF ((isSpecialOnly) OR (IsSpecialAndSupp)) THEN BEGIN
+                // NotSpecialNotSuppSpecial:=TRUE;
+                // END;
                 
-                Clear(ACAResultsStatusez);
                 ACAResultsStatusez.Reset;
                 ACAResultsStatusez.SetRange(Code,ExamCoregcs.Classification);
                 ACAResultsStatusez.SetRange(ACAResultsStatusez."Special Programme Class",Prog."Special Programme Class");
                 ACAResultsStatusez.SetRange(ACAResultsStatusez."Academic Year",ExamCoregcs."Academic Year");
                 if ACAResultsStatusez.Find('-') then begin
                 
+                //      IF ((ACAResultsStatusez."Grad. Status Msg 4"='') OR (ACAResultsStatusez."Grad. Status Msg 5"='') OR
+                //         (ACAResultsStatusez."Grad. Status Msg 5"='')) THEN YearText2:='';
+                     if ExamCoregcs."Year of Study"=1 then begin
+                    FinalTexts:=ACAResultsStatusez."1st Year Grad. Comments";
+                    end else  if ExamCoregcs."Year of Study"=2 then begin
+                    FinalTexts:=ACAResultsStatusez."2nd Year Grad. Comments";
+                    end else if ExamCoregcs."Year of Study"=3 then begin
+                    FinalTexts:=ACAResultsStatusez."3rd Year Grad. Comments";
+                    end else if ExamCoregcs."Year of Study"=4 then begin
+                    FinalTexts:=ACAResultsStatusez."4th Year Grad. Comments";
+                    end else if ExamCoregcs."Year of Study"=5 then begin
+                    FinalTexts:=ACAResultsStatusez."5th Year Grad. Comments";
+                    end else if ExamCoregcs."Year of Study"=6 then begin
+                    FinalTexts:=ACAResultsStatusez."6th Year Grad. Comments";
+                    end else if ExamCoregcs."Year of Study"=7 then begin
+                    FinalTexts:=ACAResultsStatusez."7th Year Grad. Comments";
+                    end;
                 
-                  if ExamCoregcs."Year of Study"=1 then begin
-                FinalTexts:=ACAResultsStatusez."1st Year Grad. Comments";
-                end else  if ExamCoregcs."Year of Study"=2 then begin
-                FinalTexts:=ACAResultsStatusez."2nd Year Grad. Comments";
-                end else if ExamCoregcs."Year of Study"=3 then begin
-                FinalTexts:=ACAResultsStatusez."3rd Year Grad. Comments";
-                end else if ExamCoregcs."Year of Study"=4 then begin
-                FinalTexts:=ACAResultsStatusez."4th Year Grad. Comments";
-                end else if ExamCoregcs."Year of Study"=5 then begin
-                FinalTexts:=ACAResultsStatusez."5th Year Grad. Comments";
-                end else if ExamCoregcs."Year of Study"=6 then begin
-                FinalTexts:=ACAResultsStatusez."6th Year Grad. Comments";
-                end else if ExamCoregcs."Year of Study"=7 then begin
-                FinalTexts:=ACAResultsStatusez."7th Year Grad. Comments";
-                end;
-                
-                // IF ((ExamCoregcs."Final Year of Study") = (ExamCoregcs."Year of Study")) THEN BEGIN
-                //  IF ((Prog.Category=Prog.Category::"Certificate ") OR
-                //    (Prog.Category=Prog.Category::"Course List") OR
-                //    (Prog.Category=Prog.Category::Professional)) THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Cert.";
-                //  END ELSE   IF ((Prog.Category=Prog.Category::Diploma)) THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Dip";
-                //  END ELSE   IF ((Prog.Category=Prog.Category::Undergraduate) OR
-                //    (Prog.Category=Prog.Category::Postgraduate)) THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Degree";
-                //  END;
-                //  //ShowRate:=TRUE;
-                // END;
-                
-                // IF ACAResultsStatusez."Grad. Status Msg 6"='' THEN BEGIN
-                //   FinalTexts:='';
-                //  END;
-                // IF ACAResultsStatusez."Grad. Status Msg 4"='' THEN BEGIN
-                //   FinalTexts:='';
-                //  END;
-                // IF ACAResultsStatusez."Grad. Status Msg 5"='' THEN BEGIN
-                //   FinalTexts:='';
-                //  END;
+                //    IF ((ExamCoregcs."Final Year of Study") = (ExamCoregcs."Year of Study")) THEN BEGIN
+                //     IF ((Prog.Category=Prog.Category::"Certificate ") OR
+                //       (Prog.Category=Prog.Category::"Course List") OR
+                //       (Prog.Category=Prog.Category::Professional)) THEN BEGIN
+                //    FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Cert.";
+                //     END ELSE   IF ((Prog.Category=Prog.Category::Diploma)) THEN BEGIN
+                //    FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Dip";
+                //     END ELSE   IF ((Prog.Category=Prog.Category::Undergraduate) OR
+                //       (Prog.Category=Prog.Category::Postgraduate)) THEN BEGIN
+                //    FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Degree";
+                //     END;
+                //     //ShowRate:=TRUE;
+                //    END;
+                /*
+                IF ACAResultsStatusez."Grad. Status Msg 6"='' THEN BEGIN
+                   FinalTexts:='';
+                  END;
+                IF ACAResultsStatusez."Grad. Status Msg 4"='' THEN BEGIN
+                   FinalTexts:='';
+                  END;
+                IF ACAResultsStatusez."Grad. Status Msg 5"='' THEN BEGIN
+                   FinalTexts:='';
+                  END;*/
                   end;
-                  if IsSpecialAndSupp=true then NotSpecialNotSuppSpecial :=true;
-                  Clear(IncVar1);
+                // //  AcaFinalConsMksCount.RESET;
+                // // AcaFinalConsMksCount.SETRANGE("Student No.",ExamCoregcs."Student Number");
+                // // AcaFinalConsMksCount.SETRANGE("User Names",USERID);
+                // // AcaFinalConsMksCount.SETRANGE("Graduation Academic Year",ExamCoregcs."Graduation Academic Year");
+                // // AcaFinalConsMksCount.SETRANGE("Academic Year",ExamCoregcs."Academic Year");
+                // // AcaFinalConsMksCount.SETRANGE("Program Option",ExamCoregcs."Programme Option");
+                // // AcaFinalConsMksCount.SETRANGE(Programme,ExamCoregcs.Programme);
+                // // AcaFinalConsMksCount.SETRANGE("Year of Study",ExamCoregcs."Year of Study");
+                // // IF AcaFinalConsMksCount.FIND('-') THEN;
+                 Clear(IncVar1);
                   Clear(IncVar2);
                   Clear(IncVar3);
                   Clear(IncVar4);
@@ -528,14 +527,12 @@ Report 78051 "Aca-General Senate Summary"
             begin
                 Clear(yosInt);
                 if Evaluate(yosInt,ExamCoregcs.GetFilter("Year of Study")) then;
-                Clear(CReg);
                 CReg.Reset;
                 //CReg.SETRANGE("Yearly Remarks",ExamCoregcs."Yearly Remarks");
                 CReg.SetRange("Academic Year",ExamCoregcs.GetFilter("Academic Year"));
                 CReg.SetRange(Programme,ExamCoregcs.GetFilter(Programme));
                 CReg.SetRange("Year of Study",yosInt);
                 //CReg.SETRANGE(Options,ExamCoregcs.GETFILTER(Options));
-                Clear(ACAProgrammeOptions);
                 ACAProgrammeOptions.Reset;
                 ACAProgrammeOptions.SetRange(Code,ExamCoregcs.GetFilter("Programme Option"));
                 ACAProgrammeOptions.SetRange("Programme Code",ExamCoregcs.GetFilter(Programme));
@@ -543,7 +540,6 @@ Report 78051 "Aca-General Senate Summary"
                 CReg.SetFilter("Total Units",'>%1',0);
                 CReg.SetFilter(Classification,'<>%1','');
                 if CReg.Find('-') then begin
-                  Clear(ACASenateReportCounts);
                   ACASenateReportCounts.Reset;
                 ACASenateReportCounts.SetRange("Prog. Code",CReg.Programme);
                 //ACASenateReportCounts.SETRANGE(StatusCode,CReg."Yearly Remarks");
@@ -552,7 +548,6 @@ Report 78051 "Aca-General Senate Summary"
                 if ACASenateReportCounts.Find('-') then ACASenateReportCounts.DeleteAll;
                   repeat
                     begin
-                    Clear(ACASenateReportCounts);
                 ACASenateReportCounts.Reset;
                 ACASenateReportCounts.SetRange("Prog. Code",CReg.Programme);
                 ACASenateReportCounts.SetRange(StatusCode,CReg.Classification);
@@ -575,6 +570,37 @@ Report 78051 "Aca-General Senate Summary"
                   end;
                   until CReg.Next=0;
                   end;
+                // //
+                // // ExamCoregcsForNumber.COPYFILTERS(ExamCoregcs);
+                // // ExamCoregcsForNumber.SETCURRENTKEY("Student Number");
+                // // IF ExamCoregcsForNumber.FIND('-') THEN BEGIN
+                // //    REPEAT
+                // //      BEGIN
+                // //      //
+                // //      AcaFinalConsMksCount.INIT;
+                // //      AcaFinalConsMksCount."User Names":=USERID;
+                // //      AcaFinalConsMksCount."Program Option":=ExamCoregcsForNumber."Programme Option";
+                // //      AcaFinalConsMksCount.Programme:=ExamCoregcsForNumber.Programme;
+                // //      AcaFinalConsMksCount."Graduation Academic Year":=ExamCoregcsForNumber."Graduation Academic Year";
+                // //      AcaFinalConsMksCount."Academic Year":=ExamCoregcsForNumber."Academic Year";
+                // //      AcaFinalConsMksCount."Student No.":=ExamCoregcsForNumber."Student Number";
+                // //      AcaFinalConsMksCount."Year of Study":=ExamCoregcsForNumber."Year of Study";
+                // //      IF  AcaFinalConsMksCount.INSERT THEN;
+                // //      END;
+                // //      UNTIL ExamCoregcsForNumber.NEXT=0;
+                // //  END;
+                // //  AcaFinalConsMksCount.RESET;
+                // //  AcaFinalConsMksCount.SETCURRENTKEY("Student No.");
+                // //  IF AcaFinalConsMksCount.FIND('-') THEN BEGIN
+                // //    CLEAR(seqs);
+                // //    REPEAT
+                // //      BEGIN
+                // //        seqs:=seqs+1;
+                // //        AcaFinalConsMksCount.Serial:=seqs;
+                // //        AcaFinalConsMksCount.MODIFY;
+                // //      END;
+                // //        UNTIL AcaFinalConsMksCount.NEXT=0;
+                // //    END;
             end;
         }
     }
@@ -603,10 +629,14 @@ Report 78051 "Aca-General Senate Summary"
     end;
 
     var
+        RegCategory: Text[150];
+        seqs: Integer;
+        ExamCoregcsForNumber: Record "ACA-SuppExam. Co. Reg.";
+        AcaFinalConsMksCount: Record "Aca-Final Supp. Sen.. Count";
         ACAProgrammeOptions: Record "ACA-Programme Options";
-        ACAResultsStatusez: Record "ACA-Results Status";
+        ACAResultsStatusez: Record "ACA-Supp. Results Status";
         YoSText: Text[1024];
-        ACASenateReportsHeader: Record "ACA-Senate Reports Header";
+        ACASenateReportsHeader: Record "ACA-SuppSenate Repo. Header";
         FinalTexts: Text[1024];
         YearText2: Text[1024];
         RubNumberText: Text[1024];
@@ -617,7 +647,7 @@ Report 78051 "Aca-General Senate Summary"
         IsSpecialUnit: Boolean;
         SpecialUnitReg1: Boolean;
         SpecialUnitReg: Boolean;
-        ACASenateReportCounts: Record "ACA-Senate Report Counts";
+        ACASenateReportCounts: Record "ACA-SuppSenate Rep. Counts";
         NoOfStudentInText: Text[250];
         ConvertDecimalToText: Codeunit "Convert Decimal To Text";
         PercentageFailedCaption: Text[100];
@@ -625,20 +655,20 @@ Report 78051 "Aca-General Senate Summary"
         PercentageFailedValue: Decimal;
         NoOfCausesFailedValue: Integer;
         NoOfStudentsDecimal: Text;
-        ACAStudentUnits: Record "ACA-Exam Classification Units";
+        ACAStudentUnits: Record "ACA-SuppExam Class. Units";
         CountedRecs: Integer;
         UnitCodes: array [30] of Text[50];
         UnitDescs: array [30] of Text[150];
         UnitCodeLabel: Text;
         UnitDescriptionLabel: Text;
         NoOfStudents: Integer;
-        StudUnits: Record "ACA-Exam Classification Units";
+        StudUnits: Record "ACA-SuppExam Class. Units";
         ExamsDone: Integer;
         FailCount: Integer;
         Cust: Record Customer;
         Semesters: Record "ACA-Semesters";
         Dimensions: Record "Dimension Value";
-        Prog: Record  "ACA-Programme";
+        Prog: Record "ACA-Programme";
         FacDesc: Code[100];
         Depts: Record "Dimension Value";
         Stages: Record "ACA-Programme Stages";
@@ -647,8 +677,8 @@ Report 78051 "Aca-General Senate Summary"
         Grd: Code[20];
         Marks: Decimal;
         Dimensions2: Record "Dimension Value";
-        ResultsStatus: Record "ACA-Results Status";
-        ResultsStatus3: Record "ACA-Results Status";
+        ResultsStatus: Record "ACA-Supp. Results Status";
+        ResultsStatus3: Record "ACA-Supp. Results Status";
         UnitsRec: Record "ACA-Units/Subjects";
         UnitsDesc: Text[100];
         UnitsHeader: Text[50];
@@ -663,8 +693,8 @@ Report 78051 "Aca-General Senate Summary"
         SemYear: Code[20];
         ShowSem: Boolean;
         SemDesc: Code[100];
-        CREG2: Record "ACA-Exam. Course Registration";
-       // ExamsProcessing: Codeunit UnknownCodeunit60110;
+        CREG2: Record "ACA-SuppExam. Co. Reg.";
+        ExamsProcessing: Codeunit "Exams Processing1";
         CompInf: Record "Company Information";
         YearDesc: Text[30];
         MaxYear: Code[20];
@@ -682,7 +712,7 @@ Report 78051 "Aca-General Senate Summary"
         NextYear: Code[20];
         facCode: Code[20];
         progName: Code[150];
-        ACAResultsStatus: Record "ACA-Results Status";
+        ACAResultsStatus: Record "ACA-Supp. Results Status";
         Msg1: Text[250];
         Msg2: Text[250];
         Msg3: Text[250];
@@ -695,8 +725,8 @@ Report 78051 "Aca-General Senate Summary"
         ACASenateReportStatusBuff: Record "ACA-Senate Report Status Buff." temporary;
         CurrNo: Integer;
         YoS: Code[20];
-        CReg33: Record "ACA-Exam. Course Registration";
-        CReg: Record "ACA-Exam. Course Registration";
+        CReg33: Record "ACA-SuppExam. Co. Reg.";
+        CReg: Record "ACA-SuppExam. Co. Reg.";
         yosInt: Integer;
         IncVar1: Text[250];
         IncVar2: Text[250];
@@ -704,29 +734,4 @@ Report 78051 "Aca-General Senate Summary"
         IncVar4: Text[250];
         IncVar5: Text[250];
         IncVar6: Text[250];
-        TxtUnitCode: Code[30];
-        TxtUnitDesc: Text;
-        TxtSpecialReason: Text;
-        varIsSpecialUnit: Boolean;
-        VarIsSupp: Boolean;
-
-    local procedure ToTitleCase(InputText: Text) OutputText: Text
-    var
-        CurrentChar: Char;
-        CapitalizeNext: Boolean;
-        i: Integer;
-    begin
-        CapitalizeNext := true;
-            for i := 1 to StrLen(InputText) do begin
-                CurrentChar := InputText[i];
-                if CapitalizeNext and (CurrentChar <> ' ') then begin
-                    OutputText += UpperCase(Format(CurrentChar));
-                    CapitalizeNext := false;
-                end else begin
-                    OutputText += Format(CurrentChar);
-                    CapitalizeNext := (CurrentChar = ' ');
-                end;
-            end;
-    end;
 }
-

@@ -8,334 +8,342 @@ report 50524 "Provisional College Transcrip3"
     {
         dataitem(CourseRegs; "ACA-Exam. Course Registration")
         {
-            CalcFields = Grade, "Override Remarks", Remarks;
+            CalcFields = Grade,"Override Remarks",Remarks;
             PrintOnlyIfDetail = true;
-            RequestFilterFields = "Student Number", Programme, "School Code", "Academic Year", "Year of Study";
-            column(CoName; CompanyInformation.Name)
+            RequestFilterFields = "Student Number",Programme,"School Code","Academic Year","Year of Study";
+            column(ReportForNavId_1000000000; 1000000000)
             {
             }
-            column(ProgClassInt; ProgClassInt)
+            column(CoName;CompanyInformation.Name)
             {
             }
-            column(addresses; CompanyInformation.Address + ',' + CompanyInformation."Address 2" + ' ' + CompanyInformation.City)
+            column(addresses;CompanyInformation.Address+','+CompanyInformation."Address 2"+' '+CompanyInformation.City)
             {
             }
-            column(phones; CompanyInformation."Phone No." + ',' + CompanyInformation."Phone No. 2")
+            column(phones;CompanyInformation."Phone No."+','+CompanyInformation."Phone No. 2")
             {
             }
-            column(Mails; CompanyInformation."E-Mail" + '/' + CompanyInformation."Home Page")
+            column(Mails;CompanyInformation."E-Mail"+'/'+CompanyInformation."Home Page")
             {
             }
-            column(Pic; CompanyInformation.Picture)
+            column(Pic;CompanyInformation.Picture)
             {
             }
-            column(StudNo; CourseRegs."Student Number")
+            column(StudNo;CourseRegs."Student Number")
             {
             }
-            column(Prog; CourseRegs.Programme)
+            column(Prog;CourseRegs.Programme)
             {
             }
-            column(Sem; '')
+            column(Sem;'')
             {
             }
-            column(Stag; '')
+            column(Stag;'')
             {
             }
-            column(CumSc; '')
+            column(CumSc;'')
             {
             }
-            column(CurrSem; '')
+            column(CurrSem;'')
             {
             }
-            column(GradedGrade; CourseRegs.Grade)
+            column(GradedGrade;CourseRegs.Grade)
             {
             }
-            column(remsz; remsz)
+            column(remsz;remsz)
             {
             }
-            column(YoS; CourseRegs."Year of Study")
+            column(YoS;CourseRegs."Year of Study")
             {
             }
-            column(TotalYearlyMarks; CourseRegs."Total Marks")
+            column(TotalYearlyMarks;CourseRegs."Total Marks")
             {
             }
-            column(YearlyAverage; CourseRegs."Normal Average")
+            column(YearlyAverage;CourseRegs."Normal Average")
             {
             }
-            column(YearlyGrade; GetGrade(CourseRegs."Normal Average", CourseRegs.Programme))
+            column(YearlyFailed;CourseRegs."Failed Courses")
             {
             }
-            column(YearlyFailed; CourseRegs."Failed Courses")
+            column(YearlyTotalUnits;CourseRegs."Total Courses")
             {
             }
-            column(YearlyTotalUnits; CourseRegs."Total Courses")
+            column(CummulativeAverage;CourseRegs."Weighted Average")
             {
             }
-            column(CummulativeAverage; CourseRegs."Weighted Average")
+            column(CurrAverage;CourseRegs."Normal Average")
             {
             }
-            column(CurrAverage; CourseRegs."Normal Average")
+            column(YearlyGrade;GetGrade(CourseRegs."Weighted Average",CourseRegs.Programme))
             {
             }
-            column(YearlyRemarks; TransCriptRemarks)
+            column(YearlyRemarks;TransCriptRemarks)
             {
             }
-            column(AcadYear; CourseRegs."Academic Year")
+            column(AcadYear;CourseRegs."Academic Year")
             {
             }
-            column(sName; CourseRegs."Student Name")
+            column(sName;CourseRegs."Student Name")
             {
             }
-            column(pName; UpperCase(pName))
+            column(pName;UpperCase(pName))
             {
             }
-            column(GRADDATE; GRADDATE)
+            column(GRADDATE;GRADDATE)
             {
             }
-            column(YearOfStudy; YearOfStudy)
+            column(YearOfStudy;YearOfStudy)
             {
             }
-            column(YearOfAdmi; YearOfAdmi)
+            column(YearOfAdmi;YearOfAdmi)
             {
             }
-            column(SchoolName; SchoolName)
+            column(SchoolName;SchoolName)
             {
             }
-            column(acadyearz; acadyear)
+            column(acadyearz;acadyear)
             {
             }
-            column(signedSignature; dimVal.Signature)
+            column(signedSignature;dimVal.Signature)
             {
             }
-            column(TranscriptSignatory; dimVal."HOD Names")
+            column(TranscriptSignatory;dimVal."HOD Names")
             {
             }
-            column(TransCriptTitle; dimVal.Titles)
+            column(TransCriptTitle;dimVal.Titles)
             {
             }
-            column(FacultyName; CourseRegs."School Name")
+            column(FacultyName;CourseRegs."School Name")
             {
             }
-            column(codSchool; 'COD, ' + SchoolName)
+            column(codSchool;'COD, '+SchoolName)
             {
             }
-            column(codDept; 'COD,' + DeptName)
+            column(codDept;'COD,'+DeptName)
             {
             }
-            column(PassRemark; PassRemark)
+            column(PassRemark;PassRemark)
             {
             }
-            column(RegAcadLabel; 'Registrar, Academic Affairs')
+            column(RegAcadLabel;'Registrar, Academic Affairs')
             {
             }
-            column(Cat1; Cat1)
+            column(Cat1;Cat1)
             {
             }
-            column(Cat2; Cat2)
+            column(Cat2;Cat2)
             {
             }
-            column(Cat3; Cat3)
+            column(Cat3;Cat3)
             {
             }
-            column(LegendRange11; LegendRange1[1])
+            column(LegendRange11;LegendRange1[1])
             {
             }
-            column(LegendGrade11; LegendGrade1[1])
+            column(LegendGrade11;LegendGrade1[1])
             {
             }
-            column(LegendDesc11; LegendDesc1[1])
+            column(LegendDesc11;LegendDesc1[1])
             {
             }
-            column(LegendRange12; LegendRange1[2])
+            column(LegendRange12;LegendRange1[2])
             {
             }
-            column(LegendGrade12; LegendGrade1[2])
+            column(LegendGrade12;LegendGrade1[2])
             {
             }
-            column(LegendDesc12; LegendDesc1[2])
+            column(LegendDesc12;LegendDesc1[2])
             {
             }
-            column(LegendRange13; LegendRange1[3])
+            column(LegendRange13;LegendRange1[3])
             {
             }
-            column(LegendGrade13; LegendGrade1[3])
+            column(LegendGrade13;LegendGrade1[3])
             {
             }
-            column(LegendDesc13; LegendDesc1[3])
+            column(LegendDesc13;LegendDesc1[3])
             {
             }
-            column(LegendRange14; LegendRange1[4])
+            column(LegendRange14;LegendRange1[4])
             {
             }
-            column(LegendGrade14; LegendGrade1[4])
+            column(LegendGrade14;LegendGrade1[4])
             {
             }
-            column(LegendDesc14; LegendDesc1[4])
+            column(LegendDesc14;LegendDesc1[4])
             {
             }
-            column(LegendRange15; LegendRange1[5])
+            column(LegendRange15;LegendRange1[5])
             {
             }
-            column(LegendGrade15; LegendGrade1[5])
+            column(LegendGrade15;LegendGrade1[5])
             {
             }
-            column(LegendDesc15; LegendDesc1[5])
+            column(LegendDesc15;LegendDesc1[5])
             {
             }
-            column(LegendRange16; LegendRange1[6])
+            column(LegendRange16;LegendRange1[6])
             {
             }
-            column(LegendGrade16; LegendGrade1[6])
+            column(LegendGrade16;LegendGrade1[6])
             {
             }
-            column(LegendDesc16; LegendDesc1[6])
+            column(LegendDesc16;LegendDesc1[6])
             {
             }
-            column(LegendRange21; LegendRange2[1])
+            column(LegendRange21;LegendRange2[1])
             {
             }
-            column(LegendGrade21; LegendGrade2[1])
+            column(LegendGrade21;LegendGrade2[1])
             {
             }
-            column(LegendDesc21; LegendDesc2[1])
+            column(LegendDesc21;LegendDesc2[1])
             {
             }
-            column(LegendRange22; LegendRange2[2])
+            column(LegendRange22;LegendRange2[2])
             {
             }
-            column(LegendGrade22; LegendGrade2[2])
+            column(LegendGrade22;LegendGrade2[2])
             {
             }
-            column(LegendDesc22; LegendDesc2[2])
+            column(LegendDesc22;LegendDesc2[2])
             {
             }
-            column(LegendRange23; LegendRange2[3])
+            column(LegendRange23;LegendRange2[3])
             {
             }
-            column(LegendGrade23; LegendGrade2[3])
+            column(LegendGrade23;LegendGrade2[3])
             {
             }
-            column(LegendDes23; LegendDesc2[3])
+            column(LegendDes23;LegendDesc2[3])
             {
             }
-            column(LegendRange24; LegendRange2[4])
+            column(LegendRange24;LegendRange2[4])
             {
             }
-            column(LegendGrade24; LegendGrade2[4])
+            column(LegendGrade24;LegendGrade2[4])
             {
             }
-            column(LegendDesc24; LegendDesc2[4])
+            column(LegendDesc24;LegendDesc2[4])
             {
             }
-            column(LegendRange25; LegendRange2[5])
+            column(LegendRange25;LegendRange2[5])
             {
             }
-            column(LegendGrade25; LegendGrade2[5])
+            column(LegendGrade25;LegendGrade2[5])
             {
             }
-            column(LegendDesc25; LegendDesc2[5])
+            column(LegendDesc25;LegendDesc2[5])
             {
             }
-            column(LegendRange26; LegendRange2[6])
+            column(LegendRange26;LegendRange2[6])
             {
             }
-            column(LegendGrade26; LegendGrade2[6])
+            column(LegendGrade26;LegendGrade2[6])
             {
             }
-            column(LegendDesc26; LegendDesc2[6])
+            column(LegendDesc26;LegendDesc2[6])
             {
             }
-            column(LegendRange31; LegendRange3[1])
+            column(LegendRange31;LegendRange3[1])
             {
             }
-            column(LegendGrade31; LegendGrade3[1])
+            column(LegendGrade31;LegendGrade3[1])
             {
             }
-            column(LegendDesc31; LegendDesc3[1])
+            column(LegendDesc31;LegendDesc3[1])
             {
             }
-            column(LegendRange32; LegendRange3[2])
+            column(LegendRange32;LegendRange3[2])
             {
             }
-            column(LegendGrade32; LegendGrade3[2])
+            column(LegendGrade32;LegendGrade3[2])
             {
             }
-            column(LegendDesc32; LegendDesc3[2])
+            column(LegendDesc32;LegendDesc3[2])
             {
             }
-            column(LegendRange33; LegendRange3[3])
+            column(LegendRange33;LegendRange3[3])
             {
             }
-            column(LegendGrade33; LegendGrade3[3])
+            column(LegendGrade33;LegendGrade3[3])
             {
             }
-            column(LegendDesc33; LegendDesc3[3])
+            column(LegendDesc33;LegendDesc3[3])
             {
             }
-            column(LegendRange34; LegendRange3[4])
+            column(LegendRange34;LegendRange3[4])
             {
             }
-            column(LegendGrade34; LegendGrade3[4])
+            column(LegendGrade34;LegendGrade3[4])
             {
             }
-            column(LegendDesc34; LegendDesc3[4])
+            column(LegendDesc34;LegendDesc3[4])
             {
             }
-            column(LegendRange35; LegendRange3[5])
+            column(LegendRange35;LegendRange3[5])
             {
             }
-            column(LegendGrade35; LegendGrade3[5])
+            column(LegendGrade35;LegendGrade3[5])
             {
             }
-            column(LegendDesc35; LegendDesc3[5])
+            column(LegendDesc35;LegendDesc3[5])
             {
             }
-            column(LegendRange36; LegendRange3[6])
+            column(LegendRange36;LegendRange3[6])
             {
             }
-            column(LegendGrade36; LegendGrade3[6])
+            column(LegendGrade36;LegendGrade3[6])
             {
             }
-            column(LegendDesc36; LegendDesc3[6])
+            column(LegendDesc36;LegendDesc3[6])
             {
             }
             dataitem(StudUnitsss; "ACA-Exam Classification Units")
             {
-                DataItemLink = "Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year");
-                column(Unit; StudUnitsss."Unit Code")
+                DataItemLink = "Student No."=field("Student Number"),Programme=field(Programme),"Year of Study"=field("Year of Study"),"Academic Year"=field("Academic Year");
+                DataItemTableView = where("Is a Resit/Repeat"=filter(false));
+                column(ReportForNavId_1000000005; 1000000005)
                 {
                 }
-                column(Desc; StudUnitsss."Unit Description")
+                column(Unit;StudUnitsss."Unit Code")
                 {
                 }
-                column(CreditHours; StudUnitsss."Credit Hours")
+                column(Desc;StudUnitsss."Unit Description")
                 {
                 }
-                column(Score; StudUnitsss."Total Score")
+                column(CreditHours;StudUnitsss."Credit Hours")
                 {
                 }
-                column(Final; StudUnitsss."Total Score")
+                column(Score;StudUnitsss."Total Score")
                 {
                 }
-                column(Grade; Gredi)
+                column(Final;StudUnitsss."Total Score")
                 {
                 }
-                column(Status; StudUnitsss."Grade Comment")
+                column(Grade;StudUnitsss.Grade)
+                {
+                }
+                column(Status;StudUnitsss."Grade Comment")
                 {
                 }
                 dataitem(ExamGraddingSetup; "ACA-Exam Gradding Setup")
                 {
-                    DataItemLink = Category = FIELD("Exam Category"), Grade = FIELD(Grade);
-                    column(ExamCat; ExamGraddingSetup.Category)
+                    DataItemLink = Category=field("Exam Category"),Grade=field(Grade);
+                    DataItemTableView = where("Hide in Summary"=filter(false));
+                    column(ReportForNavId_32; 32)
                     {
                     }
-                    column(CatGrade; ExamGraddingSetup.Grade)
+                    column(ExamCat;ExamGraddingSetup.Category)
                     {
                     }
-                    column(CatGradeDesc; ExamGraddingSetup.Description)
+                    column(CatGrade;ExamGraddingSetup.Grade)
                     {
                     }
-                    column(CatRange; ExamGraddingSetup.Range)
+                    column(CatGradeDesc;ExamGraddingSetup.Description)
+                    {
+                    }
+                    column(CatRange;ExamGraddingSetup.Range)
                     {
                     }
                 }
@@ -344,25 +352,94 @@ report 50524 "Provisional College Transcrip3"
                 var
                     ProgCategory: Code[20];
                     ACAExamGraddingSetup: Record "ACA-Exam Gradding Setup";
-                    AcaStdUnits: Record "ACA-Student Units";
                 begin
-                    Gredi := '';
-                    AcaStdUnits.Reset;
-                    AcaStdUnits.SetRange("Student No.", CourseRegs."Student Number");
-                    AcaStdUnits.SetRange(Programme, CourseRegs.Programme);
-                    AcaStdUnits.SetRange("Year of Study", CourseRegs."Year of Study");
-                    AcaStdUnits.SetRange("Academic Year", CourseRegs."Academic Year");
-                    AcaStdUnits.SetRange(Unit, StudUnitsss."Unit Code");
-                    if AcaStdUnits.FindFirst() then begin
-                        AcaStdUnits.CalcFields(Grade);
-                        Gredi := AcaStdUnits.Grade;
-                    end;
+                    //IF SuppExists = TRUE THEN BEGIN
+                      ////..................................................................................
+                     // IF (FirstSuppExists = TRUE) THEN BEGIN
+                     StudUnitsss.CalcFields("Is Supp. Unit");
+                     StudUnitsss.CalcFields("Is Special Unit");
+                    if StudUnitsss."Is Supp. Unit" or StudUnitsss."Is Special Unit" then begin
+                      Clear(ACASuppExamClassUnits777);
+                      ACASuppExamClassUnits777.Reset;
+                      ACASuppExamClassUnits777.SetRange("Student No.",StudUnitsss."Student No.");
+                      ACASuppExamClassUnits777.SetRange(Programme,StudUnitsss.Programme);
+                      ACASuppExamClassUnits777.SetRange("Unit Code",StudUnitsss."Unit Code");
+                      ACASuppExamClassUnits777.SetRange("Academic Year",StudUnitsss."Academic Year");
+                      if ACASuppExamClassUnits777.Find('+') then begin
+                        ACASuppExamClassUnits777.CalcFields(Grade,"Grade Comment");
+                      StudUnitsss."Total Score" := ACASuppExamClassUnits777."Total Score";
+                     StudUnitsss."Total Score" := ACASuppExamClassUnits777."Total Score";
+                     StudUnitsss.Grade := ACASuppExamClassUnits777.Grade;
+                     StudUnitsss."Grade Comment" := ACASuppExamClassUnits777."Grade Comment";
+                        end;
+                      //  END;
+                      ////........................................................................................
+                     // IF (SecondSuppExists = TRUE) THEN BEGINs
+                      Clear(SecondSupUnits);
+                      SecondSupUnits.Reset;
+                      SecondSupUnits.SetRange("Student No.",StudUnitsss."Student No.");
+                      SecondSupUnits.SetRange(Programme,StudUnitsss.Programme);
+                      SecondSupUnits.SetRange("Unit Code",StudUnitsss."Unit Code");
+                      SecondSupUnits.SetRange("Year of Study",StudUnitsss."Year of Study");
+                      SecondSupUnits.SetRange("Academic Year",StudUnitsss."Academic Year");
+                      if SecondSupUnits.Find('+') then begin
+                        SecondSupUnits.CalcFields(Grade,"Grade Comment");
+                      StudUnitsss."Total Score" := SecondSupUnits."Total Score";
+                     StudUnitsss."Total Score" := SecondSupUnits."Total Score";
+                     StudUnitsss.Grade := SecondSupUnits.Grade;
+                     StudUnitsss."Grade Comment" := SecondSupUnits."Grade Comment";
+                        end;
+                        end;
+                      //  END;
+                     // END;
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
+                // Check if 2nd Supp Values Exists and Pick the Results from there
+                Clear(FirstSuppExists);
+                Clear(SecondSuppExists);
+                Clear(SuppExists);
+                Clear(ACASuppExamCoReg777);
+                ACASuppExamCoReg777.Reset;
+                ACASuppExamCoReg777.SetRange("Student Number",CourseRegs."Student Number");
+                ACASuppExamCoReg777.SetRange("Academic Year",CourseRegs."Academic Year");
+                ACASuppExamCoReg777.SetRange("Year of Study",CourseRegs."Year of Study");
+                if ACASuppExamCoReg777.Find('-') then begin
+                  // Supp Exists, Adopt the Values from 2nd Supp
+                  ACASuppExamCoReg777.CalcFields(Grade,"Total Marks","Normal Average","Failed Courses","Total Courses","Total Courses","Weighted Average","Normal Average");
+                  CourseRegs.Grade :=ACASuppExamCoReg777.Grade;
+                CourseRegs."Total Marks" :=ACASuppExamCoReg777."Total Marks";
+                CourseRegs."Normal Average" :=ACASuppExamCoReg777."Normal Average";
+                CourseRegs."Failed Courses" :=ACASuppExamCoReg777."Failed Courses";
+                CourseRegs."Total Courses" :=ACASuppExamCoReg777."Total Courses";
+                CourseRegs."Weighted Average" :=ACASuppExamCoReg777."Weighted Average";
+                CourseRegs."Normal Average" :=ACASuppExamCoReg777."Normal Average";
+                CourseRegs."Final Classification" :=ACASuppExamCoReg777.Classification;
+                  SuppExists:=true;
+                  FirstSuppExists:=true;
+                  end;
 
+                Clear(SuppExists);
+                SecondSuppCoreg.Reset;
+                SecondSuppCoreg.SetRange("Student Number",CourseRegs."Student Number");
+                SecondSuppCoreg.SetRange("Academic Year",CourseRegs."Academic Year");
+                SecondSuppCoreg.SetRange("Year of Study",CourseRegs."Year of Study");
+                if SecondSuppCoreg.Find('-') then begin
+                  // Supp Exists, Adopt the Values from 2nd Supp
+                  SecondSuppCoreg.CalcFields(Grade,"Total Marks","Normal Average","Failed Courses","Total Courses","Total Courses","Weighted Average","Normal Average");
+                  CourseRegs.Grade :=SecondSuppCoreg.Grade;
+                CourseRegs."Total Marks" :=SecondSuppCoreg."Total Marks";
+                CourseRegs."Normal Average" :=SecondSuppCoreg."Normal Average";
+                CourseRegs."Failed Courses" :=SecondSuppCoreg."Failed Courses";
+                CourseRegs."Total Courses" :=SecondSuppCoreg."Total Courses";
+                CourseRegs."Weighted Average" :=SecondSuppCoreg."Weighted Average";
+                CourseRegs."Normal Average" :=SecondSuppCoreg."Normal Average";
+                CourseRegs."Final Classification" :=SecondSuppCoreg.Classification;
+                  SuppExists:=true;
+                  SecondSuppExists := true;
+                  end;
                 Clear(LegendDesc3);
                 Clear(LegendGrade3);
                 Clear(LegendRange3);
@@ -378,153 +455,140 @@ report 50524 "Provisional College Transcrip3"
                 Clear(Countings);
                 Clear(Countings2);
                 Clear(Countings3);
-                Clear(SchoolName);
-                CLEAR(ProgClassInt);
-                prog.Reset;
-                prog.SetRange(Code, CourseRegs.Programme);
-                if prog.Find('-') then;
-                IF prog."Special Programme Class" = prog."Special Programme Class"::"Medicine & Nursing" THEN
-                    ProgClassInt := 'B'
-                ELSE
-                    IF prog."Special Programme Class" = prog."Special Programme Class"::General THEN ProgClassInt := 'A';
-                IF ((prog.Category = prog.Category::Certificate)
-                  OR (prog.Category = prog.Category::Professional)
-                  OR (prog.Category = prog.Category::Diploma)
-                  OR (prog.Category = prog.Category::"Course List")) THEN
-                    ProgClassInt := 'C';
-                pName := prog.Description;
-                ProvisionalTranscriptComment.Reset;
-                ProvisionalTranscriptComment.SetRange(Code, CourseRegs."Final Classification");
-                ProvisionalTranscriptComment.SetRange("Special Programme Class", prog."Special Programme Class");
-                ProvisionalTranscriptComment.SetRange("Exam Category", prog."Exam Category");
-                if ProvisionalTranscriptComment.Find('-') then;
-                Clear(remsz);
-                if CourseRegs."Year of Study" = 1 then
-                    remsz := ProvisionalTranscriptComment."1st Year Trans. Comments"
-                else
-                    if CourseRegs."Year of Study" = 2 then
-                        remsz := ProvisionalTranscriptComment."2nd Year  Trans. Comments"
-                    else
-                        if CourseRegs."Year of Study" = 3 then
-                            remsz := ProvisionalTranscriptComment."3rd Year  Trans. Comments"
-                        else
-                            if CourseRegs."Year of Study" = 4 then
-                                remsz := ProvisionalTranscriptComment."4th Year  Trans. Comments"
-                            else
-                                if CourseRegs."Year of Study" = 5 then
-                                    remsz := ProvisionalTranscriptComment."5th Year  Trans. Comments"
-                                else
-                                    if CourseRegs."Year of Study" = 6 then
-                                        remsz := ProvisionalTranscriptComment."6th Year  Trans. Comments";
+                 Clear(SchoolName);
+                 Clear(prog);
+                 prog.Reset;
+                 prog.SetRange(Code,CourseRegs.Programme);
+                 if prog.Find('-') then;
+                 pName:=prog.Description;
+                 Clear(ProvisionalTranscriptComment);
+                 ProvisionalTranscriptComment.Reset;
+                 ProvisionalTranscriptComment.SetRange(Code,CourseRegs."Final Classification");
+                 ProvisionalTranscriptComment.SetRange("Special Programme Class",prog."Special Programme Class");
+                 ProvisionalTranscriptComment.SetRange("Exam Category",prog."Exam Category");
+                 if ProvisionalTranscriptComment.Find('-') then;
+                 Clear(remsz);
+                 if CourseRegs."Year of Study"=1 then
+                   remsz:=ProvisionalTranscriptComment."1st Year Trans. Comments"
+                 else if  CourseRegs."Year of Study"=2 then
+                   remsz:=ProvisionalTranscriptComment."2nd Year  Trans. Comments"
+                 else if  CourseRegs."Year of Study"=3 then
+                   remsz:=ProvisionalTranscriptComment."3rd Year  Trans. Comments"
+                 else if  CourseRegs."Year of Study"=4 then
+                   remsz:=ProvisionalTranscriptComment."4th Year  Trans. Comments"
+                 else if  CourseRegs."Year of Study"=5 then
+                   remsz:=ProvisionalTranscriptComment."5th Year  Trans. Comments"
+                 else if  CourseRegs."Year of Study"=6 then
+                   remsz:=ProvisionalTranscriptComment."6th Year  Trans. Comments";
 
-                begin
-                    prog.TestField("Exam Category");
+                  begin
+                   prog.TestField("Exam Category");
                     ACAExamGraddingSetup.Reset;
-                    ACAExamGraddingSetup.SetRange(Category, prog."Exam Category");
-                    if ACAExamGraddingSetup.SetCurrentKey(Grade) then;
-                    if ACAExamGraddingSetup.Find('-') then begin
-                        if ((Cat1 = '') and (Cat2 = '') and (Cat3 = '')) then
-                            Cat1 := prog."Exam Category"
-                        else
-                            if ((Cat1 <> '') and (Cat1 <> prog."Exam Category") and (Cat2 = '')) then
-                                Cat2 := prog."Exam Category"
-                            else
-                                if ((Cat1 <> '') and (Cat2 <> '') and (Cat1 <> prog."Exam Category") and (Cat2 <> prog."Exam Category") and (Cat3 = '')) then Cat3 := prog."Exam Category";
-                        repeat
-                        begin
-                            if ((Cat2 = '') and (Cat3 = '') and (Cat1 <> '')) then begin
-                                Countings += 1;
-                                LegendDesc1[Countings] := ACAExamGraddingSetup.Description;
-                                LegendGrade1[Countings] := ACAExamGraddingSetup.Grade;
-                                LegendRange1[Countings] := ACAExamGraddingSetup.Range;
-                            end else
-                                if ((Cat2 <> '') and (Cat3 = '') and (Cat1 <> '')) then begin
-                                    Countings2 += 1;
-                                    LegendDesc1[Countings2] := ACAExamGraddingSetup.Description;
-                                    LegendGrade1[Countings2] := ACAExamGraddingSetup.Grade;
-                                    LegendRange1[Countings2] := ACAExamGraddingSetup.Range;
-                                end else
-                                    if ((Cat2 <> '') and (Cat3 <> '') and (Cat1 <> '')) then begin
-                                        Countings3 += 1;
-                                        LegendDesc1[Countings3] := ACAExamGraddingSetup.Description;
-                                        LegendGrade1[Countings3] := ACAExamGraddingSetup.Grade;
-                                        LegendRange1[Countings3] := ACAExamGraddingSetup.Range;
-                                    end;
-                        end;
-                        until ACAExamGraddingSetup.Next = 0;
-                    end;
-                    pName := prog.Description;
-                    dimVal.Reset;
-                    dimVal.SetRange(dimVal."Dimension Code", 'FACULTY');
-                    dimVal.SetRange(dimVal.Code, prog."School Code");
-                    if dimVal.Find('-') then begin
-                        SchoolName := dimVal.Name;
-                    end;
-                end;
-                ///////////////////////////////////////
-
-                dimVal.Reset;
-                dimVal.SetRange(dimVal."Dimension Code", 'Department');
-                dimVal.SetRange(dimVal.Code, prog."Department Code");
-                if dimVal.Find('-') then begin
-                    DeptName := dimVal.Name;
-                    // dimVal.CALCFIELDS(Signature);
-                end;
+                   ACAExamGraddingSetup.SetRange(Category,prog."Exam Category");
+                   ACAExamGraddingSetup.SetRange("Hide in Summary",false);
+                   if ACAExamGraddingSetup.SetCurrentkey(Grade) then;
+                                   if ACAExamGraddingSetup.Find('-') then begin
+                                     if ((Cat1='') and (Cat2='') and (Cat3='')) then Cat1:=prog."Exam Category"
+                                     else if ((Cat1<>'') and (Cat1<>prog."Exam Category") and (Cat2='')) then Cat2 :=prog."Exam Category"
+                                     else if ((Cat1<>'')  and (Cat2<>'') and (Cat1<>prog."Exam Category") and (Cat2<>prog."Exam Category") and (Cat3='')) then Cat3 :=prog."Exam Category";
+                                     repeat
+                                       begin
+                                       if ((Cat2='') and (Cat3='') and (Cat1<>'')) then begin
+                                     Countings +=1;
+                                     LegendDesc1[Countings]:=ACAExamGraddingSetup.Description;
+                                     LegendGrade1[Countings]:=ACAExamGraddingSetup.Grade;
+                                     LegendRange1[Countings]:=ACAExamGraddingSetup.Range;
+                                     end else if ((Cat2<>'') and (Cat3='') and (Cat1<>'')) then begin
+                                     Countings2 +=1;
+                                     LegendDesc1[Countings2]:=ACAExamGraddingSetup.Description;
+                                     LegendGrade1[Countings2]:=ACAExamGraddingSetup.Grade;
+                                     LegendRange1[Countings2]:=ACAExamGraddingSetup.Range;
+                                     end else if ((Cat2<>'') and (Cat3<>'') and (Cat1<>'')) then begin
+                                     Countings3 +=1;
+                                     LegendDesc1[Countings3]:=ACAExamGraddingSetup.Description;
+                                     LegendGrade1[Countings3]:=ACAExamGraddingSetup.Grade;
+                                     LegendRange1[Countings3]:=ACAExamGraddingSetup.Range;
+                                     end;
+                                     end;
+                                     until ACAExamGraddingSetup.Next=0;
+                                     end;
+                 pName:=prog.Description;
+                 Clear(dimVal);
+                  dimVal.Reset;
+                  dimVal.SetRange(dimVal."Dimension Code",'FACULTY');
+                  dimVal.SetRange(dimVal.Code,prog."School Code");
+                  if dimVal.Find('-') then begin
+                   SchoolName:=dimVal.Name;
+                  end;
+                  end;
+                  ///////////////////////////////////////
+                  Clear(dimVal);
+                  dimVal.Reset;
+                  dimVal.SetRange(dimVal."Dimension Code",'Department');
+                  dimVal.SetRange(dimVal.Code,prog."Department Code");
+                  if dimVal.Find('-') then begin
+                   DeptName:=dimVal.Name;
+                   // dimVal.CALCFIELDS(Signature);
+                  end;
 
                 Clear(YearOfStudy);
 
-                YearOfStudy := Format(CourseRegs."Year of Study");
+                YearOfStudy:=Format(CourseRegs."Year of Study");
 
 
                 Clear(sName);
                 Clear(YearOfAdmi);
                 Clear(GRADDATE);
+                Clear(cust);
                 cust.Reset;
-                cust.SetRange(cust."No.", CourseRegs."Student Number");
+                cust.SetRange(cust."No.",CourseRegs."Student Number");
                 if cust.Find('-') then begin
                 end;
-                sName := CourseRegs."Student Name";
+                   sName:=CourseRegs."Student Name";
 
+                Clear(CourseReg12);
                 CourseReg12.Reset;
-                CourseReg12.SetRange(Programmes, CourseRegs.Programme);
-                CourseReg12.SetRange("Student No.", CourseRegs."Student Number");
+                CourseReg12.SetRange(Programmes,CourseRegs.Programme);
+                CourseReg12.SetRange("Student No.",CourseRegs."Student Number");
                 if CourseReg12.Find('-') then begin
-                    //IF CourseReg12."Registration Date"<>0D THEN BEGIN
-                    Sem.Reset;
-                    Sem.SetRange(Code, CourseReg12.Semester);
-                    if Sem.Find('-') then begin
-                        if Sem.From <> 0D then begin
-                            ACAProgCatTranscriptComm.Reset;
-                            ACAProgCatTranscriptComm.SetRange("Exam Category", prog."Exam Category");
-                            if ACAProgCatTranscriptComm.Find('-') then
-                                GRADDATE := Format(Date2DMY((CalcDate(Format(ACAProgCatTranscriptComm.Count) + 'Y', Sem.From)), 3));
-                            YearOfAdmi := Sem.From;
-                        end;
+                  //IF CourseReg12."Registration Date"<>0D THEN BEGIN
+                  Sem.Reset;
+                  Sem.SetRange(Code,CourseReg12.Semester);
+                  if Sem.Find('-') then
+                    begin
+                      if Sem.From<>0D then begin
+                        ACAProgCatTranscriptComm.Reset;
+                        ACAProgCatTranscriptComm.SetRange("Exam Category",prog."Exam Category");
+                        if ACAProgCatTranscriptComm.Find('-') then
+                    GRADDATE:=Format(Date2dmy((CalcDate(Format(ACAProgCatTranscriptComm.Count)+'Y',Sem.From)),3));
+                    YearOfAdmi:=Sem.From;
+                    end;
                     end;
                 end;
 
 
 
                 Clear(TransCriptRemarks);
-                acadyear := CourseRegs."Academic Year";
+                acadyear:=CourseRegs."Academic Year";
+                Clear(ACAResultsStatus);
                 ACAResultsStatus.Reset;
-                ACAResultsStatus.SetRange(Code, CourseRegs.Classification);
-                ACAResultsStatus.SetRange("Academic Year", acadyear);
+                ACAResultsStatus.SetRange(Code,CourseRegs.Classification);
+                ACAResultsStatus.SetRange("Academic Year",acadyear);
                 if ACAResultsStatus.Find('-') then begin
-                    if CourseRegs."Year of Study" = CourseRegs."Final Year of Study" then begin
-                        TransCriptRemarks := ACAResultsStatus."Final Year Comment";
-                        // Its a finalist
+                    if CourseRegs."Year of Study"=CourseRegs."Final Year of Study" then begin
+                    TransCriptRemarks:=ACAResultsStatus."Final Year Comment";
+                    // Its a finalist
                     end else begin
-                        TransCriptRemarks := ACAResultsStatus."Transcript Remarks";
+                    TransCriptRemarks:=ACAResultsStatus."Transcript Remarks";
                     end;
-                end;
-                if ((CourseRegs."Override Remarks") and (CourseRegs.Remarks <> '')) then
-                    remsz := CourseRegs.Remarks;
+                  end;
+                //  IF ((CourseRegs."Override Remarks") AND (CourseRegs.Remarks<>'')) THEN
+                //    remsz:=CourseRegs.Remarks;
             end;
 
             trigger OnPostDataItem()
             begin
-                // ExamProcess.UpdateCourseReg("Course Registration"."Student No.","Course Registration".Programme,"Course Registration".Stage,"Course Registration".Semester);
+                 // ExamProcess.UpdateCourseReg("Course Registration"."Student No.","Course Registration".Programme,"Course Registration".Stage,"Course Registration".Semester);
             end;
 
             trigger OnPreDataItem()
@@ -538,6 +602,7 @@ report 50524 "Provisional College Transcrip3"
 
     requestpage
     {
+        SaveValues = true;
 
         layout
         {
@@ -556,11 +621,19 @@ report 50524 "Provisional College Transcrip3"
     begin
         CompanyInformation.Reset;
         if CompanyInformation.Find('-') then begin
-            CompanyInformation.CalcFields(Picture);
-        end;
+          CompanyInformation.CalcFields(Picture);
+          end;
     end;
 
     var
+        ACASuppExamClassUnits777: Record "ACA-SuppExam Class. Units";
+       // ACA2ndSuppExamCoReg777: Record UnknownRecord66682;
+        ACASuppExamCoReg777: Record "ACA-SuppExam. Co. Reg.";
+        SuppExists: Boolean;
+        SuppExamCoRegs: Record "ACA-SuppExam. Co. Reg.";
+      //  SuppExamUnits: Record UnknownRecord66641;
+        SecondSuppCoreg: Record "ACA-2ndSuppExam. Co. Reg.";
+        SecondSupUnits: Record "ACA-2ndSuppExam Class. Units";
         remsz: Text[250];
         ProvisionalTranscriptComment: Record "Provisional Transcript Comment";
         ACAProgCatTranscriptComm: Record "ACA-Prog. Cat. Transcript Comm";
@@ -579,7 +652,6 @@ report 50524 "Provisional College Transcrip3"
         FinalExamMark: Decimal;
         FinalCATMarks: Decimal;
         Gradez: Code[10];
-        Gredi: Code[20];
         TotalMarks: Decimal;
         LastGrade: Code[20];
         LastScore: Decimal;
@@ -589,7 +661,6 @@ report 50524 "Provisional College Transcrip3"
         sName: Code[250];
         cust: Record Customer;
         acadyear: Code[20];
-        ProgClassInt: Code[10];
         Sems: Code[20];
         prog: Record "ACA-Programme";
         dimVal: Record "Dimension Value";
@@ -597,8 +668,8 @@ report 50524 "Provisional College Transcrip3"
         SemRec: Record "ACA-Semesters";
         DeptName: Text[100];
         i: Integer;
-        GLabel: array[10] of Text[200];
-        GLabel2: array[10] of Text[200];
+        GLabel: array [10] of Text[200];
+        GLabel2: array [10] of Text[200];
         Passmark: Decimal;
         CompanyInformation: Record "Company Information";
         UnitsCount: Integer;
@@ -610,15 +681,15 @@ report 50524 "Provisional College Transcrip3"
         YearofStudyView: Option " ","1st","2nd","3rd","4th","5th","6th";
         SemesterLoader: Integer;
         ProgramLoader: Integer;
-        LegendRange1: array[50] of Code[20];
-        LegendGrade1: array[50] of Code[2];
-        LegendDesc1: array[50] of Code[50];
-        LegendRange2: array[50] of Code[20];
-        LegendGrade2: array[50] of Code[2];
-        LegendDesc2: array[50] of Code[50];
-        LegendRange3: array[50] of Code[20];
-        LegendGrade3: array[50] of Code[2];
-        LegendDesc3: array[50] of Code[50];
+        LegendRange1: array [50] of Code[20];
+        LegendGrade1: array [50] of Code[2];
+        LegendDesc1: array [50] of Code[50];
+        LegendRange2: array [50] of Code[20];
+        LegendGrade2: array [50] of Code[2];
+        LegendDesc2: array [50] of Code[50];
+        LegendRange3: array [50] of Code[20];
+        LegendGrade3: array [50] of Code[2];
+        LegendDesc3: array [50] of Code[50];
         ACAExamGraddingSetup: Record "ACA-Exam Gradding Setup";
         Cat1: Code[20];
         Cat2: Code[20];
@@ -627,8 +698,11 @@ report 50524 "Provisional College Transcrip3"
         Countings2: Integer;
         Countings3: Integer;
         ACAResultsStatus: Record "ACA-Results Status";
+        FirstSuppExists: Boolean;
+        SecondSuppExists: Boolean;
 
-    procedure GetGrade(EXAMMark: Decimal; Proga: Code[20]) xGrade: Text[100]
+
+    procedure GetGrade(EXAMMark: Decimal;Proga: Code[20]) xGrade: Text[100]
     var
         UnitsRR: Record "ACA-Units/Subjects";
         ProgrammeRec: Record "ACA-Programme";
@@ -639,29 +713,30 @@ report 50524 "Provisional College Transcrip3"
         Gradings: Record "ACA-Exam Gradding Setup";
         Gradings2: Record "ACA-Exam Gradding Setup";
         GradeCategory: Code[20];
-        GLabel: array[6] of Code[20];
+        GLabel: array [6] of Code[20];
         i: Integer;
-        GLabel2: array[6] of Code[100];
+        GLabel2: array [6] of Code[100];
         FStatus: Boolean;
         Grd: Code[80];
         Grade: Code[20];
         Marks: Decimal;
     begin
-        Clear(Marks);
-        Marks := EXAMMark;
-        GradeCategory := '';
+         Clear(Marks);
+        Marks:=EXAMMark;
+        GradeCategory:='';
+        Clear(ProgrammeRec);
         ProgrammeRec.Reset;
         if ProgrammeRec.Get(Proga) then
-            GradeCategory := ProgrammeRec."Exam Category";
-        if GradeCategory = '' then GradeCategory := 'DEFAULT';
-        xGrade := '';
-
+        GradeCategory:=ProgrammeRec."Exam Category";
+        if GradeCategory='' then  GradeCategory:='DEFAULT';
+        xGrade:='';
+        Clear(Gradings);
         Gradings.Reset;
-        Gradings.SetRange(Gradings.Category, GradeCategory);
-        Gradings.SetFilter(Gradings."Lower Limit", '<%1|=%2', Marks, Marks);
-        Gradings.SetFilter(Gradings."Upper Limit", '>%1|=%2', Marks, Marks);
+        Gradings.SetRange(Gradings.Category,GradeCategory);
+        Gradings.SetFilter(Gradings."Lower Limit",'<%1|=%2',Marks,Marks);
+        Gradings.SetFilter(Gradings."Upper Limit",'>%1|=%2',Marks,Marks);
         if Gradings.Find('-') then begin
-            xGrade := Gradings.Grade;
+        xGrade:=Gradings.Grade;
         end;
     end;
 }
