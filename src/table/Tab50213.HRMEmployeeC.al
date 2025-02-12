@@ -2315,6 +2315,10 @@ table 50213 "HRM-Employee C"
         field(60100; "Is Supervisor"; Boolean)
         {
         }
+        field(60101; "Part Timer Type"; Option)
+        {
+            OptionMembers = " ","Internal","External";
+        }
     }
 
     keys

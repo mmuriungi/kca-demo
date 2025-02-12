@@ -4,6 +4,7 @@ page 50970 "Parttime Claim List"
     SourceTable = "Parttime Claim Header";
     CardPageId = "Parttime Claims Header";
     Editable = false;
+    SourceTableView = WHERE("Posted" = FILTER(false));
 
     layout
     {
@@ -169,18 +170,18 @@ page 50970 "Parttime Claim List"
                 RunPageLink = "No." = field("No.");
             }
 
-            action("Post Claim")
-            {
-                ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                Image = PostBatch;
+            // action("Post Claim")
+            // {
+            //     ApplicationArea = All;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     Image = PostBatch;
 
-                trigger OnAction()
-                begin
-                    Rec.PostClaim();
-                end;
-            }
+            //     trigger OnAction()
+            //     begin
+            //         Rec.PostClaim();
+            //     end;
+            // }
         }
     }
 }

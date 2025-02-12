@@ -148,6 +148,7 @@ page 50971 "Parttime Claims Header"
                 PromotedCategory = Process;
                 Image = SendApprovalRequest;
 
+                Visible = not Rec.Posted;
                 trigger OnAction()
                 var
                     ApprovMgmt: Codeunit "Approval Workflows V1";
@@ -175,6 +176,7 @@ page 50971 "Parttime Claims Header"
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = SendApprovalRequest;
+                Visible = not Rec.Posted;
                 trigger OnAction()
                 var
                     ApprovMgmt: Codeunit "Approval Workflows V1";
@@ -204,15 +206,18 @@ page 50971 "Parttime Claims Header"
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = PostBatch;
+                Visible = not Rec.Posted;
 
                 trigger OnAction()
                 var
                     ParttimerMgmt: Codeunit "PartTimer Management";
                 begin
-                    if not confirm('Are you sure you want to post this claim? This will create a new purchase invoice.') then
+                    if not confirm('Are you sure you want to post this claim? This will create a new purchase invoice and a payment voucher.') then
                         exit;
                     ParttimerMgmt.createPurchaseInvoice(Rec);
                     ParttimerMgmt.createPaymentVoucher(Rec);
+                    Rec.Posted := true;
+                    Rec.Modify();
                     // Rec.PostClaim();
                 end;
 

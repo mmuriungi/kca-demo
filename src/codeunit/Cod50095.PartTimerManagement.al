@@ -75,6 +75,8 @@ codeunit 50095 "PartTimer Management"
         PvLines: Record "FIN-Payment Line";
         Employee: Record "HRM-Employee C";
         PayTypes: Record "FIN-Receipts and Payment Types";
+        Vendor: Record Vendor;
+        HrSetup: Record "HRM-Setup";
     begin
         PVHeader.Init();
         PVHeader."Document Type" := PVHeader."Document Type"::"Payment Voucher";
@@ -93,8 +95,15 @@ codeunit 50095 "PartTimer Management"
         PVHeader.Date := Today;
         if PVHeader.Insert(true) then begin
             PartTime.CalcFields("Payment Amount");
-            getPayType(PayTypes);
             getEmployee(Employee, PartTime."Account No.");
+            getPayType(PayTypes, Employee);
+            Vendor.Reset();
+            Vendor.SetRange("No.", Employee."Vendor No.");
+            if Vendor.FindFirst() then begin
+                HrSetup.Get();
+                Vendor."Vendor Posting Group" := HrSetup."Parttimer Posting Group";
+                Vendor.Modify();
+            end;
             PvLines.Init();
             PvLines.No := PVHeader."No.";
             PvLines.Type := PayTypes.Code;
@@ -113,10 +122,14 @@ codeunit 50095 "PartTimer Management"
         end;
     end;
 
-    procedure getPayType(var PayTypes: Record "FIN-Receipts and Payment Types")
+    procedure getPayType(var PayTypes: Record "FIN-Receipts and Payment Types"; var Employee: Record "HRM-Employee C")
     begin
         PayTypes.Reset();
         PayTypes.SetRange("Lecturer Claim?", true);
+        if Employee."Part Timer Type" = Employee."Part Timer Type"::"Internal" then
+            PayTypes.SetRange("Claim PAYE Percentage", PayTypes."Claim PAYE Percentage"::"30 %")
+        else
+            PayTypes.SetRange("Claim PAYE Percentage", PayTypes."Claim PAYE Percentage"::"35 %");
         PayTypes.FindFirst();
     end;
 
@@ -138,7 +151,7 @@ codeunit 50095 "PartTimer Management"
         getEmployee(Employee, PartTime."Account No.");
         PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime);
         HrSetup.Get();
-        claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Claim G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
+        claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
     end;
 
 }
