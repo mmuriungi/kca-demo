@@ -42,7 +42,7 @@ table 50625 "Aca-Special Exams Details"
                 Sems.RESET;
                 Sems.SETRANGE("Current Semester", TRUE);
                 IF Sems.FIND('-') THEN BEGIN
-                    Rec.Semester := Sems.Code;
+                    Rec."Current Semester" := Sems.Code;
                 END;
                 ACAStudentUnits.RESET;
                 ACAStudentUnits.SETRANGE(Unit, Rec."Unit Code");
@@ -299,6 +299,7 @@ table 50625 "Aca-Special Exams Details"
     var
         GenSetup: Record "ACA-General Set-Up";
         Noseriesmgmt: Codeunit NoSeriesManagement;
+        Sems: Record "ACA-Semesters";
     begin
         IF Rec."Document No." = '' THEN begin
             GenSetup.Get();
@@ -306,7 +307,6 @@ table 50625 "Aca-Special Exams Details"
             NoSeriesManagement.InitSeries(genSetup."Special Exam Reg. Nos.", xRec."No. Series", 0D, Rec."Document No.", Rec."No. Series");
 
         end;
-
 
         ACAAcademicYear.RESET;
         ACAAcademicYear.SETRANGE(Current, TRUE);
@@ -343,6 +343,12 @@ table 50625 "Aca-Special Exams Details"
         AcaSpecialSuppDetailsAudit.Grade := Rec.Grade;
         AcaSpecialSuppDetailsAudit."Update Type" := 'Insert';
         AcaSpecialSuppDetailsAudit.INSERT;
+
+        Sems.RESET;
+        Sems.SETRANGE("Current Semester", TRUE);
+        IF Sems.FindFirst() THEN BEGIN
+            Rec."Current Semester" := Sems.Code;
+        END;
     end;
 
     trigger OnModify()
