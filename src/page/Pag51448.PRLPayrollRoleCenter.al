@@ -113,7 +113,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'PR Payroll Summary - Detailed';
                     Image = "Report";
-
+                    Visible = false;
                     RunObject = Report "PR Payroll Summary - Detailed";
                 }
                 action("PR Trans  Variance Analysis")
@@ -384,7 +384,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'Deductions Summary 2';
                     Image = "Report";
-
+                    Visible = false;
                     RunObject = Report "PRL-Deductions Summary 2 a";
                 }
                 action("Earnings Summary 2")
@@ -392,7 +392,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'Earnings Summary 2';
                     Image = "Report";
-
+                    Visible = false;
                     RunObject = Report "PRL-Earnings Summary 5";
                 }
                 action("view payslip")
@@ -409,14 +409,15 @@ page 51448 "PRL-Payroll Role Center"
                     Caption = 'Payroll summary';
                     Image = "Report";
 
-                    RunObject = Report "Payroll Summary 3";
+                   // RunObject = Report "Payroll Summary 3";
+                    RunObject = Report "Payroll Summary Ext";
                 }
                 action("Deductions Summary")
                 {
                     ApplicationArea = all;
                     Caption = 'Deductions Summary';
                     Image = "Report";
-
+                    Visible = false;
                     RunObject = Report "PRL-Deductions Summary1";
                 }
                 action("Earnings Summary")
@@ -424,7 +425,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'Earnings Summary';
                     Image = "Report";
-
+                    Visible = false;
                     RunObject = Report "PRL-Earnings Summary 5";
                 }
                 action("Staff pension")
@@ -432,7 +433,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'Staff pension';
                     Image = "Report";
-
+                    Visible = false;
                     RunObject = Report "prStaff Pension Contrib";
                 }
                 action("Gross Netpay")
@@ -441,6 +442,7 @@ page 51448 "PRL-Payroll Role Center"
                     Caption = 'Gross Netpay';
                     Image = "Report";
                     RunObject = Report prGrossNetPay;
+                    Visible = false;
                 }
                 action("Third Rule")
                 {
@@ -448,13 +450,14 @@ page 51448 "PRL-Payroll Role Center"
                     Image = "Report";
                     RunObject = Report "A third Rule Report Two";
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 action("P9 Report")
                 {
                     ApplicationArea = all;
                     Caption = 'P9 Report';
                     Image = PrintForm;
-
+                    Visible = false;
                     RunObject = Report "P9 Report (Final)";
                 }
 

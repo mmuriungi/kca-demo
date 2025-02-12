@@ -141,6 +141,10 @@ page 51133 "ACA-Class/Grad. Lubrics LKP"
                 {
                     ApplicationArea = All;
                 }
+                field(Pass;Rec.Pass)
+                {
+                   ApplicationArea = All;
+                }
             }
         }
     }

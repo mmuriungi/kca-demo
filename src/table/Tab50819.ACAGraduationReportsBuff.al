@@ -1,6 +1,6 @@
-table 50820 "ACA-Grad. Report Counts"
+table 50063 "ACA-Graduation Reports Buff"
 {
-    Caption = 'ACA-Grad. Report Counts';
+    Caption = 'ACA-Graduation Reports Buff';
     DataClassification = CustomerContent;
 
     fields
@@ -13,6 +13,11 @@ table 50820 "ACA-Grad. Report Counts"
         field(2; "StatusCode"; Code[100])
         {
             Caption = 'Status Code';
+            DataClassification = CustomerContent;
+        }
+        field(3; "Counts"; Integer)
+        {
+            Caption = 'Counts';
             DataClassification = CustomerContent;
         }
         field(4; "YoS"; Integer)
@@ -30,38 +35,29 @@ table 50820 "ACA-Grad. Report Counts"
             Caption = 'Student No.';
             DataClassification = CustomerContent;
         }
-        field(9; "Transition Code"; Code[20])
-        {
-            Caption = 'Transition Code';
-            DataClassification = CustomerContent;
-        }
-        field(11; "IS Pass Status"; Boolean)
-        {
-            Caption = 'IS Pass Status';
-            DataClassification = CustomerContent;
-        }
-        field(12; "User ID"; Code[20])
+        field(7; "User ID"; Code[20])
         {
             Caption = 'User ID';
             DataClassification = CustomerContent;
         }
-        field(13; "Counted Recs"; Integer)
+        field(8; "Exists in Counts"; Boolean)
         {
-            Caption = 'Counted Records';
-            DataClassification = CustomerContent;
+            Caption = 'Exists in Counts';
+            CalcFormula = Exist("ACA-Grad. Report Counts" WHERE(
+                "Prog. Code" = FIELD("Prog. Code"),
+                "Academic Year" = FIELD("Academic Year"),
+                "Student No." = FIELD("Student No."),
+                "User ID" = FIELD("User ID")
+            ));
+            FieldClass = FlowField;
         }
     }
 
     keys
     {
-        key(Key1; "Prog. Code", StatusCode, YoS, "Academic Year", "Student No.", "User ID")
+        key(Key1; "Prog. Code", StatusCode, YoS, "Academic Year", "Student No.")
         {
             Clustered = true;
         }
     }
-
-    fieldgroups
-    {
-    }
-}
-
+} 

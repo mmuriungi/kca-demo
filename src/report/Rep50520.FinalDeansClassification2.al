@@ -6,218 +6,399 @@ report 50520 "Final Deans Classification 2"
 
     dataset
     {
-        dataitem(StudentsClassification; "ACA-Classification Students")
+        dataitem(ExamCoregcs; "ACA-Classification Course Reg.")
         {
-            CalcFields = "Status Students Count", "Prog. Exam Category", "Programme Option", "Prog. Option Name";
-            DataItemTableView = WHERE("Final Classification Pass" = FILTER(true), "Final Classification" = FILTER(<> ''));
-            RequestFilterFields = "Graduation Academic Year", "School Code";
-            column(ClassCode; StudentsClassification."Final Classification")
+            CalcFields = "Is Pass";
+            DataItemTableView = where(Graduating=filter(True));
+            RequestFilterFields = Programme,"Graduation Academic Year","Year of Study";
+            column(ReportForNavId_2901; 2901)
             {
             }
-            column(GradAcademicYear; StudentsClassification."Graduation Academic Year")
+            column(ProgDesc;ACAProgrammeOptions.Desription)
             {
             }
-            column(ProgCode; StudentsClassification.Programme)
+            column(RubricDesc;ACAResultsStatus.Description)
             {
             }
-            column(PassStatus; StudentsClassification."Final Classification Pass")
+            column(IsGraduating;ExamCoregcs.Graduating)
             {
             }
-            column(PassStatusOrder; StudentsClassification."Final Classification Order")
+            column(AllowOptions;AllowOptions)
             {
             }
-            column(ClassOrders; StudentsClassification."Final Classification Order")
+            column(RegNo;RegNo)
             {
             }
-            column(ClassOrder; StudentsClassification."Final Classification Order")
+            column(Names;Names)
             {
             }
-            column(YearOfStudy; StudentsClassification."Year of Study")
+            column(Compname;UpperCase(CompInf.Name))
             {
             }
-            column(PassOrder; StudentsClassification."Final Classification Order")
+            column(Pics;CompInf.Picture)
             {
             }
-            column(Pics; CompInf.Picture)
+            column(StatusCode;ExamCoregcs.Classification)
             {
             }
-            column(Compname; UpperCase(CompInf.Name))
+            column(StatusDesc;ExamCoregcs.Classification)
             {
             }
-            column(StatusOrderCompiled; StatusOrder)
+            column(SummaryPageCaption;ACAResultsStatus."Summary Page Caption")
             {
             }
-            column(statusCompiled; statusCompiled)
+            column(StatusOrder;ACAResultsStatus."Order No")
             {
             }
-            column(StatusCode; StudentsClassification."Final Classification")
+            column(StatCodes;ExamCoregcs.Classification)
             {
             }
-            column(StatusDesc; ACAResultsStatus.Description)
+            column(ProgOptions;ProgOpts.Desription)
             {
             }
-            column(SummaryPageCaption; ACAResultsStatus."Summary Page Caption")
+            column(ApprovalsClaimer;'Approved by the board of the Examiners of the  '+ExamCoregcs."School Name"+' at a meeting held on:')
             {
             }
-            column(StatusOrder; StudentsClassification."Final Classification Order")
+            column(StudNo;ExamCoregcs."Student Number")
             {
             }
-            column(StatCodes; ACAResultsStatus.Code)
+            column(Serials;ClassificationSerial.Serial)
             {
             }
-            column(ApprovalsClaimer; 'Approved by the board of the Examiners of the  ' + FacDesc + ' at a meeting held on:')
+            column(Progs;ExamCoregcs.Programme)
             {
             }
-            column(ProgName; progName)
+            column(ProgName;progName)
             {
             }
-            column(facCode; facCode)
+            column(facCode;facCode)
             {
             }
-            column(FacDesc; FacDesc)
+            column(FacDesc;FacDesc)
             {
             }
-            column(YoS; StudentsClassification."Year of Study")
+            column(YoS;ExamCoregcs."Year of Study")
             {
             }
-            column(AcadYear; StudentsClassification."Graduation Academic Year")
+            column(AcadYear;ExamCoregcs."Graduation Academic Year")
             {
             }
-            column(YearOfStudyText; YearOfStudyText)
+            column(YearOfStudyText;YearOfStudyText)
             {
             }
-            column(NextYear; NextYear)
+            column(NextYear;NextYear)
             {
             }
-            column(SaltedExamStatusDesc; 'In the  ' + StudentsClassification."Graduation Academic Year" + ' Academic Year, ' + SaltedExamStatusDesc)
+            column(SaltedExamStatusDesc;SaltedExamStatusDesc)
             {
             }
-            column(SaltedExamStatus; SaltedExamStatus)
+            column(SaltedExamStatus;SaltedExamStatus)
             {
             }
-            column(YoSTexed; YoS)
+            column(counts;CurrNo)
             {
             }
-            column(ExamStatus; StudentsClassification."Final Classification")
+            column(YoSTexed;YoS)
             {
             }
-            column(Names; Cust.Name)
+            column(UnitCodeLabel;UnitCodeLabel)
             {
             }
-            column(ProgCat; StudentsClassification."Program Group Order")
+            column(UnitDescriptionLabel;UnitDescriptionLabel)
             {
             }
-            column(ProgrammeOption; StudentsClassification."Programme Option")
+            column(PercentageFailedCaption;PercentageFailedCaption)
             {
             }
-            column(OptName; StudentsClassification."Prog. Option Name")
+            column(NumberOfCoursesFailedCaption;NumberOfCoursesFailedCaption)
             {
             }
-            column(NotClassified; Prog."Not Classified")
+            column(PercentageFailedValue;PercentageFailedValue)
             {
             }
-            column(ShowOption; Prog."Show Options on Graduation")
+            column(NoOfCausesFailedValue;NoOfCausesFailedValue)
             {
             }
-            column(StudentNo; Cust."No.")
+            column(YoA;ExamCoregcs."Admission Academic Year")
             {
             }
-            column(CourseCatOrder; CourseCatOrder)
+            column(SpecialUnitReg;SpecialUnitReg1)
             {
             }
-            column(CourseCat; Prog.Category)
+            column(IsSpecialAndSupp;IsSpecialAndSupp)
+            {
+            }
+            column(IsSpecialOnly;isSpecialOnly)
+            {
+            }
+            column(NotSpecialNotSuppSpecial;NotSpecialNotSuppSpecial)
+            {
+            }
+            column(FinalTexts;FinalTexts)
+            {
+            }
+            column(Messages1;Msg1)
+            {
+            }
+            column(Messages2;Msg2)
+            {
+            }
+            column(Messages3;Msg3)
+            {
+            }
+            column(Messages4;Msg4)
+            {
+            }
+            column(Messages5;Msg5)
+            {
+            }
+            column(Messages6;Msg6)
+            {
+            }
+            column(RubricCounts;ExamCoregcs."Program Grad. List Count")
+            {
+            }
+            column(RubNumberText;RubNumberText)
+            {
+            }
+            column(YearText2;YearText2)
+            {
+            }
+            column(ProgClassCount;ExamCoregcs."Program Grad. List Count")
+            {
+            }
+            column(PageTitle;ACAResultsStatus."Class Title Page Caption")
             {
             }
 
             trigger OnAfterGetRecord()
             begin
 
+                Clear(SpecialUnitReg);
                 Clear(NextYear);
                 Clear(YearOfStudyText);
                 Clear(YoS);
-                YoS := GetYearofStudyText(StudentsClassification."Year of Study");
-                YearOfStudyText := YoS;
-                Clear(IsaForthYear);
-                IsaForthYear := true;
-                Clear(statusCompiled);
+                Clear(ProgOpts);
+                ProgOpts.Reset;
+                ExamCoregcs.CalcFields("Programme Option");
+                ProgOpts.SetRange("Programme Code",ExamCoregcs.Programme);
+                ProgOpts.SetRange(Code,ExamCoregcs."Programme Option");
+                if ProgOpts.Find('-') then;
+
+                    Clear(YoSText);
+                    if ExamCoregcs."Year of Study"=1 then YoSText:='FIRST';
+                    if ExamCoregcs."Year of Study"=2 then YoSText:='SECOND';
+                    if ExamCoregcs."Year of Study"=3 then YoSText:='THIRD';
+                    if ExamCoregcs."Year of Study"=4 then YoSText:='FOURTH';
+                    if ExamCoregcs."Year of Study"=5 then YoSText:='FIFTH';
+                    if ExamCoregcs."Year of Study"=6 then YoSText:='SIXTH';
+                    if ExamCoregcs."Year of Study"=7 then YoSText:='SEVENTH';
+                YearText2:=YoSText;
+                  Clear(IsaForthYear);
+                  if ExamCoregcs."Year of Study"=ExamCoregcs."Final Year of Study" then
+                    IsaForthYear:=true;
+                ACASenateReportsHeader.Reset;
+                ACASenateReportsHeader.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
+                ACASenateReportsHeader.SetRange("Programme Code",ExamCoregcs.Programme);
+                ACASenateReportsHeader.SetRange("Classification Code",ExamCoregcs.Classification);
+                ACASenateReportsHeader.SetRange("Year of Study",ExamCoregcs."Year of Study");
+
+                if ACASenateReportsHeader.Find('-') then;
+                  ExamCoregcs.CalcFields("Program Grad. List Count");
+                  RubNumberText:=ConvertDecimalToText.InitiateConvertion(ExamCoregcs."Program Grad. List Count");
+
                 Clear(progName);
                 Prog.Reset;
-                Prog.SetRange(Code, StudentsClassification.Programme);
+                Prog.SetRange(Code,ExamCoregcs.Programme);
                 if Prog.Find('-') then begin
-                    progName := Prog.Description;
-                    CourseCatOrder := 1;
-                    CourseCat := 'BARCHELORS';
-                end;
+                  progName:=Prog.Description;
+                  end;
+                  Clear(Msg1);
+                  Clear(Msg2);
+                  Clear(Msg3);
+                  Clear(Msg4);
+                  Clear(Msg5);
+                  Clear(Msg6);
 
-                //Get the Department
                 Clear(FacDesc);
                 Clear(facCode);
-                FacDesc := StudentsClassification."School Name";
-                facCode := StudentsClassification."School Code";
+                FacDesc:='';
+                Prog.Reset;
+                Prog.SetRange(Code,ExamCoregcs.Programme);
+                Prog.SetFilter("School Code",'<>%1','');
+                if Prog.Find('-') then begin
+                Dimensions2.Reset;
+                Dimensions2.SetRange("Dimension Code",'SCHOOL');
+                Dimensions2.SetRange(Code,Prog."School Code");
+                if Dimensions2.Find('-') then begin
+                  FacDesc:=Dimensions2.Name;
+                  facCode:=Dimensions2.Code;
+                  end;
+                end;
 
 
+                  if Cust.Get(ExamCoregcs."Student Number") then;
+                  Names:=Cust.Name;
+                  RegNo:=ExamCoregcs."Student Number";
+                  Clear(UnitCodeLabel);
+                  Clear(UnitDescriptionLabel);
+                  Clear(PercentageFailedCaption);
+                  Clear(NumberOfCoursesFailedCaption);
+                  Clear(PercentageFailedValue);
+                  Clear(NoOfCausesFailedValue);
+                ACAResultsStatus.Reset;
+                ACAResultsStatus.SetRange(Code,ExamCoregcs.Classification);
+                if ACAResultsStatus.Find('-') then begin
+                  if ACAResultsStatus."Include Failed Units Headers" then begin
+                    UnitCodeLabel:='Course Code';
+                    UnitDescriptionLabel:='Course Title';
+                      ExamCoregcs.CalcFields("Failed Units","Total Units");
+                    if ExamCoregcs."Failed Units">0 then begin
+
+                      end;
+                    end;
+                    end;
+                  Msg1:=ACAResultsStatus."Classification Msg1";
+                  Msg2:=ACAResultsStatus."Classification Msg2";
+                  Msg3:=ACAResultsStatus."Classification Msg3";
+                  Msg4:=ACAResultsStatus."Classification Msg4";
+                  if  IsaForthYear then
+                    if ACAResultsStatus."Final Year Comment"='' then IsaForthYear:=false;
+                  Msg5:=ACAResultsStatus."Classification Msg5";
+                  Msg6:=ACAResultsStatus."Classification Msg6";
                 Clear(SaltedExamStatus);
                 Clear(SaltedExamStatusDesc);
-                SaltedExamStatus := ACAResultsStatus.Code + facCode + Prog.Code +
-                Format(StudentsClassification."Year of Study") +
-                StudentsClassification."Graduation Academic Year";
+                SaltedExamStatus:=ACAResultsStatus.Code+facCode+Prog.Code+
+                Format(ExamCoregcs."Year of Study")+
+                ExamCoregcs."Graduation Academic Year";
                 Clear(NoOfStudents);
                 Clear(NoOfStudentsDecimal);
+                CReg.Reset;
+                CReg.SetRange(Classification,ExamCoregcs.Classification);
+                CReg.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
+                CReg.SetRange(Programme,ExamCoregcs.Programme);
+                CReg.SetRange("Year of Study",ExamCoregcs."Year of Study");
+                CReg.SetFilter("Total Units",'>%1',0);
+                if CReg.Find('-') then begin
+                  //---------------------------------------------------------
+                  ACASenateReportCounts.Reset;
+                ACASenateReportCounts.SetRange("Prog. Code",ExamCoregcs.Programme);
+                ACASenateReportCounts.SetRange(StatusCode,ExamCoregcs.Classification);
+                ACASenateReportCounts.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
+                ACASenateReportCounts.SetRange(YoS,ExamCoregcs."Year of Study");
+                if  ACASenateReportCounts.Find('-') then begin
+                  NoOfStudentsDecimal:=Format(ROUND(((ACASenateReportCounts.Count)),1,'>'));
+                  if Evaluate(NoOfStudents,NoOfStudentsDecimal) then;
+                  end;
+                  end;
+                  Clear(CurrNo);
+                ACASenateReportStatusBuff.Reset;
+                ACASenateReportStatusBuff.SetRange("Prog. Code",ExamCoregcs.Programme);
+                ACASenateReportStatusBuff.SetRange(StatusCode,ExamCoregcs.Classification);
+                ACASenateReportStatusBuff.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
+                ACASenateReportStatusBuff.SetRange(YoS,ExamCoregcs."Year of Study");
+                ACASenateReportStatusBuff.SetRange("Student No.",ExamCoregcs."Student Number");
+                if not ACASenateReportStatusBuff.Find('-') then begin
+                    ACASenateReportStatusBuff.Init;
+                    ACASenateReportStatusBuff."Prog. Code":=ExamCoregcs.Programme;
+                    ACASenateReportStatusBuff."Student No.":=ExamCoregcs."Student Number";
+                    ACASenateReportStatusBuff.Counts:=1;
+                    ACASenateReportStatusBuff.StatusCode:=ExamCoregcs.Classification;
+                    ACASenateReportStatusBuff.YoS:=ExamCoregcs."Year of Study";
+                    ACASenateReportStatusBuff."Academic Year":=ExamCoregcs."Graduation Academic Year";
+                    ACASenateReportStatusBuff.Insert;
+                    end;
+                ACASenateReportStatusBuff.Reset;
+                ACASenateReportStatusBuff.SetRange("Prog. Code",ExamCoregcs.Programme);
+                ACASenateReportStatusBuff.SetRange(StatusCode,ExamCoregcs.Classification);
+                ACASenateReportStatusBuff.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
+                ACASenateReportStatusBuff.SetRange(YoS,ExamCoregcs."Year of Study");
+                if  ACASenateReportStatusBuff.Find('-') then   CurrNo:=ACASenateReportStatusBuff.Count;
 
-                ACAResultsStatus.Reset;
+                ResultsStatus3.Reset;
+                ResultsStatus3.SetRange(Code,ExamCoregcs.Classification);
+                Clear(SpecialUnitReg1);
 
-                ACAResultsStatus.SetRange(Code, 'PASS');
-                //SaltedExamStatusDesc:=ClassHeader.Msg1;
-                Clear(NoOfStudentInText);
-                StudentsClassification.CalcFields("Status Students Count");
-                NoOfStudents := StudentsClassification."Status Students Count";
-                if NoOfStudents <> 0 then NoOfStudentInText := ConvertDecimalToText.InitiateConvertion(NoOfStudents);
-                if ACAResultsStatus.Find('-') then begin
-                    if ACAResultsStatus."Include Class Variable 1" then SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + ACAResultsStatus."Classification Msg1" + ' ' + NoOfStudentInText + ' (' + Format(NoOfStudents) + ') ' + ACAResultsStatus."Classification Msg2";
-                    if ACAResultsStatus."Include Class Variable 2" then SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + FacDesc;
-                    if StudentsClassification."Program Group Order" = 1 then
-                        SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + ACAResultsStatus."Classification Msg3"
-                    else
-                        if StudentsClassification."Program Group Order" = 2 then
-                            SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + ACAResultsStatus."Classification Msg4"
-                        else
-                            if StudentsClassification."Program Group Order" = 3 then
-                                SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + ACAResultsStatus."Classification Msg5";
-                    //IF ACAResultsStatus."Include Class Variable 3" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+ACAResultsStatus."Classification Msg4";
-                    //IF ACAResultsStatus."Include Class Variable 4" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+progName+' '+ClassHeader.Msg5;
-                    // IF ACAResultsStatus."Include Class Variable 5" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc;//+' '+NextYear;
-                    // IF ACAResultsStatus."Include Class Variable 6" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+ClassHeader.Msg6;
-                    SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + ACAResultsStatus."Final Year Comment";
-                end;
+                 Clear(isSpecialOnly);
+                 Clear(IsSpecialAndSupp);
+                 if (ExamCoregcs.Classification='SPECIAL') then begin isSpecialOnly:=true;
+                 SpecialUnitReg1:=isSpecialOnly;
+                 end;
 
-                Cust.Reset;
-                Cust.SetRange("No.", StudentsClassification."Student Number");
-                if Cust.Find('-') then;
 
-                if StudentsClassification."Final Classification" = 'DISTINCTION' then
-                    StudentsClassification."Final Classification Order" := 1
-                else
-                    if StudentsClassification."Final Classification" = 'CREDIT' then StudentsClassification."Final Classification Order" := 2;
+                ACAResultsStatusez.Reset;
+                ACAResultsStatusez.SetRange(Code,ExamCoregcs.Classification);
+                if ACAResultsStatusez.Find('-') then begin
 
-                if StudentsClassification."Programme Option" <> '' then begin
-                    if StudentsClassification."Prog. Option Name" = '' then StudentsClassification."Prog. Option Name" := StudentsClassification."Programme Option";
-                    StudentsClassification."Prog. Option Name" := StudentsClassification."Prog. Option Name" + ' Option';
-                end;
-                if Prog."Show Options on Graduation" = false then begin
-                    StudentsClassification."Programme Option" := '';
-                    StudentsClassification."Prog. Option Name" := '';
-                end;
+                  end;
+
+                  Clear(ClassificationSerial);
+                  ClassificationSerial.Reset;
+                  ClassificationSerial.SetRange("Student Number",ExamCoregcs."Student Number");
+                  if ClassificationSerial.Find('-') then;
             end;
 
             trigger OnPreDataItem()
             begin
-                //ClassHeader.SETFILTER("User ID",USERID);
+                Clear(yosInt);
+                Clear(Programs);
+                Clear(AllowOptions);
+                Programs.Reset;
+                Programs.SetRange(Code,ExamCoregcs.GetFilter(Programme));
+                if Programs.Find('-') then AllowOptions:=Programs."Show Options on Graduation";
+                if Evaluate(yosInt,ExamCoregcs.GetFilter("Year of Study")) then;
+                CReg.Reset;
+                CReg.SetRange("Graduation Academic Year",ExamCoregcs.GetFilter("Graduation Academic Year"));
+                CReg.SetRange(Programme,ExamCoregcs.GetFilter(Programme));
+                CReg.SetRange("Year of Study",yosInt);
+                CReg.SetRange(Graduating,true);
+                if ExamCoregcs.GetFilter("Programme Option") <>'' then
+                CReg.SetFilter("Programme Option",ExamCoregcs.GetFilter("Programme Option"));
+                ACAProgrammeOptions.Reset;
+                ACAProgrammeOptions.SetRange(Code,ExamCoregcs.GetFilter("Programme Option"));
+                ACAProgrammeOptions.SetRange("Programme Code",ExamCoregcs.GetFilter(Programme));
+                if ACAProgrammeOptions.Find('-') then;
+                if CReg.Find('-') then begin
+                  Clear(ClassificationSerial);
+                  ClassificationSerial.Reset;
+                if ClassificationSerial.Find('-') then ClassificationSerial.DeleteAll;
+                  repeat
+                    begin
+                    CReg.CalcFields("Programme Option");
+                    Clear(ACAResultsStatus);
+                    ACAResultsStatus.Reset;
+                    ACAResultsStatus.SetRange(Code,CReg.Classification);
+                    if ACAResultsStatus.Find('-') then;
+
+                    ClassificationSerial.Init;
+                    ClassificationSerial."Prog. Code":=CReg.Programme;
+                    ClassificationSerial.Option:=CReg."Programme Option";
+                    ClassificationSerial.StatusOrder:=ACAResultsStatus."Order No";
+                    ClassificationSerial."Student Number":=CReg."Student Number";
+                    ClassificationSerial.Classification:=CReg.Classification;
+                    if ClassificationSerial.Insert then;
+                  end;
+                  until CReg.Next=0;
+                  end;
+                  Clear(sequence);
+                  Clear(ClassificationSerial);
+                  ClassificationSerial.Reset;
+                  if ClassificationSerial.Find('-') then begin
+                    repeat
+                      begin
+                      sequence+=1;
+                      ClassificationSerial.Serial :=sequence;
+                      ClassificationSerial.Modify;
+                      end;
+                      until ClassificationSerial.Next = 0;
+                    end;
             end;
         }
     }
 
     requestpage
     {
+        SaveValues = true;
 
         layout
         {
@@ -235,28 +416,27 @@ report 50520 "Final Deans Classification 2"
     trigger OnInitReport()
     begin
         CompInf.Get();
-        CompInf.CalcFields(CompInf.Picture);
+        //CompInf.CALCFIELDS(CompInf.Picture);
     end;
 
     trigger OnPreReport()
+    begin
+        if ExamCoregcs.GetFilter("Year of Study")='' then Error('Specify Year of Study');
+        if ExamCoregcs.GetFilter(Programme)='' then Error('Specify Programme');
+        if ExamCoregcs.GetFilter("Graduation Academic Year")='' then Error('Specify Academic Year');
+    end;
+
     var
-        ACAGraduationReportPicker: Record "ACA-Graduation Report Picker";
-        GradAcdYear: Code[1024];
-        YearOfStudy: Option " ","1","2","3","4","5","6","7";
-        ProgFilters: Code[1024];
-        ACACourseRegistration: Record "ACA-Classification Students";
-        ITmCourseReg: Record "ACA-Classification Students";
-        ACAProgramme: Record "ACA-Programme";
-        ACAProgrammeStages: Record "ACA-Programme Stages";
-        YoSComputed: Integer;
-        ACAClassificationHeader: Record "ACA-Classification Header";
-        ACAClassificationDetails: Record "ACA-Classification Details";
-        ACAClassificationDetails2: Record "ACA-Classification Details";
-        ACAClassGradRubrics: Record "ACA-Class/Grad. Rubrics";
-        SpecialReason: Text[150];
-        failExists: Boolean;
-        StatusOrder: Integer;
-        statusCompiled: Code[50];
+        sequence: Integer;
+        ClassificationSerial: Record "Classification. Serial";
+        ProgOpts: Record "ACA-Programme Options";
+        ACAProgrammeOptions: Record "ACA-Programme Options";
+        ACAResultsStatusez: Record "ACA-Class/Grad. Rubrics";
+        YoSText: Text[1024];
+        ACASenateReportsHeader: Record "ACA-Senate Reports Header";
+        FinalTexts: Text[1024];
+        YearText2: Text[1024];
+        RubNumberText: Text[1024];
         NotSpecialNotSuppSpecial: Boolean;
         isSpecialOnly: Boolean;
         IsSpecialAndSupp: Boolean;
@@ -264,7 +444,7 @@ report 50520 "Final Deans Classification 2"
         IsSpecialUnit: Boolean;
         SpecialUnitReg1: Boolean;
         SpecialUnitReg: Boolean;
-        ACASenateReportCounts: Record "ACA-Senate Report Counts";
+        ACASenateReportCounts: Record "ACA-Grad. Report Counts";
         NoOfStudentInText: Text[250];
         ConvertDecimalToText: Codeunit "Convert Decimal To Text";
         PercentageFailedCaption: Text[100];
@@ -272,14 +452,14 @@ report 50520 "Final Deans Classification 2"
         PercentageFailedValue: Decimal;
         NoOfCausesFailedValue: Integer;
         NoOfStudentsDecimal: Text;
-        ACAStudentUnits: Record "ACA-Classification Units";
+        ACAStudentUnits: Record "ACA-Exam Classification Units";
         CountedRecs: Integer;
-        UnitCodes: array[30] of Text[50];
-        UnitDescs: array[30] of Text[150];
+        UnitCodes: array [30] of Text[50];
+        UnitDescs: array [30] of Text[150];
         UnitCodeLabel: Text;
         UnitDescriptionLabel: Text;
         NoOfStudents: Integer;
-        StudUnits: Record "ACA-Classification Units";
+        StudUnits: Record "ACA-Exam Classification Units";
         ExamsDone: Integer;
         FailCount: Integer;
         Cust: Record Customer;
@@ -310,7 +490,7 @@ report 50520 "Final Deans Classification 2"
         SemYear: Code[20];
         ShowSem: Boolean;
         SemDesc: Code[100];
-        CREG2: Record "ACA-Classification Students";
+        CREG2: Record "ACA-Exam. Course Registration";
         ExamsProcessing: Codeunit "Exams Processing1";
         CompInf: Record "Company Information";
         YearDesc: Text[30];
@@ -339,181 +519,13 @@ report 50520 "Final Deans Classification 2"
         YearOfStudyText: Text[30];
         SaltedExamStatus: Code[1024];
         SaltedExamStatusDesc: Text;
-        ACASenateReportStatusBuff: Record "ACA-Senate Report Status Buff." temporary;
-        CurrNo: Integer;
-        YoS: Code[20];
-        CReg33: Record "ACA-Classification Students";
-        CReg: Record "ACA-Classification Students";
-        yosInt: Integer;
-        ACAUnitsSubjects: Record "ACA-Units/Subjects";
-        incounts: Integer;
-    begin
-        if StudentsClassification.GetFilter("Graduation Academic Year") = '' then Error('Missing Academic years Filter');
-        if StudentsClassification.GetFilter("School Code") = '' then Error('Missing Faculty');
-    end;
-
-    var
-        ACACourseRegistration741: Record "ACA-Classification Course Reg.";
-        SpecialReason: Text[150];
-        failExists: Boolean;
-        StatusOrder: Integer;
-        statusCompiled: Code[50];
-        NotSpecialNotSuppSpecial: Boolean;
-        isSpecialOnly: Boolean;
-        IsSpecialAndSupp: Boolean;
-        IsaForthYear: Boolean;
-        IsSpecialUnit: Boolean;
-        SpecialUnitReg1: Boolean;
-        SpecialUnitReg: Boolean;
-        ACASenateReportCounts: Record "ACA-Senate Report Counts";
-        NoOfStudentInText: Text[250];
-        ConvertDecimalToText: Codeunit "Convert Decimal To Text";
-        PercentageFailedCaption: Text[100];
-        NumberOfCoursesFailedCaption: Text[100];
-        PercentageFailedValue: Decimal;
-        NoOfCausesFailedValue: Integer;
-        NoOfStudentsDecimal: Text;
-        CountedRecs: Integer;
-        UnitCodes: array[30] of Text[50];
-        UnitDescs: array[30] of Text[150];
-        UnitCodeLabel: Text;
-        UnitDescriptionLabel: Text;
-        NoOfStudents: Integer;
-        StudUnits: Record "ACA-Classification Units";
-        ExamsDone: Integer;
-        FailCount: Integer;
-        Cust: Record Customer;
-        Semesters: Record "ACA-Semesters";
-        Dimensions: Record "Dimension Value";
-        Prog: Record "ACA-Programme";
-        FacDesc: Code[100];
-        Depts: Record "Dimension Value";
-        Stages: Record "ACA-Programme Stages";
-        StudentsL: Text[250];
-        N: Integer;
-        Grd: Code[20];
-        Marks: Decimal;
-        Dimensions2: Record "Dimension Value";
-        UnitsRec: Record "ACA-Units/Subjects";
-        UnitsDesc: Text[100];
-        UnitsHeader: Text[50];
-        FailsDesc: Text[200];
-        Nx: Integer;
-        RegNo: Code[20];
-        Names: Text[100];
-        Ucount: Integer;
-        RegNox: Code[20];
-        Namesx: Text[100];
-        Nxx: Text[30];
-        SemYear: Code[20];
-        ShowSem: Boolean;
-        SemDesc: Code[100];
-        ExamsProcessing: Codeunit "Exams Processing1";
-        CompInf: Record "Company Information";
-        YearDesc: Text[30];
-        MaxYear: Code[20];
-        MaxSem: Code[20];
-        CummScore: Decimal;
-        CurrScore: Decimal;
-        mDate: Date;
-        IntakeRec: Record "ACA-Intake";
-        IntakeDesc: Text[100];
-        SemFilter: Text[100];
-        StageFilter: Text[100];
-        MinYear: Code[20];
-        MinSem: Code[20];
-        StatusNarrations: Text[1000];
-        NextYear: Code[20];
-        facCode: Code[20];
-        progName: Code[150];
-        ACAResultsStatus: Record "ACA-Class/Grad. Rubrics";
-        YearOfStudyText: Text[30];
-        SaltedExamStatus: Code[1024];
-        SaltedExamStatusDesc: Text;
-        ACASenateReportStatusBuff: Record "ACA-Senate Report Status Buff." temporary;
+        ACASenateReportStatusBuff: Record "ACA-Graduation Reports Buff" temporary;
         CurrNo: Integer;
         YoS: Code[20];
         yosInt: Integer;
-        ACAUnitsSubjects: Record "ACA-Units/Subjects";
-        ReoderElement: Code[10];
-        ProgCat: Code[10];
-        CourseCatOrder: Integer;
-        CourseCat: Code[50];
-
-    local procedure GetYearofStudyText(Yos: Integer) YosText: Text[150]
-    begin
-        Clear(YosText);
-        if Yos = 1 then YosText := 'FIRST';
-        if Yos = 2 then YosText := 'SECOND';
-        if Yos = 3 then YosText := 'THIRD';
-        if Yos = 4 then YosText := 'FORTH';
-        if Yos = 5 then YosText := 'FIFTH';
-        if Yos = 6 then YosText := 'SIXTH';
-        if Yos = 7 then YosText := 'SEVENTH';
-    end;
-
-    local procedure FormatNames(CommonName: Text[250]) NewName: Text[250]
-    var
-        NamesSmall: Text[250];
-        FirsName: Text[250];
-        SpaceCount: Integer;
-        SpaceFound: Boolean;
-        Counts: Integer;
-        Strlegnth: Integer;
-        OtherNames: Text[250];
-        FormerCommonName: Text[250];
-        OneSpaceFound: Boolean;
-        Countings: Integer;
-    begin
-        Clear(OneSpaceFound);
-        Clear(Countings);
-        CommonName := ConvertStr(CommonName, ',', ' ');
-        FormerCommonName := '';
-        repeat
-        begin
-            Countings += 1;
-            if CopyStr(CommonName, Countings, 1) = ' ' then begin
-                if OneSpaceFound = false then FormerCommonName := FormerCommonName + CopyStr(CommonName, Countings, 1);
-                OneSpaceFound := true
-            end else begin
-                OneSpaceFound := false;
-                FormerCommonName := FormerCommonName + CopyStr(CommonName, Countings, 1)
-            end;
-        end;
-        until Countings = StrLen(CommonName);
-        CommonName := FormerCommonName;
-        Clear(NamesSmall);
-        Clear(FirsName);
-        Clear(SpaceCount);
-        Clear(SpaceFound);
-        Clear(OtherNames);
-        if StrLen(CommonName) > 100 then CommonName := CopyStr(CommonName, 1, 100);
-        Strlegnth := StrLen(CommonName);
-        if StrLen(CommonName) > 4 then begin
-            NamesSmall := LowerCase(CommonName);
-            repeat
-            begin
-                SpaceCount += 1;
-                if ((CopyStr(NamesSmall, SpaceCount, 1) = '') or (CopyStr(NamesSmall, SpaceCount, 1) = ' ') or (CopyStr(NamesSmall, SpaceCount, 1) = ',')) then SpaceFound := true;
-                if not SpaceFound then begin
-                    FirsName := FirsName + UpperCase(CopyStr(NamesSmall, SpaceCount, 1));
-                end else begin
-                    if StrLen(OtherNames) < 150 then begin
-                        if ((CopyStr(NamesSmall, SpaceCount, 1) = '') or (CopyStr(NamesSmall, SpaceCount, 1) = ' ') or (CopyStr(NamesSmall, SpaceCount, 1) = ',')) then begin
-                            OtherNames := OtherNames + ' ';
-                            SpaceCount += 1;
-                            OtherNames := OtherNames + UpperCase(CopyStr(NamesSmall, SpaceCount, 1));
-                        end else begin
-                            OtherNames := OtherNames + CopyStr(NamesSmall, SpaceCount, 1);
-                        end;
-
-                    end;
-                end;
-            end;
-            until ((SpaceCount = Strlegnth))
-        end;
-        Clear(NewName);
-        NewName := FirsName + ',' + OtherNames;
-    end;
+        Programs: Record "ACA-Programme";
+        AllowOptions: Boolean;
+        CReg33: Record "ACA-Classification Course Reg.";
+        CReg: Record "ACA-Classification Course Reg.";
 }
 

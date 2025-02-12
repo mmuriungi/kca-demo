@@ -1,11 +1,10 @@
-report 50108 "PRL-Deductions Summary 2 a"
+report 50024 "Payroll Summary Ext"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/PRL-Deductions Summary 2.rdl';
+    RDLCLayout = './Layouts/PayrollSummaryExt.rdlc';
 
     dataset
     {
-     
         dataitem("HRM-Employee (D)"; "HRM-Employee C")
         {
             column(ReportForNavId_1; 1)
@@ -56,7 +55,7 @@ report 50108 "PRL-Deductions Summary 2 a"
             column(BasicPay;BasicPay)
             {
             }
-            column(periods;'Deductions SUMMARY for '+Format(periods,0,4))
+            column(periods;'PAYROLL SUMMARY for '+Format(periods,0,4))
             {
             }
             column(empName;"No."+': '+"First Name"+' '+"Middle Name"+' '+"Last Name")
@@ -319,35 +318,35 @@ report 50108 "PRL-Deductions Summary 2 a"
                  payeamountTotal:=0;
                   nssfamTotal:=0;
                   nhifamtTotal:=0;
-                
+
                  Clear(TranscAmountTotal);
-                
+
                 // Make Headers
                     // Pick The Earnings First
-                 /*  prtransCodes.RESET;
-                   prtransCodes.SETFILTER(prtransCodes."Transaction Type",'=%1',prtransCodes."Transaction Type"::Income);
-                   IF prtransCodes.FIND('-') THEN BEGIN
-                   REPEAT
-                   BEGIN
-                     prPeriodTransactions.RESET;
-                    prPeriodTransactions.SETRANGE(prPeriodTransactions."Transaction Code",prtransCodes."Transaction Code");
-                    prPeriodTransactions.SETRANGE(prPeriodTransactions."Payroll Period",periods);
-                    IF prPeriodTransactions.FIND('-') THEN BEGIN
+                   prtransCodes.Reset;
+                   prtransCodes.SetFilter(prtransCodes."Transaction Type",'=%1',prtransCodes."transaction type"::Income);
+                   if prtransCodes.Find('-') then begin
+                   repeat
+                   begin
+                     prPeriodTransactions.Reset;
+                    prPeriodTransactions.SetRange(prPeriodTransactions."Transaction Code",prtransCodes."Transaction Code");
+                    prPeriodTransactions.SetRange(prPeriodTransactions."Payroll Period",periods);
+                    if prPeriodTransactions.Find('-') then begin
                       counts:=counts+1;
                       TransName[1,counts]:=prtransCodes."Transaction Name";
                       Transcode[1,counts]:=prtransCodes."Transaction Code";
-                    END;
-                    END;
-                    UNTIL prtransCodes.NEXT=0;
-                   END; */
-                
+                    end;
+                    end;
+                    until prtransCodes.Next=0;
+                   end;
+
                 // pick the deductions Here
                    prtransCodes.Reset;
                    prtransCodes.SetFilter(prtransCodes."Transaction Type",'=%1',prtransCodes."transaction type"::Deduction);
                    if prtransCodes.Find('-') then begin
                    repeat
                    begin
-                
+
                      prPeriodTransactions.Reset;
                     prPeriodTransactions.SetRange(prPeriodTransactions."Transaction Code",prtransCodes."Transaction Code");
                     prPeriodTransactions.SetRange(prPeriodTransactions."Payroll Period",periods);
@@ -361,7 +360,6 @@ report 50108 "PRL-Deductions Summary 2 a"
                    end;
                    info.Reset;
                    if info.Find('-') then info.CalcFields(info.Picture);
-
             end;
         }
     }
