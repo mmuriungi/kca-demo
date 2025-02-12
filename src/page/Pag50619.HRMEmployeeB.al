@@ -474,6 +474,10 @@ page 50619 "HRM-Employee (B)"
                     ApplicationArea = all;
                     Editable = false;
                 }
+                field("Part Timer Type"; Rec."Part Timer Type")
+                {
+                    ApplicationArea = All;
+                }
 
             }
             group(Leave)
