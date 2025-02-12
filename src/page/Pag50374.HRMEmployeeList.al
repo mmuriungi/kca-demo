@@ -296,6 +296,7 @@ page 50374 "HRM-Employee-List"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                Visible = false;
 
                 trigger OnAction()
                 begin
@@ -394,6 +395,7 @@ page 50374 "HRM-Employee-List"
                 Caption = 'Deductions Summary';
                 Image = Report;
                 RunObject = Report "PRL-Deductions Summary 2 a";
+                Visible = false;
             }
             action("Earnings Summary")
             {
@@ -401,6 +403,7 @@ page 50374 "HRM-Employee-List"
                 Caption = 'Earnings Summary';
                 Image = DepositSlip;
                 RunObject = Report "PRL-Earnings Summary 5";
+                Visible = false;
             }
             action("Staff pension")
             {
@@ -421,6 +424,7 @@ page 50374 "HRM-Employee-List"
                 Caption = 'Third Rule';
                 Image = AddWatch;
                 RunObject = Report "A third Rule Report Two";
+                Visible = false;
             }
             action("Co_op Remittance")
             {

@@ -5,103 +5,244 @@ report 50114 "Payroll Summary 3"
 
     dataset
     {
-        dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
+
+  
+        dataitem(prPeriod_Transactions; "PRL-Period Transactions")
         {
-
-            DataItemTableView = SORTING("Group Order") ORDER(Ascending) WHERE("Group Order" = FILTER(1 | 3 | 4 | 7 | 8 | 9));
-            column(DeptCodes; DimensionValue.Code)
+            DataItemTableView = sorting("Payroll Period","Group Order","Sub Group Order") order(ascending) where("Group Order"=filter(1|3|4|7|8|9|0));
+            RequestFilterFields = "Period Year";
+            column(ReportForNavId_1; 1)
             {
             }
-            column(DeptName; DimensionValue.Name)
+            column(COMPANYNAME;COMPANYNAME)
             {
             }
-
-            column(UserId; CurrUser)
+            column(COMPANYNAME_Control1102755015;COMPANYNAME)
             {
             }
-            column(DateToday; Today)
+            column(COMPANYNAME_Control1102756027;COMPANYNAME)
             {
             }
-            column(PrintTime; Time)
+            column(COMPANYNAME_Control1102756028;COMPANYNAME)
             {
             }
-            column(pic; info.Picture)
+            column(CompanyInfo_Picture;CompanyInfo.Picture)
             {
             }
-            column(TransCode; "PRL-Period Transactions"."Transaction Code")
+            column(CompanyInfo_Picture_Control1102756014;CompanyInfo.Picture)
             {
             }
-            column(EmpCode; "PRL-Period Transactions"."Employee Code")
+            column(PayrollSummary;'COMPANY PAYROLL SUMMARY')
             {
             }
-            column(TransName; "PRL-Period Transactions"."Transaction Name")
+            column(PeriodNamez;'PERIOD:  '+PeriodName)
             {
             }
-            column(GO; "PRL-Period Transactions"."Group Order")
+            column(TransDesc;'TRANSACTION DESC.')
             {
             }
-            column(Perdate; "PRL-Period Transactions"."Payroll Period")
+            column(payments;'PAYMENTS')
             {
             }
-            column(amt; "PRL-Period Transactions".Amount)
+            column(deductions;'DEDUCTIONS')
             {
             }
-            column(bal; "PRL-Period Transactions".Balance)
+            column(kirinyagatitle;COMPANYNAME)
             {
             }
-            column(EmpName; HRMEmployeeD."First Name" + ' ' + HRMEmployeeD."Middle Name" + ' ' + HRMEmployeeD."Last Name")
+            column(abreviation;'KARATINA UNIVERSITY')
             {
             }
-            column(empcategory; HRMEmployeeD."Employee Category")
-            {
-
-            }
-            column(PeriodName; prPayrollPeriods."Period Name")
+            column(DetDate;DetDate)
             {
             }
-            column(compName; info.Name)
+            column(GPY;GPY)
             {
             }
-            column(compAddress; info.Address)
+            column(NETS;NETS)
             {
             }
-            column(compPhone; info."Phone No.")
+            column(STAT;STAT)
             {
             }
-            column(pfno; pfno)
+            column(DED;DED)
             {
-
             }
-            column(staffname; staffname)
+            column(TransTypes;TransTypes)
             {
-
+            }
+            column(TransCode;prPeriod_Transactions."Transaction Code")
+            {
+            }
+            column(TransName;prPeriod_Transactions."Transaction Name")
+            {
+            }
+            column(TransAmount;prPeriod_Transactions.Amount)
+            {
+            }
+            column(DeductionAmnt;DeductionAmnt)
+            {
+            }
+            column(PaymentAmount;PaymentAmount)
+            {
+            }
+            column(Go;prPeriod_Transactions."Group Order")
+            {
+            }
+            column(SGO;prPeriod_Transactions."Sub Group Order")
+            {
+            }
+            column(ProvidentEmployer;ProvidentEmployer*2)
+            {
+            }
+            column(PensionEmployer;PensionEmployer*2)
+            {
+            }
+            column(NSSFEmployer;NSSFEmployer)
+            {
+            }
+            column(hOUSELEVYeMPLOYER;hOUSELEVYeMP)
+            {
             }
 
             trigger OnAfterGetRecord()
             begin
-
-                HRMEmployeeD.Reset;
-                HRMEmployeeD.SetRange("No.", "PRL-Period Transactions"."Employee Code");
-                HRMEmployeeD.SetFilter("Employee Category", '<>%1|<>%2', 'CASUALS', 'PART-TIME');
-                if HRMEmployeeD.Find('-') then begin
-                    pfno := HRMEmployeeD."No.";
-                    staffname := HRMEmployeeD."First Name" + ' ' + HRMEmployeeD."Middle Name" + ' ' + HRMEmployeeD."Last Name";
-                    DimensionValue.Reset;
-                    DimensionValue.SetRange(DimensionValue."Dimension Code", 'COST CENTERS');
-                    DimensionValue.SetRange(DimensionValue.Code, HRMEmployeeD."Department Code");
-                    if DimensionValue.Find('-') then;
+                Clear(DeductionAmnt);
+                Clear(GPY);
+                Clear(STAT);
+                Clear(DED);
+                Clear(NETS);
+                
+                //IF ((prPeriod_Transactions."Group Order"=4) AND (prPeriod_Transactions."Sub Group Order"=0)) THEN
+                  //GPY:=prPeriod_Transactions.Amount;
+                if (prPeriod_Transactions."Transaction Code"='GPAY' ) then
+                   GPY:=prPeriod_Transactions.Amount;
+                //IF  THEN
+                 // STAT:=prPeriod_Transactions.Amount;
+                
+                //IF ((prPeriod_Transactions."Group Order"=8) AND
+                //((prPeriod_Transactions."Sub Group Order"=1) OR (prPeriod_Transactions."Sub Group Order"=0))) THEN
+                 /*IF (((prPeriod_Transactions."Group Order"=7) AND
+                ((prPeriod_Transactions."Sub Group Order"=3) OR (prPeriod_Transactions."Sub Group Order"=1) OR
+                 (prPeriod_Transactions."Sub Group Order"=2))) OR
+                 (prPeriod_Transactions."Transaction Code"='TOT-DED' )) THEN */
+                
+                
+                //IF ((prPeriod_Transactions."Group Order"=9) AND (prPeriod_Transactions."Sub Group Order"=0)) THEN
+                if (prPeriod_Transactions."Transaction Code"='NPAY' ) then
+                  NETS:=prPeriod_Transactions.Amount;
+                
+                
+                Clear(TransTypes);
+                if ((prPeriod_Transactions."Group Text" in ['INCOME','ALLOWANCE','ALLOWANCES','BASIC SALARY'])or (prPeriod_Transactions."Transaction Code"='996')) then TransTypes:='PAYMENTS';
+                if (prPeriod_Transactions."Group Text" in ['STATUTORIES','DEDUCTIONS']) then begin
+                TransTypes:='DEDUCTIONS';
+                DED:=prPeriod_Transactions.Amount;
                 end;
+                
+                  if TransTypes='' then begin
+                   // IF NOT ((prPeriod_Transactions."Transaction Code"='NPAY') OR (prPeriod_Transactions."Transaction Code"='TOT-DED')) THEN
+                  //  CurrReport.SKIP;
+                    end;
+                
+                if ((prPeriod_Transactions."Group Text" in ['INCOME','ALLOWANCE','ALLOWANCES','BASIC SALARY'])or (prPeriod_Transactions."Transaction Code"='996')) then PaymentAmount:=prPeriod_Transactions.Amount;
+                if (prPeriod_Transactions."Group Text" in ['STATUTORIES','DEDUCTIONS']) then DeductionAmnt:=prPeriod_Transactions.Amount;
+                
+                if ((prPeriod_Transactions."Transaction Code"='TOT-DED')) then
+                    CurrReport.Skip;
+                /*
+                
+                //TotalsAllowances:=TotalsAllowances+"prPeriod Transactions".Amount;
+                    IF ((prPeriod_Transactions."Group Order"=1) OR
+                    (prPeriod_Transactions."Group Order"=3) OR
+                     ((prPeriod_Transactions."Group Order"=4) AND (prPeriod_Transactions."Sub Group Order"<>0))) THEN BEGIN // A Payment
+                     { CLEAR(countz);
+                     // countz:=1;
+                      CLEAR(found);
+                      REPEAT
+                     BEGIN
+                       countz:=countz+1;
+                       IF (PayTrans[countz])=prPeriod_Transactions."Transaction Name" THEN found:=TRUE;
+                       END;
+                      UNTIL ((countz=(ARRAYLEN(PayTransAmt))) OR ((PayTrans[countz])=prPeriod_Transactions."Transaction Name")
+                      OR ((PayTrans[countz])=''));
+                     rows:= countz;
+                    PayTrans[rows]:=prPeriod_Transactions."Transaction Name";
+                    PayTransAmt[rows]:=PayTransAmt[rows]+prPeriod_Transactions.Amount;}
+                    //TransTypes:='INCOME';
+                    END ELSE IF (((prPeriod_Transactions."Group Order"=7) AND ((prPeriod_Transactions."Sub Group Order"<>6)
+                    AND (prPeriod_Transactions."Sub Group Order"<>5))) OR
+                    ((prPeriod_Transactions."Group Order"=8) AND (prPeriod_Transactions."Sub Group Order"<>9))) THEN BEGIN
+                    {  CLEAR(countz);
+                     // countz:=1;
+                      CLEAR(found);
+                     // prPeriod_Transactions.setcurrentkey("Transaction Name");
+                      REPEAT
+                     BEGIN
+                       countz:=countz+1;
+                       IF (DedTrans[countz])=prPeriod_Transactions."Transaction Name" THEN found:=TRUE;
+                       END;
+                      UNTIL ((countz=(ARRAYLEN(DedTransAmt))) OR ((DedTrans[countz])=prPeriod_Transactions."Transaction Name")
+                      OR ((DedTrans[countz])=''));
+                     rows:= countz;
+                    DedTrans[rows]:=prPeriod_Transactions."Transaction Name";
+                    DedTransAmt[rows]:=DedTransAmt[rows]+prPeriod_Transactions.Amount;}
+                
+                    END;
+                    END; // If Amount >0;
+                END;
+                UNTIL prPeriod_Transactions.NEXT=0;
+                END;// End prPeriod_Transactions Repeat
+                // MESSAGE('Heh'+FORMAT(rows)+', '+FORMAT(rows2));
+                */
+
             end;
 
             trigger OnPreDataItem()
             begin
-                "PRL-Period Transactions".SetRange("PRL-Period Transactions"."Payroll Period", periods);
-                "PRL-Period Transactions".setfilter("Employee Category", '<>%1|<>%2', 'CASUALS', 'PART-TIME');
-                prPayrollPeriods.Reset;
-                prPayrollPeriods.SetRange("Date Opened", periods);
-                if prPayrollPeriods.Find('-') then;
 
-                if info.Get then info.CalcFields(Picture);
+                //LastFieldNo := FIELDNO("Period Year");
+                //"PRL-Payroll Periods".SETFILTER("PRL-Payroll Periods"."Date Opened",'=%1',SelectedPeriod);
+                prPeriod_Transactions.SetFilter("Payroll Period",'=%1',SelectedPeriod);
+                // Get Benevolent, Pension;, and NSSF
+                //NSSFEmployer
+                PerTrans.Reset;
+                PerTrans.CopyFilters(prPeriod_Transactions);
+                PerTrans.SetFilter("Group Text",'%1|%2','DEDUCTIONS','STATUTORIES');
+                PerTrans.SetRange("Transaction Code",'NSSF');
+                if PerTrans.Find('-') then begin
+                  PerTrans.CalcSums(Amount);
+                  NSSFEmployer:=PerTrans.Amount;
+                  end;
+
+                //Provident
+                PerTrans.Reset;
+                PerTrans.CopyFilters(prPeriod_Transactions);
+                PerTrans.SetFilter("Group Text",'%1|%2','DEDUCTIONS','STATUTORIES');
+                PerTrans.SetFilter("Transaction Code",'%1|%2|%3','592','817','806');
+                if PerTrans.Find('-') then begin
+                  PerTrans.CalcSums(Amount);
+                  ProvidentEmployer:=PerTrans.Amount;
+                  end;
+                  //hOUSING lEVY
+                  PerTrans.Reset;
+                PerTrans.CopyFilters(prPeriod_Transactions);
+                PerTrans.SetFilter("Group Text",'%1','DEDUCTIONS');
+                PerTrans.SetFilter("Transaction Code",'%1','996');
+                if PerTrans.Find('-') then begin
+                  PerTrans.CalcSums(Amount);
+                  hOUSELEVYeMP:=PerTrans.Amount;
+                  end;
+
+                //Pension
+                PerTrans.Reset;
+                PerTrans.CopyFilters(prPeriod_Transactions);
+                PerTrans.SetFilter("Group Text",'%1|%2','DEDUCTIONS','STATUTORIES');
+                PerTrans.SetFilter("Transaction Code",'%1|%2|%3|%4|%5|%6|%7','16','690','692','694','737','807','808');
+                if PerTrans.Find('-') then begin
+                  PerTrans.CalcSums(Amount);
+                  PensionEmployer:=PerTrans.Amount;
+                  end;
             end;
         }
     }
@@ -113,10 +254,10 @@ report 50114 "Payroll Summary 3"
         {
             area(content)
             {
-                field(Period; periods)
+                field(periodfilter;PeriodFilter)
                 {
-                    ApplicationArea = all;
-                    Caption = 'Period:';
+                    ApplicationArea = Basic;
+                    Caption = 'Period Filter';
                     TableRelation = "PRL-Payroll Periods"."Date Opened";
                 }
             }
@@ -133,52 +274,78 @@ report 50114 "Payroll Summary 3"
 
     trigger OnInitReport()
     begin
-        Users.Reset;
-        Users.SetRange(Users."User Name", UserId);
-        if Users.Find('-') then begin
-            if Users."Full Name" = '' then CurrUser := Users."User Name" else CurrUser := Users."Full Name";
-        end;
-        prPayrollPeriods.Reset;
-        prPayrollPeriods.SetRange(Closed, false);
-        if prPayrollPeriods.Find('-') then;
-        periods := prPayrollPeriods."Date Opened";
-        if Info.Get() then
-            Info.CalcFields(Info.Picture);
+        objPeriod.Reset;
+        objPeriod.SetRange(objPeriod.Closed,false);
+        if objPeriod.Find('-') then;
+        PeriodFilter:=objPeriod."Date Opened";
+    end;
 
+    trigger OnPreReport()
+    begin
+
+        SelectedPeriod:=PeriodFilter;
+        objPeriod.Reset;
+        objPeriod.SetRange(objPeriod."Date Opened",SelectedPeriod);
+        if objPeriod.Find('-') then
+        begin
+            PeriodName:=objPeriod."Period Name";
+        Clear(DetDate);
+        DetDate:=Format(objPeriod."Period Name");
+        end;
+
+
+        if CompanyInfo.Get() then
+        //CompanyInfo.CALCFIELDS(CompanyInfo.Picture);
+        Clear(rows);
+        Clear(GPY);
+        Clear(STAT);
+        Clear(DED);
+        Clear(NETS);
     end;
 
     var
-        pfno: code[30];
-        staffname: Text;
-        prPayrollPeriods: Record "PRL-Payroll Periods";
-        periods: Date;
-        counts: Integer;
-        prPeriodTransactions: Record "PRL-Period Transactions";
-        TransName: array[1, 200] of Text[200];
-        Transcode: array[1, 200] of Code[100];
-        TransCount: Integer;
-        TranscAmount: array[1, 200] of Decimal;
-        TranscAmountTotal: array[1, 200] of Decimal;
-        NetPay: Decimal;
-        NetPayTotal: Decimal;
-        showdet: Boolean;
-        payeamount: Decimal;
-        payeamountTotal: Decimal;
-        nssfam: Decimal;
-        nssfamTotal: Decimal;
-        nhifamt: Decimal;
-        nhifamtTotal: Decimal;
-        BasicPay: Decimal;
-        BasicPayTotal: Decimal;
-        GrossPay: Decimal;
-        GrosspayTotal: Decimal;
-        prtransCodes: Record "PRL-Transaction Codes";
-        info: Record "Company Information";
-        Users: Record User;
-        CurrUser: Code[100];
-        Gpay: Decimal;
-        Gpaytotal: Decimal;
-        DimensionValue: Record "Dimension Value";
-        HRMEmployeeD: Record "HRM-Employee C";
+        PerTrans: Record "PRL-Period Transactions";
+        ProvidentEmployer: Decimal;
+        PensionEmployer: Decimal;
+        NSSFEmployer: Decimal;
+        DetDate: Text[100];
+        found: Boolean;
+        countz: Integer;
+        PeriodFilter: Date;
+        LastFieldNo: Integer;
+        FooterPrinted: Boolean;
+        objPeriod: Record "PRL-Payroll Periods";
+        SelectedPeriod: Date;
+        PeriodName: Text[30];
+        CompanyInfo: Record "Company Information";
+        TotalsAllowances: Decimal;
+        Dept: Boolean;
+        PaymentDesc: Text[200];
+        DeductionDesc: Text[200];
+        GroupText1: Text[200];
+        GroupText2: Text[200];
+        PaymentAmount: Decimal;
+        DeductAmount: Decimal;
+        PayTrans: array [100] of Text[250];
+        PayTransAmt: array [100] of Decimal;
+        DedTrans: array [100] of Text[250];
+        DedTransAmt: array [100] of Decimal;
+        rows: Integer;
+        rows2: Integer;
+        GPY: Decimal;
+        NETS: Decimal;
+        STAT: Decimal;
+        DED: Decimal;
+        TotalFor: label 'Total for ';
+        GroupOrder: label '3';
+        TransBal: array [2,100] of Text[250];
+        Addr: array [2,10] of Text[250];
+        RecordNo: Integer;
+        NoOfColumns: Integer;
+        ColumnNo: Integer;
+        TransTypes: Code[20];
+        PayAmount: Decimal;
+        DeductionAmnt: Decimal;
+        hOUSELEVYeMP: Decimal;
 }
 

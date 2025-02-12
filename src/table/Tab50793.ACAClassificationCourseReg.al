@@ -374,6 +374,26 @@ table 50793 "ACA-Classification Course Reg."
                                                                   "Exam Score" = FILTER('')));
             FieldClass = FlowField;
         }
+        field(59; "Is Pass"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Class/Grad. Rubrics".Pass WHERE (Code=FIELD(Classification)));
+        }
+        field(60; "Program Grad. List Count"; Integer)
+        {
+           FieldClass = FlowField;
+           CalcFormula = Count("ACA-Classification Students" WHERE (Programme=FIELD(Programme), "Graduation Academic Year"=FIELD("Graduation Academic Year"),Graduating=FIELD(Graduating)));
+        }
+        field(61; "Programme Option"; code[50])
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Course Registration".Options WHERE ("Student No." =FIELD("Student Number"),Options=FILTER(<>'')));
+        }
+        field(62; "Academic Year"; Code[50])
+        {
+           FieldClass = FlowField;
+           CalcFormula = Lookup("ACA-Course Registration"."Academic Year" WHERE ("Student No."=FIELD("Student Number"),"Year Of Study"=FIELD("Year of Study"),Reversed=FILTER(false)));
+        }
     }
 
     keys
