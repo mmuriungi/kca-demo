@@ -142,13 +142,27 @@ page 51464 "ACA-Exam Man. Role Centre"
             group("Before Exams")
             {
                 Caption = 'Before Exams';
-                // action("Examination Cards")
-                // {
-                //     Caption = 'Examination Cards';
-                //     Image = Card;
-                //     RunObject = Report "Exam Card Final";
-                //     ApplicationArea = All;
-                // }action("ExaminationCards")
+                action("Examination Card")
+                {
+                    Caption = 'Examination Card';
+                    Image = Card;
+                    RunObject = Report "Exam Card Final";
+                    ApplicationArea = All;
+                }
+                action("Supplementary Exam Card")
+                {
+                    Caption = 'Supplementary Exam Card';
+                    Image = Card;
+                    RunObject = Report "Supp. Exam Card";
+                    ApplicationArea = All;
+                }
+                action("Special Exam Card")
+                {
+                    Caption = 'Special Exam Card';
+                    Image = Card;
+                    RunObject = Report "Special Exam Card";
+                    ApplicationArea = All;
+                }
                 action("Exam Eligibity")
                 {
                     Caption = 'Exam Eligibity';
