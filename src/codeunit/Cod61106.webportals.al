@@ -9183,7 +9183,7 @@ Codeunit 61106 webportals
                                         ACAExamResults.SetRange("Student No.", StudNoz);
                                         ACAExamResults.SetRange(Programmes, Programz);
                                         ACAExamResults.SetRange(Unit, Unitz);
-                                        ACAExamResults.SetRange(Semester, Semesterz);
+                                        ACAExamResults.SetRange(Semester, SpecialExams.Semester);
                                         ACAExamResults.SetRange(ExamType, ExamTypez);
                                         if ACAExamResults.Find('-') then begin
                                             ACAExamResults.Score := Scorez;
@@ -9197,7 +9197,7 @@ Codeunit 61106 webportals
                                             ACAExamResults.Programmes := Programz;
                                             ACAExamResults.Stage := ACAStudentUnits.Stage;
                                             ACAExamResults.Unit := Unitz;
-                                            ACAExamResults.Semester := Semesterz;
+                                            ACAExamResults.Semester := SpecialExams.Semester;
                                             ACAExamResults.Exam := ExamTypez;
                                             ACAExamResults."Reg. Transaction ID" := ACAStudentUnits."Reg. Transacton ID";
                                             ACAExamResults.ExamType := ExamTypez;
@@ -9211,14 +9211,14 @@ Codeunit 61106 webportals
                                             ACAExamResults.Category := Programmezz."Exam Category";
                                             ACAExamResults.Department := Programmezz."Department Code";
                                             ACAExamResults."Admission No" := StudNoz;
-                                            ACAExamResults."Academic Year" := ACASemesters."Academic Year";
+                                            ACAExamResults."Academic Year" := SpecialExams."Academic Year";
                                             ACAExamResults.Score := Scorez;
                                             ACAExamResults.Insert;
                                             ACAExamResults.Reset;
                                             ACAExamResults.SetRange("Student No.", StudNoz);
                                             ACAExamResults.SetRange(Programmes, Programz);
                                             ACAExamResults.SetRange(Unit, Unitz);
-                                            ACAExamResults.SetRange(Semester, Semesterz);
+                                            ACAExamResults.SetRange(Semester, SpecialExams.Semester);
                                             ACAExamResults.SetRange(ExamType, ExamTypez);
                                             if ACAExamResults.Find('-') then begin
                                                 ACAExamResults.Score := Scorez;
