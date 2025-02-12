@@ -95,8 +95,8 @@ codeunit 50095 "PartTimer Management"
         PVHeader.Date := Today;
         if PVHeader.Insert(true) then begin
             PartTime.CalcFields("Payment Amount");
-            getPayType(PayTypes);
             getEmployee(Employee, PartTime."Account No.");
+            getPayType(PayTypes, Employee);
             Vendor.Reset();
             Vendor.SetRange("No.", Employee."Vendor No.");
             if Vendor.FindFirst() then begin
@@ -122,10 +122,14 @@ codeunit 50095 "PartTimer Management"
         end;
     end;
 
-    procedure getPayType(var PayTypes: Record "FIN-Receipts and Payment Types")
+    procedure getPayType(var PayTypes: Record "FIN-Receipts and Payment Types"; var Employee: Record "HRM-Employee C")
     begin
         PayTypes.Reset();
         PayTypes.SetRange("Lecturer Claim?", true);
+        if Employee."Part Timer Type" = Employee."Part Timer Type"::"Internal" then
+            PayTypes.SetRange("Claim PAYE Percentage", PayTypes."Claim PAYE Percentage"::"30 %")
+        else
+            PayTypes.SetRange("Claim PAYE Percentage", PayTypes."Claim PAYE Percentage"::"35 %");
         PayTypes.FindFirst();
     end;
 
