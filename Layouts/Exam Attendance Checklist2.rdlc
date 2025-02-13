@@ -11,186 +11,6 @@
       <rd:DataSourceID>7eb82068-e3a3-4f41-80a1-dee0d57a434d</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="StdNo">
-          <DataField>StdNo</DataField>
-        </Field>
-        <Field Name="FDesc">
-          <DataField>FDesc</DataField>
-        </Field>
-        <Field Name="ProgCode">
-          <DataField>ProgCode</DataField>
-        </Field>
-        <Field Name="Prog_Description">
-          <DataField>Prog_Description</DataField>
-        </Field>
-        <Field Name="Names">
-          <DataField>Names</DataField>
-        </Field>
-        <Field Name="Dept">
-          <DataField>Dept</DataField>
-        </Field>
-        <Field Name="Prog_GETFILTER__Exam_Date__">
-          <DataField>Prog_GETFILTER__Exam_Date__</DataField>
-        </Field>
-        <Field Name="Examination_Attendance_ChecklistCaption">
-          <DataField>Examination_Attendance_ChecklistCaption</DataField>
-        </Field>
-        <Field Name="School_Caption">
-          <DataField>School_Caption</DataField>
-        </Field>
-        <Field Name="Programme_of_Study_Caption">
-          <DataField>Programme_of_Study_Caption</DataField>
-        </Field>
-        <Field Name="Department_Caption">
-          <DataField>Department_Caption</DataField>
-        </Field>
-        <Field Name="Exam_Date_Caption">
-          <DataField>Exam_Date_Caption</DataField>
-        </Field>
-        <Field Name="Academic_Year_Caption">
-          <DataField>Academic_Year_Caption</DataField>
-        </Field>
-        <Field Name="Prog_Code">
-          <DataField>Prog_Code</DataField>
-        </Field>
-        <Field Name="SemCode">
-          <DataField>SemCode</DataField>
-        </Field>
-        <Field Name="StageCode">
-          <DataField>StageCode</DataField>
-        </Field>
-        <Field Name="Prog_Unit_Filter">
-          <DataField>Prog_Unit_Filter</DataField>
-        </Field>
-        <Field Name="AYear">
-          <DataField>AYear</DataField>
-        </Field>
-        <Field Name="Sem">
-          <DataField>Sem</DataField>
-        </Field>
-        <Field Name="School">
-          <DataField>School</DataField>
-        </Field>
-        <Field Name="Prog_Intake_Filter">
-          <DataField>Prog_Intake_Filter</DataField>
-        </Field>
-        <Field Name="UnitCode">
-          <DataField>UnitCode</DataField>
-        </Field>
-        <Field Name="UnitDesc">
-          <DataField>UnitDesc</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
-        </Field>
-        <Field Name="UnitSubj">
-          <DataField>UnitSubj</DataField>
-        </Field>
-        <Field Name="Student_Units__Student_No__">
-          <DataField>Student_Units__Student_No__</DataField>
-        </Field>
-        <Field Name="RCount">
-          <DataField>RCount</DataField>
-        </Field>
-        <Field Name="Ucode">
-          <DataField>Ucode</DataField>
-        </Field>
-        <Field Name="RCount_Control1000000002">
-          <DataField>RCount_Control1000000002</DataField>
-        </Field>
-        <Field Name="GCount">
-          <DataField>GCount</DataField>
-        </Field>
-        <Field Name="Title_of_Paper_Caption">
-          <DataField>Title_of_Paper_Caption</DataField>
-        </Field>
-        <Field Name="Registration_NumberCaption">
-          <DataField>Registration_NumberCaption</DataField>
-        </Field>
-        <Field Name="Serial_NumberCaption">
-          <DataField>Serial_NumberCaption</DataField>
-        </Field>
-        <Field Name="Name_of_CandidateCaption">
-          <DataField>Name_of_CandidateCaption</DataField>
-        </Field>
-        <Field Name="SignCaption">
-          <DataField>SignCaption</DataField>
-        </Field>
-        <Field Name="RemarksCaption">
-          <DataField>RemarksCaption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="NAME_OF_INVIGILATORSCaption">
-          <DataField>NAME_OF_INVIGILATORSCaption</DataField>
-        </Field>
-        <Field Name="V1___________________________________________________Caption">
-          <DataField>V1___________________________________________________Caption</DataField>
-        </Field>
-        <Field Name="CHIEF_INVIGILATOR_SIGNATURECaption">
-          <DataField>CHIEF_INVIGILATOR_SIGNATURECaption</DataField>
-        </Field>
-        <Field Name="TOTAL_NO_OF_CANDIDATES_ON_THE_SHEETCaption">
-          <DataField>TOTAL_NO_OF_CANDIDATES_ON_THE_SHEETCaption</DataField>
-        </Field>
-        <Field Name="GRAND_TOTALCaption">
-          <DataField>GRAND_TOTALCaption</DataField>
-        </Field>
-        <Field Name="EmptyStringCaption">
-          <DataField>EmptyStringCaption</DataField>
-        </Field>
-        <Field Name="V2___________________________________________________Caption">
-          <DataField>V2___________________________________________________Caption</DataField>
-        </Field>
-        <Field Name="V3___________________________________________________Caption">
-          <DataField>V3___________________________________________________Caption</DataField>
-        </Field>
-        <Field Name="Student_Units_Programme">
-          <DataField>Student_Units_Programme</DataField>
-        </Field>
-        <Field Name="Student_Units_Stage">
-          <DataField>Student_Units_Stage</DataField>
-        </Field>
-        <Field Name="Student_Units_Semester">
-          <DataField>Student_Units_Semester</DataField>
-        </Field>
-        <Field Name="Student_Units_Reg__Transacton_ID">
-          <DataField>Student_Units_Reg__Transacton_ID</DataField>
-        </Field>
-        <Field Name="Student_Units_ENo">
-          <DataField>Student_Units_ENo</DataField>
-        </Field>
-        <Field Name="Student_Units_Registered_Programe">
-          <DataField>Student_Units_Registered_Programe</DataField>
-        </Field>
-        <Field Name="Student_Units_Session_Code">
-          <DataField>Student_Units_Session_Code</DataField>
-        </Field>
-        <Field Name="StudSem">
-          <DataField>StudSem</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1844,4 +1664,185 @@ tN/xNshgLUpWwgCiLCag5NPUZPGHvPZ8+kt44EX6IJJeNMLXhKeYz+Lps6EzBBgCvQEBCokQbEShQfzZ
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>acbb59f4-1717-40a2-a9a8-c3dae66932bb</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_7801">
+          <DataField>ReportForNavId_7801</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="StdNo">
+          <DataField>StdNo</DataField>
+        </Field>
+        <Field Name="FDesc">
+          <DataField>FDesc</DataField>
+        </Field>
+        <Field Name="ProgCode">
+          <DataField>ProgCode</DataField>
+        </Field>
+        <Field Name="Prog_Description">
+          <DataField>Prog_Description</DataField>
+        </Field>
+        <Field Name="Names">
+          <DataField>Names</DataField>
+        </Field>
+        <Field Name="Dept">
+          <DataField>Dept</DataField>
+        </Field>
+        <Field Name="Prog_GETFILTER__Exam_Date__">
+          <DataField>Prog_GETFILTER__Exam_Date__</DataField>
+        </Field>
+        <Field Name="Examination_Attendance_ChecklistCaption">
+          <DataField>Examination_Attendance_ChecklistCaption</DataField>
+        </Field>
+        <Field Name="School_Caption">
+          <DataField>School_Caption</DataField>
+        </Field>
+        <Field Name="Programme_of_Study_Caption">
+          <DataField>Programme_of_Study_Caption</DataField>
+        </Field>
+        <Field Name="Department_Caption">
+          <DataField>Department_Caption</DataField>
+        </Field>
+        <Field Name="Exam_Date_Caption">
+          <DataField>Exam_Date_Caption</DataField>
+        </Field>
+        <Field Name="Academic_Year_Caption">
+          <DataField>Academic_Year_Caption</DataField>
+        </Field>
+        <Field Name="Prog_Code">
+          <DataField>Prog_Code</DataField>
+        </Field>
+        <Field Name="SemCode">
+          <DataField>SemCode</DataField>
+        </Field>
+        <Field Name="StageCode">
+          <DataField>StageCode</DataField>
+        </Field>
+        <Field Name="Prog_Unit_Filter">
+          <DataField>Prog_Unit_Filter</DataField>
+        </Field>
+        <Field Name="AYear">
+          <DataField>AYear</DataField>
+        </Field>
+        <Field Name="Sem">
+          <DataField>Sem</DataField>
+        </Field>
+        <Field Name="School">
+          <DataField>School</DataField>
+        </Field>
+        <Field Name="Prog_Intake_Filter">
+          <DataField>Prog_Intake_Filter</DataField>
+        </Field>
+        <Field Name="ReportForNavId_2992">
+          <DataField>ReportForNavId_2992</DataField>
+        </Field>
+        <Field Name="UnitCode">
+          <DataField>UnitCode</DataField>
+        </Field>
+        <Field Name="UnitDesc">
+          <DataField>UnitDesc</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENO">
+          <DataField>CurrReport_PAGENO</DataField>
+        </Field>
+        <Field Name="UnitSubj">
+          <DataField>UnitSubj</DataField>
+        </Field>
+        <Field Name="Student_Units__Student_No__">
+          <DataField>Student_Units__Student_No__</DataField>
+        </Field>
+        <Field Name="RCount">
+          <DataField>RCount</DataField>
+        </Field>
+        <Field Name="Ucode">
+          <DataField>Ucode</DataField>
+        </Field>
+        <Field Name="RCount_Control1000000002">
+          <DataField>RCount_Control1000000002</DataField>
+        </Field>
+        <Field Name="GCount">
+          <DataField>GCount</DataField>
+        </Field>
+        <Field Name="Title_of_Paper_Caption">
+          <DataField>Title_of_Paper_Caption</DataField>
+        </Field>
+        <Field Name="Registration_NumberCaption">
+          <DataField>Registration_NumberCaption</DataField>
+        </Field>
+        <Field Name="Serial_NumberCaption">
+          <DataField>Serial_NumberCaption</DataField>
+        </Field>
+        <Field Name="Name_of_CandidateCaption">
+          <DataField>Name_of_CandidateCaption</DataField>
+        </Field>
+        <Field Name="SignCaption">
+          <DataField>SignCaption</DataField>
+        </Field>
+        <Field Name="RemarksCaption">
+          <DataField>RemarksCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="NAME_OF_INVIGILATORSCaption">
+          <DataField>NAME_OF_INVIGILATORSCaption</DataField>
+        </Field>
+        <Field Name="V1___________________________________________________Caption">
+          <DataField>V1___________________________________________________Caption</DataField>
+        </Field>
+        <Field Name="CHIEF_INVIGILATOR_SIGNATURECaption">
+          <DataField>CHIEF_INVIGILATOR_SIGNATURECaption</DataField>
+        </Field>
+        <Field Name="TOTAL_NO_OF_CANDIDATES_ON_THE_SHEETCaption">
+          <DataField>TOTAL_NO_OF_CANDIDATES_ON_THE_SHEETCaption</DataField>
+        </Field>
+        <Field Name="GRAND_TOTALCaption">
+          <DataField>GRAND_TOTALCaption</DataField>
+        </Field>
+        <Field Name="EmptyStringCaption">
+          <DataField>EmptyStringCaption</DataField>
+        </Field>
+        <Field Name="V2___________________________________________________Caption">
+          <DataField>V2___________________________________________________Caption</DataField>
+        </Field>
+        <Field Name="V3___________________________________________________Caption">
+          <DataField>V3___________________________________________________Caption</DataField>
+        </Field>
+        <Field Name="Student_Units_Programme">
+          <DataField>Student_Units_Programme</DataField>
+        </Field>
+        <Field Name="Student_Units_Stage">
+          <DataField>Student_Units_Stage</DataField>
+        </Field>
+        <Field Name="Student_Units_Semester">
+          <DataField>Student_Units_Semester</DataField>
+        </Field>
+        <Field Name="Student_Units_Reg__Transacton_ID">
+          <DataField>Student_Units_Reg__Transacton_ID</DataField>
+        </Field>
+        <Field Name="Student_Units_ENo">
+          <DataField>Student_Units_ENo</DataField>
+        </Field>
+        <Field Name="Student_Units_Registered_Programe">
+          <DataField>Student_Units_Registered_Programe</DataField>
+        </Field>
+        <Field Name="Student_Units_Session_Code">
+          <DataField>Student_Units_Session_Code</DataField>
+        </Field>
+        <Field Name="StudSem">
+          <DataField>StudSem</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

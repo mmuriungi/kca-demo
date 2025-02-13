@@ -5,7 +5,6 @@ report 50108 "PRL-Deductions Summary 2 a"
 
     dataset
     {
-     
         dataitem("HRM-Employee (D)"; "HRM-Employee C")
         {
             column(ReportForNavId_1; 1)

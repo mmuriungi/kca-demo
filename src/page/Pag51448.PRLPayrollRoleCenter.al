@@ -139,6 +139,22 @@ page 51448 "PRL-Payroll Role Center"
 
                     RunObject = Report "prPaye Schedule 1a";
                 }
+                action("NHIF Scheule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'NHIF Schedule';
+                    Image = "Report";
+
+                    RunObject = Report "NHIF Schedule Report";
+                }
+                action("NSSF Scheule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'NSSF Schedule';
+                    Image = "Report";
+
+                    RunObject = Report "NSSF Schedule Report";
+                }
                 action("NHIF Schedule")
                 {
                     ApplicationArea = all;
@@ -468,6 +484,13 @@ page 51448 "PRL-Payroll Role Center"
                     Image = "Report";
                     RunObject = Report "pr Bank Schedule";
                     Visible = false;
+                }
+                action("Co-op Remittance")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Co-op Remittance';
+                    Image = Report;
+                    RunObject = Report "Co-op Remmitance";
                 }
             }
             group(PeriodicActivities)

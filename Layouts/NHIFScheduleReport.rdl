@@ -8,30 +8,103 @@
         <ConnectString />
       </ConnectionProperties>
       <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>b80dda31-bcf4-4f8a-93c4-1139884145a0</rd:DataSourceID>
+      <rd:DataSourceID>07101183-d240-4e34-ba47-f7519b2e55a1</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <ReportSections>
     <ReportSection>
       <Body>
         <ReportItems>
+          <Textbox Name="Tel">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!Tel.Value)</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.846cm</Top>
+            <Left>9.3cm</Left>
+            <Height>0.423cm</Height>
+            <Width>4.05cm</Width>
+            <Style>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="EmployerNHIFNo">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!EmployerNHIFNo.Value)</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Left>10.5cm</Left>
+            <Height>0.423cm</Height>
+            <Width>2.85cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Address">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!Address.Value)</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.846cm</Top>
+            <Left>2.7cm</Left>
+            <Height>0.423cm</Height>
+            <Width>4.05cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
           <Tablix Name="Table1">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.246cm</Width>
+                  <Width>2.1cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.53095cm</Width>
+                  <Width>3.45001cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.63553cm</Width>
+                  <Width>4.89999cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.28051cm</Width>
+                  <Width>2.55001cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.79565cm</Width>
+                  <Width>3.1589cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.40314cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.07938cm</Width>
@@ -57,7 +130,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.84602cm</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -121,14 +194,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PIN_Number_Caption">
+                        <Textbox Name="NHIF_No_Caption">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!PIN_Number_Caption.Value)</Value>
+                                  <Value EvaluationMode="Auto">=First(Fields!NHIF_No_Caption.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -151,16 +224,15 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Taxable_Pay_Caption">
+                        <Textbox Name="Date_Of_BirthCaption">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!Taxable_Pay_Caption.Value)</Value>
+                                  <Value EvaluationMode="Auto">=First(Fields!Date_Of_BirthCaption.Value)</Value>
                                   <Style>
-                                    <FontFamily>Tahoma</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -172,7 +244,7 @@
                           <Style>
                             <VerticalAlign>Bottom</VerticalAlign>
                             <PaddingLeft>0.15cm</PaddingLeft>
-                            <PaddingRight>0.15cm</PaddingRight>
+                            <PaddingRight>0.075cm</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
@@ -181,14 +253,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Paye_Amount_Caption">
+                        <Textbox Name="ID_Number_Caption">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!Paye_Amount_Caption.Value)</Value>
+                                  <Value EvaluationMode="Auto">=First(Fields!ID_Number_Caption.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -201,7 +273,37 @@
                           </Paragraphs>
                           <Style>
                             <VerticalAlign>Bottom</VerticalAlign>
-                            <PaddingLeft>0.15cm</PaddingLeft>
+                            <PaddingLeft>0.075cm</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="AmountCaption">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!AmountCaption.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
@@ -211,7 +313,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TextBox118">
+                        <Textbox Name="TextBox124">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -308,13 +410,13 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PinNumber">
+                        <Textbox Name="NhifNo">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!PinNumber.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!NhifNo.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -338,29 +440,26 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TaxablePay">
+                        <Textbox Name="Dob">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TaxablePay.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!Dob.Value</Value>
                                   <Style>
-                                    <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
-                                    <Format>=Fields!TaxablePayFormat.Value</Format>
+                                    <Format>d</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>0.15cm</PaddingLeft>
-                            <PaddingRight>0.15cm</PaddingRight>
+                            <PaddingRight>0.075cm</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
@@ -369,17 +468,16 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PayeAmount">
+                        <Textbox Name="IDNumber">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!PayeAmount.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!IDNumber.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
-                                    <Format>=Fields!PayeAmountFormat.Value</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -390,7 +488,38 @@
                           </Paragraphs>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.15cm</PaddingLeft>
+                            <PaddingLeft>0.075cm</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="NhifAmount">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=Fields!NhifAmount.Value</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>=Fields!NhifAmountFormat.Value</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
@@ -400,13 +529,13 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="companyinfo_Picture">
+                        <Textbox Name="Companyinfo_Picture">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Convert.ToBase64String(Fields!companyinfo_Picture.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Convert.ToBase64String(Fields!Companyinfo_Picture.Value)</Value>
                                   <Style>
                                     <Color>#ff0000</Color>
                                   </Style>
@@ -437,6 +566,36 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value EvaluationMode="Auto">=Fields!PeriodName.Value</Value>
+                                  <Style>
+                                    <Color>#ff0000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Visibility>
+                            <Hidden>true</Hidden>
+                          </Visibility>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="NATIONAL_HOSPITAL_INSURANCE_FUNDCaption">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=Fields!NATIONAL_HOSPITAL_INSURANCE_FUNDCaption.Value</Value>
                                   <Style>
                                     <Color>#ff0000</Color>
                                   </Style>
@@ -520,36 +679,6 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="P_A_Y_E_ScheduleCaption">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!P_A_Y_E_ScheduleCaption.Value</Value>
-                                  <Style>
-                                    <Color>#ff0000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <Visibility>
-                            <Hidden>true</Hidden>
-                          </Visibility>
-                          <Style>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="Period_Caption">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -586,7 +715,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Page_No_Caption.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!Page_Nov_Caption.Value</Value>
                                   <Style>
                                     <Color>#ff0000</Color>
                                   </Style>
@@ -611,7 +740,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.42301cm</Height>
+                  <Height>0.71935cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -665,136 +794,6 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Totals_Caption">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!Totals_Caption.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <VerticalAlign>Bottom</VerticalAlign>
-                            <PaddingLeft>0.15cm</PaddingLeft>
-                            <PaddingRight>0.15cm</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="TotTaxablePay">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!TotTaxablePay.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Format>=First(Fields!TotTaxablePayFormat.Value)</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.15cm</PaddingLeft>
-                            <PaddingRight>0.15cm</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="TotPayeAmount">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!PayeAmount.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Format>=First(Fields!TotPayeAmountFormat.Value)</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.15cm</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="TextBox119">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto" />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>7</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.42301cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="TextBox12">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -845,16 +844,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Prepared_by_______________________________________Date_________________Caption">
+                        <Textbox Name="Total_NHIF_Caption">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!Prepared_by_______________________________________Date_________________Caption.Value)</Value>
+                                  <Value EvaluationMode="Auto">=First(Fields!Total_NHIF_Caption.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>8pt</FontSize>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -862,15 +862,85 @@
                             </Paragraph>
                           </Paragraphs>
                           <Style>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.15cm</PaddingLeft>
-                            <PaddingRight>0.15cm</PaddingRight>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingLeft>0.075cm</PaddingLeft>
+                            <PaddingRight>0.3cm</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TotNhifAmount">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!NhifAmount.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border />
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.3cm</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox125">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>7</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.84602cm</Height>
+                  <TablixCells>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TextBox14">
@@ -923,14 +993,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TextBox120">
+                        <Textbox Name="Prepared_by_______________________________________Date_________________Caption">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
-                                  <Style />
+                                  <Value EvaluationMode="Auto">=First(Fields!Prepared_by_______________________________________Date_________________Caption.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -938,26 +1011,14 @@
                           </Paragraphs>
                           <Style>
                             <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingLeft>0.15cm</PaddingLeft>
+                            <PaddingRight>0.15cm</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>7</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.42301cm</Height>
-                  <TablixCells>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TextBox16">
@@ -1010,34 +1071,6 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Checked_by________________________________________Date_________________Caption">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!Checked_by________________________________________Date_________________Caption.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.15cm</PaddingLeft>
-                            <PaddingRight>0.15cm</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="TextBox18">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1063,32 +1096,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TextBox19">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto" />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="TextBox121">
+                        <Textbox Name="TextBox126">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1121,8 +1129,33 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.42301cm</Height>
+                  <Height>0.84602cm</Height>
                   <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox19">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TextBox110">
@@ -1150,6 +1183,34 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Checked_by________________________________________Date_________________Caption">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Checked_by________________________________________Date_________________Caption.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.15cm</PaddingLeft>
+                            <PaddingRight>0.15cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="TextBox111">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1167,34 +1228,6 @@
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Authorized_by____________________________________Date_________________Caption">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!Authorized_by____________________________________Date_________________Caption.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>0.15cm</PaddingLeft>
-                            <PaddingRight>0.15cm</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
@@ -1253,7 +1286,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TextBox122">
+                        <Textbox Name="TextBox127">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1286,7 +1319,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.42301cm</Height>
+                  <Height>0.84602cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1340,13 +1373,13 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Approved_by______________________________________Date_________________Caption">
+                        <Textbox Name="Authorized_by____________________________________Date_________________Caption">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!Approved_by______________________________________Date_________________Caption.Value)</Value>
+                                  <Value EvaluationMode="Auto">=First(Fields!Authorized_by____________________________________Date_________________Caption.Value)</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1418,7 +1451,222 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="TextBox118">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox128">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>7</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.80401cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox119">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox120">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Approved_by______________________________________Date_________________Caption">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto">=First(Fields!Approved_by______________________________________Date_________________Caption.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>0.15cm</PaddingLeft>
+                            <PaddingRight>0.15cm</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox121">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox122">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="TextBox123">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value EvaluationMode="Auto" />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TextBox129">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1454,6 +1702,7 @@
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -1508,44 +1757,246 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Height>3.38409cm</Height>
-            <Width>17.04426cm</Width>
+            <Top>1.269cm</Top>
+            <Height>4.90744cm</Height>
+            <Width>20.11771cm</Width>
+            <ZIndex>3</ZIndex>
             <Style />
           </Tablix>
+          <Textbox Name="PeriodName_Control1102756007">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!PeriodName.Value)</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.846cm</Top>
+            <Left>15.45cm</Left>
+            <Height>0.423cm</Height>
+            <Width>3.45cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="CompPINNo">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!CompPINNo.Value)</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Left>16.65cm</Left>
+            <Height>0.423cm</Height>
+            <Width>2.1cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="COMPANYNAME">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!COMPANYNAME.Value)</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Left>2.7cm</Left>
+            <Height>0.423cm</Height>
+            <Width>4.05cm</Width>
+            <ZIndex>6</ZIndex>
+            <Style>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="EMPLOYER_Caption">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!EMPLOYER_Caption.Value)</Value>
+                    <Style>
+                      <FontFamily>Tahoma</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Left>0.45cm</Left>
+            <Height>0.423cm</Height>
+            <Width>2.1cm</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <VerticalAlign>Bottom</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="ADDRESS_Caption">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!ADDRESS_Caption.Value)</Value>
+                    <Style>
+                      <FontFamily>Tahoma</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.846cm</Top>
+            <Left>0.45cm</Left>
+            <Height>0.423cm</Height>
+            <Width>2.1cm</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <VerticalAlign>Bottom</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="PERIOD_Caption_Control1102755032">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!PERIOD_Caption_Control1102755032.Value)</Value>
+                    <Style>
+                      <FontFamily>Tahoma</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.846cm</Top>
+            <Left>13.65cm</Left>
+            <Height>0.423cm</Height>
+            <Width>1.5cm</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <VerticalAlign>Bottom</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="TEL_NO_Caption">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!TEL_NO_Caption.Value)</Value>
+                    <Style>
+                      <FontFamily>Tahoma</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.846cm</Top>
+            <Left>7.05cm</Left>
+            <Height>0.423cm</Height>
+            <Width>2.1cm</Width>
+            <ZIndex>10</ZIndex>
+            <Style>
+              <VerticalAlign>Bottom</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="EMPLOYER_PIN_NO_Caption">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!EMPLOYER_PIN_NO_Caption.Value)</Value>
+                    <Style>
+                      <FontFamily>Tahoma</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Left>7.05cm</Left>
+            <Height>0.423cm</Height>
+            <Width>3.3cm</Width>
+            <ZIndex>11</ZIndex>
+            <Style>
+              <VerticalAlign>Bottom</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="EMPOLOYER_NO_Caption">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value EvaluationMode="Auto">=First(Fields!EMPOLOYER_NO_Caption.Value)</Value>
+                    <Style>
+                      <FontFamily>Tahoma</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Left>13.65cm</Left>
+            <Height>0.423cm</Height>
+            <Width>2.7cm</Width>
+            <ZIndex>12</ZIndex>
+            <Style>
+              <VerticalAlign>Bottom</VerticalAlign>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>3.38409cm</Height>
+        <Height>6.17646cm</Height>
         <Style />
       </Body>
-      <Width>17.04427cm</Width>
+      <Width>20.11771cm</Width>
       <Page>
         <PageHeader>
-          <Height>4.79411cm</Height>
+          <Height>4.738cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Textbox Name="Print_Date_Caption1">
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value EvaluationMode="Auto">=ReportItems!Print_Date_Caption.Value</Value>
-                      <Style>
-                        <FontSize>7pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <Top>0.846cm</Top>
-              <Left>12.06771cm</Left>
-              <Height>0.423cm</Height>
-              <Width>1.5cm</Width>
-              <Style>
-                <VerticalAlign>Middle</VerticalAlign>
-              </Style>
-            </Textbox>
             <Textbox Name="User_Name_Caption1">
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
@@ -1561,21 +2012,21 @@
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <Left>12.06771cm</Left>
+              <Top>0.78922cm</Top>
+              <Left>14.65889cm</Left>
               <Height>0.423cm</Height>
               <Width>1.5cm</Width>
-              <ZIndex>1</ZIndex>
               <Style>
                 <VerticalAlign>Middle</VerticalAlign>
               </Style>
             </Textbox>
-            <Textbox Name="P_A_Y_E_ScheduleCaption1">
+            <Textbox Name="NATIONAL_HOSPITAL_INSURANCE_FUNDCaption1">
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=ReportItems!P_A_Y_E_ScheduleCaption.Value</Value>
+                      <Value EvaluationMode="Auto">=ReportItems!NATIONAL_HOSPITAL_INSURANCE_FUNDCaption.Value</Value>
                       <Style>
                         <FontSize>14pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -1587,10 +2038,34 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>3.52511cm</Top>
-              <Left>1.57945cm</Left>
+              <Top>3.32083cm</Top>
+              <Left>4.05cm</Left>
               <Height>0.846cm</Height>
-              <Width>11.1cm</Width>
+              <Width>10.35cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <VerticalAlign>Middle</VerticalAlign>
+              </Style>
+            </Textbox>
+            <Textbox Name="Print_Date_Caption1">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value EvaluationMode="Auto">=ReportItems!Print_Date_Caption.Value</Value>
+                      <Style>
+                        <FontSize>7pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>1.692cm</Top>
+              <Left>14.65cm</Left>
+              <Height>0.423cm</Height>
+              <Width>1.5cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <VerticalAlign>Middle</VerticalAlign>
@@ -1611,8 +2086,8 @@
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <Top>1.692cm</Top>
-              <Left>12.06771cm</Left>
+              <Top>2.538cm</Top>
+              <Left>14.65cm</Left>
               <Height>0.423cm</Height>
               <Width>1.5cm</Width>
               <ZIndex>3</ZIndex>
@@ -1635,8 +2110,8 @@
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <Top>1.269cm</Top>
-              <Left>12.06771cm</Left>
+              <Top>2.115cm</Top>
+              <Left>14.65cm</Left>
               <Height>0.423cm</Height>
               <Width>1.5cm</Width>
               <ZIndex>4</ZIndex>
@@ -1661,9 +2136,10 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Left>13.63826cm</Left>
-              <Height>0.70489cm</Height>
-              <Width>2.50917cm</Width>
+              <Top>0.78922cm</Top>
+              <Left>16.3cm</Left>
+              <Height>0.72639cm</Height>
+              <Width>2.25889cm</Width>
               <ZIndex>5</ZIndex>
               <Style>
                 <Border />
@@ -1687,8 +2163,8 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>1.55089cm</Top>
-              <Left>13.63826cm</Left>
+              <Top>2.538cm</Top>
+              <Left>16.3cm</Left>
               <Height>0.423cm</Height>
               <Width>2.25cm</Width>
               <ZIndex>6</ZIndex>
@@ -1714,8 +2190,8 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>0.70489cm</Top>
-              <Left>13.63826cm</Left>
+              <Top>1.692cm</Top>
+              <Left>16.3cm</Left>
               <Height>0.423cm</Height>
               <Width>2.25cm</Width>
               <ZIndex>7</ZIndex>
@@ -1740,8 +2216,8 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>1.12789cm</Top>
-              <Left>13.63826cm</Left>
+              <Top>2.115cm</Top>
+              <Left>16.3cm</Left>
               <Height>0.423cm</Height>
               <Width>2.25cm</Width>
               <ZIndex>8</ZIndex>
@@ -1749,15 +2225,14 @@
                 <VerticalAlign>Middle</VerticalAlign>
               </Style>
             </Textbox>
-            <Image Name="companyinfo_Picture1">
+            <Image Name="Companyinfo_Picture1">
               <Source>Database</Source>
-              <Value>=Convert.FromBase64String(ReportItems!companyinfo_Picture.Value)</Value>
+              <Value>=First(Fields!Companyinfo_Picture.Value, "DataSet_Result")</Value>
               <MIMEType>image/bmp</MIMEType>
               <Sizing>FitProportional</Sizing>
-              <Top>0.14111cm</Top>
-              <Left>1.28457cm</Left>
-              <Height>3.20761cm</Height>
-              <Width>10.60675cm</Width>
+              <Left>3.60837cm</Left>
+              <Height>2.961cm</Height>
+              <Width>10.79163cm</Width>
               <ZIndex>9</ZIndex>
               <Style>
                 <Border />
@@ -1767,11 +2242,11 @@
           <Style />
         </PageHeader>
         <PageHeight>29.7cm</PageHeight>
-        <PageWidth>22.2cm</PageWidth>
-        <LeftMargin>2.1cm</LeftMargin>
-        <RightMargin>0cm</RightMargin>
-        <TopMargin>1.5cm</TopMargin>
-        <BottomMargin>1.5cm</BottomMargin>
+        <PageWidth>22.90001cm</PageWidth>
+        <LeftMargin>2cm</LeftMargin>
+        <RightMargin>0.5cm</RightMargin>
+        <TopMargin>2cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
         <Style />
       </Page>
     </ReportSection>
@@ -1814,7 +2289,7 @@ End Function
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>927bec95-ddde-4957-bf8b-cf86af273039</rd:ReportID>
+  <rd:ReportID>07251fa7-e618-4048-a4b4-fdab00d12290</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
@@ -1833,41 +2308,56 @@ End Function
         <Field Name="CurrReport_PAGENO">
           <DataField>CurrReport_PAGENO</DataField>
         </Field>
-        <Field Name="companyinfo_Picture">
-          <DataField>companyinfo_Picture</DataField>
+        <Field Name="Companyinfo_Picture">
+          <DataField>Companyinfo_Picture</DataField>
         </Field>
-        <Field Name="prSalary_Card__prSalary_Card___Employee_Code_">
-          <DataField>prSalary_Card__prSalary_Card___Employee_Code_</DataField>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
+        <Field Name="EmployerNHIFNo">
+          <DataField>EmployerNHIFNo</DataField>
+        </Field>
+        <Field Name="Tel">
+          <DataField>Tel</DataField>
+        </Field>
+        <Field Name="CompPINNo">
+          <DataField>CompPINNo</DataField>
+        </Field>
+        <Field Name="PeriodName_Control1102756007">
+          <DataField>PeriodName_Control1102756007</DataField>
+        </Field>
+        <Field Name="NhifAmount">
+          <DataField>NhifAmount</DataField>
+        </Field>
+        <Field Name="NhifAmountFormat">
+          <DataField>NhifAmountFormat</DataField>
+        </Field>
+        <Field Name="IDNumber">
+          <DataField>IDNumber</DataField>
+        </Field>
+        <Field Name="NhifNo">
+          <DataField>NhifNo</DataField>
         </Field>
         <Field Name="EmployeeName">
           <DataField>EmployeeName</DataField>
         </Field>
-        <Field Name="PinNumber">
-          <DataField>PinNumber</DataField>
+        <Field Name="prSalary_Card__prSalary_Card___Employee_Code_">
+          <DataField>prSalary_Card__prSalary_Card___Employee_Code_</DataField>
         </Field>
-        <Field Name="PayeAmount">
-          <DataField>PayeAmount</DataField>
+        <Field Name="Dob">
+          <DataField>Dob</DataField>
         </Field>
-        <Field Name="PayeAmountFormat">
-          <DataField>PayeAmountFormat</DataField>
+        <Field Name="TotNhifAmount">
+          <DataField>TotNhifAmount</DataField>
         </Field>
-        <Field Name="TaxablePay">
-          <DataField>TaxablePay</DataField>
+        <Field Name="TotNhifAmountFormat">
+          <DataField>TotNhifAmountFormat</DataField>
         </Field>
-        <Field Name="TaxablePayFormat">
-          <DataField>TaxablePayFormat</DataField>
-        </Field>
-        <Field Name="TotTaxablePay">
-          <DataField>TotTaxablePay</DataField>
-        </Field>
-        <Field Name="TotTaxablePayFormat">
-          <DataField>TotTaxablePayFormat</DataField>
-        </Field>
-        <Field Name="TotPayeAmount">
-          <DataField>TotPayeAmount</DataField>
-        </Field>
-        <Field Name="TotPayeAmountFormat">
-          <DataField>TotPayeAmountFormat</DataField>
+        <Field Name="NATIONAL_HOSPITAL_INSURANCE_FUNDCaption">
+          <DataField>NATIONAL_HOSPITAL_INSURANCE_FUNDCaption</DataField>
         </Field>
         <Field Name="User_Name_Caption">
           <DataField>User_Name_Caption</DataField>
@@ -1875,29 +2365,47 @@ End Function
         <Field Name="Print_Date_Caption">
           <DataField>Print_Date_Caption</DataField>
         </Field>
-        <Field Name="P_A_Y_E_ScheduleCaption">
-          <DataField>P_A_Y_E_ScheduleCaption</DataField>
-        </Field>
         <Field Name="Period_Caption">
           <DataField>Period_Caption</DataField>
         </Field>
-        <Field Name="Page_No_Caption">
-          <DataField>Page_No_Caption</DataField>
+        <Field Name="Page_Nov_Caption">
+          <DataField>Page_Nov_Caption</DataField>
         </Field>
-        <Field Name="No_Caption">
-          <DataField>No_Caption</DataField>
+        <Field Name="PERIOD_Caption_Control1102755032">
+          <DataField>PERIOD_Caption_Control1102755032</DataField>
+        </Field>
+        <Field Name="ADDRESS_Caption">
+          <DataField>ADDRESS_Caption</DataField>
+        </Field>
+        <Field Name="EMPLOYER_Caption">
+          <DataField>EMPLOYER_Caption</DataField>
+        </Field>
+        <Field Name="EMPOLOYER_NO_Caption">
+          <DataField>EMPOLOYER_NO_Caption</DataField>
+        </Field>
+        <Field Name="EMPLOYER_PIN_NO_Caption">
+          <DataField>EMPLOYER_PIN_NO_Caption</DataField>
+        </Field>
+        <Field Name="TEL_NO_Caption">
+          <DataField>TEL_NO_Caption</DataField>
+        </Field>
+        <Field Name="AmountCaption">
+          <DataField>AmountCaption</DataField>
+        </Field>
+        <Field Name="ID_Number_Caption">
+          <DataField>ID_Number_Caption</DataField>
+        </Field>
+        <Field Name="NHIF_No_Caption">
+          <DataField>NHIF_No_Caption</DataField>
         </Field>
         <Field Name="Employee_NameCaption">
           <DataField>Employee_NameCaption</DataField>
         </Field>
-        <Field Name="PIN_Number_Caption">
-          <DataField>PIN_Number_Caption</DataField>
+        <Field Name="No_Caption">
+          <DataField>No_Caption</DataField>
         </Field>
-        <Field Name="Paye_Amount_Caption">
-          <DataField>Paye_Amount_Caption</DataField>
-        </Field>
-        <Field Name="Taxable_Pay_Caption">
-          <DataField>Taxable_Pay_Caption</DataField>
+        <Field Name="Date_Of_BirthCaption">
+          <DataField>Date_Of_BirthCaption</DataField>
         </Field>
         <Field Name="Prepared_by_______________________________________Date_________________Caption">
           <DataField>Prepared_by_______________________________________Date_________________Caption</DataField>
@@ -1905,11 +2413,11 @@ End Function
         <Field Name="Checked_by________________________________________Date_________________Caption">
           <DataField>Checked_by________________________________________Date_________________Caption</DataField>
         </Field>
-        <Field Name="Totals_Caption">
-          <DataField>Totals_Caption</DataField>
-        </Field>
         <Field Name="Authorized_by____________________________________Date_________________Caption">
           <DataField>Authorized_by____________________________________Date_________________Caption</DataField>
+        </Field>
+        <Field Name="Total_NHIF_Caption">
+          <DataField>Total_NHIF_Caption</DataField>
         </Field>
         <Field Name="Approved_by______________________________________Date_________________Caption">
           <DataField>Approved_by______________________________________Date_________________Caption</DataField>

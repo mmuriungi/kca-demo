@@ -5,144 +5,99 @@ report 50091 prGrossNetPay
 
     dataset
     {
-        dataitem("PRL-Employee P9 Info"; "PRL-Employee P9 Info")
+        dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
         {
-            RequestFilterFields = "Period Month";
-            column(USERID; UserId)
+            DataItemTableView = sorting("Payroll Period","Group Order","Sub Group Order") order(ascending) where("Transaction Code"=filter('BPAY'|'GPAY'|'"TOT-DED"'|'NPAY'));
+            column(ReportForNavId_1; 1)
             {
             }
-            column(TODAY; Today)
+            column(USERID;UserId)
             {
             }
-            column(PeriodName; PeriodName)
+            column(TODAY;Today)
             {
             }
-            column(infoPhone; companyinfo."Phone No.")
+            column(PeriodName;PeriodName)
             {
             }
-            column(infoAddress; companyinfo.Address)
+            column(CurrReport_PAGENO;CurrReport.PageNo)
             {
             }
-            column(infoName; companyinfo.Name)
+            column(pic;companyinfo.Picture)
             {
             }
-            column(companyinfo_Picture; companyinfo.Picture)
+            column(Gtext;"PRL-Period Transactions"."Group Text")
             {
             }
-            column(prSalary_Card__prSalary_Card___Employee_Code_; "PRL-Employee P9 Info"."Employee Code")
+            column(EmpCode;"PRL-Period Transactions"."Employee Code")
             {
             }
-            column(BasicPay; BasicPay)
+            column(TransCode;"PRL-Period Transactions"."Transaction Code")
             {
             }
-            column(GrossPay; GrossPay)
+            column(TransName;UpperCase("PRL-Period Transactions"."Transaction Name"))
             {
             }
-            column(Employee_Code; "Employee Code")
-            {
-
-            }
-            column(EmployeeName; EmployeeName)
+            column(TransAmount;"PRL-Period Transactions".Amount)
             {
             }
-            column(NetPay; NetPay)
+            column(GO;"PRL-Period Transactions"."Group Order")
             {
             }
-            column(TotNetPay; TotNetPay)
+            column(SGO;"PRL-Period Transactions"."Sub Group Order")
             {
             }
-            column(TotGrossPay; TotGrossPay)
+            column(EmployeeName;EmployeeName)
             {
             }
-            column(TotBasicPay; TotBasicPay)
+            column(Prepared_by_______________________________________Date_________________Caption;Prepared_by_______________________________________Date_________________CaptionLbl)
             {
             }
-            column(Gross_and_Net_pay_scheduleCaption; Gross_and_Net_pay_scheduleCaptionLbl)
+            column(Checked_by________________________________________Date_________________Caption;Checked_by________________________________________Date_________________CaptionLbl)
             {
             }
-            column(Basic_Pay_Caption; Basic_Pay_CaptionLbl)
+            column(Authorized_by____________________________________Date_________________Caption;Authorized_by____________________________________Date_________________CaptionLbl)
             {
             }
-            column(Gross_Pay_Caption; Gross_Pay_CaptionLbl)
+            column(Approved_by______________________________________Date_________________Caption;Approved_by______________________________________Date_________________CaptionLbl)
             {
             }
-            column(Net_Pay_Caption; Net_Pay_CaptionLbl)
-            {
-            }
-            column(User_Name_Caption; User_Name_CaptionLbl)
-            {
-            }
-            column(username; objEmp."User ID")
-            {
-
-            }
-            column(TIME_PRINTED_____FORMAT_TIME_; 'TIME PRINTED:' + Format(Time))
-            {
-                AutoFormatType = 1;
-            }
-            column(DATE_PRINTED_____FORMAT_TODAY_0_4_; 'DATE PRINTED:' + Format(Today, 0, 4))
-            {
-                AutoFormatType = 1;
-            }
-
-            column(Print_Date_Caption; Print_Date_CaptionLbl)
-            {
-            }
-            column(Period_Caption; Period_CaptionLbl)
-            {
-            }
-            column(Page_No_Caption; Page_No_CaptionLbl)
-            {
-            }
-            column(Prepared_by_______________________________________Date_________________Caption; Prepared_by_______________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Checked_by________________________________________Date_________________Caption; Checked_by________________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Authorized_by____________________________________Date_________________Caption; Authorized_by____________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Approved_by______________________________________Date_________________Caption; Approved_by______________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Totals_Caption; Totals_CaptionLbl)
-            {
-            }
-            column(TotalDed; TotalDeductions)
+            column(seq;seq)
             {
             }
 
             trigger OnAfterGetRecord()
             begin
+                seq:=seq+1;
                 objEmp.Reset;
-                objEmp.SetRange(objEmp."No.", "PRL-Employee P9 Info"."Employee Code");
+                objEmp.SetRange(objEmp."No.","PRL-Period Transactions"."Employee Code");
                 if objEmp.Find('-') then
-                    EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name" + ' ' + objEmp."Last Name";
+                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
+                Clear(statAmount);
+                if "PRL-Period Transactions"."Transaction Code"='TOT-DED' then begin
+                  PeriodTrans.Reset;
+                  PeriodTrans.SetRange(PeriodTrans."Employee Code","PRL-Period Transactions"."Employee Code");
+                  PeriodTrans.SetRange(PeriodTrans."Group Text",'STATUTORIES');
+                  PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
+                  if PeriodTrans.Find('-') then begin
+                    repeat
+                      begin
+                        statAmount:=statAmount+PeriodTrans.Amount;
+                      end;
+                      until PeriodTrans.Next=0;
+                    end;
+                "PRL-Period Transactions".Amount:=statAmount+"PRL-Period Transactions".Amount;
+                  end;
+                if "PRL-Period Transactions"."Transaction Code"  ='BPAY' then "PRL-Period Transactions"."Transaction Name":='BASIC';
+                if "PRL-Period Transactions"."Transaction Code"  ='GPAY' then "PRL-Period Transactions"."Transaction Name":='GROSS';
+                if "PRL-Period Transactions"."Transaction Code"  ='TOT-DED' then "PRL-Period Transactions"."Transaction Name":='DEDUCTIONS';
+                if "PRL-Period Transactions"."Transaction Code"  ='NPAY' then "PRL-Period Transactions"."Transaction Name":='NET';
+            end;
 
-
-                BasicPay := 0;
-                GrossPay := 0;
-                NetPay := 0;
-                TotalDeductions := 0;
-
-
-
-                P9.Reset;
-                P9.SetRange(P9."Employee Code", "PRL-Employee P9 Info"."Employee Code");
-                P9.SetRange(P9."Payroll Period", "PRL-Employee P9 Info"."Payroll Period");
-                if P9.Find('-') then begin
-                    BasicPay := P9."Basic Pay";
-                    GrossPay := P9."Gross Pay";
-                    NetPay := P9."Net Pay";
-                end;
-
-                TotalDeductions := GrossPay - NetPay;
-                //IF NetPay<=0 THEN
-                // CurrReport.SKIP;
-                TotBasicPay := TotBasicPay + BasicPay;
-                TotGrossPay := TotGrossPay + GrossPay;
-                TotNetPay := TotNetPay + NetPay;
+            trigger OnPreDataItem()
+            begin
+                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period",'=%1',SelectedPeriod);
+                Clear(seq);
             end;
         }
     }
@@ -154,11 +109,11 @@ report 50091 prGrossNetPay
         {
             area(content)
             {
-                field(Periods; Periods)
+                field(Periods;Periods)
                 {
-                    ApplicationArea = all;
-                    Caption = 'Period';
-                    TableRelation = "PRL-Payroll Periods";
+                    ApplicationArea = Basic;
+                    Caption = 'Payroll Period';
+                    TableRelation = "PRL-Payroll Periods"."Date Opened";
                 }
             }
         }
@@ -172,28 +127,30 @@ report 50091 prGrossNetPay
     {
     }
 
-    trigger OnPreReport()
+    trigger OnInitReport()
     begin
-        //PeriodFilter:="prSalary Card".GETFILTER("Period Filter");
-        //IF PeriodFilter='' THEN ERROR('You must specify the period filter');
-
-        //SelectedPeriod:="prSalary Card".GETRANGEMIN("Period Filter");
-        objPeriod.Reset;
-        if objPeriod.Get(SelectedPeriod) then PeriodName := objPeriod."Period Name";
-
 
         if companyinfo.Get() then
-            companyinfo.CalcFields(companyinfo.Picture);
+        companyinfo.CalcFields(companyinfo.Picture);
+        objPeriod.Reset;
+        objPeriod.SetRange(Closed,false);
+        if objPeriod.Find('-') then begin
+          Periods:=objPeriod."Date Opened"
+          end;
+    end;
+
+    trigger OnPreReport()
+    begin
+
+        SelectedPeriod:=Periods;
+        objPeriod.Reset;
+        if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+
+        if SelectedPeriod=0D then Error('Specify The Periods!');
     end;
 
     var
         PeriodTrans: Record "PRL-Period Transactions";
-        BasicPay: Decimal;
-        GrossPay: Decimal;
-        NetPay: Decimal;
-        TotBasicPay: Decimal;
-        TotGrossPay: Decimal;
-        TotNetPay: Decimal;
         EmployeeName: Text[100];
         objEmp: Record "HRM-Employee C";
         objPeriod: Record "PRL-Payroll Periods";
@@ -201,21 +158,21 @@ report 50091 prGrossNetPay
         PeriodName: Text[30];
         PeriodFilter: Text[30];
         companyinfo: Record "Company Information";
-        Gross_and_Net_pay_scheduleCaptionLbl: Label 'Gross and Net pay schedule';
-        Basic_Pay_CaptionLbl: Label 'Basic Pay:';
-        Gross_Pay_CaptionLbl: Label 'Gross Pay:';
-        Net_Pay_CaptionLbl: Label 'Net Pay:';
-        User_Name_CaptionLbl: Label 'User Name:';
-        Print_Date_CaptionLbl: Label 'Print Date:';
-        Period_CaptionLbl: Label 'Period:';
-        Page_No_CaptionLbl: Label 'Page No:';
-        Prepared_by_______________________________________Date_________________CaptionLbl: Label 'Prepared byÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ..                 DateÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ';
-        Checked_by________________________________________Date_________________CaptionLbl: Label 'Checked byÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ..                   DateÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ';
-        Authorized_by____________________________________Date_________________CaptionLbl: Label 'Authorized byÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ..              DateÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ';
-        Approved_by______________________________________Date_________________CaptionLbl: Label 'Approved byÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ..                DateÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ';
-        Totals_CaptionLbl: Label 'Totals:';
-        TotalDeductions: Decimal;
+        Gross_and_Net_pay_scheduleCaptionLbl: label 'Gross and Net pay schedule';
+        Basic_Pay_CaptionLbl: label 'Basic Pay:';
+        Gross_Pay_CaptionLbl: label 'Gross Pay:';
+        Net_Pay_CaptionLbl: label 'Net Pay:';
+        User_Name_CaptionLbl: label 'User Name:';
+        Print_Date_CaptionLbl: label 'Print Date:';
+        Period_CaptionLbl: label 'Period:';
+        Page_No_CaptionLbl: label 'Page No:';
+        Prepared_by_______________________________________Date_________________CaptionLbl: label 'Prepared by……………………………………………………..                 Date……………………………………………';
+        Checked_by________________________________________Date_________________CaptionLbl: label 'Checked by…………………………………………………..                   Date……………………………………………';
+        Authorized_by____________________________________Date_________________CaptionLbl: label 'Authorized by……………………………………………………..              Date……………………………………………';
+        Approved_by______________________________________Date_________________CaptionLbl: label 'Approved by……………………………………………………..                Date……………………………………………';
+        Totals_CaptionLbl: label 'Totals:';
         Periods: Date;
-        P9: Record "PRL-Employee P9 Info";
+        statAmount: Decimal;
+        seq: Integer;
 }
 
