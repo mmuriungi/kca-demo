@@ -1168,9 +1168,9 @@ SpecialTransType::SHIF, FALSE);
             END;
 */
             if (curPensionStaff + curDefinedContrib) > curMaxPensionContrib then
-                curTaxablePay := curGrossTaxable - (curSalaryArrears + curMaxPensionContrib + curOOI + curHOSP + curNonTaxable) + BenifitAmount
+                curTaxablePay := curGrossTaxable - (curSalaryArrears + curMaxPensionContrib + curOOI + curHOSP + curNonTaxable + curNHIF + CurHousingLEvy) + BenifitAmount
             else
-                curTaxablePay := curGrossTaxable - (curSalaryArrears + curDefinedContrib + curPensionStaff + curOOI + curHOSP + curNonTaxable) + BenifitAmount;
+                curTaxablePay := curGrossTaxable - (curSalaryArrears + curDefinedContrib + curPensionStaff + curOOI + curHOSP + curNonTaxable + curNHIF + CurHousingLEvy) + BenifitAmount;
             //curTaxablePay := curTaxablePay - fNHIFReliefAmount;
             curTransAmount := curTaxablePay;
             strTransDescription := 'Chargeable Pay';
