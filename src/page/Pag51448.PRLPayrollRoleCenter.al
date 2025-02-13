@@ -116,6 +116,13 @@ page 51448 "PRL-Payroll Role Center"
                     Visible = false;
                     RunObject = Report "PR Payroll Summary - Detailed";
                 }
+                action("Payroll Variance Report")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Payroll Variance Report';
+                    Image = Report;
+                    RunObject = Report "Payroll Variance Report Ext";
+                }
                 action("PR Trans  Variance Analysis")
                 {
                     ApplicationArea = all;
