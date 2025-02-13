@@ -763,7 +763,7 @@ codeunit 50029 prPayrollProcessing
                 END;
             END; */
 
-            if blnPaysNhif then begin
+            // if blnPaysNhif then begin
             curNHIF := fnGetSpecialTransAmount(strEmpCode, intMonth, intYear,
 SpecialTransType::SHIF, FALSE);
             curTransAmount := ROUND(curNHIF, 0.05, '=');
@@ -775,7 +775,7 @@ SpecialTransType::SHIF, FALSE);
             fnUpdatePeriodTrans(strEmpCode, 'SHIF', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
              curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept,
              NHIFEMPyee, JournalPostAs::Credit, JournalPostingType::"G/L Account", '', CoopParameters::none);
-            end;
+            // end;
             ReliefhifAmount := 0;
             IF blnPaysPaye THEN BEGIN
 
@@ -954,7 +954,7 @@ SpecialTransType::SHIF, FALSE);
 
 
 
-                
+
 
                 /*
                 //if he PAYS paye only*******************I
