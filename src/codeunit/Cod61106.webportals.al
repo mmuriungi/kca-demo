@@ -166,11 +166,12 @@ Codeunit 61106 webportals
         EmpReq: Record "HRM-Employee Requisitions";
         jobPosts: Record "HRM-Jobs";
         GLsetup: Record "General Ledger Setup";
-        
-    PurchaseRN: Record "Purchase Header";
-    PurchaseLines: Record "Purchase Line";
-    Items: Record Item;
-    GLAccounts: Record "G/L Account";
+
+        PurchaseRN: Record "Purchase Header";
+        PurchaseLines: Record "Purchase Line";
+        Items: Record Item;
+        GLAccounts: Record "G/L Account";
+        StoreReqLines: Record "PROC-Store Requistion Lines";
 
     procedure GetSpecialExamReasons() Msg: Text
     var
@@ -3801,25 +3802,14 @@ Codeunit 61106 webportals
 
 
     procedure StoreRequisitionApprovalRequest(ReqNo: Text)
-    var
-        //ApprovalMgt: Codeunit UnknownCodeunit439;//TODO
-        showmessage: Boolean;
-        ManualCancel: Boolean;
-        State: Option Open,"Pending Approval",Cancelled,Approved;
-        DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
-        tableNo: Integer;
+    ApprovalMngt: Codeunit "Init Code";
     begin
         StoreRequisition.Reset;
         StoreRequisition.SetRange(StoreRequisition."No.", ReqNo);
         if StoreRequisition.Find('-')
         then begin
-            State := State::Open;
-            if StoreRequisition.Status <> StoreRequisition.Status::"Pending Approval" then State := State::Open;
-
-            DocType := Doctype::Requisition;
-            Clear(tableNo);
-            tableNo := Database::"PROC-Store Requistion Header";
-            // if ApprovalMgt.SendApproval(tableNo, StoreRequisition."No.", DocType, State, StoreRequisition."Responsibility Center", 0) then;
+            if ApprovalMngt.IsSRNEnabled(StoreRequisition) then
+                ApprovalMngt.OnSendSRNforApproval(StoreRequisition);
         end;
     end;
 
@@ -3915,64 +3905,35 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure StoresRequisitionCreate(EmployeeNo: Text; UserID: Text; RequiredDate: Date; Purpose: Text; Department: Code[20]; Campus: Code[20]; DepartmentName: Text[250]; CampusName: Text[250]; ReqType: Option; IssueStore: Code[10]; ResponsibilityCentre: Code[10])
+    procedure StoresRequisitionCreate(EmployeeNo: Text; RequiredDate: Date; Purpose: Text; Campus: Code[20]; CampusName: Text[250]; ReqType: Code[50]) LastNum: Text
     begin
+        StoreRequisition.INIT;
+        NextStoreqNo := NoSeriesMgt.GetNextNo('STREQ', TODAY, TRUE);
+        EmployeeCard.Reset();
+        EmployeeCard.SETRANGE(EmployeeCard."No.", EmployeeNo);
 
-        StoreRequisition.Init;
-        NextStoreqNo := NoSeriesMgt.GetNextNo('STREQ', 0D, true);
-        "Employee Card".Reset;
-        "Employee Card".SetRange("Employee Card"."No.", EmployeeNo);
-
-        if "Employee Card".Find('-')
-        then begin
-            StoreRequisition."Requester ID" := UserID;
-            "Supervisor Card".Reset;
-            "Supervisor Card".SetRange("Supervisor Card"."User ID", UserID);
-            if "Supervisor Card".Find('-')
-            then begin
-                SupervisorId := "Supervisor Card"."Approver ID";
-            end;
-        end;
-        //StoreRequisition.INIT;
-        StoreRequisition."No." := NextStoreqNo;
-        StoreRequisition."Request date" := Today;
-        StoreRequisition."Required Date" := RequiredDate;
-        StoreRequisition."User ID" := UserID;
-        StoreRequisition."Requester ID" := UserID;
-        StoreRequisition."Request date" := Today;
-        StoreRequisition."Request Description" := Purpose;
-        StoreRequisition."No. Series" := 'STREQ';
-        StoreRequisition.Status := StoreRequisition.Status::Open;
-        StoreRequisition."Global Dimension 1 Code" := Campus;
-        StoreRequisition."Shortcut Dimension 2 Code" := Department;
-        StoreRequisition."Function Name" := CampusName;
-        StoreRequisition."Budget Center Name" := DepartmentName;
-        StoreRequisition."Responsibility Center" := ResponsibilityCentre;
-        StoreRequisition."Issuing Store" := IssueStore;
-        StoreRequisition."Store Requisition Type" := ReqType;
-
-        StoreRequisition.Insert;
-
-        StoreRequisition.Reset;
-        StoreRequisition.SetRange(StoreRequisition."No.", NextStoreqNo);
-        if StoreRequisition.Find('-')
-        then begin
-            /*ApprovalEntry.INIT;
-            ApprovalEntry."Table ID":=39004336;
-            ApprovalEntry."Document Type" :=ApprovalEntry."Document Type"::"Staff Claim";
-            ApprovalEntry."Document No.":=NextTransportApplicationNo;
-            ApprovalEntry."Sequence No.":=1;
-            ApprovalEntry."Approval Code":='TRANS';
-            ApprovalEntry.Status:=ApprovalEntry_2.Status::Open;
-            ApprovalEntry."Sender ID":=EmployeeUserId;
-            ApprovalEntry."Approver ID":=SupervisorId;
-            ApprovalEntry."Date-Time Sent for Approval":=CURRENTDATETIME;
-            ApprovalEntry."Last Date-Time Modified":=CURRENTDATETIME;
-            ApprovalEntry."Last Modified By ID":=USERID;
-            ApprovalEntry.INSERT;
-            LastTransportReqInsert:=TransportRequisition."Transport Requisition No";*/
-        end;
-
+        IF EmployeeCard.FIND('-')
+        THEN BEGIN
+            StoreRequisition."Requester ID" := EmployeeCard."User ID";
+            StoreRequisition."User ID" := EmployeeCard."User ID";
+            StoreRequisition."Responsibility Center" := EmployeeCard."Responsibility Center";
+            StoreRequisition."Staff No." := EmployeeCard."No.";
+            StoreRequisition."Department Name" := EmployeeCard."Department Name";
+            StoreRequisition."Budget Center Name" := EmployeeCard."Department Name";
+            StoreRequisition."Shortcut Dimension 2 Code" := EmployeeCard."Department Code";
+            StoreRequisition."No." := NextStoreqNo;
+            StoreRequisition."Request date" := TODAY;
+            StoreRequisition."Required Date" := RequiredDate;
+            StoreRequisition."Request date" := TODAY;
+            StoreRequisition."Request Description" := Purpose;
+            StoreRequisition."No. Series" := 'STREQ';
+            StoreRequisition.Status := StoreRequisition.Status::Open;
+            StoreRequisition."Global Dimension 1 Code" := Campus;
+            StoreRequisition."Function Name" := CampusName;
+            StoreRequisition."Inventory Posting Group" := ReqType;
+            StoreRequisition.INSERT;
+            LastNum := NextStoreqNo;
+        end
     end;
 
 
@@ -10455,6 +10416,7 @@ Codeunit 61106 webportals
                 ApprovMgmt.OnSendDocForApproval(varVariant);
         end;
     end;
+
     procedure GetApprovalStatus(DocumentNo: Text) Message: Text
     begin
         ApprovalEntry.Reset();
@@ -10464,10 +10426,17 @@ Codeunit 61106 webportals
             Message := FORMAT(ApprovalEntry.Status);
         END
     end;
+
+    procedure GetNextStoreReqNo() msg: Text
+    begin
+        msg := NoSeriesMgt.GetNextNo('STREQ', 0D, FALSE);
+    end;
+
     procedure GetNextPRNNo() msg: Text
     begin
         msg := NoSeriesMgt.GetNextNo('INTREQ', 0D, FALSE);
     end;
+
     procedure PurchaseHeaderCreate(BusinessCode: Code[50]; UserID: Text; Purpose: Text)
     begin
         EmployeeCard.Reset;
@@ -10485,7 +10454,7 @@ Codeunit 61106 webportals
             PurchaseRN."Shortcut Dimension 2 Code" := EmployeeCard."Department Code";
             PurchaseRN."Responsibility Center" := EmployeeCard."Responsibility Center";
             PurchaseRN."Assigned User ID" := UserID;
-            PurchaseRN."No. Series" := 'PRN';
+            PurchaseRN."No. Series" := 'INTREQ';
             PurchaseRN."Order Date" := TODAY;
             PurchaseRN."Due Date" := TODAY;
             PurchaseRN."Expected Receipt Date" := TODAY;
@@ -10493,6 +10462,7 @@ Codeunit 61106 webportals
             PurchaseRN.INSERT;
         END;
     end;
+
     procedure GetLastPRNNo(username: Code[30]) Message: Text
     begin
         PurchaseRN.Reset();
@@ -10501,6 +10471,7 @@ Codeunit 61106 webportals
             Message := PurchaseRN."No.";
         END
     end;
+
     procedure SubmitPurchaseLine(DocumentType: integer; DocumentNo: Text; FunctionNo: Code[50]; LocationID: Text; ExpectedDate: Date; FunctionDesc: Text; UnitsOfMeasure: Text; Quantityz: Decimal)
     begin
         PurchaseLines.INIT;
@@ -10517,6 +10488,7 @@ Codeunit 61106 webportals
         PurchaseLines.Validate("Document No.");
         PurchaseLines.INSERT;
     end;
+
     procedure GetPRNItems() Message: Text
     begin
         Items.Reset();
@@ -10527,6 +10499,7 @@ Codeunit 61106 webportals
             until Items.Next = 0;
         END
     end;
+
     procedure GetGLItems() Message: Text
     begin
         GLAccounts.Reset();
@@ -10538,6 +10511,7 @@ Codeunit 61106 webportals
             until GLAccounts.Next = 0;
         END
     end;
+
     procedure GetPRNHeaderDetails(PurchaseNo: Text) Message: Text
     begin
         PurchaseRN.Reset();
@@ -10546,9 +10520,10 @@ Codeunit 61106 webportals
             Message := FORMAT(PurchaseRN."Expected Receipt Date");
         END
     end;
-     procedure PRNApprovalRequest(ReqNo: Text)
-     var
-     ApprovalMgmtExt: Codeunit "Approvals Mgmt.";
+
+    procedure PRNApprovalRequest(ReqNo: Text)
+    var
+        ApprovalMgmtExt: Codeunit "Approvals Mgmt.";
     begin
         PurchaseRN.Reset();
         PurchaseRN.SETRANGE(PurchaseRN."No.", ReqNo);
@@ -10558,9 +10533,10 @@ Codeunit 61106 webportals
             ApprovalMgmtExt.OnSendPurchaseDocForApproval(PurchaseRN);
         END;
     end;
+
     procedure CancelPrnApprovalRequest(ReqNo: Text)
     var
-    ApprovalMgmtExt: Codeunit "Approvals Mgmt.";
+        ApprovalMgmtExt: Codeunit "Approvals Mgmt.";
     begin
         PurchaseRN.Reset();
         PurchaseRN.SETRANGE(PurchaseRN."No.", ReqNo);
@@ -10569,6 +10545,7 @@ Codeunit 61106 webportals
             ApprovalMgmtExt.OnCancelPurchaseApprovalRequest(PurchaseRN);
         END;
     end;
+
     procedure RemovePurchaseLine(LineNo: Integer)
     begin
         PurchaseLines.Reset();
@@ -10578,6 +10555,71 @@ Codeunit 61106 webportals
             MESSAGE('Line Deleted Successfully');
         END;
     end;
+
+    procedure RemoveStoreReqLine(LineNo: Integer)
+    begin
+        StoreReqLines.Reset();
+        StoreReqLines.SETRANGE(StoreReqLines."Line No.", LineNo);
+        IF StoreReqLines.FIND('-') THEN BEGIN
+            StoreReqLines.DELETE;
+            MESSAGE('Line Deleted Successfully');
+        END;
+    end;
+
+    procedure CancelStoreRequisition(ReqNo: Text)
+    var
+        ApprovalMgmtExt: Codeunit "Init Code";
+    begin
+        StoreRequisition.Reset();
+        StoreRequisition.SETRANGE(StoreRequisition."No.", ReqNo);
+        IF StoreRequisition.FIND('-')
+        THEN BEGIN
+            ApprovalMgmtExt.OnCancelSRNforApproval(StoreRequisition);
+        END;
+    end;
+
+    procedure GetStoreItems(postinggroup: Code[20]) Message: Text
+    begin
+        Items.Reset();
+        Items.SETRANGE(Items."Inventory Posting Group", postinggroup);
+        Items.SETFILTER(Items.Description, '<>%1', '');
+        IF Items.FIND('-') THEN BEGIN
+            repeat
+                Message := Message + Items."No." + ' ::' + Items.Description + ' :::';
+            until Items.Next = 0;
+        END
+    end;
+
+    procedure GetReqPostingGroup(ReqNo: Text) Msg: Text
+    begin
+        StoreRequisition.Reset();
+        StoreRequisition.SETRANGE(StoreRequisition."No.", ReqNo);
+        IF StoreRequisition.FIND('-')
+        THEN BEGIN
+            //Msg := StoreRequisition."Inventory Posting Group";
+        END;
+    end;
+
+    procedure InsertStoreRequisitionLines(ReqNo: Code[30]; ItemNo: Code[30]; ItemDesc: Text; Amount: Decimal; LineAmount: Decimal; Qty: Decimal; UnitOfMsre: Code[10]; IStore: Code[30]) rtnMsg: Text
+    begin
+        StoreReqLines.Reset();
+        StoreReqLines."Requistion No" := ReqNo;
+        StoreReqLines.Validate("Requistion No");
+        StoreReqLines."No." := ItemNo;
+        StoreReqLines.Description := ItemDesc;
+        StoreReqLines."Unit Cost" := Amount;
+        StoreReqLines."Line Amount" := LineAmount;
+        StoreReqLines.Quantity := Qty;
+        StoreReqLines."Unit of Measure" := UnitOfMsre;
+        StoreReqLines."Issuing Store" := IStore;
+        StoreReqLines.Validate("Requistion No");
+        StoreReqLines.Validate(Quantity);
+        StoreReqLines.Insert();
+        StoreReqLines.Validate(Quantity);
+
+        rtnMsg := 'SUCCESS' + '::';
+    end;
+
     #endregion
 }
 
