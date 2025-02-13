@@ -1,7 +1,7 @@
 report 50104 "P9 Report (Final)"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/P9 Report (Final).rdl';
+    RDLCLayout = './Layouts/P9 Report (Final).rdlc';
     PreviewMode = PrintLayout;
     dataset
     {

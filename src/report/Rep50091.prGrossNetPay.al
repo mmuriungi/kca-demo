@@ -1,7 +1,7 @@
 report 50091 prGrossNetPay
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/prGrossNetPay.rdl';
+    RDLCLayout = './Layouts/prGrossNetPay.rdlc';
 
     dataset
     {
