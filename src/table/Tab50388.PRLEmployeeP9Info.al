@@ -91,6 +91,10 @@ table 50388 "PRL-Employee P9 Info"
             FieldClass = FlowFilter;
             TableRelation = "PRL-Payroll Periods"."Date Opened";
         }
+        field(50001; "External Pension"; Decimal)
+        {
+            
+        }
     }
 
     keys

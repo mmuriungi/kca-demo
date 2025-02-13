@@ -1168,9 +1168,9 @@ SpecialTransType::SHIF, FALSE);
             END;
 */
             if (curPensionStaff + curDefinedContrib) > curMaxPensionContrib then
-                curTaxablePay := curGrossTaxable - (curSalaryArrears + curMaxPensionContrib + curOOI + curHOSP + curNonTaxable) + BenifitAmount
+                curTaxablePay := curGrossTaxable - (curSalaryArrears + curMaxPensionContrib + curOOI + curHOSP + curNonTaxable + curNHIF + CurHousingLEvy) + BenifitAmount
             else
-                curTaxablePay := curGrossTaxable - (curSalaryArrears + curDefinedContrib + curPensionStaff + curOOI + curHOSP + curNonTaxable) + BenifitAmount;
+                curTaxablePay := curGrossTaxable - (curSalaryArrears + curDefinedContrib + curPensionStaff + curOOI + curHOSP + curNonTaxable + curNHIF + CurHousingLEvy) + BenifitAmount;
             //curTaxablePay := curTaxablePay - fNHIFReliefAmount;
             curTransAmount := curTaxablePay;
             strTransDescription := 'Chargeable Pay';
@@ -1670,7 +1670,7 @@ SpecialTransType::SHIF, FALSE);
             //Net Pay: calculate the Net pay for the month in the following manner:
             //>Nett = Gross - (xNssfAmount + curMyNhifAmt + PAYE + PayeArrears + prTotDeductions)
             //...Tot Deductions also include (SumLoan + SumInterest)
-            curNetPay := curGrossPay - (curDefinedContrib + curNHIF + curPAYE + curPayeArrears + curTotalDeductions + IsCashBenefit);
+            curNetPay := curGrossPay - (curDefinedContrib + curNHIF + curPAYE + curPayeArrears + curTotalDeductions + IsCashBenefit + CurHousingLEvy);
 
             //>Nett = Nett - curExcessPension
             //...Excess pension is only used for tax. Staff is not paid the amount hence substract it

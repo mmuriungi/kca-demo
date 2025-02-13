@@ -1,7 +1,8 @@
-report 50141 "prPaye Schedule 1a"
+report 50041 "NHIF Schedule Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/prPaye Schedule 1a.rdl';
+    Caption = 'NHIF Schedule';
+    RDLCLayout = './Layouts/NHIFScheduleReport.rdl';
 
     dataset
     {
@@ -23,28 +24,49 @@ report 50141 "prPaye Schedule 1a"
             column(CurrReport_PAGENO;CurrReport.PageNo)
             {
             }
-            column(companyinfo_Picture;companyinfo.Picture)
+            column(Companyinfo_Picture;Companyinfo.Picture)
             {
             }
-            column(prSalary_Card__prSalary_Card___Employee_Code_;"PRL-Salary Card"."Employee Code")
+            column(COMPANYNAME;COMPANYNAME)
+            {
+            }
+            column(Address;Address)
+            {
+            }
+            column(EmployerNHIFNo;EmployerNHIFNo)
+            {
+            }
+            column(Tel;Tel)
+            {
+            }
+            column(CompPINNo;CompPINNo)
+            {
+            }
+            column(PeriodName_Control1102756007;PeriodName)
+            {
+            }
+            column(NhifAmount;NhifAmount)
+            {
+            }
+            column(IDNumber;IDNumber)
+            {
+            }
+            column(NhifNo;NhifNo)
             {
             }
             column(EmployeeName;EmployeeName)
             {
             }
-            column(PinNumber;PinNumber)
+            column(prSalary_Card__prSalary_Card___Employee_Code_;"PRL-Salary Card"."Employee Code")
             {
             }
-            column(PayeAmount;PayeAmount)
+            column(Dob;Dob)
             {
             }
-            column(TaxablePay;TaxablePay)
+            column(TotNhifAmount;TotNhifAmount)
             {
             }
-            column(TotTaxablePay;TotTaxablePay)
-            {
-            }
-            column(TotPayeAmount;TotPayeAmount)
+            column(NATIONAL_HOSPITAL_INSURANCE_FUNDCaption;NATIONAL_HOSPITAL_INSURANCE_FUNDCaptionLbl)
             {
             }
             column(User_Name_Caption;User_Name_CaptionLbl)
@@ -53,28 +75,46 @@ report 50141 "prPaye Schedule 1a"
             column(Print_Date_Caption;Print_Date_CaptionLbl)
             {
             }
-            column(P_A_Y_E_ScheduleCaption;P_A_Y_E_ScheduleCaptionLbl)
-            {
-            }
             column(Period_Caption;Period_CaptionLbl)
             {
             }
-            column(Page_No_Caption;Page_No_CaptionLbl)
+            column(Page_Nov_Caption;Page_No_CaptionLbl)
             {
             }
-            column(No_Caption;No_CaptionLbl)
+            column(PERIOD_Caption_Control1102755032;PERIOD_Caption_Control1102755032Lbl)
+            {
+            }
+            column(ADDRESS_Caption;ADDRESS_CaptionLbl)
+            {
+            }
+            column(EMPLOYER_Caption;EMPLOYER_CaptionLbl)
+            {
+            }
+            column(EMPOLOYER_NO_Caption;EMPOLOYER_NO_CaptionLbl)
+            {
+            }
+            column(EMPLOYER_PIN_NO_Caption;EMPLOYER_PIN_NO_CaptionLbl)
+            {
+            }
+            column(TEL_NO_Caption;TEL_NO_CaptionLbl)
+            {
+            }
+            column(AmountCaption;AmountCaptionLbl)
+            {
+            }
+            column(ID_Number_Caption;ID_Number_CaptionLbl)
+            {
+            }
+            column(NHIF_No_Caption;NHIF_No_CaptionLbl)
             {
             }
             column(Employee_NameCaption;Employee_NameCaptionLbl)
             {
             }
-            column(PIN_Number_Caption;PIN_Number_CaptionLbl)
+            column(No_Caption;No_CaptionLbl)
             {
             }
-            column(Paye_Amount_Caption;Paye_Amount_CaptionLbl)
-            {
-            }
-            column(Taxable_Pay_Caption;Taxable_Pay_CaptionLbl)
+            column(Date_Of_BirthCaption;Date_Of_BirthCaptionLbl)
             {
             }
             column(Prepared_by_______________________________________Date_________________Caption;Prepared_by_______________________________________Date_________________CaptionLbl)
@@ -83,10 +123,10 @@ report 50141 "prPaye Schedule 1a"
             column(Checked_by________________________________________Date_________________Caption;Checked_by________________________________________Date_________________CaptionLbl)
             {
             }
-            column(Totals_Caption;Totals_CaptionLbl)
+            column(Authorized_by____________________________________Date_________________Caption;Authorized_by____________________________________Date_________________CaptionLbl)
             {
             }
-            column(Authorized_by____________________________________Date_________________Caption;Authorized_by____________________________________Date_________________CaptionLbl)
+            column(Total_NHIF_Caption;Total_NHIF_CaptionLbl)
             {
             }
             column(Approved_by______________________________________Date_________________Caption;Approved_by______________________________________Date_________________CaptionLbl)
@@ -95,46 +135,43 @@ report 50141 "prPaye Schedule 1a"
 
             trigger OnAfterGetRecord()
             begin
-
+                Clear(NhifAmount);
                 objEmp.Reset;
                 objEmp.SetRange(objEmp."No.","Employee Code");
-                if objEmp.Find('-') then
+                if objEmp.Find('-') then;
                   EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
-
-                  PinNumber:=objEmp."PIN Number";
+                  NhifNo:=objEmp."NHIF No.";
+                  IDNumber:=objEmp."ID Number";
+                  Dob:=objEmp."Date Of Birth";
 
                 PeriodTrans.Reset;
                 PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
                 PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetFilter(PeriodTrans."Group Order",'%1|%2',6,7); //Taxable Pay
-                PeriodTrans.SetFilter(PeriodTrans."Sub Group Order",'%1|%2',3,6); //Paye Amount
+                PeriodTrans.SetRange(PeriodTrans."Group Order",7);
+                PeriodTrans.SetRange(PeriodTrans."Sub Group Order",2);
+                PeriodTrans.SetCurrentkey(PeriodTrans."Employee Code",PeriodTrans."Period Month",PeriodTrans."Period Year",
+                PeriodTrans."Group Order",PeriodTrans."Sub Group Order");
 
-                TaxablePay:=0;
-                PayeAmount:=0;
+                NhifAmount:=0;
+
                 if PeriodTrans.Find('-') then
-                   repeat
-                      //TXBP Taxable Pay -  BY DENNIS
-                      if (PeriodTrans."Transaction Code"='TXBP') then
-                      begin
-                         TaxablePay:=PeriodTrans.Amount;
-                      end;
-
-                      //GrpOrder 7, SubGrpOrder 3 = Taxable Pay
-                      if (PeriodTrans."Group Order"=7) and (PeriodTrans."Sub Group Order"=3) then
-                      begin
-                          PayeAmount:=PeriodTrans.Amount;
-                      end;
-                   until PeriodTrans.Next=0;
-
-                if PayeAmount<=0 then
-                  CurrReport.Skip;
-                  TotTaxablePay:=TotTaxablePay+TaxablePay;
-                  TotPayeAmount:=TotPayeAmount+PayeAmount;
+                   begin
+                   if PeriodTrans.Amount=0 then CurrReport.Skip;
+                      NhifAmount:=PeriodTrans.Amount;
+                      TotNhifAmount:=TotNhifAmount+PeriodTrans.Amount;
+                   end;
             end;
 
             trigger OnPreDataItem()
             begin
-                 "PRL-Salary Card".SetFilter("PRL-Salary Card"."Payroll Period",'=%1',SelectedPeriod);
+                if CompInfoSetup.Get() then
+                  EmployerNHIFNo:=CompInfoSetup."N.H.I.F No";
+                  CompPINNo:=CompInfoSetup."Company P.I.N";
+                  Address:=CompInfoSetup.Address;
+                  Tel:=CompInfoSetup."Phone No.";
+                  Clear(TotNhifAmount);
+
+                "PRL-Salary Card".SetFilter("PRL-Salary Card"."Payroll Period",'%1',SelectedPeriod);
             end;
         }
     }
@@ -168,7 +205,7 @@ report 50141 "prPaye Schedule 1a"
     begin
         objPeriod.Reset;
         objPeriod.SetRange(objPeriod.Closed,false);
-        if objPeriod.Find('-') then;
+        if objPeriod.Find('-') then
         PeriodFilter:=objPeriod."Date Opened";
     end;
 
@@ -182,38 +219,53 @@ report 50141 "prPaye Schedule 1a"
         if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
 
 
-        if companyinfo.Get() then
-        companyinfo.CalcFields(companyinfo.Picture);
+        if Companyinfo.Get() then
+        Companyinfo.CalcFields(Companyinfo.Picture);
+        Clear(NhifAmount);
+        //CLEAR(TotNhifAmount);
     end;
 
     var
         PeriodTrans: Record "PRL-Period Transactions";
-        PayeAmount: Decimal;
-        TotPayeAmount: Decimal;
-        TaxablePay: Decimal;
-        TotTaxablePay: Decimal;
+        NhifAmount: Decimal;
+        TotNhifAmount: Decimal;
         EmployeeName: Text[150];
-        PinNumber: Text[30];
+        NhifNo: Text[30];
+        IDNumber: Text[30];
         objPeriod: Record "PRL-Payroll Periods";
-        objEmp: Record "HRM-Employee C";
         SelectedPeriod: Date;
         PeriodName: Text[30];
         PeriodFilter: Date;
-        companyinfo: Record "Company Information";
+        objEmp: Record "HRM-Employee C";
+        CompInfoSetup: Record "HRM-Control-Information";
+        EmployerNHIFNo: Code[20];
+        CompPINNo: Code[20];
+        Address: Text[90];
+        Tel: Text[30];
+        Dob: Date;
+        Companyinfo: Record "HRM-Control-Information";
+        NATIONAL_HOSPITAL_INSURANCE_FUNDCaptionLbl: label 'NATIONAL HOSPITAL INSURANCE FUND';
         User_Name_CaptionLbl: label 'User Name:';
         Print_Date_CaptionLbl: label 'Print Date:';
-        P_A_Y_E_ScheduleCaptionLbl: label 'P.A.Y.E Schedule';
         Period_CaptionLbl: label 'Period:';
         Page_No_CaptionLbl: label 'Page No:';
-        No_CaptionLbl: label 'No:';
+        PERIOD_Caption_Control1102755032Lbl: label 'PERIOD:';
+        ADDRESS_CaptionLbl: label 'ADDRESS:';
+        EMPLOYER_CaptionLbl: label 'EMPLOYER:';
+        EMPOLOYER_NO_CaptionLbl: label 'EMPOLOYER NO:';
+        EMPLOYER_PIN_NO_CaptionLbl: label 'EMPLOYER PIN NO:';
+        TEL_NO_CaptionLbl: label 'TEL NO:';
+        AmountCaptionLbl: label 'Amount';
+        ID_Number_CaptionLbl: label 'ID Number:';
+        NHIF_No_CaptionLbl: label 'NHIF No:';
         Employee_NameCaptionLbl: label 'Employee Name';
-        PIN_Number_CaptionLbl: label 'PIN Number:';
-        Paye_Amount_CaptionLbl: label 'Paye Amount:';
-        Taxable_Pay_CaptionLbl: label 'Taxable Pay:';
+        No_CaptionLbl: label 'No:';
+        Date_Of_BirthCaptionLbl: label 'Date Of Birth';
         Prepared_by_______________________________________Date_________________CaptionLbl: label 'Prepared by……………………………………………………..                 Date……………………………………………';
         Checked_by________________________________________Date_________________CaptionLbl: label 'Checked by…………………………………………………..                   Date……………………………………………';
-        Totals_CaptionLbl: label 'Totals:';
         Authorized_by____________________________________Date_________________CaptionLbl: label 'Authorized by……………………………………………………..              Date……………………………………………';
+        Total_NHIF_CaptionLbl: label 'Total NHIF:';
         Approved_by______________________________________Date_________________CaptionLbl: label 'Approved by……………………………………………………..                Date……………………………………………';
 }
+
 

@@ -5,158 +5,134 @@ report 50092 "prStaff Pension Contrib"
 
     dataset
     {
-        dataitem("PRL-Salary Card"; "PRL-Salary Card")
+        dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
         {
+            DataItemTableView = where("Transaction Code"=filter('BPAY'|'GPAY'|'NPAY'|690));
             RequestFilterFields = "Employee Code";
-            column(USERID; UserId)
+            column(ReportForNavId_6207; 6207)
             {
             }
-            column(TODAY; Today)
+            column(USERID;UserId)
             {
             }
-            column(PeriodName; PeriodName)
+            column(TODAY;Today)
             {
             }
-
-            column(Companyinfo_Picture; Companyinfo.Picture)
+            column(PeriodName;PeriodName)
             {
             }
-            column(prSalary_Card__prSalary_Card___Employee_Code_; "PRL-Salary Card"."Employee Code")
+            column(CurrReport_PAGENO;CurrReport.PageNo)
             {
             }
-            column(SelfContrib; SelfContrib)
+            column(Companyinfo_Picture;Companyinfo.Picture)
             {
             }
-            column(CompanyContrib; CompanyContrib)
+            column(TransAmount;TransAmount)
             {
             }
-            column(EmployeeName; EmployeeName)
+            column(Transcode;Transcode)
             {
             }
-            column(BasicPay; BasicPay)
+            column(TransIndx;TransIndx)
             {
             }
-            column(CummContrib; CummContrib)
+            column(EmployeeName;EmployeeName)
             {
             }
-            column(TotCompanyContrib; TotCompanyContrib)
+            column(Gender;Format(objEmp.Gender))
             {
             }
-            column(TotSelfContrib; TotSelfContrib)
+            column(Date;Dates)
             {
             }
-            column(TotBasicPay; TotBasicPay)
+            column(empcode;"PRL-Period Transactions"."Employee Code")
             {
             }
-            column(TotCummContrib; TotCummContrib)
-            {
-            }
-            column(Employee_Employer_Pension_ContributionCaption; Employee_Employer_Pension_ContributionCaptionLbl)
-            {
-            }
-            column(Self_Contribution_Caption; Self_Contribution_CaptionLbl)
-            {
-            }
-            column(Company_Contrib_Caption; Company_Contrib_CaptionLbl)
-            {
-            }
-            column(Cumm_Contribution_Caption; Cumm_Contribution_CaptionLbl)
-            {
-            }
-            column(Basic_Pay_Caption; Basic_Pay_CaptionLbl)
-            {
-            }
-            column(User_Name_Caption; User_Name_CaptionLbl)
-            {
-            }
-            column(Print_Date_Caption; Print_Date_CaptionLbl)
-            {
-            }
-            column(Period_Caption; Period_CaptionLbl)
-            {
-            }
-            column(Page_No_Caption; Page_No_CaptionLbl)
-            {
-            }
-            column(Prepared_by_______________________________________Date_________________Caption; Prepared_by_______________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Checked_by________________________________________Date_________________Caption; Checked_by________________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Authorized_by____________________________________Date_________________Caption; Authorized_by____________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Approved_by______________________________________Date_________________Caption; Approved_by______________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Totals_Caption; Totals_CaptionLbl)
+            column(SelectedPeriod;SelectedPeriod)
             {
             }
 
             trigger OnAfterGetRecord()
             begin
+                PeriodTrans.Reset;
+                PeriodTrans.SetRange(PeriodTrans."Employee Code","PRL-Period Transactions"."Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
+                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'690');
+                if not PeriodTrans.Find('-') then CurrReport.Skip;
+
+                Clear(EmployeeName);
+                Clear(BasicPay);
+                Clear(SelfContrib);
+                Clear(CompanyContrib);
+                Clear(CummContrib);
+                Clear(TransAmount);
+                Clear(Transcode);
+                Clear(TransIndx);
+                Clear(Gross);
+                Clear(Hsy1);
+                Clear(hsl2);
 
                 objEmp.Reset;
-                objEmp.SetRange(objEmp."No.", "Employee Code");
+                objEmp.SetRange(objEmp."No.","PRL-Period Transactions"."Employee Code");
                 if objEmp.Find('-') then
-                    EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name" + ' ' + objEmp."Last Name";
-                EmpVol := 0;
-                SelfContrib := 0;
-                CompanyContrib := 0;
-                SelfContribARREARS := 0;
-                CompanyContribARREARS := 0;
+                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
+                Gender:=objEmp.Gender;
+                if objEmp."Date Of Birth"<>0D then
+                Dates:=objEmp."Date Of Birth";
 
-                //Get the Basic pay
-                BasicPay := 0;
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Group Order", 1);
-                PeriodTrans.SetRange(PeriodTrans."Sub Group Order", 1);
+                if "PRL-Period Transactions"."Transaction Code"='BPAY' then begin
+                  TransAmount:="PRL-Period Transactions".Amount;
+                  Transcode:='BASIC';
+                  TransIndx:=1;
+                  end else if  "PRL-Period Transactions"."Transaction Code"='690' then begin
+                  TransAmount:="PRL-Period Transactions".Amount;
+                  Transcode:='PENSION SELF';
+                  TransIndx:=2;
+                  end else if  "PRL-Period Transactions"."Transaction Code"='NPAY' then begin
+                //Cipmpute Sompany contribution
+                    PeriodTrans.Reset;
+                PeriodTrans.SetRange(PeriodTrans."Employee Code","PRL-Period Transactions"."Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
+                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'690');
                 if PeriodTrans.Find('-') then begin
-                    BasicPay := PeriodTrans.Amount;
-                end;
+                  TransAmount:=(PeriodTrans.Amount*2);
+                  Transcode:='COMP. CONTRIB.';
+                  TransIndx:=3;
+                  end;
 
-
+                  end else if  "PRL-Period Transactions"."Transaction Code"='GPAY' then begin
+                    //Get the Basic pay
+                BasicPay:=0;
                 PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
-                //PeriodTrans.SETRANGE(PeriodTrans."Transaction Name",'PENSION');
-                //PeriodTrans.SETRANGE(PeriodTrans."Company Deduction",FALSE);  //dennis
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code", '690');
+                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
+                PeriodTrans.SetFilter(PeriodTrans."Transaction Code",'BPAY');
+                if PeriodTrans.Find('-') then
+                    begin
+                       BasicPay:=PeriodTrans.Amount;
+                    end;
+                    // SelfCont
+                    SelfContrib:=0;
+                PeriodTrans.Reset;
+                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
+                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'690');
+                if PeriodTrans.Find('-') then
+                    begin
+                       SelfContrib:=PeriodTrans.Amount;
+                    end;
 
-                if PeriodTrans.Find('-') then begin
-                    SelfContrib := PeriodTrans.Amount;
-                end;
-                /*
-                //SelfContrib:=SelfContrib+SelfContribARREARS;
-                EmpVol:=0;
-                prEmpTrans.RESET;
-                prEmpTrans.SETRANGE(prEmpTrans."Employee Code","Employee Code");
-                PeriodTrans.SETRANGE(PeriodTrans."Payroll Period",SelectedPeriod);
-                prEmpTrans.SETRANGE(prEmpTrans."Transaction Code",'D-050');
-                IF prEmpTrans.FIND('-') THEN BEGIN
-                 EmpVol:=prEmpTrans.Amount;
-                 END;
-                */
-                if (SelfContrib = 0) and (EmpVol = 0) then
-                    CurrReport.Skip
-                else
-                    EmpCount := EmpCount + 1;
+                  TransAmount:=((SelfContrib*2)+SelfContrib);
+                  Transcode:='CUMM. CONT.';
+                  TransIndx:=4;
+                  end;
+            end;
 
-
-                CompanyContrib := SelfContrib * 2;
-                //SelfContrib:=BasicPay*0.1;
-                CummContrib := SelfContrib + CompanyContrib + EmpVol;
-
-                //CompanyContrib:=ROUND(BasicPay*0.155,0.05);
-                TotVolContrib := TotVolContrib + EmpVol;
-                TotBasicPay := TotBasicPay + BasicPay;
-                TotSelfContrib := TotSelfContrib + SelfContrib;
-                TotCompanyContrib := TotCompanyContrib + CompanyContrib;
-                TotCummContrib := TotCummContrib + CummContrib;
-
+            trigger OnPreDataItem()
+            begin
+                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period",'=%1',SelectedPeriod);
+                if "PRL-Period Transactions".Find('-') then begin
+                  end;
             end;
         }
     }
@@ -168,8 +144,9 @@ report 50092 "prStaff Pension Contrib"
         {
             area(content)
             {
-                field(periodfilter; SelectedPeriod)
+                field(PerFilter;SelectedPeriod)
                 {
+                    ApplicationArea = Basic;
                     Caption = 'Period Filter';
                     TableRelation = "PRL-Payroll Periods"."Date Opened";
                 }
@@ -188,63 +165,22 @@ report 50092 "prStaff Pension Contrib"
     trigger OnInitReport()
     begin
         objPeriod.Reset;
-        objPeriod.SetRange(objPeriod.Closed, false);
-        if objPeriod.Find('-') then;
-        SelectedPeriod := objPeriod."Date Opened";
+        objPeriod.SetRange(Closed,false);
+        if objPeriod.Find('+') then begin
+          SelectedPeriod:=objPeriod."Date Opened";
+          end;
     end;
 
     trigger OnPreReport()
     begin
 
-        //PeriodFilter:="prSalary Card".GETFILTER("Period Filter");
-        if SelectedPeriod = 0D then Error('You must specify the period filter');
+        if SelectedPeriod=0D then Error('You must specify the period filter');
 
         objPeriod.Reset;
-        if objPeriod.Get(SelectedPeriod) then PeriodName := objPeriod."Period Name";
-
-        //self contribution...Defined contribution is a Special Transaction 1
-        objTransCode.Reset;
-        //objTransCode.SETRANGE(objTransCode."Special Transactions",1); //Defined contribution/pension
-        //objTransCode.SETRANGE(objTransCode."Employer Deduction",FALSE);
-        objTransCode.SetRange(objTransCode."Transaction Code", '0007'); //HARD CODED TO ENSURE THE self pension is calx - Dennis
-        if objTransCode.Find('-') then begin
-            SelfContribCode := objTransCode."Transaction Code";
-        end;
-
-        //self contribution...Defined contribution is a Special Transaction 1 PENSION ARREARS
-        objTransCode.Reset;
-        //objTransCode.SETRANGE(objTransCode."Special Transactions",1); //Defined contribution/pension
-        //objTransCode.SETRANGE(objTransCode."Employer Deduction",FALSE);
-        objTransCode.SetRange(objTransCode."Transaction Code", '114'); //HARD CODED TO ENSURE THE self pension is calx - Dennis
-        if objTransCode.Find('-') then begin
-            SelfContribCodeArrears := objTransCode."Transaction Code";
-        end;
-
-
-        //Company contribution
-        objTransCode.Reset;
-        //objTransCode.SETRANGE(objTransCode."Special Transactions",1);
-        //objTransCode.SETRANGE(objTransCode."Employer Deduction",TRUE);
-        objTransCode.SetRange(objTransCode."Transaction Code", 'Emp-455'); //HARD CODED TO ENSURE THE self pension is calx - Dennis
-        if objTransCode.Find('-') then begin
-            // CompanyContribCode:=objTransCode."Transaction Code";
-        end;
-        CompanyContribCode := 'Emp-455';
-
-
-        //Company contribution ARREARS
-        objTransCode.Reset;
-        //objTransCode.SETRANGE(objTransCode."Special Transactions",1);
-        //objTransCode.SETRANGE(objTransCode."Employer Deduction",TRUE);
-        objTransCode.SetRange(objTransCode."Transaction Code", 'Emp-114'); //HARD CODED TO ENSURE THE self pension is calx - Dennis
-        if objTransCode.Find('-') then begin
-            // CompanyContribCode:=objTransCode."Transaction Code";
-        end;
-        CompanyContribCodeArrears := 'Emp-114';
-
+        if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
 
         if Companyinfo.Get() then
-            Companyinfo.CalcFields(Companyinfo.Picture);
+        Companyinfo.CalcFields(Companyinfo.Picture);
     end;
 
     var
@@ -253,41 +189,37 @@ report 50092 "prStaff Pension Contrib"
         SelfContrib: Decimal;
         CompanyContrib: Decimal;
         CummContrib: Decimal;
-        TotBasicPay: Decimal;
-        TotSelfContrib: Decimal;
-        TotCompanyContrib: Decimal;
-        TotCummContrib: Decimal;
         EmployeeName: Text[50];
         objEmp: Record "HRM-Employee C";
         objPeriod: Record "PRL-Payroll Periods";
         SelectedPeriod: Date;
         PeriodName: Text[30];
-        SelfContribCode: Text[30];
-        CompanyContribCode: Text[30];
         objTransCode: Record "PRL-Transaction Codes";
-        SelfContribCodeArrears: Text[30];
-        CompanyContribCodeArrears: Text[30];
-        SelfContribARREARS: Decimal;
-        CompanyContribARREARS: Decimal;
-        prEmployerContrib: Record "PRL-Employer Deductions";
         Companyinfo: Record "Company Information";
-        EmpVol: Decimal;
-        TotVolContrib: Decimal;
-        prEmpTrans: Record "PRL-Employee Transactions";
-        EmpCount: Integer;
-        Employee_Employer_Pension_ContributionCaptionLbl: Label 'Employee/Employer Pension Contribution';
-        Self_Contribution_CaptionLbl: Label 'Self Contribution:';
-        Company_Contrib_CaptionLbl: Label 'Company Contrib:';
-        Cumm_Contribution_CaptionLbl: Label 'Cumm Contribution:';
-        Basic_Pay_CaptionLbl: Label 'Basic Pay:';
-        User_Name_CaptionLbl: Label 'User Name:';
-        Print_Date_CaptionLbl: Label 'Print Date:';
-        Period_CaptionLbl: Label 'Period:';
-        Page_No_CaptionLbl: Label 'Page No:';
-        Prepared_by_______________________________________Date_________________CaptionLbl: Label 'Prepared byÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ..                 DateÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ';
-        Checked_by________________________________________Date_________________CaptionLbl: Label 'Checked byÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ..                   DateÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ';
-        Authorized_by____________________________________Date_________________CaptionLbl: Label 'Authorized byÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ..              DateÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ';
-        Approved_by______________________________________Date_________________CaptionLbl: Label 'Approved byÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ..                DateÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ';
-        Totals_CaptionLbl: Label 'Totals:';
+        Employee_Employer_Pension_ContributionCaptionLbl: label 'Employee/Employer Pension Contribution';
+        Self_Contribution_CaptionLbl: label 'Self Contribution:';
+        Company_Contrib_CaptionLbl: label 'Company Contrib:';
+        Cumm_Contribution_CaptionLbl: label 'Cumm Contribution:';
+        Basic_Pay_CaptionLbl: label 'Basic Pay:';
+        User_Name_CaptionLbl: label 'User Name:';
+        Print_Date_CaptionLbl: label 'Print Date:';
+        Period_CaptionLbl: label 'Period:';
+        Page_No_CaptionLbl: label 'Page No:';
+        Prepared_by_______________________________________Date_________________CaptionLbl: label 'Prepared by……………………………………………………..                 Date……………………………………………';
+        Checked_by________________________________________Date_________________CaptionLbl: label 'Checked by…………………………………………………..                   Date……………………………………………';
+        Authorized_by____________________________________Date_________________CaptionLbl: label 'Authorized by……………………………………………………..              Date……………………………………………';
+        Approved_by______________________________________Date_________________CaptionLbl: label 'Approved by……………………………………………………..                Date……………………………………………';
+        Totals_CaptionLbl: label 'Totals:';
+        compCont: Decimal;
+        salArreas: Decimal;
+        Dates: Date;
+        Gender: Option;
+        TransAmount: Decimal;
+        Transcode: Code[20];
+        TransIndx: Integer;
+        datefilter: Date;
+        Hsy1: Decimal;
+        hsl2: Decimal;
+        Gross: Decimal;
 }
 
