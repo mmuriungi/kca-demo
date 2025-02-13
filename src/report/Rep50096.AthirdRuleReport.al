@@ -8,157 +8,109 @@ report 50096 "A third Rule Report"
 
     dataset
     {
-        dataitem("PRL-Salary Card"; "PRL-Salary Card")
+        dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
         {
-            RequestFilterFields = "Period Filter", "Employee Code";
-            column(USERID; UserId)
+            DataItemTableView = where("Transaction Code"=filter('BPAY'|'GPAY'|'NPAY'));
+            column(ReportForNavId_1000000000; 1000000000)
             {
             }
-            column(TODAY; Today)
+            column(EmpNo;objEmp."No.")
             {
             }
-            column(PeriodName; "PRL-Salary Card"."Period Month")
+            column(TCode;"PRL-Period Transactions"."Transaction Code")
             {
             }
-
-            column(Pic; companyinfo.Picture)
+            column(TName;"PRL-Period Transactions"."Transaction Name")
             {
             }
-            column(compname; companyinfo.name)
-            {
-
-            }
-            column(compadress; companyinfo.Address)
-            { }
-            column(companymail; companyinfo."E-Mail")
-            { }
-            column(compphone; companyinfo."Phone No.")
-            {
-
-            }
-            column(comppage; companyinfo."Home Page")
-            {
-
-            }
-            column(prSalary_Card__prSalary_Card___Employee_Code_; "PRL-Salary Card"."Employee Code")
+            column(BasicPay;BasicPay)
             {
             }
-            column(BasicPay; BasicPay)
-            {
-                AutoFormatType = 0;
-                DecimalPlaces = 0;
-            }
-            column(Athird; Athird)
+            column(Athird;Athird)
             {
             }
-            column(EmployeeName; EmployeeName)
+            column(NetPay;NetPay)
             {
             }
-            column(EmpNos; "PRL-Salary Card"."Employee Code")
+            column(Variance;Variance)
             {
             }
-            column(NetPay; NetPay)
+            column(PeriodName;PeriodName)
             {
             }
-            column(Variance; Variance)
+            column(companyinfo_Picture;companyinfo.Picture)
             {
             }
-            column(TotNetPay; TotNetPay)
+            column(EmployeeName;EmployeeName)
             {
             }
-            column(TotBasicPay; TotBasicPay)
+            column(Prep;Prepared_by_______________________________________Date_________________CaptionLbl)
             {
             }
-            column(TotVariance; TotVariance)
+            column(Checked;Checked_by________________________________________Date_________________CaptionLbl)
             {
             }
-            column(A_third_Rule_ReportCaption; A_third_Rule_ReportCaptionLbl)
+            column(Auth;Authorized_by____________________________________Date_________________CaptionLbl)
             {
             }
-            column(Basic_Pay_Caption; Basic_Pay_CaptionLbl)
-            {
-            }
-            column(A_THIRD_Caption; A_THIRD_CaptionLbl)
-            {
-            }
-            column(Net_Pay_Caption; Net_Pay_CaptionLbl)
-            {
-            }
-            column(User_Name_Caption; User_Name_CaptionLbl)
-            {
-            }
-            column(Print_Date_Caption; Print_Date_CaptionLbl)
-            {
-            }
-            column(Period_Caption; Period_CaptionLbl)
-            {
-            }
-            column(Page_No_Caption; Page_No_CaptionLbl)
-            {
-            }
-            column(VarianceCaption; VarianceCaptionLbl)
-            {
-            }
-            column(Prepared_by_______________________________________Date_________________Caption; Prepared_by_______________________________________Date_________________CaptionLbl)
-            {
-
-            }
-            column(Checked_by________________________________________Date_________________Caption; Checked_by________________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Authorized_by____________________________________Date_________________Caption; Authorized_by____________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Approved_by______________________________________Date_________________Caption; Approved_by______________________________________Date_________________CaptionLbl)
-            {
-            }
-            column(Totals_Caption; Totals_CaptionLbl)
+            column(approved;Approved_by______________________________________Date_________________CaptionLbl)
             {
             }
 
             trigger OnAfterGetRecord()
             begin
+                Clear(EmployeeName);
+                Clear(NetPay);
+                Clear(BasicPay);
+                Clear(Variance);
+                Clear(Athird);
+                Clear(Desc);
+                Clear(Indexes);
 
                 objEmp.Reset;
-                objEmp.SetRange(objEmp."No.", "Employee Code");
+                objEmp.SetRange(objEmp."No.","PRL-Period Transactions"."Employee Code");
                 if objEmp.Find('-') then
-                    EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name" + ' ' + objEmp."Last Name";
+                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
+                 if "PRL-Period Transactions"."Transaction Code"='BPAY' then
+                         begin
+                            BasicPay:="PRL-Period Transactions".Amount;
+                           Desc:='BASIC';
+                           Indexes:=1;
+                         end;
 
-                BasicPay := 0;
-                GrossPay := 0;
-                NetPay := 0;
+                         if "PRL-Period Transactions"."Transaction Code"='GPAY' then
+                         begin
+                            GrossPay:="PRL-Period Transactions".Amount; //Gross pay
+                           Desc:='GROSS';
+                           Indexes:=2;
+                         end;
 
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
-                PeriodTrans.SetFilter(PeriodTrans."Group Order", '=1|=4|=9');
-                PeriodTrans.SetFilter(PeriodTrans."Sub Group Order", '<=1');
-                PeriodTrans.SetCurrentKey(PeriodTrans."Employee Code", PeriodTrans."Period Month", PeriodTrans."Period Year",
-                PeriodTrans."Group Order", PeriodTrans."Sub Group Order");
-                if PeriodTrans.Find('-') then
-                    repeat
-                        if PeriodTrans."Group Order" = 1 then begin
-                            BasicPay := PeriodTrans.Amount;
-                        end;
+                         if "PRL-Period Transactions"."Transaction Code"='NPAY' then
+                         begin
+                            NetPay:="PRL-Period Transactions".Amount; //Net pay
+                           Desc:='NET';
+                           Indexes:=3;
+                         end;
+                if BasicPay>0 then
+                Athird:=BasicPay*1/3;
+                if NetPay>0 then
+                Variance:=NetPay-Athird;
 
-                        if PeriodTrans."Group Order" = 4 then begin
-                            GrossPay := PeriodTrans.Amount; //Gross pay
-                        end;
+                if Athird>0 then begin
+                           Desc:='THIRD';
+                           Indexes:=4;
+                  end;
 
-                        if PeriodTrans."Group Order" = 9 then begin
-                            NetPay := PeriodTrans.Amount; //Net pay
-                        end;
-                    until PeriodTrans.Next = 0;
+                if Variance<>0 then  begin
 
-                Athird := round(BasicPay * (1 / 3), 0.2);
-                Variance := NetPay - Athird;
+                           Desc:='VARIANCE';
+                           Indexes:=5;
+                  end;
+            end;
 
-                if NetPay <= 0 then
-                    CurrReport.Skip;
-                TotBasicPay := TotBasicPay + BasicPay;
-                TotGrossPay := TotGrossPay + GrossPay;
-                TotNetPay := TotNetPay + NetPay;
-                TotVariance := TotVariance + Variance;
+            trigger OnPreDataItem()
+            begin
+                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period",'=%1',SelectedPeriod);
             end;
         }
     }
@@ -168,6 +120,14 @@ report 50096 "A third Rule Report"
 
         layout
         {
+            area(content)
+            {
+                field("Period Filter";SelectedPeriod)
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'Period Filter';
+                }
+            }
         }
 
         actions
@@ -179,18 +139,26 @@ report 50096 "A third Rule Report"
     {
     }
 
-    trigger OnPreReport()
+    trigger OnInitReport()
     begin
-        PeriodFilter := "PRL-Salary Card".GetFilter("Period Filter");
-        if PeriodFilter = '' then Error('You must specify the period filter');
-
-        SelectedPeriod := "PRL-Salary Card".GetRangeMin("Period Filter");
         objPeriod.Reset;
-        if objPeriod.Get(SelectedPeriod) then PeriodName := objPeriod."Period Name";
+        objPeriod.SetRange(Closed,false);
+        if objPeriod.Find('-') then begin
+          SelectedPeriod:=objPeriod."Date Opened";
+          end;
 
 
         if companyinfo.Get() then
-            companyinfo.CalcFields(companyinfo.Picture);
+        companyinfo.CalcFields(companyinfo.Picture);
+    end;
+
+    trigger OnPreReport()
+    begin
+        //PeriodFilter:="PRL-Salary Card".GETFILTER("Period Filter");
+        if SelectedPeriod=0D then Error('You must specify the period filter');
+
+        objPeriod.Reset;
+        if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
     end;
 
     var
@@ -206,25 +174,25 @@ report 50096 "A third Rule Report"
         objPeriod: Record "PRL-Payroll Periods";
         SelectedPeriod: Date;
         PeriodName: Text[250];
-        PeriodFilter: Text[250];
         companyinfo: Record "Company Information";
         Athird: Decimal;
         Variance: Decimal;
         TotVariance: Decimal;
-        A_third_Rule_ReportCaptionLbl: Label 'A third Rule Report';
-        Basic_Pay_CaptionLbl: Label 'Basic Pay:';
-        A_THIRD_CaptionLbl: Label 'A THIRD:';
-        Net_Pay_CaptionLbl: Label 'Net Pay:';
-        User_Name_CaptionLbl: Label 'User Name:';
-        Print_Date_CaptionLbl: Label 'Print Date:';
-        Period_CaptionLbl: Label 'Period:';
-        Page_No_CaptionLbl: Label 'Page No:';
-        VarianceCaptionLbl: Label 'Variance';
-        Prepared_by_______________________________________Date_________________CaptionLbl: Label 'Prepared byÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ..                 DateÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ';
-        Checked_by________________________________________Date_________________CaptionLbl: Label 'Checked byÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ..                   DateÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ';
-        Authorized_by____________________________________Date_________________CaptionLbl: Label 'Authorized byÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ..              DateÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ';
-        Approved_by______________________________________Date_________________CaptionLbl: Label 'Approved byÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ..                DateÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙ';
-        Totals_CaptionLbl: Label 'Totals:';
-        DecimalPlaces: Integer;
+        A_third_Rule_ReportCaptionLbl: label 'A third Rule Report';
+        Basic_Pay_CaptionLbl: label 'Basic Pay:';
+        A_THIRD_CaptionLbl: label 'A THIRD:';
+        Net_Pay_CaptionLbl: label 'Net Pay:';
+        User_Name_CaptionLbl: label 'User Name:';
+        Print_Date_CaptionLbl: label 'Print Date:';
+        Period_CaptionLbl: label 'Period:';
+        Page_No_CaptionLbl: label 'Page No:';
+        VarianceCaptionLbl: label 'Variance';
+        Prepared_by_______________________________________Date_________________CaptionLbl: label 'Prepared by……………………………………………………..                 Date……………………………………………';
+        Checked_by________________________________________Date_________________CaptionLbl: label 'Checked by…………………………………………………..                   Date……………………………………………';
+        Authorized_by____________________________________Date_________________CaptionLbl: label 'Authorized by……………………………………………………..              Date……………………………………………';
+        Approved_by______________________________________Date_________________CaptionLbl: label 'Approved by……………………………………………………..                Date……………………………………………';
+        Totals_CaptionLbl: label 'Totals:';
+        Indexes: Integer;
+        Desc: Code[20];
 }
 
