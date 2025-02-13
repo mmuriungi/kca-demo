@@ -106,6 +106,14 @@ table 50832 "ACA-Class/Grad. Rubrics"
             DataClassification = ToBeClassified;
             TableRelation = "ACA-Class/Grad. Rubrics".Code;
         }
+        field(63040; Pass; Boolean)
+        {
+           
+        }
+        field(63041; "Class Title Page Caption"; Text[300])
+        {
+            
+        }
     }
 
     keys

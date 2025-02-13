@@ -158,6 +158,11 @@ table 50027 "FIN-Receipts and Payment Types"
         field(32; "Medical Claim?"; Boolean)
         {
         }
+        //Claim PAYE Percentage
+        field(33; "Claim PAYE Percentage"; option)
+        {
+            OptionMembers = " ","35 %","30 %";
+        }
     }
 
     keys

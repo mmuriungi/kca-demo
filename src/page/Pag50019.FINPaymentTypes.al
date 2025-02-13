@@ -132,6 +132,10 @@ page 50019 "FIN-Payment Types"
                 {
                     ApplicationArea = All;
                 }
+                field("Claim PAYE Percentage"; Rec."Claim PAYE Percentage")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

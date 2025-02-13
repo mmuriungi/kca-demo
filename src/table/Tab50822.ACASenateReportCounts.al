@@ -1,6 +1,6 @@
-table 50820 "ACA-Grad. Report Counts"
+table 50065 "ACA-Senate Report Counts"
 {
-    Caption = 'ACA-Grad. Report Counts';
+    Caption = 'ACA-Senate Report Counts';
     DataClassification = CustomerContent;
 
     fields
@@ -10,7 +10,7 @@ table 50820 "ACA-Grad. Report Counts"
             Caption = 'Prog. Code';
             DataClassification = CustomerContent;
         }
-        field(2; "StatusCode"; Code[100])
+        field(2; "StatusCode"; Code[30])
         {
             Caption = 'Status Code';
             DataClassification = CustomerContent;
@@ -59,9 +59,4 @@ table 50820 "ACA-Grad. Report Counts"
             Clustered = true;
         }
     }
-
-    fieldgroups
-    {
-    }
-}
-
+} 

@@ -204,6 +204,7 @@ codeunit 50029 prPayrollProcessing
         i: Integer;
         BalAccType: enum "Gen. Journal Account Type";
         BalAccCode: Code[20];
+        CurHousingLEvy: Decimal;
     begin
         //Initialize
         if dtDOE = 0D then dtDOE := CalcDate('1M', Today);
@@ -762,6 +763,7 @@ codeunit 50029 prPayrollProcessing
                 END;
             END; */
 
+            if blnPaysNhif then begin
             curNHIF := fnGetSpecialTransAmount(strEmpCode, intMonth, intYear,
 SpecialTransType::SHIF, FALSE);
             curTransAmount := ROUND(curNHIF, 0.05, '=');
@@ -773,7 +775,7 @@ SpecialTransType::SHIF, FALSE);
             fnUpdatePeriodTrans(strEmpCode, 'SHIF', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
              curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept,
              NHIFEMPyee, JournalPostAs::Credit, JournalPostingType::"G/L Account", '', CoopParameters::none);
-
+            end;
             ReliefhifAmount := 0;
             IF blnPaysPaye THEN BEGIN
 
@@ -918,7 +920,7 @@ SpecialTransType::SHIF, FALSE);
                 end;
 
                 /// Housing levy relief
-                CLEAR(HousingLevyRelief);
+                /* CLEAR(HousingLevyRelief);
                 HousingLevyRelief := fnGetSpecialTransAmount(strEmpCode, intMonth, intYear,
                 SpecialTransType::"Housing Levy", FALSE);
                 IF HousingLevyRelief > 0 THEN BEGIN
@@ -930,15 +932,29 @@ SpecialTransType::SHIF, FALSE);
                     fnUpdatePeriodTrans(strEmpCode, '903', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
                     curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" "
                     , '', CoopParameters::none);
-                END;
+                END; */
                 /// Ends Housing Levy Relief
                 //********************************************************************************************************************************************************
 
 
 
+                CLEAR(CurHousingLEvy);
+                CurHousingLEvy := fnGetSpecialTransAmount(strEmpCode, intMonth, intYear,
+                 SpecialTransType::"Housing Levy", FALSE);
+                CurHousingLEvy := ROUND(CurHousingLEvy, 0.05, '=');
+                curTransAmount := CurHousingLEvy;
+                strTransDescription := 'Afordable Housing Levy';
+                TGroup := 'STATUTORIES';
+                TGroupOrder := 7;
+                TSubGroupOrder := 4;
+                fnUpdatePeriodTrans(strEmpCode, gethousinglevycode(Enum::"Payroll Special Transaction"::"Housing Levy"), TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
+                curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept,
+                gethousinglevyAccount(Enum::"Payroll Special Transaction"::"Housing Levy"), JournalPostAs::Credit, JournalPostingType::"G/L Account", '', CoopParameters::none);
 
 
 
+
+                
 
                 /*
                 //if he PAYS paye only*******************I
@@ -1860,6 +1876,28 @@ SpecialTransType::SHIF, FALSE);
 
     end;
 
+    procedure gethousinglevycode(intSpecTransID: Enum "Payroll Special Transaction"): Code[25]
+    var
+        prTransactionCodes: Record "PRL-Transaction Codes";
+    begin
+        prTransactionCodes.Reset;
+        prTransactionCodes.SetRange(prTransactionCodes."Special Transactions", intSpecTransID);
+        if prTransactionCodes.Find('-') then begin
+            exit(prTransactionCodes."Transaction Code");
+        end;
+    end;
+
+    procedure gethousinglevyAccount(intSpecTransID: Enum "Payroll Special Transaction"): Code[25]
+    var
+        prTransactionCodes: Record "PRL-Transaction Codes";
+    begin
+        prTransactionCodes.Reset;
+        prTransactionCodes.SetRange(prTransactionCodes."Special Transactions", intSpecTransID);
+        if prTransactionCodes.Find('-') then begin
+            exit(prTransactionCodes."GL Account");
+        end;
+    end;
+
     procedure fnGetSpecialTransAmount(strEmpCode: Code[20]; intMonth: Integer; intYear: Integer; intSpecTransID: Enum "Payroll Special Transaction"; blnCompDedc: Boolean) SpecialTransAmount: Decimal
     var
         prEmployeeTransactions: Record "PRL-Employee Transactions";
@@ -1943,6 +1981,12 @@ SpecialTransType::SHIF, FALSE);
                                 strExtractedFrml := fnPureFormula(strEmpCode, intMonth, intYear, prTransactionCodes.Formula);
                                 SpecialTransAmount := SpecialTransAmount + (fnFormulaResult(strExtractedFrml));
                             END;
+                        intSpecTransID::"Housing Levy":
+                            begin
+                                strExtractedFrml := '';
+                                strExtractedFrml := fnPureFormula(strEmpCode, intMonth, intYear, prTransactionCodes.Formula);
+                                SpecialTransAmount := SpecialTransAmount + (fnFormulaResult(strExtractedFrml));
+                            end;
                     END;
                 end;
             until prTransactionCodes.Next = 0;

@@ -3059,7 +3059,7 @@ Codeunit 61106 webportals
         //CourseRegistration.SETRANGE(CourseRegistration.Posted,FALSE);
         CourseRegistration.SetCurrentkey(Stage);
         if CourseRegistration.Find('+') then begin
-            Report.SaveAsPdf(78087, filename, CourseRegistration);
+            Report.SaveAsPdf(Report::"Special Exam Card", filename, CourseRegistration);
             // // Report.RUN(Report::"Exam Card Final",TRUE,FALSE,CourseRegistration);TODO
         end;
     end;
@@ -3083,7 +3083,7 @@ Codeunit 61106 webportals
         //CourseRegistration.SETRANGE(CourseRegistration.Posted,FALSE);
         CourseRegistration.SetCurrentkey(Stage);
         if CourseRegistration.FindSet then begin
-            Report.SaveAsPdf(78088, filename, CourseRegistration);
+            Report.SaveAsPdf(Report::"Supp. Exam Card", filename, CourseRegistration);
             // // Report.RUN(Report::"Exam Card Final",TRUE,FALSE,CourseRegistration);TODO
         end;
     end;
