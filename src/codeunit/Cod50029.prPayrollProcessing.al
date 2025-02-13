@@ -1670,7 +1670,7 @@ SpecialTransType::SHIF, FALSE);
             //Net Pay: calculate the Net pay for the month in the following manner:
             //>Nett = Gross - (xNssfAmount + curMyNhifAmt + PAYE + PayeArrears + prTotDeductions)
             //...Tot Deductions also include (SumLoan + SumInterest)
-            curNetPay := curGrossPay - (curDefinedContrib + curNHIF + curPAYE + curPayeArrears + curTotalDeductions + IsCashBenefit);
+            curNetPay := curGrossPay - (curDefinedContrib + curNHIF + curPAYE + curPayeArrears + curTotalDeductions + IsCashBenefit + CurHousingLEvy);
 
             //>Nett = Nett - curExcessPension
             //...Excess pension is only used for tax. Staff is not paid the amount hence substract it
