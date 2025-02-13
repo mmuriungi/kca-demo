@@ -96,9 +96,10 @@ page 52178503 "PROC-Store Req. Header (B)"
                     Editable = false;
                     ToolTip = 'Specifies the value of the Issuer field.';
                 }
-
-
-
+                field("Inventory Posting Group"; Rec."Inventory Posting Group")
+                {
+                    ApplicationArea = all;
+                }
 
             }
             group("Request Description")

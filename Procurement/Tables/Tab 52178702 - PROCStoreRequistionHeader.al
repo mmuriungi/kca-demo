@@ -265,6 +265,11 @@ table 52178702 "PROC-Store Requistion Header"
         {
 
         }
+        //"Inventory Posting Group"
+        field(50053; "Inventory Posting Group"; Code[20])
+        {
+            TableRelation = "Inventory Posting Group";
+        }
     }
 
     keys

@@ -247,6 +247,8 @@ page 50591 "PRL-Header Salary Card"
                 PromotedIsBig = true;
 
                 trigger OnAction()
+                var
+                    SalCard: Record "PRL-Salary Card";
                 begin
 
                     objPeriod.Reset;
@@ -258,7 +260,13 @@ page 50591 "PRL-Header Salary Card"
                     objEmp.SetRange(objEmp."No.", Rec."No.");
                     if objEmp.Find('-') then
                         // REPORT.Run(51198, true, false, objEmp);
-                        REPORT.Run(Report::"PRL-Payslips", true, false, objEmp);
+                        begin
+                        SalCard.Reset();
+                        SalCard.SetRange(SalCard."Employee Code", Rec."No.");
+                        SalCard.SetRange(SalCard."Payroll Period", SelectedPeriod);
+                        if SalCard.Find('-') then
+                            REPORT.Run(Report::"PRL-Payslips", true, false, SalCard);
+                    end;
                 end;
 
             }
