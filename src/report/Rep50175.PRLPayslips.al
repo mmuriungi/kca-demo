@@ -2,7 +2,7 @@ report 50175 "PRL-Payslips"
 {
     DefaultLayout = RDLC;
     //RDLCLayout = './Layouts/paySlipTest2.rdl';
-    RDLCLayout = './Layouts/paySlipTest.rdlc';
+    RDLCLayout = './Layouts/paySlipTest.rdl';
 
     dataset
     {
