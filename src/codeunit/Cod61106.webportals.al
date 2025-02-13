@@ -166,6 +166,11 @@ Codeunit 61106 webportals
         EmpReq: Record "HRM-Employee Requisitions";
         jobPosts: Record "HRM-Jobs";
         GLsetup: Record "General Ledger Setup";
+        
+    PurchaseRN: Record "Purchase Header";
+    PurchaseLines: Record "Purchase Line";
+    Items: Record Item;
+    GLAccounts: Record "G/L Account";
 
     procedure GetSpecialExamReasons() Msg: Text
     var
@@ -10449,6 +10454,129 @@ Codeunit 61106 webportals
             if ApprovMgmt.CheckApprovalsWorkflowEnabled(varVariant) then
                 ApprovMgmt.OnSendDocForApproval(varVariant);
         end;
+    end;
+    procedure GetApprovalStatus(DocumentNo: Text) Message: Text
+    begin
+        ApprovalEntry.Reset();
+        ApprovalEntry.SETRANGE(ApprovalEntry."Document No.", DocumentNo);
+        ApprovalEntry.SetCurrentKey("Sequence No.");
+        IF ApprovalEntry.FIND('-') THEN BEGIN
+            Message := FORMAT(ApprovalEntry.Status);
+        END
+    end;
+    procedure GetNextPRNNo() msg: Text
+    begin
+        msg := NoSeriesMgt.GetNextNo('INTREQ', 0D, FALSE);
+    end;
+    procedure PurchaseHeaderCreate(BusinessCode: Code[50]; UserID: Text; Purpose: Text)
+    begin
+        EmployeeCard.Reset;
+        EmployeeCard.SetRange(EmployeeCard."No.", UserID);
+        if EmployeeCard.find('-') THEN BEGIN
+            NextLeaveApplicationNo := NoSeriesMgt.GetNextNo('INTREQ', 0D, TRUE);
+            PurchaseRN.INIT;
+            PurchaseRN."No." := NextLeaveApplicationNo;
+            PurchaseRN."Document Type" := PurchaseRN."Document Type"::Quote;
+            //PurchaseRN.Department:=DepartmentCode;
+            PurchaseRN."Buy-from Vendor No." := 'DEPART';
+            PurchaseRN."Pay-to Vendor No." := 'DEPART';
+            PurchaseRN."Invoice Disc. Code" := 'DEPART';
+            PurchaseRN."Shortcut Dimension 1 Code" := BusinessCode;
+            PurchaseRN."Shortcut Dimension 2 Code" := EmployeeCard."Department Code";
+            PurchaseRN."Responsibility Center" := EmployeeCard."Responsibility Center";
+            PurchaseRN."Assigned User ID" := UserID;
+            PurchaseRN."No. Series" := 'PRN';
+            PurchaseRN."Order Date" := TODAY;
+            PurchaseRN."Due Date" := TODAY;
+            PurchaseRN."Expected Receipt Date" := TODAY;
+            PurchaseRN."Posting Description" := Purpose;
+            PurchaseRN.INSERT;
+        END;
+    end;
+    procedure GetLastPRNNo(username: Code[30]) Message: Text
+    begin
+        PurchaseRN.Reset();
+        PurchaseRN.SETRANGE(PurchaseRN."Assigned User ID", username);
+        IF PurchaseRN.FIND('+') THEN BEGIN
+            Message := PurchaseRN."No.";
+        END
+    end;
+    procedure SubmitPurchaseLine(DocumentType: integer; DocumentNo: Text; FunctionNo: Code[50]; LocationID: Text; ExpectedDate: Date; FunctionDesc: Text; UnitsOfMeasure: Text; Quantityz: Decimal)
+    begin
+        PurchaseLines.INIT;
+        PurchaseLines.Type := DocumentType;
+        PurchaseLines."Document Type" := PurchaseLines."Document Type"::Quote;
+        PurchaseLines."Document No." := DocumentNo;
+        PurchaseLines."Line No." := PurchaseLines.COUNT + 1;
+        PurchaseLines."No." := FunctionNo;
+        PurchaseLines."Location Code" := LocationID;
+        PurchaseLines."Expected Receipt Date" := ExpectedDate;
+        PurchaseLines.Description := FunctionDesc;
+        PurchaseLines."Unit of Measure" := UnitsOfMeasure;
+        PurchaseLines.Quantity := Quantityz;
+        PurchaseLines.Validate("Document No.");
+        PurchaseLines.INSERT;
+    end;
+    procedure GetPRNItems() Message: Text
+    begin
+        Items.Reset();
+        Items.SETFILTER(Items.Description, '<>%1', '');
+        IF Items.FIND('-') THEN BEGIN
+            repeat
+                Message := Message + Items."No." + ' ::' + Items.Description + ' :::';
+            until Items.Next = 0;
+        END
+    end;
+    procedure GetGLItems() Message: Text
+    begin
+        GLAccounts.Reset();
+        //GLAccounts.SETRANGE(GLAccounts.IsService, true);
+        GLAccounts.SETRANGE(GLAccounts."Account Type", GLAccounts."Account Type"::Posting);
+        IF GLAccounts.FIND('-') THEN BEGIN
+            repeat
+                Message := Message + GLAccounts."No." + ' ::' + GLAccounts.Name + ' :::';
+            until GLAccounts.Next = 0;
+        END
+    end;
+    procedure GetPRNHeaderDetails(PurchaseNo: Text) Message: Text
+    begin
+        PurchaseRN.Reset();
+        PurchaseRN.SETRANGE(PurchaseRN."No.", PurchaseNo);
+        IF PurchaseRN.FIND('-') THEN BEGIN
+            Message := FORMAT(PurchaseRN."Expected Receipt Date");
+        END
+    end;
+     procedure PRNApprovalRequest(ReqNo: Text)
+     var
+     ApprovalMgmtExt: Codeunit "Approvals Mgmt.";
+    begin
+        PurchaseRN.Reset();
+        PurchaseRN.SETRANGE(PurchaseRN."No.", ReqNo);
+        IF PurchaseRN.FIND('-')
+        THEN BEGIN
+            ApprovalMgmtExt.CheckPurchaseApprovalPossible(PurchaseRN);
+            ApprovalMgmtExt.OnSendPurchaseDocForApproval(PurchaseRN);
+        END;
+    end;
+    procedure CancelPrnApprovalRequest(ReqNo: Text)
+    var
+    ApprovalMgmtExt: Codeunit "Approvals Mgmt.";
+    begin
+        PurchaseRN.Reset();
+        PurchaseRN.SETRANGE(PurchaseRN."No.", ReqNo);
+        IF PurchaseRN.FIND('-')
+        THEN BEGIN
+            ApprovalMgmtExt.OnCancelPurchaseApprovalRequest(PurchaseRN);
+        END;
+    end;
+    procedure RemovePurchaseLine(LineNo: Integer)
+    begin
+        PurchaseLines.Reset();
+        PurchaseLines.SETRANGE(PurchaseLines."Line No.", LineNo);
+        IF PurchaseLines.FIND('-') THEN BEGIN
+            PurchaseLines.DELETE;
+            MESSAGE('Line Deleted Successfully');
+        END;
     end;
     #endregion
 }
