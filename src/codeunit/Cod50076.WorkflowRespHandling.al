@@ -15,7 +15,7 @@ codeunit 50076 "Workflow Resp. Handling"
     local procedure OnOpenDocument(RecRef: RecordRef; var Handled: Boolean)
     begin
         case RecRef.Number of
-            /*Repair Request */
+            /*Repair Request  */
             Database::"Repair Request":
                 begin
                     RecRef.SetTable(RepairRequest);
