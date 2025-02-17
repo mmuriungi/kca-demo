@@ -872,7 +872,9 @@ page 50161 "Budget Workplan"
         IF (LineDimOption <> LineDimOption::Period) AND (ColumnDimOption <> ColumnDimOption::Period) THEN
             DateFilter := InternalDateFilter;
     end;
-
+    //01/01/2019..15/02/2025
+    //StartDate := Rec.GetRangeMin(Rec."Date Filter");
+    //EndDate := Rec.GetRangeMax(Rec."Date Filter");
     local procedure GetDimSelection(OldDimSelCode: Text[30]): Text[30]
     var
         GLAcc: Record "Workplan Activities";
