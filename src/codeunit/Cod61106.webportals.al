@@ -3802,6 +3802,7 @@ Codeunit 61106 webportals
 
 
     procedure StoreRequisitionApprovalRequest(ReqNo: Text)
+    var
     ApprovalMngt: Codeunit "Init Code";
     begin
         StoreRequisition.Reset;
