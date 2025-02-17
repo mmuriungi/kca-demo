@@ -715,7 +715,7 @@ page 50374 "HRM-Employee-List"
                              END;
                              */
                             dateofJoining := 0D;
-                            dateofLeaving := CalcDate('-1M', Today);
+                            //dateofLeaving := CalcDate('-1M', Today);
                             if HrEmployee."Date Of Join" = 0D then dateofJoining := CalcDate('-1M', Today);
                             //Progress Window
                             PeriodTrans.Reset;

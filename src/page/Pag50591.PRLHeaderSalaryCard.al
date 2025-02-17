@@ -544,7 +544,7 @@ page 50591 "PRL-Header Salary Card"
                 Image = ExecuteBatch;
                 Promoted = true;
                 PromotedCategory = Process;
-                Visible = true;
+                Visible = false;
 
                 trigger OnAction()
                 var
@@ -780,9 +780,9 @@ page 50591 "PRL-Header Salary Card"
                                     , false, false, SelectedPeriod, SelectedPeriod, '', '',
                                     dateofLeaving, false, HrEmployee."Department Code"); */
 
-                                ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
-                    , salaryCard."Pays NSSF", salaryCard."Pays NHIF", SelectedPeriod, SelectedPeriod, '', '',
-                    dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", PayrollCode, true);
+                                // ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
+                                //, salaryCard."Pays NSSF", salaryCard."Pays NHIF", salaryCard."Pays Housing Levy", SelectedPeriod, SelectedPeriod, '', '',
+                                // dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", PayrollCode, true);
 
 
                                 //END;// Has Transaction
@@ -811,9 +811,9 @@ page 50591 "PRL-Header Salary Card"
                                                 /* ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
                                                     , salaryCard."Pays NSSF", salaryCard."Pays NHIF", SelectedPeriod, SelectedPeriod, '', '',
                                                     dateofLeaving, GetsPAYERelief, HrEmployee."Department Code"); */
-                                                ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
-                 , salaryCard."Pays NSSF", salaryCard."Pays NHIF", SelectedPeriod, SelectedPeriod, '', '',
-                 dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", PayrollCode, true);
+                                                // ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, salaryCard."Basic Pay", salaryCard."Pays PAYE"
+                                                // , salaryCard."Pays NSSF", salaryCard."Pays NHIF", salaryCard."Pays Housing Levy", SelectedPeriod, SelectedPeriod, '', '',
+                                                // dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", PayrollCode, true);
 
                                                 Clear(Var1);
                                                 counts := counts + 1;
