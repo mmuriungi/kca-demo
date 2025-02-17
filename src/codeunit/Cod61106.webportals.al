@@ -50,7 +50,7 @@ Codeunit 61106 webportals
         AppMgt: Codeunit "Approval Workflows V1";
         // ApprovalSetup: Record UnknownRecord452;
         Text004: label 'Approval Setup not found.';
-        FILESPATH_S: label 'C:\inetpub\wwwroot\Downloads2\';
+        FILESPATH_S: label 'C:\inetpub\wwwroot\Downloads\';
         RelieverName: Text;
         LeaveLE: Record "HRM-Leave Ledger";
         ExamResults: Record "ACA-Exam Results";
@@ -94,7 +94,7 @@ Codeunit 61106 webportals
         VoteElection: Record "ELECT Election Result";
         KUCCPSRaw: Record "KUCCPS Imports";
         AdmissionFormHeader: Record "ACA-Adm. Form Header";
-        FILESPATH_A: label 'C:\inetpub\wwwroot\Downloads3\';
+        FILESPATH_A: label 'C:\inetpub\wwwroot\Downloads\';
         OnlineUsersz: Record "OnlineUsers";
         AplicFormHeader: Record "ACA-Applic. Form Header";
         ProgEntrySubjects: Record "ACA-Programme Entry Subjects";
@@ -3802,6 +3802,7 @@ Codeunit 61106 webportals
 
 
     procedure StoreRequisitionApprovalRequest(ReqNo: Text)
+    var
     ApprovalMngt: Codeunit "Init Code";
     begin
         StoreRequisition.Reset;
