@@ -116,6 +116,48 @@ page 51448 "PRL-Payroll Role Center"
                     Image = "Report";
                     RunObject = Report "Staff Provident Report";
                 }
+                action("Deductions Variance Report")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Deductions Variance Report';
+                    Image = Report;
+                    RunObject = Report "Deductions Variance Report";
+                }
+                action("Gross Netpay")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Gross Netpay';
+                    Image = "Report";
+                    RunObject = Report "Gross Netpay Ext";
+                }
+                action("Company Payslip")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Company Payslip';
+                    Image = "Report";
+                    RunObject = Report "Company Payslip Ext";
+                }
+                action("Payroll Variance Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Payroll Variance Report';
+                    Image = "Report";
+                    RunObject = Report "Payroll Variance Report Extt";
+                }
+                action("Payroll Variance 2")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Payroll Variance 2';
+                    Image = "Report";
+                    RunObject = Report "Payroll Variance 2 Ext";
+                }
+                action("Payroll Comparison")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Payroll Comparison';
+                    Image = "Report";
+                    RunObject = Report "Payroll Comparison Ext";
+                }
 
 
                 // action(Action1000000038)

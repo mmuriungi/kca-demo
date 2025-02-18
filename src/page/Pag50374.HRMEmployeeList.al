@@ -2,7 +2,7 @@ page 50374 "HRM-Employee-List"
 {
     CardPageID = "PRL-Header Salary Card";
     Editable = true;
-    InsertAllowed = true;
+    InsertAllowed = false;
     ModifyAllowed = true;
     DeleteAllowed = false;
     PageType = List;
