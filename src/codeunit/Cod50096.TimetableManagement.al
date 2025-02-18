@@ -12,6 +12,7 @@ codeunit 50096 "Timetable Management"
         TotalRecords: Integer;
         CurrentRecord: Integer;
         ProgressWindow: Dialog;
+        RemainingRecords: Integer;
     begin
         CourseOffering.Reset();
         CourseOffering.SetRange(Semester, Semester);
@@ -24,6 +25,8 @@ codeunit 50096 "Timetable Management"
                 ProgressWindow.Update(1, CurrentRecord);
                 if not AssignTimeAndLocation(CourseOffering) then
                     LogSchedulingIssue(CourseOffering);
+                RemainingRecords := TotalRecords - CurrentRecord;
+                ProgressWindow.Update(2, RemainingRecords);
             until CourseOffering.Next() = 0;
             ProgressWindow.Close();
         end;
