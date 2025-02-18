@@ -219,7 +219,7 @@ codeunit 50096 "Timetable Management"
             end;
         until NextTimeSlot.Next() = 0;
         //if still not successful, try next lecture hall with a random time slot that is free three times
-        for i := 1 to 3 do begin
+        for i := 1 to NextTimeSlot.Count do begin
             //get a random time slot
             TimeSlot.Reset();
             TimeSlot.FindSet(false, false);
