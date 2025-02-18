@@ -35,11 +35,33 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Lecturer Code';
         }
-        //semester
         field(7; Semester; Code[20])
         {
             Caption = 'Semester';
         }
+        field(8; "Programme Code"; Code[20])
+        {
+            Caption = 'Programme Code';
+        }
+        //Day
+        field(9; "Day of Week"; Option)
+        {
+            Caption = 'Day of Week';
+            OptionMembers = Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday;
+        }
+        field(10; "Start Time"; Time)
+        {
+            Caption = 'Start Time';
+        }
+        field(11; "End Time"; Time)
+        {
+            Caption = 'End Time';
+        }
+        field(12; "Duration (Hours)"; Decimal)
+        {
+            Caption = 'Duration (Hours)';
+        }
+        
     }
 
     keys

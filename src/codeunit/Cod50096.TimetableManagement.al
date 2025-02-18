@@ -9,14 +9,23 @@ codeunit 50096 "Timetable Management"
     var
         CourseOffering: Record "ACA-Lecturers Units";
         TimetableEntry: Record "Timetable Entry";
+        TotalRecords: Integer;
+        CurrentRecord: Integer;
+        ProgressWindow: Dialog;
     begin
         CourseOffering.Reset();
         CourseOffering.SetRange(Semester, Semester);
-        if CourseOffering.FindSet() then
+        if CourseOffering.FindSet() then begin
+            TotalRecords := CourseOffering.Count();
+            ProgressWindow.Open('Generating Timetable...\\@1@@@@@@@@@@@@', CurrentRecord, TotalRecords);
             repeat
+                CurrentRecord += 1;
+                ProgressWindow.Update(1, CurrentRecord);
                 if not AssignTimeAndLocation(CourseOffering) then
                     LogSchedulingIssue(CourseOffering);
             until CourseOffering.Next() = 0;
+            ProgressWindow.Close();
+        end;
     end;
 
     procedure GetSemesterAcademicYear(Sem: Code[25]): Code[20]
@@ -56,6 +65,11 @@ codeunit 50096 "Timetable Management"
                         TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
                         TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
                         TimetableEntry."Time Slot Code" := TimeSlot.Code;
+                        TimetableEntry."Day of Week" := TimeSlot."Day of Week";
+                        TimetableEntry."Start Time" := TimeSlot."Start Time";
+                        TimetableEntry."End Time" := TimeSlot."End Time";
+                        TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
+                        TimetableEntry."Programme Code" := CourseOffering.Programme;
                         if TimetableEntry.Insert() then
                             exit(true);
                     end
@@ -68,6 +82,11 @@ codeunit 50096 "Timetable Management"
                             TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
                             TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
                             TimetableEntry."Time Slot Code" := TimeSlot.Code;
+                            TimetableEntry."Day of Week" := TimeSlot."Day of Week";
+                            TimetableEntry."Start Time" := TimeSlot."Start Time";
+                            TimetableEntry."End Time" := TimeSlot."End Time";
+                            TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
+                            TimetableEntry."Programme Code" := CourseOffering.Programme;
                             if TimetableEntry.Insert() then
                                 exit(true);
                         end;
