@@ -61,7 +61,11 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Duration (Hours)';
         }
-        
+        //stage
+        field(13; "Stage Code"; Code[20])
+        {
+            Caption = 'Stage Code';
+        }
     }
 
     keys

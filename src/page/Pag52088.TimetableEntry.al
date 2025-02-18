@@ -35,6 +35,31 @@ page 52088 "Timetable Entry"
                 {
                     ToolTip = 'Specifies the value of the Time Slot Code field.', Comment = '%';
                 }
+                field("Stage Code"; Rec."Stage Code")
+                {
+                    ToolTip = 'Specifies the value of the Stage Code field.', Comment = '%';
+                }
+                field("Programme Code"; Rec."Programme Code")
+                {
+                    ToolTip = 'Specifies the value of the Programme Code field.', Comment = '%';
+                }
+                field("Day of Week"; Rec."Day of Week")
+                {
+                    ToolTip = 'Specifies the value of the Day of Week field.', Comment = '%';
+                }
+                field("Start Time"; Rec."Start Time")
+                {
+                    ToolTip = 'Specifies the value of the Start Time field.', Comment = '%';
+                }
+                field("End Time"; Rec."End Time")
+                {
+                    ToolTip = 'Specifies the value of the End Time field.', Comment = '%';
+                }
+                field("Duration (Hours)"; Rec."Duration (Hours)")
+                {
+                    ToolTip = 'Specifies the value of the Duration (Hours) field.', Comment = '%';
+                }
+
             }
         }
     }
