@@ -30,7 +30,7 @@ page 52087 "Timetable Header"
             {
                 ApplicationArea = All;
                 Caption = 'Timetable Entry';
-                SubPageLink = "Academic Year" = field("Academic Year"), Semester = field(Semester);
+                SubPageLink = Semester = field(Semester);
             }
         }
     }

@@ -285,7 +285,7 @@ codeunit 50046 "Exams Processing"
         ACAExamGradingSource.SETRANGE("Academic Year", acadYears);
         IF ACAExamGradingSource.FIND('-') THEN ACAExamGradingSource.DELETEALL;
         CLEAR(NoofCourses);
-        dials.OPEN('#1###################################################\' +
+        dials.OPEN('#1##################################################\' +
         '#2###################################################\' +
         '#3###################################################');
 
@@ -314,10 +314,6 @@ codeunit 50046 "Exams Processing"
                         ACAExamGradingSource."Total Score" := LowerLimit;
                         ACAExamGradingSource.Grade := ACAExamGraddingSetup.Grade;
                         ACAExamGradingSource."Consolidated Prefix" := ACAExamGraddingSetup."Consolidated Prefix";
-                        if ACAExamGraddingSetup."Results Exists Status" = ACAExamGraddingSetup."Results Exists Status"::"CAT Only" THEN
-                            ACAExamGradingSource.CatMarksExist := TRUE;
-                        if ACAExamGraddingSetup."Results Exists Status" = ACAExamGraddingSetup."Results Exists Status"::"Exam Only" THEN
-                            ACAExamGradingSource.ExamMarksExist := TRUE;
                         ACAExamGradingSource.Remarks := ACAExamGraddingSetup.Remarks;
                         IF ACAExamGraddingSetup.Failed THEN
                             ACAExamGradingSource.Pass := FALSE ELSE
@@ -353,14 +349,10 @@ codeunit 50046 "Exams Processing"
                                 ACAExamGradingSource.Pass := TRUE;
                             ACAExamGradingSource.Remarks := ACAExamGraddingSetup.Remarks;
                             ACAExamGradingSource."Results Exists Status" := ACAExamGraddingSetup."Results Exists Status";
-                            if ACAExamGraddingSetup."Results Exists Status" = ACAExamGraddingSetup."Results Exists Status"::"Both Exists" THEN BEGIN
-                                ACAExamGradingSource.CatMarksExist := TRUE;
-                                ACAExamGradingSource.ExamMarksExist := TRUE;
-                            END;
-                            IF ACAExamGraddingSetup."Results Exists Status" = ACAExamGraddingSetup."Results Exists Status"::"None Exists" THEN BEGIN
-                                ACAExamGradingSource.CatMarksExist := FALSE;
-                                ACAExamGradingSource.ExamMarksExist := FALSE;
-                            END;
+                            if ACAExamGraddingSetup."Results Exists Status" = ACAExamGraddingSetup."Results Exists Status"::"Both Exists" THEN begin
+                                ACAExamGradingSource.CatMarksExist := true;
+                                ACAExamGradingSource.ExamMarksExist := true;
+                            end;
                             IF ACAExamGradingSource.INSERT THEN;
                         END;
 

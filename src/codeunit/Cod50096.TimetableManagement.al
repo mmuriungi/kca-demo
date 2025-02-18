@@ -14,6 +14,10 @@ codeunit 50096 "Timetable Management"
         ProgressWindow: Dialog;
         RemainingRecords: Integer;
     begin
+        //delete all timetable entries for the semester
+        TimetableEntry.Reset();
+        TimetableEntry.SetRange(Semester, Semester);
+        TimetableEntry.DeleteAll(true);
         CourseOffering.Reset();
         CourseOffering.SetRange(Semester, Semester);
         if CourseOffering.FindSet() then begin
@@ -53,6 +57,8 @@ codeunit 50096 "Timetable Management"
         TimeSlot: Record "Time Slot";
         TimetableEntry: Record "Timetable Entry";
         RemainingHours: Integer;
+        Loops: Integer;
+        UnhandledConflict: Integer;
     begin
         RemainingHours := CourseOffering."Time Table Hours";
         CourseOffering.CalcFields("Unit Students Count");
@@ -64,7 +70,8 @@ codeunit 50096 "Timetable Management"
 
         if LectureHall.FindSet() then
             repeat
-                while RemainingHours > 0 do begin
+                while (RemainingHours > 0) and (UnhandledConflict < 42) do begin
+                    Loops += 1;
                     // Find available time slot
                     if FindAvailableTimeSlot(CourseOffering, LectureHall."Lecture Room Code", TimeSlot, CourseOffering.Semester) then begin
                         // Create timetable entry
@@ -100,6 +107,8 @@ codeunit 50096 "Timetable Management"
                             TimetableEntry."Stage Code" := CourseOffering.Stage;
                             if TimetableEntry.Insert() then
                                 exit(true);
+                        end else begin
+                            UnhandledConflict += 1;
                         end;
                     end;
                     if RemainingHours <= 0 then
