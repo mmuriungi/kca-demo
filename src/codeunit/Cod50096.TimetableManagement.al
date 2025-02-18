@@ -9,14 +9,23 @@ codeunit 50096 "Timetable Management"
     var
         CourseOffering: Record "ACA-Lecturers Units";
         TimetableEntry: Record "Timetable Entry";
+        TotalRecords: Integer;
+        CurrentRecord: Integer;
+        ProgressWindow: Dialog;
     begin
         CourseOffering.Reset();
         CourseOffering.SetRange(Semester, Semester);
-        if CourseOffering.FindSet() then
+        if CourseOffering.FindSet() then begin
+            TotalRecords := CourseOffering.Count();
+            ProgressWindow.Open('Generating Timetable...\\@1@@@@@@@@@@@@', CurrentRecord, TotalRecords);
             repeat
+                CurrentRecord += 1;
+                ProgressWindow.Update(1, CurrentRecord);
                 if not AssignTimeAndLocation(CourseOffering) then
                     LogSchedulingIssue(CourseOffering);
             until CourseOffering.Next() = 0;
+            ProgressWindow.Close();
+        end;
     end;
 
     procedure GetSemesterAcademicYear(Sem: Code[25]): Code[20]

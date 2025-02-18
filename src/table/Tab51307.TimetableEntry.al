@@ -35,10 +35,21 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Lecturer Code';
         }
-        //semester
         field(7; Semester; Code[20])
         {
             Caption = 'Semester';
+        }
+        field(8; "Programme Code"; Code[20])
+        {
+            Caption = 'Programme Code';
+        }
+        //Day
+        field(9; "Day of Week"; Option)
+        {
+            Caption = 'Day of Week';
+            OptionMembers = Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("Time Slot"."Day of Week" WHERE("Code" = FIELD("Time Slot Code")));
         }
     }
 
