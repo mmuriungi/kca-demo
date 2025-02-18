@@ -949,7 +949,7 @@ page 51448 "PRL-Payroll Role Center"
                     Image = Employee;
 
                     RunObject = Page "HRM-Employee-List";
-                    RunPageView = WHERE(Status = FILTER(<> active));
+                    RunPageView = WHERE(Status = FILTER(Inactive));
                 }
 
                 action("Payroll Mass Changes")
