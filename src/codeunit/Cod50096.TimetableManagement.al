@@ -70,6 +70,7 @@ codeunit 50096 "Timetable Management"
                         TimetableEntry."End Time" := TimeSlot."End Time";
                         TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
                         TimetableEntry."Programme Code" := CourseOffering.Programme;
+                        TimetableEntry."Stage Code" := CourseOffering.Stage;
                         if TimetableEntry.Insert() then
                             exit(true);
                     end
@@ -87,6 +88,7 @@ codeunit 50096 "Timetable Management"
                             TimetableEntry."End Time" := TimeSlot."End Time";
                             TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
                             TimetableEntry."Programme Code" := CourseOffering.Programme;
+                            TimetableEntry."Stage Code" := CourseOffering.Stage;
                             if TimetableEntry.Insert() then
                                 exit(true);
                         end;
@@ -108,11 +110,11 @@ codeunit 50096 "Timetable Management"
         if TimeSlot.FindSet() then
             repeat
                 // Check if lecture hall is available
-                if not IsRoomBooked(CourseOffering."Academic Year", LectureHallCode, TimeSlot.Code, CourseOffering.Semester) then begin
+                if not IsRoomBooked(CourseOffering."Academic Year", LectureHallCode, TimeSlot.Code, CourseOffering.Semester, CourseOffering.Stage) then begin
                     // Check if lecturer is available
-                    if not IsLecturerBusy(CourseOffering."Lecturer", CourseOffering."Academic Year", TimeSlot.Code, Semester) then begin
+                    if not IsLecturerBusy(CourseOffering."Lecturer", CourseOffering."Academic Year", TimeSlot.Code, Semester, CourseOffering.Stage) then begin
                         // Check if there's a conflict with the same course in a different programme
-                        if not IsCourseConflict(CourseOffering, TimeSlot.Code, Semester) then begin
+                        if not IsCourseConflict(CourseOffering, TimeSlot.Code, Semester, CourseOffering.Stage) then begin
                             AvailableTimeSlot := TimeSlot;
                             exit(true);
                         end;
@@ -123,12 +125,13 @@ codeunit 50096 "Timetable Management"
         exit(false);
     end;
 
-    local procedure IsLecturerBusy(LecturerNo: Code[20]; AcademicYear: Code[20]; TimeSlotCode: Code[20]; Semester: Code[25]): Boolean
+    local procedure IsLecturerBusy(LecturerNo: Code[20]; AcademicYear: Code[20]; TimeSlotCode: Code[20]; Semester: Code[25]; Stage: Code[20]): Boolean
     var
         TimetableEntry: Record "Timetable Entry";
         CourseOffering: Record "ACA-Lecturers Units";
     begin
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
+        TimetableEntry.SetRange("Stage Code", Stage);
         if TimetableEntry.FindSet() then
             repeat
                 if CourseOffering.Get(TimetableEntry."Unit Code") then
@@ -139,19 +142,21 @@ codeunit 50096 "Timetable Management"
         exit(false);
     end;
 
-    local procedure IsCourseConflict(CourseOffering: Record "ACA-Lecturers Units"; TimeSlotCode: Code[20]; Semester: Code[25]): Boolean
+    local procedure IsCourseConflict(CourseOffering: Record "ACA-Lecturers Units"; TimeSlotCode: Code[20]; Semester: Code[25]; Stage: Code[20]): Boolean
     var
         TimetableEntry: Record "Timetable Entry";
         ConflictingCourseOffering: Record "ACA-Lecturers Units";
     begin
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
         TimetableEntry.SetRange(Semester, Semester);
+        TimetableEntry.SetRange("Stage Code", Stage);
         if TimetableEntry.FindSet() then
             repeat
                 ConflictingCourseOffering.Reset();
                 ConflictingCourseOffering.SetRange(Semester, Semester);
                 ConflictingCourseOffering.SetRange("Unit", TimetableEntry."Unit Code");
                 ConflictingCourseOffering.SetRange("Lecturer", CourseOffering.Lecturer);
+                //ConflictingCourseOffering.SetRange("Stage Code", Stage);
                 if ConflictingCourseOffering.Find('-') then
                     if (ConflictingCourseOffering.Unit = CourseOffering.Unit) and
                        (ConflictingCourseOffering.Programme <> CourseOffering.Programme) then
@@ -208,7 +213,7 @@ codeunit 50096 "Timetable Management"
         SchedulingIssue.Insert();
     end;
 
-    local procedure IsRoomBooked(AcademicYear: Code[20]; LectureHallCode: Code[20]; TimeSlotCode: Code[20]; Semester: Code[25]): Boolean
+    local procedure IsRoomBooked(AcademicYear: Code[20]; LectureHallCode: Code[20]; TimeSlotCode: Code[20]; Semester: Code[25]; Stage: Code[20]): Boolean
     var
         TimetableEntry: Record "Timetable Entry";
     begin
@@ -216,6 +221,7 @@ codeunit 50096 "Timetable Management"
         TimetableEntry.SetRange("Lecture Hall Code", LectureHallCode);
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
         TimetableEntry.SetRange(Semester, Semester);
+        TimetableEntry.SetRange("Stage Code", Stage);
         exit(not TimetableEntry.IsEmpty);
     end;
 }
