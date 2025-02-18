@@ -17,6 +17,7 @@ codeunit 50096 "Timetable Management"
         CourseOffering.SetRange(Semester, Semester);
         if CourseOffering.FindSet() then begin
             TotalRecords := CourseOffering.Count();
+            Message('Total Records to schedule: %1', TotalRecords);
             ProgressWindow.Open('Generating Timetable...\\@1@@@@@@@@@@@@', CurrentRecord, TotalRecords);
             repeat
                 CurrentRecord += 1;
