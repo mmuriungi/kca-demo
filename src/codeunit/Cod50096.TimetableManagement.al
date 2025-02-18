@@ -65,6 +65,11 @@ codeunit 50096 "Timetable Management"
                         TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
                         TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
                         TimetableEntry."Time Slot Code" := TimeSlot.Code;
+                        TimetableEntry."Day of Week" := TimeSlot."Day of Week";
+                        TimetableEntry."Start Time" := TimeSlot."Start Time";
+                        TimetableEntry."End Time" := TimeSlot."End Time";
+                        TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
+                        TimetableEntry."Programme Code" := CourseOffering.Programme;
                         if TimetableEntry.Insert() then
                             exit(true);
                     end
@@ -77,6 +82,11 @@ codeunit 50096 "Timetable Management"
                             TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
                             TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
                             TimetableEntry."Time Slot Code" := TimeSlot.Code;
+                            TimetableEntry."Day of Week" := TimeSlot."Day of Week";
+                            TimetableEntry."Start Time" := TimeSlot."Start Time";
+                            TimetableEntry."End Time" := TimeSlot."End Time";
+                            TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
+                            TimetableEntry."Programme Code" := CourseOffering.Programme;
                             if TimetableEntry.Insert() then
                                 exit(true);
                         end;

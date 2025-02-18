@@ -48,9 +48,20 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Day of Week';
             OptionMembers = Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday;
-            FieldClass = FlowField;
-            CalcFormula = Lookup("Time Slot"."Day of Week" WHERE("Code" = FIELD("Time Slot Code")));
         }
+        field(10; "Start Time"; Time)
+        {
+            Caption = 'Start Time';
+        }
+        field(11; "End Time"; Time)
+        {
+            Caption = 'End Time';
+        }
+        field(12; "Duration (Hours)"; Decimal)
+        {
+            Caption = 'Duration (Hours)';
+        }
+        
     }
 
     keys
