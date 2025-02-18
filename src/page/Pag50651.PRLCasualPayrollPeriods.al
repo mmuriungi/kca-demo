@@ -1,7 +1,7 @@
 page 50651 "PRL-Casual Payroll Periods"
 {
     DeleteAllowed = false;
-    InsertAllowed = false;
+    InsertAllowed = true;
     PageType = List;
     SourceTable = "PRL-Casual Payroll Periods";
 
