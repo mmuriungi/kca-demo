@@ -12,7 +12,7 @@ page 50591 "PRL-Header Salary Card"
     SourceTable = "HRM-Employee C";
     SourceTableView = SORTING("No.")
                       ORDER(Ascending)
-                      WHERE(Status = FILTER(Active));
+                      WHERE(Status = FILTER(Active | Inactive));
 
 
     layout

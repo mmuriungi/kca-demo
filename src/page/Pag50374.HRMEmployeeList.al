@@ -9,7 +9,7 @@ page 50374 "HRM-Employee-List"
     SourceTable = "HRM-Employee C";
     SourceTableView = SORTING("No.")
                       ORDER(Ascending)
-                      WHERE(Status = FILTER(Active),
+                      WHERE(
                             "Posting Group" = FILTER('PAYROLL'),
                             "Employee Category" = filter(<> 'PART-TIME'));
 
