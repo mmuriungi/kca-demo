@@ -78,6 +78,8 @@ page 50051 "Casual Import List"
             {
                 Caption = 'Export';
                 Image = ExportToExcel;
+                Promoted = true;
+                PromotedCategory = Process;
                 trigger OnAction()
                 var
                     csv: Codeunit "Csv Generator";
@@ -89,10 +91,10 @@ page 50051 "Casual Import List"
                     begin
                         //date,student no,description,amount,transaction code,idno,
                         recref.GetTable(Rec);
-                        FieldRef[1] := recref.Field(Rec.FieldNo("F. Name"));
-                        FieldRef[2] := recref.Field(Rec.FieldNo("M. Name"));
-                        FieldRef[3] := recref.Field(Rec.FieldNo("L. Name"));
-                        FieldRef[4] := recref.Field(Rec.FieldNo("No."));
+                        FieldRef[1] := recref.Field(Rec.FieldNo("No."));
+                        FieldRef[2] := recref.Field(Rec.FieldNo("F. Name"));
+                        FieldRef[3] := recref.Field(Rec.FieldNo("M. Name"));
+                        FieldRef[4] := recref.Field(Rec.FieldNo("L. Name"));
                         FieldRef[5] := recref.Field(Rec.FieldNo("Bank Code"));
                         FieldRef[6] := recref.Field(Rec.FieldNo("A/C No."));
                         FieldRef[7] := recref.Field(Rec.FieldNo(Days));
@@ -103,7 +105,7 @@ page 50051 "Casual Import List"
                         FieldRef[12] := recref.Field(Rec.FieldNo("Department Code"));
                         FieldRef[13] := recref.Field(Rec.FieldNo("Branch Code"));
                         FileName := 'Casual List.xlsx';
-                        csv.ExportExcelFile(FileName, recref, FieldRef, 7, ExcelBuffer, 'Casual List', 1);
+                        csv.ExportExcelFile(FileName, recref, FieldRef, 13, ExcelBuffer, 'Casual List', 1);
                         csv.downloadFromExelBuffer(ExcelBuffer, FileName);
                     end;
             }
@@ -111,6 +113,8 @@ page 50051 "Casual Import List"
             {
                 Caption = 'Import';
                 Image = ImportExcel;
+                Promoted = true;
+                PromotedCategory = Process;
                 trigger OnAction()
                 var
                     csv: Codeunit "Csv Generator";
@@ -124,10 +128,10 @@ page 50051 "Casual Import List"
                     begin
                         recref[1].GetTable(Rec);
                         ArrSheetName[1] := 'Casual List';
+                        fieldlist.Add(Rec.FieldNo("No."));
                         fieldlist.Add(Rec.FieldNo("F. Name"));
                         fieldlist.Add(Rec.FieldNo("M. Name"));
                         fieldlist.Add(Rec.FieldNo("L. Name"));
-                        fieldlist.Add(Rec.FieldNo("No."));
                         fieldlist.Add(Rec.FieldNo("Bank Code"));
                         fieldlist.Add(Rec.FieldNo("A/C No."));
                         fieldlist.Add(Rec.FieldNo(Days));
