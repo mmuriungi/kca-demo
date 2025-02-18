@@ -88,6 +88,34 @@ page 51448 "PRL-Payroll Role Center"
                     Image = "Report";
                     RunObject = Report "Earnings Summary Ext";
                 }
+                action("Deductions Summary 2")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Deductions Summary 2';
+                    Image = "Report";
+                    RunObject = Report "Deductions Summary 2 Ext";
+                }
+                action("Earnings Summary 2")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Earnings Summary 2';
+                    Image = "Report";
+                    RunObject = Report "Earnings Summary 2 Ext";
+                }
+                action("Staff Pension")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Staff Pension';
+                    Image = "Report";
+                    RunObject = Report "Staff Pension Ext";
+                }
+                action("Staff Provident Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Staff Provident Report';
+                    Image = "Report";
+                    RunObject = Report "Staff Provident Report";
+                }
 
 
                 // action(Action1000000038)
