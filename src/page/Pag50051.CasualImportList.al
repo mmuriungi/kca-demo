@@ -11,6 +11,11 @@ page 50051 "Casual Import List"
         {
             repeater(General)
             {
+
+                field("No."; Rec."No.")
+                {
+                    ToolTip = 'Specifies the value of the No. field.', Comment = '%';
+                }
                 field("F. Name"; Rec."F. Name")
                 {
                     ToolTip = 'Specifies the value of the F. Name field.', Comment = '%';
@@ -25,10 +30,6 @@ page 50051 "Casual Import List"
                 {
                     ToolTip = 'Specifies the value of the L. Name field.', Comment = '%';
                     Caption = 'Last Name';
-                }
-                field("No."; Rec."No.")
-                {
-                    ToolTip = 'Specifies the value of the No. field.', Comment = '%';
                 }
                 field("Bank Code"; Rec."Bank Code")
                 {
