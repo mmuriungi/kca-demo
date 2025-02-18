@@ -11,13 +11,22 @@ codeunit 50096 "Timetable Management"
         TimetableEntry: Record "Timetable Entry";
     begin
         CourseOffering.Reset();
-        CourseOffering.SetRange("Academic Year", AcademicYear);
         CourseOffering.SetRange(Semester, Semester);
         if CourseOffering.FindSet() then
             repeat
                 if not AssignTimeAndLocation(CourseOffering) then
                     LogSchedulingIssue(CourseOffering);
             until CourseOffering.Next() = 0;
+    end;
+
+    procedure GetSemesterAcademicYear(Sem: Code[25]): Code[20]
+    var
+        Semester: Record "ACA-Semesters";
+    begin
+        Semester.Reset();
+        Semester.SetRange(Code, Sem);
+        if Semester.FindFirst() then
+            exit(Semester."Academic Year");
     end;
 
     local procedure AssignTimeAndLocation(var CourseOffering: Record "ACA-Lecturers Units"): Boolean
@@ -42,7 +51,6 @@ codeunit 50096 "Timetable Management"
                     if FindAvailableTimeSlot(CourseOffering, LectureHall."Lecture Room Code", TimeSlot, CourseOffering.Semester) then begin
                         // Create timetable entry
                         TimetableEntry.Init();
-                        TimetableEntry."Academic Year" := CourseOffering."Academic Year";
                         TimetableEntry."Unit Code" := CourseOffering.Unit;
                         TimetableEntry.Semester := CourseOffering.Semester;
                         TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
@@ -55,7 +63,6 @@ codeunit 50096 "Timetable Management"
                         // Handle conflict
                         if HandleAllocationConflict(CourseOffering, TimeSlot, LectureHall, CourseOffering.Semester) then begin
                             TimetableEntry.Init();
-                            TimetableEntry."Academic Year" := CourseOffering."Academic Year";
                             TimetableEntry."Unit Code" := CourseOffering.Unit;
                             TimetableEntry.Semester := CourseOffering.Semester;
                             TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
@@ -102,7 +109,6 @@ codeunit 50096 "Timetable Management"
         TimetableEntry: Record "Timetable Entry";
         CourseOffering: Record "ACA-Lecturers Units";
     begin
-        TimetableEntry.SetRange("Academic Year", AcademicYear);
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
         if TimetableEntry.FindSet() then
             repeat
@@ -119,13 +125,11 @@ codeunit 50096 "Timetable Management"
         TimetableEntry: Record "Timetable Entry";
         ConflictingCourseOffering: Record "ACA-Lecturers Units";
     begin
-        TimetableEntry.SetRange("Academic Year", CourseOffering."Academic Year");
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
         TimetableEntry.SetRange(Semester, Semester);
         if TimetableEntry.FindSet() then
             repeat
                 ConflictingCourseOffering.Reset();
-                ConflictingCourseOffering.SetRange("Academic Year", CourseOffering."Academic Year");
                 ConflictingCourseOffering.SetRange(Semester, Semester);
                 ConflictingCourseOffering.SetRange("Unit", TimetableEntry."Unit Code");
                 ConflictingCourseOffering.SetRange("Lecturer", CourseOffering.Lecturer);
@@ -178,7 +182,6 @@ codeunit 50096 "Timetable Management"
         SchedulingIssue: Record "Scheduling Issue";
     begin
         SchedulingIssue.Init();
-        SchedulingIssue."Academic Year" := CourseOffering."Academic Year";
         SchedulingIssue."Course Code" := CourseOffering.Unit;
         SchedulingIssue."Programme" := CourseOffering.Programme;
         SchedulingIssue."Lecturer Code" := CourseOffering.Lecturer;
@@ -191,7 +194,6 @@ codeunit 50096 "Timetable Management"
         TimetableEntry: Record "Timetable Entry";
     begin
         TimetableEntry.Reset();
-        TimetableEntry.SetRange("Academic Year", AcademicYear);
         TimetableEntry.SetRange("Lecture Hall Code", LectureHallCode);
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
         TimetableEntry.SetRange(Semester, Semester);
