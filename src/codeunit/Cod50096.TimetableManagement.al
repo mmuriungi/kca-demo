@@ -18,15 +18,20 @@ codeunit 50096 "Timetable Management"
         CourseOffering.SetRange(Semester, Semester);
         if CourseOffering.FindSet() then begin
             TotalRecords := CourseOffering.Count();
+            RemainingRecords := TotalRecords;
             Message('Total Records to schedule: %1', TotalRecords);
-            ProgressWindow.Open('Generating Timetable...\\@1@@@@@@@@@@@@', CurrentRecord, TotalRecords);
+            ProgressWindow.Open('#1###################################################\' +
+        '#2###################################################\' +
+        '#3###################################################');
+
             repeat
                 CurrentRecord += 1;
-                ProgressWindow.Update(1, CurrentRecord);
+                ProgressWindow.Update(1, 'Total: ' + FORMAT(TotalRecords));
+                ProgressWindow.Update(2, 'Current: ' + FORMAT(CurrentRecord));
+                ProgressWindow.Update(3, 'Remaining: ' + FORMAT(RemainingRecords));
                 if not AssignTimeAndLocation(CourseOffering) then
                     LogSchedulingIssue(CourseOffering);
                 RemainingRecords := TotalRecords - CurrentRecord;
-                ProgressWindow.Update(2, RemainingRecords);
             until CourseOffering.Next() = 0;
             ProgressWindow.Close();
         end;
@@ -174,6 +179,8 @@ codeunit 50096 "Timetable Management"
     var
         NextTimeSlot: Record "Time Slot";
         NextLectureHall: Record "ACA-Lecturer Halls Setup";
+        PreviousLectureHall: Record "ACA-Lecturer Halls Setup";
+        i: Integer;
     begin
         // Try next time slot
         NextTimeSlot := TimeSlot;
@@ -191,6 +198,16 @@ codeunit 50096 "Timetable Management"
             if FindAvailableTimeSlot(CourseOffering, LectureHall."Lecture Room Code", TimeSlot, Semester) then
                 exit(true);
         end;
+        PreviousLectureHall := LectureHall;
+        //try a previous lecture hall randomly
+        PreviousLectureHall.Reset();
+        if PreviousLectureHall.FindSet(false, false) then begin
+            PreviousLectureHall.Next(Random(PreviousLectureHall.Count));
+            LectureHall := PreviousLectureHall;
+            if FindAvailableTimeSlot(CourseOffering, LectureHall."Lecture Room Code", TimeSlot, Semester) then
+                exit(true);
+        end;
+        NextLectureHall := LectureHall;
 
         // If still not successful, try combination of next time slot and next lecture hall
         NextTimeSlot.FindSet();
@@ -201,6 +218,17 @@ codeunit 50096 "Timetable Management"
                 exit(true);
             end;
         until NextTimeSlot.Next() = 0;
+        //if still not successful, try next lecture hall with a random time slot that is free three times
+        for i := 1 to 3 do begin
+            //get a random time slot
+            TimeSlot.Reset();
+            TimeSlot.FindSet(false, false);
+            TimeSlot.Next(Random(TimeSlot.Count));
+            if FindAvailableTimeSlot(CourseOffering, NextLectureHall."Lecture Room Code", TimeSlot, Semester) then begin
+                LectureHall := NextLectureHall;
+                exit(true);
+            end;
+        end;
 
         exit(false);
     end;
