@@ -1,7 +1,7 @@
 report 50524 "Provisional College Transcrip3"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/Provisional College Transcrip3.rdlc';
+    RDLCLayout = './Layouts/Provisional College Transcrip3.rdl';
     Caption = 'Provisional University Transcript';
 
     dataset
