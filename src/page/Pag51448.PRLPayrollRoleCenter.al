@@ -974,6 +974,14 @@ page 51448 "PRL-Payroll Role Center"
                     RunObject = Page "HRM-Casual Pay List";
 
                 }
+                action("Casual Import List")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Casual Import List';
+                    Image = Employee;
+
+                    RunObject = Page "Casual Import List";
+                }
                 action("Casual Worked Days")
                 {
                     ApplicationArea = all;
