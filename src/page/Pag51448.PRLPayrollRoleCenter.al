@@ -601,6 +601,42 @@ page 51448 "PRL-Payroll Role Center"
                 //     RunObject = Report "Co-op Remmitance";
                 // }
             }
+
+            group("Periodic Reports")
+            {
+                Image = Payables;
+
+                action("P9 Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'P9 Report';
+                    Image = PrintForm;
+                    RunObject = Report "P9 Report Ext";
+                }
+                action("Transactions")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Transactions';
+                    Image = "PrintForm";
+                    RunObject = Report "Transactions Ext";
+                }
+                action("Bank Schedule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Bank Schedule';
+                    Image = "PrintForm";
+                    RunObject = Report "Bank Schedule Ext";
+                }
+                action("Employer Certificate")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Employer Certificate';
+                    Image = "PrintForm";
+                    RunObject = Report "Employer Certificate Ext";
+                }
+
+
+            }
             group(PeriodicActivities)
             {
                 action("Journal Transfer")
