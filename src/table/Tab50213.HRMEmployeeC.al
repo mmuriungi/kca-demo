@@ -27,13 +27,13 @@ table 50213 "HRM-Employee C"
 
             end;
         }
-        field(2; "First Name"; Text[30])
+        field(2; "First Name"; Text[200])
         {
         }
-        field(3; "Middle Name"; Text[30])
+        field(3; "Middle Name"; Text[200])
         {
         }
-        field(4; "Last Name"; Text[30])
+        field(4; "Last Name"; Text[200])
         {
 
             trigger OnValidate()

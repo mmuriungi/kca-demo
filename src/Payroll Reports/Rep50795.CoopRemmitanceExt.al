@@ -362,8 +362,8 @@ report 50795 "Coop-Remmitance Ext"
         LastFieldNo: Integer;
         FooterPrinted: Boolean;
         TotalFor: label 'Total for ';
-        strEmpName: Text[30];
-        strOrganisation: Text[30];
+        strEmpName: Text[200];
+        strOrganisation: Text[200];
         objEmp: Record "HRM-Employee C";
         objOrg: Record "PRL-Institutional Membership";
         objPeriod: Record "PRL-Payroll Periods";

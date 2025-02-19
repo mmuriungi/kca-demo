@@ -199,8 +199,11 @@ report 50802 "NSSF Schedule Ext"
                 NssfAmount:=0;
                 if PeriodTrans.Find('-') then
                    begin
+                    repeat
 
                       NssfAmount:=PeriodTrans.Amount+PeriodTrans.Amount;
+                      until
+                      PeriodTrans.Next = 0;
                    end;
 
                 //Total Amount=NssfAmount+Volume Amount**************************************************
