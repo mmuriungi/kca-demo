@@ -751,6 +751,13 @@ page 51448 "PRL-Payroll Role Center"
                     Image = Report2;
                     RunObject = Report "Periodic Deductions Ext";
                 }
+                action("Periodic Deductions Summary")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Periodic Deductions Summary';
+                    Image = Report2;
+                    RunObject = Report "Periodic Deductions Summary";
+                }
             }
 
 
