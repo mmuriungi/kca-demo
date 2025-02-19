@@ -130,7 +130,7 @@ report 50114 "Payroll Summary 3"
                 
                 //IF ((prPeriod_Transactions."Group Order"=9) AND (prPeriod_Transactions."Sub Group Order"=0)) THEN
                 if (prPeriod_Transactions."Transaction Code"='NPAY' ) then
-                  NETS:=prPeriod_Transactions.Amount;
+                  NETS:=prPeriod_Transactions.Amount; 
                 
                 
                 Clear(TransTypes);

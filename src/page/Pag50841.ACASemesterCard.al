@@ -81,7 +81,14 @@ page 50841 "ACA-Semester Card"
                 {
                     ApplicationArea = All;
                 }
-
+                field("Exam Start Date"; Rec."Exam Start Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Exam End Date"; Rec."Exam End Date")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
