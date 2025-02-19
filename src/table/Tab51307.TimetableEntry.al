@@ -66,6 +66,17 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Stage Code';
         }
+        //Type
+        field(14; "Type"; Option)
+        {
+            Caption = 'Type';
+            OptionMembers = Class,Exam;
+        }
+        //Date
+        field(15; "Date"; Date)
+        {
+            Caption = 'Date';
+        }
     }
 
     keys

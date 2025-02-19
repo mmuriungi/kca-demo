@@ -141,6 +141,16 @@ table 50609 "ACA-Semesters"
         {
 
         }
+        //Exam Start Date
+        field(27; "Exam Start Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        //Exam End Date
+        field(28; "Exam End Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
