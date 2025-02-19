@@ -87,6 +87,7 @@ codeunit 50096 "Timetable Management"
                         TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
                         TimetableEntry."Programme Code" := CourseOffering.Programme;
                         TimetableEntry."Stage Code" := CourseOffering.Stage;
+                        TimetableEntry.Type := TimetableEntry.Type::Class;
                         if TimetableEntry.Insert() then
                             exit(true);
                     end
@@ -105,6 +106,7 @@ codeunit 50096 "Timetable Management"
                             TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
                             TimetableEntry."Programme Code" := CourseOffering.Programme;
                             TimetableEntry."Stage Code" := CourseOffering.Stage;
+                            TimetableEntry.Type := TimetableEntry.Type::Class;
                             if TimetableEntry.Insert() then
                                 exit(true);
                         end else begin
@@ -265,4 +267,21 @@ codeunit 50096 "Timetable Management"
         TimetableEntry.SetRange("Stage Code", Stage);
         exit(not TimetableEntry.IsEmpty);
     end;
+
+    procedure GenerateExamTimetable(SemesterCode: Code[25])
+    var
+        Sems: Record "ACA-Semesters";
+    begin
+        FindSemester(SemesterCode, Sems);
+        Sems.TestField("Exam Start Date");
+        Sems.TestField("Exam End Date");
+    end;
+
+    procedure FindSemester(SemesterCode: Code[25]; var Sems: Record "ACA-Semesters")
+    begin
+        Sems.Reset();
+        Sems.SetRange(Code, SemesterCode);
+        Sems.FindFirst();
+    end;
+
 }
