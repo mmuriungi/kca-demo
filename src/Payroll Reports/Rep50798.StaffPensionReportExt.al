@@ -1,12 +1,12 @@
-report 50052 "Staff Pension Ext"
+report 50798 "Staff Pension Report Ext"
 {
     DefaultLayout = RDLC;
-    Caption = 'Staff Pension';
-    RDLCLayout = './PayrollLayouts/Staff Pension.rdlc';
+    Caption = 'Staff Pension Report';
+    RDLCLayout = './PayrollLayouts/Staff Pension Report.rdlc';
 
     dataset
     {
-        dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
+        dataitem("PRL-Period Transactions";"PRL-Period Transactions")
         {
             DataItemTableView = where("Transaction Code"=filter('BPAY'|'GPAY'|'NPAY'|690));
             RequestFilterFields = "Employee Code";
@@ -223,4 +223,5 @@ report 50052 "Staff Pension Ext"
         hsl2: Decimal;
         Gross: Decimal;
 }
+
 

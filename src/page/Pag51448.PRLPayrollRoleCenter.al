@@ -634,6 +634,55 @@ page 51448 "PRL-Payroll Role Center"
                     Image = "PrintForm";
                     RunObject = Report "Employer Certificate Ext";
                 }
+                action("P.10")
+                {
+                    ApplicationArea = all;
+                    Caption = 'P.10';
+                    Image = "PrintForm";
+                    RunObject = Report "P.10 Ext";
+                }
+                action("Third Rule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Third Rule';
+                    Image = "PrintForm";
+                    RunObject = Report "Third Rule Ext";
+                }
+                action("Co-op Remittance")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Coop Remittance';
+                    Image = "PrintForm";
+                    RunObject = Report "Coop-Remmitance Ext";
+                }
+                action("Payroll Journal Transfer")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Payroll Journal Transfer';
+                    Image = "PrintForm";
+                    RunObject = Report "Payroll Journal Transfer Ext";
+                }
+                action("Mass Update Transactions")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Mass Update Transactions';
+                    Image = "PrintForm";
+                    RunObject = Report "Mass Update Transactions Extt";
+                }
+                action("Staff Pension Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Staff Pension Report';
+                    Image = "PrintForm";
+                    RunObject = Report "Staff Pension Report Ext";
+                }
+                action("Housing Levy FundHousing Levy Fund")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Housing Levy Fund';
+                    Image = "PrintForm";
+                    RunObject = Report "Housing Levy Fund";
+                }
 
 
             }
