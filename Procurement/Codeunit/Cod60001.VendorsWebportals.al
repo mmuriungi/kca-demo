@@ -33,25 +33,38 @@ codeunit 60001 VendorsWebportals
         PreliminaryRequirements: Record "Proc-Preliminary Qualif";
         TechchnicalRequirements: Record "Proc-Technical Qualif";
 
-    procedure GetPreliminaryQualificationRequirements(tenderno: Code[20]) msg: Text
+    procedure GetPreliminaryQualificationRequirements(tenderno: Code[20]; bidno: Code[20]) msg: Text
     begin
         PreliminaryRequirements.RESET;
         PreliminaryRequirements.SETRANGE("No.", tenderno);
         if PreliminaryRequirements.FIND('-') then begin
             repeat
-                msg += PreliminaryRequirements.Description + ' ::' + Format(PreliminaryRequirements.Mandatory) + ' :::';
+                msg += PreliminaryRequirements.Description + ' ::' + Format(PreliminaryRequirements.Mandatory) + Format(DocUploaded(bidno, PreliminaryRequirements.Description)) + ' :::';
             until PreliminaryRequirements.NEXT = 0;
         end;
     end;
 
-    procedure GetTechnicalQualificationRequirements(tenderno: Code[20]) msg: Text
+    procedure GetTechnicalQualificationRequirements(tenderno: Code[20]; bidno: Code[20]) msg: Text
     begin
         TechchnicalRequirements.RESET;
         TechchnicalRequirements.SETRANGE("No.", tenderno);
         if TechchnicalRequirements.FIND('-') then begin
             repeat
-                msg += TechchnicalRequirements.Description + ' :::';
+                msg += TechchnicalRequirements.Description + ' ::' + Format(DocUploaded(bidno, TechchnicalRequirements.Description)) + ' :::';
             until TechchnicalRequirements.NEXT = 0;
+        end;
+    end;
+
+    procedure DocUploaded(bidno: Code[20]; desc: Text) msg: Boolean
+    var
+        DocAttachment: Record "Document Attachment";
+    begin
+        DocAttachment.RESET;
+        DocAttachment.SETRANGE("No.", bidno);
+        DocAttachment.SETRANGE("Table ID", Database::"Purchase Header");
+        DocAttachment.SETRANGE("File Name", desc);
+        if DocAttachment.FIND('-') then begin
+            msg := true;
         end;
     end;
 
