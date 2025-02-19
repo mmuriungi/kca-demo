@@ -39,7 +39,7 @@ codeunit 60001 VendorsWebportals
         PreliminaryRequirements.SETRANGE("No.", tenderno);
         if PreliminaryRequirements.FIND('-') then begin
             repeat
-                msg += PreliminaryRequirements.Description + ' ::' + Format(PreliminaryRequirements.Mandatory) + Format(DocUploaded(bidno, PreliminaryRequirements.Description)) + ' :::';
+                msg += PreliminaryRequirements.Description + ' ::' + Format(PreliminaryRequirements.Mandatory) +' ::'+ Format(DocUploaded(bidno, PreliminaryRequirements.Description)) + ' :::';
             until PreliminaryRequirements.NEXT = 0;
         end;
     end;
