@@ -18,6 +18,9 @@ codeunit 60001 VendorsWebportals
         procheader: Record "PROC-Purchase Quote Header";
         proclines: Record "PROC-Purchase Quote Line";
         tenderheader: Record "Purchase Header";
+        proceval: Record "Proc-Preliminary Qualif.Quote";
+        proccommittee : Record "Proc-Committee Membership";
+        procCommitteeMembers : Record "Proc-Committee Appointment H";
         //tenderheader: Record "Tender Submission Header";
         // tenderlines: Record "Tender Submission Lines";
         tenderlines: Record "Purchase Line";
@@ -180,6 +183,8 @@ codeunit 60001 VendorsWebportals
                 purchaseheader."Expected Closing Date" := procheader."Expected Closing Date";
                 purchaseheader.insert;
                 msg := nextapplicno;
+            end else begin
+                msg := purchaseheader."No.";
             end;
         end;
     end;
@@ -364,6 +369,7 @@ codeunit 60001 VendorsWebportals
         purchaseheader.Reset;
         purchaseheader.SetRange("Buy-from Vendor No.", krapin);
         purchaseheader.SetRange("Request for Quote No.", tenderno);
+        purchaseheader.SetRange("Quote Status", purchaseheader."Quote Status"::Submitted);
         if purchaseheader.find('-') then begin
             msg := true;
         end;
