@@ -39,7 +39,7 @@ codeunit 60001 VendorsWebportals
         PreliminaryRequirements.SETRANGE("No.", tenderno);
         if PreliminaryRequirements.FIND('-') then begin
             repeat
-                msg += PreliminaryRequirements.Description + ' ::' + Format(PreliminaryRequirements.Mandatory) +' ::'+ Format(DocUploaded(bidno, PreliminaryRequirements.Description)) + ' :::';
+                msg += PreliminaryRequirements.Description + ' ::' + Format(PreliminaryRequirements.Mandatory) + ' ::' + Format(DocUploaded(bidno, PreliminaryRequirements.Description)) + ' :::';
             until PreliminaryRequirements.NEXT = 0;
         end;
     end;
@@ -321,6 +321,15 @@ codeunit 60001 VendorsWebportals
             end;
         end else begin
             Error('Tender submission header not found!');
+        end;
+    end;
+
+    procedure purchaseLineExists(bidno: Code[20]) msg: boolean
+    begin
+        purchaseline.Reset;
+        purchaseline.SetRange("Document No.", bidno);
+        if purchaseline.Find('-') then begin
+            exit(true);
         end;
     end;
 
