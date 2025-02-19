@@ -6,101 +6,101 @@ report 50046 "Master Payroll Summary Ext"
 
     dataset
     {
-        dataitem(prPeriod_Transactions;"PRL-Period Transactions")
+        dataitem(prPeriod_Transactions; "PRL-Period Transactions")
         {
-            DataItemTableView = sorting("Payroll Period","Group Order","Sub Group Order") order(ascending) where("Group Order"=filter(1|3|4|7|8|9|0));
+            DataItemTableView = sorting("Payroll Period", "Group Order", "Sub Group Order") order(ascending) where("Group Order" = filter(1 | 3 | 4 | 7 | 8 | 9 | 0));
             RequestFilterFields = "Period Year";
             column(ReportForNavId_1; 1)
             {
             }
-            column(COMPANYNAME;COMPANYNAME)
+            column(COMPANYNAME; COMPANYNAME)
             {
             }
-            column(COMPANYNAME_Control1102755015;COMPANYNAME)
+            column(COMPANYNAME_Control1102755015; COMPANYNAME)
             {
             }
-            column(COMPANYNAME_Control1102756027;COMPANYNAME)
+            column(COMPANYNAME_Control1102756027; COMPANYNAME)
             {
             }
-            column(COMPANYNAME_Control1102756028;COMPANYNAME)
+            column(COMPANYNAME_Control1102756028; COMPANYNAME)
             {
             }
-            column(CompanyInfo_Picture;CompanyInfo.Picture)
+            column(CompanyInfo_Picture; CompanyInfo.Picture)
             {
             }
-            column(CompanyInfo_Picture_Control1102756014;CompanyInfo.Picture)
+            column(CompanyInfo_Picture_Control1102756014; CompanyInfo.Picture)
             {
             }
-            column(PayrollSummary;'COMPANY PAYROLL SUMMARY')
+            column(PayrollSummary; 'COMPANY PAYROLL SUMMARY')
             {
             }
-            column(PeriodNamez;'PERIOD:  '+PeriodName)
+            column(PeriodNamez; 'PERIOD:  ' + PeriodName)
             {
             }
-            column(TransDesc;'TRANSACTION DESC.')
+            column(TransDesc; 'TRANSACTION DESC.')
             {
             }
-            column(payments;'PAYMENTS')
+            column(payments; 'PAYMENTS')
             {
             }
-            column(deductions;'DEDUCTIONS')
+            column(deductions; 'DEDUCTIONS')
             {
             }
-            column(kirinyagatitle;COMPANYNAME)
+            column(kirinyagatitle; COMPANYNAME)
             {
             }
-            column(abreviation;'KARATINA UNIVERSITY')
+            column(abreviation; 'KARATINA UNIVERSITY')
             {
             }
-            column(DetDate;DetDate)
+            column(DetDate; DetDate)
             {
             }
-            column(GPY;GPY)
+            column(GPY; GPY)
             {
             }
-            column(NETS;NETS)
+            column(NETS; NETS)
             {
             }
-            column(STAT;STAT)
+            column(STAT; STAT)
             {
             }
-            column(DED;DED)
+            column(DED; DED)
             {
             }
-            column(TransTypes;TransTypes)
+            column(TransTypes; TransTypes)
             {
             }
-            column(TransCode;prPeriod_Transactions."Transaction Code")
+            column(TransCode; prPeriod_Transactions."Transaction Code")
             {
             }
-            column(TransName;prPeriod_Transactions."Transaction Name")
+            column(TransName; prPeriod_Transactions."Transaction Name")
             {
             }
-            column(TransAmount;prPeriod_Transactions.Amount)
+            column(TransAmount; prPeriod_Transactions.Amount)
             {
             }
-            column(DeductionAmnt;DeductionAmnt)
+            column(DeductionAmnt; DeductionAmnt)
             {
             }
-            column(PaymentAmount;PaymentAmount)
+            column(PaymentAmount; PaymentAmount)
             {
             }
-            column(Go;prPeriod_Transactions."Group Order")
+            column(Go; prPeriod_Transactions."Group Order")
             {
             }
-            column(SGO;prPeriod_Transactions."Sub Group Order")
+            column(SGO; prPeriod_Transactions."Sub Group Order")
             {
             }
-            column(ProvidentEmployer;ProvidentEmployer*2)
+            column(ProvidentEmployer; ProvidentEmployer * 2)
             {
             }
-            column(PensionEmployer;PensionEmployer*2)
+            column(PensionEmployer; PensionEmployer * 2)
             {
             }
-            column(NSSFEmployer;NSSFEmployer)
+            column(NSSFEmployer; NSSFEmployer)
             {
             }
-            column(hOUSELEVYeMPLOYER;hOUSELEVYeMP)
+            column(hOUSELEVYeMPLOYER; hOUSELEVYeMP)
             {
             }
 
@@ -111,43 +111,43 @@ report 50046 "Master Payroll Summary Ext"
                 Clear(STAT);
                 Clear(DED);
                 Clear(NETS);
-                
+
                 //IF ((prPeriod_Transactions."Group Order"=4) AND (prPeriod_Transactions."Sub Group Order"=0)) THEN
-                  //GPY:=prPeriod_Transactions.Amount;
-                if (prPeriod_Transactions."Transaction Code"='GPAY' ) then
-                   GPY:=prPeriod_Transactions.Amount;
+                //GPY:=prPeriod_Transactions.Amount;
+                if (prPeriod_Transactions."Transaction Code" = 'GPAY') then
+                    GPY := prPeriod_Transactions.Amount;
                 //IF  THEN
-                 // STAT:=prPeriod_Transactions.Amount;
-                
+                // STAT:=prPeriod_Transactions.Amount;
+
                 //IF ((prPeriod_Transactions."Group Order"=8) AND
                 //((prPeriod_Transactions."Sub Group Order"=1) OR (prPeriod_Transactions."Sub Group Order"=0))) THEN
-                 /*IF (((prPeriod_Transactions."Group Order"=7) AND
-                ((prPeriod_Transactions."Sub Group Order"=3) OR (prPeriod_Transactions."Sub Group Order"=1) OR
-                 (prPeriod_Transactions."Sub Group Order"=2))) OR
-                 (prPeriod_Transactions."Transaction Code"='TOT-DED' )) THEN */
-                
-                
+                /*IF (((prPeriod_Transactions."Group Order"=7) AND
+               ((prPeriod_Transactions."Sub Group Order"=3) OR (prPeriod_Transactions."Sub Group Order"=1) OR
+                (prPeriod_Transactions."Sub Group Order"=2))) OR
+                (prPeriod_Transactions."Transaction Code"='TOT-DED' )) THEN */
+
+
                 //IF ((prPeriod_Transactions."Group Order"=9) AND (prPeriod_Transactions."Sub Group Order"=0)) THEN
-                if (prPeriod_Transactions."Transaction Code"='NPAY' ) then
-                  NETS:=prPeriod_Transactions.Amount;
-                
-                
+                if (prPeriod_Transactions."Transaction Code" = 'NPAY') then
+                    NETS := prPeriod_Transactions.Amount;
+
+
                 Clear(TransTypes);
-                if ((prPeriod_Transactions."Group Text" in ['INCOME','ALLOWANCE','ALLOWANCES','BASIC SALARY'])or (prPeriod_Transactions."Transaction Code"='996')) then TransTypes:='PAYMENTS';
-                if (prPeriod_Transactions."Group Text" in ['STATUTORIES','DEDUCTIONS']) then begin
-                TransTypes:='DEDUCTIONS';
-                DED:=prPeriod_Transactions.Amount;
+                if ((prPeriod_Transactions."Group Text" in ['INCOME', 'ALLOWANCE', 'ALLOWANCES', 'BASIC SALARY', 'EARNINGS']) or (prPeriod_Transactions."Transaction Code" = '996')) then TransTypes := 'PAYMENTS';
+                if (prPeriod_Transactions."Group Text" in ['STATUTORIES', 'DEDUCTIONS']) then begin
+                    TransTypes := 'DEDUCTIONS';
+                    DED := prPeriod_Transactions.Amount;
                 end;
-                
-                  if TransTypes='' then begin
-                   // IF NOT ((prPeriod_Transactions."Transaction Code"='NPAY') OR (prPeriod_Transactions."Transaction Code"='TOT-DED')) THEN
-                  //  CurrReport.SKIP;
-                    end;
-                
-                if ((prPeriod_Transactions."Group Text" in ['INCOME','ALLOWANCE','ALLOWANCES','BASIC SALARY'])or (prPeriod_Transactions."Transaction Code"='996')) then PaymentAmount:=prPeriod_Transactions.Amount;
-                if (prPeriod_Transactions."Group Text" in ['STATUTORIES','DEDUCTIONS']) then DeductionAmnt:=prPeriod_Transactions.Amount;
-                
-                if ((prPeriod_Transactions."Transaction Code"='TOT-DED')) then
+
+                if TransTypes = '' then begin
+                    // IF NOT ((prPeriod_Transactions."Transaction Code"='NPAY') OR (prPeriod_Transactions."Transaction Code"='TOT-DED')) THEN
+                    //  CurrReport.SKIP;
+                end;
+
+                if ((prPeriod_Transactions."Group Text" in ['INCOME', 'ALLOWANCE', 'ALLOWANCES', 'BASIC SALARY', 'EARNINGS']) or (prPeriod_Transactions."Transaction Code" = '996')) then PaymentAmount := prPeriod_Transactions.Amount;
+                if (prPeriod_Transactions."Group Text" in ['STATUTORIES', 'DEDUCTIONS']) then DeductionAmnt := prPeriod_Transactions.Amount;
+
+                if ((prPeriod_Transactions."Transaction Code" = 'TOT-DED')) then
                     CurrReport.Skip;
                 /*
                 
@@ -199,49 +199,49 @@ report 50046 "Master Payroll Summary Ext"
 
             trigger OnPreDataItem()
             begin
-
+                prPeriod_Transactions.SetLoadFields();
                 //LastFieldNo := FIELDNO("Period Year");
                 //"PRL-Payroll Periods".SETFILTER("PRL-Payroll Periods"."Date Opened",'=%1',SelectedPeriod);
-                prPeriod_Transactions.SetFilter("Payroll Period",'=%1',SelectedPeriod);
+                prPeriod_Transactions.SetFilter("Payroll Period", '=%1', SelectedPeriod);
                 // Get Benevolent, Pension;, and NSSF
                 //NSSFEmployer
                 PerTrans.Reset;
                 PerTrans.CopyFilters(prPeriod_Transactions);
-                PerTrans.SetFilter("Group Text",'%1|%2','DEDUCTIONS','STATUTORIES');
-                PerTrans.SetRange("Transaction Code",'NSSF');
+                PerTrans.SetFilter("Group Text", '%1|%2', 'DEDUCTIONS', 'STATUTORIES');
+                PerTrans.SetRange("Transaction Code", 'NSSF');
                 if PerTrans.Find('-') then begin
-                  PerTrans.CalcSums(Amount);
-                  NSSFEmployer:=PerTrans.Amount;
-                  end;
+                    PerTrans.CalcSums(Amount);
+                    NSSFEmployer := PerTrans.Amount;
+                end;
 
                 //Provident
                 PerTrans.Reset;
                 PerTrans.CopyFilters(prPeriod_Transactions);
-                PerTrans.SetFilter("Group Text",'%1|%2','DEDUCTIONS','STATUTORIES');
-                PerTrans.SetFilter("Transaction Code",'%1|%2|%3','592','817','806');
+                PerTrans.SetFilter("Group Text", '%1|%2', 'DEDUCTIONS', 'STATUTORIES');
+                PerTrans.SetFilter("Transaction Code", '%1|%2|%3', '592', '817', '806');
                 if PerTrans.Find('-') then begin
-                  PerTrans.CalcSums(Amount);
-                  ProvidentEmployer:=PerTrans.Amount;
-                  end;
-                  //hOUSING lEVY
-                  PerTrans.Reset;
+                    PerTrans.CalcSums(Amount);
+                    ProvidentEmployer := PerTrans.Amount;
+                end;
+                //hOUSING lEVY
+                PerTrans.Reset;
                 PerTrans.CopyFilters(prPeriod_Transactions);
-                PerTrans.SetFilter("Group Text",'%1','DEDUCTIONS');
-                PerTrans.SetFilter("Transaction Code",'%1','996');
+                PerTrans.SetFilter("Group Text", '%1', 'DEDUCTIONS');
+                PerTrans.SetFilter("Transaction Code", '%1', '996');
                 if PerTrans.Find('-') then begin
-                  PerTrans.CalcSums(Amount);
-                  hOUSELEVYeMP:=PerTrans.Amount;
-                  end;
+                    PerTrans.CalcSums(Amount);
+                    hOUSELEVYeMP := PerTrans.Amount;
+                end;
 
                 //Pension
                 PerTrans.Reset;
                 PerTrans.CopyFilters(prPeriod_Transactions);
-                PerTrans.SetFilter("Group Text",'%1|%2','DEDUCTIONS','STATUTORIES');
-                PerTrans.SetFilter("Transaction Code",'%1|%2|%3|%4|%5|%6|%7','16','690','692','694','737','807','808');
+                PerTrans.SetFilter("Group Text", '%1|%2', 'DEDUCTIONS', 'STATUTORIES');
+                PerTrans.SetFilter("Transaction Code", '%1|%2|%3|%4|%5|%6|%7', '16', '690', '692', '694', '737', '807', '808');
                 if PerTrans.Find('-') then begin
-                  PerTrans.CalcSums(Amount);
-                  PensionEmployer:=PerTrans.Amount;
-                  end;
+                    PerTrans.CalcSums(Amount);
+                    PensionEmployer := PerTrans.Amount;
+                end;
             end;
         }
     }
@@ -253,7 +253,7 @@ report 50046 "Master Payroll Summary Ext"
         {
             area(content)
             {
-                field(periodfilter;PeriodFilter)
+                field(periodfilter; PeriodFilter)
                 {
                     ApplicationArea = Basic;
                     Caption = 'Period Filter';
@@ -274,28 +274,27 @@ report 50046 "Master Payroll Summary Ext"
     trigger OnInitReport()
     begin
         objPeriod.Reset;
-        objPeriod.SetRange(objPeriod.Closed,false);
+        objPeriod.SetRange(objPeriod.Closed, false);
         if objPeriod.Find('-') then;
-        PeriodFilter:=objPeriod."Date Opened";
+        PeriodFilter := objPeriod."Date Opened";
     end;
 
     trigger OnPreReport()
     begin
 
-        SelectedPeriod:=PeriodFilter;
+        SelectedPeriod := PeriodFilter;
         objPeriod.Reset;
-        objPeriod.SetRange(objPeriod."Date Opened",SelectedPeriod);
-        if objPeriod.Find('-') then
-        begin
-            PeriodName:=objPeriod."Period Name";
-        Clear(DetDate);
-        DetDate:=Format(objPeriod."Period Name");
+        objPeriod.SetRange(objPeriod."Date Opened", SelectedPeriod);
+        if objPeriod.Find('-') then begin
+            PeriodName := objPeriod."Period Name";
+            Clear(DetDate);
+            DetDate := Format(objPeriod."Period Name");
         end;
 
 
         if CompanyInfo.Get() then
-        //CompanyInfo.CALCFIELDS(CompanyInfo.Picture);
-        Clear(rows);
+            //CompanyInfo.CALCFIELDS(CompanyInfo.Picture);
+            Clear(rows);
         Clear(GPY);
         Clear(STAT);
         Clear(DED);
@@ -325,10 +324,10 @@ report 50046 "Master Payroll Summary Ext"
         GroupText2: Text[200];
         PaymentAmount: Decimal;
         DeductAmount: Decimal;
-        PayTrans: array [100] of Text[250];
-        PayTransAmt: array [100] of Decimal;
-        DedTrans: array [100] of Text[250];
-        DedTransAmt: array [100] of Decimal;
+        PayTrans: array[100] of Text[250];
+        PayTransAmt: array[100] of Decimal;
+        DedTrans: array[100] of Text[250];
+        DedTransAmt: array[100] of Decimal;
         rows: Integer;
         rows2: Integer;
         GPY: Decimal;
@@ -337,8 +336,8 @@ report 50046 "Master Payroll Summary Ext"
         DED: Decimal;
         TotalFor: label 'Total for ';
         GroupOrder: label '3';
-        TransBal: array [2,100] of Text[250];
-        Addr: array [2,10] of Text[250];
+        TransBal: array[2, 100] of Text[250];
+        Addr: array[2, 10] of Text[250];
         RecordNo: Integer;
         NoOfColumns: Integer;
         ColumnNo: Integer;
