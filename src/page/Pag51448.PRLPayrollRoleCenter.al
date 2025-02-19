@@ -59,447 +59,701 @@ page 51448 "PRL-Payroll Role Center"
             {
                 Caption = 'Payroll Reports';
                 Image = Payables;
-                action(Action1000000038)
-                {
-                    ApplicationArea = all;
-                    Caption = 'P9 Report';
-                    Image = PrintForm;
 
-                    RunObject = Report "P9 Report (Final)";
-                }
-                action(Action1000000037)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Transactions';
-                    Image = "Report";
-
-                    RunObject = Report "pr Transactions";
-                }
-                action(Action1000000040)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Gross Netpay';
-                    Image = Giro;
-                    RunObject = Report prGrossNetPay;
-                }
-                action(Action1000000035)
-                {
-                    ApplicationArea = all;
-                    Caption = 'bank Schedule';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-Bank Schedule";
-                    Visible = false;
-                }
-                action("Employer Certificate")
-                {
-
-                    Caption = 'Employer Certificate';
-                    Image = "Report";
-
-                    RunObject = Report "Employer Certificate P.10 mst";
-                    ApplicationArea = All;
-                }
-                action("Payroll Analysis")
-                {
-                    Caption = 'Payroll Analysis Report';
-                    Image = "Report";
-                    RunObject = report "Payroll Analysis Report";
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                action("PR Payroll Summary - Detailed")
-                {
-                    ApplicationArea = all;
-                    Caption = 'PR Payroll Summary - Detailed';
-                    Image = "Report";
-                    Visible = false;
-                    RunObject = Report "PR Payroll Summary - Detailed";
-                }
-                action("Payroll Variance Report")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Payroll Variance Report';
-                    Image = Report;
-                    RunObject = Report "Payroll Variance Report Ext";
-                }
-                action("PR Trans  Variance Analysis")
-                {
-                    ApplicationArea = all;
-                    Caption = 'PR Trans  Variance Analysis';
-                    Image = "Report";
-                    RunObject = Report "PR Trans  Variance Analysis";
-                }
-                action("P.10")
-                {
-                    ApplicationArea = all;
-                    Caption = 'P.10';
-                    Image = "Report";
-
-                    RunObject = Report "P.10 A mst";
-                }
-                action("Paye Scheule")
-                {
-                    ApplicationArea = all;
-                    Caption = 'PAYE Schedule';
-                    Image = "Report";
-
-                    RunObject = Report "prPaye Schedule 1a";
-                }
-                action("NHIF Scheule")
-                {
-                    ApplicationArea = all;
-                    Caption = 'NHIF Schedule';
-                    Image = "Report";
-
-                    RunObject = Report "NHIF Schedule Report";
-                }
-                action("NSSF Scheule")
-                {
-                    ApplicationArea = all;
-                    Caption = 'NSSF Schedule';
-                    Image = "Report";
-
-                    RunObject = Report "NSSF Schedule Report";
-                }
-                action("NHIF Schedule")
-                {
-                    ApplicationArea = all;
-                    Caption = 'NHIF Schedule';
-                    Image = "Report";
-
-                    //RunObject = Report "prNHIF mst";
-                }
-                action("NSSF Schedule")
-                {
-                    ApplicationArea = all;
-                    Caption = 'NSSF Schedule';
-                    Image = "Report";
-
-                    RunObject = Report "prNSSF mst";
-                    Visible = false;
-                }
-                action(Action1000000029)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Third Rule';
-                    Image = AddWatch;
-                    RunObject = Report "A third Rule Report";
-                }
-                action(Action1000000028)
-                {
-
-                    Caption = 'Co_op Remittance';
-                    Image = CreateForm;
-                    ApplicationArea = All;
-                    //todo  RunObject = Report "prCoop remmitance";
-                }
-                action("payroll Journal Transfer")
-                {
-                    ApplicationArea = all;
-                    Caption = 'payroll Journal Transfer';
-                    Image = Journals;
-
-                    //todo RunObject = Report prPayrollJournalTransfer;
-                }
-                action("mass update Transactions")
-                {
-                    ApplicationArea = all;
-                    Caption = 'mass update Transactions';
-                    Image = PostBatch;
-
-                    //todo  RunObject = Report "Mass Update Transactions";
-                }
-                action("Pension Report")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Pension Report';
-                    Image = PrintForm;
-
-                    RunObject = Report "PRL-Pension Report";
-                }
-                action("Bank Schedule")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Bank Schedule';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-Bank Schedule";
-                }
-                action("NHIF Report")
-                {
-                    ApplicationArea = all;
-                    Caption = 'NHIF Report';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-NHIF Report";
-                }
-                action("SACCO Report")
-                {
-                    ApplicationArea = all;
-                    Caption = 'SACCO Report';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-Welfare Report";
-                }
-                action("HELB Report")
-                {
-                    ApplicationArea = all;
-                    Caption = 'HELB Report';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-HELB Report";
-                }
-                action("NSSF Report (A)")
-                {
-                    ApplicationArea = all;
-                    Caption = 'NSSF Report (A)';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-NSSF Report (A)";
-                }
-                action("NSSF Report (B)")
-                {
-                    ApplicationArea = all;
-                    Caption = 'NSSF Report (B)';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-NSSF Report (B)";
-                    Visible = false;
-                }
-                action("NSSF Report (Combined)")
-                {
-                    ApplicationArea = all;
-                    Caption = 'NSSF Report (Combined)';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-NSSF Report Combined";
-                    Visible = true;
-                }
-
-                action("Individual Payslip")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Individual Payslip';
-                    Image = Report2;
-
-                    RunObject = Report "IndividualPayslipsV113";
-                    Visible = false;
-                }
-                action("Individual Payslip 2")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Individual Payslip 2';
-                    Image = Report2;
-
-                    RunObject = Report "IndividualPayslipsV113";
-                    Visible = false;
-                }
                 action("Detailed Payroll Summary")
                 {
                     ApplicationArea = all;
-                    Caption = 'Master Payroll ';
-                    Image = Report2;
-
-                    RunObject = Report "Payroll Summary 3";
+                    Caption = 'Detailed Payroll Summary';
+                    Image = "Report";
+                    RunObject = Report "Detailed Payroll Summary Ext";
                 }
-
                 action("Departmental Summary")
                 {
                     ApplicationArea = all;
                     Caption = 'Departmental Summary';
                     Image = "Report";
-
-                    RunObject = Report "Detailed Payrol Summary/Dept";
+                    RunObject = Report "Departmental Summary Ext";
                 }
-
-                action(Action1000000047)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Company Payslip';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-Company Payroll Summary 3";
-                }
-                action("Company Payslip")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Company Payslip 2';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-Company Payslip";
-                    Visible = false;
-                }
-
-                action(Action1000000044)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Earnings Summary';
-                    Image = DepositSlip;
-                    RunObject = Report "PRL-Earnings Summary 5";
-                }
-
-                action(Action1000000043)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Deductions Summary';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-Deductions Summary 2 a";
-                }
-                action(Action1000000045)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Deductions Summary';
-                    Image = Report;
-                    RunObject = Report "PRL-Deductions Summary1";
-                    Visible = false;
-                }
-                action(Action1000000041)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Staff pension';
-                    Image = Aging;
-                    RunObject = Report "prStaff Pension Contrib";
-                }
-                action(Payslips)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Payslips';
-                    Image = Report;
-
-                    RunObject = Report "IndividualPayslipsV113";
-                }
-                /* action(payrollvariace)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Payroll variance';
-                    Image = Aging;
-                    RunObject = Report "Payroll Variance Report 2";
-                }
-                action(payrollvar2)
-                {
-                    ApplicationArea = all;
-                    Caption = 'Payroll Variance 2';
-                    Image = Aging;
-                    RunObject = Report "Payroll Variance Report";
-                } */
                 action("Master Payroll Summary")
                 {
                     ApplicationArea = all;
-                    Caption = ' Payroll deduction Summary';
-                    Image = Report;
-
-                    RunObject = Report "PRL-Deductions Summary1";
-                    Visible = false;
-                }
-                action("Payroll Summary2")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Payroll Summary';
+                    Caption = 'Master Payroll Summary';
                     Image = "Report";
-
-                    RunObject = Report "PRL-Company Payroll Summary 3";
-                    Visible = false;
-                }
-                action("Deductions Summary 2")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Deductions Summary 2';
-                    Image = "Report";
-                    Visible = false;
-                    RunObject = Report "PRL-Deductions Summary 2 a";
-                }
-                action("Earnings Summary 2")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Earnings Summary 2';
-                    Image = "Report";
-                    Visible = false;
-                    RunObject = Report "PRL-Earnings Summary 5";
-                }
-                action("view payslip")
-                {
-                    ApplicationArea = all;
-                    Caption = 'view payslip';
-                    Image = "Report";
-
-                    RunObject = Report "PRL-Payslips V 1.1.1";
-                }
-                action("Payroll summary")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Payroll summary';
-                    Image = "Report";
-
-                   // RunObject = Report "Payroll Summary 3";
-                    RunObject = Report "Payroll Summary Ext";
-                }
-                action("Deductions Summary")
-                {
-                    ApplicationArea = all;
-                    Caption = 'Deductions Summary';
-                    Image = "Report";
-                    Visible = false;
-                    RunObject = Report "PRL-Deductions Summary1";
+                    RunObject = Report "Master Payroll Summary Ext";
                 }
                 action("Earnings Summary")
                 {
                     ApplicationArea = all;
                     Caption = 'Earnings Summary';
                     Image = "Report";
-                    Visible = false;
-                    RunObject = Report "PRL-Earnings Summary 5";
+                    RunObject = Report "Earnings Summary Ext";
                 }
-                action("Staff pension")
+                action("Deductions Summary 2")
                 {
                     ApplicationArea = all;
-                    Caption = 'Staff pension';
+                    Caption = 'Deductions Summary 2';
                     Image = "Report";
-                    Visible = false;
-                    RunObject = Report "prStaff Pension Contrib";
+                    RunObject = Report "Deductions Summary 2 Ext";
+                }
+                action("Earnings Summary 2")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Earnings Summary 2';
+                    Image = "Report";
+                    RunObject = Report "Earnings Summary 2 Ext";
+                }
+                action("Staff Pension")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Staff Pension';
+                    Image = "Report";
+                    RunObject = Report "Staff Pension Ext";
+                }
+                action("Staff Provident Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Staff Provident Report';
+                    Image = "Report";
+                    RunObject = Report "Staff Provident Report";
+                }
+                action("Deductions Variance Report")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Deductions Variance Report';
+                    Image = Report;
+                    RunObject = Report "Deductions Variance Report";
                 }
                 action("Gross Netpay")
                 {
                     ApplicationArea = all;
                     Caption = 'Gross Netpay';
                     Image = "Report";
-                    RunObject = Report prGrossNetPay;
-                    Visible = false;
+                    RunObject = Report "Gross Netpay Ext";
                 }
-                action("Third Rule")
+                action("Company Payslip")
                 {
-                    Caption = 'Third Rule';
+                    ApplicationArea = all;
+                    Caption = 'Company Payslip';
                     Image = "Report";
-                    RunObject = Report "A third Rule Report Two";
-                    ApplicationArea = All;
-                    Visible = false;
+                    RunObject = Report "Company Payslip Ext";
                 }
+                action("Payroll Variance Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Payroll Variance Report';
+                    Image = "Report";
+                    RunObject = Report "Payroll Variance Report Extt";
+                }
+                action("Payroll Variance 2")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Payroll Variance 2';
+                    Image = "Report";
+                    RunObject = Report "Payroll Variance 2 Ext";
+                }
+                action("Payroll Comparison")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Payroll Comparison';
+                    Image = "Report";
+                    RunObject = Report "Payroll Comparison Ext";
+                }
+
+
+                // action(Action1000000038)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'P9 Report';
+                //     Image = PrintForm;
+
+                //     RunObject = Report "P9 Report (Final)";
+                // }
+                // action(Action1000000037)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Transactions';
+                //     Image = "Report";
+
+                //     RunObject = Report "pr Transactions";
+                // }
+                // action(Action1000000040)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Gross Netpay';
+                //     Image = Giro;
+                //     RunObject = Report prGrossNetPay;
+                // }
+                // action(Action1000000035)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'bank Schedule';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-Bank Schedule";
+                //     Visible = false;
+                // }
+                // action("Employer Certificate")
+                // {
+
+                //     Caption = 'Employer Certificate';
+                //     Image = "Report";
+
+                //     RunObject = Report "Employer Certificate P.10 mst";
+                //     ApplicationArea = All;
+                // }
+                // action("Payroll Analysis")
+                // {
+                //     Caption = 'Payroll Analysis Report';
+                //     Image = "Report";
+                //     RunObject = report "Payroll Analysis Report";
+                //     Visible = false;
+                //     ApplicationArea = All;
+                // }
+                // action("PR Payroll Summary - Detailed")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'PR Payroll Summary - Detailed';
+                //     Image = "Report";
+                //     Visible = false;
+                //     RunObject = Report "PR Payroll Summary - Detailed";
+                // }
+                // action("Payroll Variance Report")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Payroll Variance Report';
+                //     Image = Report;
+                //     RunObject = Report "Payroll Variance Report Ext";
+                // }
+                // action("PR Trans  Variance Analysis")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'PR Trans  Variance Analysis';
+                //     Image = "Report";
+                //     RunObject = Report "PR Trans  Variance Analysis";
+                // }
+                // action("P.10")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'P.10';
+                //     Image = "Report";
+
+                //     RunObject = Report "P.10 A mst";
+                // }
+                // action("Paye Scheule")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'PAYE Schedule';
+                //     Image = "Report";
+
+                //     RunObject = Report "prPaye Schedule 1a";
+                // }
+                // action("NHIF Scheule")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'NHIF Schedule';
+                //     Image = "Report";
+
+                //     RunObject = Report "NHIF Schedule Report";
+                // }
+                // action("NSSF Scheule")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'NSSF Schedule';
+                //     Image = "Report";
+
+                //     RunObject = Report "NSSF Schedule Report";
+                // }
+                // action("NHIF Schedule")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'NHIF Schedule';
+                //     Image = "Report";
+
+                //     //RunObject = Report "prNHIF mst";
+                // }
+                // action("NSSF Schedule")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'NSSF Schedule';
+                //     Image = "Report";
+
+                //     RunObject = Report "prNSSF mst";
+                //     Visible = false;
+                // }
+                // action(Action1000000029)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Third Rule';
+                //     Image = AddWatch;
+                //     RunObject = Report "A third Rule Report";
+                // }
+                // action(Action1000000028)
+                // {
+
+                //     Caption = 'Co_op Remittance';
+                //     Image = CreateForm;
+                //     ApplicationArea = All;
+                //     //todo  RunObject = Report "prCoop remmitance";
+                // }
+                // action("payroll Journal Transfer")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'payroll Journal Transfer';
+                //     Image = Journals;
+
+                //     //todo RunObject = Report prPayrollJournalTransfer;
+                // }
+                // action("mass update Transactions")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'mass update Transactions';
+                //     Image = PostBatch;
+
+                //     //todo  RunObject = Report "Mass Update Transactions";
+                // }
+                // action("Pension Report")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Pension Report';
+                //     Image = PrintForm;
+
+                //     RunObject = Report "PRL-Pension Report";
+                // }
+                // action("Bank Schedule")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Bank Schedule';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-Bank Schedule";
+                // }
+                // action("NHIF Report")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'NHIF Report';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-NHIF Report";
+                // }
+                // action("SACCO Report")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'SACCO Report';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-Welfare Report";
+                // }
+                // action("HELB Report")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'HELB Report';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-HELB Report";
+                // }
+                // action("NSSF Report (A)")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'NSSF Report (A)';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-NSSF Report (A)";
+                // }
+                // action("NSSF Report (B)")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'NSSF Report (B)';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-NSSF Report (B)";
+                //     Visible = false;
+                // }
+                // action("NSSF Report (Combined)")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'NSSF Report (Combined)';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-NSSF Report Combined";
+                //     Visible = true;
+                // }
+
+                // action("Individual Payslip")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Individual Payslip';
+                //     Image = Report2;
+
+                //     RunObject = Report "IndividualPayslipsV113";
+                //     Visible = false;
+                // }
+                // action("Individual Payslip 2")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Individual Payslip 2';
+                //     Image = Report2;
+
+                //     RunObject = Report "IndividualPayslipsV113";
+                //     Visible = false;
+                // }
+                // action("Detailed Payroll Summary")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Master Payroll ';
+                //     Image = Report2;
+
+                //     RunObject = Report "Payroll Summary 3";
+                // }
+
+                // action("Departmental Summary")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Departmental Summary';
+                //     Image = "Report";
+
+                //     RunObject = Report "Detailed Payrol Summary/Dept";
+                // }
+
+                // action(Action1000000047)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Company Payslip';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-Company Payroll Summary 3";
+                // }
+                // action("Company Payslip")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Company Payslip 2';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-Company Payslip";
+                //     Visible = false;
+                // }
+
+                // action(Action1000000044)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Earnings Summary';
+                //     Image = DepositSlip;
+                //     RunObject = Report "PRL-Earnings Summary 5";
+                // }
+
+                // action(Action1000000043)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Deductions Summary';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-Deductions Summary 2 a";
+                // }
+                // action(Action1000000045)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Deductions Summary';
+                //     Image = Report;
+                //     RunObject = Report "PRL-Deductions Summary1";
+                //     Visible = false;
+                // }
+                // action(Action1000000041)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Staff pension';
+                //     Image = Aging;
+                //     RunObject = Report "prStaff Pension Contrib";
+                // }
+                // action(Payslips)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Payslips';
+                //     Image = Report;
+
+                //     RunObject = Report "IndividualPayslipsV113";
+                // }
+                // /* action(payrollvariace)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Payroll variance';
+                //     Image = Aging;
+                //     RunObject = Report "Payroll Variance Report 2";
+                // }
+                // action(payrollvar2)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Payroll Variance 2';
+                //     Image = Aging;
+                //     RunObject = Report "Payroll Variance Report";
+                // } */
+                // action("Master Payroll Summary")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = ' Payroll deduction Summary';
+                //     Image = Report;
+
+                //     RunObject = Report "PRL-Deductions Summary1";
+                //     Visible = false;
+                // }
+                // action("Payroll Summary2")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Payroll Summary';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-Company Payroll Summary 3";
+                //     Visible = false;
+                // }
+                // action("Deductions Summary 2")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Deductions Summary 2';
+                //     Image = "Report";
+                //     Visible = false;
+                //     RunObject = Report "PRL-Deductions Summary 2 a";
+                // }
+                // action("Earnings Summary 2")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Earnings Summary 2';
+                //     Image = "Report";
+                //     Visible = false;
+                //     RunObject = Report "PRL-Earnings Summary 5";
+                // }
+                // action("view payslip")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'view payslip';
+                //     Image = "Report";
+
+                //     RunObject = Report "PRL-Payslips V 1.1.1";
+                // }
+                // action("Payroll summary")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Payroll summary';
+                //     Image = "Report";
+
+                //    // RunObject = Report "Payroll Summary 3";
+                //     RunObject = Report "Payroll Summary Ext";
+                // }
+                // action("Deductions Summary")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Deductions Summary';
+                //     Image = "Report";
+                //     Visible = false;
+                //     RunObject = Report "PRL-Deductions Summary1";
+                // }
+                // action("Earnings Summary")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Earnings Summary';
+                //     Image = "Report";
+                //     Visible = false;
+                //     RunObject = Report "PRL-Earnings Summary 5";
+                // }
+                // action("Staff pension")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Staff pension';
+                //     Image = "Report";
+                //     Visible = false;
+                //     RunObject = Report "prStaff Pension Contrib";
+                // }
+                // action("Gross Netpay")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'Gross Netpay';
+                //     Image = "Report";
+                //     RunObject = Report prGrossNetPay;
+                //     Visible = false;
+                // }
+                // action("Third Rule")
+                // {
+                //     Caption = 'Third Rule';
+                //     Image = "Report";
+                //     RunObject = Report "A third Rule Report Two";
+                //     ApplicationArea = All;
+                //     Visible = false;
+                // }
+                // action("P9 Report")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'P9 Report';
+                //     Image = PrintForm;
+                //     Visible = false;
+                //     RunObject = Report "P9 Report (Final)";
+                // }
+
+                // action("bank Schedule2")
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'bank Schedule';
+                //     Image = "Report";
+                //     RunObject = Report "pr Bank Schedule";
+                //     Visible = false;
+                // }
+                // action("Co-op Remittance")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Co-op Remittance';
+                //     Image = Report;
+                //     RunObject = Report "Co-op Remmitance";
+                // }
+            }
+
+            group("Periodic Reports")
+            {
+                Image = Payables;
+
                 action("P9 Report")
                 {
                     ApplicationArea = all;
                     Caption = 'P9 Report';
                     Image = PrintForm;
-                    Visible = false;
-                    RunObject = Report "P9 Report (Final)";
+                    RunObject = Report "P9 Report Ext";
                 }
-
-                action("bank Schedule2")
+                action("Transactions")
                 {
                     ApplicationArea = all;
-                    Caption = 'bank Schedule';
-                    Image = "Report";
-                    RunObject = Report "pr Bank Schedule";
-                    Visible = false;
+                    Caption = 'Transactions';
+                    Image = "PrintForm";
+                    RunObject = Report "Transactions Ext";
+                }
+                action("Bank Schedule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Bank Schedule';
+                    Image = "PrintForm";
+                    RunObject = Report "Bank Schedule Ext";
+                }
+                action("Employer Certificate")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Employer Certificate';
+                    Image = "PrintForm";
+                    RunObject = Report "Employer Certificate Ext";
+                }
+                action("P.10")
+                {
+                    ApplicationArea = all;
+                    Caption = 'P.10';
+                    Image = "PrintForm";
+                    RunObject = Report "P.10 Ext";
+                }
+                action("Third Rule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Third Rule';
+                    Image = "PrintForm";
+                    RunObject = Report "Third Rule Ext";
                 }
                 action("Co-op Remittance")
                 {
-                    ApplicationArea = All;
-                    Caption = 'Co-op Remittance';
-                    Image = Report;
-                    RunObject = Report "Co-op Remmitance";
+                    ApplicationArea = all;
+                    Caption = 'Coop Remittance';
+                    Image = "PrintForm";
+                    RunObject = Report "Coop-Remmitance Ext";
+                }
+                action("Payroll Journal Transfer")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Payroll Journal Transfer';
+                    Image = "PrintForm";
+                    RunObject = Report "Payroll Journal Transfer Ext";
+                }
+                action("Mass Update Transactions")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Mass Update Transactions';
+                    Image = "PrintForm";
+                    RunObject = Report "Mass Update Transactions Extt";
+                }
+                action("Staff Pension Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Staff Pension Report';
+                    Image = "PrintForm";
+                    RunObject = Report "Staff Pension Report Ext";
+                }
+                action("Housing Levy FundHousing Levy Fund")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Housing Levy Fund';
+                    Image = "PrintForm";
+                    RunObject = Report "Housing Levy Fund";
                 }
             }
+
+            group("Tax Return Reports")
+            {
+                Image = Payables;
+
+                action("&P9 Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'P9 Report';
+                    Image = Report2;
+                    RunObject = Report "P9 Report Ext";
+                }
+                action("&Employer Certificate")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Employer Certificate';
+                    Image = Report2;
+                    RunObject = Report "Employer Certificate Ext";
+                }
+                action("&P.10")
+                {
+                    ApplicationArea = all;
+                    Caption = 'P.10';
+                    Image = Report2;
+                    RunObject = Report "P.10 Ext";
+                }
+                action("PAYE Schedule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'PAYE Schedule';
+                    Image = Report2;
+                    RunObject = Report "PAYE Schedule Ext";
+                }
+                action("NHIF Schedule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'NHIF Schedule';
+                    Image = Report2;
+                    RunObject = Report "NHIF Schedule Ext";
+                }
+                action("NSSF Schedule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'NSSF Schedule';
+                    Image = Report2;
+                    RunObject = Report "NSSF Schedule Ext";
+                }
+                action("SHIF/SHA Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'SHIF/SHA Report';
+                    Image = Report2;
+                    RunObject = Report "SHA/SHIF Report";
+                }
+            }
+
+            group("Cummulative Reports")
+            {
+                Image = Payables;
+
+                action("Periodic Deductions")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Periodic Deductions';
+                    Image = Report2;
+                    RunObject = Report "Periodic Deductions Ext";
+                }
+            }
+
+
             group(PeriodicActivities)
             {
                 action("Journal Transfer")
@@ -949,7 +1203,7 @@ page 51448 "PRL-Payroll Role Center"
                     Image = Employee;
 
                     RunObject = Page "HRM-Employee-List";
-                    RunPageView = WHERE(Status = FILTER(<> active));
+                    RunPageView = WHERE(Status = FILTER(Inactive));
                 }
 
                 action("Payroll Mass Changes")
@@ -973,6 +1227,14 @@ page 51448 "PRL-Payroll Role Center"
 
                     RunObject = Page "HRM-Casual Pay List";
 
+                }
+                action("Casual Import List")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Casual Import List';
+                    Image = Employee;
+
+                    RunObject = Page "Casual Import List";
                 }
                 action("Casual Worked Days")
                 {

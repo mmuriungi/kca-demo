@@ -2,14 +2,14 @@ page 50374 "HRM-Employee-List"
 {
     CardPageID = "PRL-Header Salary Card";
     Editable = true;
-    InsertAllowed = true;
+    InsertAllowed = false;
     ModifyAllowed = true;
     DeleteAllowed = false;
     PageType = List;
     SourceTable = "HRM-Employee C";
     SourceTableView = SORTING("No.")
                       ORDER(Ascending)
-                      WHERE(Status = FILTER(Active),
+                      WHERE(
                             "Posting Group" = FILTER('PAYROLL'),
                             "Employee Category" = filter(<> 'PART-TIME'));
 
