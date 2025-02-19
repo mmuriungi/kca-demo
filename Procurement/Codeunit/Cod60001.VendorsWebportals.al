@@ -19,8 +19,8 @@ codeunit 60001 VendorsWebportals
         proclines: Record "PROC-Purchase Quote Line";
         tenderheader: Record "Purchase Header";
         proceval: Record "Proc-Preliminary Qualif.Quote";
-        proccommittee : Record "Proc-Committee Membership";
-        procCommitteeMembers : Record "Proc-Committee Appointment H";
+        proccommittee: Record "Proc-Committee Membership";
+        procCommitteeMembers: Record "Proc-Committee Appointment H";
         //tenderheader: Record "Tender Submission Header";
         // tenderlines: Record "Tender Submission Lines";
         tenderlines: Record "Purchase Line";
@@ -30,6 +30,69 @@ codeunit 60001 VendorsWebportals
         FILESPATH: Label 'C:\inetpub\wwwroot\NDMAVendors\Downloads\';
         purchaseheader: Record "Purchase Header";
         purchaseline: Record "Purchase Line";
+        PreliminaryRequirements: Record "Proc-Preliminary Qualif";
+        TechchnicalRequirements: Record "Proc-Technical Qualif";
+
+    procedure GetPreliminaryQualificationRequirements(tenderno: Code[20]) msg: Text
+    begin
+        PreliminaryRequirements.RESET;
+        PreliminaryRequirements.SETRANGE("No.", tenderno);
+        if PreliminaryRequirements.FIND('-') then begin
+            repeat
+                msg += PreliminaryRequirements.Description + ' ::' + Format(PreliminaryRequirements.Mandatory) + ' :::';
+            until PreliminaryRequirements.NEXT = 0;
+        end;
+    end;
+
+    procedure GetTechnicalQualificationRequirements(tenderno: Code[20]) msg: Text
+    begin
+        TechchnicalRequirements.RESET;
+        TechchnicalRequirements.SETRANGE("No.", tenderno);
+        if TechchnicalRequirements.FIND('-') then begin
+            repeat
+                msg += TechchnicalRequirements.Description + ' :::';
+            until TechchnicalRequirements.NEXT = 0;
+        end;
+    end;
+
+    procedure MissingMandatoryPreliminaryRequirement(tenderno: Code[20]; bidno: Code[20]) msg: Boolean
+    var
+        DocAttachment: Record "Document Attachment";
+    begin
+        PreliminaryRequirements.RESET;
+        PreliminaryRequirements.SETRANGE("No.", tenderno);
+        PreliminaryRequirements.SETRANGE(Mandatory, TRUE);
+        if PreliminaryRequirements.FIND('-') then begin
+            repeat
+                DocAttachment.RESET;
+                DocAttachment.SETRANGE("No.", bidno);
+                DocAttachment.SETRANGE("Table ID", Database::"Purchase Header");
+                DocAttachment.SETRANGE("File Name", PreliminaryRequirements.Description);
+                if not DocAttachment.FIND('-') then begin
+                    Exit(true);
+                end;
+            until PreliminaryRequirements.NEXT = 0;
+        end;
+    end;
+
+    procedure MissingMandatoryTechnicalRequirement(tenderno: Code[20]; bidno: Code[20]) msg: Boolean
+    var
+        DocAttachment: Record "Document Attachment";
+    begin
+        TechchnicalRequirements.RESET;
+        TechchnicalRequirements.SETRANGE("No.", tenderno);
+        if TechchnicalRequirements.FIND('-') then begin
+            repeat
+                DocAttachment.RESET;
+                DocAttachment.SETRANGE("No.", bidno);
+                DocAttachment.SETRANGE("Table ID", Database::"Purchase Header");
+                DocAttachment.SETRANGE("File Name", TechchnicalRequirements.Description);
+                if not DocAttachment.FIND('-') then begin
+                    Exit(true);
+                end;
+            until TechchnicalRequirements.NEXT = 0;
+        end;
+    end;
 
     procedure GenerateRFQReport(tenderNo: Code[20]; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
     var
