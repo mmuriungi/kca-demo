@@ -367,7 +367,7 @@ codeunit 60001 VendorsWebportals
                     purchaseline."Document Type" := tenderheader."Document Type";
                     purchaseline."Direct Unit Cost" := quoteamt;
                     purchaseline."Unit of Measure" := proclines."Unit of Measure";
-                    purchaseline."Location Code" := 'MAIN STORE';
+                    purchaseline."Location Code" := 'MAIN';
                     purchaseline.Quantity := proclines.Quantity;
                     purchaseline.Validate(Quantity);
                     purchaseline.Validate("Direct Unit Cost");
