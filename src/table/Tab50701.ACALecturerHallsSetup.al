@@ -41,6 +41,11 @@ table 50701 "ACA-Lecturer Halls Setup"
         {
 
         }
+        //("Room Type"
+        field(10; "Room Type"; Text[100])
+        {
+
+        }
 
     }
 

@@ -541,11 +541,13 @@ page 51456 "ACA-Academics Role Center&"
             }
             group("Timetabling")
             {
+                Caption = 'Class Timetabling';
                 action("Timetable Header List")
                 {
                     Image = Report;
 
                     RunObject = Page "Timetable Header List";
+                    RunPageView = where("Type" = const(Class));
                     ApplicationArea = All;
                 }
                 action(timeslots)
@@ -561,6 +563,24 @@ page 51456 "ACA-Academics Role Center&"
 
                     RunObject = Page "Timetable Entry";
                     ApplicationArea = All;
+                }
+            }
+            group("Exam Timetabling")
+            {
+                Caption = 'Exam Timetabling';
+                action("Exam Timetable Header List")
+                {
+                    Image = Report;
+
+                    RunObject = Page "Timetable Header List";
+                    RunPageView = where("Type" = const(Exam));
+                    ApplicationArea = All;
+                }
+                action("Exam Time Slots")
+                {
+                    Image = Report;
+
+                    RunObject = Page "Exam Time Slots";
                 }
             }
         }

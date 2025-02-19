@@ -28,9 +28,16 @@ page 52087 "Timetable Header"
             }
             part(timetableEntry; "Timetable Entry")
             {
+                Visible = Rec."Type" = Rec."Type"::Class;
                 ApplicationArea = All;
                 Caption = 'Timetable Entry';
                 SubPageLink = Semester = field(Semester);
+            }
+            part(examTimetableEntry; "Exam Timetable Entry")
+            {
+                Visible = Rec."Type" = Rec."Type"::Exam;
+                ApplicationArea = All;
+                Caption = 'Exam Timetable Entry';
             }
         }
     }
@@ -51,6 +58,36 @@ page 52087 "Timetable Header"
                     TtCu: codeunit "Timetable Management";
                 begin
                     TtCu.GenerateTimetable(Rec."Academic Year", Rec.Semester);
+                end;
+            }
+            action(GenerateExamTimetable)
+            {
+                ApplicationArea = All;
+                Caption = 'Generate Exam Timetable';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = GetLines;
+                trigger OnAction()
+                var
+                    TtCu: codeunit "Timetable Management";
+                begin
+                    TtCu.GenerateExamTimetable(Rec.Semester);
+                end;
+            }
+            action(GenerateExamTimeSlots)
+            {
+                ApplicationArea = All;
+                Caption = 'Generate Exam Time Slots';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = GetLines;
+                trigger OnAction()
+                var
+                    TtCu: codeunit "Timetable Management";
+                begin
+                    TtCu.GenerateExamTimeSlots(Rec.Semester);
                 end;
             }
         }
