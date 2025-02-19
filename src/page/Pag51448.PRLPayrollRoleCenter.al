@@ -683,9 +683,64 @@ page 51448 "PRL-Payroll Role Center"
                     Image = "PrintForm";
                     RunObject = Report "Housing Levy Fund";
                 }
-
-
             }
+
+            group("Tax Return Reports")
+            {
+                Image = Payables;
+
+                action("&P9 Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'P9 Report';
+                    Image = Report2;
+                    RunObject = Report "P9 Report Ext";
+                }
+                action("&Employer Certificate")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Employer Certificate';
+                    Image = Report2;
+                    RunObject = Report "Employer Certificate Ext";
+                }
+                action("&P.10")
+                {
+                    ApplicationArea = all;
+                    Caption = 'P.10';
+                    Image = Report2;
+                    RunObject = Report "P.10 Ext";
+                }
+                action("PAYE Schedule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'PAYE Schedule';
+                    Image = Report2;
+                    RunObject = Report "PAYE Schedule Ext";
+                }
+                action("NHIF Schedule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'NHIF Schedule';
+                    Image = Report2;
+                    RunObject = Report "NHIF Schedule Ext";
+                }
+                action("NSSF Schedule")
+                {
+                    ApplicationArea = all;
+                    Caption = 'NSSF Schedule';
+                    Image = Report2;
+                    RunObject = Report "NSSF Schedule Ext";
+                }
+                action("SHIF/SHA Report")
+                {
+                    ApplicationArea = all;
+                    Caption = 'SHIF/SHA Report';
+                    Image = Report2;
+                    RunObject = Report "SHA/SHIF Report";
+                }
+            }
+
+
             group(PeriodicActivities)
             {
                 action("Journal Transfer")
