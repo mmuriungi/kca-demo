@@ -740,6 +740,19 @@ page 51448 "PRL-Payroll Role Center"
                 }
             }
 
+            group("Cummulative Reports")
+            {
+                Image = Payables;
+
+                action("Periodic Deductions")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Periodic Deductions';
+                    Image = Report2;
+                    RunObject = Report "Periodic Deductions Ext";
+                }
+            }
+
 
             group(PeriodicActivities)
             {

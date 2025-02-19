@@ -148,6 +148,8 @@ table 50387 "PRL-Period Transactions"
         field(50901; "Balance Type"; Option)
         {
             OptionMembers = None,Increasing,Reducing;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("PRL-Transaction Codes"."Balance Type" WHERE("Transaction Code" = FIELD("Transaction Code")));
         }
         field(50004; "Group Section"; Option)
         {
