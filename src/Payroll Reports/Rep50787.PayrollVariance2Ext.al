@@ -1,6 +1,7 @@
 report 50787 "Payroll Variance 2 Ext"
 {
     DefaultLayout = RDLC;
+    Caption = 'Payroll Variance Report 2';
     RDLCLayout = './PayrollLayouts/Payroll Variance Report 2.rdlc';
     EnableHyperlinks = true;
 

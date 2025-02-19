@@ -1,12 +1,11 @@
-report 50052 "Staff Pension Ext"
+report 50799 "Housing Levy Fund"
 {
     DefaultLayout = RDLC;
-    Caption = 'Staff Pension';
-    RDLCLayout = './PayrollLayouts/Staff Pension.rdlc';
+    RDLCLayout = './PayrollLayouts/House Levy Report.rdlc';
 
     dataset
     {
-        dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
+        dataitem("PRL-Period Transactions";"PRL-Period Transactions")
         {
             DataItemTableView = where("Transaction Code"=filter('BPAY'|'GPAY'|'NPAY'|690));
             RequestFilterFields = "Employee Code";
@@ -34,6 +33,12 @@ report 50052 "Staff Pension Ext"
             column(Transcode;Transcode)
             {
             }
+            column(Id;objEmp."ID Number")
+            {
+            }
+            column(KraPin;objEmp."PIN Number")
+            {
+            }
             column(TransIndx;TransIndx)
             {
             }
@@ -52,81 +57,127 @@ report 50052 "Staff Pension Ext"
             column(SelectedPeriod;SelectedPeriod)
             {
             }
+            column(IDNoS;objEmp."ID Number")
+            {
+            }
+            column(PinNumber;objEmp."PIN Number")
+            {
+            }
+            column(GrossPay;Gpay)
+            {
+            }
+            column(HouseLevy;HousingLevy)
+            {
+            }
 
             trigger OnAfterGetRecord()
             begin
+                /*PeriodTrans.RESET;
+                PeriodTrans.SETRANGE(PeriodTrans."Employee Code","PRL-Period Transactions"."Employee Code");
+                PeriodTrans.SETRANGE(PeriodTrans."Payroll Period",SelectedPeriod);
+                PeriodTrans.SETRANGE(PeriodTrans."Transaction Code",'996');
+                IF NOT PeriodTrans.FIND('-') THEN CurrReport.SKIP;
+                
+                CLEAR(EmployeeName);
+                CLEAR(BasicPay);
+                CLEAR(SelfContrib);
+                CLEAR(CompanyContrib);
+                CLEAR(CummContrib);
+                CLEAR(HousingLevy);
+                CLEAR(TransAmount);
+                CLEAR(Transcode);
+                CLEAR(TransIndx);
+                
+                objEmp.RESET;
+                objEmp.SETRANGE(objEmp."No.","PRL-Period Transactions"."Employee Code");
+                objEmp.SETRANGE(objEmp.Status,objEmp.Status::Normal);
+                IF objEmp.FIND('-') THEN
+                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
+                 PeriodTrans2.RESET;
+                PeriodTrans2.SETRANGE(PeriodTrans2."Employee Code","PRL-Period Transactions"."Employee Code");
+                PeriodTrans2.SETRANGE(PeriodTrans2."Payroll Period",SelectedPeriod);
+                PeriodTrans2.SETRANGE(PeriodTrans2."Transaction Code",'996');
+                IF PeriodTrans2.FIND('-') THEN BEGIN
+                  TransAmount:=PeriodTrans2.Amount;
+                 // TransAmount:=HousingLevy;
+                  Transcode:='HOUSING LEVY EMPOYER';
+                  TransIndx:=3;
+                
+                IF "PRL-Period Transactions"."Transaction Code"='GPAY' THEN BEGIN
+                  TransAmount:="PRL-Period Transactions".Amount;
+                  Transcode:='GROSS';
+                  TransIndx:=1;
+                
+                
+                END ELSE IF  "PRL-Period Transactions"."Transaction Code"='NPAY' THEN BEGIN
+                    PeriodTrans.RESET;
+                PeriodTrans.SETRANGE(PeriodTrans."Employee Code","PRL-Period Transactions"."Employee Code");
+                PeriodTrans.SETRANGE(PeriodTrans."Payroll Period",SelectedPeriod);
+                PeriodTrans.SETRANGE(PeriodTrans."Transaction Code",'996');
+                IF PeriodTrans.FIND('-') THEN BEGIN
+                  TransAmount:=PeriodTrans.Amount;
+                  Transcode:='HOUSING  LEVY EMPOYEE';
+                  TransIndx:=2;
+                
+                
+                
+                
+                
+                END;
+                
+                END;
+                END;*/
                 PeriodTrans.Reset;
                 PeriodTrans.SetRange(PeriodTrans."Employee Code","PRL-Period Transactions"."Employee Code");
                 PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'690');
+                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'996');
                 if not PeriodTrans.Find('-') then CurrReport.Skip;
-
+                
                 Clear(EmployeeName);
                 Clear(BasicPay);
                 Clear(SelfContrib);
                 Clear(CompanyContrib);
                 Clear(CummContrib);
+                Clear(HousingLevy);
                 Clear(TransAmount);
                 Clear(Transcode);
                 Clear(TransIndx);
                 Clear(Gross);
-                Clear(Hsy1);
-                Clear(hsl2);
-
+                
                 objEmp.Reset;
                 objEmp.SetRange(objEmp."No.","PRL-Period Transactions"."Employee Code");
+                objEmp.SetRange(objEmp.Status,objEmp.Status::Active);
                 if objEmp.Find('-') then
                   EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
-                Gender:=objEmp.Gender;
-                if objEmp."Date Of Birth"<>0D then
-                Dates:=objEmp."Date Of Birth";
+                 PeriodTrans2.Reset;
+                PeriodTrans2.SetRange(PeriodTrans2."Employee Code","PRL-Period Transactions"."Employee Code");
+                PeriodTrans2.SetRange(PeriodTrans2."Payroll Period",SelectedPeriod);
+                PeriodTrans2.SetRange(PeriodTrans2."Transaction Code",'996');
+                if PeriodTrans2.Find('-') then begin
+                HousingLevy:=PeriodTrans2.Amount;
+                end;
+                PeriodTrans2.Reset;
+                PeriodTrans2.SetRange(PeriodTrans2."Employee Code","PRL-Period Transactions"."Employee Code");
+                PeriodTrans2.SetRange(PeriodTrans2."Payroll Period",SelectedPeriod);
+                PeriodTrans2.SetRange(PeriodTrans2."Transaction Code",'GPAY');
+                if PeriodTrans2.Find('-') then begin
+                Gross:=PeriodTrans2.Amount;
+                end;
+                objTransCode.Reset;
+                objTransCode.SetFilter(objTransCode."Hsl Excluded",'%1',true);
+                if objTransCode.Find('-') then begin
+                 PeriodTrans2.Reset;
+                PeriodTrans2.SetRange(PeriodTrans2."Employee Code","PRL-Period Transactions"."Employee Code");
+                PeriodTrans2.SetRange(PeriodTrans2."Payroll Period",SelectedPeriod);
+                PeriodTrans2.SetRange(PeriodTrans2."Transaction Code",objTransCode."Transaction Code");
+                if PeriodTrans2.Find('-') then begin
+                PeriodTrans2.CalcSums(Amount);
+                ExcludedAmount:=PeriodTrans2.Amount;
+                end;
+                HslGross:=Gross-ExcludedAmount;
+                
+                end;
 
-                if "PRL-Period Transactions"."Transaction Code"='BPAY' then begin
-                  TransAmount:="PRL-Period Transactions".Amount;
-                  Transcode:='BASIC';
-                  TransIndx:=1;
-                  end else if  "PRL-Period Transactions"."Transaction Code"='690' then begin
-                  TransAmount:="PRL-Period Transactions".Amount;
-                  Transcode:='PENSION SELF';
-                  TransIndx:=2;
-                  end else if  "PRL-Period Transactions"."Transaction Code"='NPAY' then begin
-                //Cipmpute Sompany contribution
-                    PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","PRL-Period Transactions"."Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'690');
-                if PeriodTrans.Find('-') then begin
-                  TransAmount:=(PeriodTrans.Amount*2);
-                  Transcode:='COMP. CONTRIB.';
-                  TransIndx:=3;
-                  end;
-
-                  end else if  "PRL-Period Transactions"."Transaction Code"='GPAY' then begin
-                    //Get the Basic pay
-                BasicPay:=0;
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetFilter(PeriodTrans."Transaction Code",'BPAY');
-                if PeriodTrans.Find('-') then
-                    begin
-                       BasicPay:=PeriodTrans.Amount;
-                    end;
-                    // SelfCont
-                    SelfContrib:=0;
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'690');
-                if PeriodTrans.Find('-') then
-                    begin
-                       SelfContrib:=PeriodTrans.Amount;
-                    end;
-
-                  TransAmount:=((SelfContrib*2)+SelfContrib);
-                  Transcode:='CUMM. CONT.';
-                  TransIndx:=4;
-                  end;
             end;
 
             trigger OnPreDataItem()
@@ -216,11 +267,14 @@ report 50052 "Staff Pension Ext"
         Dates: Date;
         Gender: Option;
         TransAmount: Decimal;
-        Transcode: Code[20];
+        Transcode: Code[30];
         TransIndx: Integer;
         datefilter: Date;
-        Hsy1: Decimal;
-        hsl2: Decimal;
+        Gpay: Decimal;
+        HousingLevy: Decimal;
+        PeriodTrans2: Record "PRL-Period Transactions";
+        ExcludedAmount: Decimal;
         Gross: Decimal;
+        HslGross: Decimal;
 }
 

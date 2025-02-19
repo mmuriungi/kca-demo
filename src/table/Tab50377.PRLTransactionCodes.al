@@ -159,6 +159,10 @@ table 50377 "PRL-Transaction Codes"
         {
             Description = 'Is this a Imprest?';
         }
+        field(51; "Hsl Excluded"; Boolean)
+        {
+           
+        }
 
     }
 

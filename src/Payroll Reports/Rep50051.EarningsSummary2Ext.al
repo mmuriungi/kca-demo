@@ -1,6 +1,7 @@
 report 50051 "Earnings Summary 2 Ext"
 {
     DefaultLayout = RDLC;
+    Caption = 'Earnings Summary 2';
     RDLCLayout = './PayrollLayouts/Earnings Summary 2.rdlc';
 
     dataset
