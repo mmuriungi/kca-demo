@@ -10622,5 +10622,40 @@ Codeunit 61106 webportals
     end;
 
     #endregion
+
+    #region Evaluation
+    procedure CheckStaffNoInEvaluation(StaffNo: Code[20]): Boolean
+    var
+        Committee: Record "Proc-Committee Membership";
+        Header: Record "Proc-Purchase Quote Header";
+        JArray: JsonArray;
+        JObj: JsonObject;
+        JsTxt: Text;
+    begin
+        FindCommitteeReleased(StaffNo, Committee);
+        if Committee.FindSet() then begin
+            repeat
+                FindHeaderReleased(Committee."No.", Header);
+                
+            until Committee.Next() = 0;
+        end;
+    end;
+    procedure FindHeaderReleased(No: Code[20]; var Header: Record "Proc-Purchase Quote Header")
+    begin
+        Header.Reset();
+        Header.SETRANGE(Header."No.", No);
+        Header.SETRANGE(Header.Status, Header.Status::Released);
+        if Header.FindSet() then;
+    end;
+    procedure FindCommitteeReleased(StaffNo: Code[20]; var Committee: Record "Proc-Committee Membership")
+    begin
+        Committee.Reset();
+        Committee.SETRANGE(Committee."Staff No.", StaffNo);
+        Committee.SetAutoCalcFields(Status);
+        Committee.SETRANGE(Committee.Status, Committee.Status::Released);
+        if Committee.FindSet() then;
+    end;
+    #endregion
+
 }
 
