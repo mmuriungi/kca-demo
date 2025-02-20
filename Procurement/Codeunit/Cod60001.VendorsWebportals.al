@@ -362,19 +362,15 @@ codeunit 60001 VendorsWebportals
             if proclines.Find('-') then begin
                 purchaseline.Reset;
                 purchaseline.SetRange("Document Type", tenderheader."Document Type");
-                purchaseline.SetRange("Request for Quote No.", tenderno);
                 purchaseline.SetRange("Document No.", bidno);
                 purchaseline.SetRange("No.", itemno);
                 if not purchaseline.Find('-') then begin
-
-                    Seq := purchaseline."Line No.";
                     purchaseline.init;
                     purchaseline.Type := proclines.Type;
                     purchaseline."Document No." := bidno;
                     purchaseline."Line No." := Seq;
                     purchaseline."No." := itemno;
                     purchaseline.Validate("No.");
-                    purchaseline."Request for Quote No." := tenderno;
                     purchaseline."Buy-from Vendor No." := krapin;
                     purchaseline.Validate("Buy-from Vendor No.");
                     purchaseline."Pay-to Vendor No." := krapin;
