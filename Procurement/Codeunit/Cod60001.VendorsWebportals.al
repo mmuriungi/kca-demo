@@ -388,9 +388,12 @@ codeunit 60001 VendorsWebportals
                     purchaseline.Validate("Direct Unit Cost");
                     purchaseLine.INSERT(True);
                     msg := true;
-                end; /*else begin
-                    Error('Tender line already added!');
-                end;*/
+                end else begin
+                    purchaseline."Direct Unit Cost" := quoteamt;
+                    purchaseline.Validate("Direct Unit Cost");
+                    purchaseline.MODIFY;
+                    msg := true;
+                end;
             end else begin
                 Error('Procurement header not found!')
             end;
