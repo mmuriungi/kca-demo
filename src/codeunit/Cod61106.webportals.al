@@ -3803,13 +3803,13 @@ Codeunit 61106 webportals
 
     procedure StoreRequisitionApprovalRequest(ReqNo: Text)
     var
-    ApprovalMngt: Codeunit "Init Code";
+        ApprovalMngt: Codeunit "Init Code";
     begin
         StoreRequisition.Reset;
         StoreRequisition.SetRange(StoreRequisition."No.", ReqNo);
         if StoreRequisition.Find('-')
         then begin
-            if ApprovalMngt.IsSRNEnabled(StoreRequisition) then
+            if ApprovalMngt.CheckSRNWorkflowEnabled(StoreRequisition) then
                 ApprovalMngt.OnSendSRNforApproval(StoreRequisition);
         end;
     end;
@@ -10602,7 +10602,8 @@ Codeunit 61106 webportals
     end;
 
     procedure InsertStoreRequisitionLines(ReqNo: Code[30]; ItemNo: Code[30]; ItemDesc: Text; Amount: Decimal; LineAmount: Decimal; Qty: Decimal; UnitOfMsre: Code[10]; IStore: Code[30]) rtnMsg: Text
-    var seq: Integer;
+    var
+        seq: Integer;
         lines: Record "PROC-Store Requistion Lines";
     begin
         lines.Reset;
