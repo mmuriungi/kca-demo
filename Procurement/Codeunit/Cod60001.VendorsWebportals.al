@@ -324,12 +324,18 @@ codeunit 60001 VendorsWebportals
         end;
     end;
 
-    procedure purchaseLineExists(bidno: Code[20]) msg: boolean
+    procedure NotAllpurchaseLinesAdded(tenderno: Code[20]; bidno: Code[20]) msg: boolean
     begin
-        purchaseline.Reset;
-        purchaseline.SetRange("Document No.", bidno);
-        if purchaseline.Find('-') then begin
-            exit(true);
+        proclines.Reset;
+        proclines.SetRange("Document No.", tenderno);
+        if proclines.Find('-') then begin
+            repeat
+                purchaseline.Reset;
+                purchaseline.SetRange("Request for Quote No.", proclines."Document No.");
+                if not purchaseline.Find('-') then begin
+                    exit(true);
+                end;
+            until proclines.next = 0;
         end;
     end;
 
@@ -383,7 +389,10 @@ codeunit 60001 VendorsWebportals
                     purchaseLine.INSERT(True);
                     msg := true;
                 end else begin
-                    Error('Tender line already added!');
+                    purchaseline."Direct Unit Cost" := quoteamt;
+                    purchaseline.Validate("Direct Unit Cost");
+                    purchaseline.MODIFY;
+                    msg := true;
                 end;
             end else begin
                 Error('Procurement header not found!')
