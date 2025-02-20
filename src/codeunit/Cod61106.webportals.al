@@ -10597,7 +10597,7 @@ Codeunit 61106 webportals
         StoreRequisition.SETRANGE(StoreRequisition."No.", ReqNo);
         IF StoreRequisition.FIND('-')
         THEN BEGIN
-            //Msg := StoreRequisition."Inventory Posting Group";
+            Msg := StoreRequisition."Inventory Posting Group";
         END;
     end;
 
