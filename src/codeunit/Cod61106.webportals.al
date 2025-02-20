@@ -10602,9 +10602,19 @@ Codeunit 61106 webportals
     end;
 
     procedure InsertStoreRequisitionLines(ReqNo: Code[30]; ItemNo: Code[30]; ItemDesc: Text; Amount: Decimal; LineAmount: Decimal; Qty: Decimal; UnitOfMsre: Code[10]; IStore: Code[30]) rtnMsg: Text
+    var seq: Integer;
+        lines: Record "PROC-Store Requistion Lines";
     begin
+        lines.Reset;
+        lines.SetCurrentKey("Line No.");
+        if lines.Findlast() then begin
+            Seq := lines."Line No." + 1;
+        end else begin
+            seq := 1;
+        end;
         StoreReqLines.Reset();
         StoreReqLines."Requistion No" := ReqNo;
+        StoreReqLines."Line No." := Seq;
         StoreReqLines.Validate("Requistion No");
         StoreReqLines."No." := ItemNo;
         StoreReqLines.Description := ItemDesc;
