@@ -97,9 +97,8 @@ codeunit 50010 "Init Code"
         exit(WFMngt.CanExecuteWorkflow(SRN, WFCode.RunWorkflowOnSendSRNApprovalCode()))
     end;
 
-    local procedure CheckSRNWorkflowEnabled(): Boolean
+    procedure CheckSRNWorkflowEnabled(var SRN: Record "PROC-Store Requistion Header"): Boolean
     var
-        SRN: Record "PROC-Store Requistion Header";
         NoWorkflowEnb: TextConst ENU = 'No workflow Enabled for this Record type', ENG = 'No workflow Enabled for this Record type';
 
     begin
@@ -249,7 +248,7 @@ codeunit 50010 "Init Code"
     end;
     //End cancel of Claim
 
-  
+
 
     //Cancel Store Requisition
     [IntegrationEvent(false, false)]
