@@ -106,6 +106,15 @@ table 52178536 "Proc-Committee Membership"
         {
             OptionMembers = No,Initiated,Done;
         }
+        field(17; Status; Option)
+        {
+
+            Editable = false;
+            OptionMembers = Open,Released,"Pending Approval",Closed,Cancelled;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Proc-Purchase Quote Header".Status where("No." = field("No.")));
+        }
+
     }
 
     keys
