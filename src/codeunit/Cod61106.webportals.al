@@ -10635,7 +10635,7 @@ Codeunit 61106 webportals
     #endregion
 
     #region Evaluation
-    procedure CheckStaffNoInOpening(StaffNo: Code[20]): Boolean
+    procedure CheckStaffNoInOpening(StaffNo: Code[20]): Text
     var
         Committee: Record "Proc-Committee Membership";
         Header: Record "Proc-Purchase Quote Header";
@@ -10657,10 +10657,10 @@ Codeunit 61106 webportals
             until Committee.Next() = 0;
         end;
         JArray.WriteTo(JsTxt);
-        Message(JsTxt);
+        exit(JsTxt);
     end;
 
-    procedure CheckStaffNoInEvaluation(StaffNo: Code[20]): Boolean
+    procedure CheckStaffNoInEvaluation(StaffNo: Code[20]): Text
     var
         Committee: Record "Proc-Committee Membership";
         Header: Record "Proc-Purchase Quote Header";
@@ -10683,7 +10683,7 @@ Codeunit 61106 webportals
             until Committee.Next() = 0;
         end;
         JArray.WriteTo(JsTxt);
-        Message(JsTxt);
+        exit(JsTxt);
     end;
 
     procedure GetHeaderDetails(No: Code[20]): Text
