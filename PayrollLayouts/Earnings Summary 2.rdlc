@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>MSRB</am:Name>
+      <am:Version>15.0.20283.0</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>MSRB</am:Name>
+      <am:Version>15.0.20283.0</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2025-02-25T19:01:04.8460125Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -7,9 +18,89 @@
         <DataProvider>SQL</DataProvider>
         <ConnectString />
       </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>48c6efef-edb3-427f-9c35-738f0b632a5a</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="ReportForNavId_1">
+          <DataField>ReportForNavId_1</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="COMPANYNAME_Control1102755015">
+          <DataField>COMPANYNAME_Control1102755015</DataField>
+        </Field>
+        <Field Name="COMPANYNAME_Control1102756027">
+          <DataField>COMPANYNAME_Control1102756027</DataField>
+        </Field>
+        <Field Name="COMPANYNAME_Control1102756028">
+          <DataField>COMPANYNAME_Control1102756028</DataField>
+        </Field>
+        <Field Name="CompanyInfo_Picture">
+          <DataField>CompanyInfo_Picture</DataField>
+        </Field>
+        <Field Name="CompanyInfo_Picture_Control1102756014">
+          <DataField>CompanyInfo_Picture_Control1102756014</DataField>
+        </Field>
+        <Field Name="PayrollSummary">
+          <DataField>PayrollSummary</DataField>
+        </Field>
+        <Field Name="PeriodNamez">
+          <DataField>PeriodNamez</DataField>
+        </Field>
+        <Field Name="TransDesc">
+          <DataField>TransDesc</DataField>
+        </Field>
+        <Field Name="payments">
+          <DataField>payments</DataField>
+        </Field>
+        <Field Name="deductions">
+          <DataField>deductions</DataField>
+        </Field>
+        <Field Name="kirinyagatitle">
+          <DataField>kirinyagatitle</DataField>
+        </Field>
+        <Field Name="abreviation">
+          <DataField>abreviation</DataField>
+        </Field>
+        <Field Name="DetDate">
+          <DataField>DetDate</DataField>
+        </Field>
+        <Field Name="EmpNo">
+          <DataField>EmpNo</DataField>
+        </Field>
+        <Field Name="empName">
+          <DataField>empName</DataField>
+        </Field>
+        <Field Name="EmpAmount">
+          <DataField>EmpAmount</DataField>
+        </Field>
+        <Field Name="EmpAmountFormat">
+          <DataField>EmpAmountFormat</DataField>
+        </Field>
+        <Field Name="code">
+          <DataField>code</DataField>
+        </Field>
+        <Field Name="name">
+          <DataField>name</DataField>
+        </Field>
+        <Field Name="Transaction">
+          <DataField>Transaction</DataField>
+        </Field>
+        <Field Name="TotLabel">
+          <DataField>TotLabel</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -21,7 +112,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">KARATINA UNIVERSITY</Value>
+                    <Value>KARATINA UNIVERSITY</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <TextDecoration>None</TextDecoration>
@@ -56,7 +147,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">(KARU)</Value>
+                    <Value>(KARU)</Value>
                     <Style>
                       <FontSize>8pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -92,7 +183,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">ALLOWANCES REPORT</Value>
+                    <Value>ALLOWANCES REPORT</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <TextDecoration>Underline</TextDecoration>
@@ -127,7 +218,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">=First(Fields!DetDate.Value, "DataSet_Result")</Value>
+                    <Value>=First(Fields!DetDate.Value, "DataSet_Result")</Value>
                     <Style>
                       <FontStyle>Italic</FontStyle>
                       <FontWeight>Bold</FontWeight>
@@ -182,7 +273,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">PF No.</Value>
+                                  <Value>PF No.</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -233,7 +324,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Employee  Name</Value>
+                                  <Value>Employee  Name</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -284,7 +375,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Amount</Value>
+                                  <Value>Amount</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -340,7 +431,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Transaction.Value</Value>
+                                  <Value>=Fields!Transaction.Value</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontWeight>Bold</FontWeight>
@@ -400,7 +491,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!EmpNo.Value</Value>
+                                  <Value>=Fields!EmpNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -449,7 +540,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!empName.Value</Value>
+                                  <Value>=Fields!empName.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -498,7 +589,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!EmpAmount.Value</Value>
+                                  <Value>=Fields!EmpAmount.Value</Value>
                                   <Style>
                                     <Format>n2</Format>
                                   </Style>
@@ -554,17 +645,17 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Total (</Value>
+                                  <Value>Total (</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TotLabel.Value</Value>
+                                  <Value>=Fields!TotLabel.Value</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">)  </Value>
+                                  <Value>)  </Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -619,7 +710,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=sum(Fields!EmpAmount.Value)</Value>
+                                  <Value>=sum(Fields!EmpAmount.Value)</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
@@ -676,7 +767,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -717,7 +808,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Prepared By: _______________ Date: _________________ Signature: ___________________</Value>
+                                  <Value>Prepared By: _______________ Date: _________________ Signature: ___________________</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <TextDecoration>None</TextDecoration>
@@ -759,7 +850,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Checked By: _______________ Date: _________________ Signature: ___________________</Value>
+                                  <Value>Checked By: _______________ Date: _________________ Signature: ___________________</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <TextDecoration>None</TextDecoration>
@@ -802,7 +893,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Prepared By: _______________ Date: _________________ Signature: ___________________</Value>
+                                  <Value>Prepared By: _______________ Date: _________________ Signature: ___________________</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <TextDecoration>None</TextDecoration>
@@ -845,7 +936,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Prepared By: _______________ Date: _________________ Signature: ___________________</Value>
+                                  <Value>Prepared By: _______________ Date: _________________ Signature: ___________________</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <TextDecoration>None</TextDecoration>
@@ -946,10 +1037,22 @@
       </Body>
       <Width>8.03125in</Width>
       <Page>
+        <PageHeight>8.5in</PageHeight>
+        <PageWidth>11in</PageWidth>
+        <LeftMargin>0in</LeftMargin>
+        <RightMargin>0in</RightMargin>
+        <TopMargin>0in</TopMargin>
+        <BottomMargin>0in</BottomMargin>
         <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -989,83 +1092,4 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="ReportForNavId_1">
-          <DataField>ReportForNavId_1</DataField>
-        </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="COMPANYNAME_Control1102755015">
-          <DataField>COMPANYNAME_Control1102755015</DataField>
-        </Field>
-        <Field Name="COMPANYNAME_Control1102756027">
-          <DataField>COMPANYNAME_Control1102756027</DataField>
-        </Field>
-        <Field Name="COMPANYNAME_Control1102756028">
-          <DataField>COMPANYNAME_Control1102756028</DataField>
-        </Field>
-        <Field Name="CompanyInfo_Picture">
-          <DataField>CompanyInfo_Picture</DataField>
-        </Field>
-        <Field Name="CompanyInfo_Picture_Control1102756014">
-          <DataField>CompanyInfo_Picture_Control1102756014</DataField>
-        </Field>
-        <Field Name="PayrollSummary">
-          <DataField>PayrollSummary</DataField>
-        </Field>
-        <Field Name="PeriodNamez">
-          <DataField>PeriodNamez</DataField>
-        </Field>
-        <Field Name="TransDesc">
-          <DataField>TransDesc</DataField>
-        </Field>
-        <Field Name="payments">
-          <DataField>payments</DataField>
-        </Field>
-        <Field Name="deductions">
-          <DataField>deductions</DataField>
-        </Field>
-        <Field Name="kirinyagatitle">
-          <DataField>kirinyagatitle</DataField>
-        </Field>
-        <Field Name="abreviation">
-          <DataField>abreviation</DataField>
-        </Field>
-        <Field Name="DetDate">
-          <DataField>DetDate</DataField>
-        </Field>
-        <Field Name="EmpNo">
-          <DataField>EmpNo</DataField>
-        </Field>
-        <Field Name="empName">
-          <DataField>empName</DataField>
-        </Field>
-        <Field Name="EmpAmount">
-          <DataField>EmpAmount</DataField>
-        </Field>
-        <Field Name="EmpAmountFormat">
-          <DataField>EmpAmountFormat</DataField>
-        </Field>
-        <Field Name="code">
-          <DataField>code</DataField>
-        </Field>
-        <Field Name="name">
-          <DataField>name</DataField>
-        </Field>
-        <Field Name="Transaction">
-          <DataField>Transaction</DataField>
-        </Field>
-        <Field Name="TotLabel">
-          <DataField>TotLabel</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
