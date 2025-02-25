@@ -77,9 +77,9 @@ report 50798 "Staff Pension Report Ext"
                 objEmp.SetRange(objEmp."No.","PRL-Period Transactions"."Employee Code");
                 if objEmp.Find('-') then
                   EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
-                Gender:=objEmp.Gender;
-                if objEmp."Date Of Birth"<>0D then
-                Dates:=objEmp."Date Of Birth";
+                  Gender:=objEmp.Gender;
+                //if objEmp."Date Of Birth"<>0D then
+                   Dates:=objEmp."Date Of Birth";
 
                 if "PRL-Period Transactions"."Transaction Code"='BPAY' then begin
                   TransAmount:="PRL-Period Transactions".Amount;

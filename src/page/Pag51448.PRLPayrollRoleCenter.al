@@ -609,14 +609,6 @@ page 51448 "PRL-Payroll Role Center"
             {
                 Image = Payables;
 
-                action(Action1000000038)
-                {
-                    ApplicationArea = all;
-                    Caption = 'P9 Report Test';
-                    Image = PrintForm;
-                    RunObject = Report "P9 Report (Final)";
-                }
-
                 action("P9 Report")
                 {
                     ApplicationArea = all;
