@@ -22,88 +22,6 @@
       <rd:DataSourceID>48c6efef-edb3-427f-9c35-738f0b632a5a</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="ReportForNavId_1">
-          <DataField>ReportForNavId_1</DataField>
-        </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="COMPANYNAME_Control1102755015">
-          <DataField>COMPANYNAME_Control1102755015</DataField>
-        </Field>
-        <Field Name="COMPANYNAME_Control1102756027">
-          <DataField>COMPANYNAME_Control1102756027</DataField>
-        </Field>
-        <Field Name="COMPANYNAME_Control1102756028">
-          <DataField>COMPANYNAME_Control1102756028</DataField>
-        </Field>
-        <Field Name="CompanyInfo_Picture">
-          <DataField>CompanyInfo_Picture</DataField>
-        </Field>
-        <Field Name="CompanyInfo_Picture_Control1102756014">
-          <DataField>CompanyInfo_Picture_Control1102756014</DataField>
-        </Field>
-        <Field Name="PayrollSummary">
-          <DataField>PayrollSummary</DataField>
-        </Field>
-        <Field Name="PeriodNamez">
-          <DataField>PeriodNamez</DataField>
-        </Field>
-        <Field Name="TransDesc">
-          <DataField>TransDesc</DataField>
-        </Field>
-        <Field Name="payments">
-          <DataField>payments</DataField>
-        </Field>
-        <Field Name="deductions">
-          <DataField>deductions</DataField>
-        </Field>
-        <Field Name="kirinyagatitle">
-          <DataField>kirinyagatitle</DataField>
-        </Field>
-        <Field Name="abreviation">
-          <DataField>abreviation</DataField>
-        </Field>
-        <Field Name="DetDate">
-          <DataField>DetDate</DataField>
-        </Field>
-        <Field Name="EmpNo">
-          <DataField>EmpNo</DataField>
-        </Field>
-        <Field Name="empName">
-          <DataField>empName</DataField>
-        </Field>
-        <Field Name="EmpAmount">
-          <DataField>EmpAmount</DataField>
-        </Field>
-        <Field Name="EmpAmountFormat">
-          <DataField>EmpAmountFormat</DataField>
-        </Field>
-        <Field Name="code">
-          <DataField>code</DataField>
-        </Field>
-        <Field Name="name">
-          <DataField>name</DataField>
-        </Field>
-        <Field Name="Transaction">
-          <DataField>Transaction</DataField>
-        </Field>
-        <Field Name="TotLabel">
-          <DataField>TotLabel</DataField>
-        </Field>
-        <Field Name="IDNumber">
-          <DataField>IDNumber</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1210,12 +1128,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1255,4 +1167,86 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1">
+          <DataField>ReportForNavId_1</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="COMPANYNAME_Control1102755015">
+          <DataField>COMPANYNAME_Control1102755015</DataField>
+        </Field>
+        <Field Name="COMPANYNAME_Control1102756027">
+          <DataField>COMPANYNAME_Control1102756027</DataField>
+        </Field>
+        <Field Name="COMPANYNAME_Control1102756028">
+          <DataField>COMPANYNAME_Control1102756028</DataField>
+        </Field>
+        <Field Name="CompanyInfo_Picture">
+          <DataField>CompanyInfo_Picture</DataField>
+        </Field>
+        <Field Name="CompanyInfo_Picture_Control1102756014">
+          <DataField>CompanyInfo_Picture_Control1102756014</DataField>
+        </Field>
+        <Field Name="PayrollSummary">
+          <DataField>PayrollSummary</DataField>
+        </Field>
+        <Field Name="PeriodNamez">
+          <DataField>PeriodNamez</DataField>
+        </Field>
+        <Field Name="TransDesc">
+          <DataField>TransDesc</DataField>
+        </Field>
+        <Field Name="payments">
+          <DataField>payments</DataField>
+        </Field>
+        <Field Name="deductions">
+          <DataField>deductions</DataField>
+        </Field>
+        <Field Name="kirinyagatitle">
+          <DataField>kirinyagatitle</DataField>
+        </Field>
+        <Field Name="abreviation">
+          <DataField>abreviation</DataField>
+        </Field>
+        <Field Name="DetDate">
+          <DataField>DetDate</DataField>
+        </Field>
+        <Field Name="EmpNo">
+          <DataField>EmpNo</DataField>
+        </Field>
+        <Field Name="empName">
+          <DataField>empName</DataField>
+        </Field>
+        <Field Name="EmpAmount">
+          <DataField>EmpAmount</DataField>
+        </Field>
+        <Field Name="EmpAmountFormat">
+          <DataField>EmpAmountFormat</DataField>
+        </Field>
+        <Field Name="code">
+          <DataField>code</DataField>
+        </Field>
+        <Field Name="name">
+          <DataField>name</DataField>
+        </Field>
+        <Field Name="Transaction">
+          <DataField>Transaction</DataField>
+        </Field>
+        <Field Name="TotLabel">
+          <DataField>TotLabel</DataField>
+        </Field>
+        <Field Name="IDNumber">
+          <DataField>IDNumber</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
