@@ -272,6 +272,26 @@ page 52178704 "Proc-Purchase Quot Req. Header"
 
         area(processing)
         {
+            action("Get Header Details")
+            {
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    WebPortal: Codeunit webportals;
+                begin
+                    WebPortal.GetHeaderDetails(rec."No.");
+                end;
+            }
+            action("Get Line Details")
+            {
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    WebPortal: Codeunit webportals;
+                begin
+                    WebPortal.GetLineDetails(rec."No.");
+                end;
+            }
             action("Initiate Opening")
             {
                 ApplicationArea = all;
