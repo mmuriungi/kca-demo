@@ -181,7 +181,7 @@ report 50786 "Payroll Variance Report Extt"
                 {
                     ApplicationArea = Basic;
                     Caption = 'End Period';
-                    Editable = false;
+                    //Editable = false;
                     Enabled = false;
                     TableRelation = "PRL-Payroll Periods"."Date Opened";
                 }

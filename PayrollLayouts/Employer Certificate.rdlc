@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>MSRB</am:Name>
+      <am:Version>15.0.20283.0</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>MSRB</am:Name>
+      <am:Version>15.0.20283.0</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2025-02-25T19:24:16.2635315Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -11,6 +22,397 @@
       <rd:DataSourceID>24a3465e-8b25-4442-906a-230299a469e3</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="ReportForNavId_4946">
+          <DataField>ReportForNavId_4946</DataField>
+        </Field>
+        <Field Name="CompanySetup__Company_P_I_N_">
+          <DataField>CompanySetup__Company_P_I_N_</DataField>
+        </Field>
+        <Field Name="YR">
+          <DataField>YR</DataField>
+        </Field>
+        <Field Name="ABS__Tax_Paid__">
+          <DataField>ABS__Tax_Paid__</DataField>
+        </Field>
+        <Field Name="ABS__Tax_Paid__Format">
+          <DataField>ABS__Tax_Paid__Format</DataField>
+        </Field>
+        <Field Name="UPPERCASE__Period_Name__">
+          <DataField>UPPERCASE__Period_Name__</DataField>
+        </Field>
+        <Field Name="TotalTax">
+          <DataField>TotalTax</DataField>
+        </Field>
+        <Field Name="TotalTaxFormat">
+          <DataField>TotalTaxFormat</DataField>
+        </Field>
+        <Field Name="DOMESTIC_TAXES_DEPARTMENTCaption">
+          <DataField>DOMESTIC_TAXES_DEPARTMENTCaption</DataField>
+        </Field>
+        <Field Name="P_10Caption">
+          <DataField>P_10Caption</DataField>
+        </Field>
+        <Field Name="EMPLOYER_S_PINCaption">
+          <DataField>EMPLOYER_S_PINCaption</DataField>
+        </Field>
+        <Field Name="APPENDIX_5Caption">
+          <DataField>APPENDIX_5Caption</DataField>
+        </Field>
+        <Field Name="P_A_Y_E___EMPLOYER_S_CERTIFICATECaption">
+          <DataField>P_A_Y_E___EMPLOYER_S_CERTIFICATECaption</DataField>
+        </Field>
+        <Field Name="YEARCaption">
+          <DataField>YEARCaption</DataField>
+        </Field>
+        <Field Name="To_Senior_Assistant_CommissionerCaption">
+          <DataField>To_Senior_Assistant_CommissionerCaption</DataField>
+        </Field>
+        <Field Name="EmptyStringCaption">
+          <DataField>EmptyStringCaption</DataField>
+        </Field>
+        <Field Name="DataItem1102756011">
+          <DataField>DataItem1102756011</DataField>
+        </Field>
+        <Field Name="This_total_tax_has_been_paid_as_follows__Caption">
+          <DataField>This_total_tax_has_been_paid_as_follows__Caption</DataField>
+        </Field>
+        <Field Name="MONTHCaption">
+          <DataField>MONTHCaption</DataField>
+        </Field>
+        <Field Name="PAYE_Caption">
+          <DataField>PAYE_Caption</DataField>
+        </Field>
+        <Field Name="AUDIT_TAXCaption">
+          <DataField>AUDIT_TAXCaption</DataField>
+        </Field>
+        <Field Name="FRINGECaption">
+          <DataField>FRINGECaption</DataField>
+        </Field>
+        <Field Name="DATE_PAID__PERCaption">
+          <DataField>DATE_PAID__PERCaption</DataField>
+        </Field>
+        <Field Name="TAXCaption">
+          <DataField>TAXCaption</DataField>
+        </Field>
+        <Field Name="INTEREST_PENALTYCaption">
+          <DataField>INTEREST_PENALTYCaption</DataField>
+        </Field>
+        <Field Name="BENEFITCaption">
+          <DataField>BENEFITCaption</DataField>
+        </Field>
+        <Field Name="RECEIVING_BANKCaption">
+          <DataField>RECEIVING_BANKCaption</DataField>
+        </Field>
+        <Field Name="TAXCaption_Control1102756027">
+          <DataField>TAXCaption_Control1102756027</DataField>
+        </Field>
+        <Field Name="STAMP_Caption">
+          <DataField>STAMP_Caption</DataField>
+        </Field>
+        <Field Name="KSHS__Caption">
+          <DataField>KSHS__Caption</DataField>
+        </Field>
+        <Field Name="KSHS__Caption_Control1102756030">
+          <DataField>KSHS__Caption_Control1102756030</DataField>
+        </Field>
+        <Field Name="KSHS__Caption_Control1102756031">
+          <DataField>KSHS__Caption_Control1102756031</DataField>
+        </Field>
+        <Field Name="TOTAL_TAXCaption">
+          <DataField>TOTAL_TAXCaption</DataField>
+        </Field>
+        <Field Name="DataItem1102756045">
+          <DataField>DataItem1102756045</DataField>
+        </Field>
+        <Field Name="DataItem1102756046">
+          <DataField>DataItem1102756046</DataField>
+        </Field>
+        <Field Name="DataItem1102756047">
+          <DataField>DataItem1102756047</DataField>
+        </Field>
+        <Field Name="DataItem1102756048">
+          <DataField>DataItem1102756048</DataField>
+        </Field>
+        <Field Name="We_I_certify_that_the_particulars_entered_above_are_correctCaption">
+          <DataField>We_I_certify_that_the_particulars_entered_above_are_correctCaption</DataField>
+        </Field>
+        <Field Name="V5_____Provide_Statistical_information_required_by_Central_Bureau_of_Statistics_Caption">
+          <DataField>V5_____Provide_Statistical_information_required_by_Central_Bureau_of_Statistics_Caption</DataField>
+        </Field>
+        <Field Name="Income_Tax_OfficeCaption">
+          <DataField>Income_Tax_OfficeCaption</DataField>
+        </Field>
+        <Field Name="not_later_than_28th_FEBRUARYCaption">
+          <DataField>not_later_than_28th_FEBRUARYCaption</DataField>
+        </Field>
+        <Field Name="V4_____Complete_this_certificate_in_triplicate_and_send_the_top_two_copies_with_the_enclosures_to_yourCaption">
+          <DataField>V4_____Complete_this_certificate_in_triplicate_and_send_the_top_two_copies_with_the_enclosures_to_yourCaption</DataField>
+        </Field>
+        <Field Name="V1_____Attach_Photostat_copies_ofCaption">
+          <DataField>V1_____Attach_Photostat_copies_ofCaption</DataField>
+        </Field>
+        <Field Name="ALL_the_Pay_In_Credit_Slips__P11s_Caption">
+          <DataField>ALL_the_Pay_In_Credit_Slips__P11s_Caption</DataField>
+        </Field>
+        <Field Name="for_the_yearCaption">
+          <DataField>for_the_yearCaption</DataField>
+        </Field>
+        <Field Name="NOTE__Caption">
+          <DataField>NOTE__Caption</DataField>
+        </Field>
+        <Field Name="prPayroll_Periods_Date_Opened">
+          <DataField>prPayroll_Periods_Date_Opened</DataField>
+        </Field>
+        <Field Name="ReportForNavId_5444">
+          <DataField>ReportForNavId_5444</DataField>
+        </Field>
+        <Field Name="A">
+          <DataField>A</DataField>
+        </Field>
+        <Field Name="AFormat">
+          <DataField>AFormat</DataField>
+        </Field>
+        <Field Name="B">
+          <DataField>B</DataField>
+        </Field>
+        <Field Name="BFormat">
+          <DataField>BFormat</DataField>
+        </Field>
+        <Field Name="C">
+          <DataField>C</DataField>
+        </Field>
+        <Field Name="CFormat">
+          <DataField>CFormat</DataField>
+        </Field>
+        <Field Name="D">
+          <DataField>D</DataField>
+        </Field>
+        <Field Name="DFormat">
+          <DataField>DFormat</DataField>
+        </Field>
+        <Field Name="E">
+          <DataField>E</DataField>
+        </Field>
+        <Field Name="EFormat">
+          <DataField>EFormat</DataField>
+        </Field>
+        <Field Name="F">
+          <DataField>F</DataField>
+        </Field>
+        <Field Name="FFormat">
+          <DataField>FFormat</DataField>
+        </Field>
+        <Field Name="A_B_C_D_E_F">
+          <DataField>A_B_C_D_E_F</DataField>
+        </Field>
+        <Field Name="A_B_C_D_E_FFormat">
+          <DataField>A_B_C_D_E_FFormat</DataField>
+        </Field>
+        <Field Name="AF_BF_CF_DF_EF_FF">
+          <DataField>AF_BF_CF_DF_EF_FF</DataField>
+        </Field>
+        <Field Name="AF_BF_CF_DF_EF_FFFormat">
+          <DataField>AF_BF_CF_DF_EF_FFFormat</DataField>
+        </Field>
+        <Field Name="FF">
+          <DataField>FF</DataField>
+        </Field>
+        <Field Name="FFFormat">
+          <DataField>FFFormat</DataField>
+        </Field>
+        <Field Name="BF">
+          <DataField>BF</DataField>
+        </Field>
+        <Field Name="BFFormat">
+          <DataField>BFFormat</DataField>
+        </Field>
+        <Field Name="CF">
+          <DataField>CF</DataField>
+        </Field>
+        <Field Name="CFFormat">
+          <DataField>CFFormat</DataField>
+        </Field>
+        <Field Name="DF">
+          <DataField>DF</DataField>
+        </Field>
+        <Field Name="DFFormat">
+          <DataField>DFFormat</DataField>
+        </Field>
+        <Field Name="EF">
+          <DataField>EF</DataField>
+        </Field>
+        <Field Name="EFFormat">
+          <DataField>EFFormat</DataField>
+        </Field>
+        <Field Name="AF">
+          <DataField>AF</DataField>
+        </Field>
+        <Field Name="AFFormat">
+          <DataField>AFFormat</DataField>
+        </Field>
+        <Field Name="A_B_C_D_E_F_AF_BF_CF_DF_EF_FF">
+          <DataField>A_B_C_D_E_F_AF_BF_CF_DF_EF_FF</DataField>
+        </Field>
+        <Field Name="A_B_C_D_E_F_AF_BF_CF_DF_EF_FFFormat">
+          <DataField>A_B_C_D_E_F_AF_BF_CF_DF_EF_FFFormat</DataField>
+        </Field>
+        <Field Name="FF_F">
+          <DataField>FF_F</DataField>
+        </Field>
+        <Field Name="FF_FFormat">
+          <DataField>FF_FFormat</DataField>
+        </Field>
+        <Field Name="EF_E">
+          <DataField>EF_E</DataField>
+        </Field>
+        <Field Name="EF_EFormat">
+          <DataField>EF_EFormat</DataField>
+        </Field>
+        <Field Name="DF_D">
+          <DataField>DF_D</DataField>
+        </Field>
+        <Field Name="DF_DFormat">
+          <DataField>DF_DFormat</DataField>
+        </Field>
+        <Field Name="CF_C">
+          <DataField>CF_C</DataField>
+        </Field>
+        <Field Name="CF_CFormat">
+          <DataField>CF_CFormat</DataField>
+        </Field>
+        <Field Name="BF_B">
+          <DataField>BF_B</DataField>
+        </Field>
+        <Field Name="BF_BFormat">
+          <DataField>BF_BFormat</DataField>
+        </Field>
+        <Field Name="AF_A">
+          <DataField>AF_A</DataField>
+        </Field>
+        <Field Name="AF_AFormat">
+          <DataField>AF_AFormat</DataField>
+        </Field>
+        <Field Name="THE_CENTRAL_BUREAU_OF_STATISTICSCaption">
+          <DataField>THE_CENTRAL_BUREAU_OF_STATISTICSCaption</DataField>
+        </Field>
+        <Field Name="Please_provide_the_statistical_information_indicated_below_detailing_the_Caption">
+          <DataField>Please_provide_the_statistical_information_indicated_below_detailing_the_Caption</DataField>
+        </Field>
+        <Field Name="number_of_employees_by_Gender_within_each_Income_Bracket_Caption">
+          <DataField>number_of_employees_by_Gender_within_each_Income_Bracket_Caption</DataField>
+        </Field>
+        <Field Name="The_numbers_should_include_both_employees_who_are_liable_toCaption">
+          <DataField>The_numbers_should_include_both_employees_who_are_liable_toCaption</DataField>
+        </Field>
+        <Field Name="Income_Tax_and_those_who_are_not_liable_to_Income_TaxCaption">
+          <DataField>Income_Tax_and_those_who_are_not_liable_to_Income_TaxCaption</DataField>
+        </Field>
+        <Field Name="NUMBER_OF_EMPLOYEES_IN_EACH_INCOME_BRACKETCaption">
+          <DataField>NUMBER_OF_EMPLOYEES_IN_EACH_INCOME_BRACKETCaption</DataField>
+        </Field>
+        <Field Name="INCOME_BRACKETCaption">
+          <DataField>INCOME_BRACKETCaption</DataField>
+        </Field>
+        <Field Name="UNDERCaption">
+          <DataField>UNDERCaption</DataField>
+        </Field>
+        <Field Name="V115_220Caption">
+          <DataField>V115_220Caption</DataField>
+        </Field>
+        <Field Name="V224_640Caption">
+          <DataField>V224_640Caption</DataField>
+        </Field>
+        <Field Name="V334_080Caption">
+          <DataField>V334_080Caption</DataField>
+        </Field>
+        <Field Name="V443_520Caption">
+          <DataField>V443_520Caption</DataField>
+        </Field>
+        <Field Name="V552_960Caption">
+          <DataField>V552_960Caption</DataField>
+        </Field>
+        <Field Name="TOCaption">
+          <DataField>TOCaption</DataField>
+        </Field>
+        <Field Name="TOCaption_Control1102756079">
+          <DataField>TOCaption_Control1102756079</DataField>
+        </Field>
+        <Field Name="TOCaption_Control1102756080">
+          <DataField>TOCaption_Control1102756080</DataField>
+        </Field>
+        <Field Name="TOCaption_Control1102756081">
+          <DataField>TOCaption_Control1102756081</DataField>
+        </Field>
+        <Field Name="ANDCaption">
+          <DataField>ANDCaption</DataField>
+        </Field>
+        <Field Name="TOTALCaption">
+          <DataField>TOTALCaption</DataField>
+        </Field>
+        <Field Name="KSHS__PER_ANNUM_Caption">
+          <DataField>KSHS__PER_ANNUM_Caption</DataField>
+        </Field>
+        <Field Name="V115_220Caption_Control1102756086">
+          <DataField>V115_220Caption_Control1102756086</DataField>
+        </Field>
+        <Field Name="V224_640Caption_Control1102756087">
+          <DataField>V224_640Caption_Control1102756087</DataField>
+        </Field>
+        <Field Name="V334_080Caption_Control1102756088">
+          <DataField>V334_080Caption_Control1102756088</DataField>
+        </Field>
+        <Field Name="V443_520Caption_Control1102756089">
+          <DataField>V443_520Caption_Control1102756089</DataField>
+        </Field>
+        <Field Name="V552_960Caption_Control1102756090">
+          <DataField>V552_960Caption_Control1102756090</DataField>
+        </Field>
+        <Field Name="ABOVECaption">
+          <DataField>ABOVECaption</DataField>
+        </Field>
+        <Field Name="MALE_EMPLOYEESCaption">
+          <DataField>MALE_EMPLOYEESCaption</DataField>
+        </Field>
+        <Field Name="FEMALE_EMPLOYEESCaption">
+          <DataField>FEMALE_EMPLOYEESCaption</DataField>
+        </Field>
+        <Field Name="TOTALCaption_Control1102756132">
+          <DataField>TOTALCaption_Control1102756132</DataField>
+        </Field>
+        <Field Name="SIGNED_EMPLOYER______________________________________________________________________Caption">
+          <DataField>SIGNED_EMPLOYER______________________________________________________________________Caption</DataField>
+        </Field>
+        <Field Name="DATE_________________________________________________________________________Caption">
+          <DataField>DATE_________________________________________________________________________Caption</DataField>
+        </Field>
+        <Field Name="OFFICIAL_USECaption">
+          <DataField>OFFICIAL_USECaption</DataField>
+        </Field>
+        <Field Name="DataItem1102756144">
+          <DataField>DataItem1102756144</DataField>
+        </Field>
+        <Field Name="DataItem1102756145">
+          <DataField>DataItem1102756145</DataField>
+        </Field>
+        <Field Name="DataItem1102756146">
+          <DataField>DataItem1102756146</DataField>
+        </Field>
+        <Field Name="P_10Caption_Control1102756147">
+          <DataField>P_10Caption_Control1102756147</DataField>
+        </Field>
+        <Field Name="Integer_Number">
+          <DataField>Integer_Number</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -248,33 +650,33 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.1811in</Width>
+                  <Width>2.99999cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.94488in</Width>
+                  <Width>2.4cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.60243in</Width>
+                  <Width>4.07017cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.3189in</Width>
+                  <Width>16.05001cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.31889in</Width>
+                  <Width>16.04998cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.00787in</Width>
+                  <Width>5.09999cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.70866in</Width>
+                  <Width>1.8cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -482,7 +884,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -690,7 +1092,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -898,7 +1300,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1106,7 +1508,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1314,7 +1716,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1522,7 +1924,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.22487in</Height>
+                  <Height>0.57117cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1753,7 +2155,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.21654in</Height>
+                  <Height>0.55001cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1978,7 +2380,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.22487in</Height>
+                  <Height>0.57117cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2213,7 +2615,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.21654in</Height>
+                  <Height>0.55001cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2462,7 +2864,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.24154in</Height>
+                  <Height>0.61351cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2711,7 +3113,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.27487in</Height>
+                  <Height>0.69817cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2960,7 +3362,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3169,7 +3571,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3378,7 +3780,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3585,7 +3987,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3792,7 +4194,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3999,7 +4401,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -4206,7 +4608,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -4414,7 +4816,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -4626,7 +5028,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -4833,7 +5235,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -5040,7 +5442,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -5245,7 +5647,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -5452,7 +5854,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -5657,7 +6059,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -5862,7 +6264,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -6069,7 +6471,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -6276,7 +6678,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33307in</Height>
+                  <Height>0.846cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -6483,7 +6885,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -6782,8 +7184,8 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>8.883cm</Top>
-            <Height>17.936cm</Height>
-            <Width>49.97016cm</Width>
+            <Height>17.93618cm</Height>
+            <Width>49.97014cm</Width>
             <ZIndex>9</ZIndex>
             <Style />
           </Tablix>
@@ -7206,7 +7608,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>26.819cm</Height>
+        <Height>26.81918cm</Height>
         <Style />
       </Body>
       <Width>55.05cm</Width>
@@ -7214,13 +7616,18 @@
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21.25cm</PageWidth>
         <LeftMargin>1.5cm</LeftMargin>
-        <RightMargin>0cm</RightMargin>
         <TopMargin>2cm</TopMargin>
         <BottomMargin>2cm</BottomMargin>
         <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -7260,395 +7667,4 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>4b8d92f9-ef2d-41e3-b02f-f81e2e7be040</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="ReportForNavId_4946">
-          <DataField>ReportForNavId_4946</DataField>
-        </Field>
-        <Field Name="CompanySetup__Company_P_I_N_">
-          <DataField>CompanySetup__Company_P_I_N_</DataField>
-        </Field>
-        <Field Name="YR">
-          <DataField>YR</DataField>
-        </Field>
-        <Field Name="ABS__Tax_Paid__">
-          <DataField>ABS__Tax_Paid__</DataField>
-        </Field>
-        <Field Name="ABS__Tax_Paid__Format">
-          <DataField>ABS__Tax_Paid__Format</DataField>
-        </Field>
-        <Field Name="UPPERCASE__Period_Name__">
-          <DataField>UPPERCASE__Period_Name__</DataField>
-        </Field>
-        <Field Name="TotalTax">
-          <DataField>TotalTax</DataField>
-        </Field>
-        <Field Name="TotalTaxFormat">
-          <DataField>TotalTaxFormat</DataField>
-        </Field>
-        <Field Name="DOMESTIC_TAXES_DEPARTMENTCaption">
-          <DataField>DOMESTIC_TAXES_DEPARTMENTCaption</DataField>
-        </Field>
-        <Field Name="P_10Caption">
-          <DataField>P_10Caption</DataField>
-        </Field>
-        <Field Name="EMPLOYER_S_PINCaption">
-          <DataField>EMPLOYER_S_PINCaption</DataField>
-        </Field>
-        <Field Name="APPENDIX_5Caption">
-          <DataField>APPENDIX_5Caption</DataField>
-        </Field>
-        <Field Name="P_A_Y_E___EMPLOYER_S_CERTIFICATECaption">
-          <DataField>P_A_Y_E___EMPLOYER_S_CERTIFICATECaption</DataField>
-        </Field>
-        <Field Name="YEARCaption">
-          <DataField>YEARCaption</DataField>
-        </Field>
-        <Field Name="To_Senior_Assistant_CommissionerCaption">
-          <DataField>To_Senior_Assistant_CommissionerCaption</DataField>
-        </Field>
-        <Field Name="EmptyStringCaption">
-          <DataField>EmptyStringCaption</DataField>
-        </Field>
-        <Field Name="DataItem1102756011">
-          <DataField>DataItem1102756011</DataField>
-        </Field>
-        <Field Name="This_total_tax_has_been_paid_as_follows__Caption">
-          <DataField>This_total_tax_has_been_paid_as_follows__Caption</DataField>
-        </Field>
-        <Field Name="MONTHCaption">
-          <DataField>MONTHCaption</DataField>
-        </Field>
-        <Field Name="PAYE_Caption">
-          <DataField>PAYE_Caption</DataField>
-        </Field>
-        <Field Name="AUDIT_TAXCaption">
-          <DataField>AUDIT_TAXCaption</DataField>
-        </Field>
-        <Field Name="FRINGECaption">
-          <DataField>FRINGECaption</DataField>
-        </Field>
-        <Field Name="DATE_PAID__PERCaption">
-          <DataField>DATE_PAID__PERCaption</DataField>
-        </Field>
-        <Field Name="TAXCaption">
-          <DataField>TAXCaption</DataField>
-        </Field>
-        <Field Name="INTEREST_PENALTYCaption">
-          <DataField>INTEREST_PENALTYCaption</DataField>
-        </Field>
-        <Field Name="BENEFITCaption">
-          <DataField>BENEFITCaption</DataField>
-        </Field>
-        <Field Name="RECEIVING_BANKCaption">
-          <DataField>RECEIVING_BANKCaption</DataField>
-        </Field>
-        <Field Name="TAXCaption_Control1102756027">
-          <DataField>TAXCaption_Control1102756027</DataField>
-        </Field>
-        <Field Name="STAMP_Caption">
-          <DataField>STAMP_Caption</DataField>
-        </Field>
-        <Field Name="KSHS__Caption">
-          <DataField>KSHS__Caption</DataField>
-        </Field>
-        <Field Name="KSHS__Caption_Control1102756030">
-          <DataField>KSHS__Caption_Control1102756030</DataField>
-        </Field>
-        <Field Name="KSHS__Caption_Control1102756031">
-          <DataField>KSHS__Caption_Control1102756031</DataField>
-        </Field>
-        <Field Name="TOTAL_TAXCaption">
-          <DataField>TOTAL_TAXCaption</DataField>
-        </Field>
-        <Field Name="DataItem1102756045">
-          <DataField>DataItem1102756045</DataField>
-        </Field>
-        <Field Name="DataItem1102756046">
-          <DataField>DataItem1102756046</DataField>
-        </Field>
-        <Field Name="DataItem1102756047">
-          <DataField>DataItem1102756047</DataField>
-        </Field>
-        <Field Name="DataItem1102756048">
-          <DataField>DataItem1102756048</DataField>
-        </Field>
-        <Field Name="We_I_certify_that_the_particulars_entered_above_are_correctCaption">
-          <DataField>We_I_certify_that_the_particulars_entered_above_are_correctCaption</DataField>
-        </Field>
-        <Field Name="V5_____Provide_Statistical_information_required_by_Central_Bureau_of_Statistics_Caption">
-          <DataField>V5_____Provide_Statistical_information_required_by_Central_Bureau_of_Statistics_Caption</DataField>
-        </Field>
-        <Field Name="Income_Tax_OfficeCaption">
-          <DataField>Income_Tax_OfficeCaption</DataField>
-        </Field>
-        <Field Name="not_later_than_28th_FEBRUARYCaption">
-          <DataField>not_later_than_28th_FEBRUARYCaption</DataField>
-        </Field>
-        <Field Name="V4_____Complete_this_certificate_in_triplicate_and_send_the_top_two_copies_with_the_enclosures_to_yourCaption">
-          <DataField>V4_____Complete_this_certificate_in_triplicate_and_send_the_top_two_copies_with_the_enclosures_to_yourCaption</DataField>
-        </Field>
-        <Field Name="V1_____Attach_Photostat_copies_ofCaption">
-          <DataField>V1_____Attach_Photostat_copies_ofCaption</DataField>
-        </Field>
-        <Field Name="ALL_the_Pay_In_Credit_Slips__P11s_Caption">
-          <DataField>ALL_the_Pay_In_Credit_Slips__P11s_Caption</DataField>
-        </Field>
-        <Field Name="for_the_yearCaption">
-          <DataField>for_the_yearCaption</DataField>
-        </Field>
-        <Field Name="NOTE__Caption">
-          <DataField>NOTE__Caption</DataField>
-        </Field>
-        <Field Name="prPayroll_Periods_Date_Opened">
-          <DataField>prPayroll_Periods_Date_Opened</DataField>
-        </Field>
-        <Field Name="ReportForNavId_5444">
-          <DataField>ReportForNavId_5444</DataField>
-        </Field>
-        <Field Name="A">
-          <DataField>A</DataField>
-        </Field>
-        <Field Name="AFormat">
-          <DataField>AFormat</DataField>
-        </Field>
-        <Field Name="B">
-          <DataField>B</DataField>
-        </Field>
-        <Field Name="BFormat">
-          <DataField>BFormat</DataField>
-        </Field>
-        <Field Name="C">
-          <DataField>C</DataField>
-        </Field>
-        <Field Name="CFormat">
-          <DataField>CFormat</DataField>
-        </Field>
-        <Field Name="D">
-          <DataField>D</DataField>
-        </Field>
-        <Field Name="DFormat">
-          <DataField>DFormat</DataField>
-        </Field>
-        <Field Name="E">
-          <DataField>E</DataField>
-        </Field>
-        <Field Name="EFormat">
-          <DataField>EFormat</DataField>
-        </Field>
-        <Field Name="F">
-          <DataField>F</DataField>
-        </Field>
-        <Field Name="FFormat">
-          <DataField>FFormat</DataField>
-        </Field>
-        <Field Name="A_B_C_D_E_F">
-          <DataField>A_B_C_D_E_F</DataField>
-        </Field>
-        <Field Name="A_B_C_D_E_FFormat">
-          <DataField>A_B_C_D_E_FFormat</DataField>
-        </Field>
-        <Field Name="AF_BF_CF_DF_EF_FF">
-          <DataField>AF_BF_CF_DF_EF_FF</DataField>
-        </Field>
-        <Field Name="AF_BF_CF_DF_EF_FFFormat">
-          <DataField>AF_BF_CF_DF_EF_FFFormat</DataField>
-        </Field>
-        <Field Name="FF">
-          <DataField>FF</DataField>
-        </Field>
-        <Field Name="FFFormat">
-          <DataField>FFFormat</DataField>
-        </Field>
-        <Field Name="BF">
-          <DataField>BF</DataField>
-        </Field>
-        <Field Name="BFFormat">
-          <DataField>BFFormat</DataField>
-        </Field>
-        <Field Name="CF">
-          <DataField>CF</DataField>
-        </Field>
-        <Field Name="CFFormat">
-          <DataField>CFFormat</DataField>
-        </Field>
-        <Field Name="DF">
-          <DataField>DF</DataField>
-        </Field>
-        <Field Name="DFFormat">
-          <DataField>DFFormat</DataField>
-        </Field>
-        <Field Name="EF">
-          <DataField>EF</DataField>
-        </Field>
-        <Field Name="EFFormat">
-          <DataField>EFFormat</DataField>
-        </Field>
-        <Field Name="AF">
-          <DataField>AF</DataField>
-        </Field>
-        <Field Name="AFFormat">
-          <DataField>AFFormat</DataField>
-        </Field>
-        <Field Name="A_B_C_D_E_F_AF_BF_CF_DF_EF_FF">
-          <DataField>A_B_C_D_E_F_AF_BF_CF_DF_EF_FF</DataField>
-        </Field>
-        <Field Name="A_B_C_D_E_F_AF_BF_CF_DF_EF_FFFormat">
-          <DataField>A_B_C_D_E_F_AF_BF_CF_DF_EF_FFFormat</DataField>
-        </Field>
-        <Field Name="FF_F">
-          <DataField>FF_F</DataField>
-        </Field>
-        <Field Name="FF_FFormat">
-          <DataField>FF_FFormat</DataField>
-        </Field>
-        <Field Name="EF_E">
-          <DataField>EF_E</DataField>
-        </Field>
-        <Field Name="EF_EFormat">
-          <DataField>EF_EFormat</DataField>
-        </Field>
-        <Field Name="DF_D">
-          <DataField>DF_D</DataField>
-        </Field>
-        <Field Name="DF_DFormat">
-          <DataField>DF_DFormat</DataField>
-        </Field>
-        <Field Name="CF_C">
-          <DataField>CF_C</DataField>
-        </Field>
-        <Field Name="CF_CFormat">
-          <DataField>CF_CFormat</DataField>
-        </Field>
-        <Field Name="BF_B">
-          <DataField>BF_B</DataField>
-        </Field>
-        <Field Name="BF_BFormat">
-          <DataField>BF_BFormat</DataField>
-        </Field>
-        <Field Name="AF_A">
-          <DataField>AF_A</DataField>
-        </Field>
-        <Field Name="AF_AFormat">
-          <DataField>AF_AFormat</DataField>
-        </Field>
-        <Field Name="THE_CENTRAL_BUREAU_OF_STATISTICSCaption">
-          <DataField>THE_CENTRAL_BUREAU_OF_STATISTICSCaption</DataField>
-        </Field>
-        <Field Name="Please_provide_the_statistical_information_indicated_below_detailing_the_Caption">
-          <DataField>Please_provide_the_statistical_information_indicated_below_detailing_the_Caption</DataField>
-        </Field>
-        <Field Name="number_of_employees_by_Gender_within_each_Income_Bracket_Caption">
-          <DataField>number_of_employees_by_Gender_within_each_Income_Bracket_Caption</DataField>
-        </Field>
-        <Field Name="The_numbers_should_include_both_employees_who_are_liable_toCaption">
-          <DataField>The_numbers_should_include_both_employees_who_are_liable_toCaption</DataField>
-        </Field>
-        <Field Name="Income_Tax_and_those_who_are_not_liable_to_Income_TaxCaption">
-          <DataField>Income_Tax_and_those_who_are_not_liable_to_Income_TaxCaption</DataField>
-        </Field>
-        <Field Name="NUMBER_OF_EMPLOYEES_IN_EACH_INCOME_BRACKETCaption">
-          <DataField>NUMBER_OF_EMPLOYEES_IN_EACH_INCOME_BRACKETCaption</DataField>
-        </Field>
-        <Field Name="INCOME_BRACKETCaption">
-          <DataField>INCOME_BRACKETCaption</DataField>
-        </Field>
-        <Field Name="UNDERCaption">
-          <DataField>UNDERCaption</DataField>
-        </Field>
-        <Field Name="V115_220Caption">
-          <DataField>V115_220Caption</DataField>
-        </Field>
-        <Field Name="V224_640Caption">
-          <DataField>V224_640Caption</DataField>
-        </Field>
-        <Field Name="V334_080Caption">
-          <DataField>V334_080Caption</DataField>
-        </Field>
-        <Field Name="V443_520Caption">
-          <DataField>V443_520Caption</DataField>
-        </Field>
-        <Field Name="V552_960Caption">
-          <DataField>V552_960Caption</DataField>
-        </Field>
-        <Field Name="TOCaption">
-          <DataField>TOCaption</DataField>
-        </Field>
-        <Field Name="TOCaption_Control1102756079">
-          <DataField>TOCaption_Control1102756079</DataField>
-        </Field>
-        <Field Name="TOCaption_Control1102756080">
-          <DataField>TOCaption_Control1102756080</DataField>
-        </Field>
-        <Field Name="TOCaption_Control1102756081">
-          <DataField>TOCaption_Control1102756081</DataField>
-        </Field>
-        <Field Name="ANDCaption">
-          <DataField>ANDCaption</DataField>
-        </Field>
-        <Field Name="TOTALCaption">
-          <DataField>TOTALCaption</DataField>
-        </Field>
-        <Field Name="KSHS__PER_ANNUM_Caption">
-          <DataField>KSHS__PER_ANNUM_Caption</DataField>
-        </Field>
-        <Field Name="V115_220Caption_Control1102756086">
-          <DataField>V115_220Caption_Control1102756086</DataField>
-        </Field>
-        <Field Name="V224_640Caption_Control1102756087">
-          <DataField>V224_640Caption_Control1102756087</DataField>
-        </Field>
-        <Field Name="V334_080Caption_Control1102756088">
-          <DataField>V334_080Caption_Control1102756088</DataField>
-        </Field>
-        <Field Name="V443_520Caption_Control1102756089">
-          <DataField>V443_520Caption_Control1102756089</DataField>
-        </Field>
-        <Field Name="V552_960Caption_Control1102756090">
-          <DataField>V552_960Caption_Control1102756090</DataField>
-        </Field>
-        <Field Name="ABOVECaption">
-          <DataField>ABOVECaption</DataField>
-        </Field>
-        <Field Name="MALE_EMPLOYEESCaption">
-          <DataField>MALE_EMPLOYEESCaption</DataField>
-        </Field>
-        <Field Name="FEMALE_EMPLOYEESCaption">
-          <DataField>FEMALE_EMPLOYEESCaption</DataField>
-        </Field>
-        <Field Name="TOTALCaption_Control1102756132">
-          <DataField>TOTALCaption_Control1102756132</DataField>
-        </Field>
-        <Field Name="SIGNED_EMPLOYER______________________________________________________________________Caption">
-          <DataField>SIGNED_EMPLOYER______________________________________________________________________Caption</DataField>
-        </Field>
-        <Field Name="DATE_________________________________________________________________________Caption">
-          <DataField>DATE_________________________________________________________________________Caption</DataField>
-        </Field>
-        <Field Name="OFFICIAL_USECaption">
-          <DataField>OFFICIAL_USECaption</DataField>
-        </Field>
-        <Field Name="DataItem1102756144">
-          <DataField>DataItem1102756144</DataField>
-        </Field>
-        <Field Name="DataItem1102756145">
-          <DataField>DataItem1102756145</DataField>
-        </Field>
-        <Field Name="DataItem1102756146">
-          <DataField>DataItem1102756146</DataField>
-        </Field>
-        <Field Name="P_10Caption_Control1102756147">
-          <DataField>P_10Caption_Control1102756147</DataField>
-        </Field>
-        <Field Name="Integer_Number">
-          <DataField>Integer_Number</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
