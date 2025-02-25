@@ -1231,5 +1231,4 @@ codeunit 50089 "Approval Workflows V1"
                 end;
         end;
     end;
-
 }
