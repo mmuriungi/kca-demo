@@ -10643,16 +10643,16 @@ Codeunit 61106 webportals
         JObj: JsonObject;
         JsTxt: Text;
     begin
+        Committee.Reset();
         FindCommitteeReleased(StaffNo, Committee);
-        Committee.SetRange("Initiate Opening", Committee."Initiate Opening"::"Initiate Opening");
+        Committee.SetRange("Opening Done", Committee."Opening Done"::Initiated);
         Committee.SetRange("Opening Confirmed", false);
         if Committee.FindSet() then begin
             repeat
                 FindHeaderReleased(Committee."No.", Header);
-                //Add Evaluation type and the Tendor type and no
                 Clear(JObj);
-                JObj.Add('Procurment Method', Header."Procurement methods");
-                JObj.Add('No.', Header."No.");
+                JObj.Add('ProcurmentMethod', Format(Header."Procurement methods"));
+                JObj.Add('No', Header."No.");
                 JArray.Add(JObj);
             until Committee.Next() = 0;
         end;
@@ -10669,16 +10669,15 @@ Codeunit 61106 webportals
         JsTxt: Text;
     begin
         FindCommitteeReleased(StaffNo, Committee);
-        Committee.SetRange("Initiate Opening", Committee."Initiate Opening"::"Initiate Opening");
+        Committee.SetRange("Opening Done", Committee."Opening Done"::Initiated);
         Committee.SetRange("Opening Confirmed", false);
         if Committee.FindSet() then begin
             repeat
                 FindHeaderReleased(Committee."No.", Header);
                 //Add Evaluation type and the Tendor type and no
                 Clear(JObj);
-                JObj.Add('Evaluation Type', Committee."Committee Type");
-                JObj.Add('Procurment Method', Header."Procurement methods");
-                JObj.Add('No.', Header."No.");
+                JObj.Add('ProcurmentMethod', Format(Header."Procurement methods"));
+                JObj.Add('No', Header."No.");
                 JArray.Add(JObj);
             until Committee.Next() = 0;
         end;
@@ -10692,15 +10691,20 @@ Codeunit 61106 webportals
         JObj: JsonObject;
         JsTxt: Text;
     begin
-        FindHeaderReleased(No, Header);
-        JObj.Add('No.', Header."No.");
-        JObj.Add('Procurement Method', Header."Procurement methods");
-        JObj.Add('Expected Opening Date', Header."Expected Opening Date");
-        JObj.Add('Expected Closing Date', Header."Expected Closing Date");
-        JObj.Add('Category Description', Header.Description);
-        JObj.Add('Has Evaluation', Format(Header."Has Evaluation"));
+        Header.Reset();
+        Header.SETRANGE("No.", No);
+        if Header.FindSet() then begin
+            repeat
+                JObj.Add('No', Header."No.");
+                JObj.Add('ProcurementMethod', Format(Header."Procurement methods"));
+                JObj.Add('ExpectedOpening Date', Header."Expected Opening Date");
+                JObj.Add('ExpectedClosing Date', Header."Expected Closing Date");
+                JObj.Add('CategoryDescription', Header."Category Description");
+                JObj.Add('HasEvaluation', Format(Header."Has Evaluation"));
+            until Header.Next() = 0;
+        end;
         JObj.WriteTo(JsTxt);
-        Message(JsTxt);
+        exit(JsTxt);
     end;
 
     procedure GetLineDetails(No: Code[20]): Text
@@ -10715,17 +10719,17 @@ Codeunit 61106 webportals
         if Line.FindSet() then begin
             repeat
                 Clear(JObj);
-                JObj.Add('No.', Line."No.");
+                JObj.Add('No', Line."No.");
                 JObj.Add('Description', Line.Description);
                 JObj.Add('Quantity', Line.Quantity);
-                JObj.Add('Unit of Measure', Line."Unit of Measure");
-                JObj.Add('Unit Cost', Line."Unit Cost");
-                JObj.Add('Line Amount', Line."Line Amount");
+                JObj.Add('UnitofMeasure', Line."Unit of Measure");
+                JObj.Add('UnitCost', Line."Unit Cost");
+                JObj.Add('LineAmount', Line."Line Amount");
                 JArray.Add(JObj);
             until Line.Next() = 0;
         end;
         JArray.WriteTo(JsTxt);
-        Message(JsTxt);
+        exit(JsTxt);
     end;
 
     procedure SubmitOpening(StaffNo: Code[25]; DocumentNo: Code[20]; Comments: Text): Boolean
@@ -10750,7 +10754,7 @@ Codeunit 61106 webportals
         
     end;
 
-    procedure GetSubmittedOpening(StaffNo: Code[25]): Boolean
+    procedure GetSubmittedOpening(StaffNo: Code[25]): Text
     var
         Committee: Record "Proc-Committee Membership";
         Header: Record "Proc-Purchase Quote Header";
@@ -10764,24 +10768,24 @@ Codeunit 61106 webportals
             repeat
                 FindHeaderReleased(Committee."No.", Header);
                 Clear(JObj);
-                JObj.Add('No.', Header."No.");
-                JObj.Add('Procurement Method', Header."Procurement methods");
+                JObj.Add('No', Header."No.");
+                JObj.Add('ProcurementMethod', Format(Header."Procurement methods"));
                 //Comments
                 JObj.Add('Comments', Committee.Comments);
                 //Date Opened
-                JObj.Add('Date Opened', Format(Committee."Date Opened"));
+                JObj.Add('DateOpened', Format(Committee."Date Opened"));
                 JArray.Add(JObj);
             until Committee.Next() = 0;
         end;
         JArray.WriteTo(JsTxt);
-        Message(JsTxt);
+        exit(JsTxt);
     end;
 
     procedure FindHeaderReleased(No: Code[20]; var Header: Record "Proc-Purchase Quote Header")
     begin
         Header.Reset();
-        Header.SETRANGE(Header."No.", No);
-        Header.SETRANGE(Header.Status, Header.Status::Released);
+        Header.SETRANGE("No.", No);
+        Header.SETRANGE(Status, Header.Status::Released);
         if Header.FindSet() then;
     end;
 
@@ -10789,8 +10793,6 @@ Codeunit 61106 webportals
     begin
         Committee.Reset();
         Committee.SETRANGE(Committee."Staff No.", StaffNo);
-        Committee.SetAutoCalcFields(Status);
-        Committee.SETRANGE(Committee.Status, Committee.Status::Released);
         if Committee.FindSet() then;
     end;
     #endregion
