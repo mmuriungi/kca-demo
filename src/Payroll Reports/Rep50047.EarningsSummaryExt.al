@@ -59,7 +59,10 @@ report 50047 "Earnings Summary Ext"
             column(periods;'EARNINGS SUMMARY for '+Format(periods,0,4))
             {
             }
-            column(empName;"No."+': '+"First Name"+' '+"Middle Name"+' '+"Last Name")
+            column(empName;"First Name"+' '+"Middle Name"+' '+"Last Name")
+            {
+            }
+            column(empNo;"No.")
             {
             }
             column(TransName_1_1;TransName[1,1])

@@ -43,7 +43,10 @@ report 50052 "Staff Pension Ext"
             column(Gender;Format(objEmp.Gender))
             {
             }
-            column(Date;Dates)
+            // column(Date;Dates)
+            // {
+            // }
+            column(Date; Format(objEmp."Date Of Birth"))
             {
             }
             column(empcode;"PRL-Period Transactions"."Employee Code")
@@ -177,8 +180,13 @@ report 50052 "Staff Pension Ext"
 
         if SelectedPeriod=0D then Error('You must specify the period filter');
 
+        // objPeriod.Reset;
+        // if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+
         objPeriod.Reset;
-        if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+        objPeriod.SetRange("Date Opened", SelectedPeriod);
+        if objPeriod.FindFirst() then 
+            PeriodName := objPeriod."Period Name";
 
         if Companyinfo.Get() then
         Companyinfo.CalcFields(Companyinfo.Picture);

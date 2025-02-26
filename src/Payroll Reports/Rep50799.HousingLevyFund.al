@@ -228,8 +228,13 @@ report 50799 "Housing Levy Fund"
 
         if SelectedPeriod=0D then Error('You must specify the period filter');
 
+        // objPeriod.Reset;
+        // if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+
         objPeriod.Reset;
-        if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+        objPeriod.SetRange("Date Opened", SelectedPeriod);
+        if objPeriod.FindFirst() then 
+            PeriodName := objPeriod."Period Name";
 
         if Companyinfo.Get() then
         Companyinfo.CalcFields(Companyinfo.Picture);
