@@ -201,7 +201,7 @@ report 50802 "NSSF Schedule Ext"
                    begin
                     repeat
 
-                      NssfAmount:=PeriodTrans.Amount+PeriodTrans.Amount;
+                      NssfAmount+=PeriodTrans.Amount+PeriodTrans.Amount;
                       until
                       PeriodTrans.Next = 0;
                    end;

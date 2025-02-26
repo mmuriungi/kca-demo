@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
-  <am:AuthoringMetadata>
-    <am:CreatedBy>
-      <am:Name>MSRB</am:Name>
-      <am:Version>15.0.20283.0</am:Version>
-    </am:CreatedBy>
-    <am:UpdatedBy>
-      <am:Name>MSRB</am:Name>
-      <am:Version>15.0.20283.0</am:Version>
-    </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-02-26T09:52:35.5442114Z</am:LastModifiedTimestamp>
-  </am:AuthoringMetadata>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -54,7 +43,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>14pt</FontSize>
@@ -87,7 +76,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>14pt</FontSize>
@@ -120,7 +109,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>14pt</FontSize>
@@ -155,7 +144,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>KARATINA UNIVERSITY</Value>
+                                <Value EvaluationMode="Auto">KARATINA UNIVERSITY</Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>14pt</FontSize>
@@ -168,7 +157,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontSize>12pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
@@ -203,7 +192,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>14pt</FontSize>
@@ -236,7 +225,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>14pt</FontSize>
@@ -271,7 +260,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Housing Levy Fund</Value>
+                                <Value EvaluationMode="Auto">Pension Contribution</Value>
                                 <Style>
                                   <FontSize>12pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
@@ -306,7 +295,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontSize>12pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
@@ -339,7 +328,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontSize>12pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
@@ -374,7 +363,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Period:</Value>
+                                <Value EvaluationMode="Auto">Period:</Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>12pt</FontSize>
@@ -382,7 +371,7 @@
                                 </Style>
                               </TextRun>
                               <TextRun>
-                                <Value xml:space="preserve"> </Value>
+                                <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>14pt</FontSize>
@@ -390,7 +379,7 @@
                                 </Style>
                               </TextRun>
                               <TextRun>
-                                <Value>=Fields!PeriodName.Value</Value>
+                                <Value EvaluationMode="Auto">=Fields!PeriodName.Value</Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontWeight>Normal</FontWeight>
@@ -425,7 +414,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>12pt</FontSize>
@@ -459,7 +448,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>12pt</FontSize>
@@ -495,7 +484,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>PF. No.</Value>
+                                <Value EvaluationMode="Auto">PF. No.</Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -547,7 +536,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Name</Value>
+                                <Value EvaluationMode="Auto">Name</Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -599,7 +588,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>PIN NUMBER</Value>
+                                <Value EvaluationMode="Auto">Gender</Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -651,7 +640,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>ID NUMBER</Value>
+                                <Value EvaluationMode="Auto">Date of Birth</Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -700,7 +689,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.88125cm</Width>
+                  <Width>2.97625cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -716,7 +705,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TransAmount.Value</Value>
+                                  <Value EvaluationMode="Auto">=Fields!TransAmount.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -776,7 +765,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!TransAmount.Value)</Value>
+                                  <Value EvaluationMode="Auto">=Sum(Fields!TransAmount.Value)</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -834,7 +823,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value EvaluationMode="Auto" />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -884,7 +873,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -919,7 +908,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value />
+                                    <Value EvaluationMode="Auto" />
                                     <Style>
                                       <FontFamily>Times New Roman</FontFamily>
                                       <FontWeight>Bold</FontWeight>
@@ -954,7 +943,7 @@
                                   <Paragraph>
                                     <TextRuns>
                                       <TextRun>
-                                        <Value />
+                                        <Value EvaluationMode="Auto" />
                                         <Style>
                                           <FontFamily>Times New Roman</FontFamily>
                                           <FontWeight>Bold</FontWeight>
@@ -989,7 +978,7 @@
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value />
+                                            <Value EvaluationMode="Auto" />
                                             <Style>
                                               <FontFamily>Times New Roman</FontFamily>
                                               <FontWeight>Bold</FontWeight>
@@ -1024,7 +1013,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Fields!Transcode.Value</Value>
+                                                <Value EvaluationMode="Auto">=Fields!Transcode.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                   <FontWeight>Bold</FontWeight>
@@ -1077,9 +1066,6 @@
                       </TablixMembers>
                     </TablixMember>
                   </TablixMembers>
-                  <Visibility>
-                    <Hidden>=IIF(Trim(Fields!TransAmount.Value)="0",True,False)</Hidden>
-                  </Visibility>
                 </TablixMember>
               </TablixMembers>
             </TablixColumnHierarchy>
@@ -1106,7 +1092,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>=Fields!empcode.Value</Value>
+                                <Value EvaluationMode="Auto">=Fields!empcode.Value</Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontSize>9pt</FontSize>
@@ -1161,7 +1147,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!EmployeeName.Value</Value>
+                                    <Value EvaluationMode="Auto">=Fields!EmployeeName.Value</Value>
                                     <Style>
                                       <FontFamily>Times New Roman</FontFamily>
                                       <FontSize>9pt</FontSize>
@@ -1209,14 +1195,14 @@
                           <TablixHeader>
                             <Size>2.5cm</Size>
                             <CellContents>
-                              <Textbox Name="PinNumber">
+                              <Textbox Name="Gender">
                                 <CanGrow>true</CanGrow>
                                 <KeepTogether>true</KeepTogether>
                                 <Paragraphs>
                                   <Paragraph>
                                     <TextRuns>
                                       <TextRun>
-                                        <Value>=Fields!PinNumber.Value</Value>
+                                        <Value EvaluationMode="Auto">=Fields!Gender.Value</Value>
                                         <Style>
                                           <FontFamily>Times New Roman</FontFamily>
                                           <FontSize>9pt</FontSize>
@@ -1226,7 +1212,7 @@
                                     <Style />
                                   </Paragraph>
                                 </Paragraphs>
-                                <rd:DefaultName>PinNumber</rd:DefaultName>
+                                <rd:DefaultName>Gender</rd:DefaultName>
                                 <Style>
                                   <Border>
                                     <Style>Solid</Style>
@@ -1271,10 +1257,11 @@
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value>=Fields!IDNoS.Value</Value>
+                                            <Value EvaluationMode="Auto">=Fields!Date.Value</Value>
                                             <Style>
                                               <FontFamily>Times New Roman</FontFamily>
                                               <FontSize>9pt</FontSize>
+                                              <Format>d</Format>
                                             </Style>
                                           </TextRun>
                                         </TextRuns>
@@ -1314,9 +1301,6 @@
                                   </Textbox>
                                 </CellContents>
                               </TablixHeader>
-                              <TablixMembers>
-                                <TablixMember />
-                              </TablixMembers>
                             </TablixMember>
                           </TablixMembers>
                         </TablixMember>
@@ -1335,7 +1319,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Total:  </Value>
+                                <Value EvaluationMode="Auto">Total:  </Value>
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -1392,7 +1376,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value />
+                                    <Value EvaluationMode="Auto" />
                                     <Style>
                                       <FontFamily>Times New Roman</FontFamily>
                                       <FontWeight>Bold</FontWeight>
@@ -1449,7 +1433,7 @@
                                   <Paragraph>
                                     <TextRuns>
                                       <TextRun>
-                                        <Value />
+                                        <Value EvaluationMode="Auto" />
                                         <Style>
                                           <FontFamily>Times New Roman</FontFamily>
                                           <FontWeight>Bold</FontWeight>
@@ -1494,9 +1478,6 @@
                               </Textbox>
                             </CellContents>
                           </TablixHeader>
-                          <TablixMembers>
-                            <TablixMember />
-                          </TablixMembers>
                         </TablixMember>
                       </TablixMembers>
                     </TablixMember>
@@ -1514,7 +1495,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value EvaluationMode="Auto" />
                                 <Style>
                                   <FontFamily>Times New Roman</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -1551,7 +1532,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value />
+                                    <Value EvaluationMode="Auto" />
                                     <Style>
                                       <FontFamily>Times New Roman</FontFamily>
                                       <FontWeight>Bold</FontWeight>
@@ -1588,7 +1569,7 @@
                                   <Paragraph>
                                     <TextRuns>
                                       <TextRun>
-                                        <Value />
+                                        <Value EvaluationMode="Auto" />
                                         <Style>
                                           <FontFamily>Times New Roman</FontFamily>
                                           <FontWeight>Bold</FontWeight>
@@ -1625,7 +1606,7 @@
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value />
+                                            <Value EvaluationMode="Auto" />
                                             <Style>
                                               <FontFamily>Times New Roman</FontFamily>
                                               <FontWeight>Bold</FontWeight>
@@ -1650,9 +1631,6 @@
                                   </Textbox>
                                 </CellContents>
                               </TablixHeader>
-                              <TablixMembers>
-                                <TablixMember />
-                              </TablixMembers>
                             </TablixMember>
                           </TablixMembers>
                         </TablixMember>
@@ -1667,7 +1645,7 @@
             <Top>0.13872cm</Top>
             <Left>0.2614cm</Left>
             <Height>6.35901cm</Height>
-            <Width>17.16555cm</Width>
+            <Width>15.26055cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1681,7 +1659,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>PREPARED BY: ......................................... DATE: .................................... SIGNATURE: ..................................</Value>
+                    <Value EvaluationMode="Auto">PREPARED BY: ......................................... DATE: .................................... SIGNATURE: ..................................</Value>
                     <Style>
                       <FontFamily>Tahoma</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -1717,7 +1695,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>CHECKED BY: ........................................... DATE: .................................... SIGNATURE: .................................</Value>
+                    <Value EvaluationMode="Auto">CHECKED BY: ........................................... DATE: .................................... SIGNATURE: .................................</Value>
                     <Style>
                       <FontFamily>Tahoma</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -1753,7 +1731,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>AUTHORISED BY: ...................................... DATE: .................................... SIGNATURE: .................................</Value>
+                    <Value EvaluationMode="Auto">AUTHORISED BY: ...................................... DATE: .................................... SIGNATURE: .................................</Value>
                     <Style>
                       <FontFamily>Tahoma</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -1789,7 +1767,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>APPROVED BY: ......................................... DATE: .................................... SIGNATURE: .................................</Value>
+                    <Value EvaluationMode="Auto">APPROVED BY: ......................................... DATE: .................................... SIGNATURE: .................................</Value>
                     <Style>
                       <FontFamily>Tahoma</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -1825,7 +1803,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value />
+                    <Value EvaluationMode="Auto" />
                     <Style>
                       <FontFamily>Tahoma</FontFamily>
                       <FontSize>8pt</FontSize>
@@ -1857,17 +1835,17 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>3.51693in</Height>
+        <Height>8.933cm</Height>
         <Style />
       </Body>
-      <Width>8.07951in</Width>
+      <Width>16.93443cm</Width>
       <Page>
-        <PageHeight>17in</PageHeight>
-        <PageWidth>8in</PageWidth>
-        <LeftMargin>0.82677in</LeftMargin>
-        <RightMargin>0in</RightMargin>
-        <TopMargin>0.7874in</TopMargin>
-        <BottomMargin>0.7874in</BottomMargin>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>28.55001cm</PageWidth>
+        <LeftMargin>2.1cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>2cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
         <Style />
       </Page>
     </ReportSection>
@@ -1981,7 +1959,7 @@ tN/xNshgLUpWwgCiLCag5NPUZPGHvPZ8+kt44EX6IJJeNMLXhKeYz+Lps6EzBBgCvQEBCokQbEShQfzZ
   </EmbeddedImages>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>57e58205-739e-4553-8438-30607664b37d</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
@@ -2013,12 +1991,6 @@ tN/xNshgLUpWwgCiLCag5NPUZPGHvPZ8+kt44EX6IJJeNMLXhKeYz+Lps6EzBBgCvQEBCokQbEShQfzZ
         <Field Name="Transcode">
           <DataField>Transcode</DataField>
         </Field>
-        <Field Name="Id">
-          <DataField>Id</DataField>
-        </Field>
-        <Field Name="KraPin">
-          <DataField>KraPin</DataField>
-        </Field>
         <Field Name="TransIndx">
           <DataField>TransIndx</DataField>
         </Field>
@@ -2036,24 +2008,6 @@ tN/xNshgLUpWwgCiLCag5NPUZPGHvPZ8+kt44EX6IJJeNMLXhKeYz+Lps6EzBBgCvQEBCokQbEShQfzZ
         </Field>
         <Field Name="SelectedPeriod">
           <DataField>SelectedPeriod</DataField>
-        </Field>
-        <Field Name="IDNoS">
-          <DataField>IDNoS</DataField>
-        </Field>
-        <Field Name="PinNumber">
-          <DataField>PinNumber</DataField>
-        </Field>
-        <Field Name="GrossPay">
-          <DataField>GrossPay</DataField>
-        </Field>
-        <Field Name="GrossPayFormat">
-          <DataField>GrossPayFormat</DataField>
-        </Field>
-        <Field Name="HouseLevy">
-          <DataField>HouseLevy</DataField>
-        </Field>
-        <Field Name="HouseLevyFormat">
-          <DataField>HouseLevyFormat</DataField>
         </Field>
       </Fields>
       <Query>
