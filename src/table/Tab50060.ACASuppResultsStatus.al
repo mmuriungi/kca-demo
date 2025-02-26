@@ -18,22 +18,23 @@ table 50060 "ACA-Supp. Results Status"
         field(3; "Students Count"; Integer)
         {
             Caption = 'Students Count';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Count("ACA-Course Registration" WHERE(Programmes = FIELD("Programme Filter"), "Academic Year" = FIELD("Academic Year"), Faculty = FIELD("Faculty Filter"), "Exam Status" = FIELD(Code), "Year Of Study" = FIELD("Year of Study Filter")));
         }
         field(4; "Programme Filter"; Code[100])
         {
             Caption = 'Programme Filter';
-            DataClassification = CustomerContent;
+            FieldClass = FlowFilter;
         }
         field(5; "Stage Filter"; Code[100])
         {
             Caption = 'Stage Filter';
-            DataClassification = CustomerContent;
+            FieldClass = FlowFilter;
         }
         field(6; "Semester Filter"; Code[100])
         {
             Caption = 'Semester Filter';
-            DataClassification = CustomerContent;
+            FieldClass = FlowFilter;
         }
         field(7; "Status Msg1"; Text[100])
         {
@@ -68,8 +69,8 @@ table 50060 "ACA-Supp. Results Status"
         field(13; "Student Type Filter"; Option)
         {
             Caption = 'Student Type Filter';
-            DataClassification = CustomerContent;
-            OptionMembers = " ";
+            FieldClass = FlowFilter;
+            OptionMembers = "Full Time","Part Time","Distance Learning";
         }
         field(14; "Show Reg. Remarks"; Boolean)
         {
@@ -94,12 +95,12 @@ table 50060 "ACA-Supp. Results Status"
         field(50002; "Session Filter"; Code[20])
         {
             Caption = 'Session Filter';
-            DataClassification = CustomerContent;
+            FieldClass = FlowFilter;
         }
         field(50003; "Campus Filter"; Code[20])
         {
             Caption = 'Campus Filter';
-            DataClassification = CustomerContent;
+            FieldClass = FlowFilter;
         }
         field(50004; "Students Count Cumm"; Integer)
         {
@@ -207,12 +208,12 @@ table 50060 "ACA-Supp. Results Status"
         field(63030; "Faculty Filter"; Code[20])
         {
             Caption = 'Faculty Filter';
-            DataClassification = CustomerContent;
+            FieldClass=FlowFilter;
         }
-        field(63031; "Year of Study Filter"; Code[20])
+        field(63031; "Year of Study Filter"; Integer)
         {
             Caption = 'Year of Study Filter';
-            DataClassification = CustomerContent;
+            FieldClass = FlowFilter;
         }
         field(63032; "Pass"; Boolean)
         {
@@ -440,4 +441,4 @@ table 50060 "ACA-Supp. Results Status"
             Clustered = true;
         }
     }
-} 
+}

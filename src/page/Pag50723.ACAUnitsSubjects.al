@@ -53,6 +53,10 @@ page 50723 "ACA-Units/Subjects"
                 {
                     ApplicationArea = All;
                 }
+                field("Exempt CAT"; Rec."Exempt CAT")
+                {
+                    ApplicationArea = All;
+                }
                 field("Combination Count"; Rec."Combination Count")
                 {
                     Editable = false;

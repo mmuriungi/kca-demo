@@ -3183,7 +3183,48 @@ table 50555 "ACA-Course Registration"
         field(60202; "Stoppage Exists In Acad. Year"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula = Exist("ACA-Course Registration" WHERE ("Student No."=FIELD("Student No."),Programmes=FIELD(Programmes),"Academic Year"=FIELD("Academic Year"),Reversed=FILTER(true)));
+            CalcFormula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student No."), Programmes = FIELD(Programmes), "Academic Year" = FIELD("Academic Year"), Reversed = FILTER(true)));
+        }
+        //Exist("ACA-Course Registration" WHERE (Student No.=FIELD(Student No.),Programme=FIELD(Programme),Year Of Study=FIELD(Year Of Study),Reversed=FILTER(Yes)))
+        //"Stoppage Exists in YoS"
+        field(60203; "Stoppage Exists in YoS"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student No."), Programmes = FIELD(Programmes), "Year Of Study" = FIELD("Year Of Study"), Reversed = FILTER(true)));
+        }
+        //"Stopped Academic Year"
+        field(60204; "Stopped Academic Year"; Code[20])
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Course Registration"."Academic Year" WHERE("Student No." = FIELD("Student No."), Programmes = FIELD(Programmes), "Year Of Study" = FIELD("Year Of Study"), Reversed = FILTER(true)));
+        }
+        //"Stopage Yearly Remark"
+        field(60205; "Stopage Yearly Remark"; Code[50])
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Course Registration"."Stoppage Reason" WHERE("Student No." = FIELD("Student No."),
+                                                                                Programmes = FIELD(Programmes),
+                                                                                "Year Of Study" = FIELD("Year Of Study"),
+                                                                               "Exclude from Computation" = FILTER(false),
+                                                                                "Academic Year" = FIELD("Academic Year")));
+        }
+        //Exclude from Computation
+        field(60206; "Exclude from Computation"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Reg. Stoppage Reasons"."Exclude Computation" WHERE("Reason Code" = FIELD("Stoppage Reason")));
+        }
+        //"Combine Discordant Sem. in Yr"
+        field(60207; "Combine Discordant Sem. in Yr"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Course Registration" WHERE ("Student No."=FIELD("Student No."),"Academic Year"=FIELD("Academic Year"),"Combine Discordant Semesters"=FILTER(true),"Year Of Study"=FIELD("Year Of Study")));
+        }
+        //"Combine Discordant Semesters"
+        field(60208; "Combine Discordant Semesters"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Reg. Stoppage Reasons"."Combine Discordant Semesters" WHERE ("Reason Code"=FIELD("Stoppage Reason")));
         }
 
     }

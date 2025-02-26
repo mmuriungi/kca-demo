@@ -559,6 +559,10 @@ table 50545 "ACA-Units/Subjects"
         {
             Editable = false;
         }
+        //"Exempt CAT"
+        field(50034; "Exempt CAT"; Boolean)
+        {
+        }
     }
 
     keys

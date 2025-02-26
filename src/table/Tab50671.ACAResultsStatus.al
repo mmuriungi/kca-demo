@@ -373,6 +373,15 @@ table 50671 "ACA-Results Status"
         {
             DataClassification = ToBeClassified;
         }
+        //"Allowed Occurances"
+        field(63076; "Allowed Occurances"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
+         field(63077; "Alternate Rubrics"; code[10])
+        {
+            
+        }
     }
 
     keys
