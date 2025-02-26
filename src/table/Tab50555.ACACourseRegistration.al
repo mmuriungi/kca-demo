@@ -3174,6 +3174,17 @@ table 50555 "ACA-Course Registration"
             FieldClass = FlowField;
             CalcFormula = lookup("ACA-Programme".Description WHERE(Code = FIELD(Programmes)));
         }
+        //"Stoppage Reason"
+        field(60201; "Stoppage Reason"; Code[50])
+        {
+            TableRelation = "ACA-Reg. Stoppage Reasons"."Reason Code";
+        }
+        //"Stoppage Exists In Acad. Year"
+        field(60202; "Stoppage Exists In Acad. Year"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Course Registration" WHERE ("Student No."=FIELD("Student No."),Programmes=FIELD(Programmes),"Academic Year"=FIELD("Academic Year"),Reversed=FILTER(true)));
+        }
 
     }
 

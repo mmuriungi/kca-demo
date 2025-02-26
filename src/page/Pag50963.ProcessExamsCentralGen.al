@@ -61,7 +61,7 @@ page 50963 "Process Exams Central Gen."
                 PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
-                Caption = 'Process Suppleme';
+                Caption = 'Process Senate';
                 trigger OnAction()
                 var
                     senateReportNew: Codeunit "Senate Processing";
@@ -882,13 +882,13 @@ page 50963 "Process Exams Central Gen."
 
                                     //     IF ((ACAExamCourseRegistration."Student Number"='SC/00002/016') AND (ACAExamCourseRegistration."Academic Year"='2019/2020')) THEN
                                     //       CLEAR(Tens);
-                                    ACAExamCourseRegistration."Final Classification" := GetRubric(Progyz, ACAExamCourseRegistration);
+                                    ACAExamCourseRegistration."Final Classification" := GetRubRicsKaru(Progyz, ACAExamCourseRegistration);
                                     ACAExamCourseRegistration."Final Classification Pass" := GetRubricPassStatus(ACAExamCourseRegistration."Final Classification",
                                     ACAExamCourseRegistration."Academic Year", Progyz);
                                     ACAExamCourseRegistration."Final Classification Order" := GetRubricOrder(ACAExamCourseRegistration."Final Classification");
                                     ACAExamCourseRegistration.Graduating := GetRubricPassStatus(ACAExamCourseRegistration."Final Classification",
                                     ACAExamCourseRegistration."Academic Year", Progyz);
-                                    ACAExamCourseRegistration.Classification := GetRubric(Progyz, ACAExamCourseRegistration);
+                                    ACAExamCourseRegistration.Classification := GetRubRicsKaru(Progyz, ACAExamCourseRegistration);
 
                                     // //           IF ((ACAExamCourseRegistration."Total Courses"=0) OR (ACAExamCourseRegistration."Units Deficit">0)) THEN BEGIN
                                     // //             IF ACAExamCourseRegistration.Classification='PASS LIST' THEN BEGIN
@@ -1787,13 +1787,13 @@ page 50963 "Process Exams Central Gen."
                                             ACAExamCourseRegistration."Units Deficit" := ACAExamCourseRegistration."Required Stage Units" - ACAExamCourseRegistration."Attained Stage Units";
                                         ACAExamCourseRegistration."Multiple Programe Reg. Exists" := GetMultipleProgramExists(ACAExamCourseRegistration."Student Number");
 
-                                        ACAExamCourseRegistration."Final Classification" := GetRubric(Progyz, ACAExamCourseRegistration);
+                                        ACAExamCourseRegistration."Final Classification" := GetRubRicsKaru(Progyz, ACAExamCourseRegistration);
                                         ACAExamCourseRegistration."Final Classification Pass" := GetRubricPassStatus(ACAExamCourseRegistration."Final Classification",
                                         ACAExamCourseRegistration."Academic Year", Progyz);
                                         ACAExamCourseRegistration."Final Classification Order" := GetRubricOrder(ACAExamCourseRegistration."Final Classification");
                                         ACAExamCourseRegistration.Graduating := GetRubricPassStatus(ACAExamCourseRegistration."Final Classification",
                                         ACAExamCourseRegistration."Academic Year", Progyz);
-                                        ACAExamCourseRegistration.Classification := GetRubric(Progyz, ACAExamCourseRegistration);
+                                        ACAExamCourseRegistration.Classification := GetRubRicsKaru(Progyz, ACAExamCourseRegistration);
                                         // //           IF ((ACAExamCourseRegistration."Total Courses"=0) OR (ACAExamCourseRegistration."Units Deficit">0)) THEN BEGIN
                                         // //             IF ACAExamCourseRegistration.Classification='PASS LIST' THEN BEGIN
                                         // //           ACAExamCourseRegistration."Final Classification":='HALT';
@@ -2450,6 +2450,165 @@ page 50963 "Process Exams Central Gen."
                 end;
             end;
         end;
+    end;
+
+    procedure GetRubRicsKaru(AcaProg: Record "ACA-Programme"; CoursesRegz: Record "ACA-exam. Course Registration") StatusRemarks: Text[150]
+    var
+        Customer: Record "Aca-Course Registration";
+        LubricIdentified: Boolean;
+        ACAResultsStatus: Record "ACA-Results Status";
+        YearlyReMarks: Text[150];
+        ACAProgramme: Record "ACA-Programme";
+        StudCoregcs24: Record "ACA-Course Registration";
+        ACARegStoppageReasons: Record "ACA-Reg. Stoppage Reasons";
+        StudCoregcs2: Record "ACA-Course Registration";
+        StudCoregcs: Record "ACA-Course Registration";
+        AcaSpecialExamsDetails: Record "ACA-Special Exams Details";
+    begin
+        CLEAR(StatusRemarks);
+        CLEAR(YearlyReMarks);
+        Customer.RESET;
+        Customer.SETRANGE("Student No.", CoursesRegz."Student Number");
+        Customer.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+        IF Customer.FIND('+') THEN BEGIN
+            IF ((Customer.Status = Customer.Status::Registration) OR (Customer.Status = Customer.Status::Current)) THEN BEGIN
+                CLEAR(LubricIdentified);
+                CoursesRegz.CALCFIELDS("Attained Stage Units", "Failed Cores", "Failed Courses", "Failed Electives", "Failed Required", "Failed Units",
+                "Total Failed Units", "Total Marks", "Total Required Done",
+                "Total Required Passed", "Total Units", "Total Weighted Marks", "Exists DTSC Prefix");
+                CoursesRegz.CALCFIELDS("Total Cores Done", "Total Cores Passed", "Total Courses", "Total Electives Done", "Total Failed Courses",
+                "Tota Electives Passed", "Total Classified C. Count", "Total Classified Units", "Total Classified Units");
+                IF CoursesRegz."Total Courses" > 0 THEN
+                    CoursesRegz."% Failed Courses" := (CoursesRegz."Failed Courses" / CoursesRegz."Total Courses") * 100;
+                CoursesRegz."% Failed Courses" := ROUND(CoursesRegz."% Failed Courses", 0.01, '>');
+                IF CoursesRegz."% Failed Courses" > 100 THEN CoursesRegz."% Failed Courses" := 100;
+                IF CoursesRegz."Total Cores Done" > 0 THEN
+                    CoursesRegz."% Failed Cores" := ((CoursesRegz."Failed Cores" / CoursesRegz."Total Cores Done") * 100);
+                CoursesRegz."% Failed Cores" := ROUND(CoursesRegz."% Failed Cores", 0.01, '>');
+                IF CoursesRegz."% Failed Cores" > 100 THEN CoursesRegz."% Failed Cores" := 100;
+                IF CoursesRegz."Total Units" > 0 THEN
+                    CoursesRegz."% Failed Units" := (CoursesRegz."Failed Units" / CoursesRegz."Total Units") * 100;
+                CoursesRegz."% Failed Units" := ROUND(CoursesRegz."% Failed Units", 0.01, '>');
+                IF CoursesRegz."% Failed Units" > 100 THEN CoursesRegz."% Failed Units" := 100;
+                IF CoursesRegz."Total Electives Done" > 0 THEN
+                    CoursesRegz."% Failed Electives" := (CoursesRegz."Failed Electives" / CoursesRegz."Total Electives Done") * 100;
+                CoursesRegz."% Failed Electives" := ROUND(CoursesRegz."% Failed Electives", 0.01, '>');
+                IF CoursesRegz."% Failed Electives" > 100 THEN CoursesRegz."% Failed Electives" := 100;
+                // CoursesRegz.MODIFY;
+                ACAResultsStatus.RESET;
+                ACAResultsStatus.SETFILTER("Manual Status Processing", '%1', FALSE);
+                ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                IF ACAProgramme."Special Programme Class" = ACAProgramme."Special Programme Class"::"Medicine & Nursing" THEN BEGIN
+                    ACAResultsStatus.SETFILTER("Special Programme Class", '=%1', ACAResultsStatus."Special Programme Class"::"Medicine & Nursing");
+                END ELSE BEGIN
+                    ACAResultsStatus.SETFILTER("Minimum Units Failed", '=%1|<%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
+                    ACAResultsStatus.SETFILTER("Maximum Units Failed", '=%1|>%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
+                END;
+                ACAResultsStatus.SETFILTER("Minimum Units Failed", '=%1|<%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
+                ACAResultsStatus.SETFILTER("Maximum Units Failed", '=%1|>%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
+                ACAResultsStatus.SETCURRENTKEY("Order No");
+                IF ACAResultsStatus.FIND('-') THEN BEGIN
+                    REPEAT
+                    BEGIN
+                        StatusRemarks := ACAResultsStatus.Code;
+                        IF ACAResultsStatus."Lead Status" <> '' THEN
+                            StatusRemarks := ACAResultsStatus."Lead Status";
+                        YearlyReMarks := ACAResultsStatus."Transcript Remarks";
+                        LubricIdentified := TRUE;
+                    END;
+                    UNTIL ((ACAResultsStatus.NEXT = 0) OR (LubricIdentified = TRUE))
+                END;
+                CoursesRegz.CALCFIELDS("Supp/Special Exists", "Attained Stage Units", "Special Registration Exists");
+                //IF CoursesRegz."Supp/Special Exists" THEN  StatusRemarks:='SPECIAL';
+                //IF CoursesRegz."Units Deficit">0 THEN StatusRemarks:='DTSC';
+                IF CoursesRegz."Required Stage Units" > CoursesRegz."Attained Stage Units" THEN StatusRemarks := 'DTSC';
+                IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
+                //IF CoursesRegz."Exists DTSC Prefix" THEN StatusRemarks:='DTSC';
+                //IF CoursesRegz."Special Registration Exists" THEN StatusRemarks:='Special';
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////
+                // Check if exists a stopped Semester for the Academic Years and Pick the Status on the lines as the rightful Status
+                CLEAR(StudCoregcs24);
+                StudCoregcs24.RESET;
+                StudCoregcs24.SETRANGE("Student No.", CoursesRegz."Student Number");
+                StudCoregcs24.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                StudCoregcs24.SETRANGE(Reversed, TRUE);
+                IF StudCoregcs24.FIND('-') THEN BEGIN
+                    CLEAR(ACARegStoppageReasons);
+                    ACARegStoppageReasons.RESET;
+                    ACARegStoppageReasons.SETRANGE("Reason Code", StudCoregcs24."Stoppage Reason");
+                    IF ACARegStoppageReasons.FIND('-') THEN BEGIN
+
+                        ACAResultsStatus.RESET;
+                        ACAResultsStatus.SETRANGE(Status, ACARegStoppageReasons."Global Status");
+                        ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                        ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
+                        IF ACAResultsStatus.FIND('-') THEN BEGIN
+                            StatusRemarks := ACAResultsStatus.Code;
+                            YearlyReMarks := ACAResultsStatus."Transcript Remarks";
+                        END ELSE BEGIN
+                            StatusRemarks := UPPERCASE(FORMAT(StudCoregcs24."Stoppage Reason"));
+                            YearlyReMarks := StatusRemarks;
+                        END;
+                    END;
+                END;
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            END ELSE BEGIN
+
+                CoursesRegz.CALCFIELDS("Attained Stage Units");
+                IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
+                CLEAR(StudCoregcs);
+                StudCoregcs.RESET;
+                StudCoregcs.SETRANGE("Student No.", CoursesRegz."Student Number");
+                StudCoregcs.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                StudCoregcs.SETRANGE("Stoppage Exists In Acad. Year", TRUE);
+                IF StudCoregcs.FIND('-') THEN BEGIN
+                    CLEAR(StudCoregcs2);
+                    StudCoregcs2.RESET;
+                    StudCoregcs2.SETRANGE("Student No.", CoursesRegz."Student Number");
+                    StudCoregcs2.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                    StudCoregcs2.SETRANGE("Stoppage Exists In Acad. Year", TRUE);
+                    StudCoregcs2.SETRANGE(Reversed, TRUE);
+                    IF StudCoregcs2.FIND('-') THEN BEGIN
+                        StatusRemarks := UPPERCASE(FORMAT(StudCoregcs2."Stoppage Reason"));
+                        YearlyReMarks := StatusRemarks;
+                    END;
+                END;
+
+                ACAResultsStatus.RESET;
+                ACAResultsStatus.SETRANGE(Status, Customer.Status);
+                ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
+                IF ACAResultsStatus.FIND('-') THEN BEGIN
+                    StatusRemarks := ACAResultsStatus.Code;
+                    YearlyReMarks := ACAResultsStatus."Transcript Remarks";
+                END ELSE BEGIN
+                    StatusRemarks := UPPERCASE(FORMAT(Customer.Status));
+                    YearlyReMarks := StatusRemarks;
+                END;
+            END;
+        END;
+
+
+        ACAResultsStatus.RESET;
+        ACAResultsStatus.SETRANGE(Code, StatusRemarks);
+        ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+        ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
+        IF ACAResultsStatus.FIND('-') THEN BEGIN
+            // Check if the Ststus does not allow Supp. Generation and delete
+            IF ACAResultsStatus."Skip Supp Generation" = TRUE THEN BEGIN
+                // Delete Entries from Supp Registration for the Semester
+                CLEAR(AcaSpecialExamsDetails);
+                AcaSpecialExamsDetails.RESET;
+                AcaSpecialExamsDetails.SETRANGE("Student No.", CoursesRegz."Student Number");
+                AcaSpecialExamsDetails.SETRANGE("Year of Study", CoursesRegz."Year of Study");
+                AcaSpecialExamsDetails.SETRANGE("Exam Marks", 0);
+                AcaSpecialExamsDetails.SETRANGE(Status, AcaSpecialExamsDetails.Status::New);
+                IF AcaSpecialExamsDetails.FIND('-') THEN AcaSpecialExamsDetails.DELETEALL;
+            END;
+        END;
+
     end;
 
     local procedure GetRubricPassStatus(RubricCode: Code[50]; AcademicYears: Code[20]; Progyz: Record "ACA-Programme") PassStatus: Boolean

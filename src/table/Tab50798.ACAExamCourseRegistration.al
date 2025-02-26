@@ -1129,7 +1129,20 @@ table 50798 "ACA-Exam. Course Registration"
         field(172; "Supp/Special Exists"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Is Supp. Unit"=FILTER(True),"Academic Year"=FIELD("Academic Year")));
+            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Supp. Unit" = FILTER(True), "Academic Year" = FIELD("Academic Year")));
+        }
+        //Exists Dstc Prefix
+        field(173; "Exists DTSC Prefix"; Boolean)
+        {
+
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Exam Classification Units" WHERE("Student No." = FIELD("Student Number"), "Programme" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Results Exists Status" = FILTER("CAT Only" | "Exam Only" | "None Exists")));
+        }
+        //"Special Registration Exists"
+        field(174; "Special Registration Exists"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Exam Classification Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Is Special Unit" = FILTER(True)));
         }
 
     }

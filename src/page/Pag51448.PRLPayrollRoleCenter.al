@@ -684,7 +684,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'Housing Levy Fund';
                     Image = "PrintForm";
-                    RunObject = Report "Housing Levy Fund";
+                    RunObject = Report "prHousing Levy";
                 }
             }
 

@@ -368,6 +368,11 @@ table 50671 "ACA-Results Status"
         {
             DataClassification = ToBeClassified;
         }
+        //"Skip Supp Generation"
+        field(63075; "Skip Supp Generation"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
