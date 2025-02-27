@@ -4,7 +4,7 @@ table 51002 "Phamarcy Unit Of Measure"
     {
         field(1; "Item Code"; code[30])
         {
-            TableRelation = "Pharmacy Items";
+            TableRelation = Item;
         }
         field(2; "Unit Code"; Enum "Pharmacy Unit of Measure")
         {

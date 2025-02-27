@@ -79,6 +79,12 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelSpecialExamsRequestTxt: Label 'An Approval request for Special Exams is Cancelled';
         RunWorkflowOnSendSpecialExamsForApprovalCode: Label 'RUNWORKFLOWONSENDSPECIALSEXAMSFORAPPROVAL';
         RunWorkflowOnCancelSpecialExamsForApprovalCode: Label 'RUNWORKFLOWONCANCELSPECIALSEXAMSFORAPPROVAL';
+        //Item Disposal
+        OnSendItemDisposalRequestTxt: Label 'Approval request for Item Disposal is requested';
+        OnCancelItemDisposalRequestTxt: Label 'An Approval request for Item Disposal is Cancelled';
+        RunWorkflowOnSendItemDisposalForApprovalCode: Label 'RUNWORKFLOWONSENDITEMDISPOSALFORAPPROVAL';
+        RunWorkflowOnCancelItemDisposalForApprovalCode: Label 'RUNWORKFLOWONCANCELITEMDISPOSALFORAPPROVAL';
+
 
 
 
@@ -119,6 +125,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendEmployeeRequisitionForApprovalCode));
             Database::"Aca-Special Exams Details":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendSpecialExamsForApprovalCode));
+            Database::"Item Disposal Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendItemDisposalForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -199,6 +207,9 @@ codeunit 50089 "Approval Workflows V1"
         //Special Exams
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendSpecialExamsForApprovalCode, Database::"Aca-Special Exams Details", OnSendSpecialExamsRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelSpecialExamsForApprovalCode, Database::"Aca-Special Exams Details", OnCancelSpecialExamsRequestTxt, 0, false);
+        //Item Disposal
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendItemDisposalForApprovalCode, Database::"Item Disposal Header", OnSendItemDisposalRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelItemDisposalForApprovalCode, Database::"Item Disposal Header", OnCancelItemDisposalRequestTxt, 0, false);
 
     end;
 
@@ -246,6 +257,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendEmployeeRequisitionForApprovalCode, Variant);
             Database::"Aca-Special Exams Details":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendSpecialExamsForApprovalCode, Variant);
+            Database::"Item Disposal Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendItemDisposalForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -290,6 +303,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelEmployeeRequisitionForApprovalCode, Variant);
             Database::"Aca-Special Exams Details":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelSpecialExamsForApprovalCode, Variant);
+            Database::"Item Disposal Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelItemDisposalForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -315,6 +330,7 @@ codeunit 50089 "Approval Workflows V1"
         ImpSurrHeader: Record "FIN-Imprest Surr. Header";
         EmployeeRequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
+        ItemDisposal: Record "Item Disposal Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -421,6 +437,13 @@ codeunit 50089 "Approval Workflows V1"
                     SpecialExams.Validate("Status", SpecialExams.Status::New);
                     SpecialExams.Modify();
                 end;
+            Database::"Item Disposal Header":
+                begin
+                    RecRef.SetTable(ItemDisposal);
+                    ItemDisposal.Validate("Status", ItemDisposal.Status::Open);
+                    ItemDisposal.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -442,6 +465,7 @@ codeunit 50089 "Approval Workflows V1"
         ImpsurHeader: Record "FIN-Imprest Surr. Header";
         Emprequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
+        ItemDisposalHeader: Record "Item Disposal Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -555,6 +579,13 @@ codeunit 50089 "Approval Workflows V1"
                     SpecialExams.Modify();
                     IsHandled := true;
                 end;
+            Database::"Item Disposal Header":
+                begin
+                    RecRef.SetTable(ItemDisposalHeader);
+                    ItemDisposalHeader.Validate("Status", ItemDisposalHeader.Status::"Pending Approval");
+                    ItemDisposalHeader.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -576,6 +607,7 @@ codeunit 50089 "Approval Workflows V1"
         impSurrHeader: Record "FIN-Imprest Surr. Header";
         EmployeeRequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
+        ItemDisposalHeader: Record "Item Disposal Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -653,6 +685,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(SpecialExams);
                     ApprovalEntryArgument."Document No." := SpecialExams."Document No.";
                 end;
+            Database::"Item Disposal Header":
+                begin
+                    RecRef.SetTable(ItemDisposalHeader);
+                    ApprovalEntryArgument."Document No." := ItemDisposalHeader."No.";
+                end;
         end;
     end;
 
@@ -678,6 +715,7 @@ codeunit 50089 "Approval Workflows V1"
         impSurHeader: Record "FIN-Imprest Surr. Header";
         Emprequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
+        ItemDisposalHeader: Record "Item Disposal Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -788,6 +826,13 @@ codeunit 50089 "Approval Workflows V1"
                     SpecialExams.Modify();
                     Handled := true;
                 end;
+            Database::"Item Disposal Header":
+                begin
+                    RecRef.SetTable(ItemDisposalHeader);
+                    ItemDisposalHeader.Validate("Status", ItemDisposalHeader.Status::Approved);
+                    ItemDisposalHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -810,6 +855,7 @@ codeunit 50089 "Approval Workflows V1"
         impsurHeader: Record "FIN-Imprest Surr. Header";
         Emprequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
+        ItemDisposalHeader: Record "Item Disposal Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -921,6 +967,13 @@ codeunit 50089 "Approval Workflows V1"
 
                     end;
                 end;
+            Database::"Item Disposal Header":
+                begin
+                    if ItemDisposalHeader.Get(ApprovalEntry."Document No.") then begin
+                        ItemDisposalHeader.Status := ItemDisposalHeader.Status::Open;
+                        ItemDisposalHeader.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -942,6 +995,7 @@ codeunit 50089 "Approval Workflows V1"
         impSurHeader: Record "FIN-Imprest Surr. Header";
         EmployeeRequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
+        ItemDisposalHeader: Record "Item Disposal Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -1044,6 +1098,13 @@ codeunit 50089 "Approval Workflows V1"
                     SpecialExams.Modify();
                     Variant := SpecialExams;
                 end;
+            Database::"Item Disposal Header":
+                begin
+                    RecRef.SetTable(ItemDisposalHeader);
+                    ItemDisposalHeader.Validate("Status", ItemDisposalHeader.Status::Open);
+                    ItemDisposalHeader.Modify();
+                    Variant := ItemDisposalHeader;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
 
@@ -1067,6 +1128,7 @@ codeunit 50089 "Approval Workflows V1"
         impsurHeader: Record "FIN-Imprest Surr. Header";
         emprequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
+        ItemDisposalHeader: Record "Item Disposal Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -1168,6 +1230,13 @@ codeunit 50089 "Approval Workflows V1"
                     SpecialExams.Validate("Status", SpecialExams.Status::"Pending Approval");
                     SpecialExams.Modify();
                     Variant := SpecialExams;
+                end;
+            Database::"Item Disposal Header":
+                begin
+                    RecRef.SetTable(ItemDisposalHeader);
+                    ItemDisposalHeader.Validate("Status", ItemDisposalHeader.Status::"Pending Approval");
+                    ItemDisposalHeader.Modify();
+                    Variant := ItemDisposalHeader;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);

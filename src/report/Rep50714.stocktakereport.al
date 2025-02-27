@@ -5,15 +5,14 @@ report 50714 "stock take report"
     Caption = 'stock take report';
     dataset
     {
-        dataitem(PharmacyItems; "Pharmacy Items")
+        dataitem(PharmacyItems; "Item")
         {
             column(No; "No.")
             {
             }
-            column(SequenceNo; SequenceNo)
+            column(SequenceNo; "SequenceNo")
             {
             }
-
             column(Company_Name; info.Name)
             {
             }
@@ -83,5 +82,5 @@ report 50714 "stock take report"
 
     var
         info: Record "Company Information";
-        st: Record "Pharmacy Items";
+        st: Record Item;
 }

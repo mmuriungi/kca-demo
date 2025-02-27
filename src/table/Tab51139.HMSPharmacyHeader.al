@@ -126,7 +126,7 @@ table 51139 "HMS-Pharmacy Header"
         HMSSetup: Record "HMS-Setup";
         NoSeriesMgt: Codeunit 396;
         Patient: Record "HMS-Patient";
-        PharItems: Record "Pharmacy Items";
+        PharItems: Record Item;
         itemledger: Record "Pharmacy Item Ledger";
         PharHeader: Record "HMS-Pharmacy Header";
 

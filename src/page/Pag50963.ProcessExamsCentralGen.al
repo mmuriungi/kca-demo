@@ -4700,7 +4700,7 @@ page 50963 "Process Exams Central Gen."
                     ACAExamCourseRegistration."Units Deficit" := ACAExamCourseRegistration."Required Stage Units" - ACAExamCourseRegistration."Attained Stage Units";
                 ACAExamCourseRegistration."Multiple Programe Reg. Exists" := GetMultipleProgramExists(ACAExamCourseRegistration."Student Number", ACAExamCourseRegistration."Academic Year");
 
-                ACAExamCourseRegistration."Final Classification" := GetRubricSupp(Progyz, ACAExamCourseRegistration);
+                // ACAExamCourseRegistration."Final Classification" := GetRubricSupp(Progyz, ACAExamCourseRegistration); -- TODO
                 IF Coregcs."Stopage Yearly Remark" <> '' THEN
                     ACAExamCourseRegistration."Final Classification" := Coregcs."Stopage Yearly Remark";
                 ACAExamCourseRegistration."Final Classification Pass" := GetSuppRubricPassStatus(ACAExamCourseRegistration."Final Classification",
@@ -4770,7 +4770,7 @@ page 50963 "Process Exams Central Gen."
                     END;
                 END ELSE BEGIN
                     //ERROR(ACAExamCourseRegistration."Student Number");
-                    Update2ndSupplementaryMarks(ACAExamCourseRegistration);
+                    // Update2ndSupplementaryMarks(ACAExamCourseRegistration); -- TODO
                     // Update 2nd Supp Registrations
                     ////////////////...................................................................
                     CLEAR(RegularExamUnitsRegForSupp);
@@ -4867,163 +4867,163 @@ page 50963 "Process Exams Central Gen."
         END;
     end;
 
-    procedure GetRubricSupp(ACAProgramme: Record "ACA-Programme"; VAR CoursesRegz: Record "ACA-SuppExam. Co. Reg.") StatusRemarks: Text[150]
-    var
-        Customer: Record "ACA-Course Registration";
-        LubricIdentified: Boolean;
-        ACAResultsStatus: Record "ACA-Supp. Results Status";
-        YearlyReMarks: Text[250];
-        StudCoregcs2: Record "ACA-Course Registration";
-        StudCoregcs24: Record "ACA-Course Registration";
-        Customersz: Record Customer;
-        ACARegStoppageReasons: Record "ACA-Reg. Stoppage Reasons";
-        AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
-        StudCoregcs: Record "ACA-Course Registration";
-    begin
-        CLEAR(StatusRemarks);
-        CLEAR(YearlyReMarks);
-        Customer.RESET;
-        Customer.SETRANGE("Student No.", CoursesRegz."Student Number");
-        Customer.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-        IF Customer.FIND('+') THEN BEGIN
-            IF ((Customer.Status = Customer.Status::Registration) OR (Customer.Status = Customer.Status::Current)) THEN BEGIN
-                CLEAR(LubricIdentified);
-                CoursesRegz.CALCFIELDS("Attained Stage Units", "Failed Cores", "Failed Courses", "Failed Electives", "Failed Required", "Failed Units",
-                "Total Failed Units", "Total Marks", "Total Required Done",
-                "Total Required Passed", "Total Units", "Total Weighted Marks", "Exists DTSC Prefix");
-                CoursesRegz.CALCFIELDS("Total Cores Done", "Total Cores Passed", "Total Courses", "Total Electives Done", "Total Failed Courses",
-                "Tota Electives Passed", "Total Classified C. Count", "Total Classified Units", "Total Classified Units");
-                IF CoursesRegz."Total Courses" > 0 THEN
-                    CoursesRegz."% Failed Courses" := (CoursesRegz."Failed Courses" / CoursesRegz."Total Courses") * 100;
-                CoursesRegz."% Failed Courses" := ROUND(CoursesRegz."% Failed Courses", 0.01, '>');
-                IF CoursesRegz."% Failed Courses" > 100 THEN CoursesRegz."% Failed Courses" := 100;
-                IF CoursesRegz."Total Cores Done" > 0 THEN
-                    CoursesRegz."% Failed Cores" := ((CoursesRegz."Failed Cores" / CoursesRegz."Total Cores Done") * 100);
-                CoursesRegz."% Failed Cores" := ROUND(CoursesRegz."% Failed Cores", 0.01, '>');
-                IF CoursesRegz."% Failed Cores" > 100 THEN CoursesRegz."% Failed Cores" := 100;
-                IF CoursesRegz."Total Units" > 0 THEN
-                    CoursesRegz."% Failed Units" := (CoursesRegz."Failed Units" / CoursesRegz."Total Units") * 100;
-                CoursesRegz."% Failed Units" := ROUND(CoursesRegz."% Failed Units", 0.01, '>');
-                IF CoursesRegz."% Failed Units" > 100 THEN CoursesRegz."% Failed Units" := 100;
-                IF CoursesRegz."Total Electives Done" > 0 THEN
-                    CoursesRegz."% Failed Electives" := (CoursesRegz."Failed Electives" / CoursesRegz."Total Electives Done") * 100;
-                CoursesRegz."% Failed Electives" := ROUND(CoursesRegz."% Failed Electives", 0.01, '>');
-                IF CoursesRegz."% Failed Electives" > 100 THEN CoursesRegz."% Failed Electives" := 100;
-                // CoursesRegz.MODIFY;
-                ACAResultsStatus.RESET;
-                ACAResultsStatus.SETFILTER("Manual Status Processing", '%1', FALSE);
-                ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                IF ACAProgramme."Special Programme Class" = ACAProgramme."Special Programme Class"::"Medicine & Nursing" THEN BEGIN
-                    ACAResultsStatus.SETFILTER("Special Programme Class", '=%1', ACAResultsStatus."Special Programme Class"::"Medicine & Nursing");
-                END ELSE BEGIN
-                    ACAResultsStatus.SETFILTER("Minimum Units Failed", '=%1|<%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
-                    ACAResultsStatus.SETFILTER("Maximum Units Failed", '=%1|>%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
-                END;
-                ACAResultsStatus.SETFILTER("Minimum Units Failed", '=%1|<%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
-                ACAResultsStatus.SETFILTER("Maximum Units Failed", '=%1|>%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
-                ACAResultsStatus.SETCURRENTKEY("Order No");
-                IF ACAResultsStatus.FIND('-') THEN BEGIN
-                    REPEAT
-                    BEGIN
-                        StatusRemarks := ACAResultsStatus.Code;
-                        IF ACAResultsStatus."Lead Status" <> '' THEN
-                            StatusRemarks := ACAResultsStatus."Lead Status";
-                        YearlyReMarks := ACAResultsStatus."Transcript Remarks";
-                        LubricIdentified := TRUE;
-                    END;
-                    UNTIL ((ACAResultsStatus.NEXT = 0) OR (LubricIdentified = TRUE))
-                END;
-                CoursesRegz.CALCFIELDS("Supp/Special Exists", "Attained Stage Units", "Special Registration Exists");
-                //IF CoursesRegz."Supp/Special Exists" THEN  StatusRemarks:='SPECIAL';
-                //IF CoursesRegz."Units Deficit">0 THEN StatusRemarks:='DTSC';
-                IF CoursesRegz."Required Stage Units" > CoursesRegz."Attained Stage Units" THEN StatusRemarks := 'DTSC';
-                IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
-                //IF CoursesRegz."Exists DTSC Prefix" THEN StatusRemarks:='DTSC';
-                //IF CoursesRegz."Special Registration Exists" THEN StatusRemarks:='Special';
+    // procedure GetRubricSupp(ACAProgramme: Record "ACA-Programme"; VAR CoursesRegz: Record "ACA-SuppExam. Co. Reg.") StatusRemarks: Text[150]
+    // var
+    //     Customer: Record "ACA-Course Registration";
+    //     LubricIdentified: Boolean;
+    //     ACAResultsStatus: Record "ACA-Supp. Results Status";
+    //     YearlyReMarks: Text[250];
+    //     StudCoregcs2: Record "ACA-Course Registration";
+    //     StudCoregcs24: Record "ACA-Course Registration";
+    //     Customersz: Record Customer;
+    //     ACARegStoppageReasons: Record "ACA-Reg. Stoppage Reasons";
+    //     AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+    //     StudCoregcs: Record "ACA-Course Registration";
+    // begin
+    //     CLEAR(StatusRemarks);
+    //     CLEAR(YearlyReMarks);
+    //     Customer.RESET;
+    //     Customer.SETRANGE("Student No.", CoursesRegz."Student Number");
+    //     Customer.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+    //     IF Customer.FIND('+') THEN BEGIN
+    //         IF ((Customer.Status = Customer.Status::Registration) OR (Customer.Status = Customer.Status::Current)) THEN BEGIN
+    //             CLEAR(LubricIdentified);
+    //             CoursesRegz.CALCFIELDS("Attained Stage Units", "Failed Cores", "Failed Courses", "Failed Electives", "Failed Required", "Failed Units",
+    //             "Total Failed Units", "Total Marks", "Total Required Done",
+    //             "Total Required Passed", "Total Units", "Total Weighted Marks", "Exists DTSC Prefix");
+    //             CoursesRegz.CALCFIELDS("Total Cores Done", "Total Cores Passed", "Total Courses", "Total Electives Done", "Total Failed Courses",
+    //             "Tota Electives Passed", "Total Classified C. Count", "Total Classified Units", "Total Classified Units");
+    //             IF CoursesRegz."Total Courses" > 0 THEN
+    //                 CoursesRegz."% Failed Courses" := (CoursesRegz."Failed Courses" / CoursesRegz."Total Courses") * 100;
+    //             CoursesRegz."% Failed Courses" := ROUND(CoursesRegz."% Failed Courses", 0.01, '>');
+    //             IF CoursesRegz."% Failed Courses" > 100 THEN CoursesRegz."% Failed Courses" := 100;
+    //             IF CoursesRegz."Total Cores Done" > 0 THEN
+    //                 CoursesRegz."% Failed Cores" := ((CoursesRegz."Failed Cores" / CoursesRegz."Total Cores Done") * 100);
+    //             CoursesRegz."% Failed Cores" := ROUND(CoursesRegz."% Failed Cores", 0.01, '>');
+    //             IF CoursesRegz."% Failed Cores" > 100 THEN CoursesRegz."% Failed Cores" := 100;
+    //             IF CoursesRegz."Total Units" > 0 THEN
+    //                 CoursesRegz."% Failed Units" := (CoursesRegz."Failed Units" / CoursesRegz."Total Units") * 100;
+    //             CoursesRegz."% Failed Units" := ROUND(CoursesRegz."% Failed Units", 0.01, '>');
+    //             IF CoursesRegz."% Failed Units" > 100 THEN CoursesRegz."% Failed Units" := 100;
+    //             IF CoursesRegz."Total Electives Done" > 0 THEN
+    //                 CoursesRegz."% Failed Electives" := (CoursesRegz."Failed Electives" / CoursesRegz."Total Electives Done") * 100;
+    //             CoursesRegz."% Failed Electives" := ROUND(CoursesRegz."% Failed Electives", 0.01, '>');
+    //             IF CoursesRegz."% Failed Electives" > 100 THEN CoursesRegz."% Failed Electives" := 100;
+    //             // CoursesRegz.MODIFY;
+    //             ACAResultsStatus.RESET;
+    //             ACAResultsStatus.SETFILTER("Manual Status Processing", '%1', FALSE);
+    //             ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+    //             IF ACAProgramme."Special Programme Class" = ACAProgramme."Special Programme Class"::"Medicine & Nursing" THEN BEGIN
+    //                 ACAResultsStatus.SETFILTER("Special Programme Class", '=%1', ACAResultsStatus."Special Programme Class"::"Medicine & Nursing");
+    //             END ELSE BEGIN
+    //                 ACAResultsStatus.SETFILTER("Minimum Units Failed", '=%1|<%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
+    //                 ACAResultsStatus.SETFILTER("Maximum Units Failed", '=%1|>%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
+    //             END;
+    //             ACAResultsStatus.SETFILTER("Minimum Units Failed", '=%1|<%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
+    //             ACAResultsStatus.SETFILTER("Maximum Units Failed", '=%1|>%2', CoursesRegz."% Failed Units", CoursesRegz."% Failed Units");
+    //             ACAResultsStatus.SETCURRENTKEY("Order No");
+    //             IF ACAResultsStatus.FIND('-') THEN BEGIN
+    //                 REPEAT
+    //                 BEGIN
+    //                     StatusRemarks := ACAResultsStatus.Code;
+    //                     IF ACAResultsStatus."Lead Status" <> '' THEN
+    //                         StatusRemarks := ACAResultsStatus."Lead Status";
+    //                     YearlyReMarks := ACAResultsStatus."Transcript Remarks";
+    //                     LubricIdentified := TRUE;
+    //                 END;
+    //                 UNTIL ((ACAResultsStatus.NEXT = 0) OR (LubricIdentified = TRUE))
+    //             END;
+    //             CoursesRegz.CALCFIELDS("Supp/Special Exists", "Attained Stage Units", "Special Registration Exists");
+    //             //IF CoursesRegz."Supp/Special Exists" THEN  StatusRemarks:='SPECIAL';
+    //             //IF CoursesRegz."Units Deficit">0 THEN StatusRemarks:='DTSC';
+    //             IF CoursesRegz."Required Stage Units" > CoursesRegz."Attained Stage Units" THEN StatusRemarks := 'DTSC';
+    //             IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
+    //             //IF CoursesRegz."Exists DTSC Prefix" THEN StatusRemarks:='DTSC';
+    //             //IF CoursesRegz."Special Registration Exists" THEN StatusRemarks:='Special';
 
-                ////////////////////////////////////////////////////////////////////////////////////////////////
-                // Check if exists a stopped Semester for the Academic Years and Pick the Status on the lines as the rightful Status
-                CLEAR(StudCoregcs24);
-                StudCoregcs24.RESET;
-                StudCoregcs24.SETRANGE("Student No.", CoursesRegz."Student Number");
-                StudCoregcs24.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                StudCoregcs24.SETRANGE(Reversed, TRUE);
-                IF StudCoregcs24.FIND('-') THEN BEGIN
-                    CLEAR(ACARegStoppageReasons);
-                    ACARegStoppageReasons.RESET;
-                    ACARegStoppageReasons.SETRANGE("Reason Code", StudCoregcs24."Stoppage Reason");
-                    IF ACARegStoppageReasons.FIND('-') THEN BEGIN
+    //             ////////////////////////////////////////////////////////////////////////////////////////////////
+    //             // Check if exists a stopped Semester for the Academic Years and Pick the Status on the lines as the rightful Status
+    //             CLEAR(StudCoregcs24);
+    //             StudCoregcs24.RESET;
+    //             StudCoregcs24.SETRANGE("Student No.", CoursesRegz."Student Number");
+    //             StudCoregcs24.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+    //             StudCoregcs24.SETRANGE(Reversed, TRUE);
+    //             IF StudCoregcs24.FIND('-') THEN BEGIN
+    //                 CLEAR(ACARegStoppageReasons);
+    //                 ACARegStoppageReasons.RESET;
+    //                 ACARegStoppageReasons.SETRANGE("Reason Code", StudCoregcs24."Stoppage Reason");
+    //                 IF ACARegStoppageReasons.FIND('-') THEN BEGIN
 
-                        ACAResultsStatus.RESET;
-                        ACAResultsStatus.SETRANGE(Status, ACARegStoppageReasons."Global Status");
-                        ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                        ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
-                        IF ACAResultsStatus.FIND('-') THEN BEGIN
-                            StatusRemarks := ACAResultsStatus.Code;
-                            YearlyReMarks := ACAResultsStatus."Transcript Remarks";
-                        END ELSE BEGIN
-                            StatusRemarks := UPPERCASE(FORMAT(StudCoregcs24."Stoppage Reason"));
-                            YearlyReMarks := StatusRemarks;
-                        END;
-                    END;
-                END;
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                     ACAResultsStatus.RESET;
+    //                     ACAResultsStatus.SETRANGE(Status, ACARegStoppageReasons."Global Status");
+    //                     ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+    //                     ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
+    //                     IF ACAResultsStatus.FIND('-') THEN BEGIN
+    //                         StatusRemarks := ACAResultsStatus.Code;
+    //                         YearlyReMarks := ACAResultsStatus."Transcript Remarks";
+    //                     END ELSE BEGIN
+    //                         StatusRemarks := UPPERCASE(FORMAT(StudCoregcs24."Stoppage Reason"));
+    //                         YearlyReMarks := StatusRemarks;
+    //                     END;
+    //                 END;
+    //             END;
+    //             ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            END ELSE BEGIN
+    //         END ELSE BEGIN
 
-                CoursesRegz.CALCFIELDS("Attained Stage Units");
-                IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
-                CLEAR(StudCoregcs);
-                StudCoregcs.RESET;
-                StudCoregcs.SETRANGE("Student No.", CoursesRegz."Student Number");
-                StudCoregcs.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                StudCoregcs.SETRANGE("Stoppage Exists In Acad. Year", TRUE);
-                IF StudCoregcs.FIND('-') THEN BEGIN
-                    CLEAR(StudCoregcs2);
-                    StudCoregcs2.RESET;
-                    StudCoregcs2.SETRANGE("Student No.", CoursesRegz."Student Number");
-                    StudCoregcs2.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                    StudCoregcs2.SETRANGE("Stoppage Exists In Acad. Year", TRUE);
-                    StudCoregcs2.SETRANGE(Reversed, TRUE);
-                    IF StudCoregcs2.FIND('-') THEN BEGIN
-                        StatusRemarks := UPPERCASE(FORMAT(StudCoregcs2."Stoppage Reason"));
-                        YearlyReMarks := StatusRemarks;
-                    END;
-                END;
+    //             CoursesRegz.CALCFIELDS("Attained Stage Units");
+    //             IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
+    //             CLEAR(StudCoregcs);
+    //             StudCoregcs.RESET;
+    //             StudCoregcs.SETRANGE("Student No.", CoursesRegz."Student Number");
+    //             StudCoregcs.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+    //             StudCoregcs.SETRANGE("Stoppage Exists In Acad. Year", TRUE);
+    //             IF StudCoregcs.FIND('-') THEN BEGIN
+    //                 CLEAR(StudCoregcs2);
+    //                 StudCoregcs2.RESET;
+    //                 StudCoregcs2.SETRANGE("Student No.", CoursesRegz."Student Number");
+    //                 StudCoregcs2.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+    //                 StudCoregcs2.SETRANGE("Stoppage Exists In Acad. Year", TRUE);
+    //                 StudCoregcs2.SETRANGE(Reversed, TRUE);
+    //                 IF StudCoregcs2.FIND('-') THEN BEGIN
+    //                     StatusRemarks := UPPERCASE(FORMAT(StudCoregcs2."Stoppage Reason"));
+    //                     YearlyReMarks := StatusRemarks;
+    //                 END;
+    //             END;
 
-                ACAResultsStatus.RESET;
-                ACAResultsStatus.SETRANGE(Status, Customer.Status);
-                ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
-                IF ACAResultsStatus.FIND('-') THEN BEGIN
-                    StatusRemarks := ACAResultsStatus.Code;
-                    YearlyReMarks := ACAResultsStatus."Transcript Remarks";
-                END ELSE BEGIN
-                    StatusRemarks := UPPERCASE(FORMAT(Customer.Status));
-                    YearlyReMarks := StatusRemarks;
-                END;
-            END;
-        END;
+    //             ACAResultsStatus.RESET;
+    //             ACAResultsStatus.SETRANGE(Status, Customer.Status);
+    //             ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+    //             ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
+    //             IF ACAResultsStatus.FIND('-') THEN BEGIN
+    //                 StatusRemarks := ACAResultsStatus.Code;
+    //                 YearlyReMarks := ACAResultsStatus."Transcript Remarks";
+    //             END ELSE BEGIN
+    //                 StatusRemarks := UPPERCASE(FORMAT(Customer.Status));
+    //                 YearlyReMarks := StatusRemarks;
+    //             END;
+    //         END;
+    //     END;
 
 
-        ACAResultsStatus.RESET;
-        ACAResultsStatus.SETRANGE(Code, StatusRemarks);
-        ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-        ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
-        IF ACAResultsStatus.FIND('-') THEN BEGIN
-            // Check if the Ststus does not allow Supp. Generation and delete
-            IF ACAResultsStatus."Skip Supp Generation" = TRUE THEN BEGIN
-                // Delete Entries from Supp Registration for the Semester
-                CLEAR(AcaSpecialExamsDetails);
-                AcaSpecialExamsDetails.RESET;
-                AcaSpecialExamsDetails.SETRANGE("Student No.", CoursesRegz."Student Number");
-                AcaSpecialExamsDetails.SETRANGE("Year of Study", CoursesRegz."Year of Study");
-                AcaSpecialExamsDetails.SETRANGE("Exam Marks", 0);
-                AcaSpecialExamsDetails.SETRANGE(Status, AcaSpecialExamsDetails.Status::New);
-                IF AcaSpecialExamsDetails.FIND('-') THEN AcaSpecialExamsDetails.DELETEALL;
-            END;
-        END;
-    End;
+    //     ACAResultsStatus.RESET;
+    //     ACAResultsStatus.SETRANGE(Code, StatusRemarks);
+    //     ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+    //     ACAResultsStatus.SETRANGE("Special Programme Class", ACAProgramme."Special Programme Class");
+    //     IF ACAResultsStatus.FIND('-') THEN BEGIN
+    //         // Check if the Ststus does not allow Supp. Generation and delete
+    //         IF ACAResultsStatus."Skip Supp Generation" = TRUE THEN BEGIN
+    //             // Delete Entries from Supp Registration for the Semester
+    //             CLEAR(AcaSpecialExamsDetails);
+    //             AcaSpecialExamsDetails.RESET;
+    //             AcaSpecialExamsDetails.SETRANGE("Student No.", CoursesRegz."Student Number");
+    //             AcaSpecialExamsDetails.SETRANGE("Year of Study", CoursesRegz."Year of Study");
+    //             AcaSpecialExamsDetails.SETRANGE("Exam Marks", 0);
+    //             AcaSpecialExamsDetails.SETRANGE(Status, AcaSpecialExamsDetails.Status::New);
+    //             IF AcaSpecialExamsDetails.FIND('-') THEN AcaSpecialExamsDetails.DELETEALL;
+    //         END;
+    //     END;
+    // End;
 
     procedure GetSuppRubricPassStatus(RubricCode: Code[50]; AcademicYears: Code[250]; Progyz: Record "ACA-Programme") PassStatus: Boolean
     var
@@ -5146,697 +5146,701 @@ page 50963 "Process Exams Central Gen."
         IF (ACA2NDSenateReportsHeader.FIND('-')) THEN ACA2NDSenateReportsHeader.DELETEALL;
     end;
 
-    procedure Update2ndSupplementaryMarks(ACASuppExamCoRegfor2ndSupp: Record "ACA-SuppExam. Co. Reg.")
-    var
-    ACACourseRegistration777: Record "ACA-Course Registration";
-    CATExists: Boolean;
-    Aca2ndSuppExamsDetails3: Record "Aca-2nd Supp. Exams Details";
-    Aca2ndSuppExamsDetails888: Record "Aca-2nd Supp. Exams Details";
-    Aca2ndSuppExamsDetails: Record "Aca-2nd Supp. Exams Details";
-    FirstSuppUnitsRegFor2ndSupp: Record "ACA-SuppExam Class. Units";
-    ST1SuppExamClassificationUnits: Record "ACA-SuppExam Class. Units";
-    CountedSeq: Integer;
-    ACAExamCategory: Record "ACA-Exam Category";
-    ACAGeneralSetUp: Record "ACA-General Set-Up";
-    Aca2NDSpecialExamsDetails: Record "Aca-2nd Supp. Exams Details";
-    Aca2NDSpecialExamsDetails3: Record "Aca-2nd Supp. Exams Details";
-    ACAExam2NDSuppUnits: Record "ACA-2ndExam Supp. Units";
-    AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
-    Aca2ndSuppExamsResults: Record "Aca-2nd Supp. Exams Results";
-    AcdYrs: Record "ACA-Academic Year";
-    Custos: Record Customer;
-    StudentUnits: Record "ACA-Student Units";
-    Coregcsz10: Record "ACA-Course Registration";
-    CountedRegistrations: Integer;
-    UnitsSubjects: Record "ACA-Units/Subjects";
-    Programme_Fin: Record "ACA-Programme";
-    ProgrammeStages_Fin: Record "ACA-Programme Stages";
-    AcademicYear_Fin333: Record "ACA-Academic Year";
-    AcademicYear_Fin: Record "ACA-Academic Year";
-    Semesters_Fin: Record "ACA-Semesters";
-    ExamResults: Record "ACA-Exam Results";
-    ClassCustomer: Record Customer;
-    ClassExamResultsBuffer2: Record "ACA-Exam Results Buffer 2";
-    ClassDimensionValue: Record "Dimension Value";
-    ClassGradingSystem: Record "ACA-Grading System";
-    ClassClassGradRubrics: Record "ACA-Class/Grad. Rubrics";
-    ClassExamResults2: Record "ACA-Exam Results";
-    TotalRecs: Integer;
-    CountedRecs: Integer;
-    RemeiningRecs: Integer;
-    ExpectedElectives: Integer;
-    CountedElectives: Integer;
-    Progyz: Record "ACA-Programme";
-    ACADefinedUnitsperYoS: Record "ACA-Defined Units per YoS";
-    ACA2NDExamClassificationUnits: Record "ACA-2ndSuppExam Class. Units";
-    ACA2NDExamCourseRegistration: Record "ACA-2ndSuppExam. Co. Reg.";
-    ACA2NDExamFailedReasons: Record "ACA-2ndSuppExam Fail Reasons";
-    ACA2NDSenateReportsHeader: Record "ACA-2ndSuppSenate Repo. Header";
-    ACA2NDExamClassificationStuds: Record "ACA-2ndSuppExam Class. Studs";
-    ACA2NDExamClassificationStudsCheck: Record "ACA-2ndSuppExam Class. Studs";
-    ACAExamResultsFin: Record "ACA-Exam Results";
-    ACAResultsStatus: Record "ACA-Results Status";
-    ProgressForCoReg: Dialog;
-    Tens: Text;
-    ACASemesters: Record "ACA-Semesters";
-    ACAExamResults_Fin: Record "ACA-Exam Results";
-    ProgBar22: Dialog;
-    Coregcs: Record "ACA-Course Registration";
-    ACA2NDExamCummulativeResit: Record "ACA-2ndSuppExam Cumm. Resit";
-    ACAStudentUnitsForResits: Record "ACA-Student Units";
-    SEQUENCES: Integer;
-    CurrStudentNo: Code[250];
-    CountedNos: Integer;
-    CurrSchool: Code[250];
-    CUrrentExamScore: Decimal;
-    OriginalCatScores: Decimal;
-    ACASuppExamClassUnits4Supp2: Record "ACA-SuppExam Class. Units";
-    ACA2NDExamCreg: Record "ACA-2ndSuppExam. Co. Reg.";
-    begin
-        CLEAR(AcademicYear_Fin333);
-        AcademicYear_Fin333.RESET;
-        AcademicYear_Fin333.SETRANGE(Current, TRUE);
-        IF AcademicYear_Fin333.FIND('-') THEN
-        BEGIN
-        END ELSE ERROR('Current is missing in the Academic Year setup.');
-        IF NOT (GetAcademicYearDiff(ACASuppExamCoRegfor2ndSupp."Academic Year", AcademicYear_Fin333.Code)) THEN BEGIN
-            //  MESSAGE('Esc...');
-            EXIT;
-        END ELSE BEGIN
-            //   MESSAGE('Ins..');
-        END;
-        CLEAR(ACACourseRegistration777);
-        ACACourseRegistration777.RESET;
-        ACACourseRegistration777.SETRANGE("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACACourseRegistration777.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        ACACourseRegistration777.SETRANGE("Year Of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
-        ACACourseRegistration777.SETFILTER(Options, '<>%1', '');
-        IF ACACourseRegistration777.FIND('-') THEN;
-        ProgFIls := ACASuppExamCoRegfor2ndSupp.Programme;
-        ACA2NDExamClassificationStuds.RESET;
-        ACA2NDExamCourseRegistration.RESET;
-        ACA2NDExamClassificationUnits.RESET;
-        ACAExam2NDSuppUnits.RESET;
-        // IF StudNos<>'' THEN BEGIN
-        // ACA2NDExamClassificationStuds.SETFILTER("Student Number",ACASuppExamCoRegfor2ndSupp."Student Number");
-        // ACA2NDExamClassificationUnits.SETRANGE("Student No.",ACASuppExamCoRegfor2ndSupp."Student Number");
-        // ACAExam2NDSuppUnits.SETFILTER("Student No.",StudNos);
-        // END;
-        ACA2NDExamClassificationStuds.SETFILTER("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACA2NDExamClassificationUnits.SETRANGE("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACAExam2NDSuppUnits.SETFILTER("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACA2NDExamCourseRegistration.SETRANGE("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACA2NDExamCourseRegistration.SETRANGE("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
-        //IF AcadYear<>'' THEN BEGIN
-        ACA2NDExamClassificationStuds.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        ACA2NDExamCourseRegistration.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        ACA2NDExamClassificationUnits.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        ACAExam2NDSuppUnits.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        //END;
+    //     procedure Update2ndSupplementaryMarks(ACASuppExamCoRegfor2ndSupp: Record "ACA-SuppExam. Co. Reg.")
+    //     var
+    //     ACACourseRegistration777: Record "ACA-Course Registration";
+    //     CATExists: Boolean;
+    //     Aca2ndSuppExamsDetails3: Record "Aca-2nd Supp. Exams Details";
+    //     Aca2ndSuppExamsDetails888: Record "Aca-2nd Supp. Exams Details";
+    //     Aca2ndSuppExamsDetails: Record "Aca-2nd Supp. Exams Details";
+    //     FirstSuppUnitsRegFor2ndSupp: Record "ACA-SuppExam Class. Units";
+    //     ST1SuppExamClassificationUnits: Record "ACA-SuppExam Class. Units";
+    //     CountedSeq: Integer;
+    //     ACAExamCategory: Record "ACA-Exam Category";
+    //     ACAGeneralSetUp: Record "ACA-General Set-Up";
+    //     Aca2NDSpecialExamsDetails: Record "Aca-2nd Supp. Exams Details";
+    //     Aca2NDSpecialExamsDetails3: Record "Aca-2nd Supp. Exams Details";
+    //     ACAExam2NDSuppUnits: Record "ACA-2ndExam Supp. Units";
+    //     AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+    //     Aca2ndSuppExamsResults: Record "Aca-2nd Supp. Exams Results";
+    //     AcdYrs: Record "ACA-Academic Year";
+    //     Custos: Record Customer;
+    //     StudentUnits: Record "ACA-Student Units";
+    //     Coregcsz10: Record "ACA-Course Registration";
+    //     CountedRegistrations: Integer;
+    //     UnitsSubjects: Record "ACA-Units/Subjects";
+    //     Programme_Fin: Record "ACA-Programme";
+    //     ProgrammeStages_Fin: Record "ACA-Programme Stages";
+    //     AcademicYear_Fin333: Record "ACA-Academic Year";
+    //     AcademicYear_Fin: Record "ACA-Academic Year";
+    //     Semesters_Fin: Record "ACA-Semesters";
+    //     ExamResults: Record "ACA-Exam Results";
+    //     ClassCustomer: Record Customer;
+    //     ClassExamResultsBuffer2: Record "ACA-Exam Results Buffer 2";
+    //     ClassDimensionValue: Record "Dimension Value";
+    //     ClassGradingSystem: Record "ACA-Grading System";
+    //     ClassClassGradRubrics: Record "ACA-Class/Grad. Rubrics";
+    //     ClassExamResults2: Record "ACA-Exam Results";
+    //     TotalRecs: Integer;
+    //     CountedRecs: Integer;
+    //     RemeiningRecs: Integer;
+    //     ExpectedElectives: Integer;
+    //     CountedElectives: Integer;
+    //     Progyz: Record "ACA-Programme";
+    //     ACADefinedUnitsperYoS: Record "ACA-Defined Units per YoS";
+    //     ACA2NDExamClassificationUnits: Record "ACA-2ndSuppExam Class. Units";
+    //     ACA2NDExamCourseRegistration: Record "ACA-2ndSuppExam. Co. Reg.";
+    //     ACA2NDExamFailedReasons: Record "ACA-2ndSuppExam Fail Reasons";
+    //     ACA2NDSenateReportsHeader: Record "ACA-2ndSuppSenate Repo. Header";
+    //     ACA2NDExamClassificationStuds: Record "ACA-2ndSuppExam Class. Studs";
+    //     ACA2NDExamClassificationStudsCheck: Record "ACA-2ndSuppExam Class. Studs";
+    //     ACAExamResultsFin: Record "ACA-Exam Results";
+    //     ACAResultsStatus: Record "ACA-Results Status";
+    //     ProgressForCoReg: Dialog;
+    //     Tens: Text;
+    //     ACASemesters: Record "ACA-Semesters";
+    //     ACAExamResults_Fin: Record "ACA-Exam Results";
+    //     ProgBar22: Dialog;
+    //     Coregcs: Record "ACA-Course Registration";
+    //     ACA2NDExamCummulativeResit: Record "ACA-2ndSuppExam Cumm. Resit";
+    //     ACAStudentUnitsForResits: Record "ACA-Student Units";
+    //     SEQUENCES: Integer;
+    //     CurrStudentNo: Code[250];
+    //     CountedNos: Integer;
+    //     CurrSchool: Code[250];
+    //     CUrrentExamScore: Decimal;
+    //     OriginalCatScores: Decimal;
+    //     ACASuppExamClassUnits4Supp2: Record "ACA-SuppExam Class. Units";
+    //     ACA2NDExamCreg: Record "ACA-2ndSuppExam. Co. Reg.";
+    //     SupReviewToBecreated: Boolean;
+    //     begin
+    //         CLEAR(AcademicYear_Fin333);
+    //         AcademicYear_Fin333.RESET;
+    //         AcademicYear_Fin333.SETRANGE(Current, TRUE);
+    //         IF AcademicYear_Fin333.FIND('-') THEN
+    //         BEGIN
+    //         END ELSE ERROR('Current is missing in the Academic Year setup.');
+    //         IF NOT (GetAcademicYearDiff(ACASuppExamCoRegfor2ndSupp."Academic Year", AcademicYear_Fin333.Code)) THEN BEGIN
+    //             //  MESSAGE('Esc...');
+    //             EXIT;
+    //         END ELSE BEGIN
+    //             //   MESSAGE('Ins..');
+    //         END;
+    //         CLEAR(ACACourseRegistration777);
+    //         ACACourseRegistration777.RESET;
+    //         ACACourseRegistration777.SETRANGE("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACACourseRegistration777.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         ACACourseRegistration777.SETRANGE("Year Of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
+    //         ACACourseRegistration777.SETFILTER(Options, '<>%1', '');
+    //         IF ACACourseRegistration777.FIND('-') THEN;
+    //         ProgFIls := ACASuppExamCoRegfor2ndSupp.Programme;
+    //         ACA2NDExamClassificationStuds.RESET;
+    //         ACA2NDExamCourseRegistration.RESET;
+    //         ACA2NDExamClassificationUnits.RESET;
+    //         ACAExam2NDSuppUnits.RESET;
+    //         // IF StudNos<>'' THEN BEGIN
+    //         // ACA2NDExamClassificationStuds.SETFILTER("Student Number",ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         // ACA2NDExamClassificationUnits.SETRANGE("Student No.",ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         // ACAExam2NDSuppUnits.SETFILTER("Student No.",StudNos);
+    //         // END;
+    //         ACA2NDExamClassificationStuds.SETFILTER("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACA2NDExamClassificationUnits.SETRANGE("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACAExam2NDSuppUnits.SETFILTER("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACA2NDExamCourseRegistration.SETRANGE("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACA2NDExamCourseRegistration.SETRANGE("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         //IF AcadYear<>'' THEN BEGIN
+    //         ACA2NDExamClassificationStuds.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         ACA2NDExamCourseRegistration.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         ACA2NDExamClassificationUnits.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         ACAExam2NDSuppUnits.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         //END;
 
-        ACA2NDExamClassificationStuds.SETFILTER(Programme, ProgFIls);
-        ACA2NDExamCourseRegistration.SETFILTER(Programme, ProgFIls);
-        ACA2NDExamClassificationUnits.SETFILTER(Programme, ProgFIls);
-        ACAExam2NDSuppUnits.SETFILTER(Programme, ProgFIls);
-        IF ACA2NDExamClassificationStuds.FIND('-') THEN ACA2NDExamClassificationStuds.DELETEALL;
-        IF ACA2NDExamCourseRegistration.FIND('-') THEN ACA2NDExamCourseRegistration.DELETEALL;
-        IF ACA2NDExamClassificationUnits.FIND('-') THEN ACA2NDExamClassificationUnits.DELETEALL;
-        IF ACAExam2NDSuppUnits.FIND('-') THEN ACAExam2NDSuppUnits.DELETEALL;
-
-
-        ACA2NDSenateReportsHeader.RESET;
-        ACA2NDSenateReportsHeader.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        ACA2NDSenateReportsHeader.SETFILTER("Programme Code", ProgFIls);
-        IF (ACA2NDSenateReportsHeader.FIND('-')) THEN ACA2NDSenateReportsHeader.DELETEALL;
-
-        ////////////////////////////////////////////////////////////////////////////
-        // Grad Headers
-        CLEAR(Progyz);
-        IF Progyz.GET(ACASuppExamCoRegfor2ndSupp.Programme) THEN;
-        ACAResultsStatus.RESET;
-        ACAResultsStatus.SETRANGE("Special Programme Class", Progyz."Special Programme Class");
-        ACAResultsStatus.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        IF ACAResultsStatus.FIND('-') THEN BEGIN
-            REPEAT
-            BEGIN
-                ACA2NDSenateReportsHeader.RESET;
-                ACA2NDSenateReportsHeader.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-                ACA2NDSenateReportsHeader.SETRANGE("School Code", Progyz."School Code");
-                ACA2NDSenateReportsHeader.SETRANGE("Classification Code", ACAResultsStatus.Code);
-                ACA2NDSenateReportsHeader.SETRANGE("Programme Code", Progyz.Code);
-                ACA2NDSenateReportsHeader.SETRANGE("Year of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
-                IF NOT (ACA2NDSenateReportsHeader.FIND('-')) THEN BEGIN
-                    ACA2NDSenateReportsHeader.INIT;
-                    ACA2NDSenateReportsHeader."Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
-                    ACA2NDSenateReportsHeader."Reporting Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
-                    ACA2NDSenateReportsHeader."Rubric Order" := ACAResultsStatus."Order No";
-                    ACA2NDSenateReportsHeader."Programme Code" := Progyz.Code;
-                    ACA2NDSenateReportsHeader."School Code" := Progyz."School Code";
-                    ACA2NDSenateReportsHeader."Year of Study" := ACASuppExamCoRegfor2ndSupp."Year of Study";
-                    ACA2NDSenateReportsHeader."Classification Code" := ACAResultsStatus.Code;
-                    ACA2NDSenateReportsHeader."Status Msg6" := ACAResultsStatus."Status Msg6";
-                    ACA2NDSenateReportsHeader."IncludeVariable 1" := ACAResultsStatus."IncludeVariable 1";
-                    ACA2NDSenateReportsHeader."IncludeVariable 2" := ACAResultsStatus."IncludeVariable 2";
-                    ACA2NDSenateReportsHeader."IncludeVariable 3" := ACAResultsStatus."IncludeVariable 3";
-                    ACA2NDSenateReportsHeader."IncludeVariable 4" := ACAResultsStatus."IncludeVariable 4";
-                    ACA2NDSenateReportsHeader."IncludeVariable 5" := ACAResultsStatus."IncludeVariable 5";
-                    ACA2NDSenateReportsHeader."IncludeVariable 6" := ACAResultsStatus."IncludeVariable 6";
-                    ACA2NDSenateReportsHeader."Summary Page Caption" := ACAResultsStatus."Summary Page Caption";
-                    ACA2NDSenateReportsHeader."Include Failed Units Headers" := ACAResultsStatus."Include Failed Units Headers";
-                    ACA2NDSenateReportsHeader."Include Academic Year Caption" := ACAResultsStatus."Include Academic Year Caption";
-                    ACA2NDSenateReportsHeader."Academic Year Text" := ACAResultsStatus."Academic Year Text";
-                    ACA2NDSenateReportsHeader."Status Msg1" := ACAResultsStatus."Status Msg1";
-                    ACA2NDSenateReportsHeader."Status Msg2" := ACAResultsStatus."Status Msg2";
-                    ACA2NDSenateReportsHeader."Status Msg3" := ACAResultsStatus."Status Msg3";
-                    ACA2NDSenateReportsHeader."Status Msg4" := ACAResultsStatus."Status Msg4";
-                    ACA2NDSenateReportsHeader."Status Msg5" := ACAResultsStatus."Status Msg5";
-                    ACA2NDSenateReportsHeader."Status Msg6" := ACAResultsStatus."Status Msg6";
-                    ACA2NDSenateReportsHeader."Grad. Status Msg 1" := ACAResultsStatus."Grad. Status Msg 1";
-                    ACA2NDSenateReportsHeader."Grad. Status Msg 2" := ACAResultsStatus."Grad. Status Msg 2";
-                    ACA2NDSenateReportsHeader."Grad. Status Msg 3" := ACAResultsStatus."Grad. Status Msg 3";
-                    ACA2NDSenateReportsHeader."Grad. Status Msg 4" := ACAResultsStatus."Grad. Status Msg 4";
-                    ACA2NDSenateReportsHeader."Grad. Status Msg 5" := ACAResultsStatus."Grad. Status Msg 5";
-                    ACA2NDSenateReportsHeader."Grad. Status Msg 6" := ACAResultsStatus."Grad. Status Msg 6";
-                    ACA2NDSenateReportsHeader."Finalists Graduation Comments" := ACAResultsStatus."Finalists Grad. Comm. Degree";
-                    ACA2NDSenateReportsHeader."1st Year Grad. Comments" := ACAResultsStatus."1st Year Grad. Comments";
-                    ACA2NDSenateReportsHeader."2nd Year Grad. Comments" := ACAResultsStatus."2nd Year Grad. Comments";
-                    ACA2NDSenateReportsHeader."3rd Year Grad. Comments" := ACAResultsStatus."3rd Year Grad. Comments";
-                    ACA2NDSenateReportsHeader."4th Year Grad. Comments" := ACAResultsStatus."4th Year Grad. Comments";
-                    ACA2NDSenateReportsHeader."5th Year Grad. Comments" := ACAResultsStatus."5th Year Grad. Comments";
-                    ACA2NDSenateReportsHeader."6th Year Grad. Comments" := ACAResultsStatus."6th Year Grad. Comments";
-                    ACA2NDSenateReportsHeader."7th Year Grad. Comments" := ACAResultsStatus."7th Year Grad. Comments";
-                    IF ACA2NDSenateReportsHeader.INSERT THEN;
-                END;
-            END;
-            UNTIL ACAResultsStatus.NEXT = 0;
-        END;
-        ////////////////////////////////////////////////////////////////////////////
-        ACA2NDExamClassificationStuds.RESET;
-        ACA2NDExamClassificationStuds.SETRANGE("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACA2NDExamClassificationStuds.SETRANGE(Programme, Coregcs.Programmes);
-        ACA2NDExamClassificationStuds.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        IF NOT ACA2NDExamClassificationStuds.FIND('-') THEN BEGIN
-            ACA2NDExamClassificationStuds.INIT;
-            ACA2NDExamClassificationStuds."Student Number" := ACASuppExamCoRegfor2ndSupp."Student Number";
-            ACA2NDExamClassificationStuds."Reporting Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
-            ACA2NDExamClassificationStuds."School Code" := Progyz."School Code";
-            ACA2NDExamClassificationStuds.Department := Progyz."Department Code";
-            ACA2NDExamClassificationStuds."Programme Option" := ACACourseRegistration777.Options;
-            ACA2NDExamClassificationStuds.Programme := ACASuppExamCoRegfor2ndSupp.Programme;
-            ACA2NDExamClassificationStuds."Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
-            ACA2NDExamClassificationStuds."Year of Study" := ACASuppExamCoRegfor2ndSupp."Year of Study";
-            ACA2NDExamClassificationStuds."School Name" := GetDepartmentNameOrSchool(Progyz."School Code");
-            ACA2NDExamClassificationStuds."Student Name" := GetStudentName(ACASuppExamCoRegfor2ndSupp."Student Number");
-            ACA2NDExamClassificationStuds.Cohort := GetCohort(Coregcs."Student No.", ACASuppExamCoRegfor2ndSupp.Programme);
-            ACA2NDExamClassificationStuds."Final Stage" := GetFinalStage(ACASuppExamCoRegfor2ndSupp.Programme);
-            ACA2NDExamClassificationStuds."Final Academic Year" := GetFinalAcademicYear(Coregcs."Student No.", ACASuppExamCoRegfor2ndSupp.Programme);
-            ACA2NDExamClassificationStuds."Final Year of Study" := GetFinalYearOfStudy(ACASuppExamCoRegfor2ndSupp.Programme);
-            ACA2NDExamClassificationStuds."Admission Date" := GetAdmissionDate(Coregcs."Student No.", ACASuppExamCoRegfor2ndSupp.Programme);
-            ACA2NDExamClassificationStuds."Admission Academic Year" := GetAdmissionAcademicYear(Coregcs."Student No.", ACASuppExamCoRegfor2ndSupp.Programme);
-            ACA2NDExamClassificationStuds.Graduating := FALSE;
-            ACA2NDExamClassificationStuds.Classification := '';
-
-            CLEAR(ACASuppExamClassUnits4Supp2);
-            ACASuppExamClassUnits4Supp2.RESET;
-            ACASuppExamClassUnits4Supp2.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-            ACASuppExamClassUnits4Supp2.SETRANGE(Programme, ACASuppExamCoRegfor2ndSupp.Programme);
-            ACASuppExamClassUnits4Supp2.SETRANGE("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
-            ACASuppExamClassUnits4Supp2.SETRANGE("Year of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
-            ACASuppExamClassUnits4Supp2.SETRANGE(Pass, FALSE);
-            IF ACASuppExamClassUnits4Supp2.FIND('-') THEN
-                IF ACA2NDExamClassificationStuds.INSERT THEN;
-
-        END;
-        /////////////////////////////////////// YoS Tracker
-        //        ACA2NDExamCourseRegistration.RESET;
-        //        //ACA2NDExamCourseRegistration.SETRANGE("Student Number",ACASuppExamCoRegfor2ndSupp."Student Number");
-        //        ACA2NDExamCourseRegistration.SETRANGE("Student Number",ACACourseRegistration777."Student No.");
-        //        ACA2NDExamCourseRegistration.SETRANGE(Programme,ACASuppExamCoRegfor2ndSupp.Programme);
-        //        ACA2NDExamCourseRegistration.SETRANGE("Year of Study",ACASuppExamCoRegfor2ndSupp."Year of Study");
-        //        ACA2NDExamCourseRegistration.SETRANGE("Academic Year",ACASuppExamCoRegfor2ndSupp."Academic Year");
-        //        IF NOT ACA2NDExamCourseRegistration.FIND('-') THEN BEGIN
-        ACA2NDExamCourseRegistration.INIT;
-        ACA2NDExamCourseRegistration."Student Number" := ACASuppExamCoRegfor2ndSupp."Student Number";
-        //ERROR(ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACA2NDExamCourseRegistration.Programme := ACASuppExamCoRegfor2ndSupp.Programme;
-        ACA2NDExamCourseRegistration."Year of Study" := ACASuppExamCoRegfor2ndSupp."Year of Study";
-        ACA2NDExamCourseRegistration."Reporting Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
-        ACA2NDExamCourseRegistration."Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
-        ACA2NDExamCourseRegistration."School Code" := Progyz."School Code";
-        ACA2NDExamCourseRegistration."Programme Option" := ACACourseRegistration777.Options;
-        ACA2NDExamCourseRegistration."School Name" := ACA2NDExamClassificationStuds."School Name";
-        ACA2NDExamCourseRegistration."Student Name" := ACA2NDExamClassificationStuds."Student Name";
-        ACA2NDExamCourseRegistration.Cohort := ACA2NDExamClassificationStuds.Cohort;
-        ACA2NDExamCourseRegistration."Final Stage" := ACA2NDExamClassificationStuds."Final Stage";
-        ACA2NDExamCourseRegistration."Final Academic Year" := ACA2NDExamClassificationStuds."Final Academic Year";
-        ACA2NDExamCourseRegistration."Final Year of Study" := ACA2NDExamClassificationStuds."Final Year of Study";
-        ACA2NDExamCourseRegistration."Admission Date" := ACA2NDExamClassificationStuds."Admission Date";
-        ACA2NDExamCourseRegistration."Admission Academic Year" := ACA2NDExamClassificationStuds."Admission Academic Year";
-
-        IF ((Progyz.Category = Progyz.Category::"Certificate") OR
-           (Progyz.Category = Progyz.Category::"Course List") OR
-           (Progyz.Category = Progyz.Category::Professional)) THEN BEGIN
-            ACA2NDExamCourseRegistration."Category Order" := 2;
-        END ELSE IF (Progyz.Category = Progyz.Category::Diploma) THEN BEGIN
-            ACA2NDExamCourseRegistration."Category Order" := 3;
-        END ELSE IF (Progyz.Category = Progyz.Category::Postgraduate) THEN BEGIN
-            ACA2NDExamCourseRegistration."Category Order" := 4;
-        END ELSE IF (Progyz.Category = Progyz.Category::Undergraduate) THEN BEGIN
-            ACA2NDExamCourseRegistration."Category Order" := 1;
-        END;
-
-        ACA2NDExamCourseRegistration.Graduating := FALSE;
-        ACA2NDExamCourseRegistration.Classification := '';
-        // Check if failed Supp Exists then insert
-        CLEAR(ACASuppExamClassUnits4Supp2);
-        ACASuppExamClassUnits4Supp2.RESET;
-        ACASuppExamClassUnits4Supp2.SETAUTOCALCFIELDS(Pass);
-        SupReviewToBecreated := FALSE;
-        ACASuppExamClassUnits4Supp2.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        ACASuppExamClassUnits4Supp2.SETRANGE(Programme, ACASuppExamCoRegfor2ndSupp.Programme);
-        // ACASuppExamClassUnits4Supp2.SETRANGE("Student No.",ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACASuppExamClassUnits4Supp2.SETRANGE("Student No.", ACACourseRegistration777."Student No.");
-        ACASuppExamClassUnits4Supp2.SETRANGE("Year of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
-        ACASuppExamClassUnits4Supp2.SETRANGE(Pass, FALSE);
-        IF ACASuppExamClassUnits4Supp2.FIND('-') THEN BEGIN
-            SupReviewToBecreated := TRUE;
-            //        IF ACA2NDExamCourseRegistration."Student Name"='P102/0869G/19' THEN
-            //        ERROR(ACA2NDExamCourseRegistration."Student Number");
-            IF ACA2NDExamCourseRegistration.INSERT THEN;
-        END;
-        //FORCE ACA2NDExamCourseRegistration insertion....Category Order,Student Number,Programme,Year of Study,Academic Year,School Code,Reporting Academic Year
-
-        SecSup.RESET;
-        SecSup.SETRANGE("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
-        SecSup.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        IF SecSup.FINDFIRST THEN BEGIN
-            //    IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
-            //           MESSAGE(ACA2NDExamCourseRegistration."Student Number");
-            ACA2NDExamCreg.RESET;
-            ACA2NDExamCreg.SETRANGE("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
-            ACA2NDExamCreg.SETRANGE("Year of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
-            ACA2NDExamCreg.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-            IF NOT ACA2NDExamCreg.FINDFIRST THEN BEGIN
-                //          IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
-                //           MESSAGE(ACA2NDExamCourseRegistration."Student Number");
-                IF ACA2NDExamCourseRegistration.INSERT() THEN BEGIN
-                    //                 IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
-                    //       MESSAGE('inserted');
-                END ELSE BEGIN
-                    //                   IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
-                    //          MESSAGE('not inserted');
-                END;
-            END ELSE BEGIN
-                //                           IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
-                //          MESSAGE('Exists');
-            END;
-        END;
-        //COMMIT();
-        // ACA2NDExamCourseRegistration.INSERT;
-        //END;
+    //         ACA2NDExamClassificationStuds.SETFILTER(Programme, ProgFIls);
+    //         ACA2NDExamCourseRegistration.SETFILTER(Programme, ProgFIls);
+    //         ACA2NDExamClassificationUnits.SETFILTER(Programme, ProgFIls);
+    //         ACAExam2NDSuppUnits.SETFILTER(Programme, ProgFIls);
+    //         IF ACA2NDExamClassificationStuds.FIND('-') THEN ACA2NDExamClassificationStuds.DELETEALL;
+    //         IF ACA2NDExamCourseRegistration.FIND('-') THEN ACA2NDExamCourseRegistration.DELETEALL;
+    //         IF ACA2NDExamClassificationUnits.FIND('-') THEN ACA2NDExamClassificationUnits.DELETEALL;
+    //         IF ACAExam2NDSuppUnits.FIND('-') THEN ACAExam2NDSuppUnits.DELETEALL;
 
 
-        //  END;
-        /////////////////////////////////////// end of YoS Tracker
-        // Update Scores Here
+    //         ACA2NDSenateReportsHeader.RESET;
+    //         ACA2NDSenateReportsHeader.SETFILTER("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         ACA2NDSenateReportsHeader.SETFILTER("Programme Code", ProgFIls);
+    //         IF (ACA2NDSenateReportsHeader.FIND('-')) THEN ACA2NDSenateReportsHeader.DELETEALL;
 
-        // Create Units for the Supp Registration ***********************************
-        CLEAR(FirstSuppUnitsRegFor2ndSupp);
-        FirstSuppUnitsRegFor2ndSupp.RESET;
-        FirstSuppUnitsRegFor2ndSupp.SETRANGE(FirstSuppUnitsRegFor2ndSupp."Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
-        FirstSuppUnitsRegFor2ndSupp.SETRANGE(FirstSuppUnitsRegFor2ndSupp.Programme, ACASuppExamCoRegfor2ndSupp.Programme);
-        FirstSuppUnitsRegFor2ndSupp.SETRANGE(FirstSuppUnitsRegFor2ndSupp."Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        IF FirstSuppUnitsRegFor2ndSupp.FIND('-') THEN BEGIN
-            REPEAT
-            BEGIN
-                IF FirstSuppUnitsRegFor2ndSupp."Unit Code" = 'MAT 317' THEN
-                    CLEAR(StudentUnits);
-                CLEAR(StudentUnits);
-                StudentUnits.RESET;
-                StudentUnits.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
-                StudentUnits.SETRANGE(Unit, FirstSuppUnitsRegFor2ndSupp."Unit Code");
-                StudentUnits.SETRANGE(Programme, FirstSuppUnitsRegFor2ndSupp.Programme);
-                StudentUnits.SETRANGE("Academic Year (Flow)", FirstSuppUnitsRegFor2ndSupp."Academic Year");
-                IF StudentUnits.FIND('-') THEN BEGIN
+    //         ////////////////////////////////////////////////////////////////////////////
+    //         // Grad Headers
+    //         CLEAR(Progyz);
+    //         IF Progyz.GET(ACASuppExamCoRegfor2ndSupp.Programme) THEN;
+    //         ACAResultsStatus.RESET;
+    //         ACAResultsStatus.SETRANGE("Special Programme Class", Progyz."Special Programme Class");
+    //         ACAResultsStatus.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         IF ACAResultsStatus.FIND('-') THEN BEGIN
+    //             REPEAT
+    //             BEGIN
+    //                 ACA2NDSenateReportsHeader.RESET;
+    //                 ACA2NDSenateReportsHeader.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //                 ACA2NDSenateReportsHeader.SETRANGE("School Code", Progyz."School Code");
+    //                 ACA2NDSenateReportsHeader.SETRANGE("Classification Code", ACAResultsStatus.Code);
+    //                 ACA2NDSenateReportsHeader.SETRANGE("Programme Code", Progyz.Code);
+    //                 ACA2NDSenateReportsHeader.SETRANGE("Year of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
+    //                 IF NOT (ACA2NDSenateReportsHeader.FIND('-')) THEN BEGIN
+    //                     ACA2NDSenateReportsHeader.INIT;
+    //                     ACA2NDSenateReportsHeader."Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
+    //                     ACA2NDSenateReportsHeader."Reporting Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
+    //                     ACA2NDSenateReportsHeader."Rubric Order" := ACAResultsStatus."Order No";
+    //                     ACA2NDSenateReportsHeader."Programme Code" := Progyz.Code;
+    //                     ACA2NDSenateReportsHeader."School Code" := Progyz."School Code";
+    //                     ACA2NDSenateReportsHeader."Year of Study" := ACASuppExamCoRegfor2ndSupp."Year of Study";
+    //                     ACA2NDSenateReportsHeader."Classification Code" := ACAResultsStatus.Code;
+    //                     ACA2NDSenateReportsHeader."Status Msg6" := ACAResultsStatus."Status Msg6";
+    //                     ACA2NDSenateReportsHeader."IncludeVariable 1" := ACAResultsStatus."IncludeVariable 1";
+    //                     ACA2NDSenateReportsHeader."IncludeVariable 2" := ACAResultsStatus."IncludeVariable 2";
+    //                     ACA2NDSenateReportsHeader."IncludeVariable 3" := ACAResultsStatus."IncludeVariable 3";
+    //                     ACA2NDSenateReportsHeader."IncludeVariable 4" := ACAResultsStatus."IncludeVariable 4";
+    //                     ACA2NDSenateReportsHeader."IncludeVariable 5" := ACAResultsStatus."IncludeVariable 5";
+    //                     ACA2NDSenateReportsHeader."IncludeVariable 6" := ACAResultsStatus."IncludeVariable 6";
+    //                     ACA2NDSenateReportsHeader."Summary Page Caption" := ACAResultsStatus."Summary Page Caption";
+    //                     ACA2NDSenateReportsHeader."Include Failed Units Headers" := ACAResultsStatus."Include Failed Units Headers";
+    //                     ACA2NDSenateReportsHeader."Include Academic Year Caption" := ACAResultsStatus."Include Academic Year Caption";
+    //                     ACA2NDSenateReportsHeader."Academic Year Text" := ACAResultsStatus."Academic Year Text";
+    //                     ACA2NDSenateReportsHeader."Status Msg1" := ACAResultsStatus."Status Msg1";
+    //                     ACA2NDSenateReportsHeader."Status Msg2" := ACAResultsStatus."Status Msg2";
+    //                     ACA2NDSenateReportsHeader."Status Msg3" := ACAResultsStatus."Status Msg3";
+    //                     ACA2NDSenateReportsHeader."Status Msg4" := ACAResultsStatus."Status Msg4";
+    //                     ACA2NDSenateReportsHeader."Status Msg5" := ACAResultsStatus."Status Msg5";
+    //                     ACA2NDSenateReportsHeader."Status Msg6" := ACAResultsStatus."Status Msg6";
+    //                     ACA2NDSenateReportsHeader."Grad. Status Msg 1" := ACAResultsStatus."Grad. Status Msg 1";
+    //                     ACA2NDSenateReportsHeader."Grad. Status Msg 2" := ACAResultsStatus."Grad. Status Msg 2";
+    //                     ACA2NDSenateReportsHeader."Grad. Status Msg 3" := ACAResultsStatus."Grad. Status Msg 3";
+    //                     ACA2NDSenateReportsHeader."Grad. Status Msg 4" := ACAResultsStatus."Grad. Status Msg 4";
+    //                     ACA2NDSenateReportsHeader."Grad. Status Msg 5" := ACAResultsStatus."Grad. Status Msg 5";
+    //                     ACA2NDSenateReportsHeader."Grad. Status Msg 6" := ACAResultsStatus."Grad. Status Msg 6";
+    //                     ACA2NDSenateReportsHeader."Finalists Graduation Comments" := ACAResultsStatus."Finalists Grad. Comm. Degree";
+    //                     ACA2NDSenateReportsHeader."1st Year Grad. Comments" := ACAResultsStatus."1st Year Grad. Comments";
+    //                     ACA2NDSenateReportsHeader."2nd Year Grad. Comments" := ACAResultsStatus."2nd Year Grad. Comments";
+    //                     ACA2NDSenateReportsHeader."3rd Year Grad. Comments" := ACAResultsStatus."3rd Year Grad. Comments";
+    //                     ACA2NDSenateReportsHeader."4th Year Grad. Comments" := ACAResultsStatus."4th Year Grad. Comments";
+    //                     ACA2NDSenateReportsHeader."5th Year Grad. Comments" := ACAResultsStatus."5th Year Grad. Comments";
+    //                     ACA2NDSenateReportsHeader."6th Year Grad. Comments" := ACAResultsStatus."6th Year Grad. Comments";
+    //                     ACA2NDSenateReportsHeader."7th Year Grad. Comments" := ACAResultsStatus."7th Year Grad. Comments";
+    //                     IF ACA2NDSenateReportsHeader.INSERT THEN;
+    //                 END;
+    //             END;
+    //             UNTIL ACAResultsStatus.NEXT = 0;
+    //         END;
+    //         ////////////////////////////////////////////////////////////////////////////
+    //         ACA2NDExamClassificationStuds.RESET;
+    //         ACA2NDExamClassificationStuds.SETRANGE("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACA2NDExamClassificationStuds.SETRANGE(Programme, Coregcs.Programmes);
+    //         ACA2NDExamClassificationStuds.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         IF NOT ACA2NDExamClassificationStuds.FIND('-') THEN BEGIN
+    //             ACA2NDExamClassificationStuds.INIT;
+    //             ACA2NDExamClassificationStuds."Student Number" := ACASuppExamCoRegfor2ndSupp."Student Number";
+    //             ACA2NDExamClassificationStuds."Reporting Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
+    //             ACA2NDExamClassificationStuds."School Code" := Progyz."School Code";
+    //             ACA2NDExamClassificationStuds.Department := Progyz."Department Code";
+    //             ACA2NDExamClassificationStuds."Programme Option" := ACACourseRegistration777.Options;
+    //             ACA2NDExamClassificationStuds.Programme := ACASuppExamCoRegfor2ndSupp.Programme;
+    //             ACA2NDExamClassificationStuds."Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
+    //             ACA2NDExamClassificationStuds."Year of Study" := ACASuppExamCoRegfor2ndSupp."Year of Study";
+    //             ACA2NDExamClassificationStuds."School Name" := GetDepartmentNameOrSchool(Progyz."School Code");
+    //             ACA2NDExamClassificationStuds."Student Name" := GetStudentName(ACASuppExamCoRegfor2ndSupp."Student Number");
+    //             ACA2NDExamClassificationStuds.Cohort := GetCohort(Coregcs."Student No.", ACASuppExamCoRegfor2ndSupp.Programme);
+    //             ACA2NDExamClassificationStuds."Final Stage" := GetFinalStage(ACASuppExamCoRegfor2ndSupp.Programme);
+    //             ACA2NDExamClassificationStuds."Final Academic Year" := GetFinalAcademicYear(Coregcs."Student No.", ACASuppExamCoRegfor2ndSupp.Programme);
+    //             ACA2NDExamClassificationStuds."Final Year of Study" := GetFinalYearOfStudy(ACASuppExamCoRegfor2ndSupp.Programme);
+    //             ACA2NDExamClassificationStuds."Admission Date" := GetAdmissionDate(Coregcs."Student No.", ACASuppExamCoRegfor2ndSupp.Programme);
+    //             ACA2NDExamClassificationStuds."Admission Academic Year" := GetAdmissionAcademicYear(Coregcs."Student No.", ACASuppExamCoRegfor2ndSupp.Programme);
+    //             ACA2NDExamClassificationStuds.Graduating := FALSE;
+    //             ACA2NDExamClassificationStuds.Classification := '';
 
-                    CLEAR(CATExists);
-                    CLEAR(ACAExamResults_Fin);
-                    ACAExamResults_Fin.RESET;
-                    ACAExamResults_Fin.SETRANGE("Student No.", StudentUnits."Student No.");
-                    ACAExamResults_Fin.SETRANGE(Unit, StudentUnits.Unit);
-                    ACAExamResults_Fin.SETRANGE(Semester, StudentUnits.Semester);
-                    ACAExamResults_Fin.SETFILTER(Exam, '%1|%2|%3', 'ASSIGNMENT', 'CAT', 'CATS');
-                    ACAExamResults_Fin.SETCURRENTKEY(Score);
-                    IF ACAExamResults_Fin.FIND('+') THEN BEGIN
-                        CATExists := TRUE;
-                    END;
-                    Coregcs.RESET;
-                    Coregcs.SETFILTER(Programme, StudentUnits.Programme);
-                    Coregcs.SETFILTER("Academic Year", FirstSuppUnitsRegFor2ndSupp."Academic Year");
-                    Coregcs.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
-                    Coregcs.SETRANGE(Semester, StudentUnits.Semester);
-                    IF Coregcs.FIND('-') THEN BEGIN
-                        FirstSuppUnitsRegFor2ndSupp.CALCFIELDS(Pass, "Exam Category");
+    //             CLEAR(ACASuppExamClassUnits4Supp2);
+    //             ACASuppExamClassUnits4Supp2.RESET;
+    //             ACASuppExamClassUnits4Supp2.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //             ACASuppExamClassUnits4Supp2.SETRANGE(Programme, ACASuppExamCoRegfor2ndSupp.Programme);
+    //             ACASuppExamClassUnits4Supp2.SETRANGE("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //             ACASuppExamClassUnits4Supp2.SETRANGE("Year of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
+    //             ACASuppExamClassUnits4Supp2.SETRANGE(Pass, FALSE);
+    //             IF ACASuppExamClassUnits4Supp2.FIND('-') THEN
+    //                 IF ACA2NDExamClassificationStuds.INSERT THEN;
 
-                        CLEAR(UnitsSubjects);
-                        UnitsSubjects.RESET;
-                        UnitsSubjects.SETRANGE("Programme Code", ACASuppExamCoRegfor2ndSupp.Programme);
-                        UnitsSubjects.SETRANGE(Code, FirstSuppUnitsRegFor2ndSupp."Unit Code");
-                        IF UnitsSubjects.FIND('-') THEN BEGIN
+    //         END;
+    //         /////////////////////////////////////// YoS Tracker
+    //         //        ACA2NDExamCourseRegistration.RESET;
+    //         //        //ACA2NDExamCourseRegistration.SETRANGE("Student Number",ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         //        ACA2NDExamCourseRegistration.SETRANGE("Student Number",ACACourseRegistration777."Student No.");
+    //         //        ACA2NDExamCourseRegistration.SETRANGE(Programme,ACASuppExamCoRegfor2ndSupp.Programme);
+    //         //        ACA2NDExamCourseRegistration.SETRANGE("Year of Study",ACASuppExamCoRegfor2ndSupp."Year of Study");
+    //         //        ACA2NDExamCourseRegistration.SETRANGE("Academic Year",ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         //        IF NOT ACA2NDExamCourseRegistration.FIND('-') THEN BEGIN
+    //         ACA2NDExamCourseRegistration.INIT;
+    //         ACA2NDExamCourseRegistration."Student Number" := ACASuppExamCoRegfor2ndSupp."Student Number";
+    //         //ERROR(ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACA2NDExamCourseRegistration.Programme := ACASuppExamCoRegfor2ndSupp.Programme;
+    //         ACA2NDExamCourseRegistration."Year of Study" := ACASuppExamCoRegfor2ndSupp."Year of Study";
+    //         ACA2NDExamCourseRegistration."Reporting Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
+    //         ACA2NDExamCourseRegistration."Academic Year" := ACASuppExamCoRegfor2ndSupp."Academic Year";
+    //         ACA2NDExamCourseRegistration."School Code" := Progyz."School Code";
+    //         ACA2NDExamCourseRegistration."Programme Option" := ACACourseRegistration777.Options;
+    //         ACA2NDExamCourseRegistration."School Name" := ACA2NDExamClassificationStuds."School Name";
+    //         ACA2NDExamCourseRegistration."Student Name" := ACA2NDExamClassificationStuds."Student Name";
+    //         ACA2NDExamCourseRegistration.Cohort := ACA2NDExamClassificationStuds.Cohort;
+    //         ACA2NDExamCourseRegistration."Final Stage" := ACA2NDExamClassificationStuds."Final Stage";
+    //         ACA2NDExamCourseRegistration."Final Academic Year" := ACA2NDExamClassificationStuds."Final Academic Year";
+    //         ACA2NDExamCourseRegistration."Final Year of Study" := ACA2NDExamClassificationStuds."Final Year of Study";
+    //         ACA2NDExamCourseRegistration."Admission Date" := ACA2NDExamClassificationStuds."Admission Date";
+    //         ACA2NDExamCourseRegistration."Admission Academic Year" := ACA2NDExamClassificationStuds."Admission Academic Year";
 
-                            IF UnitsSubjects."Default Exam Category" = '' THEN UnitsSubjects."Default Exam Category" := Progyz."Exam Category";
-                            IF UnitsSubjects."Exam Category" = '' THEN UnitsSubjects."Exam Category" := Progyz."Exam Category";
-                            UnitsSubjects.MODIFY;
-                            CLEAR(ACA2NDExamClassificationUnits);
-                            ACA2NDExamClassificationUnits.RESET;
-                            ACA2NDExamClassificationUnits.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
-                            ACA2NDExamClassificationUnits.SETRANGE(Programme, FirstSuppUnitsRegFor2ndSupp.Programme);
-                            ACA2NDExamClassificationUnits.SETRANGE("Unit Code", FirstSuppUnitsRegFor2ndSupp."Unit Code");
-                            ACA2NDExamClassificationUnits.SETRANGE("Academic Year", FirstSuppUnitsRegFor2ndSupp."Academic Year");
-                            IF NOT ACA2NDExamClassificationUnits.FIND('-') THEN BEGIN
-                                ACA2NDExamClassificationUnits.INIT;
-                                ACA2NDExamClassificationUnits."Student No." := FirstSuppUnitsRegFor2ndSupp."Student No.";
-                                ACA2NDExamClassificationUnits.Programme := FirstSuppUnitsRegFor2ndSupp.Programme;
-                                ACA2NDExamClassificationUnits."Reporting Academic Year" := FirstSuppUnitsRegFor2ndSupp."Academic Year";
-                                ACA2NDExamClassificationUnits."School Code" := Progyz."School Code";
-                                ACA2NDExamClassificationUnits."Unit Code" := FirstSuppUnitsRegFor2ndSupp."Unit Code";
-                                ACA2NDExamClassificationUnits."Credit Hours" := UnitsSubjects."No. Units";
-                                ACA2NDExamClassificationUnits."Unit Type" := FORMAT(UnitsSubjects."Unit Type");
-                                ACA2NDExamClassificationUnits."Unit Description" := UnitsSubjects.Desription;
-                                ACA2NDExamClassificationUnits."Year of Study" := FirstSuppUnitsRegFor2ndSupp."Year of Study";
-                                ACA2NDExamClassificationUnits."Academic Year" := FirstSuppUnitsRegFor2ndSupp."Academic Year";
-                                ACA2NDExamClassificationUnits."Results Exists Status" := ACASuppExamCoRegfor2ndSupp."Results Exists Status"::"Both Exists";
+    //         IF ((Progyz.Category = Progyz.Category::"Certificate") OR
+    //            (Progyz.Category = Progyz.Category::"Course List") OR
+    //            (Progyz.Category = Progyz.Category::Professional)) THEN BEGIN
+    //             ACA2NDExamCourseRegistration."Category Order" := 2;
+    //         END ELSE IF (Progyz.Category = Progyz.Category::Diploma) THEN BEGIN
+    //             ACA2NDExamCourseRegistration."Category Order" := 3;
+    //         END ELSE IF (Progyz.Category = Progyz.Category::Postgraduate) THEN BEGIN
+    //             ACA2NDExamCourseRegistration."Category Order" := 4;
+    //         END ELSE IF (Progyz.Category = Progyz.Category::Undergraduate) THEN BEGIN
+    //             ACA2NDExamCourseRegistration."Category Order" := 1;
+    //         END;
 
-                                CLEAR(ExamResults);
-                                ExamResults.RESET;
-                                ExamResults.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
-                                ExamResults.SETRANGE(Unit, StudentUnits.Unit);
-                                IF ExamResults.FIND('-') THEN BEGIN
-                                    ExamResults.CALCFIELDS("Number of Repeats", "Number of Resits");
-                                    IF ExamResults."Number of Repeats" > 0 THEN
-                                        ACA2NDExamClassificationUnits."No. of Repeats" := ExamResults."Number of Repeats" - 1;
-                                    IF ExamResults."Number of Resits" > 0 THEN
-                                        ACA2NDExamClassificationUnits."No. of Resits" := ExamResults."Number of Resits" - 1;
-                                END;
+    //         ACA2NDExamCourseRegistration.Graduating := FALSE;
+    //         ACA2NDExamCourseRegistration.Classification := '';
+    //         // Check if failed Supp Exists then insert
+    //         CLEAR(ACASuppExamClassUnits4Supp2);
+    //         ACASuppExamClassUnits4Supp2.RESET;
+    //         ACASuppExamClassUnits4Supp2.SETAUTOCALCFIELDS(Pass);
+    //         SupReviewToBecreated := FALSE;
+    //         ACASuppExamClassUnits4Supp2.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         ACASuppExamClassUnits4Supp2.SETRANGE(Programme, ACASuppExamCoRegfor2ndSupp.Programme);
+    //         // ACASuppExamClassUnits4Supp2.SETRANGE("Student No.",ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACASuppExamClassUnits4Supp2.SETRANGE("Student No.", ACACourseRegistration777."Student No.");
+    //         ACASuppExamClassUnits4Supp2.SETRANGE("Year of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
+    //         ACASuppExamClassUnits4Supp2.SETRANGE(Pass, FALSE);
+    //         IF ACASuppExamClassUnits4Supp2.FIND('-') THEN BEGIN
+    //             SupReviewToBecreated := TRUE;
+    //             //        IF ACA2NDExamCourseRegistration."Student Name"='P102/0869G/19' THEN
+    //             //        ERROR(ACA2NDExamCourseRegistration."Student Number");
+    //             IF ACA2NDExamCourseRegistration.INSERT THEN;
+    //         END;
+    //         //FORCE ACA2NDExamCourseRegistration insertion....Category Order,Student Number,Programme,Year of Study,Academic Year,School Code,Reporting Academic Year
 
-                                IF ACA2NDExamClassificationUnits.INSERT THEN;
-                            END;
+    //         SecSup.RESET;
+    //         SecSup.SETRANGE("Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         SecSup.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         IF SecSup.FINDFIRST THEN BEGIN
+    //             //    IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
+    //             //           MESSAGE(ACA2NDExamCourseRegistration."Student Number");
+    //             ACA2NDExamCreg.RESET;
+    //             ACA2NDExamCreg.SETRANGE("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //             ACA2NDExamCreg.SETRANGE("Year of Study", ACASuppExamCoRegfor2ndSupp."Year of Study");
+    //             ACA2NDExamCreg.SETRANGE("Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //             IF NOT ACA2NDExamCreg.FINDFIRST THEN BEGIN
+    //                 //          IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
+    //                 //           MESSAGE(ACA2NDExamCourseRegistration."Student Number");
+    //                 IF ACA2NDExamCourseRegistration.INSERT() THEN BEGIN
+    //                     //                 IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
+    //                     //       MESSAGE('inserted');
+    //                 END ELSE BEGIN
+    //                     //                   IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
+    //                     //          MESSAGE('not inserted');
+    //                 END;
+    //             END ELSE BEGIN
+    //                 //                           IF ACASuppExamCoRegfor2ndSupp."Student Number"='P102/0869G/19' THEN
+    //                 //          MESSAGE('Exists');
+    //             END;
+    //         END;
+    //         //COMMIT();
+    //         // ACA2NDExamCourseRegistration.INSERT;
+    //         //END;
 
-                            /////////////////////////// Update Unit Score
-                            CLEAR(ACA2NDExamClassificationUnits);
-                            ACA2NDExamClassificationUnits.RESET;
-                            ACA2NDExamClassificationUnits.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
-                            ACA2NDExamClassificationUnits.SETRANGE(Programme, FirstSuppUnitsRegFor2ndSupp.Programme);
-                            ACA2NDExamClassificationUnits.SETRANGE("Unit Code", FirstSuppUnitsRegFor2ndSupp."Unit Code");
-                            ACA2NDExamClassificationUnits.SETRANGE("Academic Year", FirstSuppUnitsRegFor2ndSupp."Academic Year");
-                            IF ACA2NDExamClassificationUnits.FIND('-') THEN BEGIN
-                                FirstSuppUnitsRegFor2ndSupp.CALCFIELDS(Pass);
-                                IF FirstSuppUnitsRegFor2ndSupp.Pass THEN BEGIN
-                                    // Capture Regular Marks here Since the Unit was Passed by the Student
-                                    ACA2NDExamClassificationUnits."CAT Score" := FirstSuppUnitsRegFor2ndSupp."CAT Score";
-                                    ACA2NDExamClassificationUnits."CAT Score Decimal" := FirstSuppUnitsRegFor2ndSupp."CAT Score Decimal";
-                                    ACA2NDExamClassificationUnits."Results Exists Status" := FirstSuppUnitsRegFor2ndSupp."Results Exists Status";
-                                    ACA2NDExamClassificationUnits."Exam Score" := FirstSuppUnitsRegFor2ndSupp."Exam Score";
-                                    ACA2NDExamClassificationUnits."Exam Score Decimal" := FirstSuppUnitsRegFor2ndSupp."Exam Score Decimal";
-                                    ACA2NDExamClassificationUnits."Total Score" := FirstSuppUnitsRegFor2ndSupp."Total Score";
-                                    ACA2NDExamClassificationUnits."Total Score Decimal" := FirstSuppUnitsRegFor2ndSupp."Total Score Decimal";
-                                    ACA2NDExamClassificationUnits."Weighted Total Score" := FirstSuppUnitsRegFor2ndSupp."Weighted Total Score";
-                                END ELSE BEGIN
-                                    //  Pick Supp Marks here and leave value of Sore to Zero if Mark does not exist
-                                    // Check for Supp Marks if exists
-                                    CLEAR(Aca2ndSuppExamsDetails888);
-                                    Aca2ndSuppExamsDetails888.RESET;
-                                    Aca2ndSuppExamsDetails888.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
-                                    Aca2ndSuppExamsDetails888.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
-                                    // Aca2ndSuppExamsDetails888.SETRANGE(Category,AcaSpecialExamsDetails.Category::Supplementary);
-                                    Aca2ndSuppExamsDetails888.SETRANGE(Semester, StudentUnits.Semester);
-                                    Aca2ndSuppExamsDetails888.SETFILTER("Exam Marks", '<>%1', 0);
-                                    IF Aca2ndSuppExamsDetails888.FIND('-') THEN BEGIN
-                                        ACA2NDExamClassificationUnits."Exam Score" := FORMAT(ROUND(((Aca2ndSuppExamsDetails888."Exam Marks")), 0.01, '='));
-                                        ACA2NDExamClassificationUnits."Exam Score Decimal" := ROUND(((Aca2ndSuppExamsDetails888."Exam Marks")), 0.01, '=');
-                                        ACA2NDExamClassificationUnits."CAT Score" := '0';
-                                        ACA2NDExamClassificationUnits."CAT Score Decimal" := 0;
-                                        ACA2NDExamClassificationUnits."Total Score" := ACA2NDExamClassificationUnits."Exam Score";
-                                        ACA2NDExamClassificationUnits."Total Score Decimal" := ACA2NDExamClassificationUnits."Exam Score Decimal";
-                                        ACA2NDExamClassificationUnits."Weighted Total Score" := ACA2NDExamClassificationUnits."Exam Score Decimal" * FirstSuppUnitsRegFor2ndSupp."Credit Hours";
-                                        //Update Total Marks
-                                        IF ((ACA2NDExamClassificationUnits."Exam Score" = '') AND (CATExists = FALSE)) THEN BEGIN
-                                            ACA2NDExamClassificationUnits."Results Exists Status" := ACA2NDExamClassificationUnits."Results Exists Status"::"None Exists";
-                                        END ELSE IF ((ACA2NDExamClassificationUnits."Exam Score" = '') AND (CATExists = TRUE)) THEN BEGIN
-                                            ACA2NDExamClassificationUnits."Results Exists Status" := ACA2NDExamClassificationUnits."Results Exists Status"::"CAT Only";
-                                        END ELSE IF ((ACA2NDExamClassificationUnits."Exam Score" <> '') AND (CATExists = FALSE)) THEN BEGIN
-                                            ACA2NDExamClassificationUnits."Results Exists Status" := ACA2NDExamClassificationUnits."Results Exists Status"::"Exam Only";
-                                        END ELSE IF ((ACA2NDExamClassificationUnits."Exam Score" <> '') AND (CATExists = TRUE)) THEN BEGIN
-                                            ACA2NDExamClassificationUnits."Results Exists Status" := ACA2NDExamClassificationUnits."Results Exists Status"::"Both Exists";
-                                        END;
-                                        ACA2NDExamClassificationUnits."Total Score Decimal" := ROUND(ACA2NDExamClassificationUnits."Exam Score Decimal", 0.01, '=');
-                                        ACA2NDExamClassificationUnits."Total Score Decimal" := GetSuppMaxScore(Progyz."Exam Category", ACA2NDExamClassificationUnits."Total Score Decimal");
-                                        ACA2NDExamClassificationUnits."Total Score" := FORMAT(ROUND(ACA2NDExamClassificationUnits."Total Score Decimal", 0.01, '='));
-                                        ACA2NDExamClassificationUnits."Weighted Total Score" := ROUND(ACA2NDExamClassificationUnits."Credit Hours" * ACA2NDExamClassificationUnits."Total Score Decimal", 0.01, '=');
 
-                                    END;
-                                    ACA2NDExamClassificationUnits."Total Score Decimal" := ROUND(ACA2NDExamClassificationUnits."Exam Score Decimal", 0.01, '=');
-                                    ACA2NDExamClassificationUnits."Total Score Decimal" := GetSuppMaxScore(Progyz."Exam Category", ACA2NDExamClassificationUnits."Total Score Decimal");
-                                    ACA2NDExamClassificationUnits."Total Score" := FORMAT(ROUND(ACA2NDExamClassificationUnits."Total Score Decimal", 0.01, '='));
-                                    ACA2NDExamClassificationUnits."Weighted Total Score" := ROUND(ACA2NDExamClassificationUnits."Credit Hours" * ACA2NDExamClassificationUnits."Total Score Decimal", 0.01, '=');
+    //         //  END;
+    //         /////////////////////////////////////// end of YoS Tracker
+    //         // Update Scores Here
 
-                                END;
-                                ACA2NDExamClassificationUnits.MODIFY;
-                            END;
-                            ////////////*********************************************
-                            //////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //         // Create Units for the Supp Registration ***********************************
+    //         CLEAR(FirstSuppUnitsRegFor2ndSupp);
+    //         FirstSuppUnitsRegFor2ndSupp.RESET;
+    //         FirstSuppUnitsRegFor2ndSupp.SETRANGE(FirstSuppUnitsRegFor2ndSupp."Student No.", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         FirstSuppUnitsRegFor2ndSupp.SETRANGE(FirstSuppUnitsRegFor2ndSupp.Programme, ACASuppExamCoRegfor2ndSupp.Programme);
+    //         FirstSuppUnitsRegFor2ndSupp.SETRANGE(FirstSuppUnitsRegFor2ndSupp."Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         IF FirstSuppUnitsRegFor2ndSupp.FIND('-') THEN BEGIN
+    //             REPEAT
+    //             BEGIN
+    //                 IF FirstSuppUnitsRegFor2ndSupp."Unit Code" = 'MAT 317' THEN
+    //                     CLEAR(StudentUnits);
+    //                 CLEAR(StudentUnits);
+    //                 StudentUnits.RESET;
+    //                 StudentUnits.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
+    //                 StudentUnits.SETRANGE(Unit, FirstSuppUnitsRegFor2ndSupp."Unit Code");
+    //                 StudentUnits.SETRANGE(Programme, FirstSuppUnitsRegFor2ndSupp.Programme);
+    //                 StudentUnits.SETRANGE("Academic Year (Flow)", FirstSuppUnitsRegFor2ndSupp."Academic Year");
+    //                 IF StudentUnits.FIND('-') THEN BEGIN
 
-                            // Check for Special Exams Score if Exists
-                            ///////////////////////////////////////////////////////// End of Supps Score Updates
-                            CLEAR(Aca2ndSuppExamsDetails);
-                            Aca2ndSuppExamsDetails.RESET;
-                            Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
-                            Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
-                            Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '<>%1', 0);
-                            Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
-                            IF Aca2ndSuppExamsDetails.FIND('-') THEN BEGIN
-                                ACAExam2NDSuppUnits.INIT;
-                                ACAExam2NDSuppUnits."Student No." := StudentUnits."Student No.";
-                                ACAExam2NDSuppUnits."Unit Code" := ACA2NDExamClassificationUnits."Unit Code";
-                                ACAExam2NDSuppUnits."Unit Description" := ACA2NDExamClassificationUnits."Unit Description";
-                                ACAExam2NDSuppUnits."Unit Type" := ACA2NDExamClassificationUnits."Unit Type";
-                                ACAExam2NDSuppUnits.Programme := ACA2NDExamClassificationUnits.Programme;
-                                ACAExam2NDSuppUnits."Academic Year" := ACA2NDExamClassificationUnits."Academic Year";
-                                ACAExam2NDSuppUnits."Credit Hours" := ACA2NDExamClassificationUnits."Credit Hours";
-                                IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Supplementary THEN BEGIN
-                                    ACAExam2NDSuppUnits."Exam Score" := FORMAT(ROUND(((AcaSpecialExamsDetails."Exam Marks")), 0.01, '='));
-                                    ACAExam2NDSuppUnits."Exam Score Decimal" := ROUND(((AcaSpecialExamsDetails."Exam Marks")), 0.01, '=');
-                                    ACAExam2NDSuppUnits."CAT Score" := FORMAT(ROUND(ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '='));
-                                    ACAExam2NDSuppUnits."CAT Score Decimal" := ROUND(ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '=');
-                                    ACAExam2NDSuppUnits."Total Score Decimal" := ROUND((GetSuppMaxScore(Progyz."Exam Category", (ROUND(ACAExam2NDSuppUnits."Exam Score Decimal", 0.01, '=')))), 0.01, '=');
-                                    ACAExam2NDSuppUnits."Total Score" := FORMAT(ACAExam2NDSuppUnits."Total Score Decimal");
-                                END ELSE IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Special THEN BEGIN
-                                    ACAExam2NDSuppUnits."Exam Score Decimal" := ROUND(AcaSpecialExamsDetails."Exam Marks", 0.01, '=');
-                                    ACAExam2NDSuppUnits."Exam Score" := FORMAT(ROUND(AcaSpecialExamsDetails."Exam Marks", 0.01, '='));
-                                    ACAExam2NDSuppUnits."CAT Score" := FORMAT(ROUND(ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '='));
-                                    ACAExam2NDSuppUnits."CAT Score Decimal" := ROUND(ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '=');
-                                    ACAExam2NDSuppUnits."Total Score Decimal" := GetSuppMaxScore(Progyz."Exam Category", (ROUND(AcaSpecialExamsDetails."Exam Marks" + ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '=')));
-                                    ACAExam2NDSuppUnits."Total Score" := FORMAT(ACAExam2NDSuppUnits."Total Score Decimal");
-                                END;
-                                ACAExam2NDSuppUnits."Exam Category" := ACA2NDExamClassificationUnits."Exam Category";
-                                ACAExam2NDSuppUnits."Allow In Graduate" := TRUE;
-                                ACAExam2NDSuppUnits."Year of Study" := ACA2NDExamClassificationUnits."Year of Study";
-                                ACAExam2NDSuppUnits.Cohort := ACA2NDExamClassificationUnits.Cohort;
-                                ACAExam2NDSuppUnits."School Code" := ACA2NDExamClassificationUnits."School Code";
-                                ACAExam2NDSuppUnits."Department Code" := ACA2NDExamClassificationUnits."Department Code";
-                                IF ACAExam2NDSuppUnits.INSERT THEN;
-                                ACA2NDExamClassificationUnits.MODIFY;
-                                //  END;
-                            END;
-                            ACA2NDExamClassificationUnits."Allow In Graduate" := TRUE;
-                            ACA2NDExamClassificationUnits.MODIFY;
-                            /// Update Cummulative Resit
-                            ACA2NDExamClassificationUnits.CALCFIELDS(Grade, "Grade Comment", "Comsolidated Prefix", Pass);
-                            IF ACA2NDExamClassificationUnits.Pass THEN BEGIN
-                                CLEAR(Aca2ndSuppExamsDetails);
-                                Aca2ndSuppExamsDetails.RESET;
-                                Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
-                                Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
-                                Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
-                                Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
-                                Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '%1', 0);
-                                IF Aca2ndSuppExamsDetails.FIND('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
-                            END ELSE BEGIN
-                                // Student Failed Supp or Special. Register for the second Supp if first Supp Failed and 1st Supp if Special Failed
+    //                     CLEAR(CATExists);
+    //                     CLEAR(ACAExamResults_Fin);
+    //                     ACAExamResults_Fin.RESET;
+    //                     ACAExamResults_Fin.SETRANGE("Student No.", StudentUnits."Student No.");
+    //                     ACAExamResults_Fin.SETRANGE(Unit, StudentUnits.Unit);
+    //                     ACAExamResults_Fin.SETRANGE(Semester, StudentUnits.Semester);
+    //                     ACAExamResults_Fin.SETFILTER(Exam, '%1|%2|%3', 'ASSIGNMENT', 'CAT', 'CATS');
+    //                     ACAExamResults_Fin.SETCURRENTKEY(Score);
+    //                     IF ACAExamResults_Fin.FIND('+') THEN BEGIN
+    //                         CATExists := TRUE;
+    //                     END;
+    //                     Coregcs.RESET;
+    //                     Coregcs.SETFILTER(Programme, StudentUnits.Programme);
+    //                     Coregcs.SETFILTER("Academic Year", FirstSuppUnitsRegFor2ndSupp."Academic Year");
+    //                     Coregcs.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
+    //                     Coregcs.SETRANGE(Semester, StudentUnits.Semester);
+    //                     IF Coregcs.FIND('-') THEN BEGIN
+    //                         FirstSuppUnitsRegFor2ndSupp.CALCFIELDS(Pass, "Exam Category");
 
-                                CLEAR(Aca2ndSuppExamsDetails);
-                                Aca2ndSuppExamsDetails.RESET;
-                                Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
-                                Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
-                                Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
-                                Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
-                                Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '%1', 0);
-                                IF Aca2ndSuppExamsDetails.FIND('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
-                                //Aca2ndSuppExamsDetails3
-                                CLEAR(Aca2ndSuppExamsDetails);
-                                Aca2ndSuppExamsDetails.RESET;
-                                Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
-                                Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
-                                Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
-                                Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
-                                IF NOT (Aca2ndSuppExamsDetails.FIND('-')) THEN BEGIN
-                                    //  Register Supp for Special that is Failed
-                                    // The Failed Unit is not in Supp Special, Register The Unit here
-                                    CLEAR(CountedSeq);
-                                    CLEAR(Aca2ndSuppExamsDetails3);
-                                    Aca2ndSuppExamsDetails3.RESET;
-                                    Aca2ndSuppExamsDetails3.SETRANGE("Student No.", StudentUnits."Student No.");
-                                    Aca2ndSuppExamsDetails3.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
-                                    Aca2ndSuppExamsDetails3.SETCURRENTKEY(Sequence);
-                                    IF Aca2ndSuppExamsDetails3.FIND('+') THEN BEGIN
-                                        CountedSeq := Aca2ndSuppExamsDetails3.Sequence;
-                                    END ELSE BEGIN
-                                        CountedSeq := 0;
-                                    END;
-                                    CountedSeq += 1;
-                                    Aca2ndSuppExamsDetails.INIT;
-                                    Aca2ndSuppExamsDetails.Stage := StudentUnits.Stage;
-                                    Aca2ndSuppExamsDetails.Status := Aca2ndSuppExamsDetails.Status::New;
-                                    Aca2ndSuppExamsDetails."Student No." := StudentUnits."Student No.";
-                                    Aca2ndSuppExamsDetails."Academic Year" := Coregcs."Academic Year";
-                                    Aca2ndSuppExamsDetails."Unit Code" := StudentUnits.Unit;
-                                    Aca2ndSuppExamsDetails.Semester := StudentUnits.Semester;
-                                    Aca2ndSuppExamsDetails.Sequence := CountedSeq;
-                                    Aca2ndSuppExamsDetails."Current Academic Year" := GetFinalAcademicYear(StudentUnits."Student No.", StudentUnits.Programme);
-                                    Aca2ndSuppExamsDetails.Category := Aca2ndSuppExamsDetails.Category::Supplementary;
-                                    Aca2ndSuppExamsDetails.Programme := StudentUnits.Programme;
-                                    IF AcaSpecialExamsDetails.INSERT THEN;
-                                    CLEAR(Aca2ndSuppExamsDetails);
-                                    Aca2ndSuppExamsDetails.RESET;
-                                    Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
-                                    Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
-                                    Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
-                                    Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
-                                    IF NOT (Aca2ndSuppExamsDetails.FIND('-')) THEN BEGIN
-                                        CLEAR(CountedSeq);
-                                        CLEAR(Aca2ndSuppExamsDetails3);
-                                        Aca2ndSuppExamsDetails3.RESET;
-                                        Aca2ndSuppExamsDetails3.SETRANGE("Student No.", StudentUnits."Student No.");
-                                        Aca2ndSuppExamsDetails3.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
-                                        Aca2ndSuppExamsDetails3.SETRANGE(Semester, StudentUnits.Semester);
-                                        Aca2ndSuppExamsDetails3.SETCURRENTKEY(Sequence);
-                                        IF Aca2ndSuppExamsDetails3.FIND('+') THEN BEGIN
-                                            CountedSeq := Aca2ndSuppExamsDetails3.Sequence;
-                                        END ELSE BEGIN
-                                            CountedSeq := 0;
-                                        END;
-                                        CountedSeq += 1;
-                                        Aca2ndSuppExamsDetails.INIT;
-                                        Aca2ndSuppExamsDetails.Stage := StudentUnits.Stage;
-                                        Aca2ndSuppExamsDetails.Status := Aca2ndSuppExamsDetails.Status::New;
-                                        Aca2ndSuppExamsDetails."Student No." := StudentUnits."Student No.";
-                                        Aca2ndSuppExamsDetails."Academic Year" := Coregcs."Academic Year";
-                                        Aca2ndSuppExamsDetails."Unit Code" := StudentUnits.Unit;
-                                        Aca2ndSuppExamsDetails.Semester := StudentUnits.Semester;
-                                        Aca2ndSuppExamsDetails.Sequence := CountedSeq;
-                                        Aca2ndSuppExamsDetails."Current Academic Year" := GetFinalAcademicYear(StudentUnits."Student No.", StudentUnits.Programme);
-                                        Aca2ndSuppExamsDetails.Category := Aca2ndSuppExamsDetails.Category::Supplementary;
-                                        Aca2ndSuppExamsDetails.Programme := StudentUnits.Programme;
+    //                         CLEAR(UnitsSubjects);
+    //                         UnitsSubjects.RESET;
+    //                         UnitsSubjects.SETRANGE("Programme Code", ACASuppExamCoRegfor2ndSupp.Programme);
+    //                         UnitsSubjects.SETRANGE(Code, FirstSuppUnitsRegFor2ndSupp."Unit Code");
+    //                         IF UnitsSubjects.FIND('-') THEN BEGIN
 
-                                        IF Aca2ndSuppExamsDetails.INSERT THEN;
-                                    END;
+    //                             IF UnitsSubjects."Default Exam Category" = '' THEN UnitsSubjects."Default Exam Category" := Progyz."Exam Category";
+    //                             IF UnitsSubjects."Exam Category" = '' THEN UnitsSubjects."Exam Category" := Progyz."Exam Category";
+    //                             UnitsSubjects.MODIFY;
+    //                             CLEAR(ACA2NDExamClassificationUnits);
+    //                             ACA2NDExamClassificationUnits.RESET;
+    //                             ACA2NDExamClassificationUnits.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
+    //                             ACA2NDExamClassificationUnits.SETRANGE(Programme, FirstSuppUnitsRegFor2ndSupp.Programme);
+    //                             ACA2NDExamClassificationUnits.SETRANGE("Unit Code", FirstSuppUnitsRegFor2ndSupp."Unit Code");
+    //                             ACA2NDExamClassificationUnits.SETRANGE("Academic Year", FirstSuppUnitsRegFor2ndSupp."Academic Year");
+    //                             IF NOT ACA2NDExamClassificationUnits.FIND('-') THEN BEGIN
+    //                                 ACA2NDExamClassificationUnits.INIT;
+    //                                 ACA2NDExamClassificationUnits."Student No." := FirstSuppUnitsRegFor2ndSupp."Student No.";
+    //                                 ACA2NDExamClassificationUnits.Programme := FirstSuppUnitsRegFor2ndSupp.Programme;
+    //                                 ACA2NDExamClassificationUnits."Reporting Academic Year" := FirstSuppUnitsRegFor2ndSupp."Academic Year";
+    //                                 ACA2NDExamClassificationUnits."School Code" := Progyz."School Code";
+    //                                 ACA2NDExamClassificationUnits."Unit Code" := FirstSuppUnitsRegFor2ndSupp."Unit Code";
+    //                                 ACA2NDExamClassificationUnits."Credit Hours" := UnitsSubjects."No. Units";
+    //                                 ACA2NDExamClassificationUnits."Unit Type" := FORMAT(UnitsSubjects."Unit Type");
+    //                                 ACA2NDExamClassificationUnits."Unit Description" := UnitsSubjects.Desription;
+    //                                 ACA2NDExamClassificationUnits."Year of Study" := FirstSuppUnitsRegFor2ndSupp."Year of Study";
+    //                                 ACA2NDExamClassificationUnits."Academic Year" := FirstSuppUnitsRegFor2ndSupp."Academic Year";
+    //                                 ACA2NDExamClassificationUnits."Results Exists Status" := ACASuppExamCoRegfor2ndSupp."Results Exists Status"::"Both Exists";
 
-                                END;
-                            END;
-                            /////////////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                        END;
-                    END;
-                END;
-            END;
-            UNTIL FirstSuppUnitsRegFor2ndSupp.NEXT = 0;
-        END;
+    //                                 CLEAR(ExamResults);
+    //                                 ExamResults.RESET;
+    //                                 ExamResults.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
+    //                                 ExamResults.SETRANGE(Unit, StudentUnits.Unit);
+    //                                 IF ExamResults.FIND('-') THEN BEGIN
+    //                                     ExamResults.CALCFIELDS("Number of Repeats", "Number of Resits");
+    //                                     IF ExamResults."Number of Repeats" > 0 THEN
+    //                                         ACA2NDExamClassificationUnits."No. of Repeats" := ExamResults."Number of Repeats" - 1;
+    //                                     IF ExamResults."Number of Resits" > 0 THEN
+    //                                         ACA2NDExamClassificationUnits."No. of Resits" := ExamResults."Number of Resits" - 1;
+    //                                 END;
 
-        // Update Averages
-        CLEAR(TotalRecs);
-        CLEAR(CountedRecs);
-        CLEAR(RemeiningRecs);
-        CLEAR(ACA2NDExamClassificationStuds);
-        ACA2NDExamCourseRegistration.RESET;
-        ACA2NDExamCourseRegistration.SETFILTER("Reporting Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
-        ACA2NDExamCourseRegistration.SETFILTER("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
-        ACA2NDExamCourseRegistration.SETFILTER(Programme, ACASuppExamCoRegfor2ndSupp.Programme);
-        IF ACA2NDExamCourseRegistration.FIND('-') THEN BEGIN
-            TotalRecs := ACA2NDExamCourseRegistration.COUNT;
-            RemeiningRecs := TotalRecs;
-            REPEAT
-            BEGIN
+    //                                 IF ACA2NDExamClassificationUnits.INSERT THEN;
+    //                             END;
 
-                Progyz.RESET;
-                Progyz.SETRANGE(Code, ACA2NDExamCourseRegistration.Programme);
-                IF Progyz.FIND('-') THEN;
-                CountedRecs += 1;
-                RemeiningRecs -= 1;
-                ACA2NDExamCourseRegistration.CALCFIELDS("Total Marks", "Total Courses", "Total Weighted Marks",
-              "Total Units", "Classified Total Marks", "Total Classified C. Count", "Classified W. Total", "Attained Stage Units", Average, "Weighted Average");
-                ACA2NDExamCourseRegistration."Normal Average" := ROUND((ACA2NDExamCourseRegistration.Average), 0.01, '=');
-                IF ACA2NDExamCourseRegistration."Total Units" > 0 THEN
-                    ACA2NDExamCourseRegistration."Weighted Average" := ROUND((ACA2NDExamCourseRegistration."Total Weighted Marks" / ACA2NDExamCourseRegistration."Total Units"), 0.01, '=');
-                IF ACA2NDExamCourseRegistration."Total Classified C. Count" <> 0 THEN
-                    ACA2NDExamCourseRegistration."Classified Average" := ROUND((ACA2NDExamCourseRegistration."Classified Total Marks" / ACA2NDExamCourseRegistration."Total Classified C. Count"), 0.01, '=');
-                IF ACA2NDExamCourseRegistration."Total Classified Units" <> 0 THEN
-                    ACA2NDExamCourseRegistration."Classified W. Average" := ROUND((ACA2NDExamCourseRegistration."Classified W. Total" / ACA2NDExamCourseRegistration."Total Classified Units"), 0.01, '=');
-                ACA2NDExamCourseRegistration.CALCFIELDS("Defined Units (Flow)");
-                ACA2NDExamCourseRegistration."Required Stage Units" := ACA2NDExamCourseRegistration."Defined Units (Flow)";//RequiredStageUnits(ACA2NDExamCourseRegistration.Programme,
-                                                                                                                           //ACA2NDExamCourseRegistration."Year of Study",ACA2NDExamCourseRegistration."Student Number");
-                IF ACA2NDExamCourseRegistration."Required Stage Units" > ACA2NDExamCourseRegistration."Attained Stage Units" THEN
-                    ACA2NDExamCourseRegistration."Units Deficit" := ACA2NDExamCourseRegistration."Required Stage Units" - ACA2NDExamCourseRegistration."Attained Stage Units";
-                ACA2NDExamCourseRegistration."Multiple Programe Reg. Exists" := GetMultipleProgramExists(ACA2NDExamCourseRegistration."Student Number", ACA2NDExamCourseRegistration."Academic Year");
+    //                             /////////////////////////// Update Unit Score
+    //                             CLEAR(ACA2NDExamClassificationUnits);
+    //                             ACA2NDExamClassificationUnits.RESET;
+    //                             ACA2NDExamClassificationUnits.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
+    //                             ACA2NDExamClassificationUnits.SETRANGE(Programme, FirstSuppUnitsRegFor2ndSupp.Programme);
+    //                             ACA2NDExamClassificationUnits.SETRANGE("Unit Code", FirstSuppUnitsRegFor2ndSupp."Unit Code");
+    //                             ACA2NDExamClassificationUnits.SETRANGE("Academic Year", FirstSuppUnitsRegFor2ndSupp."Academic Year");
+    //                             IF ACA2NDExamClassificationUnits.FIND('-') THEN BEGIN
+    //                                 FirstSuppUnitsRegFor2ndSupp.CALCFIELDS(Pass);
+    //                                 IF FirstSuppUnitsRegFor2ndSupp.Pass THEN BEGIN
+    //                                     // Capture Regular Marks here Since the Unit was Passed by the Student
+    //                                     ACA2NDExamClassificationUnits."CAT Score" := FirstSuppUnitsRegFor2ndSupp."CAT Score";
+    //                                     ACA2NDExamClassificationUnits."CAT Score Decimal" := FirstSuppUnitsRegFor2ndSupp."CAT Score Decimal";
+    //                                     ACA2NDExamClassificationUnits."Results Exists Status" := FirstSuppUnitsRegFor2ndSupp."Results Exists Status";
+    //                                     ACA2NDExamClassificationUnits."Exam Score" := FirstSuppUnitsRegFor2ndSupp."Exam Score";
+    //                                     ACA2NDExamClassificationUnits."Exam Score Decimal" := FirstSuppUnitsRegFor2ndSupp."Exam Score Decimal";
+    //                                     ACA2NDExamClassificationUnits."Total Score" := FirstSuppUnitsRegFor2ndSupp."Total Score";
+    //                                     ACA2NDExamClassificationUnits."Total Score Decimal" := FirstSuppUnitsRegFor2ndSupp."Total Score Decimal";
+    //                                     ACA2NDExamClassificationUnits."Weighted Total Score" := FirstSuppUnitsRegFor2ndSupp."Weighted Total Score";
+    //                                 END ELSE BEGIN
+    //                                     //  Pick Supp Marks here and leave value of Sore to Zero if Mark does not exist
+    //                                     // Check for Supp Marks if exists
+    //                                     CLEAR(Aca2ndSuppExamsDetails888);
+    //                                     Aca2ndSuppExamsDetails888.RESET;
+    //                                     Aca2ndSuppExamsDetails888.SETRANGE("Student No.", FirstSuppUnitsRegFor2ndSupp."Student No.");
+    //                                     Aca2ndSuppExamsDetails888.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
+    //                                     // Aca2ndSuppExamsDetails888.SETRANGE(Category,AcaSpecialExamsDetails.Category::Supplementary);
+    //                                     Aca2ndSuppExamsDetails888.SETRANGE(Semester, StudentUnits.Semester);
+    //                                     Aca2ndSuppExamsDetails888.SETFILTER("Exam Marks", '<>%1', 0);
+    //                                     IF Aca2ndSuppExamsDetails888.FIND('-') THEN BEGIN
+    //                                         ACA2NDExamClassificationUnits."Exam Score" := FORMAT(ROUND(((Aca2ndSuppExamsDetails888."Exam Marks")), 0.01, '='));
+    //                                         ACA2NDExamClassificationUnits."Exam Score Decimal" := ROUND(((Aca2ndSuppExamsDetails888."Exam Marks")), 0.01, '=');
+    //                                         ACA2NDExamClassificationUnits."CAT Score" := '0';
+    //                                         ACA2NDExamClassificationUnits."CAT Score Decimal" := 0;
+    //                                         ACA2NDExamClassificationUnits."Total Score" := ACA2NDExamClassificationUnits."Exam Score";
+    //                                         ACA2NDExamClassificationUnits."Total Score Decimal" := ACA2NDExamClassificationUnits."Exam Score Decimal";
+    //                                         ACA2NDExamClassificationUnits."Weighted Total Score" := ACA2NDExamClassificationUnits."Exam Score Decimal" * FirstSuppUnitsRegFor2ndSupp."Credit Hours";
+    //                                         //Update Total Marks
+    //                                         IF ((ACA2NDExamClassificationUnits."Exam Score" = '') AND (CATExists = FALSE)) THEN BEGIN
+    //                                             ACA2NDExamClassificationUnits."Results Exists Status" := ACA2NDExamClassificationUnits."Results Exists Status"::"None Exists";
+    //                                         END ELSE IF ((ACA2NDExamClassificationUnits."Exam Score" = '') AND (CATExists = TRUE)) THEN BEGIN
+    //                                             ACA2NDExamClassificationUnits."Results Exists Status" := ACA2NDExamClassificationUnits."Results Exists Status"::"CAT Only";
+    //                                         END ELSE IF ((ACA2NDExamClassificationUnits."Exam Score" <> '') AND (CATExists = FALSE)) THEN BEGIN
+    //                                             ACA2NDExamClassificationUnits."Results Exists Status" := ACA2NDExamClassificationUnits."Results Exists Status"::"Exam Only";
+    //                                         END ELSE IF ((ACA2NDExamClassificationUnits."Exam Score" <> '') AND (CATExists = TRUE)) THEN BEGIN
+    //                                             ACA2NDExamClassificationUnits."Results Exists Status" := ACA2NDExamClassificationUnits."Results Exists Status"::"Both Exists";
+    //                                         END;
+    //                                         ACA2NDExamClassificationUnits."Total Score Decimal" := ROUND(ACA2NDExamClassificationUnits."Exam Score Decimal", 0.01, '=');
+    //                                         ACA2NDExamClassificationUnits."Total Score Decimal" := GetSuppMaxScore(Progyz."Exam Category", ACA2NDExamClassificationUnits."Total Score Decimal");
+    //                                         ACA2NDExamClassificationUnits."Total Score" := FORMAT(ROUND(ACA2NDExamClassificationUnits."Total Score Decimal", 0.01, '='));
+    //                                         ACA2NDExamClassificationUnits."Weighted Total Score" := ROUND(ACA2NDExamClassificationUnits."Credit Hours" * ACA2NDExamClassificationUnits."Total Score Decimal", 0.01, '=');
 
-                ACA2NDExamCourseRegistration."Final Classification" := GetRubricSupp2(Progyz, ACA2NDExamCourseRegistration);
-                IF Coregcs."Stopage Yearly Remark" <> '' THEN
-                    ACA2NDExamCourseRegistration."Final Classification" := Coregcs."Stopage Yearly Remark";
-                ACA2NDExamCourseRegistration."Final Classification Pass" := Get2ndSuppRubricPassStatus(ACA2NDExamCourseRegistration."Final Classification",
-                ACA2NDExamCourseRegistration."Academic Year", Progyz);
-                ACA2NDExamCourseRegistration."Final Classification Order" := Get2ndSuppRubricOrder(ACA2NDExamCourseRegistration."Final Classification");
-                ACA2NDExamCourseRegistration."Final Classification Pass" := GetRubricPassStatus(ACA2NDExamCourseRegistration."Final Classification",
-                ACA2NDExamCourseRegistration."Academic Year", Progyz);
-                ACA2NDExamCourseRegistration.Classification := ACA2NDExamCourseRegistration."Final Classification";
-                IF ACA2NDExamCourseRegistration."Total Courses" = 0 THEN BEGIN
-                    //  ACA2NDExamCourseRegistration."Final Classification":='HALT';
-                    ACA2NDExamCourseRegistration."Final Classification Pass" := FALSE;
-                    ACA2NDExamCourseRegistration."Final Classification Order" := 10;
-                    ACA2NDExamCourseRegistration.Graduating := FALSE;
-                    //  ACA2NDExamCourseRegistration.Classification:='HALT';
-                END;
-                IF Coregcs."Stopage Yearly Remark" <> '' THEN
-                    ACA2NDExamCourseRegistration.Classification := Coregcs."Stopage Yearly Remark";
-                ACA2NDExamCourseRegistration.CALCFIELDS("Total Marks",
-   "Total Weighted Marks",
-   "Total Failed Courses",
-   "Total Failed Units",
-   "Failed Courses",
-   "Failed Units",
-   "Failed Cores",
-   "Failed Required",
-   "Failed Electives",
-   "Total Cores Done",
-   "Total Cores Passed",
-   "Total Required Done",
-   "Total Electives Done",
-   "Tota Electives Passed");
-                ACA2NDExamCourseRegistration.CALCFIELDS(
-                "Classified Electives C. Count",
-                "Classified Electives Units",
-                "Total Classified C. Count",
-                "Total Classified Units",
-                "Classified Total Marks",
-                "Classified W. Total",
-                "Total Failed Core Units");
-                ACA2NDExamCourseRegistration."Cummulative Fails" := GetCummulativeFails(ACA2NDExamCourseRegistration."Student Number", ACA2NDExamCourseRegistration."Year of Study");
-                ACA2NDExamCourseRegistration."Cumm. Required Stage Units" := GetCummulativeReqStageUnitrs(ACA2NDExamCourseRegistration.Programme, ACA2NDExamCourseRegistration."Year of Study", ACA2NDExamCourseRegistration."Programme Option",
-                ACA2NDExamCourseRegistration."Academic Year");
-                ACA2NDExamCourseRegistration."Cumm Attained Units" := GetCummAttainedUnits(ACA2NDExamCourseRegistration."Student Number", ACA2NDExamCourseRegistration."Year of Study", ACA2NDExamCourseRegistration.Programme);
-                ACA2NDExamCourseRegistration.MODIFY;
+    //                                     END;
+    //                                     ACA2NDExamClassificationUnits."Total Score Decimal" := ROUND(ACA2NDExamClassificationUnits."Exam Score Decimal", 0.01, '=');
+    //                                     ACA2NDExamClassificationUnits."Total Score Decimal" := GetSuppMaxScore(Progyz."Exam Category", ACA2NDExamClassificationUnits."Total Score Decimal");
+    //                                     ACA2NDExamClassificationUnits."Total Score" := FORMAT(ROUND(ACA2NDExamClassificationUnits."Total Score Decimal", 0.01, '='));
+    //                                     ACA2NDExamClassificationUnits."Weighted Total Score" := ROUND(ACA2NDExamClassificationUnits."Credit Hours" * ACA2NDExamClassificationUnits."Total Score Decimal", 0.01, '=');
 
-            END;
-            UNTIL ACA2NDExamCourseRegistration.NEXT = 0;
-        END;
-    end;
+    //                                 END;
+    //                                 ACA2NDExamClassificationUnits.MODIFY;
+    //                             END;
+    //                             ////////////*********************************************
+    //                             //////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //                             // Check for Special Exams Score if Exists
+    //                             ///////////////////////////////////////////////////////// End of Supps Score Updates
+    //                             CLEAR(Aca2ndSuppExamsDetails);
+    //                             Aca2ndSuppExamsDetails.RESET;
+    //                             Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
+    //                             Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
+    //                             Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '<>%1', 0);
+    //                             Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+    //                             IF Aca2ndSuppExamsDetails.FIND('-') THEN BEGIN
+    //                                 ACAExam2NDSuppUnits.INIT;
+    //                                 ACAExam2NDSuppUnits."Student No." := StudentUnits."Student No.";
+    //                                 ACAExam2NDSuppUnits."Unit Code" := ACA2NDExamClassificationUnits."Unit Code";
+    //                                 ACAExam2NDSuppUnits."Unit Description" := ACA2NDExamClassificationUnits."Unit Description";
+    //                                 ACAExam2NDSuppUnits."Unit Type" := ACA2NDExamClassificationUnits."Unit Type";
+    //                                 ACAExam2NDSuppUnits.Programme := ACA2NDExamClassificationUnits.Programme;
+    //                                 ACAExam2NDSuppUnits."Academic Year" := ACA2NDExamClassificationUnits."Academic Year";
+    //                                 ACAExam2NDSuppUnits."Credit Hours" := ACA2NDExamClassificationUnits."Credit Hours";
+    //                                 IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Supplementary THEN BEGIN
+    //                                     ACAExam2NDSuppUnits."Exam Score" := FORMAT(ROUND(((AcaSpecialExamsDetails."Exam Marks")), 0.01, '='));
+    //                                     ACAExam2NDSuppUnits."Exam Score Decimal" := ROUND(((AcaSpecialExamsDetails."Exam Marks")), 0.01, '=');
+    //                                     ACAExam2NDSuppUnits."CAT Score" := FORMAT(ROUND(ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '='));
+    //                                     ACAExam2NDSuppUnits."CAT Score Decimal" := ROUND(ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '=');
+    //                                     ACAExam2NDSuppUnits."Total Score Decimal" := ROUND((GetSuppMaxScore(Progyz."Exam Category", (ROUND(ACAExam2NDSuppUnits."Exam Score Decimal", 0.01, '=')))), 0.01, '=');
+    //                                     ACAExam2NDSuppUnits."Total Score" := FORMAT(ACAExam2NDSuppUnits."Total Score Decimal");
+    //                                 END ELSE IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Special THEN BEGIN
+    //                                     ACAExam2NDSuppUnits."Exam Score Decimal" := ROUND(AcaSpecialExamsDetails."Exam Marks", 0.01, '=');
+    //                                     ACAExam2NDSuppUnits."Exam Score" := FORMAT(ROUND(AcaSpecialExamsDetails."Exam Marks", 0.01, '='));
+    //                                     ACAExam2NDSuppUnits."CAT Score" := FORMAT(ROUND(ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '='));
+    //                                     ACAExam2NDSuppUnits."CAT Score Decimal" := ROUND(ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '=');
+    //                                     ACAExam2NDSuppUnits."Total Score Decimal" := GetSuppMaxScore(Progyz."Exam Category", (ROUND(AcaSpecialExamsDetails."Exam Marks" + ACA2NDExamClassificationUnits."CAT Score Decimal", 0.01, '=')));
+    //                                     ACAExam2NDSuppUnits."Total Score" := FORMAT(ACAExam2NDSuppUnits."Total Score Decimal");
+    //                                 END;
+    //                                 ACAExam2NDSuppUnits."Exam Category" := ACA2NDExamClassificationUnits."Exam Category";
+    //                                 ACAExam2NDSuppUnits."Allow In Graduate" := TRUE;
+    //                                 ACAExam2NDSuppUnits."Year of Study" := ACA2NDExamClassificationUnits."Year of Study";
+    //                                 ACAExam2NDSuppUnits.Cohort := ACA2NDExamClassificationUnits.Cohort;
+    //                                 ACAExam2NDSuppUnits."School Code" := ACA2NDExamClassificationUnits."School Code";
+    //                                 ACAExam2NDSuppUnits."Department Code" := ACA2NDExamClassificationUnits."Department Code";
+    //                                 IF ACAExam2NDSuppUnits.INSERT THEN;
+    //                                 ACA2NDExamClassificationUnits.MODIFY;
+    //                                 //  END;
+    //                             END;
+    //                             ACA2NDExamClassificationUnits."Allow In Graduate" := TRUE;
+    //                             ACA2NDExamClassificationUnits.MODIFY;
+    //                             /// Update Cummulative Resit
+    //                             ACA2NDExamClassificationUnits.CALCFIELDS(Grade, "Grade Comment", "Comsolidated Prefix", Pass);
+    //                             IF ACA2NDExamClassificationUnits.Pass THEN BEGIN
+    //                                 CLEAR(Aca2ndSuppExamsDetails);
+    //                                 Aca2ndSuppExamsDetails.RESET;
+    //                                 Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
+    //                                 Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
+    //                                 Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
+    //                                 Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+    //                                 Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '%1', 0);
+    //                                 IF Aca2ndSuppExamsDetails.FIND('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
+    //                             END ELSE BEGIN
+    //                                 // Student Failed Supp or Special. Register for the second Supp if first Supp Failed and 1st Supp if Special Failed
+
+    //                                 CLEAR(Aca2ndSuppExamsDetails);
+    //                                 Aca2ndSuppExamsDetails.RESET;
+    //                                 Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
+    //                                 Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
+    //                                 Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
+    //                                 Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+    //                                 Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '%1', 0);
+    //                                 IF Aca2ndSuppExamsDetails.FIND('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
+    //                                 //Aca2ndSuppExamsDetails3
+    //                                 CLEAR(Aca2ndSuppExamsDetails);
+    //                                 Aca2ndSuppExamsDetails.RESET;
+    //                                 Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
+    //                                 Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
+    //                                 Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
+    //                                 Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+    //                                 IF NOT (Aca2ndSuppExamsDetails.FIND('-')) THEN BEGIN
+    //                                     //  Register Supp for Special that is Failed
+    //                                     // The Failed Unit is not in Supp Special, Register The Unit here
+    //                                     CLEAR(CountedSeq);
+    //                                     CLEAR(Aca2ndSuppExamsDetails3);
+    //                                     Aca2ndSuppExamsDetails3.RESET;
+    //                                     Aca2ndSuppExamsDetails3.SETRANGE("Student No.", StudentUnits."Student No.");
+    //                                     Aca2ndSuppExamsDetails3.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
+    //                                     Aca2ndSuppExamsDetails3.SETCURRENTKEY(Sequence);
+    //                                     IF Aca2ndSuppExamsDetails3.FIND('+') THEN BEGIN
+    //                                         CountedSeq := Aca2ndSuppExamsDetails3.Sequence;
+    //                                     END ELSE BEGIN
+    //                                         CountedSeq := 0;
+    //                                     END;
+    //                                     CountedSeq += 1;
+    //                                     Aca2ndSuppExamsDetails.INIT;
+    //                                     Aca2ndSuppExamsDetails.Stage := StudentUnits.Stage;
+    //                                     Aca2ndSuppExamsDetails.Status := Aca2ndSuppExamsDetails.Status::New;
+    //                                     Aca2ndSuppExamsDetails."Student No." := StudentUnits."Student No.";
+    //                                     Aca2ndSuppExamsDetails."Academic Year" := Coregcs."Academic Year";
+    //                                     Aca2ndSuppExamsDetails."Unit Code" := StudentUnits.Unit;
+    //                                     Aca2ndSuppExamsDetails.Semester := StudentUnits.Semester;
+    //                                     Aca2ndSuppExamsDetails.Sequence := CountedSeq;
+    //                                     Aca2ndSuppExamsDetails."Current Academic Year" := GetFinalAcademicYear(StudentUnits."Student No.", StudentUnits.Programme);
+    //                                     Aca2ndSuppExamsDetails.Category := Aca2ndSuppExamsDetails.Category::Supplementary;
+    //                                     Aca2ndSuppExamsDetails.Programme := StudentUnits.Programme;
+    //                                     IF AcaSpecialExamsDetails.INSERT THEN;
+    //                                     CLEAR(Aca2ndSuppExamsDetails);
+    //                                     Aca2ndSuppExamsDetails.RESET;
+    //                                     Aca2ndSuppExamsDetails.SETRANGE("Student No.", StudentUnits."Student No.");
+    //                                     Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
+    //                                     Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
+    //                                     Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+    //                                     IF NOT (Aca2ndSuppExamsDetails.FIND('-')) THEN BEGIN
+    //                                         CLEAR(CountedSeq);
+    //                                         CLEAR(Aca2ndSuppExamsDetails3);
+    //                                         Aca2ndSuppExamsDetails3.RESET;
+    //                                         Aca2ndSuppExamsDetails3.SETRANGE("Student No.", StudentUnits."Student No.");
+    //                                         Aca2ndSuppExamsDetails3.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
+    //                                         Aca2ndSuppExamsDetails3.SETRANGE(Semester, StudentUnits.Semester);
+    //                                         Aca2ndSuppExamsDetails3.SETCURRENTKEY(Sequence);
+    //                                         IF Aca2ndSuppExamsDetails3.FIND('+') THEN BEGIN
+    //                                             CountedSeq := Aca2ndSuppExamsDetails3.Sequence;
+    //                                         END ELSE BEGIN
+    //                                             CountedSeq := 0;
+    //                                         END;
+    //                                         CountedSeq += 1;
+    //                                         Aca2ndSuppExamsDetails.INIT;
+    //                                         Aca2ndSuppExamsDetails.Stage := StudentUnits.Stage;
+    //                                         Aca2ndSuppExamsDetails.Status := Aca2ndSuppExamsDetails.Status::New;
+    //                                         Aca2ndSuppExamsDetails."Student No." := StudentUnits."Student No.";
+    //                                         Aca2ndSuppExamsDetails."Academic Year" := Coregcs."Academic Year";
+    //                                         Aca2ndSuppExamsDetails."Unit Code" := StudentUnits.Unit;
+    //                                         Aca2ndSuppExamsDetails.Semester := StudentUnits.Semester;
+    //                                         Aca2ndSuppExamsDetails.Sequence := CountedSeq;
+    //                                         Aca2ndSuppExamsDetails."Current Academic Year" := GetFinalAcademicYear(StudentUnits."Student No.", StudentUnits.Programme);
+    //                                         Aca2ndSuppExamsDetails.Category := Aca2ndSuppExamsDetails.Category::Supplementary;
+    //                                         Aca2ndSuppExamsDetails.Programme := StudentUnits.Programme;
+
+    //                                         IF Aca2ndSuppExamsDetails.INSERT THEN;
+    //                                     END;
+
+    //                                 END;
+    //                             END;
+    //                             /////////////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //                         END;
+    //                     END;
+    //                 END;
+    //             END;
+    //             UNTIL FirstSuppUnitsRegFor2ndSupp.NEXT = 0;
+    //         END;
+
+    //         // Update Averages
+    //         CLEAR(TotalRecs);
+    //         CLEAR(CountedRecs);
+    //         CLEAR(RemeiningRecs);
+    //         CLEAR(ACA2NDExamClassificationStuds);
+    //         ACA2NDExamCourseRegistration.RESET;
+    //         ACA2NDExamCourseRegistration.SETFILTER("Reporting Academic Year", ACASuppExamCoRegfor2ndSupp."Academic Year");
+    //         ACA2NDExamCourseRegistration.SETFILTER("Student Number", ACASuppExamCoRegfor2ndSupp."Student Number");
+    //         ACA2NDExamCourseRegistration.SETFILTER(Programme, ACASuppExamCoRegfor2ndSupp.Programme);
+    //         IF ACA2NDExamCourseRegistration.FIND('-') THEN BEGIN
+    //             TotalRecs := ACA2NDExamCourseRegistration.COUNT;
+    //             RemeiningRecs := TotalRecs;
+    //             REPEAT
+    //             BEGIN
+
+    //                 Progyz.RESET;
+    //                 Progyz.SETRANGE(Code, ACA2NDExamCourseRegistration.Programme);
+    //                 IF Progyz.FIND('-') THEN;
+    //                 CountedRecs += 1;
+    //                 RemeiningRecs -= 1;
+    //                 ACA2NDExamCourseRegistration.CALCFIELDS("Total Marks", "Total Courses", "Total Weighted Marks",
+    //               "Total Units", "Classified Total Marks", "Total Classified C. Count", "Classified W. Total", "Attained Stage Units", Average, "Weighted Average");
+    //                 ACA2NDExamCourseRegistration."Normal Average" := ROUND((ACA2NDExamCourseRegistration.Average), 0.01, '=');
+    //                 IF ACA2NDExamCourseRegistration."Total Units" > 0 THEN
+    //                     ACA2NDExamCourseRegistration."Weighted Average" := ROUND((ACA2NDExamCourseRegistration."Total Weighted Marks" / ACA2NDExamCourseRegistration."Total Units"), 0.01, '=');
+    //                 IF ACA2NDExamCourseRegistration."Total Classified C. Count" <> 0 THEN
+    //                     ACA2NDExamCourseRegistration."Classified Average" := ROUND((ACA2NDExamCourseRegistration."Classified Total Marks" / ACA2NDExamCourseRegistration."Total Classified C. Count"), 0.01, '=');
+    //                 IF ACA2NDExamCourseRegistration."Total Classified Units" <> 0 THEN
+    //                     ACA2NDExamCourseRegistration."Classified W. Average" := ROUND((ACA2NDExamCourseRegistration."Classified W. Total" / ACA2NDExamCourseRegistration."Total Classified Units"), 0.01, '=');
+    //                 ACA2NDExamCourseRegistration.CALCFIELDS("Defined Units (Flow)");
+    //                 ACA2NDExamCourseRegistration."Required Stage Units" := ACA2NDExamCourseRegistration."Defined Units (Flow)";//RequiredStageUnits(ACA2NDExamCourseRegistration.Programme,
+    //                                                                                                                            //ACA2NDExamCourseRegistration."Year of Study",ACA2NDExamCourseRegistration."Student Number");
+    //                 IF ACA2NDExamCourseRegistration."Required Stage Units" > ACA2NDExamCourseRegistration."Attained Stage Units" THEN
+    //                     ACA2NDExamCourseRegistration."Units Deficit" := ACA2NDExamCourseRegistration."Required Stage Units" - ACA2NDExamCourseRegistration."Attained Stage Units";
+    //                 ACA2NDExamCourseRegistration."Multiple Programe Reg. Exists" := GetMultipleProgramExists(ACA2NDExamCourseRegistration."Student Number", ACA2NDExamCourseRegistration."Academic Year");
+
+    //                 ACA2NDExamCourseRegistration."Final Classification" := GetRubricSupp2(Progyz, ACA2NDExamCourseRegistration);
+    //                 IF Coregcs."Stopage Yearly Remark" <> '' THEN
+    //                     ACA2NDExamCourseRegistration."Final Classification" := Coregcs."Stopage Yearly Remark";
+    //                 ACA2NDExamCourseRegistration."Final Classification Pass" := Get2ndSuppRubricPassStatus(ACA2NDExamCourseRegistration."Final Classification",
+    //                 ACA2NDExamCourseRegistration."Academic Year", Progyz);
+    //                 ACA2NDExamCourseRegistration."Final Classification Order" := Get2ndSuppRubricOrder(ACA2NDExamCourseRegistration."Final Classification");
+    //                 ACA2NDExamCourseRegistration."Final Classification Pass" := GetRubricPassStatus(ACA2NDExamCourseRegistration."Final Classification",
+    //                 ACA2NDExamCourseRegistration."Academic Year", Progyz);
+    //                 ACA2NDExamCourseRegistration.Classification := ACA2NDExamCourseRegistration."Final Classification";
+    //                 IF ACA2NDExamCourseRegistration."Total Courses" = 0 THEN BEGIN
+    //                     //  ACA2NDExamCourseRegistration."Final Classification":='HALT';
+    //                     ACA2NDExamCourseRegistration."Final Classification Pass" := FALSE;
+    //                     ACA2NDExamCourseRegistration."Final Classification Order" := 10;
+    //                     ACA2NDExamCourseRegistration.Graduating := FALSE;
+    //                     //  ACA2NDExamCourseRegistration.Classification:='HALT';
+    //                 END;
+    //                 IF Coregcs."Stopage Yearly Remark" <> '' THEN
+    //                     ACA2NDExamCourseRegistration.Classification := Coregcs."Stopage Yearly Remark";
+    //                 ACA2NDExamCourseRegistration.CALCFIELDS("Total Marks",
+    //    "Total Weighted Marks",
+    //    "Total Failed Courses",
+    //    "Total Failed Units",
+    //    "Failed Courses",
+    //    "Failed Units",
+    //    "Failed Cores",
+    //    "Failed Required",
+    //    "Failed Electives",
+    //    "Total Cores Done",
+    //    "Total Cores Passed",
+    //    "Total Required Done",
+    //    "Total Electives Done",
+    //    "Tota Electives Passed");
+    //                 ACA2NDExamCourseRegistration.CALCFIELDS(
+    //                 "Classified Electives C. Count",
+    //                 "Classified Electives Units",
+    //                 "Total Classified C. Count",
+    //                 "Total Classified Units",
+    //                 "Classified Total Marks",
+    //                 "Classified W. Total",
+    //                 "Total Failed Core Units");
+    //                 ACA2NDExamCourseRegistration."Cummulative Fails" := GetCummulativeFails(ACA2NDExamCourseRegistration."Student Number", ACA2NDExamCourseRegistration."Year of Study");
+    //                 ACA2NDExamCourseRegistration."Cumm. Required Stage Units" := GetCummulativeReqStageUnitrs(ACA2NDExamCourseRegistration.Programme, ACA2NDExamCourseRegistration."Year of Study", ACA2NDExamCourseRegistration."Programme Option",
+    //                 ACA2NDExamCourseRegistration."Academic Year");
+    //                 ACA2NDExamCourseRegistration."Cumm Attained Units" := GetCummAttainedUnits(ACA2NDExamCourseRegistration."Student Number", ACA2NDExamCourseRegistration."Year of Study", ACA2NDExamCourseRegistration.Programme);
+    //                 ACA2NDExamCourseRegistration.MODIFY;
+
+    //             END;
+    //             UNTIL ACA2NDExamCourseRegistration.NEXT = 0;
+    //         END;
+    //     end;
+
+
+
 
 }
 

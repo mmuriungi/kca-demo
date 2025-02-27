@@ -1,7 +1,7 @@
 page 51496 "Lab Reagents"
 {
     PageType = List;
-    SourceTable = "Pharmacy Items";
+    SourceTable = Item;
     DeleteAllowed = false;
     SourceTableView = where("Drug Category" = filter("Lab Reagents"));
 
