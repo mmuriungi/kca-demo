@@ -3160,7 +3160,8 @@ table 50555 "ACA-Course Registration"
         //"Academic Year Exclude Comp."
         field(60198; "Academic Year Exclude Comp."; Boolean)
         {
-            DataClassification = ToBeClassified;
+            FieldClass=FlowField;
+            CalcFormula=Exist("ACA-Course Registration" WHERE ("Student No."=FIELD("Student No."),"Academic Year"=FIELD("Academic Year"),"Exclude from Computation"=FILTER(true),"Year Of Study"=FIELD("Year Of Study")));
         }
         //Is Postgraduate
         field(60199; "Is Postgraduate"; Boolean)

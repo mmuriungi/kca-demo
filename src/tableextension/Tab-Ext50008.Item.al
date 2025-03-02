@@ -84,7 +84,7 @@ tableextension 50008 Item extends Item
         }
         field(88900; "Drug Category"; Option)
         {
-            OptionMembers = Pharmacitical,"Non-Pharmaciticals","Lab Reagents";
+            OptionMembers = " ",Pharmacitical,"Non-Pharmaciticals","Lab Reagents";
             Caption = 'Drug Category';
             DataClassification = CustomerContent;
         }
@@ -97,7 +97,7 @@ tableextension 50008 Item extends Item
         {
             Caption = 'Unit of measure';
             DataClassification = CustomerContent;
-            TableRelation="Unit of Measure";
+            TableRelation = "Unit of Measure";
         }
         field(88903; "SequenceNo"; Integer)
         {
