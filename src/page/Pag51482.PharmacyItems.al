@@ -1,7 +1,7 @@
 page 51482 "Pharmacy Items"
 {
     PageType = List;
-    SourceTable = "Pharmacy Items";
+    SourceTable = Item;
     DeleteAllowed = false;
     SourceTableView = where("Drug Category" = filter(Pharmacitical));
 

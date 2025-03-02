@@ -84,7 +84,7 @@ table 50994 "Pharmacy Stock Header"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         stockLines: Record "Pharmacy Stock Lines";
         itemledger: Record "Pharmacy Item Ledger";
-        PharItem: Record "Pharmacy Items";
+        PharItem: Record Item;
 
     procedure postStock()
     begin

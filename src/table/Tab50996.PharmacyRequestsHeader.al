@@ -60,7 +60,7 @@ table 50996 "Pharmacy Requests Header"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         RequestLines: Record "Pharmacy Requests Lines";
         itemledger: Record "Pharmacy Item Ledger";
-        PharItem: Record "Pharmacy Items";
+        PharItem: Record Item;
 
     procedure postRequisition()
     begin

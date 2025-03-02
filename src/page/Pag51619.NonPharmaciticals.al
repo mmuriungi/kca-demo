@@ -2,7 +2,7 @@ page 51619 "Non-Pharmaciticals"
 {
 
     PageType = List;
-    SourceTable = "Pharmacy Items";
+    SourceTable = Item;
     DeleteAllowed = false;
     SourceTableView = where("Drug Category" = filter("Non-Pharmaciticals"));
 
