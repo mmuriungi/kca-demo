@@ -60,7 +60,7 @@ table 51059 "Hostel Stock Header"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         stockLines: Record "Pharmacy Stock Lines";
         itemledger: Record "Pharmacy Item Ledger";
-        PharItem: Record "Pharmacy Items";
+        PharItem: Record Item;
 
     procedure postStock()
     begin

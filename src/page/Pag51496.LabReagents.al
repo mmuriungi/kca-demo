@@ -1,9 +1,10 @@
 page 51496 "Lab Reagents"
 {
     PageType = List;
-    SourceTable = "Pharmacy Items";
+    SourceTable = Item;
     DeleteAllowed = false;
     SourceTableView = where("Drug Category" = filter("Lab Reagents"));
+    cardpageid = "Item Card";
 
     layout
     {
@@ -42,6 +43,7 @@ page 51496 "Lab Reagents"
     }
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
+        Rec."Drug Category" := Rec."Drug Category"::"Lab Reagents";
         Rec.SetFilter("Drug Category", '%1', Rec."Drug Category"::"Lab Reagents");
     end;
 }

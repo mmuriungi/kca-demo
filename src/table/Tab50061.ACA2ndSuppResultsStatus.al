@@ -1,6 +1,6 @@
-table 50060 "ACA-Supp. Results Status"
+table 50075 "ACA-2ndSupp. Results Status"
 {
-    Caption = 'ACA-Supp. Results Status';
+    Caption = 'ACA-2ndSupp. Results Status';
     DataClassification = CustomerContent;
 
     fields
@@ -208,7 +208,7 @@ table 50060 "ACA-Supp. Results Status"
         field(63030; "Faculty Filter"; Code[20])
         {
             Caption = 'Faculty Filter';
-            FieldClass=FlowFilter;
+            FieldClass = FlowFilter;
         }
         field(63031; "Year of Study Filter"; Integer)
         {

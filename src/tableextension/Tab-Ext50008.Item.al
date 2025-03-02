@@ -82,5 +82,27 @@ tableextension 50008 Item extends Item
             Caption = 'Game Name';
             DataClassification = CustomerContent;
         }
+        field(88900; "Drug Category"; Option)
+        {
+            OptionMembers = " ",Pharmacitical,"Non-Pharmaciticals","Lab Reagents";
+            Caption = 'Drug Category';
+            DataClassification = CustomerContent;
+        }
+        field(88901; "Reorder Threshold"; Integer)
+        {
+            Caption = 'Reorder Threshold';
+            DataClassification = CustomerContent;
+        }
+        field(88902; "Unit of measure"; Code[56])
+        {
+            Caption = 'Unit of measure';
+            DataClassification = CustomerContent;
+            TableRelation = "Unit of Measure";
+        }
+        field(88903; "SequenceNo"; Integer)
+        {
+            Caption = 'SequenceNo';
+            DataClassification = CustomerContent;
+        }
     }
 }

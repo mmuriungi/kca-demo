@@ -1,24 +1,19 @@
-report 50802 "NSSF Schedule Ext"
+#pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
+Report 51003 "prHousing Levy"
 {
     DefaultLayout = RDLC;
-    Caption = 'NSSF Schedule';
-    RDLCLayout = './PayrollLayouts/NSSF Schedule.rdlc';
+    RDLCLayout = './PayrollLayouts/prHousing Levy.rdlc';
+    UsageCategory = Lists;
 
     dataset
     {
-        dataitem("PRL-Salary Card"; "PRL-Salary Card")
+        dataitem("prSalary Card"; "prl-Salary Card")
         {
-            RequestFilterFields = "Employee Code";
+            RequestFilterFields = "Period Filter", "Employee Code";
             column(ReportForNavId_6207; 6207)
             {
             }
             column(USERID; UserId)
-            {
-            }
-            column(Gpay; Gpay)
-            {
-            }
-            column(Pins; objEmp."PIN Number")
             {
             }
             column(TODAY; Today)
@@ -33,10 +28,10 @@ report 50802 "NSSF Schedule Ext"
             column(CompanyInfo_Picture; CompanyInfo.Picture)
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(companyinfo_NSSFNO; '')
             {
             }
-            column(PIN; objEmp."PAYE Number")
+            column(COMPANYNAME; companyinfo."Name")
             {
             }
             column(PeriodName_Control1102756011; PeriodName)
@@ -51,13 +46,10 @@ report 50802 "NSSF Schedule Ext"
             column(IDNumber; IDNumber)
             {
             }
-            column(LastName; LastName)
-            {
-            }
             column(EmployeeName; EmployeeName)
             {
             }
-            column(prSalary_Card__prSalary_Card___Employee_Code_; "PRL-Salary Card"."Employee Code")
+            column(prSalary_Card__prSalary_Card___Employee_Code_; "prSalary Card"."Employee Code")
             {
             }
             column(NssfAmount_2; NssfAmount / 2)
@@ -144,43 +136,59 @@ report 50802 "NSSF Schedule Ext"
             column(Approved_by______________________________________Date_________________Caption; Approved_by______________________________________Date_________________CaptionLbl)
             {
             }
-            column(Voluntarynssf; voluntarynssf)
+            column(KRAPin; KRAPin)
+            {
+            }
+            column(GrossAmt; GrossAmt)
+            {
+            }
+            column(OtherNames; OtherNames)
+            {
+            }
+            column(HlevyAmt; NssfAmount)
             {
             }
 
             trigger OnAfterGetRecord()
             begin
-                Clear(Gpay);
                 objEmp.Reset;
                 objEmp.SetRange(objEmp."No.", "Employee Code");
-                if objEmp.Find('-') then;
-                EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name";
-                LastName := objEmp."Last Name";
-                NssfNo := objEmp."NSSF No.";
-                IDNumber := objEmp."ID Number";
+                if objEmp.Find('-') then begin
+                    EmployeeName := objEmp."First Name";
+                    OtherNames := objEmp."Middle Name" + ' ' + objEmp."Last Name";
+                    NssfNo := objEmp."NSSF No.";
+                    IDNumber := objEmp."ID Number";
+                    KRAPin := objEmp."PIN Number";
+                end;
+
+                //GROSS
+                PeriodTrans.Reset;
+                PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                PeriodTrans.SetFilter(PeriodTrans."Transaction Code", 'GPAY');
+                // Nssf Code
+                PeriodTrans.SetCurrentkey(PeriodTrans."Employee Code", PeriodTrans."Period Month", PeriodTrans."Period Year",
+                PeriodTrans."Group Order", PeriodTrans."Sub Group Order");
+
+                GrossAmt := 0;
+                if PeriodTrans.Find('-') then begin
+                    GrossAmt := PeriodTrans.Amount;
+                end;
+
 
                 //Volume Amount****************************************************************************
                 PeriodTrans.Reset;
                 PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
                 PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
-                PeriodTrans.SetFilter(PeriodTrans."Transaction Code", '621');
+                PeriodTrans.SetFilter(PeriodTrans."Transaction Code", Format('996'));
+                //Nssf Code
                 PeriodTrans.SetCurrentkey(PeriodTrans."Employee Code", PeriodTrans."Period Month", PeriodTrans."Period Year",
                 PeriodTrans."Group Order", PeriodTrans."Sub Group Order");
 
                 "Volume Amount" := 0;
-                voluntarynssf := 0;
                 if PeriodTrans.Find('-') then begin
-                    voluntarynssf := PeriodTrans.Amount;
+                    "Volume Amount" := PeriodTrans.Amount;
                 end;
-
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
-                PeriodTrans.SetFilter(PeriodTrans."Transaction Code", 'BPAY');
-                if PeriodTrans.Find('-') then begin
-                    Gpay := PeriodTrans.Amount;
-                end;
-
 
                 "TotVolume Amount" := "TotVolume Amount" + "Volume Amount";
 
@@ -189,36 +197,32 @@ report 50802 "NSSF Schedule Ext"
                 PeriodTrans.Reset;
                 PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
                 PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
-                PeriodTrans.SetFilter(PeriodTrans."Group Order", '=7');
-                PeriodTrans.SetFilter(PeriodTrans."Sub Group Order", '=1');
+                PeriodTrans.SetRange(PeriodTrans."Transaction Code", '996');
                 PeriodTrans.SetCurrentkey(PeriodTrans."Employee Code", PeriodTrans."Period Month", PeriodTrans."Period Year",
                 PeriodTrans."Group Order", PeriodTrans."Sub Group Order");
 
                 NssfAmount := 0;
                 if PeriodTrans.Find('-') then begin
                     repeat
-
-                      NssfAmount+=PeriodTrans.Amount+PeriodTrans.Amount;
-                      until
-                      PeriodTrans.Next = 0;
+                        NssfAmount := PeriodTrans.Amount;
+                    until PeriodTrans.Next = 0;
                 end;
 
                 //Total Amount=NssfAmount+Volume Amount**************************************************
-                TotalAmount := NssfAmount + "Volume Amount";
-
+                TotalAmount := NssfAmount;
 
 
                 //Summation Total Amount=****************************************************************
                 totTotalAmount := totTotalAmount + TotalAmount;
 
-                if (NssfAmount <= 0) and (voluntarynssf <= 0) then
+                if NssfAmount <= 0 then
                     CurrReport.Skip;
                 TotNssfAmount := TotNssfAmount + NssfAmount;
             end;
 
             trigger OnPreDataItem()
             begin
-                "PRL-Salary Card".SetFilter("PRL-Salary Card"."Payroll Period", '%1', PeriodFilter);
+                SetRange("Payroll Period", PeriodFilter);
             end;
         }
     }
@@ -234,7 +238,7 @@ report 50802 "NSSF Schedule Ext"
                 {
                     ApplicationArea = Basic;
                     Caption = 'Period Filter';
-                    TableRelation = "PRL-Payroll Periods"."Date Opened";
+                    TableRelation = "prl-Payroll Periods"."Date Opened";
                 }
             }
         }
@@ -254,10 +258,6 @@ report 50802 "NSSF Schedule Ext"
         objPeriod.SetRange(objPeriod.Closed, false);
         if objPeriod.Find('-') then;
         PeriodFilter := objPeriod."Date Opened";
-
-
-        if CompanyInfo.Get() then
-            CompanyInfo.CalcFields(CompanyInfo.Picture);
     end;
 
     trigger OnPreReport()
@@ -268,17 +268,21 @@ report 50802 "NSSF Schedule Ext"
         SelectedPeriod := PeriodFilter;
         objPeriod.Reset;
         if objPeriod.Get(SelectedPeriod) then PeriodName := objPeriod."Period Name";
+
+
+        if CompanyInfo.Get() then
+            CompanyInfo.CalcFields(CompanyInfo.Picture);
     end;
 
     var
-        PeriodTrans: Record "PRL-Period Transactions";
+        PeriodTrans: Record "prl-Period Transactions";
         NssfAmount: Decimal;
         TotNssfAmount: Decimal;
-        objEmp: Record "HRM-Employee C";
+        objEmp: Record "HRm-Employee c";
         EmployeeName: Text[150];
         NssfNo: Text[30];
         IDNumber: Text[30];
-        objPeriod: Record "PRL-Payroll Periods";
+        objPeriod: Record "prl-Payroll Periods";
         SelectedPeriod: Date;
         PeriodName: Text[30];
         PeriodFilter: Date;
@@ -308,8 +312,8 @@ report 50802 "NSSF Schedule Ext"
         Checked_by________________________________________Date_________________CaptionLbl: label 'Checked by…………………………………………………..                   Date……………………………………………';
         Authorized_by____________________________________Date_________________CaptionLbl: label 'Authorized by……………………………………………………..              Date……………………………………………';
         Approved_by______________________________________Date_________________CaptionLbl: label 'Approved by……………………………………………………..                Date……………………………………………';
-        voluntarynssf: Decimal;
-        Gpay: Decimal;
-        LastName: Text[50];
+        KRAPin: Code[20];
+        GrossAmt: Decimal;
+        OtherNames: Text[100];
 }
 

@@ -24,6 +24,15 @@ pageextension 50005 "Item Card Extension" extends "Item Card"
             {
                 ApplicationArea = All;
             }
+            field("Drug Category"; Rec."Drug Category")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Drug Category field.';
+            }
+            field("Reorder Threshold";Rec."Reorder Threshold")
+            {
+                ApplicationArea=all;
+            }
 
         }
         addafter(Item)

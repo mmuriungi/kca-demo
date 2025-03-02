@@ -11,7 +11,7 @@ table 51170 "HMS-Treatment Form Drug"
         field(2; "Drug No."; Code[20])
         {
             NotBlank = true;
-            TableRelation = "Pharmacy Items"."No.";
+            TableRelation = Item."No.";
 
             trigger OnValidate()
             begin
@@ -226,7 +226,7 @@ table 51170 "HMS-Treatment Form Drug"
     var
         Interaction: Record "HMS-Drug Interaction";
         Line: Record "HMS-Treatment Form Drug";
-        Itm: Record "Pharmacy Items";
+        Itm: Record Item;
         itemledger: Record "Pharmacy Item Ledger";
 }
 

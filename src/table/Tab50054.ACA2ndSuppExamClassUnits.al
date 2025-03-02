@@ -1,203 +1,223 @@
 table 50054 "ACA-2ndSuppExam Class. Units"
 {
     Caption = 'ACA-2ndSuppExam Class. Units';
-    DataClassification = CustomerContent;
+    DataClassification = CustomerContent; 
 
     fields
     {
         field(1; "Student No."; Code[20])
         {
             Caption = 'Student No.';
-            DataClassification = CustomerContent;
+            TableRelation = Customer."No.";
         }
         field(2; "Programme"; Code[20])
         {
             Caption = 'Programme';
-            DataClassification = CustomerContent;
+            TableRelation = "ACA-Programme".Code;
         }
         field(3; "Unit Code"; Code[20])
         {
             Caption = 'Unit Code';
-            DataClassification = CustomerContent;
+            TableRelation = "ACA-Units/Subjects".Code WHERE("Programme Code" = FIELD(Programme));
         }
         field(4; "Unit Description"; Text[150])
         {
             Caption = 'Unit Description';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Units/Subjects".Desription WHERE("Programme Code" = FIELD(Programme), 
+                                                                      Code = FIELD("Unit Code")));
         }
         field(5; "Credit Hours"; Decimal)
         {
             Caption = 'Credit Hours';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Units/Subjects"."No. Units" WHERE("Programme Code" = FIELD(Programme),
+                                                                        Code = FIELD("Unit Code")));
         }
         field(6; "CAT Score"; Code[20])
         {
             Caption = 'CAT Score';
-            DataClassification = CustomerContent;
         }
         field(7; "Exam Score"; Code[20])
         {
             Caption = 'Exam Score';
-            DataClassification = CustomerContent;
         }
         field(8; "Total Score"; Code[20])
         {
             Caption = 'Total Score';
-            DataClassification = CustomerContent;
         }
         field(9; "Allow In Graduate"; Boolean)
         {
             Caption = 'Allow In Graduate';
-            DataClassification = CustomerContent;
         }
         field(10; "Unit Type"; Code[20])
         {
             Caption = 'Unit Type';
-            DataClassification = CustomerContent;
         }
         field(11; "Pass"; Boolean)
         {
             Caption = 'Pass';
-            DataClassification = CustomerContent;
         }
         field(12; "Course Cat. Presidence"; Integer)
         {
             Caption = 'Course Cat. Presidence';
-            DataClassification = CustomerContent;
         }
         field(13; "Year of Study"; Integer)
         {
             Caption = 'Year of Study';
-            DataClassification = CustomerContent;
         }
         field(14; "Exam Score Decimal"; Decimal)
         {
             Caption = 'Exam Score Decimal';
-            DataClassification = CustomerContent;
+            DecimalPlaces = 2:2;
         }
         field(15; "CAT Score Decimal"; Decimal)
         {
             Caption = 'CAT Score Decimal';
-            DataClassification = CustomerContent;
+            DecimalPlaces = 2:2;
         }
         field(16; "Total Score Decimal"; Decimal)
         {
             Caption = 'Total Score Decimal';
-            DataClassification = CustomerContent;
+            DecimalPlaces = 2:2;
         }
         field(17; "Weighted Total Score"; Decimal)
         {
             Caption = 'Weighted Total Score';
-            DataClassification = CustomerContent;
+            DecimalPlaces = 2:2;
         }
         field(18; "Grade"; Code[20])
         {
             Caption = 'Grade';
-            DataClassification = CustomerContent;
         }
         field(19; "Academic Year"; Code[20])
         {
             Caption = 'Academic Year';
-            DataClassification = CustomerContent;
+            TableRelation = "ACA-Academic Year".Code;
         }
         field(54; "Cohort"; Code[20])
         {
             Caption = 'Cohort';
-            DataClassification = CustomerContent;
         }
         field(55; "Use In Classification"; Boolean)
         {
             Caption = 'Use In Classification';
-            DataClassification = CustomerContent;
         }
         field(56; "Unit Exists"; Boolean)
         {
             Caption = 'Unit Exists';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Units/Subjects" WHERE("Programme Code" = FIELD(Programme),
+                                                          Code = FIELD("Unit Code")));
         }
         field(57; "Results Exists Status"; Option)
         {
             Caption = 'Results Exists Status';
-            DataClassification = CustomerContent;
-            OptionMembers = " ";
+            OptionMembers = " ","None Exists","CAT Only","Exam Only","Both Exists";
+            OptionCaption = ' ,None Exists,CAT Only,Exam Only,Both Exists';
         }
         field(58; "No. of Resits"; Integer)
         {
             Caption = 'No. of Resits';
-            DataClassification = CustomerContent;
         }
         field(59; "No. of Repeats"; Integer)
         {
             Caption = 'No. of Repeats';
-            DataClassification = CustomerContent;
         }
         field(60; "School Code"; Code[20])
         {
             Caption = 'School Code';
-            DataClassification = CustomerContent;
+            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = CONST('FACULTY'));
         }
         field(61; "Department Code"; Code[10])
         {
             Caption = 'Department Code';
-            DataClassification = CustomerContent;
+            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = CONST('DEPARTMENT'));
         }
         field(62; "Grade Comment"; Text[50])
         {
             Caption = 'Grade Comment';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Exam Grading Source".Remarks WHERE("Academic Year" = FIELD("Academic Year"),
+                                                                        "Exam Catregory" = FIELD("Exam Category"),
+                                                                        "Total Score" = FIELD("Total Score Decimal"),
+                                                                        "Results Exists Status" = FIELD("Results Exists Status")));
         }
         field(63; "Comsolidated Prefix"; Text[30])
         {
             Caption = 'Comsolidated Prefix';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Exam Grading Source"."Consolidated Prefix" WHERE("Academic Year" = FIELD("Academic Year"),
+                                                                                      "Exam Catregory" = FIELD("Exam Category"),
+                                                                                      "Total Score" = FIELD("Total Score Decimal"),
+                                                                                      "Results Exists Status" = FIELD("Results Exists Status")));
         }
         field(64; "Is a Resit/Repeat"; Boolean)
         {
             Caption = 'Is a Resit/Repeat';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."),
+                                                                  Programme = FIELD(Programme),
+                                                                  "Unit Code" = FIELD("Unit Code")));
         }
         field(65; "Exam Category"; Code[20])
         {
             Caption = 'Exam Category';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Units/Subjects"."Exam Category" WHERE("Programme Code" = FIELD(Programme),
+                                                                           Code = FIELD("Unit Code")));
         }
         field(66; "Reporting Academic Year"; Code[20])
         {
             Caption = 'Reporting Academic Year';
-            DataClassification = CustomerContent;
+            TableRelation = "ACA-Academic Year".Code;
         }
         field(67; "Lost"; Code[10])
         {
             Caption = 'Lost';
-            DataClassification = CustomerContent;
         }
         field(68; "Is Supp. Unit"; Boolean)
         {
             Caption = 'Is Supp. Unit';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."),
+                                                                  "Unit Code" = FIELD("Unit Code"),
+                                                                  Category = FILTER(Supplementary)));
         }
         field(69; "Special Unit Reason"; Code[20])
         {
             Caption = 'Special Unit Reason';
-            DataClassification = CustomerContent;
         }
         field(70; "Unit Stage"; Code[20])
         {
             Caption = 'Unit Stage';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Units/Subjects"."Stage Code" WHERE("Programme Code" = FIELD(Programme),
+                                                                         Code = FIELD("Unit Code")));
         }
         field(71; "Is Special Unit"; Boolean)
         {
             Caption = 'Is Special Unit';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."),
+                                                                  "Unit Code" = FIELD("Unit Code"),
+                                                                  Category = FILTER(Special)));
+        }
+        field(72; "Is Supp/Special"; Boolean)
+        {
+            Caption = 'Is Supp/Special';
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."),
+                                                                  "Unit Code" = FIELD("Unit Code"),
+                                                                  "Academic Year" = FIELD("Academic Year")));
         }
     }
 
     keys
     {
-        key(PK; "Student No.", Programme, "Unit Code", "Academic Year", "Year of Study")
+        key(PK; "Student No.", "Programme", "Unit Code")
         {
             Clustered = true;
         }
     }
-} 
+}
