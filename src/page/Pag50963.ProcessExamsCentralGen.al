@@ -3648,6 +3648,7 @@ page 50963 "Process Exams Central Gen."
                 CoursesRegz.CALCFIELDS("Attained Stage Units");
                 IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
                 CLEAR(StudCoregcs);
+                StudCoregcs.CalcFields("Stoppage Exists In Acad. Year");
                 StudCoregcs.RESET;
                 StudCoregcs.SETRANGE("Student No.", CoursesRegz."Student Number");
                 StudCoregcs.SETRANGE("Academic Year", CoursesRegz."Academic Year");
@@ -4690,7 +4691,7 @@ page 50963 "Process Exams Central Gen."
                 IF Coregcs.FIND('+') THEN;
                 Progyz.RESET;
                 Progyz.SETRANGE(Code, ACAExamCourseRegistration.Programme);
-                IF Progyz.FIND('-') THEN;
+                IF Progyz.FIND('-') THEN; 
                 ACAExamCourseRegistration.CALCFIELDS("Total Marks", "Total Courses", "Total Weighted Marks",
               "Total Units", "Classified Total Marks", "Total Classified C. Count", "Classified W. Total", "Attained Stage Units", Average, "Weighted Average");
                 ACAExamCourseRegistration."Normal Average" := ROUND((ACAExamCourseRegistration.Average), 0.01, '=');
