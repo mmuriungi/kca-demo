@@ -8,7 +8,6 @@ table 50061 "ACA-SuppSenate Repo. Header"
         field(1; "Academic Year"; Code[20])
         {
             Caption = 'Academic Year';
-            DataClassification = CustomerContent;
         }
         field(2; "School Code"; Code[20])
         {

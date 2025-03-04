@@ -19,22 +19,25 @@ table 50060 "ACA-Supp. Results Status"
         {
             Caption = 'Students Count';
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Course Registration" WHERE(Programmes = FIELD("Programme Filter"), "Academic Year" = FIELD("Academic Year"), Faculty = FIELD("Faculty Filter"), "Exam Status" = FIELD(Code), "Year Of Study" = FIELD("Year of Study Filter")));
+            CalcFormula = Count("ACA-Course Registration" WHERE("Programmes" = FIELD("Programme Filter"), "Academic Year" = FIELD("Academic Year"), "Faculty" = FIELD("Faculty Filter"), "Exam Status" = FIELD(Code), "Year Of Study" = FIELD("Year of Study Filter")));
         }
         field(4; "Programme Filter"; Code[100])
         {
             Caption = 'Programme Filter';
             FieldClass = FlowFilter;
+            TableRelation = "ACA-Programme";
         }
         field(5; "Stage Filter"; Code[100])
         {
             Caption = 'Stage Filter';
             FieldClass = FlowFilter;
+            TableRelation = "ACA-Programme Stages".Code WHERE("Programme Code" = FIELD("Programme Filter"));
         }
         field(6; "Semester Filter"; Code[100])
         {
             Caption = 'Semester Filter';
             FieldClass = FlowFilter;
+            TableRelation = "ACA-Programme Semesters".Semester WHERE("Programme Code" = FIELD("Programme Filter"));
         }
         field(7; "Status Msg1"; Text[100])
         {
@@ -85,7 +88,8 @@ table 50060 "ACA-Supp. Results Status"
         field(50000; "Semester"; Code[100])
         {
             Caption = 'Semester';
-            DataClassification = CustomerContent;
+            FieldClass = FlowFilter;
+            TableRelation = "ACA-Programme Semesters".Semester WHERE("Programme Code" = FIELD("Programme Filter"));
         }
         field(50001; "Prefix"; Code[20])
         {
@@ -96,16 +100,19 @@ table 50060 "ACA-Supp. Results Status"
         {
             Caption = 'Session Filter';
             FieldClass = FlowFilter;
+            TableRelation = "ACA-Intake".Code;
         }
         field(50003; "Campus Filter"; Code[20])
         {
             Caption = 'Campus Filter';
             FieldClass = FlowFilter;
+            TableRelation = "Dimension Value".Code WHERE("Dimension Code" = FILTER('CAMPUS'));
         }
         field(50004; "Students Count Cumm"; Integer)
         {
             Caption = 'Students Count Cumm';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Count("ACA-Course Registration" WHERE(Programmes = FIELD("Programme Filter"), Semester = FIELD(Semester), Stage = FIELD("Stage Filter"), "Cumm Status" = FIELD(Code), Reversed = CONST(false), Session = FIELD("Session Filter"), "Cust Exist" = FILTER(> 0), Blocked = CONST(0), "Units Taken" = FILTER(> 0), Reversed = CONST(false), "Campus Filter" = FIELD("Campus Filter")));
         }
         field(50005; "Status Msg6"; Text[200])
         {
@@ -156,7 +163,8 @@ table 50060 "ACA-Supp. Results Status"
         {
             Caption = 'Status';
             DataClassification = CustomerContent;
-            OptionMembers = " ";
+            OptionCaption = 'Registration,Current,Alluminae,Dropped Out,Deffered,Suspended,Expulsion,Discontinued,Deferred,Deceased,Transferred,Disciplinary,Unknown,Completed not graduated,Graduated no Certificates,Graduated with Certificate';
+            OptionMembers = Registration,Current,Alluminae,"Dropped Out",Deffered,Suspended,Expulsion,Discontinued,Deferred,Deceased,Transferred,Disciplinary,Unknown,"Completed not graduated","Graduated no Certificates","Graduated with Certificate";
         }
         field(63021; "Summary Page Caption"; Text[250])
         {
@@ -172,7 +180,8 @@ table 50060 "ACA-Supp. Results Status"
         {
             Caption = 'Fails Based on';
             DataClassification = CustomerContent;
-            OptionMembers = " ";
+            OptionCaption = 'Unit Count,Percentage Fail';
+            OptionMembers = "Unit Count","Percentage Fail";
         }
         field(63024; "Transcript Remarks"; Code[100])
         {
@@ -188,12 +197,14 @@ table 50060 "ACA-Supp. Results Status"
         {
             Caption = 'Academic Year';
             DataClassification = CustomerContent;
+            TableRelation = "ACA-Academic Year".Code;
         }
         field(63027; "Min/Max Based on"; Option)
         {
             Caption = 'Min/Max Based on';
             DataClassification = CustomerContent;
-            OptionMembers = " ";
+            OptionCaption = 'Courses,Percentage (%),Credit Hours';
+            OptionMembers = Courses,"Percentage (%)","Credit Hours";
         }
         field(63028; "Include Academic Year Caption"; Boolean)
         {
@@ -208,7 +219,7 @@ table 50060 "ACA-Supp. Results Status"
         field(63030; "Faculty Filter"; Code[20])
         {
             Caption = 'Faculty Filter';
-            FieldClass=FlowFilter;
+            FieldClass = FlowFilter;
         }
         field(63031; "Year of Study Filter"; Integer)
         {
@@ -254,13 +265,16 @@ table 50060 "ACA-Supp. Results Status"
         {
             Caption = 'Special Programme Class';
             DataClassification = CustomerContent;
-            OptionMembers = " ","Medicine & Nursing";
+
+            OptionCaption = 'General,Medicine & Nursing,Engineering';
+            OptionMembers = General,"Medicine & Nursing",Engineering;
         }
         field(63040; "Special Programme Scope"; Option)
         {
             Caption = 'Special Programme Scope';
             DataClassification = CustomerContent;
-            OptionMembers = " ";
+            OptionCaption = 'Entire Programme,Cores,Cores & Electives,Electives,Required,Common';
+            OptionMembers = "Entire Programme",Cores,"Cores & Electives",Electives,Required,Common;
         }
         field(63041; "Include no. of Repeats"; Boolean)
         {
@@ -436,9 +450,13 @@ table 50060 "ACA-Supp. Results Status"
 
     keys
     {
-        key(PK; "Code")
+        key(PK; "Code", "Academic Year","Special Programme Class")
         {
             Clustered = true;
+        }
+        key(SPK; "Order No")
+        {
+            
         }
     }
 }
