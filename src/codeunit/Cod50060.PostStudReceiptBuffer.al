@@ -59,6 +59,7 @@ codeunit 50060 "Post Stud Receipt Buffer"
         // receiptsBuffer.SetRange("Batch No.", scholarshipHeader."Batch No.");
         receiptsBuffer.SetRange(Posted, false);
         receiptsBuffer.SetFilter(Amount, '>%1', 0);
+        receiptsBuffer.SetRange(Invalid, false);
         if receiptsBuffer.Find('-') then
             repeat
                 receiptsBuffer.CalcFields("Stud Exist");
