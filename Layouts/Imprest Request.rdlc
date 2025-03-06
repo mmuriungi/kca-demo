@@ -64,17 +64,8 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="log">
-          <DataField>log</DataField>
-        </Field>
-        <Field Name="Address">
-          <DataField>Address</DataField>
-        </Field>
-        <Field Name="Address2">
-          <DataField>Address2</DataField>
+        <Field Name="ReportForNavId_1000000053">
+          <DataField>ReportForNavId_1000000053</DataField>
         </Field>
         <Field Name="Payments_Header__No__">
           <DataField>Payments_Header__No__</DataField>
@@ -126,6 +117,9 @@ End Function
         </Field>
         <Field Name="Purpose">
           <DataField>Purpose</DataField>
+        </Field>
+        <Field Name="ReportForNavId_1000000004">
+          <DataField>ReportForNavId_1000000004</DataField>
         </Field>
         <Field Name="Payment_Line_Amount">
           <DataField>Payment_Line_Amount</DataField>
