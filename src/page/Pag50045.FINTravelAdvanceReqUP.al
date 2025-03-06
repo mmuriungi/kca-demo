@@ -1055,7 +1055,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                 FINBudgetEntries.SETRANGE("Budget Name", BCSetup."Current Budget Code");
                 FINBudgetEntries.SETRANGE("G/L Account No.", FINImprestLines."Account No:");
                 FINBudgetEntries.SETRANGE("Global Dimension 1 Code", Rec."Global Dimension 1 Code");
-                FINBudgetEntries.SETRANGE("Global Dimension 2 Code", Rec."Shortcut Dimension 2 Code");
+                FINBudgetEntries.SETRANGE("Global Dimension 2 Code", FINImprestLines."Shortcut Dimension 2 Code");
                 FINBudgetEntries.SETFILTER("Transaction Type", '%1|%2|%3', FINBudgetEntries."Transaction Type"::Expense, FINBudgetEntries."Transaction Type"::Commitment
                 , FINBudgetEntries."Transaction Type"::Allocation);
                 FINBudgetEntries.SETFILTER("Commitment Status", '%1|%2|%3', FINBudgetEntries."Commitment Status"::" ", FINBudgetEntries."Commitment Status"::"Commited/Posted",
@@ -1064,18 +1064,28 @@ page 50045 "FIN-Travel Advance Req. UP"
                 IF FINBudgetEntries.FIND('-') THEN BEGIN
                     IF FINBudgetEntries.CALCSUMS(Amount) THEN BEGIN
                         IF FINBudgetEntries.Amount > 0 THEN BEGIN
-                            IF (FINImprestLines.Amount > FINBudgetEntries.Amount) THEN ERROR('Less Funds, Account:' + GLAccount.Name + ', Department:' + DimensionValue.Name);
+                            IF (FINImprestLines.Amount > FINBudgetEntries.Amount) THEN ERROR('Less Funds, Account:' + GLAccount.Name + ', Department:' + GetDimension2Name);
                             // Commit Budget Here
                             PostBudgetEnties.CheckBudgetAvailability(FINImprestLines."Account No:", Rec.Date, Rec."Global Dimension 1 Code", Rec."Shortcut Dimension 2 Code",
                             FINImprestLines.Amount, Rec.Purpose, 'IMPREST', Rec."No." + FINImprestLines."Account No:", Rec.Purpose, Rec.Payee);
                         END ELSE
-                            ERROR('No allocation for  Account:' + GLAccount.Name + ', Department:' + DimensionValue.Name);
+                            ERROR('No allocation for  Account:' + GLAccount.Name + ', Department:' + GetDimension2Name);
                     END;
                 END ELSE
-                    IF PostBudgetEnties.checkBudgetControl(FINImprestLines."Account No:") THEN ERROR('Missing Budget for  Account:' + GLAccount.Name + ', Department:' + DimensionValue.Name);
+                    IF PostBudgetEnties.checkBudgetControl(FINImprestLines."Account No:") THEN ERROR('Missing Budget for  Account:' + GLAccount.Name + ', Department:' + GetDimension2Name);
             END;
             UNTIL FINImprestLines.NEXT = 0;
         END;
+    end;
+
+    procedure GetDimension2Name(): Text
+    var
+        DimensionValue: Record "Dimension Value";
+    begin
+        DimensionValue.RESET;
+        DimensionValue.SETRANGE(Code, Rec."Shortcut Dimension 2 Code");
+        if DimensionValue.FIND('-') then
+            exit(DimensionValue.Name);
     end;
 
     local procedure ExpenseBudget()

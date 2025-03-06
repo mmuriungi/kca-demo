@@ -270,7 +270,7 @@ table 50028 "FIN-Receipts Header"
         }
         field(50004; "Imprest No"; Code[20])
         {
-            TableRelation = "FIN-Imprest Header"."No." WHERE(Status = CONST(Approved));
+            TableRelation = "FIN-Imprest Header"."No." WHERE(Posted = CONST(true), "Account No."=field("Student/staff No"));
         }
         field(50006; "Application No"; Code[20])
         {

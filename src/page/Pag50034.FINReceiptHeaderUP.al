@@ -116,6 +116,7 @@ page 50034 "FIN-Receipt Header UP"
                 field("Student/staff No"; Rec."Student/staff No")
                 {
                     // ApplicationArea = All;
+                    Caption = 'Staff No.';
                 }
 
                 field("Imprest No"; Rec."Imprest No")
