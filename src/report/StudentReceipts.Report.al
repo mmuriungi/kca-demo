@@ -1,30 +1,28 @@
-/// <summary>
-/// Report Student Receipts (ID 51672).
-/// </summary>
-report 50491 "Student Receipts"
+#pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
+Report 51672 "Student Receipts"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/Student Receipts.rdl';
+    RDLCLayout = './Layouts/Student Receipts.rdlc';
 
     dataset
     {
-        dataitem(DataItem1410; "ACA-Programme")
+        dataitem("ACA-Programme"; "ACA-Programme")
         {
-            DataItemTableView = SORTING(Code)
-                                ORDER(Ascending);
+            DataItemTableView = sorting(Code) order(ascending);
             PrintOnlyIfDetail = true;
-            column(USERID; USERID)
+            column(ReportForNavId_1410; 1410)
+            {
+            }
+            column(USERID; UserId)
             {
             }
             column(COMPANYNAME; COMPANYNAME)
             {
             }
-#pragma warning disable AL0667
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
-#pragma warning restore AL0667
+            column(CurrReport_PAGENO; CurrReport.PageNo)
             {
             }
-            column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
+            column(FORMAT_TODAY_0_4_; Format(Today, 0, 4))
             {
             }
             column(Totald; Totald)
@@ -45,27 +43,27 @@ report 50491 "Student Receipts"
             column(Programme_Code; Code)
             {
             }
-            dataitem(DataItem2901; "ACA-Course Registration")
+            dataitem("ACA-Course Registration"; "ACA-Course Registration")
             {
-                DataItemLink = Programmes = FIELD(Code);
-                DataItemTableView = SORTING("Student No.")
-                                    ORDER(Ascending)
-                                   //WHERE(reversed =filter(Boolean))
-                                   ;
+                DataItemLink = Programmes = field(Code);
+                DataItemTableView = sorting("Student No.") order(ascending) where(Reversed = const(false));
                 PrintOnlyIfDetail = true;
                 RequestFilterFields = Programmes, "Settlement Type", Stage, Session, Semester;
-                column(Student_No_; "Student No.")
+                column(ReportForNavId_2901; 2901)
                 {
                 }
-                column(Names; Names)
+                column(Customer__No__Caption; Customer.FieldCaption("No."))
                 {
                 }
-                // column(Customer__Debit_Amount__LCY__Caption; Customer.FIELDCAPTION("Debit Amount (LCY)"))
-                // {
-                // }
-                // column(Customer__Credit_Amount__LCY__Caption; Customer.FIELDCAPTION("Credit Amount (LCY)"))
-                // {
-                // }
+                column(Customer_NameCaption; Customer.FieldCaption(Name))
+                {
+                }
+                column(Customer__Debit_Amount__LCY__Caption; Customer.FieldCaption("Debit Amount (LCY)"))
+                {
+                }
+                column(Customer__Credit_Amount__LCY__Caption; Customer.FieldCaption("Credit Amount (LCY)"))
+                {
+                }
                 column(V35___CreditCaption; V35___CreditCaptionLbl)
                 {
                 }
@@ -99,17 +97,14 @@ report 50491 "Student Receipts"
                 column(Course_Registration_Entry_No_; "Entry No.")
                 {
                 }
-                column(Course_Registration__Stage; Stage)
+                dataitem(Customer; Customer)
                 {
-                }
-                dataitem(DataItem6836; 18)
-                {
-                    DataItemLink = "No." = FIELD("Student No.");
-                    DataItemTableView = SORTING("No.")
-                                        ORDER(Ascending)
-                                        // WHERE(Customer Type=CONST(Student))
-                                        ;
+                    DataItemLink = "No." = field("Student No.");
+                    DataItemTableView = sorting("No.") order(ascending) where("Customer Type" = const(Student));
                     RequestFilterFields = "No.", "Date Filter", "Balance (LCY)", "Debit Amount (LCY)", "Credit Amount (LCY)", "Credit Amount";
+                    column(ReportForNavId_6836; 6836)
+                    {
+                    }
                     column(Customer__No__; "No.")
                     {
                     }
@@ -122,19 +117,21 @@ report 50491 "Student Receipts"
                     column(Customer__Credit_Amount__LCY__; "Credit Amount (LCY)")
                     {
                     }
-                    column(Customer__Credit_Amount__LCY___0_35; "Credit Amount (LCY)" * 0.35)
+                    column(Customer__Credit_Amount__LCY___0_35; Customer."Credit Amount (LCY)" * 0.35)
                     {
                     }
                     column(Hesabu; Hesabu)
                     {
                     }
-
+                    column(Course_Registration__Stage; "ACA-Course Registration".Stage)
+                    {
+                    }
 
                     trigger OnAfterGetRecord()
                     begin
-                        Totald := Totald + "Debit Amount (LCY)";
-                        totalc := totalc + "Credit Amount (LCY)";
-                        totalb := totalb + "Balance (LCY)";
+                        Totald := Totald + Customer."Debit Amount (LCY)";
+                        totalc := totalc + Customer."Credit Amount (LCY)";
+                        totalb := totalb + Customer."Balance (LCY)";
                     end;
                 }
             }
@@ -162,9 +159,9 @@ report 50491 "Student Receipts"
         totalc: Decimal;
         Totald: Decimal;
         totalb: Decimal;
-        CurrReport_PAGENOCaptionLbl: Label 'Page';
-        CustomerCaptionLbl: Label 'Customer';
-        V35___CreditCaptionLbl: Label '35 % Credit';
-        StageCaptionLbl: Label 'Stage';
+        CurrReport_PAGENOCaptionLbl: label 'Page';
+        CustomerCaptionLbl: label 'Customer';
+        V35___CreditCaptionLbl: label '35 % Credit';
+        StageCaptionLbl: label 'Stage';
 }
 

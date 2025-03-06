@@ -91,36 +91,36 @@ Report 78092 "Student Fee Statement Nfm"
                     Gl: Code[25];
                 begin
                     //runningBal:=runningBal+"Detailed Cust. Ledg. Entry"."Debit Amount"-"Detailed Cust. Ledg. Entry"."Credit Amount";
-                    ignore := false;
+                    ignore := FALSE;
                     Semester := '';
-                    if "Detailed Cust. Ledg. Entry".Amount <> 0 then begin
-                        GlEntry.Reset;
-                        GlEntry.SetRange("Document No.", "Detailed Cust. Ledg. Entry"."Document No.");
-                        GlEntry.SetFilter("G/L Account No.", '%1|%2', '30008', '30004');
-                        if GlEntry.FindFirst then CurrReport.Skip;
-                    end;
+                    IF "Detailed Cust. Ledg. Entry".Amount <> 0 THEN BEGIN
+                        GlEntry.RESET;
+                        GlEntry.SETRANGE("Document No.", "Detailed Cust. Ledg. Entry"."Document No.");
+                        GlEntry.SETFILTER("G/L Account No.", '%1|%2', '30008', '30004');
+                        IF GlEntry.FINDFIRST THEN CurrReport.SKIP;
+                    END;
 
 
 
-                    CustLedgerEntry.Reset;
-                    CustLedgerEntry.SetRange(CustLedgerEntry."Entry No.", "Detailed Cust. Ledg. Entry"."Cust. Ledger Entry No.");
-                    if CustLedgerEntry.Find('-') then begin
-                        if CustLedgerEntry.Reversed then CurrReport.Skip;
-                    end;
+                    CustLedgerEntry.RESET;
+                    CustLedgerEntry.SETRANGE(CustLedgerEntry."Entry No.", "Detailed Cust. Ledg. Entry"."Cust. Ledger Entry No.");
+                    IF CustLedgerEntry.FIND('-') THEN BEGIN
+                        IF CustLedgerEntry.Reversed THEN CurrReport.SKIP;
+                    END;
                     Gl := '';
-                    if "Detailed Cust. Ledg. Entry"."Debit Amount" <> 0 then begin
-                        GlEntry.Reset;
-                        GlEntry.SetRange("Document No.", "Detailed Cust. Ledg. Entry"."Document No.");
-                        GlEntry.SetFilter("G/L Account No.", '%1|%2|%3|%4|%5|%6|%7', '60055', '60090', '60092', '60096', '60098', '60130', '60075');
-                        if GlEntry.FindFirst then begin
-                            ignore := true;
+                    IF "Detailed Cust. Ledg. Entry"."Debit Amount" <> 0 THEN BEGIN
+                        GlEntry.RESET;
+                        GlEntry.SETRANGE("Document No.", "Detailed Cust. Ledg. Entry"."Document No.");
+                        GlEntry.SETFILTER("G/L Account No.", '%1|%2|%3|%4|%5|%6|%7', '60055', '60090', '60092', '60096', '60098', '60130', '60075');
+                        IF GlEntry.FINDFIRST THEN BEGIN
+                            ignore := TRUE;
                             Gl := GlEntry."G/L Account No.";
-                        end;
-                    end;
-                    if "Detailed Cust. Ledg. Entry"."Document No." in ['KUCCPS', 'CUE', 'ID'] then begin
+                        END;
+                    END;
+                    IF "Detailed Cust. Ledg. Entry"."Document No." IN ['KUCCPS', 'CUE', 'ID'] THEN BEGIN
 
-                        ignore := true;
-                    end;
+                        ignore := TRUE;
+                    END;
                     DebitAmount := 0;
                     CreditAmount := 0;
                     TotalAmount := 0;
@@ -128,40 +128,44 @@ Report 78092 "Student Fee Statement Nfm"
                     DebitAmount := "Detailed Cust. Ledg. Entry".Amount;
                     CreditAmount := "Detailed Cust. Ledg. Entry"."Credit Amount";
                     TotalAmount := "Detailed Cust. Ledg. Entry".Amount;
-                    if DebitAmount > 0 then begin
-                        AbsAmount := Abs("Detailed Cust. Ledg. Entry".Amount);
+                    IF DebitAmount > 0 THEN BEGIN
+                        AbsAmount := ABS("Detailed Cust. Ledg. Entry".Amount);
                         // MESSAGE('NO. %1 date %2 amt %3',"Detailed Cust. Ledg. Entry"."Customer No.","Detailed Cust. Ledg. Entry"."Posting Date",AbsAmount);
 
-                        StdCharges.Reset;
-                        StdCharges.SetRange("Student No.", "Detailed Cust. Ledg. Entry"."Customer No.");
+                        StdCharges.RESET;
+                        StdCharges.SETRANGE("Student No.", "Detailed Cust. Ledg. Entry"."Customer No.");
                         //           StdCharges.SETRANGE(Date,"Detailed Cust. Ledg. Entry"."Posting Date");
-                        StdCharges.SetRange("Transacton ID", "Detailed Cust. Ledg. Entry"."Document No.");
-                        if StdCharges.FindFirst then begin
-                            Bandentry.Reset;
-                            Bandentry.SetRange("Student No.", Customer."No.");
-                            Bandentry.SetRange(Semester, StdCharges.Semester);
-                            Bandentry.SetRange(Archived, false);
-                            Bandentry.SetCurrentkey("Batch No.");
-                            if Bandentry.Find('-') then begin
+                        StdCharges.SETRANGE("Transacton ID", "Detailed Cust. Ledg. Entry"."Document No.");
+                        IF StdCharges.FINDFIRST THEN BEGIN
+                            Bandentry.RESET;
+                            Bandentry.SETRANGE("Student No.", Customer."No.");
+                            Bandentry.SETRANGE(Semester, StdCharges.Semester);
+                            Bandentry.SETRANGE(Archived, FALSE);
+                            Bandentry.SETCURRENTKEY("Batch No.");
+                            IF Bandentry.FIND('-') THEN BEGIN
                                 HshldPerc := Bandentry."HouseHold Percentage";
-                            end;
+                            END;
                             Semester := StdCharges.Semester;
-                            Sems.Reset;
-                            Sems.SetRange(Sems.Code, Semester);
-                            if Sems.FindFirst then begin
+                            Sems.RESET;
+                            Sems.SETRANGE(Sems.Code, Semester);
+                            IF Sems.FINDFIRST THEN BEGIN
                                 HefProcessingFee := Sems."HEF Processing Fee";
-                            end;
-                        end;
-                    end;
-                    if ("Detailed Cust. Ledg. Entry".Amount = (Bandentry."Programme Cost" / 2)) or (not ignore) then begin
-                        Bandentry.Reset;
-                        Bandentry.SetRange("Student No.", Customer."No.");
-                        Bandentry.SetRange(Archived, false);
-                        Bandentry.SetRange(Semester, StdCharges.Semester);
-                        Bandentry.SetCurrentkey("Batch No.");
-                        if Bandentry.Find('-') then begin
+                            END;
+                        END ELSE BEGIN
+                            IF "Detailed Cust. Ledg. Entry"."Document No." = 'TUITION' THEN BEGIN
+                                Semester := 'SEM1 24/25';
+                            END;
+                        END;
+                    END;
+                    IF ("Detailed Cust. Ledg. Entry".Amount = (Bandentry."Programme Cost" / 2)) OR (NOT ignore) THEN BEGIN
+                        Bandentry.RESET;
+                        Bandentry.SETRANGE("Student No.", Customer."No.");
+                        Bandentry.SETRANGE(Archived, FALSE);
+                        Bandentry.SETRANGE(Semester, Semester);
+                        Bandentry.SETCURRENTKEY("Batch No.");
+                        IF Bandentry.FIND('-') THEN BEGIN
                             HshldPerc := Bandentry."HouseHold Percentage";
-                        end;
+                        END;
                         //      IF HshldPerc=0 THEN BEGIN
                         //      bands.RESET;
                         //      bands.SETRANGE(bands."Band Code",Bandentry."Band Code");
@@ -170,78 +174,78 @@ Report 78092 "Student Fee Statement Nfm"
                         //        HshldPerc:=bands."Household Percentage";
                         //        END;
                         //      END;
-                        if (HshldPerc <> 0) then begin
-                            if DebitAmount > 0 then begin
+                        IF (HshldPerc <> 0) THEN BEGIN
+                            IF DebitAmount > 0 THEN BEGIN
                                 DebitAmount := ((HshldPerc / 100) * DebitAmount);
-                            end
-                            else
+                            END
+                            ELSE
                                 DebitAmount := 0;
                             TotalAmount := (HshldPerc / 100) * TotalAmount;
-                        end;
-                    end;
+                        END;
+                    END;
 
-                    if (DebitAmount > 0) or ignore and (Semester = '') then begin
-                        if ("Detailed Cust. Ledg. Entry"."Document No." in ['KUCCPS', 'CUE', 'ID']) or ignore then begin
-                            CosReg.Reset;
-                            CosReg.SetRange("Student No.", "Detailed Cust. Ledg. Entry"."Customer No.");
-                            CosReg.SetCurrentkey(Semester);
-                            if CosReg.FindFirst then begin
+                    IF (DebitAmount > 0) OR ignore AND (Semester = '') THEN BEGIN
+                        IF ("Detailed Cust. Ledg. Entry"."Document No." IN ['KUCCPS', 'CUE', 'ID']) OR ignore THEN BEGIN
+                            CosReg.RESET;
+                            CosReg.SETRANGE("Student No.", "Detailed Cust. Ledg. Entry"."Customer No.");
+                            CosReg.SETCURRENTKEY(Semester);
+                            IF CosReg.FINDFIRST THEN BEGIN
                                 Semester := CosReg.Semester;
-                            end;
-                        end;
-                    end;
+                            END;
+                        END;
+                    END;
                     //MESSAGE('added %1 fee %2',ProcessingfeeAdded,HefProcessingFee);
-                    if (Lastsemester <> Semester) and (HefProcessingFee <> 0) and (Semester <> '') and (not ignore) then begin
+                    IF (Lastsemester <> Semester) AND (HefProcessingFee <> 0) AND (Semester <> '') AND (NOT ignore) THEN BEGIN
                         DebitAmount += HefProcessingFee;
                         TotalAmount += HefProcessingFee;
                         //          MESSAGE('procfee %1',HefProcessingFee);
-                        ProcessingfeeAdded := true;
+                        ProcessingfeeAdded := TRUE;
                         Lastsemester := Semester;
-                    end;
+                    END;
 
-                    NfmEntry.Init;
+                    NfmEntry.INIT;
                     NfmEntry."Student No." := "Detailed Cust. Ledg. Entry"."Customer No.";
                     NfmEntry."Entry No" := 0;
                     NfmEntry."Credit amount" := CreditAmount;
-                    if DebitAmount > 0 then
+                    IF DebitAmount > 0 THEN
                         NfmEntry."Debit amount" := DebitAmount;
-                    if DebitAmount > 0 then begin
+                    IF DebitAmount > 0 THEN BEGIN
                         TotalAmount := DebitAmount;
                         NfmEntry.Description := 'Student Household Charges for Semester: ' + Semester;
                         NfmEntry.Type := NfmEntry.Type::Debit;
-                        if ignore then begin
+                        IF ignore THEN BEGIN
                             NfmEntry.Description := CustLedgerEntry.Description;
                             NfmEntry.Type := NfmEntry.Type::Credit;
                             //message('aye %1',CustLedgerEntry.Description);
-                        end;
-                    end
-                    else if CreditAmount <> 0 then begin
-                        TotalAmount := (Abs(CreditAmount)) * -1;
-                        NfmEntry.Description := CopyStr(CustLedgerEntry.Description, 1, 50) + CustLedgerEntry."External Document No.";
+                        END;
+                    END
+                    ELSE IF CreditAmount <> 0 THEN BEGIN
+                        TotalAmount := (ABS(CreditAmount)) * -1;
+                        NfmEntry.Description := COPYSTR(CustLedgerEntry.Description, 1, 50) + CustLedgerEntry."External Document No.";
                         NfmEntry.Type := NfmEntry.Type::Credit;
-                    end;
+                    END;
                     //  IF Semester='' THEN BEGIN
                     //  NfmEntry.Description:="Detailed Cust. Ledg. Entry"."Document No."+' '+COPYSTR(CustLedgerEntry.Description,1,50)+CustLedgerEntry."External Document No.";
                     //  END;
                     NfmEntry.Semester := Semester;
                     NfmEntry.Amount := TotalAmount;
                     NfmEntry.Date := "Detailed Cust. Ledg. Entry"."Posting Date";
-                    if NfmEntry.Type = NfmEntry.Type::Debit then begin
-                        NfmEntryII.Reset;
-                        NfmEntryII.SetRange(NfmEntryII."Student No.", "Detailed Cust. Ledg. Entry"."Customer No.");
-                        NfmEntryII.SetRange(NfmEntryII.Semester, Semester);
-                        NfmEntryII.SetRange(NfmEntryII.Type, NfmEntry.Type::Debit);
-                        if NfmEntryII.FindFirst then begin
+                    IF NfmEntry.Type = NfmEntry.Type::Debit THEN BEGIN
+                        NfmEntryII.RESET;
+                        NfmEntryII.SETRANGE(NfmEntryII."Student No.", "Detailed Cust. Ledg. Entry"."Customer No.");
+                        NfmEntryII.SETRANGE(NfmEntryII.Semester, Semester);
+                        NfmEntryII.SETRANGE(NfmEntryII.Type, NfmEntry.Type::Debit);
+                        IF NfmEntryII.FINDFIRST THEN BEGIN
                             NfmEntryII.Amount += TotalAmount;
                             NfmEntryII."Credit amount" += CreditAmount;
                             NfmEntryII."Debit amount" += DebitAmount;
-                            NfmEntryII.Modify();
-                        end else
-                            NfmEntry.Insert(true);
-                    end else
-                        NfmEntry.Insert(true);
-                    Commit;
-                   // Customer.CalcFields("Nfm Balance");
+                            NfmEntryII.MODIFY();
+                        END ELSE
+                            NfmEntry.INSERT(TRUE);
+                    END ELSE
+                        NfmEntry.INSERT(TRUE);
+                    COMMIT;
+                    // Customer.CALCFIELDS("Nfm Balance");
                 end;
             }
             dataitem("NFM Statement Entry"; "NFM Statement Entry")

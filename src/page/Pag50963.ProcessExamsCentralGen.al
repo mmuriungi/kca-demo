@@ -3648,6 +3648,7 @@ page 50963 "Process Exams Central Gen."
                 CoursesRegz.CALCFIELDS("Attained Stage Units");
                 IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
                 CLEAR(StudCoregcs);
+                StudCoregcs.CalcFields("Stoppage Exists In Acad. Year");
                 StudCoregcs.RESET;
                 StudCoregcs.SETRANGE("Student No.", CoursesRegz."Student Number");
                 StudCoregcs.SETRANGE("Academic Year", CoursesRegz."Academic Year");
@@ -4885,6 +4886,7 @@ page 50963 "Process Exams Central Gen."
         ACARegStoppageReasons: Record "ACA-Reg. Stoppage Reasons";
         AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
         StudCoregcs: Record "ACA-Course Registration";
+        ObjUnits: Record "ACA-Student Units";
     begin
         CLEAR(StatusRemarks);
         CLEAR(YearlyReMarks);
@@ -4946,6 +4948,16 @@ page 50963 "Process Exams Central Gen."
                 IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
                 //IF CoursesRegz."Exists DTSC Prefix" THEN StatusRemarks:='DTSC';
                 //IF CoursesRegz."Special Registration Exists" THEN StatusRemarks:='Special';
+                IF (NOT CoursesRegz."Special Registration Exists") AND (StatusRemarks = 'DTSC') THEN BEGIN
+                    ///Ensure special is not skipped.
+                    ObjUnits.RESET;
+                    ObjUnits.SETRANGE("Student No.", CoursesRegz."Student Number");
+                    ObjUnits.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                    ObjUnits.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
+                    ObjUnits.SETRANGE(ObjUnits."Special Exam", ObjUnits."Special Exam"::Special);
+                    IF ObjUnits.FINDFIRST THEN
+                        StatusRemarks := 'Special';
+                end;
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////
                 // Check if exists a stopped Semester for the Academic Years and Pick the Status on the lines as the rightful Status
@@ -4996,7 +5008,16 @@ page 50963 "Process Exams Central Gen."
                         YearlyReMarks := StatusRemarks;
                     END;
                 END;
-
+                IF (NOT CoursesRegz."Special Registration Exists") AND (StatusRemarks = 'DTSC') THEN BEGIN
+                    ///Ensure special is not skipped.
+                    ObjUnits.RESET;
+                    ObjUnits.SETRANGE("Student No.", CoursesRegz."Student Number");
+                    ObjUnits.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                    ObjUnits.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
+                    ObjUnits.SETRANGE(ObjUnits."Special Exam", ObjUnits."Special Exam"::Special);
+                    IF ObjUnits.FINDFIRST THEN
+                        StatusRemarks := 'Special';
+                end;
                 ACAResultsStatus.RESET;
                 ACAResultsStatus.SETRANGE(Status, Customer.Status);
                 ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
@@ -5970,6 +5991,16 @@ page 50963 "Process Exams Central Gen."
                     END;
                 END;
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                IF (NOT CoursesRegz."Special Registration Exists") AND (StatusRemarks = 'DTSC') THEN BEGIN
+                    ///Ensure special is not skipped.
+                    ObjUnits.RESET;
+                    ObjUnits.SETRANGE("Student No.", CoursesRegz."Student Number");
+                    ObjUnits.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                    ObjUnits.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
+                    ObjUnits.SETRANGE(ObjUnits."Special Exam", ObjUnits."Special Exam"::Special);
+                    IF ObjUnits.FINDFIRST THEN
+                        StatusRemarks := 'Special';
+                end;
 
             END ELSE BEGIN
 

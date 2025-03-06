@@ -128,6 +128,14 @@ page 50856 "ACA-Course Registration 3"
                         //Reversing := TRUE;
                     end;
                 }
+                field("Stoppage Reason"; Rec."Stoppage Reason")
+                {
+                    ApplicationArea = All;
+                }
+                field("Stoppage Exists In Acad. Year";Rec."Stoppage Exists In Acad. Year")
+                {
+                    ApplicationArea = All;
+                }
                 field(Remarks; Rec.Remarks)
                 {
                     ApplicationArea = All;

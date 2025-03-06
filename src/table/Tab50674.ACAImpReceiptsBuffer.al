@@ -29,7 +29,7 @@ table 50674 "ACA-Imp. Receipts Buffer"
         field(7; "Student No."; Code[20])
         {
             TableRelation = Customer where("Customer Type" = const(Student));
-            // ValidateTableRelation = false;
+            ValidateTableRelation = false;
             trigger OnValidate()
             var
                 cust: Record Customer;
@@ -95,6 +95,10 @@ table 50674 "ACA-Imp. Receipts Buffer"
         {
             Caption = 'Acknowledgement Receipt No.';
         }
+        //Invalid
+        field(23; Invalid; Boolean)
+        {
+        }
 
     }
 
@@ -119,11 +123,31 @@ table 50674 "ACA-Imp. Receipts Buffer"
 
 
     trigger OnInsert()
+    var
+        Cust: Record Customer;
     begin
         BatchHeader.Reset();
         BatchHeader.SetRange("No.", Rec."Transaction Code");
         if BatchHeader.FindFirst() then begin
             Rec."Ack. Receipt No." := BatchHeader."Receipt No";
+        end;
+        Cust.Reset();
+        Cust.SetRange("No.", Rec."Student No.");
+        if not Cust.FindFirst() then begin
+            Rec.Invalid := true;
+        end;
+    end;
+
+    trigger OnModify()
+    var
+        Cust: Record Customer;
+    begin
+        Cust.Reset();
+        Cust.SetRange("No.", Rec."Student No.");
+        if not Cust.FindFirst() then begin
+            Rec.Invalid := true;
+        end else begin
+            Rec.Invalid := false;
         end;
     end;
 }

@@ -31,6 +31,13 @@ page 51459 "ACA-Std Finance Role Center"
     {
         area(reporting)
         {
+            action("Reversal Register")
+            {
+                Caption = 'Reversal Register';
+                Image = Report;
+                RunObject = report "Reversal Register";
+                ApplicationArea = All;
+            }
             action("Student Balances BF")
             {
                 Image = Balance;

@@ -3186,8 +3186,6 @@ table 50555 "ACA-Course Registration"
             FieldClass = FlowField;
             CalcFormula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student No."), Programmes = FIELD(Programmes), "Academic Year" = FIELD("Academic Year"), Reversed = FILTER(true)));
         }
-        //Exist("ACA-Course Registration" WHERE (Student No.=FIELD(Student No.),Programme=FIELD(Programme),Year Of Study=FIELD(Year Of Study),Reversed=FILTER(Yes)))
-        //"Stoppage Exists in YoS"
         field(60203; "Stoppage Exists in YoS"; Boolean)
         {
             FieldClass = FlowField;

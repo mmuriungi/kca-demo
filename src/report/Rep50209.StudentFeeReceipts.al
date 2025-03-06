@@ -316,9 +316,8 @@ report 50209 "Student Fee Receipts"
 
 
 
-                //CheckReport.InitTextVariable;
-                //CheckReport.FormatNoText(NumberText,CheckAmount,GenJnlLine."Currency Code");
-                // CheckReport.FormatNoText2('', "ACA-Receipt".Amount, '');
+                CheckReport.InitTextVariable;
+                CheckReport.FormatNoText(NumberText, "ACA-Receipt".Amount, GenJnlLine."Currency Code");
 
                 RoomNo := '';
                 // HLedger.RESET;

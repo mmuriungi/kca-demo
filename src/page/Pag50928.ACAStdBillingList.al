@@ -706,6 +706,8 @@ page 50928 "ACA-Std Billing List"
 
                 Visible = true;
                 ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Report;
 
                 trigger OnAction()
                 begin
@@ -713,6 +715,21 @@ page 50928 "ACA-Std Billing List"
                     Cust.SETFILTER(Cust."No.", Rec."No.");
                     IF Cust.FIND('-') THEN
                         REPORT.RUN(Report::"Student Fee Statement 2", TRUE, TRUE, Cust);
+                end;
+            }
+            action("NFM Fee Statement")
+            {
+                Caption = 'NFM Fee Statement';
+                Image = Report;
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Report;
+                trigger OnAction()
+                begin
+                    Cust.RESET;
+                    Cust.SETFILTER(Cust."No.", Rec."No.");
+                    IF Cust.FIND('-') THEN
+                        REPORT.RUN(Report::"Student Fee Statement Nfm", TRUE, TRUE, Cust);
                 end;
             }
             action(Picture)
