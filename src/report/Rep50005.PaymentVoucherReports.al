@@ -693,8 +693,11 @@ report 50005 "Payment Voucher Reports"
                 InitTextVariable;
                 FormatNoText(NumberText, "Total Net Amount", CurrencyCodeText);
 
-                userSet.get(Cashier);
-                userSet.CalcFields("User Signature");
+                userSet.Reset();
+                userSet.SetRange("User ID", Cashier);
+                if userSet.FindFirst() then begin
+                    userSet.CalcFields("User Signature");
+                end;
                 /*ApprovalEntry.reset;
                 ApprovalEntry.SetRange("Document No.", PaymentHeader."No.");
                 ApprovalEntry.SetFilter("Sequence No.", '=%1', 1);
@@ -974,6 +977,7 @@ report 50005 "Payment Voucher Reports"
         fincont: Label 'Financial Controller:';
         payTypes: Record "FIN-Receipts and Payment Types";
         vends: Record Vendor;
+        pg: Page 5600;
 
         CompInf: Record "Company Information";
         NumberTextOne: Text;

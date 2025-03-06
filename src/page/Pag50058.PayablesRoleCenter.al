@@ -278,5 +278,41 @@ page 50058 "Payables Role Center"
                 RunObject = Page "FIN-Payment Vouchers";
             }
         }
+        area(Reporting)
+        {
+            group("Finance Reports")
+            {
+                action("Cheque Buffer Report")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report "FIN-Cheque Collectio  Report";
+                }
+                action("General Ledger Report")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report GeneralLedgerv3;
+                }
+                action("Reversal Register")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report "Reversal Register";
+                }
+                action("Posted Journal Report")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report "General Journal Report";
+                }
+                action("Budget Vs Commitment Analysis")
+                {
+                    ApplicationArea = All;
+                    Image = Report;
+                    RunObject = Report "Votebook Summary";
+                }
+            }
+        }
     }
 }
