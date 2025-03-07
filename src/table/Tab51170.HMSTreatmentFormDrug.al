@@ -11,7 +11,7 @@ table 51170 "HMS-Treatment Form Drug"
         field(2; "Drug No."; Code[20])
         {
             NotBlank = true;
-            TableRelation = Item."No.";
+            TableRelation = Item."No." where("Drug Category" = filter(Pharmacitical));
 
             trigger OnValidate()
             begin

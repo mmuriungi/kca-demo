@@ -1,262 +1,132 @@
 report 50002 "Imprest Request"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/Imprest Requisitions.rdl';
+    RDLCLayout = './Layouts/Imprest Request.rdlc';
 
     dataset
     {
-        dataitem("Payments Header"; "FIN-Imprest Header")
+        dataitem("Payments Header";"FIN-Imprest Header")
         {
-            DataItemTableView = SORTING("No.");
+            DataItemTableView = sorting("No.");
             RequestFilterFields = "No.";
-            column(CompanyName; Company.Name)
+            column(ReportForNavId_1000000053; 1000000053)
             {
             }
-            column(Cashier; Cashier) { }
-            column(log; Company.Picture)
+            column(Payments_Header__No__;"Payments Header"."No.")
             {
             }
-            column(Address; company.Address)
+            column(Payments_Header_Payee;"Payments Header".Payee)
             {
             }
-            column(Address2; company."Address 2")
+            column(Payments_Header__Payments_Header__Date;"Payments Header".Date)
             {
             }
-            column(CompPhone; Company."Phone No.") { }
-            column(Company_Email; Company."E-Mail") { }
-            column(Company_Website; Company."Home Page") { }
-            column(Payments_Header__No__; "Payments Header"."No.")
+            column(Payments_Header__Global_Dimension_1_Code_;"Global Dimension 1 Code")
             {
             }
-            column(Payments_Header_Payee; "Payments Header".Payee)
+            column(Account_No;"Account No.")
             {
             }
-            column(Committed_Amount; "Committed Amount") { }
-            column(Budget_Balance; "Budget Balance") { }
-            column(Total_Net_Amount; "Total Net Amount") { }
-            column(Payments_Header__Payments_Header__Date; "Payments Header".Date)
+            column(Payments_Header_Purpose;Purpose)
             {
             }
-            column(Payments_Header__Global_Dimension_1_Code_; "Global Dimension 1 Code")
+            column(DptName;DptName)
             {
             }
-            column(Account_No; "Account No.")
+            column(USERID;UserId)
             {
             }
-            column(Payments_Header_Purpose; Purpose)
+            column(NumberText_1_;NumberText[1])
             {
             }
-            column(DptName; DptName)
+            column(TTotal;TTotal)
             {
+                DecimalPlaces = 2:2;
             }
-            column(USERID; USERID)
-            {
-            }
-            column(NumberText_1_; NumberText[1])
-            {
-            }
-            column(TTotal; TTotal)
-            {
-                DecimalPlaces = 2 : 2;
-            }
-            column(TIME_PRINTED_____FORMAT_TIME_; 'TIME PRINTED:' + FORMAT(TIME))
+            column(TIME_PRINTED_____FORMAT_TIME_;'TIME PRINTED:' + Format(Time))
             {
                 AutoFormatType = 1;
             }
-            column(DATE_PRINTED_____FORMAT_TODAY_0_4_; 'DATE PRINTED:' + FORMAT(TODAY, 0, 4))
+            column(DATE_PRINTED_____FORMAT_TODAY_0_4_;'DATE PRINTED:' + Format(Today,0,4))
             {
                 AutoFormatType = 1;
             }
-            column(CurrCode; CurrCode)
+            column(CurrCode;CurrCode)
             {
             }
-            column(Projectname; Projectname)
+            column(TotalNetAmount_PaymentsHeader;"Payments Header"."Total Net Amount")
             {
+            }
+            column(Purpose;"Payments Header".Purpose)
+            {
+            }
+            dataitem("Payment Line";"FIN-Imprest Lines")
+            {
+                DataItemLink = No=field("No.");
+                DataItemTableView = sorting(No,"Account No:") order(ascending);
+                column(ReportForNavId_1000000004; 1000000004)
+                {
+                }
+                column(Payment_Line_Amount;Amount)
+                {
+                }
+                column(Account_No________Account_Name_;"Account No:"+':'+"Account Name")
+                {
+                }
+                column(Payment_Line_No;No)
+                {
+                }
+                column(Payment_Line_Account_No_;"Account No:")
+                {
+                }
 
-            }
-            column(Payee; Payee)
-            {
-
-            }
-            column(Cheque_No_; "Cheque No.") { }
-            column(TotalNetAmount_PaymentsHeader; "Payments Header"."Total Net Amount")
-            {
-            }
-            column(Purpose; "Payments Header".Purpose)
-            {
-            }
-            dataitem("Payment Line"; "FIN-Imprest Lines")
-            {
-                DataItemLink = No = FIELD("No.");
-                DataItemTableView = SORTING(No, "Account No:")
-                                    ORDER(Ascending);
-                column(Payment_Line_Amount; Amount)
-                {
-                }
-                column(UserName; UserName) { }
-                column(Account_No________Account_Name_; "Payment Line"."Account Name")
-                {
-                }
-                column(Payment_Line_No; No)
-                {
-                }
-                column(Approver1; Approver1) { }
-                column(Approver2; Approver2) { }
-                column(approver3; approver3) { }
-                column(approver4; approver4) { }
-                column(AppravalDate1; AppravalDate1) { }
-                column(ApprovalDate2; ApprovalDate2) { }
-                column(ApprovalDate3; ApprovalDate2) { }
-                column(approvalDate4; approvalDate4) { }
-                column(Purpose_Line; Purpose) { }
-                column(Payment_Line_Account_No_; "Account No:")
-                {
-                }
-                column(DimValName; DimValName) { }
                 trigger OnAfterGetRecord()
                 begin
-                    DimVal.RESET;
-                    DimVal.SETRANGE(DimVal."Global Dimension No.", 2);
-                    DimVal.SETRANGE(DimVal.Code, "Shortcut Dimension 2 Code");
-                    DimValName := '';
-                    IF DimVal.FINDFIRST THEN BEGIN
-                        DimValName := DimVal.Name;
-                    END;
+                    DimVal.Reset;
+                    DimVal.SetRange(DimVal."Global Dimension No.",2);
+                    DimVal.SetRange(DimVal.Code,"Shortcut Dimension 2 Code");
+                    DimValName:='';
+                    if DimVal.FindFirst then
+                      begin
+                        DimValName:=DimVal.Name;
+                      end;
 
-                    TTotal := TTotal + "Payment Line".Amount;
-                    "Payments Header".CALCFIELDS("Payments Header"."Total Net Amount");
+                    TTotal:=TTotal + "Payment Line".Amount ;
+                    "Payments Header".CalcFields("Payments Header"."Total Net Amount");
                     CheckReport.InitTextVariable();
-                    CheckReport.FormatNoText(NumberText, "Payments Header"."Total Net Amount", '');
-                end;
-            }
-            dataitem(ApprovalEntry; "Approval Entry")
-            {
-                DataItemLink = "Document No." = FIELD("No.");
-                DataItemTableView = WHERE(Status = CONST(Approved));
-                column(ApproverID_ApprovalEntry; ApprovalEntry."Approver ID")
-                {
-                }
-                column(LastDateTimeModified_ApprovalEntry; format(ApprovalEntry."Last Date-Time Modified"))
-                {
-                }
-
-                dataitem(UserSetUp; "User Setup")
-                {
-                    DataItemLink = "User ID" = FIELD("Approver ID");
-                    column(Signature_UserSetup; UserSetUp."User Signature")
-                    {
-                    }
-                    column(ApprovalDesignation_UserSetup; UserSetUp."Approval Title")
-                    {
-                    }
-                }
-
-                trigger OnPreDataItem()
-                begin
-                    ApprovalEntry.SETRANGE(ApprovalEntry.Status, ApprovalEntry.Status::Approved);
-                    ApprovalEntry.SetFilter(ApprovalEntry."Approver ID", '<>%1', "Payments Header".Cashier);
+                    CheckReport.FormatNoText(NumberText,"Payments Header"."Total Net Amount",'');
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
-                StrCopyText := '';
-                IF "No. Printed" >= 1 THEN BEGIN
-                    StrCopyText := 'DUPLICATE';
-                END;
-                TTotal := 0;
+                StrCopyText:='';
+                if "No. Printed">=1 then
+                  begin
+                    StrCopyText:='DUPLICATE';
+                  end;
+                TTotal:=0;
 
 
                 //Set currcode to Default if blank
-                GLSetup.GET();
-                IF "Payments Header"."Currency Code" = '' THEN BEGIN
-                    CurrCode := GLSetup."LCY Code";
-                END ELSE
-                    CurrCode := "Payments Header"."Currency Code";
+                GLSetup.Get();
+                if "Payments Header"."Currency Code"='' then begin
+                  CurrCode:=GLSetup."LCY Code";
+                end else
+                  CurrCode:="Payments Header"."Currency Code";
 
                 //For Inv Curr Code
-                IF "Payments Header"."Invoice Currency Code" = '' THEN BEGIN
-                    InvoiceCurrCode := GLSetup."LCY Code";
-                END ELSE
-                    InvoiceCurrCode := "Payments Header"."Invoice Currency Code";
+                if "Payments Header"."Invoice Currency Code"='' then begin
+                  InvoiceCurrCode:=GLSetup."LCY Code";
+                end else
+                  InvoiceCurrCode:="Payments Header"."Invoice Currency Code";
 
                 //End;
-                DimVal.RESET;
-                DimVal.SETRANGE(DimVal.Code, "Payments Header"."Shortcut Dimension 2 Code");
-                IF DimVal.FIND('-') THEN BEGIN
-                    DptName := DimVal.Name;
-                END;
-                DimVal.RESET;
-                DimVal.SETRANGE(DimVal.Code, "Payments Header"."Shortcut Dimension 3 Code");
-                IF DimVal.FIND('-') THEN BEGIN
-                    Projectname := DimVal.Name;
-                END;
-                ApprovalEntry.reset;
-                ApprovalEntry.SetRange("Document No.", "Payments Header"."No.");
-                ApprovalEntry.SetFilter("Sequence No.", '=%1', 1);
-                if ApprovalEntry.FindFirst() then begin
-                    Approver1 := ApprovalEntry."Approver ID";
-                    AppravalDate1 := (ApprovalEntry."Last Date-Time Modified");
-                    UserSetUp.Reset();
-                    UserSetUp.setrange("User ID", ApprovalEntry."Approver ID");
-                    if UserSetUp.findfirst() then begin
-                        UserSetUp.CalcFields("User Signature");
-                        Verificationofficer := UserSetUp."Approval Title";
-
-
-                    end
+                DimVal.Reset;
+                DimVal.SetRange(DimVal.Code,"Payments Header"."Shortcut Dimension 2 Code");
+                if DimVal.Find('-') then begin
+                DptName:=DimVal.Name;
                 end;
-
-                ApprovalEntry.reset;
-                ApprovalEntry.SetRange("Document No.", "Payments Header"."No.");
-                ApprovalEntry.SetFilter("Sequence No.", '=%1', 2);
-                if ApprovalEntry.FindFirst() then begin
-                    Approver2 := ApprovalEntry."Approver ID";
-                    ApprovalDate2 := (ApprovalEntry."Last Date-Time Modified");
-                    UserSetUp.Reset();
-                    UserSetUp.setrange("User ID", ApprovalEntry."Approver ID");
-                    if UserSetUp.findfirst() then begin
-                        UserSetUp.CalcFields("User Signature");
-                        ApprovarDestination2 := UserSetUp."Approval Title";
-
-
-                    end
-                end;
-
-                ApprovalEntry.reset;
-                ApprovalEntry.SetRange("Document No.", "Payments Header"."No.");
-                ApprovalEntry.SetFilter("Sequence No.", '=%1', 3);
-                if ApprovalEntry.FindFirst() then begin
-                    Approver3 := ApprovalEntry."Approver ID";
-                    ApprovalDate3 := (ApprovalEntry."Last Date-Time Modified");
-                    UserSetUp.Reset();
-                    UserSetUp.setrange("User ID", ApprovalEntry."Approver ID");
-                    if UserSetUp.findfirst() then begin
-                        UserSetUp.CalcFields("User Signature");
-                        ApprovarDestination3 := UserSetUp."Approval Title";
-
-
-                    end
-                end;
-                ApprovalEntry.reset;
-                ApprovalEntry.SetRange("Document No.", "Payments Header"."No.");
-                ApprovalEntry.SetFilter("Sequence No.", '=%1', 4);
-                if ApprovalEntry.FindFirst() then begin
-                    Approver4 := ApprovalEntry."Approver ID";
-                    ApprovalDate4 := (ApprovalEntry."Last Date-Time Modified");
-                    UserSetUp.Reset();
-                    UserSetUp.setrange("User ID", ApprovalEntry."Approver ID");
-                    if UserSetUp.findfirst() then begin
-                        UserSetUp.CalcFields("User Signature");
-                        ApprovarDestination4 := UserSetUp."Approval Title";
-
-
-
-                    end
-                end;
-
-                // userSet.get(Cashier);
-                // userSet.CalcFields("User Signature");
             end;
 
             trigger OnPostDataItem()
@@ -268,9 +138,9 @@ report 50002 "Imprest Request"
                     MODIFY;
                   END;
                   */
-                "Payments Header".CALCFIELDS("Payments Header"."Total Net Amount");
+                "Payments Header".CalcFields("Payments Header"."Total Net Amount");
                 CheckReport.InitTextVariable();
-                CheckReport.FormatNoText(NumberText, "Payments Header"."Total Net Amount", '');
+                CheckReport.FormatNoText(NumberText,"Payments Header"."Total Net Amount",'');
 
             end;
 
@@ -297,59 +167,20 @@ report 50002 "Imprest Request"
     labels
     {
     }
-    trigger OnPreReport()
-    begin
-        company.RESET;
-        IF company.FINDFIRST THEN BEGIN
-            company.CALCFIELDS(Picture);
-        END;
-        Users.Reset;
-        Users.SetRange(Users."User Name", UserId);
-        if Users.Find('-') then begin
-            if Users."Full Name" = '' then UserName := Users."User Name" else UserName := Users."Full Name";
-        end;
-    end;
-
-
 
     var
-        userSet: Record "User Setup";
         StrCopyText: Text[250];
-        Verificationofficer: TEXT;
-        Approver1: code[20];
-        Signature2: array[20] of text[50];
-        Users: Record User;
-        UserName: Text[130];
-        Projectname: text[250];
-
-        Approver2: code[20];
-        approver3: code[20];
-        approver4: code[20];
-        ApprovarDestination3: text;
-        ApprovarDestination4: text;
-        ApprovarDestination2: text;
-        ApproverDestination3: text;
-        AppravalDate1: DateTime;
-        ApprovalDate2: DateTime;
-        approvalDate3: DateTime;
-        approvalDate4: DateTime;
-
-        SigNature1: Integer;
-
-
-
         LastFieldNo: Integer;
         FooterPrinted: Boolean;
-        DimVal: Record 349;
+        DimVal: Record "Dimension Value";
         DimValName: Text[250];
         TTotal: Decimal;
-        CheckReport: Report 1401;
-        NumberText: array[2] of Text[250];
+        CheckReport: Report Check;
+        NumberText: array [2] of Text[250];
         STotal: Decimal;
         InvoiceCurrCode: Code[40];
         CurrCode: Code[40];
-        GLSetup: Record 98;
+        GLSetup: Record "General Ledger Setup";
         DptName: Code[250];
-        company: Record 79;
 }
 

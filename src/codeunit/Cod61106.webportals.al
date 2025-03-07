@@ -2973,6 +2973,7 @@ Codeunit 61106 webportals
     procedure GeneratePaySlipReport(EmployeeNo: Text; Period: Date; filenameFromApp: Text) filename: Text[100]
     var
         "prSalary Card": record "PRL-Salary Card";
+        HrmEmployeeC: record "HRM-Employee C";
     begin
         filename := FILESPATH_S + filenameFromApp;
         if Exists(filename) then
@@ -2981,9 +2982,8 @@ Codeunit 61106 webportals
         SalaryCard.Reset;
         SalaryCard.SetRange(SalaryCard."Employee Code", EmployeeNo);
         SalaryCard.SetRange(SalaryCard."Payroll Period", Period);
-
         if SalaryCard.Find('-') then begin
-            Report.SaveAsPdf(Report::PayslipTest, filename, SalaryCard);   //52017726
+            Report.SaveAsPdf(report::"Individual Payslips 2", filename, SalaryCard);   //52017726
         end;
         exit(filename);
     end;
@@ -10751,7 +10751,7 @@ Codeunit 61106 webportals
                     exit(true);
             end;
         end;
-        
+
     end;
 
     procedure GetSubmittedOpening(StaffNo: Code[25]): Text

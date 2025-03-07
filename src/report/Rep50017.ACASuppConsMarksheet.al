@@ -5,7 +5,7 @@ report 50017 "ACA-Supp. Cons. Marksheet"
 
     dataset
     {
-        dataitem(ExamCoreg; "ACA-Exam. Course Registration")
+        dataitem(ExamCoreg;"ACA-Exam. Course Registration")
         {
             RequestFilterFields = Programme,"Academic Year","Year of Study","Programme Option";
             column(ReportForNavId_1; 1)
@@ -116,7 +116,7 @@ report 50017 "ACA-Supp. Cons. Marksheet"
             column(ClassOrder;ExamCoreg."Final Classification Order")
             {
             }
-            dataitem(ExamClassUnits; "ACA-Exam Classification Units")
+            dataitem(ExamClassUnits;"ACA-Exam Classification Units")
             {
                 CalcFields = "Comsolidated Prefix","Grade Comment",Grade,Pass,"Unit Stage";
                 DataItemLink = "Student No."=field("Student Number"),Programme=field(Programme),"Academic Year"=field("Academic Year"),"Year of Study"=field("Year of Study");

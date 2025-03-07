@@ -415,6 +415,8 @@ table 50019 "FIN-Imprest Header"
             trigger OnValidate()
             var
                 Emp: Record "HRM-Employee C";
+                Imprest: Record "FIN-Imprest Header";
+                CashOfficeSetup: Record "Cash Office Setup";
             begin
                 Cust.RESET;
                 IF Cust.GET("Account No.") THEN BEGIN
@@ -426,7 +428,18 @@ table 50019 "FIN-Imprest Header"
                     emp.SetRange("Customer Acc", Cust."No.");
                     if emp.FindFirst() then
                         "Staff No" := Emp."No.";
-                END;
+
+                    //check if previous unsurrendered Imprest 
+                    CashOfficeSetup.Get();
+                    if CashOfficeSetup."Max Unsurrendered Imprest" > 0 then begin
+                        Imprest.Reset;
+                        Imprest.SetRange("Account No.", Cust."No.");
+                        Imprest.SetRange(Posted, true);
+                        Imprest.SetFilter("Surrender Status", '%1|%2', Imprest."Surrender Status"::" ", Imprest."Surrender Status"::Partial);
+                        if Imprest.Count >= CashOfficeSetup."Max Unsurrendered Imprest" then
+                            ERROR('The maximum unsurrendered imprest allowed has been exceeded');
+                   END;
+                end;
                 //Check CreditLimit Here In cases where you have a credit limit set for employees
                 //      Cust.CALCFIELDS(Cust."Balance (LCY)");
                 //       IF Cust."Balance (LCY)">Cust."Credit Limit (LCY)" THEN

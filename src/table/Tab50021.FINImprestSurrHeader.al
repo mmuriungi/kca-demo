@@ -238,8 +238,9 @@ table 50021 "FIN-Imprest Surr. Header"
         field(35; Status; Option)
         {
             caption = 'Status';
-            OptionCaption = 'Pending,"Pending Approval",Approved,Cancelled,Released,Posted';
+            OptionCaption = 'Pending,Pending Approval,Approved,Cancelled,Released,Posted';
             OptionMembers = Pending,"Pending Approval",Approved,Cancelled,Released,Posted;
+            editable = false;
         }
         field(37; Grouping; Code[20])
         {

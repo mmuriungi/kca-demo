@@ -714,7 +714,7 @@ page 50042 "FIN-Staff Claims"
             //CurrPage.UpdateControls();
         END;
 
-        IF Rec.Status = Rec.Status::Pending THEN BEGIN
+        IF (Rec.Status = Rec.Status::Pending) or (Rec.Status = Rec.Status::Open)  THEN BEGIN
             GlobalDimension1CodeEditable := TRUE;
             ShortcutDimension2CodeEditable := TRUE;
             //CurrForm.Payee.EDITABLE:=TRUE;
