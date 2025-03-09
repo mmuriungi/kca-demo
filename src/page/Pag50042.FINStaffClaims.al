@@ -714,7 +714,7 @@ page 50042 "FIN-Staff Claims"
             //CurrPage.UpdateControls();
         END;
 
-        IF (Rec.Status = Rec.Status::Pending) or (Rec.Status = Rec.Status::Open)  THEN BEGIN
+        IF (Rec.Status = Rec.Status::Pending) or (Rec.Status = Rec.Status::Open) THEN BEGIN
             GlobalDimension1CodeEditable := TRUE;
             ShortcutDimension2CodeEditable := TRUE;
             //CurrForm.Payee.EDITABLE:=TRUE;
@@ -805,7 +805,7 @@ page 50042 "FIN-Staff Claims"
                 FINBudgetEntries.SETRANGE("Budget Name", BCSetup."Current Budget Code");
                 FINBudgetEntries.SETRANGE("G/L Account No.", FINStaffClaimLines."Account No:");
                 FINBudgetEntries.SETRANGE("Global Dimension 1 Code", Rec."Global Dimension 1 Code");
-                FINBudgetEntries.SETRANGE("Global Dimension 2 Code", Rec."Shortcut Dimension 2 Code");
+                FINBudgetEntries.SETRANGE("Global Dimension 2 Code", FINStaffClaimLines."Shortcut Dimension 2 Code");
                 FINBudgetEntries.SETFILTER("Transaction Type", '%1|%2|%3',
                 FINBudgetEntries."Transaction Type"::Expense,
                 FINBudgetEntries."Transaction Type"::Commitment,
@@ -818,16 +818,16 @@ page 50042 "FIN-Staff Claims"
                     //IF FINBudgetEntries.CALCSUMS(Amount) THEN BEGIN
                     IF FINBudgetEntries.Amount > 0 THEN BEGIN
 
-                        IF (FINStaffClaimLines.Amount > FINBudgetEntries.Amount) THEN ERROR('Less Funds, Account:' + GLAccount.Name + ', Department:' + DimensionValue.Name);
+                        IF (FINStaffClaimLines.Amount > FINBudgetEntries.Amount) THEN ERROR('Less Funds, Account:' + GLAccount.Name + ', Department:' + FINStaffClaimLines."Shortcut Dimension 2 Code");
 
                         // Commit Budget Here
                         PostBudgetEnties.CheckBudgetAvailability(FINStaffClaimLines."Account No:", Rec.Date, Rec."Global Dimension 1 Code", Rec."Shortcut Dimension 2 Code",
                         FINStaffClaimLines.Amount, FINStaffClaimLines."Account Name", 'CLAIM', Rec."No." + FINStaffClaimLines."Account No:", Rec.Purpose, Rec.Payee)
                     END ELSE
-                        ERROR('No allocation for  Account:' + GLAccount.Name + ', Department:' + DimensionValue.Name);
+                        ERROR('No allocation for  Account:' + GLAccount.Name + ', Department:' + FINStaffClaimLines."Shortcut Dimension 2 Code");
                     // END;
                 END ELSE
-                    IF PostBudgetEnties.checkBudgetControl(FINStaffClaimLines."Account No:") THEN ERROR('Missing Budget for  Account:' + GLAccount.Name + ', Department:' + DimensionValue.Name);
+                    IF PostBudgetEnties.checkBudgetControl(FINStaffClaimLines."Account No:") THEN ERROR('Missing Budget for  Account:' + GLAccount.Name + ', Department:' + FINStaffClaimLines."Shortcut Dimension 2 Code");
 
             END;
             UNTIL FINStaffClaimLines.NEXT = 0;

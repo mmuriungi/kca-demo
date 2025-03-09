@@ -270,7 +270,7 @@ table 50028 "FIN-Receipts Header"
         }
         field(50004; "Imprest No"; Code[20])
         {
-            TableRelation = "FIN-Imprest Header"."No." WHERE(Posted = CONST(true), "Account No."=field("Student/staff No"));
+            TableRelation = "FIN-Imprest Header"."No." WHERE(Posted = CONST(true), "Account No." = field("Student/staff No"));
         }
         field(50006; "Application No"; Code[20])
         {
@@ -480,7 +480,11 @@ table 50028 "FIN-Receipts Header"
         {
 
         }
-        field(50018; "Reference No"; code[50]) { }
+        field(50018; "Reference No"; code[50])
+        {
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Unapplicable';
+        }
 
         //Total Batch allocation
         field(23; "Total Batch Allocation"; Decimal)
