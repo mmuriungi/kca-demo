@@ -226,6 +226,11 @@ page 51837 "HMS-Treatment Form Header"
                     SubPageLink = "Treatment No." = FIELD("Treatment No.");
                     ApplicationArea = All;
                 }
+                part(Items; "Lab Visit Items")
+                {
+                    ApplicationArea = All;
+                    SubPageLink = "Lab Visit No." = field("Treatment No.");
+                }
             }
             group(Radiology)
             {
@@ -469,6 +474,33 @@ page 51837 "HMS-Treatment Form Header"
                 RunObject = Page "HMS-Treatment History List";
                 RunPageLink = "Patient No." = FIELD("Patient No.");
                 ApplicationArea = All;
+            }
+            action("Initiate Items Disposal")
+            {
+                Caption = 'Initiate Items Disposal';
+                Image = ItemAvailability;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ItemDisposal: Record "Item Disposal Header";
+                    ItemDisposalMgt: Codeunit "Item Disposal Management";
+                    LabVisitItems: Record "Lab Visit Items";
+                begin
+                    // Check if there are lab items for this treatment
+                    LabVisitItems.Reset();
+                    LabVisitItems.SetRange("Lab Visit No.", Rec."Treatment No.");
+                    if not LabVisitItems.FindFirst() then
+                        Error('There are no lab items to dispose for this treatment.');
+
+                    // Create disposal document from lab visit items
+                    ItemDisposal := ItemDisposalMgt.CreateDisposalFromLabVisit(Rec."Treatment No.", '');
+
+                    // Open the created disposal document
+                    Page.Run(Page::"Item Disposal Card", ItemDisposal);
+                end;
             }
 
         }
