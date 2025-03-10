@@ -139,8 +139,8 @@ table 50070 "ACA-Exam Supp. Units"
         field(65; "Exam Category"; Code[20])
         {
             Caption = 'Exam Category';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Units/Subjects"."Exam Category" WHERE ("Programme Code"=FIELD(Programme),Code=FIELD("Unit Code")));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Units/Subjects"."Exam Category" WHERE("Programme Code" = FIELD(Programme), Code = FIELD("Unit Code")));
         }
         field(66; "Reporting Academic Year"; Code[20])
         {

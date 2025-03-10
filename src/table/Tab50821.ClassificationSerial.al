@@ -44,4 +44,4 @@ table 50064 "Classification. Serial"
             Clustered = true;
         }
     }
-} 
+}

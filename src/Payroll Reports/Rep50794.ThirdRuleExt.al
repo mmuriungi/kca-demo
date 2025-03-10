@@ -6,52 +6,52 @@ report 50794 "Third Rule Ext"
 
     dataset
     {
-        dataitem("PRL-Period Transactions";"PRL-Period Transactions")
+        dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
         {
-            DataItemTableView = where("Transaction Code"=filter('BPAY'|'GPAY'|'NPAY'));
+            DataItemTableView = where("Transaction Code" = filter('BPAY' | 'GPAY' | 'NPAY'));
             column(ReportForNavId_1000000000; 1000000000)
             {
             }
-            column(EmpNo;objEmp."No.")
+            column(EmpNo; objEmp."No.")
             {
             }
-            column(TCode;"PRL-Period Transactions"."Transaction Code")
+            column(TCode; "PRL-Period Transactions"."Transaction Code")
             {
             }
-            column(TName;"PRL-Period Transactions"."Transaction Name")
+            column(TName; "PRL-Period Transactions"."Transaction Name")
             {
             }
-            column(BasicPay;BasicPay)
+            column(BasicPay; BasicPay)
             {
             }
-            column(Athird;Athird)
+            column(Athird; Athird)
             {
             }
-            column(NetPay;NetPay)
+            column(NetPay; NetPay)
             {
             }
-            column(Variance;Variance)
+            column(Variance; Variance)
             {
             }
-            column(PeriodName;PeriodName)
+            column(PeriodName; PeriodName)
             {
             }
-            column(companyinfo_Picture;companyinfo.Picture)
+            column(companyinfo_Picture; companyinfo.Picture)
             {
             }
-            column(EmployeeName;EmployeeName)
+            column(EmployeeName; EmployeeName)
             {
             }
-            column(Prep;Prepared_by_______________________________________Date_________________CaptionLbl)
+            column(Prep; Prepared_by_______________________________________Date_________________CaptionLbl)
             {
             }
-            column(Checked;Checked_by________________________________________Date_________________CaptionLbl)
+            column(Checked; Checked_by________________________________________Date_________________CaptionLbl)
             {
             }
-            column(Auth;Authorized_by____________________________________Date_________________CaptionLbl)
+            column(Auth; Authorized_by____________________________________Date_________________CaptionLbl)
             {
             }
-            column(approved;Approved_by______________________________________Date_________________CaptionLbl)
+            column(approved; Approved_by______________________________________Date_________________CaptionLbl)
             {
             }
 
@@ -66,49 +66,46 @@ report 50794 "Third Rule Ext"
                 Clear(Indexes);
 
                 objEmp.Reset;
-                objEmp.SetRange(objEmp."No.","PRL-Period Transactions"."Employee Code");
+                objEmp.SetRange(objEmp."No.", "PRL-Period Transactions"."Employee Code");
                 if objEmp.Find('-') then
-                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
-                 if "PRL-Period Transactions"."Transaction Code"='BPAY' then
-                         begin
-                            BasicPay:="PRL-Period Transactions".Amount;
-                           Desc:='BASIC';
-                           Indexes:=1;
-                         end;
+                    EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name" + ' ' + objEmp."Last Name";
+                if "PRL-Period Transactions"."Transaction Code" = 'BPAY' then begin
+                    BasicPay := "PRL-Period Transactions".Amount;
+                    Desc := 'BASIC';
+                    Indexes := 1;
+                end;
 
-                         if "PRL-Period Transactions"."Transaction Code"='GPAY' then
-                         begin
-                            GrossPay:="PRL-Period Transactions".Amount; //Gross pay
-                           Desc:='GROSS';
-                           Indexes:=2;
-                         end;
+                if "PRL-Period Transactions"."Transaction Code" = 'GPAY' then begin
+                    GrossPay := "PRL-Period Transactions".Amount; //Gross pay
+                    Desc := 'GROSS';
+                    Indexes := 2;
+                end;
 
-                         if "PRL-Period Transactions"."Transaction Code"='NPAY' then
-                         begin
-                            NetPay:="PRL-Period Transactions".Amount; //Net pay
-                           Desc:='NET';
-                           Indexes:=3;
-                         end;
-                if BasicPay>0 then
-                Athird:=BasicPay*1/3;
-                if NetPay>0 then
-                Variance:=NetPay-Athird;
+                if "PRL-Period Transactions"."Transaction Code" = 'NPAY' then begin
+                    NetPay := "PRL-Period Transactions".Amount; //Net pay
+                    Desc := 'NET';
+                    Indexes := 3;
+                end;
+                if BasicPay > 0 then
+                    Athird := BasicPay * 1 / 3;
+                if NetPay > 0 then
+                    Variance := NetPay - Athird;
 
-                if Athird>0 then begin
-                           Desc:='THIRD';
-                           Indexes:=4;
-                  end;
+                if Athird > 0 then begin
+                    Desc := 'THIRD';
+                    Indexes := 4;
+                end;
 
-                if Variance<>0 then  begin
+                if Variance <> 0 then begin
 
-                           Desc:='VARIANCE';
-                           Indexes:=5;
-                  end;
+                    Desc := 'VARIANCE';
+                    Indexes := 5;
+                end;
             end;
 
             trigger OnPreDataItem()
             begin
-                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period",'=%1',SelectedPeriod);
+                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period", '=%1', SelectedPeriod);
             end;
         }
     }
@@ -120,7 +117,7 @@ report 50794 "Third Rule Ext"
         {
             area(content)
             {
-                field("Period Filter";SelectedPeriod)
+                field("Period Filter"; SelectedPeriod)
                 {
                     ApplicationArea = Basic;
                     Caption = 'Period Filter';
@@ -140,23 +137,23 @@ report 50794 "Third Rule Ext"
     trigger OnInitReport()
     begin
         objPeriod.Reset;
-        objPeriod.SetRange(Closed,false);
+        objPeriod.SetRange(Closed, false);
         if objPeriod.Find('-') then begin
-          SelectedPeriod:=objPeriod."Date Opened";
-          end;
+            SelectedPeriod := objPeriod."Date Opened";
+        end;
 
 
         if companyinfo.Get() then
-        companyinfo.CalcFields(companyinfo.Picture);
+            companyinfo.CalcFields(companyinfo.Picture);
     end;
 
     trigger OnPreReport()
     begin
         //PeriodFilter:="PRL-Salary Card".GETFILTER("Period Filter");
-        if SelectedPeriod=0D then Error('You must specify the period filter');
+        if SelectedPeriod = 0D then Error('You must specify the period filter');
 
         objPeriod.Reset;
-        if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+        if objPeriod.Get(SelectedPeriod) then PeriodName := objPeriod."Period Name";
     end;
 
     var

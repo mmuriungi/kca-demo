@@ -27,11 +27,11 @@ report 50806 "Process Hostel Allocations"
                 {
                     field(OldSemesterCode; OldSemesterCode)
                     {
-                        TableRelation="ACA-Semesters";
+                        TableRelation = "ACA-Semesters";
                     }
                     field(NewSemesterCode; NewSemesterCode)
                     {
-                        TableRelation="ACA-Semesters";
+                        TableRelation = "ACA-Semesters";
                     }
                 }
             }

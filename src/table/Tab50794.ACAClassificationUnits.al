@@ -108,7 +108,7 @@ table 50794 "ACA-Classification Units"
         //"Credit Hours"
         field(58; "Credit Hours"; Decimal)
         {
-         
+
         }
         //"Allow In Graduate 222"
         field(59; "Allow In Graduate 222"; Boolean)

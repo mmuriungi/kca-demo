@@ -4,7 +4,7 @@ page 50067 "Lab Visit Items"
     Caption = 'Lab Visit Items';
     PageType = ListPart;
     SourceTable = "Lab Visit Items";
-    
+
     layout
     {
         area(Content)

@@ -340,7 +340,7 @@ report 50491 "Imprest Request Copy"
 
         LastFieldNo: Integer;
         FooterPrinted: Boolean;
-         DimVal: Record 349;
+        DimVal: Record 349;
         DimValName: Text[250];
         TTotal: Decimal;
         CheckReport: Report 1401;

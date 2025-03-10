@@ -450,13 +450,13 @@ table 50060 "ACA-Supp. Results Status"
 
     keys
     {
-        key(PK; "Code", "Academic Year","Special Programme Class")
+        key(PK; "Code", "Academic Year", "Special Programme Class")
         {
             Clustered = true;
         }
         key(SPK; "Order No")
         {
-            
+
         }
     }
 }

@@ -1,14 +1,14 @@
 table 50073 "Item Disposal Header"
 {
     DataClassification = CustomerContent;
-    
+
     FIELDS
     {
         FIELD(1; "No."; Code[20])
         {
             DataClassification = CustomerContent;
             Caption = 'No.';
-            
+
             TRIGGER OnValidate()
             BEGIN
                 IF "No." <> xRec."No." THEN BEGIN
@@ -88,7 +88,7 @@ table 50073 "Item Disposal Header"
             TableRelation = "G/L Account";
         }
     }
-    
+
     KEYS
     {
         KEY(PK; "No.")
@@ -96,7 +96,7 @@ table 50073 "Item Disposal Header"
             Clustered = true;
         }
     }
-    
+
     TRIGGER OnInsert()
     BEGIN
         IF "No." = '' THEN BEGIN
@@ -104,22 +104,22 @@ table 50073 "Item Disposal Header"
             InventorySetup.TESTFIELD("Item Disposal Nos.");
             NoSeriesMgt.InitSeries(InventorySetup."Item Disposal Nos.", xRec."No. Series", "Document Date", "No.", "No. Series");
         END;
-        
+
         "User ID" := USERID;
         "Created DateTime" := CURRENTDATETIME;
         "Status" := "Status"::Open;
     END;
-    
+
     VAR
         InventorySetup: Record "Inventory Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
-        
+
     LOCAL PROCEDURE GetInventorySetup()
     BEGIN
         IF NOT InventorySetup.GET THEN
             InventorySetup.INSERT;
     END;
-    
+
     LOCAL PROCEDURE GetNoSeriesCode(): Code[20]
     BEGIN
         GetInventorySetup;

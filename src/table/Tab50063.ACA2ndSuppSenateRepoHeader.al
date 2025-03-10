@@ -142,161 +142,161 @@ table 66685 "ACA-2ndSuppSenate Repo. Header"
         field(21; "Prog_AcadYear_Count"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FILTER(<> ''), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FILTER(<> ''),
                                                                       "Year of Study" = FIELD("Year of Study")));
             Caption = 'Prog_AcadYear_Count';
         }
         field(22; "Prog_AcadYear_Status_Count"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FIELD("Classification Code"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FIELD("Classification Code"),
                                                                       "Year of Study" = FIELD("Year of Study")));
             Caption = 'Prog_AcadYear_Status_Count';
         }
         field(23; "Prog_AcadYearTrans_Count"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Final Classification Pass" = FILTER(true)));
             Caption = 'Prog_AcadYearTrans_Count';
         }
         field(24; "ProgCat_AcadYear_BarcCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FILTER(<> ''), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FILTER(<> ''),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Prog. Category" = FILTER(Undergraduate)));
             Caption = 'ProgCat_AcadYear_BarcCo';
         }
         field(25; "ProgCat_AcadYear_Status_BarcCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FIELD("Classification Code"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FIELD("Classification Code"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Prog. Category" = FILTER(Undergraduate)));
             Caption = 'ProgCat_AcadYear_Status_BarcCo';
         }
         field(26; "ProgCat_AcadYearTrans_BarcCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
-                                                                      "Final Classification Pass" = FILTER(true), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
+                                                                      "Final Classification Pass" = FILTER(true),
                                                                       "Prog. Category" = FILTER(Undergraduate)));
             Caption = 'ProgCat_AcadYearTrans_BarcCo';
         }
         field(27; "ProgCat_AcadYear_MasCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FILTER(<> ''), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FILTER(<> ''),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Prog. Category" = FILTER(Postgraduate)));
             Caption = 'ProgCat_AcadYear_MasCo';
         }
         field(28; "ProgCat_AcadYear_Status_MasCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FIELD("Classification Code"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FIELD("Classification Code"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Prog. Category" = FILTER(Postgraduate)));
             Caption = 'ProgCat_AcadYear_Status_MasCo';
         }
         field(29; "ProgCat_AcadYearTrans_MascCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
-                                                                      "Final Classification Pass" = FILTER(true), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
+                                                                      "Final Classification Pass" = FILTER(true),
                                                                       "Prog. Category" = FILTER(Postgraduate)));
             Caption = 'ProgCat_AcadYearTrans_MascCo';
         }
         field(30; "ProgCat_AcadYear_DipCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FILTER(<> ''), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FILTER(<> ''),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Prog. Category" = FILTER(Diploma)));
             Caption = 'ProgCat_AcadYear_DipCo';
         }
         field(31; "ProgCat_AcadYear_Status_DipCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FIELD("Classification Code"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FIELD("Classification Code"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Prog. Category" = FILTER(Diploma)));
             Caption = 'ProgCat_AcadYear_Status_DipCo';
         }
         field(32; "ProgCat_AcadYearTrans_DipCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
-                                                                      "Final Classification Pass" = FILTER(true), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
+                                                                      "Final Classification Pass" = FILTER(true),
                                                                       "Prog. Category" = FILTER(Diploma)));
             Caption = 'ProgCat_AcadYearTrans_DipCo';
         }
         field(33; "ProgCat_AcadYear_CertCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FILTER(<> ''), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FILTER(<> ''),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Prog. Category" = FILTER(Certificate | Professional | "Course List")));
             Caption = 'ProgCat_AcadYear_CertCo';
         }
         field(34; "ProgCat_AcadYear_Status_CertCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      Classification = FIELD("Classification Code"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      Classification = FIELD("Classification Code"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
                                                                       "Prog. Category" = FILTER(Certificate | Professional | "Course List")));
             Caption = 'ProgCat_AcadYear_Status_CertCo';
         }
         field(35; "ProgCat_AcadYearTrans_CertCo"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), 
-                                                                      "School Code" = FIELD("School Code"), 
-                                                                      "Academic Year" = FIELD("Academic Year"), 
-                                                                      "Year of Study" = FIELD("Year of Study"), 
-                                                                      "Final Classification Pass" = FILTER(true), 
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"),
+                                                                      "School Code" = FIELD("School Code"),
+                                                                      "Academic Year" = FIELD("Academic Year"),
+                                                                      "Year of Study" = FIELD("Year of Study"),
+                                                                      "Final Classification Pass" = FILTER(true),
                                                                       "Prog. Category" = FILTER(Certificate | Professional | "Course List")));
             Caption = 'ProgCat_AcadYearTrans_CertCo';
         }
@@ -619,7 +619,7 @@ table 66685 "ACA-2ndSuppSenate Repo. Header"
             FieldClass = FlowField;
             OptionMembers = ,Certificate,Diploma,Undergraduate,Postgraduate,Professional,"Course List";
         }
-    
+
     }
 
     keys

@@ -59,4 +59,4 @@ table 50062 "ACA-SuppSenate Rep. Counts"
             Clustered = true;
         }
     }
-} 
+}

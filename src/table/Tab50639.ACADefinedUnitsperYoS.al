@@ -19,7 +19,7 @@ table 50639 "ACA-Defined Units per YoS"
         //aca
         field(40; "Academic Year"; Code[20])
         {
-            TableRelation="ACA-Academic Year";
+            TableRelation = "ACA-Academic Year";
         }
     }
 

@@ -1,88 +1,88 @@
 report 50790 "Transactions Ext"
 {
     DefaultLayout = RDLC;
-    Caption= 'Transactions';
+    Caption = 'Transactions';
     RDLCLayout = './PayrollLayouts/Transactions.rdlc';
 
     dataset
     {
         dataitem("PRL-Employee Transactions"; "PRL-Employee Transactions")
         {
-            DataItemTableView = sorting("Employee Code","Transaction Code","Period Month","Period Year","Payroll Period","Reference No") where("Emp Status"=const(Normal),Amount=filter(<>0));
-            RequestFilterFields = "Employee Code","Transaction Code","Period Year","Period Month";
+            DataItemTableView = sorting("Employee Code", "Transaction Code", "Period Month", "Period Year", "Payroll Period", "Reference No") where("Emp Status" = const(Normal), Amount = filter(<> 0));
+            RequestFilterFields = "Employee Code", "Transaction Code", "Period Year", "Period Month";
             column(ReportForNavId_5642; 5642)
             {
             }
-            column(FORMAT_TODAY_0_4_;Format(Today,0,4))
+            column(FORMAT_TODAY_0_4_; Format(Today, 0, 4))
             {
             }
-            column(COMPANYNAME;COMPANYNAME)
+            column(COMPANYNAME; COMPANYNAME)
             {
             }
-            column(CurrReport_PAGENO;CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo)
             {
             }
-            column(USERID;UserId)
+            column(USERID; UserId)
             {
             }
-            column(prEmployee_Transactions__Transaction_Code_;"Transaction Code")
+            column(prEmployee_Transactions__Transaction_Code_; "Transaction Code")
             {
             }
-            column(prEmployee_Transactions__Transaction_Name_;"Transaction Name")
+            column(prEmployee_Transactions__Transaction_Name_; "Transaction Name")
             {
             }
-            column(pic;companyinfo.Picture)
+            column(pic; companyinfo.Picture)
             {
             }
-            column(prEmployee_Transactions__Employee_Code_;"Employee Code")
+            column(prEmployee_Transactions__Employee_Code_; "Employee Code")
             {
             }
-            column(Emp__First_Name______Emp__Middle_Name______Emp__Last_Name_;Emp."First Name"+' '+Emp."Middle Name"+' '+Emp."Last Name")
+            column(Emp__First_Name______Emp__Middle_Name______Emp__Last_Name_; Emp."First Name" + ' ' + Emp."Middle Name" + ' ' + Emp."Last Name")
             {
             }
-            column(prEmployee_Transactions_Amount;Amount)
+            column(prEmployee_Transactions_Amount; Amount)
             {
             }
-            column(prEmployee_Transactions_Amount_Control1102755000;Amount)
+            column(prEmployee_Transactions_Amount_Control1102755000; Amount)
             {
             }
-            column(Transactions_DetailsCaption;Transactions_DetailsCaptionLbl)
+            column(Transactions_DetailsCaption; Transactions_DetailsCaptionLbl)
             {
             }
-            column(CurrReport_PAGENOCaption;CurrReport_PAGENOCaptionLbl)
+            column(CurrReport_PAGENOCaption; CurrReport_PAGENOCaptionLbl)
             {
             }
-            column(Employee_No_Caption;Employee_No_CaptionLbl)
+            column(Employee_No_Caption; Employee_No_CaptionLbl)
             {
             }
-            column(NamesCaption;NamesCaptionLbl)
+            column(NamesCaption; NamesCaptionLbl)
             {
             }
-            column(prEmployee_Transactions_AmountCaption;FieldCaption(Amount))
+            column(prEmployee_Transactions_AmountCaption; FieldCaption(Amount))
             {
             }
-            column(prEmployee_Transactions_Amount_Control1102755000Caption;FieldCaption(Amount))
+            column(prEmployee_Transactions_Amount_Control1102755000Caption; FieldCaption(Amount))
             {
             }
-            column(prEmployee_Transactions_Period_Month;"Period Month")
+            column(prEmployee_Transactions_Period_Month; "Period Month")
             {
             }
-            column(prEmployee_Transactions_Period_Year;"Period Year")
+            column(prEmployee_Transactions_Period_Year; "Period Year")
             {
             }
-            column(prEmployee_Transactions_Payroll_Period;"Payroll Period")
+            column(prEmployee_Transactions_Payroll_Period; "Payroll Period")
             {
             }
-            column(prEmployee_Transactions_Reference_No;"Reference No")
+            column(prEmployee_Transactions_Reference_No; "Reference No")
             {
             }
-            column(filters;"PRL-Employee Transactions".GetFilters)
+            column(filters; "PRL-Employee Transactions".GetFilters)
             {
             }
 
             trigger OnAfterGetRecord()
             begin
-                  if not Emp.Get("PRL-Employee Transactions"."Employee Code") then
+                if not Emp.Get("PRL-Employee Transactions"."Employee Code") then
 ;
             end;
         }
@@ -106,9 +106,9 @@ report 50790 "Transactions Ext"
 
     trigger OnPreReport()
     begin
-         if companyinfo.Get() then begin
-         companyinfo.CalcFields(companyinfo.Picture);
-         end
+        if companyinfo.Get() then begin
+            companyinfo.CalcFields(companyinfo.Picture);
+        end
     end;
 
     var

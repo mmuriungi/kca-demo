@@ -60,4 +60,4 @@ table 50063 "ACA-Graduation Reports Buff"
             Clustered = true;
         }
     }
-} 
+}

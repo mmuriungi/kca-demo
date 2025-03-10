@@ -270,7 +270,7 @@ table 50000 "Cash Office Setup"
         //Max Unsurrenderd Imprest
         field(50065; "Max Unsurrendered Imprest"; Integer)
         {
-            InitValue=1;
+            InitValue = 1;
         }
     }
 

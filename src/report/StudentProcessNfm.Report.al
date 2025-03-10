@@ -244,7 +244,7 @@ Report 78095 "Student Process Nfm"
                     END ELSE
                         NfmEntry.INSERT(TRUE);
                     COMMIT;
-                   // Customer.CALCFIELDS("Nfm Balance");
+                    // Customer.CALCFIELDS("Nfm Balance");
                 end;
             }
             dataitem("Nfm Statement Entry"; "Nfm Statement Entry")

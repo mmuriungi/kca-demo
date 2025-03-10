@@ -28,7 +28,7 @@ page 50060 "Headline RC Payables"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Payables headline';
                     Editable = false;
-                    
+
                     trigger OnDrillDown()
                     begin
                         if PayablesHeadlineVisible then
@@ -51,7 +51,7 @@ page 50060 "Headline RC Payables"
         AmountDue: Decimal;
     begin
         PayablesHeadlineVisible := false;
-        
+
         // Check for overdue vendor payments
         VendorLedgerEntry.SetRange(Open, true);
         VendorLedgerEntry.SetFilter("Due Date", '<%1', WorkDate());
@@ -60,20 +60,20 @@ page 50060 "Headline RC Payables"
                 VendorLedgerEntry.CalcFields("Remaining Amount");
                 AmountDue += VendorLedgerEntry."Remaining Amount";
             until VendorLedgerEntry.Next() = 0;
-            
+
             if AmountDue > 0 then begin
                 PayablesHeadlineText := StrSubstNo('You have %1 in overdue payments', Format(AmountDue, 0, '<Precision,2:2><Standard Format,0>'));
                 PayablesHeadlineVisible := true;
             end;
         end;
-        
+
         // If no overdue payments, show pending invoices
         if not PayablesHeadlineVisible then begin
             VendorLedgerEntry.Reset();
             VendorLedgerEntry.SetRange(Open, true);
             VendorLedgerEntry.SetFilter("Due Date", '>=%1', WorkDate());
             VendorLedgerEntry.SetFilter("Due Date", '<%1', CalcDate('<+7D>', WorkDate()));
-            
+
             if VendorLedgerEntry.FindSet() then begin
                 VendorLedgerEntry.CalcFields("Remaining Amount");
                 PayablesHeadlineText := StrSubstNo('You have %1 in payments due this week', Format(VendorLedgerEntry.Count, 0, 0));
@@ -83,7 +83,7 @@ page 50060 "Headline RC Payables"
                 PayablesHeadlineVisible := true;
             end;
         end;
-        
+
         UserGreetingVisible := not PayablesHeadlineVisible;
     end;
 

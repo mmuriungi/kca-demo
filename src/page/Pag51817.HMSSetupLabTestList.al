@@ -29,12 +29,12 @@ page 51817 "HMS-Setup Lab Test List"
         {
             action("Lab Test Items")
             {
-                ApplicationArea=all;
-                Promoted=true;
-                PromotedCategory=Process;
-                Image=Item;
-                RunObject=page "Lab Test Items";
-                RunPageLink=Code=field(Code);
+                ApplicationArea = all;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = Item;
+                RunObject = page "Lab Test Items";
+                RunPageLink = Code = field(Code);
             }
         }
     }
