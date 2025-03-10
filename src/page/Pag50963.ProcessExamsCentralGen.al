@@ -2884,26 +2884,24 @@ page 50963 "Process Exams Central Gen."
                                 REPEAT
                                 BEGIN
                                     ProgBar22.UPDATE(1, 'Student Number: ' + ACASenateReportsHeader."Programme Code" + ' Class: ' + ACASenateReportsHeader."Classification Code");
-                                    WITH ACASenateReportsHeader DO BEGIN
-                                        ACASenateReportsHeader.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Passed",
-                                        "School Total Failed", "Programme Classification Count", "Programme Total Passed", "Programme Total Failed", "School Total Count",
-                                        "Prog. Total Count");
+                                    ACASenateReportsHeader.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Passed",
+"School Total Failed", "Programme Classification Count", "Programme Total Passed", "Programme Total Failed", "School Total Count",
+"Prog. Total Count");
 
-                                        CALCFIELDS("School Classification Count", "School Total Passed", "School Total Failed", "School Total Count",
-                                        "Programme Classification Count", "Prog. Total Count", "Programme Total Failed", "Programme Total Passed");
-                                        IF "School Total Count" > 0 THEN
-                                            "Sch. Class % Value" := ROUND((("School Classification Count" / "School Total Count") * 100), 0.01, '=');
-                                        IF "School Total Count" > 0 THEN
-                                            "School % Failed" := ROUND((("School Total Failed" / "School Total Count") * 100), 0.01, '=');
-                                        IF "School Total Count" > 0 THEN
-                                            "School % Passed" := ROUND((("School Total Passed" / "School Total Count") * 100), 0.01, '=');
-                                        IF "Prog. Total Count" > 0 THEN
-                                            "Prog. Class % Value" := ROUND((("Programme Classification Count" / "Prog. Total Count") * 100), 0.01, '=');
-                                        IF "Prog. Total Count" > 0 THEN
-                                            "Programme % Failed" := ROUND((("Programme Total Failed" / "Prog. Total Count") * 100), 0.01, '=');
-                                        IF "Prog. Total Count" > 0 THEN
-                                            "Programme % Passed" := ROUND((("Programme Total Passed" / "Prog. Total Count") * 100), 0.01, '=');
-                                    END;
+                                    ACASenateReportsHeader.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Failed", "School Total Count",
+                                    "Programme Classification Count", "Prog. Total Count", "Programme Total Failed", "Programme Total Passed");
+                                    IF ACASenateReportsHeader."School Total Count" > 0 THEN
+                                        ACASenateReportsHeader."Sch. Class % Value" := ROUND(((ACASenateReportsHeader."School Classification Count" / ACASenateReportsHeader."School Total Count") * 100), 0.01, '=');
+                                    IF ACASenateReportsHeader."School Total Count" > 0 THEN
+                                        ACASenateReportsHeader."School % Failed" := ROUND(((ACASenateReportsHeader."School Total Failed" / ACASenateReportsHeader."School Total Count") * 100), 0.01, '=');
+                                    IF ACASenateReportsHeader."School Total Count" > 0 THEN
+                                        ACASenateReportsHeader."School % Passed" := ROUND(((ACASenateReportsHeader."School Total Passed" / ACASenateReportsHeader."School Total Count") * 100), 0.01, '=');
+                                    IF ACASenateReportsHeader."Prog. Total Count" > 0 THEN
+                                        ACASenateReportsHeader."Prog. Class % Value" := ROUND(((ACASenateReportsHeader."Programme Classification Count" / ACASenateReportsHeader."Prog. Total Count") * 100), 0.01, '=');
+                                    IF ACASenateReportsHeader."Prog. Total Count" > 0 THEN
+                                        ACASenateReportsHeader."Programme % Failed" := ROUND(((ACASenateReportsHeader."Programme Total Failed" / ACASenateReportsHeader."Prog. Total Count") * 100), 0.01, '=');
+                                    IF ACASenateReportsHeader."Prog. Total Count" > 0 THEN
+                                        ACASenateReportsHeader."Programme % Passed" := ROUND(((ACASenateReportsHeader."Programme Total Passed" / ACASenateReportsHeader."Prog. Total Count") * 100), 0.01, '=');
                                     ACASenateReportsHeader.MODIFY;
                                 END;
                                 UNTIL ACASenateReportsHeader.NEXT = 0;
@@ -2926,26 +2924,24 @@ page 50963 "Process Exams Central Gen."
                         REPEAT
                         BEGIN
                             ProgBar22.UPDATE(1, 'Student Number: ' + ACASenateReportsHeaderSupps."Programme Code" + ' Class: ' + ACASenateReportsHeaderSupps."Classification Code");
-                            WITH ACASenateReportsHeaderSupps DO BEGIN
-                                ACASenateReportsHeaderSupps.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Passed",
-                                "School Total Failed", "Programme Classification Count", "Programme Total Passed", "Programme Total Failed", "School Total Count",
-                                "Prog. Total Count");
+                            ACASenateReportsHeaderSupps.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Passed",
+"School Total Failed", "Programme Classification Count", "Programme Total Passed", "Programme Total Failed", "School Total Count",
+"Prog. Total Count");
 
-                                CALCFIELDS("School Classification Count", "School Total Passed", "School Total Failed", "School Total Count",
-                                "Programme Classification Count", "Prog. Total Count", "Programme Total Failed", "Programme Total Passed");
-                                IF "School Total Count" > 0 THEN
-                                    "Sch. Class % Value" := ROUND((("School Classification Count" / "School Total Count") * 100), 0.01, '=');
-                                IF "School Total Count" > 0 THEN
-                                    "School % Failed" := ROUND((("School Total Failed" / "School Total Count") * 100), 0.01, '=');
-                                IF "School Total Count" > 0 THEN
-                                    "School % Passed" := ROUND((("School Total Passed" / "School Total Count") * 100), 0.01, '=');
-                                IF "Prog. Total Count" > 0 THEN
-                                    "Prog. Class % Value" := ROUND((("Programme Classification Count" / "Prog. Total Count") * 100), 0.01, '=');
-                                IF "Prog. Total Count" > 0 THEN
-                                    "Programme % Failed" := ROUND((("Programme Total Failed" / "Prog. Total Count") * 100), 0.01, '=');
-                                IF "Prog. Total Count" > 0 THEN
-                                    "Programme % Passed" := ROUND((("Programme Total Passed" / "Prog. Total Count") * 100), 0.01, '=');
-                            END;
+                            ACASenateReportsHeaderSupps.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Failed", "School Total Count",
+                            "Programme Classification Count", "Prog. Total Count", "Programme Total Failed", "Programme Total Passed");
+                            IF ACASenateReportsHeaderSupps."School Total Count" > 0 THEN
+                                ACASenateReportsHeaderSupps."Sch. Class % Value" := ROUND(((ACASenateReportsHeaderSupps."School Classification Count" / ACASenateReportsHeaderSupps."School Total Count") * 100), 0.01, '=');
+                            IF ACASenateReportsHeaderSupps."School Total Count" > 0 THEN
+                                ACASenateReportsHeaderSupps."School % Failed" := ROUND(((ACASenateReportsHeaderSupps."School Total Failed" / ACASenateReportsHeaderSupps."School Total Count") * 100), 0.01, '=');
+                            IF ACASenateReportsHeaderSupps."School Total Count" > 0 THEN
+                                ACASenateReportsHeaderSupps."School % Passed" := ROUND(((ACASenateReportsHeaderSupps."School Total Passed" / ACASenateReportsHeaderSupps."School Total Count") * 100), 0.01, '=');
+                            IF ACASenateReportsHeaderSupps."Prog. Total Count" > 0 THEN
+                                ACASenateReportsHeaderSupps."Prog. Class % Value" := ROUND(((ACASenateReportsHeaderSupps."Programme Classification Count" / ACASenateReportsHeaderSupps."Prog. Total Count") * 100), 0.01, '=');
+                            IF ACASenateReportsHeaderSupps."Prog. Total Count" > 0 THEN
+                                ACASenateReportsHeaderSupps."Programme % Failed" := ROUND(((ACASenateReportsHeaderSupps."Programme Total Failed" / ACASenateReportsHeaderSupps."Prog. Total Count") * 100), 0.01, '=');
+                            IF ACASenateReportsHeaderSupps."Prog. Total Count" > 0 THEN
+                                ACASenateReportsHeaderSupps."Programme % Passed" := ROUND(((ACASenateReportsHeaderSupps."Programme Total Passed" / ACASenateReportsHeaderSupps."Prog. Total Count") * 100), 0.01, '=');
                             ACASenateReportsHeaderSupps.MODIFY;
                         END;
                         UNTIL ACASenateReportsHeaderSupps.NEXT = 0;
@@ -2962,26 +2958,24 @@ page 50963 "Process Exams Central Gen."
                         REPEAT
                         BEGIN
                             ProgBar22.UPDATE(1, 'Student Number: ' + ACA2NDSenateReportsHeader."Programme Code" + ' Class: ' + ACA2NDSenateReportsHeader."Classification Code");
-                            WITH ACA2NDSenateReportsHeader DO BEGIN
-                                ACA2NDSenateReportsHeader.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Passed",
-                                "School Total Failed", "Programme Classification Count", "Programme Total Passed", "Programme Total Failed", "School Total Count",
-                                "Prog. Total Count");
+                            ACA2NDSenateReportsHeader.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Passed",
+"School Total Failed", "Programme Classification Count", "Programme Total Passed", "Programme Total Failed", "School Total Count",
+"Prog. Total Count");
 
-                                CALCFIELDS("School Classification Count", "School Total Passed", "School Total Failed", "School Total Count",
-                                "Programme Classification Count", "Prog. Total Count", "Programme Total Failed", "Programme Total Passed");
-                                IF "School Total Count" > 0 THEN
-                                    "Sch. Class % Value" := ROUND((("School Classification Count" / "School Total Count") * 100), 0.01, '=');
-                                IF "School Total Count" > 0 THEN
-                                    "School % Failed" := ROUND((("School Total Failed" / "School Total Count") * 100), 0.01, '=');
-                                IF "School Total Count" > 0 THEN
-                                    "School % Passed" := ROUND((("School Total Passed" / "School Total Count") * 100), 0.01, '=');
-                                IF "Prog. Total Count" > 0 THEN
-                                    "Prog. Class % Value" := ROUND((("Programme Classification Count" / "Prog. Total Count") * 100), 0.01, '=');
-                                IF "Prog. Total Count" > 0 THEN
-                                    "Programme % Failed" := ROUND((("Programme Total Failed" / "Prog. Total Count") * 100), 0.01, '=');
-                                IF "Prog. Total Count" > 0 THEN
-                                    "Programme % Passed" := ROUND((("Programme Total Passed" / "Prog. Total Count") * 100), 0.01, '=');
-                            END;
+                            ACA2NDSenateReportsHeader.CALCFIELDS("School Classification Count", "School Total Passed", "School Total Failed", "School Total Count",
+                            "Programme Classification Count", "Prog. Total Count", "Programme Total Failed", "Programme Total Passed");
+                            IF ACA2NDSenateReportsHeader."School Total Count" > 0 THEN
+                                ACA2NDSenateReportsHeader."Sch. Class % Value" := ROUND(((ACA2NDSenateReportsHeader."School Classification Count" / ACA2NDSenateReportsHeader."School Total Count") * 100), 0.01, '=');
+                            IF ACA2NDSenateReportsHeader."School Total Count" > 0 THEN
+                                ACA2NDSenateReportsHeader."School % Failed" := ROUND(((ACA2NDSenateReportsHeader."School Total Failed" / ACA2NDSenateReportsHeader."School Total Count") * 100), 0.01, '=');
+                            IF ACA2NDSenateReportsHeader."School Total Count" > 0 THEN
+                                ACA2NDSenateReportsHeader."School % Passed" := ROUND(((ACA2NDSenateReportsHeader."School Total Passed" / ACA2NDSenateReportsHeader."School Total Count") * 100), 0.01, '=');
+                            IF ACA2NDSenateReportsHeader."Prog. Total Count" > 0 THEN
+                                ACA2NDSenateReportsHeader."Prog. Class % Value" := ROUND(((ACA2NDSenateReportsHeader."Programme Classification Count" / ACA2NDSenateReportsHeader."Prog. Total Count") * 100), 0.01, '=');
+                            IF ACA2NDSenateReportsHeader."Prog. Total Count" > 0 THEN
+                                ACA2NDSenateReportsHeader."Programme % Failed" := ROUND(((ACA2NDSenateReportsHeader."Programme Total Failed" / ACA2NDSenateReportsHeader."Prog. Total Count") * 100), 0.01, '=');
+                            IF ACA2NDSenateReportsHeader."Prog. Total Count" > 0 THEN
+                                ACA2NDSenateReportsHeader."Programme % Passed" := ROUND(((ACA2NDSenateReportsHeader."Programme Total Passed" / ACA2NDSenateReportsHeader."Prog. Total Count") * 100), 0.01, '=');
                             ACA2NDSenateReportsHeader.MODIFY;
                         END;
                         UNTIL ACA2NDSenateReportsHeader.NEXT = 0;

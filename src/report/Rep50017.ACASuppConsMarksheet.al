@@ -5,206 +5,206 @@ report 50017 "ACA-Supp. Cons. Marksheet"
 
     dataset
     {
-        dataitem(ExamCoreg;"ACA-Exam. Course Registration")
+        dataitem(ExamCoreg; "ACA-Exam. Course Registration")
         {
-            RequestFilterFields = Programme,"Academic Year","Year of Study","Programme Option";
+            RequestFilterFields = Programme, "Academic Year", "Year of Study", "Programme Option";
             column(ReportForNavId_1; 1)
             {
             }
-            column(seq;seq)
+            column(seq; seq)
             {
             }
-            column(COmpName;CompanyInformation.Name)
+            column(COmpName; CompanyInformation.Name)
             {
             }
-            column(CompAddress;CompanyInformation.Address+', '+CompanyInformation."Address 2"+' '+CompanyInformation.City)
+            column(CompAddress; CompanyInformation.Address + ', ' + CompanyInformation."Address 2" + ' ' + CompanyInformation.City)
             {
             }
-            column(CompPhone;CompanyInformation."Phone No."+','+CompanyInformation."Phone No. 2")
+            column(CompPhone; CompanyInformation."Phone No." + ',' + CompanyInformation."Phone No. 2")
             {
             }
-            column(pic;CompanyInformation.Picture)
+            column(pic; CompanyInformation.Picture)
             {
             }
-            column(mails;CompanyInformation."E-Mail"+'/'+CompanyInformation."Home Page")
+            column(mails; CompanyInformation."E-Mail" + '/' + CompanyInformation."Home Page")
             {
             }
-            column(StudNumber;ExamCoreg."Student Number")
+            column(StudNumber; ExamCoreg."Student Number")
             {
             }
-            column(Progs;ExamCoreg.Programme)
+            column(Progs; ExamCoreg.Programme)
             {
             }
-            column(ProgNames;Programmes.Description)
+            column(ProgNames; Programmes.Description)
             {
             }
-            column(YearofStudy;ExamCoreg."Year of Study")
+            column(YearofStudy; ExamCoreg."Year of Study")
             {
             }
-            column(AcadYear;ExamCoreg."Academic Year")
+            column(AcadYear; ExamCoreg."Academic Year")
             {
             }
-            column(StudentName;FormatNames(ExamCoreg."Student Name"))
+            column(StudentName; FormatNames(ExamCoreg."Student Name"))
             {
             }
-            column(Dept;ExamCoreg.Department)
+            column(Dept; ExamCoreg.Department)
             {
             }
-            column(SchCode;ExamCoreg."School Code")
+            column(SchCode; ExamCoreg."School Code")
             {
             }
-            column(DeptName;ExamCoreg."Department Name")
+            column(DeptName; ExamCoreg."Department Name")
             {
             }
-            column(SchName;ExamCoreg."School Name")
+            column(SchName; ExamCoreg."School Name")
             {
             }
-            column(Class;ExamCoreg.Classification)
+            column(Class; ExamCoreg.Classification)
             {
             }
-            column(NAverage;ROUND(ExamCoreg."Weighted Average",0.01,'='))
+            column(NAverage; ROUND(ExamCoreg."Weighted Average", 0.01, '='))
             {
             }
-            column(WAverage;ROUND(ExamCoreg."Weighted Average",0.01,'='))
+            column(WAverage; ROUND(ExamCoreg."Weighted Average", 0.01, '='))
             {
             }
-            column(ProgOption;ExamCoreg."Programme Option")
+            column(ProgOption; ExamCoreg."Programme Option")
             {
             }
-            column(PercentageFailedCourses;ExamCoreg."% Total Failed Courses")
+            column(PercentageFailedCourses; ExamCoreg."% Total Failed Courses")
             {
             }
-            column(SuppExists;ExamCoreg."Supp/Special Exists")
+            column(SuppExists; ExamCoreg."Supp/Special Exists")
             {
             }
-            column(PercentageFailedUnits;CfFailed)
+            column(PercentageFailedUnits; CfFailed)
             {
             }
-            column(TotPassedUnits;ExamCoreg."Total Units"-ExamCoreg."Failed Units")
+            column(TotPassedUnits; ExamCoreg."Total Units" - ExamCoreg."Failed Units")
             {
             }
-            column(TotalPassed;ExamCoreg."Total Required Passed"+ExamCoreg."Tota Electives Passed"+ExamCoreg."Total Cores Passed")
+            column(TotalPassed; ExamCoreg."Total Required Passed" + ExamCoreg."Tota Electives Passed" + ExamCoreg."Total Cores Passed")
             {
             }
-            column(TotalCourseDone;ExamCoreg."Total Courses")
+            column(TotalCourseDone; ExamCoreg."Total Courses")
             {
             }
-            column(TotalUnits;ExamCoreg."Total Units")
+            column(TotalUnits; ExamCoreg."Total Units")
             {
             }
-            column(TotalMarks;ExamCoreg."Total Marks")
+            column(TotalMarks; ExamCoreg."Total Marks")
             {
             }
-            column(TotFailedCourses;ExamCoreg."Total Failed Courses")
+            column(TotFailedCourses; ExamCoreg."Total Failed Courses")
             {
             }
-            column(TotFailedUnits;ExamCoreg."Total Failed Units")
+            column(TotFailedUnits; ExamCoreg."Total Failed Units")
             {
             }
-            column(FailedCourses;ExamCoreg."Failed Courses")
+            column(FailedCourses; ExamCoreg."Failed Courses")
             {
             }
-            column(FailedUnits;ExamCoreg."Failed Units")
+            column(FailedUnits; ExamCoreg."Failed Units")
             {
             }
-            column(TotalCoursesPassed;ExamCoreg."Total Required Passed"+ExamCoreg."Tota Electives Passed"+ExamCoreg."Total Cores Passed")
+            column(TotalCoursesPassed; ExamCoreg."Total Required Passed" + ExamCoreg."Tota Electives Passed" + ExamCoreg."Total Cores Passed")
             {
             }
-            column(TotWeightedMarks;ExamCoreg."Total Weighted Marks")
+            column(TotWeightedMarks; ExamCoreg."Total Weighted Marks")
             {
             }
-            column(ClassOrder;ExamCoreg."Final Classification Order")
+            column(ClassOrder; ExamCoreg."Final Classification Order")
             {
             }
-            dataitem(ExamClassUnits;"ACA-Exam Classification Units")
+            dataitem(ExamClassUnits; "ACA-Exam Classification Units")
             {
-                CalcFields = "Comsolidated Prefix","Grade Comment",Grade,Pass,"Unit Stage";
-                DataItemLink = "Student No."=field("Student Number"),Programme=field(Programme),"Academic Year"=field("Academic Year"),"Year of Study"=field("Year of Study");
+                CalcFields = "Comsolidated Prefix", "Grade Comment", Grade, Pass, "Unit Stage";
+                DataItemLink = "Student No." = field("Student Number"), Programme = field(Programme), "Academic Year" = field("Academic Year"), "Year of Study" = field("Year of Study");
                 column(ReportForNavId_30; 30)
                 {
                 }
-                column(UnitCode;ExamClassUnits."Unit Code")
+                column(UnitCode; ExamClassUnits."Unit Code")
                 {
                 }
-                column(UnitDescription;ExamClassUnits."Unit Description")
+                column(UnitDescription; ExamClassUnits."Unit Description")
                 {
                 }
-                column(CreditHours;ExamClassUnits."Credit Hours")
+                column(CreditHours; ExamClassUnits."Credit Hours")
                 {
                 }
-                column(CATScore;ExamClassUnits."CAT Score")
+                column(CATScore; ExamClassUnits."CAT Score")
                 {
                 }
-                column(ExamScore;ExamClassUnits."Exam Score")
+                column(ExamScore; ExamClassUnits."Exam Score")
                 {
                 }
-                column(TotalScore;ExamClassUnits."Total Score")
+                column(TotalScore; ExamClassUnits."Total Score")
                 {
                 }
-                column(Pass;ExamClassUnits.Pass)
+                column(Pass; ExamClassUnits.Pass)
                 {
                 }
-                column(UnitYearOfStudy;ExamClassUnits."Year of Study")
+                column(UnitYearOfStudy; ExamClassUnits."Year of Study")
                 {
                 }
-                column(ExamScoreDecimal;ExamClassUnits."Exam Score Decimal")
+                column(ExamScoreDecimal; ExamClassUnits."Exam Score Decimal")
                 {
                 }
-                column(CATScoreDecimal;ExamClassUnits."CAT Score Decimal")
+                column(CATScoreDecimal; ExamClassUnits."CAT Score Decimal")
                 {
                 }
-                column(TotalScoreDecimal;ExamClassUnits."Total Score Decimal")
+                column(TotalScoreDecimal; ExamClassUnits."Total Score Decimal")
                 {
                 }
-                column(UnitGrade;ExamClassUnits.Grade)
+                column(UnitGrade; ExamClassUnits.Grade)
                 {
                 }
-                column(UnitSchoolCode;ExamClassUnits."School Code")
+                column(UnitSchoolCode; ExamClassUnits."School Code")
                 {
                 }
-                column(UnitDepartmentCode;ExamClassUnits."Department Code")
+                column(UnitDepartmentCode; ExamClassUnits."Department Code")
                 {
                 }
-                column(GradeComment;ExamClassUnits."Grade Comment")
+                column(GradeComment; ExamClassUnits."Grade Comment")
                 {
                 }
-                column(Prefix;ExamClassUnits."Comsolidated Prefix")
+                column(Prefix; ExamClassUnits."Comsolidated Prefix")
                 {
                 }
-                column(isRepeatOrResit;ExamClassUnits."Is a Resit/Repeat")
+                column(isRepeatOrResit; ExamClassUnits."Is a Resit/Repeat")
                 {
                 }
-                column(UnitStage;ExamClassUnits."Unit Stage")
+                column(UnitStage; ExamClassUnits."Unit Stage")
                 {
                 }
-                column(StageCode;ACAUnitsSubjects."Stage Code")
+                column(StageCode; ACAUnitsSubjects."Stage Code")
                 {
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-                    if ((ExamCoreg."Final Classification"='DISCIPLINERY') or (ExamCoreg."Final Classification"='DISCIPLINARY')) then begin
-                        ExamClassUnits."Comsolidated Prefix":='';
-                        ExamClassUnits."Total Score":='';
-                        ExamClassUnits."Total Score Decimal":=0;
-                      end;
+                    if ((ExamCoreg."Final Classification" = 'DISCIPLINERY') or (ExamCoreg."Final Classification" = 'DISCIPLINARY')) then begin
+                        ExamClassUnits."Comsolidated Prefix" := '';
+                        ExamClassUnits."Total Score" := '';
+                        ExamClassUnits."Total Score Decimal" := 0;
+                    end;
                     Clear(ACASuppExamClassUnits);
                     ACASuppExamClassUnits.Reset;
-                    ACASuppExamClassUnits.SetRange("Student No.",ExamClassUnits."Student No.");
-                    ACASuppExamClassUnits.SetRange("Unit Code",ExamClassUnits."Unit Code");
-                    ACASuppExamClassUnits.SetRange("Year of Study",ExamClassUnits."Year of Study");
-                    ACASuppExamClassUnits.SetRange("Academic Year",ExamCoreg.GetFilter("Academic Year"));
+                    ACASuppExamClassUnits.SetRange("Student No.", ExamClassUnits."Student No.");
+                    ACASuppExamClassUnits.SetRange("Unit Code", ExamClassUnits."Unit Code");
+                    ACASuppExamClassUnits.SetRange("Year of Study", ExamClassUnits."Year of Study");
+                    ACASuppExamClassUnits.SetRange("Academic Year", ExamCoreg.GetFilter("Academic Year"));
                     if ACASuppExamClassUnits.Find('-') then begin
-                      ACASuppExamClassUnits.CalcFields(Pass,"Is a Resit/Repeat","Comsolidated Prefix");
-                      ExamClassUnits."Exam Score":=ACASuppExamClassUnits."Exam Score";
-                      ExamClassUnits."Total Score":=ACASuppExamClassUnits."Total Score";
-                      ExamClassUnits.Pass:=ACASuppExamClassUnits.Pass;
-                      ExamClassUnits."Total Score":=ACASuppExamClassUnits."Total Score";
-                      ExamClassUnits."Exam Score Decimal":=ACASuppExamClassUnits."Exam Score Decimal";
-                      ExamClassUnits."Total Score Decimal":=ACASuppExamClassUnits."Total Score Decimal";
-                      ExamClassUnits."Comsolidated Prefix":=ACASuppExamClassUnits."Comsolidated Prefix";
-                      ExamClassUnits."Is a Resit/Repeat":=ACASuppExamClassUnits."Is a Resit/Repeat";
-                      end;
+                        ACASuppExamClassUnits.CalcFields(Pass, "Is a Resit/Repeat", "Comsolidated Prefix");
+                        ExamClassUnits."Exam Score" := ACASuppExamClassUnits."Exam Score";
+                        ExamClassUnits."Total Score" := ACASuppExamClassUnits."Total Score";
+                        ExamClassUnits.Pass := ACASuppExamClassUnits.Pass;
+                        ExamClassUnits."Total Score" := ACASuppExamClassUnits."Total Score";
+                        ExamClassUnits."Exam Score Decimal" := ACASuppExamClassUnits."Exam Score Decimal";
+                        ExamClassUnits."Total Score Decimal" := ACASuppExamClassUnits."Total Score Decimal";
+                        ExamClassUnits."Comsolidated Prefix" := ACASuppExamClassUnits."Comsolidated Prefix";
+                        ExamClassUnits."Is a Resit/Repeat" := ACASuppExamClassUnits."Is a Resit/Repeat";
+                    end;
                 end;
             }
 
@@ -213,66 +213,66 @@ report 50017 "ACA-Supp. Cons. Marksheet"
 
                 Clear(Programmes);
                 Programmes.Reset;
-                Programmes.SetRange(Code,ExamCoreg.Programme);
+                Programmes.SetRange(Code, ExamCoreg.Programme);
                 if Programmes.Find('-') then;
-                seq:=seq+1;
+                seq := seq + 1;
                 Clear(ACASuppExamCoReg);
-                  ACASuppExamCoReg.Reset;
-                  ACASuppExamCoReg.SetRange("Student Number",ExamCoreg."Student Number");
-                  ACASuppExamCoReg.SetRange(Programme,ExamCoreg.Programme);
-                  ACASuppExamCoReg.SetRange("Year of Study",ExamCoreg."Year of Study");
-                  ACASuppExamCoReg.SetRange("Academic Year",ExamCoreg.GetFilter("Academic Year"));
+                ACASuppExamCoReg.Reset;
+                ACASuppExamCoReg.SetRange("Student Number", ExamCoreg."Student Number");
+                ACASuppExamCoReg.SetRange(Programme, ExamCoreg.Programme);
+                ACASuppExamCoReg.SetRange("Year of Study", ExamCoreg."Year of Study");
+                ACASuppExamCoReg.SetRange("Academic Year", ExamCoreg.GetFilter("Academic Year"));
                 //  ACASuppExamCoReg.SETRANGE("Reporting Academic Year",ExamCoreg."Reporting Academic Year");
-                  if ACASuppExamCoReg.Find('-') then begin
-                   ACASuppExamCoReg.CalcFields(ACASuppExamCoReg."Total Units",ACASuppExamCoReg."Failed Units",ACASuppExamCoReg."Total Required Passed",
-                  ACASuppExamCoReg."Tota Electives Passed",ACASuppExamCoReg."Total Cores Passed",ACASuppExamCoReg."Total Courses",
-                  ACASuppExamCoReg."Total Units",ACASuppExamCoReg."Total Marks",ACASuppExamCoReg."Total Failed Courses",ACASuppExamCoReg."Total Failed Units",
-                  ACASuppExamCoReg."Failed Courses",ACASuppExamCoReg."Failed Units",ACASuppExamCoReg."Total Required Passed",
-                  ACASuppExamCoReg."Tota Electives Passed",ACASuppExamCoReg."Total Cores Passed",ACASuppExamCoReg."Total Weighted Marks");
-                  ExamCoreg.Classification:=ACASuppExamCoReg.Classification;
-                  ExamCoreg."Normal Average":=ACASuppExamCoReg."Normal Average";
-                  ExamCoreg."Weighted Average":=ACASuppExamCoReg."Weighted Average";
-                  ExamCoreg."% Total Failed Courses":=ACASuppExamCoReg."% Total Failed Courses";
-                  ExamCoreg."Total Units":=ACASuppExamCoReg."Total Units";
-                  ExamCoreg."Failed Units":=ACASuppExamCoReg."Failed Units";
-                  ExamCoreg."Total Required Passed":=ACASuppExamCoReg."Total Required Passed";
-                  ExamCoreg."Tota Electives Passed":=ACASuppExamCoReg."Tota Electives Passed";
-                  ExamCoreg."Total Cores Passed":=ACASuppExamCoReg."Total Cores Passed";
-                  ExamCoreg."Total Courses":=ACASuppExamCoReg."Total Courses";
-                  ExamCoreg."Total Units":=ACASuppExamCoReg."Total Units";
-                  ExamCoreg."Total Marks":=ACASuppExamCoReg."Total Marks";
-                  ExamCoreg."Total Failed Courses":=ACASuppExamCoReg."Total Failed Courses";
-                  ExamCoreg."Total Failed Units":=ACASuppExamCoReg."Total Failed Units";
-                  ExamCoreg."Failed Courses":=ACASuppExamCoReg."Failed Courses";
-                  ExamCoreg."Failed Units":=ACASuppExamCoReg."Failed Units";
-                  ExamCoreg."Total Required Passed":=ACASuppExamCoReg."Total Required Passed";
-                  ExamCoreg."Tota Electives Passed":=ACASuppExamCoReg."Tota Electives Passed";
-                  ExamCoreg."Total Cores Passed":=ACASuppExamCoReg."Total Cores Passed";
-                  ExamCoreg."Total Weighted Marks":=ACASuppExamCoReg."Total Weighted Marks";
-                  ExamCoreg."Final Classification Order":=ACASuppExamCoReg."Final Classification Order";
-                  end;
-                 ExamCoreg.CalcFields("Weighted Average","Normal Average");
+                if ACASuppExamCoReg.Find('-') then begin
+                    ACASuppExamCoReg.CalcFields(ACASuppExamCoReg."Total Units", ACASuppExamCoReg."Failed Units", ACASuppExamCoReg."Total Required Passed",
+                   ACASuppExamCoReg."Tota Electives Passed", ACASuppExamCoReg."Total Cores Passed", ACASuppExamCoReg."Total Courses",
+                   ACASuppExamCoReg."Total Units", ACASuppExamCoReg."Total Marks", ACASuppExamCoReg."Total Failed Courses", ACASuppExamCoReg."Total Failed Units",
+                   ACASuppExamCoReg."Failed Courses", ACASuppExamCoReg."Failed Units", ACASuppExamCoReg."Total Required Passed",
+                   ACASuppExamCoReg."Tota Electives Passed", ACASuppExamCoReg."Total Cores Passed", ACASuppExamCoReg."Total Weighted Marks");
+                    ExamCoreg.Classification := ACASuppExamCoReg.Classification;
+                    ExamCoreg."Normal Average" := ACASuppExamCoReg."Normal Average";
+                    ExamCoreg."Weighted Average" := ACASuppExamCoReg."Weighted Average";
+                    ExamCoreg."% Total Failed Courses" := ACASuppExamCoReg."% Total Failed Courses";
+                    ExamCoreg."Total Units" := ACASuppExamCoReg."Total Units";
+                    ExamCoreg."Failed Units" := ACASuppExamCoReg."Failed Units";
+                    ExamCoreg."Total Required Passed" := ACASuppExamCoReg."Total Required Passed";
+                    ExamCoreg."Tota Electives Passed" := ACASuppExamCoReg."Tota Electives Passed";
+                    ExamCoreg."Total Cores Passed" := ACASuppExamCoReg."Total Cores Passed";
+                    ExamCoreg."Total Courses" := ACASuppExamCoReg."Total Courses";
+                    ExamCoreg."Total Units" := ACASuppExamCoReg."Total Units";
+                    ExamCoreg."Total Marks" := ACASuppExamCoReg."Total Marks";
+                    ExamCoreg."Total Failed Courses" := ACASuppExamCoReg."Total Failed Courses";
+                    ExamCoreg."Total Failed Units" := ACASuppExamCoReg."Total Failed Units";
+                    ExamCoreg."Failed Courses" := ACASuppExamCoReg."Failed Courses";
+                    ExamCoreg."Failed Units" := ACASuppExamCoReg."Failed Units";
+                    ExamCoreg."Total Required Passed" := ACASuppExamCoReg."Total Required Passed";
+                    ExamCoreg."Tota Electives Passed" := ACASuppExamCoReg."Tota Electives Passed";
+                    ExamCoreg."Total Cores Passed" := ACASuppExamCoReg."Total Cores Passed";
+                    ExamCoreg."Total Weighted Marks" := ACASuppExamCoReg."Total Weighted Marks";
+                    ExamCoreg."Final Classification Order" := ACASuppExamCoReg."Final Classification Order";
+                end;
+                ExamCoreg.CalcFields("Weighted Average", "Normal Average");
                 // /*,"Total Courses","Total Units",
                 // "Total Marks","Total Failed Courses","Total Failed Units","Failed Courses","Failed Units",
                 // "Total Cores Passed","Tota Electives Passed","Total Required Passed",
                 // "Total Cores Done","Total Required Done","Total Electives Done","Supp/Special Exists"*/
-                if ExamCoreg."Total Units">0 then begin
-                 CfFailed:=ExamCoreg."Total Failed Units"/ExamCoreg."Total Units";
-                  CfFailed:=CfFailed*100;
-                 // CfFailed:=ROUND(CfFailed,0.01,'=')*100;
-                 end;
+                if ExamCoreg."Total Units" > 0 then begin
+                    CfFailed := ExamCoreg."Total Failed Units" / ExamCoreg."Total Units";
+                    CfFailed := CfFailed * 100;
+                    // CfFailed:=ROUND(CfFailed,0.01,'=')*100;
+                end;
 
-                 if ExamCoreg."Total Units">0 then begin
-                   ExamCoreg."Weighted Average":=ExamCoreg."Total Weighted Marks"/ExamCoreg."Total Units";
-                   end;
+                if ExamCoreg."Total Units" > 0 then begin
+                    ExamCoreg."Weighted Average" := ExamCoreg."Total Weighted Marks" / ExamCoreg."Total Units";
+                end;
             end;
 
             trigger OnPreDataItem()
             begin
                 Clear(seq);
-                if ExamCoreg.GetFilter(Programme)='' then Error('Specify a programme');
-                if ExamCoreg.GetFilter("Academic Year")='' then Error('Specify Academic year');
-                if ExamCoreg.GetFilter("Year of Study")='' then Error('Specify Year of Study');
+                if ExamCoreg.GetFilter(Programme) = '' then Error('Specify a programme');
+                if ExamCoreg.GetFilter("Academic Year") = '' then Error('Specify Academic year');
+                if ExamCoreg.GetFilter("Year of Study") = '' then Error('Specify Year of Study');
                 // ACAProgrammeOptions.RESET;
                 // ACAProgrammeOptions.SETRANGE("Programme Code",ExamCoreg.GETFILTER(Programme));
                 // ACAProgrammeOptions.SETFILTER(Code,'<>%1','');
@@ -307,7 +307,7 @@ report 50017 "ACA-Supp. Cons. Marksheet"
 
     trigger OnPreReport()
     begin
-        if ExamCoreg.GetFilter(Programme)='' then Error('Specify a programme filter.');
+        if ExamCoreg.GetFilter(Programme) = '' then Error('Specify a programme filter.');
     end;
 
     var
@@ -383,7 +383,7 @@ report 50017 "ACA-Supp. Cons. Marksheet"
           END;
           CLEAR(NewName);
         NewName:=FirsName+','+OtherNames;*/
-        NewName:=CommonName;
+        NewName := CommonName;
 
     end;
 }

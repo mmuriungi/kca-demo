@@ -5,73 +5,73 @@ report 50007 Receipt
 
     dataset
     {
-        dataitem("FIN-Receipts Header";"FIN-Receipts Header")
+        dataitem("FIN-Receipts Header"; "FIN-Receipts Header")
         {
             RequestFilterFields = "No.";
             column(ReportForNavId_1102755004; 1102755004)
             {
             }
-            column(HeaderNo;"FIN-Receipts Header"."No.")
+            column(HeaderNo; "FIN-Receipts Header"."No.")
             {
             }
-            column(HeaderDate;"FIN-Receipts Header".Date)
+            column(HeaderDate; "FIN-Receipts Header".Date)
             {
             }
-            column(UserID;"FIN-Receipts Header".Cashier)
+            column(UserID; "FIN-Receipts Header".Cashier)
             {
             }
-            column(AcctName;AcctName)
+            column(AcctName; AcctName)
             {
             }
-            column(RegNo;RegNo)
+            column(RegNo; RegNo)
             {
             }
-            column(rec;"FIN-Receipts Header"."Received From")
+            column(rec; "FIN-Receipts Header"."Received From")
             {
             }
-            dataitem("FIN-Receipt Line q";"FIN-Receipt Line q")
+            dataitem("FIN-Receipt Line q"; "FIN-Receipt Line q")
             {
-                DataItemLink = No=field("No.");
+                DataItemLink = No = field("No.");
                 column(ReportForNavId_1102755006; 1102755006)
                 {
                 }
-                column(RecLineNo;"FIN-Receipt Line q"."Account No.")
+                column(RecLineNo; "FIN-Receipt Line q"."Account No.")
                 {
                 }
-                column(RecLineAcctName;"FIN-Receipt Line q"."Account Name")
+                column(RecLineAcctName; "FIN-Receipt Line q"."Account Name")
                 {
                 }
-                column(Amount;"FIN-Receipt Line q".Amount)
+                column(Amount; "FIN-Receipt Line q".Amount)
                 {
                 }
-                column(TotalAmount;TotalAmount)
+                column(TotalAmount; TotalAmount)
                 {
                 }
-                column(NumberText_1_;NumberText[1])
+                column(NumberText_1_; NumberText[1])
                 {
                 }
-                column(PayMode;"FIN-Receipt Line q"."Pay Mode")
+                column(PayMode; "FIN-Receipt Line q"."Pay Mode")
                 {
                 }
-                column(ReceivedFrom;"FIN-Receipt Line q"."Received From")
+                column(ReceivedFrom; "FIN-Receipt Line q"."Received From")
                 {
                 }
-                column(Cheque;"FIN-Receipt Line q"."Cheque/Deposit Slip No")
+                column(Cheque; "FIN-Receipt Line q"."Cheque/Deposit Slip No")
                 {
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-                    TotalAmount:=TotalAmount+"FIN-Receipt Line q".Amount;
+                    TotalAmount := TotalAmount + "FIN-Receipt Line q".Amount;
 
                     CheckReport.InitTextVariable;
-                    CheckReport.FormatNoText(NumberText,TotalAmount,'');
+                    CheckReport.FormatNoText(NumberText, TotalAmount, '');
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
-                TotalAmount:=0;
+                TotalAmount := 0;
             end;
         }
     }
@@ -95,7 +95,7 @@ report 50007 Receipt
     var
         AcctName: Text[150];
         RegNo: Code[30];
-        NumberText: array [2] of Text[120];
+        NumberText: array[2] of Text[120];
         CheckReport: Report Check;
         TotalAmount: Decimal;
 }

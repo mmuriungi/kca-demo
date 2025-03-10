@@ -1,7 +1,7 @@
 table 50054 "ACA-2ndSuppExam Class. Units"
 {
     Caption = 'ACA-2ndSuppExam Class. Units';
-    DataClassification = CustomerContent; 
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -24,7 +24,7 @@ table 50054 "ACA-2ndSuppExam Class. Units"
         {
             Caption = 'Unit Description';
             FieldClass = FlowField;
-            CalcFormula = Lookup("ACA-Units/Subjects".Desription WHERE("Programme Code" = FIELD(Programme), 
+            CalcFormula = Lookup("ACA-Units/Subjects".Desription WHERE("Programme Code" = FIELD(Programme),
                                                                       Code = FIELD("Unit Code")));
         }
         field(5; "Credit Hours"; Decimal)
@@ -69,22 +69,22 @@ table 50054 "ACA-2ndSuppExam Class. Units"
         field(14; "Exam Score Decimal"; Decimal)
         {
             Caption = 'Exam Score Decimal';
-            DecimalPlaces = 2:2;
+            DecimalPlaces = 2 : 2;
         }
         field(15; "CAT Score Decimal"; Decimal)
         {
             Caption = 'CAT Score Decimal';
-            DecimalPlaces = 2:2;
+            DecimalPlaces = 2 : 2;
         }
         field(16; "Total Score Decimal"; Decimal)
         {
             Caption = 'Total Score Decimal';
-            DecimalPlaces = 2:2;
+            DecimalPlaces = 2 : 2;
         }
         field(17; "Weighted Total Score"; Decimal)
         {
             Caption = 'Weighted Total Score';
-            DecimalPlaces = 2:2;
+            DecimalPlaces = 2 : 2;
         }
         field(18; "Grade"; Code[20])
         {

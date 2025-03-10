@@ -5,68 +5,68 @@ report 50799 "Housing Levy Fund"
 
     dataset
     {
-        dataitem("PRL-Period Transactions";"PRL-Period Transactions")
+        dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
         {
-            DataItemTableView = where("Transaction Code"=filter('BPAY'|'GPAY'|'NPAY'|690));
+            DataItemTableView = where("Transaction Code" = filter('BPAY' | 'GPAY' | 'NPAY' | 690));
             RequestFilterFields = "Employee Code";
             column(ReportForNavId_6207; 6207)
             {
             }
-            column(USERID;UserId)
+            column(USERID; UserId)
             {
             }
-            column(TODAY;Today)
+            column(TODAY; Today)
             {
             }
-            column(PeriodName;PeriodName)
+            column(PeriodName; PeriodName)
             {
             }
-            column(CurrReport_PAGENO;CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo)
             {
             }
-            column(Companyinfo_Picture;Companyinfo.Picture)
+            column(Companyinfo_Picture; Companyinfo.Picture)
             {
             }
-            column(TransAmount;TransAmount)
+            column(TransAmount; TransAmount)
             {
             }
-            column(Transcode;Transcode)
+            column(Transcode; Transcode)
             {
             }
-            column(Id;objEmp."ID Number")
+            column(Id; objEmp."ID Number")
             {
             }
-            column(KraPin;objEmp."PIN Number")
+            column(KraPin; objEmp."PIN Number")
             {
             }
-            column(TransIndx;TransIndx)
+            column(TransIndx; TransIndx)
             {
             }
-            column(EmployeeName;EmployeeName)
+            column(EmployeeName; EmployeeName)
             {
             }
-            column(Gender;Format(objEmp.Gender))
+            column(Gender; Format(objEmp.Gender))
             {
             }
-            column(Date;Dates)
+            column(Date; Dates)
             {
             }
-            column(empcode;"PRL-Period Transactions"."Employee Code")
+            column(empcode; "PRL-Period Transactions"."Employee Code")
             {
             }
-            column(SelectedPeriod;SelectedPeriod)
+            column(SelectedPeriod; SelectedPeriod)
             {
             }
-            column(IDNoS;objEmp."ID Number")
+            column(IDNoS; objEmp."ID Number")
             {
             }
-            column(PinNumber;objEmp."PIN Number")
+            column(PinNumber; objEmp."PIN Number")
             {
             }
-            column(GrossPay;Gpay)
+            column(GrossPay; Gpay)
             {
             }
-            column(HouseLevy;HousingLevy)
+            column(HouseLevy; HousingLevy)
             {
             }
 
@@ -128,11 +128,11 @@ report 50799 "Housing Levy Fund"
                 END;
                 END;*/
                 PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","PRL-Period Transactions"."Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'996');
+                PeriodTrans.SetRange(PeriodTrans."Employee Code", "PRL-Period Transactions"."Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                PeriodTrans.SetRange(PeriodTrans."Transaction Code", '996');
                 if not PeriodTrans.Find('-') then CurrReport.Skip;
-                
+
                 Clear(EmployeeName);
                 Clear(BasicPay);
                 Clear(SelfContrib);
@@ -143,48 +143,48 @@ report 50799 "Housing Levy Fund"
                 Clear(Transcode);
                 Clear(TransIndx);
                 Clear(Gross);
-                
+
                 objEmp.Reset;
-                objEmp.SetRange(objEmp."No.","PRL-Period Transactions"."Employee Code");
-                objEmp.SetRange(objEmp.Status,objEmp.Status::Active);
+                objEmp.SetRange(objEmp."No.", "PRL-Period Transactions"."Employee Code");
+                objEmp.SetRange(objEmp.Status, objEmp.Status::Active);
                 if objEmp.Find('-') then
-                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
-                 PeriodTrans2.Reset;
-                PeriodTrans2.SetRange(PeriodTrans2."Employee Code","PRL-Period Transactions"."Employee Code");
-                PeriodTrans2.SetRange(PeriodTrans2."Payroll Period",SelectedPeriod);
-                PeriodTrans2.SetRange(PeriodTrans2."Transaction Code",'996');
+                    EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name" + ' ' + objEmp."Last Name";
+                PeriodTrans2.Reset;
+                PeriodTrans2.SetRange(PeriodTrans2."Employee Code", "PRL-Period Transactions"."Employee Code");
+                PeriodTrans2.SetRange(PeriodTrans2."Payroll Period", SelectedPeriod);
+                PeriodTrans2.SetRange(PeriodTrans2."Transaction Code", '996');
                 if PeriodTrans2.Find('-') then begin
-                HousingLevy:=PeriodTrans2.Amount;
+                    HousingLevy := PeriodTrans2.Amount;
                 end;
                 PeriodTrans2.Reset;
-                PeriodTrans2.SetRange(PeriodTrans2."Employee Code","PRL-Period Transactions"."Employee Code");
-                PeriodTrans2.SetRange(PeriodTrans2."Payroll Period",SelectedPeriod);
-                PeriodTrans2.SetRange(PeriodTrans2."Transaction Code",'GPAY');
+                PeriodTrans2.SetRange(PeriodTrans2."Employee Code", "PRL-Period Transactions"."Employee Code");
+                PeriodTrans2.SetRange(PeriodTrans2."Payroll Period", SelectedPeriod);
+                PeriodTrans2.SetRange(PeriodTrans2."Transaction Code", 'GPAY');
                 if PeriodTrans2.Find('-') then begin
-                Gross:=PeriodTrans2.Amount;
+                    Gross := PeriodTrans2.Amount;
                 end;
                 objTransCode.Reset;
-                objTransCode.SetFilter(objTransCode."Hsl Excluded",'%1',true);
+                objTransCode.SetFilter(objTransCode."Hsl Excluded", '%1', true);
                 if objTransCode.Find('-') then begin
-                 PeriodTrans2.Reset;
-                PeriodTrans2.SetRange(PeriodTrans2."Employee Code","PRL-Period Transactions"."Employee Code");
-                PeriodTrans2.SetRange(PeriodTrans2."Payroll Period",SelectedPeriod);
-                PeriodTrans2.SetRange(PeriodTrans2."Transaction Code",objTransCode."Transaction Code");
-                if PeriodTrans2.Find('-') then begin
-                PeriodTrans2.CalcSums(Amount);
-                ExcludedAmount:=PeriodTrans2.Amount;
-                end;
-                HslGross:=Gross-ExcludedAmount;
-                
+                    PeriodTrans2.Reset;
+                    PeriodTrans2.SetRange(PeriodTrans2."Employee Code", "PRL-Period Transactions"."Employee Code");
+                    PeriodTrans2.SetRange(PeriodTrans2."Payroll Period", SelectedPeriod);
+                    PeriodTrans2.SetRange(PeriodTrans2."Transaction Code", objTransCode."Transaction Code");
+                    if PeriodTrans2.Find('-') then begin
+                        PeriodTrans2.CalcSums(Amount);
+                        ExcludedAmount := PeriodTrans2.Amount;
+                    end;
+                    HslGross := Gross - ExcludedAmount;
+
                 end;
 
             end;
 
             trigger OnPreDataItem()
             begin
-                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period",'=%1',SelectedPeriod);
+                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period", '=%1', SelectedPeriod);
                 if "PRL-Period Transactions".Find('-') then begin
-                  end;
+                end;
             end;
         }
     }
@@ -196,7 +196,7 @@ report 50799 "Housing Levy Fund"
         {
             area(content)
             {
-                field(PerFilter;SelectedPeriod)
+                field(PerFilter; SelectedPeriod)
                 {
                     ApplicationArea = Basic;
                     Caption = 'Period Filter';
@@ -217,27 +217,27 @@ report 50799 "Housing Levy Fund"
     trigger OnInitReport()
     begin
         objPeriod.Reset;
-        objPeriod.SetRange(Closed,false);
+        objPeriod.SetRange(Closed, false);
         if objPeriod.Find('+') then begin
-          SelectedPeriod:=objPeriod."Date Opened";
-          end;
+            SelectedPeriod := objPeriod."Date Opened";
+        end;
     end;
 
     trigger OnPreReport()
     begin
 
-        if SelectedPeriod=0D then Error('You must specify the period filter');
+        if SelectedPeriod = 0D then Error('You must specify the period filter');
 
         // objPeriod.Reset;
         // if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
 
         objPeriod.Reset;
         objPeriod.SetRange("Date Opened", SelectedPeriod);
-        if objPeriod.FindFirst() then 
+        if objPeriod.FindFirst() then
             PeriodName := objPeriod."Period Name";
 
         if Companyinfo.Get() then
-        Companyinfo.CalcFields(Companyinfo.Picture);
+            Companyinfo.CalcFields(Companyinfo.Picture);
     end;
 
     var

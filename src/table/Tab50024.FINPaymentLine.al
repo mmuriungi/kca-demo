@@ -217,7 +217,7 @@ table 50024 "FIN-Payment Line"
                 Text0001: Label 'The Account number CANNOT be the same as the Paying Bank Account No.';
             begin
                 PH.RESET;
-                PH.SetLoadFields("No.","Global Dimension 1 Code","Shortcut Dimension 2 Code",Payee,"Payment Narration","On Behalf Of");
+                PH.SetLoadFields("No.", "Global Dimension 1 Code", "Shortcut Dimension 2 Code", Payee, "Payment Narration", "On Behalf Of");
                 PH.SETRANGE(PH."No.", No);
                 if PH.FindFirst() then;
                 "Account Name" := '';
@@ -1224,7 +1224,7 @@ table 50024 "FIN-Payment Line"
         END;
         PHead.RESET;
         PHead.SETRANGE(PHead."No.", No);
-        PHead.SetLoadFields("Global Dimension 1 Code","Shortcut Dimension 2 Code","Shortcut Dimension 3 Code","Shortcut Dimension 4 Code","Currency Code","Currency Factor","Payment Type");
+        PHead.SetLoadFields("Global Dimension 1 Code", "Shortcut Dimension 2 Code", "Shortcut Dimension 3 Code", "Shortcut Dimension 4 Code", "Currency Code", "Currency Factor", "Payment Type");
         IF PHead.FINDFIRST THEN BEGIN
             Date := PHead.Date;
             //PHead.TESTFIELD("Responsibility Center");

@@ -459,7 +459,7 @@ table 50677 "ACA-Senate Reports Header"
             FieldClass = FlowField;
             CalcFormula = Count("ACA-Exam. Course Registration" WHERE(Programme = FIELD("Programme Code"), "School Code" = FIELD("School Code"), "Academic Year" = FIELD("Academic Year"), Classification = FIELD("Classification Code"), "Year of Study" = FIELD("Year of Study"), "Prog. Category" = FILTER(Diploma)));
             Caption = 'ProgCat_AcadYear_Status_DipCo';
-        } 
+        }
         field(32; "ProgCat_AcadYearTrans_DipCo"; Integer)
         {
             FieldClass = FlowField;

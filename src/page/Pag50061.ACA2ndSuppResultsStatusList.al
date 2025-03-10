@@ -5,7 +5,7 @@ page 50061 "ACA-2ndSupp. Results Status"
     PageType = List;
     SourceTable = "ACA-2ndSupp. Results Status";
     UsageCategory = Lists;
-    
+
     layout
     {
         area(content)
@@ -42,7 +42,7 @@ page 50061 "ACA-2ndSupp. Results Status"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Maximum Units Failed field.';
                 }
-               
+
                 field("Transcript Remarks"; Rec."Transcript Remarks")
                 {
                     ApplicationArea = All;

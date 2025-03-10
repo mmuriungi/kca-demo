@@ -42,7 +42,7 @@ tableextension 50011 "Purch. Inv. Header Ext" extends "Purch. Inv. Header"
             trigger OnValidate()
             var
             begin
-             
+
             end;
 
 
@@ -78,7 +78,7 @@ tableextension 50011 "Purch. Inv. Header Ext" extends "Purch. Inv. Header"
                 vend: Record Vendor;
                 purline: Record "Purchase Line";
             begin
-             
+
             end;
         }
         field(6076; "Technical Evaluation"; Decimal)

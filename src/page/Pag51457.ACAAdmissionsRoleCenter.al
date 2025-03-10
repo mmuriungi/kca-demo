@@ -276,7 +276,7 @@ page 51457 "ACA-Admissions Role Center"
                 }
 
 
-        }
+            }
         }
         area(embedding)
         {
@@ -687,196 +687,196 @@ page 51457 "ACA-Admissions Role Center"
             }
 
             group(AcadReports2)
+            {
+                Caption = 'Academic Reports';
+                Image = AnalysisView;
+                action("All Students")
                 {
-                    Caption = 'Academic Reports';
-                    Image = AnalysisView;
-                    action("All Students")
-                    {
-                        Image = Report2;
-                        RunObject = Report "All Students";
-                        ApplicationArea = All;
-                    }
-                    action("Student Applications Report")
-                    {
-                        Caption = 'Student Applications Report';
-                        Image = Report;
-                        RunObject = Report "Student Applications Report";
-                        ApplicationArea = All;
-                    }
-                    action("Norminal Roll")
-                    {
-                        Caption = 'Norminal Roll';
-                        Image = Report2;
-                        RunObject = Report "Norminal Roll (Cont. Students)";
-                        ApplicationArea = All;
-                    }
-                    action("Class List (By Stage)")
-                    {
-                        Caption = 'Class List (By Stage)';
-                        Image = List;
-
-                        RunObject = Report "ACA-Class List (List By Stage)";
-                        ApplicationArea = All;
-                    }
-                    action("Signed Norminal Roll")
-                    {
-                        Caption = 'Signed Norminal Roll';
-                        Image = Report2;
-
-                        RunObject = Report "Signed Norminal Role";
-                        ApplicationArea = All;
-                    }
-                    action("Program List By Gender && Type")
-                    {
-                        Caption = 'Program List By Gender && Type';
-                        Image = PrintReport;
-
-                        RunObject = Report "Pop. By Prog./Gender/Settl.";
-                        ApplicationArea = All;
-                    }
-                    action("population By Faculty")
-                    {
-                        Caption = 'population By Faculty';
-                        Image = PrintExcise;
-
-                        RunObject = Report "Population By Faculty";
-                        ApplicationArea = All;
-                    }
-                    // action("Multiple Record")
-                    // {
-                    //     Caption = 'Multiple Record';
-                    //     Image = Report2;
-                    //     RunObject = Report "Official College Transcript Nu";
-                    //     ApplicationArea = All;
-                    // }
-                    action("Classification By Campus")
-                    {
-                        Caption = 'Classification By Campus';
-                        Image = Report2;
-                        RunObject = Report "Population Class By Campus";
-                        ApplicationArea = All;
-                    }
-                    action("Population By Campus")
-                    {
-                        Caption = 'Population By Campus';
-                        Image = Report2;
-                        RunObject = Report "Population By Campus";
-                        ApplicationArea = All;
-                    }
-                    action("Population by Programme")
-                    {
-                        Caption = 'Population by Programme';
-                        Image = Report2;
-                        RunObject = Report "Population By Programme";
-                        ApplicationArea = All;
-                    }
-                    action("Prog. Category")
-                    {
-                        Caption = 'Prog. Category';
-                        Image = Report2;
-                        RunObject = Report "Population By Prog. Category";
-                        ApplicationArea = All;
-                    }
-                    action("List By Programme")
-                    {
-                        Caption = 'List By Programme';
-                        Image = Report;
-                        RunObject = Report "List By Programme";
-                        ApplicationArea = All;
-                    }
-                    action("List By Programme (With Balances)")
-                    {
-                        Caption = 'List By Programme (With Balances)';
-                        Image = PrintReport;
-
-                        RunObject = Report "ACA-List By Prog.(Balances)";
-                        ApplicationArea = All;
-                    }
-                    action("Type. Study Mode, & Gender")
-                    {
-                        Caption = 'Type. Study Mode, & Gender';
-                        Image = Report;
-                        RunObject = Report "Stud Type, Study Mode & Gende";
-                        ApplicationArea = All;
-                    }
-                    action("Study Mode & Gender")
-                    {
-                        Caption = 'Study Mode & Gender';
-                        Image = Report;
-                        RunObject = Report "List By Study Mode & Gender";
-                        ApplicationArea = All;
-                    }
-                    action("County & Gender")
-                    {
-                        Caption = 'County & Gender';
-                        Image = Report;
-                        RunObject = Report "List By County & Gender";
-                        ApplicationArea = All;
-                    }
-                    action("List By County")
-                    {
-                        Caption = 'List By County';
-                        Image = Report;
-                        RunObject = Report "List By County";
-                        ApplicationArea = All;
-                    }
-                    action("Prog. Units")
-                    {
-                        Caption = 'Prog. Units';
-                        Image = Report;
-                        RunObject = Report "Programme Units";
-                        ApplicationArea = All;
-                    }
-                    action("Enrollment By Stage")
-                    {
-                        Caption = 'Enrollment By Stage';
-                        Image = Report2;
-                        RunObject = Report "Enrollment by Stage";
-                        ApplicationArea = All;
-                    }
-                    action("Import Units")
-                    {
-                        Caption = 'Import Units';
-                        Image = ImportExcel;
-
-                        RunObject = Page "ACA-Prog. Units Buffer";
-                        ApplicationArea = All;
-                    }
-                    // action("Hostel Allocations")
-                    // {
-                    //     Caption = 'Hostel Allocations';
-                    //     Image = PrintCover;
-                    //     
-                    //     PromotedIsBig = true;
-                    //     RunObject = Report "Hostel Allocations";
-                    //     ApplicationArea = All;
-                    // }
-                    action("Students List (By Program)")
-                    {
-                        Caption = 'Students List (By Program)';
-                        Image = Report;
-
-                        RunObject = Report "ACA-Norminal Roll (New Stud)";
-                        ApplicationArea = All;
-                    }
-                    action("Programme Units")
-                    {
-                        Caption = 'Programme Units';
-                        Image = Report;
-
-                        RunObject = Report "Programme Units";
-                        ApplicationArea = All;
-                    }
-                    action("CUE Report")
-                    {
-                        Caption = 'CUE Report';
-                        Image = Agreement;
-
-                        RunObject = Report "CUE Report";
-                        ApplicationArea = All;
-                        Visible = false;
-                    }
+                    Image = Report2;
+                    RunObject = Report "All Students";
+                    ApplicationArea = All;
                 }
+                action("Student Applications Report")
+                {
+                    Caption = 'Student Applications Report';
+                    Image = Report;
+                    RunObject = Report "Student Applications Report";
+                    ApplicationArea = All;
+                }
+                action("Norminal Roll")
+                {
+                    Caption = 'Norminal Roll';
+                    Image = Report2;
+                    RunObject = Report "Norminal Roll (Cont. Students)";
+                    ApplicationArea = All;
+                }
+                action("Class List (By Stage)")
+                {
+                    Caption = 'Class List (By Stage)';
+                    Image = List;
+
+                    RunObject = Report "ACA-Class List (List By Stage)";
+                    ApplicationArea = All;
+                }
+                action("Signed Norminal Roll")
+                {
+                    Caption = 'Signed Norminal Roll';
+                    Image = Report2;
+
+                    RunObject = Report "Signed Norminal Role";
+                    ApplicationArea = All;
+                }
+                action("Program List By Gender && Type")
+                {
+                    Caption = 'Program List By Gender && Type';
+                    Image = PrintReport;
+
+                    RunObject = Report "Pop. By Prog./Gender/Settl.";
+                    ApplicationArea = All;
+                }
+                action("population By Faculty")
+                {
+                    Caption = 'population By Faculty';
+                    Image = PrintExcise;
+
+                    RunObject = Report "Population By Faculty";
+                    ApplicationArea = All;
+                }
+                // action("Multiple Record")
+                // {
+                //     Caption = 'Multiple Record';
+                //     Image = Report2;
+                //     RunObject = Report "Official College Transcript Nu";
+                //     ApplicationArea = All;
+                // }
+                action("Classification By Campus")
+                {
+                    Caption = 'Classification By Campus';
+                    Image = Report2;
+                    RunObject = Report "Population Class By Campus";
+                    ApplicationArea = All;
+                }
+                action("Population By Campus")
+                {
+                    Caption = 'Population By Campus';
+                    Image = Report2;
+                    RunObject = Report "Population By Campus";
+                    ApplicationArea = All;
+                }
+                action("Population by Programme")
+                {
+                    Caption = 'Population by Programme';
+                    Image = Report2;
+                    RunObject = Report "Population By Programme";
+                    ApplicationArea = All;
+                }
+                action("Prog. Category")
+                {
+                    Caption = 'Prog. Category';
+                    Image = Report2;
+                    RunObject = Report "Population By Prog. Category";
+                    ApplicationArea = All;
+                }
+                action("List By Programme")
+                {
+                    Caption = 'List By Programme';
+                    Image = Report;
+                    RunObject = Report "List By Programme";
+                    ApplicationArea = All;
+                }
+                action("List By Programme (With Balances)")
+                {
+                    Caption = 'List By Programme (With Balances)';
+                    Image = PrintReport;
+
+                    RunObject = Report "ACA-List By Prog.(Balances)";
+                    ApplicationArea = All;
+                }
+                action("Type. Study Mode, & Gender")
+                {
+                    Caption = 'Type. Study Mode, & Gender';
+                    Image = Report;
+                    RunObject = Report "Stud Type, Study Mode & Gende";
+                    ApplicationArea = All;
+                }
+                action("Study Mode & Gender")
+                {
+                    Caption = 'Study Mode & Gender';
+                    Image = Report;
+                    RunObject = Report "List By Study Mode & Gender";
+                    ApplicationArea = All;
+                }
+                action("County & Gender")
+                {
+                    Caption = 'County & Gender';
+                    Image = Report;
+                    RunObject = Report "List By County & Gender";
+                    ApplicationArea = All;
+                }
+                action("List By County")
+                {
+                    Caption = 'List By County';
+                    Image = Report;
+                    RunObject = Report "List By County";
+                    ApplicationArea = All;
+                }
+                action("Prog. Units")
+                {
+                    Caption = 'Prog. Units';
+                    Image = Report;
+                    RunObject = Report "Programme Units";
+                    ApplicationArea = All;
+                }
+                action("Enrollment By Stage")
+                {
+                    Caption = 'Enrollment By Stage';
+                    Image = Report2;
+                    RunObject = Report "Enrollment by Stage";
+                    ApplicationArea = All;
+                }
+                action("Import Units")
+                {
+                    Caption = 'Import Units';
+                    Image = ImportExcel;
+
+                    RunObject = Page "ACA-Prog. Units Buffer";
+                    ApplicationArea = All;
+                }
+                // action("Hostel Allocations")
+                // {
+                //     Caption = 'Hostel Allocations';
+                //     Image = PrintCover;
+                //     
+                //     PromotedIsBig = true;
+                //     RunObject = Report "Hostel Allocations";
+                //     ApplicationArea = All;
+                // }
+                action("Students List (By Program)")
+                {
+                    Caption = 'Students List (By Program)';
+                    Image = Report;
+
+                    RunObject = Report "ACA-Norminal Roll (New Stud)";
+                    ApplicationArea = All;
+                }
+                action("Programme Units")
+                {
+                    Caption = 'Programme Units';
+                    Image = Report;
+
+                    RunObject = Report "Programme Units";
+                    ApplicationArea = All;
+                }
+                action("CUE Report")
+                {
+                    Caption = 'CUE Report';
+                    Image = Agreement;
+
+                    RunObject = Report "CUE Report";
+                    ApplicationArea = All;
+                    Visible = false;
+                }
+            }
         }
     }
 }

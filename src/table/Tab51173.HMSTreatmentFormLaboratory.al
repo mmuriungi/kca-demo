@@ -13,12 +13,25 @@ table 51173 "HMS-Treatment Form Laboratory"
             NotBlank = true;
             TableRelation = "HMS-Setup Lab Test".Code; //where(Code = Field("Laboratory Test Package Code"));
             trigger OnValidate()
-
+            var
+                LabTestItems: Record "Lab Test Items";
+                LabVisitItems: Record "Lab Visit Items";
             begin
                 LabSetupTest.Reset;
                 LabSetupTest.SetRange(LabSetupTest.Code, "Laboratory Test Package Code");
                 IF LabSetupTest.FindFirst then
                     "Laboratory Test Package Name" := LabSetupTest.Description;
+
+                LabTestItems.Reset();
+                LabTestItems.SetRange(LabTestItems.Code, "Laboratory Test Package Code");
+                if LabTestItems.FindSet() then begin
+                    repeat
+                        LabVisitItems.Init();
+                        LabVisitItems.TransferFields(LabTestItems);
+                        LabVisitItems."Lab Visit No." := "Treatment No.";
+                        LabVisitItems.Insert(true);
+                    until LabTestItems.next = 0;
+                end
 
             end;
         }

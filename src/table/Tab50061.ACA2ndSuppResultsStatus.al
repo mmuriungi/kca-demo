@@ -254,7 +254,7 @@ table 50075 "ACA-2ndSupp. Results Status"
         {
             Caption = 'Special Programme Class';
             DataClassification = CustomerContent;
-            OptionMembers = " ","Medicine & Nursing";
+            OptionMembers = General,"Medicine & Nursing",Engineering;
         }
         field(63040; "Special Programme Scope"; Option)
         {

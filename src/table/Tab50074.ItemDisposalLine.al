@@ -1,7 +1,7 @@
 table 50074 "Item Disposal Line"
 {
     DataClassification = CustomerContent;
-    
+
     FIELDS
     {
         FIELD(1; "Document No."; Code[20])
@@ -20,7 +20,7 @@ table 50074 "Item Disposal Line"
             DataClassification = CustomerContent;
             Caption = 'Item No.';
             TableRelation = Item;
-            
+
             TRIGGER OnValidate()
             VAR
                 Item: Record Item;
@@ -40,9 +40,9 @@ table 50074 "Item Disposal Line"
         {
             DataClassification = CustomerContent;
             Caption = 'Quantity';
-            DecimalPlaces = 0:5;
+            DecimalPlaces = 0 : 5;
             MinValue = 0;
-            
+
             TRIGGER OnValidate()
             BEGIN
                 VALIDATE("Cost Amount", "Unit Cost" * Quantity);
@@ -59,7 +59,7 @@ table 50074 "Item Disposal Line"
             DataClassification = CustomerContent;
             Caption = 'Unit Cost';
             AutoFormatType = 1;
-            
+
             TRIGGER OnValidate()
             BEGIN
                 VALIDATE("Cost Amount", "Unit Cost" * Quantity);
@@ -106,7 +106,7 @@ table 50074 "Item Disposal Line"
             Caption = 'Reason Description';
         }
     }
-    
+
     KEYS
     {
         KEY(PK; "Document No.", "Line No.")

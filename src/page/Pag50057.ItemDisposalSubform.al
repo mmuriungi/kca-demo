@@ -3,7 +3,7 @@ page 50057 "Item Disposal Subform"
     PageType = ListPart;
     SourceTable = "Item Disposal Line";
     AutoSplitKey = true;
-    
+
     LAYOUT
     {
         AREA(Content)
@@ -74,7 +74,7 @@ page 50057 "Item Disposal Subform"
             }
         }
     }
-    
+
     ACTIONS
     {
         AREA(Processing)
@@ -85,7 +85,7 @@ page 50057 "Item Disposal Subform"
                 Caption = 'Find Item Entries';
                 Image = ItemLedger;
                 ToolTip = 'Look for available inventory for the selected item.';
-                
+
                 TRIGGER OnAction()
                 VAR
                     ItemDisposalMgt: Codeunit "Item Disposal Management";

@@ -616,4 +616,4 @@ table 50053 "ACA-2ndSuppExam. Co. Reg."
             Clustered = true;
         }
     }
-} 
+}

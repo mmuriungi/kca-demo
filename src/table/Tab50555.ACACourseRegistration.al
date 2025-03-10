@@ -3160,8 +3160,8 @@ table 50555 "ACA-Course Registration"
         //"Academic Year Exclude Comp."
         field(60198; "Academic Year Exclude Comp."; Boolean)
         {
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-Course Registration" WHERE ("Student No."=FIELD("Student No."),"Academic Year"=FIELD("Academic Year"),"Exclude from Computation"=FILTER(true),"Year Of Study"=FIELD("Year Of Study")));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student No."), "Academic Year" = FIELD("Academic Year"), "Exclude from Computation" = FILTER(true), "Year Of Study" = FIELD("Year Of Study")));
         }
         //Is Postgraduate
         field(60199; "Is Postgraduate"; Boolean)
@@ -3217,13 +3217,13 @@ table 50555 "ACA-Course Registration"
         field(60207; "Combine Discordant Sem. in Yr"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula = Exist("ACA-Course Registration" WHERE ("Student No."=FIELD("Student No."),"Academic Year"=FIELD("Academic Year"),"Combine Discordant Semesters"=FILTER(true),"Year Of Study"=FIELD("Year Of Study")));
+            CalcFormula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student No."), "Academic Year" = FIELD("Academic Year"), "Combine Discordant Semesters" = FILTER(true), "Year Of Study" = FIELD("Year Of Study")));
         }
         //"Combine Discordant Semesters"
         field(60208; "Combine Discordant Semesters"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula = Lookup("ACA-Reg. Stoppage Reasons"."Combine Discordant Semesters" WHERE ("Reason Code"=FIELD("Stoppage Reason")));
+            CalcFormula = Lookup("ACA-Reg. Stoppage Reasons"."Combine Discordant Semesters" WHERE("Reason Code" = FIELD("Stoppage Reason")));
         }
 
     }

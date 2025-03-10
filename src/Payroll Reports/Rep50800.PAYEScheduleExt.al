@@ -6,133 +6,133 @@ report 50800 "PAYE Schedule Ext"
 
     dataset
     {
-        dataitem("PRL-Salary Card";"PRL-Salary Card")
+        dataitem("PRL-Salary Card"; "PRL-Salary Card")
         {
             RequestFilterFields = "Employee Code";
             column(ReportForNavId_6207; 6207)
             {
             }
-            column(USERID;UserId)
+            column(USERID; UserId)
             {
             }
-            column(TODAY;Today)
+            column(TODAY; Today)
             {
             }
-            column(PeriodName;PeriodName)
+            column(PeriodName; PeriodName)
             {
             }
-            column(CurrReport_PAGENO;CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo)
             {
             }
-            column(companyinfo_Picture;companyinfo.Picture)
+            column(companyinfo_Picture; companyinfo.Picture)
             {
             }
-            column(prSalary_Card__prSalary_Card___Employee_Code_;"PRL-Salary Card"."Employee Code")
+            column(prSalary_Card__prSalary_Card___Employee_Code_; "PRL-Salary Card"."Employee Code")
             {
             }
-            column(EmployeeName;EmployeeName)
+            column(EmployeeName; EmployeeName)
             {
             }
-            column(PinNumber;PinNumber)
+            column(PinNumber; PinNumber)
             {
             }
-            column(PayeAmount;PayeAmount)
+            column(PayeAmount; PayeAmount)
             {
             }
-            column(TaxablePay;TaxablePay)
+            column(TaxablePay; TaxablePay)
             {
             }
-            column(TotTaxablePay;TotTaxablePay)
+            column(TotTaxablePay; TotTaxablePay)
             {
             }
-            column(TotPayeAmount;TotPayeAmount)
+            column(TotPayeAmount; TotPayeAmount)
             {
             }
-            column(User_Name_Caption;User_Name_CaptionLbl)
+            column(User_Name_Caption; User_Name_CaptionLbl)
             {
             }
-            column(Print_Date_Caption;Print_Date_CaptionLbl)
+            column(Print_Date_Caption; Print_Date_CaptionLbl)
             {
             }
-            column(P_A_Y_E_ScheduleCaption;P_A_Y_E_ScheduleCaptionLbl)
+            column(P_A_Y_E_ScheduleCaption; P_A_Y_E_ScheduleCaptionLbl)
             {
             }
-            column(Period_Caption;Period_CaptionLbl)
+            column(Period_Caption; Period_CaptionLbl)
             {
             }
-            column(Page_No_Caption;Page_No_CaptionLbl)
+            column(Page_No_Caption; Page_No_CaptionLbl)
             {
             }
-            column(No_Caption;No_CaptionLbl)
+            column(No_Caption; No_CaptionLbl)
             {
             }
-            column(Employee_NameCaption;Employee_NameCaptionLbl)
+            column(Employee_NameCaption; Employee_NameCaptionLbl)
             {
             }
-            column(PIN_Number_Caption;PIN_Number_CaptionLbl)
+            column(PIN_Number_Caption; PIN_Number_CaptionLbl)
             {
             }
-            column(Paye_Amount_Caption;Paye_Amount_CaptionLbl)
+            column(Paye_Amount_Caption; Paye_Amount_CaptionLbl)
             {
             }
-            column(Taxable_Pay_Caption;Taxable_Pay_CaptionLbl)
+            column(Taxable_Pay_Caption; Taxable_Pay_CaptionLbl)
             {
             }
-            column(Prepared_by_______________________________________Date_________________Caption;Prepared_by_______________________________________Date_________________CaptionLbl)
+            column(Prepared_by_______________________________________Date_________________Caption; Prepared_by_______________________________________Date_________________CaptionLbl)
             {
             }
-            column(Checked_by________________________________________Date_________________Caption;Checked_by________________________________________Date_________________CaptionLbl)
+            column(Checked_by________________________________________Date_________________Caption; Checked_by________________________________________Date_________________CaptionLbl)
             {
             }
-            column(Totals_Caption;Totals_CaptionLbl)
+            column(Totals_Caption; Totals_CaptionLbl)
             {
             }
-            column(Authorized_by____________________________________Date_________________Caption;Authorized_by____________________________________Date_________________CaptionLbl)
+            column(Authorized_by____________________________________Date_________________Caption; Authorized_by____________________________________Date_________________CaptionLbl)
             {
             }
-            column(Approved_by______________________________________Date_________________Caption;Approved_by______________________________________Date_________________CaptionLbl)
+            column(Approved_by______________________________________Date_________________Caption; Approved_by______________________________________Date_________________CaptionLbl)
             {
             }
-            column(PensionRelief;PensionRelief)
+            column(PensionRelief; PensionRelief)
             {
             }
-            column(InsuranceRelief;InsuranceRelief)
+            column(InsuranceRelief; InsuranceRelief)
             {
             }
-            column(TotalPension;TotPensionRelief)
+            column(TotalPension; TotPensionRelief)
             {
             }
-            column(TotalInsurance;TotInsuranceRelief)
+            column(TotalInsurance; TotInsuranceRelief)
             {
             }
-            column(Grosspay;GrossPay)
+            column(Grosspay; GrossPay)
             {
             }
-            column(Pensionself;PensionSelf)
+            column(Pensionself; PensionSelf)
             {
             }
-            column(Nssf;Nssf)
+            column(Nssf; Nssf)
             {
             }
-            column(Providentself;ProvidentSelf)
+            column(Providentself; ProvidentSelf)
             {
             }
-            column(PersonalRelief;PersonalRelief)
+            column(PersonalRelief; PersonalRelief)
             {
             }
-            column(TotalPersonal;TotPersonalRelief)
+            column(TotalPersonal; TotPersonalRelief)
             {
             }
-            column(payspaye;"PRL-Salary Card"."Pays PAYE")
+            column(payspaye; "PRL-Salary Card"."Pays PAYE")
             {
             }
-            column(NHIFRelief;NHIFRelief)
+            column(NHIFRelief; NHIFRelief)
             {
             }
-            column(Taxpension;Taxpension)
+            column(Taxpension; Taxpension)
             {
             }
-            column(Hse_LevyRelief;HseLevyRelief)
+            column(Hse_LevyRelief; HseLevyRelief)
             {
             }
 
@@ -140,113 +140,101 @@ report 50800 "PAYE Schedule Ext"
             begin
 
                 objEmp.Reset;
-                objEmp.SetRange(objEmp."No.","Employee Code");
+                objEmp.SetRange(objEmp."No.", "Employee Code");
                 if objEmp.Find('-') then
-                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
+                    EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name" + ' ' + objEmp."Last Name";
 
-                  PinNumber:=objEmp."PIN Number";
+                PinNumber := objEmp."PIN Number";
 
-                GrossPay:=0;
-                Taxpension:=0;
-                PensionRelief:=0;
-                InsuranceRelief:=0;
-                TaxablePay:=0;
-                PayeAmount:=0;
-                ProvidentSelf:=0;
-                Nssf:=0;
-                PersonalRelief:=0;
-                PensionSelf:=0;
-                NHIFRelief:=0;
+                GrossPay := 0;
+                Taxpension := 0;
+                PensionRelief := 0;
+                InsuranceRelief := 0;
+                TaxablePay := 0;
+                PayeAmount := 0;
+                ProvidentSelf := 0;
+                Nssf := 0;
+                PersonalRelief := 0;
+                PensionSelf := 0;
+                NHIFRelief := 0;
 
                 PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
+                PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
                 //PeriodTrans.SETFILTER(PeriodTrans."Group Order",'=6|=7'); //Taxable Pay
                 //PeriodTrans.SETFILTER(PeriodTrans."Sub Group Order",'=5|=3'); //Paye Amount
                 if PeriodTrans.Find('-') then
-                   repeat
-                      //TXBP Taxable Pay -  BY DENNIS PSNR 690
+                    repeat
+                        //TXBP Taxable Pay -  BY DENNIS PSNR 690
 
-                      if (PeriodTrans."Transaction Code"='GPAY') then
-                      begin
-                         GrossPay:=PeriodTrans.Amount;
-                      end;
+                        if (PeriodTrans."Transaction Code" = 'GPAY') then begin
+                            GrossPay := PeriodTrans.Amount;
+                        end;
 
-                      if (PeriodTrans."Transaction Code"='592') then
-                      begin
-                         ProvidentSelf:=PeriodTrans.Amount;
-                      end;
-                      if (PeriodTrans."Group Order" = 7) and (PeriodTrans."Sub Group Order" = 6) then
-                      begin
-                         Taxpension:=PeriodTrans.Amount;
-                       // IF Taxpension<=0 THEN
-                 //CurrReport.SKIP;
-                      end;
+                        if (PeriodTrans."Transaction Code" = '592') then begin
+                            ProvidentSelf := PeriodTrans.Amount;
+                        end;
+                        if (PeriodTrans."Group Order" = 7) and (PeriodTrans."Sub Group Order" = 6) then begin
+                            Taxpension := PeriodTrans.Amount;
+                            // IF Taxpension<=0 THEN
+                            //CurrReport.SKIP;
+                        end;
 
-                      if (PeriodTrans."Transaction Code"='690') then
-                      begin
-                         PensionSelf:=PeriodTrans.Amount;
-                      end;
+                        if (PeriodTrans."Transaction Code" = '690') then begin
+                            PensionSelf := PeriodTrans.Amount;
+                        end;
 
-                      if (PeriodTrans."Transaction Code"='PSNR') then
-                      begin
-                         PersonalRelief:=PeriodTrans.Amount;
-                      end;
+                        if (PeriodTrans."Transaction Code" = 'PSNR') then begin
+                            PersonalRelief := PeriodTrans.Amount;
+                        end;
 
-                      if (PeriodTrans."Transaction Code"='NSSF') then
-                      begin
-                         Nssf:=PeriodTrans.Amount;
-                      end;
+                        if (PeriodTrans."Transaction Code" = 'NSSF') then begin
+                            Nssf := PeriodTrans.Amount;
+                        end;
 
-                      if (PeriodTrans."Transaction Code"='TXBP') then
-                      begin
-                         TaxablePay:=PeriodTrans.Amount;
-                      end;
-                      if (PeriodTrans."Transaction Code"='INSR') then
-                      begin
-                         InsuranceRelief:=PeriodTrans.Amount;
-                      end;
-                      if (PeriodTrans."Transaction Code"='PNSR') then
-                      begin
-                         PensionRelief:=PeriodTrans.Amount;
-                      end;
-                      if (PeriodTrans."Transaction Code"='NHIFINSR') then
-                      begin
-                         NHIFRelief:=PeriodTrans.Amount;
-                      end;
-                       if (PeriodTrans."Transaction Code"='903') then
-                      begin
-                         HseLevyRelief:=PeriodTrans.Amount;
-                      end;
+                        if (PeriodTrans."Transaction Code" = 'TXBP') then begin
+                            TaxablePay := PeriodTrans.Amount;
+                        end;
+                        if (PeriodTrans."Transaction Code" = 'INSR') then begin
+                            InsuranceRelief := PeriodTrans.Amount;
+                        end;
+                        if (PeriodTrans."Transaction Code" = 'PNSR') then begin
+                            PensionRelief := PeriodTrans.Amount;
+                        end;
+                        if (PeriodTrans."Transaction Code" = 'NHIFINSR') then begin
+                            NHIFRelief := PeriodTrans.Amount;
+                        end;
+                        if (PeriodTrans."Transaction Code" = '903') then begin
+                            HseLevyRelief := PeriodTrans.Amount;
+                        end;
 
-                      //GrpOrder 7, SubGrpOrder 3 = Taxable Pay
-                      //IF (PeriodTrans."Group Order"=7) AND (PeriodTrans."Sub Group Order"=3) THEN
-                      if (PeriodTrans."Transaction Code"='PAYE') then
-                      begin
-                          PayeAmount:=PeriodTrans.Amount;
-                      end;
-                   until PeriodTrans.Next=0;
+                        //GrpOrder 7, SubGrpOrder 3 = Taxable Pay
+                        //IF (PeriodTrans."Group Order"=7) AND (PeriodTrans."Sub Group Order"=3) THEN
+                        if (PeriodTrans."Transaction Code" = 'PAYE') then begin
+                            PayeAmount := PeriodTrans.Amount;
+                        end;
+                    until PeriodTrans.Next = 0;
 
-                 if PayeAmount<=0 then
-                   CurrReport.Skip;
-                 PayeAmount:=PayeAmount+Taxpension;
-                 TotTaxablePay:=TotTaxablePay+TaxablePay;
-                 TotPayeAmount:=TotPayeAmount+PayeAmount;
-                 TotPensionRelief:=TotPensionRelief+PensionRelief;
-                 TotPersonalRelief:=TotPersonalRelief+PersonalRelief;
-                 TotInsuranceRelief :=TotInsuranceRelief+InsuranceRelief;
+                if PayeAmount <= 0 then
+                    CurrReport.Skip;
+                PayeAmount := PayeAmount + Taxpension;
+                TotTaxablePay := TotTaxablePay + TaxablePay;
+                TotPayeAmount := TotPayeAmount + PayeAmount;
+                TotPensionRelief := TotPensionRelief + PensionRelief;
+                TotPersonalRelief := TotPersonalRelief + PersonalRelief;
+                TotInsuranceRelief := TotInsuranceRelief + InsuranceRelief;
             end;
 
             trigger OnPreDataItem()
             begin
 
-                  "PRL-Salary Card".Reset;
-                "PRL-Salary Card".SetFilter("PRL-Salary Card"."Payroll Period",'=%1',PeriodFilter);
+                "PRL-Salary Card".Reset;
+                "PRL-Salary Card".SetFilter("PRL-Salary Card"."Payroll Period", '=%1', PeriodFilter);
                 if "PRL-Salary Card".Find('-') then begin
-                  end;
-                SelectedPeriod:=PeriodFilter;
+                end;
+                SelectedPeriod := PeriodFilter;
                 objPeriod.Reset;
-                if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+                if objPeriod.Get(SelectedPeriod) then PeriodName := objPeriod."Period Name";
             end;
         }
     }
@@ -258,7 +246,7 @@ report 50800 "PAYE Schedule Ext"
         {
             area(content)
             {
-                field(periodfilter;PeriodFilter)
+                field(periodfilter; PeriodFilter)
                 {
                     ApplicationArea = Basic;
                     Caption = 'Period Filter';
@@ -279,24 +267,24 @@ report 50800 "PAYE Schedule Ext"
     trigger OnInitReport()
     begin
         objPeriod.Reset;
-        objPeriod.SetRange(objPeriod.Closed,false);
+        objPeriod.SetRange(objPeriod.Closed, false);
         if objPeriod.Find('-') then;
-        PeriodFilter:=objPeriod."Date Opened";
+        PeriodFilter := objPeriod."Date Opened";
         if companyinfo.Get() then
-        companyinfo.CalcFields(companyinfo.Picture);
+            companyinfo.CalcFields(companyinfo.Picture);
 
-          "PRL-Salary Card".Reset;
-        "PRL-Salary Card".SetRange("PRL-Salary Card"."Payroll Period",PeriodFilter);
+        "PRL-Salary Card".Reset;
+        "PRL-Salary Card".SetRange("PRL-Salary Card"."Payroll Period", PeriodFilter);
         if "PRL-Salary Card".Find('-') then begin
-          end;
+        end;
     end;
 
     trigger OnPreReport()
     begin
         //
 
-        if PeriodFilter=0D then
-          Error('You must specify the period filter');
+        if PeriodFilter = 0D then
+            Error('You must specify the period filter');
     end;
 
     var

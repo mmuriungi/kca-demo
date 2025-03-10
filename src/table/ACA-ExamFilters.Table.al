@@ -1,7 +1,7 @@
 table 78041 "ACA-Exam Filters"
 {
     DataClassification = CustomerContent;
-    
+
     fields
     {
         field(1; "UserID/Name"; Code[20])
@@ -38,4 +38,4 @@ table 78041 "ACA-Exam Filters"
             Clustered = true;
         }
     }
-} 
+}

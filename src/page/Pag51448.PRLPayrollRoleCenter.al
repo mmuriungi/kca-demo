@@ -151,7 +151,7 @@ page 51448 "PRL-Payroll Role Center"
                     Caption = 'Payroll Variance 2';
                     Image = "Report";
                     RunObject = Report "Payroll Variance 2 Ext";
-                  //  Visible = false;
+                    //  Visible = false;
                 }
                 action("Payroll Comparison")
                 {

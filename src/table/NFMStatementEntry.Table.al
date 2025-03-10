@@ -4,49 +4,49 @@ Table 78013 "NFM Statement Entry"
 
     fields
     {
-        field(1;"Entry No";Integer)
+        field(1; "Entry No"; Integer)
         {
             AutoIncrement = true;
         }
-        field(2;"Student No.";Code[25])
+        field(2; "Student No."; Code[25])
         {
         }
-        field(3;Description;Text[250])
+        field(3; Description; Text[250])
         {
         }
-        field(4;Amount;Decimal)
+        field(4; Amount; Decimal)
         {
         }
-        field(5;Semester;Code[25])
+        field(5; Semester; Code[25])
         {
         }
-        field(6;Date;Date)
+        field(6; Date; Date)
         {
         }
-        field(7;"Debit amount";Decimal)
+        field(7; "Debit amount"; Decimal)
         {
         }
-        field(8;"Credit amount";Decimal)
+        field(8; "Credit amount"; Decimal)
         {
         }
-        field(9;Type;Option)
+        field(9; Type; Option)
         {
             OptionCaption = 'Debit,Credit';
             OptionMembers = Debit,Credit;
         }
-        field(10;Balance;Decimal)
+        field(10; Balance; Decimal)
         {
-            CalcFormula = sum("NFM Statement Entry".Amount where ("Student No."=field("Student No.")));
+            CalcFormula = sum("NFM Statement Entry".Amount where("Student No." = field("Student No.")));
             FieldClass = FlowField;
         }
-        field(11;"Processing Fee Added";Boolean)
+        field(11; "Processing Fee Added"; Boolean)
         {
         }
     }
 
     keys
     {
-        key(Key1;"Entry No",Semester,"Student No.",Type)
+        key(Key1; "Entry No", Semester, "Student No.", Type)
         {
             Clustered = true;
         }

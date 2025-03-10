@@ -636,12 +636,12 @@ report 50179 "Exam Card Final"
                                         end;
                                     end;
                                 until StudUnits.Next = 0;
-                                    end;
+                            end;
 
                         end;
-                            end;
-                        end;
                     end;
+                end;
+            end;
 
             trigger OnPreDataItem()
             begin

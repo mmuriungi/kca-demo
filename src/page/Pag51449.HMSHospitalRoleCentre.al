@@ -474,7 +474,7 @@ page 51449 "HMS-Hospital Role Centre"
                     ApplicationArea = All;
                     Image = ApplyTemplate;
                     RunObject = Page "Item Disposal List";
-                    RunPageView=where(Status=filter(Open|"Pending Approval"));
+                    RunPageView = where(Status = filter(Open | "Pending Approval"));
 
                 }
                 action("Approved Disposal")
@@ -482,14 +482,14 @@ page 51449 "HMS-Hospital Role Centre"
                     ApplicationArea = All;
                     Caption = 'Approved Disposal';
                     RunObject = Page "Item Disposal List";
-                    RunPageView=where(Status=filter(Approved));
+                    RunPageView = where(Status = filter(Approved));
                 }
                 action("Rejected Disposal")
                 {
                     ApplicationArea = All;
                     Caption = 'Rejected Disposal';
                     RunObject = Page "Item Disposal List";
-                    RunPageView=where(Status=filter(rejected));
+                    RunPageView = where(Status = filter(rejected));
                 }
             }
             group("Medical Claims")

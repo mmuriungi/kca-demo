@@ -570,6 +570,31 @@ page 51453 "ACA-Hostels Role Center"
                     ApplicationArea = all;
                     RunObject = page "Stock Hostel Header list";
                 }
+                group("Items Disposal")
+                {
+                    Caption = 'Items Disposal';
+                    action("Items Disposal List")
+                    {
+                        ApplicationArea = All;
+                        Image = ApplyTemplate;
+                        RunObject = Page "Item Disposal List";
+                        RunPageView = where(Status = filter(Open | "Pending Approval"));
+                    }
+                    action("Approved Disposal")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Approved Disposal';
+                        RunObject = Page "Item Disposal List";
+                        RunPageView = where(Status = filter(Approved));
+                    }
+                    action("Rejected Disposal")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Rejected Disposal';
+                        RunObject = Page "Item Disposal List";
+                        RunPageView = where(Status = filter(rejected));
+                    }
+                }
 
             }
             group("Hostel Online Repairs")
@@ -774,6 +799,15 @@ page 51453 "ACA-Hostels Role Center"
                     RunPageMode = Create;
                 }
 
+            }
+            group("New Hostel Allocations")
+            {
+                action("Process Hostel Allocations")
+                {
+                    Caption = 'Process Hostel Allocations';
+                    RunObject = Report "Process Hostel Allocations";
+                    ApplicationArea = All;
+                }
             }
         }
     }

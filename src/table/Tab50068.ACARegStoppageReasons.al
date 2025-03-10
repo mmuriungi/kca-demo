@@ -2,7 +2,7 @@ table 50068 "ACA-Reg. Stoppage Reasons"
 {
     Caption = 'ACA-Reg. Stoppage Reasons';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Reason Code"; Code[20])
