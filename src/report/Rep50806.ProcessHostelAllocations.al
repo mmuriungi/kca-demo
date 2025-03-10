@@ -3,6 +3,7 @@ report 50806 "Process Hostel Allocations"
     ApplicationArea = All;
     Caption = 'Process Hostel Allocations';
     UsageCategory = Tasks;
+    ProcessingOnly = true;
     dataset
     {
         dataitem(CompanyInformation; "Company Information")

@@ -12,6 +12,7 @@ table 50076 "Lab Test Items"
         field(2; "Item No."; Code[25])
         {
             Caption = 'Item No.';
+            tableRelation = Item;
             trigger OnValidate()
             var
                 Item: Record Item;

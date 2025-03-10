@@ -2,16 +2,17 @@ table 50077 "Lab Visit Items"
 {
     Caption = 'Lab Visit Items';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
-               field(1; "Code"; Code[25])
+        field(1; "Code"; Code[25])
         {
             Caption = 'Code';
         }
         field(2; "Item No."; Code[25])
         {
             Caption = 'Item No.';
+            TableRelation = Item;
             trigger OnValidate()
             var
                 Item: Record Item;
@@ -42,7 +43,7 @@ table 50077 "Lab Visit Items"
     }
     keys
     {
-        key(PK; "Lab Visit No.","Code", "Item No.")
+        key(PK; "Lab Visit No.", "Code", "Item No.")
         {
             Clustered = true;
         }
