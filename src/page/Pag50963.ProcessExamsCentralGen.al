@@ -3636,6 +3636,8 @@ page 50963 "Process Exams Central Gen."
                     END;
                 END;
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //Check and Cater for Specials
+                
 
             END ELSE BEGIN
 

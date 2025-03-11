@@ -173,6 +173,80 @@ Codeunit 61106 webportals
         GLAccounts: Record "G/L Account";
         StoreReqLines: Record "PROC-Store Requistion Lines";
 
+    procedure GetAssignedSupervisor(stdNo: code[25]) Result: Text;
+    var
+        Cust: Record "Customer";
+        Employee: record "HRM-Employee C";
+    begin
+        Cust.GET(stdNo);
+        Employee.Get(Cust."Supervisor No.");
+        Result := Employee.FullName() + ' ::' + Employee."Company E-Mail" + ' ::' + Employee."Phone Number";
+    end;
+
+    procedure SubmitPostgradPaper(stdNo: code[25]; SubmissionType: option "concept Paper",Thesis; Paper: text) Result: Boolean
+    var
+        Cust: Record "Customer";
+        StudentSubmission: Record "Student Submission";
+    begin
+        StudentSubmission.init;
+        StudentSubmission."Student No." := stdNo;
+        StudentSubmission.validate("Student No.");
+        StudentSubmission."Submission Type" := SubmissionType;
+        StudentSubmission."Submission Date" := WorkDate();
+        if StudentSubmission.insert(true) then begin
+            UploadBase64FileToDocumentAttachment(Paper, stdNo + ' ' + Format(SubmissionType) + '.pdf', Database::"Student Submission", StudentSubmission."No.", 0);
+            exit(true);
+        end else begin
+            exit(false);
+        end
+    end;
+
+    Procedure GetSubmittedPostGradPaper(stdNo: code[25]; SubmissionType: option "concept Paper",Thesis) Result: Text
+    var
+        StudentSubmission: Record "Student Submission";
+    begin
+        StudentSubmission.Reset();
+        StudentSubmission.SetRange("Student No.", stdNo);
+        StudentSubmission.setrange("Submission Type", SubmissionType);
+        if StudentSubmission.FindSet then begin
+            Result := StudentSubmission."No." + ' ::' + formaT(StudentSubmission.Status) + ' ::' + format(StudentSubmission."Submission Date");
+        end;
+    end;
+
+    Procedure GetPostgradPaperAttachment(DocNo: code[25]): Text
+    var
+
+    begin
+        exit(GetAttachedDocument(DocNo, Database::"Student Submission", 0));
+    end;
+
+    Procedure GetAttachedDocument(DocNo: code[25]; TableId: Integer; LineNo: integer) Attach: Text
+    var
+        DocAttach: record "Document Attachment";
+        TempBlob: Codeunit "Temp Blob";
+        InStream: InStream;
+        OutStream: OutStream;
+        Base64Convert: Codeunit "Base64 Convert";
+    begin
+        DocAttach.Reset();
+        DocAttach.SetRange("Table ID", TableId);
+        DocAttach.SetRange("No.", DocNo);
+        DocAttach.SetRange("Line No.", LineNo);
+
+        if DocAttach.FindFirst() then begin
+            TempBlob.CreateOutStream(OutStream);
+            DocAttach."Document Reference ID".ExportStream(OutStream);
+            TempBlob.CreateInStream(InStream);
+            Attach := Base64Convert.ToBase64(InStream);
+        end;
+
+        exit(Attach);
+    end;
+    procedure isStudentPostgraduate(StdNo: code[25]): Boolean
+    var
+    begin
+
+    end;
     procedure GetSpecialExamReasons() Msg: Text
     var
         SpecialExmResons: Record "ACA-Special Exams Reason";
