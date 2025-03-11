@@ -1314,6 +1314,12 @@ tableextension 50019 "Customer Ext" extends Customer
         field(63215; "Changed Parent Password"; Boolean)
         {
         }
+        field(63216; "Is Postgraduate"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = exist("ACA-Course Registration" where("Student No." = field("No."),
+                                                                 "Is Postgraduate" = const(true)));
+        }
         modify("No.")
         {
             Caption = 'No.';

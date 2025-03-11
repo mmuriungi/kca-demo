@@ -505,8 +505,6 @@ codeunit 50089 "Approval Workflows V1"
                     StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::"Pending");
                     StudentLeave.Modify();
                     Variant := StudentLeave;
-                    if not fnCheckApprovalRequirements(Variant) then
-                        Error('Approval requirements are not met. Attach the required documents and try again.');
                     IsHandled := true;
                 end;
             Database::"Postgrad Supervisor Applic.":
@@ -1315,15 +1313,16 @@ codeunit 50089 "Approval Workflows V1"
                         exit(false);
                     exit(true);
                 end;
-            Database::"Student Leave":
-                begin
-                    RecRef.SetTable(StudentLeave);
-                    if not (StudentLeave."Approval Status" = StudentLeave."Approval Status"::Open) then
-                        exit(false);
-                    if not checkDocumentAttachmentExists(Variant) then
-                        exit(false);
-                    exit(true);
-                end;
+            // Database::"Student Leave":
+            //     begin
+            //         RecRef.SetTable(StudentLeave);
+            //         if not (StudentLeave."Approval Status" = StudentLeave."Approval Status"::Open) then
+            //             exit(false);
+            //         if GuiAllowed then
+            //             if not checkDocumentAttachmentExists(Variant) then
+            //                 exit(false);
+            //         exit(true);
+            //     end;
             Database::"Postgrad Supervisor Applic.":
                 begin
                     RecRef.SetTable(PostgradSupervisorApplic);

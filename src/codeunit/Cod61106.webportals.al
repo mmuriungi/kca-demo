@@ -275,8 +275,19 @@ Codeunit 61106 webportals
     var
         Cust: Record "Customer";
         Employee: record "HRM-Employee C";
+        SupervisorApplic: record "Postgrad Supervisor Applic.";
     begin
         Cust.GET(stdNo);
+        if cust."Supervisor No." = '' then begin
+            SupervisorApplic.Reset();
+            SupervisorApplic.SetRange("Student No.", stdNo);
+            SupervisorApplic.SetRange(Status, SupervisorApplic.Status::Approved);
+            if SupervisorApplic.findlast then begin
+                cust."Supervisor No." := SupervisorApplic."Assigned Supervisor Code";
+                Cust.Modify();
+                Commit();
+            end
+        end;
         Employee.Get(Cust."Supervisor No.");
         Result := Employee.FullName() + ' ::' + Employee."Company E-Mail" + ' ::' + Employee."Phone Number";
     end;
@@ -343,8 +354,16 @@ Codeunit 61106 webportals
 
     procedure isStudentPostgraduate(StdNo: code[25]): Boolean
     var
+        CourseReg: record "ACA-Course Registration";
     begin
-
+        CourseReg.Reset;
+        CourseReg.SetRange("Student No.", StdNo);
+        CourseReg.SetAutoCalcFields("Is Postgraduate");
+        CourseReg.SetRange("Is Postgraduate", true);
+        if CourseReg.FindFirst then
+            exit(True)
+        else
+            exit(False);
     end;
 
     procedure GetSpecialExamReasons() Msg: Text

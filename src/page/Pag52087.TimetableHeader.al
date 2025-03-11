@@ -90,6 +90,24 @@ page 52087 "Timetable Header"
                     TtCu.GenerateExamTimeSlots(Rec.Semester);
                 end;
             }
+            action("Timetable Report")
+            {
+                ApplicationArea = All;
+                Caption = 'Timetable Report';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = GetLines;
+                trigger OnAction()
+                var
+                    THeader: Record "Timetable Header";
+                begin
+                    THeader.Reset();
+                    THeader.SetRange(Semester, Rec.Semester);
+                    if THeader.FindFirst() then
+                        Report.Run(Report::"Class Timetable Report", TRUE, FALSE, THeader);
+                end;
+            }
         }
     }
 }

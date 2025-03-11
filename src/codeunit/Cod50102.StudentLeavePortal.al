@@ -39,10 +39,8 @@ codeunit 50102 "Student Leave Portal"
         StudentLeave."Approval Status" := StudentLeave."Approval Status"::Open;
         StudentLeave."Posting Date" := Today;
         StudentLeave."Posting Type" := StudentLeave."Posting Type"::Leave;
-
-        // Calculate end date and return date
-        AffairsMgmt.calculateLeaveEndDate(StudentLeave);
-
+        StudentLeave."End Date" := StudentLeave."Start Date" + StudentLeave."No of Days";
+        StudentLeave."Return Date" := StudentLeave."End Date" + 1;
         if StudentLeave.Insert(true) then begin
             Variant := StudentLeave;
             ApprovMgmt.CheckApprovalsWorkflowEnabled(Variant);
