@@ -173,6 +173,104 @@ Codeunit 61106 webportals
         GLAccounts: Record "G/L Account";
         StoreReqLines: Record "PROC-Store Requistion Lines";
 
+    procedure CreateStudentDefermentRequest(StudentNo: Code[20]; StartDate: Date; EndDate: Date; AcademicYear: Code[20]; Semester: Code[20]; ProgrammeCode: Code[20]; Stage: Code[20]; Reason: Text[250]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.CreateDefermentWithdrawalRequest(StudentNo, 0, StartDate, EndDate, AcademicYear, Semester, ProgrammeCode, Stage, Reason);
+    end;
+
+    procedure CreateStudentWithdrawalRequest(StudentNo: Code[20]; StartDate: Date; AcademicYear: Code[20]; Semester: Code[20]; ProgrammeCode: Code[20]; Stage: Code[20]; Reason: Text[250]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.CreateDefermentWithdrawalRequest(StudentNo, 1, StartDate, 0D, AcademicYear, Semester, ProgrammeCode, Stage, Reason);
+    end;
+
+    procedure GetStudentDefermentWithdrawalRequests(StudentNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetStudentDefermentWithdrawalRequests(StudentNo);
+    end;
+
+    procedure GetDefermentWithdrawalRequestDetails(RequestNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetDefermentWithdrawalRequestDetails(RequestNo);
+    end;
+
+    procedure CancelDefermentWithdrawalRequest(RequestNo: Code[20]; StudentNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.CancelDefermentWithdrawalRequest(RequestNo, StudentNo);
+    end;
+
+    procedure GetCurrentAcademicYearAndSemester() Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetCurrentAcademicYearAndSemester();
+    end;
+
+    procedure GetStudentProgrammeAndStage(StudentNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetStudentProgrammeAndStage(StudentNo);
+    end;
+
+    procedure HasPendingDefermentWithdrawalRequests(StudentNo: Code[20]) Result: Boolean
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.HasPendingDefermentWithdrawalRequests(StudentNo);
+    end;
+
+    procedure GetStudentStatusInfo(StudentNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetStudentStatusInfo(StudentNo);
+    end;
+
+    procedure CreateStudentLeaveRequest(StudentNo: Code[20]; LeaveType: Option Regular,Compassionate; StartDate: Date; NoOfDays: Decimal; Reason: Text[250]) Result: Text
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.CreateStudentLeaveRequest(StudentNo, LeaveType, StartDate, NoOfDays, Reason);
+    end;
+
+    procedure GetStudentLeaveRequests(StudentNo: Code[20]) Result: Text
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.GetStudentLeaveRequests(StudentNo);
+    end;
+
+    procedure GetLeaveRequestDetails(LeaveNo: Code[20]) Result: Text
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.GetLeaveRequestDetails(LeaveNo);
+    end;
+
+    procedure CancelLeaveRequest(LeaveNo: Code[20]; StudentNo: Code[20]) Result: Text
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.CancelLeaveRequest(LeaveNo, StudentNo);
+    end;
+
+    procedure HasPendingLeaveRequests(StudentNo: Code[20]) Result: Boolean
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.HasPendingLeaveRequests(StudentNo);
+    end;
+
     procedure GetAssignedSupervisor(stdNo: code[25]) Result: Text;
     var
         Cust: Record "Customer";
@@ -242,11 +340,13 @@ Codeunit 61106 webportals
 
         exit(Attach);
     end;
+
     procedure isStudentPostgraduate(StdNo: code[25]): Boolean
     var
     begin
 
     end;
+
     procedure GetSpecialExamReasons() Msg: Text
     var
         SpecialExmResons: Record "ACA-Special Exams Reason";
@@ -10872,4 +10972,5 @@ Codeunit 61106 webportals
     #endregion
 
 }
+
 

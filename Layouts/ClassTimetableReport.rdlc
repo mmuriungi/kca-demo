@@ -1259,59 +1259,7 @@ End Function
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="CompanyPhone">
-          <DataField>CompanyPhone</DataField>
-        </Field>
-        <Field Name="Logo">
-          <DataField>Logo</DataField>
-        </Field>
-        <Field Name="Monday_AcademicYear">
-          <DataField>Monday_AcademicYear</DataField>
-        </Field>
-        <Field Name="Monday_Semester">
-          <DataField>Monday_Semester</DataField>
-        </Field>
-        <Field Name="Monday_TimeSlotCode">
-          <DataField>Monday_TimeSlotCode</DataField>
-        </Field>
-        <Field Name="Monday_LectureHallCode">
-          <DataField>Monday_LectureHallCode</DataField>
-        </Field>
-        <Field Name="Monday_UnitCode">
-          <DataField>Monday_UnitCode</DataField>
-        </Field>
-        <Field Name="Monday_LecturerCode">
-          <DataField>Monday_LecturerCode</DataField>
-        </Field>
-        <Field Name="Monday_ProgrammeCode">
-          <DataField>Monday_ProgrammeCode</DataField>
-        </Field>
-        <Field Name="Monday_StageCode">
-          <DataField>Monday_StageCode</DataField>
-        </Field>
-        <Field Name="Monday_StartTime">
-          <DataField>Monday_StartTime</DataField>
-        </Field>
-        <Field Name="Monday_EndTime">
-          <DataField>Monday_EndTime</DataField>
-        </Field>
-        <Field Name="DayofWeek_TimeTableEntry">
-          <DataField>DayofWeek_TimeTableEntry</DataField>
-        </Field>
-        <Field Name="DurationHours_TimeTableEntry">
-          <DataField>DurationHours_TimeTableEntry</DataField>
-        </Field>
-        <Field Name="DurationHours_TimeTableEntryFormat">
-          <DataField>DurationHours_TimeTableEntryFormat</DataField>
-        </Field>
-        <Field Name="TimeSlotLabel">
-          <DataField>TimeSlotLabel</DataField>
-        </Field>
-      </Fields>
+      <Fields />
       <Query>
         <DataSourceName>DataSource</DataSourceName>
         <CommandText />
