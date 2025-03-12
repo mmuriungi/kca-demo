@@ -8,7 +8,7 @@ report 51307 "Class Timetable Report"
     {
         dataitem("Timetable Header"; "Timetable Header")
         {
-            RequestFilterFields = Semester;
+            RequestFilterFields = Semester, "Programme Filter", "Stage Filter", "Lecturer Filter";
             column(logo; CompInfo.picture)
             {
 
@@ -71,12 +71,14 @@ report 51307 "Class Timetable Report"
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Monday);
                     TEntry.SetRange(Semester, "Timetable Header".Semester);
-                    if Programme <> '' then
-                        TEntry.SetRange("Programme Code", Programme);
+                    if ProgFilter <> '' then
+                        TEntry.SetRange("Programme Code", ProgFilter);
+                    if StageFilter <> '' then
+                        TEntry.SetRange("Stage Code", StageFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            MondayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code";
+                            MondayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
                         end until TEntry.Next() = 0;
 
                     Clear(i);
@@ -84,50 +86,64 @@ report 51307 "Class Timetable Report"
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Tuesday);
                     TEntry.SetRange(Semester, "Timetable Header".Semester);
-                    if Programme <> '' then
-                        TEntry.SetRange("Programme Code", Programme);
+                    if ProgFilter <> '' then
+                        TEntry.SetRange("Programme Code", ProgFilter);
+                    if StageFilter <> '' then
+                        TEntry.SetRange("Stage Code", StageFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            TuesdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code";
+                            TuesdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
                         end until TEntry.Next() = 0;
                     Clear(i);
                     TEntry.Reset();
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Wednesday);
                     TEntry.SetRange(Semester, "Timetable Header".Semester);
-                    if Programme <> '' then
-                        TEntry.SetRange("Programme Code", Programme);
+                    if ProgFilter <> '' then
+                        TEntry.SetRange("Programme Code", ProgFilter);
+                    if StageFilter <> '' then
+                        TEntry.SetRange("Stage Code", StageFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            WednesdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code";
+                            WednesdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
                         end until TEntry.Next() = 0;
                     Clear(i);
                     TEntry.Reset();
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Thursday);
                     TEntry.SetRange(Semester, "Timetable Header".Semester);
-                    if Programme <> '' then
-                        TEntry.SetRange("Programme Code", Programme);
+                    if ProgFilter <> '' then
+                        TEntry.SetRange("Programme Code", ProgFilter);
+                    if StageFilter <> '' then
+                        TEntry.SetRange("Stage Code", StageFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            ThursdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code";
+                            ThursdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
                         end until TEntry.Next() = 0;
                     Clear(i);
                     TEntry.Reset();
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Friday);
-                    if Programme <> '' then
-                        TEntry.SetRange("Programme Code", Programme);
+                    if ProgFilter <> '' then
+                        TEntry.SetRange("Programme Code", ProgFilter);
+                    if StageFilter <> '' then
+                        TEntry.SetRange("Stage Code", StageFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            FridayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code";
+                            FridayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
                         end until TEntry.Next() = 0;
                 end;
             }
+            trigger OnPreDataItem()
+            begin
+                ProgFilter := "Timetable Header".GetFilter("Programme Filter");
+                StageFilter := "Timetable Header".GetFilter("Stage Filter");
+                LecFilter := "Timetable Header".GetFilter("Lecturer Filter");
+            end;
         }
     }
 
@@ -139,10 +155,7 @@ report 51307 "Class Timetable Report"
             {
                 group(Options)
                 {
-                    field(Programme; programme)
-                    {
-                        TableRelation = "ACA-Programme";
-                    }
+
 
                 }
             }
@@ -173,14 +186,15 @@ report 51307 "Class Timetable Report"
         TimeSlotLabel: Text[30];
         CompInfo: Record "Company Information";
         TimeArray: array[20] of Text;
-        MondayArray: array[20] of Text;
-        TuesdayArray: array[20] of Text;
-        WednesdayArray: array[20] of Text;
-        ThursdayArray: array[20] of Text;
-        FridayArray: array[20] of Text;
+        MondayArray: array[2000] of Text;
+        TuesdayArray: array[2000] of Text;
+        WednesdayArray: array[2000] of Text;
+        ThursdayArray: array[2000] of Text;
+        FridayArray: array[2000] of Text;
         i: Integer;
-        Semester: Code[25];
-        Programme: Code[25];
+        ProgFilter: Text;
+        StageFilter: Text;
+        LecFilter: Text;
 
 
     trigger OnPreReport()
@@ -189,6 +203,8 @@ report 51307 "Class Timetable Report"
         CompInfo.Get();
         CompInfo.CalcFields(CompInfo.Picture);
         TimeSlot.Reset();
+        TimeSlot.SetCurrentKey("Start Time");
+        TimeSlot.setrange("Day of Week", TimeSlot."Day of Week"::Monday);
         if TimeSlot.FindSet() then begin
             repeat
                 i := i + 1;
