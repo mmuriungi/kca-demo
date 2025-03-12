@@ -4,6 +4,7 @@ page 52087 "Timetable Header"
     Caption = 'Timetable Header';
     PageType = Card;
     SourceTable = "Timetable Header";
+    PromotedActionCategories = 'New,Process,Reports,Constraints';
 
     layout
     {
@@ -43,6 +44,18 @@ page 52087 "Timetable Header"
     }
     actions
     {
+        area(Navigation)
+        {
+            action("Lecturer Timetable Constraints")
+            {
+                ApplicationArea = All;
+                Caption = 'Lecturer Timetable Constraints';
+                RunObject = Page "Lecturer Timetable Constraints";
+                RunPageLink = Semester = field(Semester);
+                Promoted = true;
+                PromotedCategory = Category4;
+            }
+        }
         area(Processing)
         {
             action(GenerateTimetable)
