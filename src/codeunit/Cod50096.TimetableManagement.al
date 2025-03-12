@@ -362,7 +362,6 @@ codeunit 50096 "Timetable Management"
         TimetableEntry.SetRange("Lecture Hall Code", LectureHallCode);
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
         TimetableEntry.SetRange(Semester, Semester);
-        TimetableEntry.SetRange("Stage Code", Stage);
         exit(not TimetableEntry.IsEmpty);
     end;
 
@@ -373,12 +372,36 @@ codeunit 50096 "Timetable Management"
         TimeSlot: Record "Time Slot";
         TimetableEntry: Record "Timetable Entry";
         LeastBusyDay: Integer;
+        TimetableSetup: Record "Timetable Setup";
+        MaxStudentsPerClass: Integer;
+        StudentCount: Integer;
+        SecondLectureHall: Record "ACA-Lecturer Halls Setup";
+        SecondTimeSlot: Record "Time Slot";
+        RequiresSplit: Boolean;
+        FirstGroupSize: Integer;
+        SecondGroupSize: Integer;
     begin
+        TimetableSetup.Get();
         CourseOffering.CalcFields("Unit Students Count");
+        StudentCount := CourseOffering."Unit Students Count";
+        MaxStudentsPerClass := TimetableSetup."Maximum Students per class";
 
-        // Find suitable lecture hall
+        // Check if class needs to be split
+        RequiresSplit := (StudentCount >= (MaxStudentsPerClass + 4));
+
+        if RequiresSplit then begin
+            // Calculate group sizes - divide students into two groups
+            FirstGroupSize := Round(StudentCount / 2, 1, '<');  // First half (round down)
+            SecondGroupSize := StudentCount - FirstGroupSize;   // Second half
+        end;
+
+        // Find suitable lecture hall(s)
         LectureHall.Reset();
-        LectureHall.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Unit Students Count");
+        if RequiresSplit then
+            LectureHall.SetFilter("Sitting Capacity", '>=%1', FirstGroupSize)
+        else
+            LectureHall.SetFilter("Sitting Capacity", '>=%1', StudentCount);
+
         LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
 
         if LectureHall.FindSet() then
@@ -389,7 +412,7 @@ codeunit 50096 "Timetable Management"
                 if FindBalancedTimeSlot(CourseOffering, LectureHall."Lecture Room Code", TimeSlot,
                     CourseOffering.Semester, LeastBusyDay) then begin
 
-                    // Create timetable entry
+                    // Create timetable entry for first group
                     TimetableEntry.Init();
                     TimetableEntry."Unit Code" := CourseOffering.Unit;
                     TimetableEntry.Semester := CourseOffering.Semester;
@@ -403,9 +426,19 @@ codeunit 50096 "Timetable Management"
                     TimetableEntry."Programme Code" := CourseOffering.Programme;
                     TimetableEntry."Stage Code" := CourseOffering.Stage;
                     TimetableEntry.Type := TimetableEntry.Type::Class;
-
+                    if RequiresSplit then
+                        TimetableEntry."Group No" := 1;
                     if TimetableEntry.Insert() then begin
                         DaysPerWeek[LeastBusyDay] += 1;
+                        // If we need to split the class, create a second entry with a different timeslot
+                        if RequiresSplit then
+                            if FindSecondTimeSlotAndRoom(CourseOffering, TimeSlot, SecondGroupSize, SecondTimeSlot, SecondLectureHall) then
+                                if CreateSecondClassGroup(CourseOffering, SecondTimeSlot, SecondLectureHall, 2) then begin
+                                    // Only update DaysPerWeek if the day is within valid range (1-5)
+                                    if (SecondTimeSlot."Day of Week" >= 1) and (SecondTimeSlot."Day of Week" < 5) then
+                                        DaysPerWeek[SecondTimeSlot."Day of Week"] += 1;
+                                end;
+
                         exit(true);
                     end;
                 end;
@@ -429,34 +462,251 @@ codeunit 50096 "Timetable Management"
         exit(LeastBusyDay);
     end;
 
+    local procedure FindSecondTimeSlotAndRoom(
+        CourseOffering: Record "ACA-Lecturers Units";
+        FirstTimeSlot: Record "Time Slot";
+        RequiredCapacity: Integer;
+        var FoundTimeSlot: Record "Time Slot";
+        var FoundLectureHall: Record "ACA-Lecturer Halls Setup"): Boolean
+    var
+        LectureHall: Record "ACA-Lecturer Halls Setup";
+        TimeSlot: Record "Time Slot";
+        SecondLeastBusyDay: Integer;
+        DaysPerWeek: array[5] of Integer;
+        TimetableEntry: Record "Timetable Entry";
+        i: Integer;
+        PreferredDay: Integer;
+        DayOfWeek: Integer;
+    begin
+        // Calculate the days usage for balancing
+        TimetableEntry.Reset();
+        TimetableEntry.SetRange("Lecturer Code", CourseOffering.Lecturer);
+        TimetableEntry.SetRange(Semester, CourseOffering.Semester);
+        if TimetableEntry.FindSet() then
+            repeat
+                DayOfWeek := TimetableEntry."Day of Week";
+                // Make sure we only access array elements within range 1-5
+                if (DayOfWeek >= 1) and (DayOfWeek < 5) then
+                    DaysPerWeek[DayOfWeek] += 1;
+            until TimetableEntry.Next() = 0;
+
+        // Find least busy day excluding the day of the first time slot
+        PreferredDay := FirstTimeSlot."Day of Week";
+
+        // Make sure preferred day is within valid range (1-5)
+        if (PreferredDay < 1) or (PreferredDay > 5) then
+            PreferredDay := 1;  // Default to Monday if out of range
+
+        // Mark the day of the first slot as very busy to avoid selecting it
+        DaysPerWeek[PreferredDay] := 99999;
+
+        // Find the next least busy day
+        SecondLeastBusyDay := GetLeastBusyDay(DaysPerWeek);
+
+        // First try to find a room and timeslot on a different day
+        LectureHall.Reset();
+        LectureHall.SetFilter("Sitting Capacity", '>=%1', RequiredCapacity);
+        LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
+
+        if LectureHall.FindSet() then begin
+            repeat
+                // Try to find a timeslot for this lecture hall on the second least busy day
+                if FindBalancedTimeSlot(CourseOffering, LectureHall."Lecture Room Code", TimeSlot,
+                    CourseOffering.Semester, SecondLeastBusyDay) then begin
+                    // Make sure this is not the same timeslot as the first group
+                    if TimeSlot.Code <> FirstTimeSlot.Code then begin
+                        // Make sure lecturer is not busy at this time
+                        if not IsLecturerBusy(CourseOffering.Lecturer, CourseOffering."Academic Year",
+                            TimeSlot.Code, CourseOffering.Semester, CourseOffering.Stage) then begin
+                            FoundTimeSlot := TimeSlot;
+                            FoundLectureHall := LectureHall;
+                            exit(true);
+                        end;
+                    end;
+                end;
+            until LectureHall.Next() = 0;
+
+            // If we couldn't find a suitable slot on the preferred day, try other days
+            for i := 1 to 5 do begin
+                if i <> PreferredDay then begin
+                    LectureHall.Reset();
+                    LectureHall.SetFilter("Sitting Capacity", '>=%1', RequiredCapacity);
+                    LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
+                    if LectureHall.FindSet() then begin
+                        repeat
+                            if FindBalancedTimeSlot(CourseOffering, LectureHall."Lecture Room Code", TimeSlot,
+                                CourseOffering.Semester, i) then begin
+                                // Make sure lecturer is not busy at this time
+                                if not IsLecturerBusy(CourseOffering.Lecturer, CourseOffering."Academic Year",
+                                    TimeSlot.Code, CourseOffering.Semester, CourseOffering.Stage) then begin
+                                    FoundTimeSlot := TimeSlot;
+                                    FoundLectureHall := LectureHall;
+                                    exit(true);
+                                end;
+                            end;
+                        until LectureHall.Next() = 0;
+                    end;
+                end;
+            end;
+        end;
+
+        exit(false);
+    end;
+
+    local procedure CreateSecondClassGroup(
+        CourseOffering: Record "ACA-Lecturers Units";
+        TimeSlot: Record "Time Slot";
+        LectureHall: Record "ACA-Lecturer Halls Setup";
+        GroupNo: Integer): Boolean
+    var
+        TimetableEntry: Record "Timetable Entry";
+    begin
+        // Create timetable entry for second group
+        TimetableEntry.Init();
+        TimetableEntry."Unit Code" := CourseOffering.Unit;
+        TimetableEntry.Semester := CourseOffering.Semester;
+        TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
+        TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
+        TimetableEntry."Time Slot Code" := TimeSlot.Code;
+        TimetableEntry."Day of Week" := TimeSlot."Day of Week";
+        TimetableEntry."Start Time" := TimeSlot."Start Time";
+        TimetableEntry."End Time" := TimeSlot."End Time";
+        TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
+        TimetableEntry."Programme Code" := CourseOffering.Programme;
+        TimetableEntry."Stage Code" := CourseOffering.Stage;
+        TimetableEntry.Type := TimetableEntry.Type::Class;
+        TimetableEntry."Group No" := GroupNo;
+
+        exit(TimetableEntry.Insert());
+    end;
+
     local procedure FindBalancedTimeSlot(CourseOffering: Record "ACA-Lecturers Units";
-        LectureHallCode: Code[20]; var AvailableTimeSlot: Record "Time Slot";
-        Semester: Code[25]; PreferredDay: Integer): Boolean
+            LectureHallCode: Code[20]; var AvailableTimeSlot: Record "Time Slot";
+            Semester: Code[25]; PreferredDay: Integer): Boolean
     var
         TimeSlot: Record "Time Slot";
+        HasAllowConstraints: Boolean;
+        HasExemptConstraints: Boolean;
+        IsExemptDay: Boolean;
+        DayOfWeek: Integer;
     begin
+        // Check if the lecturer has any constraints
+        HasLecturerConstraints(CourseOffering.Lecturer, Semester, HasAllowConstraints, HasExemptConstraints);
+
+        // If lecturer has "Allow" constraints, check those day preferences first
+        if HasAllowConstraints then begin
+            // Try to find time slots on allowed days first
+            TimeSlot.Reset();
+            if TimeSlot.FindSet() then
+                repeat
+                    DayOfWeek := TimeSlot."Day of Week";
+                    if IsAllowedDay(CourseOffering.Lecturer, Semester, DayOfWeek) then
+                        if IsTimeSlotAvailable(CourseOffering, LectureHallCode, TimeSlot, Semester) then begin
+                            AvailableTimeSlot := TimeSlot;
+                            exit(true);
+                        end;
+                until TimeSlot.Next() = 0;
+        end;
+
+        // If no "Allow" constraints or no match found, try preferred day
         TimeSlot.Reset();
         TimeSlot.SetRange("Day of Week", PreferredDay);
 
         if TimeSlot.FindSet() then
             repeat
-                if IsTimeSlotAvailable(CourseOffering, LectureHallCode, TimeSlot, Semester) then begin
-                    AvailableTimeSlot := TimeSlot;
-                    exit(true);
-                end;
+                // Skip if day is exempt for this lecturer
+                IsExemptDay := false;
+                if HasExemptConstraints then
+                    IsExemptDay := IsExemptDay(CourseOffering.Lecturer, Semester, TimeSlot."Day of Week");
+
+                if not IsExemptDay then
+                    if IsTimeSlotAvailable(CourseOffering, LectureHallCode, TimeSlot, Semester) then begin
+                        AvailableTimeSlot := TimeSlot;
+                        exit(true);
+                    end;
             until TimeSlot.Next() = 0;
 
-        // If no slot found on preferred day, try other days
+        // If no slot found on preferred day, try other non-exempt days
         TimeSlot.Reset();
         if TimeSlot.FindSet() then
             repeat
-                if IsTimeSlotAvailable(CourseOffering, LectureHallCode, TimeSlot, Semester) then begin
-                    AvailableTimeSlot := TimeSlot;
-                    exit(true);
+                if TimeSlot."Day of Week" <> PreferredDay then begin  // Skip the day we already checked
+                    // Skip if day is exempt for this lecturer
+                    IsExemptDay := false;
+                    if HasExemptConstraints then
+                        IsExemptDay := IsExemptDay(CourseOffering.Lecturer, Semester, TimeSlot."Day of Week");
+
+                    if not IsExemptDay then
+                        if IsTimeSlotAvailable(CourseOffering, LectureHallCode, TimeSlot, Semester) then begin
+                            AvailableTimeSlot := TimeSlot;
+                            exit(true);
+                        end;
                 end;
             until TimeSlot.Next() = 0;
 
+        // If still no slot found and we have exempt constraints, try the exempt days as last resort
+        if HasExemptConstraints then begin
+            TimeSlot.Reset();
+            if TimeSlot.FindSet() then
+                repeat
+                    if IsExemptDay(CourseOffering.Lecturer, Semester, TimeSlot."Day of Week") then
+                        if IsTimeSlotAvailable(CourseOffering, LectureHallCode, TimeSlot, Semester) then begin
+                            AvailableTimeSlot := TimeSlot;
+                            exit(true);
+                        end;
+                until TimeSlot.Next() = 0;
+        end;
+
         exit(false);
+    end;
+
+    local procedure HasLecturerConstraints(LecturerNo: Code[25]; Semester: Code[25];
+            var HasAllowConstraints: Boolean; var HasExemptConstraints: Boolean): Boolean
+    var
+        LecturerConstraints: Record "Lecturer Timetable Constraints";
+    begin
+        Clear(HasAllowConstraints);
+        Clear(HasExemptConstraints);
+
+        // Check for Allow constraints
+        LecturerConstraints.Reset();
+        LecturerConstraints.SetRange(Semester, Semester);
+        LecturerConstraints.SetRange("Lecturer No.", LecturerNo);
+        LecturerConstraints.SetRange("Constraint Type", LecturerConstraints."Constraint Type"::Allow);
+        HasAllowConstraints := not LecturerConstraints.IsEmpty;
+
+        // Check for Exempt constraints
+        LecturerConstraints.Reset();
+        LecturerConstraints.SetRange(Semester, Semester);
+        LecturerConstraints.SetRange("Lecturer No.", LecturerNo);
+        LecturerConstraints.SetRange("Constraint Type", LecturerConstraints."Constraint Type"::Exempt);
+        HasExemptConstraints := not LecturerConstraints.IsEmpty;
+
+        exit(HasAllowConstraints or HasExemptConstraints);
+    end;
+
+    local procedure IsAllowedDay(LecturerNo: Code[25]; Semester: Code[25]; DayOfWeek: Integer): Boolean
+    var
+        LecturerConstraints: Record "Lecturer Timetable Constraints";
+    begin
+        LecturerConstraints.Reset();
+        LecturerConstraints.SetRange(Semester, Semester);
+        LecturerConstraints.SetRange("Lecturer No.", LecturerNo);
+        LecturerConstraints.SetRange("Constraint Type", LecturerConstraints."Constraint Type"::Allow);
+        LecturerConstraints.SetRange("Day of The week", DayOfWeek);
+        exit(not LecturerConstraints.IsEmpty);
+    end;
+
+    local procedure IsExemptDay(LecturerNo: Code[25]; Semester: Code[25]; DayOfWeek: Integer): Boolean
+    var
+        LecturerConstraints: Record "Lecturer Timetable Constraints";
+    begin
+        LecturerConstraints.Reset();
+        LecturerConstraints.SetRange(Semester, Semester);
+        LecturerConstraints.SetRange("Lecturer No.", LecturerNo);
+        LecturerConstraints.SetRange("Constraint Type", LecturerConstraints."Constraint Type"::Exempt);
+        LecturerConstraints.SetRange("Day of The week", DayOfWeek);
+        exit(not LecturerConstraints.IsEmpty);
     end;
 
     local procedure IsTimeSlotAvailable(CourseOffering: Record "ACA-Lecturers Units";
@@ -473,7 +723,6 @@ codeunit 50096 "Timetable Management"
 
         exit(true);
     end;
-
 
     procedure GenerateExamTimetable(SemesterCode: Code[25])
     var
@@ -540,7 +789,6 @@ codeunit 50096 "Timetable Management"
         ProgressWindow.Close();
     end;
 
-
     local procedure FindOptimalExamSlot(CourseOffering: Record "ACA-Lecturers Units";
         Semester: Record "ACA-Semesters";
         var ExamTimeSlot: Record "Exam Time Slot";
@@ -592,6 +840,7 @@ codeunit 50096 "Timetable Management"
         ExamTimetableEntry: Record "Exam Timetable Entry";
         TotalStudents: Integer;
         RoomCapacityUsed: Integer;
+        TimetableSetup: Record "Timetable Setup";
     begin
         CourseOffering.CalcFields("Unit Students Count");
         TotalStudents := CourseOffering."Unit Students Count";
