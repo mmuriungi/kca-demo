@@ -45,6 +45,11 @@ page 50893 "ACA-Lecturer Units Details"
                 {
                     ApplicationArea = All;
                 }
+                field("Unit Students Count"; Rec."Unit Students Count")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
             }
         }
     }
