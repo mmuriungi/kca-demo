@@ -84,7 +84,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelItemDisposalRequestTxt: Label 'An Approval request for Item Disposal is Cancelled';
         RunWorkflowOnSendItemDisposalForApprovalCode: Label 'RUNWORKFLOWONSENDITEMDISPOSALFORAPPROVAL';
         RunWorkflowOnCancelItemDisposalForApprovalCode: Label 'RUNWORKFLOWONCANCELITEMDISPOSALFORAPPROVAL';
-
+        //Student Deferment/Withdrawal
+        OnSendDefermentWithdrawalRequestTxt: Label 'Approval request for Student Deferment/Withdrawal is requested';
+        OnCancelDefermentWithdrawalRequestTxt: Label 'An Approval request for Student Deferment/Withdrawal is Cancelled';
+        RunWorkflowOnSendDefermentWithdrawalForApprovalCode: Label 'RUNWORKFLOWONSENDDEFERMENTWITHDRAWALFORAPPROVAL';
+        RunWorkflowOnCancelDefermentWithdrawalForApprovalCode: Label 'RUNWORKFLOWONCANCELDEFERMENTWITHDRAWALFORAPPROVAL';
 
 
 
@@ -127,6 +131,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendSpecialExamsForApprovalCode));
             Database::"Item Disposal Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendItemDisposalForApprovalCode));
+            Database::"Student Deferment/Withdrawal":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendDefermentWithdrawalForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -210,6 +216,9 @@ codeunit 50089 "Approval Workflows V1"
         //Item Disposal
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendItemDisposalForApprovalCode, Database::"Item Disposal Header", OnSendItemDisposalRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelItemDisposalForApprovalCode, Database::"Item Disposal Header", OnCancelItemDisposalRequestTxt, 0, false);
+        //Student Deferment/Withdrawal
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendDefermentWithdrawalForApprovalCode, Database::"Student Deferment/Withdrawal", OnSendDefermentWithdrawalRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelDefermentWithdrawalForApprovalCode, Database::"Student Deferment/Withdrawal", OnCancelDefermentWithdrawalRequestTxt, 0, false);
 
     end;
 
@@ -259,6 +268,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendSpecialExamsForApprovalCode, Variant);
             Database::"Item Disposal Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendItemDisposalForApprovalCode, Variant);
+            Database::"Student Deferment/Withdrawal":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendDefermentWithdrawalForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -305,6 +316,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelSpecialExamsForApprovalCode, Variant);
             Database::"Item Disposal Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelItemDisposalForApprovalCode, Variant);
+            Database::"Student Deferment/Withdrawal":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelDefermentWithdrawalForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -331,6 +344,7 @@ codeunit 50089 "Approval Workflows V1"
         EmployeeRequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposal: Record "Item Disposal Header";
+        StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
     begin
         case RecRef.Number of
             Database::club:
@@ -436,12 +450,20 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(SpecialExams);
                     SpecialExams.Validate("Status", SpecialExams.Status::New);
                     SpecialExams.Modify();
+                    Handled := true;
                 end;
             Database::"Item Disposal Header":
                 begin
                     RecRef.SetTable(ItemDisposal);
                     ItemDisposal.Validate("Status", ItemDisposal.Status::Open);
                     ItemDisposal.Modify();
+                    Handled := true;
+                end;
+            Database::"Student Deferment/Withdrawal":
+                begin
+                    RecRef.SetTable(StudentDefermentWithdrawal);
+                    StudentDefermentWithdrawal.Validate(Status, StudentDefermentWithdrawal.Status::Open);
+                    StudentDefermentWithdrawal.Modify();
                     Handled := true;
                 end;
         end;
@@ -466,6 +488,7 @@ codeunit 50089 "Approval Workflows V1"
         Emprequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
+        StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
     begin
         case RecRef.Number of
             Database::club:
@@ -482,8 +505,6 @@ codeunit 50089 "Approval Workflows V1"
                     StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::"Pending");
                     StudentLeave.Modify();
                     Variant := StudentLeave;
-                    if not fnCheckApprovalRequirements(Variant) then
-                        Error('Approval requirements are not met. Attach the required documents and try again.');
                     IsHandled := true;
                 end;
             Database::"Postgrad Supervisor Applic.":
@@ -586,6 +607,13 @@ codeunit 50089 "Approval Workflows V1"
                     ItemDisposalHeader.Modify();
                     IsHandled := true;
                 end;
+            Database::"Student Deferment/Withdrawal":
+                begin
+                    RecRef.SetTable(StudentDefermentWithdrawal);
+                    StudentDefermentWithdrawal.Validate(Status, StudentDefermentWithdrawal.Status::Pending);
+                    StudentDefermentWithdrawal.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -608,6 +636,7 @@ codeunit 50089 "Approval Workflows V1"
         EmployeeRequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
+        StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
     begin
         case RecRef.number of
             Database::Club:
@@ -690,6 +719,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(ItemDisposalHeader);
                     ApprovalEntryArgument."Document No." := ItemDisposalHeader."No.";
                 end;
+            Database::"Student Deferment/Withdrawal":
+                begin
+                    RecRef.SetTable(StudentDefermentWithdrawal);
+                    ApprovalEntryArgument."Document No." := StudentDefermentWithdrawal."No.";
+                end;
         end;
     end;
 
@@ -716,6 +750,8 @@ codeunit 50089 "Approval Workflows V1"
         Emprequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
+        StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
+        DefermentWithdrawalMgmt: Codeunit "Student Def_Withdrawal Mgmt";
     begin
         case RecRef.Number of
             Database::Club:
@@ -833,9 +869,16 @@ codeunit 50089 "Approval Workflows V1"
                     ItemDisposalHeader.Modify();
                     Handled := true;
                 end;
+            Database::"Student Deferment/Withdrawal":
+                begin
+                    RecRef.SetTable(StudentDefermentWithdrawal);
+                    StudentDefermentWithdrawal.Validate(Status, StudentDefermentWithdrawal.Status::Approved);
+                    StudentDefermentWithdrawal.Modify();
+                    DefermentWithdrawalMgmt.HandleApprovedDefermentWithdrawal(StudentDefermentWithdrawal);
+                    Handled := true;
+                end;
         end;
     end;
-
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
     local procedure OnRejectApprovalRequest(var ApprovalEntry: Record "Approval Entry")
@@ -856,6 +899,7 @@ codeunit 50089 "Approval Workflows V1"
         Emprequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
+        StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -972,6 +1016,13 @@ codeunit 50089 "Approval Workflows V1"
                     if ItemDisposalHeader.Get(ApprovalEntry."Document No.") then begin
                         ItemDisposalHeader.Status := ItemDisposalHeader.Status::Open;
                         ItemDisposalHeader.Modify(true);
+                    end;
+                end;
+            Database::"Student Deferment/Withdrawal":
+                begin
+                    if StudentDefermentWithdrawal.Get(ApprovalEntry."Document No.") then begin
+                        StudentDefermentWithdrawal.Status := StudentDefermentWithdrawal.Status::Rejected;
+                        StudentDefermentWithdrawal.Modify(true);
                     end;
                 end;
         end;
@@ -1262,15 +1313,16 @@ codeunit 50089 "Approval Workflows V1"
                         exit(false);
                     exit(true);
                 end;
-            Database::"Student Leave":
-                begin
-                    RecRef.SetTable(StudentLeave);
-                    if not (StudentLeave."Approval Status" = StudentLeave."Approval Status"::Open) then
-                        exit(false);
-                    if not checkDocumentAttachmentExists(Variant) then
-                        exit(false);
-                    exit(true);
-                end;
+            // Database::"Student Leave":
+            //     begin
+            //         RecRef.SetTable(StudentLeave);
+            //         if not (StudentLeave."Approval Status" = StudentLeave."Approval Status"::Open) then
+            //             exit(false);
+            //         if GuiAllowed then
+            //             if not checkDocumentAttachmentExists(Variant) then
+            //                 exit(false);
+            //         exit(true);
+            //     end;
             Database::"Postgrad Supervisor Applic.":
                 begin
                     RecRef.SetTable(PostgradSupervisorApplic);

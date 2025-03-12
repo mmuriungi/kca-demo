@@ -99,9 +99,12 @@ table 50166 "Student Leave"
     }
     trigger OnInsert()
     begin
+        if "Leave No."='' then begin
+
         clubsetup.Get();
         ClubSetup.TestField("Leave Nos");
         NoseriesMgmt.InitSeries(clubsetup."Leave Nos", xRec."No. Series", 0D, Rec."Leave No.", Rec."No. Series");
+        end;
     end;
 
     var

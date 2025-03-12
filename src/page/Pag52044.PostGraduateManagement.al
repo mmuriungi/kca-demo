@@ -52,8 +52,7 @@ page 52044 "Post Graduate Management"
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Postgraduate Students';
-                    RunObject = Page "ACA-All Students List";
-                    ///RunPageView = where("Student Type" = const(Postgraduate));
+                    RunObject = Page "Postgraduate Student List";
                     ToolTip = 'View and manage postgraduate students';
                 }
                 action(Supervisors)
@@ -143,7 +142,7 @@ page 52044 "Post Graduate Management"
             {
                 ApplicationArea = Basic, Suite;
                 Caption = 'Postgraduate Students';
-                RunObject = Page "ACA-All Students List";
+                RunObject = Page "Postgraduate Student List";
                 ToolTip = 'View and manage postgraduate students';
             }
             action(SupervisorApplicationsEmbed)

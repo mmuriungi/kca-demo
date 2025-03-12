@@ -6,6 +6,7 @@ page 50927 "ACA-Senate Report Lubrics"
     ModifyAllowed = true;
     PageType = List;
     SourceTable = "ACA-Academic Year";
+    PromotedActionCategories = 'New,Process,Report,Rubrics,Update Grades';
 
     layout
     {
@@ -65,7 +66,7 @@ page 50927 "ACA-Senate Report Lubrics"
     // }
     actions
     {
-        area(creation)
+        area(Processing)
         {
             action("Update Grading System")
             {
@@ -74,6 +75,7 @@ page 50927 "ACA-Senate Report Lubrics"
                 Promoted = true;
                 PromotedIsBig = true;
                 ApplicationArea = All;
+                PromotedCategory = Category5;
 
                 trigger OnAction()
                 var
@@ -91,6 +93,7 @@ page 50927 "ACA-Senate Report Lubrics"
                 Image = SuggestBin;
                 Promoted = true;
                 PromotedIsBig = true;
+                PromotedCategory = Category4;
 
                 trigger OnAction()
                 begin
@@ -108,6 +111,7 @@ page 50927 "ACA-Senate Report Lubrics"
                 Image = ExportElectronicDocument;
                 Promoted = true;
                 PromotedIsBig = true;
+                PromotedCategory = Category4;
 
                 trigger OnAction()
                 begin
@@ -125,6 +129,7 @@ page 50927 "ACA-Senate Report Lubrics"
                 Image = DepreciationBooks;
                 Promoted = true;
                 PromotedIsBig = true;
+                PromotedCategory = Category4;
 
                 trigger OnAction()
                 begin
@@ -142,6 +147,7 @@ page 50927 "ACA-Senate Report Lubrics"
                 Image = AvailableToPromise;
                 Promoted = true;
                 PromotedIsBig = true;
+                PromotedCategory = Category4;
 
                 trigger OnAction()
                 begin
@@ -159,6 +165,7 @@ page 50927 "ACA-Senate Report Lubrics"
                 Image = GetStandardJournal;
                 Promoted = true;
                 PromotedIsBig = true;
+                PromotedCategory = Category4;
 
                 trigger OnAction()
                 begin
@@ -177,6 +184,7 @@ page 50927 "ACA-Senate Report Lubrics"
                 Image = DistributionGroup;
                 Promoted = true;
                 PromotedIsBig = true;
+                PromotedCategory = Category4;
 
                 trigger OnAction()
                 begin

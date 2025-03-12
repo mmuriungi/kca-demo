@@ -2638,9 +2638,9 @@ table 50213 "HRM-Employee C"
     procedure FullName(): Text[100]
     begin
         if "Middle Name" = '' then
-            exit("Known As" + ' ' + "Last Name")
+            exit("First Name" + ' ' + "Last Name")
         else
-            exit("Known As" + ' ' + "Middle Name" + ' ' + "Last Name");
+            exit("First Name" + ' ' + "Middle Name" + ' ' + "Last Name");
     end;
 
     procedure CurrentPayDetails()

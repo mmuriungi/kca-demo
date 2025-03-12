@@ -77,6 +77,10 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Date';
         }
+        field(16; "Group No"; Integer)
+        {
+            Caption = 'Group No';
+        }
     }
 
     keys

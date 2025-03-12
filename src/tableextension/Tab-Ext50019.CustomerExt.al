@@ -224,7 +224,7 @@ tableextension 50019 "Customer Ext" extends Customer
         field(63020; Status; Option)
         {
             Caption = 'Status';
-            OptionMembers = Registration,Current,Alumni,"Dropped Out",Defered,Suspended,Expulsion,Discontinued,Deferred,Deceased,Transferred,Disciplinary,Unknown,"Completed not graduated","Graduated no Certificates","Graduated with Certificate","New Admission",Incomplete;
+            OptionMembers = Registration,Current,Alumni,"Dropped Out",Defered,Suspended,Expulsion,Discontinued,Deferred,Deceased,Transferred,Disciplinary,Unknown,"Completed not graduated","Graduated no Certificates","Graduated with Certificate","New Admission",Incomplete,Withdrawn;
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
@@ -1313,6 +1313,12 @@ tableextension 50019 "Customer Ext" extends Customer
         }
         field(63215; "Changed Parent Password"; Boolean)
         {
+        }
+        field(63216; "Is Postgraduate"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = exist("ACA-Course Registration" where("Student No." = field("No."),
+                                                                 "Is Postgraduate" = const(true)));
         }
         modify("No.")
         {
