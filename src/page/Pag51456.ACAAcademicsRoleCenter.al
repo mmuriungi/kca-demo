@@ -557,6 +557,12 @@ page 51456 "ACA-Academics Role Center&"
                     RunObject = Page "Time Slots";
                     ApplicationArea = All;
                 }
+                action("Timetable Setup")
+                {
+                    Image = Setup;
+                    RunObject = Page "Timetable Setup";
+                    ApplicationArea = All;
+                }
                 action("Timetable Entry")
                 {
                     Image = Report;
