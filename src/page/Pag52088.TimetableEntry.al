@@ -43,9 +43,15 @@ page 52088 "Timetable Entry"
                 {
                     ToolTip = 'Specifies the value of the Programme Code field.', Comment = '%';
                 }
+                field("Group No"; Rec."Group No")
+                {
+                    ToolTip = 'Specifies the value of the Group No field.', Comment = '%';
+                    ApplicationArea = All;
+                }
                 field("Day of Week"; Rec."Day of Week")
                 {
                     ToolTip = 'Specifies the value of the Day of Week field.', Comment = '%';
+                    ApplicationArea = All;
                 }
                 field("Start Time"; Rec."Start Time")
                 {
