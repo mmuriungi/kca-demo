@@ -10644,8 +10644,7 @@ Codeunit 61106 webportals
         SuperVisorApplic: Record "Postgrad Supervisor Applic.";
     begin
         SuperVisorApplic.Init();
-        SuperVisorApplic."Student No." := StudentNo;
-        SuperVisorApplic.Validate("Student No.");
+        SuperVisorApplic.SetRange("Student No.", StudentNo);
         if SuperVisorApplic.FIND('-') then begin
             msg := SuperVisorApplic."No." + ' ::' + SuperVisorApplic."Student No." + ' ::' + Format(SuperVisorApplic."Application Date") + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
         end;

@@ -4,7 +4,7 @@ report 50807 "Postgrad Supervision Form"
     Caption = 'Postgrad Supervision Form';
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = Word;
-    WordLayout = ',/Layouts/Postgrad Supervision Form.docx';
+    WordLayout = './Layouts/Postgrad Supervision Form.docx';
     dataset
     {
         dataitem(SupervisionTracking; "Supervision Tracking")
