@@ -77,6 +77,13 @@ page 52044 "Post Graduate Management"
                     RunObject = Page "Postgrad Submission List";
                     ToolTip = 'View and manage student submissions';
                 }
+                action(SupervisionTracking)
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Supervision Tracking';
+                    RunObject = Page "Supervision Tracking List";
+                    ToolTip = 'View and manage supervision tracking';
+                }
                 action(CommunicationLogs)
                 {
                     ApplicationArea = Basic, Suite;

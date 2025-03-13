@@ -394,6 +394,8 @@ Codeunit 61106 webportals
         end;
     end;
 
+    //Supervisor
+
     procedure isStudentPostgraduate(StdNo: code[25]): Boolean
     var
         CourseReg: record "ACA-Course Registration";
@@ -10588,6 +10590,31 @@ Codeunit 61106 webportals
                     msg += Supervisors."No." + ' ::' + Supervisors."First Name" + ' ::' + Supervisors."Middle Name" + ' ::' + Supervisors."Last Name" + ' :::';
                 until Supervisors.NEXT = 0;
             end;
+        end;
+    end;
+
+    procedure NewSupervisorApplic(StudentNo: Code[25]) msg: Text
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+    begin
+        SuperVisorApplic.Init();
+        SuperVisorApplic."No." := '';
+        SuperVisorApplic."Student No." := StudentNo;
+        SuperVisorApplic.Validate("Student No.");
+        SuperVisorApplic."Application Date" := Today;
+        SuperVisorApplic.Status := SuperVisorApplic.Status::open;
+        if SuperVisorApplic.Insert(true) then
+            msg := SuperVisorApplic."No.";
+    end;
+    procedure GetSupervisorApplic(StudentNo: Code[25]) msg: Text
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+    begin
+        SuperVisorApplic.Init();
+        SuperVisorApplic."Student No." := StudentNo;
+        SuperVisorApplic.Validate("Student No.");
+        if SuperVisorApplic.FIND('-') then begin
+            msg := SuperVisorApplic."No." + ' ::' + SuperVisorApplic."Student No." + ' ::' + Format(SuperVisorApplic."Application Date") + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
         end;
     end;
 
