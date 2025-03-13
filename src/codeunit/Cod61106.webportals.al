@@ -352,6 +352,48 @@ Codeunit 61106 webportals
         exit(Attach);
     end;
 
+    procedure GetSupervisionTrackingAttachment(DocNo: code[25]): Text
+    var
+
+    begin
+        exit(GetAttachedDocument(DocNo, Database::"Supervision Tracking", 0));
+    end;
+
+    //Create new Supervision Tracking
+    procedure CreateSupervisionTracking(stdNo: code[25]; DateMetWithSupervisor: Date; StageofWork: Text; NatureofFeedback: Text; Remarks: Text) Result: Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+        Cust: Record "Customer";
+    begin
+        Cust.GET(stdNo);
+        SupervisionTracking.Init();
+        SupervisionTracking."Student No." := stdNo;
+        SupervisionTracking.Validate("Student No.");
+        SupervisionTracking."Supervisor Code" := Cust."Supervisor No.";
+        SupervisionTracking.Validate("Supervisor Code");
+        SupervisionTracking."Date Work Submitted" := WorkDate();
+        SupervisionTracking."Date Met With Supervisor" := DateMetWithSupervisor;
+        SupervisionTracking."Stage of Work" := StageofWork;
+        SupervisionTracking."Nature of Feedback" := NatureofFeedback;
+        SupervisionTracking.Remarks := Remarks;
+        SupervisionTracking.Insert(true);
+        Result := SupervisionTracking."Document No.";
+    end;
+
+    //Get Supervision Tracking
+    procedure GetSupervisionTracking(stdNo: code[25]) Result: Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+    begin
+        SupervisionTracking.Reset();
+        SupervisionTracking.SetRange("Student No.", stdNo);
+        if SupervisionTracking.FindSet() then begin
+            repeat
+                Result += SupervisionTracking."Document No." + ' ::' + format(SupervisionTracking."Date Work Submitted") + ' ::' + SupervisionTracking."Stage of Work" + ' ::' + SupervisionTracking."Nature of Feedback" + ' ::' + SupervisionTracking.Remarks + ' :::';
+            until SupervisionTracking.Next() = 0;
+        end;
+    end;
+
     procedure isStudentPostgraduate(StdNo: code[25]): Boolean
     var
         CourseReg: record "ACA-Course Registration";
