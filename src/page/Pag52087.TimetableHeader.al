@@ -52,6 +52,16 @@ page 52087 "Timetable Header"
                 Caption = 'Lecturer Timetable Constraints';
                 RunObject = Page "Lecturer Timetable Constraints";
                 RunPageLink = Semester = field(Semester);
+                Image=ConditionalBreakpoint;
+                Promoted = true;
+                PromotedCategory = Category4;
+            }
+            action("Online Preferences")
+            {
+                ApplicationArea = All;
+                Caption = 'Online Preferences';
+                RunObject = Page "Online Preferences";
+                Image=ConditionalBreakpoint;
                 Promoted = true;
                 PromotedCategory = Category4;
             }

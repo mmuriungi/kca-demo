@@ -277,6 +277,18 @@ table 50650 "ACA-Lecturers Units"
         {
 
         }
+        field(51; "Student Allocation"; Integer)
+        {
+
+        }
+        field(52; "Timetable Category"; Option)
+        {
+            Caption = 'Timetable Category';
+            OptionCaption = ' ,STEM,Non-STEM';
+            OptionMembers = " ",STEM,"Non-STEM";
+            FieldClass = FlowField;
+            CalcFormula = lookup("ACA-Programme"."Timetable Category" where(Code = field(Programme)));
+        }
     }
 
     keys

@@ -29,6 +29,7 @@ report 51307 "Class Timetable Report"
                 }
                 dataitem(Integer; Integer)
                 {
+                    DataItemTableView = sorting(Number);
                     column(Number; Number)
                     {
 

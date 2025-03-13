@@ -1,5 +1,6 @@
 codeunit 50096 "Timetable Management"
 {
+
     trigger OnRun()
     begin
         GenerateTimetable('2024', 'S1');
@@ -365,6 +366,21 @@ codeunit 50096 "Timetable Management"
         exit(not TimetableEntry.IsEmpty);
     end;
 
+    procedure GetMaxStudentsPerClass(var CourseOffering: Record "ACA-Lecturers Units"): Integer
+    var
+        TtSetup: Record "Timetable Setup";
+    begin
+        TtSetup.Get();
+        CourseOffering.CalcFields("Timetable Category");
+        case
+            CourseOffering."Timetable Category" of
+            courseoffering."Timetable Category"::"Non-STEM":
+                exit(TtSetup."Maximum Students (Non-STEM)");
+            courseoffering."Timetable Category"::"STEM":
+                exit(TtSetup."Maximum Students (STEM)");
+        end;
+    end;
+
     local procedure AssignBalancedTimeAndLocation(var CourseOffering: Record "ACA-Lecturers Units";
        var DaysPerWeek: array[5] of Integer): Boolean
     var
@@ -384,7 +400,7 @@ codeunit 50096 "Timetable Management"
         TimetableSetup.Get();
         CourseOffering.CalcFields("Unit Students Count");
         StudentCount := CourseOffering."Unit Students Count";
-        MaxStudentsPerClass := TimetableSetup."Maximum Students per class";
+        MaxStudentsPerClass := GetMaxStudentsPerClass(CourseOffering);
 
         // Check if class needs to be split
         RequiresSplit := (StudentCount >= (MaxStudentsPerClass + 4));
@@ -397,6 +413,7 @@ codeunit 50096 "Timetable Management"
 
         // Find suitable lecture hall(s)
         LectureHall.Reset();
+        LectureHall.SetRange(Status,LectureHall.Status::Active);
         if RequiresSplit then
             LectureHall.SetFilter("Sitting Capacity", '>=%1', FirstGroupSize)
         else

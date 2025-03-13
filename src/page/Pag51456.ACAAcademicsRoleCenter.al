@@ -563,12 +563,14 @@ page 51456 "ACA-Academics Role Center&"
                     RunObject = Page "Timetable Setup";
                     ApplicationArea = All;
                 }
-                action("Timetable Entry")
+                action("Online Preferences")
                 {
-                    Image = Report;
-
-                    RunObject = Page "Timetable Entry";
                     ApplicationArea = All;
+                    Caption = 'Online Preferences';
+                    RunObject = Page "Online Preferences";
+                    Image = ConditionalBreakpoint;
+                    Promoted = true;
+                    PromotedCategory = Category4;
                 }
             }
             group("Exam Timetabling")
