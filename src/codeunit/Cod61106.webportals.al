@@ -352,6 +352,38 @@ Codeunit 61106 webportals
         exit(Attach);
     end;
 
+    procedure DownloadPostgradTrackingForm(DocNo: code[25]): Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+        Recref: RecordRef;
+    begin
+        SupervisionTracking.GET(DocNo);
+        Recref.GetTable(SupervisionTracking);
+        fnGetReportBase64(report::"Postgrad Supervision Form", '', Recref);
+    end;
+
+    procedure fnGetReportBase64(reportId: Integer; parameters: text; recRef: RecordRef): Text
+    var
+        cuTemplob: Codeunit "Temp Blob";
+        BcInstream: InStream;
+        bcOutStream: OutStream;
+        cuBase64: Codeunit "Base64 Convert";
+        FileName: Text;
+        rpVariant: RecordId;
+    begin
+        // grpvesel.Reset();
+        // grpvesel.SetRange("No.", 'INSG012');
+        // grpvesel.SetRange("File Reference No.", 'REF/004/2024');
+        // if grpvesel.Find('-') then begin
+        //     Clear(recRef);
+        //     recRef.GetTable(grpvesel);
+        // end;
+        cuTemplob.CreateOutStream(BcOutStream);
+        Report.SaveAs(reportId, Parameters, ReportFormat::Pdf, bcOutStream, RecRef);
+        cuTemplob.CreateInStream(BcInstream);
+        exit(cuBase64.ToBase64(BcInstream));
+    end;
+
     procedure GetSupervisionTrackingAttachment(DocNo: code[25]): Text
     var
 
@@ -10606,6 +10638,7 @@ Codeunit 61106 webportals
         if SuperVisorApplic.Insert(true) then
             msg := SuperVisorApplic."No.";
     end;
+
     procedure GetSupervisorApplic(StudentNo: Code[25]) msg: Text
     var
         SuperVisorApplic: Record "Postgrad Supervisor Applic.";
