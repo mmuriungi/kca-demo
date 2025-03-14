@@ -318,7 +318,9 @@ Codeunit 61106 webportals
         StudentSubmission.SetRange("Student No.", stdNo);
         StudentSubmission.setrange("Submission Type", SubmissionType);
         if StudentSubmission.FindSet then begin
-            Result := StudentSubmission."No." + ' ::' + formaT(StudentSubmission.Status) + ' ::' + format(StudentSubmission."Submission Date");
+            repeat
+                Result += StudentSubmission."No." + ' ::' + formaT(StudentSubmission.Status) + ' ::' + format(StudentSubmission."Submission Date");
+            until StudentSubmission.Next = 0;
         end;
     end;
 

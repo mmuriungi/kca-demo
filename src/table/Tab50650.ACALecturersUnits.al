@@ -289,6 +289,9 @@ table 50650 "ACA-Lecturers Units"
             FieldClass = FlowField;
             CalcFormula = lookup("ACA-Programme"."Timetable Category" where(Code = field(Programme)));
         }
+        field(53; "Year of Study"; Integer)
+        {
+        }
     }
 
     keys

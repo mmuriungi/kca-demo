@@ -70,7 +70,7 @@ table 51307 "Timetable Entry"
         field(14; "Type"; Option)
         {
             Caption = 'Type';
-            OptionMembers = Class,Exam;
+            OptionMembers = Class,Exam,Theory,Practical,Online;
         }
         //Date
         field(15; "Date"; Date)

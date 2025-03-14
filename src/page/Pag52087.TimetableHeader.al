@@ -29,7 +29,7 @@ page 52087 "Timetable Header"
             }
             part(timetableEntry; "Timetable Entry")
             {
-                Visible = Rec."Type" = Rec."Type"::Class;
+                Visible = Rec."Type" <> Rec."Type"::Exam;
                 ApplicationArea = All;
                 Caption = 'Timetable Entry';
                 SubPageLink = Semester = field(Semester);
