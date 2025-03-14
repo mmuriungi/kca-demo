@@ -54,6 +54,10 @@ page 50893 "ACA-Lecturer Units Details"
                 {
                     ApplicationArea = All;
                 }
+                field("Required Equipment";Rec."Required Equipment")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
@@ -66,13 +70,13 @@ page 50893 "ACA-Lecturer Units Details"
         Allocations: Record "ACA-Lecturers Units";
     begin
         Allocations.Reset();
-        Allocations.SetRange(Semester, 'SEM1 23/24');
+        Allocations.SetRange(Semester, 'SEM1 24/25');
         Allocations.SetRange("Student Allocation", 0);
         Allocations.SetAutoCalcFields("Unit Students Count");
         Allocations.SetFilter("Unit Students Count", '>%1', 0);
         if Allocations.FindSet() then begin
-            Allocations."Student Allocation" := Allocations."Unit Students Count";
-        end
+            Allocations.ModifyAll("Student Allocation", Allocations."Unit Students Count");
+        end;
     end;
 }
 

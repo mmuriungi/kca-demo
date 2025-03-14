@@ -81,6 +81,10 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Group No';
         }
+        field(17; "Session Type"; Enum "Session Type")
+        {
+            Caption = 'Session Type';
+        }
     }
 
     keys

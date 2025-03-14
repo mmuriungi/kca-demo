@@ -54,6 +54,10 @@ table 50701 "ACA-Lecturer Halls Setup"
         {
             OptionMembers = Normal,Lab,Online;
         }
+        field(13; "Floor"; Integer)
+        {
+
+        }
 
     }
 

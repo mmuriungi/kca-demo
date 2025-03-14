@@ -292,6 +292,9 @@ table 50650 "ACA-Lecturers Units"
         field(53; "Year of Study"; Integer)
         {
         }
+        field(54; "Department Code"; Code[20])
+        {
+        }
     }
 
     keys

@@ -11,7 +11,7 @@ page 52088 "Timetable Entry"
         {
             repeater(General)
             {
-                field("Type"; Rec."Type")
+                field("Session Type"; Rec."Session Type")
                 {
                     ToolTip = 'Specifies the value of the Type field.', Comment = '%';
                 }
