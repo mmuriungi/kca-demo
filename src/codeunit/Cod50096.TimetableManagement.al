@@ -107,6 +107,8 @@ codeunit 50096 "Timetable Management"
         ProgressWindow: Dialog;
         TotalRecords: Integer;
         CurrentRecord: Integer;
+        SchedulingIssue: Record "Scheduling Issue";
+        Uscheduled: Integer;
     begin
         // Clear existing timetable
         TimetableEntry.Reset();
@@ -117,7 +119,7 @@ codeunit 50096 "Timetable Management"
         CourseOffering.Reset();
         CourseOffering.SetRange(Semester, Semester);
         CourseOffering.SetCurrentKey("Time Table Hours");
-
+        CourseOffering.SetAscending("Time Table Hours", false);
         if CourseOffering.FindSet() then begin
             TotalRecords := CourseOffering.Count();
             ProgressWindow.Open('Scheduling Classes\' +
@@ -133,11 +135,26 @@ codeunit 50096 "Timetable Management"
                 ProgressWindow.Update(3, TotalRecords - CurrentRecord);
                 ProgressWindow.Update(4, CourseOffering."Time Table Hours");
 
-                if not AssignBalancedTimeAndLocation(CourseOffering, DaysPerWeek) then
+                if not AssignBalancedTimeAndLocationNew(CourseOffering, DaysPerWeek) then
                     LogSchedulingIssue(CourseOffering);
-
             until CourseOffering.Next() = 0;
+            //Try again to schedule the logged units and clear them from the log
 
+            SchedulingIssue.Reset();
+            if SchedulingIssue.FindSet() then
+                repeat
+                    Uscheduled := SchedulingIssue.Count();
+                    CourseOffering.Reset();
+                    CourseOffering.SetRange(Semester, Semester);
+                    CourseOffering.SetRange("Unit", SchedulingIssue."Course Code");
+                    CourseOffering.SetRange(Lecturer, SchedulingIssue."Lecturer Code");
+                    CourseOffering.SetRange(Programme, SchedulingIssue."Programme");
+                    CourseOffering.SetRange(Stage, SchedulingIssue.Stage);
+                    if CourseOffering.FindFirst() then
+                        if AssignBalancedTimeAndLocationNew(CourseOffering, DaysPerWeek) then
+                            //LogSchedulingIssue(CourseOffering);
+                            SchedulingIssue.Delete();
+                until SchedulingIssue.Next() = 0;
             ProgressWindow.Close();
         end;
     end;
@@ -383,6 +400,324 @@ codeunit 50096 "Timetable Management"
         end;
     end;
 
+    local procedure AssignBalancedTimeAndLocationNew(var CourseOffering: Record "ACA-Lecturers Units";
+       var DaysPerWeek: array[5] of Integer): Boolean
+    var
+        LectureHall: Record "ACA-Lecturer Halls Setup";
+        LabLectureHall: Record "ACA-Lecturer Halls Setup";
+        TimeSlot: Record "Time Slot";
+        LabTimeSlot: Record "Time Slot";
+        TimetableEntry: Record "Timetable Entry";
+        LeastBusyDay: Integer;
+        SecondLeastBusyDay: Integer;
+        TimetableSetup: Record "Timetable Setup";
+        MaxStudentsPerClass: Integer;
+        StudentCount: Integer;
+        SecondLectureHall: Record "ACA-Lecturer Halls Setup";
+        SecondTimeSlot: Record "Time Slot";
+        RequiresSplit: Boolean;
+        FirstGroupSize: Integer;
+        SecondGroupSize: Integer;
+        SplitForPractical: Boolean;
+        TheoryHours: Integer;
+        PracticalHours: Integer;
+        FirstDayBusyLevel: array[5] of Integer;
+        IsOnlinePreferredUnit: Boolean;
+        YearOfStudy: Integer;
+    begin
+        TimetableSetup.Get();
+        CourseOffering.CalcFields("Unit Students Count");
+        StudentCount := CourseOffering."Unit Students Count";
+        MaxStudentsPerClass := GetMaxStudentsPerClass(CourseOffering);
+
+        // Check if unit is preferred for online teaching
+        YearOfStudy := GetYearOfStudyFromStage(CourseOffering.Stage);
+        IsOnlinePreferredUnit := IsUnitInOnlinePreferences(CourseOffering.Unit, YearOfStudy);
+
+        // Check if class needs to be split due to student count
+        RequiresSplit := (StudentCount >= (MaxStudentsPerClass + 4));
+
+        // Check if unit hours need to be split into theory and practical
+        SplitForPractical := (CourseOffering."Time Table Hours" > 3);  // Using your threshold of 3
+
+        // If we need to split, determine theory and practical hours
+        if SplitForPractical then begin
+            TheoryHours := 2;  // 2 hours for theory
+            PracticalHours := CourseOffering."Time Table Hours" - TheoryHours;  // Remaining for practical
+        end;
+
+        if RequiresSplit then begin
+            // Calculate group sizes - divide students into two groups
+            FirstGroupSize := Round(StudentCount / 2, 1, '<');  // First half (round down)
+            SecondGroupSize := StudentCount - FirstGroupSize;   // Second half
+        end;
+
+        // Copy the days per week array to track busy level for first day assignment
+        CopyArray(FirstDayBusyLevel, DaysPerWeek);
+
+        // Find least busy day for first session
+        LeastBusyDay := GetLeastBusyDay(FirstDayBusyLevel);
+
+        // If this is an online preferred unit, assign an online venue
+        if IsOnlinePreferredUnit then begin
+            // Find a suitable time slot
+            if FindBalancedTimeSlot(CourseOffering, '', TimeSlot, CourseOffering.Semester, LeastBusyDay) then begin
+                // Create online session timetable entry
+                if CreateOnlineSessionEntry(CourseOffering, TimeSlot, LeastBusyDay) then begin
+                    DaysPerWeek[LeastBusyDay] += 1;
+
+                    // If this is a practical unit, we still need to schedule a physical practical session
+                    if SplitForPractical then begin
+                        // Find the second least busy day for practical session
+                        DaysPerWeek[LeastBusyDay] := 99999; // Make first day extremely busy to avoid selecting it again
+                        SecondLeastBusyDay := GetLeastBusyDay(DaysPerWeek);
+                        DaysPerWeek[LeastBusyDay] := FirstDayBusyLevel[LeastBusyDay] + 1; // Restore original value plus one
+
+                        // Find a lab with matching equipment for practical
+                        LabLectureHall.Reset();
+                        LabLectureHall.SetRange(Status, LabLectureHall.Status::Active);
+                        LabLectureHall.SetRange("Hall Category", LabLectureHall."Hall Category"::Lab);  // Explicitly for labs
+                        LabLectureHall.SetFilter("Sitting Capacity", '>=%1', StudentCount);
+                        LabLectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
+
+                        if LabLectureHall.FindSet() then begin
+                            if FindBalancedTimeSlot(CourseOffering, LabLectureHall."Lecture Room Code", LabTimeSlot,
+                                CourseOffering.Semester, SecondLeastBusyDay) then begin
+
+                                // Create practical session timetable entry
+                                TimetableEntry.Init();
+                                TimetableEntry."Unit Code" := CourseOffering.Unit;
+                                TimetableEntry.Semester := CourseOffering.Semester;
+                                TimetableEntry."Lecture Hall Code" := LabLectureHall."Lecture Room Code";
+                                TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
+                                TimetableEntry."Time Slot Code" := LabTimeSlot.Code;
+                                TimetableEntry."Day of Week" := LabTimeSlot."Day of Week";
+                                TimetableEntry."Start Time" := LabTimeSlot."Start Time";
+                                TimetableEntry."End Time" := LabTimeSlot."End Time";
+                                TimetableEntry."Duration (Hours)" := PracticalHours;
+                                TimetableEntry."Programme Code" := CourseOffering.Programme;
+                                TimetableEntry."Stage Code" := CourseOffering.Stage;
+                                TimetableEntry.Type := TimetableEntry.Type::Class;
+                                TimetableEntry."Session Type" := TimetableEntry."Session Type"::Practical;
+
+                                if TimetableEntry.Insert() then
+                                    DaysPerWeek[SecondLeastBusyDay] += 1;
+                            end;
+                        end;
+                    end;
+
+                    exit(true);
+                end;
+            end;
+        end;
+
+        // Find suitable lecture hall(s) for theory/regular sessions
+        // IMPORTANT: Explicitly exclude labs for non-practical sessions and theory sessions
+        LectureHall.Reset();
+        LectureHall.SetRange(Status, LectureHall.Status::Active);
+
+        // Always exclude lab rooms for theory/regular classes
+        LectureHall.SetFilter("Hall Category", '<>%1', LectureHall."Hall Category"::Lab);
+
+        if RequiresSplit then
+            LectureHall.SetFilter("Sitting Capacity", '>=%1', FirstGroupSize)
+        else
+            LectureHall.SetFilter("Sitting Capacity", '>=%1', StudentCount);
+
+        if LectureHall.FindSet() then begin
+            repeat
+                // Find a time slot on the least busy day
+                if FindBalancedTimeSlot(CourseOffering, LectureHall."Lecture Room Code", TimeSlot,
+                    CourseOffering.Semester, LeastBusyDay) then begin
+
+                    // Create timetable entry for first session (or theory if splitting for practical)
+                    TimetableEntry.Init();
+                    TimetableEntry."Unit Code" := CourseOffering.Unit;
+                    TimetableEntry.Semester := CourseOffering.Semester;
+                    TimetableEntry."Lecture Hall Code" := LectureHall."Lecture Room Code";
+                    TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
+                    TimetableEntry."Time Slot Code" := TimeSlot.Code;
+                    TimetableEntry."Day of Week" := TimeSlot."Day of Week";
+                    TimetableEntry."Start Time" := TimeSlot."Start Time";
+                    TimetableEntry."End Time" := TimeSlot."End Time";
+
+                    // Set the duration based on whether this is theory or full course
+                    if SplitForPractical then
+                        TimetableEntry."Duration (Hours)" := TheoryHours
+                    else
+                        TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
+
+                    TimetableEntry."Programme Code" := CourseOffering.Programme;
+                    TimetableEntry."Stage Code" := CourseOffering.Stage;
+                    TimetableEntry.Type := TimetableEntry.Type::Class;
+
+                    // If splitting due to student count, mark as group 1
+                    if RequiresSplit then
+                        TimetableEntry."Group No" := 1;
+
+                    // If splitting for practical, mark as theory session
+                    if SplitForPractical then
+                        TimetableEntry."Session Type" := TimetableEntry."Session Type"::Theory
+                    else
+                        TimetableEntry."Session Type" := TimetableEntry."Session Type"::Regular;  // Explicitly mark as regular
+
+                    if TimetableEntry.Insert() then begin
+                        // Update busy level for this day
+                        DaysPerWeek[LeastBusyDay] += 1;
+
+                        // Handle second session based on which type of split we're doing
+                        if RequiresSplit and not SplitForPractical then begin
+                            // Handle student count split (original logic)
+                            if FindSecondTimeSlotAndRoom(CourseOffering, TimeSlot, SecondGroupSize, SecondTimeSlot, SecondLectureHall) then
+                                if CreateSecondClassGroup(CourseOffering, SecondTimeSlot, SecondLectureHall, 2) then begin
+                                    if (SecondTimeSlot."Day of Week" >= 1) and (SecondTimeSlot."Day of Week" < 5) then
+                                        DaysPerWeek[SecondTimeSlot."Day of Week"] += 1;
+                                end;
+                        end;
+
+                        // If we need to schedule a practical session
+                        if SplitForPractical then begin
+                            // Find the second least busy day for practical session
+                            DaysPerWeek[LeastBusyDay] := 99999; // Make first day extremely busy to avoid selecting it again
+                            SecondLeastBusyDay := GetLeastBusyDay(DaysPerWeek);
+                            DaysPerWeek[LeastBusyDay] := FirstDayBusyLevel[LeastBusyDay] + 1; // Restore original value plus one
+
+                            // Find a lab with matching equipment for practical
+                            LabLectureHall.Reset();
+                            LabLectureHall.SetRange(Status, LabLectureHall.Status::Active);
+                            LabLectureHall.SetRange("Hall Category", LabLectureHall."Hall Category"::Lab);  // Explicitly for labs
+                            LabLectureHall.SetFilter("Sitting Capacity", '>=%1', StudentCount);
+                            LabLectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
+
+                            if LabLectureHall.FindSet() then begin
+                                if FindBalancedTimeSlot(CourseOffering, LabLectureHall."Lecture Room Code", LabTimeSlot,
+                                    CourseOffering.Semester, SecondLeastBusyDay) then begin
+
+                                    // Create practical session timetable entry
+                                    TimetableEntry.Init();
+                                    TimetableEntry."Unit Code" := CourseOffering.Unit;
+                                    TimetableEntry.Semester := CourseOffering.Semester;
+                                    TimetableEntry."Lecture Hall Code" := LabLectureHall."Lecture Room Code";
+                                    TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
+                                    TimetableEntry."Time Slot Code" := LabTimeSlot.Code;
+                                    TimetableEntry."Day of Week" := LabTimeSlot."Day of Week";
+                                    TimetableEntry."Start Time" := LabTimeSlot."Start Time";
+                                    TimetableEntry."End Time" := LabTimeSlot."End Time";
+                                    TimetableEntry."Duration (Hours)" := PracticalHours;
+                                    TimetableEntry."Programme Code" := CourseOffering.Programme;
+                                    TimetableEntry."Stage Code" := CourseOffering.Stage;
+                                    TimetableEntry.Type := TimetableEntry.Type::Class;
+                                    TimetableEntry."Session Type" := TimetableEntry."Session Type"::Practical;  // Explicitly mark as practical
+
+                                    if TimetableEntry.Insert() then
+                                        DaysPerWeek[SecondLeastBusyDay] += 1;
+                                end;
+                            end;
+                        end;
+
+                        exit(true);
+                    end;
+                end;
+            until LectureHall.Next() = 0;
+        end;
+
+        exit(false);
+    end;
+
+    // Helper function to copy an array (already in your code)
+    local procedure CopyArray(var Target: array[5] of Integer; Source: array[5] of Integer)
+    var
+        i: Integer;
+    begin
+        for i := 1 to 5 do
+            Target[i] := Source[i];
+    end;
+
+    // NEW: Helper function to check if a unit is in online preferences
+    local procedure IsUnitInOnlinePreferences(UnitCode: Code[20]; YearOfStudy: Integer): Boolean
+    var
+        OnlineClassPreference: Record "Online Class Preference";
+    begin
+        OnlineClassPreference.Reset();
+        OnlineClassPreference.SetRange("Unit Code", UnitCode);
+        OnlineClassPreference.SetRange("Year of Study", YearOfStudy);
+        exit(not OnlineClassPreference.IsEmpty);
+    end;
+
+    // NEW: Helper function to extract year of study from stage code
+    local procedure GetYearOfStudyFromStage(StageCode: Code[20]): Integer
+    var
+        YearStr: Text;
+        YearValue: Integer;
+    begin
+        // Extract number after 'Y' and before 'S'
+        // For format like 'Y1S1', this will extract '1'
+        if StageCode = '' then
+            exit(0);
+
+        if StrPos(StageCode, 'Y') = 0 then
+            exit(0);
+
+        if StrPos(StageCode, 'S') = 0 then
+            exit(0);
+
+        YearStr := CopyStr(StageCode, 2, StrPos(StageCode, 'S') - 2);
+
+        if Evaluate(YearValue, YearStr) then
+            exit(YearValue);
+
+        exit(0);
+    end;
+
+    // NEW: Create an online session timetable entry
+    local procedure CreateOnlineSessionEntry(CourseOffering: Record "ACA-Lecturers Units";
+        TimeSlot: Record "Time Slot"; DayOfWeek: Integer): Boolean
+    var
+        TimetableEntry: Record "Timetable Entry";
+        VirtualRoom: Record "ACA-Lecturer Halls Setup";
+    begin
+        // Find a virtual room
+        VirtualRoom.Reset();
+        VirtualRoom.SetRange("Hall Category", VirtualRoom."Hall Category"::Online);  // Using Hall Category for consistency
+        VirtualRoom.SetRange(Status, VirtualRoom.Status::Active);
+
+        if not VirtualRoom.FindFirst() then begin
+            // If no specific virtual room exists, use a default online room code
+            TimetableEntry.Init();
+            TimetableEntry."Unit Code" := CourseOffering.Unit;
+            TimetableEntry.Semester := CourseOffering.Semester;
+            TimetableEntry."Lecture Hall Code" := 'ONLINE'; // Default online venue
+            TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
+            TimetableEntry."Time Slot Code" := TimeSlot.Code;
+            TimetableEntry."Day of Week" := TimeSlot."Day of Week";
+            TimetableEntry."Start Time" := TimeSlot."Start Time";
+            TimetableEntry."End Time" := TimeSlot."End Time";
+            TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
+            TimetableEntry."Programme Code" := CourseOffering.Programme;
+            TimetableEntry."Stage Code" := CourseOffering.Stage;
+            TimetableEntry.Type := TimetableEntry.Type::Class;
+            TimetableEntry."Session Type" := TimetableEntry."Session Type"::Online;
+            exit(TimetableEntry.Insert());
+        end else begin
+            // Use the found virtual room
+            TimetableEntry.Init();
+            TimetableEntry."Unit Code" := CourseOffering.Unit;
+            TimetableEntry.Semester := CourseOffering.Semester;
+            TimetableEntry."Lecture Hall Code" := VirtualRoom."Lecture Room Code";
+            TimetableEntry."Lecturer Code" := CourseOffering.Lecturer;
+            TimetableEntry."Time Slot Code" := TimeSlot.Code;
+            TimetableEntry."Day of Week" := TimeSlot."Day of Week";
+            TimetableEntry."Start Time" := TimeSlot."Start Time";
+            TimetableEntry."End Time" := TimeSlot."End Time";
+            TimetableEntry."Duration (Hours)" := TimeSlot."Duration (Hours)";
+            TimetableEntry."Programme Code" := CourseOffering.Programme;
+            TimetableEntry."Stage Code" := CourseOffering.Stage;
+            TimetableEntry.Type := TimetableEntry.Type::Class;
+            TimetableEntry."Session Type" := TimetableEntry."Session Type"::Online;
+            exit(TimetableEntry.Insert());
+        end;
+    end;
+
     local procedure AssignBalancedTimeAndLocation(var CourseOffering: Record "ACA-Lecturers Units";
        var DaysPerWeek: array[5] of Integer): Boolean
     var
@@ -427,8 +762,10 @@ codeunit 50096 "Timetable Management"
             LectureHall.SetFilter("Sitting Capacity", '>=%1', FirstGroupSize)
         else
             LectureHall.SetFilter("Sitting Capacity", '>=%1', StudentCount);
+        if not RequiresPractical then
+            LectureHall.SetFilter("Hall Category", '<>%1', LectureHall."Hall Category"::Lab);
 
-        LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
+        //LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
 
         if RequiresPractical then begin
             exit(HandleTheoryPracticalUnit(CourseOffering, DaysPerWeek, RequiresSplit, FirstGroupSize, SecondGroupSize));
@@ -477,6 +814,7 @@ codeunit 50096 "Timetable Management"
         exit(false);
     end;
 
+
     // New procedure to handle units with theory and practical components
     local procedure HandleTheoryPracticalUnit(
         var CourseOffering: Record "ACA-Lecturers Units";
@@ -494,6 +832,7 @@ codeunit 50096 "Timetable Management"
         SecondLeastBusyDay: Integer;
         DaysUsage: array[5] of Integer;
         i: Integer;
+        SlotInt: Integer;
     begin
         // Copy the current days usage
         for i := 1 to 5 do begin
@@ -505,12 +844,11 @@ codeunit 50096 "Timetable Management"
         // Find suitable lecture hall for theory
         LectureHall.Reset();
         LectureHall.SetRange(Status, LectureHall.Status::Active);
+        LectureHall.SetRange("Hall Category", LectureHall."Hall Category"::Normal);
         if RequiresSplit then
             LectureHall.SetFilter("Sitting Capacity", '>=%1', FirstGroupSize)
         else
             LectureHall.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Unit Students Count");
-
-        LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
 
         // Find suitable lab for practical with required equipment
         LabRoom.Reset();
@@ -555,11 +893,12 @@ codeunit 50096 "Timetable Management"
             exit(false);
 
         // Update the days usage
-        if (TheoryTimeSlot."Day of Week" >= 1) and (TheoryTimeSlot."Day of Week" <= 5) then
-            DaysUsage[TheoryTimeSlot."Day of Week"] += 1;
+        if (TheoryTimeSlot."Day of Week".AsInteger() >= 0) and (TheoryTimeSlot."Day of Week".AsInteger() < 5) then
+            DaysUsage[TheoryTimeSlot."Day of Week".AsInteger() + 1] += 1;
+        SlotInt := TheoryTimeSlot."Day of Week".AsInteger() + 1;
 
         // Mark the theory day as very busy to avoid selecting it again for practical
-        DaysUsage[TheoryTimeSlot."Day of Week"] := 99999;
+        DaysUsage[SlotInt] := 99999;
 
         // Find least busy day for practical session (different from theory day)
         SecondLeastBusyDay := GetLeastBusyDay(DaysUsage);
@@ -589,9 +928,9 @@ codeunit 50096 "Timetable Management"
             exit(false);
 
         // Update the real days usage for both sessions
-        if (TheoryTimeSlot."Day of Week" >= 1) and (TheoryTimeSlot."Day of Week" <= 5) then
+        if (TheoryTimeSlot."Day of Week" >= 1) and (TheoryTimeSlot."Day of Week" < 5) then
             DaysPerWeek[TheoryTimeSlot."Day of Week"] += 1;
-        if (PracticalTimeSlot."Day of Week" >= 1) and (PracticalTimeSlot."Day of Week" <= 5) then
+        if (PracticalTimeSlot."Day of Week" >= 1) and (PracticalTimeSlot."Day of Week" < 5) then
             DaysPerWeek[PracticalTimeSlot."Day of Week"] += 1;
 
         // If we need to split the class by student count, handle second group
