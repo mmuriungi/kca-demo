@@ -123,13 +123,15 @@ codeunit 50096 "Timetable Management"
             ProgressWindow.Open('Scheduling Classes\' +
                               'Total: #1###\' +
                               'Current: #2###\' +
-                              'Remaining: #3###');
+                              'Remaining: #3###' +
+                              'Weekly Hours: #4###');
 
             repeat
                 CurrentRecord += 1;
                 ProgressWindow.Update(1, TotalRecords);
                 ProgressWindow.Update(2, CurrentRecord);
                 ProgressWindow.Update(3, TotalRecords - CurrentRecord);
+                ProgressWindow.Update(4, CourseOffering."Time Table Hours");
 
                 if not AssignBalancedTimeAndLocation(CourseOffering, DaysPerWeek) then
                     LogSchedulingIssue(CourseOffering);
@@ -410,7 +412,7 @@ codeunit 50096 "Timetable Management"
         RequiresSplit := (StudentCount >= (MaxStudentsPerClass + 4));
 
         // Check if unit requires theory and practical split (more than 5 hours)
-        RequiresPractical := (CourseOffering."Time Table Hours" >= 5);
+        RequiresPractical := (CourseOffering."Time Table Hours" > 3);
 
         if RequiresSplit then begin
             // Calculate group sizes - divide students into two groups
@@ -429,7 +431,6 @@ codeunit 50096 "Timetable Management"
         LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
 
         if RequiresPractical then begin
-            // For units with theory and practical components, handle differently
             exit(HandleTheoryPracticalUnit(CourseOffering, DaysPerWeek, RequiresSplit, FirstGroupSize, SecondGroupSize));
         end;
 

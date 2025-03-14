@@ -34,6 +34,10 @@ report 51307 "Class Timetable Report"
                     {
 
                     }
+                    column(SlotArray; SlotArray[Number])
+                    {
+
+                    }
                     column(TimeArray; TimeArray[Number])
                     {
 
@@ -196,6 +200,7 @@ report 51307 "Class Timetable Report"
         ProgFilter: Text;
         StageFilter: Text;
         LecFilter: Text;
+        SlotArray: array[4] of Integer;
 
 
     trigger OnPreReport()
@@ -209,6 +214,7 @@ report 51307 "Class Timetable Report"
         if TimeSlot.FindSet() then begin
             repeat
                 i := i + 1;
+                SlotArray[i] := i;
                 TimeArray[i] := Format(TimeSlot."Start Time") + ' - ' + Format(TimeSlot."End Time");
             until TimeSlot.Next() = 0;
         end

@@ -121,7 +121,7 @@ report 52178513 "Consolidated Procurement Plan"
                 trigger OnAfterGetRecord()
                 begin
                     CalcFields(Quantity);
-                    CalcFields("Amended Quantity");
+                    //CalcFields("Amended Quantity");
                 end;
             }
         }
