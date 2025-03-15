@@ -46,6 +46,18 @@ table 50701 "ACA-Lecturer Halls Setup"
         {
 
         }
+        field(11; Status; option)
+        {
+            OptionMembers = Active,Inactive;
+        }
+        field(12; "Hall Category"; option)
+        {
+            OptionMembers = Normal,Lab,Online;
+        }
+        field(13; "Floor"; Integer)
+        {
+
+        }
 
     }
 

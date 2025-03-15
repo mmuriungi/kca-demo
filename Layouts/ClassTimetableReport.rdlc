@@ -187,7 +187,7 @@
                       </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!TimeArray.Value</Value>
+                          <Value>=Fields!SlotArray.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
@@ -473,7 +473,7 @@
                       </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!TimeArray.Value</Value>
+                          <Value>=Fields!SlotArray.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
@@ -760,7 +760,7 @@
                       </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!TimeArray.Value</Value>
+                          <Value>=Fields!SlotArray.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
@@ -1047,7 +1047,7 @@
                       </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!TimeArray.Value</Value>
+                          <Value>=Fields!SlotArray.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
@@ -1334,7 +1334,7 @@
                       </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!TimeArray.Value</Value>
+                          <Value>=Fields!SlotArray.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
@@ -1648,6 +1648,9 @@ End Function
         </Field>
         <Field Name="Number">
           <DataField>Number</DataField>
+        </Field>
+        <Field Name="SlotArray">
+          <DataField>SlotArray</DataField>
         </Field>
         <Field Name="TimeArray">
           <DataField>TimeArray</DataField>

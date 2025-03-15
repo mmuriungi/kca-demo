@@ -43,8 +43,8 @@ table 50067 "Exam Time Slot"
         field(6; "Session Type"; Option)
         {
             Caption = 'Session Type';
-            OptionMembers = Morning,Afternoon,Evening;
-            OptionCaption = 'Morning,Afternoon,Evening';
+            OptionMembers = Morning,Midday,Afternoon;
+            OptionCaption = 'Morning,Midday,Afternoon';
         }
         field(7; Active; Boolean)
         {
@@ -132,6 +132,12 @@ table 50067 "Exam Time Slot"
             Caption = 'Last Modified Date';
             Editable = false;
         }
+        field(21; "Slot Group"; Option)
+        {
+            Caption = 'Slot Group';
+            OptionMembers = Regular,Medical;
+            OptionCaption = 'Regular,Medical';
+        }
     }
 
     keys
@@ -179,14 +185,9 @@ table 50067 "Exam Time Slot"
         if "End Time" <> 0T then
             CalculateDuration();
 
-        case true of
-            "Start Time" < 120000T:
-                "Session Type" := "Session Type"::Morning;
-            "Start Time" < 170000T:
-                "Session Type" := "Session Type"::Afternoon;
-            else
-                "Session Type" := "Session Type"::Evening;
-        end;
+        // case true of
+
+        // end;
 
         if ("Start Time" < 080000T) or ("Start Time" > 200000T) then
             Error('Start time must be between 8:00 AM and 8:00 PM');

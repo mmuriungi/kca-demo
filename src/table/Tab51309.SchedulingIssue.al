@@ -34,6 +34,10 @@ table 51309 "Scheduling Issue"
             Caption = 'Entry No';
             autoincrement = true;
         }
+        field(8; "Stage"; Code[20])
+        {
+            Caption = 'Stage';
+        }
     }
     keys
     {

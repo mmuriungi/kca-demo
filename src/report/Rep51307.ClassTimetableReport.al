@@ -29,7 +29,12 @@ report 51307 "Class Timetable Report"
                 }
                 dataitem(Integer; Integer)
                 {
+                    DataItemTableView = sorting(Number);
                     column(Number; Number)
+                    {
+
+                    }
+                    column(SlotArray; SlotArray[Number])
                     {
 
                     }
@@ -65,8 +70,12 @@ report 51307 "Class Timetable Report"
                 trigger OnAfterGetRecord()
                 var
                     TEntry: Record "Timetable Entry";
+                    PreviousSlot: Text;
+                    CurrentSlot: Text;
                 begin
                     Clear(i);
+                    Clear(PreviousSlot);
+                    Clear(CurrentSlot);
                     TEntry.Reset();
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Monday);
@@ -78,10 +87,18 @@ report 51307 "Class Timetable Report"
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            MondayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
+                            MondayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)");
+                            PreviousSlot := CurrentSlot;
+                            CurrentSlot := TEntry."Time Slot Code";
+                            if PreviousSlot = CurrentSlot then begin
+                                i -= 1;
+                                MondayArray[i] += TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)") + ' \ ';
+                            end;
                         end until TEntry.Next() = 0;
 
                     Clear(i);
+                    Clear(PreviousSlot);
+                    Clear(CurrentSlot);
                     TEntry.Reset();
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Tuesday);
@@ -93,9 +110,17 @@ report 51307 "Class Timetable Report"
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            TuesdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
+                            TuesdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)");
+                            PreviousSlot := CurrentSlot;
+                            CurrentSlot := TEntry."Time Slot Code";
+                            if PreviousSlot = CurrentSlot then begin
+                                i -= 1;
+                                TuesdayArray[i] += TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)") + ' \ ';
+                            end;
                         end until TEntry.Next() = 0;
                     Clear(i);
+                    Clear(PreviousSlot);
+                    Clear(CurrentSlot);
                     TEntry.Reset();
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Wednesday);
@@ -107,9 +132,17 @@ report 51307 "Class Timetable Report"
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            WednesdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
+                            WednesdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)");
+                            PreviousSlot := CurrentSlot;
+                            CurrentSlot := TEntry."Time Slot Code";
+                            if PreviousSlot = CurrentSlot then begin
+                                i -= 1;
+                                WednesdayArray[i] += TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)") + ' \ ';
+                            end;
                         end until TEntry.Next() = 0;
                     Clear(i);
+                    Clear(PreviousSlot);
+                    Clear(CurrentSlot);
                     TEntry.Reset();
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Thursday);
@@ -121,9 +154,17 @@ report 51307 "Class Timetable Report"
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            ThursdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
+                            ThursdayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)");
+                            PreviousSlot := CurrentSlot;
+                            CurrentSlot := TEntry."Time Slot Code";
+                            if PreviousSlot = CurrentSlot then begin
+                                i -= 1;
+                                ThursdayArray[i] += TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)") + ' \ ';
+                            end;
                         end until TEntry.Next() = 0;
                     Clear(i);
+                    Clear(PreviousSlot);
+                    Clear(CurrentSlot);
                     TEntry.Reset();
                     TEntry.SetRange("Lecture Hall Code", "ACA-Lecturer Halls Setup"."Lecture Room Code");
                     TEntry.SetRange("Day of Week", TEntry."Day of Week"::Friday);
@@ -134,7 +175,13 @@ report 51307 "Class Timetable Report"
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
-                            FridayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No");
+                            FridayArray[i] := TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)");
+                            PreviousSlot := CurrentSlot;
+                            CurrentSlot := TEntry."Time Slot Code";
+                            if PreviousSlot = CurrentSlot then begin
+                                i -= 1;
+                                FridayArray[i] += TEntry."Programme Code" + ' - ' + TEntry."Unit Code" + ' - ' + TEntry."Lecturer Code" + ' - ' + Format(TEntry."Group No") + ' - ' + Format(TEntry."Duration (Hours)") + ' \ ';
+                            end;
                         end until TEntry.Next() = 0;
                 end;
             }
@@ -195,6 +242,7 @@ report 51307 "Class Timetable Report"
         ProgFilter: Text;
         StageFilter: Text;
         LecFilter: Text;
+        SlotArray: array[20] of Integer;
 
 
     trigger OnPreReport()
@@ -208,6 +256,7 @@ report 51307 "Class Timetable Report"
         if TimeSlot.FindSet() then begin
             repeat
                 i := i + 1;
+                SlotArray[i] := i;
                 TimeArray[i] := Format(TimeSlot."Start Time") + ' - ' + Format(TimeSlot."End Time");
             until TimeSlot.Next() = 0;
         end

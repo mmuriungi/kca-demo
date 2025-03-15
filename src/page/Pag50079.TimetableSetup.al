@@ -12,14 +12,14 @@ page 50079 "Timetable Setup"
             group(General)
             {
                 Caption = 'General';
-
-                field("Maximum Students per class"; Rec."Maximum Students per class")
+                field("Maximum Students (STEM)"; Rec."Maximum Students (STEM)")
                 {
-                    ToolTip = 'Specifies the value of the Maximum Students per class field.', Comment = '%';
+                    ApplicationArea = all;
                 }
-                field("Maximum Students per Exam"; Rec."Maximum Students per Exam")
+                field("Maximum Students (Non-STEM)"; Rec."Maximum Students (Non-STEM)")
                 {
-                    ToolTip = 'Specifies the value of the Maximum Students per Exam field.', Comment = '%';
+
+                    ApplicationArea = all;
                 }
             }
         }

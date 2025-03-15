@@ -89,6 +89,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelDefermentWithdrawalRequestTxt: Label 'An Approval request for Student Deferment/Withdrawal is Cancelled';
         RunWorkflowOnSendDefermentWithdrawalForApprovalCode: Label 'RUNWORKFLOWONSENDDEFERMENTWITHDRAWALFORAPPROVAL';
         RunWorkflowOnCancelDefermentWithdrawalForApprovalCode: Label 'RUNWORKFLOWONCANCELDEFERMENTWITHDRAWALFORAPPROVAL';
+        //Supervision Tracking
+        OnSendSupervisionTrackingRequestTxt: Label 'Approval request for Supervision Tracking is requested';
+        OnCancelSupervisionTrackingRequestTxt: Label 'An Approval request for Supervision Tracking is Cancelled';
+        RunWorkflowOnSendSupervisionTrackingForApprovalCode: Label 'RUNWORKFLOWONSENDSUPERVISIONTRACKINGFORAPPROVAL';
+        RunWorkflowOnCancelSupervisionTrackingForApprovalCode: Label 'RUNWORKFLOWONCANCELSUPERVISIONTRACKINGFORAPPROVAL';
 
 
 
@@ -133,6 +138,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendItemDisposalForApprovalCode));
             Database::"Student Deferment/Withdrawal":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendDefermentWithdrawalForApprovalCode));
+            Database::"Supervision Tracking":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendSupervisionTrackingForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -219,6 +226,9 @@ codeunit 50089 "Approval Workflows V1"
         //Student Deferment/Withdrawal
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendDefermentWithdrawalForApprovalCode, Database::"Student Deferment/Withdrawal", OnSendDefermentWithdrawalRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelDefermentWithdrawalForApprovalCode, Database::"Student Deferment/Withdrawal", OnCancelDefermentWithdrawalRequestTxt, 0, false);
+        //Supervision Tracking
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendSupervisionTrackingForApprovalCode, Database::"Supervision Tracking", OnSendSupervisionTrackingRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelSupervisionTrackingForApprovalCode, Database::"Supervision Tracking", OnCancelSupervisionTrackingRequestTxt, 0, false);
 
     end;
 
@@ -270,6 +280,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendItemDisposalForApprovalCode, Variant);
             Database::"Student Deferment/Withdrawal":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendDefermentWithdrawalForApprovalCode, Variant);
+            Database::"Supervision Tracking":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendSupervisionTrackingForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -318,6 +330,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelItemDisposalForApprovalCode, Variant);
             Database::"Student Deferment/Withdrawal":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelDefermentWithdrawalForApprovalCode, Variant);
+            Database::"Supervision Tracking":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelSupervisionTrackingForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -345,6 +359,7 @@ codeunit 50089 "Approval Workflows V1"
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposal: Record "Item Disposal Header";
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
+        SupervisionTracking: Record "Supervision Tracking";
     begin
         case RecRef.Number of
             Database::club:
@@ -466,6 +481,13 @@ codeunit 50089 "Approval Workflows V1"
                     StudentDefermentWithdrawal.Modify();
                     Handled := true;
                 end;
+            Database::"Supervision Tracking":
+                begin
+                    RecRef.SetTable(SupervisionTracking);
+                    SupervisionTracking.Validate(Status, SupervisionTracking.Status::Open);
+                    SupervisionTracking.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -489,6 +511,7 @@ codeunit 50089 "Approval Workflows V1"
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
+        SupervisionTracking: Record "Supervision Tracking";
     begin
         case RecRef.Number of
             Database::club:
@@ -614,6 +637,13 @@ codeunit 50089 "Approval Workflows V1"
                     StudentDefermentWithdrawal.Modify();
                     IsHandled := true;
                 end;
+            Database::"Supervision Tracking":
+                begin
+                    RecRef.SetTable(SupervisionTracking);
+                    SupervisionTracking.Validate(Status, SupervisionTracking.Status::"Pending Approval");
+                    SupervisionTracking.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -637,7 +667,8 @@ codeunit 50089 "Approval Workflows V1"
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
-    begin
+        SupervisionTracking: Record "Supervision Tracking";
+        begin
         case RecRef.number of
             Database::Club:
                 begin
@@ -724,6 +755,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(StudentDefermentWithdrawal);
                     ApprovalEntryArgument."Document No." := StudentDefermentWithdrawal."No.";
                 end;
+            Database::"Supervision Tracking":
+                begin
+                    RecRef.SetTable(SupervisionTracking);
+                    ApprovalEntryArgument."Document No." := SupervisionTracking."Document No.";
+                end;
         end;
     end;
 
@@ -752,6 +788,7 @@ codeunit 50089 "Approval Workflows V1"
         ItemDisposalHeader: Record "Item Disposal Header";
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
         DefermentWithdrawalMgmt: Codeunit "Student Def_Withdrawal Mgmt";
+        SupervisionTracking: Record "Supervision Tracking";
     begin
         case RecRef.Number of
             Database::Club:
@@ -877,6 +914,13 @@ codeunit 50089 "Approval Workflows V1"
                     DefermentWithdrawalMgmt.HandleApprovedDefermentWithdrawal(StudentDefermentWithdrawal);
                     Handled := true;
                 end;
+            Database::"Supervision Tracking":
+                begin
+                    RecRef.SetTable(SupervisionTracking);
+                    SupervisionTracking.Validate(Status, SupervisionTracking.Status::Approved);
+                    SupervisionTracking.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -900,6 +944,7 @@ codeunit 50089 "Approval Workflows V1"
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
+        SupervisionTracking: Record "Supervision Tracking";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -1023,6 +1068,13 @@ codeunit 50089 "Approval Workflows V1"
                     if StudentDefermentWithdrawal.Get(ApprovalEntry."Document No.") then begin
                         StudentDefermentWithdrawal.Status := StudentDefermentWithdrawal.Status::Rejected;
                         StudentDefermentWithdrawal.Modify(true);
+                    end;
+                end;
+            Database::"Supervision Tracking":
+                begin
+                    if SupervisionTracking.Get(ApprovalEntry."Document No.") then begin
+                        SupervisionTracking.Status := SupervisionTracking.Status::Rejected;
+                        SupervisionTracking.Modify(true);
                     end;
                 end;
         end;
@@ -1180,6 +1232,7 @@ codeunit 50089 "Approval Workflows V1"
         emprequisition: Record "HRM-Employee Requisitions";
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
+
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of

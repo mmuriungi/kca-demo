@@ -11,9 +11,9 @@ page 52088 "Timetable Entry"
         {
             repeater(General)
             {
-                field("Academic Year"; Rec."Academic Year")
+                field("Session Type"; Rec."Session Type")
                 {
-                    ToolTip = 'Specifies the value of the Academic Year field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Type field.', Comment = '%';
                 }
                 field("Unit Code"; Rec."Unit Code")
                 {

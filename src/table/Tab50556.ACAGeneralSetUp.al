@@ -336,7 +336,10 @@ table 50556 "ACA-General Set-Up"
         field(50090; "Deferment/Withdrawal Nos"; Code[20])
         {
             DataClassification = ToBeClassified;
-            
+        }
+        field(50091; "Supervision Nos"; Code[20])
+        {
+            TableRelation = "No. Series";
         }
     }
 

@@ -439,6 +439,12 @@ table 50563 "ACA-Programme"
             FieldClass = FlowFilter;
             TableRelation = "ACA-Academic Year".Code;
         }
+        field(50035; "Timetable Category"; Option)
+        {
+            Caption = 'Timetable Category';
+            OptionCaption = ' ,STEM,Non-STEM';
+            OptionMembers = " ",STEM,"Non-STEM";
+        }
     }
 
     keys

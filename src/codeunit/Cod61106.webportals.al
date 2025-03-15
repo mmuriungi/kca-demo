@@ -318,7 +318,9 @@ Codeunit 61106 webportals
         StudentSubmission.SetRange("Student No.", stdNo);
         StudentSubmission.setrange("Submission Type", SubmissionType);
         if StudentSubmission.FindSet then begin
-            Result := StudentSubmission."No." + ' ::' + formaT(StudentSubmission.Status) + ' ::' + format(StudentSubmission."Submission Date");
+            repeat
+                Result += StudentSubmission."No." + ' ::' + formaT(StudentSubmission.Status) + ' ::' + format(StudentSubmission."Submission Date");
+            until StudentSubmission.Next = 0;
         end;
     end;
 
@@ -351,6 +353,82 @@ Codeunit 61106 webportals
 
         exit(Attach);
     end;
+
+    procedure DownloadPostgradTrackingForm(DocNo: code[25]): Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+        Recref: RecordRef;
+    begin
+        SupervisionTracking.GET(DocNo);
+        Recref.GetTable(SupervisionTracking);
+        fnGetReportBase64(report::"Postgrad Supervision Form", '', Recref);
+    end;
+
+    procedure fnGetReportBase64(reportId: Integer; parameters: text; recRef: RecordRef): Text
+    var
+        cuTemplob: Codeunit "Temp Blob";
+        BcInstream: InStream;
+        bcOutStream: OutStream;
+        cuBase64: Codeunit "Base64 Convert";
+        FileName: Text;
+        rpVariant: RecordId;
+    begin
+        // grpvesel.Reset();
+        // grpvesel.SetRange("No.", 'INSG012');
+        // grpvesel.SetRange("File Reference No.", 'REF/004/2024');
+        // if grpvesel.Find('-') then begin
+        //     Clear(recRef);
+        //     recRef.GetTable(grpvesel);
+        // end;
+        cuTemplob.CreateOutStream(BcOutStream);
+        Report.SaveAs(reportId, Parameters, ReportFormat::Pdf, bcOutStream, RecRef);
+        cuTemplob.CreateInStream(BcInstream);
+        exit(cuBase64.ToBase64(BcInstream));
+    end;
+
+    procedure GetSupervisionTrackingAttachment(DocNo: code[25]): Text
+    var
+
+    begin
+        exit(GetAttachedDocument(DocNo, Database::"Supervision Tracking", 0));
+    end;
+
+    //Create new Supervision Tracking
+    procedure CreateSupervisionTracking(stdNo: code[25]; DateMetWithSupervisor: Date; StageofWork: Text; NatureofFeedback: Text; Remarks: Text) Result: Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+        Cust: Record "Customer";
+    begin
+        Cust.GET(stdNo);
+        SupervisionTracking.Init();
+        SupervisionTracking."Student No." := stdNo;
+        SupervisionTracking.Validate("Student No.");
+        SupervisionTracking."Supervisor Code" := Cust."Supervisor No.";
+        SupervisionTracking.Validate("Supervisor Code");
+        SupervisionTracking."Date Work Submitted" := WorkDate();
+        SupervisionTracking."Date Met With Supervisor" := DateMetWithSupervisor;
+        SupervisionTracking."Stage of Work" := StageofWork;
+        SupervisionTracking."Nature of Feedback" := NatureofFeedback;
+        SupervisionTracking.Remarks := Remarks;
+        SupervisionTracking.Insert(true);
+        Result := SupervisionTracking."Document No.";
+    end;
+
+    //Get Supervision Tracking
+    procedure GetSupervisionTracking(stdNo: code[25]) Result: Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+    begin
+        SupervisionTracking.Reset();
+        SupervisionTracking.SetRange("Student No.", stdNo);
+        if SupervisionTracking.FindSet() then begin
+            repeat
+                Result += SupervisionTracking."Document No." + ' ::' + format(SupervisionTracking."Date Work Submitted") + ' ::' + SupervisionTracking."Stage of Work" + ' ::' + SupervisionTracking."Nature of Feedback" + ' ::' + SupervisionTracking.Remarks + ' :::';
+            until SupervisionTracking.Next() = 0;
+        end;
+    end;
+
+    //Supervisor
 
     procedure isStudentPostgraduate(StdNo: code[25]): Boolean
     var
@@ -10546,6 +10624,31 @@ Codeunit 61106 webportals
                     msg += Supervisors."No." + ' ::' + Supervisors."First Name" + ' ::' + Supervisors."Middle Name" + ' ::' + Supervisors."Last Name" + ' :::';
                 until Supervisors.NEXT = 0;
             end;
+        end;
+    end;
+
+    procedure NewSupervisorApplic(StudentNo: Code[25]) msg: Text
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+    begin
+        SuperVisorApplic.Init();
+        SuperVisorApplic."No." := '';
+        SuperVisorApplic."Student No." := StudentNo;
+        SuperVisorApplic.Validate("Student No.");
+        SuperVisorApplic."Application Date" := Today;
+        SuperVisorApplic.Status := SuperVisorApplic.Status::open;
+        if SuperVisorApplic.Insert(true) then
+            msg := SuperVisorApplic."No.";
+    end;
+
+    procedure GetSupervisorApplic(StudentNo: Code[25]) msg: Text
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+    begin
+        SuperVisorApplic.Init();
+        SuperVisorApplic.SetRange("Student No.", StudentNo);
+        if SuperVisorApplic.FIND('-') then begin
+            msg := SuperVisorApplic."No." + ' ::' + SuperVisorApplic."Student No." + ' ::' + Format(SuperVisorApplic."Application Date") + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
         end;
     end;
 
