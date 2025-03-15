@@ -2060,6 +2060,7 @@ codeunit 50096 "Timetable Management"
     local procedure GetCourseDepartment(CourseOffering: Record "ACA-Lecturers Units"): Code[20]
     begin
         // Get department from unit setup
+        CourseOffering.CalcFields("Department Code");
         exit(CourseOffering."Department Code");
     end;
 
