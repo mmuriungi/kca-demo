@@ -25,7 +25,7 @@ table 50968 "FLT-Vehicle Header"
         }
         field(31; "Registration No."; Code[10])
         {
-            NotBlank = true;
+            NotBlank = False;
         }
         field(2; Description; Text[30])
         {
