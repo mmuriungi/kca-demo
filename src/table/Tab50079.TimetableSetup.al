@@ -21,6 +21,10 @@ table 50079 "Timetable Setup"
         {
             Caption = 'Maximum Students (Non-STEM)';
         }
+        field(5; "Enable Labs for Exam"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
     keys
     {
