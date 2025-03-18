@@ -28,7 +28,15 @@ page 51412 "FLT-Fuel Req."
                     Editable = false;
                     ApplicationArea = All;
                 }
+                field("Vendor(Dealer)";Rec."Vendor(Dealer)")
+                {
 
+                }
+                field(vendorName; Rec."Vendor Name")
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
 
                 field("Odometer Reading"; Rec."Odometer Reading")
                 {
@@ -238,31 +246,25 @@ page 51412 "FLT-Fuel Req."
                     end;
                 }
 
-                action(AttachFile)
-                {
-                    Caption = 'Attach File';
-                    Image = Import;
-                    ToolTip = 'Attach a file to the current record';
-                    ApplicationArea = All;
+                 action(Attachments2)
+            {
+                ApplicationArea = All;
+                Caption = 'Fuel Receipts Attachments';
+                Promoted = true;
+                PromotedCategory = process;
+                PromotedIsBig = true;
 
-                    // trigger OnAction()
-                    // var
-                    //     RecRef: RecordRef;
-                    //     FileManagement: Codeunit FileAttachmentManagement;
-                    //     TempBlob: Codeunit "Temp Blob";
-                    //     InStr: InStream;
-                    // begin
-                    //     // Use file management to upload a file
-                    //     if FileManagement.BLOBImportWithFilter(InStr, '', 'All Files (*.*)|*.*') then begin
-                    //         RecRef.GetTable(Rec);
-                    //         TempBlob.CreateInStream(InStr);
-                    //         FileManagement.AttachFileToRecord(RecRef, InStr);
-                    //         Message('File attached successfully.');
-                    //     end else begin
-                    //         Message('File attachment canceled.');
-                    //     end;
-                    // end;
-                }
+                trigger OnAction()
+                var
+                    RecRef: RecordRef;
+                    DocumentAttachment: Page "Document Attachment Custom";
+                begin
+                    Clear(DocumentAttachment);
+                    RecRef.GETTABLE(Rec);
+                    DocumentAttachment.OpenForRecReference(RecRef);
+                    DocumentAttachment.RUNMODAL;
+                end;
+            }
 
                 action(sendApproval)
                 {
