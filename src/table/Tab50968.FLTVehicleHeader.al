@@ -8,7 +8,7 @@ table 50968 "FLT-Vehicle Header"
         field(1; "No."; Code[20])
         {
             Caption = 'No.';
-            TableRelation = "Fixed Asset"."No." where("FA Subclass Code" = filter('VEHICLE'));
+            TableRelation = "Fixed Asset"."No." where("FA Subclass Code" = filter('MV'));
 
             trigger OnValidate()
             begin
