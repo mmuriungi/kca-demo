@@ -378,9 +378,9 @@ table 50671 "ACA-Results Status"
         {
             DataClassification = ToBeClassified;
         }
-         field(63077; "Alternate Rubrics"; code[10])
+        field(63077; "Alternate Rubrics"; code[10])
         {
-            
+
         }
     }
 

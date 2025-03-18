@@ -25,6 +25,24 @@ table 51315 "Timetable Header"
             Caption = 'Type';
             OptionMembers = Class,Exam;
         }
+        field(5; "Programme Filter"; Code[25])
+        {
+            Caption = 'Programme Filter';
+            TableRelation = "ACA-Programme";
+            FieldClass=FlowFilter;
+        }
+        field(6;"Stage Filter";code[25])
+        {
+            caption = 'Stage Filter';
+            tableRelation = "ACA-Programme Stages".Code;
+            fieldClass = FlowFilter;
+        }
+        field(7;"Lecturer Filter"; code[25])
+        {
+            Caption = 'Lecturer Filter';
+            TableRelation = "HRM-Employee C" where(Lecturer=const(true));
+            FieldClass = FlowFilter;
+        }
     }
     keys
     {

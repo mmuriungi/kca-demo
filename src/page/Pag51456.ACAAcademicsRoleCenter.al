@@ -539,9 +539,9 @@ page 51456 "ACA-Academics Role Center&"
                     ApplicationArea = All;
                 }
             }
-            group("Timetabling")
+            group("Teaching Timetable")
             {
-                Caption = 'Class Timetabling';
+                Caption = 'Teaching Timetable';
                 action("Timetable Header List")
                 {
                     Image = Report;
@@ -557,23 +557,43 @@ page 51456 "ACA-Academics Role Center&"
                     RunObject = Page "Time Slots";
                     ApplicationArea = All;
                 }
-                action("Timetable Entry")
+                action("Timetable Setup")
                 {
-                    Image = Report;
-
-                    RunObject = Page "Timetable Entry";
+                    Image = Setup;
+                    RunObject = Page "Timetable Setup";
                     ApplicationArea = All;
                 }
+                action("Online Preferences")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Online Preferences';
+                    RunObject = Page "Online Preferences";
+                    Image = ConditionalBreakpoint;
+                    Promoted = true;
+                    PromotedCategory = Category4;
+                }
             }
-            group("Exam Timetabling")
+            group("Exam Timetable")
             {
-                Caption = 'Exam Timetabling';
+                Caption = 'Exam Timetable';
                 action("Exam Timetable Header List")
                 {
                     Image = Report;
 
                     RunObject = Page "Timetable Header List";
                     RunPageView = where("Type" = const(Exam));
+                    ApplicationArea = All;
+                }
+                action("Invigilator Setup")
+                {
+                    Image = Setup;
+                    RunObject = Page "Invigilator Setup";
+                    ApplicationArea = All;
+                }
+                action("First Day Preference")
+                {
+                    Image = Setup;
+                    RunObject = Page "Exam First Day Units";
                     ApplicationArea = All;
                 }
                 action("Exam Time Slots")

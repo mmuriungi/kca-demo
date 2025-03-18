@@ -4,7 +4,7 @@ page 50050 "Automated Notification"
     Caption = 'Automated Notification';
     PageType = Card;
     SourceTable = "Automated Notification Setup";
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 50050 "Automated Notification"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("No."; Rec."No.")
                 {
                     ToolTip = 'Specifies the value of the No. field.', Comment = '%';

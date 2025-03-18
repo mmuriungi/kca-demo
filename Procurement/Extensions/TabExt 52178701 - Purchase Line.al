@@ -2,6 +2,24 @@ tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
 {
     fields
     {
+        modify(Quantity)
+        {
+            trigger OnAfterValidate()
+            var
+                PurchSetup: Record "Purchases & Payables Setup";
+                PurchHeader: Record "Purchase Header";
+            begin
+                PurchSetup.GET;
+                if PurchSetup."Enforce Procurement plan" then begin
+                    PurchHeader.Reset();
+                    PurchHeader.SetRange("No.", "Document No.");
+                    PurchHeader.SetRange("Document Type 2", "Document Type 2"::Requisition);
+                    if PurchHeader.FindFirst() then begin
+                        CheckPlanQTY(Rec);
+                    end;
+                end;
+            end;
+        }
         field(6000; committed; Boolean)
         {
             DataClassification = ToBeClassified;

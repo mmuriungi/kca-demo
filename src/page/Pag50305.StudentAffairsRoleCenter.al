@@ -133,6 +133,81 @@ page 50305 "Student Affairs Role Center"
                     RunPageView = where("Approval Status" = CONST(Rejected));
                 }
             }
+            group("Student Requests")
+            {
+                action("Deferral Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Deferment/Withdrawal";
+                    RunPageView = where("Request Type" = CONST(Deferment), Status = CONST(Open));
+                }
+                action("Pending Deferral Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Deferment/Withdrawal";
+                    RunPageView = where("Request Type" = CONST(Deferment), Status = CONST("Pending"));
+                }
+                action("Approved Deferral Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Deferment/Withdrawal";
+                    RunPageView = where("Request Type" = CONST(Deferment), Status = CONST(Approved));
+                }
+                action("Rejected Deferral Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Deferment/Withdrawal";
+                    RunPageView = where("Request Type" = CONST(Deferment), Status = CONST(Rejected));
+                }
+                action("Withdrawal Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Deferment/Withdrawal";
+                    RunPageView = where("Request Type" = CONST(Withdrawal), Status = CONST(Open));
+                }
+                action("Pending Withdrawal Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Deferment/Withdrawal";
+                    RunPageView = where("Request Type" = CONST(Withdrawal), Status = CONST("Pending"));
+                }
+                action("Approved Withdrawal Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Deferment/Withdrawal";
+                    RunPageView = where("Request Type" = CONST(Withdrawal), Status = CONST(Approved));
+                }
+                action("Rejected Withdrawal Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Deferment/Withdrawal";
+                    RunPageView = where("Request Type" = CONST(Withdrawal), Status = CONST(Rejected));
+                }
+                action("Leave Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Leave List";
+                    RunPageView = where("Approval Status" = CONST(Open));
+                }
+                action("Pending Leave Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Leave List";
+                    RunPageView = where("Approval Status" = CONST(Pending));
+                }
+                action("Approved Leave Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Leave List";
+                    RunPageView = where("Approval Status" = CONST(Approved));
+                }
+                action("Rejected Leave Request List")
+                {
+                    ApplicationArea = All;
+                    RunObject = Page "Student Leave List";
+                    RunPageView = where("Approval Status" = CONST(Rejected));
+                }
+            }
             group("Counseling Management")
             {
                 action("Counseling Sessions List")

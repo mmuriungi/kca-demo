@@ -93,7 +93,7 @@ table 50388 "PRL-Employee P9 Info"
         }
         field(50001; "External Pension"; Decimal)
         {
-            
+
         }
     }
 

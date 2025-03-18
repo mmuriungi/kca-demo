@@ -226,6 +226,14 @@ page 50860 "ACA-General Set-Up"
                 {
                     ApplicationArea = All;
                 }
+                field("Deferment/Withdrawal Nos"; Rec."Deferment/Withdrawal Nos")
+                {
+                    ApplicationArea = All;
+                }
+                field("Supervision Nos"; Rec."Supervision Nos")
+                {
+                    ApplicationArea = All;
+                }
 
 
 

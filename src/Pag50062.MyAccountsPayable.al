@@ -18,7 +18,7 @@ page 50062 "My Accounts Payable"
                     AutoFormatType = 1;
                     Caption = 'Overdue';
                     ToolTip = 'Specifies the sum of overdue payments to vendors.';
-                    
+
                     trigger OnDrillDown()
                     begin
                         FilterVendorLedgerEntries(true);
@@ -30,7 +30,7 @@ page 50062 "My Accounts Payable"
                     AutoFormatType = 1;
                     Caption = 'Due Today';
                     ToolTip = 'Specifies the sum of payments to vendors that are due today.';
-                    
+
                     trigger OnDrillDown()
                     begin
                         FilterVendorLedgerEntries(false);
@@ -42,7 +42,7 @@ page 50062 "My Accounts Payable"
                     AutoFormatType = 1;
                     Caption = 'Due This Week';
                     ToolTip = 'Specifies the sum of payments to vendors that are due this week.';
-                    
+
                     trigger OnDrillDown()
                     begin
                         FilterVendorLedgerEntries(false);
@@ -71,7 +71,7 @@ page 50062 "My Accounts Payable"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Pending Approvals';
                     ToolTip = 'Specifies the number of purchase documents pending approval.';
-                    
+
                     trigger OnDrillDown()
                     var
                         ApprovalEntry: Record "Approval Entry";
@@ -165,12 +165,12 @@ page 50062 "My Accounts Payable"
     begin
         VendorLedgerEntry.Reset();
         VendorLedgerEntry.SetRange(Open, true);
-        
+
         if Overdue then
             VendorLedgerEntry.SetFilter("Due Date", '<%1', WorkDate())
         else
             VendorLedgerEntry.SetFilter("Due Date", '>=%1&<=%2', WorkDate(), CalcDate('<CW>', WorkDate()));
-            
+
         Page.Run(Page::"Vendor Ledger Entries", VendorLedgerEntry);
     end;
 

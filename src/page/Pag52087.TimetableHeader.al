@@ -4,6 +4,7 @@ page 52087 "Timetable Header"
     Caption = 'Timetable Header';
     PageType = Card;
     SourceTable = "Timetable Header";
+    PromotedActionCategories = 'New,Process,Reports,Constraints';
 
     layout
     {
@@ -28,7 +29,7 @@ page 52087 "Timetable Header"
             }
             part(timetableEntry; "Timetable Entry")
             {
-                Visible = Rec."Type" = Rec."Type"::Class;
+                Visible = Rec."Type" <> Rec."Type"::Exam;
                 ApplicationArea = All;
                 Caption = 'Timetable Entry';
                 SubPageLink = Semester = field(Semester);
@@ -43,6 +44,28 @@ page 52087 "Timetable Header"
     }
     actions
     {
+        area(Navigation)
+        {
+            action("Lecturer Timetable Constraints")
+            {
+                ApplicationArea = All;
+                Caption = 'Lecturer Timetable Constraints';
+                RunObject = Page "Lecturer Timetable Constraints";
+                RunPageLink = Semester = field(Semester);
+                Image=ConditionalBreakpoint;
+                Promoted = true;
+                PromotedCategory = Category4;
+            }
+            action("Online Preferences")
+            {
+                ApplicationArea = All;
+                Caption = 'Online Preferences';
+                RunObject = Page "Online Preferences";
+                Image=ConditionalBreakpoint;
+                Promoted = true;
+                PromotedCategory = Category4;
+            }
+        }
         area(Processing)
         {
             action(GenerateTimetable)
@@ -88,6 +111,24 @@ page 52087 "Timetable Header"
                     TtCu: codeunit "Timetable Management";
                 begin
                     TtCu.GenerateExamTimeSlots(Rec.Semester);
+                end;
+            }
+            action("Timetable Report")
+            {
+                ApplicationArea = All;
+                Caption = 'Timetable Report';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = GetLines;
+                trigger OnAction()
+                var
+                    THeader: Record "Timetable Header";
+                begin
+                    THeader.Reset();
+                    THeader.SetRange(Semester, Rec.Semester);
+                    if THeader.FindFirst() then
+                        Report.Run(Report::"Class Timetable Report", TRUE, FALSE, THeader);
                 end;
             }
         }

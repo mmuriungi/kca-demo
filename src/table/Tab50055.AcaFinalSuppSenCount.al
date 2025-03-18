@@ -54,4 +54,4 @@ table 50059 "Aca-Final Supp. Sen.. Count"
             Clustered = true;
         }
     }
-} 
+}

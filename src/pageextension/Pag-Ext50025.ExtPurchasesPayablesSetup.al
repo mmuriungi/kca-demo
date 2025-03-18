@@ -2,6 +2,14 @@ pageextension 50025 "ExtPurchases & Payables Setup" extends "Purchases & Payable
 {
     layout
     {
+        addlast(General)
+        {
+            field("Enforce Procurement plan"; Rec."Enforce Procurement plan")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Enforce Procurement plan field.';
+            }
+        }
 
         addafter("Vendor Nos.")
         {

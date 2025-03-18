@@ -132,7 +132,7 @@ page 50856 "ACA-Course Registration 3"
                 {
                     ApplicationArea = All;
                 }
-                field("Stoppage Exists In Acad. Year";Rec."Stoppage Exists In Acad. Year")
+                field("Stoppage Exists In Acad. Year"; Rec."Stoppage Exists In Acad. Year")
                 {
                     ApplicationArea = All;
                 }

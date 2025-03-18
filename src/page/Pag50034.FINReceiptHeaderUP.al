@@ -23,7 +23,6 @@ page 50034 "FIN-Receipt Header UP"
                             CurrPage.UPDATE;
                     end;
                 }
-                field("Reference No"; Rec."Reference No") { ApplicationArea = all; }
                 field(Date; Rec.Date)
                 {
                     ApplicationArea = All;
@@ -179,10 +178,8 @@ page 50034 "FIN-Receipt Header UP"
                         ERROR('One of the Receipt Lines is Post Dated');
 
                     //Post the transaction into the database
-                    if Rec."Reference No" = '' then
-                        Error('You need to insert Reference No For ' + Format(Rec."No."))
-                    else
-                        PerformPost();
+
+                    PerformPost();
 
                     Rec.Cashier := USERID;
                     //"Bank Code":=USetup."Default Receipts Bank";
@@ -303,7 +300,7 @@ page 50034 "FIN-Receipt Header UP"
     procedure PerformPost()
     begin
         //get all the invoices that have been paid for using the receipt
-        if Rec."Reference No" = '' then Error('Reference Number Must have a value');
+        //if Rec."Reference No" = '' then Error('Reference Number Must have a value');
         StrInvoices := '';
         Appl.RESET;
         Appl.SETRANGE(Appl."Document Type", Appl."Document Type"::Receipt);
@@ -544,7 +541,7 @@ page 50034 "FIN-Receipt Header UP"
                                 GenJnlLine."Posting Date" := Rec."Document Date";
                                 GenJnlLine."Document No." := ReceiptLine.No;
                                 GenJnlLine."Document Date" := Rec."Document Date";
-                                GenJnlLine.Description := Rec."On Behalf Of" + ':' + Rec."Reference No";
+                                GenJnlLine.Description := Rec."On Behalf Of";// + ':' + Rec."Reference No";
                                 IF ReceiptLine."Customer Payment On Account" THEN BEGIN
                                     SRSetup.GET();
                                     GenJnlLine."Account Type" := GenJnlLine."Account Type"::"G/L Account";
@@ -571,7 +568,7 @@ page 50034 "FIN-Receipt Header UP"
                                 END;
                                 GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
                                 GenJnlLine.Description := COPYSTR(ReceiptLine."Account Name" + ':' + FORMAT(ReceiptLine."Pay Mode")
-                                + Rec."Reference No" + StrInvoices, 1, 50);
+                                + StrInvoices, 1, 50);
                                 GenJnlLine."Shortcut Dimension 1 Code" := ReceiptLine."Global Dimension 1 Code";
                                 GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
                                 GenJnlLine."Shortcut Dimension 2 Code" := ReceiptLine."Shortcut Dimension 2 Code";

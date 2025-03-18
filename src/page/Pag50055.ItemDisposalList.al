@@ -6,7 +6,7 @@ page 50055 "Item Disposal List"
     SourceTable = "Item Disposal Header";
     CardPageId = "Item Disposal Card";
     Editable = false;
-    
+
     LAYOUT
     {
         AREA(Content)
@@ -62,7 +62,7 @@ page 50055 "Item Disposal List"
             }
         }
     }
-    
+
     ACTIONS
     {
         AREA(Navigation)

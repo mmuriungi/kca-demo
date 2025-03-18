@@ -835,6 +835,7 @@ page 51445 "HRM-Role Centre"
             group(Induction)
             {
                 Caption = 'Induction';
+                visible = false;
                 action("Induction Activity")
                 {
                     ApplicationArea = all;

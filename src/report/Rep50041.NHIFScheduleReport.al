@@ -8,128 +8,128 @@ report 50041 "NHIF Schedule Report"
     {
         dataitem("PRL-Salary Card"; "PRL-Salary Card")
         {
-            RequestFilterFields = "Period Filter","Employee Code";
+            RequestFilterFields = "Period Filter", "Employee Code";
             column(ReportForNavId_6207; 6207)
             {
             }
-            column(USERID;UserId)
+            column(USERID; UserId)
             {
             }
-            column(TODAY;Today)
+            column(TODAY; Today)
             {
             }
-            column(PeriodName;PeriodName)
+            column(PeriodName; PeriodName)
             {
             }
-            column(CurrReport_PAGENO;CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo)
             {
             }
-            column(Companyinfo_Picture;Companyinfo.Picture)
+            column(Companyinfo_Picture; Companyinfo.Picture)
             {
             }
-            column(COMPANYNAME;COMPANYNAME)
+            column(COMPANYNAME; COMPANYNAME)
             {
             }
-            column(Address;Address)
+            column(Address; Address)
             {
             }
-            column(EmployerNHIFNo;EmployerNHIFNo)
+            column(EmployerNHIFNo; EmployerNHIFNo)
             {
             }
-            column(Tel;Tel)
+            column(Tel; Tel)
             {
             }
-            column(CompPINNo;CompPINNo)
+            column(CompPINNo; CompPINNo)
             {
             }
-            column(PeriodName_Control1102756007;PeriodName)
+            column(PeriodName_Control1102756007; PeriodName)
             {
             }
-            column(NhifAmount;NhifAmount)
+            column(NhifAmount; NhifAmount)
             {
             }
-            column(IDNumber;IDNumber)
+            column(IDNumber; IDNumber)
             {
             }
-            column(NhifNo;NhifNo)
+            column(NhifNo; NhifNo)
             {
             }
-            column(EmployeeName;EmployeeName)
+            column(EmployeeName; EmployeeName)
             {
             }
-            column(prSalary_Card__prSalary_Card___Employee_Code_;"PRL-Salary Card"."Employee Code")
+            column(prSalary_Card__prSalary_Card___Employee_Code_; "PRL-Salary Card"."Employee Code")
             {
             }
-            column(Dob;Dob)
+            column(Dob; Dob)
             {
             }
-            column(TotNhifAmount;TotNhifAmount)
+            column(TotNhifAmount; TotNhifAmount)
             {
             }
-            column(NATIONAL_HOSPITAL_INSURANCE_FUNDCaption;NATIONAL_HOSPITAL_INSURANCE_FUNDCaptionLbl)
+            column(NATIONAL_HOSPITAL_INSURANCE_FUNDCaption; NATIONAL_HOSPITAL_INSURANCE_FUNDCaptionLbl)
             {
             }
-            column(User_Name_Caption;User_Name_CaptionLbl)
+            column(User_Name_Caption; User_Name_CaptionLbl)
             {
             }
-            column(Print_Date_Caption;Print_Date_CaptionLbl)
+            column(Print_Date_Caption; Print_Date_CaptionLbl)
             {
             }
-            column(Period_Caption;Period_CaptionLbl)
+            column(Period_Caption; Period_CaptionLbl)
             {
             }
-            column(Page_Nov_Caption;Page_No_CaptionLbl)
+            column(Page_Nov_Caption; Page_No_CaptionLbl)
             {
             }
-            column(PERIOD_Caption_Control1102755032;PERIOD_Caption_Control1102755032Lbl)
+            column(PERIOD_Caption_Control1102755032; PERIOD_Caption_Control1102755032Lbl)
             {
             }
-            column(ADDRESS_Caption;ADDRESS_CaptionLbl)
+            column(ADDRESS_Caption; ADDRESS_CaptionLbl)
             {
             }
-            column(EMPLOYER_Caption;EMPLOYER_CaptionLbl)
+            column(EMPLOYER_Caption; EMPLOYER_CaptionLbl)
             {
             }
-            column(EMPOLOYER_NO_Caption;EMPOLOYER_NO_CaptionLbl)
+            column(EMPOLOYER_NO_Caption; EMPOLOYER_NO_CaptionLbl)
             {
             }
-            column(EMPLOYER_PIN_NO_Caption;EMPLOYER_PIN_NO_CaptionLbl)
+            column(EMPLOYER_PIN_NO_Caption; EMPLOYER_PIN_NO_CaptionLbl)
             {
             }
-            column(TEL_NO_Caption;TEL_NO_CaptionLbl)
+            column(TEL_NO_Caption; TEL_NO_CaptionLbl)
             {
             }
-            column(AmountCaption;AmountCaptionLbl)
+            column(AmountCaption; AmountCaptionLbl)
             {
             }
-            column(ID_Number_Caption;ID_Number_CaptionLbl)
+            column(ID_Number_Caption; ID_Number_CaptionLbl)
             {
             }
-            column(NHIF_No_Caption;NHIF_No_CaptionLbl)
+            column(NHIF_No_Caption; NHIF_No_CaptionLbl)
             {
             }
-            column(Employee_NameCaption;Employee_NameCaptionLbl)
+            column(Employee_NameCaption; Employee_NameCaptionLbl)
             {
             }
-            column(No_Caption;No_CaptionLbl)
+            column(No_Caption; No_CaptionLbl)
             {
             }
-            column(Date_Of_BirthCaption;Date_Of_BirthCaptionLbl)
+            column(Date_Of_BirthCaption; Date_Of_BirthCaptionLbl)
             {
             }
-            column(Prepared_by_______________________________________Date_________________Caption;Prepared_by_______________________________________Date_________________CaptionLbl)
+            column(Prepared_by_______________________________________Date_________________Caption; Prepared_by_______________________________________Date_________________CaptionLbl)
             {
             }
-            column(Checked_by________________________________________Date_________________Caption;Checked_by________________________________________Date_________________CaptionLbl)
+            column(Checked_by________________________________________Date_________________Caption; Checked_by________________________________________Date_________________CaptionLbl)
             {
             }
-            column(Authorized_by____________________________________Date_________________Caption;Authorized_by____________________________________Date_________________CaptionLbl)
+            column(Authorized_by____________________________________Date_________________Caption; Authorized_by____________________________________Date_________________CaptionLbl)
             {
             }
-            column(Total_NHIF_Caption;Total_NHIF_CaptionLbl)
+            column(Total_NHIF_Caption; Total_NHIF_CaptionLbl)
             {
             }
-            column(Approved_by______________________________________Date_________________Caption;Approved_by______________________________________Date_________________CaptionLbl)
+            column(Approved_by______________________________________Date_________________Caption; Approved_by______________________________________Date_________________CaptionLbl)
             {
             }
 
@@ -137,41 +137,40 @@ report 50041 "NHIF Schedule Report"
             begin
                 Clear(NhifAmount);
                 objEmp.Reset;
-                objEmp.SetRange(objEmp."No.","Employee Code");
+                objEmp.SetRange(objEmp."No.", "Employee Code");
                 if objEmp.Find('-') then;
-                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
-                  NhifNo:=objEmp."NHIF No.";
-                  IDNumber:=objEmp."ID Number";
-                  Dob:=objEmp."Date Of Birth";
+                EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name" + ' ' + objEmp."Last Name";
+                NhifNo := objEmp."NHIF No.";
+                IDNumber := objEmp."ID Number";
+                Dob := objEmp."Date Of Birth";
 
                 PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Group Order",7);
-                PeriodTrans.SetRange(PeriodTrans."Sub Group Order",2);
-                PeriodTrans.SetCurrentkey(PeriodTrans."Employee Code",PeriodTrans."Period Month",PeriodTrans."Period Year",
-                PeriodTrans."Group Order",PeriodTrans."Sub Group Order");
+                PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                PeriodTrans.SetRange(PeriodTrans."Group Order", 7);
+                PeriodTrans.SetRange(PeriodTrans."Sub Group Order", 2);
+                PeriodTrans.SetCurrentkey(PeriodTrans."Employee Code", PeriodTrans."Period Month", PeriodTrans."Period Year",
+                PeriodTrans."Group Order", PeriodTrans."Sub Group Order");
 
-                NhifAmount:=0;
+                NhifAmount := 0;
 
-                if PeriodTrans.Find('-') then
-                   begin
-                   if PeriodTrans.Amount=0 then CurrReport.Skip;
-                      NhifAmount:=PeriodTrans.Amount;
-                      TotNhifAmount:=TotNhifAmount+PeriodTrans.Amount;
-                   end;
+                if PeriodTrans.Find('-') then begin
+                    if PeriodTrans.Amount = 0 then CurrReport.Skip;
+                    NhifAmount := PeriodTrans.Amount;
+                    TotNhifAmount := TotNhifAmount + PeriodTrans.Amount;
+                end;
             end;
 
             trigger OnPreDataItem()
             begin
                 if CompInfoSetup.Get() then
-                  EmployerNHIFNo:=CompInfoSetup."N.H.I.F No";
-                  CompPINNo:=CompInfoSetup."Company P.I.N";
-                  Address:=CompInfoSetup.Address;
-                  Tel:=CompInfoSetup."Phone No.";
-                  Clear(TotNhifAmount);
+                    EmployerNHIFNo := CompInfoSetup."N.H.I.F No";
+                CompPINNo := CompInfoSetup."Company P.I.N";
+                Address := CompInfoSetup.Address;
+                Tel := CompInfoSetup."Phone No.";
+                Clear(TotNhifAmount);
 
-                "PRL-Salary Card".SetFilter("PRL-Salary Card"."Payroll Period",'%1',SelectedPeriod);
+                "PRL-Salary Card".SetFilter("PRL-Salary Card"."Payroll Period", '%1', SelectedPeriod);
             end;
         }
     }
@@ -183,7 +182,7 @@ report 50041 "NHIF Schedule Report"
         {
             area(content)
             {
-                field(periodfilter;PeriodFilter)
+                field(periodfilter; PeriodFilter)
                 {
                     ApplicationArea = Basic;
                     Caption = 'Period Filter';
@@ -204,23 +203,23 @@ report 50041 "NHIF Schedule Report"
     trigger OnInitReport()
     begin
         objPeriod.Reset;
-        objPeriod.SetRange(objPeriod.Closed,false);
+        objPeriod.SetRange(objPeriod.Closed, false);
         if objPeriod.Find('-') then
-        PeriodFilter:=objPeriod."Date Opened";
+            PeriodFilter := objPeriod."Date Opened";
     end;
 
     trigger OnPreReport()
     begin
         //PeriodFilter:="prSalary Card".GETFILTER("Period Filter");
-        if PeriodFilter=0D then Error('You must specify the period filter');
+        if PeriodFilter = 0D then Error('You must specify the period filter');
 
-        SelectedPeriod:=PeriodFilter;
+        SelectedPeriod := PeriodFilter;
         objPeriod.Reset;
-        if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+        if objPeriod.Get(SelectedPeriod) then PeriodName := objPeriod."Period Name";
 
 
         if Companyinfo.Get() then
-        Companyinfo.CalcFields(Companyinfo.Picture);
+            Companyinfo.CalcFields(Companyinfo.Picture);
         Clear(NhifAmount);
         //CLEAR(TotNhifAmount);
     end;

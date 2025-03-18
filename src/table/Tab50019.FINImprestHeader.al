@@ -438,7 +438,7 @@ table 50019 "FIN-Imprest Header"
                         Imprest.SetFilter("Surrender Status", '%1|%2', Imprest."Surrender Status"::" ", Imprest."Surrender Status"::Partial);
                         if Imprest.Count >= CashOfficeSetup."Max Unsurrendered Imprest" then
                             ERROR('The maximum unsurrendered imprest allowed has been exceeded');
-                   END;
+                    END;
                 end;
                 //Check CreditLimit Here In cases where you have a credit limit set for employees
                 //      Cust.CALCFIELDS(Cust."Balance (LCY)");

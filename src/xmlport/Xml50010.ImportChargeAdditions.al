@@ -31,7 +31,7 @@ xmlport 50010 "Import Charge Additions"
                 }
                 fieldelement(g; "Charge Addition".Semester)
                 {
-                    
+
                 }
                 trigger OnAfterInitRecord()
                 begin

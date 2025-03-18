@@ -173,6 +173,277 @@ Codeunit 61106 webportals
         GLAccounts: Record "G/L Account";
         StoreReqLines: Record "PROC-Store Requistion Lines";
 
+    procedure CreateStudentDefermentRequest(StudentNo: Code[20]; StartDate: Date; EndDate: Date; AcademicYear: Code[20]; Semester: Code[20]; ProgrammeCode: Code[20]; Stage: Code[20]; Reason: Text[250]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.CreateDefermentWithdrawalRequest(StudentNo, 0, StartDate, EndDate, AcademicYear, Semester, ProgrammeCode, Stage, Reason);
+    end;
+
+    procedure CreateStudentWithdrawalRequest(StudentNo: Code[20]; StartDate: Date; AcademicYear: Code[20]; Semester: Code[20]; ProgrammeCode: Code[20]; Stage: Code[20]; Reason: Text[250]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.CreateDefermentWithdrawalRequest(StudentNo, 1, StartDate, 0D, AcademicYear, Semester, ProgrammeCode, Stage, Reason);
+    end;
+
+    procedure GetStudentDefermentWithdrawalRequests(StudentNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetStudentDefermentWithdrawalRequests(StudentNo);
+    end;
+
+    procedure GetDefermentWithdrawalRequestDetails(RequestNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetDefermentWithdrawalRequestDetails(RequestNo);
+    end;
+
+    procedure CancelDefermentWithdrawalRequest(RequestNo: Code[20]; StudentNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.CancelDefermentWithdrawalRequest(RequestNo, StudentNo);
+    end;
+
+    procedure GetCurrentAcademicYearAndSemester() Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetCurrentAcademicYearAndSemester();
+    end;
+
+    procedure GetStudentProgrammeAndStage(StudentNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetStudentProgrammeAndStage(StudentNo);
+    end;
+
+    procedure HasPendingDefermentWithdrawalRequests(StudentNo: Code[20]) Result: Boolean
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.HasPendingDefermentWithdrawalRequests(StudentNo);
+    end;
+
+    procedure GetStudentStatusInfo(StudentNo: Code[20]) Result: Text
+    var
+        StudentDefWithdrawalPortal: Codeunit "Student Def_Withdrawal Portal";
+    begin
+        Result := StudentDefWithdrawalPortal.GetStudentStatusInfo(StudentNo);
+    end;
+
+    procedure CreateStudentLeaveRequest(StudentNo: Code[20]; LeaveType: Option Regular,Compassionate; StartDate: Date; NoOfDays: Decimal; Reason: Text[250]) Result: Text
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.CreateStudentLeaveRequest(StudentNo, LeaveType, StartDate, NoOfDays, Reason);
+    end;
+
+    procedure GetStudentLeaveRequests(StudentNo: Code[20]) Result: Text
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.GetStudentLeaveRequests(StudentNo);
+    end;
+
+    procedure GetLeaveRequestDetails(LeaveNo: Code[20]) Result: Text
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.GetLeaveRequestDetails(LeaveNo);
+    end;
+
+    procedure CancelLeaveRequest(LeaveNo: Code[20]; StudentNo: Code[20]) Result: Text
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.CancelLeaveRequest(LeaveNo, StudentNo);
+    end;
+
+    procedure HasPendingLeaveRequests(StudentNo: Code[20]) Result: Boolean
+    var
+        StudentLeavePortal: Codeunit "Student Leave Portal";
+    begin
+        Result := StudentLeavePortal.HasPendingLeaveRequests(StudentNo);
+    end;
+
+    procedure GetAssignedSupervisor(stdNo: code[25]) Result: Text;
+    var
+        Cust: Record "Customer";
+        Employee: record "HRM-Employee C";
+        SupervisorApplic: record "Postgrad Supervisor Applic.";
+    begin
+        Cust.GET(stdNo);
+        if cust."Supervisor No." = '' then begin
+            SupervisorApplic.Reset();
+            SupervisorApplic.SetRange("Student No.", stdNo);
+            SupervisorApplic.SetRange(Status, SupervisorApplic.Status::Approved);
+            if SupervisorApplic.findlast then begin
+                cust."Supervisor No." := SupervisorApplic."Assigned Supervisor Code";
+                Cust.Modify();
+                Commit();
+            end
+        end;
+        Employee.Get(Cust."Supervisor No.");
+        Result := Employee.FullName() + ' ::' + Employee."Company E-Mail" + ' ::' + Employee."Phone Number";
+    end;
+
+    procedure SubmitPostgradPaper(stdNo: code[25]; SubmissionType: option "concept Paper",Thesis; Paper: text) Result: Boolean
+    var
+        Cust: Record "Customer";
+        StudentSubmission: Record "Student Submission";
+    begin
+        StudentSubmission.init;
+        StudentSubmission."Student No." := stdNo;
+        StudentSubmission.validate("Student No.");
+        StudentSubmission."Submission Type" := SubmissionType;
+        StudentSubmission."Submission Date" := WorkDate();
+        if StudentSubmission.insert(true) then begin
+            UploadBase64FileToDocumentAttachment(Paper, stdNo + ' ' + Format(SubmissionType) + '.pdf', Database::"Student Submission", StudentSubmission."No.", 0);
+            exit(true);
+        end else begin
+            exit(false);
+        end
+    end;
+
+    Procedure GetSubmittedPostGradPaper(stdNo: code[25]; SubmissionType: option "concept Paper",Thesis) Result: Text
+    var
+        StudentSubmission: Record "Student Submission";
+    begin
+        StudentSubmission.Reset();
+        StudentSubmission.SetRange("Student No.", stdNo);
+        StudentSubmission.setrange("Submission Type", SubmissionType);
+        if StudentSubmission.FindSet then begin
+            repeat
+                Result += StudentSubmission."No." + ' ::' + formaT(StudentSubmission.Status) + ' ::' + format(StudentSubmission."Submission Date");
+            until StudentSubmission.Next = 0;
+        end;
+    end;
+
+    Procedure GetPostgradPaperAttachment(DocNo: code[25]): Text
+    var
+
+    begin
+        exit(GetAttachedDocument(DocNo, Database::"Student Submission", 0));
+    end;
+
+    Procedure GetAttachedDocument(DocNo: code[25]; TableId: Integer; LineNo: integer) Attach: Text
+    var
+        DocAttach: record "Document Attachment";
+        TempBlob: Codeunit "Temp Blob";
+        InStream: InStream;
+        OutStream: OutStream;
+        Base64Convert: Codeunit "Base64 Convert";
+    begin
+        DocAttach.Reset();
+        DocAttach.SetRange("Table ID", TableId);
+        DocAttach.SetRange("No.", DocNo);
+        DocAttach.SetRange("Line No.", LineNo);
+
+        if DocAttach.FindFirst() then begin
+            TempBlob.CreateOutStream(OutStream);
+            DocAttach."Document Reference ID".ExportStream(OutStream);
+            TempBlob.CreateInStream(InStream);
+            Attach := Base64Convert.ToBase64(InStream);
+        end;
+
+        exit(Attach);
+    end;
+
+    procedure DownloadPostgradTrackingForm(DocNo: code[25]): Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+        Recref: RecordRef;
+    begin
+        SupervisionTracking.GET(DocNo);
+        Recref.GetTable(SupervisionTracking);
+        fnGetReportBase64(report::"Postgrad Supervision Form", '', Recref);
+    end;
+
+    procedure fnGetReportBase64(reportId: Integer; parameters: text; recRef: RecordRef): Text
+    var
+        cuTemplob: Codeunit "Temp Blob";
+        BcInstream: InStream;
+        bcOutStream: OutStream;
+        cuBase64: Codeunit "Base64 Convert";
+        FileName: Text;
+        rpVariant: RecordId;
+    begin
+        // grpvesel.Reset();
+        // grpvesel.SetRange("No.", 'INSG012');
+        // grpvesel.SetRange("File Reference No.", 'REF/004/2024');
+        // if grpvesel.Find('-') then begin
+        //     Clear(recRef);
+        //     recRef.GetTable(grpvesel);
+        // end;
+        cuTemplob.CreateOutStream(BcOutStream);
+        Report.SaveAs(reportId, Parameters, ReportFormat::Pdf, bcOutStream, RecRef);
+        cuTemplob.CreateInStream(BcInstream);
+        exit(cuBase64.ToBase64(BcInstream));
+    end;
+
+    procedure GetSupervisionTrackingAttachment(DocNo: code[25]): Text
+    var
+
+    begin
+        exit(GetAttachedDocument(DocNo, Database::"Supervision Tracking", 0));
+    end;
+
+    //Create new Supervision Tracking
+    procedure CreateSupervisionTracking(stdNo: code[25]; DateMetWithSupervisor: Date; StageofWork: Text; NatureofFeedback: Text; Remarks: Text) Result: Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+        Cust: Record "Customer";
+    begin
+        Cust.GET(stdNo);
+        SupervisionTracking.Init();
+        SupervisionTracking."Student No." := stdNo;
+        SupervisionTracking.Validate("Student No.");
+        SupervisionTracking."Supervisor Code" := Cust."Supervisor No.";
+        SupervisionTracking.Validate("Supervisor Code");
+        SupervisionTracking."Date Work Submitted" := WorkDate();
+        SupervisionTracking."Date Met With Supervisor" := DateMetWithSupervisor;
+        SupervisionTracking."Stage of Work" := StageofWork;
+        SupervisionTracking."Nature of Feedback" := NatureofFeedback;
+        SupervisionTracking.Remarks := Remarks;
+        SupervisionTracking.Insert(true);
+        Result := SupervisionTracking."Document No.";
+    end;
+
+    //Get Supervision Tracking
+    procedure GetSupervisionTracking(stdNo: code[25]) Result: Text
+    var
+        SupervisionTracking: Record "Supervision Tracking";
+    begin
+        SupervisionTracking.Reset();
+        SupervisionTracking.SetRange("Student No.", stdNo);
+        if SupervisionTracking.FindSet() then begin
+            repeat
+                Result += SupervisionTracking."Document No." + ' ::' + format(SupervisionTracking."Date Work Submitted") + ' ::' + SupervisionTracking."Stage of Work" + ' ::' + SupervisionTracking."Nature of Feedback" + ' ::' + SupervisionTracking.Remarks + ' :::';
+            until SupervisionTracking.Next() = 0;
+        end;
+    end;
+
+    //Supervisor
+
+    procedure isStudentPostgraduate(StdNo: code[25]): Boolean
+    var
+        CourseReg: record "ACA-Course Registration";
+    begin
+        CourseReg.Reset;
+        CourseReg.SetRange("Student No.", StdNo);
+        CourseReg.SetAutoCalcFields("Is Postgraduate");
+        CourseReg.SetRange("Is Postgraduate", true);
+        if CourseReg.FindFirst then
+            exit(True)
+        else
+            exit(False);
+    end;
+
     procedure GetSpecialExamReasons() Msg: Text
     var
         SpecialExmResons: Record "ACA-Special Exams Reason";
@@ -10356,6 +10627,31 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure NewSupervisorApplic(StudentNo: Code[25]) msg: Text
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+    begin
+        SuperVisorApplic.Init();
+        SuperVisorApplic."No." := '';
+        SuperVisorApplic."Student No." := StudentNo;
+        SuperVisorApplic.Validate("Student No.");
+        SuperVisorApplic."Application Date" := Today;
+        SuperVisorApplic.Status := SuperVisorApplic.Status::open;
+        if SuperVisorApplic.Insert(true) then
+            msg := SuperVisorApplic."No.";
+    end;
+
+    procedure GetSupervisorApplic(StudentNo: Code[25]) msg: Text
+    var
+        SuperVisorApplic: Record "Postgrad Supervisor Applic.";
+    begin
+        SuperVisorApplic.Init();
+        SuperVisorApplic.SetRange("Student No.", StudentNo);
+        if SuperVisorApplic.FIND('-') then begin
+            msg := SuperVisorApplic."No." + ' ::' + SuperVisorApplic."Student No." + ' ::' + Format(SuperVisorApplic."Application Date") + ' ::' + Format(SuperVisorApplic.Status) + ' :::';
+        end;
+    end;
+
     procedure AssignSupervisor(pfNo: Code[25]; Sem: code[25]; Programme: code[25]; Supervisor: code[25]; StudentNo: Code[25]) msg: Text
     var
         SuperVisorApplic: Record "Postgrad Supervisor Applic.";
@@ -10798,4 +11094,5 @@ Codeunit 61106 webportals
     #endregion
 
 }
+
 

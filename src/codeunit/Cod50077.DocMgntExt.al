@@ -11,6 +11,7 @@ codeunit 50077 "Doc. Mgnt. Ext."
         LeaveRequest: Record "Student Leave";
         medclaim: Record "HRM-Medical Claims";
         PaperSubmission: Record "Unit Exam Paper Submission";
+        StudentSubmission: Record "Student Submission";
     begin
         case DocumentAttachment."Table ID" of
 
@@ -49,6 +50,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     RecRef.Open(DATABASE::"Unit Exam Paper Submission");
                     if PaperSubmission.Get(DocumentAttachment."No.") then
                         RecRef.GetTable(PaperSubmission);
+                end;
+            Database::"Student Submission":
+                begin
+                    RecRef.Open(DATABASE::"Student Submission");
+                    if StudentSubmission.Get(DocumentAttachment."No.") then
+                        RecRef.GetTable(StudentSubmission);
                 end;
         end;
     end;
@@ -102,6 +109,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     LineNo := FieldRef.Value;
                     DocumentAttachment.Validate("Line No.", LineNo);
                 end;
+            Database::"Student Submission":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.SetRange("No.", RecNo);
+                end;
         end;
     end;
 
@@ -153,6 +166,12 @@ codeunit 50077 "Doc. Mgnt. Ext."
                     FieldRef := RecRef.Field(89);
                     LineNo := FieldRef.Value;
                     DocumentAttachment.Validate("Line No.", LineNo);
+                end;
+            Database::"Student Submission":
+                begin
+                    FieldRef := RecRef.Field(1);
+                    RecNo := FieldRef.Value;
+                    DocumentAttachment.Validate("No.", RecNo);
                 end;
         end;
     end;

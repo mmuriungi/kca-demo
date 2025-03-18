@@ -15,17 +15,17 @@ page 52178602 "Vendor Categories"
             {
                 field("Preq Year"; Rec."Preq Year")
                 {
-                   ApplicationArea = All;
+                    ApplicationArea = All;
                 }
                 field("Code"; Rec."Code")
                 {
                     ApplicationArea = All;
-                
+
                 }
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-                   
+
                 }
             }
         }

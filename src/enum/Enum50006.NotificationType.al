@@ -1,6 +1,6 @@
 enum 50006 "Notification Type"
 {
-    Extensible = true;  
+    Extensible = true;
     value(0; " ")
     {
     }

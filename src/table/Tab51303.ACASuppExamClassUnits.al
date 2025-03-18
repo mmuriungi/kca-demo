@@ -21,7 +21,7 @@ table 51303 "ACA-SuppExam Class. Units"
         {
             Caption = 'Unit Description';
             FieldClass = FlowField;
-            CalcFormula = Lookup("ACA-Units/Subjects".Desription WHERE("Programme Code" = FIELD(Programme), 
+            CalcFormula = Lookup("ACA-Units/Subjects".Desription WHERE("Programme Code" = FIELD(Programme),
                                                                       Code = FIELD("Unit Code")));
         }
         field(5; "Credit Hours"; Decimal)
@@ -51,8 +51,8 @@ table 51303 "ACA-SuppExam Class. Units"
         field(11; "Pass"; Boolean)
         {
             Caption = 'Pass';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Exam Grading Source".Pass WHERE ("Academic Year"=FIELD("Academic Year"),"Exam Catregory"=FIELD("Exam Category"),"Total Score"=FIELD("Total Score Decimal"),"Results Exists Status"=FIELD("Results Exists Status")));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Exam Grading Source".Pass WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam Category"), "Total Score" = FIELD("Total Score Decimal"), "Results Exists Status" = FIELD("Results Exists Status")));
         }
         field(12; "Course Cat. Presidence"; Integer)
         {
@@ -65,28 +65,28 @@ table 51303 "ACA-SuppExam Class. Units"
         field(14; "Exam Score Decimal"; Decimal)
         {
             Caption = 'Exam Score Decimal';
-            DecimalPlaces = 2:2;
+            DecimalPlaces = 2 : 2;
         }
         field(15; "CAT Score Decimal"; Decimal)
         {
             Caption = 'CAT Score Decimal';
-            DecimalPlaces = 2:2;
+            DecimalPlaces = 2 : 2;
         }
         field(16; "Total Score Decimal"; Decimal)
         {
             Caption = 'Total Score Decimal';
-            DecimalPlaces = 2:2;
+            DecimalPlaces = 2 : 2;
         }
         field(17; "Weighted Total Score"; Decimal)
         {
             Caption = 'Weighted Total Score';
-            DecimalPlaces = 2:2;
+            DecimalPlaces = 2 : 2;
         }
         field(18; "Grade"; Code[20])
         {
             Caption = 'Grade';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Exam Grading Source".Grade WHERE ("Academic Year"=FIELD("Academic Year"),"Exam Catregory"=FIELD("Exam Category"),"Total Score"=FIELD("Total Score Decimal"),"Results Exists Status"=FIELD("Results Exists Status")));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Exam Grading Source".Grade WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam Category"), "Total Score" = FIELD("Total Score Decimal"), "Results Exists Status" = FIELD("Results Exists Status")));
         }
         field(19; "Academic Year"; Code[20])
         {

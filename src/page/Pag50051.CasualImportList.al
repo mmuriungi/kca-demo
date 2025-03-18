@@ -4,7 +4,7 @@ page 50051 "Casual Import List"
     Caption = 'Casual Import List';
     PageType = List;
     SourceTable = "Import Casual Pay Buffer";
-    
+
     layout
     {
         area(Content)
@@ -89,26 +89,26 @@ page 50051 "Casual Import List"
                     FileName: Text[250];
                     ExcelBuffer: Record "Excel Buffer" temporary;
                     FieldRefLength: Integer;
-                    begin
-                        //date,student no,description,amount,transaction code,idno,
-                        recref.GetTable(Rec);
-                        FieldRef[1] := recref.Field(Rec.FieldNo("No."));
-                        FieldRef[2] := recref.Field(Rec.FieldNo("F. Name"));
-                        FieldRef[3] := recref.Field(Rec.FieldNo("M. Name"));
-                        FieldRef[4] := recref.Field(Rec.FieldNo("L. Name"));
-                        FieldRef[5] := recref.Field(Rec.FieldNo("Bank Code"));
-                        FieldRef[6] := recref.Field(Rec.FieldNo("A/C No."));
-                        FieldRef[7] := recref.Field(Rec.FieldNo(Days));
-                        FieldRef[8] := recref.Field(Rec.FieldNo("Daily Rate"));
-                        FieldRef[9] := recref.Field(Rec.FieldNo("Period Month"));
-                        FieldRef[10] := recref.Field(Rec.FieldNo("Period Year"));
-                        FieldRef[11] := recref.Field(Rec.FieldNo(Instalment));
-                        FieldRef[12] := recref.Field(Rec.FieldNo("Department Code"));
-                        FieldRef[13] := recref.Field(Rec.FieldNo("Branch Code"));
-                        FileName := 'Casual List.xlsx';
-                        csv.ExportExcelFile(FileName, recref, FieldRef, 13, ExcelBuffer, 'Casual List', 1);
-                        csv.downloadFromExelBuffer(ExcelBuffer, FileName);
-                    end;
+                begin
+                    //date,student no,description,amount,transaction code,idno,
+                    recref.GetTable(Rec);
+                    FieldRef[1] := recref.Field(Rec.FieldNo("No."));
+                    FieldRef[2] := recref.Field(Rec.FieldNo("F. Name"));
+                    FieldRef[3] := recref.Field(Rec.FieldNo("M. Name"));
+                    FieldRef[4] := recref.Field(Rec.FieldNo("L. Name"));
+                    FieldRef[5] := recref.Field(Rec.FieldNo("Bank Code"));
+                    FieldRef[6] := recref.Field(Rec.FieldNo("A/C No."));
+                    FieldRef[7] := recref.Field(Rec.FieldNo(Days));
+                    FieldRef[8] := recref.Field(Rec.FieldNo("Daily Rate"));
+                    FieldRef[9] := recref.Field(Rec.FieldNo("Period Month"));
+                    FieldRef[10] := recref.Field(Rec.FieldNo("Period Year"));
+                    FieldRef[11] := recref.Field(Rec.FieldNo(Instalment));
+                    FieldRef[12] := recref.Field(Rec.FieldNo("Department Code"));
+                    FieldRef[13] := recref.Field(Rec.FieldNo("Branch Code"));
+                    FileName := 'Casual List.xlsx';
+                    csv.ExportExcelFile(FileName, recref, FieldRef, 13, ExcelBuffer, 'Casual List', 1);
+                    csv.downloadFromExelBuffer(ExcelBuffer, FileName);
+                end;
             }
             action("Import Excel")
             {
@@ -126,25 +126,25 @@ page 50051 "Casual Import List"
                     Fields: Dictionary of [Integer, List of [Integer]];
                     ArrSheetName: array[20] of Text;
                     fieldlist: List of [Integer];
-                    begin
-                        recref[1].GetTable(Rec);
-                        ArrSheetName[1] := 'Casual List';
-                        fieldlist.Add(Rec.FieldNo("No."));
-                        fieldlist.Add(Rec.FieldNo("F. Name"));
-                        fieldlist.Add(Rec.FieldNo("M. Name"));
-                        fieldlist.Add(Rec.FieldNo("L. Name"));
-                        fieldlist.Add(Rec.FieldNo("Bank Code"));
-                        fieldlist.Add(Rec.FieldNo("A/C No."));
-                        fieldlist.Add(Rec.FieldNo(Days));
-                        fieldlist.Add(Rec.FieldNo("Daily Rate"));
-                        fieldlist.Add(Rec.FieldNo("Period Month"));
-                        fieldlist.Add(Rec.FieldNo("Period Year"));
-                        fieldlist.Add(Rec.FieldNo(Instalment));
-                        fieldlist.Add(Rec.FieldNo("Department Code"));
-                        fieldlist.Add(Rec.FieldNo("Branch Code"));
-                        Fields.Add(1, fieldlist);
-                        csv.importFromExcel(recref, ArrSheetName, 1, Fields, Rec."No.", Rec.FieldNo("No."));
-                    end;
+                begin
+                    recref[1].GetTable(Rec);
+                    ArrSheetName[1] := 'Casual List';
+                    fieldlist.Add(Rec.FieldNo("No."));
+                    fieldlist.Add(Rec.FieldNo("F. Name"));
+                    fieldlist.Add(Rec.FieldNo("M. Name"));
+                    fieldlist.Add(Rec.FieldNo("L. Name"));
+                    fieldlist.Add(Rec.FieldNo("Bank Code"));
+                    fieldlist.Add(Rec.FieldNo("A/C No."));
+                    fieldlist.Add(Rec.FieldNo(Days));
+                    fieldlist.Add(Rec.FieldNo("Daily Rate"));
+                    fieldlist.Add(Rec.FieldNo("Period Month"));
+                    fieldlist.Add(Rec.FieldNo("Period Year"));
+                    fieldlist.Add(Rec.FieldNo(Instalment));
+                    fieldlist.Add(Rec.FieldNo("Department Code"));
+                    fieldlist.Add(Rec.FieldNo("Branch Code"));
+                    Fields.Add(1, fieldlist);
+                    csv.importFromExcel(recref, ArrSheetName, 1, Fields, Rec."No.", Rec.FieldNo("No."));
+                end;
             }
         }
     }

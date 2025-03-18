@@ -33,7 +33,6 @@ codeunit 50013 "Finance Operations"
 
     Procedure GenerateCashImprestPv(var FinImprestHeader: Record "FIN-Imprest Header")
     var
-        ImpHeader: Record "FIN-Imprest Header";
         ImpHeaderLine: record "FIN-Imprest Lines";
         PayHeader: Record "FIN-Payments Header";
         Payline: Record "FIN-Payment Line";
@@ -43,10 +42,7 @@ codeunit 50013 "Finance Operations"
         NoSeriesMgt: Codeunit 396;
 
     begin
-        ImpHeader.reset;
-        ImpHeader.SetFilter(Select, '=%1', true);
-        ImpHeader.SetFilter("Pay Using Pv", '=%1', false);
-        if ImpHeader.Find('-') then begin
+        if not FinImprestHeader."Pay Using Pv" then begin
             Nextno := NoSeriesMgt.GetNextNo('PV', 0D, TRUE);
             PayHeader.Init();
             PayHeader."No." := Nextno;
@@ -61,35 +57,35 @@ codeunit 50013 "Finance Operations"
             PayHeader."On Behalf Of" := Info.Name;
             PayHeader.Insert();
             Payline.reset;
-            Payline.SetRange("Imprest Request No", ImpHeader."No.");
+            Payline.SetRange("Imprest Request No", FinImprestHeader."No.");
             Payline.SetFilter("Imprest Processed", '=%1', false);
             Payline.SetRange(No, PayHeader."No.");
             if not Payline.Find('-') then begin
                 repeat
-                    ImpHeader.CalcFields("Total Net Amount");
+                    FinImprestHeader.CalcFields("Total Net Amount");
                     Payline.Init();
                     Payline.No := PayHeader."No.";
                     Payline.Type := 'IMPREST';
                     Payline."Account Type" := Payline."Account Type"::Customer;
                     Payline.Grouping := 'IMPREST';
-                    Payline."Account No." := ImpHeader."Account No.";
+                    Payline."Account No." := FinImprestHeader."Account No.";
                     Payline.Validate("Account No.");
-                    Payline.Payee := ImpHeader.Payee;
+                    Payline.Payee := FinImprestHeader.Payee;
                     Payline."Transaction Name" := PayHeader.Payee;
-                    Payline."Imprest Request No" := ImpHeader."No.";
+                    Payline."Imprest Request No" := FinImprestHeader."No.";
 
 
 
-                    Payline.Amount := ImpHeader."Total Net Amount";
+                    Payline.Amount := FinImprestHeader."Total Net Amount";
                     Payline.Validate(Amount);
                     Payline."Imprest Processed" := true;
                     PayLine.INSERT(True);
 
-                until ImpHeader.Next() = 0;
+                until FinImprestHeader.Next() = 0;
 
             end;
 
-            ImpHeader.Modify()
+            FinImprestHeader.Modify()
 
 
 
@@ -143,9 +139,9 @@ codeunit 50013 "Finance Operations"
                  //until ImpHeader.next = 0;
 
              end;*/
-        ImpHeader."Pay Using Pv" := true;
-        ImpHeader.Status := ImpHeader.Status::Posted;
-        ImpHeader.Modify();
+        FinImprestHeader."Pay Using Pv" := true;
+        FinImprestHeader.Status := FinImprestHeader.Status::Posted;
+        FinImprestHeader.Modify();
         SendApprovalRequest.OnSendPVSforApproval(PayHeader);
         Message('pv No: ' + format(PayHeader."No.") + ' Generated Successifully and awaiting approval');
 

@@ -1,7 +1,7 @@
 page 51454 "ACA-Exam & Acad. Role Center"
 {
     Caption = 'Role Center';
-    PageType = RoleCenter; 
+    PageType = RoleCenter;
 
     layout
     {

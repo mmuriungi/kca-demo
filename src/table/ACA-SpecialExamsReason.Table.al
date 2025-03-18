@@ -6,17 +6,17 @@ Table 78023 "ACA-Special Exams Reason"
 
     fields
     {
-        field(1;"Reason Code";Code[25])
+        field(1; "Reason Code"; Code[25])
         {
         }
-        field(2;Description;Text[250])
+        field(2; Description; Text[250])
         {
         }
     }
 
     keys
     {
-        key(Key1;"Reason Code")
+        key(Key1; "Reason Code")
         {
             Clustered = true;
         }

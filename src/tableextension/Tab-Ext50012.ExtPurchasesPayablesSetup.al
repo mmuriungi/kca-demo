@@ -101,6 +101,10 @@ tableextension 50012 "ExtPurchases & Payables Setup" extends "Purchases & Payabl
         {
 
         }
+        field(56620; "Enforce Procurement plan"; Boolean)
+        {
+
+        }
     }
 
 

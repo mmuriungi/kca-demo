@@ -60,8 +60,8 @@ table 51279 "Aca-2nd Supp. Exams Details"
         field(8; "Unit Description"; Text[150])
         {
             Caption = 'Unit Description';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Units/Subjects".Desription WHERE ("Programme Code"=FIELD(Programme),Code=FIELD("Unit Code")));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Units/Subjects".Desription WHERE("Programme Code" = FIELD(Programme), Code = FIELD("Unit Code")));
         }
         field(10; Status; Option)
         {
@@ -105,8 +105,8 @@ table 51279 "Aca-2nd Supp. Exams Details"
         field(18; "Marks Exists"; Boolean)
         {
             Caption = 'Marks Exists';
-            FieldClass=FlowField;
-            CalcFormula=Exist("Aca-Special Exams Results" WHERE ("Student No."=FIELD("Student No."),Unit=FIELD("Unit Code"),Semester=FIELD(Semester)));
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Results" WHERE("Student No." = FIELD("Student No."), Unit = FIELD("Unit Code"), Semester = FIELD(Semester)));
         }
         field(19; Sequence; Integer)
         {
@@ -157,14 +157,14 @@ table 51279 "Aca-2nd Supp. Exams Details"
         field(42; "Semester flow"; Code[20])
         {
             Caption = 'Semester flow';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Student Units".Semester WHERE ("Student No."=FIELD("Student No."),Programme=FIELD(Programme),Unit=FIELD("Unit Code"),"Reg. Reversed"=FILTER(false)));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Student Units".Semester WHERE("Student No." = FIELD("Student No."), Programme = FIELD(Programme), Unit = FIELD("Unit Code"), "Reg. Reversed" = FILTER(false)));
         }
         field(43; "Academic Year (Flow)"; Code[20])
         {
             Caption = 'Academic Year (Flow)';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Semesters"."Academic Year" WHERE (Code=FIELD(Semester)));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Semesters"."Academic Year" WHERE(Code = FIELD(Semester)));
         }
     }
 

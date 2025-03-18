@@ -1148,7 +1148,7 @@ table 50798 "ACA-Exam. Course Registration"
         field(175; "Defined Units (Flow)"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = Sum("ACA-Defined Units per YoS"."Number of Units" WHERE (Programmes=FIELD(Programme),
+            CalcFormula = Sum("ACA-Defined Units per YoS"."Number of Units" WHERE(Programmes = FIELD(Programme),
                                                                                    "Year of Study" = FIELD("Year of Study"),
                                                                                    Options = FIELD("Programme Option"),
                                                                                    "Academic Year" = FIELD("Academic Year")));
@@ -1157,41 +1157,41 @@ table 50798 "ACA-Exam. Course Registration"
         field(176; "Skip Supplementary Generation"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula = Lookup("ACA-Results Status"."Skip Supp Generation" WHERE (Code=FIELD(Classification),"Academic Year"=FIELD("Academic Year"),"Special Programme Class"=FIELD("Special Programme Class")));
-            }
-            //Special Programme Class
-            field(177;"Special Programme Class"; option)
-            {
-                
-                optionmembers=General,"Medicine & Nursing",Engineering;
-                FieldClass=FlowField;
-                CalcFormula=Lookup("ACA-Programme"."Special Programme Class" WHERE (Code=FIELD(Programme)));
+            CalcFormula = Lookup("ACA-Results Status"."Skip Supp Generation" WHERE(Code = FIELD(Classification), "Academic Year" = FIELD("Academic Year"), "Special Programme Class" = FIELD("Special Programme Class")));
+        }
+        //Special Programme Class
+        field(177; "Special Programme Class"; option)
+        {
 
-            }
-            //"Yearly Rubric Occurances"
-            field(178; "Yearly Rubric Occurances"; Integer)
-            {
-                FieldClass = FlowField;
-                CalcFormula = Count("ACA-Exam. Course Registration" WHERE ("Student Number"=FIELD("Student Number"),Programme=FIELD(Programme),"Year of Study"=FIELD("Year of Study"),Classification=FIELD(Classification)));
-            }
-            //"Total Rubric Occurances"
-            field(179; "Total Rubric Occurances"; Integer)
-            {
-                FieldClass = FlowField;
-                CalcFormula = Count("ACA-Exam. Course Registration" WHERE ("Student Number"=FIELD("Student Number"),Programme=FIELD(Programme),Classification=FIELD(Classification)));
-            }
-            //"Maximum Allowable Occurances"
-            field(180; "Maximum Allowable Occurances"; Integer)
-            {
-                FieldClass = FlowField;
-                CalcFormula = Lookup("ACA-Results Status"."Allowed Occurances" WHERE (Code=FIELD(Classification),"Academic Year"=FIELD("Academic Year"),"Special Programme Class"=FIELD("Special Programme Class")));
-            }
-            //"Alternate Rubric"
-            field(181; "Alternate Rubric"; Code[10])
-            {
-                FieldClass = FlowField;
-                CalcFormula = Lookup("ACA-Results Status"."Alternate Rubrics" WHERE (Code=FIELD(Classification),"Academic Year"=FIELD("Academic Year"),"Special Programme Class"=FIELD("Special Programme Class")));
-            }
+            optionmembers = General,"Medicine & Nursing",Engineering;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Programme"."Special Programme Class" WHERE(Code = FIELD(Programme)));
+
+        }
+        //"Yearly Rubric Occurances"
+        field(178; "Yearly Rubric Occurances"; Integer)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE("Student Number" = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), Classification = FIELD(Classification)));
+        }
+        //"Total Rubric Occurances"
+        field(179; "Total Rubric Occurances"; Integer)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Count("ACA-Exam. Course Registration" WHERE("Student Number" = FIELD("Student Number"), Programme = FIELD(Programme), Classification = FIELD(Classification)));
+        }
+        //"Maximum Allowable Occurances"
+        field(180; "Maximum Allowable Occurances"; Integer)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Results Status"."Allowed Occurances" WHERE(Code = FIELD(Classification), "Academic Year" = FIELD("Academic Year"), "Special Programme Class" = FIELD("Special Programme Class")));
+        }
+        //"Alternate Rubric"
+        field(181; "Alternate Rubric"; Code[10])
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Results Status"."Alternate Rubrics" WHERE(Code = FIELD(Classification), "Academic Year" = FIELD("Academic Year"), "Special Programme Class" = FIELD("Special Programme Class")));
+        }
 
 
 

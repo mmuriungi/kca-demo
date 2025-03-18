@@ -104,12 +104,12 @@
 //                   "prPayroll Periods".SetRange("prPayroll Periods"."Date Opened","PRL-Period Transactions"."Payroll Period");
 //                   if "prPayroll Periods".Find('-') then begin
 //                   end;
-                
+
 //                     Clear(empName);
 //                     if emps.Get("PRL-Period Transactions"."Employee Code") then
 //                     empName:=emps."First Name"+' '+emps."Middle Name"+' '+emps."Last Name";
-                
-                
+
+
 //                    /*  IF NOT (((("PRL-Period Transactions"."Group Order"=1)) OR
 //                     ("PRL-Period Transactions"."Group Order"=3) OR
 //                      (("PRL-Period Transactions"."Group Order"=4)))) THEN BEGIN

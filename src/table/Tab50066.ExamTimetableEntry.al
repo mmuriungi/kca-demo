@@ -113,6 +113,11 @@ table 50066 "Exam Timetable Entry"
         {
             Caption = 'Additional Invigilators';
         }
+        //"Student Count"
+        field(21; "Student Count"; Integer)
+        {
+            Caption = 'Student Count';
+        }
     }
 
     keys
