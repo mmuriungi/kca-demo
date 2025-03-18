@@ -86,8 +86,9 @@ table 50066 "Exam Timetable Entry"
         {
             Caption = 'No. of Students';
             FieldClass = FlowField;
-            CalcFormula = count("ACA-Student Units" where(Unit = field("Unit Code"),
-                                                         Semester = field(Semester)));
+            CalcFormula = sum("ACA-Lecturers Units"."Student Allocation" where(unit = field("Unit Code"),
+                                                         Semester = field(Semester),
+                                                         Programme = field("Programme Code")));
             Editable = false;
         }
         field(17; "Room Capacity"; Integer)
