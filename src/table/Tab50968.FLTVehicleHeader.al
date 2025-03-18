@@ -8,7 +8,7 @@ table 50968 "FLT-Vehicle Header"
         field(1; "No."; Code[20])
         {
             Caption = 'No.';
-            TableRelation = "Fixed Asset"."No." where("FA Subclass Code" = filter('VEHICLE'));
+            TableRelation = "Fixed Asset"."No." where("FA Subclass Code" = filter('MV'));
 
             trigger OnValidate()
             begin
@@ -25,7 +25,7 @@ table 50968 "FLT-Vehicle Header"
         }
         field(31; "Registration No."; Code[10])
         {
-            NotBlank = true;
+            NotBlank = False;
         }
         field(2; Description; Text[30])
         {
