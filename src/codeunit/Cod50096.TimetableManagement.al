@@ -20,25 +20,17 @@ codeunit 50096 "Timetable Management"
         Semester.TestField("Exam Start Date");
         Semester.TestField("Exam End Date");
 
-        Window.Open('Generating Time Slots...\' +
-                   'Group: #1################\' +
-                   'Date: #2################\' +
-                   'Slot: #3################');
-
         // Clear existing slots for this semester
         ExamTimeSlot.Reset();
         ExamTimeSlot.SetRange("Semester Code", SemesterCode);
         ExamTimeSlot.DeleteAll();
 
         // Generate Regular Exam Slots
-        Window.Update(1, 'Regular');
         GenerateRegularSlots(Semester, SemesterCode);
 
         // Generate Medical Exam Slots
-        Window.Update(1, 'Medical');
         GenerateMedicalSlots(Semester, SemesterCode);
 
-        Window.Close();
         Message('Time slots generated successfully.');
     end;
 
@@ -47,18 +39,14 @@ codeunit 50096 "Timetable Management"
         ExamTimeSlot: Record "Exam Time Slot";
         SlotCode: Code[20];
         CurrentDate: Date;
-        Window: Dialog;
     begin
         CurrentDate := Semester."Exam Start Date";
-
         while CurrentDate <= Semester."Exam End Date" do begin
             // Skip weekends
             if Date2DWY(CurrentDate, 1) <= 5 then begin
-                Window.Update(2, Format(CurrentDate));
 
                 // Morning session (9:00 AM - 11:00 AM)
                 SlotCode := CreateSlotCode(CurrentDate, 'R-M');
-                Window.Update(3, SlotCode);
                 CreateExamTimeSlot(
                     SlotCode,
                     'Regular Morning Session',
@@ -74,7 +62,6 @@ codeunit 50096 "Timetable Management"
 
                 // Midday session (12:00 PM - 2:00 PM)
                 SlotCode := CreateSlotCode(CurrentDate, 'R-N');
-                Window.Update(3, SlotCode);
                 CreateExamTimeSlot(
                     SlotCode,
                     'Regular Noon Session',
@@ -90,7 +77,6 @@ codeunit 50096 "Timetable Management"
 
                 // Afternoon session (3:00 PM - 5:00 PM)
                 SlotCode := CreateSlotCode(CurrentDate, 'R-A');
-                Window.Update(3, SlotCode);
                 CreateExamTimeSlot(
                     SlotCode,
                     'Regular Afternoon Session',
@@ -114,7 +100,6 @@ codeunit 50096 "Timetable Management"
         SlotCode: Code[20];
         CurrentDate: Date;
         DayCount: Integer;
-        Window: Dialog;
     begin
         CurrentDate := Semester."Exam Start Date";
         DayCount := 0;
@@ -122,7 +107,6 @@ codeunit 50096 "Timetable Management"
         while CurrentDate <= Semester."Exam End Date" do begin
             // Skip weekends
             if Date2DWY(CurrentDate, 1) <= 5 then begin
-                Window.Update(2, Format(CurrentDate));
                 DayCount += 1;
 
                 if DayCount = 1 then begin
@@ -130,7 +114,6 @@ codeunit 50096 "Timetable Management"
 
                     // Morning session (9:00 AM - 11:00 AM)
                     SlotCode := CreateSlotCode(CurrentDate, 'M-M');
-                    Window.Update(3, SlotCode);
                     CreateExamTimeSlot(
                         SlotCode,
                         'Medical Morning Session',
@@ -146,7 +129,6 @@ codeunit 50096 "Timetable Management"
 
                     // Midday session (12:00 PM - 2:00 PM)
                     SlotCode := CreateSlotCode(CurrentDate, 'M-N');
-                    Window.Update(3, SlotCode);
                     CreateExamTimeSlot(
                         SlotCode,
                         'Medical Noon Session',
@@ -162,7 +144,6 @@ codeunit 50096 "Timetable Management"
 
                     // Afternoon session (3:00 PM - 5:00 PM)
                     SlotCode := CreateSlotCode(CurrentDate, 'M-A');
-                    Window.Update(3, SlotCode);
                     CreateExamTimeSlot(
                         SlotCode,
                         'Medical Afternoon Session',
@@ -178,7 +159,6 @@ codeunit 50096 "Timetable Management"
                 end else begin
                     // Extended morning session (9:00 AM - 12:00 PM)
                     SlotCode := CreateSlotCode(CurrentDate, 'M-ME');
-                    Window.Update(3, SlotCode);
                     CreateExamTimeSlot(
                         SlotCode,
                         'Medical Extended Morning Session',
@@ -194,7 +174,6 @@ codeunit 50096 "Timetable Management"
 
                     // Extended afternoon session (2:00 PM - 5:00 PM)
                     SlotCode := CreateSlotCode(CurrentDate, 'M-AE');
-                    Window.Update(3, SlotCode);
                     CreateExamTimeSlot(
                         SlotCode,
                         'Medical Extended Afternoon Session',
@@ -213,7 +192,7 @@ codeunit 50096 "Timetable Management"
         end;
     end;
 
-    local procedure CreateSlotCode(ExamDate: Date; SessionCode: Code[3]): Code[20]
+    local procedure CreateSlotCode(ExamDate: Date; SessionCode: Code[4]): Code[20]
     begin
         exit(Format(ExamDate, 0, '<Year4><Month,2><Day,2>') + '-' + SessionCode);
     end;
@@ -322,11 +301,10 @@ codeunit 50096 "Timetable Management"
         UnhandledConflict: Integer;
     begin
         RemainingHours := CourseOffering."Time Table Hours";
-        CourseOffering.CalcFields("Unit Students Count");
         // Find suitable lecture hall
         LectureHall.Reset();
         //LectureHall.SetAutoCalcFields("Sitting Capacity");
-        LectureHall.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Unit Students Count");
+        LectureHall.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Student Allocation");
         LectureHall.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
 
         if LectureHall.FindSet() then
@@ -569,8 +547,7 @@ codeunit 50096 "Timetable Management"
         YearOfStudy: Integer;
     begin
         TimetableSetup.Get();
-        CourseOffering.CalcFields("Unit Students Count");
-        StudentCount := CourseOffering."Unit Students Count";
+        StudentCount := CourseOffering."Student Allocation";
         MaxStudentsPerClass := GetMaxStudentsPerClass(CourseOffering);
 
         // Check if unit is preferred for online teaching
@@ -882,8 +859,7 @@ codeunit 50096 "Timetable Management"
         RequiresPractical: Boolean;
     begin
         TimetableSetup.Get();
-        CourseOffering.CalcFields("Unit Students Count");
-        StudentCount := CourseOffering."Unit Students Count";
+        StudentCount := CourseOffering."Student Allocation";
         MaxStudentsPerClass := GetMaxStudentsPerClass(CourseOffering);
 
         // Check if class needs to be split by student count
@@ -991,7 +967,7 @@ codeunit 50096 "Timetable Management"
         if RequiresSplit then
             LectureHall.SetFilter("Sitting Capacity", '>=%1', FirstGroupSize)
         else
-            LectureHall.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Unit Students Count");
+            LectureHall.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Student Allocation");
 
         // Find suitable lab for practical with required equipment
         LabRoom.Reset();
@@ -999,7 +975,7 @@ codeunit 50096 "Timetable Management"
         if RequiresSplit then
             LabRoom.SetFilter("Sitting Capacity", '>=%1', FirstGroupSize)
         else
-            LabRoom.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Unit Students Count");
+            LabRoom.SetFilter("Sitting Capacity", '>=%1', CourseOffering."Student Allocation");
 
         // Make sure lab has the required equipment
         LabRoom.SetFilter("Available Equipment", '@*' + CourseOffering."Required Equipment" + '*');
@@ -1750,8 +1726,7 @@ codeunit 50096 "Timetable Management"
         SameFloorRooms: List of [Integer];
         RoomIndex: Integer;
     begin
-        CourseOffering.CalcFields("Unit Students Count");
-        TotalStudents := CourseOffering."Unit Students Count";
+        TotalStudents := CourseOffering."Student Allocation";
         RemainingStudents := TotalStudents;
 
         // Get available exam rooms
@@ -2392,8 +2367,7 @@ codeunit 50096 "Timetable Management"
         RoomCapacityUsed: Integer;
         TimetableSetup: Record "Timetable Setup";
     begin
-        CourseOffering.CalcFields("Unit Students Count");
-        TotalStudents := CourseOffering."Unit Students Count";
+        TotalStudents := CourseOffering."Student Allocation";
 
         LectureHall.Reset();
         LectureHall.SetFilter("Exam Sitting Capacity", '>=%1', TotalStudents);

@@ -11,6 +11,18 @@ page 50054 "Exam Timetable Entry"
         {
             repeater(General)
             {
+                field("Room Capacity"; Rec."Room Capacity")
+                {
+                    ToolTip = 'Specifies the value of the Room Capacity field.', Comment = '%';
+                }
+                field("Student Count"; Rec."Student Count")
+                {
+                    ToolTip = 'Specifies the value of the Student Count field.', Comment = '%';
+                }
+                field("No. of Students";Rec."No. of Students")
+                {
+                    ApplicationArea = All;
+                }
                 field("Unit Code"; Rec."Unit Code")
                 {
                     ApplicationArea = All;
