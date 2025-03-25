@@ -375,6 +375,25 @@ page 51397 "FLT-Transport Req."
                         REPORT.Run(Report::"FTL- Transport Requests", true, true, transRe);
                 end;
             }
+             action(Attachments2)
+            {
+                ApplicationArea = All;
+                Caption = 'Applicant Attachments';
+                Promoted = true;
+                PromotedCategory = process;
+                PromotedIsBig = true;
+
+                trigger OnAction()
+                var
+                    RecRef: RecordRef;
+                    DocumentAttachment: Page "Document Attachment Custom";
+                begin
+                    Clear(DocumentAttachment);
+                    RecRef.GETTABLE(Rec);
+                    DocumentAttachment.OpenForRecReference(RecRef);
+                    DocumentAttachment.RUNMODAL;
+                end;
+            }
             action(HODApprove)
             {
                 Caption = 'Approve';

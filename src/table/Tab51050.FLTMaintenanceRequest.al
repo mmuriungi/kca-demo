@@ -89,7 +89,7 @@ table 51050 "FLT Maintenance Request."
         }
         field(98; "Maintanance Type"; Option)
         {
-            OptionMembers = "",Service,Repair;
+            OptionMembers = "",Service,Repair,Compliance;
             DataClassification = ToBeClassified;
         }
         field(20; Type; Option)
@@ -101,9 +101,9 @@ table 51050 "FLT Maintenance Request."
             OptionMembers = "",Vehicle,Machinery;
             DataClassification = ToBeClassified;
         }
-        field(21; "Type of Maintenance"; Text[50])
+        field(21; "Type of Maintenance"; option)
         {
-            //   OptionMembers = " ",Repair,"Scheduled Service",Tyre;
+            OptionMembers = " ",Repair,"Scheduled Service",Tyre;
         }
         field(22; Driver; Code[10])
         {
@@ -242,7 +242,20 @@ table 51050 "FLT Maintenance Request."
         {
             DataClassification = ToBeClassified;
         }
+        field(51; "Work Performed"; Code[500])
+        {
 
+            DataClassification = ToBeClassified;
+        }
+        field(52;"Service done By";code[50])
+        {
+
+        }
+        field(53;"Supplier Name";code[50])
+        {
+
+        }
+       
 
     }
 

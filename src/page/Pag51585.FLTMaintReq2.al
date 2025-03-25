@@ -56,6 +56,10 @@ page 51585 "FLT-Maint. Req2."
                 {
                     ApplicationArea = all;
                 }
+                field("Type of Maintenance";Rec."Type of Maintenance")
+                {
+                    applicationarea= all;
+                }
                 field("Price/Litre"; rec."Price/Litre")
                 {
                     ApplicationArea = All;
@@ -73,25 +77,37 @@ page 51585 "FLT-Maint. Req2."
                     ApplicationArea = All;
                 }
             }
-            group("Service Request")
+            group("Service Request/Maintanance")
             {
+                field("Vendor(Dealer)";Rec."Vendor(Dealer)")
+                {
+                    ApplicationArea = All;
+                }
+                field(vendorname; Rec."Vendor Name")
+                {
+                    ApplicationArea = All;
+                    editable = false;
+                }
                 field("Date of Service"; rec."Date of Service")
                 {
                     ApplicationArea = All;
                 }
-                field("mileage at request of services"; rec."mileage at request of services")
+                field("mileage at service";Rec."mileage at service")
                 {
-                    ApplicationArea = All;
+                  ApplicationArea = All;  
                 }
-                field("mileage due at "; rec."mileage at service")
-                {
-                    caption = 'mileage due at Service';
-                    ApplicationArea = All;
-
-                }
+                
 
 
 
+            }
+            group("Work performed & Notes")
+            {
+               field("Work Performed";Rec."Work Performed") 
+               {
+               ApplicationArea = All;
+               MultiLine = true;
+               }
             }
             group("Repair Request")
             {
@@ -106,11 +122,7 @@ page 51585 "FLT-Maint. Req2."
                     ApplicationArea = all;
 
                 }
-                field("Mileage on Repair"; rec."Mileage on Repair")
-                {
-                    caption = 'mileage due at Repair';
-                    ApplicationArea = all;
-                }
+               
             }
             group("Transport Officer ")
             {
@@ -129,24 +141,14 @@ page 51585 "FLT-Maint. Req2."
                 {
                     ApplicationArea = all;
                 }
-                field("Mileage at Service/Repair"; rec.remarks)
-                {
-                    caption = 'Mileage at Service/Repair';
-                    ApplicationArea = all;
-                }
+                
                 field(Amount; rec.Amount)
                 {
                     Caption = 'Amount';
 
                     ApplicationArea = all;
                 }
-                field("Next Service Due Mileage"; Rec."Next Service Due Mileage")
-                {
-                    Caption = 'Next Service Due Mileage';
-
-                    ApplicationArea = all;
-                }
-
+               
             }
 
         }
@@ -189,6 +191,25 @@ page 51585 "FLT-Maint. Req2."
                     rec.status := rec.status::Closed;
 
                     CurrPage.Update();
+                end;
+            }
+             action(Attachments2)
+            {
+                ApplicationArea = All;
+                Caption = 'Document  Attachments';
+                Promoted = true;
+                PromotedCategory = process;
+                PromotedIsBig = true;
+
+                trigger OnAction()
+                var
+                    RecRef: RecordRef;
+                    DocumentAttachment: Page "Document Attachment Custom";
+                begin
+                    Clear(DocumentAttachment);
+                    RecRef.GETTABLE(Rec);
+                    DocumentAttachment.OpenForRecReference(RecRef);
+                    DocumentAttachment.RUNMODAL;
                 end;
             }
         }
