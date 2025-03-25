@@ -276,6 +276,10 @@ page 50619 "HRM-Employee (B)"
                 //     ApplicationArea = All;
 
                 // }
+                field("Full / Part Time"; Rec."Full / Part Time")
+                {
+                    ApplicationArea = All;
+                }
 
                 field("Employee Category"; Rec."Employee Category")
                 {
