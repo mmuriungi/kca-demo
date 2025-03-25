@@ -20,6 +20,7 @@ page 51756 "HMS-Patient List"
                 field("Student No."; Rec."Student No.")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Employee No."; Rec."Employee No.")
                 {
@@ -28,14 +29,17 @@ page 51756 "HMS-Patient List"
                 field("Patient No."; Rec."Patient No.")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Registration Date"; Rec."Date Registered")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Date Registered"; Rec."Date Registered")
                 {
                     ApplicationArea = All;
+
                 }
                 field("Patient Type"; Rec."Patient Type")
                 {
@@ -130,51 +134,80 @@ page 51756 "HMS-Patient List"
                 var
                     HrEmployees: Record "HRM-Employee C";
                     targetSrc: record "HMS-Patient";
-                    newid2: Integer;
                     HMSSetup: Record "HMS-Setup";
+                    Kin: Record "HRM-Employee Kin";
                     NoSeriesMgt: Codeunit 396;
                     Nextno: code[20];
                 begin
                     IF CONFIRM('This will load Missing staff, Continue?', TRUE) = FALSE THEN ERROR('Cancelled by user:' + USERID);
                     HrEmployees.RESET;
-                    HrEmployees.SETFILTER(HrEmployees.Lecturer, '=%1', TRUE);
+                    // HrEmployees.SETFILTER(HrEmployees.Lecturer, '=%1', TRUE);
+                    HrEmployees.SETFILTER(Status, '=%1', HrEmployees.Status::Active);
+                    HrEmployees.SetFilter("Full / Part Time", '=%1', HrEmployees."Full / Part Time"::"Full Time");
                     IF HrEmployees.FIND('-') THEN BEGIN
                         REPEAT
                         BEGIN
-                            HMSSetup.GET;
-                            HMSSetup.TESTFIELD("Observation Nos");
-                            Nextno := NoSeriesMgt.GetNextNo(HMSSetup."Observation Nos", today, true);
-                            // if not targetSrc.FindLast() then
-                            //     newid2 := 1
-                            // else
-                            //     newid2 := targetSrc.PatientNumber + 1;
-                            // targetSrc.RESET;
-
+                            targetSrc.RESET;
                             targetSrc.SETRANGE(targetSrc."Employee No.", HrEmployees."No.");
                             IF NOT (targetSrc.FIND('-')) THEN BEGIN
                                 targetSrc.INIT;
-
+                                HMSSetup.GET;
+                                HMSSetup.TESTFIELD("Patient Nos");
+                                targetSrc."Patient No." := NoSeriesMgt.GetNextNo(HMSSetup."Patient Nos", TODAY, TRUE);
+                                targetSrc."No. Series" := HMSSetup."Patient Nos";
+                                targetSrc."Date Registered" := TODAY;
                                 targetSrc."Employee No." := HrEmployees."No.";
                                 targetSrc."Full Name" := HrEmployees."First Name" + ' ' + HrEmployees."Middle Name" + ' ' + HrEmployees."Last Name";
                                 targetSrc."Date Of Birth" := HrEmployees."Date Of Birth";
-                                // targetSrc.Photo := HrEmployees.CalcFields("Barcode Picture");
                                 targetSrc."Marital Status" := HrEmployees."Marital Status";
-                                targetSrc.VALIDATE("Employee No.");
-                                targetSrc.INSERT;
-                            END ELSE BEGIN
+                                targetSrc."Patient Type" := targetSrc."Patient Type"::Employee;
+                                targetSrc."Patient Type2" := targetSrc."Patient Type2"::Employee;
+                                targetSrc.Gender := HrEmployees.Gender;
+                                targetSrc."ID Number" := HrEmployees."ID Number";
+                                targetSrc.Email := HrEmployees."Company E-Mail";
+                                targetSrc."Telephone No. 1" := HrEmployees."Cellular Phone Number";
 
+                                Kin.RESET;
+                                Kin.SETRANGE("Employee Code", HrEmployees."No.");
+                                Kin.SETRANGE(Type, Kin.Type::"Next of Kin");
+                                IF Kin.FINDFIRST THEN BEGIN
+                                    targetSrc."Emergency Consent Full Name" := Kin."Other Names" + ' ' + Kin.SurName;
+                                    targetSrc."Emergency Consent Address 1" := Kin."E-mail"; 
+                                    targetSrc."Emergency Consent Address 2" := Kin."Home Tel No";
+                                    targetSrc."Emergency Consent Address 3" := Kin.Relationship;
+                                END;
+
+                                targetSrc.INSERT;
+                                targetSrc.VALIDATE("Employee No.");
+                                targetSrc.MODIFY;
+                            END ELSE BEGIN
                                 targetSrc."Full Name" := HrEmployees."First Name" + ' ' + HrEmployees."Middle Name" + ' ' + HrEmployees."Last Name";
-                                //targetSrc.VALIDATE("Lecturer Code");
+                                targetSrc.Gender := HrEmployees.Gender;
+                                targetSrc."ID Number" := HrEmployees."ID Number";
+                                targetSrc."Date Of Birth" := HrEmployees."Date Of Birth";
+                                targetSrc.Email := HrEmployees."Company E-Mail";
+                                targetSrc."Telephone No. 1" := HrEmployees."Cellular Phone Number";
+
+                                Kin.RESET;
+                                Kin.SETRANGE("Employee Code", HrEmployees."No.");
+                                Kin.SETRANGE(Type, Kin.Type::"Next of Kin");
+                                IF Kin.FINDFIRST THEN BEGIN
+                                    targetSrc."Emergency Consent Full Name" := Kin."Other Names" + ' ' + Kin.SurName;
+                                    targetSrc."Emergency Consent Address 1" := Kin."E-mail"; 
+                                    targetSrc."Emergency Consent Address 2" := Kin."Home Tel No";
+                                    targetSrc."Emergency Consent Address 3" := Kin.Relationship;
+                                END;
+
                                 targetSrc.MODIFY;
                             END;
                         END;
                         UNTIL HrEmployees.NEXT = 0;
-                    END;
+                        MESSAGE('Staff loading completed successfully.');
+                    END ELSE
+                        MESSAGE('No active staff found to load.');
+
                     CurrPage.UPDATE;
                 end;
-
-
-
             }
             action("Load Missing students")
             {
@@ -193,7 +226,7 @@ page 51756 "HMS-Patient List"
                     NoSeriesMgt: Codeunit 396;
                     Nextno: code[20];
                 begin
-                    IF CONFIRM('This will load Missing Lecturers, Continue?', TRUE) = FALSE THEN ERROR('Cancelled by user:' + USERID);
+                    IF CONFIRM('This will load Missing Students, Continue?', TRUE) = FALSE THEN ERROR('Cancelled by user:' + USERID);
                     HMSSetup.GET;
                     HMSSetup.TESTFIELD("Patient Nos");
                     Nextno := NoSeriesMgt.GetNextNo(HMSSetup."Patient Nos", today, true);
@@ -288,4 +321,3 @@ page 51756 "HMS-Patient List"
 
     end;
 }
-
