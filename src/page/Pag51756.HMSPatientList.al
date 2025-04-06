@@ -169,10 +169,9 @@ page 51756 "HMS-Patient List"
 
                                 Kin.RESET;
                                 Kin.SETRANGE("Employee Code", HrEmployees."No.");
-                                Kin.SETRANGE(Type, Kin.Type::"Next of Kin");
                                 IF Kin.FINDFIRST THEN BEGIN
                                     targetSrc."Emergency Consent Full Name" := Kin."Other Names" + ' ' + Kin.SurName;
-                                    targetSrc."Emergency Consent Address 1" := Kin."E-mail"; 
+                                    targetSrc."Emergency Consent Address 1" := Kin."E-mail";
                                     targetSrc."Emergency Consent Address 2" := Kin."Home Tel No";
                                     targetSrc."Emergency Consent Address 3" := Kin.Relationship;
                                 END;
@@ -190,10 +189,9 @@ page 51756 "HMS-Patient List"
 
                                 Kin.RESET;
                                 Kin.SETRANGE("Employee Code", HrEmployees."No.");
-                                Kin.SETRANGE(Type, Kin.Type::"Next of Kin");
                                 IF Kin.FINDFIRST THEN BEGIN
                                     targetSrc."Emergency Consent Full Name" := Kin."Other Names" + ' ' + Kin.SurName;
-                                    targetSrc."Emergency Consent Address 1" := Kin."E-mail"; 
+                                    targetSrc."Emergency Consent Address 1" := Kin."E-mail";
                                     targetSrc."Emergency Consent Address 2" := Kin."Home Tel No";
                                     targetSrc."Emergency Consent Address 3" := Kin.Relationship;
                                 END;
@@ -220,57 +218,80 @@ page 51756 "HMS-Patient List"
 
                 trigger OnAction()
                 var
-                    sourceRec: record customer;
-                    targetRec: Record "HMS-Patient";
+                    StudentsRec: Record "Customer";
+                    targetSrc: record "HMS-Patient";
                     HMSSetup: Record "HMS-Setup";
+                    StudentKin: Record "ACA-Student Kin";
                     NoSeriesMgt: Codeunit 396;
                     Nextno: code[20];
                 begin
-                    IF CONFIRM('This will load Missing Students, Continue?', TRUE) = FALSE THEN ERROR('Cancelled by user:' + USERID);
-                    HMSSetup.GET;
-                    HMSSetup.TESTFIELD("Patient Nos");
-                    Nextno := NoSeriesMgt.GetNextNo(HMSSetup."Patient Nos", today, true);
-                    sourcerec.RESET;
-                    sourcerec.SetRange(Status, sourcerec.Status::Registration);
-                    IF sourcerec.FIND('-') THEN BEGIN
+                    IF CONFIRM('This will load Missing students, Continue?', TRUE) = FALSE THEN ERROR('Cancelled by user:' + USERID);
+                    StudentsRec.RESET;
+                    // HrEmployees.SETFILTER(HrEmployees.Lecturer, '=%1', TRUE);
+                    StudentsRec.SETFILTER(Status, '=%1', StudentsRec.Status::Current);
+                    IF StudentsRec.FIND('-') THEN BEGIN
                         REPEAT
                         BEGIN
+                            targetSrc.RESET;
+                            targetSrc.SETRANGE(targetSrc."Employee No.", StudentsRec."No.");
+                            IF NOT (targetSrc.FIND('-')) THEN BEGIN
+                                targetSrc.INIT;
+                                HMSSetup.GET;
+                                HMSSetup.TESTFIELD("Patient Nos");
+                                targetSrc."Patient No." := NoSeriesMgt.GetNextNo(HMSSetup."Patient Nos", TODAY, TRUE);
+                                targetSrc."No. Series" := HMSSetup."Patient Nos";
+                                targetSrc."Date Registered" := TODAY;
+                                targetSrc."Employee No." := StudentsRec."No.";
+                                targetSrc."Full Name" := StudentsRec."Name";
+                                targetSrc."Date Of Birth" := StudentsRec."Date Of Birth";
+                                targetSrc."Marital Status" := StudentsRec."Marital Status";
+                                targetSrc."Patient Type" := targetSrc."Patient Type"::Student;
+                                targetSrc."Patient Type2" := targetSrc."Patient Type2"::Student;
+                                targetSrc.Gender := StudentsRec.Gender;
+                                targetSrc."ID Number" := StudentsRec."ID No";
+                                targetSrc.Email := StudentsRec."University Email";
+                                targetSrc."Telephone No. 1" := StudentsRec."Phone No.";
 
-                            targetRec.RESET;
+                                StudentKin.RESET;
+                                StudentKin.SETRANGE("Student No", StudentsRec."No.");
+                                IF StudentKin.FINDFIRST THEN BEGIN
+                                    targetSrc."Emergency Consent Full Name" := StudentKin."Other Names" + ' ' + StudentKin.Name;
+                                    targetSrc."Emergency Consent Address 1" := StudentKin.Address;
+                                    targetSrc."Emergency Consent Address 2" := StudentKin."Home Tel No";
+                                    targetSrc."Emergency Consent Address 3" := StudentKin.Relationship;
+                                END;
 
-                            targetRec.SETRANGE(targetRec."Student No.", sourcerec."No.");
-                            IF NOT (targetRec.FIND('-')) THEN BEGIN
-                                targetRec.INIT;
-
-
-                                targetRec."Student No." := sourceRec."No.";
-                                targetRec.Gender := sourceRec.Gender;
-                                targetRec."Date Of Birth" := sourceRec."Date Of Birth";
-                                targetRec."Full Name" := sourceRec.Name;
-                                targetRec.Photo := sourceRec."Barcode Picture";
-                                targetRec."ID Number" := sourceRec."ID No";
-                                targetRec."Marital Status" := sourceRec."Marital Status";
-                                targetRec."Patient Type" := targetRec."Patient Type"::Student;
-
-                                targetRec.VALIDATE("Student No.");
-                                targetRec.INSERT;
+                                targetSrc.INSERT;
+                                targetSrc.VALIDATE("Employee No.");
+                                targetSrc.MODIFY;
                             END ELSE BEGIN
+                                targetSrc."Full Name" := StudentsRec."Name";
+                                targetSrc.Gender := StudentsRec.Gender;
+                                targetSrc."ID Number" := StudentsRec."ID No";
+                                targetSrc."Date Of Birth" := StudentsRec."Date Of Birth";
+                                targetSrc.Email := StudentsRec."University Email";
+                                targetSrc."Telephone No. 1" := StudentsRec."Phone No.";
 
-                                targetRec."Full Name" := sourcerec.Name;
-                                //targetRec.VALIDATE("Lecturer Code");
-                                targetRec.MODIFY;
+                                StudentKin.RESET;
+                                StudentKin.SETRANGE("Student No", StudentsRec."No.");
+                                IF StudentKin.FINDFIRST THEN BEGIN
+                                    targetSrc."Emergency Consent Full Name" := StudentKin."Other Names" + ' ' + StudentKin.Name;
+                                    targetSrc."Emergency Consent Address 1" := StudentKin.Address;
+                                    targetSrc."Emergency Consent Address 2" := StudentKin."Home Tel No";
+                                    targetSrc."Emergency Consent Address 3" := StudentKin.Relationship;
+                                END;
+
+                                targetSrc.MODIFY;
                             END;
                         END;
-                        UNTIL sourcerec.NEXT = 0;
-                    END;
+                        UNTIL StudentsRec.NEXT = 0;
+                        MESSAGE('Students loading completed successfully.');
+                    END ELSE
+                        MESSAGE('No active students found to load.');
+
                     CurrPage.UPDATE;
                 end;
-
-
-
             }
-
-
         }
     }
 
