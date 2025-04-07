@@ -506,6 +506,14 @@ codeunit 50096 "Timetable Management"
         exit(not TimetableEntry.IsEmpty);
     end;
 
+    procedure EnableLabsForExam(): Boolean
+    var
+        TtSetup: Record "Timetable Setup";
+    begin
+        TtSetup.Get();
+        exit(TtSetup."Enable Labs for Exam");
+    end;
+
     procedure GetMaxStudentsPerClass(var CourseOffering: Record "ACA-Lecturers Units"): Integer
     var
         TtSetup: Record "Timetable Setup";
@@ -1722,7 +1730,7 @@ codeunit 50096 "Timetable Management"
         i: Integer;
         ExamTimetableEntry: Record "Exam Timetable Entry";
         StudentsInRoom: Integer;
-        CurrentFloor: Text;
+        CurrentFloor: Integer;
         SameFloorRooms: List of [Integer];
         RoomIndex: Integer;
     begin
@@ -1869,7 +1877,10 @@ codeunit 50096 "Timetable Management"
         LectureHall.Reset();
         LectureHall.SetFilter("Exam Sitting Capacity", '>0');
         LectureHall.SetRange(Status, LectureHall.Status::Active);
-
+        if not EnableLabsForExam() then
+            LectureHall.SetFilter("Hall Category", '%1', LectureHall."Hall Category"::Normal)
+        else
+            LectureHall.SetFilter("Hall Category", '%1|%2', LectureHall."Hall Category"::Normal, LectureHall."Hall Category"::Lab);
         if LectureHall.FindSet() then
             repeat
                 Clear(UsedCapacity);
@@ -1906,7 +1917,7 @@ codeunit 50096 "Timetable Management"
         i, j : Integer;
         TempRoom: Record "ACA-Lecturer Halls Setup";
         TempCapacity: Integer;
-        Floor1, Floor2 : Text;
+        Floor1, Floor2 : integer;
     begin
         // Simple bubble sort by floor then by capacity
         for i := 1 to RoomCount - 1 do
@@ -1929,21 +1940,14 @@ codeunit 50096 "Timetable Management"
             end;
     end;
 
-    local procedure GetRoomFloor(RoomCode: Code[20]): Text
+    local procedure GetRoomFloor(RoomCode: Code[20]): Integer
     var
-        FloorPart: Text;
-        i: Integer;
+        LectureHall: Record "ACA-Lecturer Halls Setup";
     begin
-        // Extract floor from room code - customize based on your naming convention
-        // Example: If room code is "F2-R204", this would return "F2"
-        // This is a placeholder - update with your actual logic
-
-        i := StrPos(RoomCode, '-');
-        if i > 0 then
-            exit(CopyStr(RoomCode, 1, i - 1));
-
-        // Default fallback
-        exit('');
+        LectureHall.Reset();
+        LectureHall.SetRange("Lecture Room Code", RoomCode);
+        if LectureHall.FindFirst() then
+            exit(LectureHall.Floor);
     end;
 
     local procedure AssignInvigilatorsToExams(SemesterCode: Code[25])

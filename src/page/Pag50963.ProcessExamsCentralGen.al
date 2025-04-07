@@ -3532,6 +3532,7 @@ page 50963 "Process Exams Central Gen."
         ObjCourseReg: Record "ACA-exam. Course Registration";
         CurrentYear: Integer;
         AcaStoppage: Record "ACA-Reg. Stoppage Reasons";
+        Specialdetaisl: Record "Aca-Special Exams Details";
     begin
         CLEAR(StatusRemarks);
         CLEAR(YearlyReMarks);
@@ -3590,6 +3591,15 @@ page 50963 "Process Exams Central Gen."
                 IF CoursesRegz."Required Stage Units" > CoursesRegz."Attained Stage Units" THEN StatusRemarks := 'DTSC';
                 IF CoursesRegz."Exists DTSC Prefix" THEN StatusRemarks := 'DTSC';
                 IF CoursesRegz."Special Registration Exists" THEN StatusRemarks := 'Special';
+                //check specials again
+                Specialdetaisl.RESET;
+                Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
+                Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
+                Specialdetaisl.SetFilter("EXAMs Marks",'>%1',0);
+                IF Specialdetaisl.FINDFIRST THEN BEGIN
+                    StatusRemarks := 'Special';
+                END;
 
                 IF CoursesRegz."Exists DTSC Prefix" AND (NOT CoursesRegz."Special Registration Exists") THEN BEGIN
                     EVALUATE(CurrentYear, COPYSTR(CoursesRegz."Academic Year", 6, 4));
@@ -3637,12 +3647,21 @@ page 50963 "Process Exams Central Gen."
                 END;
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //Check and Cater for Specials
-                
+
 
             END ELSE BEGIN
 
                 CoursesRegz.CALCFIELDS("Attained Stage Units");
                 IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
+                //check specials again
+                Specialdetaisl.RESET;
+                Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
+                Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
+                Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
+                IF Specialdetaisl.FINDFIRST THEN BEGIN
+                    StatusRemarks := 'Special';
+                END;
                 CLEAR(StudCoregcs);
                 StudCoregcs.CalcFields("Stoppage Exists In Acad. Year");
                 StudCoregcs.RESET;
@@ -4883,6 +4902,7 @@ page 50963 "Process Exams Central Gen."
         AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
         StudCoregcs: Record "ACA-Course Registration";
         ObjUnits: Record "ACA-Student Units";
+        Specialdetaisl: Record "Aca-Special Exams Details";
     begin
         CLEAR(StatusRemarks);
         CLEAR(YearlyReMarks);
@@ -4954,6 +4974,15 @@ page 50963 "Process Exams Central Gen."
                     IF ObjUnits.FINDFIRST THEN
                         StatusRemarks := 'Special';
                 end;
+                //check specials again
+                Specialdetaisl.RESET;
+                Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
+                Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
+                Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
+                IF Specialdetaisl.FINDFIRST THEN BEGIN
+                    StatusRemarks := 'Special';
+                END;
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////
                 // Check if exists a stopped Semester for the Academic Years and Pick the Status on the lines as the rightful Status
@@ -4987,6 +5016,15 @@ page 50963 "Process Exams Central Gen."
 
                 CoursesRegz.CALCFIELDS("Attained Stage Units");
                 IF CoursesRegz."Attained Stage Units" = 0 THEN StatusRemarks := 'DTSC';
+                //check specials again
+                Specialdetaisl.RESET;
+                Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
+                Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
+                Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
+                IF Specialdetaisl.FINDFIRST THEN BEGIN
+                    StatusRemarks := 'Special';
+                END;
                 CLEAR(StudCoregcs);
                 StudCoregcs.RESET;
                 StudCoregcs.SETRANGE("Student No.", CoursesRegz."Student Number");
@@ -5014,6 +5052,15 @@ page 50963 "Process Exams Central Gen."
                     IF ObjUnits.FINDFIRST THEN
                         StatusRemarks := 'Special';
                 end;
+                //check specials again
+                Specialdetaisl.RESET;
+                Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
+                Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
+                Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
+                IF Specialdetaisl.FINDFIRST THEN BEGIN
+                    StatusRemarks := 'Special';
+                END;
                 ACAResultsStatus.RESET;
                 ACAResultsStatus.SETRANGE(Status, Customer.Status);
                 ACAResultsStatus.SETRANGE("Academic Year", CoursesRegz."Academic Year");
@@ -5876,6 +5923,7 @@ page 50963 "Process Exams Central Gen."
         AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
         StudCoregcs: Record "ACA-Course Registration";
         ObjUnits: Record "ACA-Student Units";
+        Specialdetaisl: Record "Aca-Special Exams Details";
     Begin
 
         CLEAR(StatusRemarks);
@@ -5998,6 +6046,17 @@ page 50963 "Process Exams Central Gen."
                         StatusRemarks := 'Special';
                 end;
 
+                //check specials again
+                Specialdetaisl.RESET;
+                Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
+                Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
+                Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
+                IF Specialdetaisl.FINDFIRST THEN BEGIN
+                    StatusRemarks := 'Special';
+                END;
+
+
             END ELSE BEGIN
 
                 CoursesRegz.CALCFIELDS("Attained Stage Units");
@@ -6011,6 +6070,15 @@ page 50963 "Process Exams Central Gen."
                     ObjUnits.SETRANGE(ObjUnits."Special Exam", ObjUnits."Special Exam"::Special);
                     IF ObjUnits.FINDFIRST THEN
                         StatusRemarks := 'Special';
+                END;
+                //check specials again
+                Specialdetaisl.RESET;
+                Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
+                Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
+                Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
+                Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
+                IF Specialdetaisl.FINDFIRST THEN BEGIN
+                    StatusRemarks := 'Special';
                 END;
                 CLEAR(StudCoregcs);
                 StudCoregcs.RESET;

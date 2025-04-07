@@ -21,6 +21,10 @@ page 50079 "Timetable Setup"
 
                     ApplicationArea = all;
                 }
+                field("Enable Labs for Exam"; Rec."Enable Labs for Exam")
+                {
+                    ApplicationArea = all;
+                }
             }
         }
     }

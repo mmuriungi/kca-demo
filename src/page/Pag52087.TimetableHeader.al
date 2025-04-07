@@ -52,7 +52,8 @@ page 52087 "Timetable Header"
                 Caption = 'Lecturer Timetable Constraints';
                 RunObject = Page "Lecturer Timetable Constraints";
                 RunPageLink = Semester = field(Semester);
-                Image=ConditionalBreakpoint;
+                Visible = rec.Type = rec.Type::Class;
+                Image = ConditionalBreakpoint;
                 Promoted = true;
                 PromotedCategory = Category4;
             }
@@ -61,7 +62,8 @@ page 52087 "Timetable Header"
                 ApplicationArea = All;
                 Caption = 'Online Preferences';
                 RunObject = Page "Online Preferences";
-                Image=ConditionalBreakpoint;
+                Visible = rec.Type = rec.Type::Class;
+                Image = ConditionalBreakpoint;
                 Promoted = true;
                 PromotedCategory = Category4;
             }
@@ -74,6 +76,7 @@ page 52087 "Timetable Header"
                 Caption = 'Generate Timetable';
                 Promoted = true;
                 PromotedCategory = Process;
+                Visible = rec.Type = rec.Type::Class;
                 PromotedIsBig = true;
                 Image = GetLines;
                 trigger OnAction()
@@ -89,6 +92,7 @@ page 52087 "Timetable Header"
                 Caption = 'Generate Exam Timetable';
                 Promoted = true;
                 PromotedCategory = Process;
+                Visible = rec.Type = rec.Type::Exam;
                 PromotedIsBig = true;
                 Image = GetLines;
                 trigger OnAction()
@@ -105,6 +109,7 @@ page 52087 "Timetable Header"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                Visible = rec.Type = rec.Type::Exam;
                 Image = GetLines;
                 trigger OnAction()
                 var
@@ -121,6 +126,7 @@ page 52087 "Timetable Header"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 Image = GetLines;
+                Visible = rec.Type = rec.Type::Class;
                 trigger OnAction()
                 var
                     THeader: Record "Timetable Header";
