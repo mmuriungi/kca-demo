@@ -122,6 +122,7 @@ page 51448 "PRL-Payroll Role Center"
                     Caption = 'Deductions Variance Report';
                     Image = Report;
                     RunObject = Report "Deductions Variance Report";
+                    Visible = false;
                 }
                 action("Gross Netpay")
                 {
@@ -150,6 +151,7 @@ page 51448 "PRL-Payroll Role Center"
                     Caption = 'Payroll Variance 2';
                     Image = "Report";
                     RunObject = Report "Payroll Variance 2 Ext";
+                    //  Visible = false;
                 }
                 action("Payroll Comparison")
                 {
@@ -157,6 +159,7 @@ page 51448 "PRL-Payroll Role Center"
                     Caption = 'Payroll Comparison';
                     Image = "Report";
                     RunObject = Report "Payroll Comparison Ext";
+                    Visible = false;
                 }
 
 
@@ -681,7 +684,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'Housing Levy Fund';
                     Image = "PrintForm";
-                    RunObject = Report "Housing Levy Fund";
+                    RunObject = Report "prHousing Levy";
                 }
             }
 
@@ -1664,6 +1667,7 @@ page 51448 "PRL-Payroll Role Center"
 
             group(prlComparision)
             {
+                Caption = 'Payroll Comparison';
 
                 action("Variance Report")
                 {
@@ -1671,23 +1675,27 @@ page 51448 "PRL-Payroll Role Center"
                     Caption = 'Details Payroll Variance';
                     Image = Aging;
                     RunObject = Report "PRL-Payroll Variance Report2";
+                    Visible = false;
                 }
                 action("Variance Report Two")
                 {
                     ApplicationArea = all;
                     Image = Aging;
                     RunObject = Report "Gross Pay Per Period Report";
+                    Visible = false;
                 }
                 action("Variance Report Three")
                 {
                     ApplicationArea = all;
                     Image = Aging;
+                    Caption = 'Variance Report I';
                     RunObject = Report "PRL Payroll Comparison";
                 }
                 action("Variance Report Four")
                 {
                     ApplicationArea = all;
                     Image = Aging;
+                    Caption = 'Variance Report II';
                     RunObject = Report "PRL Payroll Trans Comparison";
                 }
             }

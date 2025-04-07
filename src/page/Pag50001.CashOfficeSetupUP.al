@@ -154,6 +154,14 @@ page 50001 "Cash Office Setup UP"
                     }
 
                 }
+                group("Finance Controls")
+                {
+                    field("Max Unsurrendered Imprest"; Rec."Max Unsurrendered Imprest")
+                    {
+                        ApplicationArea = all;
+                    }
+
+                }
 
             }
         }

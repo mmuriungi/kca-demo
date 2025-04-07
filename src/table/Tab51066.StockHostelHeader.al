@@ -63,7 +63,7 @@ table 51066 "Stock Hostel Header"
         stocklinesh: record "hostel stock lines";
         itemledger: Record "Pharmacy Item Ledger";
         HitemLedger: record "Hostel Ledger Entries ";
-        PharItem: Record "Pharmacy Items";
+        PharItem: Record Item;
         hostitem: Record "Hostel Sub-Store";
 
     procedure postStock()

@@ -5,7 +5,7 @@ page 50052 "Exam Time Slots"
     UsageCategory = Lists;
     SourceTable = "Exam Time Slot";
     CardPageId = "Exam Time Slot Card";
-    
+
     layout
     {
         area(Content)

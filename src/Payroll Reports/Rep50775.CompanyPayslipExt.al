@@ -12,118 +12,118 @@ report 50775 "Company Payslip Ext"
             column(ReportForNavId_1; 1)
             {
             }
-            column(COMPANYNAME;COMPANYNAME)
+            column(COMPANYNAME; COMPANYNAME)
             {
             }
-            column(COMPANYNAME_Control1102755015;COMPANYNAME)
+            column(COMPANYNAME_Control1102755015; COMPANYNAME)
             {
             }
-            column(COMPANYNAME_Control1102756027;COMPANYNAME)
+            column(COMPANYNAME_Control1102756027; COMPANYNAME)
             {
             }
-            column(COMPANYNAME_Control1102756028;COMPANYNAME)
+            column(COMPANYNAME_Control1102756028; COMPANYNAME)
             {
             }
-            column(CompanyInfo_Picture;CompanyInfo.Picture)
+            column(CompanyInfo_Picture; CompanyInfo.Picture)
             {
             }
-            column(CompanyInfo_Picture_Control1102756014;CompanyInfo.Picture)
+            column(CompanyInfo_Picture_Control1102756014; CompanyInfo.Picture)
             {
             }
-            column(compName;CompanyInfo.Name)
+            column(compName; CompanyInfo.Name)
             {
             }
-            column(PayrollSummary;'COMPANY PAYROLL SUMMARY')
+            column(PayrollSummary; 'COMPANY PAYROLL SUMMARY')
             {
             }
-            column(PeriodNamez;'PERIOD:  '+PeriodName)
+            column(PeriodNamez; 'PERIOD:  ' + PeriodName)
             {
             }
-            column(TransDesc;'TRANSACTION DESC.')
+            column(TransDesc; 'TRANSACTION DESC.')
             {
             }
-            column(payments;'PAYMENTS')
+            column(payments; 'PAYMENTS')
             {
             }
-            column(deductions;'DEDUCTIONS')
+            column(deductions; 'DEDUCTIONS')
             {
             }
-            column(kirinyagatitle;COMPANYNAME)
+            column(kirinyagatitle; COMPANYNAME)
             {
             }
-            column(abreviation;'')
+            column(abreviation; '')
             {
             }
-            column(DetDate;DetDate)
+            column(DetDate; DetDate)
             {
             }
-            column(GPY;GPY)
+            column(GPY; GPY)
             {
             }
-            column(NETS;NETS)
+            column(NETS; NETS)
             {
             }
-            column(STAT;STAT)
+            column(STAT; STAT)
             {
             }
-            column(DED;DED)
+            column(DED; DED)
             {
             }
-            column(TransCode;prPeriod_Transactions."Transaction Code")
+            column(TransCode; prPeriod_Transactions."Transaction Code")
             {
             }
-            column(TransName;prPeriod_Transactions."Transaction Name")
+            column(TransName; prPeriod_Transactions."Transaction Name")
             {
             }
-            column(TransAmount;prPeriod_Transactions.Amount)
+            column(TransAmount; prPeriod_Transactions.Amount)
             {
             }
-            column(GText;prPeriod_Transactions."Group Text")
+            column(GText; prPeriod_Transactions."Group Text")
             {
             }
-            column(GOrder;prPeriod_Transactions."Group Order")
+            column(GOrder; prPeriod_Transactions."Group Order")
             {
             }
-            column(SubGrp;prPeriod_Transactions."Sub Group Order")
+            column(SubGrp; prPeriod_Transactions."Sub Group Order")
             {
             }
 
             trigger OnAfterGetRecord()
             begin
-                
+
                 Clear(rows);
                 Clear(rows2);
                 //prPeriod_Transactions.RESET;
                 //prPeriod_Transactions.SETRANGE("Payroll Period",SelectedPeriod);
                 //prPeriod_Transactions.SETFILTER("Group Order",'=1|3|4|7|8|9|0');
                 //"prPeriod Transactions".SETFILTER("prPeriod Transactions"."Sub Group Order",'=2');
-                
+
                 //IF prPeriod_Transactions.FIND('-') THEN BEGIN
-                
+
                 //REPEAT
                 //BEGIN
-                if prPeriod_Transactions.Amount>0 then begin
-                if ((prPeriod_Transactions."Group Order"=4) and (prPeriod_Transactions."Sub Group Order"=0)) then
-                  GPY:=prPeriod_Transactions.Amount;
-                
-                //IF ((prPeriod_Transactions."Group Order"=7) AND
-                //((prPeriod_Transactions."Sub Group Order"=3) OR (prPeriod_Transactions."Sub Group Order"=1) OR
-                // (prPeriod_Transactions."Sub Group Order"=2)))  THEN
-                if ((prPeriod_Transactions."Group Text"='STATUTORIES')) then
-                  STAT:=prPeriod_Transactions.Amount;
-                
-                //IF ((prPeriod_Transactions."Group Order"=8) AND
-                //((prPeriod_Transactions."Sub Group Order"=1) OR (prPeriod_Transactions."Sub Group Order"=0))) THEN
-                if ((prPeriod_Transactions."Group Text"='DEDUCTIONS')) then
-                   DED:=prPeriod_Transactions.Amount;
-                
-                //IF ((prPeriod_Transactions."Group Order"=9) AND (prPeriod_Transactions."Sub Group Order"=0)) THEN
-                if ((prPeriod_Transactions."Transaction Code"='NPAY')) then
-                  NETS:=prPeriod_Transactions.Amount;
-                
+                if prPeriod_Transactions.Amount > 0 then begin
+                    if ((prPeriod_Transactions."Group Order" = 4) and (prPeriod_Transactions."Sub Group Order" = 0)) then
+                        GPY := prPeriod_Transactions.Amount;
+
+                    //IF ((prPeriod_Transactions."Group Order"=7) AND
+                    //((prPeriod_Transactions."Sub Group Order"=3) OR (prPeriod_Transactions."Sub Group Order"=1) OR
+                    // (prPeriod_Transactions."Sub Group Order"=2)))  THEN
+                    if ((prPeriod_Transactions."Group Text" = 'STATUTORIES')) then
+                        STAT := prPeriod_Transactions.Amount;
+
+                    //IF ((prPeriod_Transactions."Group Order"=8) AND
+                    //((prPeriod_Transactions."Sub Group Order"=1) OR (prPeriod_Transactions."Sub Group Order"=0))) THEN
+                    if ((prPeriod_Transactions."Group Text" = 'DEDUCTIONS')) then
+                        DED := prPeriod_Transactions.Amount;
+
+                    //IF ((prPeriod_Transactions."Group Order"=9) AND (prPeriod_Transactions."Sub Group Order"=0)) THEN
+                    if ((prPeriod_Transactions."Transaction Code" = 'NPAY')) then
+                        NETS := prPeriod_Transactions.Amount;
+
                 end;
-                
-                
+
+
                 /*
                     IF ((prPeriod_Transactions."Group Order"=1) OR
                     (prPeriod_Transactions."Group Order"=3) OR
@@ -170,9 +170,9 @@ report 50775 "Company Payslip Ext"
             trigger OnPreDataItem()
             begin
 
-                prPeriod_Transactions.SetFilter(prPeriod_Transactions."Payroll Period",'=%1',SelectedPeriod);
-                prPeriod_Transactions.SetFilter("Group Order",'=1|3|4|7|8|9|0');
-                prPeriod_Transactions.SetCurrentkey("Payroll Period","Group Order","Sub Group Order");
+                prPeriod_Transactions.SetFilter(prPeriod_Transactions."Payroll Period", '=%1', SelectedPeriod);
+                prPeriod_Transactions.SetFilter("Group Order", '=1|3|4|7|8|9|0');
+                prPeriod_Transactions.SetCurrentkey("Payroll Period", "Group Order", "Sub Group Order");
             end;
         }
     }
@@ -184,7 +184,7 @@ report 50775 "Company Payslip Ext"
         {
             area(content)
             {
-                field(periodfilter;PeriodFilter)
+                field(periodfilter; PeriodFilter)
                 {
                     ApplicationArea = Basic;
                     Caption = 'Period Filter';
@@ -205,27 +205,26 @@ report 50775 "Company Payslip Ext"
     trigger OnInitReport()
     begin
         objPeriod.Reset;
-        objPeriod.SetRange(objPeriod.Closed,false);
+        objPeriod.SetRange(objPeriod.Closed, false);
         if objPeriod.Find('-') then;
-        PeriodFilter:=objPeriod."Date Opened";
+        PeriodFilter := objPeriod."Date Opened";
     end;
 
     trigger OnPreReport()
     begin
 
-        SelectedPeriod:=PeriodFilter;
+        SelectedPeriod := PeriodFilter;
         objPeriod.Reset;
-        objPeriod.SetRange(objPeriod."Date Opened",SelectedPeriod);
-        if objPeriod.Find('-') then
-        begin
-            PeriodName:=objPeriod."Period Name";
-          Clear(DetDate);
-        DetDate:=Format(objPeriod."Period Name");
+        objPeriod.SetRange(objPeriod."Date Opened", SelectedPeriod);
+        if objPeriod.Find('-') then begin
+            PeriodName := objPeriod."Period Name";
+            Clear(DetDate);
+            DetDate := Format(objPeriod."Period Name");
         end;
 
 
         if CompanyInfo.Get() then
-        CompanyInfo.CalcFields(CompanyInfo.Picture);
+            CompanyInfo.CalcFields(CompanyInfo.Picture);
         Clear(rows);
         Clear(GPY);
         Clear(STAT);

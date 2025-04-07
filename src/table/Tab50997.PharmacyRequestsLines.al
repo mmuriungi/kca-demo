@@ -6,10 +6,10 @@ table 50997 "Pharmacy Requests Lines"
     {
         field(1; "No."; Code[30])
         {
-            TableRelation = "Pharmacy Items"."No.";
+            TableRelation = Item."No.";
             trigger OnValidate()
             var
-                PharItem: Record "Pharmacy Items";
+                PharItem: Record Item;
             begin
                 PharItem.Reset();
                 PharItem.SetRange("No.", "No.");

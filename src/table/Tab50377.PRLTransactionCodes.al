@@ -161,7 +161,7 @@ table 50377 "PRL-Transaction Codes"
         }
         field(51; "Hsl Excluded"; Boolean)
         {
-           
+
         }
 
     }

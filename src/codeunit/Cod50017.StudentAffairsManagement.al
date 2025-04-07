@@ -88,6 +88,14 @@ codeunit 50017 "Student Affairs Management"
         exit(Leave."End Date");
     end;
 
+    procedure GetLeaveEndDate(Var Leave: Record "Student Leave"): Date
+    var
+    begin
+        Leave."End Date" := Leave."Start Date" + Leave."No of Days";
+        Leave."Return Date" := calculateReturnDate(Leave);
+        exit(Leave."End Date");
+    end;
+
     procedure calculateReturnDate(Var Leave: Record "Student Leave"): Date
     var
     begin

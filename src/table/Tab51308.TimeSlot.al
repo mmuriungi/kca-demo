@@ -9,10 +9,9 @@ table 51308 "Time Slot"
         {
             Caption = 'Code';
         }
-        field(2; "Day of Week"; Option)
+        field(2; "Day of Week"; enum "Day of Week")
         {
             Caption = 'Day of Week';
-            OptionMembers = Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday;
         }
         field(3; "Start Time"; Time)
         {

@@ -68,12 +68,15 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(13; "Total Courses"; Integer)
         {
             Caption = 'Total Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
+
         }
         field(14; "Total Units"; Decimal)
         {
             Caption = 'Total Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(15; "Admission Date"; Date)
         {
@@ -93,112 +96,146 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(18; "Total Marks"; Decimal)
         {
             Caption = 'Total Marks';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Total Score Decimal" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(19; "Total Weighted Marks"; Decimal)
         {
             Caption = 'Total Weighted Marks';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Weighted Total Score" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(20; "Normal Average"; Decimal)
         {
             Caption = 'Normal Average';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Average("ACA-SuppExam Class. Units"."Total Score Decimal" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
+
         }
         field(21; "Weighted Average"; Decimal)
         {
             Caption = 'Weighted Average';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Average("ACA-SuppExam Class. Units"."Weighted Total Score" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(22; "Total Failed Courses"; Integer)
         {
             Caption = 'Total Failed Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), Pass = FILTER(False), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(23; "Total Failed Units"; Decimal)
         {
             Caption = 'Total Failed Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), Pass = FILTER(False), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(24; "Failed Courses"; Integer)
         {
             Caption = 'Failed Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), Pass = FILTER(False)));
         }
         field(25; "Failed Units"; Decimal)
         {
             Caption = 'Failed Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), Pass = FILTER(False), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study")));
         }
         field(26; "Failed Cores"; Decimal)
         {
             Caption = 'Failed Cores';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), Pass = FILTER(False), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('CORE')));
+
         }
         field(27; "Failed Required"; Decimal)
         {
             Caption = 'Failed Required';
-            DataClassification = CustomerContent;
+            FieldClass = flowfield;
+            CalcFormula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), Pass = FILTER(False), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('REQUIRED')));
         }
         field(28; "Failed Electives"; Decimal)
         {
             Caption = 'Failed Electives';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), Pass = FILTER(False), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVES')));
         }
         field(29; "Total Cores Done"; Decimal)
         {
             Caption = 'Total Cores Done';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('CORE'), "Academic Year" = FIELD("Academic Year")));
         }
         field(30; "Total Cores Passed"; Integer)
         {
             Caption = 'Total Cores Passed';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), Pass = FILTER(True), "Unit Type" = FILTER('CORE')));
         }
         field(31; "Total Required Done"; Integer)
         {
             Caption = 'Total Required Done';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('REQUIRED')));
+            Editable = false;
+
         }
         field(32; "Total Electives Done"; Integer)
         {
             Caption = 'Total Electives Done';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE')));
+            Editable = false;
+
         }
         field(33; "Tota Electives Passed"; Integer)
         {
             Caption = 'Tota Electives Passed';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), Pass = FILTER(True), "Unit Type" = FILTER('ELECTIVE')));
+            Editable = false;
         }
         field(34; "Classified Electives C. Count"; Integer)
         {
             Caption = 'Classified Electives C. Count';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE'), "Allow In Graduate" = FILTER(True)));
+            Editable = false;
         }
         field(35; "Classified Electives Units"; Decimal)
         {
             Caption = 'Classified Electives Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE'), "Allow In Graduate" = FILTER(True)));
+            Editable = false;
         }
         field(36; "Total Classified C. Count"; Integer)
         {
             Caption = 'Total Classified C. Count';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), Pass = FILTER(True)));
+            Editable = false;
         }
         field(37; "Total Classified Units"; Decimal)
         {
             Caption = 'Total Classified Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), Pass = FILTER(True)));
+            Editable = false;
         }
         field(38; "Classified Total Marks"; Decimal)
         {
             Caption = 'Classified Total Marks';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Sum("ACA-SuppExam Class. Units"."Total Score Decimal" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), Pass = FILTER(True)));
+            Editable = false;
         }
         field(39; "Classified W. Total"; Decimal)
         {
             Caption = 'Classified W. Total';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Weighted Total Score" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), Pass = FILTER(True)));
         }
         field(40; "Classified Average"; Decimal)
         {
@@ -238,7 +275,8 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(48; "Total Required Passed"; Integer)
         {
             Caption = 'Total Required Passed';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), Pass = FILTER(True), "Unit Type" = FILTER('REQUIRED')));
         }
         field(49; "Year of Study"; Integer)
         {
@@ -253,7 +291,8 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(51; "Attained Stage Units"; Decimal)
         {
             Caption = 'Attained Stage Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True)));
         }
         field(52; "Units Deficit"; Decimal)
         {
@@ -273,13 +312,14 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(55; "Programme Option"; Code[20])
         {
             Caption = 'Programme Option';
-            DataClassification = CustomerContent;
+            tablerelation = "ACA-Programme Options".Code WHERE("Programme Code" = FIELD(Programme));
         }
         field(57; "Results Exists Status"; Option)
         {
             Caption = 'Results Exists Status';
             DataClassification = CustomerContent;
-            OptionMembers = " ";
+            OptionMembers = " ","None Exists","CAT Only","Exam Only","Both Exists";
+            OptionCaption = ' ,None Exists,CAT Only,Exam Only,Both Exists';
         }
         field(58; "No. of Resits"; Integer)
         {
@@ -354,7 +394,8 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(72; "Total Failed Core Units"; Decimal)
         {
             Caption = 'Total Failed Core Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), Pass = FILTER(False), "Unit Type" = FILTER('CORE'), "Academic Year" = FIELD("Academic Year")));
         }
         field(73; "Reporting Academic Year"; Code[20])
         {
@@ -369,18 +410,22 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(75; "Prog. Category"; Option)
         {
             Caption = 'Prog. Category';
-            DataClassification = CustomerContent;
-            OptionMembers = " ";
+            fieldclass = flowfield;
+            CalcFormula = Lookup("ACA-Programme".Category WHERE(Code = FIELD(Programme)));
+            Editable = false;
+            OptionMembers = " ",Certificate,Diploma,Undergraduate,Postgraduate,Professional,"Course List";
         }
         field(76; "Prog. Option Name"; Text[150])
         {
             Caption = 'Prog. Option Name';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Programme Options".Desription WHERE("Programme Code" = FIELD(Programme), Code = FIELD("Programme Option")));
         }
         field(77; "Resit Exists"; Boolean)
         {
             Caption = 'Resit Exists';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Student Units" WHERE("Processed Marks" = FILTER(True), Passed = FILTER(false), "Reg. Reversed" = FILTER(false), "Student No." = FIELD("Student Number")));
         }
         field(78; "Cumm. Resit Serial"; Integer)
         {
@@ -390,32 +435,36 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(79; "Programme Name"; Text[150])
         {
             Caption = 'Programme Name';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Lookup("ACA-Programme".Description WHERE(Code = FIELD(Programme)));
         }
         field(80; "Required Core Courses"; Integer)
         {
             Caption = 'Required Core Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Count("ACA-Units/Subjects" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('CORE')));
         }
         field(81; "Required Core Units"; Decimal)
         {
             Caption = 'Required Core Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-Units/Subjects"."Credit Hours" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('CORE')));
         }
         field(82; "Attained Core Courses"; Integer)
         {
             Caption = 'Attained Core Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), "Unit Type" = FILTER('CORE')));
         }
         field(83; "Attained Core Units"; Decimal)
         {
             Caption = 'Attained Core Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), "Unit Type" = FILTER('CORE')));
         }
         field(84; "Deficit Core Courses"; Integer)
         {
             Caption = 'Deficit Core Courses';
-            DataClassification = CustomerContent;
         }
         field(85; "Deficit Core Units"; Decimal)
         {
@@ -425,52 +474,66 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(86; "Required Required Courses"; Integer)
         {
             Caption = 'Required Required Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Count("ACA-Units/Subjects" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('REQUIRED')));
+            Editable = false;
         }
         field(87; "Required Required Units"; Decimal)
         {
             Caption = 'Required Required Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Sum("ACA-Units/Subjects"."Credit Hours" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('REQUIRED')));
+            Editable = false;
         }
         field(88; "Attained Required Courses"; Integer)
         {
             Caption = 'Attained Required Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), "Unit Type" = FILTER('REQUIRED')));
+            Editable = false;
         }
         field(89; "Attained Required Units"; Decimal)
         {
             Caption = 'Attained Required Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), "Unit Type" = FILTER('REQUIRED')));
+            Editable = false;
         }
         field(90; "Deficit Required Courses"; Integer)
         {
             Caption = 'Deficit Required Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), "Unit Type" = FILTER('REQUIRED')));
         }
         field(91; "Deficit Required Units"; Decimal)
         {
             Caption = 'Deficit Required Units';
-            DataClassification = CustomerContent;
         }
         field(92; "Required Electives Courses"; Integer)
         {
             Caption = 'Required Electives Courses';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Count("ACA-Units/Subjects" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE')));
+            Editable = false;
         }
         field(93; "Required Electives Units"; Decimal)
         {
             Caption = 'Required Electives Units';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            CalcFormula = Sum("ACA-Units/Subjects"."Credit Hours" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE')));
+            Editable = false;
         }
         field(94; "Attained Electives Courses"; Integer)
         {
             Caption = 'Attained Electives Courses';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), "Unit Type" = FILTER('ELECTIVE' | 'ELECTIVES')));
         }
         field(95; "Attained Electives Units"; Decimal)
         {
             Caption = 'Attained Electives Units';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(True), "Unit Type" = FILTER('ELECTIVE' | 'ELECTIVES')));
         }
         field(96; "Deficit Electives Courses"; Integer)
         {
@@ -500,128 +563,164 @@ table 50052 "ACA-SuppExam. Co. Reg."
         field(101; "Missed CAT"; Boolean)
         {
             Caption = 'Missed CAT';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Results Exists Status" = FILTER("Exam Only")));
+            Editable = false;
         }
         field(102; "Missed Exam"; Boolean)
         {
             Caption = 'Missed Exam';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Results Exists Status" = FILTER("CAT Only")));
+            Editable = false;
         }
         field(103; "Missed Both CAT & Exam"; Boolean)
         {
             Caption = 'Missed Both CAT & Exam';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Results Exists Status" = FILTER("None Exists")));
+            Editable = false;
         }
         field(104; "Grade"; Code[20])
         {
             Caption = 'Grade';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Lookup("ACA-Final Grade Source".Grade WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam category"), "Total Score" = FIELD("Normal Average"), "Missing CAT" = FIELD("Missed CAT"), "Missing Exam" = FIELD("Missed Exam"), "Missed Both CAT & Exam" = FIELD("Missed Both CAT & Exam"), Grade = FILTER(<> '^')));
+            Editable = false;
         }
         field(105; "Remarks"; Text[100])
         {
             Caption = 'Remarks';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Lookup("ACA-Final Grade Source".Remarks WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam category"), "Total Score" = FIELD("Normal Average"), "Missing CAT" = FIELD("Missed CAT"), "Missing Exam" = FIELD("Missed Exam"), "Missed Both CAT & Exam" = FIELD("Missed Both CAT & Exam"), Grade = FILTER(<> '^')));
+            Editable = false;
         }
         field(106; "Override Remarks"; Boolean)
         {
             Caption = 'Override Remarks';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Lookup("ACA-Final Grade Source"."Override Transcript Comments" WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam category"), "Total Score" = FIELD("Normal Average"), "Missing CAT" = FIELD("Missed CAT"), "Missing Exam" = FIELD("Missed Exam"), "Missed Both CAT & Exam" = FIELD("Missed Both CAT & Exam"), Grade = FILTER(<> '^')));
+            Editable = false;
         }
         field(107; "Exam category"; Code[20])
         {
             Caption = 'Exam category';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Lookup("ACA-Programme"."Exam Category" WHERE(Code = FIELD(Programme)));
+            Editable = false;
         }
         field(108; "Average"; Decimal)
         {
             Caption = 'Average';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Average("ACA-SuppExam Class. Units"."Total Score Decimal" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year")));
         }
         field(109; "Supp Exists"; Boolean)
         {
             Caption = 'Supp Exists';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Supp. Unit" = FILTER(True), "Academic Year" = FIELD("Academic Year")));
         }
         field(110; "Total Courses Passed"; Integer)
         {
             Caption = 'Total Courses Passed';
-            DataClassification = CustomerContent;
+            fieldclass = flowfield;
+            calcformula = Count("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), Pass = FILTER(True)));
         }
         field(111; "Total Units Passed"; Decimal)
         {
             Caption = 'Total Units Passed';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Sum("ACA-SuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), Pass = FILTER(True)));
+            Editable = false;
         }
         field(112; "Exists DTSC Prefix"; Boolean)
         {
             Caption = 'Exists DTSC Prefix';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Results Exists Status" = FILTER("None Exists" | "Exam Only" | "CAT Only")));
+            Editable = false;
         }
         field(113; "Graduation Academic Year"; Code[20])
         {
             Caption = 'Graduation Academic Year';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Lookup("ACA-Classification Course Reg."."Graduation Academic Year" WHERE("Student Number" = FIELD("Student Number"), Programme = FIELD(Programme)));
+            Editable = false;
         }
         field(114; "Special Exists"; Boolean)
         {
             Caption = 'Special Exists';
-            DataClassification = CustomerContent;
+            fieldClass = flowfield;
+            calcformula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Special Unit" = FILTER(True), "Academic Year" = FIELD("Academic Year")));
         }
         field(115; "Exists a Failed Supp."; Boolean)
         {
             Caption = 'Exists a Failed Supp.';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Supp. Unit" = FILTER(True), "Academic Year" = FIELD("Academic Year"), Pass = FILTER(False)));
+
         }
         field(116; "Exists a Failed Special"; Boolean)
         {
             Caption = 'Exists a Failed Special';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Special Unit" = FILTER(True), "Academic Year" = FIELD("Academic Year"), Pass = FILTER(False)));
         }
         field(117; "Supp. Registration Exists"; Boolean)
         {
             Caption = 'Supp. Registration Exists';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Is Supp. Unit" = FILTER(True)));
         }
         field(121; "Supp/Special Exists"; Boolean)
         {
             Caption = 'Supp/Special Exists';
-            DataClassification = CustomerContent;
+            FieldClass = flowfield;
+            Calcformula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Supp. Unit" = FILTER(True), "Academic Year" = FIELD("Academic Year")));
         }
         field(123; "Allow View of Results"; Boolean)
         {
             Caption = 'Allow View of Results';
-            DataClassification = CustomerContent;
+            FieldClass = flowfield;
+            CalcFormula = Lookup("ACA-Academic Year"."Release Results" WHERE(Code = FIELD("Academic Year")));
         }
         field(124; "Special Registration Exists"; Boolean)
         {
             Caption = 'Special Registration Exists';
-            DataClassification = CustomerContent;
+            FieldClass = flowfield;
+            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Is Special Unit" = FILTER(True)));
         }
         field(125; "Academic Year Exclude Comp."; Boolean)
         {
             Caption = 'Academic Year Exclude Comp.';
-            DataClassification = CustomerContent;
+            FieldClass = flowfield;
+            CalcFormula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student Number"), "Academic Year" = FIELD("Academic Year"), "Academic Year Exclude Comp." = FILTER(True)));
         }
         field(126; "Supp or Special Exists"; Boolean)
         {
             Caption = 'Supp or Special Exists';
-            DataClassification = CustomerContent;
+            FieldClass = flowfield;
+            CalcFormula = Exist("ACA-SuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Supp/Special" = FILTER(True), "Academic Year" = FIELD("Academic Year")));
         }
         field(127; "Defined Units (Flow)"; Integer)
         {
             Caption = 'Defined Units (Flow)';
-            DataClassification = CustomerContent;
+            FieldClass = FlowField;
+            CalcFormula = Sum("ACA-Defined Units per YoS"."Number of Units" WHERE(programmes = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), Options = FIELD("Programme Option"), "Academic Year" = FIELD("Academic Year")));
         }
         field(63032; "Special Programme Class"; Option)
         {
             Caption = 'Special Programme Class';
-            DataClassification = CustomerContent;
             OptionMembers = " ";
+            FieldClass = flowfield;
+            CalcFormula = Lookup("ACA-Programme"."Special Programme Class" WHERE(Code = FIELD(Programme)));
         }
         field(63033; "Skip Supplementary Generation"; Boolean)
         {
             Caption = 'Skip Supplementary Generation';
-            DataClassification = CustomerContent;
+            FieldClass = Flowfield;
+            CalcFormula = Lookup("ACA-Supp. Results Status"."Skip Supp Generation" WHERE(Code = FIELD(Classification), "Academic Year" = FIELD("Academic Year"), "Special Programme Class" = FIELD("Special Programme Class")));
         }
     }
 
@@ -632,4 +731,4 @@ table 50052 "ACA-SuppExam. Co. Reg."
             Clustered = true;
         }
     }
-} 
+}

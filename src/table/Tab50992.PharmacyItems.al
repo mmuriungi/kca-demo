@@ -2,6 +2,8 @@ table 50992 "Pharmacy Items"
 {
     DrillDownPageId = "Pharmacy Items";
     LookupPageId = "Pharmacy Items";
+    ObsoleteState = Removed;
+    ObsoleteReason = 'Uses base Item table';
     fields
     {
         field(1; "No."; Code[30])

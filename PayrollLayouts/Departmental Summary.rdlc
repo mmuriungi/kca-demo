@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>MSRB</am:Name>
+      <am:Version>15.0.20283.0</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>MSRB</am:Name>
+      <am:Version>15.0.20283.0</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2025-02-26T07:13:26.4722544Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -28,13 +39,13 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value EvaluationMode="Auto">Date:  </Value>
+                                <Value>Date:  </Value>
                                 <Style>
                                   <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                               <TextRun>
-                                <Value EvaluationMode="Auto">=Fields!DateToday.Value</Value>
+                                <Value>=Fields!DateToday.Value</Value>
                                 <Style>
                                   <Format>MM/dd/yyyy</Format>
                                 </Style>
@@ -67,13 +78,13 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value EvaluationMode="Auto">Time:  </Value>
+                                <Value>Time:  </Value>
                                 <Style>
                                   <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                               <TextRun>
-                                <Value EvaluationMode="Auto">=Fields!PrintTime.Value</Value>
+                                <Value>=Fields!PrintTime.Value</Value>
                                 <Style>
                                   <Format>H:mm:ss</Format>
                                 </Style>
@@ -106,13 +117,13 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value EvaluationMode="Auto"> By:  </Value>
+                                <Value> By:  </Value>
                                 <Style>
                                   <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                               <TextRun>
-                                <Value EvaluationMode="Auto">=Fields!UserId.Value</Value>
+                                <Value>=Fields!UserId.Value</Value>
                                 <Style />
                               </TextRun>
                             </TextRuns>
@@ -143,7 +154,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value EvaluationMode="Auto">Departments</Value>
+                                <Value>Departments</Value>
                                 <Style>
                                   <FontSize>8pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
@@ -190,7 +201,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -228,7 +239,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TransAmount.Value</Value>
+                                  <Value>=Fields!TransAmount.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>n2</Format>
@@ -266,7 +277,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=SUM(Fields!TransAmount.Value)</Value>
+                                  <Value>=SUM(Fields!TransAmount.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Format>n2</Format>
@@ -305,7 +316,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TransName.Value</Value>
+                                  <Value>=Fields!TransName.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -365,7 +376,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=SUM(Fields!TransAmount.Value)</Value>
+                                  <Value>=SUM(Fields!TransAmount.Value)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -408,7 +419,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value EvaluationMode="Auto" />
+                                <Value />
                                 <Style>
                                   <FontSize>8pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
@@ -444,7 +455,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value EvaluationMode="Auto" />
+                                    <Value />
                                     <Style>
                                       <FontSize>8pt</FontSize>
                                       <FontWeight>Bold</FontWeight>
@@ -480,7 +491,7 @@
                                   <Paragraph>
                                     <TextRuns>
                                       <TextRun>
-                                        <Value EvaluationMode="Auto" />
+                                        <Value />
                                         <Style>
                                           <FontSize>8pt</FontSize>
                                           <FontWeight>Bold</FontWeight>
@@ -529,7 +540,7 @@
                                       <Paragraph>
                                         <TextRuns>
                                           <TextRun>
-                                            <Value EvaluationMode="Auto">=Fields!TransName.Value</Value>
+                                            <Value>=Fields!TransName.Value</Value>
                                             <Style>
                                               <FontSize>8pt</FontSize>
                                               <FontWeight>Bold</FontWeight>
@@ -608,7 +619,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value EvaluationMode="Auto">=Fields!DeptName.Value</Value>
+                                    <Value>=Fields!DeptName.Value</Value>
                                     <Style />
                                   </TextRun>
                                 </TextRuns>
@@ -676,7 +687,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value EvaluationMode="Auto">=Fields!empName.Value</Value>
+                                    <Value>=Fields!empName.Value</Value>
                                     <Style />
                                   </TextRun>
                                 </TextRuns>
@@ -732,25 +743,25 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value EvaluationMode="Auto">=Fields!DeptName.Value</Value>
+                                    <Value>=Fields!DeptName.Value</Value>
                                     <Style>
                                       <FontSize>8pt</FontSize>
                                     </Style>
                                   </TextRun>
                                   <TextRun>
-                                    <Value EvaluationMode="Auto"> (</Value>
+                                    <Value> (</Value>
                                     <Style>
                                       <FontSize>8pt</FontSize>
                                     </Style>
                                   </TextRun>
                                   <TextRun>
-                                    <Value EvaluationMode="Auto">=Fields!DeptCodes.Value</Value>
+                                    <Value>=Fields!DeptCodes.Value</Value>
                                     <Style>
                                       <FontSize>8pt</FontSize>
                                     </Style>
                                   </TextRun>
                                   <TextRun>
-                                    <Value EvaluationMode="Auto">)</Value>
+                                    <Value>)</Value>
                                     <Style>
                                       <FontSize>8pt</FontSize>
                                     </Style>
@@ -811,7 +822,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value EvaluationMode="Auto" />
+                                <Value />
                                 <Style>
                                   <FontSize>8pt</FontSize>
                                   <FontWeight>Bold</FontWeight>
@@ -869,7 +880,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value EvaluationMode="Auto">Total:  </Value>
+                                <Value>Total:  </Value>
                                 <Style>
                                   <FontWeight>Bold</FontWeight>
                                 </Style>
@@ -933,8 +944,6 @@
             <Value>=First(Fields!pic.Value, "DataSet_Result")</Value>
             <MIMEType>image/jpeg</MIMEType>
             <Sizing>Fit</Sizing>
-            <Top>0cm</Top>
-            <Left>0cm</Left>
             <Height>2.64681cm</Height>
             <Width>2.97384cm</Width>
             <ZIndex>1</ZIndex>
@@ -951,7 +960,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">P.O. Box 1957-10101,</Value>
+                    <Value>P.O. Box 1957-10101,</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                     </Style>
@@ -964,7 +973,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>2.8232cm</Top>
-            <Left>0cm</Left>
             <Height>0.45889cm</Height>
             <Width>18.97934cm</Width>
             <ZIndex>2</ZIndex>
@@ -986,7 +994,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">karatina kenya</Value>
+                    <Value>karatina kenya</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                     </Style>
@@ -999,7 +1007,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>3.1939cm</Top>
-            <Left>0cm</Left>
             <Height>0.53826cm</Height>
             <Width>18.97934cm</Width>
             <ZIndex>3</ZIndex>
@@ -1020,7 +1027,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Email: info@karatina.ac.ke</Value>
+                    <Value>Email: info@karatina.ac.ke</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                     </Style>
@@ -1033,7 +1040,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>3.55577cm</Top>
-            <Left>0cm</Left>
             <Height>0.52944cm</Height>
             <Width>18.97935cm</Width>
             <ZIndex>4</ZIndex>
@@ -1055,14 +1061,14 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Departmental </Value>
+                    <Value>Departmental </Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <TextDecoration>Underline</TextDecoration>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value EvaluationMode="Auto">=Fields!periods.Value</Value>
+                    <Value>=Fields!periods.Value</Value>
                     <Style>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -1070,7 +1076,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value EvaluationMode="Auto"> - Detailed</Value>
+                    <Value> - Detailed</Value>
                     <Style>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -1085,7 +1091,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>4.22632cm</Top>
-            <Left>0cm</Left>
             <Height>0.52944cm</Height>
             <Width>18.97935cm</Width>
             <ZIndex>5</ZIndex>
@@ -1106,6 +1111,12 @@
       </Body>
       <Width>7.47219in</Width>
       <Page>
+        <PageHeight>10in</PageHeight>
+        <PageWidth>120in</PageWidth>
+        <LeftMargin>0in</LeftMargin>
+        <RightMargin>0in</RightMargin>
+        <TopMargin>0in</TopMargin>
+        <BottomMargin>0in</BottomMargin>
         <Style />
       </Page>
     </ReportSection>

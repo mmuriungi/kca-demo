@@ -466,6 +466,32 @@ page 51449 "HMS-Hospital Role Centre"
                 }
 
             }
+            group("Items Disposal")
+            {
+                Caption = 'Items Disposal';
+                action("Items Disposal List")
+                {
+                    ApplicationArea = All;
+                    Image = ApplyTemplate;
+                    RunObject = Page "Item Disposal List";
+                    RunPageView = where(Status = filter(Open | "Pending Approval"));
+
+                }
+                action("Approved Disposal")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Approved Disposal';
+                    RunObject = Page "Item Disposal List";
+                    RunPageView = where(Status = filter(Approved));
+                }
+                action("Rejected Disposal")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Rejected Disposal';
+                    RunObject = Page "Item Disposal List";
+                    RunPageView = where(Status = filter(rejected));
+                }
+            }
             group("Medical Claims")
             {
                 Caption = 'Medical Claims';

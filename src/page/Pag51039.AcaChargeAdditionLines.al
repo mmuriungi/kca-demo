@@ -70,7 +70,7 @@ page 51039 "Aca-Charge Addition Lines"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Reg. Transacton ID field.';
                 }
-            } 
+            }
         }
     }
 
@@ -90,18 +90,18 @@ page 51039 "Aca-Charge Addition Lines"
                 end;
             }
             action(Import)
-                {
-                    Caption = 'Import Student Charges';
-                    Image = ExportFile;
-                    Promoted = true;
-                    PromotedCategory = Process;
+            {
+                Caption = 'Import Student Charges';
+                Image = ExportFile;
+                Promoted = true;
+                PromotedCategory = Process;
 
-                    trigger OnAction()
-                    begin
-                        if Confirm('Import Student Charges', true) = false then exit;
-                        Xmlport.Run(XmlPort::"Import Charge Additions", false, true);
-                    end;
-                }
+                trigger OnAction()
+                begin
+                    if Confirm('Import Student Charges', true) = false then exit;
+                    Xmlport.Run(XmlPort::"Import Charge Additions", false, true);
+                end;
+            }
         }
     }
 }

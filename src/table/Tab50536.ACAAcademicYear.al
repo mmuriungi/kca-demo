@@ -86,6 +86,10 @@ table 50536 "ACA-Academic Year"
         field(22; "Current Supplementary Year"; Boolean)
         {
         }
+        //"Release Results"
+        field(23; "Release Results"; Boolean)
+        {
+        }
     }
 
     keys

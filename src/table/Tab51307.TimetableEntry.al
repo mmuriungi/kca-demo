@@ -70,12 +70,20 @@ table 51307 "Timetable Entry"
         field(14; "Type"; Option)
         {
             Caption = 'Type';
-            OptionMembers = Class,Exam;
+            OptionMembers = Class,Exam,Theory,Practical,Online;
         }
         //Date
         field(15; "Date"; Date)
         {
             Caption = 'Date';
+        }
+        field(16; "Group No"; Integer)
+        {
+            Caption = 'Group No';
+        }
+        field(17; "Session Type"; Enum "Session Type")
+        {
+            Caption = 'Session Type';
         }
     }
 

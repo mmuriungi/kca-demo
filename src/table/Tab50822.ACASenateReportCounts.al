@@ -59,4 +59,4 @@ table 50065 "ACA-Senate Report Counts"
             Clustered = true;
         }
     }
-} 
+}

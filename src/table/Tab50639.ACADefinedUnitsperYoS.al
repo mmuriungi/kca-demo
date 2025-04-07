@@ -16,6 +16,11 @@ table 50639 "ACA-Defined Units per YoS"
         {
             TableRelation = "ACA-Programme Options".Code WHERE("Programme Code" = FIELD(Programmes));
         }
+        //aca
+        field(40; "Academic Year"; Code[20])
+        {
+            TableRelation = "ACA-Academic Year";
+        }
     }
 
     keys

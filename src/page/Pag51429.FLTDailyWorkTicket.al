@@ -39,10 +39,7 @@ page 51429 "FLT-Daily Work Ticket"
                     ApplicationArea = All;
                 }
 
-                field(Ministry; Rec.Ministry)
-                {
-                    ApplicationArea = All;
-                }
+        
                 field(Department; Rec.Department)
                 {
                     ApplicationArea = All;
@@ -112,7 +109,7 @@ page 51429 "FLT-Daily Work Ticket"
 
     actions
     {
-        area(creation)
+        area(Processing)
         {
             action(WorkTicket)
             {
@@ -139,5 +136,6 @@ page 51429 "FLT-Daily Work Ticket"
 
     var
         ticket: Record "FLT-Daily Work Ticket Header";
+
 }
 

@@ -113,18 +113,18 @@ codeunit 50029 prPayrollProcessing
                 imprest.setfilter("Surrender Status", '%1|%2', Imprest."Surrender Status"::" ", Imprest."Surrender Status"::partial);
                 Imprest.SetFilter("Expected Date of Surrender", '<%1', dtOpenPeriod);
                 if Imprest.findset() then begin
-                   i := 1;
-                   repeat
-                     ImpLine.Reset();
-                     ImpLine.SetRange(No, Imprest."No.");
-                   if ImpLine.FindSet() then begin
-                      repeat
-                         imprestAmount[i] := ImpLine."Amount";
-                         ImprestAcc[i] := impline."Account No:";
-                          ImprestDoc[i] := Imprest."No.";
-                        i += 1;
-                     until ImpLine.Next() = 0;
-                      end;
+                    i := 1;
+                    repeat
+                        ImpLine.Reset();
+                        ImpLine.SetRange(No, Imprest."No.");
+                        if ImpLine.FindSet() then begin
+                            repeat
+                                imprestAmount[i] := ImpLine."Amount";
+                                ImprestAcc[i] := impline."Account No:";
+                                ImprestDoc[i] := Imprest."No.";
+                                i += 1;
+                            until ImpLine.Next() = 0;
+                        end;
                     until Imprest.Next() = 0;
                 end;
             end;
@@ -2594,7 +2594,7 @@ codeunit 50029 prPayrollProcessing
 
         prEmployeeP9Info.Init;
         prEmployeeP9Info."Employee Code" := P9EmployeeCode;
-       // prEmployeeP9Info."Account Number" := P9BankAccount;
+        // prEmployeeP9Info."Account Number" := P9BankAccount;
         prEmployeeP9Info."Basic Pay" := P9BasicPay;
         prEmployeeP9Info.Allowances := P9Allowances;
         prEmployeeP9Info.Benefits := P9Benefits;

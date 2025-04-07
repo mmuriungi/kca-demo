@@ -200,6 +200,10 @@ page 50842 "ACA-Programmes"
                 {
                     ApplicationArea = All;
                 }
+                field("Timetable Category"; Rec."Timetable Category")
+                {
+                    ApplicationArea = All;
+                }
             }
             field("Program Requirement"; Rec."Program Requirement")
             {

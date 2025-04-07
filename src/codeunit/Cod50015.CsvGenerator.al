@@ -163,49 +163,49 @@ codeunit 50015 "Csv Generator"
                 col := fields.IndexOf(field);
                 fieldref := RecRef.Field(field);
                 fieldValue := GetExcelCellValue(ExcelBuffer, RowNo, col);
-                    if field = KeyIndex then
-                        fieldValue := KeyCode;
-                    case
-                        fieldref.Type of
-                        fieldref.type::Integer:
-                            begin
-                                Evaluate(intvalue, fieldValue);
-                                fieldref.Validate(intvalue);
-                            end;
-                        // fieldref.Type::Option:
-                        //     begin
-                        //         if fieldref.Caption = 'Question Type' then
-                        //             fieldref.Validate(QuizType.Ordinals.Get(QuizType.Names.IndexOf(fieldValue)))
-                        //         else
-                        //             if fieldref.Caption = 'Question Category' then
-                        //                 fieldref.Validate(QuizCate.Ordinals.Get(QuizCate.Names.IndexOf(fieldValue)));
-                        //     end;
-                        fieldref.Type::Boolean:
-                            begin
-                                Evaluate(boolValue, fieldValue);
-                                fieldref.Validate(boolValue);
-                            end;
-                        fieldref.Type::Date:
-                            begin
-                                Evaluate(DateValue, fieldValue);
-                                fieldref.Validate(DateValue);
-                            end;
-                        fieldref.Type::Decimal:
-                            begin
-                                Evaluate(DecimalValue, fieldValue);
-                                fieldref.Validate(DecimalValue);
-                            end;
-                        else begin
-                            fieldValue := DelChr(fieldValue, '<>', '"');
-                            fieldref.Validate(fieldValue);
-
+                if field = KeyIndex then
+                    fieldValue := KeyCode;
+                case
+                    fieldref.Type of
+                    fieldref.type::Integer:
+                        begin
+                            Evaluate(intvalue, fieldValue);
+                            fieldref.Validate(intvalue);
                         end;
+                    // fieldref.Type::Option:
+                    //     begin
+                    //         if fieldref.Caption = 'Question Type' then
+                    //             fieldref.Validate(QuizType.Ordinals.Get(QuizType.Names.IndexOf(fieldValue)))
+                    //         else
+                    //             if fieldref.Caption = 'Question Category' then
+                    //                 fieldref.Validate(QuizCate.Ordinals.Get(QuizCate.Names.IndexOf(fieldValue)));
+                    //     end;
+                    fieldref.Type::Boolean:
+                        begin
+                            Evaluate(boolValue, fieldValue);
+                            fieldref.Validate(boolValue);
+                        end;
+                    fieldref.Type::Date:
+                        begin
+                            Evaluate(DateValue, fieldValue);
+                            fieldref.Validate(DateValue);
+                        end;
+                    fieldref.Type::Decimal:
+                        begin
+                            Evaluate(DecimalValue, fieldValue);
+                            fieldref.Validate(DecimalValue);
+                        end;
+                    else begin
+                        fieldValue := DelChr(fieldValue, '<>', '"');
+                        fieldref.Validate(fieldValue);
+
                     end;
                 end;
             end;
-                if not RecRef.Modify(true) then
-                    RecRef.Insert(true);
         end;
+        if not RecRef.Modify(true) then
+            RecRef.Insert(true);
+    end;
 
     // procedure getQuizEnumByCName(EnumName: Text): Enum "Question Answer Type"
     // var

@@ -4,7 +4,7 @@ page 50053 "Exam Time Slot Card"
     ApplicationArea = All;
     UsageCategory = None;
     SourceTable = "Exam Time Slot";
-    
+
     layout
     {
         area(Content)

@@ -8,7 +8,7 @@ table 52178556 "Vendor Categories"
 
     fields
     {
-        
+
         field(1; "Code"; Code[50])
         {
             Caption = 'Category Code';
@@ -39,7 +39,7 @@ table 52178556 "Vendor Categories"
     }
     keys
     {
-        key(PK; "Code","Preq Year")
+        key(PK; "Code", "Preq Year")
         {
             Clustered = true;
         }

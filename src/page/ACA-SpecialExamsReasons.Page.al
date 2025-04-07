@@ -10,12 +10,12 @@ Page 78023 "ACA-Special Exams Reasons"
         {
             repeater(Group)
             {
-                field("Reason Code";Rec."Reason Code")
+                field("Reason Code"; Rec."Reason Code")
                 {
                     ApplicationArea = Basic;
                     Editable = true;
                 }
-                field(Description;Rec.Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = Basic;
                     Editable = true;

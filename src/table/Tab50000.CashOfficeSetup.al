@@ -267,10 +267,11 @@ table 50000 "Cash Office Setup"
             TableRelation = "No. Series".code;
 
         }
-
-
-
-
+        //Max Unsurrenderd Imprest
+        field(50065; "Max Unsurrendered Imprest"; Integer)
+        {
+            InitValue = 1;
+        }
     }
 
     keys

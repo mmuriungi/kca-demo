@@ -8,57 +8,57 @@ report 50053 "Staff Provident Report"
     {
         dataitem("PRL-Period Transactions"; "PRL-Period Transactions")
         {
-            DataItemTableView = where("Transaction Code"=filter('BPAY'|'GPAY'|'NPAY'|592|118));
+            DataItemTableView = where("Transaction Code" = filter('BPAY' | 'GPAY' | 'NPAY' | 592 | 118));
             RequestFilterFields = "Employee Code";
             column(ReportForNavId_6207; 6207)
             {
             }
-            column(USERID;UserId)
+            column(USERID; UserId)
             {
             }
-            column(TODAY;Today)
+            column(TODAY; Today)
             {
             }
-            column(PeriodName;PeriodName)
+            column(PeriodName; PeriodName)
             {
             }
-            column(CurrReport_PAGENO;CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo)
             {
             }
-            column(Companyinfo_Picture;Companyinfo.Picture)
+            column(Companyinfo_Picture; Companyinfo.Picture)
             {
             }
-            column(TransAmount;TransAmount)
+            column(TransAmount; TransAmount)
             {
             }
-            column(Transcode;Transcode)
+            column(Transcode; Transcode)
             {
             }
-            column(TransIndx;TransIndx)
+            column(TransIndx; TransIndx)
             {
             }
-            column(EmployeeName;EmployeeName)
+            column(EmployeeName; EmployeeName)
             {
             }
-            column(Gender;Format(objEmp.Gender))
+            column(Gender; Format(objEmp.Gender))
             {
             }
-            column(Date;Dates)
+            column(Date; Dates)
             {
             }
-            column(empcode;"PRL-Period Transactions"."Employee Code")
+            column(empcode; "PRL-Period Transactions"."Employee Code")
             {
             }
-            column(SelectedPeriod;SelectedPeriod)
+            column(SelectedPeriod; SelectedPeriod)
             {
             }
 
             trigger OnAfterGetRecord()
             begin
                 PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'592');
+                PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                PeriodTrans.SetRange(PeriodTrans."Transaction Code", '592');
                 if not PeriodTrans.Find('-') then CurrReport.Skip;
 
                 Clear(EmployeeName);
@@ -71,89 +71,84 @@ report 50053 "Staff Provident Report"
                 Clear(TransIndx);
 
                 objEmp.Reset;
-                objEmp.SetRange(objEmp."No.","PRL-Period Transactions"."Employee Code");
+                objEmp.SetRange(objEmp."No.", "PRL-Period Transactions"."Employee Code");
                 if objEmp.Find('-') then
-                  EmployeeName:=objEmp."First Name"+' '+objEmp."Middle Name"+' '+objEmp."Last Name";
-                Gender:=objEmp.Gender;
-                if objEmp."Date Of Birth"<>0D then
-                Dates:=objEmp."Date Of Birth";
+                    EmployeeName := objEmp."First Name" + ' ' + objEmp."Middle Name" + ' ' + objEmp."Last Name";
+                Gender := objEmp.Gender;
+                if objEmp."Date Of Birth" <> 0D then
+                    Dates := objEmp."Date Of Birth";
 
-                if "PRL-Period Transactions"."Transaction Code"='BPAY' then begin
-                  TransAmount:="PRL-Period Transactions".Amount;
-                  Transcode:='BASIC';
-                  TransIndx:=1;
-                  end else if  "PRL-Period Transactions"."Transaction Code"='592' then begin
-                  TransAmount:="PRL-Period Transactions".Amount;
-                  Transcode:='SELF CONT.';
-                  TransIndx:=2;
-                  end else if  "PRL-Period Transactions"."Transaction Code"='NPAY' then begin
-                //Get the Basic pay
-                BasicPay:=0;
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetFilter(PeriodTrans."Transaction Code",'BPAY');
-                if PeriodTrans.Find('-') then
-                    begin
-                       BasicPay:=PeriodTrans.Amount;
+                if "PRL-Period Transactions"."Transaction Code" = 'BPAY' then begin
+                    TransAmount := "PRL-Period Transactions".Amount;
+                    Transcode := 'BASIC';
+                    TransIndx := 1;
+                end else if "PRL-Period Transactions"."Transaction Code" = '592' then begin
+                    TransAmount := "PRL-Period Transactions".Amount;
+                    Transcode := 'SELF CONT.';
+                    TransIndx := 2;
+                end else if "PRL-Period Transactions"."Transaction Code" = 'NPAY' then begin
+                    //Get the Basic pay
+                    BasicPay := 0;
+                    PeriodTrans.Reset;
+                    PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                    PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                    PeriodTrans.SetFilter(PeriodTrans."Transaction Code", 'BPAY');
+                    if PeriodTrans.Find('-') then begin
+                        BasicPay := PeriodTrans.Amount;
                     end;
                     //Arreas
-                    salArreas:=0;
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'118');
-                if PeriodTrans.Find('-') then
-                    begin
-                       salArreas:=PeriodTrans.Amount;
+                    salArreas := 0;
+                    PeriodTrans.Reset;
+                    PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                    PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                    PeriodTrans.SetRange(PeriodTrans."Transaction Code", '118');
+                    if PeriodTrans.Find('-') then begin
+                        salArreas := PeriodTrans.Amount;
                     end;
-                  //TransAmount:=(((salArreas+BasicPay)*(0.1))-400);
-                  TransAmount:=(((salArreas+BasicPay)*(0.1)));
-                  Transcode:='COMP. CONT';
-                  TransIndx:=3;
-                  end else if  "PRL-Period Transactions"."Transaction Code"='GPAY' then begin
+                    //TransAmount:=(((salArreas+BasicPay)*(0.1))-400);
+                    TransAmount := (((salArreas + BasicPay) * (0.1)));
+                    Transcode := 'COMP. CONT';
+                    TransIndx := 3;
+                end else if "PRL-Period Transactions"."Transaction Code" = 'GPAY' then begin
                     //Get the Basic pay
-                BasicPay:=0;
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetFilter(PeriodTrans."Transaction Code",'BPAY');
-                if PeriodTrans.Find('-') then
-                    begin
-                       BasicPay:=PeriodTrans.Amount;
+                    BasicPay := 0;
+                    PeriodTrans.Reset;
+                    PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                    PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                    PeriodTrans.SetFilter(PeriodTrans."Transaction Code", 'BPAY');
+                    if PeriodTrans.Find('-') then begin
+                        BasicPay := PeriodTrans.Amount;
                     end;
                     // SelfCont
-                    SelfContrib:=0;
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'592');
-                if PeriodTrans.Find('-') then
-                    begin
-                       SelfContrib:=PeriodTrans.Amount;
+                    SelfContrib := 0;
+                    PeriodTrans.Reset;
+                    PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                    PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                    PeriodTrans.SetRange(PeriodTrans."Transaction Code", '592');
+                    if PeriodTrans.Find('-') then begin
+                        SelfContrib := PeriodTrans.Amount;
                     end;
                     //Arreas
-                    salArreas:=0;
-                PeriodTrans.Reset;
-                PeriodTrans.SetRange(PeriodTrans."Employee Code","Employee Code");
-                PeriodTrans.SetRange(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SetRange(PeriodTrans."Transaction Code",'118');
-                if PeriodTrans.Find('-') then
-                    begin
-                       salArreas:=PeriodTrans.Amount;
+                    salArreas := 0;
+                    PeriodTrans.Reset;
+                    PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
+                    PeriodTrans.SetRange(PeriodTrans."Payroll Period", SelectedPeriod);
+                    PeriodTrans.SetRange(PeriodTrans."Transaction Code", '118');
+                    if PeriodTrans.Find('-') then begin
+                        salArreas := PeriodTrans.Amount;
                     end;
-                  //TransAmount:=((((salArreas+BasicPay)*(0.1))-400)+SelfContrib);
-                   TransAmount:=((((salArreas+BasicPay)*(0.1)))+SelfContrib);
-                  Transcode:='CUMM. CONT.';
-                  TransIndx:=4;
-                  end;
+                    //TransAmount:=((((salArreas+BasicPay)*(0.1))-400)+SelfContrib);
+                    TransAmount := ((((salArreas + BasicPay) * (0.1))) + SelfContrib);
+                    Transcode := 'CUMM. CONT.';
+                    TransIndx := 4;
+                end;
             end;
 
             trigger OnPreDataItem()
             begin
-                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period",'=%1',SelectedPeriod);
+                "PRL-Period Transactions".SetFilter("PRL-Period Transactions"."Payroll Period", '=%1', SelectedPeriod);
                 if "PRL-Period Transactions".Find('-') then begin
-                  end;
+                end;
             end;
         }
     }
@@ -165,7 +160,7 @@ report 50053 "Staff Provident Report"
         {
             area(content)
             {
-                field(PerFilter;SelectedPeriod)
+                field(PerFilter; SelectedPeriod)
                 {
                     ApplicationArea = Basic;
                     Caption = 'Period Filter';
@@ -186,22 +181,22 @@ report 50053 "Staff Provident Report"
     trigger OnInitReport()
     begin
         objPeriod.Reset;
-        objPeriod.SetRange(Closed,false);
+        objPeriod.SetRange(Closed, false);
         if objPeriod.Find('+') then begin
-          SelectedPeriod:=objPeriod."Date Opened";
-          end;
+            SelectedPeriod := objPeriod."Date Opened";
+        end;
     end;
 
     trigger OnPreReport()
     begin
 
-        if SelectedPeriod=0D then Error('You must specify the period filter');
+        if SelectedPeriod = 0D then Error('You must specify the period filter');
 
         objPeriod.Reset;
-        if objPeriod.Get(SelectedPeriod) then PeriodName:=objPeriod."Period Name";
+        if objPeriod.Get(SelectedPeriod) then PeriodName := objPeriod."Period Name";
 
         if Companyinfo.Get() then
-        Companyinfo.CalcFields(Companyinfo.Picture);
+            Companyinfo.CalcFields(Companyinfo.Picture);
     end;
 
     var

@@ -95,6 +95,9 @@ table 50216 "HRM-Employee Kin"
         field(50000; "No."; Code[10])
         {
         }
+        field(50001; "E-mail"; Text[100])
+        {
+        }
     }
 
     keys

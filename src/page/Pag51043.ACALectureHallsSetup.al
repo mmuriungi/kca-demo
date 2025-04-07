@@ -19,6 +19,15 @@ page 51043 "ACA-LectureHalls Setup"
                 {
                     ApplicationArea = All;
                 }
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = All;
+                }
+                field("Hall Category"; Rec."Hall Category")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Sitting Capacity"; Rec."Sitting Capacity")
                 {
                     ApplicationArea = All;
@@ -28,6 +37,10 @@ page 51043 "ACA-LectureHalls Setup"
                     ApplicationArea = All;
                 }
                 field("Building Code"; Rec."Building Code")
+                {
+                    ApplicationArea = All;
+                }
+                field(Floor;Rec.Floor)
                 {
                     ApplicationArea = All;
                 }

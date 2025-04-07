@@ -180,11 +180,11 @@ report 50278 "All Students"
             }
             column(Email; Cust."E-Mail")
             {
-                
+
             }
             column(ShowEmail; ShowEmail)
             {
-                
+
             }
 
             trigger OnAfterGetRecord()

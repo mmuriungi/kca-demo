@@ -6,211 +6,211 @@ Report 69270 "Lecturer Course Loading"
 
     dataset
     {
-        dataitem("Lect Load Batch Lines";"Lect Load Batch Lines")
+        dataitem("Lect Load Batch Lines"; "Lect Load Batch Lines")
         {
             PrintOnlyIfDetail = true;
-            RequestFilterFields = "Semester Code","Lecturer Code";
+            RequestFilterFields = "Semester Code", "Lecturer Code";
             column(ReportForNavId_1000000000; 1000000000)
             {
             }
-            column(CompName;CompanyInformation.Name)
+            column(CompName; CompanyInformation.Name)
             {
             }
-            column(CompPhones;CompanyInformation."Phone No."+'\'+CompanyInformation."Phone No. 2")
+            column(CompPhones; CompanyInformation."Phone No." + '\' + CompanyInformation."Phone No. 2")
             {
             }
-            column(CompMails;CompanyInformation."Home Page"+'\'+CompanyInformation."E-Mail")
+            column(CompMails; CompanyInformation."Home Page" + '\' + CompanyInformation."E-Mail")
             {
             }
-            column(CompAddresses;CompanyInformation.Address+'\'+CompanyInformation."Address 2"+' - '+CompanyInformation.City)
+            column(CompAddresses; CompanyInformation.Address + '\' + CompanyInformation."Address 2" + ' - ' + CompanyInformation.City)
             {
             }
-            column(EmpNames;HRMEmployeeC."First Name"+' '+HRMEmployeeC."Middle Name"+' '+HRMEmployeeC."Last Name")
+            column(EmpNames; HRMEmployeeC."First Name" + ' ' + HRMEmployeeC."Middle Name" + ' ' + HRMEmployeeC."Last Name")
             {
             }
-            column(Salutations;Format(HRMEmployeeC.Title))
+            column(Salutations; Format(HRMEmployeeC.Title))
             {
             }
-            column(SemesterDesc;ACASemester.Description)
+            column(SemesterDesc; ACASemester.Description)
             {
             }
-            column(Lname;HRMEmployeeC."Last Name")
+            column(Lname; HRMEmployeeC."Last Name")
             {
             }
-            column(fName;HRMEmployeeC."First Name")
+            column(fName; HRMEmployeeC."First Name")
             {
             }
-            column(MName;HRMEmployeeC."Middle Name")
+            column(MName; HRMEmployeeC."Middle Name")
             {
             }
-            column(Amount;"Lect Load Batch Lines".Amount)
+            column(Amount; "Lect Load Batch Lines".Amount)
             {
             }
-            column(Rangedescription;"Lect Load Batch Lines"."Semester Range Descption")
+            column(Rangedescription; "Lect Load Batch Lines"."Semester Range Descption")
             {
             }
-            column(FacName;"Lect Load Batch Lines"."Faculty Name")
+            column(FacName; "Lect Load Batch Lines"."Faculty Name")
             {
             }
-            column(Semester;"Lect Load Batch Lines"."Semester Code")
+            column(Semester; "Lect Load Batch Lines"."Semester Code")
             {
             }
-            column(LectCode;"Lect Load Batch Lines"."Lecturer Code")
+            column(LectCode; "Lect Load Batch Lines"."Lecturer Code")
             {
             }
-            column(Approve;"Lect Load Batch Lines".Approve)
+            column(Approve; "Lect Load Batch Lines".Approve)
             {
             }
-            column(Reject;"Lect Load Batch Lines".Reject)
+            column(Reject; "Lect Load Batch Lines".Reject)
             {
             }
-            column(RejectReason;"Lect Load Batch Lines"."Reject Reason")
+            column(RejectReason; "Lect Load Batch Lines"."Reject Reason")
             {
             }
-            column(ClaimNo;"Lect Load Batch Lines"."Claim No.")
+            column(ClaimNo; "Lect Load Batch Lines"."Claim No.")
             {
             }
-            column(PVNo;"Lect Load Batch Lines"."PV No.")
+            column(PVNo; "Lect Load Batch Lines"."PV No.")
             {
             }
-            column(ClaimInitiatedBy;"Lect Load Batch Lines"."Claim Initiated By")
+            column(ClaimInitiatedBy; "Lect Load Batch Lines"."Claim Initiated By")
             {
             }
-            column(PVCreatedDate;"Lect Load Batch Lines"."PV Created Date")
+            column(PVCreatedDate; "Lect Load Batch Lines"."PV Created Date")
             {
             }
-            column(RejectBy;"Lect Load Batch Lines"."Rejected By")
+            column(RejectBy; "Lect Load Batch Lines"."Rejected By")
             {
             }
-            column(RejectDate;"Lect Load Batch Lines"."Rejected Time")
+            column(RejectDate; "Lect Load Batch Lines"."Rejected Time")
             {
             }
-            column(CreatedBy;"Lect Load Batch Lines"."Created By")
+            column(CreatedBy; "Lect Load Batch Lines"."Created By")
             {
             }
-            column(CreatedTime;"Lect Load Batch Lines"."Created Time")
+            column(CreatedTime; "Lect Load Batch Lines"."Created Time")
             {
             }
-            column(ClaimInitiatedDate;"Lect Load Batch Lines"."Claim Initiated Date")
+            column(ClaimInitiatedDate; "Lect Load Batch Lines"."Claim Initiated Date")
             {
             }
-            column(PVCreatedTime;"Lect Load Batch Lines"."PV Created Time")
+            column(PVCreatedTime; "Lect Load Batch Lines"."PV Created Time")
             {
             }
-            column(PVStatus;"Lect Load Batch Lines"."PV Status")
+            column(PVStatus; "Lect Load Batch Lines"."PV Status")
             {
             }
-            column(ClaimStatus;"Lect Load Batch Lines"."Claim Status")
+            column(ClaimStatus; "Lect Load Batch Lines"."Claim Status")
             {
             }
-            column(ClaimCurrApprover;"Lect Load Batch Lines"."Claim Current Approver")
+            column(ClaimCurrApprover; "Lect Load Batch Lines"."Claim Current Approver")
             {
             }
-            column(PVCurrentApprove;"Lect Load Batch Lines"."PV Current Approver")
+            column(PVCurrentApprove; "Lect Load Batch Lines"."PV Current Approver")
             {
             }
-            column(Faculty;"Lect Load Batch Lines".Faculty)
+            column(Faculty; "Lect Load Batch Lines".Faculty)
             {
             }
-            column(AppointRefNo;"Lect Load Batch Lines"."Appointment Later Ref. No.")
+            column(AppointRefNo; "Lect Load Batch Lines"."Appointment Later Ref. No.")
             {
             }
-            column(AppointRef;"Lect Load Batch Lines"."Appointment Later Ref.")
+            column(AppointRef; "Lect Load Batch Lines"."Appointment Later Ref.")
             {
             }
-            column(PhoneNo;"Lect Load Batch Lines".Phone)
+            column(PhoneNo; "Lect Load Batch Lines".Phone)
             {
             }
-            column(UnitsCount;"Lect Load Batch Lines"."Courses Count")
+            column(UnitsCount; "Lect Load Batch Lines"."Courses Count")
             {
             }
-            column(AppLetterRef;"Lect Load Batch Lines"."Appointment Later Ref. No.")
+            column(AppLetterRef; "Lect Load Batch Lines"."Appointment Later Ref. No.")
             {
             }
-            column(AppLetterRef2;"Lect Load Batch Lines"."Appointment Later Ref.")
+            column(AppLetterRef2; "Lect Load Batch Lines"."Appointment Later Ref.")
             {
             }
-            column(SemRangeDesc;"Lect Load Batch Lines"."Semester Range Descption")
+            column(SemRangeDesc; "Lect Load Batch Lines"."Semester Range Descption")
             {
             }
-            column(ApprovalName;"Lect Load Batch Lines"."Approval Name")
+            column(ApprovalName; "Lect Load Batch Lines"."Approval Name")
             {
             }
-            column(ApprovalTitle;"Lect Load Batch Lines"."Approval Title")
+            column(ApprovalTitle; "Lect Load Batch Lines"."Approval Title")
             {
             }
-            column(GroupingConcortion;"Lect Load Batch Lines"."Department Code"+"Lect Load Batch Lines".Campus+"Lect Load Batch Lines"."Semester Code")
+            column(GroupingConcortion; "Lect Load Batch Lines"."Department Code" + "Lect Load Batch Lines".Campus + "Lect Load Batch Lines"."Semester Code")
             {
             }
-            column(DeptCode;"Lect Load Batch Lines"."Department Code")
+            column(DeptCode; "Lect Load Batch Lines"."Department Code")
             {
             }
-            column(Campus;"Lect Load Batch Lines".Campus)
+            column(Campus; "Lect Load Batch Lines".Campus)
             {
             }
-            column(Department;"Lect Load Batch Lines"."Department Name")
+            column(Department; "Lect Load Batch Lines"."Department Name")
             {
             }
-            dataitem("ACA-Lecturers Units";"ACA-Lecturers Units")
+            dataitem("ACA-Lecturers Units"; "ACA-Lecturers Units")
             {
-                DataItemLink = Lecturer=field("Lecturer Code"),Semester=field("Semester Code");
-                RequestFilterFields = Programme,Stage,Semester;
+                DataItemLink = Lecturer = field("Lecturer Code"), Semester = field("Semester Code");
+                RequestFilterFields = Programme, Stage, Semester;
                 column(ReportForNavId_1000000032; 1000000032)
                 {
                 }
-                column(UnitStage;"ACA-Lecturers Units".Stage)
+                column(UnitStage; "ACA-Lecturers Units".Stage)
                 {
                 }
-                column(UnitProg;"ACA-Lecturers Units".Programme)
+                column(UnitProg; "ACA-Lecturers Units".Programme)
                 {
                 }
-                column(UnitCode;"ACA-Lecturers Units".Unit)
+                column(UnitCode; "ACA-Lecturers Units".Unit)
                 {
                 }
-                column(Lect;"ACA-Lecturers Units".Lecturer)
+                column(Lect; "ACA-Lecturers Units".Lecturer)
                 {
                 }
-                column(UnitDesc;"ACA-Lecturers Units".Description)
+                column(UnitDesc; "ACA-Lecturers Units".Description)
                 {
                 }
-                column(UnitCost;"ACA-Lecturers Units"."Unit Cost")
+                column(UnitCost; "ACA-Lecturers Units"."Unit Cost")
                 {
                 }
-                column(MarksSubmitted;"ACA-Lecturers Units"."Marks Submitted")
+                column(MarksSubmitted; "ACA-Lecturers Units"."Marks Submitted")
                 {
                 }
-                column(AngagementTerms;"ACA-Lecturers Units"."Engagement Terms")
+                column(AngagementTerms; "ACA-Lecturers Units"."Engagement Terms")
                 {
                 }
-                column(ExamsSubmitted;"ACA-Lecturers Units"."Exams Submitted")
+                column(ExamsSubmitted; "ACA-Lecturers Units"."Exams Submitted")
                 {
                 }
-                column(CatsSubmitted;"ACA-Lecturers Units"."CATs Submitted")
+                column(CatsSubmitted; "ACA-Lecturers Units"."CATs Submitted")
                 {
                 }
-                column(Approved;"ACA-Lecturers Units".Approved)
+                column(Approved; "ACA-Lecturers Units".Approved)
                 {
                 }
-                column(seq;seq)
+                column(seq; seq)
                 {
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-                    seq:=seq+1;
+                    seq := seq + 1;
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
                 HRMEmployeeC.Reset;
-                HRMEmployeeC.SetRange("No.","Lect Load Batch Lines"."Lecturer Code");
+                HRMEmployeeC.SetRange("No.", "Lect Load Batch Lines"."Lecturer Code");
                 if HRMEmployeeC.Find('-') then begin
-                  end;
+                end;
                 ACASemester.Reset;
-                ACASemester.SetRange(Code,"Lect Load Batch Lines"."Semester Code");
+                ACASemester.SetRange(Code, "Lect Load Batch Lines"."Semester Code");
                 if ACASemester.Find('-') then
-                  ACASemester.Validate(ACASemester.Description);
+                    ACASemester.Validate(ACASemester.Description);
                 Clear(seq);
             end;
         }
@@ -236,7 +236,7 @@ Report 69270 "Lecturer Course Loading"
     begin
         CompanyInformation.Reset;
         if CompanyInformation.Find('-') then begin
-          end;
+        end;
     end;
 
     var

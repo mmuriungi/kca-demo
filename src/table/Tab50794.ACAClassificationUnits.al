@@ -105,6 +105,15 @@ table 50794 "ACA-Classification Units"
                                                                         "Required Stage Units" = FILTER(> 0)));
             FieldClass = FlowField;
         }
+        //"Credit Hours"
+        field(58; "Credit Hours"; Decimal)
+        {
+
+        }
+        //"Allow In Graduate 222"
+        field(59; "Allow In Graduate 222"; Boolean)
+        {
+        }
     }
 
     keys
