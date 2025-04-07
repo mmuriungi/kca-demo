@@ -27,6 +27,12 @@ table 50170 "Guest Registration"
         field(7; "Is Staff"; Boolean)
         {
         }
+        field(8; "ID No"; Code[20])
+        {
+        }
+        field(9; "Phone No"; Code[20])
+        {
+        }
     }
 
     keys
