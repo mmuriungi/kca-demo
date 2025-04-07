@@ -57,6 +57,8 @@ table 50054 "ACA-2ndSuppExam Class. Units"
         field(11; "Pass"; Boolean)
         {
             Caption = 'Pass';
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Exam Grading Source".Pass WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam Category"), "Total Score" = FIELD("Total Score Decimal"), "Results Exists Status" = FIELD("Results Exists Status")));
         }
         field(12; "Course Cat. Presidence"; Integer)
         {
@@ -89,6 +91,8 @@ table 50054 "ACA-2ndSuppExam Class. Units"
         field(18; "Grade"; Code[20])
         {
             Caption = 'Grade';
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Exam Grading Source".Grade WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam Category"), "Total Score" = FIELD("Total Score Decimal"), "Results Exists Status" = FIELD("Results Exists Status")));
         }
         field(19; "Academic Year"; Code[20])
         {
