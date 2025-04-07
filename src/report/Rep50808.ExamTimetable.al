@@ -212,14 +212,14 @@ report 50808 "Exam Timetable"
         end;
     }
 
-    rendering
-    {
-        layout(ClassTimetableLayout)
-        {
-            Type = RDLC;
-            LayoutFile = './Layouts/ClassTimetableReport.rdlc';
-        }
-    }
+    // rendering
+    // {
+    //     layout(ClassTimetableLayout)
+    //     {
+    //         Type = RDLC;
+    //         LayoutFile = './Layouts/ClassTimetableReport.rdlc';
+    //     }
+    // }
 
 
 
