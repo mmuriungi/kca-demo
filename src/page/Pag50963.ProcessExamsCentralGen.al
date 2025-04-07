@@ -3595,7 +3595,6 @@ page 50963 "Process Exams Central Gen."
                 Specialdetaisl.RESET;
                 Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
                 Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                Specialdetaisl.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                 Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
                 Specialdetaisl.SetFilter("EXAMs Marks",'>%1',0);
                 IF Specialdetaisl.FINDFIRST THEN BEGIN
@@ -3658,7 +3657,6 @@ page 50963 "Process Exams Central Gen."
                 Specialdetaisl.RESET;
                 Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
                 Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                Specialdetaisl.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                 Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
                 Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
                 IF Specialdetaisl.FINDFIRST THEN BEGIN
@@ -4980,7 +4978,6 @@ page 50963 "Process Exams Central Gen."
                 Specialdetaisl.RESET;
                 Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
                 Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                Specialdetaisl.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                 Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
                 Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
                 IF Specialdetaisl.FINDFIRST THEN BEGIN
@@ -5023,7 +5020,6 @@ page 50963 "Process Exams Central Gen."
                 Specialdetaisl.RESET;
                 Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
                 Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                Specialdetaisl.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                 Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
                 Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
                 IF Specialdetaisl.FINDFIRST THEN BEGIN
@@ -5060,7 +5056,6 @@ page 50963 "Process Exams Central Gen."
                 Specialdetaisl.RESET;
                 Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
                 Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                Specialdetaisl.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                 Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
                 Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
                 IF Specialdetaisl.FINDFIRST THEN BEGIN
@@ -6055,7 +6050,6 @@ page 50963 "Process Exams Central Gen."
                 Specialdetaisl.RESET;
                 Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
                 Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                Specialdetaisl.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                 Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
                 Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
                 IF Specialdetaisl.FINDFIRST THEN BEGIN
@@ -6081,7 +6075,6 @@ page 50963 "Process Exams Central Gen."
                 Specialdetaisl.RESET;
                 Specialdetaisl.SETRANGE("Student No.", CoursesRegz."Student Number");
                 Specialdetaisl.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                Specialdetaisl.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                 Specialdetaisl.SETRANGE(Category, Specialdetaisl.Category::Special);
                 Specialdetaisl.SetFilter("EXAMs Marks", '>%1', 0);
                 IF Specialdetaisl.FINDFIRST THEN BEGIN
