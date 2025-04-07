@@ -11122,6 +11122,7 @@ Codeunit 61106 webportals
         if Guest.FindSet() then begin
             repeat
                 Clear(JObj);
+                JObj.Add('EntryNo', Guest."Entry No.");
                 JObj.Add('Name', Guest."Visitor Name");
                 JObj.Add('IDNo', Guest."ID No");
                 JObj.Add('PhoneNo', Guest."Phone No");
