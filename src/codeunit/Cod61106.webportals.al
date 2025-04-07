@@ -10747,7 +10747,7 @@ Codeunit 61106 webportals
                     exit(true);
             end;
         end;
-        
+
     end;
 
     procedure GetSubmittedOpening(StaffNo: Code[25]): Boolean
@@ -10792,6 +10792,63 @@ Codeunit 61106 webportals
         Committee.SetAutoCalcFields(Status);
         Committee.SETRANGE(Committee.Status, Committee.Status::Released);
         if Committee.FindSet() then;
+    end;
+    #endregion
+    #region Guest Registration
+    procedure RegisterGuest(name: Text; reason: Text; idno: Code[20]; phoneno: Code[20]; vehicleregno: Code[20]; timein: DateTime; timeout: DateTime; isStaff: Boolean) msg: boolean
+    var
+        Guest: Record "Guest Registration";
+    begin
+        Guest.Init;
+        Guest."Visitor Name" := name;
+        Guest."Reason for Visit" := reason;
+        Guest."Vehicle Plate Number" := vehicleregno;
+        Guest."Time In" := timein;
+        Guest."Time Out" := timeout;
+        Guest."Is Staff" := isStaff;
+        Guest."ID No" := idno;
+        Guest."Phone No" := phoneno;
+        Guest.Insert();
+        msg := true;
+    end;
+
+    procedure GetTodayGuests() msg: Text
+    var
+        Guest: Record "Guest Registration";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        Guest.Reset();
+        Guest.SETFILTER("Time In", '>%1', CreateDateTime(Today, 000000T));
+        if Guest.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('Name', Guest."Visitor Name");
+                JObj.Add('IDNo', Guest."ID No");
+                JObj.Add('PhoneNo', Guest."Phone No");
+                JObj.Add('VehicleRegNo', Guest."Vehicle Plate Number");
+                JObj.Add('TimeIn', Guest."Time In");
+                JObj.Add('TimeOut', Guest."Time Out");
+                JObj.Add('Reason', Guest."Reason for Visit");
+                JArray.Add(JObj);
+            until Guest.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        Message(JsTxt);
+    end;
+
+    procedure MarkGuestTimeOut(entryNo: Integer; timeout: DateTime) msg: Boolean
+    var
+        Guest: Record "Guest Registration";
+    begin
+        Guest.Reset;
+        Guest.SetRange("Entry No.", entryNo);
+        if Guest.Find('-') then begin
+            Guest."Time Out" := timeout;
+            Guest.Modify;
+            msg := true;
+        end;
     end;
     #endregion
 
