@@ -11093,7 +11093,7 @@ Codeunit 61106 webportals
     end;
     #endregion
     #region Guest Registration
-    procedure RegisterGuest(name: Text; reason: Text; idno: Code[20]; phoneno: Code[20]; vehicleregno: Code[20]; timein: DateTime; timeout: DateTime; isStaff: Boolean) msg: boolean
+    procedure RegisterGuest(name: Text; reason: Text; idno: Code[20]; phoneno: Code[20]; vehicleregno: Code[20]; timein: DateTime; isStaff: Boolean) msg: boolean
     var
         Guest: Record "Guest Registration";
     begin
@@ -11102,7 +11102,6 @@ Codeunit 61106 webportals
         Guest."Reason for Visit" := reason;
         Guest."Vehicle Plate Number" := vehicleregno;
         Guest."Time In" := timein;
-        Guest."Time Out" := timeout;
         Guest."Is Staff" := isStaff;
         Guest."ID No" := idno;
         Guest."Phone No" := phoneno;
@@ -11130,6 +11129,7 @@ Codeunit 61106 webportals
                 JObj.Add('TimeIn', Guest."Time In");
                 JObj.Add('TimeOut', Guest."Time Out");
                 JObj.Add('Reason', Guest."Reason for Visit");
+                JObj.Add('IsStaff', FORMAT(Guest."Reason for Visit"));
                 JArray.Add(JObj);
             until Guest.Next() = 0;
         end;
