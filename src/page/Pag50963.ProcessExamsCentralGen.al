@@ -78,6 +78,7 @@ page 50963 "Process Exams Central Gen."
                 PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
+                visible = false;
 
                 trigger OnAction()
                 var
