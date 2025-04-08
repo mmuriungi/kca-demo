@@ -29,8 +29,10 @@ codeunit 50481 "Koha Handler"
         firstname: Text;
         middlename: Text;
         surname: Text;
+        KohaSetup: Record "Koha Setup";
     begin
         Clear(NullDate);
+        KohaSetup.Get();
         ParseFullName(Cust.Name, firstname, middlename, surname);
         JObject.Add('surname', surname);
         JObject.Add('address', Cust.Address);
@@ -104,9 +106,9 @@ codeunit 50481 "Koha Handler"
         JObject.Add('login_attempts', '10');
         JObject.Add('overdrive_auth_token', '');
         JObject.WriteTo(payload);
-        KohaBaseURL := 'http://41.89.116.22:8080/api/v1';
-        KohaUsername := 'admin';
-        KohaPassword := 'K0ha@Buc';
+        KohaBaseURL := KohaSetup."Base Url";
+        KohaUsername := KohaSetup.Username;
+        KohaPassword := KohaSetup.Password;
         Response := RestHandler.CallService(KohaBaseURL + '/patrons', ReqEnum::post, payload, KohaUsername, KohaPassword, '');
         JsonObject.ReadFrom(Response);
         if JsonObject.Get('userid', UserId) or (JsonObject.Get('patron_id', PatronId)) then begin
@@ -147,14 +149,16 @@ codeunit 50481 "Koha Handler"
     var
         payload: Text;
         Response: Text;
+        KohaSetup: Record "Koha Setup";
     begin
+        KohaSetup.Get();
         payload := '{' +
                 '"password": "' + password + '"' +
                 '"password_2": "' + password + '"' +
             '}';
-        KohaBaseURL := 'http://41.89.116.22:8080/api/v1';
-        KohaUsername := 'admin';
-        KohaPassword := 'K0ha@Buc';
+        KohaBaseURL := KohaSetup."Base Url";
+        KohaUsername := KohaSetup.Username;
+        KohaPassword := KohaSetup.Password;
         Response := RestHandler.CallService(KohaBaseURL + '/patrons/' + patronId + '/password', ReqEnum::post, payload, KohaUsername, KohaPassword, '');
     end;
 
@@ -197,6 +201,7 @@ codeunit 50481 "Koha Handler"
         Response: Text;
         JObject: JsonObject;
         NullDate: Date;
+        KohaSetup: Record "Koha Setup";
         KohaBaseURL: Text;
         KohaUsername: Text;
         KohaPassword: Text;
@@ -206,6 +211,7 @@ codeunit 50481 "Koha Handler"
         surname: Text;
     begin
         Clear(NullDate);
+        KohaSetup.Get();
         ParseFullName(Emp.FullName(), firstname, middlename, surname);
         JObject.Add('surname', surname);
         JObject.Add('address', Emp."Postal Address");
@@ -286,9 +292,10 @@ codeunit 50481 "Koha Handler"
         JObject.Add('login_attempts', '10');
         JObject.Add('overdrive_auth_token', '');
         JObject.WriteTo(payload);
-        KohaBaseURL := 'http://41.89.116.22:8080/api/v1';
-        KohaUsername := 'admin';
-        KohaPassword := 'K0ha@Buc';
+        KohaSetup.Get();
+        KohaBaseURL := KohaSetup."Base Url";
+        KohaUsername := KohaSetup.Username;
+        KohaPassword := KohaSetup.Password;
         Response := RestHandler.CallService(KohaBaseURL + '/patrons', ReqEnum::post, payload, KohaUsername, KohaPassword, '');
         JsonObject.ReadFrom(Response);
         if JsonObject.Get('userid', UserId) or (JsonObject.Get('patron_id', PatronId)) then begin
