@@ -19,6 +19,11 @@ table 50831 "ACA-Exam Processing Filter Log"
         {
             DataClassification = ToBeClassified;
         }
+        //"Academic Year Code"
+        field(6; "Academic Year Code"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

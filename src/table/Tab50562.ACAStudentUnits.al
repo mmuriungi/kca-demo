@@ -1551,6 +1551,10 @@ table 50562 "ACA-Student Units"
             //FieldClass = FlowField;
 
         }
+        field(60198; "Exclude From Classification"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 

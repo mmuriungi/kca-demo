@@ -114,6 +114,10 @@ table 50794 "ACA-Classification Units"
         field(59; "Allow In Graduate 222"; Boolean)
         {
         }
+        //"School Code"
+        field(60; "School Code"; Code[50])
+        {
+        }
     }
 
     keys

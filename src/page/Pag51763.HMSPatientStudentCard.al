@@ -66,7 +66,7 @@ page 51763 "HMS Patient Student Card"
                     Editable = rec.IsPatientTypeOthers;
 
                 }
-                field("Telephone No. 1"; rec."Telephone No. 1")
+                field("Telephone No. 1"; Rec."Telephone No. 1")
                 {
                     ApplicationArea = all;
                 }
@@ -193,17 +193,17 @@ page 51763 "HMS Patient Student Card"
                 field("Emergency Consent Full Name"; Rec."Emergency Consent Full Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Next Of kin Phone NO:';
+                    Caption = 'Next Of kin Name';
                 }
                 field("Emergency contact email adress"; Rec."Emergency Consent Address 1")
                 {
                     ApplicationArea = All;
-                    Caption = 'Next Of kin  email adress';
+                    Caption = 'Next Of kin E-mail';
                 }
                 field("Contact Phone Number"; Rec."Emergency Consent Address 2")
                 {
                     ApplicationArea = All;
-                    Caption = 'Next Of kin Phone Name';
+                    Caption = 'Next Of kin Phone No.';
                 }
                 field("Emergency Consent Relationship"; rec."Emergency Consent Address 3")
                 {

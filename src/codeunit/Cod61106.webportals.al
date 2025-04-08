@@ -4282,12 +4282,10 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure VenueRequisitionCreate(Department: Code[20]; BookingDate: Date; MeetingDescription: Text[150]; RequiredTime: Time; Venue: Code[20]; ContactPerson: Text[50]; ContactNo: Text[50]; ContactMail: Text[30]; RequestedBy: Text; Pax: Integer)
+    procedure VenueRequisitionCreate(Department: Code[20]; BookingDate: Date; MeetingDescription: Text[150]; RequiredTime: Time; Venue: Code[20]; ContactPerson: Text[50]; ContactNo: Text[50]; ContactMail: Text[30]; RequestedBy: Text; Pax: Integer) Msg: Code[25]
     begin
 
-        VenueRequisition.Init;
-        NextMtoreqNo := NoSeriesMgt.GetNextNo('VB', 0D, true);
-        //MealRequisition.INIT;
+        VenueRequisition.INIT;
         VenueRequisition."Booking Id" := NextMtoreqNo;
         VenueRequisition.Department := Department;
         VenueRequisition."Request Date" := Today;
@@ -4299,13 +4297,15 @@ Codeunit 61106 webportals
         VenueRequisition."Contact Number" := ContactNo;
         VenueRequisition."Contact Mail" := ContactMail;
         VenueRequisition.Pax := Pax;
-        VenueRequisition.Status := VenueRequisition.Status::"Pending Approval";
+        VenueRequisition.Status := VenueRequisition.Status::New;
         //VenueRequisition."Department Name":=DepartmentName;
-        VenueRequisition."Requested By" := RequestedBy;
-        VenueRequisition."No. Series" := 'VB';
+        VenueRequisition."Staff No." := RequestedBy;
         //VenueRequisition."Booking Time":= ;
 
-        VenueRequisition.Insert;
+        if VenueRequisition.Insert(true) then begin
+            SendVenueApproval(VenueRequisition."Booking Id");
+            Msg := VenueRequisition."Booking Id";
+        end;
     end;
 
 
@@ -5035,17 +5035,36 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure SendVenueApproval(DocNumber: Code[20])
+    procedure SendVenueApproval(DocNumber: Code[20]) Msg: Boolean
     var
-    // ApprovalsMgtNotification: Codeunit UnknownCodeunit440;
-    // DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Venue Booking";
+        variant: Variant;
+        ApprovalMgt: Codeunit "Approval Workflows V1";
     begin
         VenueBooking.Reset;
         VenueBooking.SetRange(VenueBooking."Booking Id", DocNumber);
         if VenueBooking.Find('-') then begin
-            VenueBooking.Status := VenueBooking.Status::"Pending Approval";//TODO
-            VenueBooking.Modify;
-            //  ApprovalsMgtNotification.SendVenueApprovalMail(DocNumber, Format(Doctype::"Meals Bookings"), VenueBooking."Contact Mail", VenueBooking."Contact Person");
+            variant := VenueBooking;
+            if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then begin
+                ApprovalMgt.OnSendDocForApproval(variant);
+                Msg := true;
+            end;
+        end
+    end;
+
+    //Cancel Venue Booking
+    procedure CancelVenueBookingApproval(DocNumber: Code[20]) Msg: Boolean
+    var
+        variant: Variant;
+        ApprovalMgt: Codeunit "Approval Workflows V1";
+    begin
+        VenueBooking.Reset;
+        VenueBooking.SetRange(VenueBooking."Booking Id", DocNumber);
+        if VenueBooking.Find('-') then begin
+            variant := VenueBooking;
+            if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then begin
+                ApprovalMgt.OnCancelDocApprovalRequest(variant);
+                Msg := true;
+            end;
         end
     end;
 
@@ -11066,6 +11085,129 @@ Codeunit 61106 webportals
         Committee.Reset();
         Committee.SETRANGE(Committee."Staff No.", StaffNo);
         if Committee.FindSet() then;
+    end;
+    #endregion
+    #region Guest Registration
+    procedure RegisterGuest(name: Text; reason: Text; idno: Code[20]; phoneno: Code[20]; vehicleregno: Code[20]; timein: Time; isStaff: Boolean) msg: boolean
+    var
+        Guest: Record "Guest Registration";
+    begin
+        Guest.Init;
+        Guest."Visitor Name" := name;
+        Guest."Reason for Visit" := reason;
+        Guest."Vehicle Plate Number" := vehicleregno;
+        Guest."Time In" := timein;
+        Guest."Is Staff" := isStaff;
+        Guest."ID No" := idno;
+        Guest."Date" := Today;
+        Guest."Phone No" := phoneno;
+        Guest.Insert(true);
+        msg := true;
+    end;
+procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; timeout: Time; mileageout: integer; driver: Text; gateofficer: Text) msg: boolean
+    var
+        VehicleMovement: Record "Vehicle Daily Movement";
+    begin
+        VehicleMovement.Init;
+        VehicleMovement."Vehicle No." := vehicleno;
+        VehicleMovement.Destination := destination;
+        VehicleMovement."Time Out" := timeout;
+        VehicleMovement."Milage Out" := mileageout;
+        VehicleMovement."Drivers Name" := driver;
+        VehicleMovement."Gate Officer" := gateofficer;
+        VehicleMovement."Date Out" := Today;
+        VehicleMovement.Insert(true);
+        msg := true;
+    end;
+    procedure RegisterVehicleInMovement(entryno:integer;datein:Date;  timein: Time; milagein: integer) msg: boolean
+    var
+        VehicleMovement: Record "Vehicle Daily Movement";
+    begin
+        VehicleMovement.Reset;
+        VehicleMovement.SetRange("Entry No.", entryno);
+        if VehicleMovement.Find('-')then begin  
+            VehicleMovement."Date In" := datein;
+            VehicleMovement."Time In" := timein;
+            VehicleMovement."Milage In" := milagein;
+            VehicleMovement.Modify(true);
+            msg := true;
+        end;
+    end;
+    procedure GetTodayGuests() msg: Text
+    var
+        Guest: Record "Guest Registration";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        Guest.Reset();
+        Guest.SETRANGE("Date", Today);
+        if Guest.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('EntryNo', Guest."Entry No.");
+                JObj.Add('Name', Guest."Visitor Name");
+                JObj.Add('IDNo', Guest."ID No");
+                JObj.Add('PhoneNo', Guest."Phone No");
+                JObj.Add('VehicleRegNo', Guest."Vehicle Plate Number");
+                JObj.Add('TimeIn', Format(Guest."Time In"));
+                if Guest."Time Out" <> 0T then
+                    JObj.Add('TimeOut', Format(Guest."Time Out"))
+                else
+                    JObj.Add('TimeOut', '');
+                JObj.Add('Reason', Guest."Reason for Visit");
+                JObj.Add('IsStaff', FORMAT(Guest."Is Staff"));
+                JArray.Add(JObj);
+            until Guest.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        msg := JsTxt;
+    end;
+procedure GetVehicleMovemengt() msg: Text
+    var
+        VehicleMovement: Record "Vehicle Daily Movement";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        VehicleMovement.Reset();
+        if VehicleMovement.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('EntryNo', VehicleMovement."Entry No.");
+                JObj.Add('Driver', VehicleMovement."Drivers Name");
+                JObj.Add('Destination', VehicleMovement."Destination");
+                JObj.Add('MilageIn', VehicleMovement."Milage In");
+                JObj.Add('MilageOut', VehicleMovement."Milage Out");
+                JObj.Add('VehicleRegNo', VehicleMovement."Vehicle No.");
+                JObj.Add('GateOfficer', VehicleMovement."Gate Officer");
+                JObj.Add('TimeOut', Format(VehicleMovement."Time Out"));
+                JObj.Add('DateOut', Format(VehicleMovement."Date Out"));
+                if VehicleMovement."Time In" <> 0T then
+                    JObj.Add('TimeIn', Format(VehicleMovement."Time In"))
+                else
+                    JObj.Add('TimeIn', '');
+                if VehicleMovement."Date In" <> 0D then
+                    JObj.Add('DateIn', Format(VehicleMovement."Date In"))
+                else
+                    JObj.Add('DateIn', '');
+                JArray.Add(JObj);
+            until VehicleMovement.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        msg := JsTxt;
+    end;
+    procedure MarkGuestTimeOut(entryNo: Integer; timeout: Time) msg: Boolean
+    var
+        Guest: Record "Guest Registration";
+    begin
+        Guest.Reset;
+        Guest.SetRange("Entry No.", entryNo);
+        if Guest.Find('-') then begin
+            Guest."Time Out" := timeout;
+            Guest.Modify;
+            msg := true;
+        end;
     end;
     #endregion
 

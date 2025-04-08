@@ -32,6 +32,10 @@ page 50631 "HRM-Employees Kin"
                 {
                     ApplicationArea = all;
                 }
+                field("E-mail"; Rec."E-mail")
+                {
+                    ApplicationArea = all;
+                }
                 field("Date Of Birth"; Rec."Date Of Birth")
                 {
                     ApplicationArea = all;

@@ -10,7 +10,7 @@ table 51310 "Vehicle Daily Movement"
             Caption = 'Entry No.';
             AutoIncrement = true;
         }
-        field(2; "Date"; Date)
+        field(2; "Date Out"; Date)
         {
             Caption = 'Date';
         }
@@ -45,6 +45,10 @@ table 51310 "Vehicle Daily Movement"
         field(10; "Gate Officer"; Text[50])
         {
             Caption = 'Gate Officer';
+        }
+        field(11; "Date In"; Date)
+        {
+            Caption = 'Date In';
         }
     }
     keys

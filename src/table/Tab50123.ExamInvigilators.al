@@ -32,7 +32,7 @@ table 50123 "Exam Invigilators"
         field(7; "No."; Code[25])
         {
             Caption = 'No.';
-            TableRelation="HRM-Employee C" where(Lecturer=const(true));
+            TableRelation = "HRM-Employee C" where(Lecturer = const(true));
         }
         field(8; Name; Text[150])
         {
@@ -46,7 +46,7 @@ table 50123 "Exam Invigilators"
     }
     keys
     {
-        key(PK; Semester,Unit,"No.")
+        key(PK; Semester, Unit, "No.", Date,Hall)
         {
             Clustered = true;
         }

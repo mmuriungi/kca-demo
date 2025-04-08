@@ -19,7 +19,7 @@ page 50054 "Exam Timetable Entry"
                 {
                     ToolTip = 'Specifies the value of the Student Count field.', Comment = '%';
                 }
-                field("No. of Students";Rec."No. of Students")
+                field("No. of Students"; Rec."No. of Students")
                 {
                     ApplicationArea = All;
                 }
@@ -63,6 +63,17 @@ page 50054 "Exam Timetable Entry"
                 {
                     ApplicationArea = All;
                 }
+            }
+        }
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action("Invigilators")
+            {
+                RunObject = Page "Exam Invigilators";
+                RunPageLink = "Date" = field("Exam Date"), Semester = field(Semester), Unit = field("Unit Code"), Hall = field("Lecture Hall");
             }
         }
     }

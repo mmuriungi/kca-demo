@@ -78,6 +78,7 @@ page 50963 "Process Exams Central Gen."
                 PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
+                visible = false;
 
                 trigger OnAction()
                 var
@@ -2117,6 +2118,7 @@ page 50963 "Process Exams Central Gen."
                                 Coregcs.SETFILTER("Student No.", StudNos);
                             END ELSE BEGIN
                             END;
+                            //Coregcs.SetRange("Student No.", 'P100/2753G/22');
                             IF Coregcs.FIND('-') THEN BEGIN
                                 CLEAR(TotalRecs);
                                 CLEAR(RemeiningRecs);
@@ -3637,7 +3639,7 @@ page 50963 "Process Exams Central Gen."
                 END;
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //Check and Cater for Specials
-                
+
 
             END ELSE BEGIN
 
@@ -4949,7 +4951,6 @@ page 50963 "Process Exams Central Gen."
                     ObjUnits.RESET;
                     ObjUnits.SETRANGE("Student No.", CoursesRegz."Student Number");
                     ObjUnits.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                    ObjUnits.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                     ObjUnits.SETRANGE(ObjUnits."Special Exam", ObjUnits."Special Exam"::Special);
                     IF ObjUnits.FINDFIRST THEN
                         StatusRemarks := 'Special';
@@ -5009,7 +5010,6 @@ page 50963 "Process Exams Central Gen."
                     ObjUnits.RESET;
                     ObjUnits.SETRANGE("Student No.", CoursesRegz."Student Number");
                     ObjUnits.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                    ObjUnits.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                     ObjUnits.SETRANGE(ObjUnits."Special Exam", ObjUnits."Special Exam"::Special);
                     IF ObjUnits.FINDFIRST THEN
                         StatusRemarks := 'Special';
@@ -5992,7 +5992,6 @@ page 50963 "Process Exams Central Gen."
                     ObjUnits.RESET;
                     ObjUnits.SETRANGE("Student No.", CoursesRegz."Student Number");
                     ObjUnits.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                    ObjUnits.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                     ObjUnits.SETRANGE(ObjUnits."Special Exam", ObjUnits."Special Exam"::Special);
                     IF ObjUnits.FINDFIRST THEN
                         StatusRemarks := 'Special';
@@ -6007,7 +6006,6 @@ page 50963 "Process Exams Central Gen."
                     ObjUnits.RESET;
                     ObjUnits.SETRANGE("Student No.", CoursesRegz."Student Number");
                     ObjUnits.SETRANGE("Academic Year", CoursesRegz."Academic Year");
-                    ObjUnits.SETRANGE("Year Of Study", CoursesRegz."Year of Study");
                     ObjUnits.SETRANGE(ObjUnits."Special Exam", ObjUnits."Special Exam"::Special);
                     IF ObjUnits.FINDFIRST THEN
                         StatusRemarks := 'Special';

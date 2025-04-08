@@ -43,6 +43,7 @@ table 51122 "HMS-Patient"
             /* OptionCaption = ' ,Others,Student,Employee,Dependant';
             OptionMembers = " ",Others,Student,Employee,Dependant; */
             OptionMembers = " ",Employee,Student,"New Student",Others;
+            OptionCaption = '" ",Employee,Student,Others';
 
 
         }
@@ -168,7 +169,7 @@ table 51122 "HMS-Patient"
         }
         field(13; "Marital Status"; Option)
         {
-            OptionMembers = "",Single,Married,Separated,Divorced,"Widow(er)","Other";
+            OptionMembers = " ",Single,Married,Separated,Divorced,"Widow(er)","Other";
         }
         field(14; "ID Number"; Code[20])
         {
@@ -353,17 +354,17 @@ table 51122 "HMS-Patient"
         }
         field(64; "Emergency Consent Full Name"; Text[30])
         {
-            NotBlank = true;
-            Editable = false;
+            // NotBlank = true;
+            // Editable = false;
         }
         field(65; "Emergency Consent Address 1"; code[56])
         {
-            NotBlank = true;
-            Editable = false;
+            // NotBlank = true;
+            // Editable = false;
         }
         field(66; "Emergency Consent Address 2"; code[106])
         {
-            Editable = false;
+            // Editable = false;
         }
         field(67; "Emergency Consent Address 3"; Text[30])
         {
