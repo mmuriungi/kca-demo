@@ -10,7 +10,7 @@ page 50198 "Auditor(s)"
         {
             repeater(Group)
             {
-                field(Auditor; Auditor)
+                field(Auditor;rec. Auditor)
                 {
 
                     trigger OnValidate()
@@ -29,7 +29,7 @@ page 50198 "Auditor(s)"
                         END;
                     end;
                 }
-                field("Auditor Name"; "Auditor Name")
+                field("Auditor Name"; rec."Auditor Name")
                 {
                     Editable = false;
                 }

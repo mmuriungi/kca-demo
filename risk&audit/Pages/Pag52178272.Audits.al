@@ -9,16 +9,16 @@ page 50110 Audits
         {
             repeater(Group)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                 }
-                field(Description; Description)
+                field(Description;rec. Description)
                 {
                 }
-                field("Type of Audit"; "Type of Audit")
+                field("Type of Audit"; rec."Type of Audit")
                 {
                 }
-                field("Risk Assessment Rating"; "Risk Assessment Rating")
+                field("Risk Assessment Rating"; rec."Risk Assessment Rating")
                 {
                 }
             }

@@ -17,12 +17,12 @@ page 50217 "External Risks"
                     trigger OnValidate()
                     begin
 
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -30,33 +30,33 @@ page 50217 "External Risks"
                         END;
                     end;
                 }
-                field("Risk Likelihood"; "Risk Likelihood")
+                field("Risk Likelihood"; Rec."Risk Likelihood")
                 {
                 }
-                field("Risk Category"; "Risk Category")
+                field("Risk Category"; Rec."Risk Category")
                 {
                 }
-                field("Risk Category Description"; "Risk Category Description")
+                field("Risk Category Description"; Rec."Risk Category Description")
                 {
                 }
-                field("Risk Rating"; Rating2)
+                field("Risk Rating"; Rec.Rating2)
                 {
                     Caption = 'Rating';
                 }
-                field("Risk Impacts"; "Risk Impacts")
+                field("Risk Impacts"; Rec."Risk Impacts")
                 {
                 }
-                field("Risk Mitigation"; "Risk Mitigation")
+                field("Risk Mitigation"; Rec."Risk Mitigation")
                 {
                 }
-                field("Risk Opportunities"; "Risk Opportunities")
+                field("Risk Opportunities"; Rec."Risk Opportunities")
                 {
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     Enabled = false;
                 }
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
                     Enabled = false;
                 }
@@ -75,7 +75,7 @@ page 50217 "External Risks"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -84,7 +84,7 @@ page 50217 "External Risks"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

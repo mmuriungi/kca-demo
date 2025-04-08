@@ -16,17 +16,7 @@ page 50201 "WorkPaper Objectives"
 
                     trigger OnValidate()
                     begin
-                        CALCFIELDS(Description);
-                        Description.CREATEINSTREAM(Instr);
-                        DNotes.READ(Instr);
-
-                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
-                            CLEAR(DNotes);
-                            DNotes.ADDTEXT(DNotesText);
-                            Description.CREATEOUTSTREAM(OutStr);
-                            DNotes.WRITE(OutStr);
-                        END;
+                        
                     end;
                 }
             }

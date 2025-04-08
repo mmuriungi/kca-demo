@@ -1,4 +1,4 @@
-page 52178282 "Sent Audit Notifications"
+page 50220 "Sent Audit Notifications"
 {
     CardPageID = "Audit Notification";
     PageType = List;
@@ -11,43 +11,43 @@ page 52178282 "Sent Audit Notifications"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field("Last Modified By"; "Last Modified By")
+                field("Last Modified By"; Rec."Last Modified By")
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field("No. Series"; "No. Series")
+                field("No. Series"; Rec."No. Series")
                 {
                 }
-                field("Communication Type"; "Communication Type")
+                field("Communication Type"; Rec."Communication Type")
                 {
                 }
-                field("E-Mail Body"; "E-Mail Body")
+                field("E-Mail Body"; Rec."E-Mail Body")
                 {
                 }
-                field("SMS Text"; "SMS Text")
+                field("SMS Text"; Rec."SMS Text")
                 {
                 }
-                field("E-Mail Subject"; "E-Mail Subject")
+                field("E-Mail Subject"; Rec."E-Mail Subject")
                 {
                 }
-                field(Attachment; Attachment)
+                field(Attachment; Rec.Attachment)
                 {
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                 }
-                field("Sender Email"; "Sender Email")
+                field("Sender Email"; Rec."Sender Email")
                 {
                 }
             }
@@ -60,14 +60,14 @@ page 52178282 "Sent Audit Notifications"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Audit Notification";
-        "Communication Type" := "Communication Type"::"E-Mail";
+        Rec.Type := Rec.Type::"Audit Notification";
+        Rec."Communication Type" := Rec."Communication Type"::"E-Mail";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Audit Notification";
-        "Communication Type" := "Communication Type"::"E-Mail";
+        Rec.Type := Rec.Type::"Audit Notification";
+        Rec."Communication Type" := Rec."Communication Type"::"E-Mail";
     end;
 
     trigger OnOpenPage()

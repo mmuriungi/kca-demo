@@ -12,12 +12,12 @@ page 50189 "Risk Card"
             {
                 // Editable = RiskManager;
 
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = Basic, Suite;
                     Enabled = false;
                 }
-                field("Date Created"; "Date Created")
+                field("Date Created"; Rec."Date Created")
                 {
                     ApplicationArea = Basic, Suite;
                     Editable = false;
@@ -29,86 +29,86 @@ page 50189 "Risk Card"
                     StyleExpr = TRUE;
                 }
 
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                     Caption = 'User ID';
                     ApplicationArea = Basic, Suite;
                     Enabled = false;
                 }
-                field("Employee No."; "Employee No.")
+                field("Employee No."; Rec."Employee No.")
                 {
                     ApplicationArea = Basic, Suite;
                     Enabled = false;
                 }
-                field("Employee Name"; "Employee Name")
+                field("Employee Name"; Rec."Employee Name")
                 {
                     ApplicationArea = Basic, Suite;
                     Editable = false;
                 }
-                field("Employee Email"; "Employee Email")
+                field("Employee Email"; Rec."Employee Email")
                 {
                     ApplicationArea = Basic, Suite;
                     Editable = false;
                 }
 
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     Editable = true;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Station Code"; "Station Code")
+                field("Station Code"; Rec."Station Code")
                 {
                     Editable = true;
                 }
-                field("Station Name"; "Station Name")
+                field("Station Name"; Rec."Station Name")
                 {
                     Editable = false;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     ApplicationArea = Basic, Suite;
                     Editable = false;
                     Visible = false;
                 }
-                field(Region; Region)
+                field(Region; Rec.Region)
                 {
                     Visible = false;
                 }
-                field("Risk No"; "Risk No")
+                field("Risk No"; Rec."Risk No")
                 {
                     Editable = false;
                     Caption = 'Department Risk No';
                 }
-                field("Region Risk No"; "Region Risk No")
+                field("Region Risk No"; Rec."Region Risk No")
                 {
                     Editable = false;
                 }
-                field("Audit Period"; "Audit Period")
+                field("Audit Period"; Rec."Audit Period")
                 {
                     Caption = 'Risk Period';
                 }
 
 
-                field("Risk Opportunity Assessment"; "Risk Opportunity Assessment")
+                field("Risk Opportunity Assessment"; Rec."Risk Opportunity Assessment")
                 {
                     ApplicationArea = Basic, Suite;
-                    Visible = "Type" = "Type"::"Risk Opportunity";
+                    Visible = Rec."Type" = Rec."Type"::"Risk Opportunity";
                 }
 
 
-                field(Auditor; Auditor)
+                field(Auditor; Rec.Auditor)
                 {
                     ApplicationArea = All;
                     Caption = 'Risk Owner No';
                     // Editable = RiskManager;
                 }
-                field("Auditor Name"; "Auditor Name")
+                field("Auditor Name"; Rec."Auditor Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Risk Owner Name';
                 }
-                field("Auditor Emai"; "Auditor Email")
+                field("Auditor Emai"; Rec."Auditor Email")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -121,33 +121,33 @@ page 50189 "Risk Card"
                 //     Editable = false;
                 // }
 
-                field("Review Date"; "Review Date")
+                field("Review Date"; Rec."Review Date")
                 {
                     Visible = false;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Risk Description"; "Risk Description2")
+                field("Risk Description"; Rec."Risk Description2")
                 {
                     Caption = 'Objective';
                     // MultiLine = true;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     Editable = false;
                 }
-                field("Document Status"; "Document Status")
+                field("Document Status"; Rec."Document Status")
                 {
                     ApplicationArea = Basic, Suite;
                     Editable = false;
                 }
 
-                field("Rejection Reason"; "Rejection Reason")
+                field("Rejection Reason"; Rec."Rejection Reason")
                 {
-                    Editable = "Document Status" = "Document Status"::"Risk Manager";
+                    Editable = Rec."Document Status" = Rec."Document Status"::"Risk Manager";
                 }
-                field("Reason For Changes"; "Reason For Changes")
+                field("Reason For Changes"; Rec."Reason For Changes")
                 {
-                    Editable = "Document Status" = "Document Status"::"Risk Owner";
+                    Editable = Rec."Document Status" = Rec."Document Status"::"Risk Owner";
                 }
             }
             part("Risk Details"; "Risk Details")
@@ -166,12 +166,12 @@ page 50189 "Risk Card"
                     Visible = false;
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Risk Description");
+                        Rec.CALCFIELDS("Risk Description");
                         "Root Cause Analysis".CREATEINSTREAM(Instr);
                         RootCauseBigTxt.READ(Instr);
 
                         IF RootCauseTxt <> FORMAT(RootCauseBigTxt) THEN BEGIN
-                            CLEAR("Root Cause Analysis");
+                            CLEAR(Rec."Root Cause Analysis");
                             CLEAR(RootCauseBigTxt);
                             RootCauseBigTxt.ADDTEXT(RootCauseTxt);
                             "Root Cause Analysis".CREATEOUTSTREAM(OutStr);
@@ -186,12 +186,12 @@ page 50189 "Risk Card"
                     Visible = false;
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Mitigation Suggestions");
+                        Rec.CALCFIELDS("Mitigation Suggestions");
                         "Mitigation Suggestions".CREATEINSTREAM(Instr);
                         MitigationBigTxt.READ(Instr);
 
                         IF MitigationTxt <> FORMAT(MitigationBigTxt) THEN BEGIN
-                            CLEAR("Mitigation Suggestions");
+                            CLEAR(Rec."Mitigation Suggestions");
                             CLEAR(MitigationBigTxt);
                             MitigationBigTxt.ADDTEXT(MitigationTxt);
                             "Mitigation Suggestions".CREATEOUTSTREAM(OutStr);
@@ -209,23 +209,23 @@ page 50189 "Risk Card"
                 Caption = 'Assesment & Valuation';
                 group("GROSS CATEGORY")
                 {
-                    field("Risk Category"; "Risk Category")
+                    field("Risk Category"; Rec."Risk Category")
                     {
                         Caption = 'Risk Category';
                         ApplicationArea = Basic, Suite;
                     }
-                    field("Risk Category Description"; "Risk Category Description")
+                    field("Risk Category Description"; Rec."Risk Category Description")
                     {
                         Caption = 'Risk Category Description';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Risk Type"; "Risk Type")
+                    field("Risk Type"; Rec."Risk Type")
                     {
                         ApplicationArea = Basic, Suite;
 
                     }
-                    field("Risk Type Description"; "Risk Type Description")
+                    field("Risk Type Description"; Rec."Risk Type Description")
                     {
                         ApplicationArea = Basic, Suite;
                         Editable = false;
@@ -235,46 +235,46 @@ page 50189 "Risk Card"
                 {
                     group("RISK VALUE")
                     {
-                        field("Value at Risk (Amount)"; "Value at Risk")
+                        field("Value at Risk (Amount)"; Rec."Value at Risk")
                         {
                             Caption = 'Value at Risk';
                             ApplicationArea = Basic, Suite;
                         }
                     }
-                    field("Risk Probability"; "Risk Probability")
+                    field("Risk Probability"; Rec."Risk Probability")
                     {
                         Caption = 'Risk probability(%)';
                         ApplicationArea = Basic, Suite;
                     }
-                    field("Risk Likelihood Value"; "Risk Likelihood Value")
+                    field("Risk Likelihood Value"; Rec."Risk Likelihood Value")
                     {
                         Caption = 'Likelihood Score';
                         Editable = false;
                     }
-                    field("Risk Likelihood"; "Risk Likelihood")
+                    field("Risk Likelihood"; Rec."Risk Likelihood")
                     {
                         Caption = 'Risk Likelihood';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Risk Impact Value"; "Risk Impact Value")
+                    field("Risk Impact Value"; Rec."Risk Impact Value")
                     {
                         Caption = 'Impact Score';
                         Editable = false;
                     }
-                    field("Risk Impact"; "Risk Impact")
+                    field("Risk Impact"; Rec."Risk Impact")
                     {
                         Caption = 'Risk Impact';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
 
-                    field("Risk (L * I)"; "Risk (L * I)")
+                    field("Risk (L * I)"; Rec."Risk (L * I)")
                     {
                         Caption = 'Gross Risk Score';
                         Editable = false;
                     }
-                    field("RAG Status"; "RAG Status")
+                    field("RAG Status"; Rec."RAG Status")
                     {
                         ApplicationArea = Basic, Suite;
                         Editable = false;
@@ -292,12 +292,12 @@ page 50189 "Risk Card"
                         MultiLine = true;
                         trigger OnValidate()
                         begin
-                            CALCFIELDS("Existing Risk Controls");
+                            Rec.CALCFIELDS("Existing Risk Controls");
                             "Existing Risk Controls".CREATEINSTREAM(Instr);
                             ExistingBigTxt.READ(Instr);
 
                             IF ExistingTxt <> FORMAT(ExistingBigTxt) THEN BEGIN
-                                CLEAR("Existing Risk Controls");
+                                CLEAR(Rec."Existing Risk Controls");
                                 CLEAR(ExistingBigTxt);
                                 ExistingBigTxt.ADDTEXT(ExistingTxt);
                                 "Existing Risk Controls".CREATEOUTSTREAM(OutStr);
@@ -305,57 +305,57 @@ page 50189 "Risk Card"
                             END;
                         end;
                     }
-                    field("Additional mitigation controls"; "Additional mitigation controls")
+                    field("Additional mitigation controls"; Rec."Additional mitigation controls")
                     {
                         ApplicationArea = Basic, Suite;
                     }
-                    field("Mitigation Owner"; "Mitigation Owner")
+                    field("Mitigation Owner"; Rec."Mitigation Owner")
                     {
                         ApplicationArea = All;
                     }
                 }
                 group(Controls)
                 {
-                    field("Value after Control"; "Value after Control")
+                    field("Value after Control"; Rec."Value after Control")
                     {
                         ApplicationArea = Basic, Suite;
                     }
-                    field("Control Risk Probability"; "Control Risk Probability")
+                    field("Control Risk Probability"; Rec."Control Risk Probability")
                     {
                         ApplicationArea = Basic, Suite;
 
                     }
-                    field("Control Evaluation Likelihood"; "Control Evaluation Likelihood")
+                    field("Control Evaluation Likelihood"; Rec."Control Evaluation Likelihood")
                     {
                         Caption = 'Control risk likelihood value';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Control Risk Likelihood"; "Control Risk Likelihood")
+                    field("Control Risk Likelihood"; Rec."Control Risk Likelihood")
                     {
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
 
-                    field("Control Evaluation Impact"; "Control Evaluation Impact")
+                    field("Control Evaluation Impact"; Rec."Control Evaluation Impact")
                     {
                         Caption = 'Control risk impact value';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Control Risk Impact"; "Control Risk Impact")
+                    field("Control Risk Impact"; Rec."Control Risk Impact")
                     {
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
 
-                    field("Control Risk (L * I)"; "Control Risk (L * I)")
+                    field("Control Risk (L * I)"; Rec."Control Risk (L * I)")
                     {
                         Caption = 'Control Gross risk';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Control RAG Status"; "Control RAG Status")
+                    field("Control RAG Status"; Rec."Control RAG Status")
                     {
                         Editable = false;
                     }
@@ -365,34 +365,34 @@ page 50189 "Risk Card"
                 group("RESIDUAL RISK")
                 {
 
-                    field("Residual Value"; "Residual Value")
+                    field("Residual Value"; Rec."Residual Value")
                     {
                         Editable = false;
                     }
-                    field("Residual Risk Likelihood"; "Residual Risk Likelihood")
+                    field("Residual Risk Likelihood"; Rec."Residual Risk Likelihood")
                     {
                         Caption = 'Residual Likelihood Value';
                         Editable = false;
                     }
-                    field("Residual Risk Likelihood Cat"; "Residual Risk Likelihood Cat")
+                    field("Residual Risk Likelihood Cat"; Rec."Residual Risk Likelihood Cat")
                     {
                         Editable = false;
                     }
-                    field("Residual Likelihood Impact"; "Residual Likelihood Impact")
+                    field("Residual Likelihood Impact"; Rec."Residual Likelihood Impact")
                     {
                         Caption = 'Residual Impact Value';
                         Editable = false;
                     }
-                    field("Residual Risk Impact"; "Residual Risk Impact")
+                    field("Residual Risk Impact"; Rec."Residual Risk Impact")
                     {
                         Editable = false;
                     }
-                    field("Residual Risk (L * I)"; "Residual Risk (L * I)")
+                    field("Residual Risk (L * I)"; Rec."Residual Risk (L * I)")
                     {
                         Caption = 'Residual Risk Score';
                         Editable = false;
                     }
-                    field("Residual RAG Status"; "Residual RAG Status")
+                    field("Residual RAG Status"; Rec."Residual RAG Status")
                     {
                         Editable = false;
                     }
@@ -401,11 +401,11 @@ page 50189 "Risk Card"
                 {
                     ShowCaption = false;
                     Visible = ChampionEditable;
-                    field("Risk Response"; "Risk Response")
+                    field("Risk Response"; Rec."Risk Response")
                     {
                         Caption = 'Acceptance Decision';
                     }
-                    field(Comment; Comment)
+                    field(Comment; Rec.Comment)
                     {
 
                     }
@@ -450,7 +450,7 @@ page 50189 "Risk Card"
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
-                    Enabled = "No." <> '';
+                    Enabled = Rec."No." <> '';
 
                     trigger OnAction()
                     var
@@ -460,7 +460,7 @@ page 50189 "Risk Card"
                         Clear(PgDocumentAttachment);
                         RecRef.GETTABLE(Rec);
                         PgDocumentAttachment.OpenForRecReference(RecRef);
-                        if Status = Status::Released then
+                        if Rec.Status = Rec.Status::Released then
                             PgDocumentAttachment.Editable(false);
                         PgDocumentAttachment.RUNMODAL;
                     end;
@@ -473,7 +473,7 @@ page 50189 "Risk Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = "Document Status" = "Document Status"::New;
+                Visible = Rec."Document Status" = Rec."Document Status"::New;
 
 
                 trigger OnAction()
@@ -483,10 +483,10 @@ page 50189 "Risk Card"
                     // TestField("Risk Description");
                     //  TestField("Risk Region");
                     RiskLine.RESET;
-                    RiskLine.SETRANGE("Document No.", "No.");
+                    RiskLine.SETRANGE("Document No.", Rec."No.");
                     RiskLine.SETFILTER(Type, '%1|%2|%3', RiskLine.Type::"KRI(s)", RiskLine.Type::Response, RiskLine.Type::"Risk Category");
                     // IF NOT RiskLine.FINDFIRST() THEN Error('Please specify the risk KRI(s)');
-                    RegistrationMgt.FnReportRisk(Rec, "Auditor Email");
+                    RegistrationMgt.FnReportRisk(Rec, Rec."Auditor Email");
                     CurrPage.CLOSE;
                     //
                 end;
@@ -497,7 +497,7 @@ page 50189 "Risk Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = "Document Status" = "Document Status"::"Risk Owner";
+                Visible = Rec."Document Status" = Rec."Document Status"::"Risk Owner";
                 Caption = 'Send to Risk Manager';
 
                 trigger OnAction()
@@ -506,7 +506,7 @@ page 50189 "Risk Card"
                 begin
                     // Filter to the current risk header
                     RiskHeader.Reset();
-                    RiskHeader.SetRange("No.", "No.");
+                    RiskHeader.SetRange("No.", Rec."No.");
 
                     if RiskHeader.FindFirst() then begin
                         // Call the function to send the email to the Risk Manager
@@ -554,13 +554,13 @@ page 50189 "Risk Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = "Document Status" = "Document Status"::"Risk Manager";
+                Visible = Rec."Document Status" = Rec."Document Status"::"Risk Manager";
                 trigger OnAction()
                 var
                     RiskHeader: Record "Risk Header";
                 begin
                     RiskHeader.Reset();
-                    RiskHeader.SetRange(RiskHeader."No.", "No.");
+                    RiskHeader.SetRange(RiskHeader."No.", Rec."No.");
                     if RiskHeader.FindFirst() then begin
                         RiskHeader.fnConsolidateRisk();
                         Message('Transfered Successfully');
@@ -573,13 +573,13 @@ page 50189 "Risk Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = "Document Status" = "Document Status"::"Risk Manager";
+                Visible = Rec."Document Status" = Rec."Document Status"::"Risk Manager";
                 trigger OnAction()
                 var
                     RiskHeader: Record "Risk Header";
                 begin
                     RiskHeader.Reset();
-                    RiskHeader.SetRange(RiskHeader."No.", "No.");
+                    RiskHeader.SetRange(RiskHeader."No.", Rec."No.");
                     if RiskHeader.FindFirst() then begin
                         if RiskHeader."Document Status" = RiskHeader."Document Status"::"Risk Manager" then
                             RiskHeader."Document Status" := RiskHeader."Document Status"::"Risk Owner";
@@ -603,7 +603,7 @@ page 50189 "Risk Card"
                 trigger OnAction()
                 begin
                     AuditMgt.SendMailtoRiskChampion2(Rec);
-                    Modify(true);
+                    Rec.Modify(true);
                 end;
             }
             action("Send For Approval")
@@ -632,16 +632,16 @@ page 50189 "Risk Card"
                 ApplicationArea = Basic, Suite;
                 Promoted = true;
                 PromotedCategory = Category4;
-                Visible = "Document Status" = "Document Status"::"Risk Owner";
+                Visible = Rec."Document Status" = Rec."Document Status"::"Risk Owner";
 
                 trigger OnAction()
                 begin
-                    if "Rejection Reason" = '' then
+                    if Rec."Rejection Reason" = '' then
                         Error('Please input reject reason');
                     AuditMgt.NotifySenderOnChanges(Rec);
-                    "Document Status" := "Document Status"::New;
-                    RegistrationMgt.FnRejectRisk(Rec, "Employee Email");
-                    Modify();
+                    Rec."Document Status" := Rec."Document Status"::New;
+                    RegistrationMgt.FnRejectRisk(Rec, Rec."Employee Email");
+                    Rec.Modify();
                     CurrPage.CLOSE;
                 end;
             }
@@ -661,7 +661,7 @@ page 50189 "Risk Card"
                     ApprovalEntry.Reset();
                     ApprovalEntry.SetCurrentKey("Document No.");
                     ApprovalEntry.SetRange("Table ID", Database::"Risk Header");
-                    ApprovalEntry.SetRange("Document No.", "No.");
+                    ApprovalEntry.SetRange("Document No.", Rec."No.");
                     ApprovalEntries.SetTableView(ApprovalEntry);
                     ApprovalEntries.LookupMode(true);
                     ApprovalEntries.RunModal();
@@ -676,7 +676,7 @@ page 50189 "Risk Card"
         CheckVisibility;
         SetControlAppearance();
 
-        CALCFIELDS("Risk Description", "Root Cause Analysis", "Mitigation Suggestions", "Existing Risk Controls");
+        Rec.CALCFIELDS("Risk Description", "Root Cause Analysis", "Mitigation Suggestions", "Existing Risk Controls");
         "Risk Description".CREATEINSTREAM(Instr);
         RiskNote.READ(Instr);
         RiskNotesText := FORMAT(RiskNote);
@@ -741,27 +741,27 @@ page 50189 "Risk Card"
     var
         RiskSetup: Record "Audit Setup";
     begin
-        "Plan Type" := "Plan Type"::"Department Plan";
+        Rec."Plan Type" := Rec."Plan Type"::"Department Plan";
         RiskSetup.Get();
-        "Current Disposal" := RiskSetup."Current Risk Plan";
+        Rec."Current Disposal" := RiskSetup."Current Risk Plan";
     end;
 
     local procedure CheckVisibility()
     begin
         HidePageLinks();
 
-        case "Document Status" of
-            "Document Status"::New:
+        case Rec."Document Status" of
+            Rec."Document Status"::New:
                 begin
                     SendToRegister := false;
                     SendToChampion := true;
                 end;
-            "Document Status"::Champion:
+            Rec."Document Status"::Champion:
                 begin
                     SendToRegister := true;
                     SendToChampion := false;
                 end;
-            "Document Status"::Closed:
+            Rec."Document Status"::Closed:
                 begin
                     SendToRegister := false;
                     SendToChampion := false;
@@ -771,12 +771,12 @@ page 50189 "Risk Card"
 
     procedure SetControlAppearance()
     begin
-        if ("Document Status" = "Document Status"::New) then
+        if (Rec."Document Status" = Rec."Document Status"::New) then
             NewVisible := true
         else
             NewVisible := false;
 
-        if ("Document Status" = "Document Status"::Champion) or ("Document Status" = "Document Status"::"Risk Owner") then
+        if (Rec."Document Status" = Rec."Document Status"::Champion) or (Rec."Document Status" = Rec."Document Status"::"Risk Owner") then
             ChampionEditable := true
         else
             ChampionEditable := false;
@@ -787,8 +787,8 @@ page 50189 "Risk Card"
     var
         ObjRiskChamps: record "Internal Audit Champions";
     begin
-        if "Document Status" = "Document Status"::"Risk Owner" then begin
-            if "Reason For Changes" <> '' then
+        if Rec."Document Status" = Rec."Document Status"::"Risk Owner" then begin
+            if Rec."Reason For Changes" <> '' then
                 RiskManager := true
             else
                 RiskManager := false;

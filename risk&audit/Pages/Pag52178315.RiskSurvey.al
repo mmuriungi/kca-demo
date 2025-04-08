@@ -9,52 +9,52 @@ page 50215 "Risk Survey"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Enabled = false;
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                     Enabled = false;
                 }
-                field("Employee No."; "Employee No.")
+                field("Employee No."; Rec."Employee No.")
                 {
                     Enabled = true;
                 }
-                field("Employee Name"; "Employee Name")
+                field("Employee Name"; Rec."Employee Name")
                 {
                     Enabled = false;
                 }
-                field("Sender E-Mail"; "Sender E-Mail")
+                field("Sender E-Mail"; Rec."Sender E-Mail")
                 {
                     Enabled = false;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     Editable = false;
                 }
-                field("Document Status"; "Document Status")
+                field("Document Status"; Rec."Document Status")
                 {
                     enabled = false;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
-                {
-                    Enabled = false;
-                }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
-                {
-                }
-                field("Department Name"; "Department Name")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     Enabled = false;
                 }
-                field("Notification Sent"; "Notification Sent")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
+                {
+                }
+                field("Department Name"; Rec."Department Name")
+                {
+                    Enabled = false;
+                }
+                field("Notification Sent"; Rec."Notification Sent")
                 {
                     Enabled = false;
                 }
@@ -104,7 +104,7 @@ page 50215 "Risk Survey"
                 trigger OnAction()
                 begin
                     AuditHead.RESET;
-                    AuditHead.SETRANGE("No.", "No.");
+                    AuditHead.SETRANGE("No.", Rec."No.");
                     REPORT.RUN(Report::"Risk Survey", TRUE, FALSE, AuditHead);
                 end;
             }
@@ -128,12 +128,12 @@ page 50215 "Risk Survey"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Risk Survey";
+        Rec.Type := Rec.Type::"Risk Survey";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Risk Survey";
+        Rec.Type := Rec.Type::"Risk Survey";
     end;
 
     var
@@ -147,12 +147,12 @@ page 50215 "Risk Survey"
     var
         App2: Codeunit "Approvals Mgmt.";
     begin
-        if ("Status" = "Status"::Released) or ("Status" = "Status"::Rejected) then
-            OpenApprovalEntriesExist := App2.HasApprovalEntries(RecordId)
+        if (Rec."Status" = Rec."Status"::Released) or (Rec."Status" = Rec."Status"::Rejected) then
+            OpenApprovalEntriesExist := App2.HasApprovalEntries(Rec.RecordId)
         else
-            OpenApprovalEntriesExist := App2.HasOpenApprovalEntries(RecordId);
+            OpenApprovalEntriesExist := App2.HasOpenApprovalEntries(Rec.RecordId);
 
-        CanCancelApprovalForPayment := App2.CanCancelApprovalForRecord(RecordId);
+        CanCancelApprovalForPayment := App2.CanCancelApprovalForRecord(Rec.RecordId);
 
         //Get Doc count
     end;

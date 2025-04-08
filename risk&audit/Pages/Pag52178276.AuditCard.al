@@ -9,34 +9,34 @@ page 50114 "Audit Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("No. Series"; "No. Series")
+                field("No. Series"; Rec."No. Series")
                 {
                 }
-                field(Period; Period)
+                field(Period; Rec.Period)
                 {
                 }
-                field(Posted; Posted)
+                field(Posted; Rec.Posted)
                 {
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                 }
             }
@@ -53,12 +53,12 @@ page 50114 "Audit Card"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::Audit;
+        Rec.Type := Rec.Type::Audit;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::Audit;
+        Rec.Type := Rec.Type::Audit;
     end;
 }
 

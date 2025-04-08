@@ -14,30 +14,30 @@ page 50097 "Approved Risk List"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                 }
-                field("Date Created"; "Date Created")
+                field("Date Created"; rec."Date Created")
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; rec."Created By")
                 {
                 }
-                field("Employee No."; "Employee No.")
+                field("Employee No."; Rec."Employee No.")
                 {
                 }
-                field("Employee Name"; "Employee Name")
+                field("Employee Name"; Rec."Employee Name")
                 {
                 }
-                field("Station Name"; "Station Name")
-                {
-
-                }
-                field("Document Status"; "Document Status")
+                field("Station Name"; Rec."Station Name")
                 {
 
                 }
-                field("Risk Description2"; "Risk Description2")
+                field("Document Status"; Rec."Document Status")
+                {
+
+                }
+                field("Risk Description2"; Rec."Risk Description2")
                 {
                     Caption = 'Objective';
                 }
@@ -48,12 +48,12 @@ page 50097 "Approved Risk List"
 
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Risk Description");
+                        Rec.CALCFIELDS("Risk Description");
                         "Risk Description".CREATEINSTREAM(Instr);
                         RiskNote.READ(Instr);
 
                         IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
-                            CLEAR("Risk Description");
+                            CLEAR(Rec."Risk Description");
                             CLEAR(RiskNote);
                             RiskNote.ADDTEXT(RiskNotesText);
                             "Risk Description".CREATEOUTSTREAM(OutStr);
@@ -72,7 +72,7 @@ page 50097 "Approved Risk List"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS("Risk Description");
+        Rec.CALCFIELDS("Risk Description");
         "Risk Description".CREATEINSTREAM(Instr);
         RiskNote.READ(Instr);
         RiskNotesText := FORMAT(RiskNote);

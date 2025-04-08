@@ -16,12 +16,12 @@ page 50213 "Audit Report UnFav Observation"
 
                     trigger OnValidate()
                     begin
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -36,12 +36,12 @@ page 50213 "Audit Report UnFav Observation"
 
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Observation/Condition");
+                        Rec.CALCFIELDS("Observation/Condition");
                         "Observation/Condition".CREATEINSTREAM(ObsInstr);
                         ObservationNotes.READ(ObsInstr);
 
                         IF ObservationNotesTxt <> FORMAT(ObservationNotes) THEN BEGIN
-                            CLEAR("Observation/Condition");
+                            CLEAR(Rec."Observation/Condition");
                             CLEAR(ObservationNotes);
                             ObservationNotes.ADDTEXT(ObservationNotesTxt);
                             "Observation/Condition".CREATEOUTSTREAM(ObsOutStr);
@@ -49,10 +49,10 @@ page 50213 "Audit Report UnFav Observation"
                         END;
                     end;
                 }
-                field("Due Date"; Date)
+                field("Due Date"; Rec.Date)
                 {
                 }
-                field(Remarks; Remarks)
+                field(Remarks; Rec.Remarks)
                 {
                     Caption = 'Management Response';
                 }
@@ -63,12 +63,12 @@ page 50213 "Audit Report UnFav Observation"
 
                     trigger OnValidate()
                     begin
-                        CALCFIELDS(Criteria);
+                        Rec.CALCFIELDS(Criteria);
                         Criteria.CREATEINSTREAM(CriteriaInstr);
                         CriteriaNotes.READ(CriteriaInstr);
 
                         IF CriteriaNotesTxt <> FORMAT(CriteriaNotes) THEN BEGIN
-                            CLEAR(Criteria);
+                            CLEAR(Rec.Criteria);
                             CLEAR(CriteriaNotes);
                             CriteriaNotes.ADDTEXT(CriteriaNotesTxt);
                             Criteria.CREATEOUTSTREAM(CriteriaOutStr);
@@ -83,12 +83,12 @@ page 50213 "Audit Report UnFav Observation"
 
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Risk Implication");
+                        Rec.CALCFIELDS("Risk Implication");
                         "Risk Implication".CREATEINSTREAM(ImplicationInstr);
                         ImplicationNotes.READ(ImplicationInstr);
 
                         IF ImplicationNotesText <> FORMAT(ImplicationNotes) THEN BEGIN
-                            CLEAR("Risk Implication");
+                            CLEAR(Rec."Risk Implication");
                             CLEAR(ImplicationNotes);
                             ImplicationNotes.ADDTEXT(ImplicationNotesText);
                             "Risk Implication".CREATEOUTSTREAM(ImplicationOutStr);
@@ -96,10 +96,10 @@ page 50213 "Audit Report UnFav Observation"
                         END;
                     end;
                 }
-                field("Risk Rating"; "Risk Rating")
+                field("Risk Rating"; Rec."Risk Rating")
                 {
                 }
-                field("Responsible Personnel"; "Responsible Personnel")
+                field("Responsible Personnel"; Rec."Responsible Personnel")
                 {
                 }
             }
@@ -115,35 +115,35 @@ page 50213 "Audit Report UnFav Observation"
         SetControlApp;
 
         //Description
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
         //
 
         //Risk Implication
-        CALCFIELDS("Risk Implication");
+        Rec.CALCFIELDS("Risk Implication");
         "Risk Implication".CREATEINSTREAM(ImplicationInstr);
         ImplicationNotes.READ(ImplicationInstr);
         ImplicationNotesText := FORMAT(ImplicationNotes);
         //
 
         //Criteria
-        CALCFIELDS(Criteria);
+        Rec.CALCFIELDS(Criteria);
         Criteria.CREATEINSTREAM(CriteriaInstr);
         CriteriaNotes.READ(CriteriaInstr);
         CriteriaNotesTxt := FORMAT(CriteriaNotes);
         //
 
         //Observation/Condition
-        CALCFIELDS("Observation/Condition");
+        Rec.CALCFIELDS("Observation/Condition");
         "Observation/Condition".CREATEINSTREAM(ObsInstr);
         ObservationNotes.READ(ObsInstr);
         ObservationNotesTxt := FORMAT(ObservationNotes);
         //
 
         //Action Plan / Management Response
-        CALCFIELDS("Action Plan / Mgt Response");
+        Rec.CALCFIELDS("Action Plan / Mgt Response");
         "Action Plan / Mgt Response".CREATEINSTREAM(ResponseInstr);
         ResponseNotes.READ(ResponseInstr);
         ResponseNotesTxt := FORMAT(ResponseNotes);
@@ -184,7 +184,7 @@ page 50213 "Audit Report UnFav Observation"
         AuditHeader: Record "Audit Header";
     begin
         //TESTFIELD("Document No.");
-        IF AuditHeader.GET("Document No.") THEN BEGIN
+        IF AuditHeader.GET(Rec."Document No.") THEN BEGIN
             IF (AuditHeader."Report Status" = AuditHeader."Report Status"::Auditee) THEN BEGIN
                 AuditeeAmmend := FALSE;
             END ELSE

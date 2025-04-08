@@ -13,10 +13,10 @@ page 50108 "Audit Plan Matrix 1"
         {
             repeater(General)
             {
-                field("Code"; Code)
+                field("Code"; rec.Code)
                 {
                 }
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                 }
                 field(Field1; MATRIX_CellData[1])

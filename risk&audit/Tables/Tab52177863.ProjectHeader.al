@@ -248,6 +248,11 @@ table 50157 "Project Header"
         {
             DataClassification=ToBeClassified;
         }
+        field(47; "Reference No."; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        
 
     }
 

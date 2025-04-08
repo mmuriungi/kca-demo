@@ -12,75 +12,75 @@ page 50112 "Audit Setup"
             group("Audit Management")
             {
                 // Visible = false;
-                field("Audit Nos."; "Audit Nos.")
+                field("Audit Nos."; Rec."Audit Nos.")
                 {
                 }
-                field("Consolidation No"; "Consolidation No")
+                field("Consolidation No"; Rec."Consolidation No")
                 {
 
                 }
-                field("Department Risk No"; "Department Risk No")
+                field("Department Risk No"; Rec."Department Risk No")
                 { }
-                field("Region Risk No"; "Region Risk No")
+                field("Region Risk No"; Rec."Region Risk No")
                 { }
-                field("Program Risk No"; "Program Risk No")
+                field("Program Risk No"; Rec."Program Risk No")
                 { }
-                field("Audit Notification Nos."; "Audit Notification Nos.")
+                field("Audit Notification Nos."; Rec."Audit Notification Nos.")
                 {
                 }
-                field("Audit Workplan Nos."; "Audit Workplan Nos.")
+                field("Audit Workplan Nos."; Rec."Audit Workplan Nos.")
                 {
                 }
-                field("Audit Record Requisition Nos."; "Audit Record Requisition Nos.")
+                field("Audit Record Requisition Nos."; Rec."Audit Record Requisition Nos.")
                 {
                 }
-                field("Audit Plan Nos."; "Audit Plan Nos.")
+                field("Audit Plan Nos."; Rec."Audit Plan Nos.")
                 {
                     Caption = 'Audit Program Nos.';
                 }
-                field("Audit Report No"; "Audit Report No")
+                field("Audit Report No"; Rec."Audit Report No")
                 {
                     ApplicationArea = All;
                 }
-                field("Audit Period Lines No"; "Audit Period Lines No")
+                field("Audit Period Lines No"; Rec."Audit Period Lines No")
                 {
                     ApplicationArea = All;
                 }
-                field("Risk Exposure Line No"; "Risk Exposure Line No")
+                field("Risk Exposure Line No"; Rec."Risk Exposure Line No")
                 {
 
                 }
-                field("WPO No"; "WPO No")
+                field("WPO No"; Rec."WPO No")
                 {
 
                 }
-                field("WPF No"; "WPF No")
+                field("WPF No"; Rec."WPF No")
                 {
 
                 }
-                field("WPR No"; "WPR No")
+                field("WPR No"; Rec."WPR No")
                 {
 
                 }
-                field("AT No"; "AT No")
+                field("AT No"; Rec."AT No")
                 {
 
                 }
-                field("A & D No"; "A & D No")
+                field("A & D No"; Rec."A & D No")
                 {
 
                 }
-                field("Work Paper Nos."; "Work Paper Nos.")
+                field("Work Paper Nos."; Rec."Work Paper Nos.")
                 {
                 }
-                field("Audit Report Nos."; "Audit Report Nos.")
+                field("Audit Report Nos."; Rec."Audit Report Nos.")
                 {
                 }
-                field("Audit Program Nos."; "Audit Program Nos.")
+                field("Audit Program Nos."; Rec."Audit Program Nos.")
                 {
                     Caption = 'Audit Plan Nos.';
                 }
-                field("Project Nos."; "Project Nos.")
+                field("Project Nos."; Rec."Project Nos.")
                 {
                 }
             }
@@ -94,31 +94,31 @@ page 50112 "Audit Setup"
                     ApplicationArea = Basic, Suite;
                     Style = Strong;
                 }
-                field("Risk Details Line"; "Risk Details Line")
+                field("Risk Details Line"; Rec."Risk Details Line")
                 {
 
                 }
-                field("CE No"; "CE No")
+                field("CE No"; Rec."CE No")
                 {
                     Caption = 'Causes & Effects No';
                 }
-                field("Risk Survey Threshold"; "Risk Survey Threshold")
+                field("Risk Survey Threshold"; Rec."Risk Survey Threshold")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Organization Threshold"; "Organization Threshold")
+                field("Organization Threshold"; Rec."Organization Threshold")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Department Threshold"; "Department Threshold")
+                field("Department Threshold"; Rec."Department Threshold")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Project Threshold"; "Project Threshold")
+                field("Project Threshold"; Rec."Project Threshold")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Risk Officer Job ID"; "Risk Officer Job ID")
+                field("Risk Officer Job ID"; Rec."Risk Officer Job ID")
                 {
                     ApplicationArea = Basic, Suite;
                 }
@@ -128,19 +128,19 @@ page 50112 "Audit Setup"
                     ApplicationArea = Basic, Suite;
                     Style = Strong;
                 }
-                field("Risk Nos."; "Risk Nos.")
+                field("Risk Nos."; Rec."Risk Nos.")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Risk Reporting Nos."; "Risk Reporting Nos.")
+                field("Risk Reporting Nos."; Rec."Risk Reporting Nos.")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Risk Survey Nos."; "Risk Survey Nos.")
+                field("Risk Survey Nos."; Rec."Risk Survey Nos.")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Risk KRI Guideline Nos"; "Risk KRI Guideline Nos")
+                field("Risk KRI Guideline Nos"; Rec."Risk KRI Guideline Nos")
                 {
                     ApplicationArea = All;
                 }
@@ -148,17 +148,17 @@ page 50112 "Audit Setup"
             group("User Incidences")
             {
                 Caption = 'Incident';
-                field("Incident Reporting Nos."; "Incident Reporting Nos.")
+                field("Incident Reporting Nos."; Rec."Incident Reporting Nos.")
                 {
                     Caption = 'Incident Nos.';
                     ApplicationArea = Basic, Suite;
                 }
-                field("Risk Email"; "Risk Email")
+                field("Risk Email"; Rec."Risk Email")
                 {
                     Caption = 'Incident E-Mail';
                     ApplicationArea = Basic, Suite;
                 }
-                field("Attachment Path"; "Attachment Path")
+                field("Attachment Path"; Rec."Attachment Path")
                 {
                     Caption = 'Attachment Path';
                     ApplicationArea = Basic, Suite;
@@ -167,7 +167,7 @@ page 50112 "Audit Setup"
             group(Compliance)
             {
                 Caption = 'Compliance';
-                field("Compliance Nos."; "Compliance Nos.")
+                field("Compliance Nos."; Rec."Compliance Nos.")
                 {
                     ApplicationArea = Basic, Suite;
                 }
@@ -181,10 +181,10 @@ page 50112 "Audit Setup"
 
     trigger OnOpenPage()
     begin
-        Reset();
-        if not Get() then begin
-            Init();
-            Insert();
+        Rec.Reset();
+        if not Rec.Get() then begin
+            Rec.Init();
+            Rec.Insert();
         end;
     end;
 

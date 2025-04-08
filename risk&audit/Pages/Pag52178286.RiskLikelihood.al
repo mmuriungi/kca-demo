@@ -10,34 +10,34 @@ page 50177 "Risk Likelihood"
         {
             repeater(Group)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Likelihood Score"; "Likelihood Score")
+                field("Likelihood Score"; Rec."Likelihood Score")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Probability Start Range"; "Probability Start Range")
+                field("Probability Start Range"; Rec."Probability Start Range")
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Probability Start >= (%)';
                 }
-                field(Probability; Probability)
+                field(Probability; Rec.Probability)
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Probability End <= (%)';
                 }
-                field("Frequency (General)"; "Frequency (General)")
+                field("Frequency (General)"; Rec."Frequency (General)")
                 {
                     ApplicationArea = Basic, Suite;
                     Visible = false;
                 }
-                field("Frequency (Timeframe)"; "Frequency (Timeframe)")
+                field("Frequency (Timeframe)"; Rec."Frequency (Timeframe)")
                 {
                     ApplicationArea = Basic, Suite;
                     Visible = false;

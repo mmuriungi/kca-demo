@@ -12,34 +12,34 @@ page 50190 "Audit Plans"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                 }
-                field("Department Name"; "Department Name")
+                field("Department Name"; Rec."Department Name")
                 {
                 }
-                field("Audit Period"; "Audit Period")
+                field("Audit Period"; Rec."Audit Period")
                 {
                 }
-                field(Archived; Archived)
+                field(Archived; Rec.Archived)
                 {
                 }
             }
@@ -52,12 +52,12 @@ page 50190 "Audit Plans"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Audit Plan";
+        Rec.Type := Rec.Type::"Audit Plan";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Audit Plan";
+        Rec.Type := Rec.Type::"Audit Plan";
     end;
 }
 

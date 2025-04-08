@@ -10,50 +10,50 @@ page 50192 "Audit Program"
         {
             group(General)
             {
-                Editable = "Status" <> "Status"::Released;
-                field("No."; "No.")
+                Editable = Rec."Status" <> Rec."Status"::Released;
+                field("No."; Rec."No.")
                 {
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field("Employee No."; "Employee No.")
+                field("Employee No."; Rec."Employee No.")
                 {
                 }
-                field("Employee Name"; "Employee Name")
+                field("Employee Name"; Rec."Employee Name")
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                 }
-                field("Audit Plan No."; "Audit Plan No.")
+                field("Audit Plan No."; Rec."Audit Plan No.")
                 {
                 }
-                field("Audit Notification No."; "Audit Notification No.")
+                field("Audit Notification No."; Rec."Audit Notification No.")
                 {
                     Visible = false;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     Editable = false;
                 }
-                field("Audit Period"; "Audit Period")
+                field("Audit Period"; Rec."Audit Period")
                 {
                     Editable = false;
                 }
                 // field("Audit Manager"; "Audit Manager")
                 // {
                 // }
-                field("Send Attachment"; "Send Attachment")
+                field("Send Attachment"; Rec."Send Attachment")
                 {
                     Visible = false;
 
@@ -61,14 +61,14 @@ page 50192 "Audit Program"
 
 
             }
-            field(Adhoc; Adhoc)
+            field(Adhoc; Rec.Adhoc)
             {
 
             }
             group("Risk")
             {
-                Visible = Adhoc = true;
-                field("Risk Decsriptions"; "Risk Decsriptions")
+                Visible = Rec.Adhoc = true;
+                field("Risk Decsriptions"; Rec."Risk Decsriptions")
                 {
                     ApplicationArea = all;
                     MultiLine = true;
@@ -82,21 +82,21 @@ page 50192 "Audit Program"
             }
             group(Introductions)
             {
-                field(Introduction; Introduction)
+                field(Introduction; Rec.Introduction)
                 {
                     MultiLine = true;
                 }
             }
             group(BackGrounds)
             {
-                field(BackGround; BackGround)
+                field(BackGround; Rec.BackGround)
                 {
                     MultiLine = true;
                 }
             }
             group("Audits Approach")
             {
-                field("Audit Approach"; "Audit Approach")
+                field("Audit Approach"; Rec."Audit Approach")
                 {
                     MultiLine = true;
                 }
@@ -116,39 +116,39 @@ page 50192 "Audit Program"
             part(Control17; "Auditor(s)")
             {
                 Caption = 'Audit Allocation Team';
-                Editable = "Status" <> "Status"::Released;
+                Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST(Auditor);
             }
             part(Scope; "Audit Scope")
             {
                 Caption = 'Scope';
-                Editable = "Status" <> "Status"::Released;
+                Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST(Scope);
             }
 
             part(Objectives; Objectives)
             {
                 Caption = 'Objectives';
-                Editable = "Status" <> "Status"::Released;
+                Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST(Objectives);
             }
 
             part("Planning Procedures"; "Audit Planning Procedures")
             {
                 Caption = 'Planning Procedures';
-                Editable = "Status" <> "Status"::Released;
+                Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = FILTER(Planning);
             }
             part("Review Procedures"; "Audit Review")
             {
                 Caption = 'Review Procedures';
-                Editable = "Status" <> "Status"::Released;
+                Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST(Review);
             }
             part("Post-Review"; "Audit Post-Review Procedures")
             {
                 Caption = 'Post-Review';
-                Editable = "Status" <> "Status"::Released;
+                Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Post Reveiw");
             }
             part(Recommendation; "Audit Report UnFav Observation")
@@ -181,7 +181,7 @@ page 50192 "Audit Program"
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
-                    Enabled = "No." <> '';
+                    Enabled = Rec."No." <> '';
 
                     trigger OnAction()
                     var
@@ -191,7 +191,7 @@ page 50192 "Audit Program"
                         Clear(PgDocumentAttachment);
                         RecRef.GETTABLE(Rec);
                         PgDocumentAttachment.OpenForRecReference(RecRef);
-                        if Status = Status::Released then
+                        if Rec.Status = Rec.Status::Released then
                             PgDocumentAttachment.Editable(false);
                         PgDocumentAttachment.RUNMODAL;
                     end;
@@ -208,7 +208,7 @@ page 50192 "Audit Program"
                 trigger OnAction()
                 begin
                     ADHeader.RESET;
-                    ADHeader.SETRANGE("No.", "No.");
+                    ADHeader.SETRANGE("No.", Rec."No.");
                     REPORT.RUN(Report::"Audit Program", TRUE, FALSE, ADHeader);
                 end;
             }
@@ -225,7 +225,7 @@ page 50192 "Audit Program"
                     ObjAuditHeader: Record "Audit Header";
                 begin
                     ObjAuditHeader.Reset();
-                    ObjAuditHeader.SetRange(ObjAuditHeader."No.", "Audit Plan No.");
+                    ObjAuditHeader.SetRange(ObjAuditHeader."No.", Rec."Audit Plan No.");
                     if ObjAuditHeader.Find('-') then begin
                         Page.Run(50020, ObjAuditHeader);
                     end;
@@ -288,7 +288,7 @@ page 50192 "Audit Program"
                 begin
                     ApprovalEntry.Reset();
                     ApprovalEntry.SetCurrentKey("Document No.");
-                    ApprovalEntry.SetRange("Document No.", "No.");
+                    ApprovalEntry.SetRange("Document No.", Rec."No.");
                     ApprovalEntries.SetTableView(ApprovalEntry);
                     ApprovalEntries.LookupMode(true);
                     ApprovalEntries.Run;
@@ -300,14 +300,14 @@ page 50192 "Audit Program"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = "Status" <> "Status"::Open;
+                Visible = Rec."Status" <> Rec."Status"::Open;
 
                 trigger OnAction()
                 begin
-                    IF NOT CONFIRM(ReOpeConfirm, FALSE, "No.") THEN
+                    IF NOT CONFIRM(ReOpeConfirm, FALSE, Rec."No.") THEN
                         EXIT
                     ELSE BEGIN
-                        Status := Status::Open;
+                        Rec.Status := Rec.Status::Open;
                     END;
                 end;
             }
@@ -320,12 +320,12 @@ page 50192 "Audit Program"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Audit Program";
+        Rec.Type := Rec.Type::"Audit Program";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Audit Program";
+        Rec.Type := Rec.Type::"Audit Program";
     end;
 
     var

@@ -9,41 +9,41 @@ page 50199 "Audit Working Paper"
         {
             group(General)
             {
-                Editable = "Status" <> "Status"::Released;
-                field("No."; "No.")
+                Editable = Rec."Status" <> Rec."Status"::Released;
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                     Editable = false;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field("Employee No."; "Employee No.")
+                field("Employee No."; Rec."Employee No.")
                 {
                 }
-                field("Employee Name"; "Employee Name")
+                field("Employee Name"; Rec."Employee Name")
                 {
                     Editable = false;
                 }
-                field("Audit Program No."; "Audit Program No.")
+                field("Audit Program No."; Rec."Audit Program No.")
                 {
 
                     trigger OnValidate()
                     begin
 
-                        IF AuditHeader.GET("Audit Program No.") AND (AuditHeader.Type = AuditHeader.Type::"Audit Program") THEN
+                        IF AuditHeader.GET(Rec."Audit Program No.") AND (AuditHeader.Type = AuditHeader.Type::"Audit Program") THEN
                             AuditHeader.Archived := TRUE;
                         AuditHeader.MODIFY;
                     end;
                 }
-                field("Select Working Scope"; "Working Paper Scope")
+                field("Select Working Scope"; Rec."Working Paper Scope")
                 {
                 }
                 label("Audit Program Details:")
@@ -51,31 +51,31 @@ page 50199 "Audit Working Paper"
                     Style = Strong;
                     StyleExpr = TRUE;
                 }
-                field("Done By"; "Done By")
+                field("Done By"; Rec."Done By")
                 {
                     Editable = false;
                 }
-                field("Done By Name"; "Done By Name")
+                field("Done By Name"; Rec."Done By Name")
                 {
                     Editable = false;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field("Audit Stage"; "Audit Stage")
+                field("Audit Stage"; Rec."Audit Stage")
                 {
                     Editable = false;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Date Completed"; "Date Completed")
+                field("Date Completed"; Rec."Date Completed")
                 {
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                 }
                 part(Control36; "Audit Workpaper Scope")
@@ -113,7 +113,7 @@ page 50199 "Audit Working Paper"
                 // {
                 //     // Editable = false;
                 // }
-                field(Reviewed; Reviewed)
+                field(Reviewed; Rec.Reviewed)
                 {
 
                 }
@@ -121,7 +121,7 @@ page 50199 "Audit Working Paper"
 
             part(Objectives; "WorkPaper Objectives")
             {
-                Editable = "Status" <> "Status"::Released;
+                Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("WorkPaper Objectives");
             }
             part(Control13; "Workpaper Result")
@@ -131,7 +131,7 @@ page 50199 "Audit Working Paper"
             }
             part(Conclusion; "WorkPaper Conclusion")
             {
-                Editable = "Status" <> "Status"::Released;
+                Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("WorkPaper Conclusion");
             }
         }
@@ -161,7 +161,7 @@ page 50199 "Audit Working Paper"
                 trigger OnAction()
                 begin
                     ADHeader.RESET;
-                    ADHeader.SETRANGE("No.", "No.");
+                    ADHeader.SETRANGE("No.", Rec."No.");
                     REPORT.RUN(Report::"Audit Working Paper", TRUE, FALSE, ADHeader);
                 end;
             }
@@ -171,11 +171,11 @@ page 50199 "Audit Working Paper"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = Status = Status::Released;
+                Visible = Rec.Status = Rec.Status::Released;
                 trigger OnAction()
                 begin
-                    IF "Audit Stage" = "Audit Stage"::New THEN begin
-                        "Audit Stage" := "Audit Stage"::Council;
+                    IF Rec."Audit Stage" = Rec."Audit Stage"::New THEN begin
+                        Rec."Audit Stage" := Rec."Audit Stage"::Council;
                         Rec.Modify(true);
                     end;
                 end;
@@ -189,7 +189,7 @@ page 50199 "Audit Working Paper"
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
-                    Enabled = "No." <> '';
+                    Enabled = Rec."No." <> '';
 
                     trigger OnAction()
                     var
@@ -199,7 +199,7 @@ page 50199 "Audit Working Paper"
                         Clear(PgDocumentAttachment);
                         RecRef.GETTABLE(Rec);
                         PgDocumentAttachment.OpenForRecReference(RecRef);
-                        if Status = Status::Released then
+                        if Rec.Status = Rec.Status::Released then
                             PgDocumentAttachment.Editable(false);
                         PgDocumentAttachment.RUNMODAL;
                     end;
@@ -212,7 +212,7 @@ page 50199 "Audit Working Paper"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = Status = Status::Open;
+                Visible = Rec.Status = Rec.Status::Open;
 
                 trigger OnAction()
                 begin
@@ -227,7 +227,7 @@ page 50199 "Audit Working Paper"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = Status = Status::"Pending Approval";
+                Visible = Rec.Status = Rec.Status::"Pending Approval";
 
                 trigger OnAction()
                 begin
@@ -248,7 +248,7 @@ page 50199 "Audit Working Paper"
                 begin
                     ApprovalEntry.Reset();
                     ApprovalEntry.SetCurrentKey("Document No.");
-                    ApprovalEntry.SetRange("Document No.", "No.");
+                    ApprovalEntry.SetRange("Document No.", Rec."No.");
                     ApprovalEntries.SetTableView(ApprovalEntry);
                     ApprovalEntries.LookupMode(true);
                     ApprovalEntries.Run;
@@ -267,7 +267,7 @@ page 50199 "Audit Working Paper"
                     ObjAuditHeader: Record "Audit Header";
                 begin
                     ObjAuditHeader.Reset();
-                    ObjAuditHeader.SetRange(ObjAuditHeader."No.", "Audit Program No.");
+                    ObjAuditHeader.SetRange(ObjAuditHeader."No.", Rec."Audit Program No.");
                     if ObjAuditHeader.Find('-') then begin
                         Page.Run(52178295, ObjAuditHeader);
                     end;
@@ -278,12 +278,12 @@ page 50199 "Audit Working Paper"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Work Paper";
+        Rec.Type := Rec.Type::"Work Paper";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Work Paper";
+        Rec.Type := Rec.Type::"Work Paper";
     end;
 
     var

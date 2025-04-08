@@ -11,19 +11,19 @@ page 50200 "Audit Work Papers"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
             }
@@ -36,12 +36,12 @@ page 50200 "Audit Work Papers"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Work Paper";
+        Rec.Type := Rec.Type::"Work Paper";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Work Paper";
+        Rec.Type := Rec.Type::"Work Paper";
     end;
 
     procedure GetSelectionFilter(): Text

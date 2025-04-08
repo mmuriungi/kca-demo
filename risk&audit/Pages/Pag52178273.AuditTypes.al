@@ -9,10 +9,10 @@ page 50111 "Audit Types"
         {
             repeater(Group)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
                 }
             }
