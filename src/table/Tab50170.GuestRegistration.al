@@ -15,10 +15,10 @@ table 50170 "Guest Registration"
         field(3; "Reason for Visit"; Text[250])
         {
         }
-        field(4; "Time In"; DateTime)
+        field(4; "Time In"; Time)
         {
         }
-        field(5; "Time Out"; DateTime)
+        field(5; "Time Out"; Time)
         {
         }
         field(6; "Vehicle Plate Number"; Code[20])
@@ -31,6 +31,10 @@ table 50170 "Guest Registration"
         {
         }
         field(9; "Phone No"; Code[20])
+        {
+        }
+        //date
+        field(10; "Date"; Date)
         {
         }
     }

@@ -36,6 +36,7 @@ codeunit 50200 "Student Certificate Management"
     var
         Cust: Record Customer;
         ClearanceHeader: Record "ACA-Clearance Header";
+        CustCleared: record customer;
     begin
         Cust.reset();
         cust.setrange("No.", CertApp."Student No.");
@@ -45,10 +46,14 @@ codeunit 50200 "Student Certificate Management"
                 Error('Student has a balance of %1. Please clear the balance before proceeding.', Cust.Balance);
         end else
             Error('Student not found.');
-        ClearanceHeader.Reset();
-        ClearanceHeader.SetRange("Student No.", CertApp."Student No.");
-        ClearanceHeader.SetFilter(Status, '%1|%2', ClearanceHeader.Status::Cleared, ClearanceHeader.Status::Completed);
-        if not ClearanceHeader.FindSet() then
+        // ClearanceHeader.Reset();
+        // ClearanceHeader.SetRange("Student No.", CertApp."Student No.");
+        // ClearanceHeader.SetFilter(Status, '%1|%2', ClearanceHeader.Status::Cleared, ClearanceHeader.Status::Completed);
+        // if not ClearanceHeader.FindSet() then
+        CustCleared.Reset;
+        CustCleared.SetRange("No.", CertApp."Student No.");
+        CustCleared.SetRange("Clearance Status", CustCleared."Clearance Status"::Cleared);
+        if not CustCleared.FindFirst() then
             Error('Student has not cleared all requirements.');
     end;
 

@@ -88,7 +88,7 @@ page 51464 "ACA-Exam Man. Role Centre"
                     Caption = 'Process Graduation';
                     Image = AddAction;
 
-                    RunObject = Page "Process Exams Central";
+                    RunObject = Page "Process Graduation Params";
                     ApplicationArea = All;
                 }
                 // action("Senate Preview")

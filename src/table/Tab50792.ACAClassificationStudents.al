@@ -373,6 +373,19 @@ table 50792 "ACA-Classification Students"
                                                                   "Graduation Academic Year" = FIELD("Graduation Academic Year")));
             FieldClass = FlowField;
         }
+        field(63; "Graduation Group"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(64; "Transcript Comments"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(65; "Exists Alternative Rubric"; Boolean)
+        {
+            // fieldclass=flowfield;
+            // calcformula=Exist("ACA-Course Registration" WHERE ("Student No."=FIELD("Student Number"),Programmes=FIELD(Programme),"Alternate Rubric For Stopage"=FILTER(true)));
+        }
     }
 
     keys

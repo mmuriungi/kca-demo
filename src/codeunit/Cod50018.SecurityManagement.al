@@ -9,7 +9,7 @@ codeunit 50018 "Security Management"
         GuestReg.Init();
         GuestReg."Visitor Name" := visitorName;
         GuestReg."Reason for Visit" := reasonForVisit;
-        GuestReg."Time In" := CurrentDateTime;
+        GuestReg."Time In" := Time;
         GuestReg."Vehicle Plate Number" := vehiclePlateNumber;
         GuestReg."Is Staff" := isStaff;
         GuestReg.Insert(true);

@@ -394,6 +394,15 @@ table 50793 "ACA-Classification Course Reg."
             FieldClass = FlowField;
             CalcFormula = Lookup("ACA-Course Registration"."Academic Year" WHERE("Student No." = FIELD("Student Number"), "Year Of Study" = FIELD("Year of Study"), Reversed = FILTER(false)));
         }
+        //"Graduation group"
+        field(63; "Graduation Group"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(64; "Transcript Comments"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
