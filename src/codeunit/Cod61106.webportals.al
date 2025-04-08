@@ -4323,7 +4323,7 @@ Codeunit 61106 webportals
         VenueRequisition.Pax := Pax;
         VenueRequisition.Status := VenueRequisition.Status::New;
         //VenueRequisition."Department Name":=DepartmentName;
-        VenueRequisition."Requested By" := RequestedBy;
+        VenueRequisition."Staff No." := RequestedBy;
         //VenueRequisition."Booking Time":= ;
 
         if VenueRequisition.Insert(true) then
@@ -5057,7 +5057,7 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure SendVenueApproval(DocNumber: Code[20])
+    procedure SendVenueApproval(DocNumber: Code[20]) Msg: Boolean
     var
         variant: Variant;
         ApprovalMgt: Codeunit "Approval Workflows V1";
@@ -5068,12 +5068,13 @@ Codeunit 61106 webportals
             variant := VenueBooking;
             if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then begin
                 ApprovalMgt.OnSendDocForApproval(variant);
+                Msg := true;
             end;
         end
     end;
 
     //Cancel Venue Booking
-    procedure CancelVenueBookingApproval(DocNumber: Code[20])
+    procedure CancelVenueBookingApproval(DocNumber: Code[20]) Msg: Boolean
     var
         variant: Variant;
         ApprovalMgt: Codeunit "Approval Workflows V1";
@@ -5084,6 +5085,7 @@ Codeunit 61106 webportals
             variant := VenueBooking;
             if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then begin
                 ApprovalMgt.OnCancelDocApprovalRequest(variant);
+                Msg := true;
             end;
         end
     end;

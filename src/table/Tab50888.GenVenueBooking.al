@@ -86,6 +86,10 @@ table 50888 "Gen-Venue Booking"
         field(24; "Booking End Time"; Time)
         {
         }
+        ///Staff
+        field(25; "Staff No."; Code[20])
+        {
+        }
     }
 
     keys
@@ -106,12 +110,12 @@ table 50888 "Gen-Venue Booking"
             NoSeries.TESTFIELD(NoSeries."Venue Booking Nos");
             NoSeriesMgt.InitSeries(NoSeries."Venue Booking Nos", xRec."No. Series", 0D, "Booking Id", "No. Series");
         END;
-
-        "Requested By" := USERID;
+        if "Requested By" = '' then
+            "Requested By" := USERID;
         //"Booking Time":=TIME;
         // "Booking Date":=TODAY;
         HRMEmployeeC.RESET;
-        HRMEmployeeC.SETRANGE("User ID", USERID);
+        HRMEmployeeC.SETRANGE("User ID", "Staff No.");
         IF HRMEmployeeC.FIND('-') THEN BEGIN
             Department := HRMEmployeeC."Department Code";
             "Contact Mail" := HRMEmployeeC."E-Mail";

@@ -150,8 +150,7 @@ page 51282 "Venue Booking List"
 
     trigger OnAfterGetRecord()
     begin
-        Rec.SETFILTER("Requested By", '=%1', USERID);
-        Rec.SETFILTER(Status, '=%1', Rec.Status::New);
+     
     end;
 
     var
