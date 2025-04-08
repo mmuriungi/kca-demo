@@ -11109,7 +11109,34 @@ Codeunit 61106 webportals
         Guest.Insert(true);
         msg := true;
     end;
-
+procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; timeout: Time; mileageout: integer; driver: Text; gateofficer: Text) msg: boolean
+    var
+        VehicleMovement: Record "Vehicle Daily Movement";
+    begin
+        VehicleMovement.Init;
+        VehicleMovement."Vehicle No." := vehicleno;
+        VehicleMovement.Destination := destination;
+        VehicleMovement."Time Out" := timeout;
+        VehicleMovement."Milage Out" := mileageout;
+        VehicleMovement."Drivers Name" := driver;
+        VehicleMovement."Gate Officer" := gateofficer;
+        VehicleMovement."Date" := Today;
+        VehicleMovement.Insert(true);
+        msg := true;
+    end;
+    procedure RegisterVehicleInMovement(entryno:integer;  timein: Time; milagein: integer) msg: boolean
+    var
+        VehicleMovement: Record "Vehicle Daily Movement";
+    begin
+        VehicleMovement.Reset;
+        VehicleMovement.SetRange("Entry No.", entryno);
+        if VehicleMovement.Find('-')then begin  
+            VehicleMovement."Time In" := timein;
+            VehicleMovement."Milage In" := milagein;
+            VehicleMovement.Modify(true);
+            msg := true;
+        end;
+    end;
     procedure GetTodayGuests() msg: Text
     var
         Guest: Record "Guest Registration";
@@ -11140,7 +11167,35 @@ Codeunit 61106 webportals
         JArray.WriteTo(JsTxt);
         msg := JsTxt;
     end;
-
+procedure GetVehicleMovemengt() msg: Text
+    var
+        VehicleMovement: Record "Vehicle Daily Movement";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        VehicleMovement.Reset();
+        if VehicleMovement.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('EntryNo', VehicleMovement."Entry No.");
+                JObj.Add('Driver', VehicleMovement."Drivers Name");
+                JObj.Add('Destination', VehicleMovement."Destination");
+                JObj.Add('MilageIn', VehicleMovement."Milage In");
+                JObj.Add('MilageOut', VehicleMovement."Milage Out");
+                JObj.Add('VehicleRegNo', VehicleMovement."Vehicle No.");
+                JObj.Add('GateOfficer', VehicleMovement."Gate Officer");
+                JObj.Add('TimeOut', Format(VehicleMovement."Time Out"));
+                if VehicleMovement."Time In" <> 0T then
+                    JObj.Add('TimeIn', Format(VehicleMovement."Time Out"))
+                else
+                    JObj.Add('TimeIn', '');
+                JArray.Add(JObj);
+            until VehicleMovement.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        msg := JsTxt;
+    end;
     procedure MarkGuestTimeOut(entryNo: Integer; timeout: Time) msg: Boolean
     var
         Guest: Record "Guest Registration";
