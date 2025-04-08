@@ -9,7 +9,7 @@ page 50121 "Incident Report"
         {
             group(General)
             {
-                field("Incident Reference"; "Incident Reference")
+                field("Incident Reference"; Rec."Incident Reference")
                 {
                     Caption = 'No.';
                     Enabled = false;
@@ -21,32 +21,32 @@ page 50121 "Incident Report"
                     StyleExpr = TRUE;
                     ApplicationArea = Basic, Suite;
                 }
-                field(User; User)
+                field(User; Rec.User)
                 {
                     Enabled = false;
                     ApplicationArea = Basic, Suite;
                 }
-                field("User email Address"; "User email Address")
+                field("User email Address"; Rec."User email Address")
                 {
                     Enabled = false;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Employee No"; "Employee No")
+                field("Employee No"; Rec."Employee No")
                 {
                     Enabled = false;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Employee Name"; "Employee Name")
+                field("Employee Name"; Rec."Employee Name")
                 {
                     Enabled = false;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     Enabled = false;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     Enabled = false;
                     Visible = false;
@@ -59,95 +59,95 @@ page 50121 "Incident Report"
                     StyleExpr = TRUE;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Incidence Location Name"; "Incidence Location Name")
+                field("Incidence Location Name"; Rec."Incidence Location Name")
                 {
-                    Enabled = Status = Status::Open;
+                    Enabled = Rec.Status = Rec.Status::Open;
                     Caption = 'Incidence Location';
                     ApplicationArea = Basic, Suite;
                 }
-                field("Incident Date"; "Incident Date")
+                field("Incident Date"; Rec."Incident Date")
                 {
-                    Enabled = Status = Status::Open;
+                    Enabled = Rec.Status = Rec.Status::Open;
                     Caption = 'Incident Date';
                     ApplicationArea = Basic, Suite;
                 }
-                field("Incident Time"; "Incident Time")
+                field("Incident Time"; Rec."Incident Time")
                 {
-                    Enabled = Status = Status::Open;
+                    Enabled = Rec.Status = Rec.Status::Open;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Incident Description"; "Incident Description")
+                field("Incident Description"; Rec."Incident Description")
                 {
-                    Enabled = Status = Status::Open;
+                    Enabled = Rec.Status = Rec.Status::Open;
                     MultiLine = true;
                     ApplicationArea = Basic, Suite;
                 }
-                field("Incident Status"; "Incident Status")
+                field("Incident Status"; Rec."Incident Status")
                 {
                     Enabled = false;
                     ApplicationArea = Basic, Suite;
                 }
-                field("System Support Email Address"; "System Support Email Address")
+                field("System Support Email Address"; Rec."System Support Email Address")
                 {
                     ApplicationArea = Basic, Suite;
                     Enabled = false;
                     Visible = false;
                 }
-                field(Sent; Sent)
+                field(Sent; Rec.Sent)
                 {
                     ApplicationArea = Basic, Suite;
                     Enabled = false;
                 }
-                field("Incident Cause"; "Incident Cause")
+                field("Incident Cause"; Rec."Incident Cause")
                 {
-                    Enabled = Status = Status::Open;
+                    Enabled = Rec.Status = Rec.Status::Open;
                     ApplicationArea = Basic, Suite;
                     MultiLine = true;
                 }
-                field("Action taken"; "Action taken")
+                field("Action taken"; Rec."Action taken")
                 {
-                    Enabled = Status = Status::Pending;
+                    Enabled = Rec.Status = Rec.Status::Pending;
                     ApplicationArea = Basic, Suite;
                 }
-                field(Priority; Priority)
+                field(Priority; Rec.Priority)
                 {
-                    Enabled = Status = Status::Open;
+                    Enabled = Rec.Status = Rec.Status::Open;
                     ApplicationArea = Basic, Suite;
                 }
-                field("User Remarks"; "User Remarks")
+                field("User Remarks"; Rec."User Remarks")
                 {
-                    Enabled = Status = Status::Open;
+                    Enabled = Rec.Status = Rec.Status::Open;
                     Caption = 'Recommendation';
                     MultiLine = true;
                 }
-                field("Incident Rating"; "Incident Rating")
+                field("Incident Rating"; Rec."Incident Rating")
                 {
                     ApplicationArea = Basic, Suite;
                     Visible = false;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = Basic, Suite;
                     Enabled = false;
                 }
-                field("Image:"; "Screen Shot")
+                field("Image:"; Rec."Screen Shot")
                 {
                     Caption = 'Image';
                 }
-                field("Linked Risk"; "Linked Risk")
+                field("Linked Risk"; Rec."Linked Risk")
                 {
                     ApplicationArea = All;
                 }
-                field("Linked Risk Description"; "Linked Risk Description")
+                field("Linked Risk Description"; Rec."Linked Risk Description")
                 {
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Linked Risk Description");
+                        Rec.CALCFIELDS("Linked Risk Description");
                         "Linked Risk Description".CREATEINSTREAM(Instr);
                         RiskNote.READ(Instr);
 
                         IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
-                            CLEAR("Linked Risk Description");
+                            CLEAR(Rec."Linked Risk Description");
                             CLEAR(RiskNote);
                             RiskNote.ADDTEXT(RiskNotesText);
                             "Linked Risk Description".CREATEOUTSTREAM(OutStr);
@@ -155,9 +155,9 @@ page 50121 "Incident Report"
                         END;
                     end;
                 }
-                field("Rejection reason"; "Rejection reason")
+                field("Rejection reason"; Rec."Rejection reason")
                 {
-                    Enabled = Status = Status::Pending;
+                    Enabled = Rec.Status = Rec.Status::Pending;
                 }
             }
         }
@@ -200,9 +200,9 @@ page 50121 "Incident Report"
                     trigger OnAction()
                     var
                     begin
-                        CalcFields("Screen Shot");
-                        clear("Screen Shot");
-                        Modify();
+                        Rec.CalcFields("Screen Shot");
+                        clear(Rec."Screen Shot");
+                        Rec.Modify();
                     end;
                 }
             }
@@ -216,13 +216,13 @@ page 50121 "Incident Report"
                 trigger OnAction()
                 begin
                     Incident.RESET;
-                    Incident.SETRANGE("Incident Reference", "Incident Reference");
+                    Incident.SETRANGE("Incident Reference", Rec."Incident Reference");
                     REPORT.RUN(Report::"Incident Report", TRUE, FALSE, Incident);
                 end;
             }
             action("Send Incident")
             {
-                Visible = Status = Status::Open;
+                Visible = Rec.Status = Rec.Status::Open;
                 Image = SendMail;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -240,7 +240,7 @@ page 50121 "Incident Report"
             }
             action("Solve")
             {
-                Visible = (Status = Status::Pending) OR (Status = Status::Escalated);
+                Visible = (Rec.Status = Rec.Status::Pending) OR (Rec.Status = Rec.Status::Escalated);
                 Image = Report;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -248,15 +248,15 @@ page 50121 "Incident Report"
 
                 trigger OnAction()
                 begin
-                    Status := Status::Solved;
-                    "Action Date" := Today;
-                    "Incident Status" := "Incident Status"::Resolved;
-                    Modify(true);
+                    Rec.Status := Rec.Status::Solved;
+                    Rec."Action Date" := Today;
+                    Rec."Incident Status" := Rec."Incident Status"::Resolved;
+                    Rec.Modify(true);
                 end;
             }
             action("Escalate")
             {
-                Visible = Status = Status::Pending;
+                Visible = Rec.Status = Rec.Status::Pending;
                 Image = Report;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -264,8 +264,8 @@ page 50121 "Incident Report"
 
                 trigger OnAction()
                 begin
-                    Status := Status::Escalated;
-                    Modify(true);
+                    Rec.Status := Rec.Status::Escalated;
+                    Rec.Modify(true);
                 end;
             }
             action(Reject)
@@ -275,21 +275,21 @@ page 50121 "Incident Report"
                 ApplicationArea = Basic, Suite;
                 Promoted = true;
                 PromotedCategory = Category4;
-                Visible = Status = Status::Pending;
+                Visible = Rec.Status = Rec.Status::Pending;
 
                 trigger OnAction()
                 begin
-                    if "Rejection Reason" = '' then
+                    if Rec."Rejection Reason" = '' then
                         Error('Please input reject reason');
                     AuditMgt.NotifyIncidSenderOnChanges(Rec);
-                    Status := Status::Open;
-                    Modify();
+                    Rec.Status := Rec.Status::Open;
+                    Rec.Modify();
                     CurrPage.CLOSE;
                 end;
             }
             action("Close")
             {
-                Visible = (Status = Status::Pending) OR (Status = Status::Escalated) OR (Status = Status::Solved);
+                Visible = (Rec.Status = Rec.Status::Pending) OR (Rec.Status = Rec.Status::Escalated) OR (Rec.Status = Rec.Status::Solved);
                 Image = Report;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -297,8 +297,8 @@ page 50121 "Incident Report"
 
                 trigger OnAction()
                 begin
-                    Status := Status::Closed;
-                    Modify(true);
+                    Rec.Status := Rec.Status::Closed;
+                    Rec.Modify(true);
                 end;
             }
 
@@ -307,17 +307,17 @@ page 50121 "Incident Report"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::AUDIT;
+        Rec.Type := Rec.Type::AUDIT;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::AUDIT;
+        Rec.Type := Rec.Type::AUDIT;
     end;
 
     trigger OnAfterGetRecord()
     begin
-        CALCFIELDS("Linked Risk Description");
+        Rec.CALCFIELDS("Linked Risk Description");
         "Linked Risk Description".CREATEINSTREAM(Instr);
         RiskNote.READ(Instr);
         RiskNotesText := FORMAT(RiskNote);

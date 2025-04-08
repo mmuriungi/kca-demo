@@ -375,7 +375,7 @@ page 51397 "FLT-Transport Req."
                         REPORT.Run(Report::"FTL- Transport Requests", true, true, transRe);
                 end;
             }
-             action(Attachments2)
+            action(Attachments2)
             {
                 ApplicationArea = All;
                 Caption = 'Applicant Attachments';

@@ -39,11 +39,10 @@ table 50145 "Risk Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(6; "Risk Description"; BLOB)
+        field(6; "Risk Description"; Text[2048])
         {
             Caption = 'Risk Objectives';
             DataClassification = ToBeClassified;
-            SubType = Memo;
         }
         field(7; "Document Status"; Option)
         {
@@ -585,20 +584,17 @@ table 50145 "Risk Header"
             InitValue = '';
 
         }
-        field(56; "Root Cause Analysis"; Blob)
+        field(56; "Root Cause Analysis"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            Subtype = Memo;
         }
-        field(57; "Mitigation Suggestions"; Blob)
+        field(57; "Mitigation Suggestions"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            Subtype = Memo;
         }
-        field(58; "Existing Risk Controls"; Blob)
+        field(58; "Existing Risk Controls"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            Subtype = Memo;
         }
         field(59; "Risk Type"; Code[50])
         {

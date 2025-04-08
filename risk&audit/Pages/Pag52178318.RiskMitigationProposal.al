@@ -17,12 +17,12 @@ page 50218 "Risk Mitigation Proposal"
                     trigger OnValidate()
                     begin
 
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -41,7 +41,7 @@ page 50218 "Risk Mitigation Proposal"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -50,7 +50,7 @@ page 50218 "Risk Mitigation Proposal"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

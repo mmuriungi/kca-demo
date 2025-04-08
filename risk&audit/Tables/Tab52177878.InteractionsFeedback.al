@@ -14,7 +14,7 @@ table 52177878 "Interactions Feedback"
         {
             Caption = 'Interaction Code';
             DataClassification = ToBeClassified;
-            tablerelation="Client Interaction Header";
+            tablerelation = "Client Interaction Header";
         }
         field(3; "Created By"; Code[50])
         {

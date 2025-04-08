@@ -9,23 +9,23 @@ page 50208 "Audit Report Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                     Editable = NOT AuditeeReport;
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                     Editable = false;
                 }
-                field("Audit Program No."; "Audit Program No.")
+                field("Audit Program No."; Rec."Audit Program No.")
                 {
                     Editable = NOT AuditeeReport;
                 }
-                field("Audit WorkPaper No."; "Audit WorkPaper No.")
+                field("Audit WorkPaper No."; Rec."Audit WorkPaper No.")
                 {
                     Caption = 'Select Workpaper(s)';
                     Editable = NOT AuditeeReport;
@@ -33,38 +33,38 @@ page 50208 "Audit Report Card"
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
-                        SelectMultipleWorkpapers;
+                        Rec.SelectMultipleWorkpapers;
                     end;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     Editable = NOT AuditeeReport;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     Editable = NOT AuditeeReport;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     Editable = NOT AuditeeReport;
                 }
-                field("Department Name"; "Department Name")
+                field("Department Name"; Rec."Department Name")
                 {
                     Editable = false;
                 }
-                field("Audit Period"; "Audit Period")
+                field("Audit Period"; Rec."Audit Period")
                 {
                     Editable = NOT AuditeeReport;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     Editable = false;
                 }
-                field("Audit Firm"; "Audit Firm")
+                field("Audit Firm"; Rec."Audit Firm")
                 {
                     Visible = false;
                 }
-                field("Audit Manager"; "Audit Manager")
+                field("Audit Manager"; Rec."Audit Manager")
                 {
                     Editable = false;
                 }
@@ -73,19 +73,19 @@ page 50208 "Audit Report Card"
                     Style = Strong;
                     StyleExpr = TRUE;
                 }
-                field(Auditee; Auditee)
+                field(Auditee; Rec.Auditee)
                 {
                     Editable = NOT AuditeeReport;
                 }
-                field("Name of Auditee"; "Name of Auditee")
+                field("Name of Auditee"; Rec."Name of Auditee")
                 {
                     Editable = false;
                 }
-                field("Auditee User ID"; "Auditee User ID")
+                field("Auditee User ID"; Rec."Auditee User ID")
                 {
                     Editable = false;
                 }
-                field("User Reviewed"; "User Reviewed")
+                field("User Reviewed"; Rec."User Reviewed")
                 {
                     Editable = false;
                 }
@@ -96,26 +96,26 @@ page 50208 "Audit Report Card"
                 }
                 part(Control37; "Audit Report Workpapers")
                 {
-                    Editable = ("Report Status" <> "Report Status"::Auditee);
+                    Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                     SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Workpapers");
                 }
             }
             part("Report Background"; "Audit Report Background")
             {
                 Caption = 'Report Background';
-                Editable = ("Report Status" <> "Report Status"::Auditee);
+                Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Background");
             }
             part("Report Objectives"; "Audit Report Objectives")
             {
                 Caption = 'Report Objectives';
-                Editable = ("Report Status" <> "Report Status"::Auditee);
+                Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Objectives");
             }
             part("Favourable Observation"; "Audit Report Fav Observation")
             {
                 Caption = 'Favourable Observation';
-                Editable = ("Report Status" <> "Report Status"::Auditee);
+                Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Observation");
             }
             part("Unfavourable Observation"; "Audit Report UnFav Observation")
@@ -126,7 +126,7 @@ page 50208 "Audit Report Card"
             part(Conclusion; "Audit Report Opinion")
             {
                 Caption = 'Conclusion';
-                Editable = ("Report Status" <> "Report Status"::Auditee);
+                Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Opinion");
             }
         }
@@ -155,7 +155,7 @@ page 50208 "Audit Report Card"
                 trigger OnAction()
                 begin
                     AuditHead.RESET;
-                    AuditHead.SETRANGE("No.", "No.");
+                    AuditHead.SETRANGE("No.", Rec."No.");
                     REPORT.RUN(Report::"Internal Audit Report", TRUE, FALSE, AuditHead);
                 end;
             }
@@ -165,7 +165,7 @@ page 50208 "Audit Report Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = ("Report Status" <> "Report Status"::Auditee);
+                Visible = (Rec."Report Status" <> Rec."Report Status"::Auditee);
 
                 trigger OnAction()
                 begin
@@ -179,7 +179,7 @@ page 50208 "Audit Report Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = ("Report Status" <> "Report Status"::Auditee);
+                Visible = (Rec."Report Status" <> Rec."Report Status"::Auditee);
 
                 trigger OnAction()
                 begin
@@ -194,7 +194,7 @@ page 50208 "Audit Report Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = ("Report Status" <> "Report Status"::Auditee);
+                Visible = (Rec."Report Status" <> Rec."Report Status"::Auditee);
 
                 trigger OnAction()
                 begin
@@ -207,7 +207,7 @@ page 50208 "Audit Report Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = ("Report Status" <> "Report Status"::Auditee);
+                Visible = (Rec."Report Status" <> Rec."Report Status"::Auditee);
 
                 trigger OnAction()
                 var
@@ -215,7 +215,7 @@ page 50208 "Audit Report Card"
                     DocumentType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","Batch Contributions","Multi-Period Contributions",Claims,"New Members","Interest Allocation","Change Requests","Bulk Change Requests","Batch Claims","Payment Voucher",Imprest,"Imprest Surrender","Petty Cash","Petty Cash Surrender","Store Requisitions","Purchase Requisitions","Staff Claim","Bank Transfer","Staff Advance",Quotation,QuoteEvaluation,LeaveAdjustment,TrainingRequest,LeaveApplication,"Travel Requests",Recruitment,"Employee Transfer","Employee Appraisal","Leave Recall","Maintenance Registration","Payroll Change","Payroll Request",LoanApplication,"Employee Acting","Employee Promotion","Medical Item Issue","Semester Registration",Budget,"Proposed Budget","Bank Rec",Audit,Risk,"Audit WorkPlan","Audit Record Requisition","Audit Plan","Work Paper","Audit Report","Risk Survey","Audit Program";
                 begin
                     DocumentType := DocumentType::"Audit Report";
-                    ApprovalEntries.Setfilters(DATABASE::"Audit Header", DocumentType, "No.");
+                    ApprovalEntries.Setfilters(DATABASE::"Audit Header", DocumentType, Rec."No.");
                     ApprovalEntries.RUN;
                 end;
             }
@@ -225,16 +225,16 @@ page 50208 "Audit Report Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = ("Report Status" <> "Report Status"::Auditee);
+                Visible = (Rec."Report Status" <> Rec."Report Status"::Auditee);
 
                 trigger OnAction()
                 begin
-                    IF NOT CONFIRM(ConfirmCLose, FALSE, "No.") THEN
+                    IF NOT CONFIRM(ConfirmCLose, FALSE, Rec."No.") THEN
                         EXIT
                     ELSE BEGIN
                         AuditMgt.InsertAuditRecommendation(Rec);
-                        Archived := TRUE;
-                        MODIFY;
+                        Rec.Archived := TRUE;
+                        Rec.MODIFY;
                     END;
                     CurrPage.CLOSE;
                 end;
@@ -252,7 +252,7 @@ page 50208 "Audit Report Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = "Report Status" <> "Report Status"::Auditee;
+                Visible = Rec."Report Status" <> Rec."Report Status"::Auditee;
 
                 trigger OnAction()
                 begin
@@ -265,7 +265,7 @@ page 50208 "Audit Report Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = "Report Status" = "Report Status"::Auditee;
+                Visible = Rec."Report Status" = Rec."Report Status"::Auditee;
 
                 trigger OnAction()
                 begin
@@ -277,12 +277,12 @@ page 50208 "Audit Report Card"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Audit Report";
+        Rec.Type := Rec.Type::"Audit Report";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Audit Report";
+        Rec.Type := Rec.Type::"Audit Report";
     end;
 
     trigger OnOpenPage()
@@ -302,7 +302,7 @@ page 50208 "Audit Report Card"
 
     local procedure SetControlAppearance()
     begin
-        AuditeeReport := ("Report Status" = "Report Status"::Auditee);
+        AuditeeReport := (Rec."Report Status" = Rec."Report Status"::Auditee);
     end;
 }
 

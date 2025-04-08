@@ -10,18 +10,18 @@ page 50198 "Auditor(s)"
         {
             repeater(Group)
             {
-                field(Auditor; Auditor)
+                field(Auditor; Rec.Auditor)
                 {
 
                     trigger OnValidate()
                     begin
 
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -29,7 +29,7 @@ page 50198 "Auditor(s)"
                         END;
                     end;
                 }
-                field("Auditor Name"; "Auditor Name")
+                field("Auditor Name"; Rec."Auditor Name")
                 {
                     Editable = false;
                 }
@@ -44,7 +44,7 @@ page 50198 "Auditor(s)"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -53,7 +53,7 @@ page 50198 "Auditor(s)"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

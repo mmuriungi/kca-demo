@@ -54,7 +54,7 @@ page 50893 "ACA-Lecturer Units Details"
                 {
                     ApplicationArea = All;
                 }
-                field("Required Equipment";Rec."Required Equipment")
+                field("Required Equipment"; Rec."Required Equipment")
                 {
                     ApplicationArea = All;
                 }

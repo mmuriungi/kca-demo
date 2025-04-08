@@ -9,67 +9,57 @@ page 50117 "Audit Communication"
         {
             group(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     MultiLine = true;
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                     Editable = false;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field("Communication Type"; "Communication Type")
+                field("Communication Type"; Rec."Communication Type")
                 {
                 }
                 group(Control13)
                 {
                     ShowCaption = false;
-                    Visible = (("Communication Type" = "Communication Type"::"E-Mail") OR ("Communication Type" = "Communication Type"::"E-Mail & SMS"));
+                    Visible = ((Rec."Communication Type" = Rec."Communication Type"::"E-Mail") OR (Rec."Communication Type" = Rec."Communication Type"::"E-Mail & SMS"));
                     label("Email Details:")
                     {
                         Style = Strong;
                         StyleExpr = TRUE;
                     }
-                    field("Sender Email"; "Sender Email")
+                    field("Sender Email"; Rec."Sender Email")
                     {
                     }
-                    field("E-Mail Subject"; "E-Mail Subject")
+                    field("E-Mail Subject"; Rec."E-Mail Subject")
                     {
                     }
-                    field("Email Message"; EmailTxt)
+                    field("Email Message"; Rec."Email Message")
                     {
                         MultiLine = true;
 
                         trigger OnValidate()
                         begin
 
-                            CALCFIELDS("E-Mail Body");
-                            "E-Mail Body".CREATEINSTREAM(InStrm);
-                            EmailBigTxt.READ(InStrm);
-
-                            IF EmailTxt <> FORMAT(EmailBigTxt) THEN BEGIN
-                                CLEAR("E-Mail Body");
-                                CLEAR(EmailBigTxt);
-                                EmailBigTxt.ADDTEXT(EmailTxt);
-                                "E-Mail Body".CREATEOUTSTREAM(OutStrm);
-                                EmailBigTxt.WRITE(OutStrm);
-                            END;
+                           
                         end;
                     }
-                    field("Receipient E-Mail"; "Receipient E-Mail")
+                    field("Receipient E-Mail"; Rec."Receipient E-Mail")
                     {
                     }
                 }
                 group(Control14)
                 {
                     ShowCaption = false;
-                    Visible = (("Communication Type" = "Communication Type"::"SMS") OR ("Communication Type" = "Communication Type"::"E-Mail & SMS"));
+                    Visible = ((Rec."Communication Type" = Rec."Communication Type"::"SMS") OR (Rec."Communication Type" = Rec."Communication Type"::"E-Mail & SMS"));
                     field("SMS Message"; SMSTxt)
                     {
                         MultiLine = true;
@@ -77,12 +67,12 @@ page 50117 "Audit Communication"
                         trigger OnValidate()
                         begin
 
-                            CALCFIELDS("SMS Text");
+                            Rec.CALCFIELDS("SMS Text");
                             "SMS Text".CREATEINSTREAM(SMSInStrm);
                             SMSBigTxt.READ(SMSInStrm);
 
                             IF SMSTxt <> FORMAT(SMSBigTxt) THEN BEGIN
-                                CLEAR("SMS Text");
+                                CLEAR(Rec."SMS Text");
                                 CLEAR(SMSBigTxt);
                                 SMSBigTxt.ADDTEXT(SMSTxt);
                                 "SMS Text".CREATEOUTSTREAM(SMSOutStrm);
@@ -91,7 +81,7 @@ page 50117 "Audit Communication"
                         end;
                     }
                 }
-                field(Attachment; Attachment)
+                field(Attachment; Rec.Attachment)
                 {
                     Editable = false;
 
@@ -131,12 +121,12 @@ page 50117 "Audit Communication"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS("E-Mail Body");
+        Rec.CALCFIELDS("E-Mail Body");
         "E-Mail Body".CREATEINSTREAM(InStrm);
         EmailBigTxt.READ(InStrm);
         EmailTxt := FORMAT(EmailBigTxt);
 
-        CALCFIELDS("SMS Text");
+        Rec.CALCFIELDS("SMS Text");
         "SMS Text".CREATEINSTREAM(SMSInStrm);
         SMSBigTxt.READ(SMSInStrm);
         SMSTxt := FORMAT(SMSBigTxt);
@@ -144,17 +134,17 @@ page 50117 "Audit Communication"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::Audit;
+        Rec.Type := Rec.Type::Audit;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::Audit;
+        Rec.Type := Rec.Type::Audit;
     end;
 
     trigger OnOpenPage()
     begin
-        IF Sent THEN
+        IF Rec.Sent THEN
             CurrPage.EDITABLE(FALSE);
     end;
 

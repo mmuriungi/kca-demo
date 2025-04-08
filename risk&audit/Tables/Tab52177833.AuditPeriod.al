@@ -2,7 +2,7 @@ table 50134 "Audit Period"
 {
     fields
     {
-        
+
         field(1; Period; Code[20])
         {
             DataClassification = ToBeClassified;

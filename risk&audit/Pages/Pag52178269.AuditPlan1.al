@@ -10,10 +10,10 @@ page 50107 "Audit Plan 1"
         {
             repeater(General)
             {
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Risk Rating"; "Risk Rating")
+                field("Risk Rating"; Rec."Risk Rating")
                 {
                 }
             }

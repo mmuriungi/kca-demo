@@ -39,7 +39,7 @@ page 51429 "FLT-Daily Work Ticket"
                     ApplicationArea = All;
                 }
 
-        
+
                 field(Department; Rec.Department)
                 {
                     ApplicationArea = All;

@@ -102,7 +102,7 @@ page 50090 "My Venue Bookings"
     local procedure SetStatusStyle()
     begin
         StatusStyleExpr := 'Standard';
-        
+
         case Rec.Status of
             Rec.Status::New:
                 StatusStyleExpr := 'Standard';

@@ -10,7 +10,7 @@ page 50197 "Audit Scope"
         {
             repeater(Group)
             {
-                field("Scope Selected"; "Scope Selected")
+                field("Scope Selected"; Rec."Scope Selected")
                 {
                 }
                 field(Scope; DNotesText)
@@ -19,12 +19,12 @@ page 50197 "Audit Scope"
                     trigger OnValidate()
                     begin
 
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -32,7 +32,7 @@ page 50197 "Audit Scope"
                         END;
                     end;
                 }
-                field("Scheduled Date"; "Scheduled Date")
+                field("Scheduled Date"; Rec."Scheduled Date")
                 {
                 }
             }
@@ -46,7 +46,7 @@ page 50197 "Audit Scope"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -55,7 +55,7 @@ page 50197 "Audit Scope"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

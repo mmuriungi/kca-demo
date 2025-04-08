@@ -246,7 +246,7 @@ table 52177863 "Project Header"
         }
         field(46; "Contract End Notification"; DateFormula)
         {
-            DataClassification=ToBeClassified;
+            DataClassification = ToBeClassified;
         }
 
     }

@@ -737,15 +737,13 @@ table 50136 "Audit Header"
 
     local procedure GetNextLineNo()
     begin
-        WITH GlobalAuditLine DO BEGIN
-            LOCKTABLE;
-            SETRANGE("Document No.", "No.");
-            SETRANGE("Audit Line Type", "Audit Line Type"::Scope);
-            IF FINDLAST THEN
-                NextLineNo := "Line No." + 10000
-            ELSE
-                NextLineNo := 10000;
-        END;
+        GlobalAuditLine.LOCKTABLE;
+        GlobalAuditLine.SETRANGE("Document No.", "No.");
+        GlobalAuditLine.SETRANGE("Audit Line Type", GlobalAuditLine."Audit Line Type"::Scope);
+        IF GlobalAuditLine.FINDLAST THEN
+            NextLineNo := GlobalAuditLine."Line No." + 10000
+        ELSE
+            NextLineNo := 10000;
     end;
 
     procedure SelectMultipleWorkpapers()

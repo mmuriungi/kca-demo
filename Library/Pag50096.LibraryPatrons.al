@@ -57,7 +57,7 @@ page 50096 "Library Patrons"
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
-                
+
                 trigger OnAction()
                 var
                     KohaHandler: Codeunit "Koha Handler";

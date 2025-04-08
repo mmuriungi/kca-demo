@@ -3,7 +3,7 @@ page 50100 "Approved Risk From Champions"
     Caption = 'Approved Risk From Champions';
     PageType = List;
     SourceTable = "Risk Header";
-    
+
     layout
     {
         area(content)

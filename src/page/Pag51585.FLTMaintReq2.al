@@ -56,9 +56,9 @@ page 51585 "FLT-Maint. Req2."
                 {
                     ApplicationArea = all;
                 }
-                field("Type of Maintenance";Rec."Type of Maintenance")
+                field("Type of Maintenance"; Rec."Type of Maintenance")
                 {
-                    applicationarea= all;
+                    applicationarea = all;
                 }
                 field("Price/Litre"; rec."Price/Litre")
                 {
@@ -79,7 +79,7 @@ page 51585 "FLT-Maint. Req2."
             }
             group("Service Request/Maintanance")
             {
-                field("Vendor(Dealer)";Rec."Vendor(Dealer)")
+                field("Vendor(Dealer)"; Rec."Vendor(Dealer)")
                 {
                     ApplicationArea = All;
                 }
@@ -92,22 +92,22 @@ page 51585 "FLT-Maint. Req2."
                 {
                     ApplicationArea = All;
                 }
-                field("mileage at service";Rec."mileage at service")
+                field("mileage at service"; Rec."mileage at service")
                 {
-                  ApplicationArea = All;  
+                    ApplicationArea = All;
                 }
-                
+
 
 
 
             }
             group("Work performed & Notes")
             {
-               field("Work Performed";Rec."Work Performed") 
-               {
-               ApplicationArea = All;
-               MultiLine = true;
-               }
+                field("Work Performed"; Rec."Work Performed")
+                {
+                    ApplicationArea = All;
+                    MultiLine = true;
+                }
             }
             group("Repair Request")
             {
@@ -122,7 +122,7 @@ page 51585 "FLT-Maint. Req2."
                     ApplicationArea = all;
 
                 }
-               
+
             }
             group("Transport Officer ")
             {
@@ -141,14 +141,14 @@ page 51585 "FLT-Maint. Req2."
                 {
                     ApplicationArea = all;
                 }
-                
+
                 field(Amount; rec.Amount)
                 {
                     Caption = 'Amount';
 
                     ApplicationArea = all;
                 }
-               
+
             }
 
         }
@@ -193,7 +193,7 @@ page 51585 "FLT-Maint. Req2."
                     CurrPage.Update();
                 end;
             }
-             action(Attachments2)
+            action(Attachments2)
             {
                 ApplicationArea = All;
                 Caption = 'Document  Attachments';

@@ -9,40 +9,40 @@ page 50119 "Audit Notification"
         {
             group(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     Editable = false;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     MultiLine = true;
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                     Editable = false;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     Editable = false;
                 }
-                field("Communication Type"; "Communication Type")
+                field("Communication Type"; Rec."Communication Type")
                 {
                     Visible = false;
                 }
                 group(Control13)
                 {
                     ShowCaption = false;
-                    Visible = (("Communication Type" = "Communication Type"::"E-Mail") OR ("Communication Type" = "Communication Type"::"E-Mail & SMS"));
+                    Visible = ((Rec."Communication Type" = Rec."Communication Type"::"E-Mail") OR (Rec."Communication Type" = Rec."Communication Type"::"E-Mail & SMS"));
                     label("Email Details:")
                     {
                         Style = Strong;
                         StyleExpr = TRUE;
                     }
-                    field("E-Mail Subject"; "E-Mail Subject")
+                    field("E-Mail Subject"; Rec."E-Mail Subject")
                     {
                     }
                     field("Email Message"; EmailTxt)
@@ -52,12 +52,12 @@ page 50119 "Audit Notification"
                         trigger OnValidate()
                         begin
 
-                            CALCFIELDS("E-Mail Body");
+                            Rec.CALCFIELDS("E-Mail Body");
                             "E-Mail Body".CREATEINSTREAM(InStrm);
                             EmailBigTxt.READ(InStrm);
 
                             IF EmailTxt <> FORMAT(EmailBigTxt) THEN BEGIN
-                                CLEAR("E-Mail Body");
+                                CLEAR(Rec."E-Mail Body");
                                 CLEAR(EmailBigTxt);
                                 EmailBigTxt.ADDTEXT(EmailTxt);
                                 "E-Mail Body".CREATEOUTSTREAM(OutStrm);
@@ -65,7 +65,7 @@ page 50119 "Audit Notification"
                             END;
                         end;
                     }
-                    field(Attachment; Attachment)
+                    field(Attachment; Rec.Attachment)
                     {
                         Editable = false;
 
@@ -83,7 +83,7 @@ page 50119 "Audit Notification"
                 group(Control14)
                 {
                     ShowCaption = false;
-                    Visible = (("Communication Type" = "Communication Type"::"SMS") OR ("Communication Type" = "Communication Type"::"E-Mail & SMS"));
+                    Visible = ((Rec."Communication Type" = Rec."Communication Type"::"SMS") OR (Rec."Communication Type" = Rec."Communication Type"::"E-Mail & SMS"));
                     field("SMS Message"; SMSTxt)
                     {
                         MultiLine = true;
@@ -91,12 +91,12 @@ page 50119 "Audit Notification"
                         trigger OnValidate()
                         begin
 
-                            CALCFIELDS("SMS Text");
+                            Rec.CALCFIELDS("SMS Text");
                             "SMS Text".CREATEINSTREAM(SMSInStrm);
                             SMSBigTxt.READ(SMSInStrm);
 
                             IF SMSTxt <> FORMAT(SMSBigTxt) THEN BEGIN
-                                CLEAR("SMS Text");
+                                CLEAR(Rec."SMS Text");
                                 CLEAR(SMSBigTxt);
                                 SMSBigTxt.ADDTEXT(SMSTxt);
                                 "SMS Text".CREATEOUTSTREAM(SMSOutStrm);
@@ -110,21 +110,21 @@ page 50119 "Audit Notification"
                     Style = Strong;
                     StyleExpr = TRUE;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     Editable = false;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     Editable = false;
                 }
-                field(Sender; Sender)
+                field(Sender; Rec.Sender)
                 {
                 }
-                field("Sender Name"; "Sender Name")
+                field("Sender Name"; Rec."Sender Name")
                 {
                 }
-                field("Sender Email"; "Sender Email")
+                field("Sender Email"; Rec."Sender Email")
                 {
                 }
                 label("Receipient:")
@@ -132,13 +132,13 @@ page 50119 "Audit Notification"
                     Style = Strong;
                     StyleExpr = TRUE;
                 }
-                field("Notify Department"; "Notify Department")
+                field("Notify Department"; Rec."Notify Department")
                 {
                 }
                 group(Control34)
                 {
                     ShowCaption = false;
-                    Visible = "Notify Department";
+                    Visible = Rec."Notify Department";
                     part(Control33; "Audit Notification Subform")
                     {
                         SubPageLink = "No." = FIELD("No.");
@@ -147,14 +147,14 @@ page 50119 "Audit Notification"
                 group(Control31)
                 {
                     ShowCaption = false;
-                    Visible = NOT "Notify Department";
-                    field(Receipient; Receipient)
+                    Visible = NOT Rec."Notify Department";
+                    field(Receipient; Rec.Receipient)
                     {
                     }
-                    field("Receipient Name"; "Receipient Name")
+                    field("Receipient Name"; Rec."Receipient Name")
                     {
                     }
-                    field("Receipient E-Mail"; "Receipient E-Mail")
+                    field("Receipient E-Mail"; Rec."Receipient E-Mail")
                     {
                     }
                 }
@@ -185,12 +185,12 @@ page 50119 "Audit Notification"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS("E-Mail Body");
+        Rec.CALCFIELDS("E-Mail Body");
         "E-Mail Body".CREATEINSTREAM(InStrm);
         EmailBigTxt.READ(InStrm);
         EmailTxt := FORMAT(EmailBigTxt);
 
-        CALCFIELDS("SMS Text");
+        Rec.CALCFIELDS("SMS Text");
         "SMS Text".CREATEINSTREAM(SMSInStrm);
         SMSBigTxt.READ(SMSInStrm);
         SMSTxt := FORMAT(SMSBigTxt);
@@ -198,20 +198,20 @@ page 50119 "Audit Notification"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Audit Notification";
-        "Communication Type" := "Communication Type"::"E-Mail";
+        Rec.Type := Rec.Type::"Audit Notification";
+        Rec."Communication Type" := Rec."Communication Type"::"E-Mail";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Audit Notification";
-        "Communication Type" := "Communication Type"::"E-Mail";
+        Rec.Type := Rec.Type::"Audit Notification";
+        Rec."Communication Type" := Rec."Communication Type"::"E-Mail";
     end;
 
     trigger OnOpenPage()
     begin
-        "Communication Type" := "Communication Type"::"E-Mail";
-        IF Status = Status::Sent THEN
+        Rec."Communication Type" := Rec."Communication Type"::"E-Mail";
+        IF Rec.Status = Rec.Status::Sent THEN
             CurrPage.EDITABLE(FALSE);
     end;
 

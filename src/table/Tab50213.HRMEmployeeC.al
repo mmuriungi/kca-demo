@@ -583,7 +583,7 @@ table 50213 "HRM-Employee C"
         }
         field(57; "Full / Part Time"; Option)
         {
-            OptionMembers = " ", "Full Time", "Part Time", Contract;
+            OptionMembers = " ","Full Time","Part Time",Contract;
 
             trigger OnValidate()
             begin

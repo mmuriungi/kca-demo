@@ -3899,7 +3899,7 @@ Codeunit 61106 webportals
     end;
 
 
-  
+
 
 
     procedure GetProfilePictureStudent(StudentNo: Text) BaseImage: Text
@@ -11104,7 +11104,8 @@ Codeunit 61106 webportals
         Guest.Insert(true);
         msg := true;
     end;
-procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; timeout: Time; mileageout: integer; driver: Text; gateofficer: Text) msg: boolean
+
+    procedure RegisterVehicleOutMovement(vehicleno: Code[20]; destination: Text; timeout: Time; mileageout: integer; driver: Text; gateofficer: Text) msg: boolean
     var
         VehicleMovement: Record "Vehicle Daily Movement";
     begin
@@ -11119,13 +11120,14 @@ procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; time
         VehicleMovement.Insert(true);
         msg := true;
     end;
-    procedure RegisterVehicleInMovement(entryno:integer;datein:Date;  timein: Time; milagein: integer) msg: boolean
+
+    procedure RegisterVehicleInMovement(entryno: integer; datein: Date; timein: Time; milagein: integer) msg: boolean
     var
         VehicleMovement: Record "Vehicle Daily Movement";
     begin
         VehicleMovement.Reset;
         VehicleMovement.SetRange("Entry No.", entryno);
-        if VehicleMovement.Find('-')then begin  
+        if VehicleMovement.Find('-') then begin
             VehicleMovement."Date In" := datein;
             VehicleMovement."Time In" := timein;
             VehicleMovement."Milage In" := milagein;
@@ -11133,6 +11135,7 @@ procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; time
             msg := true;
         end;
     end;
+
     procedure GetTodayGuests() msg: Text
     var
         Guest: Record "Guest Registration";
@@ -11163,7 +11166,8 @@ procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; time
         JArray.WriteTo(JsTxt);
         msg := JsTxt;
     end;
-procedure GetVehicleMovemengt() msg: Text
+
+    procedure GetVehicleMovemengt() msg: Text
     var
         VehicleMovement: Record "Vehicle Daily Movement";
         JObj: JsonObject;
@@ -11197,6 +11201,7 @@ procedure GetVehicleMovemengt() msg: Text
         JArray.WriteTo(JsTxt);
         msg := JsTxt;
     end;
+
     procedure MarkGuestTimeOut(entryNo: Integer; timeout: Time) msg: Boolean
     var
         Guest: Record "Guest Registration";

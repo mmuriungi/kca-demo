@@ -384,7 +384,7 @@ report 50810 "Corporate Risk Register Report"
 
         CompanyInfo.Get;
         CompanyInfo.CalcFields(CompanyInfo.Picture);
-       
+
     end;
 
     procedure SetCellColor()

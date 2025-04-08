@@ -3,7 +3,7 @@ report 50808 "Exam Timetable"
     Caption = 'Exam Timetable';
     dataset
     {
-       dataitem("Timetable Header"; "Timetable Header")
+        dataitem("Timetable Header"; "Timetable Header")
         {
             RequestFilterFields = Semester, "Programme Filter", "Stage Filter", "Lecturer Filter";
             column(logo; CompInfo.picture)

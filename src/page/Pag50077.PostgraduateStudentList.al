@@ -2,7 +2,7 @@ page 50077 "Postgraduate Student List"
 {
     ApplicationArea = All;
     Caption = 'Postgraduate Student List';
-   CardPageID = "ACA-Students Card";
+    CardPageID = "ACA-Students Card";
     Editable = false;
     PageType = List;
     SourceTable = Customer;

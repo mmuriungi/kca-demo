@@ -17,12 +17,12 @@ page 50194 "Audit Planning Procedures"
                     trigger OnValidate()
                     begin
 
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -30,7 +30,7 @@ page 50194 "Audit Planning Procedures"
                         END;
                     end;
                 }
-                field("Scheduled Date"; "Scheduled Date")
+                field("Scheduled Date"; Rec."Scheduled Date")
                 {
                 }
             }
@@ -44,7 +44,7 @@ page 50194 "Audit Planning Procedures"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -53,7 +53,7 @@ page 50194 "Audit Planning Procedures"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

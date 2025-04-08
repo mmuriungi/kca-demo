@@ -29,7 +29,7 @@ page 50103 "Audit Cues"
                     ApplicationArea = All;
                     DrillDownPageId = "Consolidated Risk List";
                 }
-              
+
                 field("Approved Risk List"; "Approved Risk List")
                 {
                     Caption = 'Approved Risk List';

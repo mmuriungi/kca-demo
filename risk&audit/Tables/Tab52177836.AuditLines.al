@@ -341,7 +341,7 @@ table 50137 "Audit Lines"
         {
             DataClassification = ToBeClassified;
             Description = 'Provides the place to input description of an Audit Review';
-            
+
         }
         field(62; "Procedure Prepared By."; Code[50])
         {
@@ -616,7 +616,7 @@ table 50137 "Audit Lines"
         {
             DataClassification = ToBeClassified;
         }
-     
+
 
 
 
@@ -703,11 +703,10 @@ table 50137 "Audit Lines"
 
             //Set Review Scope Selected to false
             AuditLineRecCopy2.COPY(AuditLineRecCopy);
-            WITH AuditLineRecCopy2 DO
-                REPEAT
-                    "Review Scope Selected" := FALSE;
-                    MODIFY;
-                UNTIL AuditLineRecCopy2.NEXT = 0;
+            REPEAT
+                AuditLineRecCopy2."Review Scope Selected" := FALSE;
+                AuditLineRecCopy2.MODIFY;
+            UNTIL AuditLineRecCopy2.NEXT = 0;
         END;
     end;
 

@@ -132,7 +132,7 @@ table 50141 "Internal Audit Champions"
 
     keys
     {
-        key(Key1; Type, "Employee No.", "Escalator ID","User ID")
+        key(Key1; Type, "Employee No.", "Escalator ID", "User ID")
         {
             Clustered = true;
         }

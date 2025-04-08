@@ -10,7 +10,7 @@ page 50195 "Audit Review"
         {
             repeater(Group)
             {
-                field("Review Scope No."; "Review Scope No.")
+                field("Review Scope No."; Rec."Review Scope No.")
                 {
                 }
                 field("Review Scope"; DNotesText)
@@ -19,12 +19,12 @@ page 50195 "Audit Review"
                     trigger OnValidate()
                     begin
 
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -37,12 +37,12 @@ page 50195 "Audit Review"
 
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Review Procedure Blob");
+                        Rec.CALCFIELDS("Review Procedure Blob");
                         "Review Procedure Blob".CREATEINSTREAM(Instr2);
                         DNotes2.READ(Instr2);
 
                         IF DNotesText2 <> FORMAT(DNotes2) THEN BEGIN
-                            CLEAR("Review Procedure Blob");
+                            CLEAR(Rec."Review Procedure Blob");
                             CLEAR(DNotes2);
                             DNotes2.ADDTEXT(DNotesText2);
                             "Review Procedure Blob".CREATEOUTSTREAM(OutStr2);
@@ -50,26 +50,26 @@ page 50195 "Audit Review"
                         END;
                     end;
                 }
-                field(Review; Review)
+                field(Review; Rec.Review)
                 {
                     Caption = 'Review ProcedureOld';
                     Enabled = false;
                     Visible = false;
                 }
-                field("Procedure Prepared By."; "Procedure Prepared By.")
+                field("Procedure Prepared By."; Rec."Procedure Prepared By.")
                 {
                 }
-                field("WorkPlan Ref"; "WorkPlan Ref")
+                field("WorkPlan Ref"; Rec."WorkPlan Ref")
                 {
                     Caption = 'Working Paper  Ref';
                 }
-                field("Done By"; "Done By")
+                field("Done By"; Rec."Done By")
                 {
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field(Completed; Completed)
+                field(Completed; Rec.Completed)
                 {
                 }
             }
@@ -89,7 +89,7 @@ page 50195 "Audit Review"
 
                 trigger OnAction()
                 begin
-                    GetReviewScope(Rec);
+                    Rec.GetReviewScope(Rec);
                 end;
             }
         }
@@ -98,13 +98,13 @@ page 50195 "Audit Review"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
 
 
-        CALCFIELDS("Review Procedure Blob");
+        Rec.CALCFIELDS("Review Procedure Blob");
         "Review Procedure Blob".CREATEINSTREAM(Instr2);
         DNotes2.READ(Instr2);
         DNotesText2 := FORMAT(DNotes2);
@@ -113,12 +113,12 @@ page 50195 "Audit Review"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
 
-        CALCFIELDS("Review Procedure Blob");
+        Rec.CALCFIELDS("Review Procedure Blob");
         "Review Procedure Blob".CREATEINSTREAM(Instr2);
         DNotes2.READ(Instr2);
         DNotesText2 := FORMAT(DNotes2);

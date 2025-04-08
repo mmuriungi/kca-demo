@@ -14,17 +14,17 @@ page 50099 "Consolidated Risk List"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
 
                 }
-                field("Date Created"; "Date Created")
+                field("Date Created"; Rec."Date Created")
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field("Audit Period"; "Audit Period")
+                field("Audit Period"; Rec."Audit Period")
                 {
 
                 }
@@ -38,30 +38,20 @@ page 50099 "Consolidated Risk List"
                 // field("Employee Name"; "Employee Name")
                 // {
                 // }
-                field("Current Plan";"Current Plan")
+                field("Current Plan"; Rec."Current Plan")
                 {
 
                 }
-                field(Comment;Comment)
+                field(Comment; Rec.Comment)
                 {
 
                 }
-                field("Risk Description"; RiskNotesText)
+                field("Risk Description"; Rec."Risk Description")
                 {
-                    Visible=false;
+                    Visible = false;
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Risk Description");
-                        "Risk Description".CREATEINSTREAM(Instr);
-                        RiskNote.READ(Instr);
-
-                        IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
-                            CLEAR("Risk Description");
-                            CLEAR(RiskNote);
-                            RiskNote.ADDTEXT(RiskNotesText);
-                            "Risk Description".CREATEOUTSTREAM(OutStr);
-                            RiskNote.WRITE(OutStr);
-                        END;
+                       
                     end;
                 }
             }
@@ -74,10 +64,7 @@ page 50099 "Consolidated Risk List"
 
     trigger OnAfterGetRecord()
     begin
-        CALCFIELDS("Risk Description");
-        "Risk Description".CREATEINSTREAM(Instr);
-        RiskNote.READ(Instr);
-        RiskNotesText := FORMAT(RiskNote);
+        Rec.CALCFIELDS("Risk Description");       
     end;
 
     trigger OnOpenPage()

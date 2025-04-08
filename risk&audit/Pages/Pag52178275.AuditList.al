@@ -3,7 +3,7 @@ page 50113 "Audit List"
     CardPageID = "Audit Card";
     PageType = List;
     SourceTable = "Audit Header";
-    SourceTableView = WHERE (Type = FILTER (Audit));
+    SourceTableView = WHERE(Type = FILTER(Audit));
 
     layout
     {
@@ -11,25 +11,25 @@ page 50113 "Audit List"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                 }
             }
@@ -42,12 +42,12 @@ page 50113 "Audit List"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::Audit;
+        Rec.Type := Rec.Type::Audit;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::Audit;
+        Rec.Type := Rec.Type::Audit;
     end;
 }
 

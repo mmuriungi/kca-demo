@@ -5,7 +5,7 @@ page 50078 "Scheduling Issue"
     PageType = List;
     SourceTable = "Scheduling Issue";
     UsageCategory = Lists;
-    
+
     layout
     {
         area(Content)
