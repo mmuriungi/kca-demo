@@ -3899,31 +3899,7 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure GetSubmittedAttachment(username: Text) BaseImage: Text
-    var
-        ToFile: Text;
-        IStream: InStream;
-        Bytes: dotnet Array;
-        Convert: dotnet Convert;
-        MemoryStream: dotnet MemoryStream;
-        bs64img: Text;
-    begin
-        StudentDocs.Reset;
-        StudentDocs.SetRange("Index Number", GetIndexNo(username));
-        if StudentDocs.Find('-') then begin
-            repeat
-                if StudentDocs.Document_Image.Hasvalue then begin
-                    StudentDocs.CalcFields(Document_Image);
-                    StudentDocs.Document_Image.CreateInstream(IStream);
-                    MemoryStream := MemoryStream.MemoryStream();
-                    CopyStream(MemoryStream, IStream);
-                    Bytes := MemoryStream.GetBuffer();
-                    bs64img := Convert.ToBase64String(Bytes);
-                    BaseImage += Format(StudentDocs."Document Code") + ' ::' + bs64img + ' ::' + Format(StudentDocs."Approval Status") + ' ::' + StudentDocs."Reject Reason" + ' :::';
-                end;
-            until StudentDocs.Next = 0;
-        end;
-    end;
+  
 
 
     procedure GetProfilePictureStudent(StudentNo: Text) BaseImage: Text
