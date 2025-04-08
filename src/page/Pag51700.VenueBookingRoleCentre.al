@@ -45,6 +45,13 @@ page 50089 "Venue Booking Role Centre"
                 RunObject = Page "Venue Booking Allocated";
                 ApplicationArea = All;
             }
+            action("Venue General Setup")
+            {
+                Caption = 'Venue General Setup';
+                Image = Setup;
+                RunObject = Page "Venue General Setup";
+                ApplicationArea = All;
+            }
             action("Venue Setup")
             {
                 Caption = 'Venue Setup';
@@ -79,7 +86,7 @@ page 50089 "Venue Booking Role Centre"
                 {
                     Caption = 'Allocate Venues';
                     Image = Allocate;
-                    RunObject = Page "Venue Booking Allocate";
+                    RunObject = Page "Venue Booking List";
                     ApplicationArea = All;
                 }
                 action("Venue Status Report")

@@ -2,6 +2,7 @@ page 51281 "Venue Booking Header"
 {
     PageType = Card;
     SourceTable = "Gen-Venue Booking";
+    PromotedActionCategories = 'New,Process,Report,Approval';
 
     layout
     {
@@ -95,12 +96,13 @@ page 51281 "Venue Booking Header"
 
                 trigger OnAction()
                 var
-                    //  ApprovalMgt: Codeunit "439";
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
                     showmessage: Boolean;
                     ManualCancel: Boolean;
                     State: Option Open,"Pending Approval",Cancelled,Approved;
                     DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
                     tableNo: Integer;
+                    variant: Variant;
                 begin
                     Rec.TESTFIELD(Department);
                     Rec.TESTFIELD("Request Date");
@@ -111,12 +113,31 @@ page 51281 "Venue Booking Header"
                     Rec.TESTFIELD("Contact Person");
                     Rec.TESTFIELD("Contact Number");
                     Rec.TESTFIELD(Pax);
+                    variant := Rec;
+                    if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovalMgt.OnSendDocForApproval(variant);
 
-                    IF CONFIRM('Submit request', TRUE) = FALSE THEN ERROR('Cancelled by user!');
-                    Rec.Status := Rec.Status::"Pending Approval";
-                    Rec.MODIFY;
+                    CurrPage.UPDATE;
+                end;
+            }
+            action("Cancel Approval Request")
+            {
+                Caption = 'Cancel Approval Request';
+                Image = Cancel;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                Enabled = Rec.Status = Rec.Status::"Pending Approval";
 
-                    //  IF ApprovalsMgtNotification.SendVenueApprovalMail(Rec."Booking Id",'VENUE BOOKING',Rec."Contact Mail",Rec."Contact Person") THEN;
+                trigger OnAction()
+                var
+                    variant: Variant;
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
+                begin
+                    variant := Rec;
+                    if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then
+                        ApprovalMgt.OnCancelDocApprovalRequest(variant);
+
                     CurrPage.UPDATE;
                 end;
             }

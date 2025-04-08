@@ -103,8 +103,8 @@ table 50888 "Gen-Venue Booking"
     begin
         IF "Booking Id" = '' THEN BEGIN
             NoSeries.GET;
-            NoSeries.TESTFIELD(NoSeries."Venue Booking Nos.");
-            NoSeriesMgt.InitSeries(NoSeries."Venue Booking Nos.", xRec."No. Series", 0D, "Booking Id", "No. Series");
+            NoSeries.TESTFIELD(NoSeries."Venue Booking Nos");
+            NoSeriesMgt.InitSeries(NoSeries."Venue Booking Nos", xRec."No. Series", 0D, "Booking Id", "No. Series");
         END;
 
         "Requested By" := USERID;
@@ -135,7 +135,7 @@ table 50888 "Gen-Venue Booking"
     end;
 
     var
-        NoSeries: Record "No. Series";
+        NoSeries: Record "Venue General Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         HRMEmployeeC: Record "HRM-Employee C";
     //  VenueBookingPermissions: Record "77710";

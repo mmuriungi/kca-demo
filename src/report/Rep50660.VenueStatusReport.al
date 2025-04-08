@@ -2,6 +2,8 @@ report 50660 "Venue Status Report"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Venue Status Report.rdl';
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
 
     dataset
     {
