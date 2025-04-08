@@ -11139,17 +11139,18 @@ procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; time
         VehicleMovement."Milage Out" := mileageout;
         VehicleMovement."Drivers Name" := driver;
         VehicleMovement."Gate Officer" := gateofficer;
-        VehicleMovement."Date" := Today;
+        VehicleMovement."Date Out" := Today;
         VehicleMovement.Insert(true);
         msg := true;
     end;
-    procedure RegisterVehicleInMovement(entryno:integer;  timein: Time; milagein: integer) msg: boolean
+    procedure RegisterVehicleInMovement(entryno:integer;datein:Date;  timein: Time; milagein: integer) msg: boolean
     var
         VehicleMovement: Record "Vehicle Daily Movement";
     begin
         VehicleMovement.Reset;
         VehicleMovement.SetRange("Entry No.", entryno);
         if VehicleMovement.Find('-')then begin  
+            VehicleMovement."Date In" := datein;
             VehicleMovement."Time In" := timein;
             VehicleMovement."Milage In" := milagein;
             VehicleMovement.Modify(true);
@@ -11205,8 +11206,13 @@ procedure GetVehicleMovemengt() msg: Text
                 JObj.Add('VehicleRegNo', VehicleMovement."Vehicle No.");
                 JObj.Add('GateOfficer', VehicleMovement."Gate Officer");
                 JObj.Add('TimeOut', Format(VehicleMovement."Time Out"));
+                JObj.Add('DateOut', Format(VehicleMovement."Date Out"));
                 if VehicleMovement."Time In" <> 0T then
-                    JObj.Add('TimeIn', Format(VehicleMovement."Time Out"))
+                    JObj.Add('TimeIn', Format(VehicleMovement."Time In"))
+                else
+                    JObj.Add('TimeIn', '');
+                if VehicleMovement."Date In" <> 0D then
+                    JObj.Add('DateIn', Format(VehicleMovement."Date In"))
                 else
                     JObj.Add('TimeIn', '');
                 JArray.Add(JObj);
