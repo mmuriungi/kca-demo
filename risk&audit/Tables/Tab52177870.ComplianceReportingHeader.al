@@ -1,4 +1,4 @@
-table 52177870 "Compliance Reporting Header"
+table 51342 "Compliance Reporting Header"
 {
     Caption = 'Compliance Reporting Header';
     DataClassification = ToBeClassified;

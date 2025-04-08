@@ -1,4 +1,4 @@
-table 52177575 "ICT Setup"
+table 51321 "ICT Setup"
 {
 
     fields

@@ -1,4 +1,4 @@
-table 50052 "Risk Evaluation Score"
+table 51345 "Risk Evaluation Score"
 {
     Caption = 'Risk Evaluation Score';
     DataClassification = ToBeClassified;

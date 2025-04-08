@@ -1,4 +1,4 @@
-table 50134 "Audit Period"
+table 51329 "Audit Period"
 {
     fields
     {
@@ -64,7 +64,7 @@ table 50134 "Audit Period"
         field(12; "Audit Manager"; Code[90])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee where(Auditor = filter(true));
+            //TableRelation = Employee where(Auditor = filter(true));
             trigger OnValidate()
             var
                 ObjEmp: Record Employee;

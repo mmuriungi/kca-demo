@@ -1,4 +1,4 @@
-table 50145 "Risk Header"
+table 51334 "Risk Header"
 {
 
 
@@ -859,13 +859,13 @@ table 50145 "Risk Header"
         IF UserSetup.GET("Created By") THEN BEGIN
             UserSetup.TESTFIELD("Employee No.");
             "Employee No." := UserSetup."Employee No."; // Assign the Risk Champion's Employee No.
-            "Employee Name" := UserSetup."Full Name";   // Assign the Risk Champion's Name
+            //"Employee Name" := UserSetup."Full Name";   // Assign the Risk Champion's Name
             "Employee Email" := UserSetup."E-Mail";     // Assign the Risk Champion's Email
             "Station Code" := UserSetup."Global Dimension 1 Code";
-            "Station Name" := UserSetup."Station Name";
+            //"Station Name" := UserSetup."Station Name";
             "Risk Department" := UserSetup."Global Dimension 1 Code";
             UserSetup.Validate("Global Dimension 1 Code");
-            "Shortcut Dimension 1 Code" := UserSetup."Department Code";
+            //"Shortcut Dimension 1 Code" := UserSetup."Department Code";
             // UserSetup.Validate("Shortcut Dimension 1 Code");
 
         END;

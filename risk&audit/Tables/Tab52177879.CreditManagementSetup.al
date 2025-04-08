@@ -137,7 +137,7 @@ table 50133 "Credit Management Setup"
                 Emp.Reset();
                 Emp.SetRange("No.", "Signatory 1 No.");
                 if emp.Find('-') then begin
-                    "Signatory 1 designation" := Emp."Job Position Title";
+                    "Signatory 1 designation" := Emp."Job Title";
                     "Signatory 1 Name" := Emp."First Name" + ' ' + Emp."Middle Name" + ' ' + Emp."Last Name";
                 end;
             end;
@@ -161,7 +161,7 @@ table 50133 "Credit Management Setup"
                 Emp.Reset();
                 Emp.SetRange("No.", "Signatory 2 No.");
                 if emp.Find('-') then begin
-                    "Signatory 2 designation" := Emp."Job Position Title";
+                    "Signatory 2 designation" := Emp."Job Title";
                     "Signatory 2 Name" := Emp."First Name" + ' ' + Emp."Middle Name" + ' ' + Emp."Last Name";
                 end;
             end;

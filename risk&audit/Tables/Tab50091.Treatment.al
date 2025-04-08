@@ -124,6 +124,7 @@ table 51317 "Treatment"
         MyBase64: Text;
         SMTPMail: Codeunit "SMTP Mail";
         KobbyGlobal: Codeunit "Kobby Global Functions";
+        // SMTPMail:Codeunit email
 
     begin
 
