@@ -2117,7 +2117,7 @@ page 50963 "Process Exams Central Gen."
                                 Coregcs.SETFILTER("Student No.", StudNos);
                             END ELSE BEGIN
                             END;
-                            Coregcs.SetRange("Student No.", 'P100/2753G/22');
+                            //Coregcs.SetRange("Student No.", 'P100/2753G/22');
                             IF Coregcs.FIND('-') THEN BEGIN
                                 CLEAR(TotalRecs);
                                 CLEAR(RemeiningRecs);

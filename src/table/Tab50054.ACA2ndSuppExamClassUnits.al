@@ -30,9 +30,9 @@ table 50054 "ACA-2ndSuppExam Class. Units"
         field(5; "Credit Hours"; Decimal)
         {
             Caption = 'Credit Hours';
-            FieldClass = FlowField;
-            CalcFormula = Lookup("ACA-Units/Subjects"."No. Units" WHERE("Programme Code" = FIELD(Programme),
-                                                                        Code = FIELD("Unit Code")));
+            // FieldClass = FlowField;
+            // CalcFormula = Lookup("ACA-Units/Subjects"."No. Units" WHERE("Programme Code" = FIELD(Programme),
+            //                                                             Code = FIELD("Unit Code")));
         }
         field(6; "CAT Score"; Code[20])
         {

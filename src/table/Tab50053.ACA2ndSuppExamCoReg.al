@@ -68,12 +68,15 @@ table 50053 "ACA-2ndSuppExam. Co. Reg."
         field(13; "Total Courses"; Integer)
         {
             Caption = 'Total Courses';
-            DataClassification = CustomerContent;
+            FieldClass=FlowField;
+            CalcFormula=Count("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Academic Year"=FIELD("Academic Year")));
+            Editable = false;
         }
         field(14; "Total Units"; Decimal)
         {
             Caption = 'Total Units';
-            DataClassification = CustomerContent;
+            FieldClass=FlowField;
+            CalcFormula=Sum("ACA-2ndSuppExam Class. Units"."Credit Hours" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Academic Year"=FIELD("Academic Year")));
         }
         field(15; "Admission Date"; Date)
         {
