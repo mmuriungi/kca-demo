@@ -112,7 +112,7 @@ page 50242 "Audit Plan"
                 Visible = Rec."Audit Stage" = Rec."Audit Stage"::Council;
                 trigger OnAction()
                 var
-                    Employee: Record Employee;
+                    Employee: Record "HRM-Employee C";
                 begin
                     IF Rec."Audit Stage" = Rec."Audit Stage"::Council THEN begin
                         Rec."Audit Stage" := Rec."Audit Stage"::Auditor;

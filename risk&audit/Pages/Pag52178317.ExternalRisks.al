@@ -75,19 +75,13 @@ page 50217 "External Risks"
     trigger OnAfterGetCurrRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+
     end;
 
     var

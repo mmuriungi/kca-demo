@@ -177,7 +177,7 @@ table 51297 "Audit Lines"
         field(32; "Responsible Personnel Code"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -247,7 +247,7 @@ table 51297 "Audit Lines"
         field(45; Auditor; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin

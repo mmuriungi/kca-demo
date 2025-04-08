@@ -129,10 +129,10 @@ table 50133 "Credit Management Setup"
         field(26; "Signatory 1 No."; Code[10])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger Onvalidate()
             var
-                Emp: Record Employee;
+                Emp: Record "HRM-Employee C";
             begin
                 Emp.Reset();
                 Emp.SetRange("No.", "Signatory 1 No.");
@@ -153,10 +153,10 @@ table 50133 "Credit Management Setup"
         field(29; "Signatory 2 No."; Code[10])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger Onvalidate()
             var
-                Emp: Record Employee;
+                Emp: Record "HRM-Employee C";
             begin
                 Emp.Reset();
                 Emp.SetRange("No.", "Signatory 2 No.");

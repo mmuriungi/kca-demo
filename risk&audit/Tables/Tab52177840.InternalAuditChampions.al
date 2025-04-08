@@ -12,7 +12,7 @@ table 50141 "Internal Audit Champions"
         field(2; "Employee No."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee where("Employment Type" = filter(Contract | Permanent));
+            TableRelation = "HRM-Employee C" where("Employee Type" = filter(Contract | Permanent));
 
             trigger OnValidate()
             begin
@@ -20,7 +20,7 @@ table 50141 "Internal Audit Champions"
                 IF Employee.GET("Employee No.") THEN BEGIN
                     "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
                     "E-Mail" := Employee."Company E-Mail";
-                    "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
+                    "Shortcut Dimension 1 Code" := Employee.Campus;
                     if Employee."User ID" <> '' then
                         "User ID" := Employee."User ID"
                     else begin
@@ -85,7 +85,7 @@ table 50141 "Internal Audit Champions"
         field(9; "Escalator ID"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee where("Employment Type" = filter(Contract | Permanent));
+            TableRelation = "HRM-Employee C" where("Employee Type" = filter(Contract | Permanent));
 
             trigger OnValidate()
             begin
@@ -100,16 +100,7 @@ table 50141 "Internal Audit Champions"
         }
         field(10; "Station Code"; Code[90])
         {
-            DataClassification = ToBeClassified;
-            TableRelation = "Stations SetUp";
-            trigger OnValidate()
-            var
-                ObjStation: Record "Stations SetUp";
-            begin
-                if ObjStation.Get("Station Code") then begin
-                    "Station Name" := ObjStation.Description;
-                end;
-            end;
+           
         }
 
         field(11; "Station Name"; Code[190])
@@ -147,7 +138,7 @@ table 50141 "Internal Audit Champions"
     }
 
     var
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         DimMgt: Codeunit DimensionManagement;
         UserSetup: Record "User Setup";
 

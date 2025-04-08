@@ -11,11 +11,11 @@ table 51338 "Audit Recommendations"
         {
             DataClassification = ToBeClassified;
         }
-        field(3; "Audit Observation"; BLOB)
+        field(3; "Audit Observation"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(4; "Audit Recommendation"; BLOB)
+        field(4; "Audit Recommendation"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }

@@ -79,10 +79,9 @@ table 51327 "Risk Register"
             DataClassification = ToBeClassified;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
-        field(18; "Risk Description"; BLOB)
+        field(18; "Risk Description"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            SubType = Memo;
         }
         field(19; "Risk Type"; Option)
         {

@@ -12,10 +12,10 @@ table 50008 "Auditors List"
         field(2; "Auditor No"; Code[90])
         {
             Caption = 'Auditor No';
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
-                ObjEmp: Record Employee;
+                ObjEmp: Record "HRM-Employee C";
             begin
                 ObjEmp.Reset();
                 ObjEmp.SetRange(ObjEmp."No.", "Auditor No");

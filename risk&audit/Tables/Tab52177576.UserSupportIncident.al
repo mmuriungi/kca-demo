@@ -77,7 +77,7 @@ table 50129 "User Support Incident"
         }
         field(15; "Employee No"; Code[20])
         {
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             begin
                 IF Employee.GET("Employee No") THEN BEGIN
@@ -99,7 +99,7 @@ table 50129 "User Support Incident"
         }
         field(19; "Work place Controller"; Code[10])
         {
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(20; "Work place Controller Name"; Text[100])
         {
@@ -162,7 +162,7 @@ table 50129 "User Support Incident"
             TableRelation = if ("Escalation option" = const(Internal)) Employee;
             trigger Onvalidate()
             var
-                Emp: Record Employee;
+                Emp: Record "HRM-Employee C";
             begin
                 Emp.Reset();
                 Emp.SetRange("No.", "Escalate To");
@@ -193,10 +193,10 @@ table 50129 "User Support Incident"
         {
             Caption = 'Assigned to';
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger Onvalidate()
             var
-                Employee: Record Employee;
+                Employee: Record "HRM-Employee C";
             begin
                 Employee.Reset;
                 Employee.SetRange("No.", "Delegated To");
@@ -492,8 +492,8 @@ table 50129 "User Support Incident"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         CompanyInformation: Record "Company Information";
         UserSetup: Record "User Setup";
-        Employee: Record Employee;
-        emp2: Record Employee;
+        Employee: Record "HRM-Employee C";
+        emp2: Record "HRM-Employee C";
         DimMgt: Codeunit DimensionManagement;
         AuditSetup: Record "Audit Setup";
 

@@ -35,10 +35,10 @@ table 51317 "Treatment"
         field(7; "Responsibility (for each action plan)"; Text[250])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
-                ObjEmpl: Record Employee;
+                ObjEmpl: Record "HRM-Employee C";
             begin
                 ObjEmpl.Reset();
                 ObjEmpl.SetRange(ObjEmpl."No.", "Responsibility (for each action plan)");
@@ -124,7 +124,7 @@ table 51317 "Treatment"
         MyBase64: Text;
         SMTPMail: Codeunit "SMTP Mail";
         KobbyGlobal: Codeunit "Kobby Global Functions";
-        // SMTPMail:Codeunit email
+    // SMTPMail:Codeunit email
 
     begin
 

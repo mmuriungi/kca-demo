@@ -281,7 +281,7 @@ table 51330 "Audit Header"
         field(27; "Employee No."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -393,7 +393,7 @@ table 51330 "Audit Header"
         field(41; Auditee; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -484,10 +484,10 @@ table 51330 "Audit Header"
         field(483; CEO; Code[90])
         {
             DataClassification = ToBeClassified;
-            // TableRelation = Employee where(CEO = filter(true));
+            // TableRelation = "HRM-Employee C" where(CEO = filter(true));
             trigger OnValidate()
             var
-                Employee: Record Employee;
+                Employee: Record "HRM-Employee C";
             begin
                 if Employee.Get(CEO) then begin
                     Name := Employee."Search Name";
@@ -549,8 +549,8 @@ table 51330 "Audit Header"
         field(495; "Audit Manager"; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
-            
+            TableRelation = "HRM-Employee C";
+
             trigger OnValidate()
             begin
                 if Employee.Get("Audit Manager") then begin
@@ -686,7 +686,7 @@ table 51330 "Audit Header"
         AuditSetup: Record "Audit Setup";
         DeleteErr: Label 'You cannot Delete documents that have already been processed';
         UserSetup: Record "User Setup";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         Rating: Record "Risk Rating";
         DimValue: Record "Dimension Value";
         AuditHeader: Record "Audit Header";

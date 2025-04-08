@@ -18,18 +18,6 @@ page 50197 "Audit Scope"
 
                     trigger OnValidate()
                     begin
-
-                        Rec.CALCFIELDS(Description);
-                        Description.CREATEINSTREAM(Instr);
-                        DNotes.READ(Instr);
-
-                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Rec.Description);
-                            CLEAR(DNotes);
-                            DNotes.ADDTEXT(DNotesText);
-                            Description.CREATEOUTSTREAM(OutStr);
-                            DNotes.WRITE(OutStr);
-                        END;
                     end;
                 }
                 field("Scheduled Date"; Rec."Scheduled Date")
@@ -45,20 +33,10 @@ page 50197 "Audit Scope"
 
     trigger OnAfterGetCurrRecord()
     begin
-
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
     end;
 
     trigger OnAfterGetRecord()
     begin
-
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
     end;
 
     var

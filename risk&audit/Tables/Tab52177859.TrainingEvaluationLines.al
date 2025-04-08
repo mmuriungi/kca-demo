@@ -62,7 +62,7 @@ table 51255 "Training Evaluation Lines"
     }
 
     var
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
 
 
 }

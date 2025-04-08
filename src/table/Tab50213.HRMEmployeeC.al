@@ -444,7 +444,7 @@ table 50213 "HRM-Employee C"
         field(47; "Employee No. Filter"; Code[20])
         {
             FieldClass = FlowFilter;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(49; "Fax Number"; Text[30])
         {
@@ -2578,7 +2578,7 @@ table 50213 "HRM-Employee C"
         CLen: DateFormula;
         UserSetup: Record "User Setup";
         CDate: Date;
-        Res: Record Employee;
+        Res: Record "HRM-Employee C";
         EmployeeSalespersonUpdate: Codeunit "Employee/Salesperson Update";
         HREmp: Record "HRM-Employee C";
         Country: Record "Country/Region";

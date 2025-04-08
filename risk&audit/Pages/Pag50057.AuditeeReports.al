@@ -1,4 +1,4 @@
-page 50057 "Auditee Reports"
+page 50264 "Auditee Reports"
 {
     CardPageID = "Audit Report Card";
     PageType = List;

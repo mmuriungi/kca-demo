@@ -1,4 +1,4 @@
-codeunit 52177470 "Internal Audit Management"
+codeunit 50099 "Internal Audit Management"
 {
 
     trigger OnRun()
@@ -18,7 +18,7 @@ codeunit 52177470 "Internal Audit Management"
         Text0005: Label 'Do you want to send the Audit Notification to %1 Department?';
         AuditNotice: Label 'Dear <Strong>%1</Strong>,<br> <br> You have been subscribed to receive this email from Department %2.<br> <br> Thank you. Regards,<br><br><Strong>%3</Strong>';
         DimVal: Record "Dimension Value";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         UserSetup: Record "User Setup";
         FileRec: File;
         Receipients: Text; //List of [Text];;
@@ -30,7 +30,6 @@ codeunit 52177470 "Internal Audit Management"
         RiskLedger: Record "Risk Ledger Entry";
         RiskValueSetup: Record "Risk Value Setup";
         RiskHeader: Record "Risk Header";
-        SMTP: Codeunit "SMTP Mail";
         Receipient: Text; //List of [Text];;
         ReceipientCC: Text; //List of [Text];;
         SenderName: Text;
@@ -61,17 +60,9 @@ codeunit 52177470 "Internal Audit Management"
         Instr: InStream;
         EmailBodyText: Text;
         EmailBodyBigText: BigText;
-        FileManagement: Codeunit "File Management";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
-        SenderName: Text;
-        SenderAddress: Text;
-        Subject: Text;
         FileName: Text;
-        TimeNow: Text;
-        RecipientCC: Text;
-        Attachment: Text;
-        ErrorMsg: Text;
+        NotificationsHandler: Codeunit "Notifications Handler";
+        SenderName: Text;
     begin
         ICTSetup.GET;
 
@@ -86,36 +77,34 @@ codeunit 52177470 "Internal Audit Management"
 
         IF NOT CONFIRM(Text0001, FALSE, Communication."No.") THEN
             EXIT
-
-
         ELSE BEGIN
             CASE Communication."Communication Type" OF
                 Communication."Communication Type"::"E-Mail", Communication."Communication Type"::"E-Mail & SMS":
                     BEGIN
+                        // Calculate EmailBody
+                        EmailBodyText := Communication."E-Mail Body";
 
-                        //Calc EmailBody
-                        Communication.CALCFIELDS("E-Mail Body");
-                        Communication."E-Mail Body".CREATEINSTREAM(Instr);
-                        EmailBodyBigText.READ(Instr);
-                        EmailBodyText := FORMAT(EmailBodyBigText);
-
-                        //Get User Email
+                        // Get User Email
                         IF UserSetup.GET(USERID) THEN
                             IF Employee.GET(UserSetup."Employee No.") THEN;
 
-                        //Create & Send Email
+                        // Get sender name
                         SenderName := Employee."First Name" + ' ' + Employee."Last Name";
-                        SenderAddress := Communication."Sender Email";
-                        //Receipient.Add(Communication."Receipient E-Mail");
-                        Receipient := Communication."Receipient E-Mail";
-                        Subject := Communication."E-Mail Subject";
-                        TimeNow := FORMAT(TIME);
-                        FileName := Communication.Attachment;
-                        SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', false);
-                        IF Communication.Attachment <> '' THEN
-                            SMTP.AppendBody(STRSUBSTNO(EmailBodyText));
-                        SMTP.AddAttachment(FileName, Attachment);
-                        SMTP.Send;
+
+                        // Use Notifications Handler to send email
+                        NotificationsHandler.fnSendemail(
+                            SenderName,
+                            Communication."E-Mail Subject",
+                            EmailBodyText,
+                            Communication."Receipient E-Mail",
+                            '',  // CC
+                            '',  // BCC
+                            Communication.Attachment <> '',  // Has Attachment
+                            '',  // Attachment Base64 - would need to be implemented if needed
+                            Communication.Attachment,  // Attachment Name
+                            ''   // Attachment Type
+                        );
+
                         MESSAGE(Text0002);
 
                         Communication.Sent := TRUE;
@@ -127,7 +116,6 @@ codeunit 52177470 "Internal Audit Management"
                     END;
             END;
         END;
-
     end;
 
     procedure SendAuditNotification(Communication: Record "Communication Header")
@@ -136,8 +124,7 @@ codeunit 52177470 "Internal Audit Management"
         EmailBodyText: Text;
         EmailBodyBigText: BigText;
         FileManagement: Codeunit "File Management";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
+        NotificationsHandler: Codeunit "Notifications Handler";
         SenderName: Text;
         SenderAddress: Text;
         Subject: Text;
@@ -174,24 +161,29 @@ codeunit 52177470 "Internal Audit Management"
                     BEGIN
                         IF NOT Communication."Notify Department" THEN BEGIN
                             //Calc EmailBody
-                            Communication.CALCFIELDS("E-Mail Body");
-                            Communication."E-Mail Body".CREATEINSTREAM(Instr);
-                            EmailBodyBigText.READ(Instr);
-                            EmailBodyText := FORMAT(EmailBodyBigText);
+                            EmailBodyText := Communication."E-Mail Body";
                             //MESSAGE(EmailBodyText);
 
                             //Create & Send Email
                             SenderName := Communication."Sender Name";
                             SenderAddress := Communication."Sender Email";
-                            //Receipient.Add(Communication."Receipient E-Mail");
                             Receipient := Communication."Receipient E-Mail";
                             Subject := Communication."E-Mail Subject";
                             TimeNow := FORMAT(TIME);
                             FileName := Communication.Attachment;
-                            SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', false);
-                            SMTP.AppendBody(STRSUBSTNO(EmailBodyText));
-                            SMTP.AddAttachment(FileName, Attachment);
-                            SMTP.Send();
+
+                            NotificationsHandler.fnSendemail(
+                                SenderName,
+                                Subject,
+                                STRSUBSTNO(EmailBodyText),
+                                Receipient,
+                                '',  // CC
+                                '',  // BCC
+                                Communication.Attachment <> '',  // Has Attachment
+                                '',  // Attachment Base64
+                                FileName,  // Attachment Name
+                                ''   // Attachment Type
+                            );
                             /*IF ErrorMsg <> '' THEN
                               Communication.Sent := False
                             ELSE
@@ -203,24 +195,29 @@ codeunit 52177470 "Internal Audit Management"
                             IF CommLines.FIND('-') THEN BEGIN
                                 REPEAT
                                     //Calc EmailBody
-                                    Communication.CALCFIELDS("E-Mail Body");
-                                    Communication."E-Mail Body".CREATEINSTREAM(Instr);
-                                    EmailBodyBigText.READ(Instr);
-                                    EmailBodyText := FORMAT(EmailBodyBigText);
+                                    EmailBodyText := Communication."E-Mail Body";
                                     //MESSAGE(EmailBodyText);
 
                                     //Create & Send Email
                                     SenderName := Communication."Sender Name";
                                     SenderAddress := Communication."Sender Email";
-                                    //Receipient.Add(CommLines."Recipient E-Mail");
                                     Receipient := CommLines."Recipient E-Mail";
                                     Subject := Communication."E-Mail Subject";
                                     TimeNow := FORMAT(TIME);
                                     FileName := Communication.Attachment;
-                                    SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', false);
-                                    SMTP.AppendBody(STRSUBSTNO(EmailBodyText));
-                                    SMTP.AddAttachment(FileName, Attachment);
-                                    SMTP.Send;
+
+                                    NotificationsHandler.fnSendemail(
+                                        SenderName,
+                                        Subject,
+                                        STRSUBSTNO(EmailBodyText),
+                                        Receipient,
+                                        '',  // CC
+                                        '',  // BCC
+                                        Communication.Attachment <> '',  // Has Attachment
+                                        '',  // Attachment Base64
+                                        FileName,  // Attachment Name
+                                        ''   // Attachment Type
+                                    );
                                 UNTIL CommLines.NEXT = 0;
                             END;
                         END;
@@ -243,8 +240,7 @@ codeunit 52177470 "Internal Audit Management"
         EmailBodyText: Text;
         EmailBodyBigText: BigText;
         FileManagement: Codeunit "File Management";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
+        NotificationsHandler: Codeunit "Notifications Handler";
         SenderName: Text;
         SenderAddress: Text;
         Subject: Text;
@@ -274,8 +270,8 @@ codeunit 52177470 "Internal Audit Management"
 
             //Get Dept Employees
             Employee.RESET;
-            Employee.SETRANGE("Global Dimension 1 Code", AuditHeader."Shortcut Dimension 1 Code");
-            Employee.SETRANGE("Global Dimension 2 Code", AuditHeader."Shortcut Dimension 2 Code");
+            Employee.SETRANGE(Campus, AuditHeader."Shortcut Dimension 1 Code");
+            Employee.SETRANGE("Department Code", AuditHeader."Shortcut Dimension 2 Code");
             Employee.SETFILTER("E-Mail", '<>%1', '');
             IF Employee.FIND('-') THEN
                 Window.OPEN('Sending E-Mail : @1@@@@@@@@@@@@@@@' + 'Employee:#2###############');
@@ -289,16 +285,37 @@ codeunit 52177470 "Internal Audit Management"
 
                 SenderName := CompanyInfo.Name;
                 SenderAddress := CompanyInfo."E-Mail";
-                //Receipient.Add(Employee."E-Mail");
                 Receipient := Employee."E-Mail";
                 Subject := AuditHeader.Description;
                 TimeNow := FORMAT(TIME);
-                SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', false);
-                SMTP.AppendBody(STRSUBSTNO(AuditNotice, Employee."First Name", AuditHeader."Shortcut Dimension 1 Code", CompanyInfo.Name));
+
                 IF AuditHeader."Send Attachment" THEN BEGIN
-                    SMTP.AddAttachment(FileName, Attachment);
+                    NotificationsHandler.fnSendemail(
+                        SenderName,
+                        Subject,
+                        STRSUBSTNO(AuditNotice, Employee."First Name", AuditHeader."Shortcut Dimension 1 Code", CompanyInfo.Name),
+                        Receipient,
+                        '',  // CC
+                        '',  // BCC
+                        TRUE,  // Has Attachment
+                        '',  // Attachment Base64
+                        FileName,  // Attachment Name
+                        ''   // Attachment Type
+                    );
+                END ELSE BEGIN
+                    NotificationsHandler.fnSendemail(
+                        SenderName,
+                        Subject,
+                        STRSUBSTNO(AuditNotice, Employee."First Name", AuditHeader."Shortcut Dimension 1 Code", CompanyInfo.Name),
+                        Receipient,
+                        '',  // CC
+                        '',  // BCC
+                        FALSE,  // Has Attachment
+                        '',  // Attachment Base64
+                        '',  // Attachment Name
+                        ''   // Attachment Type
+                    );
                 END;
-                SMTP.Send;
             UNTIL Employee.NEXT = 0;
             Window.CLOSE;
             MESSAGE('Sent Successfully');
@@ -328,8 +345,7 @@ codeunit 52177470 "Internal Audit Management"
         EmailBodyText: Text;
         EmailBodyBigText: BigText;
         FileManagement: Codeunit "File Management";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
+        NotificationsHandler: Codeunit "Notifications Handler";
         SenderName: Text;
         SenderAddress: Text;
         Subject: Text;
@@ -368,7 +384,6 @@ codeunit 52177470 "Internal Audit Management"
             //Create & Send Email
             SenderName := Employee."First Name" + ' ' + Employee."Last Name";
             SenderAddress := Incident."User email Address";
-            //Receipient.Add(AuditSetup."Risk Email");
             Receipient := AuditSetup."Risk Email";
             Subject := Incident."Incident Reference" + ' - ' + Incident."Incident Cause";
             TimeNow := FORMAT(TIME);
@@ -379,16 +394,33 @@ codeunit 52177470 "Internal Audit Management"
                 FileRec.CREATEOUTSTREAM(OutStr);
                 COPYSTREAM(OutStr, Instr);
                 FileRec.CLOSE;
-            END;
 
-            SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', true);
-            IF Incident."Screen Shot".HASVALUE THEN
-                SMTP.AppendBody(STRSUBSTNO(EmailAttached, 'Sir/Madam', (Employee."First Name" + ' ' + Employee."Last Name")))
-            ELSE
-                SMTP.AppendBody(STRSUBSTNO(EmailText, 'Sir/Madam', (Employee."First Name" + ' ' + Employee."Last Name")));
-            IF Incident."Screen Shot".HASVALUE THEN
-                SMTP.AddAttachment(FileName, Attachment);
-            SMTP.Send;
+                NotificationsHandler.fnSendemail(
+                    SenderName,
+                    Subject,
+                    STRSUBSTNO(EmailAttached, 'Sir/Madam', (Employee."First Name" + ' ' + Employee."Last Name")),
+                    Receipient,
+                    '',  // CC
+                    '',  // BCC
+                    TRUE,  // Has Attachment
+                    '',  // Attachment Base64
+                    FileName,  // Attachment Name
+                    ''   // Attachment Type
+                );
+            END ELSE BEGIN
+                NotificationsHandler.fnSendemail(
+                    SenderName,
+                    Subject,
+                    STRSUBSTNO(EmailText, 'Sir/Madam', (Employee."First Name" + ' ' + Employee."Last Name")),
+                    Receipient,
+                    '',  // CC
+                    '',  // BCC
+                    FALSE,  // Has Attachment
+                    '',  // Attachment Base64
+                    '',  // Attachment Name
+                    ''   // Attachment Type
+                );
+            END;
             Incident.Status := Incident.Status::Pending;
             Incident.Sent := true;
             MESSAGE(IncidentReportedMssg);
@@ -402,8 +434,7 @@ codeunit 52177470 "Internal Audit Management"
         EmailBodyText: Text;
         EmailBodyBigText: BigText;
         FileManagement: Codeunit "File Management";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
+        NotificationsHandler: Codeunit "Notifications Handler";
         SenderName: Text;
         SenderAddress: Text;
         Subject: Text;
@@ -436,14 +467,22 @@ codeunit 52177470 "Internal Audit Management"
             IF DimVal.FIND('-') THEN BEGIN
                 SenderName := CompanyInfo.Name;
                 SenderAddress := CompanyInfo."E-Mail";
-                //Receipient.Add(Employee."E-Mail");
                 Receipient := Employee."E-Mail";
                 Subject := ('Audit Report' + GetDimensionValue(AuditHeader."Shortcut Dimension 2 Code") + ' ' + AuditHeader."Audit Period");
                 TimeNow := FORMAT(TIME);
-                SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', false);
-                SMTP.AppendBody(STRSUBSTNO(EmailBody, 'User', AuditHeader."Audit Period", CompanyInfo.Name));
-                SMTP.AddAttachment(FileName, Attachment);
-                SMTP.Send();
+
+                NotificationsHandler.fnSendemail(
+                    SenderName,
+                    Subject,
+                    STRSUBSTNO(EmailBody, 'User', AuditHeader."Audit Period", CompanyInfo.Name),
+                    Receipient,
+                    '',  // CC
+                    '',  // BCC
+                    TRUE,  // Has Attachment
+                    '',  // Attachment Base64
+                    FileName,  // Attachment Name
+                    ''   // Attachment Type
+                );
             END;
             //
 
@@ -454,14 +493,22 @@ codeunit 52177470 "Internal Audit Management"
             IF AuditLines.FIND('-') THEN BEGIN
                 SenderName := CompanyInfo.Name;
                 SenderAddress := CompanyInfo."E-Mail";
-                //Receipient.Add(AuditLines."Responsible Personnel Code");
                 Receipient := AuditLines."Responsible Personnel Code";
                 Subject := ('Audit Report' + GetDimensionValue(AuditHeader."Shortcut Dimension 2 Code") + ' ' + AuditHeader."Audit Period");
                 TimeNow := FORMAT(TIME);
-                SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-                SMTP.AppendBody(STRSUBSTNO(EmailBody, 'User', AuditHeader."Audit Period", CompanyInfo.Name));
-                SMTP.AddAttachment(FileName, Attachment);
-                SMTP.Send;
+
+                NotificationsHandler.fnSendemail(
+                    SenderName,
+                    Subject,
+                    STRSUBSTNO(EmailBody, 'User', AuditHeader."Audit Period", CompanyInfo.Name),
+                    Receipient,
+                    '',  // CC
+                    '',  // BCC
+                    TRUE,  // Has Attachment
+                    '',  // Attachment Base64
+                    FileName,  // Attachment Name
+                    ''   // Attachment Type
+                );
             END;
 
             NotifyAuditorReportChanges(AuditHeader);
@@ -479,8 +526,7 @@ codeunit 52177470 "Internal Audit Management"
         EmailBodyText: Text;
         EmailBodyBigText: BigText;
         FileManagement: Codeunit "File Management";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
+        NotificationsHandler: Codeunit "Notifications Handler";
         SenderName: Text;
         SenderAddress: Text;
         Subject: Text;
@@ -513,16 +559,23 @@ codeunit 52177470 "Internal Audit Management"
             IF Champions.FIND('-') THEN
                 REPEAT
                     SenderName := Audit."Employee Name";
-                    //SenderAddress := CompanyInfo."E-Mail";
                     SenderAddress := Audit."Sender E-Mail";
                     Receipients := Champions."E-Mail";
                     Subject := ('Risk Survey ' + Audit."No.");
                     TimeNow := FORMAT(TIME);
 
-                    SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', true);
-                    SMTP.AppendBody(STRSUBSTNO(RiskSurveyEmailBody, Champions."Employee Name", Audit."Employee Name"));
-                    SMTP.AddAttachment(FileName, Attachment);
-                    SMTP.Send;
+                    NotificationsHandler.fnSendemail(
+                        SenderName,
+                        Subject,
+                        STRSUBSTNO(RiskSurveyEmailBody, Champions."Employee Name", Audit."Employee Name"),
+                        Receipients,
+                        '',  // CC
+                        '',  // BCC
+                        TRUE,  // Has Attachment
+                        '',  // Attachment Base64
+                        FileName,  // Attachment Name
+                        ''   // Attachment Type
+                    );
                 UNTIL Champions.NEXT = 0;
             MESSAGE('Risk Survey sent Successfully');
             Audit."Notification Sent" := TRUE;
@@ -537,8 +590,7 @@ codeunit 52177470 "Internal Audit Management"
         EmailBodyText: Text;
         EmailBodyBigText: BigText;
         FileManagement: Codeunit "File Management";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
+        NotificationsHandler: Codeunit "Notifications Handler";
         SenderName: Text;
         SenderAddress: Text;
         Subject: Text;
@@ -575,11 +627,20 @@ codeunit 52177470 "Internal Audit Management"
                             Subject := 'Audit Reminder';
                             TimeNow := FORMAT(TIME);
                             FileName := '';
-                            SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', true);
-                            SMTP.AppendBody(STRSUBSTNO(ReminderMssg, Employee."First Name", AuditHeader."No.", GetDimensionValue(AuditHeader."Shortcut Dimension 2 Code"),
-                                                        FORMAT(AuditLines.Date, 0, '<Day,2> <Month Text> <Year4>'), CompanyInfo.Name));
-                            SMTP.AddAttachment(FileName, Attachment);
-                            SMTP.Send;
+
+                            NotificationsHandler.fnSendemail(
+                                SenderName,
+                                Subject,
+                                STRSUBSTNO(ReminderMssg, Employee."First Name", AuditHeader."No.", GetDimensionValue(AuditHeader."Shortcut Dimension 2 Code"),
+                                                        FORMAT(AuditLines.Date, 0, '<Day,2> <Month Text> <Year4>'), CompanyInfo.Name),
+                                Receipient,
+                                '',  // CC
+                                '',  // BCC
+                                FALSE,  // Has Attachment
+                                '',  // Attachment Base64
+                                '',  // Attachment Name
+                                ''   // Attachment Type
+                            );
 
                             //Modify as Sent
                             AuditLines."Reminder Sent" := TRUE;
@@ -690,7 +751,7 @@ codeunit 52177470 "Internal Audit Management"
 
     procedure GetEmployeeEmail(EmployeeNo: Code[50]): Text[250]
     var
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
     begin
         IF Employee.GET(EmployeeNo) THEN
             EXIT(Employee."Company E-Mail");
@@ -699,8 +760,8 @@ codeunit 52177470 "Internal Audit Management"
     procedure NotifyAuditorReportChanges(AuditHeader: Record "Audit Header")
     var
         FileManagement: Codeunit "File Management";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
+        // SMTP: Codeunit "SMTP Mail";
+        // SMTPSetup: Record "SMTP Mail Setup";
         SenderName: Text;
         SenderAddress: Text;
         Subject: Text;
@@ -740,7 +801,7 @@ codeunit 52177470 "Internal Audit Management"
 
     procedure GetUserIDEmail(UserName: Code[100]): Text[250]
     var
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         UserSetup: Record "User Setup";
     begin
         IF UserSetup.GET(UserName) THEN BEGIN
@@ -755,6 +816,7 @@ codeunit 52177470 "Internal Audit Management"
         SenderEmailBody: Label 'Dear Sir/Madam,<br><br> A risk with ID : <Strong>%1</Strong> that you created was rejected. Thank you<br><br>Kind Regards';
         Text001: Label 'Sending Risk : #1###############';
         SendingMssg: Label 'Sending Risk :  #1##########';
+        NotificationsHandler: Codeunit "Notifications Handler";
     begin
         if not Confirm(ConfirmSendRisk, true, RiskHeader."No.", RiskHeader."Employee No.") then
             exit
@@ -772,14 +834,19 @@ codeunit 52177470 "Internal Audit Management"
             TimeNow := FORMAT(TIME);
             Subject := 'Risk ' + RiskHeader."No.";
 
-            SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-            SMTP.AppendBody(STRSUBSTNO(SenderEmailBody, RiskHeader."No."));
-            //IF ReceipientCC.Count <> 0 then
-            IF ReceipientCC <> '' then
-                SMTP.AddCC(ReceipientCC);
-            //if Receipient.Count <> 0 then
             if Receipient <> '' then
-                SMTP.Send;
+                NotificationsHandler.fnSendemail(
+                    SenderName,
+                    Subject,
+                    STRSUBSTNO(SenderEmailBody, RiskHeader."No."),
+                    Receipient,
+                    ReceipientCC,  // CC
+                    '',  // BCC
+                    FALSE,  // Has Attachment
+                    '',  // Attachment Base64
+                    '',  // Attachment Name
+                    ''   // Attachment Type
+                );
             Window.CLOSE;
             RiskHeader."Document Status" := RiskHeader."Document Status"::New;
             RiskHeader.MODIFY(TRUE);
@@ -792,6 +859,7 @@ codeunit 52177470 "Internal Audit Management"
         SenderEmailBody: Label 'Dear Sir/Madam,<br><br> An incident with reference : <Strong>%1</Strong> that you created was rejected. Thank you<br><br>Kind Regards';
         Text001: Label 'Sending Risk : #1###############';
         SendingMssg: Label 'Sending Risk :  #1##########';
+        NotificationsHandler: Codeunit "Notifications Handler";
     begin
         if not Confirm(ConfirmSendRisk, false, Incident."Incident Reference", Incident."Employee No") then
             exit
@@ -810,14 +878,18 @@ codeunit 52177470 "Internal Audit Management"
             TimeNow := FORMAT(TIME);
             Subject := 'Risk ' + Incident."Incident Reference";
 
-            SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-            SMTP.AppendBody(STRSUBSTNO(SenderEmailBody, Incident."Incident Reference"));
-            //IF ReceipientCC.Count <> 0 then
-            IF ReceipientCC <> '' then
-                SMTP.AddCC(ReceipientCC);
-            //if Receipient.Count <> 0 then
-            if Receipient <> '' then
-                SMTP.Send;
+            NotificationsHandler.fnSendemail(
+                SenderName,
+                Subject,
+                STRSUBSTNO(SenderEmailBody, Incident."Incident Reference"),
+                Receipient,
+                '',  // CC
+                '',  // BCC
+                false,  // Has Attachment
+                '',  // Attachment Base64 - would need to be implemented if needed
+                '',  // Attachment Name
+                ''   // Attachment Type
+            );
             Window.CLOSE;
         end;
     end;
@@ -848,6 +920,7 @@ codeunit 52177470 "Internal Audit Management"
         Text001: Label 'Sending Risk : #1###############';
         Text002: Label 'Department Code : #2###############';
         Text003: Label 'Department Name : #3###############';
+        NotificationsHandler: Codeunit "Notifications Handler";
         SendingMssg: Label 'Sending Risk :  #1##########\\Department Code:@2@@@@@@@@@@@@@\Department Name :@3@@@@@@@@@@@@@';
     begin
         if not Confirm(ConfirmSendRisk, true, RiskHeader."No.", RiskHeader."Risk Region Name") then
@@ -870,17 +943,21 @@ codeunit 52177470 "Internal Audit Management"
             TimeNow := FORMAT(TIME);
             Subject := 'Risk ' + RiskHeader."No." + ' ' + RiskHeader."Risk Region Name";
 
-            SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-            SMTP.AppendBody(STRSUBSTNO(RiskChampionsEmailBody,
+            NotificationsHandler.fnSendemail(
+                SenderName,
+                Subject,
+                STRSUBSTNO(RiskChampionsEmailBody,
                                                  RiskHeader."No.", RiskHeader."Risk Region Name",
                                                  Format(RiskHeader."Date Identified", 0, '<Month Text> <Closing><Day>, <Year4>'),
-                                                 RiskHeader."Employee Name", CompanyInfo.Name));
-            //IF ReceipientCC.Count <> 0 then
-            IF ReceipientCC <> '' then
-                SMTP.AddCC(ReceipientCC);
-            //if Receipient.Count <> 0 then
-            if Receipient <> '' then
-                SMTP.Send;
+                                                 RiskHeader."Employee Name", CompanyInfo.Name),
+                Receipient,
+                '',  // CC
+                '',  // BCC
+                false,  // Has Attachment
+                '',  // Attachment Base64 - would need to be implemented if needed
+                '',  // Attachment Name
+                ''   // Attachment Type
+            );
             Window.CLOSE;
         end;
         RiskHeader."Document Status" := RiskHeader."Document Status"::Champion;
@@ -894,6 +971,7 @@ codeunit 52177470 "Internal Audit Management"
         Text001: Label 'Sending Risk : #1###############';
         Text002: Label 'Department Code : #2###############';
         Text003: Label 'Department Name : #3###############';
+        NotificationsHandler: Codeunit "Notifications Handler";
         SendingMssg: Label 'Sending Risk :  #1##########\\Department Code:@2@@@@@@@@@@@@@\Department Name :@3@@@@@@@@@@@@@';
     begin
         if not Confirm(ConfirmSendRisk, true, RiskHeader."No.", RiskHeader."Risk Region Name") then
@@ -916,16 +994,21 @@ codeunit 52177470 "Internal Audit Management"
             TimeNow := FORMAT(TIME);
             Subject := 'Risk ' + RiskHeader."No." + ' ' + RiskHeader."Risk Region Name";
 
-            SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-            SMTP.AppendBody(STRSUBSTNO(RiskChampionsEmailBody,
+            NotificationsHandler.fnSendemail(
+                SenderName,
+                Subject,
+                STRSUBSTNO(RiskChampionsEmailBody,
                                                  RiskHeader."No.", RiskHeader."Risk Region Name",
                                                  Format(RiskHeader."Date Identified", 0, '<Month Text> <Closing><Day>, <Year4>'),
-                                                 RiskHeader."Employee Name", CompanyInfo.Name));
-            //IF ReceipientCC.Count <> 0 then
-            IF ReceipientCC <> '' then
-                SMTP.AddCC(ReceipientCC);
-            if Receipient <> '' then
-                SMTP.Send;
+                                                 RiskHeader."Employee Name", CompanyInfo.Name),
+                Receipient,
+                '',  // CC
+                '',  // BCC
+                false,  // Has Attachment
+                '',  // Attachment Base64 - would need to be implemented if needed
+                '',  // Attachment Name
+                ''   // Attachment Type
+            );
             Window.CLOSE;
         end;
         RiskHeader."Document Status" := RiskHeader."Document Status"::"Risk Owner";
@@ -947,6 +1030,7 @@ codeunit 52177470 "Internal Audit Management"
     procedure SendtoHOD(var RiskHeader: Record "Risk Header")
     var
         SentToHODSuccessfully: Label 'The Risk Document %1 has been sent Successfully to the HOD.';
+        NotificationsHandler: Codeunit "Notifications Handler";
         HODMailBody: Label 'Dear %1,<br><br>There is an Identified Risk %2 that is related to your Department.<br><br>Thank you.<br><br>Regards,<br><br>%3';
     begin
         IF NOT CONFIRM(ConfirmSendtoHOD, FALSE, RiskHeader."No.") THEN
@@ -967,12 +1051,18 @@ codeunit 52177470 "Internal Audit Management"
                 Subject := 'Risk Identified';
                 TimeNow := FORMAT(TIME);
 
-                SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-                SMTP.AppendBody(STRSUBSTNO(HODMailBody, 'Sir/Madam', RiskHeader."No.", CompanyInfo.Name));
-                //IF ReceipientCC.Count <> 0 THEN
-                IF ReceipientCC <> '' THEN
-                    SMTP.AddCC(ReceipientCC);
-                SMTP.Send;
+                NotificationsHandler.fnSendemail(
+                    SenderName,
+                    Subject,
+                    STRSUBSTNO(HODMailBody, 'Sir/Madam', RiskHeader."No.", CompanyInfo.Name),
+                    Receipient,
+                    '',  // CC
+                    '',  // BCC
+                    false,  // Has Attachment
+                    '',  // Attachment Base64 - would need to be implemented if needed
+                    '',  // Attachment Name
+                    ''   // Attachment Type
+                );
             END;
 
             RiskHeader."Document Status" := RiskHeader."Document Status"::"Risk Owner";
@@ -1170,6 +1260,7 @@ codeunit 52177470 "Internal Audit Management"
     procedure MailAuditorReport(var AuditHeader: Record "Audit Header")
     var
         ConfrimSendtoAuditor: Label 'Do you want to Send the Audit Report %1 to the Auditor?';
+        NotificationsHandler: Codeunit "Notifications Handler";
         AuditorReportEmail: Label 'Dear %1, <br><br>An Audit Report %2 has been send to you from the Auditee %3 - %4 <br><br> Thank you.<br><br>Regards,<br><br>%5';
     begin
         IF NOT CONFIRM(ConfrimSendtoAuditor, FALSE, AuditHeader."No.") THEN
@@ -1186,10 +1277,19 @@ codeunit 52177470 "Internal Audit Management"
             Subject := 'Audit Report';
             TimeNow := FORMAT(TIME);
 
-            SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-            SMTP.AppendBody(STRSUBSTNO(AuditorReportEmail, GetEmployeeName(AuditHeader."Created By"), AuditHeader."No.",
-                                      AuditHeader.Auditee, GetEmployeeName(AuditHeader."Auditee User ID"), CompanyInfo.Name));
-            SMTP.Send;
+            NotificationsHandler.fnSendemail(
+                SenderName,
+                Subject,
+                STRSUBSTNO(AuditorReportEmail, GetEmployeeName(AuditHeader."Created By"), AuditHeader."No.",
+                                      AuditHeader.Auditee, GetEmployeeName(AuditHeader."Auditee User ID"), CompanyInfo.Name),
+                Receipient,
+                '',  // CC
+                '',  // BCC
+                false,  // Has Attachment
+                '',  // Attachment Base64 - would need to be implemented if needed
+                '',  // Attachment Name
+                ''   // Attachment Type
+            );
 
             AuditHeader."Report Status" := AuditHeader."Report Status"::Audit;
             AuditHeader.MODIFY(TRUE);
@@ -1221,7 +1321,7 @@ codeunit 52177470 "Internal Audit Management"
 
         IF AuditSetup."Risk Officer Job ID" <> '' THEN BEGIN
             Employee.RESET;
-            Employee.SETRANGE("Job Position", AuditSetup."Risk Officer Job ID");
+            Employee.SETRANGE("Job Title", AuditSetup."Risk Officer Job ID");
             IF Employee.FIND('-') THEN BEGIN
                 REPEAT
                     i := i + 1;
@@ -1257,7 +1357,7 @@ codeunit 52177470 "Internal Audit Management"
     local procedure GetRiskChampions2DeptEmails(RiskRegion: Code[100]): Text
     var
         RiskChampions: Record "Internal Audit Champions";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         RiskChampionsEmails: Text;
         i: Integer;
         j: Integer;
@@ -1293,6 +1393,7 @@ codeunit 52177470 "Internal Audit Management"
         Text001: Label 'Sending Risk : #1###############';
         Text002: Label 'Department Code : #2###############';
         Text003: Label 'Department Name : #3###############';
+        NotificationsHandler: Codeunit "Notifications Handler";
         SendingMssg: Label 'Sending Risk :  #1##########\\Department Code:@2@@@@@@@@@@@@@\Department Name :@3@@@@@@@@@@@@@';
     begin
         CompanyInfo.GET;
@@ -1310,17 +1411,21 @@ codeunit 52177470 "Internal Audit Management"
         TimeNow := FORMAT(TIME);
         Subject := 'Risk ' + RiskHeader."No." + ' ' + RiskHeader."Risk Region Name";
 
-        SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-        SMTP.AppendBody(STRSUBSTNO(RiskChampionsEmailBody,
+        NotificationsHandler.fnSendemail(
+            SenderName,
+            Subject,
+            STRSUBSTNO(RiskChampionsEmailBody,
                                              RiskHeader."No.", RiskHeader."Risk Region Name",
                                              Format(RiskHeader."Date Identified", 0, '<Month Text> <Closing><Day>, <Year4>'),
-                                             RiskHeader."Employee Name", CompanyInfo.Name));
-        //IF ReceipientCC.Count <> 0 then
-        IF ReceipientCC <> '' then
-            SMTP.AddCC(ReceipientCC);
-        //if Receipient.Count <> 0 then
-        if Receipient <> '' then
-            SMTP.Send;
+                                             RiskHeader."Employee Name", CompanyInfo.Name),
+            Receipient,
+            '',  // CC
+            '',  // BCC
+            false,  // Has Attachment
+            '',  // Attachment Base64 - would need to be implemented if needed
+            '',  // Attachment Name
+            ''   // Attachment Type
+        );
         Window.CLOSE;
 
     end;
@@ -1500,6 +1605,7 @@ codeunit 52177470 "Internal Audit Management"
     procedure SendtoProjectManager(var RiskHeader: Record "Risk Header")
     var
         SentToPMSuccessfully: Label 'The Risk Document %1 has been sent Successfully to the Project Manager.';
+        NotificationsHandler: Codeunit "Notifications Handler";
         SendProjMgr: Label 'Dear %1,<br><br>There is an Identified Risk %2 that is related to your Project %3.<br><br>Thank you.<br><br>Regards,<br><br>%4';
     begin
         IF NOT CONFIRM(ConfirmSendtoPM, FALSE, RiskHeader."No.") THEN
@@ -1525,12 +1631,18 @@ codeunit 52177470 "Internal Audit Management"
                     Subject := 'Risk Identified';
                     TimeNow := FORMAT(TIME);
 
-                    SMTP.CreateMessage(SenderName, SenderAddress, Receipient, Subject, '', TRUE);
-                    SMTP.AppendBody(STRSUBSTNO(SendProjMgr, 'Sir/Madam', RiskHeader."No.", Project."Project Code", CompanyInfo.Name));
-                    //IF ReceipientCC.Count <> 0 THEN
-                    IF ReceipientCC <> '' THEN
-                        SMTP.AddCC(ReceipientCC);
-                    SMTP.Send;
+                    NotificationsHandler.fnSendemail(
+                        SenderName,
+                        Subject,
+                        STRSUBSTNO(SendProjMgr, 'Sir/Madam', RiskHeader."No.", Project."Project Code", CompanyInfo.Name),
+                        Receipient,
+                        '',  // CC
+                        '',  // BCC
+                        false,  // Has Attachment
+                        '',  // Attachment Base64 - would need to be implemented if needed
+                        '',  // Attachment Name
+                        ''   // Attachment Type
+                    );
                 END;
                 RiskHeader."Document Status" := RiskHeader."Document Status"::"Risk Manager";
                 RiskHeader."Project Code" := Project."Project Code";
@@ -1564,7 +1676,6 @@ codeunit 52177470 "Internal Audit Management"
                 GetRecommendationEntryNo;
                 Recommendation."Entry No." := RecomEntryNo;
                 Recommendation."Document No." := AuditHeader."No.";
-                Auditline.CALCFIELDS("Observation/Condition", Description);
                 Recommendation."Audit Observation" := Auditline.Description;
                 Recommendation."Audit Recommendation" := Auditline."Observation/Condition";
                 Recommendation."Management Response" := Auditline.Remarks;
@@ -1627,7 +1738,7 @@ codeunit 52177470 "Internal Audit Management"
         UserSetup.RESET;
         UserSetup.SETRANGE("Global Dimension 1 Code", Dim1);
         UserSetup.SETRANGE("Global Dimension 2 Code", Dim2);
-        UserSetup.SETRANGE("HOD User", TRUE);
+        UserSetup.SETRANGE(HOD, TRUE);
         IF UserSetup.FINDFIRST THEN
             IF Employee.GET(UserSetup."Employee No.") THEN
                 EXIT(Employee."E-Mail");

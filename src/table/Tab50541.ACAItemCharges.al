@@ -8,14 +8,14 @@ table 50541 "ACA-Item Charges"
         }
         field(2; "Employee No"; Code[20])
         {
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(3; Description; Text[100])
         {
         }
         field(4; "Deduction Code"; Code[20])
         {
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(5; Amount; Decimal)
         {

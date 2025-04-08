@@ -527,7 +527,6 @@ page 50098 "Consolidated Risk Card"
         RiskOpportunity: Boolean;
         [InDataSet]
         LinksVisible: Boolean;
-        DocumentManagement: Codeunit "Document Management";
         FromFile: Text;
 
     local procedure CheckVisibility()

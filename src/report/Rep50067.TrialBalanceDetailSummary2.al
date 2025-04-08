@@ -524,7 +524,7 @@ report 50067 "Trial Balance Detail/Summary2"
         Customer: Record Customer;
         Vendor: Record Vendor;
         GLENTRY: Record "G/L Entry";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         FixedAsset: Record "Fixed Asset";
         BankAccount: Record "Bank Account";
         GLSetup: Record "General Ledger Setup";

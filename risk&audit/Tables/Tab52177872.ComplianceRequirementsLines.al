@@ -38,10 +38,10 @@ table 50140 "Compliance Requirements Lines"
         {
             Caption = 'Employee No.';
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
-                Emp: record Employee;
+                Emp: Record "HRM-Employee C";
             begin
                 if Emp.Get("Employee No.") then
                     Responsibility := Emp."First Name" + ' ' + Emp."Middle Name" + ' ' + Emp."Last Name";

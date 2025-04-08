@@ -41,19 +41,13 @@ page 50218 "Risk Mitigation Proposal"
     trigger OnAfterGetCurrRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+
     end;
 
     var

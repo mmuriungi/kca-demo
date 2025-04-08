@@ -18,10 +18,10 @@ table 50137 "Laptop Issue and Change"
         field(2; "Employee No."; Code[30])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
-                Emp: Record Employee;
+                Emp: Record "HRM-Employee C";
             begin
                 if Emp.Get("Employee No.") then begin
                     "Employe Name" := Emp."First Name" + ' ' + Emp."Middle Name" + ' ' + Emp."Last Name";

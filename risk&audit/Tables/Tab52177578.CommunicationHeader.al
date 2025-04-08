@@ -89,7 +89,7 @@ table 51324 "Communication Header"
         field(15; Receipient; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -111,7 +111,7 @@ table 51324 "Communication Header"
         field(18; Sender; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -258,7 +258,7 @@ table 51324 "Communication Header"
         FileManagement: Codeunit "File Management";
         FileName: Text[250];
         UserSetup: Record "User Setup";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         AuditSetup: Record "Audit Setup";
         DimMgt: Codeunit DimensionManagement;
         DimValue: Record "Dimension Value";

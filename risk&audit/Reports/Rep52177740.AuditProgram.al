@@ -220,7 +220,7 @@ report 52177740 "Audit Program"
         ApprovalEntry: Record "Approval Entry";
         Approver: array[100] of Code[50];
         UserSetup: Record "User Setup";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         DNotesReviewProcedure: BigText;
         InstrReviewProcedure: InStream;
         DNotesTextReviewProcedure: Text;

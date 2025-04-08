@@ -1,4 +1,4 @@
-page 50220 "Sent Audit Notifications"
+
 page 50257 "Sent Audit Notifications"
 {
     CardPageID = "Audit Notification";
