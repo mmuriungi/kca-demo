@@ -1,4 +1,4 @@
-page 52178284 "Incident Report"
+page 50121 "Incident Report"
 {
     PageType = Card;
     SourceTable = "User Support Incident";

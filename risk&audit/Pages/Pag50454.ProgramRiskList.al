@@ -1,4 +1,4 @@
-page 50454 "Program Risk List"
+page 50101 "Program Risk List"
 {
     Caption = 'Risk Details';
     PageType = ListPart;

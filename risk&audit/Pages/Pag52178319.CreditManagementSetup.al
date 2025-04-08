@@ -1,4 +1,4 @@
-page 52178319 "Credit Management Setup"
+page 50219 "Credit Management Setup"
 {
 
     Caption = 'Credit Management Setup';

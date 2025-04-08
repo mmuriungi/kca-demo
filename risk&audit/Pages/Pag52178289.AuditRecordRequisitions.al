@@ -1,4 +1,4 @@
-page 52178289 "Audit Record Requisitions"
+page 50184 "Audit Record Requisitions"
 {
     CardPageID = "Audit Record Requisition Card";
     PageType = List;

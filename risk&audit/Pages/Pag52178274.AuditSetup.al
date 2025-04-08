@@ -1,4 +1,4 @@
-page 52178274 "Audit Setup"
+page 50112 "Audit Setup"
 {
     Caption = 'Risk Setup';
     PageType = Card;

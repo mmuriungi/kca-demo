@@ -1,4 +1,4 @@
-report 50040 "Audit Report"
+report 50812 "Audit Report"
 {
     ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;

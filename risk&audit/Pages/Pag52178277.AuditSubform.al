@@ -1,4 +1,4 @@
-page 52178277 "Audit Subform"
+page 50115 "Audit Subform"
 {
     PageType = ListPart;
     SourceTable = "Audit Lines";

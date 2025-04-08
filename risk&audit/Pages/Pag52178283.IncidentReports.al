@@ -1,4 +1,4 @@
-page 52178283 "Incident Reports"
+page 50120 "Incident Reports"
 {
     Caption = 'Incidences';
     CardPageID = "Incident Report";

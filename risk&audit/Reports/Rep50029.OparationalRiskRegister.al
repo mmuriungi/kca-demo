@@ -1,4 +1,4 @@
-report 50029 "Organization Risk Register"
+report 50809 "Organization Risk Register"
 {
 
     DefaultLayout = RDLC;

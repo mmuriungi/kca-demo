@@ -1,4 +1,4 @@
-page 52178315 "Risk Survey"
+page 50215 "Risk Survey"
 {
     PageType = Card;
     SourceTable = "Audit Header";

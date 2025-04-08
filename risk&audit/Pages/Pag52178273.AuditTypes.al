@@ -1,4 +1,4 @@
-page 52178273 "Audit Types"
+page 50111 "Audit Types"
 {
     PageType = List;
     SourceTable = "Audit Types";

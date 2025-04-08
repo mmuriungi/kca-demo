@@ -1,4 +1,4 @@
-page 50461 "Audit SetUp List"
+page 50104 "Audit SetUp List"
 {
     ApplicationArea = All;
     Caption = 'Audit SetUp List';

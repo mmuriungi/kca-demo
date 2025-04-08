@@ -1,4 +1,4 @@
-page 52178300 "Audit Scope"
+page 50197 "Audit Scope"
 {
     AutoSplitKey = true;
     PageType = ListPart;

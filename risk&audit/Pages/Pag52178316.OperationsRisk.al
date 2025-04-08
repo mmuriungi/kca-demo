@@ -1,4 +1,4 @@
-page 52178316 "Operations Risk"
+page 50216 "Operations Risk"
 {
     Caption = 'Risk Category';
     AutoSplitKey = true;

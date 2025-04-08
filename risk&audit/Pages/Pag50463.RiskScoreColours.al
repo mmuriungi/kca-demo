@@ -1,4 +1,4 @@
-page 50463 "Risk Score Colours"
+page 50106 "Risk Score Colours"
 {
     ApplicationArea = All;
     Caption = 'Risk Score Colours';

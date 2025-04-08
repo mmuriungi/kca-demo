@@ -1,4 +1,4 @@
-report 50036 "Ranking report"
+report 50811 "Ranking report"
 {
 
     DefaultLayout = RDLC;

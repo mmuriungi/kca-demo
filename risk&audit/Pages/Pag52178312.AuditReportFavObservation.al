@@ -1,4 +1,4 @@
-page 52178312 "Audit Report Fav Observation"
+page 50212 "Audit Report Fav Observation"
 {
     AutoSplitKey = true;
     PageType = ListPart;

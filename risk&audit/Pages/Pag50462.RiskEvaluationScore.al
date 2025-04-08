@@ -1,4 +1,4 @@
-page 50462 "Risk Evaluation Score"
+page 50105 "Risk Evaluation Score"
 {
     ApplicationArea = All;
     Caption = 'Risk Evaluation Score';
