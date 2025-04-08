@@ -1,4 +1,4 @@
-table 52177835 "Audit Header"
+table 50136 "Audit Header"
 {
 
     fields

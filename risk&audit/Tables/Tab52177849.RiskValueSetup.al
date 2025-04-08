@@ -1,4 +1,4 @@
-table 52177849 "Risk Value Setup"
+table 50155 "Risk Value Setup"
 {
 
     fields

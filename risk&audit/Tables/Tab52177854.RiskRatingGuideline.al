@@ -1,4 +1,4 @@
-table 52177854 "Risk Rating Guideline"
+table 51005 "Risk Rating Guideline"
 {
 
     fields

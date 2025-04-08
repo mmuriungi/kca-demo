@@ -1,4 +1,4 @@
-table 52177836 "Audit Lines"
+table 50137 "Audit Lines"
 {
 
     fields

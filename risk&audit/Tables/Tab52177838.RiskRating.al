@@ -1,4 +1,4 @@
-table 52177838 "Risk Rating"
+table 50139 "Risk Rating"
 {
 
     fields

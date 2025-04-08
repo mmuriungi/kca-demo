@@ -1,4 +1,4 @@
-table 52177837 "Audit Setup"
+table 50138 "Audit Setup"
 {
 
     fields

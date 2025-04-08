@@ -1,4 +1,4 @@
-table 52177578 "Communication Header"
+table 50131 "Communication Header"
 {
 
     fields

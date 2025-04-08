@@ -1,4 +1,4 @@
-table 52177840 "Internal Audit Champions"
+table 50141 "Internal Audit Champions"
 {
 
     fields

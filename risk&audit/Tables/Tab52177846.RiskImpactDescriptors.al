@@ -1,4 +1,4 @@
-table 52177846 "Risk Impact Descriptors"
+table 50147 "Risk Impact Descriptors"
 {
 
     fields

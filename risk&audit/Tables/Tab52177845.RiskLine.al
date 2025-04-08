@@ -1,4 +1,4 @@
-table 52177845 "Risk Line"
+table 50146 "Risk Line"
 {
 
     fields

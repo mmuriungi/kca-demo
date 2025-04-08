@@ -1,4 +1,4 @@
-table 52177579 "Communication Lines"
+table 50132 "Communication Lines"
 {
 
     fields

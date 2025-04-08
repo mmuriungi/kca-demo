@@ -1,4 +1,4 @@
-table 52177834 "Audit Types"
+table 50135 "Audit Types"
 {
 
     fields

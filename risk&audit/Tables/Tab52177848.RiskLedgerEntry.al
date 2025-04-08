@@ -1,4 +1,4 @@
-table 52177848 "Risk Ledger Entry"
+table 50153 "Risk Ledger Entry"
 {
 
     fields

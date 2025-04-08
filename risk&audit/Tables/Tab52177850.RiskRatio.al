@@ -1,4 +1,4 @@
-table 52177850 "Risk Ratio"
+table 50156 "Risk Ratio"
 {
 
     fields

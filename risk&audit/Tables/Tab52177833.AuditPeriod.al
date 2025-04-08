@@ -1,4 +1,4 @@
-table 52177833 "Audit Period"
+table 50134 "Audit Period"
 {
     fields
     {

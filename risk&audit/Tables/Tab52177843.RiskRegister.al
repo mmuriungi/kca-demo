@@ -1,4 +1,4 @@
-table 52177843 "Risk Register"
+table 50144 "Risk Register"
 {
 
     fields

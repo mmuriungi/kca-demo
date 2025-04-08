@@ -1,4 +1,4 @@
-table 52177855 "Risk Likelihood Guideline"
+table 51255 "Risk Likelihood Guideline"
 {
 
     fields

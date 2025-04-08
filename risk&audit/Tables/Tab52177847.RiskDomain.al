@@ -1,4 +1,4 @@
-table 52177847 "Risk Domain"
+table 50148 "Risk Domain"
 {
 
     fields
