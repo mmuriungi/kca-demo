@@ -24,25 +24,51 @@ page 50089 "Venue Booking Role Centre"
     {
         area(embedding)
         {
-            action("My Venue Bookings")
+            action("Venue Bookings")
             {
-                Caption = 'My Venue Bookings';
+                Caption = 'Venue Bookings';
                 Image = Calendar;
                 RunObject = Page "Venue Booking List";
+                RunPageView = WHERE(Status = FILTER(New));
                 ApplicationArea = All;
             }
             action("Pending Approval Bookings")
             {
                 Caption = 'Pending Approval Bookings';
                 Image = Approval;
-                RunObject = Page "Venue Booking - Pending Alloc.";
+                RunObject = Page "Venue Booking List";
+                RunPageView = WHERE(Status = FILTER("Pending Approval"));
                 ApplicationArea = All;
             }
             action("Allocated Venues")
             {
                 Caption = 'Allocated Venues';
                 Image = Allocate;
-                RunObject = Page "Venue Booking Allocated";
+                RunObject = Page "Venue Booking List";
+                RunPageView = WHERE(Status = FILTER(Approved));
+                ApplicationArea = All;
+            }
+            action("Cancelled Venues")
+            {
+                Caption = 'Cancelled Venues';
+                Image = Cancel;
+                RunObject = Page "Venue Booking List";
+                RunPageView = WHERE(Status = FILTER(Cancelled));
+                ApplicationArea = All;
+            }
+            action("Rejected Venues")
+            {
+                Caption = 'Rejected Venues';
+                Image = Reject;
+                RunObject = Page "Venue Booking List";
+                RunPageView = WHERE(Status = FILTER(Rejected));
+                ApplicationArea = All;
+            }
+            action("Venue General Setup")
+            {
+                Caption = 'Venue General Setup';
+                Image = Setup;
+                RunObject = Page "Venue General Setup";
                 ApplicationArea = All;
             }
             action("Venue Setup")
@@ -79,7 +105,8 @@ page 50089 "Venue Booking Role Centre"
                 {
                     Caption = 'Allocate Venues';
                     Image = Allocate;
-                    RunObject = Page "Venue Booking Allocate";
+                    RunObject = Page "Venue Booking List";
+                    RunPageView = WHERE(Status = FILTER("Pending Approval"));
                     ApplicationArea = All;
                 }
                 action("Venue Status Report")
