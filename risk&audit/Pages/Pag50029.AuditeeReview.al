@@ -3,7 +3,7 @@ page 50029 "Auditee Review"
     CardPageID = "Audit Report Card";
     PageType = List;
     SourceTable = "Audit Header";
-    SourceTableView = WHERE (Type = FILTER ("Audit Report"));
+    SourceTableView = WHERE(Type = FILTER("Audit Report"));
 
     layout
     {
@@ -11,22 +11,22 @@ page 50029 "Auditee Review"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field(Auditee; Auditee)
+                field(Auditee; Rec.Auditee)
                 {
                 }
             }
@@ -40,7 +40,7 @@ page 50029 "Auditee Review"
     trigger OnOpenPage()
     begin
 
-        SETRANGE(Auditee, USERID);
+        Rec.SETRANGE(Auditee, USERID);
     end;
 }
 

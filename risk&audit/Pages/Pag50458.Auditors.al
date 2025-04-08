@@ -5,7 +5,7 @@ page 50458 Auditors
     PageType = List;
     SourceTable = "Auditors List";
     UsageCategory = Lists;
-    
+
     layout
     {
         area(Content)

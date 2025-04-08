@@ -3,7 +3,7 @@ page 50030 "Closed Audit Reports"
     CardPageID = "Audit Report Card";
     PageType = List;
     SourceTable = "Audit Header";
-    SourceTableView = WHERE (Type = FILTER ("Audit Report"), Archived=FILTER(true));
+    SourceTableView = WHERE(Type = FILTER("Audit Report"), Archived = FILTER(true));
 
     layout
     {
@@ -11,19 +11,19 @@ page 50030 "Closed Audit Reports"
         {
             repeater(Group)
             {
-                field("No.";"No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Date;Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field("Created By";"Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field(Status;Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field(Description;Description)
+                field(Description; Rec.Description)
                 {
                 }
             }

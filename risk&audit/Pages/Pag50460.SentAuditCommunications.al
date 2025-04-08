@@ -11,37 +11,37 @@ page 50460 "Sent Audit Communications"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
-                field("Last Modified By"; "Last Modified By")
+                field("Last Modified By"; Rec."Last Modified By")
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field("Communication Type"; "Communication Type")
+                field("Communication Type"; Rec."Communication Type")
                 {
                 }
-                field("E-Mail Body"; "E-Mail Body")
+                field("E-Mail Body"; Rec."E-Mail Body")
                 {
                 }
-                field("SMS Text"; "SMS Text")
+                field("SMS Text"; Rec."SMS Text")
                 {
                 }
-                field("E-Mail Subject"; "E-Mail Subject")
+                field("E-Mail Subject"; Rec."E-Mail Subject")
                 {
                 }
-                field(Attachment; Attachment)
+                field(Attachment; Rec.Attachment)
                 {
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                 }
             }
@@ -54,11 +54,11 @@ page 50460 "Sent Audit Communications"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::Audit;
+        Rec.Type := Rec.Type::Audit;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::Audit;
+        Rec.Type := Rec.Type::Audit;
     end;
 }

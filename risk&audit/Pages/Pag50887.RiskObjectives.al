@@ -11,16 +11,16 @@ page 50236 "Risk Objectives"
         {
             repeater(GroupName)
             {
-                field("Objective Code"; "Objective Code")
+                field("Objective Code"; Rec."Objective Code")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Objective Description"; "Objective Description")
+                field("Objective Description"; Rec."Objective Description")
                 {
 
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
 
                 }
@@ -34,11 +34,11 @@ page 50236 "Risk Objectives"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Function Description field.';
                 }
-                field("Objective Average"; "Objective Average")
+                field("Objective Average"; Rec."Objective Average")
                 {
                     Editable = false;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
@@ -70,7 +70,7 @@ page 50236 "Risk Objectives"
         Total := 0;
         CountNo := 0;
         ObjRiskDetails.reset();
-        ObjRiskDetails.SetRange(ObjRiskDetails.Objective, "Objective Code");
+        ObjRiskDetails.SetRange(ObjRiskDetails.Objective, Rec."Objective Code");
         if ObjRiskDetails.FindSet() then begin
             repeat
                 ObjRiskDetails.CalcFields("Risk (L * I)");
@@ -79,8 +79,8 @@ page 50236 "Risk Objectives"
             until ObjRiskDetails.Next = 0;
         end;
         if CountNo <> 0 then begin
-            "Objective Average" := Total / CountNo;
-            Modify();
+            Rec."Objective Average" := Total / CountNo;
+            Rec.Modify();
         end;
     end;
 

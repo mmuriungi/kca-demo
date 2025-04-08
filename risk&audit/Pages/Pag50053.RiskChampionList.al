@@ -10,35 +10,35 @@ page 50053 "Risk Champion List"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Date Created"; "Date Created")
+                field("Date Created"; Rec."Date Created")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Employee No."; "Employee No.")
+                field("Employee No."; Rec."Employee No.")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Employee Name"; "Employee Name")
+                field("Employee Name"; Rec."Employee Name")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     ApplicationArea = Basic, Suite;
                 }
@@ -48,12 +48,12 @@ page 50053 "Risk Champion List"
 
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Risk Description");
+                        Rec.CALCFIELDS("Risk Description");
                         "Risk Description".CREATEINSTREAM(Instr);
                         RiskNote.READ(Instr);
 
                         IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
-                            CLEAR("Risk Description");
+                            CLEAR(Rec."Risk Description");
                             CLEAR(RiskNote);
                             RiskNote.ADDTEXT(RiskNotesText);
                             "Risk Description".CREATEOUTSTREAM(OutStr);
@@ -72,7 +72,7 @@ page 50053 "Risk Champion List"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS("Risk Description");
+        Rec.CALCFIELDS("Risk Description");
         "Risk Description".CREATEINSTREAM(Instr);
         RiskNote.READ(Instr);
         RiskNotesText := FORMAT(RiskNote);

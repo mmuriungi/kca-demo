@@ -9,31 +9,31 @@ page 50020 "Audit Plan"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                     Editable = false;
                 }
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                     Editable = false;
                 }
-                field("Audit Period"; "Audit Period")
+                field("Audit Period"; Rec."Audit Period")
                 {
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Audit Manager"; "Audit Manager")
+                field("Audit Manager"; Rec."Audit Manager")
                 {
                 }
                 field("Audit Manager Name"; "Audit Manager Name")
@@ -49,13 +49,13 @@ page 50020 "Audit Plan"
                     Style = Strong;
                     StyleExpr = TRUE;
                 }
-                field("Cut Off Start Date"; "Cut Off Start Date")
+                field("Cut Off Start Date"; Rec."Cut Off Start Date")
                 {
                 }
-                field("Cut Off End Date"; "Cut Off End Date")
+                field("Cut Off End Date"; Rec."Cut Off End Date")
                 {
                 }
-                field("Audit Status"; "Audit Status")
+                field("Audit Status"; Rec."Audit Status")
                 {
                     Editable = false;
                 }
@@ -81,7 +81,7 @@ page 50020 "Audit Plan"
                 trigger OnAction()
                 begin
                     AuditHeader.RESET;
-                    AuditHeader.SETRANGE("No.", "No.");
+                    AuditHeader.SETRANGE("No.", Rec."No.");
                     REPORT.RUN(Report::"Audit Plan 2", TRUE, FALSE, AuditHeader);
                 end;
             }
@@ -91,11 +91,11 @@ page 50020 "Audit Plan"
                 Promoted = true;
                 PromotedCategory = "Report";
                 PromotedIsBig = true;
-                Visible = "Audit Stage" = "Audit Stage"::new;
+                Visible = Rec."Audit Stage" = Rec."Audit Stage"::new;
                 trigger OnAction()
                 begin
-                    IF "Audit Stage" = "Audit Stage"::New THEN begin
-                        "Audit Stage" := "Audit Stage"::Committee;
+                    IF Rec."Audit Stage" = Rec."Audit Stage"::New THEN begin
+                        Rec."Audit Stage" := Rec."Audit Stage"::Committee;
                         Message('Sent To Committee Successfully');
                         CurrPage.Close();
                     end;
@@ -109,13 +109,13 @@ page 50020 "Audit Plan"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = "Audit Stage" = "Audit Stage"::Committee;
+                Visible = Rec."Audit Stage" = Rec."Audit Stage"::Committee;
                 trigger OnAction()
                 var
                     Employee: Record Employee;
                 begin
-                    IF "Audit Stage" = "Audit Stage"::Committee THEN begin
-                        "Audit Stage" := "Audit Stage"::Council;
+                    IF Rec."Audit Stage" = Rec."Audit Stage"::Committee THEN begin
+                        Rec."Audit Stage" := Rec."Audit Stage"::Council;
                         Message('Sent To Board Successfully');
                         CurrPage.Close();
                         // if Confirm('Do you want to notify CEO on the plan created?', false) = true then begin
@@ -134,12 +134,12 @@ page 50020 "Audit Plan"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Audit Program";
+        Rec.Type := Rec.Type::"Audit Program";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Audit Program";
+        Rec.Type := Rec.Type::"Audit Program";
     end;
 
     var

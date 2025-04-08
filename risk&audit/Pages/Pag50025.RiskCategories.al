@@ -9,12 +9,12 @@ page 50025 "Risk Categories"
         {
             repeater(Group)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     Caption = 'Code';
                     ApplicationArea = Basic, Suite;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     Caption = 'Description';
                     ApplicationArea = Basic, Suite;
@@ -28,12 +28,12 @@ page 50025 "Risk Categories"
     }
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::Category;
+        Rec.Type := Rec.Type::Category;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::Category;
+        Rec.Type := Rec.Type::Category;
     end;
 }
 

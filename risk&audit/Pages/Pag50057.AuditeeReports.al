@@ -11,28 +11,28 @@ page 50057 "Auditee Reports"
         {
             repeater(Group)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field(Auditee; Auditee)
+                field(Auditee; Rec.Auditee)
                 {
                 }
-                field("Auditee User ID"; "Auditee User ID")
+                field("Auditee User ID"; Rec."Auditee User ID")
                 {
                 }
-                field("Audit Period"; "Audit Period")
+                field("Audit Period"; Rec."Audit Period")
                 {
                 }
-                field("Department Name"; "Department Name")
+                field("Department Name"; Rec."Department Name")
                 {
                 }
             }
@@ -45,12 +45,12 @@ page 50057 "Auditee Reports"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        Type := Type::"Audit Report";
+        Rec.Type := Rec.Type::"Audit Report";
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Type := Type::"Audit Report";
+        Rec.Type := Rec.Type::"Audit Report";
     end;
 
     trigger OnOpenPage()

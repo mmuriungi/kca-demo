@@ -10,37 +10,37 @@ page 50022 "Internal Audit Champions"
         {
             repeater(Group)
             {
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     Caption = 'Area';
                     ApplicationArea = Basic, Suite;
                 }
-                field("Employee No."; "Employee No.")
+                field("Employee No."; Rec."Employee No.")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Employee Name"; "Employee Name")
+                field("Employee Name"; Rec."Employee Name")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("E-Mail"; "E-Mail")
+                field("E-Mail"; Rec."E-Mail")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("User ID"; "User ID")
+                field("User ID"; Rec."User ID")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     ApplicationArea = Basic, Suite;
                     Visible = false;
                 }
-                field("Escalator ID"; "Escalator ID")
+                field("Escalator ID"; Rec."Escalator ID")
                 {
                     ApplicationArea = Basic, Suite;
                 }

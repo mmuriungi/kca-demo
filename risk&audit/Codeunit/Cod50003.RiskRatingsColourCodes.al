@@ -2,20 +2,19 @@ codeunit 50003 "Risk Ratings Colour Codes"
 {
     procedure RiskRatingColours(RisckEVScore: Record "Risk Evaluation Score"): Text[50]
     begin
-        with RisckEVScore do
-            case "Risk Rating" of
-                "Risk Rating"::"VERY HIGH":
-                    exit('Attention');
-                "Risk Rating"::HIGH:
-                    exit('unfavorable');
-                "Risk Rating"::"VERY LOW":
-                    exit('Favorable');
-                "Risk Rating"::LOW:
-                    exit('ambiguous');
-                "Risk Rating"::MEDIUM:
-                    exit('ambiguous');
+        case RisckEVScore."Risk Rating" of
+            RisckEVScore."Risk Rating"::"VERY HIGH":
+                exit('Attention');
+            RisckEVScore."Risk Rating"::HIGH:
+                exit('unfavorable');
+            RisckEVScore."Risk Rating"::"VERY LOW":
+                exit('Favorable');
+            RisckEVScore."Risk Rating"::LOW:
+                exit('ambiguous');
+            RisckEVScore."Risk Rating"::MEDIUM:
+                exit('ambiguous');
 
-            end;
+        end;
     end;
 
     // procedure RiskScoreColours(RiskScore: Record "Risk Scores Colours"): Text[90]

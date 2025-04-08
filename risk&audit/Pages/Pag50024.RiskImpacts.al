@@ -10,20 +10,20 @@ page 50024 "Risk Impacts"
         {
             repeater(Group)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Impact Score"; "Impact Score")
+                field("Impact Score"; Rec."Impact Score")
                 {
                 }
-                field("Financial start"; "Financial start")
+                field("Financial start"; Rec."Financial start")
                 {
 
                 }
-                field("Financial End"; "Financial End")
+                field("Financial End"; Rec."Financial End")
                 {
 
                 }

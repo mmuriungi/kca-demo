@@ -47,7 +47,7 @@ page 50021 "Audit Plan SubForm"
     begin
 
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -56,7 +56,7 @@ page 50021 "Audit Plan SubForm"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

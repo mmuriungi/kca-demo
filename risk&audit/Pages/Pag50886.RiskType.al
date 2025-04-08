@@ -14,16 +14,16 @@ page 50225 "Risk Type"
             repeater(General)
             {
 
-                field("Entry No"; "Entry No")
+                field("Entry No"; Rec."Entry No")
                 {
                     Editable = false;
 
                 }
-                field("Risk Type"; "Risk Type")
+                field("Risk Type"; Rec."Risk Type")
                 {
                     // MultiLine = true;
                 }
-                field("Risk Type Description"; "Risk Type Description")
+                field("Risk Type Description"; Rec."Risk Type Description")
                 {
                     // MultiLine = true;
                 }
