@@ -1,4 +1,4 @@
-table 52177863 "Project Header"
+table 50157 "Project Header"
 {
     Caption = 'Contract';
     DrillDownPageID = "Projects List";

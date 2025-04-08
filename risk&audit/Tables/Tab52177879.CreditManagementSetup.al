@@ -1,4 +1,4 @@
-table 52177879 "Credit Management Setup"
+table 50133 "Credit Management Setup"
 {
     Caption = 'Credit Management Setup';
     DataClassification = ToBeClassified;

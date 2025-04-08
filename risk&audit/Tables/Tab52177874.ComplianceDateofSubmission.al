@@ -1,4 +1,4 @@
-table 52177874 "Compliance Date of Submission"
+table 50138 "Compliance Date of Submission"
 {
     Caption = 'Compliance Date of Submission';
     DataClassification = ToBeClassified;

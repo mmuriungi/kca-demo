@@ -1,4 +1,4 @@
-table 52177862 "Vendor Evaluation Periods"
+table 50158 "Vendor Evaluation Periods"
 {
     Caption = 'Vendor Evaluation Periods';
     DataClassification = ToBeClassified;

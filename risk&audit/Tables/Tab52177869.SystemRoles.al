@@ -1,4 +1,4 @@
-table 52177869 "System Roles"
+table 50142 "System Roles"
 {
     Caption = 'System Roles';
     DataClassification = ToBeClassified;

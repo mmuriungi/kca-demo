@@ -1,4 +1,4 @@
-table 52177866 "Project Task Components"
+table 50153 "Project Task Components"
 {
 
     fields

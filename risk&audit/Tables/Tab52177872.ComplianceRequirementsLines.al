@@ -1,4 +1,4 @@
-table 52177872 "Compliance Requirements Lines"
+table 50140 "Compliance Requirements Lines"
 {
     DataClassification = ToBeClassified;
 

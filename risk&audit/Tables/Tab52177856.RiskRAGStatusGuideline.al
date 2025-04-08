@@ -1,4 +1,4 @@
-table 51292 "Risk RAG Status Guideline"
+table 51294 "Risk RAG Status Guideline"
 {
 
     fields

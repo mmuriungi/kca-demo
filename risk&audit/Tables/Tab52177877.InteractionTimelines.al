@@ -1,4 +1,4 @@
-table 52177877 "Interaction Timelines"
+table 50135 "Interaction Timelines"
 {
     Caption = 'Interaction Deadlines';
     DataClassification = ToBeClassified;
