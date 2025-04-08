@@ -29,18 +29,18 @@ table 51315 "Timetable Header"
         {
             Caption = 'Programme Filter';
             TableRelation = "ACA-Programme";
-            FieldClass=FlowFilter;
+            FieldClass = FlowFilter;
         }
-        field(6;"Stage Filter";code[25])
+        field(6; "Stage Filter"; code[25])
         {
             caption = 'Stage Filter';
             tableRelation = "ACA-Programme Stages".Code;
             fieldClass = FlowFilter;
         }
-        field(7;"Lecturer Filter"; code[25])
+        field(7; "Lecturer Filter"; code[25])
         {
             Caption = 'Lecturer Filter';
-            TableRelation = "HRM-Employee C" where(Lecturer=const(true));
+            TableRelation = "HRM-Employee C" where(Lecturer = const(true));
             FieldClass = FlowFilter;
         }
     }

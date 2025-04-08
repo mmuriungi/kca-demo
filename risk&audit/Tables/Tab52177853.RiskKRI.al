@@ -1,4 +1,4 @@
-table 51004 "Risk KRI"
+table 51340 "Risk KRI"
 {
 
     fields

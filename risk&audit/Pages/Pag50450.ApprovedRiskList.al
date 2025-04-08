@@ -14,13 +14,13 @@ page 50097 "Approved Risk List"
         {
             repeater(Group)
             {
-                field("No."; rec."No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field("Date Created"; rec."Date Created")
+                field("Date Created"; Rec."Date Created")
                 {
                 }
-                field("Created By"; rec."Created By")
+                field("Created By"; Rec."Created By")
                 {
                 }
                 field("Employee No."; Rec."Employee No.")
@@ -41,24 +41,14 @@ page 50097 "Approved Risk List"
                 {
                     Caption = 'Objective';
                 }
-                field("Risk Description"; RiskNotesText)
+                field("Risk Description"; Rec."Risk Description")
                 {
                     MultiLine = true;
                     Visible = false;
 
                     trigger OnValidate()
                     begin
-                        Rec.CALCFIELDS("Risk Description");
-                        "Risk Description".CREATEINSTREAM(Instr);
-                        RiskNote.READ(Instr);
 
-                        IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
-                            CLEAR(Rec."Risk Description");
-                            CLEAR(RiskNote);
-                            RiskNote.ADDTEXT(RiskNotesText);
-                            "Risk Description".CREATEOUTSTREAM(OutStr);
-                            RiskNote.WRITE(OutStr);
-                        END;
                     end;
                 }
             }
@@ -73,9 +63,7 @@ page 50097 "Approved Risk List"
     begin
 
         Rec.CALCFIELDS("Risk Description");
-        "Risk Description".CREATEINSTREAM(Instr);
-        RiskNote.READ(Instr);
-        RiskNotesText := FORMAT(RiskNote);
+
     end;
 
     trigger OnDeleteRecord(): Boolean

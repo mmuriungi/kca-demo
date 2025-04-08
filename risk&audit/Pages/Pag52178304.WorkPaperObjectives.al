@@ -16,7 +16,17 @@ page 50201 "WorkPaper Objectives"
 
                     trigger OnValidate()
                     begin
-                        
+                        Rec.CALCFIELDS(Description);
+                        Description.CREATEINSTREAM(Instr);
+                        DNotes.READ(Instr);
+
+                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
+                            CLEAR(Rec.Description);
+                            CLEAR(DNotes);
+                            DNotes.ADDTEXT(DNotesText);
+                            Description.CREATEOUTSTREAM(OutStr);
+                            DNotes.WRITE(OutStr);
+                        END;
                     end;
                 }
             }
@@ -30,7 +40,7 @@ page 50201 "WorkPaper Objectives"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -38,7 +48,7 @@ page 50201 "WorkPaper Objectives"
 
     trigger OnAfterGetRecord()
     begin
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

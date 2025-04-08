@@ -9,10 +9,10 @@ page 50109 "Audit Plans 1"
         {
             repeater(Group)
             {
-                field(Period; rec.Period)
+                field(Period; Rec.Period)
                 {
                 }
-                field(Description; rec.Description)
+                field(Description; Rec.Description)
                 {
                 }
                 field("Global Dimension 1 Code"; GLSetup."Global Dimension 1 Code")

@@ -1,4 +1,4 @@
-table 50138 "Audit Setup"
+table 51331 "Audit Setup"
 {
 
     fields
@@ -119,7 +119,7 @@ table 50138 "Audit Setup"
         field(25; "Risk Officer Job ID"; Code[30])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Company Job";
+            TableRelation = "HRM-Company Jobs";
 
             trigger OnValidate()
             begin
@@ -257,6 +257,6 @@ table 50138 "Audit Setup"
     }
 
     var
-        CompanyJob: Record "Company Job";
+        CompanyJob: Record "HRM-Company Jobs";
 }
 

@@ -8,7 +8,7 @@ report 50032 "Treatment Action Plan Report"
         dataitem(RiskHeader; "Risk Header")
         {
             RequestFilterFields = "No.";
-            DataItemTableView = where ("Document Status" = const("Risk Manager"));
+            DataItemTableView = where("Document Status" = const("Risk Manager"));
             column(CompanyLogo; CompanyInfo.Picture)
             {
             }
@@ -340,13 +340,13 @@ report 50032 "Treatment Action Plan Report"
                     { }
                     column(Opportunity__identify_; "Opportunity (identify)")
                     { }
-                    column(Risk__L___I_;"Risk (L * I)")
+                    column(Risk__L___I_; "Risk (L * I)")
                     { }
-                    column(Risk__L___I__Main;"Risk (L * I) Main")
+                    column(Risk__L___I__Main; "Risk (L * I) Main")
                     { }
-                    column(Risk__L___I__Q2;"Risk (L * I) Q2")
+                    column(Risk__L___I__Q2; "Risk (L * I) Q2")
                     { }
-                    column(Risk__L___I__Q3;"Risk (L * I) Q3")
+                    column(Risk__L___I__Q3; "Risk (L * I) Q3")
                     { }
                     dataitem(Treatment; Treatment)
                     {
@@ -359,11 +359,11 @@ report 50032 "Treatment Action Plan Report"
                         { }
                         column(Entry_No_; "Entry No.")
                         { }
-                        column(Responsibility_Name;"Responsibility Name")
+                        column(Responsibility_Name; "Responsibility Name")
                         { }
-                        column(Timelines_when_I_will_be_carried_out_;"Timelines(when I will be carried out)")
+                        column(Timelines_when_I_will_be_carried_out_; "Timelines(when I will be carried out)")
                         { }
-                        column(Remarks;Remarks)
+                        column(Remarks; Remarks)
                         { }
                     }
                 }

@@ -10,41 +10,41 @@ page 50101 "Program Risk List"
         {
             repeater(General)
             {
-                field("Audit Plan No."; "Audit Plan No.")
+                field("Audit Plan No."; Rec."Audit Plan No.")
                 {
                     Editable = false;
                 }
-                field("Risk No"; "Risk No")
+                field("Risk No"; Rec."Risk No")
                 {
 
                 }
-                field("Risk Category"; "Risk Category")
+                field("Risk Category"; Rec."Risk Category")
                 {
                     Caption = 'Risk Category';
                     ApplicationArea = Basic, Suite;
                 }
-                field("Risk Category Description"; "Risk Category Description")
+                field("Risk Category Description"; Rec."Risk Category Description")
                 {
                     Caption = 'Risk Category Description';
                     ApplicationArea = Basic, Suite;
                     Editable = false;
                 }
-                field("Risk Type"; "Risk Type")
+                field("Risk Type"; Rec."Risk Type")
                 {
                     ApplicationArea = Basic, Suite;
 
                 }
-                field("Risk Type Description"; "Risk Type Description")
+                field("Risk Type Description"; Rec."Risk Type Description")
                 {
                     ApplicationArea = Basic, Suite;
                     Editable = false;
                 }
-                field("Risk Descriptions"; "Risk Descriptions")
+                field("Risk Descriptions"; Rec."Risk Descriptions")
                 {
                     Caption = 'Risk Description';
                     MultiLine = true;
                 }
-                field("Risk Likelihood"; "Risk Likelihood")
+                field("Risk Likelihood"; Rec."Risk Likelihood")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -53,39 +53,39 @@ page 50101 "Program Risk List"
                         StyleExprTxt := RiskRatingColourCodes.RiskRatingColours(ObjRiskEv);
                     end;
                 }
-                field("Risk Likelihood Value"; "Risk Likelihood Value")
+                field("Risk Likelihood Value"; Rec."Risk Likelihood Value")
                 {
                     Caption = 'Likelihood Score';
                     Editable = false;
                 }
-                field("Risk Rating"; "Risk Rating")
+                field("Risk Rating"; Rec."Risk Rating")
                 {
                     Editable = false;
                     Visible = false;
                 }
-                field("Risk Impact"; "Risk Impact")
+                field("Risk Impact"; Rec."Risk Impact")
                 {
                     ApplicationArea = All;
                 }
-                field("Risk Impact Value"; "Risk Impact Value")
+                field("Risk Impact Value"; Rec."Risk Impact Value")
                 {
                     Caption = 'Impact Score';
                     Editable = false;
                 }
 
-                field("Risk (L * I)"; "Risk (L * I)")
+                field("Risk (L * I)"; Rec."Risk (L * I)")
                 {
                     Caption = 'Gross Risk Score';
                     Editable = false;
                 }
-                field("Root Cause Analysis2"; "Root Cause Analysis2")
+                field("Root Cause Analysis2"; Rec."Root Cause Analysis2")
                 {
                     ApplicationArea = all;
                     // Editable = false;
                     MultiLine = true;
                     Caption = 'Root Cause Analysis';
                 }
-                field("Mitigation Suggestions2"; "Mitigation Suggestions2")
+                field("Mitigation Suggestions2"; Rec."Mitigation Suggestions2")
                 {
                     ApplicationArea = all;
                     // Editable = false;
@@ -96,12 +96,12 @@ page 50101 "Program Risk List"
                 // {
                 //     Editable = false;
                 // }
-                field(Department; Department)
+                field(Department; Rec.Department)
                 {
                     // Editable = false;
                     Visible = false;
                 }
-                field("To Consolidate"; "To Consolidate")
+                field("To Consolidate"; Rec."To Consolidate")
                 {
                     //Editable = "Document Status" = "Document Status"::Auditor;
                 }
@@ -110,14 +110,14 @@ page 50101 "Program Risk List"
                 //     Editable = false;
                 // }
 
-                field(Archive; Archive)
+                field(Archive; Rec.Archive)
                 {
 
                 }
 
             }
         }
-        
+
 
     }
 

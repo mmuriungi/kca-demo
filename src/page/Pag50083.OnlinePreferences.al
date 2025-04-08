@@ -5,7 +5,7 @@ page 50083 "Online Preferences"
     PageType = List;
     SourceTable = "Online Class Preference";
     UsageCategory = Administration;
-    
+
     layout
     {
         area(Content)

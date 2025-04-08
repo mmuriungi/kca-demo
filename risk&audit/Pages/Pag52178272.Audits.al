@@ -12,13 +12,13 @@ page 50110 Audits
                 field("Code"; Rec.Code)
                 {
                 }
-                field(Description;rec. Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field("Type of Audit"; rec."Type of Audit")
+                field("Type of Audit"; Rec."Type of Audit")
                 {
                 }
-                field("Risk Assessment Rating"; rec."Risk Assessment Rating")
+                field("Risk Assessment Rating"; Rec."Risk Assessment Rating")
                 {
                 }
             }

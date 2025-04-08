@@ -9,10 +9,10 @@ page 50122 "Audit Ratings"
         {
             repeater(Group)
             {
-                field(Rating; rec.Rating)
+                field(Rating; Rec.Rating)
                 {
                 }
-                field(Descriptor; rec.Descriptor)
+                field(Descriptor; Rec.Descriptor)
                 {
                 }
             }

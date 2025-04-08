@@ -16,12 +16,12 @@ page 50196 "Audit Post-Review Procedures"
                     trigger OnValidate()
                     begin
 
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -29,7 +29,7 @@ page 50196 "Audit Post-Review Procedures"
                         END;
                     end;
                 }
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                 }
             }
@@ -43,7 +43,7 @@ page 50196 "Audit Post-Review Procedures"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -52,7 +52,7 @@ page 50196 "Audit Post-Review Procedures"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

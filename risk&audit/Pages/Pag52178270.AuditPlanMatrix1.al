@@ -13,10 +13,10 @@ page 50108 "Audit Plan Matrix 1"
         {
             repeater(General)
             {
-                field("Code"; rec.Code)
+                field("Code"; Rec.Code)
                 {
                 }
-                field(Description; rec.Description)
+                field(Description; Rec.Description)
                 {
                 }
                 field(Field1; MATRIX_CellData[1])
@@ -558,50 +558,50 @@ page 50108 "Audit Plan Matrix 1"
                     IF Found THEN
                         CopyDimValToBuf(DimVal, AuditPeriod);
                 END;
-                /*DimOption::"Budget Dimension 1":
-                  BEGIN
-                    IF BudgetDim1Filter <> '' THEN
-                      DimVal.SETFILTER(Code,BudgetDim1Filter);
-                    DimVal."Dimension Code" := GLBudgetName."Budget Dimension 1 Code";
-                    DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
-                    DimVal.Code := DimCodeBuf.Code;
-                    Found := DimVal.FIND(Which);
-                    IF Found THEN
-                      CopyDimValToBuf(DimVal,DimCodeBuf);
-                  END;
-                DimOption::"Budget Dimension 2":
-                  BEGIN
-                    IF BudgetDim2Filter <> '' THEN
-                      DimVal.SETFILTER(Code,BudgetDim2Filter);
-                    DimVal."Dimension Code" := GLBudgetName."Budget Dimension 2 Code";
-                    DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
-                    DimVal.Code := DimCodeBuf.Code;
-                    Found := DimVal.FIND(Which);
-                    IF Found THEN
-                      CopyDimValToBuf(DimVal,DimCodeBuf);
-                  END;
-                DimOption::"Budget Dimension 3":
-                  BEGIN
-                    IF BudgetDim3Filter <> '' THEN
-                      DimVal.SETFILTER(Code,BudgetDim3Filter);
-                    DimVal."Dimension Code" := GLBudgetName."Budget Dimension 3 Code";
-                    DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
-                    DimVal.Code := DimCodeBuf.Code;
-                    Found := DimVal.FIND(Which);
-                    IF Found THEN
-                      CopyDimValToBuf(DimVal,DimCodeBuf);
-                  END;
-                DimOption::"Budget Dimension 4":
-                  BEGIN
-                    IF BudgetDim4Filter <> '' THEN
-                      DimVal.SETFILTER(Code,BudgetDim4Filter);
-                    DimVal."Dimension Code" := GLBudgetName."Budget Dimension 4 Code";
-                    DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
-                    DimVal.Code := DimCodeBuf.Code;
-                    Found := DimVal.FIND(Which);
-                    IF Found THEN
-                      CopyDimValToBuf(DimVal,DimCodeBuf);
-                  END;*/
+        /*DimOption::"Budget Dimension 1":
+          BEGIN
+            IF BudgetDim1Filter <> '' THEN
+              DimVal.SETFILTER(Code,BudgetDim1Filter);
+            DimVal."Dimension Code" := GLBudgetName."Budget Dimension 1 Code";
+            DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
+            DimVal.Code := DimCodeBuf.Code;
+            Found := DimVal.FIND(Which);
+            IF Found THEN
+              CopyDimValToBuf(DimVal,DimCodeBuf);
+          END;
+        DimOption::"Budget Dimension 2":
+          BEGIN
+            IF BudgetDim2Filter <> '' THEN
+              DimVal.SETFILTER(Code,BudgetDim2Filter);
+            DimVal."Dimension Code" := GLBudgetName."Budget Dimension 2 Code";
+            DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
+            DimVal.Code := DimCodeBuf.Code;
+            Found := DimVal.FIND(Which);
+            IF Found THEN
+              CopyDimValToBuf(DimVal,DimCodeBuf);
+          END;
+        DimOption::"Budget Dimension 3":
+          BEGIN
+            IF BudgetDim3Filter <> '' THEN
+              DimVal.SETFILTER(Code,BudgetDim3Filter);
+            DimVal."Dimension Code" := GLBudgetName."Budget Dimension 3 Code";
+            DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
+            DimVal.Code := DimCodeBuf.Code;
+            Found := DimVal.FIND(Which);
+            IF Found THEN
+              CopyDimValToBuf(DimVal,DimCodeBuf);
+          END;
+        DimOption::"Budget Dimension 4":
+          BEGIN
+            IF BudgetDim4Filter <> '' THEN
+              DimVal.SETFILTER(Code,BudgetDim4Filter);
+            DimVal."Dimension Code" := GLBudgetName."Budget Dimension 4 Code";
+            DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
+            DimVal.Code := DimCodeBuf.Code;
+            Found := DimVal.FIND(Which);
+            IF Found THEN
+              CopyDimValToBuf(DimVal,DimCodeBuf);
+          END;*/
         END;
         EXIT(Found);
 
@@ -669,50 +669,50 @@ page 50108 "Audit Plan Matrix 1"
                     IF ResultSteps <> 0 THEN
                         CopyDimValToBuf(DimVal, AuditPeriod);
                 END;
-                /*DimOption::"Budget Dimension 1":
-                  BEGIN
-                    IF BudgetDim1Filter <> '' THEN
-                      DimVal.SETFILTER(Code,BudgetDim1Filter);
-                    DimVal."Dimension Code" := GLBudgetName."Budget Dimension 1 Code";
-                    DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
-                    DimVal.Code := DimCodeBuf.Code;
-                    ResultSteps := DimVal.NEXT(Steps);
-                    IF ResultSteps <> 0 THEN
-                      CopyDimValToBuf(DimVal,DimCodeBuf);
-                  END;
-                DimOption::"Budget Dimension 2":
-                  BEGIN
-                    IF BudgetDim2Filter <> '' THEN
-                      DimVal.SETFILTER(Code,BudgetDim2Filter);
-                    DimVal."Dimension Code" := GLBudgetName."Budget Dimension 2 Code";
-                    DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
-                    DimVal.Code := DimCodeBuf.Code;
-                    ResultSteps := DimVal.NEXT(Steps);
-                    IF ResultSteps <> 0 THEN
-                      CopyDimValToBuf(DimVal,DimCodeBuf);
-                  END;
-                DimOption::"Budget Dimension 3":
-                  BEGIN
-                    IF BudgetDim3Filter <> '' THEN
-                      DimVal.SETFILTER(Code,BudgetDim3Filter);
-                    DimVal."Dimension Code" := GLBudgetName."Budget Dimension 3 Code";
-                    DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
-                    DimVal.Code := DimCodeBuf.Code;
-                    ResultSteps := DimVal.NEXT(Steps);
-                    IF ResultSteps <> 0 THEN
-                      CopyDimValToBuf(DimVal,DimCodeBuf);
-                  END;
-                DimOption::"Budget Dimension 4":
-                  BEGIN
-                    IF BudgetDim4Filter <> '' THEN
-                      DimVal.SETFILTER(Code,BudgetDim4Filter);
-                    DimVal."Dimension Code" := GLBudgetName."Budget Dimension 4 Code";
-                    DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
-                    DimVal.Code := DimCodeBuf.Code;
-                    ResultSteps := DimVal.NEXT(Steps);
-                    IF ResultSteps <> 0 THEN
-                      CopyDimValToBuf(DimVal,DimCodeBuf);
-                  END;*/
+        /*DimOption::"Budget Dimension 1":
+          BEGIN
+            IF BudgetDim1Filter <> '' THEN
+              DimVal.SETFILTER(Code,BudgetDim1Filter);
+            DimVal."Dimension Code" := GLBudgetName."Budget Dimension 1 Code";
+            DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
+            DimVal.Code := DimCodeBuf.Code;
+            ResultSteps := DimVal.NEXT(Steps);
+            IF ResultSteps <> 0 THEN
+              CopyDimValToBuf(DimVal,DimCodeBuf);
+          END;
+        DimOption::"Budget Dimension 2":
+          BEGIN
+            IF BudgetDim2Filter <> '' THEN
+              DimVal.SETFILTER(Code,BudgetDim2Filter);
+            DimVal."Dimension Code" := GLBudgetName."Budget Dimension 2 Code";
+            DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
+            DimVal.Code := DimCodeBuf.Code;
+            ResultSteps := DimVal.NEXT(Steps);
+            IF ResultSteps <> 0 THEN
+              CopyDimValToBuf(DimVal,DimCodeBuf);
+          END;
+        DimOption::"Budget Dimension 3":
+          BEGIN
+            IF BudgetDim3Filter <> '' THEN
+              DimVal.SETFILTER(Code,BudgetDim3Filter);
+            DimVal."Dimension Code" := GLBudgetName."Budget Dimension 3 Code";
+            DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
+            DimVal.Code := DimCodeBuf.Code;
+            ResultSteps := DimVal.NEXT(Steps);
+            IF ResultSteps <> 0 THEN
+              CopyDimValToBuf(DimVal,DimCodeBuf);
+          END;
+        DimOption::"Budget Dimension 4":
+          BEGIN
+            IF BudgetDim4Filter <> '' THEN
+              DimVal.SETFILTER(Code,BudgetDim4Filter);
+            DimVal."Dimension Code" := GLBudgetName."Budget Dimension 4 Code";
+            DimVal.SETRANGE("Dimension Code",DimVal."Dimension Code");
+            DimVal.Code := DimCodeBuf.Code;
+            ResultSteps := DimVal.NEXT(Steps);
+            IF ResultSteps <> 0 THEN
+              CopyDimValToBuf(DimVal,DimCodeBuf);
+          END;*/
         END;
         EXIT(ResultSteps);
 
@@ -722,43 +722,37 @@ page 50108 "Audit Plan Matrix 1"
     var
         Period2: Record Date;
     begin
-        WITH AuditPeriod DO BEGIN
-            INIT;
-            Period := FORMAT(ThePeriod."Period Start");
-            "Period Start" := ThePeriod."Period Start";
-            "Period End" := ThePeriod."Period End";
-            IF DateFilter <> '' THEN BEGIN
-                Period2.SETFILTER("Period End", DateFilter);
-                IF Period2.GETRANGEMAX("Period End") < "Period End" THEN
-                    "Period End" := Period2.GETRANGEMAX("Period End");
-            END;
-            Description := ThePeriod."Period Name";
+        AuditPeriod.INIT;
+        AuditPeriod.Period := FORMAT(ThePeriod."Period Start");
+        AuditPeriod."Period Start" := ThePeriod."Period Start";
+        AuditPeriod."Period End" := ThePeriod."Period End";
+        IF DateFilter <> '' THEN BEGIN
+            Period2.SETFILTER("Period End", DateFilter);
+            IF Period2.GETRANGEMAX("Period End") < AuditPeriod."Period End" THEN
+                AuditPeriod."Period End" := Period2.GETRANGEMAX("Period End");
         END;
+        AuditPeriod.Description := ThePeriod."Period Name";
     end;
 
     local procedure CopyBusUnitToBuf(var TheBusUnit: Record "Business Unit"; var TheDimCodeBuf: Record "Dimension Code Buffer")
     begin
-        WITH TheDimCodeBuf DO BEGIN
-            INIT;
-            Code := TheBusUnit.Code;
-            IF TheBusUnit.Name <> '' THEN
-                Name := TheBusUnit.Name
-            ELSE
-                Name := TheBusUnit."Company Name";
-        END;
+        TheDimCodeBuf.INIT;
+        TheDimCodeBuf.Code := TheBusUnit.Code;
+        IF TheBusUnit.Name <> '' THEN
+            TheDimCodeBuf.Name := TheBusUnit.Name
+        ELSE
+            TheDimCodeBuf.Name := TheBusUnit."Company Name";
     end;
 
     local procedure CopyDimValToBuf(var TheDimVal: Record "Dimension Value"; var AuditPeriod: Record "Audit Period")
     begin
-        WITH AuditPeriod DO BEGIN
-            INIT;
-            Period := TheDimVal.Code;
-            Description := TheDimVal.Name;
-            //Totaling := TheDimVal.Totaling;
-            //Indentation := TheDimVal.Indentation;
-            //"Show in Bold" :=
-            //TheDimVal."Dimension Value Type" <> TheDimVal."Dimension Value Type"::Standard;
-        END;
+        AuditPeriod.INIT;
+        AuditPeriod.Period := TheDimVal.Code;
+        AuditPeriod.Description := TheDimVal.Name;
+        //Totaling := TheDimVal.Totaling;
+        //Indentation := TheDimVal.Indentation;
+        //"Show in Bold" :=
+        //TheDimVal."Dimension Value Type" <> TheDimVal."Dimension Value Type"::Standard;
     end;
 
     local procedure LookUpCode(DimOption: Option "G/L Account",Period,"Business Unit","Global Dimension 1","Global Dimension 2","Budget Dimension 1","Budget Dimension 2","Budget Dimension 3","Budget Dimension 4"; DimCode: Text[30]; "Code": Text[30])

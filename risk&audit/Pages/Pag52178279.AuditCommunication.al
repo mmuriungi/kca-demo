@@ -42,24 +42,14 @@ page 50117 "Audit Communication"
                     field("E-Mail Subject"; Rec."E-Mail Subject")
                     {
                     }
-                    field("Email Message"; EmailTxt)
+                    field("Email Message"; Rec."E-Mail Body")
                     {
                         MultiLine = true;
 
                         trigger OnValidate()
                         begin
 
-                            Rec.CALCFIELDS("E-Mail Body");
-                            "E-Mail Body".CREATEINSTREAM(InStrm);
-                            EmailBigTxt.READ(InStrm);
 
-                            IF EmailTxt <> FORMAT(EmailBigTxt) THEN BEGIN
-                                CLEAR(Rec."E-Mail Body");
-                                CLEAR(EmailBigTxt);
-                                EmailBigTxt.ADDTEXT(EmailTxt);
-                                "E-Mail Body".CREATEOUTSTREAM(OutStrm);
-                                EmailBigTxt.WRITE(OutStrm);
-                            END;
                         end;
                     }
                     field("Receipient E-Mail"; Rec."Receipient E-Mail")
@@ -70,24 +60,13 @@ page 50117 "Audit Communication"
                 {
                     ShowCaption = false;
                     Visible = ((Rec."Communication Type" = Rec."Communication Type"::"SMS") OR (Rec."Communication Type" = Rec."Communication Type"::"E-Mail & SMS"));
-                    field("SMS Message"; SMSTxt)
+                    field("SMS Message"; Rec."SMS Text")
                     {
                         MultiLine = true;
 
                         trigger OnValidate()
                         begin
 
-                            Rec.CALCFIELDS("SMS Text");
-                            "SMS Text".CREATEINSTREAM(SMSInStrm);
-                            SMSBigTxt.READ(SMSInStrm);
-
-                            IF SMSTxt <> FORMAT(SMSBigTxt) THEN BEGIN
-                                CLEAR(Rec."SMS Text");
-                                CLEAR(SMSBigTxt);
-                                SMSBigTxt.ADDTEXT(SMSTxt);
-                                "SMS Text".CREATEOUTSTREAM(SMSOutStrm);
-                                SMSBigTxt.WRITE(SMSOutStrm);
-                            END;
                         end;
                     }
                 }

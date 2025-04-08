@@ -140,7 +140,20 @@ page 50121 "Incident Report"
                 }
                 field("Linked Risk Description"; Rec."Linked Risk Description")
                 {
-                    
+                    trigger OnValidate()
+                    begin
+                        Rec.CALCFIELDS("Linked Risk Description");
+                        "Linked Risk Description".CREATEINSTREAM(Instr);
+                        RiskNote.READ(Instr);
+
+                        IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
+                            CLEAR(Rec."Linked Risk Description");
+                            CLEAR(RiskNote);
+                            RiskNote.ADDTEXT(RiskNotesText);
+                            "Linked Risk Description".CREATEOUTSTREAM(OutStr);
+                            RiskNote.WRITE(OutStr);
+                        END;
+                    end;
                 }
                 field("Rejection reason"; Rec."Rejection reason")
                 {

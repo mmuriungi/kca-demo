@@ -17,12 +17,12 @@ page 50206 "WorkPaper Conclusion"
                     trigger OnValidate()
                     begin
 
-                        CALCFIELDS(Description);
+                        Rec.CALCFIELDS(Description);
                         Description.CREATEINSTREAM(Instr);
                         DNotes.READ(Instr);
 
                         IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Description);
+                            CLEAR(Rec.Description);
                             CLEAR(DNotes);
                             DNotes.ADDTEXT(DNotesText);
                             Description.CREATEOUTSTREAM(OutStr);
@@ -30,7 +30,7 @@ page 50206 "WorkPaper Conclusion"
                         END;
                     end;
                 }
-                field(Favourable; Favourable)
+                field(Favourable; Rec.Favourable)
                 {
                 }
             }
@@ -44,7 +44,7 @@ page 50206 "WorkPaper Conclusion"
     trigger OnAfterGetCurrRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);
@@ -53,7 +53,7 @@ page 50206 "WorkPaper Conclusion"
     trigger OnAfterGetRecord()
     begin
 
-        CALCFIELDS(Description);
+        Rec.CALCFIELDS(Description);
         Description.CREATEINSTREAM(Instr);
         DNotes.READ(Instr);
         DNotesText := FORMAT(DNotes);

@@ -14,7 +14,7 @@ table 50134 "Interactions Feedback"
         {
             Caption = 'Interaction Code';
             DataClassification = ToBeClassified;
-            tablerelation="Client Interaction Header";
+           // tablerelation = "Client Interaction Header";
         }
         field(3; "Created By"; Code[50])
         {
@@ -58,7 +58,7 @@ table 50134 "Interactions Feedback"
         date := today;
         if "No." = '' then begin
             InteractSetup.Get;
-            InteractSetup.TestField(Feedback);
+            InteractSetup.TestField();
             NoSeriesMgt.InitSeries(InteractSetup.Feedback, xRec."No. Series", 0D, "No.", "No. Series");
         end;
     end;

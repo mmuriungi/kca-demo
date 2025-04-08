@@ -91,7 +91,7 @@ report 50812 "Audit Report"
             }
             trigger OnAfterGetRecord()
             begin
-             
+
             end;
 
 
@@ -134,6 +134,6 @@ report 50812 "Audit Report"
         DNotesTextD2: Text;
         OutStrD2: OutStream;
 
-  
+
 
 }

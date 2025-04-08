@@ -10,12 +10,12 @@ page 50098 "Consolidated Risk Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = Basic, Suite;
                     Enabled = false;
                 }
-                field("Date Created"; "Date Created")
+                field("Date Created"; Rec."Date Created")
                 {
                     ApplicationArea = Basic, Suite;
                     Editable = false;
@@ -27,35 +27,35 @@ page 50098 "Consolidated Risk Card"
                     StyleExpr = TRUE;
                 }
 
-                field("Created By"; "Created By")
+                field("Created By"; Rec."Created By")
                 {
                     Caption = 'User ID';
                     ApplicationArea = Basic, Suite;
                     Enabled = false;
                 }
-                field("Audit Period"; "Audit Period")
+                field("Audit Period"; Rec."Audit Period")
                 {
                     ApplicationArea = All;
                 }
-                field("Current Plan"; "Current Plan")
+                field("Current Plan"; Rec."Current Plan")
                 {
                     ShowMandatory = true;
                 }
 
-                field(Auditor; Auditor)
+                field(Auditor; Rec.Auditor)
                 {
                     ApplicationArea = All;
                     Caption = 'Risk Manager No';
                     Visible = false;
                 }
-                field("Auditor Name"; "Auditor Name")
+                field("Auditor Name"; Rec."Auditor Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Risk Manager Name';
                     Visible = false;
                 }
-                field("Auditor Emai"; "Auditor Email")
+                field("Auditor Emai"; Rec."Auditor Email")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -63,22 +63,22 @@ page 50098 "Consolidated Risk Card"
                     Visible = false;
                 }
 
-                field("Document Status"; "Document Status")
+                field("Document Status"; Rec."Document Status")
                 {
                     ApplicationArea = Basic, Suite;
                     Editable = false;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     Editable = false;
                     Visible = false;
                 }
-                field("Rejection Reason"; "Rejection Reason")
+                field("Rejection Reason"; Rec."Rejection Reason")
                 {
-                    Editable = "Document Status" = "Document Status"::Champion;
+                    Editable = Rec."Document Status" = Rec."Document Status"::Champion;
                     Visible = false;
                 }
-                field("Risk Description"; "Risk Description")
+                field("Risk Description"; Rec."Risk Description")
                 {
                     Caption = 'Comments';
                     Editable = true;
@@ -90,44 +90,20 @@ page 50098 "Consolidated Risk Card"
                 SubPageLink = "Risk No." = field("No.");
             }
 
-            field("Root Cause Analysis"; RootCauseTxt)
+            field("Root Cause Analysis"; Rec."Root Cause Analysis")
             {
                 ApplicationArea = Basic, Suite;
                 MultiLine = true;
                 Visible = false;
-                trigger OnValidate()
-                begin
-                    CALCFIELDS("Risk Description");
-                    "Root Cause Analysis".CREATEINSTREAM(Instr);
-                    RootCauseBigTxt.READ(Instr);
-
-                    IF RootCauseTxt <> FORMAT(RootCauseBigTxt) THEN BEGIN
-                        CLEAR("Root Cause Analysis");
-                        CLEAR(RootCauseBigTxt);
-                        RootCauseBigTxt.ADDTEXT(RootCauseTxt);
-                        "Root Cause Analysis".CREATEOUTSTREAM(OutStr);
-                        RootCauseBigTxt.WRITE(OutStr);
-                    END;
-                end;
             }
-            field("Mitigation Suggestions"; MitigationTxt)
+            field("Mitigation Suggestions"; Rec."Mitigation Suggestions")
             {
                 ApplicationArea = Basic, Suite;
                 MultiLine = true;
                 Visible = false;
                 trigger OnValidate()
                 begin
-                    CALCFIELDS("Mitigation Suggestions");
-                    "Mitigation Suggestions".CREATEINSTREAM(Instr);
-                    MitigationBigTxt.READ(Instr);
 
-                    IF MitigationTxt <> FORMAT(MitigationBigTxt) THEN BEGIN
-                        CLEAR("Mitigation Suggestions");
-                        CLEAR(MitigationBigTxt);
-                        MitigationBigTxt.ADDTEXT(MitigationTxt);
-                        "Mitigation Suggestions".CREATEOUTSTREAM(OutStr);
-                        MitigationBigTxt.WRITE(OutStr);
-                    END;
                 end;
             }
 
@@ -138,23 +114,23 @@ page 50098 "Consolidated Risk Card"
                 Caption = 'Assesment & Valuation';
                 group("GROSS CATEGORY")
                 {
-                    field("Risk Category"; "Risk Category")
+                    field("Risk Category"; Rec."Risk Category")
                     {
                         Caption = 'Risk Category';
                         ApplicationArea = Basic, Suite;
                     }
-                    field("Risk Category Description"; "Risk Category Description")
+                    field("Risk Category Description"; Rec."Risk Category Description")
                     {
                         Caption = 'Risk Category Description';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Risk Type"; "Risk Type")
+                    field("Risk Type"; Rec."Risk Type")
                     {
                         ApplicationArea = Basic, Suite;
 
                     }
-                    field("Risk Type Description"; "Risk Type Description")
+                    field("Risk Type Description"; Rec."Risk Type Description")
                     {
                         ApplicationArea = Basic, Suite;
                         Editable = false;
@@ -164,46 +140,46 @@ page 50098 "Consolidated Risk Card"
                 {
                     group("RISK VALUE")
                     {
-                        field("Value at Risk (Amount)"; "Value at Risk")
+                        field("Value at Risk (Amount)"; Rec."Value at Risk")
                         {
                             Caption = 'Value at Risk';
                             ApplicationArea = Basic, Suite;
                         }
                     }
-                    field("Risk Probability"; "Risk Probability")
+                    field("Risk Probability"; Rec."Risk Probability")
                     {
                         Caption = 'Risk probability(%)';
                         ApplicationArea = Basic, Suite;
                     }
-                    field("Risk Likelihood Value"; "Risk Likelihood Value")
+                    field("Risk Likelihood Value"; Rec."Risk Likelihood Value")
                     {
                         Caption = 'Likelihood Score';
                         Editable = false;
                     }
-                    field("Risk Likelihood"; "Risk Likelihood")
+                    field("Risk Likelihood"; Rec."Risk Likelihood")
                     {
                         Caption = 'Risk Likelihood';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Risk Impact Value"; "Risk Impact Value")
+                    field("Risk Impact Value"; Rec."Risk Impact Value")
                     {
                         Caption = 'Impact Score';
                         Editable = false;
                     }
-                    field("Risk Impact"; "Risk Impact")
+                    field("Risk Impact"; Rec."Risk Impact")
                     {
                         Caption = 'Risk Impact';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
 
-                    field("Risk (L * I)"; "Risk (L * I)")
+                    field("Risk (L * I)"; Rec."Risk (L * I)")
                     {
                         Caption = 'Gross Risk Score';
                         Editable = false;
                     }
-                    field("RAG Status"; "RAG Status")
+                    field("RAG Status"; Rec."RAG Status")
                     {
                         ApplicationArea = Basic, Suite;
                         Editable = false;
@@ -215,76 +191,66 @@ page 50098 "Consolidated Risk Card"
 
                     Caption = 'RISK CONTROL';
                     Visible = ChampionEditable;
-                    field("Existing Risk Controls"; ExistingTxt)
+                    field("Existing Risk Controls"; Rec."Existing Risk Controls")
                     {
                         ApplicationArea = All;
                         MultiLine = true;
                         trigger OnValidate()
                         begin
-                            CALCFIELDS("Existing Risk Controls");
-                            "Existing Risk Controls".CREATEINSTREAM(Instr);
-                            ExistingBigTxt.READ(Instr);
 
-                            IF ExistingTxt <> FORMAT(ExistingBigTxt) THEN BEGIN
-                                CLEAR("Existing Risk Controls");
-                                CLEAR(ExistingBigTxt);
-                                ExistingBigTxt.ADDTEXT(ExistingTxt);
-                                "Existing Risk Controls".CREATEOUTSTREAM(OutStr);
-                                ExistingBigTxt.WRITE(OutStr);
-                            END;
                         end;
                     }
-                    field("Additional mitigation controls"; "Additional mitigation controls")
+                    field("Additional mitigation controls"; Rec."Additional mitigation controls")
                     {
                         ApplicationArea = Basic, Suite;
                     }
-                    field("Mitigation Owner"; "Mitigation Owner")
+                    field("Mitigation Owner"; Rec."Mitigation Owner")
                     {
                         ApplicationArea = All;
                     }
                 }
                 group(Controls)
                 {
-                    field("Value after Control"; "Value after Control")
+                    field("Value after Control"; Rec."Value after Control")
                     {
                         ApplicationArea = Basic, Suite;
                     }
-                    field("Control Risk Probability"; "Control Risk Probability")
+                    field("Control Risk Probability"; Rec."Control Risk Probability")
                     {
                         ApplicationArea = Basic, Suite;
 
                     }
-                    field("Control Evaluation Likelihood"; "Control Evaluation Likelihood")
+                    field("Control Evaluation Likelihood"; Rec."Control Evaluation Likelihood")
                     {
                         Caption = 'Control risk likelihood value';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Control Risk Likelihood"; "Control Risk Likelihood")
+                    field("Control Risk Likelihood"; Rec."Control Risk Likelihood")
                     {
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
 
-                    field("Control Evaluation Impact"; "Control Evaluation Impact")
+                    field("Control Evaluation Impact"; Rec."Control Evaluation Impact")
                     {
                         Caption = 'Control risk impact value';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Control Risk Impact"; "Control Risk Impact")
+                    field("Control Risk Impact"; Rec."Control Risk Impact")
                     {
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
 
-                    field("Control Risk (L * I)"; "Control Risk (L * I)")
+                    field("Control Risk (L * I)"; Rec."Control Risk (L * I)")
                     {
                         Caption = 'Control Gross risk';
                         ApplicationArea = Basic, Suite;
                         Editable = false;
                     }
-                    field("Control RAG Status"; "Control RAG Status")
+                    field("Control RAG Status"; Rec."Control RAG Status")
                     {
                         Editable = false;
                     }
@@ -294,34 +260,34 @@ page 50098 "Consolidated Risk Card"
                 group("RESIDUAL RISK")
                 {
 
-                    field("Residual Value"; "Residual Value")
+                    field("Residual Value"; Rec."Residual Value")
                     {
                         Editable = false;
                     }
-                    field("Residual Risk Likelihood"; "Residual Risk Likelihood")
+                    field("Residual Risk Likelihood"; Rec."Residual Risk Likelihood")
                     {
                         Caption = 'Residual Likelihood Value';
                         Editable = false;
                     }
-                    field("Residual Risk Likelihood Cat"; "Residual Risk Likelihood Cat")
+                    field("Residual Risk Likelihood Cat"; Rec."Residual Risk Likelihood Cat")
                     {
                         Editable = false;
                     }
-                    field("Residual Likelihood Impact"; "Residual Likelihood Impact")
+                    field("Residual Likelihood Impact"; Rec."Residual Likelihood Impact")
                     {
                         Caption = 'Residual Impact Value';
                         Editable = false;
                     }
-                    field("Residual Risk Impact"; "Residual Risk Impact")
+                    field("Residual Risk Impact"; Rec."Residual Risk Impact")
                     {
                         Editable = false;
                     }
-                    field("Residual Risk (L * I)"; "Residual Risk (L * I)")
+                    field("Residual Risk (L * I)"; Rec."Residual Risk (L * I)")
                     {
                         Caption = 'Residual Risk Score';
                         Editable = false;
                     }
-                    field("Residual RAG Status"; "Residual RAG Status")
+                    field("Residual RAG Status"; Rec."Residual RAG Status")
                     {
                         Editable = false;
                     }
@@ -330,11 +296,11 @@ page 50098 "Consolidated Risk Card"
                 {
                     ShowCaption = false;
                     Visible = ChampionEditable;
-                    field("Risk Response"; "Risk Response")
+                    field("Risk Response"; Rec."Risk Response")
                     {
                         Caption = 'Acceptance Decision';
                     }
-                    field(Comment; Comment)
+                    field(Comment; Rec.Comment)
                     {
 
                     }
@@ -379,7 +345,7 @@ page 50098 "Consolidated Risk Card"
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
-                    Enabled = "No." <> '';
+                    Enabled = Rec."No." <> '';
 
                     trigger OnAction()
                     var
@@ -389,7 +355,7 @@ page 50098 "Consolidated Risk Card"
                         Clear(PgDocumentAttachment);
                         RecRef.GETTABLE(Rec);
                         PgDocumentAttachment.OpenForRecReference(RecRef);
-                        if Status = Status::Released then
+                        if Rec.Status = Rec.Status::Released then
                             PgDocumentAttachment.Editable(false);
                         PgDocumentAttachment.RUNMODAL;
                     end;
@@ -412,10 +378,10 @@ page 50098 "Consolidated Risk Card"
                     // TestField("Risk Description");
                     //  TestField("Risk Region");
                     RiskLine.RESET;
-                    RiskLine.SETRANGE("Document No.", "No.");
+                    RiskLine.SETRANGE("Document No.", Rec."No.");
                     RiskLine.SETFILTER(Type, '%1|%2|%3', RiskLine.Type::"KRI(s)", RiskLine.Type::Response, RiskLine.Type::"Risk Category");
                     // IF NOT RiskLine.FINDFIRST() THEN Error('Please specify the risk KRI(s)');
-                    RegistrationMgt.FnReportRisk(Rec, "Auditor Email");
+                    RegistrationMgt.FnReportRisk(Rec, Rec."Auditor Email");
                     CurrPage.CLOSE;
                 end;
             }
@@ -432,7 +398,7 @@ page 50098 "Consolidated Risk Card"
                     RiskLine: Record "Risk Line";
                 begin
                     RiskLine.RESET;
-                    RiskLine.SETRANGE("Document No.", "No.");
+                    RiskLine.SETRANGE("Document No.", Rec."No.");
                     RiskLine.SETFILTER(Type, '%1|%2|%3', RiskLine.Type::"KRI(s)", RiskLine.Type::Response, RiskLine.Type::"Risk Category");
                     // IF NOT RiskLine.FINDFIRST() THEN Error('Please specify the risk KRI(s)');
                     // AuditMgt.RiskRegistersSTRNMenu(Rec);
@@ -480,7 +446,7 @@ page 50098 "Consolidated Risk Card"
                 trigger OnAction()
                 begin
                     AuditMgt.SendMailtoRiskChampion2(Rec);
-                    Modify(true);
+                    Rec.Modify(true);
                 end;
             }
             action("Send For Approval")
@@ -489,7 +455,7 @@ page 50098 "Consolidated Risk Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = (Status = Status::New) or (Status = Status::"Pending Approval");
+                Visible = (Rec.Status = Rec.Status::New) or (Rec.Status = Rec.Status::"Pending Approval");
                 trigger OnAction()
                 var
                 //  Workflows: Codeunit "Registration Workflows";
@@ -510,9 +476,9 @@ page 50098 "Consolidated Risk Card"
 
                 trigger OnAction()
                 begin
-                    If Status = Status::New then 
-                    Status := Status::Released;
-                    Modify();
+                    If Rec.Status = Rec.Status::New then
+                        Rec.Status := Rec.Status::Released;
+                    Rec.Modify();
                     CurrPage.CLOSE;
                 end;
             }
@@ -524,23 +490,6 @@ page 50098 "Consolidated Risk Card"
     begin
         CheckVisibility;
         SetControlAppearance();
-
-        CALCFIELDS("Risk Description", "Root Cause Analysis", "Mitigation Suggestions", "Existing Risk Controls");
-        "Risk Description".CREATEINSTREAM(Instr);
-        RiskNote.READ(Instr);
-        RiskNotesText := FORMAT(RiskNote);
-
-        "Root Cause Analysis".CREATEINSTREAM(Instr);
-        RootCauseBigTxt.READ(Instr);
-        RootCauseTxt := FORMAT(RootCauseBigTxt);
-
-        "Mitigation Suggestions".CREATEINSTREAM(Instr);
-        MitigationBigTxt.READ(Instr);
-        MitigationTxt := FORMAT(MitigationBigTxt);
-
-        "Existing Risk Controls".CREATEINSTREAM(Instr);
-        ExistingBigTxt.READ(Instr);
-        ExistingTxt := FORMAT(ExistingBigTxt);
     end;
 
     trigger OnOpenPage()
@@ -585,18 +534,18 @@ page 50098 "Consolidated Risk Card"
     begin
         HidePageLinks();
 
-        case "Document Status" of
-            "Document Status"::New:
+        case Rec."Document Status" of
+            Rec."Document Status"::New:
                 begin
                     SendToRegister := false;
                     SendToChampion := true;
                 end;
-            "Document Status"::Champion:
+            Rec."Document Status"::Champion:
                 begin
                     SendToRegister := true;
                     SendToChampion := false;
                 end;
-            "Document Status"::Closed:
+            Rec."Document Status"::Closed:
                 begin
                     SendToRegister := false;
                     SendToChampion := false;
@@ -606,12 +555,12 @@ page 50098 "Consolidated Risk Card"
 
     procedure SetControlAppearance()
     begin
-        if ("Document Status" = "Document Status"::New) then
+        if (Rec."Document Status" = Rec."Document Status"::New) then
             NewVisible := true
         else
             NewVisible := false;
 
-        if ("Document Status" = "Document Status"::Champion) or ("Document Status" = "Document Status"::"Risk Owner") then
+        if (Rec."Document Status" = Rec."Document Status"::Champion) or (Rec."Document Status" = Rec."Document Status"::"Risk Owner") then
             ChampionEditable := true
         else
             ChampionEditable := false;
@@ -632,7 +581,7 @@ page 50098 "Consolidated Risk Card"
     var
         myInt: Integer;
     begin
-        "Plan Type" := "Plan Type"::"Organizational Plan";
+        Rec."Plan Type" := Rec."Plan Type"::"Organizational Plan";
     end;
 }
 

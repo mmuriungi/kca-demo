@@ -9,7 +9,7 @@ page 50075 "Student Portal Def/Withd List"
     InsertAllowed = false;
     ModifyAllowed = false;
     DeleteAllowed = false;
-    
+
     layout
     {
         area(Content)
@@ -50,7 +50,7 @@ page 50075 "Student Portal Def/Withd List"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -63,7 +63,7 @@ page 50075 "Student Portal Def/Withd List"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedOnly = true;
-                
+
                 trigger OnAction()
                 var
                     StudentDefermentWithdrawalCard: Page "Student Deferment/Withdrawal";
@@ -72,7 +72,7 @@ page 50075 "Student Portal Def/Withd List"
                     StudentDefermentWithdrawalCard.Run();
                 end;
             }
-            
+
             action(CancelRequest)
             {
                 ApplicationArea = All;
@@ -82,7 +82,7 @@ page 50075 "Student Portal Def/Withd List"
                 PromotedCategory = Process;
                 PromotedOnly = true;
                 Enabled = Rec.Status = Rec.Status::Open;
-                
+
                 trigger OnAction()
                 var
                     WebPortals: Codeunit webportals;
@@ -97,12 +97,12 @@ page 50075 "Student Portal Def/Withd List"
             }
         }
     }
-    
+
     trigger OnAfterGetRecord()
     begin
         SetStatusStyle();
     end;
-    
+
     local procedure SetStatusStyle()
     begin
         case Rec.Status of
@@ -118,7 +118,7 @@ page 50075 "Student Portal Def/Withd List"
                 StatusStyleExpr := 'Standard';
         end;
     end;
-    
+
     var
         StatusStyleExpr: Text;
 }

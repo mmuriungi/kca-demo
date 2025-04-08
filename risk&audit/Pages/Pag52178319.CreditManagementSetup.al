@@ -11,51 +11,51 @@ page 50219 "Credit Management Setup"
         {
             group(General)
             {
-                field("No. of Days in Year"; "No. of Days in Year")
+                field("No. of Days in Year"; Rec."No. of Days in Year")
                 {
                     ApplicationArea = All;
                 }
-                field("Loan Disbursement Template"; "Loan Disbursement Template")
+                field("Loan Disbursement Template"; Rec."Loan Disbursement Template")
                 {
                     ApplicationArea = All;
                 }
-                field("Loan Interest Template"; "Loan Interest Template")
+                field("Loan Interest Template"; Rec."Loan Interest Template")
                 {
                     ApplicationArea = All;
                 }
-                field("Loan Penalty Template"; "Loan Penalty Template")
+                field("Loan Penalty Template"; Rec."Loan Penalty Template")
                 {
                     ApplicationArea = All;
                 }
-                field("Default PML Posting Group"; "Default PML Posting Group")
+                field("Default PML Posting Group"; Rec."Default PML Posting Group")
                 {
                     ApplicationArea = All;
                 }
-                field("Enforce Credit Limit"; "Enforce Credit Limit")
+                field("Enforce Credit Limit"; Rec."Enforce Credit Limit")
                 {
                     ApplicationArea = All;
                 }
-                field("Max Phone No Characters"; "Max Phone No Characters")
+                field("Max Phone No Characters"; Rec."Max Phone No Characters")
                 {
                     ApplicationArea = All;
                 }
-                field("Credit Limit Amount Type"; "Credit Limit Amount Type")
+                field("Credit Limit Amount Type"; Rec."Credit Limit Amount Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Check Collateral Commitment"; "Check Collateral Commitment")
+                field("Check Collateral Commitment"; Rec."Check Collateral Commitment")
                 {
                     ApplicationArea = All;
                 }
-                field("Automatically Post Interest"; "Automatically Post Interest")
+                field("Automatically Post Interest"; Rec."Automatically Post Interest")
                 {
                     ApplicationArea = All;
                 }
-                field("VAT Product Posting Group"; "VAT Product Posting Group")
+                field("VAT Product Posting Group"; Rec."VAT Product Posting Group")
                 {
                     ApplicationArea = All;
                 }
-                field("Receipt Amounts Exclusive VAT";"Receipt Amounts Exclusive VAT")
+                field("Receipt Amounts Exclusive VAT"; Rec."Receipt Amounts Exclusive VAT")
                 {
                     ApplicationArea = All;
                 }
@@ -64,57 +64,57 @@ page 50219 "Credit Management Setup"
             }
             group(Numbering)
             {
-                field("Assumption Nos"; "Assumption Nos")
+                field("Assumption Nos"; Rec."Assumption Nos")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Application Nos"; "Application Nos")
+                field("Application Nos"; Rec."Application Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("PML Change Request Nos"; "PML Change Request Nos")
+                field("PML Change Request Nos"; Rec."PML Change Request Nos")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Loan Nos"; "Loan Nos")
+                field("Loan Nos"; Rec."Loan Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Loan Disbursement Nos"; "Loan Disbursement Nos")
+                field("Loan Disbursement Nos"; Rec."Loan Disbursement Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Credit Scoring Nos"; "Credit Scoring Nos")
+                field("Credit Scoring Nos"; Rec."Credit Scoring Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Loan Interest Nos"; "Loan Interest Nos")
+                field("Loan Interest Nos"; Rec."Loan Interest Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Loan Penalty Nos"; "Loan Penalty Nos")
+                field("Loan Penalty Nos"; Rec."Loan Penalty Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Loan Receipt Nos"; "Loan Receipt Nos")
+                field("Loan Receipt Nos"; Rec."Loan Receipt Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Statement Template Nos"; "Statement Template Nos")
+                field("Statement Template Nos"; Rec."Statement Template Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Shareholding Setup Nos"; "Shareholding Setup Nos")
+                field("Shareholding Setup Nos"; Rec."Shareholding Setup Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Risk Profile Nos"; "Risk Profile Nos")
+                field("Risk Profile Nos"; Rec."Risk Profile Nos")
                 {
                     ApplicationArea = All;
                 }
-                field("Residential Mortgage Nos"; "Residential Mortgage Nos")
+                field("Residential Mortgage Nos"; Rec."Residential Mortgage Nos")
                 {
                     ApplicationArea = All;
                 }
@@ -125,32 +125,32 @@ page 50219 "Credit Management Setup"
             }
             group(Signatories)
             {
-                field("Signatory 1 No."; "Signatory 1 No.")
+                field("Signatory 1 No."; Rec."Signatory 1 No.")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Signatory 1 Name"; "Signatory 1 Name")
+                field("Signatory 1 Name"; Rec."Signatory 1 Name")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Signatory 1 designation"; "Signatory 1 designation")
+                field("Signatory 1 designation"; Rec."Signatory 1 designation")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Signatory 2 No."; "Signatory 2 No.")
+                field("Signatory 2 No."; Rec."Signatory 2 No.")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Signatory 2 Name"; "Signatory 2 Name")
+                field("Signatory 2 Name"; Rec."Signatory 2 Name")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Signatory 2 designation"; "Signatory 2 designation")
+                field("Signatory 2 designation"; Rec."Signatory 2 designation")
                 {
                     ApplicationArea = All;
 
@@ -167,12 +167,12 @@ page 50219 "Credit Management Setup"
                     trigger OnValidate()
                     begin
 
-                        CalcFields("Statement Notes");
+                        Rec.CalcFields("Statement Notes");
                         "Statement Notes".CreateInStream(Instr);
                         SNotes.Read(Instr);
 
                         if SNotesText <> Format(SNotes) then begin
-                            Clear("Statement Notes");
+                            Clear(Rec."Statement Notes");
                             Clear(SNotes);
                             SNotes.AddText(SNotesText);
                             "Statement Notes".CreateOutStream(OutStr);
@@ -209,16 +209,16 @@ page 50219 "Credit Management Setup"
 
     trigger OnOpenPage()
     begin
-        Reset();
-        if not Get() then begin
-            Init();
-            Insert();
+        Rec.Reset();
+        if not Rec.Get() then begin
+            Rec.Init();
+            Rec.Insert();
         end;
     end;
 
     trigger OnAfterGetRecord()
     begin
-        CalcFields("Statement Notes");
+        Rec.CalcFields("Statement Notes");
         "Statement Notes".CreateInStream(Instr);
         SNotes.Read(Instr);
         SNotesText := Format(SNotes);

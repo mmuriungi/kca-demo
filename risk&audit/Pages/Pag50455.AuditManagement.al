@@ -61,12 +61,12 @@ page 50102 "Audit Management"
                     Caption = 'Audit Plan';
                     RunObject = page "Audit Plan List";
                 }
-                action("CEO Audit Plan List")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'CEO Audit Plan List';
-                    RunObject = page "Council Audit Plan List";
-                }
+                // action("CEO Audit Plan List")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     Caption = 'CEO Audit Plan List';
+                //     RunObject = page "Council Audit Plan List";
+                // }
                 // action("Approved Audit Plans")
                 // {
                 //     ApplicationArea = Basic, Suite;
@@ -290,20 +290,16 @@ page 50102 "Audit Management"
                 Image = FiledPosted;
                 action("Posted PVs")
                 {
-                    RunObject = page "Posted Payment Vouchers1";
+                    RunObject = page "FIN-Posted Payment Vouch.";
                 }
                 action("Posted Receipts")
                 {
-                    RunObject = Page "Posted Receipts";
+                    RunObject = Page "FIN-Posted Receipts list";
                 }
 
                 action("Posted Petty Cash")
                 {
-                    RunObject = Page "Posted Petty cash";
-                }
-                action("Posted Petty Cash Surrenders")
-                {
-                    RunObject = Page "Posted Petty Cash Surrenders";
+                    RunObject = Page "FIN-Posted petty cash";
                 }
                 action("Posted Credit Memos1")
                 {
@@ -344,17 +340,17 @@ page 50102 "Audit Management"
                 action("Posted Imprests")
                 {
                     ApplicationArea = SalesReturnOrder;
-                    RunObject = page "Posted Imprests";
+                    RunObject = page "FIN-Posted imprest list";
                 }
                 action("Posted Imprest Surrenders")
                 {
                     ApplicationArea = SalesReturnOrder;
-                    RunObject = page "Posted Imprest Surrenders";
+                    RunObject = page "FIN-Posted Imprest Accounting";
                 }
                 action("Posted Staff Claims")
                 {
                     ApplicationArea = SalesReturnOrder;
-                    RunObject = page "Posted Staff Claim";
+                    RunObject = page "FIN-Staff Claim List Posted";
                 }
 
             }

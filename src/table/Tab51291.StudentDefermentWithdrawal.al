@@ -97,7 +97,7 @@ table 50078 "Student Deferment/Withdrawal"
     }
     keys
     {
-        key(PK; "No.","Request Type")
+        key(PK; "No.", "Request Type")
         {
             Clustered = true;
         }

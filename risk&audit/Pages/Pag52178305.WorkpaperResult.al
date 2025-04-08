@@ -16,12 +16,12 @@ page 50202 "Workpaper Result"
                     //
                     trigger OnValidate()
                     begin
-                        CALCFIELDS("Description 2 Blob");
+                        Rec.CALCFIELDS("Description 2 Blob");
                         "Description 2 Blob".CREATEINSTREAM(InstrD2);
                         DNotesD2.READ(InstrD2);
 
                         IF DNotesTextD2 <> FORMAT(DNotesD2) THEN BEGIN
-                            CLEAR("Description 2 Blob");
+                            CLEAR(Rec."Description 2 Blob");
                             CLEAR(DNotesD2);
                             DNotesD2.ADDTEXT(DNotesTextD2);
                             "Description 2 Blob".CREATEOUTSTREAM(OutStrD2);
@@ -29,13 +29,13 @@ page 50202 "Workpaper Result"
                         END;
                     end;
                 }
-                field("Description 2"; "Description 2")
+                field("Description 2"; Rec."Description 2")
                 {
                     Caption = 'Description 2';
                     MultiLine = true;
                     Visible = false;
                 }
-                field(Image; Image)
+                field(Image; Rec.Image)
                 {
                 }
             }
@@ -48,7 +48,7 @@ page 50202 "Workpaper Result"
 
     trigger OnAfterGetCurrRecord()
     begin
-        CALCFIELDS("Description 2 Blob");
+        Rec.CALCFIELDS("Description 2 Blob");
         "Description 2 Blob".CREATEINSTREAM(InstrD2);
         DNotesD2.READ(InstrD2);
         DNotesTextD2 := FORMAT(DNotesD2);
@@ -56,7 +56,7 @@ page 50202 "Workpaper Result"
 
     trigger OnAfterGetRecord()
     begin
-        CALCFIELDS("Description 2 Blob");
+        Rec.CALCFIELDS("Description 2 Blob");
         "Description 2 Blob".CREATEINSTREAM(InstrD2);
         DNotesD2.READ(InstrD2);
         DNotesTextD2 := FORMAT(DNotesD2);

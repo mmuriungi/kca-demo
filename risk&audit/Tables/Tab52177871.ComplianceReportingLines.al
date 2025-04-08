@@ -1,4 +1,4 @@
-table 50141 "Compliance Reporting Lines"
+table 51343 "Compliance Reporting Lines"
 {
     Caption = 'Compliance Reporting Lines';
     DataClassification = ToBeClassified;

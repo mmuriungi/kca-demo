@@ -4,14 +4,14 @@ Table 66616 "ACA-Graduation Groups"
 
     fields
     {
-        field(1;"Exam Category";Code[20])
+        field(1; "Exam Category"; Code[20])
         {
         }
-        field(2;"Academic Year";Code[20])
+        field(2; "Academic Year"; Code[20])
         {
             TableRelation = "ACA-Academic Year".Code;
         }
-        field(3;"Graduation Group";Code[20])
+        field(3; "Graduation Group"; Code[20])
         {
             TableRelation = "ACA-Academic Year".Code;
         }
@@ -19,7 +19,7 @@ Table 66616 "ACA-Graduation Groups"
 
     keys
     {
-        key(Key1;"Exam Category","Academic Year")
+        key(Key1; "Exam Category", "Academic Year")
         {
             Clustered = true;
         }
@@ -31,17 +31,17 @@ Table 66616 "ACA-Graduation Groups"
 
     trigger OnDelete()
     begin
-        if ((UserId<>'KUCSERVER\FLUSESI') and (UserId<>'KUCSERVER\MKUYU')) then Error('Access Denied');
+        if ((UserId <> 'KUCSERVER\FLUSESI') and (UserId <> 'KUCSERVER\MKUYU')) then Error('Access Denied');
     end;
 
     trigger OnModify()
     begin
-        if ((UserId<>'KUCSERVER\PGITHINJI') and (UserId<>'KUCSERVER\MKUYU')) then Error('Access Denied');
+        if ((UserId <> 'KUCSERVER\PGITHINJI') and (UserId <> 'KUCSERVER\MKUYU')) then Error('Access Denied');
     end;
 
     trigger OnRename()
     begin
-        if ((UserId<>'KUCSERVER\FLUSESI') and (UserId<>'KUCSERVER\MKUYU')) then Error('Access Denied');
+        if ((UserId <> 'KUCSERVER\FLUSESI') and (UserId <> 'KUCSERVER\MKUYU')) then Error('Access Denied');
     end;
 }
 

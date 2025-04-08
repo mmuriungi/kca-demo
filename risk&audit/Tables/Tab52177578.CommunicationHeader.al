@@ -1,4 +1,4 @@
-table 50131 "Communication Header"
+table 51324 "Communication Header"
 {
 
     fields
@@ -56,11 +56,11 @@ table 50131 "Communication Header"
             OptionCaption = 'E-Mail,SMS,E-Mail & SMS';
             OptionMembers = "E-Mail",SMS,"E-Mail & SMS";
         }
-        field(8; "E-Mail Body"; BLOB)
+        field(8; "E-Mail Body"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(9; "SMS Text"; BLOB)
+        field(9; "SMS Text"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }

@@ -341,6 +341,10 @@ table 50556 "ACA-General Set-Up"
         {
             TableRelation = "No. Series";
         }
+        field(50092; "Training Evaluation Nos"; Code[20])
+        {
+            TableRelation = "No. Series";
+        }
     }
 
 

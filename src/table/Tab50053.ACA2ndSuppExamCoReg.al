@@ -68,15 +68,15 @@ table 50053 "ACA-2ndSuppExam. Co. Reg."
         field(13; "Total Courses"; Integer)
         {
             Caption = 'Total Courses';
-            FieldClass=FlowField;
-            CalcFormula=Count("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Academic Year"=FIELD("Academic Year")));
+            FieldClass = FlowField;
+            CalcFormula = Count("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year")));
             Editable = false;
         }
         field(14; "Total Units"; Decimal)
         {
             Caption = 'Total Units';
-            FieldClass=FlowField;
-            CalcFormula=Sum("ACA-2ndSuppExam Class. Units"."Credit Hours" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Academic Year"=FIELD("Academic Year")));
+            FieldClass = FlowField;
+            CalcFormula = Sum("ACA-2ndSuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year")));
         }
         field(15; "Admission Date"; Date)
         {
@@ -502,25 +502,25 @@ table 50053 "ACA-2ndSuppExam. Co. Reg."
         {
             Caption = 'Required Electives Courses';
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-Units/Subjects" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE'|'ELECTIVES')));
+            CalcFormula = Count("ACA-Units/Subjects" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE' | 'ELECTIVES')));
         }
         field(93; "Required Electives Units"; Decimal)
         {
             Caption = 'Required Electives Units';
             FieldClass = FlowField;
-            CalcFormula = Sum("ACA-Units/Subjects"."Credit Hours" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE'|'ELECTIVES')));
+            CalcFormula = Sum("ACA-Units/Subjects"."Credit Hours" WHERE("Programme Code" = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Unit Type" = FILTER('ELECTIVE' | 'ELECTIVES')));
         }
         field(94; "Attained Electives Courses"; Integer)
         {
             Caption = 'Attained Electives Courses';
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(true), "Unit Type" = FILTER('ELECTIVE'|'ELECTIVES')));
+            CalcFormula = Count("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(true), "Unit Type" = FILTER('ELECTIVE' | 'ELECTIVES')));
         }
         field(95; "Attained Electives Units"; Decimal)
         {
             Caption = 'Attained Electives Units';
             FieldClass = FlowField;
-            CalcFormula = Sum("ACA-2ndSuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(true), "Unit Type"=FILTER('ELECTIVE'|'ELECTIVES')));
+            CalcFormula = Sum("ACA-2ndSuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Allow In Graduate" = FILTER(true), "Unit Type" = FILTER('ELECTIVE' | 'ELECTIVES')));
         }
         field(96; "Deficit Electives Courses"; Integer)
         {
@@ -550,149 +550,149 @@ table 50053 "ACA-2ndSuppExam. Co. Reg."
         field(101; "Missed CAT"; Boolean)
         {
             Caption = 'Missed CAT';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No."=FIELD("Student Number"),Programme=FIELD(Programme),"Year of Study"=FIELD("Year of Study"),"Results Exists Status"=FILTER("Exam Only")));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Results Exists Status" = FILTER("Exam Only")));
         }
         field(102; "Missed Exam"; Boolean)
         {
             Caption = 'Missed Exam';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No."=FIELD("Student Number"),Programme=FIELD(Programme),"Year of Study"=FIELD("Year of Study"),"Results Exists Status"=FILTER("CAT Only")));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Results Exists Status" = FILTER("CAT Only")));
         }
         field(103; "Missed Both CAT & Exam"; Boolean)
         {
             Caption = 'Missed Both CAT & Exam';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No."=FIELD("Student Number"),Programme=FIELD(Programme),"Year of Study"=FIELD("Year of Study"),"Results Exists Status"=FILTER("None Exists")));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Results Exists Status" = FILTER("None Exists")));
         }
         field(104; "Grade"; Code[20])
         {
             Caption = 'Grade';
             FieldClass = FlowField;
-            CalcFormula = Lookup("ACA-Final Grade Source".Grade WHERE ("Academic Year"=FIELD("Academic Year"),"Exam Catregory"=FIELD("Exam category"),"Total Score"=FIELD("Normal Average"),"Missing CAT"=FIELD("Missed CAT"),"Missing Exam"=FIELD("Missed Exam"),"Missed Both CAT & Exam"=FIELD("Missed Both CAT & Exam"),Grade=FILTER(<>'^')));
+            CalcFormula = Lookup("ACA-Final Grade Source".Grade WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam category"), "Total Score" = FIELD("Normal Average"), "Missing CAT" = FIELD("Missed CAT"), "Missing Exam" = FIELD("Missed Exam"), "Missed Both CAT & Exam" = FIELD("Missed Both CAT & Exam"), Grade = FILTER(<> '^')));
             Editable = false;
         }
         field(105; "Remarks"; Text[100])
         {
             Caption = 'Remarks';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Final Grade Source".Remarks WHERE ("Academic Year"=FIELD("Academic Year"),"Exam Catregory"=FIELD("Exam category"),"Total Score"=FIELD("Normal Average"),"Missing CAT"=FIELD("Missed CAT"),"Missing Exam"=FIELD("Missed Exam"),"Missed Both CAT & Exam"=FIELD("Missed Both CAT & Exam"),Grade=FILTER('<>^')));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Final Grade Source".Remarks WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam category"), "Total Score" = FIELD("Normal Average"), "Missing CAT" = FIELD("Missed CAT"), "Missing Exam" = FIELD("Missed Exam"), "Missed Both CAT & Exam" = FIELD("Missed Both CAT & Exam"), Grade = FILTER('<>^')));
             Editable = false;
         }
         field(106; "Override Remarks"; Boolean)
         {
             Caption = 'Override Remarks';
             FieldClass = FlowField;
-            CalcFormula = Lookup("ACA-Final Grade Source"."Override Transcript Comments" WHERE ("Academic Year"=FIELD("Academic Year"),"Exam Catregory"=FIELD("Exam category"),"Total Score"=FIELD("Normal Average"),"Missing CAT"=FIELD("Missed CAT"),"Missing Exam"=FIELD("Missed Exam"),"Missed Both CAT & Exam"=FIELD("Missed Both CAT & Exam"),Grade=FILTER('<>^')));
+            CalcFormula = Lookup("ACA-Final Grade Source"."Override Transcript Comments" WHERE("Academic Year" = FIELD("Academic Year"), "Exam Catregory" = FIELD("Exam category"), "Total Score" = FIELD("Normal Average"), "Missing CAT" = FIELD("Missed CAT"), "Missing Exam" = FIELD("Missed Exam"), "Missed Both CAT & Exam" = FIELD("Missed Both CAT & Exam"), Grade = FILTER('<>^')));
             Editable = false;
         }
         field(107; "Exam category"; Code[20])
         {
             Caption = 'Exam category';
             FieldClass = FlowField;
-            CalcFormula = Lookup("ACA-Programme"."Exam Category" WHERE (Code=FIELD(Programme)));
+            CalcFormula = Lookup("ACA-Programme"."Exam Category" WHERE(Code = FIELD(Programme)));
             Editable = false;
         }
         field(108; "Average"; Decimal)
         {
             Caption = 'Average';
             FieldClass = FlowField;
-            CalcFormula = Average("ACA-2ndSuppExam Class. Units"."Total Score Decimal" WHERE ("Student No."=FIELD("Student Number"),Programme=FIELD(Programme),"Year of Study"=FIELD("Year of Study"),"Academic Year"=FIELD("Academic Year")));
+            CalcFormula = Average("ACA-2ndSuppExam Class. Units"."Total Score Decimal" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year")));
         }
         field(109; "Supp Exists"; Boolean)
         {
             Caption = 'Supp Exists';
             FieldClass = FlowField;
-            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE ("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Is Supp. Unit" = FILTER(true)));
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Is Supp. Unit" = FILTER(true)));
             Editable = false;
         }
         field(110; "Total Courses Passed"; Integer)
         {
             Caption = 'Total Courses Passed';
             FieldClass = FlowField;
-            CalcFormula = Count("ACA-2ndSuppExam Class. Units" WHERE ("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Pass" = FILTER(true)));
+            CalcFormula = Count("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), "Pass" = FILTER(true)));
             Editable = false;
         }
         field(111; "Total Units Passed"; Decimal)
         {
             Caption = 'Total Units Passed';
             FieldClass = FlowField;
-            CalcFormula = Sum("ACA-2ndSuppExam Class. Units"."Credit Hours" WHERE ("Student No."=FIELD("Student Number"),Programme=FIELD(Programme),"Academic Year"=FIELD("Academic Year"),"Year of Study"=FIELD("Year of Study"),Pass=const(true)));
+            CalcFormula = Sum("ACA-2ndSuppExam Class. Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Academic Year" = FIELD("Academic Year"), "Year of Study" = FIELD("Year of Study"), Pass = const(true)));
             Editable = false;
         }
         field(112; "Exists DTSC Prefix"; Boolean)
         {
             Caption = 'Exists DTSC Prefix';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),Programme=FIELD(Programme),"Year of Study"=FIELD("Year of Study"),"Academic Year"=FIELD("Academic Year"),"Results Exists Status"=FILTER("None Exists"|"Exam Only"|"CAT Only")));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), Programme = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Results Exists Status" = FILTER("None Exists" | "Exam Only" | "CAT Only")));
         }
         field(113; "Graduation Academic Year"; Code[20])
         {
             Caption = 'Graduation Academic Year';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Classification Course Reg."."Graduation Academic Year" WHERE ("Student Number"=FIELD("Student Number"),Programme=FIELD(Programme)));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Classification Course Reg."."Graduation Academic Year" WHERE("Student Number" = FIELD("Student Number"), Programme = FIELD(Programme)));
             Editable = false;
         }
         field(114; "Exists Failed 2nd Supp"; Boolean)
         {
             Caption = 'Exists Failed 2nd Supp';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),Pass=const(false),"Academic Year"=FIELD("Academic Year"),"Is Supp. Unit"=const(true)));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), Pass = const(false), "Academic Year" = FIELD("Academic Year"), "Is Supp. Unit" = const(true)));
             Editable = false;
         }
         field(115; "Special Exists"; Boolean)
         {
             Caption = 'Special Exists';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Is Special Unit"=const(true),"Academic Year"=FIELD("Academic Year")));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Special Unit" = const(true), "Academic Year" = FIELD("Academic Year")));
             Editable = false;
         }
         field(116; "Exists a Failed Special"; Boolean)
         {
             Caption = 'Exists a Failed Special';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Is Special Unit"=const(true),"Academic Year"=FIELD("Academic Year"),Pass=const(false)));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Special Unit" = const(true), "Academic Year" = FIELD("Academic Year"), Pass = const(false)));
             Editable = false;
         }
         field(117; "Supp. Registration Exists"; Boolean)
         {
             Caption = 'Supp. Registration Exists';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Academic Year"=FIELD("Academic Year"),"Is Supp. Unit"=const(true)));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Is Supp. Unit" = const(true)));
             Editable = false;
         }
         field(121; "Supp/Special Exists"; Boolean)
         {
             Caption = 'Supp/Special Exists';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Is Supp. Unit"=const(true),"Academic Year"=FIELD("Academic Year")));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Is Supp. Unit" = const(true), "Academic Year" = FIELD("Academic Year")));
             Editable = false;
         }
         field(123; "Allow View of Results"; Boolean)
         {
             Caption = 'Allow View of Results';
-            FieldClass=FlowField;
-            CalcFormula=Lookup("ACA-Academic Year"."Release Results" WHERE (Code=FIELD("Academic Year")));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Academic Year"."Release Results" WHERE(Code = FIELD("Academic Year")));
         }
         field(124; "Special Registration Exists"; Boolean)
         {
             Caption = 'Special Registration Exists';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-2ndSuppExam Class. Units" WHERE ("Student No."=FIELD("Student Number"),"Year of Study"=FIELD("Year of Study"),"Academic Year"=FIELD("Academic Year"),"Is Special Unit"=const(true)));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-2ndSuppExam Class. Units" WHERE("Student No." = FIELD("Student Number"), "Year of Study" = FIELD("Year of Study"), "Academic Year" = FIELD("Academic Year"), "Is Special Unit" = const(true)));
             Editable = false;
         }
         field(125; "Academic Year Exclude Comp."; Boolean)
         {
             Caption = 'Academic Year Exclude Comp.';
-            FieldClass=FlowField;
-            CalcFormula=Exist("ACA-Course Registration" WHERE ("Student No."=FIELD("Student Number"),"Academic Year"=FIELD("Academic Year"),"Academic Year Exclude Comp."=const(true)));
+            FieldClass = FlowField;
+            CalcFormula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student Number"), "Academic Year" = FIELD("Academic Year"), "Academic Year Exclude Comp." = const(true)));
             Editable = false;
         }
         field(127; "Defined Units (Flow)"; Integer)
         {
             Caption = 'Defined Units (Flow)';
-            FieldClass=FlowField;
-            CalcFormula=Sum("ACA-Defined Units per YoS"."Number of Units" WHERE (programmes=FIELD(Programme),"Year of Study"=FIELD("Year of Study"),Options=FIELD("Programme Option"),"Academic Year"=FIELD("Academic Year")));
+            FieldClass = FlowField;
+            CalcFormula = Sum("ACA-Defined Units per YoS"."Number of Units" WHERE(programmes = FIELD(Programme), "Year of Study" = FIELD("Year of Study"), Options = FIELD("Programme Option"), "Academic Year" = FIELD("Academic Year")));
             Editable = false;
         }
     }

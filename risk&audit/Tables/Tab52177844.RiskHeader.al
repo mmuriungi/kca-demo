@@ -1,4 +1,4 @@
-table 50145 "Risk Header"
+table 51334 "Risk Header"
 {
 
 
@@ -39,11 +39,10 @@ table 50145 "Risk Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(6; "Risk Description"; BLOB)
+        field(6; "Risk Description"; Text[2048])
         {
             Caption = 'Risk Objectives';
             DataClassification = ToBeClassified;
-            SubType = Memo;
         }
         field(7; "Document Status"; Option)
         {
@@ -585,20 +584,17 @@ table 50145 "Risk Header"
             InitValue = '';
 
         }
-        field(56; "Root Cause Analysis"; Blob)
+        field(56; "Root Cause Analysis"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            Subtype = Memo;
         }
-        field(57; "Mitigation Suggestions"; Blob)
+        field(57; "Mitigation Suggestions"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            Subtype = Memo;
         }
-        field(58; "Existing Risk Controls"; Blob)
+        field(58; "Existing Risk Controls"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            Subtype = Memo;
         }
         field(59; "Risk Type"; Code[50])
         {
@@ -863,13 +859,13 @@ table 50145 "Risk Header"
         IF UserSetup.GET("Created By") THEN BEGIN
             UserSetup.TESTFIELD("Employee No.");
             "Employee No." := UserSetup."Employee No."; // Assign the Risk Champion's Employee No.
-            "Employee Name" := UserSetup."Full Name";   // Assign the Risk Champion's Name
+            //"Employee Name" := UserSetup."Full Name";   // Assign the Risk Champion's Name
             "Employee Email" := UserSetup."E-Mail";     // Assign the Risk Champion's Email
             "Station Code" := UserSetup."Global Dimension 1 Code";
-            "Station Name" := UserSetup."Station Name";
+            //"Station Name" := UserSetup."Station Name";
             "Risk Department" := UserSetup."Global Dimension 1 Code";
             UserSetup.Validate("Global Dimension 1 Code");
-            "Shortcut Dimension 1 Code" := UserSetup."Department Code";
+            //"Shortcut Dimension 1 Code" := UserSetup."Department Code";
             // UserSetup.Validate("Shortcut Dimension 1 Code");
 
         END;

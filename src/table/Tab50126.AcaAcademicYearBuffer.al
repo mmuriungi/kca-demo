@@ -2,7 +2,7 @@ table 50126 "Aca-AcademicYear_Buffer"
 {
     Caption = 'Aca-AcademicYear_Buffer';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; User_Id; Code[50])
@@ -16,7 +16,7 @@ table 50126 "Aca-AcademicYear_Buffer"
     }
     keys
     {
-        key(PK; User_Id,Academic_Year)
+        key(PK; User_Id, Academic_Year)
         {
             Clustered = true;
         }

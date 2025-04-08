@@ -5,7 +5,7 @@ page 50085 "Exam Invigilators"
     PageType = List;
     SourceTable = "Exam Invigilators";
     UsageCategory = Lists;
-    
+
     layout
     {
         area(Content)
