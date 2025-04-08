@@ -1,4 +1,4 @@
-page 50053 "Risk Champion List"
+page 50250 "Risk Champion List"
 {
     CardPageID = "Risk Card";
     PageType = List;
@@ -42,23 +42,13 @@ page 50053 "Risk Champion List"
                 {
                     ApplicationArea = Basic, Suite;
                 }
-                field("Risk Description"; RiskNotesText)
+                field("Risk Description"; rec."Risk Description")
                 {
                     ApplicationArea = Basic, Suite;
 
                     trigger OnValidate()
                     begin
-                        Rec.CALCFIELDS("Risk Description");
-                        "Risk Description".CREATEINSTREAM(Instr);
-                        RiskNote.READ(Instr);
 
-                        IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
-                            CLEAR(Rec."Risk Description");
-                            CLEAR(RiskNote);
-                            RiskNote.ADDTEXT(RiskNotesText);
-                            "Risk Description".CREATEOUTSTREAM(OutStr);
-                            RiskNote.WRITE(OutStr);
-                        END;
                     end;
                 }
             }
@@ -71,11 +61,6 @@ page 50053 "Risk Champion List"
 
     trigger OnAfterGetRecord()
     begin
-
-        Rec.CALCFIELDS("Risk Description");
-        "Risk Description".CREATEINSTREAM(Instr);
-        RiskNote.READ(Instr);
-        RiskNotesText := FORMAT(RiskNote);
     end;
 
     trigger OnOpenPage()

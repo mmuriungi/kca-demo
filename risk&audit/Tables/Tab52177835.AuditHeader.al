@@ -185,11 +185,6 @@ table 50136 "Audit Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(18; "Audit Manager"; Text[100])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = Employee;
-        }
         field(19; "Reviewed By"; Code[50])
         {
             DataClassification = ToBeClassified;
@@ -541,7 +536,7 @@ table 50136 "Audit Header"
             // Caption = 'MyField';
             DataClassification = ToBeClassified;
         }
-        field(493; "Unfavorable"; Text[1500])
+        field(493; Unfavorable; Boolean)
         {
             Caption = 'Unfavorable';
             DataClassification = ToBeClassified;
@@ -551,10 +546,29 @@ table 50136 "Audit Header"
 
             DataClassification = ToBeClassified;
         }
-
-
-
-
+        field(495; "Audit Manager"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Employee;
+            
+            trigger OnValidate()
+            begin
+                if Employee.Get("Audit Manager") then begin
+                    "Audit Manager Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
+                    "Audit Manager Email" := Employee."Company E-Mail";
+                end;
+            end;
+        }
+        field(496; "Audit Manager Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
+        field(497; "Audit Manager Email"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
 
     }
 
@@ -655,7 +669,7 @@ table 50136 "Audit Header"
                 "Employee No." := Employee."No.";
                 "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
                 "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
-                "Shortcut Dimension 2 Code" := Employee."Department Code";
+                "Shortcut Dimension 2 Code" := Employee."Global Dimension 2 Code";
 
             END;
         // if Employee.CEO = true then begin

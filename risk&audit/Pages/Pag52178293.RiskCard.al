@@ -159,44 +159,24 @@ page 50189 "Risk Card"
                 //  Caption = 'Risk Details';
 
 
-                field("Root Cause Analysis"; RootCauseTxt)
+                field("Root Cause Analysis"; Rec."Root Cause Analysis")
                 {
                     ApplicationArea = Basic, Suite;
                     MultiLine = true;
                     Visible = false;
                     trigger OnValidate()
                     begin
-                        Rec.CALCFIELDS("Risk Description");
-                        "Root Cause Analysis".CREATEINSTREAM(Instr);
-                        RootCauseBigTxt.READ(Instr);
 
-                        IF RootCauseTxt <> FORMAT(RootCauseBigTxt) THEN BEGIN
-                            CLEAR(Rec."Root Cause Analysis");
-                            CLEAR(RootCauseBigTxt);
-                            RootCauseBigTxt.ADDTEXT(RootCauseTxt);
-                            "Root Cause Analysis".CREATEOUTSTREAM(OutStr);
-                            RootCauseBigTxt.WRITE(OutStr);
-                        END;
                     end;
                 }
-                field("Mitigation Suggestions"; MitigationTxt)
+                field("Mitigation Suggestions"; Rec."Mitigation Suggestions")
                 {
                     ApplicationArea = Basic, Suite;
                     MultiLine = true;
                     Visible = false;
                     trigger OnValidate()
                     begin
-                        Rec.CALCFIELDS("Mitigation Suggestions");
-                        "Mitigation Suggestions".CREATEINSTREAM(Instr);
-                        MitigationBigTxt.READ(Instr);
 
-                        IF MitigationTxt <> FORMAT(MitigationBigTxt) THEN BEGIN
-                            CLEAR(Rec."Mitigation Suggestions");
-                            CLEAR(MitigationBigTxt);
-                            MitigationBigTxt.ADDTEXT(MitigationTxt);
-                            "Mitigation Suggestions".CREATEOUTSTREAM(OutStr);
-                            MitigationBigTxt.WRITE(OutStr);
-                        END;
                     end;
                 }
 
@@ -286,23 +266,13 @@ page 50189 "Risk Card"
 
                     Caption = 'RISK CONTROL';
                     Visible = ChampionEditable;
-                    field("Existing Risk Controls"; ExistingTxt)
+                    field("Existing Risk Controls"; Rec."Existing Risk Controls")
                     {
                         ApplicationArea = All;
                         MultiLine = true;
                         trigger OnValidate()
                         begin
-                            Rec.CALCFIELDS("Existing Risk Controls");
-                            "Existing Risk Controls".CREATEINSTREAM(Instr);
-                            ExistingBigTxt.READ(Instr);
 
-                            IF ExistingTxt <> FORMAT(ExistingBigTxt) THEN BEGIN
-                                CLEAR(Rec."Existing Risk Controls");
-                                CLEAR(ExistingBigTxt);
-                                ExistingBigTxt.ADDTEXT(ExistingTxt);
-                                "Existing Risk Controls".CREATEOUTSTREAM(OutStr);
-                                ExistingBigTxt.WRITE(OutStr);
-                            END;
                         end;
                     }
                     field("Additional mitigation controls"; Rec."Additional mitigation controls")
@@ -675,23 +645,6 @@ page 50189 "Risk Card"
     begin
         CheckVisibility;
         SetControlAppearance();
-
-        Rec.CALCFIELDS("Risk Description", "Root Cause Analysis", "Mitigation Suggestions", "Existing Risk Controls");
-        "Risk Description".CREATEINSTREAM(Instr);
-        RiskNote.READ(Instr);
-        RiskNotesText := FORMAT(RiskNote);
-
-        "Root Cause Analysis".CREATEINSTREAM(Instr);
-        RootCauseBigTxt.READ(Instr);
-        RootCauseTxt := FORMAT(RootCauseBigTxt);
-
-        "Mitigation Suggestions".CREATEINSTREAM(Instr);
-        MitigationBigTxt.READ(Instr);
-        MitigationTxt := FORMAT(MitigationBigTxt);
-
-        "Existing Risk Controls".CREATEINSTREAM(Instr);
-        ExistingBigTxt.READ(Instr);
-        ExistingTxt := FORMAT(ExistingBigTxt);
         FnEditable();
     end;
 
@@ -734,7 +687,6 @@ page 50189 "Risk Card"
         RiskOpportunity: Boolean;
         [InDataSet]
         LinksVisible: Boolean;
-        DocumentManagement: Codeunit "Document Management";
         FromFile: Text;
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean

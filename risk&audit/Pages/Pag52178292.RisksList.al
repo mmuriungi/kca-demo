@@ -52,22 +52,12 @@ page 50188 "Risks List"
                 {
 
                 }
-                field("Risk Description"; RiskNotesText)
+                field("Risk Description"; Rec."Risk Description")
                 {
                     Visible = false;
                     trigger OnValidate()
                     begin
-                        Rec.CALCFIELDS("Risk Description");
-                        "Risk Description".CREATEINSTREAM(Instr);
-                        RiskNote.READ(Instr);
-
-                        IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
-                            CLEAR(Rec."Risk Description");
-                            CLEAR(RiskNote);
-                            RiskNote.ADDTEXT(RiskNotesText);
-                            "Risk Description".CREATEOUTSTREAM(OutStr);
-                            RiskNote.WRITE(OutStr);
-                        END;
+                        
                     end;
                 }
             }
@@ -80,10 +70,7 @@ page 50188 "Risks List"
 
     trigger OnAfterGetRecord()
     begin
-        Rec.CALCFIELDS("Risk Description");
-        "Risk Description".CREATEINSTREAM(Instr);
-        RiskNote.READ(Instr);
-        RiskNotesText := FORMAT(RiskNote);
+      
     end;
 
     trigger OnOpenPage()
@@ -103,7 +90,7 @@ page 50188 "Risks List"
 
     trigger OnDeleteRecord(): Boolean
     begin
-        Error('You Are Not Allowed To Delete A Record');
+      //  Error('You Are Not Allowed To Delete A Record');
     end;
 
     var

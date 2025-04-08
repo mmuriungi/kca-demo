@@ -1,4 +1,4 @@
-page 52177818 "ICT Setup"
+page 50261 "ICT Setup"
 {
     DeleteAllowed = false;
     InsertAllowed = true;

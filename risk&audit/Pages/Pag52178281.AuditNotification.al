@@ -74,24 +74,13 @@ page 50119 "Audit Notification"
                 {
                     ShowCaption = false;
                     Visible = ((Rec."Communication Type" = Rec."Communication Type"::"SMS") OR (Rec."Communication Type" = Rec."Communication Type"::"E-Mail & SMS"));
-                    field("SMS Message"; SMSTxt)
+                    field("SMS Message"; rec."SMS Text")
                     {
                         MultiLine = true;
 
                         trigger OnValidate()
                         begin
 
-                            Rec.CALCFIELDS("SMS Text");
-                            "SMS Text".CREATEINSTREAM(SMSInStrm);
-                            SMSBigTxt.READ(SMSInStrm);
-
-                            IF SMSTxt <> FORMAT(SMSBigTxt) THEN BEGIN
-                                CLEAR(Rec."SMS Text");
-                                CLEAR(SMSBigTxt);
-                                SMSBigTxt.ADDTEXT(SMSTxt);
-                                "SMS Text".CREATEOUTSTREAM(SMSOutStrm);
-                                SMSBigTxt.WRITE(SMSOutStrm);
-                            END;
                         end;
                     }
                 }
@@ -174,16 +163,6 @@ page 50119 "Audit Notification"
 
     trigger OnAfterGetRecord()
     begin
-
-        Rec.CALCFIELDS("E-Mail Body");
-        "E-Mail Body".CREATEINSTREAM(InStrm);
-        EmailBigTxt.READ(InStrm);
-        EmailTxt := FORMAT(EmailBigTxt);
-
-        Rec.CALCFIELDS("SMS Text");
-        "SMS Text".CREATEINSTREAM(SMSInStrm);
-        SMSBigTxt.READ(SMSInStrm);
-        SMSTxt := FORMAT(SMSBigTxt);
     end;
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
@@ -216,7 +195,6 @@ page 50119 "Audit Notification"
         ClearNotification: Notification;
         SMSInStrm: InStream;
         SMSOutStrm: OutStream;
-        HRMgt: Codeunit "HR Management";
         FileManagement: Codeunit "File Management";
         FileName: Text[250];
         AuditMgt: Codeunit "Internal Audit Management";

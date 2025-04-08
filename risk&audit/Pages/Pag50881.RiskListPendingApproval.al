@@ -42,24 +42,14 @@ page 50226 "Risk List Pending Approval"
                 {
                     Caption = 'Objective';
                 }
-                field("Risk Description"; RiskNotesText)
+                field("Risk Description"; Rec."Risk Description")
                 {
                     MultiLine = true;
                     Visible = false;
 
                     trigger OnValidate()
                     begin
-                        Rec.CALCFIELDS("Risk Description");
-                        "Risk Description".CREATEINSTREAM(Instr);
-                        RiskNote.READ(Instr);
-
-                        IF RiskNotesText <> FORMAT(RiskNote) THEN BEGIN
-                            CLEAR(Rec."Risk Description");
-                            CLEAR(RiskNote);
-                            RiskNote.ADDTEXT(RiskNotesText);
-                            "Risk Description".CREATEOUTSTREAM(OutStr);
-                            RiskNote.WRITE(OutStr);
-                        END;
+                      
                     end;
                 }
             }
@@ -73,10 +63,7 @@ page 50226 "Risk List Pending Approval"
     trigger OnAfterGetRecord()
     begin
 
-        Rec.CALCFIELDS("Risk Description");
-        "Risk Description".CREATEINSTREAM(Instr);
-        RiskNote.READ(Instr);
-        RiskNotesText := FORMAT(RiskNote);
+        
     end;
 
     trigger OnDeleteRecord(): Boolean
