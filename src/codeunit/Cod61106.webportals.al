@@ -11214,7 +11214,7 @@ procedure GetVehicleMovemengt() msg: Text
                 if VehicleMovement."Date In" <> 0D then
                     JObj.Add('DateIn', Format(VehicleMovement."Date In"))
                 else
-                    JObj.Add('TimeIn', '');
+                    JObj.Add('DateIn', '');
                 JArray.Add(JObj);
             until VehicleMovement.Next() = 0;
         end;
