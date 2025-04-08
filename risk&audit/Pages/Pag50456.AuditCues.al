@@ -1,4 +1,4 @@
-page 50456 "Audit Cues"
+page 50103 "Audit Cues"
 {
     Caption = 'Audit Management Cues';
     PageType = CardPart;

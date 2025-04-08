@@ -1,4 +1,4 @@
-page 52178291 "Audit Record Requisition Line"
+page 50187 "Audit Record Requisition Line"
 {
     PageType = ListPart;
     SourceTable = "Audit Lines";

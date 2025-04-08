@@ -1,4 +1,4 @@
-page 52178292 "Risks List"
+page 50188 "Risks List"
 {
 
     CardPageID = "Risk Card";

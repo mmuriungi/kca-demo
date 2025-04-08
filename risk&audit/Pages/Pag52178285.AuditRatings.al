@@ -1,4 +1,4 @@
-page 52178285 "Audit Ratings"
+page 50122 "Audit Ratings"
 {
     PageType = List;
     SourceTable = "Risk Rating";

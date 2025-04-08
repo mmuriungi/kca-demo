@@ -1,4 +1,4 @@
-page 50452 "Consolidated Risk List"
+page 50099 "Consolidated Risk List"
 {
     CardPageID = "Consolidated Risk Card";
     PageType = List;

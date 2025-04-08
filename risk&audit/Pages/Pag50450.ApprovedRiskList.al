@@ -1,4 +1,4 @@
-page 50450 "Approved Risk List"
+page 50097 "Approved Risk List"
 {
     Caption = 'Risk Manager List';
     CardPageID = "Risk Card";

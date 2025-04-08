@@ -1,4 +1,4 @@
-page 52178276 "Audit Card"
+page 50114 "Audit Card"
 {
     PageType = Card;
     SourceTable = "Audit Header";

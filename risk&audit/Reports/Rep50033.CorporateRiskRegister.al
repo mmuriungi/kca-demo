@@ -1,4 +1,4 @@
-report 50033 "Corporate Risk Register Report"
+report 50810 "Corporate Risk Register Report"
 {
 
     DefaultLayout = RDLC;

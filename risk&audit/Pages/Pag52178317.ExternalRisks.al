@@ -1,4 +1,4 @@
-page 52178317 "External Risks"
+page 50217 "External Risks"
 {
     AutoSplitKey = true;
     PageType = ListPart;

@@ -1,4 +1,4 @@
-page 52178294 "Audit Plans"
+page 50190 "Audit Plans"
 {
     Caption = 'Audit Programs';
     CardPageID = "Audit Program";

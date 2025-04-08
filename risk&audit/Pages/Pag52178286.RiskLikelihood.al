@@ -1,4 +1,4 @@
-page 52178286 "Risk Likelihood"
+page 50177 "Risk Likelihood"
 {
     PageType = List;
     SourceTable = "Risk Likelihood";

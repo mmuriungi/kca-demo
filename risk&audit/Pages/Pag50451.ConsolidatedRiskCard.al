@@ -1,4 +1,4 @@
-page 50451 "Consolidated Risk Card"
+page 50098 "Consolidated Risk Card"
 {
     PageType = Card;
     PromotedActionCategories = 'New,Process,Report,Reject';
