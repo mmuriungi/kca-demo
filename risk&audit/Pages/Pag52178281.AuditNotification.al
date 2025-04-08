@@ -45,24 +45,14 @@ page 50119 "Audit Notification"
                     field("E-Mail Subject"; Rec."E-Mail Subject")
                     {
                     }
-                    field("Email Message"; EmailTxt)
+                    field("Email Message"; rec."E-Mail Body")
                     {
                         MultiLine = true;
 
                         trigger OnValidate()
                         begin
 
-                            Rec.CALCFIELDS("E-Mail Body");
-                            "E-Mail Body".CREATEINSTREAM(InStrm);
-                            EmailBigTxt.READ(InStrm);
-
-                            IF EmailTxt <> FORMAT(EmailBigTxt) THEN BEGIN
-                                CLEAR(Rec."E-Mail Body");
-                                CLEAR(EmailBigTxt);
-                                EmailBigTxt.ADDTEXT(EmailTxt);
-                                "E-Mail Body".CREATEOUTSTREAM(OutStrm);
-                                EmailBigTxt.WRITE(OutStrm);
-                            END;
+                           
                         end;
                     }
                     field(Attachment; Rec.Attachment)
