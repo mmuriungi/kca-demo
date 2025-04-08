@@ -52,7 +52,7 @@ page 50119 "Audit Notification"
                         trigger OnValidate()
                         begin
 
-                           
+
                         end;
                     }
                     field(Attachment; Rec.Attachment)

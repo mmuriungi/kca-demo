@@ -22,7 +22,7 @@ page 50105 "Risk Evaluation Score"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Score field.';
                 }
-                field("Risk Rating"; "Risk Rating")
+                field("Risk Rating"; Rec."Risk Rating")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -31,7 +31,7 @@ page 50105 "Risk Evaluation Score"
                         StyleExprTxt := RiskRatingColourCodes.RiskRatingColours(Rec);
                     end;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }

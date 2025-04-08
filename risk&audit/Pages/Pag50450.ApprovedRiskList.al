@@ -48,7 +48,7 @@ page 50097 "Approved Risk List"
 
                     trigger OnValidate()
                     begin
-                       
+
                     end;
                 }
             }
@@ -63,7 +63,7 @@ page 50097 "Approved Risk List"
     begin
 
         Rec.CALCFIELDS("Risk Description");
-       
+
     end;
 
     trigger OnDeleteRecord(): Boolean

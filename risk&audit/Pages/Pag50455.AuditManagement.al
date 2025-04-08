@@ -61,12 +61,12 @@ page 50102 "Audit Management"
                     Caption = 'Audit Plan';
                     RunObject = page "Audit Plan List";
                 }
-                action("CEO Audit Plan List")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'CEO Audit Plan List';
-                    RunObject = page "Council Audit Plan List";
-                }
+                // action("CEO Audit Plan List")
+                // {
+                //     ApplicationArea = Basic, Suite;
+                //     Caption = 'CEO Audit Plan List';
+                //     RunObject = page "Council Audit Plan List";
+                // }
                 // action("Approved Audit Plans")
                 // {
                 //     ApplicationArea = Basic, Suite;

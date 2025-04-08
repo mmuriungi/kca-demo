@@ -103,7 +103,7 @@ page 50098 "Consolidated Risk Card"
                 Visible = false;
                 trigger OnValidate()
                 begin
-                    
+
                 end;
             }
 
@@ -197,7 +197,7 @@ page 50098 "Consolidated Risk Card"
                         MultiLine = true;
                         trigger OnValidate()
                         begin
-                           
+
                         end;
                     }
                     field("Additional mitigation controls"; Rec."Additional mitigation controls")
@@ -489,7 +489,7 @@ page 50098 "Consolidated Risk Card"
     trigger OnAfterGetRecord()
     begin
         CheckVisibility;
-        SetControlAppearance();       
+        SetControlAppearance();
     end;
 
     trigger OnOpenPage()

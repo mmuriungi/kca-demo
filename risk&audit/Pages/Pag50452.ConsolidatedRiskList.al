@@ -51,7 +51,7 @@ page 50099 "Consolidated Risk List"
                     Visible = false;
                     trigger OnValidate()
                     begin
-                       
+
                     end;
                 }
             }
@@ -64,7 +64,7 @@ page 50099 "Consolidated Risk List"
 
     trigger OnAfterGetRecord()
     begin
-        Rec.CALCFIELDS("Risk Description");       
+        Rec.CALCFIELDS("Risk Description");
     end;
 
     trigger OnOpenPage()
