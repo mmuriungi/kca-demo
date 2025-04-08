@@ -19,7 +19,22 @@ page 50308 "Guest Registration Card"
                 {
                     ApplicationArea = All;
                 }
+                field("ID No"; Rec."ID No")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the ID No field.', Comment = '%';
+                }
+                field("Phone No"; Rec."Phone No")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Phone No field.', Comment = '%';
+                }
+
                 field("Reason for Visit"; Rec."Reason for Visit")
+                {
+                    ApplicationArea = All;
+                }
+                field("Date"; Rec."Date")
                 {
                     ApplicationArea = All;
                 }

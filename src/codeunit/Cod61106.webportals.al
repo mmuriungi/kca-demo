@@ -11093,7 +11093,7 @@ Codeunit 61106 webportals
     end;
     #endregion
     #region Guest Registration
-    procedure RegisterGuest(name: Text; reason: Text; idno: Code[20]; phoneno: Code[20]; vehicleregno: Code[20]; timein: DateTime; isStaff: Boolean) msg: boolean
+    procedure RegisterGuest(name: Text; reason: Text; idno: Code[20]; phoneno: Code[20]; vehicleregno: Code[20]; timein: Time; isStaff: Boolean) msg: boolean
     var
         Guest: Record "Guest Registration";
     begin
@@ -11104,8 +11104,9 @@ Codeunit 61106 webportals
         Guest."Time In" := timein;
         Guest."Is Staff" := isStaff;
         Guest."ID No" := idno;
+        Guest."Date" := Today;
         Guest."Phone No" := phoneno;
-        Guest.Insert();
+        Guest.Insert(true);
         msg := true;
     end;
 
@@ -11117,7 +11118,7 @@ Codeunit 61106 webportals
         JArray: JsonArray;
     begin
         Guest.Reset();
-        Guest.SETFILTER("Time In", '>%1', CreateDateTime(Today, 000000T));
+        Guest.SETRANGE("Date", Today);
         if Guest.FindSet() then begin
             repeat
                 Clear(JObj);
@@ -11126,18 +11127,21 @@ Codeunit 61106 webportals
                 JObj.Add('IDNo', Guest."ID No");
                 JObj.Add('PhoneNo', Guest."Phone No");
                 JObj.Add('VehicleRegNo', Guest."Vehicle Plate Number");
-                JObj.Add('TimeIn', Guest."Time In");
-                JObj.Add('TimeOut', Guest."Time Out");
+                JObj.Add('TimeIn', Format(Guest."Time In"));
+                if Guest."Time Out" <> 0T then
+                    JObj.Add('TimeOut', Format(Guest."Time Out"))
+                else
+                    JObj.Add('TimeOut', '');
                 JObj.Add('Reason', Guest."Reason for Visit");
-                JObj.Add('IsStaff', FORMAT(Guest."Reason for Visit"));
+                JObj.Add('IsStaff', FORMAT(Guest."Is Staff"));
                 JArray.Add(JObj);
             until Guest.Next() = 0;
         end;
         JArray.WriteTo(JsTxt);
-        Message(JsTxt);
+        msg := JsTxt;
     end;
 
-    procedure MarkGuestTimeOut(entryNo: Integer; timeout: DateTime) msg: Boolean
+    procedure MarkGuestTimeOut(entryNo: Integer; timeout: Time) msg: Boolean
     var
         Guest: Record "Guest Registration";
     begin

@@ -29,7 +29,7 @@ table 50178 "Security Cue"
         {
             //FieldClass = FlowField;
         }
-        field(20; "DateTime Filter"; DateTime)
+        field(20; "DateTime Filter"; Time)
         {
             Caption = 'DateTime Filter';
             FieldClass = FlowFilter;

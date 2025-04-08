@@ -50,6 +50,14 @@ table 50653 "ACA-Exam Gradding Setup"
         field(50004; "Hide in Summary"; Boolean)
         {
         }
+        //Graduation Lower Limit
+        field(50005; "Graduation Lower Limit"; Decimal)
+        {
+        }
+        //Graduation Upper Limit
+        field(50006; "Graduation Upper Limit"; Decimal)
+        {
+        }
     }
 
     keys
