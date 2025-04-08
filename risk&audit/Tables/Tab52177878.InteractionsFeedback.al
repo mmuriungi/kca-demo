@@ -1,4 +1,4 @@
-table 52177878 "Interactions Feedback"
+table 50134 "Interactions Feedback"
 {
     Caption = 'Interactions Feedback';
     DataClassification = ToBeClassified;

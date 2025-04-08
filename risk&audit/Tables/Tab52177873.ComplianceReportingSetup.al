@@ -1,4 +1,4 @@
-table 52177873 "Compliance Reporting Setup"
+table 50139 "Compliance Reporting Setup"
 {
 
     fields

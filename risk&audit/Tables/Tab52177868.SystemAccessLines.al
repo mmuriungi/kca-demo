@@ -1,4 +1,4 @@
-table 52177868 "System Access Lines"
+table 50143 "System Access Lines"
 {
     Caption = 'System Access Lines';
     DataClassification = ToBeClassified;

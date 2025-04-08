@@ -1,4 +1,4 @@
-table 52177861 "Perfomance rating matrix"
+table 51004 "Perfomance rating matrix"
 {
 
     fields

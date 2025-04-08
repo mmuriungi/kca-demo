@@ -1,4 +1,4 @@
-table 52177875 "Laptop Issue and Change"
+table 50137 "Laptop Issue and Change"
 {
     Caption = 'Laptop Issue and Change';
     DataClassification = ToBeClassified;

@@ -1,4 +1,4 @@
-table 52177859 "Training Evaluation Lines"
+table 51255 "Training Evaluation Lines"
 {
 
     fields

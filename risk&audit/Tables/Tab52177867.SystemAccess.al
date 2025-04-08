@@ -1,4 +1,4 @@
-table 52177867 "System Access"
+table 50144 "System Access"
 {
 
     fields

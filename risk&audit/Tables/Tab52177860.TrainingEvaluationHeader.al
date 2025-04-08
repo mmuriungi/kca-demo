@@ -1,4 +1,4 @@
-table 52177860 "Training Evaluation Header"
+table 51005 "Training Evaluation Header"
 {
 
     fields

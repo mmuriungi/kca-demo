@@ -1,4 +1,4 @@
-table 52177881 "Assumptions_Definitions Lines"
+table 50131 "Assumptions_Definitions Lines"
 {
     Caption = 'Assumptions & Definitions Lines';
     DataClassification = ToBeClassified;
