@@ -6,6 +6,6 @@
 .vscode
 .snapshots
 node_modules
-dotnet
+dotnet.al
 
 packages.al
