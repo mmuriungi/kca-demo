@@ -18,7 +18,7 @@ table 50888 "Gen-Venue Booking"
         field(4; "Booking Date"; Date)
         {
         }
-        field(5; "Meeting Description"; Text[50])
+        field(5; "Meeting Description"; Text[2048])
         {
         }
         field(6; "Required Time"; Time)

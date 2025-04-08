@@ -39,6 +39,7 @@ page 51281 "Venue Booking Header"
                 field("Meeting Description"; Rec."Meeting Description")
                 {
                     Caption = 'Description of Meeting';
+                    MultiLine = true;
                 }
                 field("Required Time"; Rec."Required Time")
                 {

@@ -4306,12 +4306,10 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure VenueRequisitionCreate(Department: Code[20]; BookingDate: Date; MeetingDescription: Text[150]; RequiredTime: Time; Venue: Code[20]; ContactPerson: Text[50]; ContactNo: Text[50]; ContactMail: Text[30]; RequestedBy: Text; Pax: Integer)
+    procedure VenueRequisitionCreate(Department: Code[20]; BookingDate: Date; MeetingDescription: Text[150]; RequiredTime: Time; Venue: Code[20]; ContactPerson: Text[50]; ContactNo: Text[50]; ContactMail: Text[30]; RequestedBy: Text; Pax: Integer) Msg: Code[25]
     begin
 
-        VenueRequisition.Init;
-        NextMtoreqNo := NoSeriesMgt.GetNextNo('VB', 0D, true);
-        //MealRequisition.INIT;
+        VenueRequisition.INIT;
         VenueRequisition."Booking Id" := NextMtoreqNo;
         VenueRequisition.Department := Department;
         VenueRequisition."Request Date" := Today;
@@ -4323,13 +4321,13 @@ Codeunit 61106 webportals
         VenueRequisition."Contact Number" := ContactNo;
         VenueRequisition."Contact Mail" := ContactMail;
         VenueRequisition.Pax := Pax;
-        VenueRequisition.Status := VenueRequisition.Status::"Pending Approval";
+        VenueRequisition.Status := VenueRequisition.Status::New;
         //VenueRequisition."Department Name":=DepartmentName;
         VenueRequisition."Requested By" := RequestedBy;
-        VenueRequisition."No. Series" := 'VB';
         //VenueRequisition."Booking Time":= ;
 
-        VenueRequisition.Insert;
+        if VenueRequisition.Insert(true) then
+            Msg := VenueRequisition."Booking Id";
     end;
 
 
@@ -5061,15 +5059,32 @@ Codeunit 61106 webportals
 
     procedure SendVenueApproval(DocNumber: Code[20])
     var
-    // ApprovalsMgtNotification: Codeunit UnknownCodeunit440;
-    // DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Venue Booking";
+        variant: Variant;
+        ApprovalMgt: Codeunit "Approval Workflows V1";
     begin
         VenueBooking.Reset;
         VenueBooking.SetRange(VenueBooking."Booking Id", DocNumber);
         if VenueBooking.Find('-') then begin
-            VenueBooking.Status := VenueBooking.Status::"Pending Approval";//TODO
-            VenueBooking.Modify;
-            //  ApprovalsMgtNotification.SendVenueApprovalMail(DocNumber, Format(Doctype::"Meals Bookings"), VenueBooking."Contact Mail", VenueBooking."Contact Person");
+            variant := VenueBooking;
+            if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then begin
+                ApprovalMgt.OnSendDocForApproval(variant);
+            end;
+        end
+    end;
+
+    //Cancel Venue Booking
+    procedure CancelVenueBookingApproval(DocNumber: Code[20])
+    var
+        variant: Variant;
+        ApprovalMgt: Codeunit "Approval Workflows V1";
+    begin
+        VenueBooking.Reset;
+        VenueBooking.SetRange(VenueBooking."Booking Id", DocNumber);
+        if VenueBooking.Find('-') then begin
+            variant := VenueBooking;
+            if ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) then begin
+                ApprovalMgt.OnCancelDocApprovalRequest(variant);
+            end;
         end
     end;
 
