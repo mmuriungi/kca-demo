@@ -150,7 +150,7 @@ page 51282 "Venue Booking List"
 
     trigger OnAfterGetRecord()
     begin
-     
+        //Rec.SETFILTER("Requested By", '=%1', USERID);
     end;
 
     var

@@ -4326,8 +4326,10 @@ Codeunit 61106 webportals
         VenueRequisition."Staff No." := RequestedBy;
         //VenueRequisition."Booking Time":= ;
 
-        if VenueRequisition.Insert(true) then
+        if VenueRequisition.Insert(true) then begin
+            SendVenueApproval(VenueRequisition."Booking Id");
             Msg := VenueRequisition."Booking Id";
+        end;
     end;
 
 
