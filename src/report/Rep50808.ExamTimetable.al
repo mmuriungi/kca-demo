@@ -84,7 +84,7 @@ report 50808 "Exam Timetable"
                     InvigilatorSetup: Record "Exam Invigilators";
                     InvigilatorsTxt: Text;
                 begin
-                    if "ACA-Lecturer Halls Setup"."Hall Category" in ["ACA-Lecturer Halls Setup"."Hall Category"::Lab, "ACA-Lecturer Halls Setup"."Hall Category"::Online] then
+                    if "ACA-Lecturer Halls Setup"."Hall Category" in [/* "ACA-Lecturer Halls Setup"."Hall Category"::Lab,  */"ACA-Lecturer Halls Setup"."Hall Category"::Online] then
                         CurrReport.Skip();
                     Separator := Thelper.CRLFSeparator();
                     Clear(i);

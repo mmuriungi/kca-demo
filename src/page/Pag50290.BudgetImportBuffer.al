@@ -39,13 +39,13 @@ page 50290 "Budget Import Buffer"
                 field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {
                     ApplicationArea = all;
-                    Editable = false;
+                    Editable = true;
 
                 }
                 field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
                 {
                     ApplicationArea = all;
-                    Editable = false;
+                    Editable = true;
 
                 }
                 field("Created By"; Rec."Created By")
@@ -97,7 +97,7 @@ page 50290 "Budget Import Buffer"
                     FieldRef[7] := recref.Field(BudgetLine.FieldNo(Desription));
                     FieldRef[8] := recref.Field(BudgetLine.FieldNo(Amount));
                     FileName := 'Budget Import.xlsx';
-                    csv.ExportExcelFile(FileName, recref, FieldRef, 13, ExcelBuffer, 'Budget Import', 1);
+                    csv.ExportExcelFile(FileName, recref, FieldRef, 8, ExcelBuffer, 'Budget Import', 1);
                     csv.downloadFromExelBuffer(ExcelBuffer, FileName);
                 end;
             }
