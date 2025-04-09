@@ -1,4 +1,4 @@
-page 50462 "Audit Plan Committee Stage"
+page 50256 "Audit Plan Committee Stage"
 {
     ApplicationArea = All;
     Caption = 'Audit Plan Committee Stage';
@@ -6,7 +6,7 @@ page 50462 "Audit Plan Committee Stage"
     PageType = List;
     SourceTable = "Audit Header";
     UsageCategory = Lists;
-    SourceTableView = where("Audit Stage" = filter(Committee), Type = FILTER("Audit Program"));
+    SourceTableView = where("Audit Stage" = filter(Council), Type = FILTER("Audit Program"));
 
     layout
     {

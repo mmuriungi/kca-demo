@@ -51,7 +51,7 @@ table 50166 "Student Leave"
         field(8; "Approved By"; Code[20])
         {
             Caption = 'Approved By';
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(9; "Approval Date"; Date)
         {

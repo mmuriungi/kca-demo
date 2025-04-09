@@ -10,24 +10,13 @@ page 50206 "WorkPaper Conclusion"
         {
             repeater(Group)
             {
-                field(Conclusion; DNotesText)
+                field(Conclusion; Rec.Description)
                 {
                     Caption = 'Conclusion';
 
                     trigger OnValidate()
                     begin
 
-                        Rec.CALCFIELDS(Description);
-                        Description.CREATEINSTREAM(Instr);
-                        DNotes.READ(Instr);
-
-                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Rec.Description);
-                            CLEAR(DNotes);
-                            DNotes.ADDTEXT(DNotesText);
-                            Description.CREATEOUTSTREAM(OutStr);
-                            DNotes.WRITE(OutStr);
-                        END;
                     end;
                 }
                 field(Favourable; Rec.Favourable)
@@ -44,19 +33,13 @@ page 50206 "WorkPaper Conclusion"
     trigger OnAfterGetCurrRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+
     end;
 
     var

@@ -185,11 +185,6 @@ table 51330 "Audit Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(18; "Audit Manager"; Text[100])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = Employee;
-        }
         field(19; "Reviewed By"; Code[50])
         {
             DataClassification = ToBeClassified;
@@ -286,7 +281,7 @@ table 51330 "Audit Header"
         field(27; "Employee No."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -294,7 +289,7 @@ table 51330 "Audit Header"
                 IF Employee.GET("Employee No.") THEN BEGIN
                     "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
                     "Sender E-Mail" := Employee."Company E-Mail";
-                    "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
+                    "Shortcut Dimension 1 Code" := Employee.Campus;
                 END;
             end;
         }
@@ -398,7 +393,7 @@ table 51330 "Audit Header"
         field(41; Auditee; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -489,10 +484,10 @@ table 51330 "Audit Header"
         field(483; CEO; Code[90])
         {
             DataClassification = ToBeClassified;
-            // TableRelation = Employee where(CEO = filter(true));
+            // TableRelation = "HRM-Employee C" where(CEO = filter(true));
             trigger OnValidate()
             var
-                Employee: Record Employee;
+                Employee: Record "HRM-Employee C";
             begin
                 if Employee.Get(CEO) then begin
                     Name := Employee."Search Name";
@@ -541,7 +536,7 @@ table 51330 "Audit Header"
             // Caption = 'MyField';
             DataClassification = ToBeClassified;
         }
-        field(493; "Unfavorable"; Text[1500])
+        field(493; Unfavorable; Boolean)
         {
             Caption = 'Unfavorable';
             DataClassification = ToBeClassified;
@@ -551,10 +546,29 @@ table 51330 "Audit Header"
 
             DataClassification = ToBeClassified;
         }
+        field(495; "Audit Manager"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "HRM-Employee C";
 
-
-
-
+            trigger OnValidate()
+            begin
+                if Employee.Get("Audit Manager") then begin
+                    "Audit Manager Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
+                    "Audit Manager Email" := Employee."Company E-Mail";
+                end;
+            end;
+        }
+        field(496; "Audit Manager Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
+        field(497; "Audit Manager Email"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
 
     }
 
@@ -654,8 +668,8 @@ table 51330 "Audit Header"
             IF Employee.GET(UserSetup."Employee No.") THEN BEGIN
                 "Employee No." := Employee."No.";
                 "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
-                "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
-                //"Shortcut Dimension 2 Code" := Employee."Department Code";
+                "Shortcut Dimension 1 Code" := Employee.Campus;
+                "Shortcut Dimension 2 Code" := Employee."Department Code";
 
             END;
         // if Employee.CEO = true then begin
@@ -672,7 +686,7 @@ table 51330 "Audit Header"
         AuditSetup: Record "Audit Setup";
         DeleteErr: Label 'You cannot Delete documents that have already been processed';
         UserSetup: Record "User Setup";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         Rating: Record "Risk Rating";
         DimValue: Record "Dimension Value";
         AuditHeader: Record "Audit Header";

@@ -14,7 +14,7 @@ table 51339 Projects
         field(3; "Project Manager"; Code[30])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -133,7 +133,7 @@ table 51339 Projects
         DimMgt: Codeunit DimensionManagement;
         DimValue: Record "Dimension Value";
         UserSetup: Record "User Setup";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         RiskSetup: Record "Audit Setup";
 

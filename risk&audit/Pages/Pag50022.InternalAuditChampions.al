@@ -1,4 +1,4 @@
-page 50022 "Internal Audit Champions"
+page 50243 "Internal Audit Champions"
 {
     Caption = 'Risk Champion';
     PageType = List;

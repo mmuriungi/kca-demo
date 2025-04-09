@@ -1,64 +1,36 @@
-codeunit 52177584 "Registration Payment Process"
+codeunit 50103 "Registration Payment Process"
 {
     procedure FnReportRisk(var ObjRiskHeader: record "Risk Header"; MyRecipients: Text[500])
     var
-
-        // CuEmailMessage: Codeunit "Email Message";
-        // CuEmail: Codeunit Email;
         LblMailBody: Label ' The risk has been Reported. <br><br> Kind Regards, KEPHIS';
-        FilePath: Text[250];
-        FileName: Text[250];
-        Body: Label 'Risk Has been Reported';
-        //TbGeneralSetups: record "General Setups";
-        CompanyInfo: record "Company Information";
-        EmailAddress: Text[250];
-        CompName: Text[250];
-        Receipient: Text[250];
-        TbUserSetup: record "User Setup";
         Subject: Text;
-        SenderName: Text;
         EmailBody: Text[3000];
-        // Base64: Codeunit "Base64 Convert";
-        MyRecordRef: RecordRef;
-        MyInStream: InStream;
-        MyOutStream: OutStream;
-        // CuTempBlob: codeunit "Temp Blob";
-        MyBase64: Text;
-        SMTPMail: Codeunit "SMTP Mail";
-        KobbyGlobal: Codeunit "Kobby Global Functions";
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
-        //  SenderName: Text;
-        SenderAddress: Text;
+        NotificationsHandler: Codeunit "Notifications Handler";
 
     begin
-        CompanyInfo.Get();
-        CompanyInfo.TestField(Name);
-
-        SenderAddress := CompanyInfo."E-Mail";
-        SenderName := CompanyInfo.Name;
-        // Set a filter to get unapproved do
-
-        // ObjRiskHeader.CalcFields(ObjRegistration."E-Mail");
+        // Check if auditor email exists
         if ObjRiskHeader."Auditor Email" <> '' then begin
-
-            // CuTempBlob.CreateOutStream(MyOutStream);
             ObjRiskHeader.Reset();
             ObjRiskHeader.Setrange("No.", ObjRiskHeader."No.");
             if ObjRiskHeader.FindFirst() then begin
-
-
-
-
                 Subject := 'Risk Reporting';
                 EmailBody := StrSubstNo('Dear, ' + ' ' + '' + ObjRiskHeader."Auditor Name" + ' ' + '' + '<br><br>'' The risk' + ' ' + '(' + '' + ObjRiskHeader."No." + ')' + ' ' + ', ' + ObjRiskHeader."Risk Description2" + ' ' + ' has been submitted by the risk champion for your review.,  ' + ' ' + LblMailBody);
-                //  FnSendEmailGlobal.FnSendEmailGlobal(ObjUserSetup."Full Name", 'UnApproved Documents', Message, ObjUserSetup."E-Mail", '');
-                SMTP.CreateMessage(SenderName, SenderAddress, ObjRiskHeader."Auditor Email", 'Risk Reporting', '', true);
-                SMTP.AppendBody(StrSubstNo(EmailBody, ObjRiskHeader."Auditor Name"));
+                
+                // Use Notifications Handler to send email
+                NotificationsHandler.fnSendemail(
+                    ObjRiskHeader."Auditor Name",
+                    Subject,
+                    EmailBody,
+                    ObjRiskHeader."Auditor Email",
+                    '',  // CC
+                    '',  // BCC
+                    false,  // Has Attachment
+                    '',  // Attachment Base64
+                    '',  // Attachment Name
+                    ''   // Attachment Type
+                );
 
-
-                SMTP.Send;
-
+                // Update document status
                 if ObjRiskHeader."Document Status" = ObjRiskHeader."Document Status"::New then
                     ObjRiskHeader."Document Status" := ObjRiskHeader."Document Status"::"Risk Owner";
                 ObjRiskHeader.Modify();
@@ -70,22 +42,12 @@ codeunit 52177584 "Registration Payment Process"
     procedure FnSendToRiskManager(RiskHeader: Record "Risk Header")
     var
         LblMailBody: Label 'Risk has been reported. Kind Regards, KEPHIS';
-        CompanyInfo: Record "Company Information";
         RiskManager: Record "Internal Audit Champions";
-        SenderAddress: Text[250];
-        SenderName: Text[250];
         Subject: Text;
         EmailBody: Text[3000];
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
         RiskHeaderRec: Record "Risk Header"; // Temporary record for filtering
+        NotificationsHandler: Codeunit "Notifications Handler";
     begin
-        // Get company information
-        CompanyInfo.Get();
-        CompanyInfo.TestField(Name);
-        SenderAddress := CompanyInfo."E-Mail";
-        SenderName := CompanyInfo.Name;
-
         // Filter to find the specific risk document in the "Risk Header" table
         RiskHeaderRec.Reset();
         RiskHeaderRec.SetRange("No.", RiskHeader."No.");  // Filter by the specific Risk No.
@@ -113,17 +75,19 @@ codeunit 52177584 "Registration Payment Process"
                 LblMailBody
             );
 
-            // Create and send the email
-            SMTP.CreateMessage(
-                SenderName,
-                SenderAddress,
-                RiskManager."E-Mail",   // Send to Risk Manager's email
+            // Use Notifications Handler to send email
+            NotificationsHandler.fnSendemail(
+                RiskManager."Employee Name",
                 Subject,
-                '',
-                true  // HTML format
+                EmailBody,
+                RiskManager."E-Mail",
+                '',  // CC
+                '',  // BCC
+                false,  // Has Attachment
+                '',  // Attachment Base64
+                '',  // Attachment Name
+                ''   // Attachment Type
             );
-            SMTP.AppendBody(EmailBody);
-            SMTP.Send();
 
             // Update the risk status to indicate it has been sent to the Risk Owner
             if RiskHeaderRec."Document Status" = RiskHeaderRec."Document Status"::"Risk Owner" then
@@ -140,21 +104,12 @@ codeunit 52177584 "Registration Payment Process"
     procedure FnSendToRiskManagers(DocNo: Code[20])
     var
         LblMailBody: Label 'Risk has been reported. Kind Regards, KEPHIS';
-        CompanyInfo: Record "Company Information";
         RiskManager: Record "Internal Audit Champions";
-        SenderAddress: Text[250];
-        SenderName: Text[250];
         Subject: Text;
         EmailBody: Text[3000];
-        SMTP: Codeunit "SMTP Mail";
-        SMTPSetup: Record "SMTP Mail Setup";
         RiskHeaderRec: Record "Risk Header";
+        NotificationsHandler: Codeunit "Notifications Handler";
     begin
-        CompanyInfo.Get();
-        CompanyInfo.TestField(Name);
-        SenderAddress := CompanyInfo."E-Mail";
-        SenderName := CompanyInfo.Name;
-
         RiskHeaderRec.Reset();
         RiskHeaderRec.SetRange("No.", DocNo);
         if RiskHeaderRec.FindFirst() then begin
@@ -180,19 +135,19 @@ codeunit 52177584 "Registration Payment Process"
                         LblMailBody
                     );
 
-                    // Create and send the email
-                    SMTP.CreateMessage(
-                        SenderName,
-                        SenderAddress,
-                        RiskManager."E-Mail",   // Send to Risk Manager's email
+                    // Use Notifications Handler to send email
+                    NotificationsHandler.fnSendemail(
+                        RiskManager."Employee Name",
                         Subject,
-                        '',
-                        true  // HTML format
+                        EmailBody,
+                        RiskManager."E-Mail",
+                        '',  // CC
+                        '',  // BCC
+                        false,  // Has Attachment
+                        '',  // Attachment Base64
+                        '',  // Attachment Name
+                        ''   // Attachment Type
                     );
-                    SMTP.AppendBody(EmailBody);
-                    SMTP.Send();
-
-                    // Update the risk status to indicate it has been sent to the Risk Owner
 
                     Message('Notification sent to Risk Manager: %1', RiskManager."Employee Name");
 
@@ -205,103 +160,74 @@ codeunit 52177584 "Registration Payment Process"
 
     procedure FnReportTreatment(var ObjeTreatment: record Treatment; MyRecipients: Text[500])
     var
-
-        // CuEmailMessage: Codeunit "Email Message";
-        // CuEmail: Codeunit Email;
         LblMailBody: Label ' Treatment Has been Reported. Kind Regards, KEPHIS';
-        FilePath: Text[250];
-        FileName: Text[250];
-        Body: Label 'Treatment Has been Reported';
-        //TbGeneralSetups: record "General Setups";
-        CompanyInfo: record "Company Information";
-        EmailAddress: Text[250];
-        CompName: Text[250];
-        Receipient: Text[250];
-        TbUserSetup: record "User Setup";
         Subject: Text;
-        SenderName: Text;
         EmailBody: Text[3000];
-        // Base64: Codeunit "Base64 Convert";
-        MyRecordRef: RecordRef;
-        MyInStream: InStream;
-        MyOutStream: OutStream;
-        // CuTempBlob: codeunit "Temp Blob";
-        MyBase64: Text;
-        SMTPMail: Codeunit "SMTP Mail";
-        KobbyGlobal: Codeunit "Kobby Global Functions";
+        NotificationsHandler: Codeunit "Notifications Handler";
 
     begin
-
-        // ObjRiskHeader.CalcFields(ObjRegistration."E-Mail");
+        // Check if email exists
         if ObjeTreatment.Email <> '' then begin
-
-            // CuTempBlob.CreateOutStream(MyOutStream);
             ObjeTreatment.Reset();
             ObjeTreatment.Setrange("Entry No.", ObjeTreatment."Entry No.");
             if ObjeTreatment.FindFirst() then begin
-
-
                 EmailBody := StrSubstNo('Dear, ' + ' ' + '' + ObjeTreatment."Responsibility Name" + ' ' + ' You have been assigned the task of addressing the risk related to ' + '' + ObjeTreatment."Treatment (risk champion suggestions)" + '' + ' through a treatment, ' + ' ' + '' + ObjeTreatment."Action points (risk owner in point form) To have a treatment action plan on the side" + ' ' + ' ' + ' Your prompt action on this matter is appreciated. The deadline for completing this treatment is,  ' + ' ' + ' ' + Format(ObjeTreatment."Timelines(when I will be carried out)"), LblMailBody);
 
                 Subject := 'Reported Treatment';
 
-                KobbyGlobal.FnSendEmailGlobal('', 'TREATMENT', StrSubstNo(EmailBody, ObjeTreatment."Entry No.", ObjeTreatment."Timelines(when I will be carried out)"),
-                       ObjeTreatment.Email, '');
+                // Use Notifications Handler to send email
+                NotificationsHandler.fnSendemail(
+                    ObjeTreatment."Responsibility Name",
+                    Subject,
+                    EmailBody,
+                    ObjeTreatment.Email,
+                    '',  // CC
+                    '',  // BCC
+                    false,  // Has Attachment
+                    '',  // Attachment Base64
+                    '',  // Attachment Name
+                    ''   // Attachment Type
+                );
+                
                 Message('Notification Sent');
-                //
             end;
         end;
     end;
 
     procedure FnRejectRisk(var ObjRiskHeader: record "Risk Header"; MyRecipients: Text[500])
     var
-
-        // CuEmailMessage: Codeunit "Email Message";
-        // CuEmail: Codeunit Email;
         LblMailBody: Label ' Dear %1, Thank you for your cooperation. Kind Regards, KEPHIS ';
-        FilePath: Text[250];
-        FileName: Text[250];
-        Body: Label 'Risk Has been Reported';
-        // TbGeneralSetups: record "General Setups";
-        CompanyInfo: record "Company Information";
-        EmailAddress: Text[250];
-        CompName: Text[250];
-        Receipient: Text[250];
-        TbUserSetup: record "User Setup";
         Subject: Text;
-        SenderName: Text;
         EmailBody: Text[3000];
-        //  Base64: Codeunit "Base64 Convert";
-        MyRecordRef: RecordRef;
-        MyInStream: InStream;
-        MyOutStream: OutStream;
-        //CuTempBlob: codeunit "Temp Blob";
-        MyBase64: Text;
-    // SMTPMail: Codeunit Email;
+        NotificationsHandler: Codeunit "Notifications Handler";
 
     begin
-
-        // ObjRiskHeader.CalcFields(ObjRegistration."E-Mail");
+        // Check if employee email exists
         if ObjRiskHeader."Employee Email" <> '' then begin
-
-            //CuTempBlob.CreateOutStream(MyOutStream);
             ObjRiskHeader.Reset();
             ObjRiskHeader.Setrange("No.", ObjRiskHeader."No.");
             if ObjRiskHeader.FindFirst() then begin
-
-                //  CuTempBlob.CreateInStream(MyInStream);
-                //Email
-                // MyBase64 := Base64.ToBase64(MyInStream);
+                // Prepare email content
                 EmailBody := StrSubstNo('Dear Risk Owner,' + ' ' + '' + 'Your Risk has Been Rejected because of  ' + ' ' + ' ' + ObjRiskHeader."Rejection Reason" + ' ' + ' ' + 'For Risk ' + ' ' + ' ' + ObjRiskHeader."No.", LblMailBody);
-                //Subject := ObjRegistration."Email Subject";
                 Subject := 'Rejected Risk';
-                //  CuEmailMessage.Create(ObjRiskHeader."Employee Email", Subject, EmailBody);
-                //email attachment
-                // CuEmailMessage.AddAttachment(FileName, 'PDF', MyBase64);
-                // SMTPMail.Send(CuEmailMessage);
+                
+                // Use Notifications Handler to send email
+                NotificationsHandler.fnSendemail(
+                    'Risk Owner',  // Recipient name
+                    Subject,
+                    EmailBody,
+                    ObjRiskHeader."Employee Email",
+                    '',  // CC
+                    '',  // BCC
+                    false,  // Has Attachment
+                    '',  // Attachment Base64
+                    '',  // Attachment Name
+                    ''   // Attachment Type
+                );
+                
+                // Update document status
                 if ObjRiskHeader."Document Status" = ObjRiskHeader."Document Status"::"Risk Owner" then
                     ObjRiskHeader."Document Status" := ObjRiskHeader."Document Status"::New;
-                // ObjRiskHeader.Rejected := true;
                 ObjRiskHeader.Modify();
                 Message('Notification Sent');
             end;

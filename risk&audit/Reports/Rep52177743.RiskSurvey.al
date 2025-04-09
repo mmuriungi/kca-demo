@@ -1,4 +1,4 @@
-report 52177743 "Risk Survey"
+report 50819 "Risk Survey"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/RiskSurvey.rdlc';
@@ -81,10 +81,7 @@ report 52177743 "Risk Survey"
                 begin
 
                     //Convert Description to Text
-                    "Audit Lines".CalcFields(Description);
-                    "Audit Lines".Description.CreateInStream(Instr);
-                    DNotes.Read(Instr);
-                    DNotesText := Format(DNotes);
+                    DNotesText := "Audit Lines".Description;
                     //End of Conversion
                 end;
             }
@@ -120,7 +117,7 @@ report 52177743 "Risk Survey"
     begin
 
         CompanyInfo.Get;
-        CompanyInfo.CalcFields(Picture, "Reports Header", "Reports Footer");
+        CompanyInfo.CalcFields(Picture/* , "Reports Header", "Reports Footer" */);
         ;
     end;
 

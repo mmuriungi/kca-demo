@@ -58,7 +58,7 @@ table 50134 "Interactions Feedback"
         date := today;
         if "No." = '' then begin
             InteractSetup.Get;
-            InteractSetup.TestField();
+            InteractSetup.TestField(Feedback);
             NoSeriesMgt.InitSeries(InteractSetup.Feedback, xRec."No. Series", 0D, "No.", "No. Series");
         end;
     end;

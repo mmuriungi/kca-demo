@@ -30,8 +30,8 @@ table 51334 "Risk Header"
             begin
                 // IF Employee.GET("Employee No.") THEN BEGIN
                 //     "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
-                //     "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
-                //     "Shortcut Dimension 2 Code" := Employee."Global Dimension 2 Code";
+                //     "Shortcut Dimension 1 Code" := Employee.Campus;
+                //     "Shortcut Dimension 2 Code" := Employee."Department Code";
                 // END;
             end;
         }
@@ -630,7 +630,7 @@ table 51334 "Risk Header"
         field(65; Auditor; Code[90])
         {
             DataClassification = ToBeClassified;
-            // TableRelation = Employee where("Employment Type" = filter(Contract | Permanent));
+            // TableRelation = "HRM-Employee C" where("Employment Type" = filter(Contract | Permanent));
             TableRelation = "Internal Audit Champions"."Employee No." where(Type = filter("Risk Owner"));
             trigger OnValidate()
             var
@@ -878,7 +878,7 @@ table 51334 "Risk Header"
         RiskSetup: Record "Audit Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         UserSetup: Record "User Setup";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         RiskCategory: Record "Risk Categories";
         RiskImpact: Record "Risk Impacts";
         RiskLikelihood: Record "Risk Likelihood";
@@ -898,9 +898,9 @@ table 51334 "Risk Header"
 
     procedure ValidateShortcutDimCode(FieldNumber: Integer; var ShortcutDimCode: Code[20])
     begin
-        DimMgt.ValidateDimValueCode(FieldNumber, ShortcutDimCode);
-        DimMgt.SaveDefaultDim(DATABASE::Employee, "No.", FieldNumber, ShortcutDimCode);
-        MODIFY;
+    //     DimMgt.ValidateDimValueCode(FieldNumber, ShortcutDimCode);
+    //     DimMgt.SaveDefaultDim(DATABASE::Employee, "No.", FieldNumber, ShortcutDimCode);
+    //  //   MODIFY;
     end;
 
     local procedure GetChampionUserID()

@@ -1,4 +1,4 @@
-page 50459 "Auditing Team"
+page 50253 "Auditing Team"
 {
     Caption = 'Auditing Team';
     PageType = ListPart;
@@ -25,9 +25,10 @@ page 50459 "Auditing Team"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Auditor Email field.', Comment = '%';
                 }
-                field(Role; Role)
+                field(Role; Rec.Role)
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Specifies the role of the auditor.', Comment = '%';
                 }
             }
         }

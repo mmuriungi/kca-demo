@@ -10,7 +10,7 @@ table 51292 "Risk KRI Setup"
         }
         field(2; "Employee No"; Code[20])
         {
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             DataClassification = ToBeClassified;
             Caption = 'No.';
         }

@@ -98,7 +98,15 @@ tableextension 50001 "Fixed Asset Ext" extends "Fixed Asset"
         {
             OptionMembers = " ",Good,bad,serviceable,obsolete;
         }
+        //Model,Manufacturer
+        field(56624; "Model"; Text[100])
+        {
 
+        }
+        field(56625; "Manufacturer"; Text[100])
+        {
+
+        }
 
 
         modify("Responsible Employee")

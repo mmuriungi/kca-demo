@@ -1,4 +1,4 @@
-page 50025 "Risk Categories"
+page 50246 "Risk Categories"
 {
     PageType = List;
     SourceTable = "Risk Categories";

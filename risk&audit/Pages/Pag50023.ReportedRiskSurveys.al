@@ -1,4 +1,4 @@
-page 50023 "Reported Risk Surveys"
+page 50244 "Reported Risk Surveys"
 {
     CardPageID = "Risk Survey";
     PageType = List;

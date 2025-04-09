@@ -298,7 +298,7 @@ table 50342 "HRM-Employee"
         field(47; "Employee No. Filter"; Code[20])
         {
             FieldClass = FlowFilter;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(49; "Fax Number"; Text[30])
         {

@@ -141,7 +141,7 @@ page 50215 "Risk Survey"
         AuditMgt: Codeunit "Internal Audit Management";
         OpenApprovalEntriesExist: Boolean;
         CanCancelApprovalForPayment: Boolean;
-        ApprovalMgt: Codeunit ApprovalMgtCuExtension;
+        ApprovalMgt: Codeunit "Approval Workflows V1";
 
     local procedure SetControlApperance()
     var

@@ -182,7 +182,7 @@ table 50400 "PRL-Salary Card"
         field(27; "Posting Group"; Code[20])
         {
             NotBlank = false;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(28; "Cumm Employer Pension"; Decimal)
         {

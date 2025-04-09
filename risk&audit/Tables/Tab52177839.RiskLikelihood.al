@@ -1,4 +1,4 @@
-table 51333 "Risk Likelihood"
+table 51332 "Risk Likelihood"
 {
     DrillDownPageID = "Risk Likelihood";
     LookupPageID = "Risk Likelihood";

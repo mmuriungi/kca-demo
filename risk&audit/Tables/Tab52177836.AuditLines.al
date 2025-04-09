@@ -119,7 +119,7 @@ table 51297 "Audit Lines"
         {
             DataClassification = ToBeClassified;
         }
-        field(20; Description; BLOB)
+        field(20; Description; Text[2048])
         {
             DataClassification = ToBeClassified;
 
@@ -134,19 +134,19 @@ table 51297 "Audit Lines"
         {
             DataClassification = ToBeClassified;
         }
-        field(23; "Risk Implication"; BLOB)
+        field(23; "Risk Implication"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(24; Criteria; BLOB)
+        field(24; Criteria; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(25; "Observation/Condition"; BLOB)
+        field(25; "Observation/Condition"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(26; "Action Plan / Mgt Response"; BLOB)
+        field(26; "Action Plan / Mgt Response"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
@@ -177,7 +177,7 @@ table 51297 "Audit Lines"
         field(32; "Responsible Personnel Code"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -247,7 +247,7 @@ table 51297 "Audit Lines"
         field(45; Auditor; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
 
             trigger OnValidate()
             begin
@@ -337,8 +337,9 @@ table 51297 "Audit Lines"
         {
             DataClassification = ToBeClassified;
         }
-        field(61; "Description 2 Blob"; BLOB)
+        field(61; "Description 2 Blob"; Text[2048])
         {
+            caption = 'Description 2';
             DataClassification = ToBeClassified;
             Description = 'Provides the place to input description of an Audit Review';
 
@@ -350,12 +351,14 @@ table 51297 "Audit Lines"
             Editable = false;
             TableRelation = "User Setup"."User ID";
         }
-        field(63; "Review Procedure Blob"; BLOB)
+        field(63; "Review Procedure Blob"; Text[2048])
         {
+            caption = 'Review Procedure';
             DataClassification = ToBeClassified;
         }
         field(64; Rating2; Decimal)
         {
+            caption = 'Rating 2';
             DataClassification = ToBeClassified;
             trigger OnValidate()
             begin
@@ -541,20 +544,17 @@ table 51297 "Audit Lines"
             //     end;
             // end;
         }
-        field(494; "Mitigation Suggestions"; Blob)
+        field(494; "Mitigation Suggestions"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            Subtype = Memo;
         }
-        field(495; "Risk Description"; BLOB)
+        field(495; "Risk Description"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            SubType = Memo;
         }
-        field(496; "Root Cause Analysis"; Blob)
+        field(496; "Root Cause Analysis"; Text[2048])
         {
             DataClassification = ToBeClassified;
-            Subtype = Memo;
         }
         field(497; "Objective(s)"; Text[1500])
         {
@@ -613,6 +613,38 @@ table 51297 "Audit Lines"
             DataClassification = ToBeClassified;
         }
         field(510; Consolidated; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(511; "Item & Key Annual output"; Text[500])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(512; "Audit Objectives"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(513; "Core Activities"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(514; "Means of verification"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(515; "Work Dates"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(516; "Expected Report"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(517; "Reporting Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(518; "Responsibility"; Text[250])
         {
             DataClassification = ToBeClassified;
         }

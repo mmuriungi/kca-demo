@@ -46,10 +46,10 @@ table 51005 "Training Evaluation Header"
         field(9; "Personal No."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger Onvalidate()
             var
-                Employee: Record Employee;
+                Employee: Record "HRM-Employee C";
             begin
                 if Employee.get("Personal No.") then
                     "Name of participant" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
@@ -90,15 +90,15 @@ table 51005 "Training Evaluation Header"
             var
                 TrainingNeed: Record "HRM-Appraisal Training Needs";
             begin
-            //     TrainingNeed.SetRange("Request No.", "Training No.");
-            //     IF TrainingNeed.findfirst THEN BEGIN
-            //         Description := TrainingNeed."Training Objectives";
-            //         "Training Name" := TrainingNeed."Training Objectives";
-            //         Location := TrainingNeed.Venue;
-            //         "Commencement Date" := TrainingNeed."Planned Start Date";
-            //         "Completion Date" := TrainingNeed."Planned End Date";
-            //     END;
-             end;
+                //     TrainingNeed.SetRange("Request No.", "Training No.");
+                //     IF TrainingNeed.findfirst THEN BEGIN
+                //         Description := TrainingNeed."Training Objectives";
+                //         "Training Name" := TrainingNeed."Training Objectives";
+                //         Location := TrainingNeed.Venue;
+                //         "Commencement Date" := TrainingNeed."Planned Start Date";
+                //         "Completion Date" := TrainingNeed."Planned End Date";
+                //     END;
+            end;
         }
         field(52; "Shortcut Dimension 1 Code"; Code[20])
         {
@@ -183,7 +183,7 @@ table 51005 "Training Evaluation Header"
         if "Training Evaluation No." = '' then begin
             Gensetup.Get;
             Gensetup.TestField("Training Evaluation Nos");
-            NoSeriesManagement.InitSeries(gensetup."Training Evaluation Nos", xRec."No. Series", 0D, "Training Evaluation No.", "No. Series");
+            NoSeriesManagement.InitSeries(Gensetup."Training Evaluation Nos", xRec."No. Series", 0D, "Training Evaluation No.", "No. Series");
         end;
 
         if "User Setup".Get(UserId) then begin
@@ -197,14 +197,14 @@ table 51005 "Training Evaluation Header"
     end;
 
     var
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         NoSeriesManagement: Codeunit NoSeriesManagement;
         Gensetup: Record "ACA-General Set-Up";
         "User Setup": Record "User Setup";
 
     local procedure GetEmpDetails(EmpNo: Code[20])
     var
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
     begin
         if Employee.Get(EmpNo) then begin
             "Name of participant" := (Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name");

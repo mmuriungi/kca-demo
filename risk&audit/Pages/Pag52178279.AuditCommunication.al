@@ -110,15 +110,6 @@ page 50117 "Audit Communication"
     trigger OnAfterGetRecord()
     begin
 
-        Rec.CALCFIELDS("E-Mail Body");
-        "E-Mail Body".CREATEINSTREAM(InStrm);
-        EmailBigTxt.READ(InStrm);
-        EmailTxt := FORMAT(EmailBigTxt);
-
-        Rec.CALCFIELDS("SMS Text");
-        "SMS Text".CREATEINSTREAM(SMSInStrm);
-        SMSBigTxt.READ(SMSInStrm);
-        SMSTxt := FORMAT(SMSBigTxt);
     end;
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
@@ -139,16 +130,10 @@ page 50117 "Audit Communication"
 
     var
         InStrm: InStream;
-        OutStrm: OutStream;
-        EmailBigTxt: BigText;
-        SMSBigTxt: BigText;
-        EmailTxt: Text;
-        SMSTxt: Text;
-        MessageTxt: Text;
+        OutStrm: OutStream;        
         ClearNotification: Notification;
         SMSInStrm: InStream;
         SMSOutStrm: OutStream;
-        HRMgt: Codeunit "HR Management";
         FileManagement: Codeunit "File Management";
         FileName: Text[250];
         AuditMgt: Codeunit "Internal Audit Management";

@@ -1,4 +1,4 @@
-report 52177742 "Internal Audit Report"
+report 50818 "Internal Audit Report"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/InternalAuditReport.rdlc';
@@ -90,31 +90,12 @@ report 52177742 "Internal Audit Report"
                 trigger OnAfterGetRecord()
                 begin
                     //Convert Description to Text
-                    CALCFIELDS(Description);
-                    Description.CREATEINSTREAM(Instr);
-                    DNotes.READ(Instr);
-                    DNotesText := FORMAT(DNotes);
-
-
-                    CALCFIELDS("Risk Implication");
-                    "Risk Implication".CREATEINSTREAM(ImplicationInstr);
-                    ImplicationNotes.READ(ImplicationInstr);
-                    ImplicationNotesText := FORMAT(ImplicationNotes);
-
-                    CALCFIELDS(Criteria);
-                    Criteria.CREATEINSTREAM(CriteriaInstr);
-                    CriteriaNotes.READ(CriteriaInstr);
-                    CriteriaNotesTxt := FORMAT(CriteriaNotes);
-
-                    CALCFIELDS("Observation/Condition");
-                    "Observation/Condition".CREATEINSTREAM(ObsInstr);
-                    ObservationNotes.READ(ObsInstr);
-                    ObservationNotesTxt := FORMAT(ObservationNotes);
-
-                    CALCFIELDS("Action Plan / Mgt Response");
-                    "Action Plan / Mgt Response".CREATEINSTREAM(ResponseInstr);
-                    ResponseNotes.READ(ResponseInstr);
-                    ResponseNotesTxt := FORMAT(ResponseNotes);
+                    
+                    DNotesText := Description;
+                    ImplicationNotesText := "Risk Implication";
+                    CriteriaNotesTxt := "Criteria";
+                    ObservationNotesTxt := "Observation/Condition";
+                    ResponseNotesTxt := "Action Plan / Mgt Response";
                     //End of Conversion
                 end;
             }
@@ -141,7 +122,7 @@ report 52177742 "Internal Audit Report"
     begin
 
         CompanyInfo.GET;
-        CompanyInfo.CalcFields(Picture, "Reports Header", "Reports Footer");
+        CompanyInfo.CalcFields(Picture/* , "Reports Header", "Reports Footer" */);
         ;
     end;
 

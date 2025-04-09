@@ -26,7 +26,7 @@ table 50144 "System Access"
         }
         field(5; "Employee No"; Code[20])
         {
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
                 DimValues: Record "Dimension Value";
@@ -34,7 +34,7 @@ table 50144 "System Access"
                 IF Employee.GET("Employee No") THEN BEGIN
                     "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
                     Designation := Employee."Job Title";
-                    DimValues.SetRange(Code, Employee."Global Dimension 1 Code");
+                    DimValues.SetRange(Code, Employee.Campus);
                     if DimValues.FindFirst() then
                         Department := DimValues.Name;
                     UserSetup.SetRange("Employee No.", Employee."No.");
@@ -67,10 +67,10 @@ table 50144 "System Access"
         field(11; "Supervisor No."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
-                Employee: Record Employee;
+                Employee: Record "HRM-Employee C";
             begin
                 Employee.SetRange("No.", "Supervisor No.");
                 if Employee.FindFirst() then
@@ -142,7 +142,7 @@ table 50144 "System Access"
         NoSeriesMgt: Codeunit NoSeriesManagement;
         CompanyInformation: Record "Company Information";
         UserSetup: Record "User Setup";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         DimMgt: Codeunit DimensionManagement;
 
 

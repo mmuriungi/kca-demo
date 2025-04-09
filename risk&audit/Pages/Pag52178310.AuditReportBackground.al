@@ -10,23 +10,13 @@ page 50210 "Audit Report Background"
         {
             repeater(Group)
             {
-                field(Introduction; DNotesText)
+                field(Introduction; Rec.Description)
                 {
 
                     trigger OnValidate()
                     begin
 
-                        Rec.CALCFIELDS(Description);
-                        Description.CREATEINSTREAM(Instr);
-                        DNotes.READ(Instr);
-
-                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Rec.Description);
-                            CLEAR(DNotes);
-                            DNotes.ADDTEXT(DNotesText);
-                            Description.CREATEOUTSTREAM(OutStr);
-                            DNotes.WRITE(OutStr);
-                        END;
+                        
                     end;
                 }
             }
@@ -40,19 +30,13 @@ page 50210 "Audit Report Background"
     trigger OnAfterGetCurrRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+
     end;
 
     var

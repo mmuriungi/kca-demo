@@ -57,11 +57,11 @@ page 50183 "Audit Workplan"
             }
             part("WorkPlan Objectives"; "WorkPlan Objectives")
             {
-                SubPageLink = "No." = field("No.");
+                SubPageLink = "Document No." = field("No.");
             }
             part("WorkPlan Favorable"; "WorkPlan Favorable")
             {
-                SubPageLink = "No." = field("No.");
+                SubPageLink = "Document No." = field("No.");
             }
             field(Unfavorable; Rec.Unfavorable)
             {
@@ -70,7 +70,7 @@ page 50183 "Audit Workplan"
             }
             part("WorkPlan Recommendation"; "WorkPlan Recommendation ")
             {
-                SubPageLink = "No." = field("No.");
+                SubPageLink = "Document No." = field("No.");
             }
             field("Auditee Comments"; Rec."Auditee Comments")
             {
@@ -79,7 +79,7 @@ page 50183 "Audit Workplan"
             }
             part("Auditee Team"; "Auditee Team")
             {
-                SubPageLink = "No." = field("No.");
+                SubPageLink = "Document No." = field("No.");
             }
         }
         area(factboxes)

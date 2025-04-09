@@ -13,23 +13,13 @@ page 50195 "Audit Review"
                 field("Review Scope No."; Rec."Review Scope No.")
                 {
                 }
-                field("Review Scope"; DNotesText)
+                field("Review Scope"; Rec.Description)
                 {
 
                     trigger OnValidate()
                     begin
 
-                        Rec.CALCFIELDS(Description);
-                        Description.CREATEINSTREAM(Instr);
-                        DNotes.READ(Instr);
-
-                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Rec.Description);
-                            CLEAR(DNotes);
-                            DNotes.ADDTEXT(DNotesText);
-                            Description.CREATEOUTSTREAM(OutStr);
-                            DNotes.WRITE(OutStr);
-                        END;
+                     
                     end;
                 }
                 field("Review Procedure"; DNotesText2)
@@ -37,17 +27,7 @@ page 50195 "Audit Review"
 
                     trigger OnValidate()
                     begin
-                        Rec.CALCFIELDS("Review Procedure Blob");
-                        "Review Procedure Blob".CREATEINSTREAM(Instr2);
-                        DNotes2.READ(Instr2);
-
-                        IF DNotesText2 <> FORMAT(DNotes2) THEN BEGIN
-                            CLEAR(Rec."Review Procedure Blob");
-                            CLEAR(DNotes2);
-                            DNotes2.ADDTEXT(DNotesText2);
-                            "Review Procedure Blob".CREATEOUTSTREAM(OutStr2);
-                            DNotes2.WRITE(OutStr2);
-                        END;
+                       
                     end;
                 }
                 field(Review; Rec.Review)
@@ -98,30 +78,12 @@ page 50195 "Audit Review"
     trigger OnAfterGetCurrRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
-
-
-        Rec.CALCFIELDS("Review Procedure Blob");
-        "Review Procedure Blob".CREATEINSTREAM(Instr2);
-        DNotes2.READ(Instr2);
-        DNotesText2 := FORMAT(DNotes2);
+        
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
-
-        Rec.CALCFIELDS("Review Procedure Blob");
-        "Review Procedure Blob".CREATEINSTREAM(Instr2);
-        DNotes2.READ(Instr2);
-        DNotesText2 := FORMAT(DNotes2);
     end;
 
     var

@@ -5,7 +5,7 @@ report 50812 "Audit Report"
     RDLCLayout = './Layouts/Audit Report.rdl';
     dataset
     {
-        dataitem(AuditReport; "Audit Report")
+        dataitem(AuditReport; "Audit Header")
         {
             column(CompanyLogo; CompanyInfo.Picture)
             {
@@ -38,57 +38,57 @@ report 50812 "Audit Report"
             column(CompanyWebsite; CompanyInfo."Home Page")
             {
             }
-            column(EXECUTIVESUMMARY; "1.0 EXECUTIVE SUMMARY")
-            {
-            }
-            column(Introductions; "1.1 Introduction")
-            {
-            }
-            column(AuditFindingsinDetailandRecommendations; "1.10 Audit Findings in Detail and Recommendations")
-            {
-            }
-            column(Favorable; "1.11 Favorable")
-            {
-            }
-            column(UnfavorabletohaveListandtheirnarrationRecommendationandManagementResponse; "1.12 Unfavorable – to have List, and their narration Recommendation and Management Response")
-            {
-            }
-            column(Conclusions; "1.13 Conclusion")
-            {
-            }
-            column(Riskscorelistriskindicatelikelihoodimpactandgetoverallrisk; "1.14 Risk score – list risk, indicate likelihood, impact and get overall risk")
-            {
-            }
-            column(SummaryofFindings; "1.2 Summary of Findings")
-            {
-            }
-            column(Conclusion; "1.3 Conclusion")
-            {
-            }
-            column(Introduction; "1.4 Introduction")
-            {
-            }
-            column(Participants; "1.5 Participants")
-            {
-            }
-            column(Thescopeoftheassignment; "1.6 The scope of the assignment")
-            {
-            }
-            column(Objectives; "1.7 Objectives")
-            {
-            }
-            column(GeneralObjective; "1.8 General Objective")
-            {
-            }
-            column(SpecificObjectives; "1.9 Specific Objectives")
-            {
-            }
-            column(AuditReportNo; "Audit Report No")
-            {
-            }
-            column(NoSeries; "No.Series")
-            {
-            }
+            // column(EXECUTIVESUMMARY; "1.0 EXECUTIVE SUMMARY")
+            // {
+            // }
+            // column(Introductions; "1.1 Introduction")
+            // {
+            // }
+            // column(AuditFindingsinDetailandRecommendations; "1.10 Audit Findings in Detail and Recommendations")
+            // {
+            // }
+            // column(Favorable; "1.11 Favorable")
+            // {
+            // }
+            // column(UnfavorabletohaveListandtheirnarrationRecommendationandManagementResponse; "1.12 Unfavorable – to have List, and their narration Recommendation and Management Response")
+            // {
+            // }
+            // column(Conclusions; "1.13 Conclusion")
+            // {
+            // }
+            // column(Riskscorelistriskindicatelikelihoodimpactandgetoverallrisk; "1.14 Risk score – list risk, indicate likelihood, impact and get overall risk")
+            // {
+            // }
+            // column(SummaryofFindings; "1.2 Summary of Findings")
+            // {
+            // }
+            // column(Conclusion; "1.3 Conclusion")
+            // {
+            // }
+            // column(Introduction; "1.4 Introduction")
+            // {
+            // }
+            // column(Participants; "1.5 Participants")
+            // {
+            // }
+            // column(Thescopeoftheassignment; "1.6 The scope of the assignment")
+            // {
+            // }
+            // column(Objectives; "1.7 Objectives")
+            // {
+            // }
+            // column(GeneralObjective; "1.8 General Objective")
+            // {
+            // }
+            // column(SpecificObjectives; "1.9 Specific Objectives")
+            // {
+            // }
+            // column(AuditReportNo; "Audit Report No")
+            // {
+            // }
+            // column(NoSeries; "No.Series")
+            // {
+            // }
             trigger OnAfterGetRecord()
             begin
 

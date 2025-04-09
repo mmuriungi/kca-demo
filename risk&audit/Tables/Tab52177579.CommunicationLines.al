@@ -89,6 +89,14 @@ table 51325 "Communication Lines"
         {
             DataClassification = ToBeClassified;
         }
+        field(482; "Audit Requirements"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(483; Activity; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

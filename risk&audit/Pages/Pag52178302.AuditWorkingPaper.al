@@ -215,9 +215,12 @@ page 50199 "Audit Working Paper"
                 Visible = Rec.Status = Rec.Status::Open;
 
                 trigger OnAction()
+                var
+                    Variant: Variant;
                 begin
-                    if ApprovalsMgmt.CheckAuditWorkflowEnabled(Rec) then
-                        ApprovalsMgmt.OnSendAuditForApproval(Rec);
+                    Variant := Rec;
+                    if ApprovalsMgmt.CheckApprovalsWorkflowEnabled(Variant) then
+                        ApprovalsMgmt.OnSendDocForApproval(Variant);
                 end;
             }
             action(CancelApprovalRequest)
@@ -230,8 +233,11 @@ page 50199 "Audit Working Paper"
                 Visible = Rec.Status = Rec.Status::"Pending Approval";
 
                 trigger OnAction()
+                var
+                    Variant: Variant;
                 begin
-                    ApprovalsMgmt.OnCancelAuditApprovalRequest(Rec);
+                    Variant := Rec;
+                    ApprovalsMgmt.OnCancelDocApprovalRequest(Variant);
                 end;
             }
             action(Approvals)
@@ -297,6 +303,6 @@ page 50199 "Audit Working Paper"
         AuditLines: Record "Audit Lines";
         ConfirmSelectScope: Label 'Once a Scope is Selected will not appear again.\Confirm the Scope is correct.\Do you want to use the Selected Scope?';
         AuditMgt: Codeunit "Internal Audit Management";
-        ApprovalsMgmt: Codeunit ApprovalMgtCuExtension;
+        ApprovalsMgmt: Codeunit "Approval Workflows V1";
 }
 

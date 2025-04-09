@@ -1,4 +1,4 @@
-page 50020 "Audit Plan"
+page 50242 "Audit Plan"
 {
     PageType = Card;
     SourceTable = "Audit Header";
@@ -36,11 +36,11 @@ page 50020 "Audit Plan"
                 field("Audit Manager"; Rec."Audit Manager")
                 {
                 }
-                field("Audit Manager Name"; "Audit Manager Name")
+                field("Audit Manager Name"; Rec."Audit Manager Name")
                 {
                     Editable = false;
                 }
-                field("Audit Manager Email"; "Audit Manager Email")
+                field("Audit Manager Email"; Rec."Audit Manager Email")
                 {
                     Editable = false;
                 }
@@ -91,11 +91,11 @@ page 50020 "Audit Plan"
                 Promoted = true;
                 PromotedCategory = "Report";
                 PromotedIsBig = true;
-                Visible = Rec."Audit Stage" = Rec."Audit Stage"::new;
+                Visible = Rec."Audit Stage" = Rec."Audit Stage"::New;
                 trigger OnAction()
                 begin
                     IF Rec."Audit Stage" = Rec."Audit Stage"::New THEN begin
-                        Rec."Audit Stage" := Rec."Audit Stage"::Committee;
+                        Rec."Audit Stage" := Rec."Audit Stage"::Council;
                         Message('Sent To Committee Successfully');
                         CurrPage.Close();
                     end;
@@ -109,13 +109,13 @@ page 50020 "Audit Plan"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                Visible = Rec."Audit Stage" = Rec."Audit Stage"::Committee;
+                Visible = Rec."Audit Stage" = Rec."Audit Stage"::Council;
                 trigger OnAction()
                 var
-                    Employee: Record Employee;
+                    Employee: Record "HRM-Employee C";
                 begin
-                    IF Rec."Audit Stage" = Rec."Audit Stage"::Committee THEN begin
-                        Rec."Audit Stage" := Rec."Audit Stage"::Council;
+                    IF Rec."Audit Stage" = Rec."Audit Stage"::Council THEN begin
+                        Rec."Audit Stage" := Rec."Audit Stage"::Auditor;
                         Message('Sent To Board Successfully');
                         CurrPage.Close();
                         // if Confirm('Do you want to notify CEO on the plan created?', false) = true then begin

@@ -1,4 +1,4 @@
-codeunit 50003 "Risk Ratings Colour Codes"
+codeunit 50098 "Risk Ratings Colour Codes"
 {
     procedure RiskRatingColours(RisckEVScore: Record "Risk Evaluation Score"): Text[50]
     begin

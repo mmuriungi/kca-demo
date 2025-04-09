@@ -11,23 +11,12 @@ page 50194 "Audit Planning Procedures"
         {
             repeater(Group)
             {
-                field("Procedure"; DNotesText)
+                field("Procedure"; Rec.Description)
                 {
 
                     trigger OnValidate()
                     begin
 
-                        Rec.CALCFIELDS(Description);
-                        Description.CREATEINSTREAM(Instr);
-                        DNotes.READ(Instr);
-
-                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Rec.Description);
-                            CLEAR(DNotes);
-                            DNotes.ADDTEXT(DNotesText);
-                            Description.CREATEOUTSTREAM(OutStr);
-                            DNotes.WRITE(OutStr);
-                        END;
                     end;
                 }
                 field("Scheduled Date"; Rec."Scheduled Date")
@@ -43,20 +32,10 @@ page 50194 "Audit Planning Procedures"
 
     trigger OnAfterGetCurrRecord()
     begin
-
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
     end;
 
     trigger OnAfterGetRecord()
     begin
-
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
     end;
 
     var

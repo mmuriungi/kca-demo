@@ -487,7 +487,7 @@ page 50108 "Audit Plan Matrix 1"
         DateFilter := _DateFilter;
         RoundingFactor := _RoundingFactor;
         PeriodType := _PeriodType;
-        RoundingFactorFormatString := MatrixMgt.GetFormatString(RoundingFactor, FALSE);
+        RoundingFactorFormatString := MatrixMgt.FormatRoundingFactor(RoundingFactor, FALSE);
     end;
 
     local procedure FindRec(DimOption: Option "G/L Account",Period,"Business Unit","Global Dimension 1","Global Dimension 2","Budget Dimension 1","Budget Dimension 2","Budget Dimension 3","Budget Dimension 4"; var AuditPeriod: Record "Audit Period"; Which: Text[250]): Boolean
@@ -496,7 +496,7 @@ page 50108 "Audit Plan Matrix 1"
         BusUnit: Record "Business Unit";
         Period: Record Date;
         DimVal: Record "Dimension Value";
-        PeriodFormMgt: Codeunit PeriodFormManagement;
+        PeriodFormMgt: Codeunit PeriodPageManagement;
         Found: Boolean;
     begin
         CASE DimOption OF
@@ -613,7 +613,7 @@ page 50108 "Audit Plan Matrix 1"
         BusUnit: Record "Business Unit";
         Period: Record Date;
         DimVal: Record "Dimension Value";
-        PeriodFormMgt: Codeunit PeriodFormManagement;
+        PeriodFormMgt: Codeunit PeriodPageManagement;
         ResultSteps: Integer;
     begin
         CASE DimOption OF

@@ -35,10 +35,10 @@ table 51317 "Treatment"
         field(7; "Responsibility (for each action plan)"; Text[250])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
             trigger OnValidate()
             var
-                ObjEmpl: Record Employee;
+                ObjEmpl: Record "HRM-Employee C";
             begin
                 ObjEmpl.Reset();
                 ObjEmpl.SetRange(ObjEmpl."No.", "Responsibility (for each action plan)");
@@ -122,9 +122,8 @@ table 51317 "Treatment"
         MyOutStream: OutStream;
         // CuTempBlob: codeunit "Temp Blob";
         MyBase64: Text;
-        SMTPMail: Codeunit "SMTP Mail";
-        KobbyGlobal: Codeunit "Kobby Global Functions";
-        // SMTPMail:Codeunit email
+        NotifHandler: codeunit "Notifications Handler";
+    // SMTPMail:Codeunit email
 
     begin
 
@@ -141,8 +140,8 @@ table 51317 "Treatment"
 
                 Subject := 'Reported Treatment';
 
-                KobbyGlobal.FnSendEmailGlobal('', 'TREATMENT', StrSubstNo(EmailBody, ObjeTreatment."Entry No.", ObjeTreatment."Timelines(when I will be carried out)"),
-                       ObjeTreatment.Email, '');
+                NotifHandler.FnSendEmail('', 'TREATMENT', StrSubstNo(EmailBody, ObjeTreatment."Entry No.", ObjeTreatment."Timelines(when I will be carried out)"),
+                       ObjeTreatment.Email, '', '', false, '', '', '');
                 Message('Notification Sent');
                 //
             end;

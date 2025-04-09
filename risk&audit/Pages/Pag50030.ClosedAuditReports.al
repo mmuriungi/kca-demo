@@ -1,4 +1,4 @@
-page 50030 "Closed Audit Reports"
+page 50249 "Closed Audit Reports"
 {
     CardPageID = "Audit Report Card";
     PageType = List;
@@ -11,7 +11,7 @@ page 50030 "Closed Audit Reports"
         {
             repeater(Group)
             {
-                field("No."; Rec."No.")
+                field("No."; Rec."No.") 
                 {
                 }
                 field(Date; Rec.Date)

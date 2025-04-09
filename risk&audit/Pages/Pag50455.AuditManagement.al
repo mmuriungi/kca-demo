@@ -398,4 +398,9 @@ page 50102 "Audit Management"
     }
 }
 
+profile "Audit Profile"
+{
+    Caption = 'Audit Profile';
+    RoleCenter = "Audit Management";
+}
 

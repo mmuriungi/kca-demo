@@ -1,4 +1,4 @@
-page 50021 "Audit Plan SubForm"
+page 50239 "Audit Plan SubForm"
 {
     AutoSplitKey = true;
     PageType = ListPart;
@@ -10,30 +10,30 @@ page 50021 "Audit Plan SubForm"
         {
             repeater(Group)
             {
-                field("Item & Key Annual output"; "Item & Key Annual output")
+                field("Item & Key Annual output"; Rec."Item & Key Annual output")
                 {
                     ApplicationArea = All;
                 }
-                field("Audit Objectives"; "Audit Objectives")
+                field("Audit Objectives"; Rec."Audit Objectives")
                 {
 
                 }
-                field("Core Activities"; "Core Activities")
+                field("Core Activities"; Rec."Core Activities")
                 {
                 }
-                field("Means of verification"; "Means of verification")
+                field("Means of verification"; Rec."Means of verification")
                 {
 
                 }
-                field("Work Dates"; "Work Dates")
+                field("Work Dates"; Rec."Work Dates")
                 {
                 }
-                field("Expected Report"; "Expected Report")
+                field("Expected Report"; Rec."Expected Report")
                 {
                 }
-                field("Reporting Date"; "Reporting Date")
+                field("Reporting Date"; Rec."Reporting Date")
                 { }
-                field(Responsibility; Responsibility)
+                field(Responsibility; Rec.Responsibility)
                 { }
             }
         }
@@ -47,25 +47,14 @@ page 50021 "Audit Plan SubForm"
     begin
 
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
+      
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-        Rec.CALCFIELDS(Description);
-        Description.CREATEINSTREAM(Instr);
-        DNotes.READ(Instr);
-        DNotesText := FORMAT(DNotes);
     end;
 
     var
-        DNotes: BigText;
-        Instr: InStream;
-        DNotesText: Text;
-        OutStr: OutStream;
 }
 

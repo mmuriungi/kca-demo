@@ -179,7 +179,7 @@ table 50945 "FLT-Transport Requisition (B)"
     end;
 
     var
-        Emp: Record Employee;
+        Emp: Record "HRM-Employee C";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         //OPSetUp: Record "ACA-Evaluation Questions";
         Cust: Record Customer;

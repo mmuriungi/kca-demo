@@ -64,10 +64,10 @@ table 51329 "Audit Period"
         field(12; "Audit Manager"; Code[90])
         {
             DataClassification = ToBeClassified;
-            //TableRelation = Employee where(Auditor = filter(true));
+            //TableRelation = "HRM-Employee C" where(Auditor = filter(true));
             trigger OnValidate()
             var
-                ObjEmp: Record Employee;
+                ObjEmp: Record "HRM-Employee C";
             begin
                 ObjEmp.Reset();
                 ObjEmp.SetRange(ObjEmp."No.", "Audit Manager");

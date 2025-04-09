@@ -83,7 +83,7 @@ table 51095 "HMS-Appointment Form Header"
         }
         field(8; "Employee No."; Code[20])
         {
-            TableRelation = Employee."No.";
+            TableRelation = "HRM-Employee C"."No.";
         }
         field(9; "Relative No."; Integer)
         {
