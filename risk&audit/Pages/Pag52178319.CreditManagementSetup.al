@@ -159,7 +159,7 @@ page 50219 "Credit Management Setup"
             group("Reports Text")
             {
                 Caption = 'Reports Text';
-                field("Statement Notes"; SNotesText)
+                field("Statement Notes"; Rec."Statement Notes")
                 {
                     ApplicationArea = Basic, Suite;
                     MultiLine = true;
@@ -167,18 +167,7 @@ page 50219 "Credit Management Setup"
                     trigger OnValidate()
                     begin
 
-                        Rec.CalcFields("Statement Notes");
-                        "Statement Notes".CreateInStream(Instr);
-                        SNotes.Read(Instr);
-
-                        if SNotesText <> Format(SNotes) then begin
-                            Clear(Rec."Statement Notes");
-                            Clear(SNotes);
-                            SNotes.AddText(SNotesText);
-                            "Statement Notes".CreateOutStream(OutStr);
-                            SNotes.Write(OutStr);
-
-                        end;
+                        
                     end;
                 }
             }
@@ -218,10 +207,7 @@ page 50219 "Credit Management Setup"
 
     trigger OnAfterGetRecord()
     begin
-        Rec.CalcFields("Statement Notes");
-        "Statement Notes".CreateInStream(Instr);
-        SNotes.Read(Instr);
-        SNotesText := Format(SNotes);
+ 
     end;
 
     var

@@ -1,4 +1,4 @@
-report 52177741 "Audit Working Paper"
+report 50817 "Audit Working Paper"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/AuditWorkingPaper.rdlc';
@@ -101,11 +101,8 @@ report 52177741 "Audit Working Paper"
 
                 trigger OnAfterGetRecord()
                 begin
-                    //Convert Description to Text
-                    "Audit Lines".CalcFields(Description);
-                    "Audit Lines".Description.CreateInStream(Instr);
-                    DNotes.Read(Instr);
-                    DNotesText := Format(DNotes);
+                    DNotesText := "Audit Lines".Description;
+                    DNotesTextD2 := "Audit Lines"."Description 2 Blob";
                     //End of Conversion
 
                     AuditLine.Reset;
@@ -113,14 +110,6 @@ report 52177741 "Audit Working Paper"
                     if AuditLine.Find('-') then begin
                         AuditLine.CalcFields(Image);
                     end;
-
-
-                    //Convert Description to Text
-                    "Audit Lines".CalcFields("Description 2 Blob");
-                    "Audit Lines"."Description 2 Blob".CreateInStream(InstrD2);
-                    DNotesD2.Read(InstrD2);
-                    DNotesTextD2 := Format(DNotesD2);
-                    //End of Conversion
                 end;
             }
         }
@@ -146,7 +135,7 @@ report 52177741 "Audit Working Paper"
     begin
 
         CompanyInfo.Get;
-        CompanyInfo.CalcFields(Picture, "Reports Header", "Reports Footer");
+        CompanyInfo.CalcFields(Picture/* , "Reports Header", "Reports Footer" */);
         ;
         "Audit Lines".CalcFields(Image);
     end;

@@ -174,7 +174,7 @@ table 50133 "Credit Management Setup"
         {
             DataClassification = ToBeClassified;
         }
-        field(32; "Statement Notes"; Blob)
+        field(32; "Statement Notes"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }

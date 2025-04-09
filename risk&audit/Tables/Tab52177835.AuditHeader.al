@@ -289,7 +289,7 @@ table 51330 "Audit Header"
                 IF Employee.GET("Employee No.") THEN BEGIN
                     "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
                     "Sender E-Mail" := Employee."Company E-Mail";
-                    "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
+                    "Shortcut Dimension 1 Code" := Employee.Campus;
                 END;
             end;
         }
@@ -668,8 +668,8 @@ table 51330 "Audit Header"
             IF Employee.GET(UserSetup."Employee No.") THEN BEGIN
                 "Employee No." := Employee."No.";
                 "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
-                "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
-                "Shortcut Dimension 2 Code" := Employee."Global Dimension 2 Code";
+                "Shortcut Dimension 1 Code" := Employee.Campus;
+                "Shortcut Dimension 2 Code" := Employee."Department Code";
 
             END;
         // if Employee.CEO = true then begin

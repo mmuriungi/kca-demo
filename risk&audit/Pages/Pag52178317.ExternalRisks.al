@@ -10,24 +10,13 @@ page 50217 "External Risks"
         {
             repeater(Group)
             {
-                field("External Risks"; DNotesText)
+                field("External Risks"; Rec.Description)
                 {
                     Caption = 'External Risks';
 
                     trigger OnValidate()
                     begin
 
-                        Rec.CALCFIELDS(Description);
-                        Description.CREATEINSTREAM(Instr);
-                        DNotes.READ(Instr);
-
-                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Rec.Description);
-                            CLEAR(DNotes);
-                            DNotes.ADDTEXT(DNotesText);
-                            Description.CREATEOUTSTREAM(OutStr);
-                            DNotes.WRITE(OutStr);
-                        END;
                     end;
                 }
                 field("Risk Likelihood"; Rec."Risk Likelihood")

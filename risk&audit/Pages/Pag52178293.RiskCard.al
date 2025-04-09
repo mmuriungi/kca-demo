@@ -585,10 +585,12 @@ page 50189 "Risk Card"
                 Visible = false;//(Status = Status::New);// or (Status = Status::"Pending Approval");
                 trigger OnAction()
                 var
-                    ApprovalMgt: Codeunit ApprovalMgtCuExtension;
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
                 begin
-                    if ApprovalsMgmt.CheckRiskHeaderWorkflowEnabled(Rec) then begin
-                        ApprovalsMgmt.OnSendRiskHeaderForApproval(Rec);
+                    Variant := Rec;
+                    if ApprovalsMgmt.CheckApprovalsWorkflowEnabled(Variant) then begin
+                        ApprovalsMgmt.OnSendDocForApproval(Variant);
                         Commit();
                         CurrPage.Close();
                     end;
@@ -666,7 +668,7 @@ page 50189 "Risk Card"
         RootCauseTxt: Text;
         MitigationBigTxt: BigText;
 
-        ApprovalsMgmt: Codeunit ApprovalMgtCuExtension;
+        ApprovalsMgmt: Codeunit "Approval Workflows V1";
         MitigationTxt: Text;
         ExistingBigTxt: BigText;
         ExistingTxt: Text;

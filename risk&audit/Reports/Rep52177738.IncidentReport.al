@@ -126,13 +126,13 @@ report 50814 "Incident Report"
     begin
 
         CompanyInfo.Get;
-        CompanyInfo.CalcFields(Picture, "Reports Header", "Reports Footer");
+        CompanyInfo.CalcFields(Picture);
         ;
     end;
 
     var
         CompanyInfo: Record "Company Information";
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
         EmployeeDept: Code[100];
         EmployeePhoneNo: Code[50];
         DimVal: Record "Dimension Value";
@@ -140,8 +140,8 @@ report 50814 "Incident Report"
     local procedure GetEmployeeData(EmployeeNo: Code[50])
     begin
         if Employee.Get(EmployeeNo) then begin
-            EmployeePhoneNo := Employee."Phone No.";
-            DimVal.SetRange(Code, Employee."Global Dimension 1 Code");
+            EmployeePhoneNo := Employee."Phone Number";
+            DimVal.SetRange(Code, Employee.Campus);
             if DimVal.FindFirst then
                 EmployeeDept := DimVal.Name;
         end;

@@ -34,7 +34,7 @@ table 50144 "System Access"
                 IF Employee.GET("Employee No") THEN BEGIN
                     "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
                     Designation := Employee."Job Title";
-                    DimValues.SetRange(Code, Employee."Global Dimension 1 Code");
+                    DimValues.SetRange(Code, Employee.Campus);
                     if DimValues.FindFirst() then
                         Department := DimValues.Name;
                     UserSetup.SetRange("Employee No.", Employee."No.");

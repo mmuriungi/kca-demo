@@ -239,9 +239,9 @@ table 51324 "Communication Header"
                 Sender := Employee."No.";
                 "Sender Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
                 "Sender Email" := Employee."Company E-Mail";
-                "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
+                "Shortcut Dimension 1 Code" := Employee.Campus;
                 Validate("Shortcut Dimension 1 Code");
-                "Shortcut Dimension 2 Code" := Employee."Global Dimension 2 Code";
+                "Shortcut Dimension 2 Code" := Employee."Department Code";
                 Validate("Shortcut Dimension 2 Code");
             end;
     end;

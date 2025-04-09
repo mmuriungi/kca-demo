@@ -10,25 +10,10 @@ page 50218 "Risk Mitigation Proposal"
         {
             repeater(Group)
             {
-                field("Mitigation / Proposal"; DNotesText)
+                field("Mitigation / Proposal"; Rec.Description)
                 {
                     Caption = 'Mitigation / Proposal';
 
-                    trigger OnValidate()
-                    begin
-
-                        Rec.CALCFIELDS(Description);
-                        Description.CREATEINSTREAM(Instr);
-                        DNotes.READ(Instr);
-
-                        IF DNotesText <> FORMAT(DNotes) THEN BEGIN
-                            CLEAR(Rec.Description);
-                            CLEAR(DNotes);
-                            DNotes.ADDTEXT(DNotesText);
-                            Description.CREATEOUTSTREAM(OutStr);
-                            DNotes.WRITE(OutStr);
-                        END;
-                    end;
                 }
             }
         }

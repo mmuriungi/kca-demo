@@ -30,8 +30,8 @@ table 51334 "Risk Header"
             begin
                 // IF Employee.GET("Employee No.") THEN BEGIN
                 //     "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
-                //     "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
-                //     "Shortcut Dimension 2 Code" := Employee."Global Dimension 2 Code";
+                //     "Shortcut Dimension 1 Code" := Employee.Campus;
+                //     "Shortcut Dimension 2 Code" := Employee."Department Code";
                 // END;
             end;
         }

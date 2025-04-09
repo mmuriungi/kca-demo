@@ -18,14 +18,14 @@ table 50130 "User Incident Asset"
             var
                 FA: Record "Fixed Asset";
             begin
-                // FA.Reset();
-                // FA.SetRange("No.", "Tag Number");
-                // if FA.FindFirst() then begin
-                //     Model := FA.Model;
-                //     "Item Description" := FA.Description;
-                //     "Serial Number" := FA."Serial No.";
-                //     Manufacturer := FA.Manufacturer;
-                // end;
+                FA.Reset();
+                FA.SetRange("No.", "Tag Number");
+                if FA.FindFirst() then begin
+                    Model := FA.Model;
+                    "Item Description" := FA.Description;
+                    "Serial Number" := FA."Serial No.";
+                    Manufacturer := FA.Manufacturer;
+                end;
             end;
         }
         field(3; Manufacturer; Code[100])

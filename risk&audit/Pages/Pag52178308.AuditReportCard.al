@@ -182,9 +182,12 @@ page 50208 "Audit Report Card"
                 Visible = (Rec."Report Status" <> Rec."Report Status"::Auditee);
 
                 trigger OnAction()
+                var
+                    Variant: Variant;
                 begin
-                    if ApprovalsMgmt.CheckAuditWorkflowEnabled(Rec) then
-                        ApprovalsMgmt.OnSendAuditForApproval(Rec);
+                    Variant := Rec;
+                    if ApprovalsMgmt.CheckApprovalsWorkflowEnabled(Variant) then
+                        ApprovalsMgmt.OnSendDocForApproval(Variant);
                 end;
             }
             action(CancelApprovalRequest)
@@ -197,8 +200,11 @@ page 50208 "Audit Report Card"
                 Visible = (Rec."Report Status" <> Rec."Report Status"::Auditee);
 
                 trigger OnAction()
+                var
+                    Variant: Variant;
                 begin
-                    ApprovalsMgmt.OnCancelAuditApprovalRequest(Rec);
+                    Variant := Rec;
+                    ApprovalsMgmt.OnCancelDocApprovalRequest(Variant);
                 end;
             }
             action(Approvals)
@@ -214,9 +220,7 @@ page 50208 "Audit Report Card"
                     ApprovalEntries: Page "Approval Entries";
                     DocumentType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","Batch Contributions","Multi-Period Contributions",Claims,"New Members","Interest Allocation","Change Requests","Bulk Change Requests","Batch Claims","Payment Voucher",Imprest,"Imprest Surrender","Petty Cash","Petty Cash Surrender","Store Requisitions","Purchase Requisitions","Staff Claim","Bank Transfer","Staff Advance",Quotation,QuoteEvaluation,LeaveAdjustment,TrainingRequest,LeaveApplication,"Travel Requests",Recruitment,"Employee Transfer","Employee Appraisal","Leave Recall","Maintenance Registration","Payroll Change","Payroll Request",LoanApplication,"Employee Acting","Employee Promotion","Medical Item Issue","Semester Registration",Budget,"Proposed Budget","Bank Rec",Audit,Risk,"Audit WorkPlan","Audit Record Requisition","Audit Plan","Work Paper","Audit Report","Risk Survey","Audit Program";
                 begin
-                    DocumentType := DocumentType::"Audit Report";
-                    ApprovalEntries.Setfilters(DATABASE::"Audit Header", DocumentType, Rec."No.");
-                    ApprovalEntries.RUN;
+                    
                 end;
             }
             action("Close Report")
@@ -293,12 +297,12 @@ page 50208 "Audit Report Card"
     var
         AuditHead: Record "Audit Header";
         AuditMgt: Codeunit "Internal Audit Management";
-        ApprovalsMgt: Codeunit ApprovalMgtCuExtension;
+        ApprovalsMgt: Codeunit "Approval Workflows V1";
         ConfirmCLose: Label 'Do you want to close the Audit Report %1?';
         ConfrimSendtoAuditee: Label 'Do you want to send the Audit Report %1 to the Auditee %2 - %3?';
         AuditeeReport: Boolean;
-        ApprovalMgtExt: Codeunit ApprovalMgtCuExtension;
-        ApprovalsMgmt: Codeunit ApprovalMgtCuExtension;
+        ApprovalMgtExt: Codeunit "Approval Workflows V1";
+        ApprovalsMgmt: Codeunit "Approval Workflows V1";
 
     local procedure SetControlAppearance()
     begin

@@ -25,7 +25,7 @@ table 50137 "Laptop Issue and Change"
             begin
                 if Emp.Get("Employee No.") then begin
                     "Employe Name" := Emp."First Name" + ' ' + Emp."Middle Name" + ' ' + Emp."Last Name";
-                    "Requested by department" := Emp."Global Dimension 1 Code";
+                    "Requested by department" := Emp."Department Code";
                 end;
             end;
         }

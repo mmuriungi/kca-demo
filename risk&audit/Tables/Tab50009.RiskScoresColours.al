@@ -1,4 +1,4 @@
-table 50009 "Risk Scores Colours"
+table 51347 "Risk Scores Colours"
 {
     Caption = 'Risk Scores Colours';
     DataClassification = ToBeClassified;

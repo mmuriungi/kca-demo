@@ -1,4 +1,4 @@
-table 50182 "Auditee Team"
+table 51351 "Auditee Team"
 {
     Caption = 'Auditee Team';
     DataClassification = ToBeClassified;

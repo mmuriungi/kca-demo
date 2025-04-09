@@ -183,7 +183,7 @@ table 51005 "Training Evaluation Header"
         if "Training Evaluation No." = '' then begin
             Gensetup.Get;
             Gensetup.TestField("Training Evaluation Nos");
-            NoSeriesManagement.InitSeries(gensetup."Training Evaluation Nos", xRec."No. Series", 0D, "Training Evaluation No.", "No. Series");
+            NoSeriesManagement.InitSeries(Gensetup."Training Evaluation Nos", xRec."No. Series", 0D, "Training Evaluation No.", "No. Series");
         end;
 
         if "User Setup".Get(UserId) then begin

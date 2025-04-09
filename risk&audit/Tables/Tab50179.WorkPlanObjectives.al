@@ -1,4 +1,4 @@
-table 50179 "WorkPlan Objectives"
+table 51349 "WorkPlan Objectives"
 {
     Caption = 'WorkPlan Objectives';
     DataClassification = ToBeClassified;

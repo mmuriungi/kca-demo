@@ -81,8 +81,8 @@ table 50129 "User Support Incident"
             trigger OnValidate()
             begin
                 IF Employee.GET("Employee No") THEN BEGIN
-                    "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
-                    "Shortcut Dimension 2 Code" := Employee."Global Dimension 2 Code";
+                    "Shortcut Dimension 1 Code" := Employee.Campus;
+                    "Shortcut Dimension 2 Code" := Employee."Department Code";
                     "Employee Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
                     "User email Address" := Employee."Company E-Mail";
                 END;
@@ -278,7 +278,6 @@ table 50129 "User Support Incident"
                 RiskHeader: Record "Risk Header";
             begin
                 IF RiskHeader.GET(Rec."Linked Risk") THEN BEGIN
-                    RiskHeader.CalcFields("Risk Description");
                     "Linked Risk Description" := RiskHeader."Risk Description";
                 END;
             end;
@@ -288,7 +287,7 @@ table 50129 "User Support Incident"
         {
             DataClassification = ToBeClassified;
         }
-        field(46; "Linked Risk Description"; Blob)
+        field(46; "Linked Risk Description"; text[2048])
         {
             DataClassification = ToBeClassified;
         }
@@ -476,9 +475,9 @@ table 50129 "User Support Incident"
                 case Type of
                     Type::AUDIT:
                         begin
-                            "Shortcut Dimension 1 Code" := Employee."Global Dimension 1 Code";
+                            "Shortcut Dimension 1 Code" := Employee.Campus;
                             Validate("Shortcut Dimension 1 Code");
-                            "Shortcut Dimension 2 Code" := Employee."Global Dimension 2 Code";
+                            "Shortcut Dimension 2 Code" := Employee."Department Code";
                             Validate("Shortcut Dimension 2 Code");
                         end;
                 end;

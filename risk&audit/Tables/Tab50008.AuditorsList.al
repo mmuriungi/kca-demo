@@ -1,4 +1,4 @@
-table 50008 "Auditors List"
+table 51346 "Auditors List"
 {
     Caption = 'Auditors List';
     DataClassification = ToBeClassified;

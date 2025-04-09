@@ -1,4 +1,4 @@
-report 52177740 "Audit Program"
+report 50816 "Audit Program"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/AuditProgram.rdl';
@@ -128,20 +128,10 @@ report 52177740 "Audit Program"
 
                 trigger OnAfterGetRecord()
                 begin
-
-                    //Convert Description to Text
-                    "Audit Lines".CALCFIELDS(Description);
-                    "Audit Lines".Description.CREATEINSTREAM(Instr);
-                    DNotes.READ(Instr);
-                    DNotesText := FORMAT(DNotes);
-                    //End of Conversion
-
-                    //Convert Review Procedure Blob to Text
-                    "Audit Lines".CALCFIELDS("Review Procedure Blob");
-                    "Audit Lines"."Review Procedure Blob".CREATEINSTREAM(InstrReviewProcedure);
-                    DNotesReviewProcedure.READ(InstrReviewProcedure);
-                    DNotesTextReviewProcedure := FORMAT(DNotesReviewProcedure);
-                    //End of Conversion
+                    DNotesText := '';
+                    DNotesText := "Audit Lines".Description;
+                    DNotesTextReviewProcedure := '';
+                    DNotesTextReviewProcedure := "Audit Lines"."Review Procedure Blob";
                 end;
             }
             dataitem("Risk Exposure"; "Risk Exposure")

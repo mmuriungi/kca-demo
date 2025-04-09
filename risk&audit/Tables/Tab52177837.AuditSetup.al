@@ -236,6 +236,11 @@ table 51331 "Audit Setup"
             TableRelation = "No. Series";
             DataClassification = ToBeClassified;
         }
+        field(45; "Auditors No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
 
 
 

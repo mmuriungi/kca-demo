@@ -1,4 +1,4 @@
-page 50209 "Audit Report Objectives"
+page 50733 "Risk Opportunities"
 {
     AutoSplitKey = true;
     PageType = ListPart;
@@ -10,13 +10,13 @@ page 50209 "Audit Report Objectives"
         {
             repeater(Group)
             {
-                field(Objectives; Rec.Description)
+                field(Opportunities; Rec.Description)
                 {
+                    Caption = 'Opportunities';
 
                     trigger OnValidate()
                     begin
-
-                        
+                       
                     end;
                 }
             }
@@ -30,12 +30,13 @@ page 50209 "Audit Report Objectives"
     trigger OnAfterGetCurrRecord()
     begin
 
+       
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-
+       
     end;
 
     var

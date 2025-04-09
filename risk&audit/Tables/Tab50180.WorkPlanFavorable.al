@@ -1,4 +1,4 @@
-table 50180 "WorkPlan Favorable"
+table 51348 "WorkPlan Favorable"
 {
     Caption = 'WorkPlan Favorable';
     DataClassification = ToBeClassified;

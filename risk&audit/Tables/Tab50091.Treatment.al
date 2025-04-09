@@ -122,8 +122,7 @@ table 51317 "Treatment"
         MyOutStream: OutStream;
         // CuTempBlob: codeunit "Temp Blob";
         MyBase64: Text;
-        SMTPMail: Codeunit "SMTP Mail";
-        KobbyGlobal: Codeunit "Kobby Global Functions";
+        NotifHandler: codeunit "Notifications Handler";
     // SMTPMail:Codeunit email
 
     begin
@@ -141,8 +140,8 @@ table 51317 "Treatment"
 
                 Subject := 'Reported Treatment';
 
-                KobbyGlobal.FnSendEmailGlobal('', 'TREATMENT', StrSubstNo(EmailBody, ObjeTreatment."Entry No.", ObjeTreatment."Timelines(when I will be carried out)"),
-                       ObjeTreatment.Email, '');
+                NotifHandler.FnSendEmail('', 'TREATMENT', StrSubstNo(EmailBody, ObjeTreatment."Entry No.", ObjeTreatment."Timelines(when I will be carried out)"),
+                       ObjeTreatment.Email, '', '', false, '', '', '');
                 Message('Notification Sent');
                 //
             end;
