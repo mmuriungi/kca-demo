@@ -5,6 +5,7 @@ page 50092 "Library Student Card"
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
+    PageType=list;
 
     layout
     {
