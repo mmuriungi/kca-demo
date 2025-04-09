@@ -2319,6 +2319,14 @@ table 50213 "HRM-Employee C"
         {
             OptionMembers = " ","Internal","External";
         }
+        //"Library Username"
+        field(63217; "Library Username"; Text[50])
+        {
+        }
+        //"Library Patron ID"
+        field(63218; "Library Patron ID"; Integer)
+        {
+        }
     }
 
     keys

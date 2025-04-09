@@ -15,6 +15,11 @@ codeunit 50481 "Koha Handler"
         // FIleManagement: Codeunit "File Management";
         PayloadFile: File;
 
+    procedure GetStudentLibCategory(): Text
+
+    begin
+        Exit('ST');
+    end;
 
     procedure CreateStudentPatron(Cust: Record Customer)
     var
@@ -37,8 +42,8 @@ codeunit 50481 "Koha Handler"
         JObject.Add('surname', surname);
         JObject.Add('address', Cust.Address);
         JObject.Add('city', Cust.City);
-        JObject.Add('library_id', 'MAIN');
-        JObject.Add('category_id', 'UG');
+        JObject.Add('library_id', Cust."Global Dimension 1 Code");
+        JObject.Add('category_id', GetStudentLibCategory());
         JObject.Add('patron_id', '136');
         JObject.Add('cardnumber', Cust."No.");
         JObject.Add('firstname', firstname);
@@ -113,6 +118,7 @@ codeunit 50481 "Koha Handler"
         JsonObject.ReadFrom(Response);
         if JsonObject.Get('userid', UserId) or (JsonObject.Get('patron_id', PatronId)) then begin
             cust."Library Username" := UserId.AsValue().AsText();
+            cust."Library Patron ID" := PatronId.AsValue().AsInteger();
             Cust.Modify(true);
             setPatronPassword(PatronId.AsValue().AsText(), DelChr(Cust."No.", '=', '/'));
         end
@@ -299,7 +305,8 @@ codeunit 50481 "Koha Handler"
         Response := RestHandler.CallService(KohaBaseURL + '/patrons', ReqEnum::post, payload, KohaUsername, KohaPassword, '');
         JsonObject.ReadFrom(Response);
         if JsonObject.Get('userid', UserId) or (JsonObject.Get('patron_id', PatronId)) then begin
-            //Emp."Library Username" := UserId.AsValue().AsText();
+            Emp."Library Username" := UserId.AsValue().AsText();
+            Emp."Library Patron ID" := PatronId.AsValue().AsInteger();
             Emp.Modify(true);
             setPatronPassword(PatronId.AsValue().AsText(), DelChr(Emp."No.", '=', '/'));
         end
@@ -313,4 +320,6 @@ codeunit 50481 "Koha Handler"
             Error('Failed to create patron');
         end;
     end;
+
+    
 }

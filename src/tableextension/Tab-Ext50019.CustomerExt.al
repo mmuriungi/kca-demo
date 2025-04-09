@@ -1320,6 +1320,9 @@ tableextension 50019 "Customer Ext" extends Customer
             CalcFormula = exist("ACA-Course Registration" where("Student No." = field("No."),
                                                                  "Is Postgraduate" = const(true)));
         }
+        field(63217; "Library Patron ID"; Integer)
+        {
+        }
         modify("No.")
         {
             Caption = 'No.';

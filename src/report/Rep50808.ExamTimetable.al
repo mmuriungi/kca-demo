@@ -6,7 +6,7 @@ report 50808 "Exam Timetable"
     {
         dataitem("Timetable Header"; "Timetable Header")
         {
-            RequestFilterFields = Semester, "Programme Filter", "Stage Filter", "Lecturer Filter";
+            RequestFilterFields = Semester, "Exam Type", "Programme Filter", "Stage Filter", "Lecturer Filter";
             DataItemTableView = where(Type = const(Exam));
             column(logo; CompInfo.picture)
             {

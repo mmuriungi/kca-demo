@@ -65,9 +65,17 @@ page 50087 "Timetable Role Center"
                 action("Exam Timetable Header List")
                 {
                     Image = Report;
-
+                    Caption = 'Regular Exam Timetable';
                     RunObject = Page "Timetable Header List";
                     RunPageView = where("Type" = const(Exam));
+                    ApplicationArea = All;
+                }
+                action("Supplementary Exam Timetable")
+                {
+                    Image = Setup;
+                    Caption = 'Supplementary Exam Timetable';
+                    RunObject = Page "Timetable Header List";
+                    RunPageView = where("Type" = const(Exam), "Exam Type" = const(Supplementary));
                     ApplicationArea = All;
                 }
                 action("Invigilator Setup")
@@ -134,6 +142,14 @@ page 50087 "Timetable Role Center"
                     Caption = 'Lecturer Units';
                     Image = Employee;
                     RunObject = Page "ACA-Lecturer List";
+                    ApplicationArea = All;
+                }
+
+                action("Supplementary Exam Units")
+                {
+                    Caption = 'Supplementary Exam Units';
+                    Image = Setup;
+                    RunObject = Page "Supp Exam Units";
                     ApplicationArea = All;
                 }
 
