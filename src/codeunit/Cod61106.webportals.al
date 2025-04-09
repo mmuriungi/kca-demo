@@ -11233,6 +11233,58 @@ procedure GetVehicleMovemengt() msg: Text
             msg := true;
         end;
     end;
+    procedure IncidenceReport(accused: Text;accuser:Text;accusedphone:code[20];accusedId:Code[20];accusedresidence:Text; natureofcase:Text; category:option; accusedtype:option;forwardedto:option;description:Text) msg: Boolean
+    var 
+    IncidentReport: Record "Incident Report";
+    begin
+        IncidentReport.Init;
+        IncidentReport."Accused Name" := accused;
+        IncidentReport."Victim/Reporting Party" := accuser;
+        IncidentReport."Accused Phone Number" := accusedphone;
+        IncidentReport."Accused ID Number" := accusedId;
+        IncidentReport."Accused Residence" := accusedresidence;
+        IncidentReport."Nature of Case" := natureofcase;
+        IncidentReport.Category := category;
+        IncidentReport."Accused Type" := accusedtype;
+        IncidentReport."Forwarded To" := forwardedto;
+        IncidentReport."Case Summary Desctiption" := description;
+        IncidentReport."Date Reported" := Today;
+        IncidentReport.Status := IncidentReport.Status::Open;
+        IncidentReport.Insert(true);
+        msg := true;
+    end;
+    procedure GetIncidentsReported() msg: Text
+    var
+    IncidentReport: Record "Incident Report";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        IncidentReport.Reset();
+        IncidentReport.SetCurrentKey("Date Reported");
+        IncidentReport.Ascending(false);
+        if IncidentReport.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('CaseNo', IncidentReport."Case No.");
+                JObj.Add('AccusedName', IncidentReport."Accused Name");
+                JObj.Add('AccuserName', IncidentReport."Victim/Reporting Party");
+                JObj.Add('AccusedPhoneNo', IncidentReport."Accused Phone Number");
+                JObj.Add('AccusedIdNo', IncidentReport."Accused ID Number");
+                JObj.Add('AccusedResidence', IncidentReport."Accused Residence");
+                JObj.Add('NatureofCase', IncidentReport."Nature of Case");
+                JObj.Add('Category', Format(IncidentReport.Category));
+                JObj.Add('AccusedType', Format(IncidentReport."Accused Type"));
+                JObj.Add('ForwardedTo', Format(IncidentReport."Forwarded To"));
+                JObj.Add('Description', IncidentReport."Case Summary Desctiption");
+                JObj.Add('DateReported', Format(IncidentReport."Date Reported"));
+                JObj.Add('Status', Format(IncidentReport.Status));
+                JArray.Add(JObj);
+            until IncidentReport.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        msg := JsTxt;
+    end;
     #endregion
 
 }
