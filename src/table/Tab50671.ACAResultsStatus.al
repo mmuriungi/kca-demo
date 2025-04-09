@@ -8,7 +8,7 @@ table 50671 "ACA-Results Status"
         field(1; "Code"; Code[50])
         {
         }
-        field(2; Description; Text[100])
+        field(2; Description; Text[2048])
         {
         }
         field(3; "Students Count"; Integer)
@@ -20,34 +20,34 @@ table 50671 "ACA-Results Status"
             //"Year Of Study" = FIELD("Year of Study Filter")));
             FieldClass = FlowField;
         }
-        field(4; "Programme Filter"; Code[100])
+        field(4; "Programme Filter"; Code[2048])
         {
             FieldClass = FlowFilter;
             TableRelation = "ACA-Programme".Code;
         }
-        field(5; "Stage Filter"; Code[100])
+        field(5; "Stage Filter"; Code[2048])
         {
             FieldClass = FlowFilter;
             TableRelation = "ACA-Programme Stages".Code WHERE("Programme Code" = FIELD("Programme Filter"));
         }
-        field(6; "Semester Filter"; Code[100])
+        field(6; "Semester Filter"; Code[2048])
         {
             FieldClass = FlowFilter;
             TableRelation = "ACA-Programme Semesters".Semester WHERE("Programme Code" = FIELD("Programme Filter"));
         }
-        field(7; "Status Msg1"; Text[100])
+        field(7; "Status Msg1"; Text[2048])
         {
         }
-        field(8; "Status Msg2"; Text[100])
+        field(8; "Status Msg2"; Text[2048])
         {
         }
-        field(9; "Status Msg3"; Text[100])
+        field(9; "Status Msg3"; Text[2048])
         {
         }
-        field(10; "Status Msg4"; Text[100])
+        field(10; "Status Msg4"; Text[2048])
         {
         }
-        field(11; "Status Msg5"; Text[100])
+        field(11; "Status Msg5"; Text[2048])
         {
         }
         field(12; "Order No"; Integer)
@@ -76,7 +76,7 @@ table 50671 "ACA-Results Status"
         field(15; "Manual Status Processing"; Boolean)
         {
         }
-        field(50000; Semester; Code[100])
+        field(50000; Semester; Code[2048])
         {
             FieldClass = FlowFilter;
             TableRelation = "ACA-Programme Semesters".Semester WHERE("Programme Code" = FIELD("Programme Filter"));
@@ -109,7 +109,7 @@ table 50671 "ACA-Results Status"
                                                                  "Campus Filter" = FIELD("Campus Filter")));
             FieldClass = FlowField;
         }
-        field(50005; "Status Msg6"; Text[100])
+        field(50005; "Status Msg6"; Text[2048])
         {
         }
         field(50006; "IncludeVariable 1"; Boolean)
@@ -154,10 +154,10 @@ table 50671 "ACA-Results Status"
             OptionCaption = 'Unit Count,Percentage Fail';
             OptionMembers = "Unit Count","Percentage Fail";
         }
-        field(63024; "Transcript Remarks"; Code[100])
+        field(63024; "Transcript Remarks"; Code[2048])
         {
         }
-        field(63025; "Final Year Comment"; Text[100])
+        field(63025; "Final Year Comment"; Text[2048])
         {
         }
         field(63026; "Academic Year"; Code[20])
@@ -268,35 +268,35 @@ table 50671 "ACA-Results Status"
         {
             DataClassification = ToBeClassified;
         }
-        field(63051; "1st Year Grad. Comments"; Text[150])
+        field(63051; "1st Year Grad. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63052; "2nd Year Grad. Comments"; Text[150])
+        field(63052; "2nd Year Grad. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63053; "3rd Year Grad. Comments"; Text[150])
+        field(63053; "3rd Year Grad. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63054; "4th Year Grad. Comments"; Text[150])
+        field(63054; "4th Year Grad. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63055; "5th Year Grad. Comments"; Text[150])
+        field(63055; "5th Year Grad. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63056; "6th Year Grad. Comments"; Text[150])
+        field(63056; "6th Year Grad. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63057; "7th Year Grad. Comments"; Text[150])
+        field(63057; "7th Year Grad. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63058; "Finalists Grad. Comm. Degree"; Text[150])
+        field(63058; "Finalists Grad. Comm. Degree"; Text[2048])
         {
             Caption = 'Finalist Graduation Comments (Degree)';
             DataClassification = ToBeClassified;
@@ -313,53 +313,53 @@ table 50671 "ACA-Results Status"
         {
             DataClassification = ToBeClassified;
         }
-        field(63062; "Grad. Status Msg 4"; Text[100])
+        field(63062; "Grad. Status Msg 4"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63063; "Grad. Status Msg 5"; Text[100])
+        field(63063; "Grad. Status Msg 5"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63064; "Grad. Status Msg 6"; Text[100])
+        field(63064; "Grad. Status Msg 6"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63065; "Finalists Grad. Comm. Dip"; Text[150])
+        field(63065; "Finalists Grad. Comm. Dip"; Text[2048])
         {
             Caption = 'Finalist Graduation Comments (Diploma)';
             DataClassification = ToBeClassified;
         }
-        field(63066; "Finalists Grad. Comm. Cert."; Text[150])
+        field(63066; "Finalists Grad. Comm. Cert."; Text[2048])
         {
             Caption = 'Finalist Graduation Comments (Certificate)';
             DataClassification = ToBeClassified;
         }
-        field(63067; "1st Year Trans. Comments"; Text[80])
+        field(63067; "1st Year Trans. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63068; "2nd Year  Trans. Comments"; Text[80])
+        field(63068; "2nd Year  Trans. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63069; "3rd Year  Trans. Comments"; Text[80])
+        field(63069; "3rd Year  Trans. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63070; "4th Year  Trans. Comments"; Text[80])
+        field(63070; "4th Year  Trans. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63071; "5th Year  Trans. Comments"; Text[80])
+        field(63071; "5th Year  Trans. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63072; "6th Year  Trans. Comments"; Text[80])
+        field(63072; "6th Year  Trans. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
-        field(63073; "7th Year  Trans. Comments"; Text[80])
+        field(63073; "7th Year  Trans. Comments"; Text[2048])
         {
             DataClassification = ToBeClassified;
         }

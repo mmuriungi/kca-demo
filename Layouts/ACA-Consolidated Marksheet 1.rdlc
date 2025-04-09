@@ -7723,6 +7723,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
+            <KeepTogether>true</KeepTogether>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>4.21875in</Top>
             <Left>0.5in</Left>
@@ -7741,8 +7742,8 @@
       </Body>
       <Width>9.83333in</Width>
       <Page>
-        <PageHeight>8.5in</PageHeight>
-        <PageWidth>17in</PageWidth>
+        <PageHeight>10in</PageHeight>
+        <PageWidth>30in</PageWidth>
         <Style />
       </Page>
     </ReportSection>
