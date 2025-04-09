@@ -128,14 +128,7 @@ pageextension 50000 "Accountant Roles Center" extends "Accountant Role Center"
                     RunObject = Page "FIN-Posted Interbank Trans2";
                     ToolTip = 'Posted Bank Trasfers';
                 }
-                action("Budget Virement")
-                {
-                    ApplicationArea = Basic, Suite;
-                    Caption = 'Budget Virement';
-                    Image = Journal;
-                    RunObject = Page "FIN-Budget Virement List";
-                    ToolTip = 'Budget Virement';
-                }
+
                 action("Asset Movement")
                 {
                     ApplicationArea = all;
@@ -279,6 +272,14 @@ pageextension 50000 "Accountant Roles Center" extends "Accountant Role Center"
                     ApplicationArea = all;
                     RunObject = page "Budgetary Control Setup";
 
+                }
+                action("Budget Virement")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Budget Virement';
+                    Image = Journal;
+                    RunObject = Page "FIN-Budget Virement List";
+                    ToolTip = 'Budget Virement';
                 }
                 action("Cash officer setUp")
                 {

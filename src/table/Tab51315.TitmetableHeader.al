@@ -43,10 +43,17 @@ table 51315 "Timetable Header"
             TableRelation = "HRM-Employee C" where(Lecturer = const(true));
             FieldClass = FlowFilter;
         }
+        //Exam Type
+        field(8; "Exam Type"; Option)
+        {
+            Caption = 'Exam Type';
+            OptionMembers = Regular,Supplementary,Special;
+            OptionCaption = 'Regular,Supplementary,Special';
+        }
     }
     keys
     {
-        key(PK; "Academic Year", Semester, "Type")
+        key(PK; "Academic Year", Semester, "Type", "Exam Type")
         {
             Clustered = true;
         }

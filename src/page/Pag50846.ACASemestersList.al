@@ -80,6 +80,14 @@ page 50846 "ACA-Semesters List"
                 {
                     ApplicationArea = All;
                 }
+                field("Supp Start Date"; Rec."Supp Start Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Supp End Date"; Rec."Supp End Date")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

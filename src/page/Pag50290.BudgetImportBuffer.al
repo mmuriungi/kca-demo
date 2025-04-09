@@ -39,13 +39,13 @@ page 50290 "Budget Import Buffer"
                 field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {
                     ApplicationArea = all;
-                    Editable = false;
+                    Editable = true;
 
                 }
                 field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
                 {
                     ApplicationArea = all;
-                    Editable = false;
+                    Editable = true;
 
                 }
                 field("Created By"; Rec."Created By")
@@ -65,11 +65,87 @@ page 50290 "Budget Import Buffer"
     }
     actions
     {
+        area(Processing)
+        {
+            action("Export Excel")
+            {
+                Caption = 'Export';
+                Image = ExportToExcel;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                var
+                    csv: Codeunit "Csv Generator";
+                    recref: RecordRef;
+                    FieldRef: array[20] of FieldRef;
+                    FileName: Text[250];
+                    ExcelBuffer: Record "Excel Buffer" temporary;
+                    FieldRefLength: Integer;
+                    BudgetLine: Record "Budget Line";
+                begin
+                    //No,Budget Date,GL account,Budget Name,Campus code, Department code, description, amount
+                    BudgetLine.Reset;
+                    BudgetLine.SetRange("No.", Rec."No.");
+                    if BudgetLine.FindSet() then;
+                    recref.GetTable(BudgetLine);
+                    FieldRef[1] := recref.Field(BudgetLine.FieldNo("No."));
+                    FieldRef[2] := recref.Field(BudgetLine.FieldNo("Budget Date"));
+                    FieldRef[3] := recref.Field(BudgetLine.FieldNo("Gl Account"));
+                    FieldRef[4] := recref.Field(BudgetLine.FieldNo("Budget Name"));
+                    FieldRef[5] := recref.Field(BudgetLine.FieldNo("Global Dimension 1 Code"));
+                    FieldRef[6] := recref.Field(BudgetLine.FieldNo("Global Dimension 2 Code"));
+                    FieldRef[7] := recref.Field(BudgetLine.FieldNo(Desription));
+                    FieldRef[8] := recref.Field(BudgetLine.FieldNo(Amount));
+                    FileName := 'Budget Import.xlsx';
+                    csv.ExportExcelFile(FileName, recref, FieldRef, 8, ExcelBuffer, 'Budget Import', 1);
+                    csv.downloadFromExelBuffer(ExcelBuffer, FileName);
+                end;
+            }
+            action("Import Excel")
+            {
+                Caption = 'Import';
+                Image = ImportExcel;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                var
+                    csv: Codeunit "Csv Generator";
+                    recref: array[20] of RecordRef;
+                    FieldRef: array[20] of FieldRef;
+                    FileName: Text[250];
+                    ExcelBuffer: Record "Excel Buffer" temporary;
+                    Fields: Dictionary of [Integer, List of [Integer]];
+                    ArrSheetName: array[20] of Text;
+                    fieldlist: List of [Integer];
+                    budgetline: Record "Budget Line";
+                begin
+                    budgetline.Reset;
+                    budgetline.SetRange("No.", Rec."No.");
+                    if budgetline.FindSet() then;
+                    recref[1].GetTable(budgetline);
+                    ArrSheetName[1] := 'Budget Import';
+                    fieldlist.Add(budgetline.FieldNo("No."));
+                    fieldlist.Add(budgetline.FieldNo("Budget Date"));
+                    fieldlist.Add(budgetline.FieldNo("Gl Account"));
+                    fieldlist.Add(budgetline.FieldNo("Budget Name"));
+                    fieldlist.Add(budgetline.FieldNo("Global Dimension 1 Code"));
+                    fieldlist.Add(budgetline.FieldNo("Global Dimension 2 Code"));
+                    fieldlist.Add(budgetline.FieldNo(Desription));
+                    fieldlist.Add(budgetline.FieldNo(Amount));
+                    Fields.Add(1, fieldlist);
+                    csv.importFromExcel(recref, ArrSheetName, 1, Fields, Rec."No.", Rec.FieldNo("No."));
+                end;
+            }
+        }
         area(Creation)
         {
-            action("Import Budget")
+            action("Post Budget")
             {
                 ApplicationArea = all;
+                Promoted = true;
+                PromotedCategory = Process;
+                Caption = 'Post Budget';
+                Image = CopyBudget;
                 trigger OnAction()
                 begin
                     if CONFIRM('Import Budget?', TRUE) = FALSE THEN EXIT;

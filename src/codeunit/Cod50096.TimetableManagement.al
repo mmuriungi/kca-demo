@@ -23,6 +23,7 @@ codeunit 50096 "Timetable Management"
         // Clear existing slots for this semester
         ExamTimeSlot.Reset();
         ExamTimeSlot.SetRange("Semester Code", SemesterCode);
+        ExamTimeSlot.SetFilter("Valid From Date", '%1..%2', Semester."Exam Start Date", Semester."Exam End Date");
         ExamTimeSlot.DeleteAll();
 
         // Generate Regular Exam Slots
@@ -32,6 +33,35 @@ codeunit 50096 "Timetable Management"
         GenerateMedicalSlots(Semester, SemesterCode);
 
         Message('Time slots generated successfully.');
+    end;
+
+    procedure GenerateSuppExamTimeSlots(SemesterCode: Code[25])
+    var
+        Semester: Record "ACA-Semesters";
+        ExamTimeSlot: Record "Exam Time Slot";
+        SlotCode: Code[20];
+        CurrentDate: Date;
+        Window: Dialog;
+        SlotGroup: Option Regular,Medical;
+    begin
+        // Validate semester
+        FindSemester(SemesterCode, Semester);
+        Semester.TestField("Supp Start Date");
+        Semester.TestField("Supp End Date");
+
+        // Clear existing slots for this semester
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetRange("Semester Code", SemesterCode);
+        ExamTimeSlot.SetFilter("Valid From Date", '%1..%2', Semester."Supp Start Date", Semester."Supp End Date");
+        ExamTimeSlot.DeleteAll();
+
+        // Generate Regular Exam Slots
+        GenerateRegularSuppSlots(Semester, SemesterCode);
+
+        // Generate Medical Exam Slots
+        GenerateMedicalSuppSlots(Semester, SemesterCode);
+
+        Message('Supplementary Time slots generated successfully.');
     end;
 
     local procedure GenerateRegularSlots(Semester: Record "ACA-Semesters"; SemesterCode: Code[25])
@@ -89,6 +119,164 @@ codeunit 50096 "Timetable Management"
                     SemesterCode,
                     0  // Regular
                 );
+            end;
+            CurrentDate := CalcDate('1D', CurrentDate);
+        end;
+    end;
+
+    local procedure GenerateRegularSuppSlots(Semester: Record "ACA-Semesters"; SemesterCode: Code[25])
+    var
+        ExamTimeSlot: Record "Exam Time Slot";
+        SlotCode: Code[20];
+        CurrentDate: Date;
+    begin
+        CurrentDate := Semester."Supp Start Date";
+        while CurrentDate <= Semester."Supp End Date" do begin
+            // Skip weekends
+            if Date2DWY(CurrentDate, 1) <= 5 then begin
+
+                // Morning session (9:00 AM - 11:00 AM)
+                SlotCode := CreateSlotCode(CurrentDate, 'R-M');
+                CreateExamTimeSlot(
+                    SlotCode,
+                    'Regular Morning Session',
+                    090000T,
+                    110000T,
+                    Date2DWY(CurrentDate, 1) - 1,
+                    ExamTimeSlot."Session Type"::Morning,
+                    CurrentDate,
+                    CurrentDate,
+                    SemesterCode,
+                    0  // Regular
+                );
+
+                // Midday session (12:00 PM - 2:00 PM)
+                SlotCode := CreateSlotCode(CurrentDate, 'R-N');
+                CreateExamTimeSlot(
+                    SlotCode,
+                    'Regular Noon Session',
+                    120000T,
+                    140000T,
+                    Date2DWY(CurrentDate, 1) - 1,
+                    ExamTimeSlot."Session Type"::Midday,
+                    CurrentDate,
+                    CurrentDate,
+                    SemesterCode,
+                    0  // Regular
+                );
+
+                // Afternoon session (3:00 PM - 5:00 PM)
+                SlotCode := CreateSlotCode(CurrentDate, 'R-A');
+                CreateExamTimeSlot(
+                    SlotCode,
+                    'Regular Afternoon Session',
+                    150000T,
+                    170000T,
+                    Date2DWY(CurrentDate, 1) - 1,
+                    ExamTimeSlot."Session Type"::Afternoon,
+                    CurrentDate,
+                    CurrentDate,
+                    SemesterCode,
+                    0  // Regular
+                );
+            end;
+            CurrentDate := CalcDate('1D', CurrentDate);
+        end;
+    end;
+
+    local procedure GenerateMedicalSuppSlots(Semester: Record "ACA-Semesters"; SemesterCode: Code[25])
+    var
+        ExamTimeSlot: Record "Exam Time Slot";
+        SlotCode: Code[20];
+        CurrentDate: Date;
+        DayCount: Integer;
+    begin
+        CurrentDate := Semester."Supp Start Date";
+        DayCount := 0;
+
+        while CurrentDate <= Semester."Supp End Date" do begin
+            // Skip weekends
+            if Date2DWY(CurrentDate, 1) <= 5 then begin
+                DayCount += 1;
+
+                if DayCount = 1 then begin
+                    // First day: Three sessions like regular exams
+
+                    // Morning session (9:00 AM - 11:00 AM)
+                    SlotCode := CreateSlotCode(CurrentDate, 'M-M');
+                    CreateExamTimeSlot(
+                        SlotCode,
+                        'Medical Morning Session',
+                        090000T,
+                        110000T,
+                        Date2DWY(CurrentDate, 1) - 1,
+                        ExamTimeSlot."Session Type"::Morning,
+                        CurrentDate,
+                        CurrentDate,
+                        SemesterCode,
+                        1  // Medical
+                    );
+
+                    // Midday session (12:00 PM - 2:00 PM)
+                    SlotCode := CreateSlotCode(CurrentDate, 'M-N');
+                    CreateExamTimeSlot(
+                        SlotCode,
+                        'Medical Noon Session',
+                        120000T,
+                        140000T,
+                        Date2DWY(CurrentDate, 1) - 1,
+                        ExamTimeSlot."Session Type"::Midday,
+                        CurrentDate,
+                        CurrentDate,
+                        SemesterCode,
+                        1  // Medical
+                    );
+
+                    // Afternoon session (3:00 PM - 5:00 PM)
+                    SlotCode := CreateSlotCode(CurrentDate, 'M-A');
+                    CreateExamTimeSlot(
+                        SlotCode,
+                        'Medical Afternoon Session',
+                        150000T,
+                        170000T,
+                        Date2DWY(CurrentDate, 1) - 1,
+                        ExamTimeSlot."Session Type"::Afternoon,
+                        CurrentDate,
+                        CurrentDate,
+                        SemesterCode,
+                        1  // Medical
+                    );
+                end else begin
+                    // Extended morning session (9:00 AM - 12:00 PM)
+                    SlotCode := CreateSlotCode(CurrentDate, 'M-ME');
+                    CreateExamTimeSlot(
+                        SlotCode,
+                        'Medical Extended Morning Session',
+                        090000T,
+                        120000T,
+                        Date2DWY(CurrentDate, 1) - 1,
+                        ExamTimeSlot."Session Type"::Morning,
+                        CurrentDate,
+                        CurrentDate,
+                        SemesterCode,
+                        1  // Medical
+                    );
+
+                    // Extended afternoon session (2:00 PM - 5:00 PM)
+                    SlotCode := CreateSlotCode(CurrentDate, 'M-AE');
+                    CreateExamTimeSlot(
+                        SlotCode,
+                        'Medical Extended Afternoon Session',
+                        140000T,
+                        170000T,
+                        Date2DWY(CurrentDate, 1) - 1,
+                        ExamTimeSlot."Session Type"::Afternoon,
+                        CurrentDate,
+                        CurrentDate,
+                        SemesterCode,
+                        1  // Medical
+                    );
+                end;
             end;
             CurrentDate := CalcDate('1D', CurrentDate);
         end;
@@ -1437,6 +1625,7 @@ codeunit 50096 "Timetable Management"
         // Clear existing exam timetable
         ExamTimetableEntry.Reset();
         ExamTimetableEntry.SetRange(Semester, SemesterCode);
+        ExamTimetableEntry.SetRange("Exam Type", ExamTimetableEntry."Exam Type"::Regular);
         ExamTimetableEntry.DeleteAll(true);
 
         // Get active exam time slots for the semester
@@ -1551,6 +1740,29 @@ codeunit 50096 "Timetable Management"
         exit(false);
     end;
 
+    local procedure ScheduleExamOnFirstDaySupp(SuppUnits: Record "Supp. Exam Units";
+        Semester: Record "ACA-Semesters";
+        var ExamTimeSlot: Record "Exam Time Slot"): Boolean
+    var
+        ExamDate: Date;
+        SelectedTimeSlot: Record "Exam Time Slot";
+    begin
+        ExamDate := Semester."Exam Start Date";
+
+        // Find appropriate time slot based on programme type
+        if FindTimeSlotForProgrammeTypeSupp(SuppUnits, ExamDate, SelectedTimeSlot) then begin
+            // Schedule the exam with room allocation
+            ScheduleExamWithRoomAllocationSupp(
+                SuppUnits,
+                ExamDate,
+                SelectedTimeSlot,
+                Semester);
+            exit(true);
+        end;
+
+        exit(false);
+    end;
+
     local procedure FindTimeSlotForProgrammeType(CourseOffering: Record "ACA-Lecturers Units";
         ExamDate: Date;
         var SelectedTimeSlot: Record "Exam Time Slot"): Boolean
@@ -1560,6 +1772,46 @@ codeunit 50096 "Timetable Management"
     begin
         // Determine if this is a medical programme
         IsMedical := IsMedicalProgramme(CourseOffering.Programme);
+
+        // Find appropriate slot based on programme type
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetRange("Valid From Date", ExamDate);
+        ExamTimeSlot.SetRange("Valid To Date", ExamDate);
+        ExamTimeSlot.SetRange("Day of Week", Date2DWY(ExamDate, 1) - 1);
+
+        if IsMedical then
+            ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Medical)
+        else
+            ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Regular);
+
+        if ExamTimeSlot.FindFirst() then begin
+            SelectedTimeSlot := ExamTimeSlot;
+            exit(true);
+        end;
+
+        // Fallback to any available slot if specific group not found
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetRange("Valid From Date", ExamDate);
+        ExamTimeSlot.SetRange("Valid To Date", ExamDate);
+        ExamTimeSlot.SetRange("Day of Week", Date2DWY(ExamDate, 1) - 1);
+
+        if ExamTimeSlot.FindFirst() then begin
+            SelectedTimeSlot := ExamTimeSlot;
+            exit(true);
+        end;
+
+        exit(false);
+    end;
+
+    local procedure FindTimeSlotForProgrammeTypeSupp(SuppUnits: Record "Supp. Exam Units";
+    ExamDate: Date;
+    var SelectedTimeSlot: Record "Exam Time Slot"): Boolean
+    var
+        ExamTimeSlot: Record "Exam Time Slot";
+        IsMedical: Boolean;
+    begin
+        // Determine if this is a medical programme
+        IsMedical := IsMedicalProgramme(SuppUnits.Programme);
 
         // Find appropriate slot based on programme type
         ExamTimeSlot.Reset();
@@ -1610,7 +1862,8 @@ codeunit 50096 "Timetable Management"
         exit(false);
     end;
 
-    local procedure IsExamAlreadyScheduled(UnitCode: Code[25]; SemesterCode: Code[25]): Boolean
+
+    local procedure IsExamAlreadyScheduledSupp(UnitCode: Code[25]; SemesterCode: Code[25]): Boolean
     var
         ExamTimetableEntry: Record "Exam Timetable Entry";
     begin
@@ -1671,6 +1924,67 @@ codeunit 50096 "Timetable Management"
         exit(FindOptimalExamSlot(CourseOffering, Semester, ExamTimeSlot, OptimalDate, CoursesPerDay, DayCounter));
     end;
 
+    local procedure IsExamAlreadyScheduled(UnitCode: Code[25]; SemesterCode: Code[25]): Boolean
+    var
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+    begin
+        ExamTimetableEntry.Reset();
+        ExamTimetableEntry.SetRange("Unit Code", UnitCode);
+        ExamTimetableEntry.SetRange(Semester, SemesterCode);
+        exit(not ExamTimetableEntry.IsEmpty);
+    end;
+
+    local procedure FindOptimalExamSlotSupp(SuppUnits: Record "Supp. Exam Units";
+        Semester: Record "ACA-Semesters";
+        var ExamTimeSlot: Record "Exam Time Slot";
+        var OptimalDate: Date;
+        var CoursesPerDay: Dictionary of [Date, Integer];
+        DayCounter: Integer): Boolean
+    var
+        IsMedical: Boolean;
+        CurrentDate: Date;
+        SlotFound: Boolean;
+    begin
+        // Determine if this is a medical programme
+        IsMedical := IsMedicalProgramme(SuppUnits.Programme);
+
+        // Calculate date based on day counter
+        CurrentDate := CalcDate(StrSubstNo('%1D', DayCounter), Semester."supp Start Date");
+
+        // Ensure we don't go beyond exam end date
+        if CurrentDate > Semester."supp End Date" then
+            exit(false);
+
+        // Skip weekends
+        while (Date2DWY(CurrentDate, 1) > 5) and (CurrentDate <= Semester."supp End Date") do begin
+            CurrentDate := CalcDate('1D', CurrentDate);
+            DayCounter += 1;
+        end;
+
+        // If we've gone beyond the exam period, return false
+        if CurrentDate > Semester."supp End Date" then
+            exit(false);
+
+        // Try to find a time slot on this date based on programme type
+        SlotFound := FindTimeSlotForDaySupp(SuppUnits, CurrentDate, ExamTimeSlot, IsMedical);
+
+        if SlotFound then begin
+            OptimalDate := CurrentDate;
+
+            // Update courses per day counter
+            if not CoursesPerDay.ContainsKey(CurrentDate) then
+                CoursesPerDay.Add(CurrentDate, 1)
+            else
+                CoursesPerDay.Set(CurrentDate, CoursesPerDay.Get(CurrentDate) + 1);
+
+            exit(true);
+        end;
+
+        // Try the next day
+        DayCounter += 1;
+        exit(FindOptimalExamSlotSupp(SuppUnits, Semester, ExamTimeSlot, OptimalDate, CoursesPerDay, DayCounter));
+    end;
+
     local procedure FindTimeSlotForDay(CourseOffering: Record "ACA-Lecturers Units";
         ExamDate: Date;
         var SelectedTimeSlot: Record "Exam Time Slot";
@@ -1708,6 +2022,52 @@ codeunit 50096 "Timetable Management"
         if ExamTimeSlot.FindSet() then begin
             repeat
                 if not HasSchedulingConflicts(CourseOffering, ExamDate, ExamTimeSlot) then begin
+                    SelectedTimeSlot := ExamTimeSlot;
+                    exit(true);
+                end;
+            until ExamTimeSlot.Next() = 0;
+        end;
+
+        exit(false);
+    end;
+
+    local procedure FindTimeSlotForDaySupp(SuppUnits: Record "Supp. Exam Units";
+           ExamDate: Date;
+           var SelectedTimeSlot: Record "Exam Time Slot";
+           IsMedical: Boolean): Boolean
+    var
+        ExamTimeSlot: Record "Exam Time Slot";
+    begin
+        // Find appropriate slot based on programme type
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetFilter("Valid From Date", '<=%1', ExamDate);
+        ExamTimeSlot.SetFilter("Valid To Date", '>=%1', ExamDate);
+        ExamTimeSlot.SetRange("Day of Week", Date2DWY(ExamDate, 1) - 1);
+
+        if IsMedical then
+            ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Medical)
+        else
+            ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Regular);
+
+        if ExamTimeSlot.FindSet() then begin
+            repeat
+                // Check if this slot would have conflicts
+                if not HasSchedulingConflictsSupp(SuppUnits, ExamDate, ExamTimeSlot) then begin
+                    SelectedTimeSlot := ExamTimeSlot;
+                    exit(true);
+                end;
+            until ExamTimeSlot.Next() = 0;
+        end;
+
+        // Fallback to any available slot if specific group not found
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetFilter("Valid From Date", '<=%1', ExamDate);
+        ExamTimeSlot.SetFilter("Valid To Date", '>=%1', ExamDate);
+        ExamTimeSlot.SetRange("Day of Week", Date2DWY(ExamDate, 1) - 1);
+
+        if ExamTimeSlot.FindSet() then begin
+            repeat
+                if not HasSchedulingConflictsSupp(SuppUnits, ExamDate, ExamTimeSlot) then begin
                     SelectedTimeSlot := ExamTimeSlot;
                     exit(true);
                 end;
@@ -1834,6 +2194,123 @@ codeunit 50096 "Timetable Management"
             LogSchedulingIssue(CourseOffering);
     end;
 
+    local procedure ScheduleExamWithRoomAllocationSupp(SuppUnits: Record "Supp. Exam Units";
+        ExamDate: Date;
+        ExamTimeSlot: Record "Exam Time Slot";
+        Semester: Record "ACA-Semesters")
+    var
+        TotalStudents: Integer;
+        RemainingStudents: Integer;
+        AvailableRooms: array[100] of Record "ACA-Lecturer Halls Setup";
+        AvailableCapacities: array[100] of Integer;
+        RoomCount: Integer;
+        i: Integer;
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+        StudentsInRoom: Integer;
+        CurrentFloor: Integer;
+        SameFloorRooms: List of [Integer];
+        RoomIndex: Integer;
+    begin
+        TotalStudents := SuppUnits."Student Allocation";
+        RemainingStudents := TotalStudents;
+
+        // Get available exam rooms
+        GetAvailableExamRooms(ExamDate, ExamTimeSlot, AvailableRooms, AvailableCapacities, RoomCount);
+
+        if RoomCount = 0 then begin
+            //   LogSchedulingIssue( CourseOffering);
+            exit;
+        end;
+
+        // Try to allocate all students to a single room if possible
+        for i := 1 to RoomCount do begin
+            if AvailableCapacities[i] >= TotalStudents then begin
+                // Create exam entry for the entire class
+                CreateExamEntrySupp(SuppUnits, ExamDate, ExamTimeSlot,
+                    AvailableRooms[i]."Lecture Room Code", TotalStudents, Semester.Code);
+
+                // Assign invigilators for this room
+                AssignInvigilatorsToRoomSupp(SuppUnits, ExamDate, ExamTimeSlot,
+                    AvailableRooms[i]."Lecture Room Code", TotalStudents, Semester.Code);
+
+                exit;
+            end;
+        end;
+
+        // If we get here, we need to split the students across multiple rooms
+        // First try rooms on the same floor for best continuity
+
+        // Sort rooms by floor and capacity for better allocation
+        SortRoomsByFloorAndCapacity(AvailableRooms, AvailableCapacities, RoomCount);
+
+        i := 1;
+        while (RemainingStudents > 0) and (i <= RoomCount) do begin
+            // Get current floor
+            CurrentFloor := GetRoomFloor(AvailableRooms[i]."Lecture Room Code");
+
+            // Find all rooms on the same floor
+            Clear(SameFloorRooms);
+            for RoomIndex := i to RoomCount do begin
+                if GetRoomFloor(AvailableRooms[RoomIndex]."Lecture Room Code") = CurrentFloor then
+                    SameFloorRooms.Add(RoomIndex);
+            end;
+
+            // Allocate students to rooms on the same floor first
+            if SameFloorRooms.Count > 0 then begin
+                foreach RoomIndex in SameFloorRooms do begin
+                    if RemainingStudents <= 0 then
+                        break;
+
+                    if AvailableCapacities[RoomIndex] > 0 then begin
+                        StudentsInRoom := MinValue(RemainingStudents, AvailableCapacities[RoomIndex]);
+
+                        // Create exam entry
+                        CreateExamEntrySupp(SuppUnits, ExamDate, ExamTimeSlot,
+                            AvailableRooms[RoomIndex]."Lecture Room Code", StudentsInRoom, Semester.Code);
+
+                        // Assign invigilators
+                        AssignInvigilatorsToRoomSupp(SuppUnits, ExamDate, ExamTimeSlot,
+                            AvailableRooms[RoomIndex]."Lecture Room Code", StudentsInRoom, Semester.Code);
+
+                        RemainingStudents -= StudentsInRoom;
+                        AvailableCapacities[RoomIndex] := 0; // Mark as used
+                    end;
+                end;
+            end;
+
+            // Skip to the next floor
+            i += SameFloorRooms.Count;
+            if SameFloorRooms.Count = 0 then
+                i += 1;
+        end;
+
+        // If we still have students without a room, use any remaining capacity
+        if RemainingStudents > 0 then begin
+            for i := 1 to RoomCount do begin
+                if AvailableCapacities[i] > 0 then begin
+                    StudentsInRoom := MinValue(RemainingStudents, AvailableCapacities[i]);
+
+                    // Create exam entry
+                    CreateExamEntrySupp(SuppUnits, ExamDate, ExamTimeSlot,
+                        AvailableRooms[i]."Lecture Room Code", StudentsInRoom, Semester.Code);
+
+                    // Assign invigilators
+                    AssignInvigilatorsToRoomSupp(SuppUnits, ExamDate, ExamTimeSlot,
+                        AvailableRooms[i]."Lecture Room Code", StudentsInRoom, Semester.Code);
+
+                    RemainingStudents -= StudentsInRoom;
+
+                    if RemainingStudents <= 0 then
+                        break;
+                end;
+            end;
+        end;
+
+        // Log issue if we couldn't accommodate all students
+        // if RemainingStudents > 0 then
+        //     LogSchedulingIssue(CourseOffering);
+    end;
+
     local procedure CreateExamEntry(CourseOffering: Record "ACA-Lecturers Units";
         ExamDate: Date;
         ExamTimeSlot: Record "Exam Time Slot";
@@ -1855,6 +2332,32 @@ codeunit 50096 "Timetable Management"
         ExamTimetableEntry."Stage Code" := CourseOffering.Stage;
         ExamTimetableEntry.Status := ExamTimetableEntry.Status::Scheduled;
         ExamTimetableEntry."Student Count" := StudentCount;
+        ExamTimetableEntry."Exam Type" := ExamTimetableEntry."Exam Type"::Regular;
+        ExamTimetableEntry.Insert(true);
+    end;
+
+    local procedure CreateExamEntrySupp(SuppUnits: Record "Supp. Exam Units";
+    ExamDate: Date;
+    ExamTimeSlot: Record "Exam Time Slot";
+    LectureHall: Code[20];
+    StudentCount: Integer;
+    SemesterCode: Code[25])
+    var
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+    begin
+        ExamTimetableEntry.Init();
+        ExamTimetableEntry."Unit Code" := SuppUnits."Unit Code";
+        ExamTimetableEntry.Semester := SemesterCode;
+        ExamTimetableEntry."Exam Date" := ExamDate;
+        ExamTimetableEntry."Time Slot" := ExamTimeSlot.Code;
+        ExamTimetableEntry."Start Time" := ExamTimeSlot."Start Time";
+        ExamTimetableEntry."End Time" := ExamTimeSlot."End Time";
+        ExamTimetableEntry."Lecture Hall" := LectureHall;
+        ExamTimetableEntry."Programme Code" := SuppUnits.Programme;
+        ExamTimetableEntry."Stage Code" := SuppUnits."Stage Code";
+        ExamTimetableEntry.Status := ExamTimetableEntry.Status::Scheduled;
+        ExamTimetableEntry."Student Count" := StudentCount;
+        ExamTimetableEntry."Exam Type" := ExamTimetableEntry."Exam Type"::Supplementary;
         ExamTimetableEntry.Insert(true);
     end;
 
@@ -2036,11 +2539,77 @@ codeunit 50096 "Timetable Management"
         end;
     end;
 
+    local procedure AssignInvigilatorsToRoomSupp(SuppUnits: Record "Supp. Exam Units";
+        ExamDate: Date;
+        ExamTimeSlot: Record "Exam Time Slot";
+        LectureHall: Code[20];
+        StudentCount: Integer;
+        SemesterCode: Code[25])
+    var
+        InvigilatorSetup: Record "Invigilator Setup";
+        InvigilatorCount: Integer;
+        FirstInvigilators: Integer;
+        AdditionalInvigilators: Integer;
+        Department: Code[20];
+        AvailableInvigilators: List of [Code[20]];
+        SelectedInvigilators: List of [Code[20]];
+        InvigilatorNo: Code[20];
+        ExamInvigilator: Record "Exam Invigilators";
+        Employee: Record "HRM-Employee C";
+    begin
+        // Get invigilator setup
+        if not InvigilatorSetup.FindFirst() then
+            exit;
+
+        // Calculate number of invigilators needed
+        FirstInvigilators := InvigilatorSetup."First 100";
+
+        if StudentCount <= 100 then
+            InvigilatorCount := FirstInvigilators
+        else begin
+            AdditionalInvigilators := ROUND((StudentCount - 100) / 50, 1, '>') * InvigilatorSetup."Next 50";
+            InvigilatorCount := FirstInvigilators + AdditionalInvigilators;
+        end;
+
+        // Get department from course offering
+        Department := GetCourseDepartmentSupp(SuppUnits);
+
+        // Get available invigilators from department
+        GetAvailableInvigilators(Department, ExamDate, ExamTimeSlot, AvailableInvigilators);
+
+        // Select required number of invigilators, prioritizing full-timers
+        SelectInvigilators(AvailableInvigilators, InvigilatorCount, SelectedInvigilators);
+
+        // Assign the selected invigilators
+        foreach InvigilatorNo in SelectedInvigilators do begin
+            if Employee.Get(InvigilatorNo) then begin
+                ExamInvigilator.Init();
+                ExamInvigilator.Semester := SemesterCode;
+                ExamInvigilator.Date := ExamDate;
+                ExamInvigilator.Unit := SuppUnits."Unit Code";
+                ExamInvigilator.Hall := LectureHall;
+                ExamInvigilator."Start Time" := ExamTimeSlot."Start Time";
+                ExamInvigilator."End Time" := ExamTimeSlot."End Time";
+                ExamInvigilator."No." := InvigilatorNo;
+                ExamInvigilator.Name := Employee."First Name" + ' ' + Employee."Last Name";
+                ExamInvigilator.Category := GetEmployeeCategory(Employee);
+                ExamInvigilator.Insert();
+            end;
+        end;
+    end;
+
     local procedure GetCourseDepartment(CourseOffering: Record "ACA-Lecturers Units"): Code[20]
     begin
         // Get department from unit setup
         CourseOffering.CalcFields("Department Code");
         exit(CourseOffering."Department Code");
+    end;
+
+    local procedure GetCourseDepartmentSupp(SuppUnits: Record "Supp. Exam Units"): Code[20]
+    begin
+        // Get department from unit setup
+        SuppUnits.CalcFields("Department Code");
+        exit(SuppUnits."Department Code");
     end;
 
     local procedure GetAvailableInvigilators(Department: Code[20];
@@ -2254,6 +2823,62 @@ codeunit 50096 "Timetable Management"
         // Check for student conflicts - students taking both exams
         StudentUnits.Reset();
         StudentUnits.SetRange(Unit, CourseOffering.Unit);
+        StudentUnits.SetRange(Semester, Semester.Code);
+
+        if StudentUnits.FindSet() then
+            repeat
+                if HasStudentExamConflict(
+                    StudentUnits."Student No.",
+                    ExamDate,
+                    ExamTimeSlot.Code,
+                    Semester.Code) then
+                    exit(true);
+            until StudentUnits.Next() = 0;
+
+        exit(false);
+    end;
+
+    local procedure HasSchedulingConflictsSupp(SuppUnits: Record "Supp. Exam Units";
+        ExamDate: Date;
+        ExamTimeSlot: Record "Exam Time Slot"): Boolean
+    var
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+        StudentUnits: Record "ACA-Student Units";
+        ProgramUnits: Record "ACA-Lecturers Units";
+        Semester: Record "ACA-Semesters";
+    begin
+        // Get semester code
+        FindSemester(SuppUnits.Semester, Semester);
+
+        // Check for program conflicts - same program/stage at same time
+        ExamTimetableEntry.Reset();
+        ExamTimetableEntry.SetRange("Exam Date", ExamDate);
+        ExamTimetableEntry.SetRange("Time Slot", ExamTimeSlot.Code);
+        ExamTimetableEntry.SetRange("Programme Code", SuppUnits.Programme);
+        ExamTimetableEntry.SetRange("Stage Code", SuppUnits."Stage Code");
+        if not ExamTimetableEntry.IsEmpty then
+            exit(true);
+
+        // Check for lecturer conflicts - same lecturer at same time
+        ExamTimetableEntry.Reset();
+        ExamTimetableEntry.SetRange("Exam Date", ExamDate);
+        ExamTimetableEntry.SetRange("Time Slot", ExamTimeSlot.Code);
+
+        if ExamTimetableEntry.FindSet() then begin
+            repeat
+                ProgramUnits.Reset();
+                ProgramUnits.SetRange(Unit, ExamTimetableEntry."Unit Code");
+                ProgramUnits.SetRange(Semester, ExamTimetableEntry.Semester);
+
+                if ProgramUnits.FindFirst() then
+                    if ProgramUnits.Lecturer = SuppUnits."Lecturer Code" then
+                        exit(true);
+            until ExamTimetableEntry.Next() = 0;
+        end;
+
+        // Check for student conflicts - students taking both exams
+        StudentUnits.Reset();
+        StudentUnits.SetRange(Unit, SuppUnits."Unit Code");
         StudentUnits.SetRange(Semester, Semester.Code);
 
         if StudentUnits.FindSet() then
@@ -2528,6 +3153,118 @@ codeunit 50096 "Timetable Management"
         Sems.Reset();
         Sems.SetRange(Code, SemesterCode);
         Sems.FindFirst();
+    end;
+
+    //Generate Supplementary timetable
+    procedure GenerateSuppTimetable(SemesterCode: Code[25])
+    var
+        Semester: Record "ACA-Semesters";
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+        CourseOffering: Record "ACA-Lecturers Units";
+        ExamTimeSlot: Record "Exam Time Slot";
+        FirstDayUnits: Record "Exam First Day Units";
+        ExamDate: Date;
+        ProgressWindow: Dialog;
+        TotalExams, CurrentExam : Integer;
+        DayOfWeek: Integer;
+        CoursesPerDay: Dictionary of [Date, Integer];
+        DayCounter: Integer;
+        SuppUnits: Record "Supp. Exam Units";
+    begin
+        FindSemester(SemesterCode, Semester);
+        Semester.TestField("Supp Start Date");
+        Semester.TestField("Supp End Date");
+
+        // Clear existing exam timetable
+        ExamTimetableEntry.Reset();
+        ExamTimetableEntry.SetRange(Semester, SemesterCode);
+        ExamTimetableEntry.SetRange("Exam Type", ExamTimetableEntry."Exam Type"::Supplementary);
+        ExamTimetableEntry.DeleteAll(true);
+
+        // Get active exam time slots for the semester
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetRange("Semester Code", SemesterCode);
+        ExamTimeSlot.SetRange(Active, true);
+        ExamTimeSlot.SetRange("Valid From Date", Semester."Supp Start Date");
+        if not ExamTimeSlot.FindSet() then
+            Error('No active Supp exam time slots defined for semester %1', SemesterCode);
+
+        // Get courses with exams
+        SuppUnits.Reset();
+        SuppUnits.SetRange(Semester, SemesterCode);
+        TotalExams := SuppUnits.Count();
+
+        ProgressWindow.Open('Scheduling Supplementary Exams #1### of #2###\' +
+                          'Current Unit: #3##################\' +
+                          'Current Date: #4##################\' +
+                          'Day: #5###');
+
+        // STEP 1: First schedule all units that must be on the first day (priority)
+        FirstDayUnits.Reset();
+        if FirstDayUnits.FindSet() then begin
+            repeat
+                SuppUnits.Reset();
+                SuppUnits.SetRange(Semester, SemesterCode);
+                SuppUnits.SetRange("Unit Code", FirstDayUnits.Unit);
+
+                if SuppUnits.FindSet() then begin
+                    repeat
+                        CurrentExam += 1;
+                        ProgressWindow.Update(1, CurrentExam);
+                        ProgressWindow.Update(2, TotalExams);
+                        ProgressWindow.Update(3, SuppUnits."Unit Code");
+                        ProgressWindow.Update(4, Semester."Exam Start Date");
+                        ProgressWindow.Update(5, 1);
+
+                        // Find appropriate slot on first day based on programme type (medical vs regular)
+                        if ScheduleExamOnFirstDaySupp(SuppUnits, Semester, ExamTimeSlot) then begin
+                            // Mark as scheduled
+                        end;
+                    until SuppUnits.Next() = 0;
+                end;
+            until FirstDayUnits.Next() = 0;
+        end;
+
+        // STEP 2: Schedule remaining units
+        DayCounter := 1; // Start from day 2
+
+        SuppUnits.Reset();
+        SuppUnits.SetRange(Semester, SemesterCode);
+
+        if SuppUnits.FindSet() then begin
+            repeat
+                // Skip units that have already been scheduled
+                if not IsExamAlreadyScheduled(SuppUnits."Unit Code", SemesterCode) then begin
+                    CurrentExam += 1;
+                    Clear(ExamDate);
+
+                    ProgressWindow.Update(1, CurrentExam);
+                    ProgressWindow.Update(2, TotalExams);
+                    ProgressWindow.Update(3, SuppUnits."Unit Code");
+
+                    // Find optimal exam date and slot based on programme type
+                    if FindOptimalExamSlotSupp(SuppUnits, Semester, ExamTimeSlot, ExamDate, CoursesPerDay, DayCounter) then begin
+                        ProgressWindow.Update(4, ExamDate);
+                        ProgressWindow.Update(5, DayCounter + 1);
+
+                        // Create exam timetable entry with appropriate room assignment
+                        // and student distribution if needed
+                        ScheduleExamWithRoomAllocationSupp(
+                            SuppUnits,
+                            ExamDate,
+                            ExamTimeSlot,
+                            Semester);
+                    end;
+                end;
+
+            until SuppUnits.Next() = 0;
+        end;
+
+        // STEP 3: Assign invigilators to all scheduled exams
+        AssignInvigilatorsToExams(SemesterCode);
+
+        ProgressWindow.Close();
+        Message('Exam timetable generation completed successfully.');
     end;
 
 }

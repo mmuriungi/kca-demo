@@ -6,7 +6,7 @@ report 50808 "Exam Timetable"
     {
         dataitem("Timetable Header"; "Timetable Header")
         {
-            RequestFilterFields = Semester, "Programme Filter", "Stage Filter", "Lecturer Filter";
+            RequestFilterFields = Semester, "Exam Type", "Programme Filter", "Stage Filter", "Lecturer Filter";
             DataItemTableView = where(Type = const(Exam));
             column(logo; CompInfo.picture)
             {
@@ -61,7 +61,7 @@ report 50808 "Exam Timetable"
                     {
 
                     }
-                    column(DayArray; DayArray[Number]+InvigilatorArray[Number])
+                    column(DayArray; DayArray[Number] + InvigilatorArray[Number])
                     {
 
                     }
@@ -84,6 +84,8 @@ report 50808 "Exam Timetable"
                     InvigilatorSetup: Record "Exam Invigilators";
                     InvigilatorsTxt: Text;
                 begin
+                    if "ACA-Lecturer Halls Setup"."Hall Category" in [/* "ACA-Lecturer Halls Setup"."Hall Category"::Lab,  */"ACA-Lecturer Halls Setup"."Hall Category"::Online] then
+                        CurrReport.Skip();
                     Separator := Thelper.CRLFSeparator();
                     Clear(i);
                     Clear(PreviousSlot);
@@ -111,11 +113,13 @@ report 50808 "Exam Timetable"
                             InvigilatorSetup.SetRange(Semester, TEntry.Semester);
                             InvigilatorSetup.SetRange("Date", TEntry."Exam Date");
                             InvigilatorSetup.SetRange("Start Time", TEntry."Start Time");
-                            if InvigilatorSetup.FindSet() then
-                                InvigilatorsTxt := Separator + 'Invigilators: ' + Separator;
-                            repeat
-                                InvigilatorsTxt += Separator + InvigilatorSetup.Name;
-                            until InvigilatorSetup.Next() = 0;
+                            if InvigilatorSetup.FindSet() then begin
+                                InvigilatorsTxt := Separator;
+                                InvigilatorsTxt += Separator + 'Invigilators: ';
+                                repeat
+                                    InvigilatorsTxt += Separator + InvigilatorSetup.Name;
+                                until InvigilatorSetup.Next() = 0;
+                            end;
                             // If this is a new slot or lecture hall, increment the index
                             if PreviousSlot <> CurrentSlot then begin
                                 i += 1;

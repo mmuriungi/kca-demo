@@ -61,6 +61,7 @@ page 50963 "Process Exams Central Gen."
                 PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
+                Visible = false;
                 Caption = 'Process Senate';
                 trigger OnAction()
                 var
@@ -1948,6 +1949,7 @@ page 50963 "Process Exams Central Gen."
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                Caption = 'Process Marks';
 
                 trigger OnAction()
                 var
