@@ -2,7 +2,7 @@ table 50124 "Invigilator Setup"
 {
     Caption = 'Invigilator Setup';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "First 100"; Integer)

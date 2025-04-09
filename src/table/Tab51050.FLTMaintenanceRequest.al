@@ -247,15 +247,15 @@ table 51050 "FLT Maintenance Request."
 
             DataClassification = ToBeClassified;
         }
-        field(52;"Service done By";code[50])
+        field(52; "Service done By"; code[50])
         {
 
         }
-        field(53;"Supplier Name";code[50])
+        field(53; "Supplier Name"; code[50])
         {
 
         }
-       
+
 
     }
 

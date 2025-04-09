@@ -1,4 +1,4 @@
-page 51282 "Venue Booking List1"
+page 51282 "Venue Booking List"
 {
     CardPageID = "Venue Booking Header";
     ModifyAllowed = false;

@@ -46,7 +46,7 @@ table 50123 "Exam Invigilators"
     }
     keys
     {
-        key(PK; Semester, Unit, "No.", Date,Hall)
+        key(PK; Semester, Unit, "No.", Date, Hall)
         {
             Clustered = true;
         }

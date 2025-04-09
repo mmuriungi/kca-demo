@@ -40,7 +40,7 @@ page 51043 "ACA-LectureHalls Setup"
                 {
                     ApplicationArea = All;
                 }
-                field(Floor;Rec.Floor)
+                field(Floor; Rec.Floor)
                 {
                     ApplicationArea = All;
                 }

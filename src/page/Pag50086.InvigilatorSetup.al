@@ -4,7 +4,7 @@ page 50086 "Invigilator Setup"
     Caption = 'Invigilator Setup';
     PageType = Card;
     SourceTable = "Invigilator Setup";
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 50086 "Invigilator Setup"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("First 100"; Rec."First 100")
                 {
                     ToolTip = 'Specifies the value of the First 100 field.', Comment = '%';

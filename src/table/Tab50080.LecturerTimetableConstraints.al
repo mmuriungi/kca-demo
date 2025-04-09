@@ -12,7 +12,7 @@ table 50080 "Lecturer Timetable Constraints"
         field(2; "Lecturer No."; Code[25])
         {
             Caption = 'Lecturer No.';
-            TableRelation="HRM-Employee C" where (Lecturer=const(true));
+            TableRelation = "HRM-Employee C" where(Lecturer = const(true));
         }
         field(3; "Constraint Type"; Option)
         {
@@ -26,7 +26,7 @@ table 50080 "Lecturer Timetable Constraints"
     }
     keys
     {
-        key(PK; Semester,"Lecturer No.","Constraint Type","Day of The week")
+        key(PK; Semester, "Lecturer No.", "Constraint Type", "Day of The week")
         {
             Clustered = true;
         }

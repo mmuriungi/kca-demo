@@ -109,6 +109,6 @@ table 51015 "Utility Bill"
     var
         Tenant: Record Vendor;
         EstatesMgnt: Codeunit "Estates Management";
-        E: Record Employee;
+        E: Record "HRM-Employee C";
 
 }

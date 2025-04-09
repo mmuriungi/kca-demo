@@ -5,7 +5,7 @@ page 50080 "Lecturer Timetable Constraints"
     PageType = List;
     SourceTable = "Lecturer Timetable Constraints";
     UsageCategory = Administration;
-    
+
     layout
     {
         area(Content)

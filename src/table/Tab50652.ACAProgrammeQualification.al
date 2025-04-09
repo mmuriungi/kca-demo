@@ -92,6 +92,6 @@ table 50652 "ACA-Programme Qualification"
     var
         Text000: Label 'You cannot delete employee qualification information if there are comments associated with it.';
         Qualification: Record Qualification;
-        Employee: Record Employee;
+        Employee: Record "HRM-Employee C";
 }
 

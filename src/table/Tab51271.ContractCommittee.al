@@ -42,10 +42,10 @@ table 51271 "Contract Committee"
         {
             Caption = 'Employee No';
             DataClassification = ToBeClassified;
-            TableRelation = Employee."No.";
+            TableRelation = "HRM-Employee C"."No.";
             trigger OnValidate()
             var
-                TbcomExt: Record Employee;
+                TbcomExt: Record "HRM-Employee C";
             begin
                 if TbcomExt.Get(No) then begin
                     // TbcomExt.TestField("User ID");

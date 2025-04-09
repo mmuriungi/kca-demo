@@ -52,7 +52,7 @@ page 50076 "Student Portal Def/Withdrawal"
                     Caption = 'Academic Year';
                     Editable = false;
                 }
-                field(Semester; Semester)
+                field(Semester; Rec.Semester)
                 {
                     ApplicationArea = All;
                     Caption = 'Semester';
@@ -64,7 +64,7 @@ page 50076 "Student Portal Def/Withdrawal"
                     Caption = 'Programme Code';
                     Editable = false;
                 }
-                field(Stage; Stage)
+                field(Stage; Rec.Stage)
                 {
                     ApplicationArea = All;
                     Caption = 'Stage';
@@ -81,7 +81,7 @@ page 50076 "Student Portal Def/Withdrawal"
                     Caption = 'End Date';
                     Visible = RequestType = RequestType::Deferment;
                 }
-                field(Reason; Reason)
+                field(Reason; Rec.Reason)
                 {
                     ApplicationArea = All;
                     Caption = 'Reason';
@@ -120,10 +120,10 @@ page 50076 "Student Portal Def/Withdrawal"
                 begin
                     if RequestType = RequestType::Deferment then
                         Result := WebPortals.CreateStudentDefermentRequest(
-                            StudentNo, StartDate, EndDate, AcademicYear, Semester, ProgrammeCode, Stage, Reason)
+                            StudentNo, StartDate, EndDate, AcademicYear, Rec.Semester, ProgrammeCode, Rec.Stage, Rec.Reason)
                     else
                         Result := WebPortals.CreateStudentWithdrawalRequest(
-                            StudentNo, StartDate, AcademicYear, Semester, ProgrammeCode, Stage, Reason);
+                            StudentNo, StartDate, AcademicYear, Rec.Semester, ProgrammeCode, Rec.Stage, Rec.Reason);
 
                     Message(Result);
                     CurrPage.Update(false);
@@ -188,7 +188,7 @@ page 50076 "Student Portal Def/Withdrawal"
         YearSemesterParts := YearSemesterInfo.Split('::');
         if YearSemesterParts.Count >= 2 then begin
             AcademicYear := YearSemesterParts.Get(1);
-            Semester := YearSemesterParts.Get(2);
+            Rec.Semester := YearSemesterParts.Get(2);
         end;
 
         // Get student's programme and stage
@@ -196,7 +196,7 @@ page 50076 "Student Portal Def/Withdrawal"
         ProgrammeStageParts := ProgrammeStageInfo.Split('::');
         if ProgrammeStageParts.Count >= 2 then begin
             ProgrammeCode := ProgrammeStageParts.Get(1);
-            Stage := ProgrammeStageParts.Get(2);
+            Rec.Stage := ProgrammeStageParts.Get(2);
         end;
 
         // Get student's current status
@@ -212,7 +212,7 @@ page 50076 "Student Portal Def/Withdrawal"
         RequestType := RequestType::Deferment;
         StartDate := 0D;
         EndDate := 0D;
-        Reason := '';
+        Rec.Reason := '';
     end;
 
     var

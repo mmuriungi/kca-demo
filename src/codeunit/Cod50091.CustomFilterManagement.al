@@ -326,7 +326,7 @@ codeunit 50091 "Custom Filter Management"
         exit(GetSelectionFilter(RecRef, Campaign.FieldNo("No.")));
     end;
 
-    procedure GetSelectionFilterForEmployee(var Employee: Record Employee): Text
+    procedure GetSelectionFilterForEmployee(var Employee: Record "HRM-Employee C"): Text
     var
         RecRef: RecordRef;
     begin

@@ -2,7 +2,7 @@ table 50125 "Aca-Programmes_Buffer"
 {
     Caption = 'Aca-Programmes_Buffer';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; User_Id; Code[50])
@@ -16,7 +16,7 @@ table 50125 "Aca-Programmes_Buffer"
     }
     keys
     {
-        key(PK; User_Id,"Programme Code")
+        key(PK; User_Id, "Programme Code")
         {
             Clustered = true;
         }

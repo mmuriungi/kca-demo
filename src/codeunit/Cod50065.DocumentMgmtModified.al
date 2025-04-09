@@ -826,8 +826,8 @@ codeunit 50065 "Document Mgmt Modified"
         DeleteAttachedDocuments(RecRef);
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Employee", 'OnAfterDeleteEvent', '', false, false)]
-    local procedure DeleteAttachedDocumentsOnAfterDeleteEmployee(var Rec: Record Employee; RunTrigger: Boolean)
+    [EventSubscriber(ObjectType::Table, Database::"HRM-Employee C", 'OnAfterDeleteEvent', '', false, false)]
+    local procedure DeleteAttachedDocumentsOnAfterDeleteEmployee(var Rec: Record "HRM-Employee C"; RunTrigger: Boolean)
     var
         RecRef: RecordRef;
     begin
@@ -883,8 +883,8 @@ codeunit 50065 "Document Mgmt Modified"
         MoveAttachmentsWithinSameRecordType(MoveFromRecRef, MoveToRecRef);
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Employee", 'OnAfterRenameEvent', '', false, false)]
-    local procedure MoveAttachedDocumentsOnAfterRenameEmployee(var Rec: Record Employee; var xRec: Record Employee; RunTrigger: Boolean)
+    [EventSubscriber(ObjectType::Table, Database::"HRM-Employee C", 'OnAfterRenameEvent', '', false, false)]
+    local procedure MoveAttachedDocumentsOnAfterRenameEmployee(var Rec: Record "HRM-Employee C"; var xRec: Record "HRM-Employee C"; RunTrigger: Boolean)
     var
         MoveFromRecRef: RecordRef;
         MoveToRecRef: RecordRef;
