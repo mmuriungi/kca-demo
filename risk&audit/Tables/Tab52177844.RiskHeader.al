@@ -898,9 +898,9 @@ table 51334 "Risk Header"
 
     procedure ValidateShortcutDimCode(FieldNumber: Integer; var ShortcutDimCode: Code[20])
     begin
-        DimMgt.ValidateDimValueCode(FieldNumber, ShortcutDimCode);
-        DimMgt.SaveDefaultDim(DATABASE::Employee, "No.", FieldNumber, ShortcutDimCode);
-        MODIFY;
+    //     DimMgt.ValidateDimValueCode(FieldNumber, ShortcutDimCode);
+    //     DimMgt.SaveDefaultDim(DATABASE::Employee, "No.", FieldNumber, ShortcutDimCode);
+    //  //   MODIFY;
     end;
 
     local procedure GetChampionUserID()

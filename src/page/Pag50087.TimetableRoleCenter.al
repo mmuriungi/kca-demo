@@ -171,6 +171,13 @@ page 50087 "Timetable Role Center"
                     RunObject = Report "Class Timetable Report";
                     ApplicationArea = All;
                 }
+                action("Exam Timetable Report")
+                {
+                    Caption = 'Exam Timetable Report';
+                    Image = Report;
+                    RunObject = Report "Exam Timetable";
+                    ApplicationArea = All;
+                }
 
             }
 

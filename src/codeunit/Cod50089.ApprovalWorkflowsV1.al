@@ -99,7 +99,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelVenueBookingRequestTxt: Label 'An Approval request for Venue Booking is Cancelled';
         RunWorkflowOnSendVenueBookingForApprovalCode: Label 'RUNWORKFLOWONSENDVENUEBOOKINGFORAPPROVAL';
         RunWorkflowOnCancelVenueBookingForApprovalCode: Label 'RUNWORKFLOWONCANCELVENUEBOOKINGFORAPPROVAL';
-
+        //Audit Header
+        OnSendAuditHeaderRequestTxt: Label 'Approval request for Audit Header is requested';
+        OnCancelAuditHeaderRequestTxt: Label 'An Approval request for Audit Header is Cancelled';
+        RunWorkflowOnSendAuditHeaderForApprovalCode: Label 'RUNWORKFLOWONSENDAUDITHEADERFORAPPROVAL';
+        RunWorkflowOnCancelAuditHeaderForApprovalCode: Label 'RUNWORKFLOWONCANCELAUDITHEADERFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -147,6 +151,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendSupervisionTrackingForApprovalCode));
             Database::"Gen-Venue Booking":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendVenueBookingForApprovalCode));
+            Database::"Audit Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendAuditHeaderForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -239,6 +245,9 @@ codeunit 50089 "Approval Workflows V1"
         //Venue Booking
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendVenueBookingForApprovalCode, Database::"Gen-Venue Booking", OnSendVenueBookingRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelVenueBookingForApprovalCode, Database::"Gen-Venue Booking", OnCancelVenueBookingRequestTxt, 0, false);
+        //Audit Header
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendAuditHeaderForApprovalCode, Database::"Audit Header", OnSendAuditHeaderRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelAuditHeaderForApprovalCode, Database::"Audit Header", OnCancelAuditHeaderRequestTxt, 0, false);
 
     end;
 
@@ -294,6 +303,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendSupervisionTrackingForApprovalCode, Variant);
             Database::"Gen-Venue Booking":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendVenueBookingForApprovalCode, Variant);
+            Database::"Audit Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendAuditHeaderForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -346,6 +357,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelSupervisionTrackingForApprovalCode, Variant);
             Database::"Gen-Venue Booking":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelVenueBookingForApprovalCode, Variant);
+            Database::"Audit Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelAuditHeaderForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -375,6 +388,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
+        AuditHeader: Record "Audit Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -510,6 +524,13 @@ codeunit 50089 "Approval Workflows V1"
                     VenueBooking.Modify();
                     Handled := true;
                 end;
+            Database::"Audit Header":
+                begin
+                    RecRef.SetTable(AuditHeader);
+                    AuditHeader.Validate("Status", AuditHeader.Status::"Pending Approval");
+                    AuditHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -535,6 +556,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
+        AuditHeader: Record "Audit Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -674,6 +696,13 @@ codeunit 50089 "Approval Workflows V1"
                     VenueBooking.Modify();
                     IsHandled := true;
                 end;
+            Database::"Audit Header":
+                begin
+                    RecRef.SetTable(AuditHeader);
+                    AuditHeader.Validate(Status, AuditHeader.Status::"Pending Approval");
+                    AuditHeader.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -699,6 +728,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
+        AuditHeader: Record "Audit Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -796,6 +826,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(VenueBooking);
                     ApprovalEntryArgument."Document No." := VenueBooking."Booking Id";
                 end;
+            Database::"Audit Header":
+                begin
+                    RecRef.SetTable(AuditHeader);
+                    ApprovalEntryArgument."Document No." := AuditHeader."No.";
+                end;
         end;
     end;
 
@@ -826,6 +861,7 @@ codeunit 50089 "Approval Workflows V1"
         DefermentWithdrawalMgmt: Codeunit "Student Def_Withdrawal Mgmt";
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
+        AuditHeader: Record "Audit Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -965,6 +1001,13 @@ codeunit 50089 "Approval Workflows V1"
                     VenueBooking.Modify();
                     Handled := true;
                 end;
+            Database::"Audit Header":
+                begin
+                    RecRef.SetTable(AuditHeader);
+                    AuditHeader.Validate(Status, AuditHeader.Status::Released);
+                    AuditHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -990,6 +1033,7 @@ codeunit 50089 "Approval Workflows V1"
         StudentDefermentWithdrawal: Record "Student Deferment/Withdrawal";
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
+        AuditHeader: Record "Audit Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -1129,6 +1173,13 @@ codeunit 50089 "Approval Workflows V1"
                         VenueBooking.Modify(true);
                     end;
                 end;
+            Database::"Audit Header":
+                begin
+                    if AuditHeader.Get(ApprovalEntry."Document No.") then begin
+                        AuditHeader.Status := AuditHeader.Status::Open;
+                        AuditHeader.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -1152,6 +1203,7 @@ codeunit 50089 "Approval Workflows V1"
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
         VenueBooking: Record "Gen-Venue Booking";
+        AuditHeader: Record "Audit Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -1268,6 +1320,13 @@ codeunit 50089 "Approval Workflows V1"
                     VenueBooking.Modify();
                     Variant := VenueBooking;
                 end;
+            Database::"Audit Header":
+                begin
+                    RecRef.SetTable(AuditHeader);
+                    AuditHeader.Validate(Status, AuditHeader.Status::"Pending Approval");
+                    AuditHeader.Modify();
+                    Variant := AuditHeader;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
 
@@ -1293,6 +1352,7 @@ codeunit 50089 "Approval Workflows V1"
         SpecialExams: Record "Aca-Special Exams Details";
         ItemDisposalHeader: Record "Item Disposal Header";
         VenueBooking: Record "Gen-Venue Booking";
+        AuditHeader: Record "Audit Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -1408,6 +1468,13 @@ codeunit 50089 "Approval Workflows V1"
                     VenueBooking.Validate(Status, VenueBooking.Status::"Pending Approval");
                     VenueBooking.Modify();
                     Variant := VenueBooking;
+                end;
+            Database::"Audit Header":
+                begin
+                    RecRef.SetTable(AuditHeader);
+                    AuditHeader.Validate(Status, AuditHeader.Status::"Pending Approval");
+                    AuditHeader.Modify();
+                    Variant := AuditHeader;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
