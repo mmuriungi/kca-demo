@@ -3899,7 +3899,7 @@ Codeunit 61106 webportals
     end;
 
 
-  
+
 
 
     procedure GetProfilePictureStudent(StudentNo: Text) BaseImage: Text
@@ -11087,7 +11087,7 @@ Codeunit 61106 webportals
         if Committee.FindSet() then;
     end;
     #endregion
-    #region Guest Registration
+    #region Security
     procedure RegisterGuest(name: Text; reason: Text; idno: Code[20]; phoneno: Code[20]; vehicleregno: Code[20]; timein: Time; isStaff: Boolean) msg: boolean
     var
         Guest: Record "Guest Registration";
@@ -11104,7 +11104,8 @@ Codeunit 61106 webportals
         Guest.Insert(true);
         msg := true;
     end;
-procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; timeout: Time; mileageout: integer; driver: Text; gateofficer: Text) msg: boolean
+
+    procedure RegisterVehicleOutMovement(vehicleno: Code[20]; destination: Text; timeout: Time; mileageout: integer; driver: Text; gateofficer: Text) msg: boolean
     var
         VehicleMovement: Record "Vehicle Daily Movement";
     begin
@@ -11119,13 +11120,14 @@ procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; time
         VehicleMovement.Insert(true);
         msg := true;
     end;
-    procedure RegisterVehicleInMovement(entryno:integer;datein:Date;  timein: Time; milagein: integer) msg: boolean
+
+    procedure RegisterVehicleInMovement(entryno: integer; datein: Date; timein: Time; milagein: integer) msg: boolean
     var
         VehicleMovement: Record "Vehicle Daily Movement";
     begin
         VehicleMovement.Reset;
         VehicleMovement.SetRange("Entry No.", entryno);
-        if VehicleMovement.Find('-')then begin  
+        if VehicleMovement.Find('-') then begin
             VehicleMovement."Date In" := datein;
             VehicleMovement."Time In" := timein;
             VehicleMovement."Milage In" := milagein;
@@ -11133,6 +11135,7 @@ procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; time
             msg := true;
         end;
     end;
+
     procedure GetTodayGuests() msg: Text
     var
         Guest: Record "Guest Registration";
@@ -11163,7 +11166,8 @@ procedure RegisterVehicleOutMovement(vehicleno:Code[20]; destination: Text; time
         JArray.WriteTo(JsTxt);
         msg := JsTxt;
     end;
-procedure GetVehicleMovemengt() msg: Text
+
+    procedure GetVehicleMovemengt() msg: Text
     var
         VehicleMovement: Record "Vehicle Daily Movement";
         JObj: JsonObject;
@@ -11197,6 +11201,7 @@ procedure GetVehicleMovemengt() msg: Text
         JArray.WriteTo(JsTxt);
         msg := JsTxt;
     end;
+
     procedure MarkGuestTimeOut(entryNo: Integer; timeout: Time) msg: Boolean
     var
         Guest: Record "Guest Registration";
@@ -11209,9 +11214,10 @@ procedure GetVehicleMovemengt() msg: Text
             msg := true;
         end;
     end;
-    procedure IncidenceReport(accused: Text;accuser:Text;accusedphone:code[20];accusedId:Code[20];accusedresidence:Text; natureofcase:Text; category:option; accusedtype:option;forwardedto:option;description:Text) msg: Boolean
-    var 
-    IncidentReport: Record "Incident Report";
+
+    procedure IncidenceReport(accused: Text; accuser: Text; accusedphone: code[20]; accusedId: Code[20]; accusedresidence: Text; natureofcase: Text; category: option; accusedtype: option; forwardedto: option; description: Text) msg: Boolean
+    var
+        IncidentReport: Record "Incident Report";
     begin
         IncidentReport.Init;
         IncidentReport."Accused Name" := accused;
@@ -11229,9 +11235,10 @@ procedure GetVehicleMovemengt() msg: Text
         IncidentReport.Insert(true);
         msg := true;
     end;
+
     procedure GetIncidentsReported() msg: Text
     var
-    IncidentReport: Record "Incident Report";
+        IncidentReport: Record "Incident Report";
         JObj: JsonObject;
         JsTxt: Text;
         JArray: JsonArray;
@@ -11257,6 +11264,73 @@ procedure GetVehicleMovemengt() msg: Text
                 JObj.Add('Status', Format(IncidentReport.Status));
                 JArray.Add(JObj);
             until IncidentReport.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        msg := JsTxt;
+    end;
+    #endregion
+    #region Repair And Maintenance
+    procedure RequestRepair(staffno: Code[20]; facility: Code[20]; building: Text; email: Text; phoneno: Text; description: Text) msg: Boolean
+    var
+        RepairRequest: Record "Repair Request";
+        RepairRequestLines: Record "Repair Request Lines";
+        RepairTypes: Record "Type of Repair";
+        RepairMaintenance: Record "Maintenance Request";
+    begin
+        RepairRequest.Init;
+        RepairRequest."Facility No." := facility;
+        RepairRequest.Validate("Facility No.");
+        RepairRequest.Requester := staffno;
+        RepairRequest.Validate(Requester);
+        RepairRequest."E-mail" := email;
+        RepairRequest."Phone No." := phoneno;
+        RepairRequest.Location := building;
+        RepairRequest."Repair Description" := description;
+        RepairRequest."Status" := RepairRequest."Status"::Open;
+        RepairRequest.Insert(true);
+        msg := True;
+    end;
+
+    procedure GetRepairReqquests(staffno: Code[20]) msg: Text
+    var
+        RepairRequest: Record "Repair Request";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        RepairRequest.Reset();
+        RepairRequest.SetRange(RepairRequest.Requester, staffno);
+        RepairRequest.SetCurrentKey("Request Date");
+        RepairRequest.Ascending(false);
+        if RepairRequest.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('RequestNo', RepairRequest."No.");
+                JObj.Add('Facility', RepairRequest."Facility Description");
+                JObj.Add('Date Requested', Format(RepairRequest."Request Date") );
+                JObj.Add('Status', Format(RepairRequest.Status));
+                JArray.Add(JObj);
+            until RepairRequest.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        msg := JsTxt;
+    end;
+    procedure GetRepairFacilities() msg: Text
+    var
+        FA: Record "Fixed Asset";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        FA.Reset();
+        FA.SetRange("FA Subclass Code", 'BUILDINGS');
+        if FA.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('No', FA."No.");
+                JObj.Add('Description', FA.Description);
+                JArray.Add(JObj);
+            until FA.Next() = 0;
         end;
         JArray.WriteTo(JsTxt);
         msg := JsTxt;

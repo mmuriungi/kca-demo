@@ -134,6 +134,40 @@ table 51007 "Repair Request"
         {
             OptionMembers = " ",Normal,Special;
         }
+        field(19; "Requester"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "HRM-Employee C"."No.";
+            NotBlank = true;
+
+            trigger OnValidate()
+            var
+                hrm: Record "HRM-Employee C";
+                FullName: Text[100];
+            begin
+                if hrm.Get("Requester") then begin
+                    // Concatenate First Name, Middle Name, and Last Name with spaces
+                    FullName := hrm."First Name";
+
+                    if not IsNullOrEmpty(hrm."Middle Name") then
+                        FullName := FullName + ' ' + hrm."Middle Name";
+
+                    if not IsNullOrEmpty(hrm."Last Name") then
+                        FullName := FullName + ' ' + hrm."Last Name";
+
+                    rec."Requester Name" := FullName;
+                    //rec."E-Mail" := hrm."Company E-Mail";
+                    //rec."Phone No." := hrm."Cellular Phone Number";
+
+                    // No need to call rec.Modify() in OnValidate trigger
+                end;
+            end;
+        }
+        field(20; "Requester Name"; code[60])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
     }
     keys
     {
@@ -154,6 +188,11 @@ table 51007 "Repair Request"
             "Request Date" := Today;
             "User ID" := UserId;
         end;
+    end;
+
+    procedure IsNullOrEmpty(Value: Text): Boolean;
+    begin
+        exit(Value = '');
     end;
 
     procedure CalPeriods()
