@@ -1,4 +1,4 @@
-page 50459 "HRM-Advertised Job List"
+page 50019 "HRM-Advertised Job List"
 {
     CardPageID = "HRM-Advertised Job Card";
     PageType = List;

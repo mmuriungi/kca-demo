@@ -1,4 +1,4 @@
-page 50053 "Exam Time Slot Card"
+page 50028 "Exam Time Slot Card"
 {
     PageType = Card;
     ApplicationArea = All;

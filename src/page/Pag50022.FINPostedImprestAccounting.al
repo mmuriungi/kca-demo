@@ -1,4 +1,4 @@
-page 50022 "FIN-Posted Imprest Accounting"
+page 50057 "FIN-Posted Imprest Accounting"
 {
     CardPageID = "FIN-Posted Travel Advs. Acc.";
     PageType = List;

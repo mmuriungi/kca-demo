@@ -1,4 +1,4 @@
-page 50019 "FIN-Payment Types"
+page 50029 "FIN-Payment Types"
 {
     PageType = Worksheet;
     SourceTable = "FIN-Receipts and Payment Types";

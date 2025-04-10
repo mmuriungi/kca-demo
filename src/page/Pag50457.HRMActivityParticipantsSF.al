@@ -1,4 +1,4 @@
-page 50457 "HRM-Activity Participants SF"
+page 50021 "HRM-Activity Participants SF"
 {
     Caption = 'Activity Participants';
     PageType = Listpart;
