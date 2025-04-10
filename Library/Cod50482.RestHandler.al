@@ -66,5 +66,10 @@ codeunit 50482 "Rest Handler"
     begin
         exit(Base64.ToBase64(s));
     end;
+
+    procedure testRestApi(testNo: code[25]; testData1: text[250]; testData2: Text[250]): text
+    begin
+        exit(StrSubstNo('{"testNo":"%1","testData1":"%2","testData2":"%3"}', testNo, testData1, testData2));
+    end;
 }
 
