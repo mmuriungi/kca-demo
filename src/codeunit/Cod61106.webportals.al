@@ -11270,7 +11270,7 @@ Codeunit 61106 webportals
     end;
     #endregion
     #region Repair And Maintenance
-    procedure RequestRepair(staffno: Code[20]; facility: Code[20]; building: Text; email: Text; phoneno: Text; description: Text) msg: Boolean
+    procedure RequestRepair(staffno: Code[20]; facility: Code[20]; building: Text; email: Text; phoneno: Text; description: Text) msg: Text
     var
         RepairRequest: Record "Repair Request";
         RepairRequestLines: Record "Repair Request Lines";
@@ -11288,10 +11288,10 @@ Codeunit 61106 webportals
         RepairRequest."Repair Description" := description;
         RepairRequest."Status" := RepairRequest."Status"::Open;
         RepairRequest.Insert(true);
-        msg := True;
+        msg := RepairRequest."No.";
     end;
 
-    procedure GetRepairReqquests(staffno: Code[20]) msg: Text
+    procedure GetRepairRequests(staffno: Code[20]) msg: Text
     var
         RepairRequest: Record "Repair Request";
         JObj: JsonObject;
@@ -11357,7 +11357,7 @@ Codeunit 61106 webportals
         msg := JsTxt;
     end;
 
-    procedure AddRepairRepairLine(reqno: Code[20]; type: Code[20]) msg: Text
+    procedure AddRepairRepairLine(reqno: Code[20]; type: Code[20]) msg: Boolean
     var
         RepairLines: Record "Repair Request Lines";
     begin
@@ -11366,6 +11366,7 @@ Codeunit 61106 webportals
         RepairLines."Repair Types" := type;
         RepairLines.Validate("Repair Types");
         RepairLines.Insert(True);
+        msg := true;
     end;
 
     procedure RemoveRepairLines(lino: Integer) msg: boolean
@@ -11400,6 +11401,30 @@ Codeunit 61106 webportals
         end;
         JArray.WriteTo(JsTxt);
         msg := JsTxt;
+    end;
+
+    procedure RepairTypeAdded(reqno: Code[20]) msg: Boolean
+    var
+        RepairLines: Record "Repair Request Lines";
+    begin
+        RepairLines.Reset;
+        RepairLines.SetRange("No.", reqno);
+        if RepairLines.Find('-') then begin
+            msg := true;
+        end;
+    end;
+
+    procedure SubmitRepairRequest(reqno: Code[20]) msg: Boolean
+    var
+        RepairRequest: Record "Repair Request";
+    begin
+        RepairRequest.Reset;
+        RepairRequest.SetRange("No.", reqno);
+        if RepairRequest.Find('-') then begin
+            RepairRequest.Status := RepairRequest.Status::Pending;
+            RepairRequest.Modify;
+            msg := true;
+        end;
     end;
     #endregion
 
