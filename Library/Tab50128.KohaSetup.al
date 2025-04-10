@@ -2,7 +2,7 @@ table 50128 "Koha Setup"
 {
     Caption = 'Koha Setup';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; Pk; Code[25])

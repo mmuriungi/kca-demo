@@ -444,7 +444,7 @@ table 50213 "HRM-Employee C"
         field(47; "Employee No. Filter"; Code[20])
         {
             FieldClass = FlowFilter;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(49; "Fax Number"; Text[30])
         {
@@ -583,7 +583,7 @@ table 50213 "HRM-Employee C"
         }
         field(57; "Full / Part Time"; Option)
         {
-            OptionMembers = " ", "Full Time", "Part Time", Contract;
+            OptionMembers = " ","Full Time","Part Time",Contract;
 
             trigger OnValidate()
             begin
@@ -2319,6 +2319,14 @@ table 50213 "HRM-Employee C"
         {
             OptionMembers = " ","Internal","External";
         }
+        //"Library Username"
+        field(63217; "Library Username"; Text[50])
+        {
+        }
+        //"Library Patron ID"
+        field(63218; "Library Patron ID"; Integer)
+        {
+        }
     }
 
     keys
@@ -2578,7 +2586,7 @@ table 50213 "HRM-Employee C"
         CLen: DateFormula;
         UserSetup: Record "User Setup";
         CDate: Date;
-        Res: Record Employee;
+        Res: Record "HRM-Employee C";
         EmployeeSalespersonUpdate: Codeunit "Employee/Salesperson Update";
         HREmp: Record "HRM-Employee C";
         Country: Record "Country/Region";

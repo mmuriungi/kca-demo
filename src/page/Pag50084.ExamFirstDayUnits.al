@@ -4,7 +4,7 @@ page 50084 "Exam First Day Units"
     Caption = 'Exam First Day Units';
     PageType = List;
     SourceTable = "Exam First Day Units";
-    UsageCategory = Lists;    
+    UsageCategory = Lists;
     layout
     {
         area(Content)

@@ -28,7 +28,7 @@ page 51412 "FLT-Fuel Req."
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Vendor(Dealer)";Rec."Vendor(Dealer)")
+                field("Vendor(Dealer)"; Rec."Vendor(Dealer)")
                 {
 
                 }
@@ -246,25 +246,25 @@ page 51412 "FLT-Fuel Req."
                     end;
                 }
 
-                 action(Attachments2)
-            {
-                ApplicationArea = All;
-                Caption = 'Fuel Receipts Attachments';
-                Promoted = true;
-                PromotedCategory = process;
-                PromotedIsBig = true;
+                action(Attachments2)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Fuel Receipts Attachments';
+                    Promoted = true;
+                    PromotedCategory = process;
+                    PromotedIsBig = true;
 
-                trigger OnAction()
-                var
-                    RecRef: RecordRef;
-                    DocumentAttachment: Page "Document Attachment Custom";
-                begin
-                    Clear(DocumentAttachment);
-                    RecRef.GETTABLE(Rec);
-                    DocumentAttachment.OpenForRecReference(RecRef);
-                    DocumentAttachment.RUNMODAL;
-                end;
-            }
+                    trigger OnAction()
+                    var
+                        RecRef: RecordRef;
+                        DocumentAttachment: Page "Document Attachment Custom";
+                    begin
+                        Clear(DocumentAttachment);
+                        RecRef.GETTABLE(Rec);
+                        DocumentAttachment.OpenForRecReference(RecRef);
+                        DocumentAttachment.RUNMODAL;
+                    end;
+                }
 
                 action(sendApproval)
                 {

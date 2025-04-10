@@ -61,7 +61,7 @@ table 51285 "HelpDesk Header"
         field(12; "Assigned Personel"; Code[20])
         {
             Caption = 'Assigned Personnel';
-            TableRelation = Employee."No.";  // Assuming you have an Employee table
+            TableRelation = "HRM-Employee C"."No.";  // Assuming you have an Employee table
         }
         field(13; "Assigned Personel Name"; Text[150])
         {

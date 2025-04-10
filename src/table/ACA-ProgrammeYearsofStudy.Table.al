@@ -4,20 +4,20 @@ Table 77700 "ACA-Programme Years of Study"
 
     fields
     {
-        field(1;"Programme Code";Code[20])
+        field(1; "Programme Code"; Code[20])
         {
         }
-        field(2;"Year of Study";Integer)
+        field(2; "Year of Study"; Integer)
         {
         }
-        field(3;"Is FInal Year of Study";Boolean)
+        field(3; "Is FInal Year of Study"; Boolean)
         {
         }
     }
 
     keys
     {
-        key(Key1;"Programme Code","Year of Study")
+        key(Key1; "Programme Code", "Year of Study")
         {
             Clustered = true;
         }

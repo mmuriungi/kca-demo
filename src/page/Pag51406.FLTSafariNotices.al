@@ -113,7 +113,7 @@ page 51406 "FLT-Safari Notices"
     {
         area(processing)
         {
-             action(Attachments2)
+            action(Attachments2)
             {
                 ApplicationArea = All;
                 Caption = 'Applicant Attachments';

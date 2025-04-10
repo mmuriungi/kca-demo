@@ -17,7 +17,7 @@ page 52076 "Vehicle Daily Movement Card"
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
                 }
-                field("Date"; Rec."Date")
+                field("Date"; Rec."Date Out")
                 {
                     ToolTip = 'Specifies the value of the Date field.', Comment = '%';
                 }

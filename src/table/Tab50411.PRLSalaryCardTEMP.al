@@ -119,7 +119,7 @@ table 50411 "PRL-Salary Card TEMP"
         field(27; "Posting Group"; Code[20])
         {
             NotBlank = false;
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
     }
 

@@ -51,7 +51,7 @@ table 50166 "Student Leave"
         field(8; "Approved By"; Code[20])
         {
             Caption = 'Approved By';
-            TableRelation = Employee;
+            TableRelation = "HRM-Employee C";
         }
         field(9; "Approval Date"; Date)
         {
@@ -99,11 +99,11 @@ table 50166 "Student Leave"
     }
     trigger OnInsert()
     begin
-        if "Leave No."='' then begin
+        if "Leave No." = '' then begin
 
-        clubsetup.Get();
-        ClubSetup.TestField("Leave Nos");
-        NoseriesMgmt.InitSeries(clubsetup."Leave Nos", xRec."No. Series", 0D, Rec."Leave No.", Rec."No. Series");
+            clubsetup.Get();
+            ClubSetup.TestField("Leave Nos");
+            NoseriesMgmt.InitSeries(clubsetup."Leave Nos", xRec."No. Series", 0D, Rec."Leave No.", Rec."No. Series");
         end;
     end;
 

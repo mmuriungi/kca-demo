@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -53,7 +53,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Compname.Value</Value>
+                                  <Value>=Fields!Compname.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -100,7 +100,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!FacDesc.Value</Value>
+                                  <Value>=Fields!FacDesc.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -147,7 +147,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">REGULAR UNIVERSITY EXAMINATIONS </Value>
+                                  <Value>REGULAR UNIVERSITY EXAMINATIONS </Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -194,7 +194,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">YEAR OF STUDY:	</Value>
+                                  <Value>YEAR OF STUDY:	</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -202,7 +202,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!YearText2.Value</Value>
+                                  <Value>=Fields!YearText2.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -250,7 +250,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">ACADEMIC YEAR: </Value>
+                                  <Value>ACADEMIC YEAR: </Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -258,7 +258,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!AcadYear.Value</Value>
+                                  <Value>=Fields!AcadYear.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -305,7 +305,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">ACADEMIC PROGRAMME: </Value>
+                                  <Value>ACADEMIC PROGRAMME: </Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -313,7 +313,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!ProgName.Value</Value>
+                                  <Value>=Fields!ProgName.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -360,7 +360,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!RubricDesc.Value</Value>
+                                  <Value>=Fields!RubricDesc.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -409,7 +409,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Messages1.Value</Value>
+                                  <Value>=Fields!Messages1.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -418,7 +418,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -427,7 +427,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!IncVar1.Value</Value>
+                                  <Value>=Fields!IncVar1.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -436,7 +436,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto"> (</Value>
+                                  <Value> (</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -445,7 +445,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!IncVar2.Value</Value>
+                                  <Value>=Fields!IncVar2.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -454,7 +454,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">)</Value>
+                                  <Value>)</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -463,7 +463,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -472,7 +472,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Messages2.Value</Value>
+                                  <Value>=Fields!Messages2.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -481,7 +481,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -490,7 +490,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!IncVar3.Value</Value>
+                                  <Value>=Fields!IncVar3.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -498,7 +498,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -507,7 +507,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Messages3.Value</Value>
+                                  <Value>=Fields!Messages3.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -516,7 +516,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -525,16 +525,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!IncVar4.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value>=Fields!IncVar4.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -543,7 +534,16 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Messages4.Value</Value>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!Messages4.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -552,7 +552,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -561,7 +561,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!IncVar5.Value</Value>
+                                  <Value>=Fields!IncVar5.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -569,7 +569,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -578,7 +578,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Messages5.Value</Value>
+                                  <Value>=Fields!Messages5.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -587,7 +587,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -596,7 +596,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!IncVar6.Value</Value>
+                                  <Value>=Fields!IncVar6.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -642,7 +642,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -673,7 +673,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">REG. NO.</Value>
+                                  <Value>REG. NO.</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -705,7 +705,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">NAME</Value>
+                                  <Value>NAME</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -737,7 +737,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!UnitCodeLabel.Value</Value>
+                                  <Value>=Fields!UnitCodeLabel.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -769,7 +769,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!UnitDescriptionLabel.Value</Value>
+                                  <Value>=Fields!UnitDescriptionLabel.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -801,7 +801,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!NumberOfCoursesFailedCaption.Value</Value>
+                                  <Value>=Fields!NumberOfCoursesFailedCaption.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -835,7 +835,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!PercentageFailedCaption.Value</Value>
+                                  <Value>=Fields!PercentageFailedCaption.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -874,7 +874,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -908,7 +908,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -940,7 +940,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -972,7 +972,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1005,7 +1005,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1036,7 +1036,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1072,13 +1072,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!counts.Value</Value>
+                                  <Value>=Fields!counts.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">. </Value>
+                                  <Value>. </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1111,7 +1111,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!RegNo.Value</Value>
+                                  <Value>=Fields!RegNo.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1142,13 +1142,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Names.Value</Value>
+                                  <Value>=Fields!Names.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1195,7 +1195,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -1226,7 +1226,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -1262,7 +1262,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitCode.Value</Value>
+                                                <Value>=Fields!UnitCode.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
@@ -1293,13 +1293,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitDesc.Value</Value>
+                                                <Value>=Fields!UnitDesc.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                                <Value xml:space="preserve"> </Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
@@ -1396,7 +1396,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!NoOfCausesFailedValue.Value</Value>
+                                  <Value>=Fields!NoOfCausesFailedValue.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <Format>0;(0);''</Format>
@@ -1428,7 +1428,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!PercentageFailedValue.Value</Value>
+                                  <Value>=Fields!PercentageFailedValue.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <Format>0.00;(0.00);''</Format>
@@ -1465,13 +1465,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!counts.Value</Value>
+                                  <Value>=Fields!counts.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">. </Value>
+                                  <Value>. </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1504,7 +1504,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!RegNo.Value</Value>
+                                  <Value>=Fields!RegNo.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1535,7 +1535,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Names.Value</Value>
+                                  <Value>=Fields!Names.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1585,7 +1585,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -1616,7 +1616,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -1647,7 +1647,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -1683,7 +1683,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitCode.Value</Value>
+                                                <Value>=Fields!UnitCode.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
@@ -1714,13 +1714,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitDesc.Value</Value>
+                                                <Value>=Fields!UnitDesc.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                                <Value xml:space="preserve"> </Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
@@ -1751,13 +1751,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                                <Value xml:space="preserve"> </Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!SpecialReason.Value</Value>
+                                                <Value>=Fields!SpecialReason.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
@@ -1866,13 +1866,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!counts.Value</Value>
+                                  <Value>=Fields!counts.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">. </Value>
+                                  <Value>. </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1905,7 +1905,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!RegNo.Value</Value>
+                                  <Value>=Fields!RegNo.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1936,13 +1936,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Names.Value</Value>
+                                  <Value>=Fields!Names.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                   </Style>
@@ -1992,7 +1992,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -2023,7 +2023,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -2054,7 +2054,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -2090,7 +2090,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitCode.Value</Value>
+                                                <Value>=Fields!UnitCode.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
@@ -2121,13 +2121,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitDesc.Value</Value>
+                                                <Value>=Fields!UnitDesc.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                                <Value xml:space="preserve"> </Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                 </Style>
@@ -2158,13 +2158,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                                <Value xml:space="preserve"> </Value>
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!SpecialReason.Value</Value>
+                                                <Value>=Fields!SpecialReason.Value</Value>
                                                 <Style>
                                                   <FontSize>8pt</FontSize>
                                                 </Style>
@@ -2267,7 +2267,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!PercentageFailedValue.Value</Value>
+                                  <Value>=Fields!PercentageFailedValue.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <Format>0.00;(0.00);''</Format>
@@ -2304,7 +2304,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2350,14 +2350,14 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">APPROVED BY THE BOARD OF EXAMINERS OF THE </Value>
+                                  <Value>APPROVED BY THE BOARD OF EXAMINERS OF THE </Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!FacDesc.Value</Value>
+                                  <Value>=Fields!FacDesc.Value</Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2365,7 +2365,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto"> AT A MEETING HELD ON .........................................</Value>
+                                  <Value> AT A MEETING HELD ON .........................................</Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2411,7 +2411,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">…………………………………………..                          ………………………….</Value>
+                                  <Value>…………………………………………..                          ………………………….</Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2457,7 +2457,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">DEAN,								                                                               DATE</Value>
+                                  <Value>DEAN,								                                                               DATE</Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2503,7 +2503,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=First(Fields!FacDesc.Value, "DataSet_Result")</Value>
+                                  <Value>=First(Fields!FacDesc.Value, "DataSet_Result")</Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2549,7 +2549,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2595,7 +2595,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">APPROVED BY SENATE</Value>
+                                  <Value>APPROVED BY SENATE</Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2641,7 +2641,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">…………………………………………..                          ………………………….</Value>
+                                  <Value>…………………………………………..                          ………………………….</Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -2687,7 +2687,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">CHAIRMAN							                                                         DATE
+                                  <Value>CHAIRMAN							                                                         DATE
 </Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
@@ -2922,7 +2922,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2966,7 +2966,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3000,7 +3000,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Compname.Value</Value>
+                                  <Value>=Fields!Compname.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -3043,7 +3043,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!FacDesc.Value</Value>
+                                  <Value>=Fields!FacDesc.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3086,7 +3086,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">REGULAR UNIVERSITY EXAMINATIONS </Value>
+                                  <Value>REGULAR UNIVERSITY EXAMINATIONS </Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3129,7 +3129,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">YEAR OF STUDY:	</Value>
+                                  <Value>YEAR OF STUDY:	</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3137,7 +3137,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!YearText2.Value</Value>
+                                  <Value>=Fields!YearText2.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3181,7 +3181,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">ACADEMIC YEAR: </Value>
+                                  <Value>ACADEMIC YEAR: </Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3189,7 +3189,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!AcadYear.Value</Value>
+                                  <Value>=Fields!AcadYear.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3232,7 +3232,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">ACADEMIC PROGRAMME: </Value>
+                                  <Value>ACADEMIC PROGRAMME: </Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3240,7 +3240,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!ProgName.Value</Value>
+                                  <Value>=Fields!ProgName.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3283,7 +3283,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -3298,7 +3298,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">SUMMARY OF EXAMINATION RESULTS</Value>
+                                  <Value>SUMMARY OF EXAMINATION RESULTS</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -3342,7 +3342,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">EXAMINATION RESULTS</Value>
+                                  <Value>EXAMINATION RESULTS</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3400,7 +3400,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">NUMBER OF CANDIDATES</Value>
+                                  <Value>NUMBER OF CANDIDATES</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3461,7 +3461,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!RegNo.Value</Value>
+                                  <Value>=Fields!RegNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3510,7 +3510,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3559,7 +3559,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3613,7 +3613,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!SummaryPageCaption.Value</Value>
+                                  <Value>=Fields!SummaryPageCaption.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3664,7 +3664,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=CountDistinct(Fields!RegNo.Value)</Value>
+                                  <Value>=CountDistinct(Fields!RegNo.Value)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3720,7 +3720,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">TOTAL number of Registered Candidates for the programme</Value>
+                                  <Value>TOTAL number of Registered Candidates for the programme</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3774,7 +3774,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=CountDistinct(Fields!RegNo.Value)</Value>
+                                  <Value>=CountDistinct(Fields!RegNo.Value)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3830,7 +3830,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3872,14 +3872,14 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">APPROVED BY DEAN </Value>
+                                  <Value>APPROVED BY DEAN </Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!FacDesc.Value</Value>
+                                  <Value>=Fields!FacDesc.Value</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3922,7 +3922,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">…………………………………………..                          ………………………….</Value>
+                                  <Value>…………………………………………..                          ………………………….</Value>
                                   <Style>
                                     <FontFamily>Bookman Old Style</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -3964,7 +3964,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">DEAN,								                                                               DATE</Value>
+                                  <Value>DEAN,								                                                               DATE</Value>
                                   <Style>
                                     <FontFamily>Book Antiqua</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -4128,25 +4128,25 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Globals!PageNumber</Value>
+                      <Value>=Globals!PageNumber</Value>
                       <Style>
                         <FontFamily>Book Antiqua</FontFamily>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value EvaluationMode="Auto"> of  </Value>
+                      <Value> of  </Value>
                       <Style>
                         <FontFamily>Book Antiqua</FontFamily>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Globals!TotalPages</Value>
+                      <Value>=Globals!TotalPages</Value>
                       <Style>
                         <FontFamily>Book Antiqua</FontFamily>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value xml:space="preserve" EvaluationMode="Auto">     </Value>
+                      <Value xml:space="preserve">     </Value>
                       <Style>
                         <FontFamily>Book Antiqua</FontFamily>
                       </Style>
@@ -4179,11 +4179,11 @@
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>11.69in</PageHeight>
-        <PageWidth>8.27in</PageWidth>
-        <LeftMargin>0.5in</LeftMargin>
-        <TopMargin>0.25in</TopMargin>
-        <BottomMargin>0.25in</BottomMargin>
+        <PageHeight>10in</PageHeight>
+        <PageWidth>24in</PageWidth>
+        <LeftMargin>0.25in</LeftMargin>
+        <RightMargin>0.25in</RightMargin>
+        <TopMargin>0.5in</TopMargin>
         <Style />
       </Page>
     </ReportSection>

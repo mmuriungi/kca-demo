@@ -151,6 +151,30 @@ table 50609 "ACA-Semesters"
         {
             DataClassification = ToBeClassified;
         }
+        //Supp Start Date
+        field(29; "Supp Start Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Supplementary Start Date';
+        }
+        //Supp End Date
+        field(30; "Supp End Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Supplementary End Date';
+        }
+        //Special start date
+        field(31; "Special Start Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Special Start Date';
+        }
+        //Special end date
+        field(32; "Special End Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Special End Date';
+        }
     }
 
     keys

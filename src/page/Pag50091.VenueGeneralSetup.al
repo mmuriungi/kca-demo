@@ -4,7 +4,7 @@ page 50091 "Venue General Setup"
     Caption = 'Venue General Setup';
     PageType = Card;
     SourceTable = "Venue General Setup";
-    
+
     layout
     {
         area(Content)
@@ -12,7 +12,7 @@ page 50091 "Venue General Setup"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("Venue Booking Nos"; Rec."Venue Booking Nos")
                 {
                     ToolTip = 'Specifies the value of the Venue Booking Nos field.', Comment = '%';

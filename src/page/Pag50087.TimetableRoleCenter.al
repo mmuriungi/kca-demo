@@ -65,9 +65,17 @@ page 50087 "Timetable Role Center"
                 action("Exam Timetable Header List")
                 {
                     Image = Report;
-
+                    Caption = 'Regular Exam Timetable';
                     RunObject = Page "Timetable Header List";
                     RunPageView = where("Type" = const(Exam));
+                    ApplicationArea = All;
+                }
+                action("Supplementary Exam Timetable")
+                {
+                    Image = Setup;
+                    Caption = 'Supplementary Exam Timetable';
+                    RunObject = Page "Timetable Header List";
+                    RunPageView = where("Type" = const(Exam), "Exam Type" = const(Supplementary));
                     ApplicationArea = All;
                 }
                 action("Invigilator Setup")
@@ -137,6 +145,14 @@ page 50087 "Timetable Role Center"
                     ApplicationArea = All;
                 }
 
+                action("Supplementary Exam Units")
+                {
+                    Caption = 'Supplementary Exam Units';
+                    Image = Setup;
+                    RunObject = Page "Supp Exam Units";
+                    ApplicationArea = All;
+                }
+
                 action("Academic Year")
                 {
                     Caption = 'Academic Year';
@@ -169,6 +185,13 @@ page 50087 "Timetable Role Center"
                     Caption = 'Class Timetable Report';
                     Image = Report;
                     RunObject = Report "Class Timetable Report";
+                    ApplicationArea = All;
+                }
+                action("Exam Timetable Report")
+                {
+                    Caption = 'Exam Timetable Report';
+                    Image = Report;
+                    RunObject = Report "Exam Timetable";
                     ApplicationArea = All;
                 }
 

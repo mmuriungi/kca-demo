@@ -61,7 +61,7 @@ table 51116 "HMS-Observation Form Header"
         }
         field(10; "Employee No."; Code[20])
         {
-            TableRelation = Employee."No.";
+            TableRelation = "HRM-Employee C"."No.";
         }
         field(11; "Relative No."; Integer)
         {
