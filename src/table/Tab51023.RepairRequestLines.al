@@ -19,7 +19,17 @@ table 51023 "Repair Request Lines"
         }
         field(4; "Repair Types"; Text[200])
         {
-            TableRelation = "Type of Repair".Description;
+            TableRelation = "Type of Repair"."No.";
+            trigger OnValidate()
+            var
+                rt: Record "Type of Repair";
+            begin
+                rt.Reset;
+                rt.SetRange("No.", "Repair Types");
+                if rt.Find('-') then begin
+                    rec.Description := rt.Description;
+                end;
+            end;
         }
     }
     keys
