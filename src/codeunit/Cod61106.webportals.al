@@ -11307,7 +11307,7 @@ Codeunit 61106 webportals
                 Clear(JObj);
                 JObj.Add('RequestNo', RepairRequest."No.");
                 JObj.Add('Facility', RepairRequest."Facility Description");
-                JObj.Add('Date Requested', Format(RepairRequest."Request Date") );
+                JObj.Add('Date Requested', Format(RepairRequest."Request Date"));
                 JObj.Add('Status', Format(RepairRequest.Status));
                 JArray.Add(JObj);
             until RepairRequest.Next() = 0;
@@ -11315,6 +11315,7 @@ Codeunit 61106 webportals
         JArray.WriteTo(JsTxt);
         msg := JsTxt;
     end;
+
     procedure GetRepairFacilities() msg: Text
     var
         FA: Record "Fixed Asset";
@@ -11331,6 +11332,71 @@ Codeunit 61106 webportals
                 JObj.Add('Description', FA.Description);
                 JArray.Add(JObj);
             until FA.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        msg := JsTxt;
+    end;
+
+    procedure GetTypeOfRepair() msg: Text
+    var
+        RepairType: Record "Type of Repair";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        RepairType.Reset();
+        if RepairType.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('No', RepairType."No.");
+                JObj.Add('Description', RepairType.Description);
+                JArray.Add(JObj);
+            until RepairType.Next() = 0;
+        end;
+        JArray.WriteTo(JsTxt);
+        msg := JsTxt;
+    end;
+
+    procedure AddRepairRepairLine(reqno: Code[20]; type: Code[20]) msg: Text
+    var
+        RepairLines: Record "Repair Request Lines";
+    begin
+        RepairLines.Init;
+        RepairLines."No." := reqno;
+        RepairLines."Repair Types" := type;
+        RepairLines.Validate("Repair Types");
+        RepairLines.Insert(True);
+    end;
+
+    procedure RemoveRepairLines(lino: Integer) msg: boolean
+    var
+        RepairLines: Record "Repair Request Lines";
+    begin
+        RepairLines.Reset();
+        RepairLines.SetRange(LineNo, lino);
+        if RepairLines.Find('-') then begin
+            RepairLines.Delete;
+            msg := True
+        end;
+    end;
+
+    procedure GetRepairLines(reqno: Code[20]) msg: Text
+    var
+        RepairLines: Record "Repair Request Lines";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        RepairLines.Reset();
+        RepairLines.SetRange("No.", reqno);
+        if RepairLines.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('LineNo', RepairLines.LineNo);
+                JObj.Add('RepairType', RepairLines."Repair Types");
+                JObj.Add('Description', RepairLines.Description);
+                JArray.Add(JObj);
+            until RepairLines.Next() = 0;
         end;
         JArray.WriteTo(JsTxt);
         msg := JsTxt;
