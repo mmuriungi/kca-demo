@@ -1617,6 +1617,9 @@ codeunit 50096 "Timetable Management"
         DayOfWeek: Integer;
         CoursesPerDay: Dictionary of [Date, Integer];
         DayCounter: Integer;
+        MaxAttempts: Integer;
+        AttemptCounter: Integer;
+        SlotFound: Boolean;
     begin
         FindSemester(SemesterCode, Semester);
         Semester.TestField("Exam Start Date");
@@ -1692,18 +1695,38 @@ codeunit 50096 "Timetable Management"
                     ProgressWindow.Update(3, CourseOffering.Unit);
 
                     // Find optimal exam date and slot based on programme type
-                    if FindOptimalExamSlot(CourseOffering, Semester, ExamTimeSlot, ExamDate, CoursesPerDay, DayCounter) then begin
-                        ProgressWindow.Update(4, ExamDate);
-                        ProgressWindow.Update(5, DayCounter + 1);
+                    // Try to find a slot and room allocation for up to MaxAttempts days
+                    MaxAttempts := 10; // Try up to 10 different days
+                    AttemptCounter := 0;
+                    SlotFound := false;
+                    
+                    repeat
+                        AttemptCounter += 1;
+                        
+                        if FindOptimalExamSlot(CourseOffering, Semester, ExamTimeSlot, ExamDate, CoursesPerDay, DayCounter) then begin
+                            ProgressWindow.Update(4, ExamDate);
+                            ProgressWindow.Update(5, DayCounter + 1);
 
-                        // Create exam timetable entry with appropriate room assignment
-                        // and student distribution if needed
-                        ScheduleExamWithRoomAllocation(
-                            CourseOffering,
-                            ExamDate,
-                            ExamTimeSlot,
-                            Semester);
-                    end else
+                            // Try to schedule with room allocation
+                            if ScheduleExamWithRoomAllocation(
+                                CourseOffering,
+                                ExamDate,
+                                ExamTimeSlot,
+                                Semester) then begin
+                                // Successfully scheduled
+                                SlotFound := true;
+                                break;
+                            end else begin
+                                // Room allocation failed, try next day
+                                DayCounter += 1;
+                            end;
+                        end else begin
+                            // No more slots available
+                            break;
+                        end;
+                    until (AttemptCounter >= MaxAttempts) or SlotFound;
+                    
+                    if not SlotFound then
                         LogSchedulingIssue(CourseOffering);
                 end;
 
@@ -1883,45 +1906,54 @@ codeunit 50096 "Timetable Management"
         IsMedical: Boolean;
         CurrentDate: Date;
         SlotFound: Boolean;
+        InitialDayCounter: Integer;
     begin
+        // Store initial day counter for looping
+        InitialDayCounter := DayCounter;
+
         // Determine if this is a medical programme
         IsMedical := IsMedicalProgramme(CourseOffering.Programme);
 
-        // Calculate date based on day counter
-        CurrentDate := CalcDate(StrSubstNo('%1D', DayCounter), Semester."Exam Start Date");
+        // Loop through all possible days until the exam end date
+        repeat
+            // Calculate date based on day counter
+            CurrentDate := CalcDate(StrSubstNo('%1D', DayCounter), Semester."Exam Start Date");
 
-        // Ensure we don't go beyond exam end date
-        if CurrentDate > Semester."Exam End Date" then
-            exit(false);
+            // Break the loop if we've gone beyond exam end date
+            if CurrentDate > Semester."Exam End Date" then
+                break;
 
-        // Skip weekends
-        while (Date2DWY(CurrentDate, 1) > 5) and (CurrentDate <= Semester."Exam End Date") do begin
-            CurrentDate := CalcDate('1D', CurrentDate);
+            // Skip weekends
+            while (Date2DWY(CurrentDate, 1) > 5) and (CurrentDate <= Semester."Exam End Date") do begin
+                CurrentDate := CalcDate('1D', CurrentDate);
+                DayCounter += 1;
+            end;
+
+            // Break the loop if we've gone beyond exam end date after skipping weekends
+            if CurrentDate > Semester."Exam End Date" then
+                break;
+
+            // Try to find a time slot on this date based on programme type
+            SlotFound := FindTimeSlotForDay(CourseOffering, CurrentDate, ExamTimeSlot, IsMedical);
+
+            if SlotFound then begin
+                OptimalDate := CurrentDate;
+
+                // Update courses per day counter
+                if not CoursesPerDay.ContainsKey(CurrentDate) then
+                    CoursesPerDay.Add(CurrentDate, 1)
+                else
+                    CoursesPerDay.Set(CurrentDate, CoursesPerDay.Get(CurrentDate) + 1);
+
+                exit(true);
+            end;
+
+            // Try the next day
             DayCounter += 1;
-        end;
+        until CurrentDate >= Semester."Exam End Date";
 
-        // If we've gone beyond the exam period, return false
-        if CurrentDate > Semester."Exam End Date" then
-            exit(false);
-
-        // Try to find a time slot on this date based on programme type
-        SlotFound := FindTimeSlotForDay(CourseOffering, CurrentDate, ExamTimeSlot, IsMedical);
-
-        if SlotFound then begin
-            OptimalDate := CurrentDate;
-
-            // Update courses per day counter
-            if not CoursesPerDay.ContainsKey(CurrentDate) then
-                CoursesPerDay.Add(CurrentDate, 1)
-            else
-                CoursesPerDay.Set(CurrentDate, CoursesPerDay.Get(CurrentDate) + 1);
-
-            exit(true);
-        end;
-
-        // Try the next day
-        DayCounter += 1;
-        exit(FindOptimalExamSlot(CourseOffering, Semester, ExamTimeSlot, OptimalDate, CoursesPerDay, DayCounter));
+        // If we've checked all days and found no slots, return false
+        exit(false);
     end;
 
     local procedure IsExamAlreadyScheduled(UnitCode: Code[25]; SemesterCode: Code[25]): Boolean
@@ -2080,7 +2112,7 @@ codeunit 50096 "Timetable Management"
     local procedure ScheduleExamWithRoomAllocation(CourseOffering: Record "ACA-Lecturers Units";
         ExamDate: Date;
         ExamTimeSlot: Record "Exam Time Slot";
-        Semester: Record "ACA-Semesters")
+        Semester: Record "ACA-Semesters") : Boolean
     var
         TotalStudents: Integer;
         RemainingStudents: Integer;
@@ -2101,8 +2133,8 @@ codeunit 50096 "Timetable Management"
         GetAvailableExamRooms(ExamDate, ExamTimeSlot, AvailableRooms, AvailableCapacities, RoomCount);
 
         if RoomCount = 0 then begin
-            LogSchedulingIssue(CourseOffering);
-            exit;
+            // Return false to indicate no rooms available
+            exit(false);
         end;
 
         // Try to allocate all students to a single room if possible
@@ -2116,7 +2148,7 @@ codeunit 50096 "Timetable Management"
                 AssignInvigilatorsToRoom(CourseOffering, ExamDate, ExamTimeSlot,
                     AvailableRooms[i]."Lecture Room Code", TotalStudents, Semester.Code);
 
-                exit;
+                exit(true);
             end;
         end;
 
@@ -2190,8 +2222,12 @@ codeunit 50096 "Timetable Management"
         end;
 
         // Log issue if we couldn't accommodate all students
-        if RemainingStudents > 0 then
+        if RemainingStudents > 0 then begin
             LogSchedulingIssue(CourseOffering);
+            exit(false);
+        end;
+        
+        exit(true);
     end;
 
     local procedure ScheduleExamWithRoomAllocationSupp(SuppUnits: Record "Supp. Exam Units";

@@ -3225,6 +3225,12 @@ table 50555 "ACA-Course Registration"
             FieldClass = FlowField;
             CalcFormula = Lookup("ACA-Reg. Stoppage Reasons"."Combine Discordant Semesters" WHERE("Reason Code" = FIELD("Stoppage Reason")));
         }
+        //"Alternate Rubric For Stopage"
+        field(60209; "Alternate Rubric For Stopage"; Boolean)
+        {
+            // FieldClass = FlowField;
+            // CalcFormula = Lookup("ACA-Reg. Stoppage Reasons"."Alternate Rubric For Stopage" WHERE("Reason Code" = FIELD("Stoppage Reason")));
+        }
 
     }
 

@@ -300,7 +300,7 @@ table 66685 "ACA-2ndSuppSenate Repo. Header"
                                                                       "Prog. Category" = FILTER(Certificate | Professional | "Course List")));
             Caption = 'ProgCat_AcadYearTrans_CertCo';
         }
-        field(50005; "Status Msg6"; Text[100])
+        field(50005; "Status Msg6"; Text[250])
         {
             Caption = 'Status Msg6';
             DataClassification = CustomerContent;
@@ -375,7 +375,7 @@ table 66685 "ACA-2ndSuppSenate Repo. Header"
             Caption = 'Include Academic Year Caption';
             DataClassification = CustomerContent;
         }
-        field(63029; "Academic Year Text"; Text[100])
+        field(63029; "Academic Year Text"; Text[250])
         {
             Caption = 'Academic Year Text';
             DataClassification = CustomerContent;
@@ -448,32 +448,32 @@ table 66685 "ACA-2ndSuppSenate Repo. Header"
             Caption = 'Finalists Graduation Comments';
             DataClassification = CustomerContent;
         }
-        field(63059; "Grad. Status Msg 1"; Text[100])
+        field(63059; "Grad. Status Msg 1"; Text[250])
         {
             Caption = 'Grad. Status Msg 1';
             DataClassification = CustomerContent;
         }
-        field(63060; "Grad. Status Msg 2"; Text[100])
+        field(63060; "Grad. Status Msg 2"; Text[250])
         {
             Caption = 'Grad. Status Msg 2';
             DataClassification = CustomerContent;
         }
-        field(63061; "Grad. Status Msg 3"; Text[100])
+        field(63061; "Grad. Status Msg 3"; Text[250])
         {
             Caption = 'Grad. Status Msg 3';
             DataClassification = CustomerContent;
         }
-        field(63062; "Grad. Status Msg 4"; Text[100])
+        field(63062; "Grad. Status Msg 4"; Text[250])
         {
             Caption = 'Grad. Status Msg 4';
             DataClassification = CustomerContent;
         }
-        field(63063; "Grad. Status Msg 5"; Text[100])
+        field(63063; "Grad. Status Msg 5"; Text[250])
         {
             Caption = 'Grad. Status Msg 5';
             DataClassification = CustomerContent;
         }
-        field(63064; "Grad. Status Msg 6"; Text[100])
+        field(63064; "Grad. Status Msg 6"; Text[250])
         {
             Caption = 'Grad. Status Msg 6';
             DataClassification = CustomerContent;
