@@ -84,6 +84,8 @@ report 51307 "Class Timetable Report"
                         TEntry.SetRange("Programme Code", ProgFilter);
                     if StageFilter <> '' then
                         TEntry.SetRange("Stage Code", StageFilter);
+                    if LecFilter <> '' then
+                        TEntry.SetFilter("Lecturer Code", LecFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
@@ -107,6 +109,8 @@ report 51307 "Class Timetable Report"
                         TEntry.SetRange("Programme Code", ProgFilter);
                     if StageFilter <> '' then
                         TEntry.SetRange("Stage Code", StageFilter);
+                    if LecFilter <> '' then
+                        TEntry.SetFilter("Lecturer Code", LecFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
@@ -129,6 +133,8 @@ report 51307 "Class Timetable Report"
                         TEntry.SetRange("Programme Code", ProgFilter);
                     if StageFilter <> '' then
                         TEntry.SetRange("Stage Code", StageFilter);
+                    if LecFilter <> '' then
+                        TEntry.SetFilter("Lecturer Code", LecFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
@@ -151,6 +157,8 @@ report 51307 "Class Timetable Report"
                         TEntry.SetRange("Programme Code", ProgFilter);
                     if StageFilter <> '' then
                         TEntry.SetRange("Stage Code", StageFilter);
+                    if LecFilter <> '' then
+                        TEntry.SetFilter("Lecturer Code", LecFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;
@@ -172,6 +180,8 @@ report 51307 "Class Timetable Report"
                         TEntry.SetRange("Programme Code", ProgFilter);
                     if StageFilter <> '' then
                         TEntry.SetRange("Stage Code", StageFilter);
+                    if LecFilter <> '' then
+                        TEntry.SetFilter("Lecturer Code", LecFilter);
                     if TEntry.FindSet() then
                         repeat begin
                             i += 1;

@@ -11,226 +11,6 @@
       <rd:DataSourceID>398892d3-115c-45e2-b30f-84e7068dd7e9</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="ReportForNavId_1">
-          <DataField>ReportForNavId_1</DataField>
-        </Field>
-        <Field Name="seq">
-          <DataField>seq</DataField>
-        </Field>
-        <Field Name="COmpName">
-          <DataField>COmpName</DataField>
-        </Field>
-        <Field Name="CompAddress">
-          <DataField>CompAddress</DataField>
-        </Field>
-        <Field Name="CompPhone">
-          <DataField>CompPhone</DataField>
-        </Field>
-        <Field Name="pic">
-          <DataField>pic</DataField>
-        </Field>
-        <Field Name="mails">
-          <DataField>mails</DataField>
-        </Field>
-        <Field Name="StudNumber">
-          <DataField>StudNumber</DataField>
-        </Field>
-        <Field Name="Progs">
-          <DataField>Progs</DataField>
-        </Field>
-        <Field Name="ProgNames">
-          <DataField>ProgNames</DataField>
-        </Field>
-        <Field Name="YearofStudy">
-          <DataField>YearofStudy</DataField>
-        </Field>
-        <Field Name="AcadYear">
-          <DataField>AcadYear</DataField>
-        </Field>
-        <Field Name="StudentName">
-          <DataField>StudentName</DataField>
-        </Field>
-        <Field Name="Dept">
-          <DataField>Dept</DataField>
-        </Field>
-        <Field Name="SchCode">
-          <DataField>SchCode</DataField>
-        </Field>
-        <Field Name="DeptName">
-          <DataField>DeptName</DataField>
-        </Field>
-        <Field Name="SchName">
-          <DataField>SchName</DataField>
-        </Field>
-        <Field Name="Class">
-          <DataField>Class</DataField>
-        </Field>
-        <Field Name="NAverage">
-          <DataField>NAverage</DataField>
-        </Field>
-        <Field Name="NAverageFormat">
-          <DataField>NAverageFormat</DataField>
-        </Field>
-        <Field Name="WAverage">
-          <DataField>WAverage</DataField>
-        </Field>
-        <Field Name="WAverageFormat">
-          <DataField>WAverageFormat</DataField>
-        </Field>
-        <Field Name="ProgOption">
-          <DataField>ProgOption</DataField>
-        </Field>
-        <Field Name="PercentageFailedCourses">
-          <DataField>PercentageFailedCourses</DataField>
-        </Field>
-        <Field Name="PercentageFailedCoursesFormat">
-          <DataField>PercentageFailedCoursesFormat</DataField>
-        </Field>
-        <Field Name="SuppExists">
-          <DataField>SuppExists</DataField>
-        </Field>
-        <Field Name="PercentageFailedUnits">
-          <DataField>PercentageFailedUnits</DataField>
-        </Field>
-        <Field Name="PercentageFailedUnitsFormat">
-          <DataField>PercentageFailedUnitsFormat</DataField>
-        </Field>
-        <Field Name="TotPassedUnits">
-          <DataField>TotPassedUnits</DataField>
-        </Field>
-        <Field Name="TotPassedUnitsFormat">
-          <DataField>TotPassedUnitsFormat</DataField>
-        </Field>
-        <Field Name="TotalPassed">
-          <DataField>TotalPassed</DataField>
-        </Field>
-        <Field Name="TotalCourseDone">
-          <DataField>TotalCourseDone</DataField>
-        </Field>
-        <Field Name="TotalUnits">
-          <DataField>TotalUnits</DataField>
-        </Field>
-        <Field Name="TotalUnitsFormat">
-          <DataField>TotalUnitsFormat</DataField>
-        </Field>
-        <Field Name="TotalMarks">
-          <DataField>TotalMarks</DataField>
-        </Field>
-        <Field Name="TotalMarksFormat">
-          <DataField>TotalMarksFormat</DataField>
-        </Field>
-        <Field Name="TotFailedCourses">
-          <DataField>TotFailedCourses</DataField>
-        </Field>
-        <Field Name="TotFailedUnits">
-          <DataField>TotFailedUnits</DataField>
-        </Field>
-        <Field Name="TotFailedUnitsFormat">
-          <DataField>TotFailedUnitsFormat</DataField>
-        </Field>
-        <Field Name="FailedCourses">
-          <DataField>FailedCourses</DataField>
-        </Field>
-        <Field Name="FailedUnits">
-          <DataField>FailedUnits</DataField>
-        </Field>
-        <Field Name="FailedUnitsFormat">
-          <DataField>FailedUnitsFormat</DataField>
-        </Field>
-        <Field Name="TotalCoursesPassed">
-          <DataField>TotalCoursesPassed</DataField>
-        </Field>
-        <Field Name="TotWeightedMarks">
-          <DataField>TotWeightedMarks</DataField>
-        </Field>
-        <Field Name="TotWeightedMarksFormat">
-          <DataField>TotWeightedMarksFormat</DataField>
-        </Field>
-        <Field Name="ClassOrder">
-          <DataField>ClassOrder</DataField>
-        </Field>
-        <Field Name="ReportForNavId_30">
-          <DataField>ReportForNavId_30</DataField>
-        </Field>
-        <Field Name="UnitCode">
-          <DataField>UnitCode</DataField>
-        </Field>
-        <Field Name="UnitDescription">
-          <DataField>UnitDescription</DataField>
-        </Field>
-        <Field Name="CreditHours">
-          <DataField>CreditHours</DataField>
-        </Field>
-        <Field Name="CreditHoursFormat">
-          <DataField>CreditHoursFormat</DataField>
-        </Field>
-        <Field Name="CATScore">
-          <DataField>CATScore</DataField>
-        </Field>
-        <Field Name="ExamScore">
-          <DataField>ExamScore</DataField>
-        </Field>
-        <Field Name="TotalScore">
-          <DataField>TotalScore</DataField>
-        </Field>
-        <Field Name="Pass">
-          <DataField>Pass</DataField>
-        </Field>
-        <Field Name="UnitYearOfStudy">
-          <DataField>UnitYearOfStudy</DataField>
-        </Field>
-        <Field Name="ExamScoreDecimal">
-          <DataField>ExamScoreDecimal</DataField>
-        </Field>
-        <Field Name="ExamScoreDecimalFormat">
-          <DataField>ExamScoreDecimalFormat</DataField>
-        </Field>
-        <Field Name="CATScoreDecimal">
-          <DataField>CATScoreDecimal</DataField>
-        </Field>
-        <Field Name="CATScoreDecimalFormat">
-          <DataField>CATScoreDecimalFormat</DataField>
-        </Field>
-        <Field Name="TotalScoreDecimal">
-          <DataField>TotalScoreDecimal</DataField>
-        </Field>
-        <Field Name="TotalScoreDecimalFormat">
-          <DataField>TotalScoreDecimalFormat</DataField>
-        </Field>
-        <Field Name="UnitGrade">
-          <DataField>UnitGrade</DataField>
-        </Field>
-        <Field Name="UnitSchoolCode">
-          <DataField>UnitSchoolCode</DataField>
-        </Field>
-        <Field Name="UnitDepartmentCode">
-          <DataField>UnitDepartmentCode</DataField>
-        </Field>
-        <Field Name="GradeComment">
-          <DataField>GradeComment</DataField>
-        </Field>
-        <Field Name="Prefix">
-          <DataField>Prefix</DataField>
-        </Field>
-        <Field Name="isRepeatOrResit">
-          <DataField>isRepeatOrResit</DataField>
-        </Field>
-        <Field Name="UnitStage">
-          <DataField>UnitStage</DataField>
-        </Field>
-        <Field Name="StageCode">
-          <DataField>StageCode</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -7884,12 +7664,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -7993,4 +7767,224 @@ iaz2Y2EzVs27ttmIygabeBgWPyTsbgArAQUb/o4nlhha26VpZlUhknyr/TjBGAP3xnJDqoofm5XFkH8c
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1">
+          <DataField>ReportForNavId_1</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+        <Field Name="COmpName">
+          <DataField>COmpName</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="CompPhone">
+          <DataField>CompPhone</DataField>
+        </Field>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="mails">
+          <DataField>mails</DataField>
+        </Field>
+        <Field Name="StudNumber">
+          <DataField>StudNumber</DataField>
+        </Field>
+        <Field Name="Progs">
+          <DataField>Progs</DataField>
+        </Field>
+        <Field Name="ProgNames">
+          <DataField>ProgNames</DataField>
+        </Field>
+        <Field Name="YearofStudy">
+          <DataField>YearofStudy</DataField>
+        </Field>
+        <Field Name="AcadYear">
+          <DataField>AcadYear</DataField>
+        </Field>
+        <Field Name="StudentName">
+          <DataField>StudentName</DataField>
+        </Field>
+        <Field Name="Dept">
+          <DataField>Dept</DataField>
+        </Field>
+        <Field Name="SchCode">
+          <DataField>SchCode</DataField>
+        </Field>
+        <Field Name="DeptName">
+          <DataField>DeptName</DataField>
+        </Field>
+        <Field Name="SchName">
+          <DataField>SchName</DataField>
+        </Field>
+        <Field Name="Class">
+          <DataField>Class</DataField>
+        </Field>
+        <Field Name="NAverage">
+          <DataField>NAverage</DataField>
+        </Field>
+        <Field Name="NAverageFormat">
+          <DataField>NAverageFormat</DataField>
+        </Field>
+        <Field Name="WAverage">
+          <DataField>WAverage</DataField>
+        </Field>
+        <Field Name="WAverageFormat">
+          <DataField>WAverageFormat</DataField>
+        </Field>
+        <Field Name="ProgOption">
+          <DataField>ProgOption</DataField>
+        </Field>
+        <Field Name="PercentageFailedCourses">
+          <DataField>PercentageFailedCourses</DataField>
+        </Field>
+        <Field Name="PercentageFailedCoursesFormat">
+          <DataField>PercentageFailedCoursesFormat</DataField>
+        </Field>
+        <Field Name="SuppExists">
+          <DataField>SuppExists</DataField>
+        </Field>
+        <Field Name="PercentageFailedUnits">
+          <DataField>PercentageFailedUnits</DataField>
+        </Field>
+        <Field Name="PercentageFailedUnitsFormat">
+          <DataField>PercentageFailedUnitsFormat</DataField>
+        </Field>
+        <Field Name="TotPassedUnits">
+          <DataField>TotPassedUnits</DataField>
+        </Field>
+        <Field Name="TotPassedUnitsFormat">
+          <DataField>TotPassedUnitsFormat</DataField>
+        </Field>
+        <Field Name="TotalPassed">
+          <DataField>TotalPassed</DataField>
+        </Field>
+        <Field Name="TotalCourseDone">
+          <DataField>TotalCourseDone</DataField>
+        </Field>
+        <Field Name="TotalUnits">
+          <DataField>TotalUnits</DataField>
+        </Field>
+        <Field Name="TotalUnitsFormat">
+          <DataField>TotalUnitsFormat</DataField>
+        </Field>
+        <Field Name="TotalMarks">
+          <DataField>TotalMarks</DataField>
+        </Field>
+        <Field Name="TotalMarksFormat">
+          <DataField>TotalMarksFormat</DataField>
+        </Field>
+        <Field Name="TotFailedCourses">
+          <DataField>TotFailedCourses</DataField>
+        </Field>
+        <Field Name="TotFailedUnits">
+          <DataField>TotFailedUnits</DataField>
+        </Field>
+        <Field Name="TotFailedUnitsFormat">
+          <DataField>TotFailedUnitsFormat</DataField>
+        </Field>
+        <Field Name="FailedCourses">
+          <DataField>FailedCourses</DataField>
+        </Field>
+        <Field Name="FailedUnits">
+          <DataField>FailedUnits</DataField>
+        </Field>
+        <Field Name="FailedUnitsFormat">
+          <DataField>FailedUnitsFormat</DataField>
+        </Field>
+        <Field Name="TotalCoursesPassed">
+          <DataField>TotalCoursesPassed</DataField>
+        </Field>
+        <Field Name="TotWeightedMarks">
+          <DataField>TotWeightedMarks</DataField>
+        </Field>
+        <Field Name="TotWeightedMarksFormat">
+          <DataField>TotWeightedMarksFormat</DataField>
+        </Field>
+        <Field Name="ClassOrder">
+          <DataField>ClassOrder</DataField>
+        </Field>
+        <Field Name="ReportForNavId_30">
+          <DataField>ReportForNavId_30</DataField>
+        </Field>
+        <Field Name="UnitCode">
+          <DataField>UnitCode</DataField>
+        </Field>
+        <Field Name="UnitDescription">
+          <DataField>UnitDescription</DataField>
+        </Field>
+        <Field Name="CreditHours">
+          <DataField>CreditHours</DataField>
+        </Field>
+        <Field Name="CreditHoursFormat">
+          <DataField>CreditHoursFormat</DataField>
+        </Field>
+        <Field Name="CATScore">
+          <DataField>CATScore</DataField>
+        </Field>
+        <Field Name="ExamScore">
+          <DataField>ExamScore</DataField>
+        </Field>
+        <Field Name="TotalScore">
+          <DataField>TotalScore</DataField>
+        </Field>
+        <Field Name="Pass">
+          <DataField>Pass</DataField>
+        </Field>
+        <Field Name="UnitYearOfStudy">
+          <DataField>UnitYearOfStudy</DataField>
+        </Field>
+        <Field Name="ExamScoreDecimal">
+          <DataField>ExamScoreDecimal</DataField>
+        </Field>
+        <Field Name="ExamScoreDecimalFormat">
+          <DataField>ExamScoreDecimalFormat</DataField>
+        </Field>
+        <Field Name="CATScoreDecimal">
+          <DataField>CATScoreDecimal</DataField>
+        </Field>
+        <Field Name="CATScoreDecimalFormat">
+          <DataField>CATScoreDecimalFormat</DataField>
+        </Field>
+        <Field Name="TotalScoreDecimal">
+          <DataField>TotalScoreDecimal</DataField>
+        </Field>
+        <Field Name="TotalScoreDecimalFormat">
+          <DataField>TotalScoreDecimalFormat</DataField>
+        </Field>
+        <Field Name="UnitGrade">
+          <DataField>UnitGrade</DataField>
+        </Field>
+        <Field Name="UnitSchoolCode">
+          <DataField>UnitSchoolCode</DataField>
+        </Field>
+        <Field Name="UnitDepartmentCode">
+          <DataField>UnitDepartmentCode</DataField>
+        </Field>
+        <Field Name="GradeComment">
+          <DataField>GradeComment</DataField>
+        </Field>
+        <Field Name="Prefix">
+          <DataField>Prefix</DataField>
+        </Field>
+        <Field Name="isRepeatOrResit">
+          <DataField>isRepeatOrResit</DataField>
+        </Field>
+        <Field Name="UnitStage">
+          <DataField>UnitStage</DataField>
+        </Field>
+        <Field Name="StageCode">
+          <DataField>StageCode</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
