@@ -26,6 +26,11 @@ page 52178577 "Proc-Procurement Plan Header"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Global Dimension 1 Code field.';
                 }
+                field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Global Dimension 2 Code field.';
+                }
                 field("Date"; Rec."Date")
                 {
                     ApplicationArea = All;
