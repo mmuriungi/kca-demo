@@ -4050,14 +4050,16 @@ Codeunit 61106 webportals
 
     procedure StoreRequisitionApprovalRequest(ReqNo: Text)
     var
-        ApprovalMngt: Codeunit "Init Code";
+        ApprovalMngt: Codeunit "Approval Workflows V1";
+        variant: Variant;
     begin
         StoreRequisition.Reset;
         StoreRequisition.SetRange(StoreRequisition."No.", ReqNo);
         if StoreRequisition.Find('-')
         then begin
-            if ApprovalMngt.CheckSRNWorkflowEnabled(StoreRequisition) then
-                ApprovalMngt.OnSendSRNforApproval(StoreRequisition);
+            variant := StoreRequisition;
+            if ApprovalMngt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMngt.OnSendDocForApproval(variant);
         end;
     end;
 
@@ -10860,13 +10862,15 @@ Codeunit 61106 webportals
 
     procedure CancelStoreRequisition(ReqNo: Text)
     var
-        ApprovalMgmtExt: Codeunit "Init Code";
+        ApprovalMgmtExt: Codeunit "Approval Workflows V1";
+        variant: Variant;
     begin
         StoreRequisition.Reset();
         StoreRequisition.SETRANGE(StoreRequisition."No.", ReqNo);
         IF StoreRequisition.FIND('-')
         THEN BEGIN
-            ApprovalMgmtExt.OnCancelSRNforApproval(StoreRequisition);
+            variant := StoreRequisition;
+            ApprovalMgmtExt.OnCancelDocApprovalRequest(variant);
         END;
     end;
 

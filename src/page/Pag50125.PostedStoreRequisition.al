@@ -268,13 +268,14 @@ page 50125 "Posted Store Requisition"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
                         showmessage: Boolean;
                         ManualCancel: Boolean;
                         State: Option Open,"Pending Approval",Cancelled,Approved;
                         DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
                         tableNo: Integer;
                         Amount: Decimal;
+                        variant: Variant;
                     begin
                         IF NOT LinesExists THEN
                             ERROR('There are no Lines created for this Document');
@@ -287,7 +288,8 @@ page 50125 "Posted Store Requisition"
                         // tableNo := DATABASE::"PROC-Store Requistion Header";
                         // Amount := 0;
 
-                        ApprovalMgt.OnSendSRNforApproval(Rec);//(tableNo, Rec."No.", DocType, State, Rec."Responsibility Center", Amount) THEN;
+                        variant := Rec;
+                        ApprovalMgt.OnSendDocForApproval(variant);
                     end;
                 }
                 action(cancellsApproval)
@@ -301,7 +303,8 @@ page 50125 "Posted Store Requisition"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                     // showmessage: Boolean;
                     // ManualCancel: Boolean;
                     // State: Option Open,"Pending Approval",Cancelled,Approved;
@@ -313,7 +316,8 @@ page 50125 "Posted Store Requisition"
                         // ManualCancel := TRUE;
                         // CLEAR(tableNo);
                         // tableNo := DATABASE::"PROC-Store Requistion Header";
-                        ApprovalMgt.OnCancelSRNforApproval(Rec)//(tableNo, DocType, Rec."No.", showmessage, ManualCancel) THEN;
+                        variant := Rec;
+                        ApprovalMgt.OnCancelDocApprovalRequest(variant);
                     end;
                 }
                 separator(sep)

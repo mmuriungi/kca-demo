@@ -83,30 +83,6 @@ codeunit 50010 "Init Code"
             Error(NoWorkflowEnb);
     end;
 
-    //Store Requisition
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnSendSRNforApproval(VAR SRN: Record "PROC-Store Requistion Header");
-    begin
-    end;
-
-    procedure IsSRNEnabled(var SRN: Record "PROC-Store Requistion Header"): Boolean
-    var
-        WFMngt: Codeunit "Workflow Management";
-        WFCode: Codeunit WFCode;
-    begin
-        exit(WFMngt.CanExecuteWorkflow(SRN, WFCode.RunWorkflowOnSendSRNApprovalCode()))
-    end;
-
-    procedure CheckSRNWorkflowEnabled(var SRN: Record "PROC-Store Requistion Header"): Boolean
-    var
-        NoWorkflowEnb: TextConst ENU = 'No workflow Enabled for this Record type', ENG = 'No workflow Enabled for this Record type';
-
-    begin
-        if not IsSRNEnabled(SRN) then
-            Error(NoWorkflowEnb);
-    end;
-    //"PROC-Store Requistion Header"
-
     //Inter Bank Transfer
     [IntegrationEvent(false, false)]
     PROCEDURE OnSendInterBankforApproval(VAR InterBank: Record "FIN-InterBank Transfers");
@@ -170,7 +146,6 @@ codeunit 50010 "Init Code"
         imprestHeader: Record "FIN-Imprest Header";
         InterBankTransfers: Record "FIN-InterBank Transfers";
         StaffClaims: Record "FIN-Staff Claims Header";
-        StoreRequisition: Record "PROC-Store Requistion Header";
         PurchaseRequisition: Record "Purchase Header";
         PurchQuote: Record "PROC-Purchase Quote Header";
 
@@ -197,11 +172,6 @@ codeunit 50010 "Init Code"
                 begin
                     RecRef.SetTable(StaffClaims);
                     ApprovalEntryArgument."Document No." := StaffClaims."No.";
-                end;
-            Database::"PROC-Store Requistion Header":
-                begin
-                    RecRef.SetTable(StoreRequisition);
-                    ApprovalEntryArgument."Document No." := StoreRequisition."No.";
                 end;
             Database::"Purchase Header":
                 begin
@@ -247,27 +217,6 @@ codeunit 50010 "Init Code"
 
     end;
     //End cancel of Claim
-
-
-
-    //Cancel Store Requisition
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnCancelSRNforApproval(VAR SRN: Record "PROC-Store Requistion Header");
-    begin
-    end;
-    //Leave Requisition
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnCancelLeaveforApproval(VAR HRMLeaveReq: Record "HRM-Leave Requisition");
-    begin
-    end;
-
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnCancelTrainforApproval(VAR SRN: Record "HRM-Training Applications");
-    begin
-    end;
-
-
-    //End Cancel Store Requisition
 
     //Cancel Inter Bank Transfer
     [IntegrationEvent(false, false)]

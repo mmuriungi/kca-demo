@@ -51,17 +51,6 @@ codeunit 50011 WFCode
         ReleaseClaimTxt: TextConst ENU = 'Release Claim', ENG = 'Release Claim';
         ReOpenClaimTxt: TextConst ENU = 'ReOpen Claim', ENG = 'ReOpen Claim';
 
-        //SRNS
-        SendSRNReq: TextConst ENU = 'Approval Request for Store Requisition is requested', ENG = 'Approval Request for Store Requisition is requested';
-        AppReqSRN: TextConst ENU = 'Approval Request for Store Requisition is approved', ENG = 'Approval Request for Store Requisition is approved';
-        RejReqSRN: TextConst ENU = 'Approval Request for Store Requisition is rejected', ENG = 'Approval Request for Store Requisition is rejected';
-        CanReqSRN: TextConst ENU = 'Approval Request for Store Requisition is cancelled', ENG = 'Approval Request for Store Requisition is cancelled';
-        DelReqSRN: TextConst ENU = 'Approval Request for Store Requisition is delegated', ENG = 'Approval Request for Store Requisition is delegated';
-        SRNPendAppTxt: TextConst ENU = 'Status of Store Requisition changed to Pending approval',
-                                ENG = 'Status of Store Requisition changed to Pending approval';
-        ReleaseSRNTxt: TextConst ENU = 'Release Store Requisition', ENG = 'Release Store Requisition';
-        ReOpenSRNTxt: TextConst ENU = 'ReOpen Store Requisition', ENG = 'ReOpen Store Requisition';
-
         //Bank Transfers 
         SendInterBankReq: TextConst ENU = 'Approval Request for Inter-bank Transfer is requested', ENG = 'Approval Request for Inter-bank Transfer is requested';
         AppReqInterBank: TextConst ENU = 'Approval Request for Inter-bank Transfer is approved', ENG = 'Approval Request for Inter-bank Transfer is approved';
@@ -90,7 +79,6 @@ codeunit 50011 WFCode
         UserCanReqPVS: TextConst ENU = 'Approval Request for PVS is cancelled by user', ENG = 'Approval Request for PVS is cancelled by user';
         UserCanReqImprest: TextConst ENU = 'Approval Request for Imprest is cancelled by user', ENG = 'Approval Request for Imprest is cancelled by user';
         UserCanReqClaim: TextConst ENU = 'Approval Request for Claim is cancelled by user', ENG = 'Approval Request for Claim is cancelled by user';
-        UserCanReqSRN: TextConst ENU = 'Approval Request for Store Requisition is cancelled by user', ENG = 'Approval Request for Store Requisition is cancelled by user';
         UserCanReqInterBank: TextConst ENU = 'Approval Request for Inter-bank Transfer is cancelled by user', ENG = 'Approval Request for Inter-bank Transfer is cancelled by user';
         UserCanReqPurchQuote: TextConst ENU = 'Approval Request for Purchase Quotes is cancelled by user', ENG = 'Approval Request for Purchase Quotes is cancelled by user';
     //End User Cancellation of requests
@@ -252,7 +240,6 @@ codeunit 50011 WFCode
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelPVSApprovalCode, Database::"FIN-Payments Header", UserCanReqPVS, 0, false);
 
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelClaimsApprovalCode, Database::"FIN-Staff Claims Header", UserCanReqClaim, 0, false);
-        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelSRNApprovalCode, Database::"PROC-Store Requistion Header", UserCanReqSRN, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelInterBankApprovalCode, Database::"FIN-InterBank Transfers", UserCanReqInterBank, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelPurchQuoteApprovalCode, Database::"PROC-Purchase Quote Header", UserCanReqPurchQuote, 0, false);
     end;
@@ -892,189 +879,6 @@ codeunit 50011 WFCode
     end;
 
     //End of Inter bank Tranfers
-
-    //Store Requisitions
-    procedure RunWorkflowOnSendSRNApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnSendSRNApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Init Code", 'OnSendSRNforApproval', '', false, false)]
-    procedure RunWorkflowOnSendSRNApproval(var SRN: Record "PROC-Store Requistion Header")
-    begin
-        WFMngt.HandleEvent(RunWorkflowOnSendSRNApprovalCode(), SRN);
-    end;
-
-    procedure RunWorkflowOnApproveSRNApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnApproveSRNApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnApproveSRNApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveSRNApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnRejectSRNApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectSRNApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnRejectSRNApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectSRNApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnCancelledSRNApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectSRNApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnCancelledSRNApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnCancelledSRNApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure RunWorkflowOnDelegateSRNApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnDelegateSRNApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnDelegateSRNApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateSRNApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
-
-    procedure SetStatusToPendingApprovalCodeSRN(): Code[128]
-    begin
-        exit(UpperCase('SetStatusToPendingApprovalSRN'));
-    end;
-
-    procedure SetStatusToPendingApprovalSRN(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        SRN: Record "PROC-Store Requistion Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"PROC-Store Requistion Header":
-                begin
-                    RecRef.SetTable(SRN);
-                    SRN.Validate(Status, SRN.Status::"Pending Approval");
-                    SRN.Modify();
-                    Variant := SRN;
-                end;
-        end;
-    end;
-
-    procedure ReleaseSRNCode(): Code[128]
-    begin
-        exit(UpperCase('Release SRN'));
-    end;
-
-    procedure ReleaseSRN(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        SRN: Record "PROC-Store Requistion Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReleaseSRN(Variant);
-                end;
-            DATABASE::"PROC-Store Requistion Header":
-                begin
-                    RecRef.SetTable(SRN);
-                    SRN.Validate(Status, SRN.Status::Released);
-                    SRN.Modify();
-                    Variant := SRN;
-                end;
-        end;
-    end;
-
-    procedure ReOpenSRNCode(): Code[128]
-    begin
-        exit(UpperCase('ReOpenSRN'));
-    end;
-
-    procedure ReOpenSRN(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        SRN: Record "PROC-Store Requistion Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReOpenSRN(Variant);
-                end;
-            DATABASE::"PROC-Store Requistion Header":
-                begin
-                    RecRef.SetTable(SRN);
-                    SRN.Validate(Status, SRN.Status::Open);
-                    SRN.Modify();
-                    Variant := SRN;
-                end;
-        end;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
-    procedure AddSRNEventToLibrary()
-    begin
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendSRNApprovalCode(), Database::"PROC-Store Requistion Header", SendSRNReq, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveSRNApprovalCode(), Database::"Approval Entry", AppReqSRN, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectSRNApprovalCode(), Database::"Approval Entry", RejReqSRN, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateSRNApprovalCode(), Database::"Approval Entry", DelReqSRN, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnCancelledSRNApprovalCode(), Database::"Approval Entry", CanReqSRN, 0, false);
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
-    procedure AddSRNRespToLibrary()
-    begin
-        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeSRN(), 0, SRNPendAppTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReleaseSRNCode(), 0, ReleaseSRNTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReOpenSRNCode(), 0, ReOpenSRNTxt, 'GROUP 0');
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
-    procedure ExeRespForSRN(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
-    var
-        WorkflowResponse: Record "Workflow Response";
-    begin
-        IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
-            case WorkflowResponse."Function Name" of
-                SetStatusToPendingApprovalCodeSRN():
-                    begin
-                        SetStatusToPendingApprovalSRN(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReleaseSRNCode():
-                    begin
-                        ReleaseSRN(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReOpenSRNCode():
-                    begin
-                        ReOpenSRN(Variant);
-                        ResponseExecuted := true;
-                    end;
-            end;
-    end;
     //Purchase Quotes 
     procedure RunWorkflowOnSendPurchQuoteApprovalCode(): Code[128]
     begin
@@ -1350,21 +1154,6 @@ codeunit 50011 WFCode
 
     end;
     //End cancelling Claims    
-
-    //Cancelling of SRN
-    procedure RunWorkflowOnCancelSRNApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnCancelSRNApproval'))
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Init Code", 'OnCancelSRNForApproval', '', false, false)]
-    procedure RunWorkflowOnCancelSRNApproval(VAR SRN: Record "PROC-Store Requistion Header")
-    begin
-
-        WFMngt.HandleEvent(RunWorkflowOnCancelSRNApprovalCode(), SRN);
-
-    end;
-    //End cancelling SRN
 
     //Cancelling of InterBank
     procedure RunWorkflowOnCancelInterBankApprovalCode(): Code[128]

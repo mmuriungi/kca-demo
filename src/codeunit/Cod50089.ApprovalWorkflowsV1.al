@@ -104,6 +104,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelAuditHeaderRequestTxt: Label 'An Approval request for Audit Header is Cancelled';
         RunWorkflowOnSendAuditHeaderForApprovalCode: Label 'RUNWORKFLOWONSENDAUDITHEADERFORAPPROVAL';
         RunWorkflowOnCancelAuditHeaderForApprovalCode: Label 'RUNWORKFLOWONCANCELAUDITHEADERFORAPPROVAL';
+        //Store Requisition
+        OnSendStoreRequisitionRequestTxt: Label 'Approval request for SRN is requested';
+        OnCancelStoreRequisitionRequestTxt: Label 'An Approval request for SRN is Cancelled';
+        RunWorkflowOnSendStoreRequisitionForApprovalCode: Label 'RUNWORKFLOWONSENDSRNFORAPPROVAL';
+        RunWorkflowOnCancelStoreRequisitionForApprovalCode: Label 'RUNWORKFLOWONCANCELSRNFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -153,6 +158,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendVenueBookingForApprovalCode));
             Database::"Audit Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendAuditHeaderForApprovalCode));
+            Database::"PROC-Store Requistion Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendStoreRequisitionForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -248,7 +255,9 @@ codeunit 50089 "Approval Workflows V1"
         //Audit Header
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendAuditHeaderForApprovalCode, Database::"Audit Header", OnSendAuditHeaderRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelAuditHeaderForApprovalCode, Database::"Audit Header", OnCancelAuditHeaderRequestTxt, 0, false);
-
+        //Store Requisition
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendStoreRequisitionForApprovalCode, Database::"PROC-Store Requistion Header", OnSendStoreRequisitionRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelStoreRequisitionForApprovalCode, Database::"PROC-Store Requistion Header", OnCancelStoreRequisitionRequestTxt, 0, false);
     end;
 
 
@@ -305,6 +314,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendVenueBookingForApprovalCode, Variant);
             Database::"Audit Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendAuditHeaderForApprovalCode, Variant);
+            Database::"PROC-Store Requistion Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendStoreRequisitionForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -359,6 +370,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelVenueBookingForApprovalCode, Variant);
             Database::"Audit Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelAuditHeaderForApprovalCode, Variant);
+            Database::"PROC-Store Requistion Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelStoreRequisitionForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -389,6 +402,7 @@ codeunit 50089 "Approval Workflows V1"
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
+        StoreRequisition: Record "PROC-Store Requistion Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -531,6 +545,13 @@ codeunit 50089 "Approval Workflows V1"
                     AuditHeader.Modify();
                     Handled := true;
                 end;
+            Database::"PROC-Store Requistion Header":
+                begin
+                    RecRef.SetTable(StoreRequisition);
+                    StoreRequisition.Validate("Status", StoreRequisition.Status::"Pending Approval");
+                    StoreRequisition.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -557,6 +578,7 @@ codeunit 50089 "Approval Workflows V1"
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
+        StoreRequisition: Record "PROC-Store Requistion Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -703,6 +725,13 @@ codeunit 50089 "Approval Workflows V1"
                     AuditHeader.Modify();
                     IsHandled := true;
                 end;
+            Database::"PROC-Store Requistion Header":
+                begin
+                    RecRef.SetTable(StoreRequisition);
+                    StoreRequisition.Validate(Status, StoreRequisition.Status::"Pending Approval");
+                    StoreRequisition.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -729,6 +758,7 @@ codeunit 50089 "Approval Workflows V1"
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
+        StoreRequisition: Record "PROC-Store Requistion Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -831,6 +861,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(AuditHeader);
                     ApprovalEntryArgument."Document No." := AuditHeader."No.";
                 end;
+            Database::"PROC-Store Requistion Header":
+                begin
+                    RecRef.SetTable(StoreRequisition);
+                    ApprovalEntryArgument."Document No." := StoreRequisition."No.";
+                end;
         end;
     end;
 
@@ -862,6 +897,7 @@ codeunit 50089 "Approval Workflows V1"
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
+        StoreRequisition: Record "PROC-Store Requistion Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -1008,6 +1044,13 @@ codeunit 50089 "Approval Workflows V1"
                     AuditHeader.Modify();
                     Handled := true;
                 end;
+            Database::"PROC-Store Requistion Header":
+                begin
+                    RecRef.SetTable(StoreRequisition);
+                    StoreRequisition.Validate(Status, StoreRequisition.Status::Released);
+                    StoreRequisition.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -1034,6 +1077,7 @@ codeunit 50089 "Approval Workflows V1"
         SupervisionTracking: Record "Supervision Tracking";
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
+        StoreRequisition: Record "PROC-Store Requistion Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -1180,6 +1224,13 @@ codeunit 50089 "Approval Workflows V1"
                         AuditHeader.Modify(true);
                     end;
                 end;
+            Database::"PROC-Store Requistion Header":
+                begin
+                    if StoreRequisition.Get(ApprovalEntry."Document No.") then begin
+                        StoreRequisition.Status := StoreRequisition.Status::Open;
+                        StoreRequisition.Modify(true);
+                    end;
+                end;
         end;
     end;
 
@@ -1204,6 +1255,7 @@ codeunit 50089 "Approval Workflows V1"
         ItemDisposalHeader: Record "Item Disposal Header";
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
+        StoreRequisition: Record "PROC-Store Requistion Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -1327,6 +1379,13 @@ codeunit 50089 "Approval Workflows V1"
                     AuditHeader.Modify();
                     Variant := AuditHeader;
                 end;
+            Database::"PROC-Store Requistion Header":
+                begin
+                    RecRef.SetTable(StoreRequisition);
+                    StoreRequisition.Validate("Status", StoreRequisition.Status::"Pending Approval");
+                    StoreRequisition.Modify();
+                    Variant := StoreRequisition;
+                end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
 
@@ -1353,6 +1412,7 @@ codeunit 50089 "Approval Workflows V1"
         ItemDisposalHeader: Record "Item Disposal Header";
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
+        StoreRequisition: Record "PROC-Store Requistion Header";
     begin
         RecRef.GetTable(Variant);
         case RecRef.Number of
@@ -1475,6 +1535,13 @@ codeunit 50089 "Approval Workflows V1"
                     AuditHeader.Validate(Status, AuditHeader.Status::"Pending Approval");
                     AuditHeader.Modify();
                     Variant := AuditHeader;
+                end;
+            Database::"PROC-Store Requistion Header":
+                begin
+                    RecRef.SetTable(StoreRequisition);
+                    StoreRequisition.Validate("Status", StoreRequisition.Status::"Pending Approval");
+                    StoreRequisition.Modify();
+                    Variant := StoreRequisition;
                 end;
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);

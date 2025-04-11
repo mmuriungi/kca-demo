@@ -59,7 +59,7 @@ page 52178577 "Proc-Procurement Plan Header"
             }
             part(part; "PROC-Procurement Plan Lines")
             {
-                SubPageLink = "Budget Name" = FIELD("Budget Name"), "Global Dimension 1 Code" = field("Global Dimension 1 Code");
+                SubPageLink = "Budget Name" = FIELD("Budget Name"), "Global Dimension 1 Code" = field("Global Dimension 1 Code"), "Global Dimension 2 Code" = field("Global Dimension 2 Code");
                 ApplicationArea = All;
             }
         }
