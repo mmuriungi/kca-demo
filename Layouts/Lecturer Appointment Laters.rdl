@@ -47,7 +47,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!CompName.Value</Value>
+                                  <Value>=Fields!CompName.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>18pt</FontSize>
@@ -62,7 +62,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">OFFICE OF THE DEPUTY VICE CHANCELLOR</Value>
+                                  <Value>OFFICE OF THE DEPUTY VICE CHANCELLOR</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -80,7 +80,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">(Planning, Finance &amp; Administration)</Value>
+                                  <Value>(Planning, Finance &amp; Administration)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -98,7 +98,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!CompAddresses.Value</Value>
+                                  <Value>=Fields!CompAddresses.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -113,7 +113,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">+ 254 (0) 20 2176713 /0729 721200</Value>
+                                  <Value>+ 254 (0) 20 2176713 /0729 721200</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -131,7 +131,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Email: - </Value>
+                                  <Value>Email: - </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -142,7 +142,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">dvc_pfa@karu.ac.ke</Value>
+                                  <Value>dvc_pfa@karu.ac.ke</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -214,7 +214,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Our Ref: </Value>
+                                  <Value>Our Ref: </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -225,14 +225,14 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!AppLetterRef.Value</Value>
+                                  <Value>=Fields!AppLetterRef.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">                                    Date: </Value>
+                                  <Value>                                    Date: </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -243,7 +243,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Globals!ExecutionTime</Value>
+                                  <Value>=Globals!ExecutionTime</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -257,7 +257,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -273,42 +273,42 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!fName.Value</Value>
+                                  <Value>=Fields!fName.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Lname.Value</Value>
+                                  <Value>=Fields!Lname.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!MName.Value</Value>
+                                  <Value>=Fields!MName.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -322,7 +322,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!FacName.Value</Value>
+                                  <Value>=Fields!FacName.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -338,7 +338,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!CompName.Value</Value>
+                                  <Value>=Fields!CompName.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -347,23 +347,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">.</Value>
-                                  <Style>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <TextDecoration>Underline</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value>.</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -379,28 +363,12 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Dear </Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!fName.Value</Value>
-                                  <Style>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">,</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>Underline</TextDecoration>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -411,7 +379,21 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value>Dear </Value>
+                                  <Style>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!fName.Value</Value>
+                                  <Style>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>,</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -429,7 +411,25 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">RE:     </Value>
+                                  <Value />
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>RE:     </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -440,7 +440,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!AppLetterRef2.Value</Value>
+                                  <Value>=Fields!AppLetterRef2.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -456,7 +456,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -472,7 +472,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">I am authorized to offer you appointment on contract as a Part-time lecturer in the </Value>
+                                  <Value>I am authorized to offer you appointment on contract as a Part-time lecturer in the </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -483,7 +483,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!FacName.Value</Value>
+                                  <Value>=Fields!FacName.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -492,7 +492,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto"> to teach: -</Value>
+                                  <Value> to teach: -</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -559,7 +559,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -590,7 +590,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitCode.Value</Value>
+                                                <Value>=Fields!UnitCode.Value</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -621,11 +621,11 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitDesc.Value</Value>
+                                                <Value>=Fields!UnitDesc.Value</Value>
                                                 <Style />
                                               </TextRun>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitDesc.Value</Value>
+                                                <Value>=Fields!UnitDesc.Value</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -659,7 +659,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -694,7 +694,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto" />
+                                                <Value />
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -729,7 +729,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitCode.Value</Value>
+                                                <Value>=Fields!UnitCode.Value</Value>
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -737,7 +737,7 @@
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">: </Value>
+                                                <Value>: </Value>
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -745,7 +745,7 @@
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitDesc.Value</Value>
+                                                <Value>=Fields!UnitDesc.Value</Value>
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -753,7 +753,7 @@
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto"> - </Value>
+                                                <Value> - </Value>
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -761,7 +761,7 @@
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!UnitProg.Value</Value>
+                                                <Value>=Fields!UnitProg.Value</Value>
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -769,7 +769,7 @@
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value xml:space="preserve" EvaluationMode="Auto">    </Value>
+                                                <Value xml:space="preserve">    </Value>
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -777,7 +777,7 @@
                                                 </Style>
                                               </TextRun>
                                               <TextRun>
-                                                <Value EvaluationMode="Auto">=Fields!Class.Value</Value>
+                                                <Value>=Fields!Class.Value</Value>
                                                 <Style>
                                                   <FontFamily>Rockwell</FontFamily>
                                                   <FontSize>12pt</FontSize>
@@ -870,7 +870,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -886,7 +886,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">During the </Value>
+                                  <Value>During the </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -897,7 +897,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!SemRangeDesc.Value</Value>
+                                  <Value>=Fields!SemRangeDesc.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -910,7 +910,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">You will be paid a consolidated gross amount of </Value>
+                                  <Value>You will be paid a consolidated gross amount of </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -921,7 +921,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Kshs. </Value>
+                                  <Value>Kshs. </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -932,142 +932,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Amount.Value</Value>
-                                  <Style>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Format>n2</Format>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto"> teaching, setting and marking exams. This contractual appointment does not carry any other benefits other than those mentioned above.  Your time-table and other arrangements will be made by the Dean of your School.</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto" />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">If you accept this offer as Part-time lecturer on the terms of this letter, please sign on the space provided below and return one signed copy of the letter to the undersigned.</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto" />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">Yours sincerely,</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto" />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto" />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Rockwell</FontFamily>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!ApprovalName.Value</Value>
+                                  <Value>=Fields!Amount.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -1075,6 +940,17 @@
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
+                                <TextRun>
+                                  <Value> teaching, setting and marking exams. This contractual appointment does not carry any other benefits other than those mentioned above.  Your time-table and other arrangements will be made by the Dean of your School.</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
                               </TextRuns>
                               <Style>
                                 <TextAlign>Left</TextAlign>
@@ -1083,7 +959,131 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!ApprovalTitle.Value</Value>
+                                  <Value />
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>If you accept this offer as Part-time lecturer on the terms of this letter, please sign on the space provided below and return one signed copy of the letter to the undersigned.</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Yours sincerely,</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!ApprovalName.Value</Value>
+                                  <Style>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!ApprovalTitle.Value</Value>
                                   <Style>
                                     <FontFamily>Rockwell</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -1100,7 +1100,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -1118,7 +1118,27 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">I accept the appointment as Part-time lecturer in the service of MASENO University on the terms and conditions of this letter</Value>
+                                  <Value>I accept the appointment as Part-time lecturer in the service of </Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!CompName.Value</Value>
+                                  <Style>
+                                    <FontFamily>Rockwell</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>Underline</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value> on the terms and conditions of this letter</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -1136,7 +1156,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -1154,7 +1174,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">NAME: ___________________________  SIGNATURE:  __________________________</Value>
+                                  <Value>NAME: ___________________________  SIGNATURE:  __________________________</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -1172,7 +1192,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">DATE:  ___________________________ ID NO._________________________________</Value>
+                                  <Value>DATE:  ___________________________ ID NO._________________________________</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -1190,7 +1210,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">CC:  Dean, </Value>
+                                  <Value>CC:  Dean, </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -1201,7 +1221,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!FacName.Value</Value>
+                                  <Value>=Fields!FacName.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Rockwell</FontFamily>
@@ -1248,7 +1268,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Salutations.Value</Value>
+                                  <Value>=Fields!Salutations.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1277,7 +1297,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!AppLetterRef2.Value</Value>
+                                  <Value>=Fields!AppLetterRef2.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1306,7 +1326,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1335,7 +1355,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1364,7 +1384,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>

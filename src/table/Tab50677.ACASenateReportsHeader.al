@@ -118,7 +118,7 @@ table 50677 "ACA-Senate Reports Header"
                                                                        Programme = FIELD("Programme Code")));
             FieldClass = FlowField;
         }
-        field(50005; "Status Msg6"; Text[100])
+        field(50005; "Status Msg6"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
@@ -146,27 +146,27 @@ table 50677 "ACA-Senate Reports Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(50020; "Status Msg1"; Text[100])
+        field(50020; "Status Msg1"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(50021; "Status Msg2"; Text[100])
+        field(50021; "Status Msg2"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(50022; "Status Msg3"; Text[100])
+        field(50022; "Status Msg3"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(50023; "Status Msg4"; Text[100])
+        field(50023; "Status Msg4"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(50024; "Status Msg5"; Text[100])
+        field(50024; "Status Msg5"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(63021; "Summary Page Caption"; Text[100])
+        field(63021; "Summary Page Caption"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
@@ -178,7 +178,7 @@ table 50677 "ACA-Senate Reports Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(63029; "Academic Year Text"; Text[100])
+        field(63029; "Academic Year Text"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
@@ -238,27 +238,27 @@ table 50677 "ACA-Senate Reports Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(63059; "Grad. Status Msg 1"; Text[100])
+        field(63059; "Grad. Status Msg 1"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(63060; "Grad. Status Msg 2"; Text[100])
+        field(63060; "Grad. Status Msg 2"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(63061; "Grad. Status Msg 3"; Text[100])
+        field(63061; "Grad. Status Msg 3"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(63062; "Grad. Status Msg 4"; Text[100])
+        field(63062; "Grad. Status Msg 4"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(63063; "Grad. Status Msg 5"; Text[100])
+        field(63063; "Grad. Status Msg 5"; Text[250])
         {
             DataClassification = ToBeClassified;
         }
-        field(63064; "Grad. Status Msg 6"; Text[100])
+        field(63064; "Grad. Status Msg 6"; Text[250])
         {
             DataClassification = ToBeClassified;
         }

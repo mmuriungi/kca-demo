@@ -177,6 +177,29 @@ page 51452 "CAT-Cafeteria Role Center"
                     ApplicationArea = BAsic, Suite;
                 }
             }
+            group("Common Requisitions")
+            {
+                Caption = 'Common Requisitions';
+
+                action("Stores Requisitions")
+                {
+                    Caption = 'Stores Requisitions';
+                    ApplicationArea = All;
+                    RunObject = Page "PROC-Store Requisition";
+                }
+                action("Imprest Requisitions")
+                {
+                    Caption = 'Imprest Requisitions';
+                    ApplicationArea = All;
+                    RunObject = Page "FIN-Imprests List";
+                }
+                action("Transport Requisition")
+                {
+                    Caption = 'Transport Requisition';
+                    RunObject = Page "FLT-Transport Req. List";
+                    ApplicationArea = All;
+                }
+            }
             group(CafeSateUps)
             {
                 Caption = 'Cafe Setups';
