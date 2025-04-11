@@ -11414,6 +11414,18 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure RepairRequestSubmitted(reqno: Code[20]) msg: Boolean
+    var
+        RepairRequests: Record "Repair Request";
+    begin
+        RepairRequests.Reset;
+        RepairRequests.SetRange("No.", reqno);
+        if RepairRequests.Find('-') then begin
+            if RepairRequests.Status <> RepairRequests.Status::Open then
+                msg := true;
+        end;
+    end;
+
     procedure SubmitRepairRequest(reqno: Code[20]) msg: Boolean
     var
         RepairRequest: Record "Repair Request";
