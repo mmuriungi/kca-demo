@@ -10912,6 +10912,7 @@ Codeunit 61106 webportals
         StoreReqLines."Requistion No" := ReqNo;
         StoreReqLines."Line No." := Seq;
         StoreReqLines.Validate("Requistion No");
+        StoreReqLines.Type := StoreReqLines.Type::Item;
         StoreReqLines."No." := ItemNo;
         StoreReqLines.Description := ItemDesc;
         StoreReqLines."Unit Cost" := Amount;
