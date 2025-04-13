@@ -92,6 +92,16 @@ tableextension 50019 "Customer Ext" extends Customer
             Caption = 'Account No';
             DataClassification = ToBeClassified;
         }
+        field(50003; "Otp Code"; Text[20])
+        {
+            Caption = 'Otp Code';
+            DataClassification = CustomerContent;
+        }
+        field(50004; "Otp Code Expiry"; DateTime)
+        {
+            Caption = 'Otp Code Expiry';
+            DataClassification = CustomerContent;
+        }
         field(50050; "Balance (Cafe)"; Decimal)
         {
             Caption = 'Balance (Cafe)';

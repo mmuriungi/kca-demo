@@ -25,7 +25,7 @@ pageextension 50013 "Purchase Receipts Ext" extends "Posted Purchase Receipts"
                 begin
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(50010, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Goods Receipt (GRN)", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }
@@ -40,7 +40,7 @@ pageextension 50013 "Purchase Receipts Ext" extends "Posted Purchase Receipts"
                 begin
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(50009, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Goods Inspection Cert", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }
