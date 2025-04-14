@@ -32,6 +32,9 @@ query 50008 Surveys
             column(Type; "Type")
             {
             }
+            column(AppliesTo; "Applies To")
+            {
+            }
         }
     }
 
