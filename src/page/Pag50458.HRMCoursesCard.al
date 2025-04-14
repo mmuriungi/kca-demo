@@ -1,4 +1,4 @@
-page 50458 "HRM-Courses Card"
+page 50022 "HRM-Courses Card"
 {
     Caption = 'HR Training Courses';
     PageType = Card;

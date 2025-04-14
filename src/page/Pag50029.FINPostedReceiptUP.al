@@ -1,4 +1,4 @@
-page 50029 "FIN-Posted Receipt UP"
+page 50461 "FIN-Posted Receipt UP"
 {
     DeleteAllowed = false;
     Editable = false;

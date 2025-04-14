@@ -1,4 +1,4 @@
-page 50025 "FIN-Posted Interbank Trans2"
+page 50459 "FIN-Posted Interbank Trans2"
 {
     DeleteAllowed = false;
     Editable = false;

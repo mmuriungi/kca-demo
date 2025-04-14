@@ -1,4 +1,4 @@
-page 50057 "Item Disposal Subform"
+page 50020 "Item Disposal Subform"
 {
     PageType = ListPart;
     SourceTable = "Item Disposal Line";

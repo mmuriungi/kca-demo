@@ -1,4 +1,4 @@
-page 50020 "FIN-Payment Vouchers"
+page 50030 "FIN-Payment Vouchers"
 {
     CardPageID = "FIN-Payment Header";
     Editable = false;
