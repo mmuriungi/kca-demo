@@ -260,18 +260,20 @@ page 52178503 "PROC-Store Req. Header (B)"
             {
                 ApplicationArea = all;
                 Caption = 'Send A&pproval Request';
-                Image = SendApprovalRequest;
+                Image = SendApprovalRequest; 
                 Promoted = true;
                 PromotedCategory = category4;
                 trigger OnAction()
                 var
-                    ApprovalMgt: Codeunit "Init Code";
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                     Text000: Label 'Are you sure you want to send for approval?';
                 begin
                     IF NOT LinesExists THEN
                         ERROR('There are no Lines created for this Document');
-                    IF ApprovalMgt.IsSRNEnabled(Rec) = true THEN BEGIN
-                        ApprovalMgt.OnSendSRNforApproval(Rec);
+                    variant := Rec;
+                    IF ApprovalMgt.CheckApprovalsWorkflowEnabled(variant) THEN BEGIN
+                        ApprovalMgt.OnSendDocForApproval(variant);
                         CommitBudget();
                     END ELSE
                         ;
@@ -297,9 +299,11 @@ page 52178503 "PROC-Store Req. Header (B)"
                 PromotedCategory = category4;
                 trigger OnAction()
                 var
-                    ApprovalMgt: Codeunit "Init Code";
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
+                    variant: Variant;
                 begin
-                    ApprovalMgt.OnCancelSRNforApproval(Rec);
+                    variant := Rec;
+                    ApprovalMgt.OnCancelDocApprovalRequest(variant);
                     CancelCommitment();
                 end;
             }
