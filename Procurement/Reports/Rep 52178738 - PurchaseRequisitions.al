@@ -4,7 +4,7 @@
 report 52178738 "Purchase Requisitions"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Reports/SSR/PurchaseRequisition.rdl';
+    RDLCLayout = './Procurement/Reports/SSR/PurchaseRequisition.rdl';
     PreviewMode = PrintLayout;
 
     dataset
