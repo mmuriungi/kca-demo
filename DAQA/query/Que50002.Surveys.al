@@ -29,6 +29,12 @@ query 50008 Surveys
             column(EndDate; "End Date")
             {
             }
+            column(Type; "Type")
+            {
+            }
+            column(AppliesTo; "Applies To")
+            {
+            }
         }
     }
 

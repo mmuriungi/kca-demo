@@ -34,6 +34,16 @@ page 52051 "Survey Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
+                field("Type"; Rec."Type")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Type field.', Comment = '%';
+                }
+                field("Applies To"; Rec."Applies To")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Applies To field.', Comment = '%';
+                }
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
