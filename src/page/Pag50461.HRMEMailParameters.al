@@ -1,4 +1,4 @@
-page 50461 "HRM- EMail Parameters"
+page 50024 "HRM- EMail Parameters"
 {
     PageType = Card;
     SourceTable = "HRM-EMail Parameters";

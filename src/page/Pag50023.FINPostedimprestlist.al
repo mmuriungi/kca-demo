@@ -1,4 +1,4 @@
-page 50023 "FIN-Posted imprest list"
+page 50457 "FIN-Posted imprest list"
 {
     CardPageID = "FIN-Posted Imprest Req. UP";
     DeleteAllowed = false;

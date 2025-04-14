@@ -221,8 +221,8 @@ table 50650 "ACA-Lecturers Units"
         field(38; "Engagement Terms"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionCaption = ' ,Full-Time,Internal Part-Timer,External Part-Timer';
-            OptionMembers = " ","Full-Time","Internal Part-Timer","External Part-Timer";
+            OptionCaption = ' ,Full-Time,Internal Part-Timer,External Part-Timer,Adjent Category';
+            OptionMembers = " ","Full-Time","Internal Part-Timer","External Part-Timer","Adjent Category";
         }
         field(39; "Unit Cost"; Decimal)
         {

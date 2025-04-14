@@ -1,4 +1,4 @@
-page 50460 "HRM-Committees"
+page 50023 "HRM-Committees"
 {
     PageType = List;
     SourceTable = "HRM-Committees (B)";
