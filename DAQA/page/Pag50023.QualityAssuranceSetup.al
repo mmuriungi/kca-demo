@@ -43,7 +43,7 @@ page 52093 "Quality Assurance Setup"
     begin
         if not Rec.Get() then begin
             Rec.Init();
-            Rec."Primary Key" := 'SETUP';
+            Rec."Primary Key" := '';
             Rec.Insert();
         end;
     end;
