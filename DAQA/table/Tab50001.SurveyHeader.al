@@ -58,6 +58,12 @@ table 50143 "Survey Header"
             Caption = 'Applies To';
             OptionMembers = "All Students","Specific Students";
         }
+        //Type
+        field(10; "Type"; Option)
+        {
+            Caption = 'Type';
+            OptionMembers = "student","staff";
+        }
     }
 
     keys

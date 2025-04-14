@@ -11460,8 +11460,22 @@ Codeunit 61106 webportals
             JsonObject.Add('image', fnGetCustomerImage(studNo));
             JsonObject.Add('email', Customer."E-Mail");
             JsonObject.Add('no', Customer."No.");
+            JsonObject.Add('type', 'student');
+            JsonObject.Add('year', GetStudentCurrentYearofStudy(studNo));
             JsonObject.WriteTo(JsTxt);
             msg := JsTxt;
+        end;
+    end;
+
+    procedure GetStudentCurrentYearofStudy(studNo: Code[20]): integer
+    var
+        CosReg: Record "ACA-Course Registration";
+    begin
+        CosReg.Reset;
+        CosReg.SetRange("Student No.", studNo);
+        CosReg.SetCurrentKey(Stage);
+        if CosReg.FindLast() then begin
+            exit(CosReg."Year of Study");
         end;
     end;
 
@@ -11500,6 +11514,8 @@ Codeunit 61106 webportals
             JsonObject.Add('image', fnGetEmployeeImage(staffNo));
             JsonObject.Add('email', Employee."E-Mail");
             JsonObject.Add('no', Employee."No.");
+            JsonObject.Add('type', 'staff');
+            JsonObject.Add('year', 0);
             JsonObject.WriteTo(JsTxt);
             msg := JsTxt;
         end;
@@ -11523,6 +11539,17 @@ Codeunit 61106 webportals
             end;
         end;
         exit(res);
+    end;
+
+    procedure ShowStaffMonitoring(StaffNo: Code[20]) msg: Boolean
+    var
+        Employee: Record "HRM-Employee C";
+    begin
+        Employee.Reset;
+        Employee.SetRange("No.", StaffNo);
+        if Employee.Find('-') then begin
+            exit(true);
+        end;
     end;
     #endregion
 
