@@ -1167,13 +1167,15 @@ codeunit 50094 staffportals
 
     procedure StoreRequisitionApprovalRequest(ReqNo: Text)
     var
-        InitCode: Codeunit "Init Code";
+        InitCode: Codeunit "Approval Workflows V1";
+        variant: Variant;
     begin
         StoreRequisition.Reset();
         StoreRequisition.SETRANGE(StoreRequisition."No.", ReqNo);
         IF StoreRequisition.FIND('-')
         THEN BEGIN
-            InitCode.OnSendSRNforApproval(StoreRequisition);
+            variant := StoreRequisition;
+            InitCode.OnSendDocForApproval(variant);
         END;
     end;
 

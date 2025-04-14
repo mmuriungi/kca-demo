@@ -233,7 +233,7 @@ table 52178779 "PROC-Procurement Plan Lines"
 
     keys
     {
-        key(Key1; "Budget Name", "No.", "Global Dimension 1 Code")
+        key(Key1; "Budget Name", "No.", "Global Dimension 1 Code", "Global Dimension 2 Code")
         {
             Clustered = true;
         }

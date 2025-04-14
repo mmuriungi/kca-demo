@@ -31,6 +31,10 @@ table 52178559 "Proc Plan Periods"
         {
             Editable = false;
             Caption = 'Current';
+            trigger OnValidate()
+            begin
+                CheckCurrentPeriod();
+            end;
         }
         field(5; Closed; Boolean)
         {
@@ -52,10 +56,12 @@ table 52178559 "Proc Plan Periods"
     end;
 
     procedure CheckCurrentPeriod()
+    var
+        Plan: Record "Proc Plan Periods";
     begin
-        rec.Reset();
-        rec.SetRange(Current, true);
-        if rec.Count > 1 then
+        Plan.Reset();
+        Plan.SetRange(Current, true);
+        if Plan.Count > 1 then
             error('Current period cannot be more than 1')
     end;
 

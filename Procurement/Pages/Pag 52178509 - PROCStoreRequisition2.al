@@ -251,11 +251,13 @@ page 52178509 "PROC-Store Requisition2"
                     end; */
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                         Text000: Label 'Are you sure you want to send for approval?';
                     begin
                         IF CONFIRM(Text000, TRUE) THEN BEGIN
-                            ApprovalMgt.OnSendSRNforApproval(Rec);
+                            variant := Rec;
+                            ApprovalMgt.OnSendDocForApproval(variant);
 
                         END ELSE
                             ;
@@ -272,11 +274,13 @@ page 52178509 "PROC-Store Requisition2"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                         Text001: Label 'Are you sure you want Cancel the approval request?';
                     begin
                         IF CONFIRM(Text001, TRUE) THEN BEGIN
-                            ApprovalMgt.OnCancelSRNforApproval(Rec);
+                            variant := Rec;
+                            ApprovalMgt.OnCancelDocApprovalRequest(variant);
 
                         end;
                     end;

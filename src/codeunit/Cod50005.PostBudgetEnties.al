@@ -111,7 +111,7 @@ codeunit 50005 "Post Budget Enties"
             FINBudgetEntries."G/L Account No." := GLAccount;
             FINBudgetEntries.Date := Dates;
             FINBudgetEntries."Global Dimension 1 Code" := GlobalDim1Code;
-            //FINBudgetEntries."Global Dimension 2 Code" := GlobalDim2Code;
+            FINBudgetEntries."Global Dimension 2 Code" := GlobalDim2Code;
             FINBudgetEntries.Amount := -Amounts;
             FINBudgetEntries.Description := Descriptions;
             FINBudgetEntries."Business Unit Code" := '';
