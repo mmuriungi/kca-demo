@@ -31,7 +31,7 @@ query 50009 Answers
             column(PeriodTo; "Period To")
             {
             }
-            column(ProjectNo; "Project No.")
+            column(SemesterCode; "Semester Code")
             {
             }
             column(Question; Question)

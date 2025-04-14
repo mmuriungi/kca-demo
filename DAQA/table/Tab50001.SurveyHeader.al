@@ -4,10 +4,20 @@ table 50143 "Survey Header"
     DataClassification = ToBeClassified;
 
     fields
+
     {
         field(1; "Survey Code"; Code[20])
         {
             Caption = 'Survey Code';
+
+            trigger OnValidate()
+            begin
+                if "Survey Code" <> xRec."Survey Code" then begin
+                    QualitySetup.Get();
+                    NoSeriesMgt.TestManual(QualitySetup."Survey Nos.");
+                    "No. Series" := '';
+                end;
+            end;
         }
         field(2; Description; Text[100])
         {
@@ -31,18 +41,57 @@ table 50143 "Survey Header"
             Caption = 'Survey Type';
         }
         //Project No.
-        field(7; "Project No."; Code[20])
+        field(7; "Semester Code"; Code[20])
         {
-            Caption = 'Project No.';
-            TableRelation = Job;
+            Caption = 'Semester Code';
+            TableRelation = "ACA-Semesters";
+        }
+        field(8; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            Editable = false;
+            TableRelation = "No. Series";
+        }
+        //Applies to
+        field(9; "Applies To"; Option)
+        {
+            Caption = 'Applies To';
+            OptionMembers = "All Students","Specific Students";
         }
     }
 
     keys
     {
-        key(PK; "Survey Code", "Project No.")
+        key(PK; "Survey Code", "Semester Code")
         {
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    begin
+        if "Survey Code" = '' then begin
+            QualitySetup.Get();
+            QualitySetup.TestField("Survey Nos.");
+            NoSeriesMgt.InitSeries(QualitySetup."Survey Nos.", xRec."No. Series", 0D, "Survey Code", "No. Series");
+        end;
+    end;
+
+    procedure AssistEdit(): Boolean
+    var
+        SurveyHeader: Record "Survey Header";
+    begin
+        SurveyHeader := Rec;
+        QualitySetup.Get();
+        QualitySetup.TestField("Survey Nos.");
+        if NoSeriesMgt.SelectSeries(QualitySetup."Survey Nos.", xRec."No. Series", "No. Series") then begin
+            NoSeriesMgt.SetSeries("Survey Code");
+            Rec := SurveyHeader;
+            exit(true);
+        end;
+    end;
+
+    var
+        QualitySetup: Record "Quality Assurance Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
 }

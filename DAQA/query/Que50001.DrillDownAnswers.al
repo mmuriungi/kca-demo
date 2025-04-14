@@ -7,7 +7,7 @@ query 50007 "Drill Down Answers"
     {
         dataitem(DrillDownAnswers; "Drill Down Answers")
         {
-            column(ProjectNo; "Project No.")
+            column(SemesterCode; "Semester Code")
             {
             }
             column(QuizNo; "Quiz No.")

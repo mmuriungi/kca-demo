@@ -5,10 +5,10 @@ table 51355 "Project Monitor Quiz"
 
     fields
     {
-        field(1; "Project No."; Code[25])
+        field(1; "Semester Code"; Code[25])
         {
-            Caption = 'Project No.';
-            TableRelation = Job;
+            Caption = 'Semester Code';
+            TableRelation = "ACA-Semesters";
         }
         field(2; "Quiz No."; Integer)
         {
@@ -68,7 +68,7 @@ table 51355 "Project Monitor Quiz"
     }
     keys
     {
-        key(PK; "Project No.", "Quiz No.", "Survey Code")
+        key(PK; "Semester Code", "Quiz No.", "Survey Code")
         {
             Clustered = true;
         }

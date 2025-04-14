@@ -3,7 +3,7 @@ page 52051 "Survey Card"
     Caption = 'Survey Card';
     PageType = Card;
     SourceTable = "Survey Header";
-    PromotedActionCategories = 'New,Process,Report,Questions,Answers,Charts,Instructions';
+    PromotedActionCategories = 'New,Process,Report,Questions,Answers,Charts,Instructions,Controls';
 
     layout
     {
@@ -17,11 +17,17 @@ page 52051 "Survey Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Survey Code field.', Comment = '%';
+
+                    trigger OnAssistEdit()
+                    begin
+                        if Rec.AssistEdit() then
+                            CurrPage.Update();
+                    end;
                 }
-                field("Project No."; Rec."Project No.")
+                field("Semester Code"; Rec."Semester Code")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Project No. field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Semester Code field.', Comment = '%';
                 }
                 field(Description; Rec.Description)
                 {
@@ -61,7 +67,7 @@ page 52051 "Survey Card"
                 PromotedCategory = Category4;
                 Image = QuestionaireSetup;
                 RunObject = page "Project Monitor Quiz";
-                RunPageLink = "Survey Code" = field("Survey Code"), "Project No." = field("Project No.");
+                RunPageLink = "Survey Code" = field("Survey Code"), "Semester Code" = field("Semester Code");
             }
             action("Generate Quiz Excel")
             {
@@ -82,15 +88,15 @@ page 52051 "Survey Card"
                 begin
                     Questions.Reset();
                     Questions.SetRange("Survey Code", Rec."Survey Code");
-                    Questions.SetRange("Project No.", Rec."Project No.");
+                    Questions.SetRange("Semester Code", Rec."Semester Code");
                     if not Questions.FindSet() then begin
                         Questions.Init();
                         Questions."Survey Code" := Rec."Survey Code";
-                        Questions."Project No." := Rec."Project No.";
+                        Questions."Semester Code" := Rec."Semester Code";
                         Questions.Insert(true);
                     end;
                     recref.GetTable(Questions);
-                    FieldRef[1] := recref.Field(Questions.FieldNo("Project No."));
+                    FieldRef[1] := recref.Field(Questions.FieldNo("Semester Code"));
                     FieldRef[2] := recref.Field(Questions.FieldNo("Survey Code"));
                     FieldRef[3] := recref.Field(Questions.FieldNo("Quiz No."));
                     FieldRef[4] := recref.Field(Questions.FieldNo("Question"));
@@ -109,16 +115,16 @@ page 52051 "Survey Card"
                     Clear(FieldRef);
                     DrillDownAnswers.Reset();
                     DrillDownAnswers.SetRange("Survey Code", Rec."Survey Code");
-                    DrillDownAnswers.SetRange("Project No.", Rec."Project No.");
+                    DrillDownAnswers.SetRange("Semester Code", Rec."Semester Code");
                     if not DrillDownAnswers.FindSet() then begin
                         DrillDownAnswers.Init();
                         DrillDownAnswers."Survey Code" := Rec."Survey Code";
-                        DrillDownAnswers."Project No." := Rec."Project No.";
+                        DrillDownAnswers."Semester Code" := Rec."Semester Code";
                         DrillDownAnswers.Insert(true);
                     end;
 
                     recref.GetTable(DrillDownAnswers);
-                    FieldRef[1] := recref.Field(DrillDownAnswers.FieldNo("Project No."));
+                    FieldRef[1] := recref.Field(DrillDownAnswers.FieldNo("Semester Code"));
                     FieldRef[2] := recref.Field(DrillDownAnswers.FieldNo("Survey Code"));
                     FieldRef[3] := recref.Field(DrillDownAnswers.FieldNo("Entry No"));
                     FieldRef[4] := recref.Field(DrillDownAnswers.FieldNo("Quiz No."));
@@ -153,7 +159,7 @@ page 52051 "Survey Card"
                     recref[2].GetTable(DrillDownAnswers);
                     ArrSheetName[1] := 'Questions Setup';
                     ArrSheetName[2] := 'Drill Down Answers';
-                    fieldlist.Add(Questions.FieldNo("Project No."));
+                    fieldlist.Add(Questions.FieldNo("Semester Code"));
                     fieldlist.Add(Questions.FieldNo("Survey Code"));
                     fieldlist.Add(Questions.FieldNo("Quiz No."));
                     fieldlist.Add(Questions.FieldNo("Question"));
@@ -166,7 +172,7 @@ page 52051 "Survey Card"
                     fieldlist.Add(Questions.FieldNo("Activates Based On Value"));
                     Fields.Add(1, fieldlist);
                     Clear(fieldlist);
-                    fieldlist.Add(DrillDownAnswers.FieldNo("Project No."));
+                    fieldlist.Add(DrillDownAnswers.FieldNo("Semester Code"));
                     fieldlist.Add(DrillDownAnswers.FieldNo("Survey Code"));
                     fieldlist.Add(DrillDownAnswers.FieldNo("Entry No"));
                     fieldlist.Add(DrillDownAnswers.FieldNo("Quiz No."));
@@ -242,6 +248,16 @@ page 52051 "Survey Card"
         }
         area(Navigation)
         {
+            action("Survey Student Groups")
+            {
+                ApplicationArea = All;
+                Caption = 'Survey Student Groups';
+                Promoted = true;
+                PromotedCategory = Category4;
+                Image = Group;
+                RunObject = page "Survey Student Groups";
+                RunPageLink = "Survey Code" = field("Survey Code");
+            }
             action(Instructions)
             {
                 ApplicationArea = All;

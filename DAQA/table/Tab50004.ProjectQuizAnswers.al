@@ -5,9 +5,10 @@ table 51356 "Project Quiz Answers"
 
     fields
     {
-        field(1; "Project No."; Code[25])
+        field(1; "Semester Code"; Code[25])
         {
-            Caption = 'Project No.';
+            Caption = 'Semester Code';
+            TableRelation = "ACA-Semesters";
         }
         field(2; "Quiz No."; Integer)
         {
@@ -17,7 +18,7 @@ table 51356 "Project Quiz Answers"
                 pquiz: Record "Project Monitor Quiz";
             begin
                 pquiz.Reset();
-                pquiz.SetRange("Project No.", "Project No.");
+                pquiz.SetRange("Semester Code", "Semester Code");
                 pquiz.SetRange("Quiz No.", "Quiz No.");
                 if pquiz.FindFirst() then begin
                     "Period From" := pquiz."Period From";
@@ -92,7 +93,7 @@ table 51356 "Project Quiz Answers"
     }
     keys
     {
-        key(PK; "Project No.", "Quiz No.", "Entry No.", "Survey Code")
+        key(PK; "Semester Code", "Quiz No.", "Entry No.", "Survey Code")
         {
             Clustered = true;
         }

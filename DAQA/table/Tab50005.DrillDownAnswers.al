@@ -5,9 +5,10 @@ table 51357 "Drill Down Answers"
 
     fields
     {
-        field(1; "Project No."; Code[25])
+        field(1; "Semester Code"; Code[25])
         {
-            Caption = 'Project No.';
+            Caption = 'Semester Code';
+            TableRelation = "ACA-Semesters";
         }
         field(2; "Quiz No."; Integer)
         {
@@ -30,7 +31,7 @@ table 51357 "Drill Down Answers"
     }
     keys
     {
-        key(PK; "Project No.", "Quiz No.", "Survey Code", "Entry No")
+        key(PK; "Semester Code", "Quiz No.", "Survey Code", "Entry No")
         {
             Clustered = true;
         }

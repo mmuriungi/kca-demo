@@ -7,7 +7,7 @@ query 50006 "Project Monitor Quiz"
     {
         dataitem(ProjectMonitorQuiz; "Project Monitor Quiz")
         {
-            column(ProjectNo; "Project No.")
+            column(SemesterCode; "Semester Code")
             {
             }
             column(QuizNo; "Quiz No.")

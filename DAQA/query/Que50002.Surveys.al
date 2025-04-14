@@ -14,7 +14,7 @@ query 50008 Surveys
             column(Description; Description)
             {
             }
-            column(ProjectNo; "Project No.")
+            column(SemesterCode; "Semester Code")
             {
             }
             column(SurveyType; "Survey Type")

@@ -12,9 +12,9 @@ page 52089 "Project Quiz Answers"
         {
             repeater(General)
             {
-                field("Project No."; Rec."Project No.")
+                field("Semester Code"; Rec."Semester Code")
                 {
-                    ToolTip = 'Specifies the value of the Project No. field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Semester Code field.', Comment = '%';
                 }
                 field("Quiz No."; Rec."Quiz No.")
                 {

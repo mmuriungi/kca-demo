@@ -6,7 +6,7 @@ codeunit 50105 "DAQA Quiz Handler"
         ProjectQuiz: Record "Project Quiz Answers";
     begin
         ProjectQuiz.Init();
-        ProjectQuiz."Project No." := ProjectNo;
+        ProjectQuiz."Semester Code" := ProjectNo;
         ProjectQuiz."Quiz No." := quiZNo;
         ProjectQuiz.Validate("Quiz No.");
         ProjectQuiz."Boolean Answer" := boolAnswer;
@@ -28,13 +28,13 @@ codeunit 50105 "DAQA Quiz Handler"
     begin
 
         Quiz.Reset();
-        Quiz.SetRange("Project No.", projectNo);
+        Quiz.SetRange("Semester Code", projectNo);
         Quiz.SetRange("Survey Code", SurveyNo);
         Quiz.SetAutoCalcFields("Period From", "Period To");
         if Quiz.FindSet() then begin
             repeat
                 Clear(jsonObject);
-                jsonObject.Add('Project No.', Quiz."Project No.");
+                jsonObject.Add('Semester Code', Quiz."Semester Code");
                 jsonObject.Add('Quiz No.', Quiz."Quiz No.");
                 jsonObject.Add('Question', Quiz.Question);
                 jsonObject.Add('Requires Drill-Down', Quiz."Requires Drill-Down");
@@ -57,13 +57,13 @@ codeunit 50105 "DAQA Quiz Handler"
         Jarray: JsonArray;
     begin
         DrillQuiz.Reset();
-        DrillQuiz.SetRange("Project No.", projectNo);
+        DrillQuiz.SetRange("Semester Code", projectNo);
         DrillQuiz.SetRange("Survey Code", SurveyNo);
         DrillQuiz.SetRange("Quiz No.", quizId);
         if DrillQuiz.FindSet() then begin
             repeat
                 Clear(jsonObject);
-                jsonObject.Add('Project No.', DrillQuiz."Project No.");
+                jsonObject.Add('Semester Code', DrillQuiz."Semester Code");
                 jsonObject.Add('Quiz No.', DrillQuiz."Quiz No.");
                 jsonObject.Add('Choice', DrillQuiz.Choice);
                 jsonObject.Add('Survey Code', DrillQuiz."Survey Code");
@@ -381,7 +381,7 @@ codeunit 50105 "DAQA Quiz Handler"
                 Clear(JsonObject);
                 JsonObject.Add('type', 'Survey Answer');
                 JsonObject.Add('description', Activity.Question);
-                JsonObject.Add('project', Activity."Project No.");
+                JsonObject.Add('project', Activity."Semester Code");
                 JsonObject.Add('timestamp', Activity."Answered Date");
                 JsonArray.Add(JsonObject);
             until Activity.Next() = 0;
@@ -404,7 +404,7 @@ codeunit 50105 "DAQA Quiz Handler"
             repeat
                 Clear(JsonObject);
                 JsonObject.Add('type', 'Survey Completion');
-                JsonObject.Add('project', Survey."Project No.");
+                JsonObject.Add('project', Survey."Semester Code");
                 JsonObject.Add('dueDate', Survey."End Date");
                 if Survey."End Date" <> 0D then
                     JsonObject.Add('daysLeft', Survey."End Date" - Today);

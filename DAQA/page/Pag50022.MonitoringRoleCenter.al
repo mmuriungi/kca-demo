@@ -1,7 +1,7 @@
-page 52090 "Monitoring Role Center"
+page 52090 "Quality Assurance & Evaluation"
 {
     PageType = RoleCenter;
-    Caption = 'Monitoring';
+    Caption = 'Quality Assurance & Evaluation';
 
     layout
     {
@@ -109,12 +109,18 @@ page 52090 "Monitoring Role Center"
         {
             group(Projects)
             {
-                action("Project List")
+                action("Lecturer Evaluation")
                 {
-                    Caption = 'Project List';
-                    ToolTip = 'View and manage projects';
+                    Caption = 'Lecturer Evaluation';
                     Image = Job;
-                    RunObject = Page "Job List";
+                    RunObject = Page "ACA-Lecturers Evaluation";
+                    ApplicationArea = Basic, Suite;
+                }
+                action("Lecturer Evaluation Results")
+                {
+                    Caption = 'Lecturer Evaluation Results';
+                    Image = Job;
+                    RunObject = Page "Evaluation Results";
                     ApplicationArea = Basic, Suite;
                 }
                 action("Survey List")
@@ -129,6 +135,16 @@ page 52090 "Monitoring Role Center"
                 Caption = 'Setup';
                 ToolTip = 'Overview and change system and application settings, and manage extensions and services';
                 Image = Setup;
+                
+                action("Quality Assurance Setup")
+                {
+                    Caption = 'Quality Assurance Setup';
+                    ToolTip = 'Configure quality assurance settings including number series';
+                    Image = Setup;
+                    RunObject = Page "Quality Assurance Setup";
+                    ApplicationArea = Basic, Suite;
+                }
+                
                 action("Monitoring Questions")
                 {
                     ToolTip = 'Define your company policies for business departments and for general activities by filling setup windows manually.';
@@ -158,6 +174,6 @@ page 52090 "Monitoring Role Center"
 }
 profile Monitoring
 {
-    Caption = 'Monitoring Role Center';
-    RoleCenter = "Monitoring Role Center";
+    Caption = 'Quality Assurance & Evaluation';
+    RoleCenter = "Quality Assurance & Evaluation";
 }

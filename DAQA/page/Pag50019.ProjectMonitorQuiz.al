@@ -13,9 +13,9 @@ page 52056 "Project Monitor Quiz"
         {
             repeater(General)
             {
-                field("Project No."; Rec."Project No.")
+                field("Semester Code"; Rec."Semester Code")
                 {
-                    ToolTip = 'Specifies the value of the Project No. field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Semester Code field.', Comment = '%';
                     ApplicationArea = All;
                 }
                 field("Quiz No."; Rec."Quiz No.")
@@ -88,7 +88,7 @@ page 52056 "Project Monitor Quiz"
                 Promoted = true;
                 PromotedCategory = Process;
                 RunObject = Page "Drill Down Answers";
-                RunPageLink = "Project No." = field("Project No."), "Quiz No." = field("Quiz No.");
+                RunPageLink = "Semester Code" = field("Semester Code"), "Quiz No." = field("Quiz No.");
             }
         }
     }

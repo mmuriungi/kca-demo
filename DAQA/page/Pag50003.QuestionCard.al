@@ -12,10 +12,10 @@ page 52052 "Question Card"
             {
                 Caption = 'General';
 
-                field("Project No."; Rec."Project No.")
+                field("Semester Code"; Rec."Semester Code")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Project No. field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Semester Code field.', Comment = '%';
                 }
                 field("Survey Code"; Rec."Survey Code")
                 {
@@ -78,7 +78,7 @@ page 52052 "Question Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 RunObject = Page "Drill Down Answers";
-                RunPageLink = "Project No." = field("Project No."), "Quiz No." = field("Quiz No."), "Survey Code" = field("Survey Code");
+                RunPageLink = "Semester Code" = field("Semester Code"), "Quiz No." = field("Quiz No."), "Survey Code" = field("Survey Code");
             }
         }
     }
