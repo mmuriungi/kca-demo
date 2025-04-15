@@ -67,6 +67,50 @@ table 51279 "Aca-2nd Supp. Exams Details"
         {
             Caption = 'Status';
             OptionMembers = New,Approved,Rejected;
+            trigger OnValidate()
+            begin
+                IF Status = Status::Approved THEN BEGIN// Bill the student for the Unit
+                                                       //if Category = Category::Supplementary THEN BEGIN
+                    ACAGeneralSetUp.RESET;
+                    IF ACAGeneralSetUp.FIND('-') THEN BEGIN
+                        IF ACAGeneralSetUp."2nd Supp Fee" <> 0 THEN "Cost Per Exam" := ACAGeneralSetUp."2nd Supp Fee";
+                        ACAGeneralSetUp.TESTFIELD("2nd Supp Fee");
+                        ACAGeneralSetUp.TESTFIELD("2nd Supp Fee Code");
+                        ACAGeneralSetUp.TESTFIELD("Transaction Nos.");
+                        ACAStdCharges.RESET;
+                        ACAStdCharges.SETRANGE("Student No.", Rec."Student No.");
+                        ACAStdCharges.SETRANGE(Code, Rec."Unit Code");
+                        ACAStdCharges.SETRANGE(Semester, Rec.Semester);
+                        IF NOT (ACAStdCharges.FIND('-')) THEN BEGIN
+                            ACACourseRegistration.RESET;
+                            ACACourseRegistration.SETRANGE(Reversed, FALSE);
+                            ACACourseRegistration.SETRANGE("Student No.", Rec."Student No.");
+                            IF ACACourseRegistration.FIND('+') THEN BEGIN
+                                ACAStdCharges.INIT;
+                                ACAStdCharges."Transacton ID" := NoSeriesManagement.GetNextNo(ACAGeneralSetUp."Transaction Nos.", TODAY, TRUE);
+                                ACAStdCharges."Student No." := ACACourseRegistration."Student No.";
+                                ACAStdCharges."Reg. Transacton ID" := ACACourseRegistration."Reg. Transacton ID";
+                                ACAStdCharges."Reg. Transaction ID" := ACACourseRegistration."Reg. Transacton ID";
+                                ACAStdCharges.Code := ACAGeneralSetUp."2nd Supp Fee Code";
+                                ACAStdCharges."Transaction Type" := ACAStdCharges."Transaction Type"::Charges;
+                                ACAStdCharges.Amount := ACAGeneralSetUp."2nd Supp Fee";
+                                ACAStdCharges.INSERT;
+                                ACAUnitsSubjects.RESET;
+                                ACAUnitsSubjects.SETRANGE("Programme Code", Rec.Programme);
+                                ACAUnitsSubjects.SETRANGE(Code, Rec."Unit Code");
+                                IF ACAUnitsSubjects.FIND('-') THEN BEGIN
+                                    ACAStdCharges.Description := '2nd Supp Unit Billing: ' + ACAUnitsSubjects.Desription;
+                                    ACAStdCharges.MODIFY;
+                                    BillStudent(ACACourseRegistration, ACAUnitsSubjects);     //Billing Stopped till further Notice
+                                END;
+                            END;
+                        END;
+                        Rec."Charge Posted" := TRUE;
+                    END ELSE
+                        ERROR('General Setup does not exist!');
+                    //END;
+                end;
+            end;
         }
         field(11; "CAT Marks"; Decimal)
         {
@@ -182,6 +226,13 @@ table 51279 "Aca-2nd Supp. Exams Details"
         GENGeneralSetUp: Record "ACA-General Set-Up";
         ACAAcademicYear: Record "ACA-Academic Year";
         ACAStudentUnits: Record "ACA-Student Units";
+        ACAGeneralSetUp: Record "ACA-General Set-Up";
+        ACAUnitsSubjects: Record "ACA-Units/Subjects";
+        ACAStdCharges: Record "ACA-Std Charges";
+        ACACharge: Record "ACA-Charge";
+        AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+        ACACourseRegistration: Record "ACA-Course Registration";
+        NoSeriesManagement: Codeunit NoSeriesManagement;
 
 
     trigger OnInsert()
@@ -204,5 +255,118 @@ table 51279 "Aca-2nd Supp. Exams Details"
     trigger OnDelete()
     begin
         IF Rec."Charge Posted" THEN ERROR('Charge Posted. Deletion is not allowed!.');
+    end;
+
+    procedure BillStudent(CReg: Record "ACA-Course Registration"; ACAUnitsSubjects: Record "ACA-Units/Subjects")
+    var
+        GenJournalLine: Record "Gen. Journal Line";
+        StudentCharges: Record "ACA-Std Charges";
+        Sems: Record "ACA-Semesters";
+        GenJnl: Record "Gen. Journal Line";
+        DueDatez: Date;
+        Customersz: Record Customer;
+        Charges: Record "ACA-Charge";
+        ProgrammeSetUp: Record "ACA-Programme";
+        LineNo: Integer;
+    begin
+        CLEAR(LineNo);
+        LineNo := 100000;
+        //Charge Student if not charged
+        StudentCharges.RESET;
+        StudentCharges.SETRANGE(StudentCharges."Student No.", "Student No.");
+        StudentCharges.SETRANGE(StudentCharges.Recognized, FALSE);
+        StudentCharges.SETRANGE(StudentCharges."Transaction Type", StudentCharges."Transaction Type"::Charges);
+        StudentCharges.SETFILTER(StudentCharges.Amount, '<>%1', 1);
+        IF StudentCharges.FIND('-') THEN BEGIN
+            GenJnl.RESET;
+            GenJnl.SETRANGE(GenJnl."Journal Template Name", 'SALES');
+            GenJnl.SETRANGE(GenJnl."Journal Batch Name", 'STUD PAY');
+            GenJnl.DELETEALL;
+
+
+            GenJnl.RESET;
+            GenJnl.SETRANGE(GenJnl."Journal Template Name", 'SALES');
+            GenJnl.SETRANGE(GenJnl."Journal Batch Name", 'STUD PAY');
+            IF GenJnl.FIND('+') THEN LineNo := GenJnl."Line No.";//GenJnl.DELETE;
+
+            REPEAT
+                Charges.RESET;
+                Charges.SETRANGE(Code, StudentCharges.Code);
+                IF Charges.FIND('-') THEN;
+                DueDatez := StudentCharges.Date;
+                IF Sems.GET(StudentCharges.Semester) THEN BEGIN
+                    IF Sems.From <> 0D THEN BEGIN
+                        IF Sems.From > DueDatez THEN
+                            DueDatez := Sems.From;
+                    END;
+                END;
+
+                IF DueDatez = 0D THEN DueDatez := TODAY;//
+                IF Charges."G/L Account" <> ' ' THEN
+                    IF Customersz.GET("Student No.") THEN BEGIN
+
+                        LineNo := LineNo + 1;
+                        GenJnl.INIT;
+                        GenJnl."Line No." := LineNo;
+                        GenJnl."Posting Date" := TODAY;
+                        GenJnl."Document No." := StudentCharges."Transacton ID";
+                        GenJnl.VALIDATE(GenJnl."Document No.");
+                        GenJnl."Journal Template Name" := 'SALES';
+                        GenJnl."Journal Batch Name" := 'STUD PAY';
+                        GenJnl."Account Type" := GenJnl."Account Type"::Customer;
+                        GenJnl.Description := COPYSTR('Supp - ' + ACAUnitsSubjects.Code + ': ' + ACAUnitsSubjects.Desription, 1, 50);
+                        // IF Customersz."Bill-to Customer No." <> '' THEN
+                        GenJnl."Account No." := Customersz."No.";
+                        // ELSE
+                        // GenJnl."Account No.":="Student No.";
+                        IF StudentCharges.Amount = 0 THEN StudentCharges.Amount := 200;
+                        GenJnl.Amount := StudentCharges.Amount;
+                        GenJnl.VALIDATE(GenJnl."Account No.");
+                        GenJnl.VALIDATE(GenJnl.Amount);
+                        //GenJnl.Description:=StudentCharges.Description;
+                        GenJnl."Bal. Account Type" := GenJnl."Account Type"::"G/L Account";
+                        GenJnl."Bal. Account No." := Charges."G/L Account";
+                        GenJnl.VALIDATE(GenJnl."Bal. Account No.");
+
+                        CReg.RESET;
+                        CReg.SETRANGE(CReg."Student No.", "Student No.");
+                        CReg.SETRANGE(CReg.Reversed, FALSE);
+                        IF CReg.FIND('+') THEN BEGIN
+                            IF ProgrammeSetUp.GET(CReg.Programmes) THEN BEGIN
+                                ProgrammeSetUp.TESTFIELD(ProgrammeSetUp."Department Code");
+                                //ProgrammeSetUp.TESTFIELD(Cust."Global Dimension 1 Code");
+                                GenJnl."Shortcut Dimension 1 Code" := Customersz."Global Dimension 1 Code";
+                                GenJnl."Shortcut Dimension 2 Code" := ProgrammeSetUp."Department Code";
+                                GenJnl.VALIDATE(GenJnl."Shortcut Dimension 1 Code");
+                                GenJnl.VALIDATE(GenJnl."Shortcut Dimension 2 Code");
+                            END;
+                        END;
+
+                        GenJnl."Due Date" := DueDatez;
+                        GenJnl.VALIDATE(GenJnl."Due Date");
+                        IF StudentCharges."Recovery Priority" <> 0 THEN
+                            GenJnl."Recovery Priority" := StudentCharges."Recovery Priority"
+                        ELSE
+                            GenJnl."Recovery Priority" := 25;
+                        GenJnl.INSERT;
+                    END;
+                StudentCharges.Recognized := TRUE;
+                StudentCharges.MODIFY;
+
+            UNTIL StudentCharges.NEXT = 0;
+            //ERROR('debugging ---');
+            //Post New
+            GenJnl.RESET;
+            GenJnl.SETRANGE("Journal Template Name", 'SALES');
+            GenJnl.SETRANGE("Journal Batch Name", 'STUD PAY');
+            IF GenJnl.FindSet() THEN BEGIN
+                CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnl);
+            END;
+
+            //Post New
+
+
+
+        END
     end;
 }

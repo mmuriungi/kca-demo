@@ -11676,6 +11676,84 @@ Codeunit 61106 webportals
     end;
     #endregion
 
+    #region Graduation
+    procedure ApplyForCertificate()
+    begin
+
+    end;
+    #endregion
+    #region SecondSupp
+    procedure Load2ndSuppUnits(stdNo: Code[20]) msg: Text
+    var
+        SecondSuppDetails: Record "Aca-2nd Supp. Exams Details";
+    begin
+        SecondSuppDetails.Reset;
+        SecondSuppDetails.SetRange("Student No.", stdNo);
+        if SecondSuppDetails.FindSet() then begin
+            repeat
+                msg += SecondSuppDetails."Unit Code" + ' :: ' + SecondSuppDetails."Unit Description" + ' :::';
+            until SecondSuppDetails.Next() = 0;
+        end;
+        exit(msg);
+    end;
+
+    procedure Confirm2ndSupUnit(StdNo: Code[20]; unit: Code[20]) Message: Text
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        LectLoadBatch: Record "Lect Load Batch Lines";
+        Balance: Decimal;
+        GenSetup: Record "General Ledger Setup";
+        StudentCard: Record Customer;
+        CurrentSem: Record "ACA-Semesters";
+        SecondSuppDetails: Record "Aca-2nd Supp. Exams Details";
+    begin
+        begin
+            Clear(Balance);
+
+            CurrentSem.Reset;
+            SecondSuppDetails.Reset;
+            SecondSuppDetails.SetRange("Student No.", StdNo);
+            SecondSuppDetails.SetRange("Unit Code", unit);
+            SecondSuppDetails.SetRange(Status, SecondSuppDetails.Status::New);
+            if SecondSuppDetails.Find('-') then begin
+                StudentCard.Reset;
+                StudentCard.SetRange("No.", StdNo);
+                if StudentCard.FindFirst then begin
+                    GenSetup.Get();
+                    StudentCard.CalcFields(Balance);
+                    Balance := StudentCard.Balance;
+                    if isStudentNFMLegible(StdNo) then
+                        Balance := getNfmBalance(StdNo);
+                    if (Balance <= 0) /* or (Abs(StudentCard.Balance) >= Abs(GenSetup."Supplimentary Fee")) */ then begin
+                        SecondSuppDetails.Status := SecondSuppDetails.Status::Approved;
+                        SecondSuppDetails.Validate(Status);
+                        SecondSuppDetails.Modify;
+                        Message := 'SUCCESS: Supplementary successfully confirmed';
+                    end else begin
+                        Error('Please PAY For your Supplementary');
+                    end;
+                end else begin
+                    Error('Student not found');
+                end;
+                //end student search
+                //END  ELSE Message:='FAILED: Supplementary not confirmed';
+            end;
+        end;
+    end;
+
+    Procedure GetConfirm2ndSupUnit(StdNo: Code[20]) Msg: Text
+    var
+        SecondSuppDetails: Record "Aca-2nd Supp. Exams Details";
+    begin
+        SecondSuppDetails.Reset;
+        SecondSuppDetails.SetRange("Student No.", StdNo);
+        SecondSuppDetails.SetRange(Status, SecondSuppDetails.Status::Approved);
+        if SecondSuppDetails.Find('-') then begin
+            Msg += SecondSuppDetails."Unit Code" + ' :: ' + SecondSuppDetails."Unit Description" + ' :::';
+        end;
+        exit(Msg);
+    end;
+    #endregion
 
 
 
