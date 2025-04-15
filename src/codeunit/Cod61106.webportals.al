@@ -10766,7 +10766,7 @@ Codeunit 61106 webportals
         END
     end;
 
-    procedure SubmitPurchaseLine(DocumentType: integer; DocumentNo: Text; FunctionNo: Code[50]; LocationID: Text; ExpectedDate: Date; FunctionDesc: Text; UnitsOfMeasure: Text; Quantityz: Decimal)
+    procedure SubmitPurchaseLine(DocumentType: integer; DocumentNo: Text; FunctionNo: Code[50]; LocationID: Text; ExpectedDate: Date; FunctionDesc: Text; UnitsOfMeasure: Text; Quantityz: Decimal; UnitPrice: decimal)
     begin
         PurchaseLines.INIT;
         PurchaseLines.Type := DocumentType;
@@ -10779,6 +10779,8 @@ Codeunit 61106 webportals
         PurchaseLines.Description := FunctionDesc;
         PurchaseLines."Unit of Measure" := UnitsOfMeasure;
         PurchaseLines.Quantity := Quantityz;
+        PurchaseLines."Unit Cost" := UnitPrice;
+        PurchaseLines.Validate(Quantity);
         PurchaseLines.Validate("Document No.");
         PurchaseLines.INSERT;
     end;
@@ -11829,6 +11831,20 @@ Codeunit 61106 webportals
             end;
             SecondSuppDetails."Exam Marks" := Marks;
             SecondSuppDetails.Modify;
+        end;
+    end;
+
+    procedure FnGet2ndSuppScore(stdNo: Code[20]; unit: Code[20]) Msg: Text
+    var
+        ExamResults: Record "ACA-Exam Results";
+        // ExamResultsBuffer: Record UnknownRecord78055;
+        Aca2ndSuppResults: Record "Aca-2nd Supp. Exams Results";
+    begin
+        Aca2ndSuppResults.Reset;
+        Aca2ndSuppResults.SetRange("Student No.", stdNo);
+        Aca2ndSuppResults.SetRange(Unit, unit);
+        if Aca2ndSuppResults.Find('-') then begin
+            Msg := Format(Aca2ndSuppResults.Score);
         end;
     end;
     #endregion
