@@ -11659,6 +11659,21 @@ Codeunit 61106 webportals
         else
             exit('');
     end;
+
+    procedure LoadBookedRetakes(stdNo: code[25]) msg: Text
+    var
+        RetakeExams: Record "Aca-Special Exams Details";
+    begin
+        RetakeExams.Reset;
+        RetakeExams.SetRange("Student No.", stdNo);
+        RetakeExams.SetRange(Category, RetakeExams.Category::Retake);
+        if RetakeExams.FindSet() then begin
+            repeat
+                msg += RetakeExams."Unit Code" + ' :: ' + RetakeExams."Unit Description" + ' :::';
+            until RetakeExams.Next() = 0;
+        end;
+        exit(msg);
+    end;
     #endregion
 
 
