@@ -11,6 +11,145 @@
       <rd:DataSourceID>9cd165c1-60bb-48ab-9320-e0d8f78e2a2b</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="AccountingOfficer">
+          <DataField>AccountingOfficer</DataField>
+        </Field>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="ProcurementMethods">
+          <DataField>ProcurementMethods</DataField>
+        </Field>
+        <Field Name="ProffessionalOpinion">
+          <DataField>ProffessionalOpinion</DataField>
+        </Field>
+        <Field Name="RecommendedforAward">
+          <DataField>RecommendedforAward</DataField>
+        </Field>
+        <Field Name="RequisitionNo">
+          <DataField>RequisitionNo</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="SubmittedBy_ProcProffessionalOpinion">
+          <DataField>SubmittedBy_ProcProffessionalOpinion</DataField>
+        </Field>
+        <Field Name="name">
+          <DataField>name</DataField>
+        </Field>
+        <Field Name="CompInfoPicture">
+          <DataField>CompInfoPicture</DataField>
+        </Field>
+        <Field Name="CompInfoName">
+          <DataField>CompInfoName</DataField>
+        </Field>
+        <Field Name="CompInfoEmail">
+          <DataField>CompInfoEmail</DataField>
+        </Field>
+        <Field Name="CompInfoaddress">
+          <DataField>CompInfoaddress</DataField>
+        </Field>
+        <Field Name="MemoNo">
+          <DataField>MemoNo</DataField>
+        </Field>
+        <Field Name="MemoDate">
+          <DataField>MemoDate</DataField>
+        </Field>
+        <Field Name="Email_ProcCommitteeMembership">
+          <DataField>Email_ProcCommitteeMembership</DataField>
+        </Field>
+        <Field Name="Name_ProcCommitteeMembership">
+          <DataField>Name_ProcCommitteeMembership</DataField>
+        </Field>
+        <Field Name="StaffNo_ProcCommitteeMembership">
+          <DataField>StaffNo_ProcCommitteeMembership</DataField>
+        </Field>
+        <Field Name="Role_ProcCommitteeMembership">
+          <DataField>Role_ProcCommitteeMembership</DataField>
+        </Field>
+        <Field Name="Comments_ProcCommitteeMembership">
+          <DataField>Comments_ProcCommitteeMembership</DataField>
+        </Field>
+        <Field Name="Sno">
+          <DataField>Sno</DataField>
+        </Field>
+        <Field Name="RefNo_ProcCommitteeAppointmentH">
+          <DataField>RefNo_ProcCommitteeAppointmentH</DataField>
+        </Field>
+        <Field Name="Date_ProcCommitteeAppointmentH">
+          <DataField>Date_ProcCommitteeAppointmentH</DataField>
+        </Field>
+        <Field Name="Description_ProcPurchaseQuoteHeader">
+          <DataField>Description_ProcPurchaseQuoteHeader</DataField>
+        </Field>
+        <Field Name="AdvertDate_ProcPurchaseQuoteHeader">
+          <DataField>AdvertDate_ProcPurchaseQuoteHeader</DataField>
+        </Field>
+        <Field Name="ExpectedOpeningDate_ProcPurchaseQuoteHeader">
+          <DataField>ExpectedOpeningDate_ProcPurchaseQuoteHeader</DataField>
+        </Field>
+        <Field Name="TotalQuotes_ProcPurchaseQuoteHeader">
+          <DataField>TotalQuotes_ProcPurchaseQuoteHeader</DataField>
+        </Field>
+        <Field Name="BidNo_ProcBidderQuotedAmounts">
+          <DataField>BidNo_ProcBidderQuotedAmounts</DataField>
+        </Field>
+        <Field Name="Amount_ProcBidderQuotedAmounts">
+          <DataField>Amount_ProcBidderQuotedAmounts</DataField>
+        </Field>
+        <Field Name="Amount_ProcBidderQuotedAmountsFormat">
+          <DataField>Amount_ProcBidderQuotedAmountsFormat</DataField>
+        </Field>
+        <Field Name="SupplierNo_ProcBidderQuotedAmounts">
+          <DataField>SupplierNo_ProcBidderQuotedAmounts</DataField>
+        </Field>
+        <Field Name="SupplierName_ProcBidderQuotedAmounts">
+          <DataField>SupplierName_ProcBidderQuotedAmounts</DataField>
+        </Field>
+        <Field Name="ItemNo_ProcBidderQuotedAmounts">
+          <DataField>ItemNo_ProcBidderQuotedAmounts</DataField>
+        </Field>
+        <Field Name="ItemDescription_ProcBidderQuotedAmounts">
+          <DataField>ItemDescription_ProcBidderQuotedAmounts</DataField>
+        </Field>
+        <Field Name="Sno1">
+          <DataField>Sno1</DataField>
+        </Field>
+        <Field Name="No_PurchaseHeader">
+          <DataField>No_PurchaseHeader</DataField>
+        </Field>
+        <Field Name="BuyfromVendorNo_PurchaseHeader">
+          <DataField>BuyfromVendorNo_PurchaseHeader</DataField>
+        </Field>
+        <Field Name="BuyfromVendorName_PurchaseHeader">
+          <DataField>BuyfromVendorName_PurchaseHeader</DataField>
+        </Field>
+        <Field Name="BuyfromAddress_PurchaseHeader">
+          <DataField>BuyfromAddress_PurchaseHeader</DataField>
+        </Field>
+        <Field Name="ApprovalTitle_UserSetup1">
+          <DataField>ApprovalTitle_UserSetup1</DataField>
+        </Field>
+        <Field Name="UserSignature_UserSetup1">
+          <DataField>UserSignature_UserSetup1</DataField>
+        </Field>
+        <Field Name="ApprovalTitle_UserSetup2">
+          <DataField>ApprovalTitle_UserSetup2</DataField>
+        </Field>
+        <Field Name="UserSignature_UserSetup2">
+          <DataField>UserSignature_UserSetup2</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -3009,7 +3148,7 @@ The Chief Executive Officer is hereby presented with the original evaluation rep
             <Top>14.51148cm</Top>
             <Left>0.5842cm</Left>
             <Height>1.56717cm</Height>
-            <Width>19.00482cm</Width>
+            <Width>19.0048cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -3029,19 +3168,54 @@ The Chief Executive Officer is hereby presented with the original evaluation rep
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Image Name="Image1">
-              <Source>Embedded</Source>
-              <Value>psasb</Value>
+              <Source>Database</Source>
+              <Value>=First(Fields!CompInfoPicture.Value, "DataSet_Result")</Value>
+              <MIMEType>image/png</MIMEType>
               <Sizing>FitProportional</Sizing>
-              <Top>0.49953cm</Top>
-              <Left>0.5842cm</Left>
-              <Height>2.60067cm</Height>
-              <Width>19.00483cm</Width>
+              <Top>0.31432cm</Top>
+              <Left>6.95537cm</Left>
+              <Height>2.24083cm</Height>
+              <Width>5.20417cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
               </Style>
             </Image>
+            <Textbox Name="Textbox6">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CompInfoName.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontFamily>Cambria</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox6</rd:DefaultName>
+              <Top>2.9337cm</Top>
+              <Left>5.60599cm</Left>
+              <Height>0.6cm</Height>
+              <Width>7.37375cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>
@@ -3070,6 +3244,12 @@ The Chief Executive Officer is hereby presented with the original evaluation rep
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3166,143 +3346,4 @@ pzolX/4gWTVvd3rM2jTrL7wnyDhixMaRsl9kHHFhO8hAIAwGWuRaSY/NkLXoBPJEkLXwjYp/3myK/+Ag
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="AccountingOfficer">
-          <DataField>AccountingOfficer</DataField>
-        </Field>
-        <Field Name="No">
-          <DataField>No</DataField>
-        </Field>
-        <Field Name="ProcurementMethods">
-          <DataField>ProcurementMethods</DataField>
-        </Field>
-        <Field Name="ProffessionalOpinion">
-          <DataField>ProffessionalOpinion</DataField>
-        </Field>
-        <Field Name="RecommendedforAward">
-          <DataField>RecommendedforAward</DataField>
-        </Field>
-        <Field Name="RequisitionNo">
-          <DataField>RequisitionNo</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-        <Field Name="SubmittedBy_ProcProffessionalOpinion">
-          <DataField>SubmittedBy_ProcProffessionalOpinion</DataField>
-        </Field>
-        <Field Name="name">
-          <DataField>name</DataField>
-        </Field>
-        <Field Name="CompInfoPicture">
-          <DataField>CompInfoPicture</DataField>
-        </Field>
-        <Field Name="CompInfoName">
-          <DataField>CompInfoName</DataField>
-        </Field>
-        <Field Name="CompInfoEmail">
-          <DataField>CompInfoEmail</DataField>
-        </Field>
-        <Field Name="CompInfoaddress">
-          <DataField>CompInfoaddress</DataField>
-        </Field>
-        <Field Name="MemoNo">
-          <DataField>MemoNo</DataField>
-        </Field>
-        <Field Name="MemoDate">
-          <DataField>MemoDate</DataField>
-        </Field>
-        <Field Name="Email_ProcCommitteeMembership">
-          <DataField>Email_ProcCommitteeMembership</DataField>
-        </Field>
-        <Field Name="Name_ProcCommitteeMembership">
-          <DataField>Name_ProcCommitteeMembership</DataField>
-        </Field>
-        <Field Name="StaffNo_ProcCommitteeMembership">
-          <DataField>StaffNo_ProcCommitteeMembership</DataField>
-        </Field>
-        <Field Name="Role_ProcCommitteeMembership">
-          <DataField>Role_ProcCommitteeMembership</DataField>
-        </Field>
-        <Field Name="Comments_ProcCommitteeMembership">
-          <DataField>Comments_ProcCommitteeMembership</DataField>
-        </Field>
-        <Field Name="Sno">
-          <DataField>Sno</DataField>
-        </Field>
-        <Field Name="RefNo_ProcCommitteeAppointmentH">
-          <DataField>RefNo_ProcCommitteeAppointmentH</DataField>
-        </Field>
-        <Field Name="Date_ProcCommitteeAppointmentH">
-          <DataField>Date_ProcCommitteeAppointmentH</DataField>
-        </Field>
-        <Field Name="Description_ProcPurchaseQuoteHeader">
-          <DataField>Description_ProcPurchaseQuoteHeader</DataField>
-        </Field>
-        <Field Name="AdvertDate_ProcPurchaseQuoteHeader">
-          <DataField>AdvertDate_ProcPurchaseQuoteHeader</DataField>
-        </Field>
-        <Field Name="ExpectedOpeningDate_ProcPurchaseQuoteHeader">
-          <DataField>ExpectedOpeningDate_ProcPurchaseQuoteHeader</DataField>
-        </Field>
-        <Field Name="TotalQuotes_ProcPurchaseQuoteHeader">
-          <DataField>TotalQuotes_ProcPurchaseQuoteHeader</DataField>
-        </Field>
-        <Field Name="BidNo_ProcBidderQuotedAmounts">
-          <DataField>BidNo_ProcBidderQuotedAmounts</DataField>
-        </Field>
-        <Field Name="Amount_ProcBidderQuotedAmounts">
-          <DataField>Amount_ProcBidderQuotedAmounts</DataField>
-        </Field>
-        <Field Name="Amount_ProcBidderQuotedAmountsFormat">
-          <DataField>Amount_ProcBidderQuotedAmountsFormat</DataField>
-        </Field>
-        <Field Name="SupplierNo_ProcBidderQuotedAmounts">
-          <DataField>SupplierNo_ProcBidderQuotedAmounts</DataField>
-        </Field>
-        <Field Name="SupplierName_ProcBidderQuotedAmounts">
-          <DataField>SupplierName_ProcBidderQuotedAmounts</DataField>
-        </Field>
-        <Field Name="ItemNo_ProcBidderQuotedAmounts">
-          <DataField>ItemNo_ProcBidderQuotedAmounts</DataField>
-        </Field>
-        <Field Name="ItemDescription_ProcBidderQuotedAmounts">
-          <DataField>ItemDescription_ProcBidderQuotedAmounts</DataField>
-        </Field>
-        <Field Name="Sno1">
-          <DataField>Sno1</DataField>
-        </Field>
-        <Field Name="No_PurchaseHeader">
-          <DataField>No_PurchaseHeader</DataField>
-        </Field>
-        <Field Name="BuyfromVendorNo_PurchaseHeader">
-          <DataField>BuyfromVendorNo_PurchaseHeader</DataField>
-        </Field>
-        <Field Name="BuyfromVendorName_PurchaseHeader">
-          <DataField>BuyfromVendorName_PurchaseHeader</DataField>
-        </Field>
-        <Field Name="BuyfromAddress_PurchaseHeader">
-          <DataField>BuyfromAddress_PurchaseHeader</DataField>
-        </Field>
-        <Field Name="ApprovalTitle_UserSetup1">
-          <DataField>ApprovalTitle_UserSetup1</DataField>
-        </Field>
-        <Field Name="UserSignature_UserSetup1">
-          <DataField>UserSignature_UserSetup1</DataField>
-        </Field>
-        <Field Name="ApprovalTitle_UserSetup2">
-          <DataField>ApprovalTitle_UserSetup2</DataField>
-        </Field>
-        <Field Name="UserSignature_UserSetup2">
-          <DataField>UserSignature_UserSetup2</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
