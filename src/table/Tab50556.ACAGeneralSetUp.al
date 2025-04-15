@@ -345,19 +345,19 @@ table 50556 "ACA-General Set-Up"
         {
             TableRelation = "No. Series";
         }
-        //Retake Fee Code
         field(50093; "Retake Fee Code"; Code[20])
         {
             TableRelation = "ACA-Charge";
         }
-        //Retake Fee
         field(50094; "Retake Fee"; Decimal)
         {
         }
-        //Retake GL Account
         field(50095; "Retake GL Account"; Code[20])
         {
             TableRelation = "G/L Account";
+        }
+        field(50096; "Max Supp Carry Forward Years"; Integer)
+        {
         }
     }
 
