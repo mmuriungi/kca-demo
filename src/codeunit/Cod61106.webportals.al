@@ -11689,7 +11689,6 @@ Codeunit 61106 webportals
     begin
         SecondSuppDetails.Reset;
         SecondSuppDetails.SetRange("Student No.", stdNo);
-        SecondSuppDetails.SetRange(Category, SecondSuppDetails.Category::Supplementary);
         if SecondSuppDetails.FindSet() then begin
             repeat
                 msg += SecondSuppDetails."Unit Code" + ' :: ' + SecondSuppDetails."Unit Description" + ' :::';
@@ -11715,7 +11714,6 @@ Codeunit 61106 webportals
             SecondSuppDetails.Reset;
             SecondSuppDetails.SetRange("Student No.", StdNo);
             SecondSuppDetails.SetRange("Unit Code", unit);
-            SecondSuppDetails.SetRange(Category, SecondSuppDetails.Category::Supplementary);
             SecondSuppDetails.SetRange(Status, SecondSuppDetails.Status::New);
             if SecondSuppDetails.Find('-') then begin
                 StudentCard.Reset;
