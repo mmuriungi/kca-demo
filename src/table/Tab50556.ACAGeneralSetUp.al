@@ -359,6 +359,23 @@ table 50556 "ACA-General Set-Up"
         field(50096; "Max Supp Carry Forward Years"; Integer)
         {
         }
+        field(50097; "Graduation Application Nos."; Code[20])
+        {
+            Caption = 'Graduation Application Nos.';
+            TableRelation = "No. Series";
+        }
+        field(50098; "2nd Supp Fee Code"; Code[20])
+        {
+            Caption = '2nd Supp Fee Code';
+            TableRelation = "ACA-Charge";
+        }
+        field(50099; "2nd Supp Fee"; Decimal)
+        {
+        }
+        field(50100; "2nd Supp GL Account"; Code[20])
+        {
+            TableRelation = "G/L Account";
+        }
     }
 
 
