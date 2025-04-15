@@ -185,7 +185,7 @@ report 50547 "Senate Report(NEW)"
                 end;
                 specialsup.Reset();
                 specialsup.SetRange(Programme, Senate.Programme);
-                specialsup.SetRange(Category, specialsup.Category::Resit);
+                specialsup.SetRange(Category, specialsup.Category::Retake);
                 if specialsup.Find('-') then begin
                     Clear(uniqueStudNo);
                     repeat

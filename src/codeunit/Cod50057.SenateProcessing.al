@@ -274,7 +274,7 @@ codeunit 50057 "Senate Processing"
                                     suppExamReg."Student No." := studunits."Student No.";
                                     suppExamReg.Stage := creg.Stage;
                                     suppExamReg.Programme := studunits.Programme;
-                                    suppExamReg.Category := suppExamReg.Category::Resit;
+                                    suppExamReg.Category := suppExamReg.Category::Retake;
                                     suppExamReg.Insert();
                                 end else begin
                                     suppExamReg.Init();

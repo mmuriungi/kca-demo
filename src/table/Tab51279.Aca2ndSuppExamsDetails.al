@@ -106,7 +106,7 @@ table 51279 "Aca-2nd Supp. Exams Details"
         {
             Caption = 'Marks Exists';
             FieldClass = FlowField;
-            CalcFormula = Exist("Aca-Special Exams Results" WHERE("Student No." = FIELD("Student No."), Unit = FIELD("Unit Code"), Semester = FIELD(Semester)));
+            CalcFormula = Exist("Aca-2nd Supp. Exams Results" WHERE("Student No." = FIELD("Student No."), Unit = FIELD("Unit Code"), Semester = FIELD(Semester)));
         }
         field(19; Sequence; Integer)
         {

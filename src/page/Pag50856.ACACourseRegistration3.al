@@ -188,13 +188,25 @@ page 50856 "ACA-Course Registration 3"
             }
             action(SuppExams)
             {
-                Caption = 'Resit/Supplementary';
+                Caption = 'Supplementary';
                 Image = RegisteredDocs;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 PromotedOnly = true;
                 RunObject = Page "Supp. Exams Details List";
+                RunPageLink = "Student No." = FIELD("Student No.");
+                ApplicationArea = All;
+            }
+            action(RetakeExams)
+            {
+                Caption = 'Retake';
+                Image = RegisteredDocs;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                RunObject = Page "Retake Exam Details";
                 RunPageLink = "Student No." = FIELD("Student No.");
                 ApplicationArea = All;
             }

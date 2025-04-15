@@ -1,8 +1,9 @@
-page 50761 "Supp. Exams Details List"
+page 52095 "Retake Exam Details"
 {
-    PageType = List;
+    ApplicationArea = All;
+   PageType = List;
     SourceTable = "Aca-Special Exams Details";
-    SourceTableView = where(Category = const(Supplementary));
+    SourceTableView = where(Category = const(Retake));
 
     layout
     {
