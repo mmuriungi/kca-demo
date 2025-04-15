@@ -137,7 +137,7 @@ codeunit 50002 "Convert Decimal To Text"
         FinalTextEquivalent := Billionth_Text + Millionth_Text + Thausandth_Text + Hundreth_Text + Decimal_Text;
     end;
 
-    local procedure GetTextEquivalent(IntegValue: Text[20]) TxtEquivalent: Text[100]
+    procedure GetTextEquivalent(IntegValue: Text[20]) TxtEquivalent: Text[100]
     begin
         CLEAR(TxtEquivalent);
         IF IntegValue = '1' THEN TxtEquivalent := 'ONE';
