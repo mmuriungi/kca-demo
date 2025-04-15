@@ -98,6 +98,14 @@ table 51280 "Aca-2nd Supp. Exams Results"
         {
             Caption = 'Modified Date';
         }
+        field(50024; "Modified By"; Code[50])
+        {
+            Caption = 'Modified By';
+        }
+        field(50025; "Modified By Name"; Text[250])
+        {
+            Caption = 'Modified By Name';
+        }
     }
 
     keys

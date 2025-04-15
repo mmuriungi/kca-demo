@@ -11753,6 +11753,84 @@ Codeunit 61106 webportals
         end;
         exit(Msg);
     end;
+
+    procedure FnGetLecturer2ndSuppStudents(unit: Code[20]; prog: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        SecondSuppDetails: Record "Aca-2nd Supp. Exams Details";
+    begin
+        SecondSuppDetails.Reset;
+        SecondSuppDetails.SetCurrentkey("Student No.");
+        SecondSuppDetails.SetRange("Unit Code", unit);
+        SecondSuppDetails.SetRange(Programme, prog);
+        SecondSuppDetails.SetRange("Current Academic Year", GetCurrentSuppYear());
+        SecondSuppDetails.SetRange(Stage, stage);
+        if SecondSuppDetails.Find('-') then begin
+            repeat
+                Customer.Reset;
+                Customer.SetRange("No.", SecondSuppDetails."Student No.");
+                if Customer.Find('-') then begin
+                    Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + SecondSuppDetails."Unit Code" + ' ::' + SecondSuppDetails."Unit Description" + ' :::';
+                end;
+            until SecondSuppDetails.Next = 0;
+        end;
+    end;
+
+    procedure Submit2ndSuppByLec(StudNo: Code[20]; LectNo: Code[20]; Marks: Decimal; UnitCode: Code[20]; Prog: Code[10]; Stage: Code[10]) ReturnMessage: Text[250]
+    var
+        SecondSuppDetails: Record "Aca-2nd Supp. Exams Details";
+        Aca2ndSuppResults: Record "Aca-2nd Supp. Exams Results";
+        emps: Record "HRM-Employee C";
+    begin
+        Clear(ReturnMessage);
+        Clear(emps);
+        emps.Reset;
+        emps.SetRange("No.", LectNo);
+        if emps.Find('-') then;
+        SecondSuppDetails.Reset;
+        SecondSuppDetails.SetRange("Current Academic Year", GetCurrentSuppYear());
+        SecondSuppDetails.SetRange(Category, SecondSuppDetails.Category::Supplementary);
+        SecondSuppDetails.SetRange("Student No.", StudNo);
+        SecondSuppDetails.SetRange("Unit Code", UnitCode);
+        SecondSuppDetails.SetRange(Programme, Prog);
+        SecondSuppDetails.SetRange(Stage, Stage);
+        if SecondSuppDetails.Find('-') then begin
+            Aca2ndSuppResults.Reset;
+            Aca2ndSuppResults.SetRange("Student No.", StudNo);
+            Aca2ndSuppResults.SetRange(Unit, UnitCode);
+            Aca2ndSuppResults.SetRange(Category, Aca2ndSuppResults.Category::Supplementary);
+            if not Aca2ndSuppResults.Find('-') then begin
+                Aca2ndSuppResults.Init;
+                Aca2ndSuppResults.Programme := SecondSuppDetails.Programme;
+                Aca2ndSuppResults.Stage := SecondSuppDetails.Stage;
+                Aca2ndSuppResults.Unit := UnitCode;
+                Aca2ndSuppResults.Semester := SecondSuppDetails.Semester;
+                Aca2ndSuppResults."Student No." := SecondSuppDetails."Student No.";
+                Aca2ndSuppResults."Academic Year" := SecondSuppDetails."Academic Year";
+                Aca2ndSuppResults."Admission No" := StudNo;
+                Aca2ndSuppResults."Current Academic Year" := GetCurrentSuppYear();
+                Aca2ndSuppResults.UserID := LectNo;
+                Aca2ndSuppResults."Capture Date" := Today;
+                Aca2ndSuppResults.Category := SecondSuppDetails.Category;
+                Aca2ndSuppResults."Lecturer Names" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                Aca2ndSuppResults.Score := Marks;
+                Aca2ndSuppResults.Validate(Score);
+                Aca2ndSuppResults.Insert;
+                ReturnMessage := 'SUCCESS: Marks Inserted!';
+            end else begin
+                Aca2ndSuppResults."Current Academic Year" := GetCurrentSuppYear();
+                Aca2ndSuppResults."Modified By" := LectNo;
+                Aca2ndSuppResults."Modified Date" := Today;
+                Aca2ndSuppResults."Modified By Name" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                Aca2ndSuppResults.Score := Marks;
+                Aca2ndSuppResults.Validate(Score);
+                Aca2ndSuppResults.Modify;
+                ReturnMessage := 'SUCCESS: Marks Modified!';
+            end;
+            SecondSuppDetails."Exam Marks" := Marks;
+            SecondSuppDetails.Modify;
+        end;
+    end;
     #endregion
 
 
