@@ -11633,7 +11633,7 @@ Codeunit 61106 webportals
         exit(msg);
     end;
 
-    procedure SubmitRetakeExamApplication(stdNo: code[25]; unitCode: Code[20]; reasonCode: Code[20]) Msg: Code[25]
+    procedure SubmitRetakeExamApplication(stdNo: code[25]; unitCode: Code[20]) Msg: Code[25]
     var
         RetakeExams: Record "Aca-Special Exams Details";
         Sems: Record "ACA-Semesters";
