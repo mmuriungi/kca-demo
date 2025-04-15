@@ -150,6 +150,10 @@ table 52178574 "Proc Bidder Quoted Amounts"
         {
             Clustered = true;
         }
+        key(key2; "Supplier No")
+        {
+            
+        }
     }
     var
         ICPartner: Record "IC Partner";
