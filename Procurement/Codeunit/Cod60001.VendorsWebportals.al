@@ -712,6 +712,7 @@ codeunit 60001 VendorsWebportals
     procedure GetPreqCategories() msg: Text
     begin
         preqcategories.Reset;
+        preqCategories.SetRange("Preq Year", GetCurrentPeriod());
         preqCategories.SetFilter("Category Code", '<>%1', '');
         if preqcategories.Find('-') then begin
             repeat
