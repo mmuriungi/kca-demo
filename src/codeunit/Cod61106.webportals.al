@@ -11553,6 +11553,117 @@ Codeunit 61106 webportals
     end;
     #endregion
 
+    #region Retake
+    procedure CheckStudentRetakeUnits(StudNo: Code[20]) msg: Text
+    var
+    begin
+
+    end;
+
+    procedure GetStudentFirstSuppCount(StudNo: Code[20]): integer
+    var
+        SuppDetails: Record "Aca-Special Exams Details";
+    begin
+        SuppDetails.Reset;
+        SuppDetails.SetRange("Student No.", StudNo);
+        SuppDetails.SetRange(Category, SuppDetails.Category::Supplementary);
+        exit(SuppDetails.Count);
+    end;
+
+    procedure GetStudentSecondSuppCount(StudNo: Code[20]): integer
+    var
+        SuppDetails: Record "Aca-2nd Supp. Exams Details";
+    begin
+        SuppDetails.Reset;
+        SuppDetails.SetRange("Student No.", StudNo);
+        SuppDetails.SetRange(Category, SuppDetails.Category::Supplementary);
+        exit(SuppDetails.Count);
+    end;
+
+    procedure IsSecondSuppFailed(StudNo: Code[20]; UnitCode: Code[20]): Boolean
+    var
+        SuppDetails: Record "Aca-2nd Supp. Exams Details";
+    begin
+        SuppDetails.Reset;
+        SuppDetails.SetRange("Student No.", StudNo);
+        SuppDetails.SetRange(Category, SuppDetails.Category::Supplementary);
+        SuppDetails.SetRange("Unit Code", UnitCode);
+        SuppDetails.SetRange("Exam Marks", FnGetSuppMaxScore(GetStudentUnitProgramme(StudNo, UnitCode), UnitCode, GetStudentUnitStage(StudNo, UnitCode)));
+        exit(SuppDetails.Count > 0);
+    end;
+
+    procedure GetStudentUnitStage(StudNo: Code[20]; UnitCode: Code[20]): Code[20]
+    var
+        StdUnits: Record "Aca-Student Units";
+    begin
+        StdUnits.Reset;
+        StdUnits.SetRange("Student No.", StudNo);
+        StdUnits.SetRange(Unit, UnitCode);
+        if StdUnits.Find('-') then begin
+            exit(StdUnits.Stage);
+        end;
+    end;
+
+    procedure GetStudentUnitProgramme(StudNo: Code[20]; UnitCode: Code[20]): Code[20]
+    var
+        StdUnits: Record "Aca-Student Units";
+    begin
+        StdUnits.Reset;
+        StdUnits.SetRange("Student No.", StudNo);
+        StdUnits.SetRange(Unit, UnitCode);
+        if StdUnits.Find('-') then begin
+            exit(StdUnits.Programme);
+        end;
+    end;
+
+    procedure GetStudentUnitsForRetake(StudNo: code[25]) msg: text
+    var
+        SecondSuppDetails: Record "Aca-2nd Supp. Exams Details";
+    begin
+        SecondSuppDetails.Reset;
+        SecondSuppDetails.SetRange("Student No.", StudNo);
+        SecondSuppDetails.SetRange(Category, SecondSuppDetails.Category::Supplementary);
+        if SecondSuppDetails.FindSet() then begin
+            repeat
+                if SecondSuppDetails."Exam Marks" < FnGetSuppMaxScore(GetStudentUnitProgramme(StudNo, SecondSuppDetails."Unit Code"), SecondSuppDetails."Unit Code", GetStudentUnitStage(StudNo, SecondSuppDetails."Unit Code")) then begin
+                    msg += SecondSuppDetails."Unit Code" + ' :: ' + SecondSuppDetails."Unit Description" + ' :::';
+                end;
+            until SecondSuppDetails.Next() = 0;
+        end;
+        exit(msg);
+    end;
+
+    procedure SubmitRetakeExamApplication(stdNo: code[25]; unitCode: Code[20]; reasonCode: Code[20]) Msg: Code[25]
+    var
+        RetakeExams: Record "Aca-Special Exams Details";
+        Sems: Record "ACA-Semesters";
+        StudentUnits: Record "Aca-Student Units";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        RetakeExams.INIT;
+        RetakeExams."Student No." := stdNo;
+        RetakeExams.Validate("Student No.");
+        RetakeExams."Unit Code" := unitCode;
+        RetakeExams.Validate("Unit Code");
+        RetakeExams."Created Date/Time" := CurrentDateTime;
+        RetakeExams."Status" := RetakeExams."Status"::New;
+        RetakeExams.Category := RetakeExams.Category::Retake;
+        RetakeExams."Document No." := '';
+        if RetakeExams.INSERT(true) then begin
+            variant := RetakeExams;
+            if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMgmt.OnSendDocForApproval(variant);
+            exit(RetakeExams."Document No.")
+        end
+        else
+            exit('');
+    end;
+    #endregion
+
+
+
+
 }
 
 

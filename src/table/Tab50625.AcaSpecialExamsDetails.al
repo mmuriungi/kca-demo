@@ -73,43 +73,84 @@ table 50625 "Aca-Special Exams Details"
             begin
 
                 IF Status = Status::Approved THEN BEGIN// Bill the student for the Unit
-                    ACAGeneralSetUp.RESET;
-                    IF ACAGeneralSetUp.FIND('-') THEN BEGIN
-                        IF GENGeneralSetUp."Supplimentary Fee" <> 0 THEN "Cost Per Exam" := GENGeneralSetUp."Supplimentary Fee";
-                        ACAGeneralSetUp.TESTFIELD("Supplimentary Fee");
-                        ACAGeneralSetUp.TESTFIELD("Supplimentary Fee Code");
-                        ACAGeneralSetUp.TESTFIELD("Transaction Nos.");
-                        ACAStdCharges.RESET;
-                        ACAStdCharges.SETRANGE("Student No.", Rec."Student No.");
-                        ACAStdCharges.SETRANGE(Code, Rec."Unit Code");
-                        ACAStdCharges.SETRANGE(Semester, Rec.Semester);
-                        IF NOT (ACAStdCharges.FIND('-')) THEN BEGIN
-                            ACACourseRegistration.RESET;
-                            ACACourseRegistration.SETRANGE(Reversed, FALSE);
-                            ACACourseRegistration.SETRANGE("Student No.", Rec."Student No.");
-                            IF ACACourseRegistration.FIND('+') THEN BEGIN
-                                ACAStdCharges.INIT;
-                                ACAStdCharges."Transacton ID" := NoSeriesManagement.GetNextNo(ACAGeneralSetUp."Transaction Nos.", TODAY, TRUE);
-                                ACAStdCharges."Student No." := ACACourseRegistration."Student No.";
-                                ACAStdCharges."Reg. Transacton ID" := ACACourseRegistration."Reg. Transacton ID";
-                                ACAStdCharges."Reg. Transaction ID" := ACACourseRegistration."Reg. Transacton ID";
-                                ACAStdCharges.Code := ACAGeneralSetUp."Supplimentary Fee Code";
-                                ACAStdCharges."Transaction Type" := ACAStdCharges."Transaction Type"::Charges;
-                                ACAStdCharges.Amount := ACAGeneralSetUp."Supplimentary Fee";
-                                ACAStdCharges.INSERT;
-                                ACAUnitsSubjects.RESET;
-                                ACAUnitsSubjects.SETRANGE("Programme Code", Rec.Programme);
-                                ACAUnitsSubjects.SETRANGE(Code, Rec."Unit Code");
-                                IF ACAUnitsSubjects.FIND('-') THEN BEGIN
-                                    ACAStdCharges.Description := ' Supp Unit Billing: ' + ACAUnitsSubjects.Desription;
-                                    ACAStdCharges.MODIFY;
-                                    BillStudent(ACACourseRegistration, ACAUnitsSubjects);     //Billing Stopped till further Notice
+                    if Category = Category::Supplementary THEN BEGIN
+                        ACAGeneralSetUp.RESET;
+                        IF ACAGeneralSetUp.FIND('-') THEN BEGIN
+                            IF GENGeneralSetUp."Supplimentary Fee" <> 0 THEN "Cost Per Exam" := GENGeneralSetUp."Supplimentary Fee";
+                            ACAGeneralSetUp.TESTFIELD("Supplimentary Fee");
+                            ACAGeneralSetUp.TESTFIELD("Supplimentary Fee Code");
+                            ACAGeneralSetUp.TESTFIELD("Transaction Nos.");
+                            ACAStdCharges.RESET;
+                            ACAStdCharges.SETRANGE("Student No.", Rec."Student No.");
+                            ACAStdCharges.SETRANGE(Code, Rec."Unit Code");
+                            ACAStdCharges.SETRANGE(Semester, Rec.Semester);
+                            IF NOT (ACAStdCharges.FIND('-')) THEN BEGIN
+                                ACACourseRegistration.RESET;
+                                ACACourseRegistration.SETRANGE(Reversed, FALSE);
+                                ACACourseRegistration.SETRANGE("Student No.", Rec."Student No.");
+                                IF ACACourseRegistration.FIND('+') THEN BEGIN
+                                    ACAStdCharges.INIT;
+                                    ACAStdCharges."Transacton ID" := NoSeriesManagement.GetNextNo(ACAGeneralSetUp."Transaction Nos.", TODAY, TRUE);
+                                    ACAStdCharges."Student No." := ACACourseRegistration."Student No.";
+                                    ACAStdCharges."Reg. Transacton ID" := ACACourseRegistration."Reg. Transacton ID";
+                                    ACAStdCharges."Reg. Transaction ID" := ACACourseRegistration."Reg. Transacton ID";
+                                    ACAStdCharges.Code := ACAGeneralSetUp."Supplimentary Fee Code";
+                                    ACAStdCharges."Transaction Type" := ACAStdCharges."Transaction Type"::Charges;
+                                    ACAStdCharges.Amount := ACAGeneralSetUp."Supplimentary Fee";
+                                    ACAStdCharges.INSERT;
+                                    ACAUnitsSubjects.RESET;
+                                    ACAUnitsSubjects.SETRANGE("Programme Code", Rec.Programme);
+                                    ACAUnitsSubjects.SETRANGE(Code, Rec."Unit Code");
+                                    IF ACAUnitsSubjects.FIND('-') THEN BEGIN
+                                        ACAStdCharges.Description := ' Supp Unit Billing: ' + ACAUnitsSubjects.Desription;
+                                        ACAStdCharges.MODIFY;
+                                        BillStudent(ACACourseRegistration, ACAUnitsSubjects);     //Billing Stopped till further Notice
+                                    END;
                                 END;
                             END;
-                        END;
-                        Rec."Charge Posted" := TRUE;
-                    END ELSE
-                        ERROR('General Setup does not exist!');
+                            Rec."Charge Posted" := TRUE;
+                        END ELSE
+                            ERROR('General Setup does not exist!');
+                    end else
+                        if Category = Category::Retake THEN BEGIN
+                        ACAGeneralSetUp.RESET;
+                        IF ACAGeneralSetUp.FIND('-') THEN BEGIN
+                            IF GENGeneralSetUp."Retake Fee" <> 0 THEN "Cost Per Exam" := GENGeneralSetUp."Retake Fee";
+                            ACAGeneralSetUp.TESTFIELD("Retake Fee");
+                            ACAGeneralSetUp.TESTFIELD("Retake Fee Code");
+                            ACAGeneralSetUp.TESTFIELD("Transaction Nos.");
+                            ACAStdCharges.RESET;
+                            ACAStdCharges.SETRANGE("Student No.", Rec."Student No.");
+                            ACAStdCharges.SETRANGE(Code, Rec."Unit Code");
+                            ACAStdCharges.SETRANGE(Semester, Rec.Semester);
+                            IF NOT (ACAStdCharges.FIND('-')) THEN BEGIN
+                                ACACourseRegistration.RESET;
+                                ACACourseRegistration.SETRANGE(Reversed, FALSE);
+                                ACACourseRegistration.SETRANGE("Student No.", Rec."Student No.");
+                                IF ACACourseRegistration.FIND('+') THEN BEGIN
+                                    ACAStdCharges.INIT;
+                                    ACAStdCharges."Transacton ID" := NoSeriesManagement.GetNextNo(ACAGeneralSetUp."Transaction Nos.", TODAY, TRUE);
+                                    ACAStdCharges."Student No." := ACACourseRegistration."Student No.";
+                                    ACAStdCharges."Reg. Transacton ID" := ACACourseRegistration."Reg. Transacton ID";
+                                    ACAStdCharges."Reg. Transaction ID" := ACACourseRegistration."Reg. Transacton ID";
+                                    ACAStdCharges.Code := ACAGeneralSetUp."Retake Fee Code";
+                                    ACAStdCharges."Transaction Type" := ACAStdCharges."Transaction Type"::Charges;
+                                    ACAStdCharges.Amount := ACAGeneralSetUp."Retake Fee";
+                                    ACAStdCharges.INSERT;
+                                    ACAUnitsSubjects.RESET;
+                                    ACAUnitsSubjects.SETRANGE("Programme Code", Rec.Programme);
+                                    ACAUnitsSubjects.SETRANGE(Code, Rec."Unit Code");
+                                    IF ACAUnitsSubjects.FIND('-') THEN BEGIN
+                                        ACAStdCharges.Description := ' Retake Unit Billing: ' + ACAUnitsSubjects.Desription;
+                                        ACAStdCharges.MODIFY;
+                                        BillStudent(ACACourseRegistration, ACAUnitsSubjects);     //Billing Stopped till further Notice
+                                    END;
+                                END;
+                            END;
+                            Rec."Charge Posted" := TRUE;
+                        END ELSE
+                            ERROR('General Setup does not exist!');
+                    END;
                 END;
 
             end;
@@ -137,7 +178,7 @@ table 50625 "Aca-Special Exams Details"
         field(16; Category; Option)
         {
             Caption = 'Category';
-            OptionMembers = " ",Special,Supplementary,Resit;
+            OptionMembers = " ",Special,Supplementary,Retake;
         }
         field(17; "Current Academic Year"; Code[20])
         {
@@ -264,12 +305,10 @@ table 50625 "Aca-Special Exams Details"
             FieldClass = FlowField;
             CalcFormula = Lookup("Aca-2nd Supp. Exams Details"."Total Marks" WHERE("Student No." = FIELD("Student No."), "Unit Code" = FIELD("Unit Code"), "Academic Year" = FIELD("Academic Year"), Programme = FIELD(Programme), Stage = FIELD(Stage), Semester = FIELD(Semester), Category = FIELD(Category)));
         }
-        //Document No
         field(47; "Document No."; Code[20])
         {
             Caption = 'Document No.';
         }
-        //no series 
         field(48; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
