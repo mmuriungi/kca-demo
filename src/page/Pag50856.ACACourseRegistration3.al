@@ -198,6 +198,18 @@ page 50856 "ACA-Course Registration 3"
                 RunPageLink = "Student No." = FIELD("Student No.");
                 ApplicationArea = All;
             }
+            action("2nd Supp. Exams")
+            {
+                Caption = 'Second Supplementary';
+                Image = RegisteredDocs;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                RunObject = Page "Second Supp Details";
+                RunPageLink = "Student No." = FIELD("Student No.");
+                ApplicationArea = All;
+            }
             action(RetakeExams)
             {
                 Caption = 'Retake';
