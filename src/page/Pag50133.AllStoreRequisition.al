@@ -242,7 +242,8 @@ page 50133 "All Store Requisition"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                         showmessage: Boolean;
                         ManualCancel: Boolean;
                         State: Option Open,"Pending Approval",Cancelled,Approved;
@@ -260,7 +261,8 @@ page 50133 "All Store Requisition"
                         CLEAR(tableNo);
                         tableNo := DATABASE::"PROC-Store Requistion Header";
 
-                        ApprovalMgt.OnSendSRNforApproval(Rec);
+                        variant := Rec;
+                        ApprovalMgt.OnSendDocForApproval(variant);
                     end;
                 }
                 action(cancellsApproval)
@@ -273,7 +275,8 @@ page 50133 "All Store Requisition"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Code";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
+                        variant: Variant;
                         showmessage: Boolean;
                         ManualCancel: Boolean;
                         State: Option Open,"Pending Approval",Cancelled,Approved;
@@ -285,7 +288,8 @@ page 50133 "All Store Requisition"
                         ManualCancel := TRUE;
                         CLEAR(tableNo);
                         tableNo := DATABASE::"PROC-Store Requistion Header";
-                        ApprovalMgt.OnCancelSRNforApproval(Rec);
+                        variant := Rec;
+                        ApprovalMgt.OnCancelDocApprovalRequest(variant);
                     end;
                 }
                 separator(sep001)

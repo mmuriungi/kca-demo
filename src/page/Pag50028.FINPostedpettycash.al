@@ -1,4 +1,4 @@
-page 50028 "FIN-Posted petty cash"
+page 50462 "FIN-Posted petty cash"
 {
     CardPageID = "FIN-Posted Payment Header UP";
     DelayedInsert = false;

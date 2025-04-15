@@ -1,4 +1,4 @@
-page 50021 "FIN-Petty Cash Vouchers List"
+page 50053 "FIN-Petty Cash Vouchers List"
 {
     CardPageID = "FIN-Cash Payment Header UP";
     Editable = false;

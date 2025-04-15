@@ -1,4 +1,4 @@
-page 50462 "HRM-Employee-List (Inactive)"
+page 50025 "HRM-Employee-List (Inactive)"
 {
     Caption = 'Inactive Employees List';
     CardPageID = "HRM-Employee (B)";

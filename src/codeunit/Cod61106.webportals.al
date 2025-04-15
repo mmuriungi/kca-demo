@@ -4050,14 +4050,16 @@ Codeunit 61106 webportals
 
     procedure StoreRequisitionApprovalRequest(ReqNo: Text)
     var
-        ApprovalMngt: Codeunit "Init Code";
+        ApprovalMngt: Codeunit "Approval Workflows V1";
+        variant: Variant;
     begin
         StoreRequisition.Reset;
         StoreRequisition.SetRange(StoreRequisition."No.", ReqNo);
         if StoreRequisition.Find('-')
         then begin
-            if ApprovalMngt.CheckSRNWorkflowEnabled(StoreRequisition) then
-                ApprovalMngt.OnSendSRNforApproval(StoreRequisition);
+            variant := StoreRequisition;
+            if ApprovalMngt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMngt.OnSendDocForApproval(variant);
         end;
     end;
 
@@ -10860,13 +10862,15 @@ Codeunit 61106 webportals
 
     procedure CancelStoreRequisition(ReqNo: Text)
     var
-        ApprovalMgmtExt: Codeunit "Init Code";
+        ApprovalMgmtExt: Codeunit "Approval Workflows V1";
+        variant: Variant;
     begin
         StoreRequisition.Reset();
         StoreRequisition.SETRANGE(StoreRequisition."No.", ReqNo);
         IF StoreRequisition.FIND('-')
         THEN BEGIN
-            ApprovalMgmtExt.OnCancelSRNforApproval(StoreRequisition);
+            variant := StoreRequisition;
+            ApprovalMgmtExt.OnCancelDocApprovalRequest(variant);
         END;
     end;
 
@@ -10908,6 +10912,7 @@ Codeunit 61106 webportals
         StoreReqLines."Requistion No" := ReqNo;
         StoreReqLines."Line No." := Seq;
         StoreReqLines.Validate("Requistion No");
+        StoreReqLines.Type := StoreReqLines.Type::Item;
         StoreReqLines."No." := ItemNo;
         StoreReqLines.Description := ItemDesc;
         StoreReqLines."Unit Cost" := Amount;
@@ -11436,6 +11441,114 @@ Codeunit 61106 webportals
             RepairRequest.Status := RepairRequest.Status::Pending;
             RepairRequest.Modify;
             msg := true;
+        end;
+    end;
+    #endregion
+
+    #region Survey
+    procedure GetStudentInformation(studNo: Code[20]) msg: Text
+    var
+        JsonObject: JsonObject;
+        JsTxt: Text;
+        Customer: Record Customer;
+    begin
+        Customer.Reset;
+        Customer.SetRange("No.", studNo);
+        if Customer.Find('-') then begin
+            Clear(JsonObject);
+            JsonObject.Add('name', Customer.Name);
+            JsonObject.Add('image', fnGetCustomerImage(studNo));
+            JsonObject.Add('email', Customer."E-Mail");
+            JsonObject.Add('no', Customer."No.");
+            JsonObject.Add('type', 'student');
+            JsonObject.Add('year', GetStudentCurrentYearofStudy(studNo));
+            JsonObject.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetStudentCurrentYearofStudy(studNo: Code[20]): integer
+    var
+        CosReg: Record "ACA-Course Registration";
+    begin
+        CosReg.Reset;
+        CosReg.SetRange("Student No.", studNo);
+        CosReg.SetCurrentKey(Stage);
+        if CosReg.FindLast() then begin
+            exit(CosReg."Year of Study");
+        end;
+    end;
+
+    procedure fnGetCustomerImage(customerNo: Code[20]) res: Text
+    var
+        Customer: Record Customer;
+        Base64: Codeunit "Base64 Convert";
+        Intstream: InStream;
+        outstream: OutStream;
+        templob: Codeunit "Temp Blob";
+    begin
+        Customer.RESET;
+        Customer.SETRANGE("No.", customerNo);
+        if Customer.FINDFIRST then begin
+            if Customer.Image.HASVALUE then begin
+                templob.CreateOutStream(outstream);
+                Customer.Image.ExportStream(outstream);
+                templob.CreateInStream(Intstream);
+                res := Base64.ToBase64(Intstream);
+            end;
+        end;
+        exit(res);
+    end;
+
+    procedure GetStaffInformation(staffNo: Code[20]) msg: Text
+    var
+        JsonObject: JsonObject;
+        JsTxt: Text;
+        Employee: Record "HRM-Employee C";
+    begin
+        Employee.Reset;
+        Employee.SetRange("No.", staffNo);
+        if Employee.Find('-') then begin
+            Clear(JsonObject);
+            JsonObject.Add('name', Employee."First Name" + ' ' + Employee."Last Name");
+            JsonObject.Add('image', fnGetEmployeeImage(staffNo));
+            JsonObject.Add('email', Employee."E-Mail");
+            JsonObject.Add('no', Employee."No.");
+            JsonObject.Add('type', 'staff');
+            JsonObject.Add('year', 0);
+            JsonObject.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure fnGetEmployeeImage(employeeNo: Code[20]) res: Text
+    var
+        Employee: Record "HRM-Employee C";
+        Base64: Codeunit "Base64 Convert";
+        Intstream: InStream;
+        outstream: OutStream;
+    begin
+        Employee.RESET;
+        Employee.SETRANGE("No.", employeeNo);
+        if Employee.FINDFIRST then begin
+            employee.CalcFields(Picture);
+            if Employee.Picture.HASVALUE then begin
+                Employee.Picture.CreateOutStream(outstream);
+                Employee.Picture.CreateInStream(Intstream);
+                res := Base64.ToBase64(Intstream);
+            end;
+        end;
+        exit(res);
+    end;
+
+    procedure ShowStaffMonitoring(StaffNo: Code[20]) msg: Boolean
+    var
+        Employee: Record "HRM-Employee C";
+    begin
+        Employee.Reset;
+        Employee.SetRange("No.", StaffNo);
+        if Employee.Find('-') then begin
+            exit(true);
         end;
     end;
     #endregion

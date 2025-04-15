@@ -43,10 +43,15 @@ table 50123 "Exam Invigilators"
             Caption = 'Category';
             OptionMembers = "Full-Timer","Part-Timer";
         }
+        field(10; "Entry No"; Integer)
+        {
+            DataClassification = ToBeClassified;
+            AutoIncrement = true;
+        }
     }
     keys
     {
-        key(PK; Semester, Unit, "No.", Date, Hall)
+        key(PK; Semester, Unit, "No.", Date, Hall, "Entry No")
         {
             Clustered = true;
         }

@@ -1,4 +1,4 @@
-page 50030 "FIN-Posted Receipts list"
+page 50460 "FIN-Posted Receipts list"
 {
     CardPageID = "FIN-Posted Receipt UP";
     DeleteAllowed = false;
