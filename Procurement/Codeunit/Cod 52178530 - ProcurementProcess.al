@@ -485,7 +485,16 @@ codeunit 52178530 "Procurement Process"
                                         DemoQ2."Quote Status" := DemoQ2."Quote Status"::Demonstration;
                                         DemoQ2.Modify();
                                     until DemoQ2.Next() = 0;
+                                end
+                                else begin
+                                    DemoQ2.Init();
+                                    DemoQ2.TransferFields(techQ2);
+                                    DemoQ2.Scored := 0;
+                                    DemoQ2.Description := '';
+                                    DemoQ2."Quote Status" := DemoQ2."Quote Status"::Demonstration;
+                                    DemoQ2.Insert();
                                 end;
+
                             end
                             else begin
                                 purHead."Quote Status" := purHead."Quote Status"::"Tech Disqualif";
@@ -554,6 +563,7 @@ codeunit 52178530 "Procurement Process"
                 until purHead.Next() = 0;
             end;
         end;
+
         Message('Technical Matrix Run Successfully');
 
     end;

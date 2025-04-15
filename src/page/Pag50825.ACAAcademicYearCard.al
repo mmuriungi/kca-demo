@@ -102,6 +102,16 @@ page 50825 "ACA-Academic Year Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Current Supplementary Year"; Rec."Current Supplementary Year")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Current Supplementary Year field.', Comment = '%';
+                }
+                field("Release Results"; Rec."Release Results")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Release Results field.', Comment = '%';
+                }
             }
         }
     }
