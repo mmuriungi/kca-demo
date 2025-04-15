@@ -1,6 +1,6 @@
 codeunit 50200 "Student Certificate Management"
 {
-    procedure CreateApplication(StudentNo: Code[20]; ApplicationType: Option) ret_value: Code[20]
+    procedure CreateApplication(StudentNo: Code[20]; ApplicationType: Option "New Certificate","Copy of Certificate","Reissue Transcript","Special Examination") ret_value: Code[20]
     var
         CertApp: Record "Certificate Application";
     begin

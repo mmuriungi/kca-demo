@@ -11676,6 +11676,12 @@ Codeunit 61106 webportals
     end;
     #endregion
 
+    #region Graduation
+    procedure ApplyForCertificate()
+    begin
+
+    end;
+    #endregion
 
 
 
