@@ -11,300 +11,6 @@
       <rd:DataSourceID>be134c8f-11e5-4d94-abe9-1fc34b8e450e</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="StudNo">
-          <DataField>StudNo</DataField>
-        </Field>
-        <Field Name="ProgClassInt">
-          <DataField>ProgClassInt</DataField>
-        </Field>
-        <Field Name="Prog">
-          <DataField>Prog</DataField>
-        </Field>
-        <Field Name="Sem">
-          <DataField>Sem</DataField>
-        </Field>
-        <Field Name="Stag">
-          <DataField>Stag</DataField>
-        </Field>
-        <Field Name="CumSc">
-          <DataField>CumSc</DataField>
-        </Field>
-        <Field Name="CumScFormat">
-          <DataField>CumScFormat</DataField>
-        </Field>
-        <Field Name="CurrSem">
-          <DataField>CurrSem</DataField>
-        </Field>
-        <Field Name="CurrSemFormat">
-          <DataField>CurrSemFormat</DataField>
-        </Field>
-        <Field Name="AdmissionDates">
-          <DataField>AdmissionDates</DataField>
-        </Field>
-        <Field Name="GradDates">
-          <DataField>GradDates</DataField>
-        </Field>
-        <Field Name="Pic">
-          <DataField>Pic</DataField>
-        </Field>
-        <Field Name="YoS">
-          <DataField>YoS</DataField>
-        </Field>
-        <Field Name="TotalYearlyMarks">
-          <DataField>TotalYearlyMarks</DataField>
-        </Field>
-        <Field Name="TotalYearlyMarksFormat">
-          <DataField>TotalYearlyMarksFormat</DataField>
-        </Field>
-        <Field Name="TRemarks">
-          <DataField>TRemarks</DataField>
-        </Field>
-        <Field Name="YearlyAverage">
-          <DataField>YearlyAverage</DataField>
-        </Field>
-        <Field Name="YearlyAverageFormat">
-          <DataField>YearlyAverageFormat</DataField>
-        </Field>
-        <Field Name="acadYear">
-          <DataField>acadYear</DataField>
-        </Field>
-        <Field Name="YearlyGrade">
-          <DataField>YearlyGrade</DataField>
-        </Field>
-        <Field Name="classification">
-          <DataField>classification</DataField>
-        </Field>
-        <Field Name="YearlyFailed">
-          <DataField>YearlyFailed</DataField>
-        </Field>
-        <Field Name="TotalCourses">
-          <DataField>TotalCourses</DataField>
-        </Field>
-        <Field Name="TotalUnits">
-          <DataField>TotalUnits</DataField>
-        </Field>
-        <Field Name="TotalUnitsFormat">
-          <DataField>TotalUnitsFormat</DataField>
-        </Field>
-        <Field Name="YearlyRemarks">
-          <DataField>YearlyRemarks</DataField>
-        </Field>
-        <Field Name="AcadYearz">
-          <DataField>AcadYearz</DataField>
-        </Field>
-        <Field Name="sName">
-          <DataField>sName</DataField>
-        </Field>
-        <Field Name="pName">
-          <DataField>pName</DataField>
-        </Field>
-        <Field Name="GRADDATE">
-          <DataField>GRADDATE</DataField>
-        </Field>
-        <Field Name="YearOfStudy">
-          <DataField>YearOfStudy</DataField>
-        </Field>
-        <Field Name="YoSTested">
-          <DataField>YoSTested</DataField>
-        </Field>
-        <Field Name="YearOfAdmi">
-          <DataField>YearOfAdmi</DataField>
-        </Field>
-        <Field Name="SchoolNamez">
-          <DataField>SchoolNamez</DataField>
-        </Field>
-        <Field Name="acadyearz2">
-          <DataField>acadyearz2</DataField>
-        </Field>
-        <Field Name="From100Legend">
-          <DataField>From100Legend</DataField>
-        </Field>
-        <Field Name="From40Legend">
-          <DataField>From40Legend</DataField>
-        </Field>
-        <Field Name="PassMarkLegend">
-          <DataField>PassMarkLegend</DataField>
-        </Field>
-        <Field Name="DoubleLine">
-          <DataField>DoubleLine</DataField>
-        </Field>
-        <Field Name="Recomm">
-          <DataField>Recomm</DataField>
-        </Field>
-        <Field Name="singleLine">
-          <DataField>singleLine</DataField>
-        </Field>
-        <Field Name="signedSignature">
-          <DataField>signedSignature</DataField>
-        </Field>
-        <Field Name="TranscriptSignatory">
-          <DataField>TranscriptSignatory</DataField>
-        </Field>
-        <Field Name="TransCriptTitle">
-          <DataField>TransCriptTitle</DataField>
-        </Field>
-        <Field Name="ExamCategory">
-          <DataField>ExamCategory</DataField>
-        </Field>
-        <Field Name="FacultyName">
-          <DataField>FacultyName</DataField>
-        </Field>
-        <Field Name="codSchool">
-          <DataField>codSchool</DataField>
-        </Field>
-        <Field Name="codDept">
-          <DataField>codDept</DataField>
-        </Field>
-        <Field Name="dateSigned">
-          <DataField>dateSigned</DataField>
-        </Field>
-        <Field Name="PassRemark">
-          <DataField>PassRemark</DataField>
-        </Field>
-        <Field Name="Label1">
-          <DataField>Label1</DataField>
-        </Field>
-        <Field Name="Label2">
-          <DataField>Label2</DataField>
-        </Field>
-        <Field Name="Label3">
-          <DataField>Label3</DataField>
-        </Field>
-        <Field Name="Label4">
-          <DataField>Label4</DataField>
-        </Field>
-        <Field Name="Label5">
-          <DataField>Label5</DataField>
-        </Field>
-        <Field Name="BLabel1">
-          <DataField>BLabel1</DataField>
-        </Field>
-        <Field Name="BLabel2">
-          <DataField>BLabel2</DataField>
-        </Field>
-        <Field Name="BLabel3">
-          <DataField>BLabel3</DataField>
-        </Field>
-        <Field Name="BLabel4">
-          <DataField>BLabel4</DataField>
-        </Field>
-        <Field Name="BLabel5">
-          <DataField>BLabel5</DataField>
-        </Field>
-        <Field Name="LegendRange1">
-          <DataField>LegendRange1</DataField>
-        </Field>
-        <Field Name="LegendGrade1">
-          <DataField>LegendGrade1</DataField>
-        </Field>
-        <Field Name="LegendDesc1">
-          <DataField>LegendDesc1</DataField>
-        </Field>
-        <Field Name="LegendRange2">
-          <DataField>LegendRange2</DataField>
-        </Field>
-        <Field Name="LegendGrade2">
-          <DataField>LegendGrade2</DataField>
-        </Field>
-        <Field Name="LegendDesc2">
-          <DataField>LegendDesc2</DataField>
-        </Field>
-        <Field Name="LegendRange3">
-          <DataField>LegendRange3</DataField>
-        </Field>
-        <Field Name="LegendGrade3">
-          <DataField>LegendGrade3</DataField>
-        </Field>
-        <Field Name="LegendDesc3">
-          <DataField>LegendDesc3</DataField>
-        </Field>
-        <Field Name="LegendRange4">
-          <DataField>LegendRange4</DataField>
-        </Field>
-        <Field Name="LegendGrade4">
-          <DataField>LegendGrade4</DataField>
-        </Field>
-        <Field Name="LegendDesc4">
-          <DataField>LegendDesc4</DataField>
-        </Field>
-        <Field Name="LegendRange5">
-          <DataField>LegendRange5</DataField>
-        </Field>
-        <Field Name="LegendGrade5">
-          <DataField>LegendGrade5</DataField>
-        </Field>
-        <Field Name="LegendDesc5">
-          <DataField>LegendDesc5</DataField>
-        </Field>
-        <Field Name="LegendRange6">
-          <DataField>LegendRange6</DataField>
-        </Field>
-        <Field Name="LegendGrade6">
-          <DataField>LegendGrade6</DataField>
-        </Field>
-        <Field Name="LegendDesc6">
-          <DataField>LegendDesc6</DataField>
-        </Field>
-        <Field Name="RegAcadLabel">
-          <DataField>RegAcadLabel</DataField>
-        </Field>
-        <Field Name="PassGrade">
-          <DataField>PassGrade</DataField>
-        </Field>
-        <Field Name="PassRemarks">
-          <DataField>PassRemarks</DataField>
-        </Field>
-        <Field Name="Unit">
-          <DataField>Unit</DataField>
-        </Field>
-        <Field Name="Desc">
-          <DataField>Desc</DataField>
-        </Field>
-        <Field Name="Score">
-          <DataField>Score</DataField>
-        </Field>
-        <Field Name="ScoreFormat">
-          <DataField>ScoreFormat</DataField>
-        </Field>
-        <Field Name="Final">
-          <DataField>Final</DataField>
-        </Field>
-        <Field Name="FinalFormat">
-          <DataField>FinalFormat</DataField>
-        </Field>
-        <Field Name="Grade">
-          <DataField>Grade</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-        <Field Name="AcadHours">
-          <DataField>AcadHours</DataField>
-        </Field>
-        <Field Name="AcadHoursFormat">
-          <DataField>AcadHoursFormat</DataField>
-        </Field>
-        <Field Name="CreditHours">
-          <DataField>CreditHours</DataField>
-        </Field>
-        <Field Name="CreditHoursFormat">
-          <DataField>CreditHoursFormat</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -4481,4 +4187,296 @@ p+9VAXOhP6lv1X1bNSutZBLrwtbLnMMx1DjMogBTzDhSVgbDUOh94oWb4WPN3DNWwbGIX+XPlqHgsNH/
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="StudNo">
+          <DataField>StudNo</DataField>
+        </Field>
+        <Field Name="ProgClassInt">
+          <DataField>ProgClassInt</DataField>
+        </Field>
+        <Field Name="Prog">
+          <DataField>Prog</DataField>
+        </Field>
+        <Field Name="Sem">
+          <DataField>Sem</DataField>
+        </Field>
+        <Field Name="Stag">
+          <DataField>Stag</DataField>
+        </Field>
+        <Field Name="CumSc">
+          <DataField>CumSc</DataField>
+        </Field>
+        <Field Name="CumScFormat">
+          <DataField>CumScFormat</DataField>
+        </Field>
+        <Field Name="CurrSem">
+          <DataField>CurrSem</DataField>
+        </Field>
+        <Field Name="CurrSemFormat">
+          <DataField>CurrSemFormat</DataField>
+        </Field>
+        <Field Name="AdmissionDates">
+          <DataField>AdmissionDates</DataField>
+        </Field>
+        <Field Name="GradDates">
+          <DataField>GradDates</DataField>
+        </Field>
+        <Field Name="Pic">
+          <DataField>Pic</DataField>
+        </Field>
+        <Field Name="YoS">
+          <DataField>YoS</DataField>
+        </Field>
+        <Field Name="TotalYearlyMarks">
+          <DataField>TotalYearlyMarks</DataField>
+        </Field>
+        <Field Name="TotalYearlyMarksFormat">
+          <DataField>TotalYearlyMarksFormat</DataField>
+        </Field>
+        <Field Name="TRemarks">
+          <DataField>TRemarks</DataField>
+        </Field>
+        <Field Name="YearlyAverage">
+          <DataField>YearlyAverage</DataField>
+        </Field>
+        <Field Name="YearlyAverageFormat">
+          <DataField>YearlyAverageFormat</DataField>
+        </Field>
+        <Field Name="acadYear">
+          <DataField>acadYear</DataField>
+        </Field>
+        <Field Name="YearlyGrade">
+          <DataField>YearlyGrade</DataField>
+        </Field>
+        <Field Name="classification">
+          <DataField>classification</DataField>
+        </Field>
+        <Field Name="YearlyFailed">
+          <DataField>YearlyFailed</DataField>
+        </Field>
+        <Field Name="TotalCourses">
+          <DataField>TotalCourses</DataField>
+        </Field>
+        <Field Name="TotalUnits">
+          <DataField>TotalUnits</DataField>
+        </Field>
+        <Field Name="TotalUnitsFormat">
+          <DataField>TotalUnitsFormat</DataField>
+        </Field>
+        <Field Name="YearlyRemarks">
+          <DataField>YearlyRemarks</DataField>
+        </Field>
+        <Field Name="AcadYearz">
+          <DataField>AcadYearz</DataField>
+        </Field>
+        <Field Name="sName">
+          <DataField>sName</DataField>
+        </Field>
+        <Field Name="pName">
+          <DataField>pName</DataField>
+        </Field>
+        <Field Name="GRADDATE">
+          <DataField>GRADDATE</DataField>
+        </Field>
+        <Field Name="YearOfStudy">
+          <DataField>YearOfStudy</DataField>
+        </Field>
+        <Field Name="YoSTested">
+          <DataField>YoSTested</DataField>
+        </Field>
+        <Field Name="YearOfAdmi">
+          <DataField>YearOfAdmi</DataField>
+        </Field>
+        <Field Name="SchoolNamez">
+          <DataField>SchoolNamez</DataField>
+        </Field>
+        <Field Name="acadyearz2">
+          <DataField>acadyearz2</DataField>
+        </Field>
+        <Field Name="From100Legend">
+          <DataField>From100Legend</DataField>
+        </Field>
+        <Field Name="From40Legend">
+          <DataField>From40Legend</DataField>
+        </Field>
+        <Field Name="PassMarkLegend">
+          <DataField>PassMarkLegend</DataField>
+        </Field>
+        <Field Name="DoubleLine">
+          <DataField>DoubleLine</DataField>
+        </Field>
+        <Field Name="Recomm">
+          <DataField>Recomm</DataField>
+        </Field>
+        <Field Name="singleLine">
+          <DataField>singleLine</DataField>
+        </Field>
+        <Field Name="signedSignature">
+          <DataField>signedSignature</DataField>
+        </Field>
+        <Field Name="TranscriptSignatory">
+          <DataField>TranscriptSignatory</DataField>
+        </Field>
+        <Field Name="TransCriptTitle">
+          <DataField>TransCriptTitle</DataField>
+        </Field>
+        <Field Name="ExamCategory">
+          <DataField>ExamCategory</DataField>
+        </Field>
+        <Field Name="FacultyName">
+          <DataField>FacultyName</DataField>
+        </Field>
+        <Field Name="codSchool">
+          <DataField>codSchool</DataField>
+        </Field>
+        <Field Name="codDept">
+          <DataField>codDept</DataField>
+        </Field>
+        <Field Name="dateSigned">
+          <DataField>dateSigned</DataField>
+        </Field>
+        <Field Name="PassRemarks">
+          <DataField>PassRemarks</DataField>
+        </Field>
+        <Field Name="Label1">
+          <DataField>Label1</DataField>
+        </Field>
+        <Field Name="Label2">
+          <DataField>Label2</DataField>
+        </Field>
+        <Field Name="Label3">
+          <DataField>Label3</DataField>
+        </Field>
+        <Field Name="Label4">
+          <DataField>Label4</DataField>
+        </Field>
+        <Field Name="Label5">
+          <DataField>Label5</DataField>
+        </Field>
+        <Field Name="BLabel1">
+          <DataField>BLabel1</DataField>
+        </Field>
+        <Field Name="BLabel2">
+          <DataField>BLabel2</DataField>
+        </Field>
+        <Field Name="BLabel3">
+          <DataField>BLabel3</DataField>
+        </Field>
+        <Field Name="BLabel4">
+          <DataField>BLabel4</DataField>
+        </Field>
+        <Field Name="BLabel5">
+          <DataField>BLabel5</DataField>
+        </Field>
+        <Field Name="LegendRange1">
+          <DataField>LegendRange1</DataField>
+        </Field>
+        <Field Name="LegendGrade1">
+          <DataField>LegendGrade1</DataField>
+        </Field>
+        <Field Name="LegendDesc1">
+          <DataField>LegendDesc1</DataField>
+        </Field>
+        <Field Name="LegendRange2">
+          <DataField>LegendRange2</DataField>
+        </Field>
+        <Field Name="LegendGrade2">
+          <DataField>LegendGrade2</DataField>
+        </Field>
+        <Field Name="LegendDesc2">
+          <DataField>LegendDesc2</DataField>
+        </Field>
+        <Field Name="LegendRange3">
+          <DataField>LegendRange3</DataField>
+        </Field>
+        <Field Name="LegendGrade3">
+          <DataField>LegendGrade3</DataField>
+        </Field>
+        <Field Name="LegendDesc3">
+          <DataField>LegendDesc3</DataField>
+        </Field>
+        <Field Name="LegendRange4">
+          <DataField>LegendRange4</DataField>
+        </Field>
+        <Field Name="LegendGrade4">
+          <DataField>LegendGrade4</DataField>
+        </Field>
+        <Field Name="LegendDesc4">
+          <DataField>LegendDesc4</DataField>
+        </Field>
+        <Field Name="LegendRange5">
+          <DataField>LegendRange5</DataField>
+        </Field>
+        <Field Name="LegendGrade5">
+          <DataField>LegendGrade5</DataField>
+        </Field>
+        <Field Name="LegendDesc5">
+          <DataField>LegendDesc5</DataField>
+        </Field>
+        <Field Name="LegendRange6">
+          <DataField>LegendRange6</DataField>
+        </Field>
+        <Field Name="LegendGrade6">
+          <DataField>LegendGrade6</DataField>
+        </Field>
+        <Field Name="LegendDesc6">
+          <DataField>LegendDesc6</DataField>
+        </Field>
+        <Field Name="RegAcadLabel">
+          <DataField>RegAcadLabel</DataField>
+        </Field>
+        <Field Name="PassGrade">
+          <DataField>PassGrade</DataField>
+        </Field>
+        <Field Name="ReportForNavId_1000000005">
+          <DataField>ReportForNavId_1000000005</DataField>
+        </Field>
+        <Field Name="Unit">
+          <DataField>Unit</DataField>
+        </Field>
+        <Field Name="Desc">
+          <DataField>Desc</DataField>
+        </Field>
+        <Field Name="Score">
+          <DataField>Score</DataField>
+        </Field>
+        <Field Name="ScoreFormat">
+          <DataField>ScoreFormat</DataField>
+        </Field>
+        <Field Name="Final">
+          <DataField>Final</DataField>
+        </Field>
+        <Field Name="FinalFormat">
+          <DataField>FinalFormat</DataField>
+        </Field>
+        <Field Name="Grade">
+          <DataField>Grade</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="AcadHours">
+          <DataField>AcadHours</DataField>
+        </Field>
+        <Field Name="AcadHoursFormat">
+          <DataField>AcadHoursFormat</DataField>
+        </Field>
+        <Field Name="CreditHours">
+          <DataField>CreditHours</DataField>
+        </Field>
+        <Field Name="CreditHoursFormat">
+          <DataField>CreditHoursFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
