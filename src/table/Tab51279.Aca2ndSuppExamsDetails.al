@@ -210,6 +210,13 @@ table 51279 "Aca-2nd Supp. Exams Details"
             FieldClass = FlowField;
             CalcFormula = Lookup("ACA-Semesters"."Academic Year" WHERE(Code = FIELD(Semester)));
         }
+        //Exists Supp one Marks
+        field(44; "Exists Supp One Marks"; Boolean)
+        {
+            Caption = 'Exists Supp One Marks';
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."), "Unit Code" = FIELD("Unit Code"), Category = const(Supplementary), "Exam Marks" = FILTER(<> 0)));
+        }
     }
 
     keys

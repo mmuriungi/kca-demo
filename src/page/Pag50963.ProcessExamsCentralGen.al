@@ -2800,8 +2800,10 @@ page 50963 "Process Exams Central Gen."
                                         Aca2ndSuppExamsDetails."Current Academic Year" := GetFinalAcademicYear(StudentUnits."Student No.", StudentUnits.Programme);
                                         Aca2ndSuppExamsDetails.Category := Aca2ndSuppExamsDetails.Category::Supplementary;
                                         Aca2ndSuppExamsDetails.Programme := StudentUnits.Programme;
-
-                                        IF Aca2ndSuppExamsDetails.INSERT THEN;
+                                        Aca2ndSuppExamsDetails.CalcFields("Exists Supp One Marks");
+                                        if Aca2ndSuppExamsDetails."Exists Supp One Marks" THEN BEGIN
+                                            IF Aca2ndSuppExamsDetails.INSERT THEN;
+                                        END;
                                     END;
 
                                 END;
@@ -3926,8 +3928,10 @@ page 50963 "Process Exams Central Gen."
                                         Aca2ndSuppExamsDetails."Current Academic Year" := GetFinalAcademicYear(StudentUnits."Student No.", StudentUnits.Programme);
                                         Aca2ndSuppExamsDetails.Category := Aca2ndSuppExamsDetails.Category::Supplementary;
                                         Aca2ndSuppExamsDetails.Programme := StudentUnits.Programme;
-
-                                        IF Aca2ndSuppExamsDetails.INSERT THEN;
+                                        Aca2ndSuppExamsDetails.CalcFields("Exists Supp One Marks");
+                                        if Aca2ndSuppExamsDetails."Exists Supp One Marks" THEN BEGIN
+                                            IF Aca2ndSuppExamsDetails.INSERT THEN;
+                                        END;
                                     END;
 
                                 END;
