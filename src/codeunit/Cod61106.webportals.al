@@ -10159,8 +10159,8 @@ Codeunit 61106 webportals
                 AcaSpecialExamsResults.Modify;
                 ReturnMessage := 'SUCCESS: Marks Modified!';
             end;
-            AcaSpecialExamsDetails."Exam Marks" := Marks;
-            AcaSpecialExamsDetails.Modify;
+            // AcaSpecialExamsDetails."Exam Marks" := Marks;
+            // AcaSpecialExamsDetails.Modify;
         end;
     end;
     #Region
@@ -11830,8 +11830,8 @@ Codeunit 61106 webportals
                 Aca2ndSuppResults.Modify;
                 ReturnMessage := 'SUCCESS: Marks Modified!';
             end;
-            SecondSuppDetails."Exam Marks" := Marks;
-            SecondSuppDetails.Modify;
+            // SecondSuppDetails."Exam Marks" := Marks;
+            // SecondSuppDetails.Modify;
         end;
     end;
 

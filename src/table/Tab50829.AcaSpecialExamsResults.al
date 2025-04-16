@@ -42,6 +42,7 @@ table 50829 "Aca-Special Exams Results"
             trigger OnValidate()
             var
                 AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+                ACAExamCategory: Record "ACA-Exam Category";
             begin
                 // update trans_Reg
                 stud_Units.RESET;
@@ -88,6 +89,9 @@ table 50829 "Aca-Special Exams Results"
                         Gradings.RESET;
                         prog.RESET;
                         IF prog.GET(Programmes) THEN;
+                        ACAExamCategory.RESET;
+                        ACAExamCategory.SETRANGE(Code, prog."Exam Category");
+                        IF ACAExamCategory.FIND('-') THEN;
                         IF prog."Exam Category" = '' THEN BEGIN
                             IF ACAUnitsSubjects."Default Exam Category" = '' THEN
                                 Gradings.SETRANGE(Gradings.Category, 'DEFAULT') ELSE
@@ -116,7 +120,7 @@ table 50829 "Aca-Special Exams Results"
 
                 END;
 
-                //
+                // 
                 // Course_Reg.RESET;
                 // Course_Reg.SETRANGE(Course_Reg."Student No.",stud_Units."Student No.");
                 // Course_Reg.SETRANGE(Course_Reg.Programme,stud_Units.Programme);
@@ -135,34 +139,42 @@ table 50829 "Aca-Special Exams Results"
                     stud_Units.CALCFIELDS(stud_Units."CATs Marks");
                     IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Special THEN BEGIN
                         AcaSpecialExamsDetails."CAT Marks" := stud_Units."CATs Marks";
-                        AcaSpecialExamsDetails."Exam Marks" := Contribution + stud_Units."CATs Marks";
+                        AcaSpecialExamsDetails."Exam Marks" := Contribution;
                         AcaSpecialExamsDetails."Total Marks" := Contribution + stud_Units."CATs Marks";
                         AcaSpecialExamsDetails.Grade := GetGrade(0, stud_Units."CATs Marks", Contribution, Rec.Programmes);
                         // stud_Units."Old Unit":=GetGrade(stud_Units."CAT-1",stud_Units."CAT-2",stud_Units."EXAMs Marks",Course_Reg.Programme);
                         // stud_Units."Academic Year":="Academic Year";
                         AcaSpecialExamsDetails.MODIFY;
-                    END ELSE
-                        IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Supplementary THEN BEGIN
-                            AcaSpecialExamsDetails."CAT Marks" := stud_Units."CATs Marks";
-                            IF prog."Exam Category" = 'NURSING' THEN BEGIN
-                                IF ((Contribution > 50) OR (Contribution = 50)) THEN BEGIN
-                                    AcaSpecialExamsDetails."Total Marks" := 50;
-                                END ELSE BEGIN
-                                    AcaSpecialExamsDetails."Total Marks" := Contribution;//;
-                                END;
+                    END ELSE IF AcaSpecialExamsDetails.Category = AcaSpecialExamsDetails.Category::Supplementary THEN BEGIN
+                        AcaSpecialExamsDetails."CAT Marks" := stud_Units."CATs Marks";
+                        IF ACAExamCategory."Supplementary Max. Score" <> 0 THEN BEGIN
+                            IF ((Contribution > ACAExamCategory."Supplementary Max. Score") OR (Contribution = ACAExamCategory."Supplementary Max. Score")) THEN BEGIN
+                                AcaSpecialExamsDetails."Total Marks" := ACAExamCategory."Supplementary Max. Score";
                             END ELSE BEGIN
-                                IF ((Contribution > 40) OR (Contribution = 40)) THEN BEGIN
-                                    AcaSpecialExamsDetails."Total Marks" := 40;
-                                END ELSE BEGIN
-                                    AcaSpecialExamsDetails."Total Marks" := Contribution;//;
-                                END;
+                                AcaSpecialExamsDetails."Total Marks" := Contribution;//;
                             END;
-                            AcaSpecialExamsDetails."Exam Marks" := Contribution;
-                            AcaSpecialExamsDetails.Grade := GetGrade(0, 0, AcaSpecialExamsDetails."Total Marks", Rec.Programmes);
-                            // stud_Units."Old Unit":=GetGrade(stud_Units."CAT-1",stud_Units."CAT-2",stud_Units."EXAMs Marks",Course_Reg.Programme);
-                            // stud_Units."Academic Year":="Academic Year";
-                            AcaSpecialExamsDetails.MODIFY;
+                        END ELSE BEGIN
+                            AcaSpecialExamsDetails."Total Marks" := Contribution;
                         END;
+                        // // //      IF prog."Exam Category"='NURSING' THEN BEGIN
+                        // // //      IF ((Contribution>50) OR (Contribution=50)) THEN BEGIN 
+                        // // //  AcaSpecialExamsDetails."Total Marks":= 50;
+                        // // //        END ELSE BEGIN 
+                        // // //  AcaSpecialExamsDetails."Total Marks":= Contribution;//;
+                        // // //      END;
+                        // // //       END  ELSE BEGIN
+                        // // //      IF ((Contribution>40) OR (Contribution=40)) THEN BEGIN 
+                        // // //  AcaSpecialExamsDetails."Total Marks":= 40;
+                        // // //        END ELSE BEGIN 
+                        // // //  AcaSpecialExamsDetails."Total Marks":= Contribution;//;
+                        // // //      END;
+                        // // //      END;
+                        // AcaSpecialExamsDetails."Exam Marks":=AcaSpecialExamsDetails."Total Marks"-AcaSpecialExamsDetails."CAT Marks";//Contribution;
+                        // AcaSpecialExamsDetails.Grade:=GetGrade(0,0,AcaSpecialExamsDetails."Total Marks",Rec.Programme);
+                        // stud_Units."Old Unit":=GetGrade(stud_Units."CAT-1",stud_Units."CAT-2",stud_Units."EXAMs Marks",Course_Reg.Programme);
+                        // stud_Units."Academic Year":="Academic Year";
+                        AcaSpecialExamsDetails.MODIFY;
+                    END;
 
                     // END;
                 END;
