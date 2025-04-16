@@ -304,8 +304,11 @@ table 50555 "ACA-Course Registration"
             TableRelation = "ACA-Settlement Type".Code;
 
             trigger OnValidate()
+            var
+                AcademicHandler: Codeunit "Academics Handler";
             begin
                 //VALIDATE("Registration Date");
+                AcademicHandler.ValidateStudentProgression(Rec);
 
                 IF "Allow Adjustment" = FALSE THEN BEGIN
 
@@ -800,7 +803,7 @@ table 50555 "ACA-Course Registration"
                                 StudentCharges."Transacton ID" := '';
                                 StudentCharges."Recovery Priority" := 20;
                                 StudentCharges.VALIDATE(StudentCharges."Transacton ID");
-                                //StudentCharges.INSERT;
+                                StudentCharges.INSERT;
 
 
                             END;

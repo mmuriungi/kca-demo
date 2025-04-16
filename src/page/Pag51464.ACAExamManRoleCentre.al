@@ -23,6 +23,26 @@ page 51464 "ACA-Exam Man. Role Centre"
 
     actions
     {
+        area(Reporting)
+        {
+            group("Supplementary Reports")
+            {
+                action("Booked Supplementaries")
+                {
+                    Caption = 'Booked Supplementaries';
+                    Image = Report;
+                    RunObject = Report "Supplementary Exams Per Course";
+                    ApplicationArea = All;
+                }
+                action("Second Supplementary Bookings")
+                {
+                    Caption = 'Supplementary Bookings';
+                    Image = Report;
+                    RunObject = Report "Second Supplementary Exams";
+                    ApplicationArea = All;
+                }
+            }
+        }
         area(embedding)
         {
             action("Students List")
