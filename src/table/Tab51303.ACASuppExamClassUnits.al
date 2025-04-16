@@ -209,6 +209,14 @@ table 51303 "ACA-SuppExam Class. Units"
                                                                   "Unit Code" = FIELD("Unit Code"),
                                                                   "Academic Year" = FIELD("Academic Year")));
         }
+        field(73; "Is Retake"; Boolean)
+        {
+            Caption = 'Is Retake';
+            FieldClass = FlowField;
+            CalcFormula = Exist("Aca-Special Exams Details" WHERE("Student No." = FIELD("Student No."),
+                                                                  "Unit Code" = FIELD("Unit Code"),
+                                                                  Category = FILTER(Retake)));
+        }
     }
 
     keys

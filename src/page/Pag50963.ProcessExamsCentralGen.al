@@ -2432,7 +2432,7 @@ page 50963 "Process Exams Central Gen."
                             ACAExamClassificationUnits.SETRANGE("Unit Code", RegularExamUnitsRegForSupp."Unit Code");
                             ACAExamClassificationUnits.SETRANGE("Academic Year", RegularExamUnitsRegForSupp."Academic Year");
                             IF ACAExamClassificationUnits.FIND('-') THEN BEGIN
-                                ACAExamClassificationUnits.CALCFIELDS("Is Supp. Unit", "Is Special Unit");
+                                ACAExamClassificationUnits.CALCFIELDS("Is Supp. Unit", "Is Special Unit", "Is Retake");
 
                                 IF ACAExamClassificationUnits."Is Special Unit" = TRUE THEN BEGIN
                                     //  Pick Special Marks here and leave value of Sore to Zero if Mark does not exist
@@ -2507,6 +2507,40 @@ page 50963 "Process Exams Central Gen."
                                         ACAExamClassificationUnits."Total Score" := FORMAT(ROUND(ACAExamClassificationUnits."Total Score Decimal", 0.01, '='));
                                         ACAExamClassificationUnits."Weighted Total Score" := ROUND(ACAExamClassificationUnits."Credit Hours" * ACAExamClassificationUnits."Total Score Decimal", 0.01, '=');
 
+                                    END;
+                                    //Check for Retake
+                                    IF ACAExamClassificationUnits."Is Retake" THEN BEGIN
+                                        CLEAR(AcaSpecialExamsDetails);
+                                        AcaSpecialExamsDetails.RESET;
+                                        AcaSpecialExamsDetails.SETRANGE("Student No.", RegularExamUnitsRegForSupp."Student No.");
+                                        AcaSpecialExamsDetails.SETRANGE("Unit Code", ACAExamClassificationUnits."Unit Code");
+                                        AcaSpecialExamsDetails.SETRANGE(Category, AcaSpecialExamsDetails.Category::Retake);
+                                        // AcaSpecialExamsDetails.SETRANGE(Semester,StudentUnits.Semester);
+                                        AcaSpecialExamsDetails.SETFILTER("Exam Marks", '<>%1', 0);
+                                        IF AcaSpecialExamsDetails.FIND('-') THEN BEGIN
+                                            ACAExamClassificationUnits."Exam Score" := FORMAT(ROUND(((AcaSpecialExamsDetails."Exam Marks")), 0.01, '='));
+                                            ACAExamClassificationUnits."Exam Score Decimal" := ROUND(((AcaSpecialExamsDetails."Exam Marks")), 0.01, '=');
+                                            ACAExamClassificationUnits."CAT Score" := '0';
+                                            ACAExamClassificationUnits."CAT Score Decimal" := 0;
+                                            ACAExamClassificationUnits."Total Score" := ACAExamClassificationUnits."Exam Score";
+                                            ACAExamClassificationUnits."Total Score Decimal" := ACAExamClassificationUnits."Exam Score Decimal";
+                                            ACAExamClassificationUnits."Weighted Total Score" := ACAExamClassificationUnits."Exam Score Decimal" * RegularExamUnitsRegForSupp."Credit Hours";
+                                            //Update Total Marks
+                                            IF ((ACAExamClassificationUnits."Exam Score" = '') AND (CATExists = FALSE)) THEN BEGIN
+                                                ACAExamClassificationUnits."Results Exists Status" := ACAExamClassificationUnits."Results Exists Status"::"None Exists";
+                                            END ELSE IF ((ACAExamClassificationUnits."Exam Score" = '') AND (CATExists = TRUE)) THEN BEGIN
+                                                ACAExamClassificationUnits."Results Exists Status" := ACAExamClassificationUnits."Results Exists Status"::"CAT Only";
+                                            END ELSE IF ((ACAExamClassificationUnits."Exam Score" <> '') AND (CATExists = FALSE)) THEN BEGIN
+                                                ACAExamClassificationUnits."Results Exists Status" := ACAExamClassificationUnits."Results Exists Status"::"Exam Only";
+                                            END ELSE IF ((ACAExamClassificationUnits."Exam Score" <> '') AND (CATExists = TRUE)) THEN BEGIN
+                                                ACAExamClassificationUnits."Results Exists Status" := ACAExamClassificationUnits."Results Exists Status"::"Both Exists";
+                                            END;
+                                            ACAExamClassificationUnits."Total Score Decimal" := ROUND(ACAExamClassificationUnits."Exam Score Decimal", 0.01, '=');
+                                            ACAExamClassificationUnits."Total Score Decimal" := GetSuppMaxScore(Progyz."Exam Category", ACAExamClassificationUnits."Total Score Decimal");
+                                            ACAExamClassificationUnits."Total Score" := FORMAT(ROUND(ACAExamClassificationUnits."Total Score Decimal", 0.01, '='));
+                                            ACAExamClassificationUnits."Weighted Total Score" := ROUND(ACAExamClassificationUnits."Credit Hours" * ACAExamClassificationUnits."Total Score Decimal", 0.01, '=');
+
+                                        END;
                                     END;
                                     //////////////////////////////////////////////////////////////////////////////////////////////////
                                 END;
