@@ -195,7 +195,7 @@ page 50856 "ACA-Course Registration 3"
                 PromotedIsBig = true;
                 PromotedOnly = true;
                 RunObject = Page "Supp. Exams Details List";
-                RunPageLink = "Student No." = FIELD("Student No.");
+                RunPageLink = "Student No." = FIELD("Student No."), Semester = FIELD(Semester);
                 ApplicationArea = All;
             }
             action("2nd Supp. Exams")
@@ -207,7 +207,7 @@ page 50856 "ACA-Course Registration 3"
                 PromotedIsBig = true;
                 PromotedOnly = true;
                 RunObject = Page "Second Supp Details";
-                RunPageLink = "Student No." = FIELD("Student No.");
+                RunPageLink = "Student No." = FIELD("Student No."), Semester = FIELD(Semester);
                 ApplicationArea = All;
             }
             action(RetakeExams)
@@ -219,7 +219,7 @@ page 50856 "ACA-Course Registration 3"
                 PromotedIsBig = true;
                 PromotedOnly = true;
                 RunObject = Page "Retake Exam Details";
-                RunPageLink = "Student No." = FIELD("Student No.");
+                RunPageLink = "Student No." = FIELD("Student No."), Semester = FIELD(Semester);
                 ApplicationArea = All;
             }
             action(SpecialExamsReg)
@@ -231,7 +231,7 @@ page 50856 "ACA-Course Registration 3"
                 PromotedIsBig = true;
                 PromotedOnly = true;
                 RunObject = Page "Special Exams Details List";
-                RunPageLink = "Student No." = FIELD("Student No.");
+                RunPageLink = "Student No." = FIELD("Student No."), Semester = FIELD(Semester);
                 ApplicationArea = All;
             }
             action("Student Charges")
