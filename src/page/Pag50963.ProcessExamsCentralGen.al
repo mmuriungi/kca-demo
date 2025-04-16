@@ -2800,8 +2800,7 @@ page 50963 "Process Exams Central Gen."
                                         Aca2ndSuppExamsDetails."Current Academic Year" := GetFinalAcademicYear(StudentUnits."Student No.", StudentUnits.Programme);
                                         Aca2ndSuppExamsDetails.Category := Aca2ndSuppExamsDetails.Category::Supplementary;
                                         Aca2ndSuppExamsDetails.Programme := StudentUnits.Programme;
-                                        Aca2ndSuppExamsDetails.CalcFields("Exists Supp One Marks");
-                                        if Aca2ndSuppExamsDetails."Exists Supp One Marks" THEN BEGIN
+                                        IF CheckIfExistsSuppOneMarks(StudentUnits."Student No.", StudentUnits.Unit) THEN BEGIN
                                             IF Aca2ndSuppExamsDetails.INSERT THEN;
                                         END;
                                     END;
@@ -3036,6 +3035,22 @@ page 50963 "Process Exams Central Gen."
                     SuppScoreNormalized := ACAExamCategory."Supplementary Max. Score";
             END;
         END;
+    end;
+
+    procedure CheckIfExistsSuppOneMarks(StudNo: code[25]; UnitCode: code[25]): Boolean
+    var
+        Sup1Details: Record "Aca-Special Exams Details";
+    begin
+        Sup1Details.RESET;
+        Sup1Details.SETRANGE("Student No.", StudNo);
+        Sup1Details.SETRANGE("Unit Code", UnitCode);
+        Sup1Details.SETRANGE(Category, Sup1Details.Category::Supplementary);
+        IF Sup1Details.FIND('-') THEN BEGIN
+            IF Sup1Details."Exam Marks" <> 0 THEN BEGIN
+                exit(true);
+            END;
+        END;
+        exit(false);
     end;
 
     procedure GetRubricSupp(ACAProgramme: Record "ACA-Programme"; VAR CoursesRegz: Record "ACA-SuppExam. Co. Reg.") StatusRemarks: Text[150]
@@ -3928,8 +3943,7 @@ page 50963 "Process Exams Central Gen."
                                         Aca2ndSuppExamsDetails."Current Academic Year" := GetFinalAcademicYear(StudentUnits."Student No.", StudentUnits.Programme);
                                         Aca2ndSuppExamsDetails.Category := Aca2ndSuppExamsDetails.Category::Supplementary;
                                         Aca2ndSuppExamsDetails.Programme := StudentUnits.Programme;
-                                        Aca2ndSuppExamsDetails.CalcFields("Exists Supp One Marks");
-                                        if Aca2ndSuppExamsDetails."Exists Supp One Marks" THEN BEGIN
+                                        if CheckIfExistsSuppOneMarks(StudentUnits."Student No.", StudentUnits.Unit) THEN BEGIN
                                             IF Aca2ndSuppExamsDetails.INSERT THEN;
                                         END;
                                     END;
