@@ -11677,6 +11677,100 @@ Codeunit 61106 webportals
         end;
         exit(msg);
     end;
+
+    procedure FnGetLecturerRetakeStudents(unit: Code[20]; prog: Code[20]; stage: Code[20]) Msg: Text
+    var
+        StdUnits: Record "ACA-Student Units";
+        RetakeSuppDetails: Record "Aca-Special Exams Details";
+        Customer: Record Customer;
+    begin
+        RetakeSuppDetails.Reset;
+        RetakeSuppDetails.SetCurrentkey("Student No.");
+        RetakeSuppDetails.SetRange("Unit Code", unit);
+        RetakeSuppDetails.SetRange(Programme, prog);
+        RetakeSuppDetails.SetRange("Current Academic Year", GetCurrentSuppYear());
+        RetakeSuppDetails.SetRange(Stage, stage);
+        if RetakeSuppDetails.Find('-') then begin
+            repeat
+                Customer.Reset;
+                Customer.SetRange("No.", RetakeSuppDetails."Student No.");
+                if Customer.Find('-') then begin
+                    Msg += Customer."No." + ' ::' + Customer.Name + ' ::' + RetakeSuppDetails."Unit Code" + ' ::' + RetakeSuppDetails."Unit Description" + ' :::';
+                end;
+            until RetakeSuppDetails.Next = 0;
+        end;
+    end;
+
+    procedure SubmitRetakeByLec(StudNo: Code[20]; LectNo: Code[20]; Marks: Decimal; UnitCode: Code[20]; Prog: Code[10]; Stage: Code[10]) ReturnMessage: Text[250]
+    var
+        RetakeSuppDetails: Record "Aca-Special Exams Details";
+        Aca2ndSuppResults: Record "Aca-Special Exams Results";
+        emps: Record "HRM-Employee C";
+    begin
+        Clear(ReturnMessage);
+        Clear(emps);
+        emps.Reset;
+        emps.SetRange("No.", LectNo);
+        if emps.Find('-') then;
+        RetakeSuppDetails.Reset;
+        RetakeSuppDetails.SetRange("Current Academic Year", GetCurrentSuppYear());
+        RetakeSuppDetails.SetRange(Category, RetakeSuppDetails.Category::Retake);
+        RetakeSuppDetails.SetRange("Student No.", StudNo);
+        RetakeSuppDetails.SetRange("Unit Code", UnitCode);
+        RetakeSuppDetails.SetRange(Programme, Prog);
+        RetakeSuppDetails.SetRange(Stage, Stage);
+        if RetakeSuppDetails.Find('-') then begin
+            Aca2ndSuppResults.Reset;
+            Aca2ndSuppResults.SetRange("Student No.", StudNo);
+            Aca2ndSuppResults.SetRange(Unit, UnitCode);
+            Aca2ndSuppResults.SetRange(Category, Aca2ndSuppResults.Category::Retake);
+            if not Aca2ndSuppResults.Find('-') then begin
+                Aca2ndSuppResults.Init;
+                Aca2ndSuppResults.Programmes := RetakeSuppDetails.Programme;
+                Aca2ndSuppResults.Stage := RetakeSuppDetails.Stage;
+                Aca2ndSuppResults.Unit := UnitCode;
+                Aca2ndSuppResults.Semester := RetakeSuppDetails.Semester;
+                Aca2ndSuppResults."Student No." := RetakeSuppDetails."Student No.";
+                Aca2ndSuppResults."Academic Year" := RetakeSuppDetails."Academic Year";
+                Aca2ndSuppResults."Admission No" := StudNo;
+                Aca2ndSuppResults."Current Academic Year" := GetCurrentSuppYear();
+                Aca2ndSuppResults.UserID := LectNo;
+                Aca2ndSuppResults."Capture Date" := Today;
+                Aca2ndSuppResults.Category := RetakeSuppDetails.Category;
+                Aca2ndSuppResults."Lecturer Names" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                Aca2ndSuppResults.Score := Marks;
+                Aca2ndSuppResults.Validate(Score);
+                Aca2ndSuppResults.Insert;
+                ReturnMessage := 'SUCCESS: Marks Inserted!';
+            end else begin
+                Aca2ndSuppResults."Current Academic Year" := GetCurrentSuppYear();
+                Aca2ndSuppResults."Modified By" := LectNo;
+                Aca2ndSuppResults."Modified Date" := Today;
+                Aca2ndSuppResults."Modified By Name" := emps."First Name" + ' ' + emps."Middle Name" + ' ' + emps."Last Name";
+                Aca2ndSuppResults.Score := Marks;
+                Aca2ndSuppResults.Validate(Score);
+                Aca2ndSuppResults.Modify;
+                ReturnMessage := 'SUCCESS: Marks Modified!';
+            end;
+            // RetakeSuppDetails."Exam Marks" := Marks;
+            // RetakeSuppDetails.Modify;
+        end;
+    end;
+
+    procedure FnGetRetakeScore(stdNo: Code[20]; unit: Code[20]) Msg: Text
+    var
+        ExamResults: Record "ACA-Exam Results";
+        // ExamResultsBuffer: Record UnknownRecord78055;
+        Aca2ndSuppResults: Record "Aca-Special Exams Results";
+    begin
+        Aca2ndSuppResults.Reset;
+        Aca2ndSuppResults.SetRange("Student No.", stdNo);
+        Aca2ndSuppResults.SetRange(Unit, unit);
+        Aca2ndSuppResults.SetRange(Category, Aca2ndSuppResults.Category::Retake);
+        if Aca2ndSuppResults.Find('-') then begin
+            Msg := Format(Aca2ndSuppResults.Score);
+        end;
+    end;
     #endregion
 
     #region Graduation
