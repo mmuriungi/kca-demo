@@ -1461,10 +1461,10 @@ procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text
         StudentUnits.SETRANGE(StudentUnits.Programme, prog);
         StudentUnits.SETRANGE(StudentUnits.Stage, stage);
         StudentUnits.SETRANGE(StudentUnits.Semester, sem);
-        IF StudentUnits.FIND('-') THEN BEGIN
+        IF StudentUnits.FindSet() THEN BEGIN
             recRef.GetTable(StudentUnits);
             tmpBlob.CreateOutStream(OutStr);
-            Report.SaveAs(50820, '', format::Excel, OutStr, recRef);
+            Report.SaveAs(Report::"Students Marks Upload", '', format::Excel, OutStr, recRef);
             tmpBlob.CreateInStream(InStr);
             txtB64 := cnv64.ToBase64(InStr, true);
             bigtext.AddText(txtB64);
