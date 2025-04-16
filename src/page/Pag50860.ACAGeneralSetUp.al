@@ -169,6 +169,37 @@ page 50860 "ACA-General Set-Up"
                     caption = 'Resit Fee';
                     ApplicationArea = All;
                 }
+                field("2nd Supp Fee"; Rec."2nd Supp Fee")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the 2nd Supp Fee field.', Comment = '%';
+                }
+                field("2nd Supp Fee Code"; Rec."2nd Supp Fee Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the 2nd Supp Fee Code field.', Comment = '%';
+                }
+                field("2nd Supp GL Account"; Rec."2nd Supp GL Account")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the 2nd Supp GL Account field.', Comment = '%';
+                }
+                field("Retake Fee"; Rec."Retake Fee")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Retake Fee field.', Comment = '%';
+                }
+                field("Retake Fee Code"; Rec."Retake Fee Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Retake Fee Code field.', Comment = '%';
+                }
+                field("Retake GL Account"; Rec."Retake GL Account")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Retake GL Account field.', Comment = '%';
+                }
+
                 field("Special Exam Code"; Rec."Special Exam Code")
                 {
                     ApplicationArea = All;
@@ -233,6 +264,12 @@ page 50860 "ACA-General Set-Up"
                 field("Supervision Nos"; Rec."Supervision Nos")
                 {
                     ApplicationArea = All;
+                }
+
+                field("Training Evaluation Nos"; Rec."Training Evaluation Nos")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Training Evaluation Nos field.', Comment = '%';
                 }
 
 
