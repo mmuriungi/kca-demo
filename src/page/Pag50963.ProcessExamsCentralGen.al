@@ -2707,6 +2707,7 @@ page 50963 "Process Exams Central Gen."
                                 Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACAExamClassificationUnits."Unit Code");
                                 Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
                                 Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+                                Aca2ndSuppExamsDetails.SetRange(Status, Aca2ndSuppExamsDetails.Status::New);
                                 Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '%1', 0);
                                 IF Aca2ndSuppExamsDetails.FIND('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
                             END ELSE BEGIN
@@ -2718,6 +2719,7 @@ page 50963 "Process Exams Central Gen."
                                 Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACAExamClassificationUnits."Unit Code");
                                 Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
                                 Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+                                Aca2ndSuppExamsDetails.SetRange(Status, Aca2ndSuppExamsDetails.Status::New);
                                 Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '%1', 0);
                                 IF Aca2ndSuppExamsDetails.FIND('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
                                 //Aca2ndSuppExamsDetails3
@@ -3865,6 +3867,7 @@ page 50963 "Process Exams Central Gen."
                                 Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
                                 Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
                                 Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+                                Aca2ndSuppExamsDetails.SetRange(Status, Aca2ndSuppExamsDetails.Status::New);
                                 Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '%1', 0);
                                 IF Aca2ndSuppExamsDetails.FIND('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
                             END ELSE BEGIN
@@ -3876,6 +3879,7 @@ page 50963 "Process Exams Central Gen."
                                 Aca2ndSuppExamsDetails.SETRANGE("Unit Code", ACA2NDExamClassificationUnits."Unit Code");
                                 Aca2ndSuppExamsDetails.SETRANGE(Category, Aca2ndSuppExamsDetails.Category::Supplementary);
                                 Aca2ndSuppExamsDetails.SETRANGE(Semester, StudentUnits.Semester);
+                                Aca2ndSuppExamsDetails.SetRange(Status, Aca2ndSuppExamsDetails.Status::New);
                                 Aca2ndSuppExamsDetails.SETFILTER("Exam Marks", '%1', 0);
                                 IF Aca2ndSuppExamsDetails.FIND('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
                                 //Aca2ndSuppExamsDetails3

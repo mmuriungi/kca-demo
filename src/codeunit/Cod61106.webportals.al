@@ -1441,7 +1441,8 @@ Codeunit 61106 webportals
         AttendanceDetails.Semester := GetCurrentSem();
         AttendanceDetails.INSERT;
     end;
-procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text; sem:Code[20]; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
+
+    procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text; sem: Code[20]; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
     var
         tmpBlob: Codeunit "Temp Blob";
         cnv64: Codeunit "Base64 Convert";
@@ -1473,6 +1474,7 @@ procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text
         END;
         EXIT(filename);
     end;
+
     procedure GenerateBS64ClassRegisterNew(unitcode: Code[20]; prog: Code[20]; stage: Text; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
     var
         tmpBlob: Codeunit "Temp Blob";
@@ -11817,6 +11819,7 @@ procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text
     begin
         SecondSuppDetails.Reset;
         SecondSuppDetails.SetRange("Student No.", stdNo);
+        SecondSuppDetails.SetRange(Status, SecondSuppDetails.Status::New);
         if SecondSuppDetails.FindSet() then begin
             repeat
                 msg += SecondSuppDetails."Unit Code" + ' :: ' + SecondSuppDetails."Unit Description" + ' :::';
@@ -11853,6 +11856,8 @@ procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text
                     if isStudentNFMLegible(StdNo) then
                         Balance := getNfmBalance(StdNo);
                     if (Balance <= 0) /* or (Abs(StudentCard.Balance) >= Abs(GenSetup."Supplimentary Fee")) */ then begin
+                        SecondSuppDetails."Current Academic Year" := GetCurrentSuppYear();
+                        SecondSuppDetails."Current Semester" := GetCurrentSem();
                         SecondSuppDetails.Status := SecondSuppDetails.Status::Approved;
                         SecondSuppDetails.Validate(Status);
                         SecondSuppDetails.Modify;

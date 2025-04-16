@@ -16,14 +16,25 @@ report 50820 "Students Marks Upload"
             }
 
 
-            column(CATs_Marks; "CATs Marks")
+            column(CATs_Marks; VarCat)
             {
 
             }
-            column(Exam_Marks; "Exam Marks")
+            column(Exam_Marks; VarExam)
             {
 
             }
+            trigger OnAfterGetRecord()
+            begin
+                CalcFields("Exam Marks", "CATs Marks");
+                VarExam := '';
+                VarCat := '';
+                if "Exam Marks" <> 0 then
+                    VarExam := Format("Exam Marks");
+                if "CATs Marks" <> 0 then
+                    VarCat := Format("CATs Marks");
+
+            end;
         }
     }
     requestpage
@@ -44,4 +55,7 @@ report 50820 "Students Marks Upload"
             }
         }
     }
+    var
+        VarExam: Text;
+        VarCat: text;
 }

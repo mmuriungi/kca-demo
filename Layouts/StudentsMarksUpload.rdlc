@@ -11,34 +11,6 @@
       <rd:DataSourceID>30106273-e80e-496d-835a-99c3341a4351</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="StudentNo">
-          <DataField>StudentNo</DataField>
-        </Field>
-        <Field Name="StudName">
-          <DataField>StudName</DataField>
-        </Field>
-        <Field Name="CATs_Marks">
-          <DataField>CATs_Marks</DataField>
-        </Field>
-        <Field Name="CATs_MarksFormat">
-          <DataField>CATs_MarksFormat</DataField>
-        </Field>
-        <Field Name="Exam_Marks">
-          <DataField>Exam_Marks</DataField>
-        </Field>
-        <Field Name="Exam_MarksFormat">
-          <DataField>Exam_MarksFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -423,12 +395,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -468,4 +434,26 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="StudentNo">
+          <DataField>StudentNo</DataField>
+        </Field>
+        <Field Name="StudName">
+          <DataField>StudName</DataField>
+        </Field>
+        <Field Name="CATs_Marks">
+          <DataField>CATs_Marks</DataField>
+        </Field>
+        <Field Name="Exam_Marks">
+          <DataField>Exam_Marks</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
