@@ -1441,7 +1441,38 @@ Codeunit 61106 webportals
         AttendanceDetails.Semester := GetCurrentSem();
         AttendanceDetails.INSERT;
     end;
+procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text; sem:Code[20]; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
+    var
+        tmpBlob: Codeunit "Temp Blob";
+        cnv64: Codeunit "Base64 Convert";
+        InStr: InStream;
+        OutStr: OutStream;
+        txtB64: Text;
+        format: ReportFormat;
+        recRef: RecordRef;
+        filename: Text;
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        IF EXISTS(filename) THEN
+            ERASE(filename);
 
+        StudentUnits.RESET;
+        StudentUnits.SETRANGE(StudentUnits.Unit, unitcode);
+        StudentUnits.SETRANGE(StudentUnits.Programme, prog);
+        StudentUnits.SETRANGE(StudentUnits.Stage, stage);
+        StudentUnits.SETRANGE(StudentUnits.Semester, sem);
+        IF StudentUnits.FIND('-') THEN BEGIN
+            recRef.GetTable(StudentUnits);
+            tmpBlob.CreateOutStream(OutStr);
+            Report.SaveAs(50820, '', format::Excel, OutStr, recRef);
+            tmpBlob.CreateInStream(InStr);
+            txtB64 := cnv64.ToBase64(InStr, true);
+            bigtext.AddText(txtB64);
+        END ELSE BEGIN
+            Error('No class list for the details found!');
+        END;
+        EXIT(filename);
+    end;
     procedure GenerateBS64ClassRegisterNew(unitcode: Code[20]; prog: Code[20]; stage: Text; filenameFromApp: Text; var bigtext: BigText) rtnmsg: Text
     var
         tmpBlob: Codeunit "Temp Blob";
@@ -1470,7 +1501,7 @@ Codeunit 61106 webportals
             txtB64 := cnv64.ToBase64(InStr, true);
             bigtext.AddText(txtB64);
         END ELSE BEGIN
-            Error('No class list for the details provided!');
+            Error('No class list for the details found!');
         END;
         EXIT(filename);
     end;
@@ -11840,6 +11871,7 @@ Codeunit 61106 webportals
         ExamResults: Record "ACA-Exam Results";
         // ExamResultsBuffer: Record UnknownRecord78055;
         Aca2ndSuppResults: Record "Aca-2nd Supp. Exams Results";
+        StudentMarkUpload: Report "Students Marks Upload";
     begin
         Aca2ndSuppResults.Reset;
         Aca2ndSuppResults.SetRange("Student No.", stdNo);

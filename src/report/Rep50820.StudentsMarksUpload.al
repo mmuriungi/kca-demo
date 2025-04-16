@@ -7,12 +7,10 @@ report 50820 "Students Marks Upload"
         {
             column(StudentNo; "Student No.")
             {
-                Caption = 'Student No.';
                 //TableView = sorting("Student No.");
             }
             column(StudName; "Student Name")
             {
-                Caption = 'Student Name';
             }
 
 
