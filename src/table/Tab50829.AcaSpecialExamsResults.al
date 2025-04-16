@@ -279,8 +279,8 @@ table 50829 "Aca-Special Exams Results"
         field(50020; Category; Option)
         {
             DataClassification = ToBeClassified;
-            OptionCaption = ' ,Special,Supplementary';
-            OptionMembers = " ",Special,Supplementary;
+            OptionCaption = ' ,Special,Supplementary,Retake';
+            OptionMembers = " ",Special,Supplementary,Retake;
         }
         field(50021; "Current Academic Year"; Code[20])
         {
