@@ -245,7 +245,7 @@ page 52178580 "Purchase Requisition  Subform"
     trigger OnModifyRecord(): Boolean
     begin
         DocumentTotals.PurchaseCheckIfDocumentChanged(Rec, xRec);
-        REC."Location Code" := 'MAIN STORE';
+        REC."Location Code" := 'CENTRAL STORE';
         //Rec.GetProcBudget();
     end;
 
@@ -259,7 +259,7 @@ page 52178580 "Purchase Requisition  Subform"
 
         Clear(ShortcutDimCode);
         UpdateTypeText();
-        Rec."Location Code" := 'MAIN STORE';
+        Rec."Location Code" := 'CENTRAL STORE';
 
     end;
 
