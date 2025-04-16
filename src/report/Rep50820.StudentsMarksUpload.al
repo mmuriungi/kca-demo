@@ -1,8 +1,8 @@
 report 50820 "Students Marks Upload"
 {
     Caption = 'Students Marks Upload';
-    DefaultLayout = Word;
-    WordLayout = './Layouts/StudentsMarksUpload.docx';
+    DefaultLayout = Rdlc;
+    RDLCLayout = './Layouts/StudentsMarksUpload.rdlc';
     dataset
     {
         dataitem(ACAStudentUnits; "ACA-Student Units")
