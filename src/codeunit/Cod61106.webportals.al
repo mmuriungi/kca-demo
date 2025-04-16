@@ -10780,7 +10780,8 @@ Codeunit 61106 webportals
         PurchaseLines."Unit of Measure" := UnitsOfMeasure;
         PurchaseLines.Quantity := Quantityz;
         PurchaseLines."Unit Cost" := UnitPrice;
-        PurchaseLines.Validate(Quantity);
+        PurchaseLines.Amount := Quantityz * UnitPrice;
+        PurchaseLines."Line Amount" := Quantityz * UnitPrice;
         PurchaseLines.Validate("Document No.");
         PurchaseLines.INSERT;
     end;
