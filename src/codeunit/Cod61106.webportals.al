@@ -11922,8 +11922,7 @@ Codeunit 61106 webportals
         if emps.Find('-') then;
         SecondSuppDetails.Reset;
         SecondSuppDetails.SetRange("Current Academic Year", GetCurrentSuppYear());
-        SecondSuppDetails.SetRange(Category, SecondSuppDetails.Category::Supplementary);
-        SecondSuppDetails.SetRange("Student No.", StudNo);
+       SecondSuppDetails.SetRange("Student No.", StudNo);
         SecondSuppDetails.SetRange("Unit Code", UnitCode);
         SecondSuppDetails.SetRange(Programme, Prog);
         SecondSuppDetails.SetRange(Stage, Stage);
@@ -11931,7 +11930,6 @@ Codeunit 61106 webportals
             Aca2ndSuppResults.Reset;
             Aca2ndSuppResults.SetRange("Student No.", StudNo);
             Aca2ndSuppResults.SetRange(Unit, UnitCode);
-            Aca2ndSuppResults.SetRange(Category, Aca2ndSuppResults.Category::Supplementary);
             if not Aca2ndSuppResults.Find('-') then begin
                 Aca2ndSuppResults.Init;
                 Aca2ndSuppResults.Programme := SecondSuppDetails.Programme;

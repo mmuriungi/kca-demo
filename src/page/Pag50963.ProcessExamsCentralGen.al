@@ -1294,6 +1294,7 @@ page 50963 "Process Exams Central Gen."
         coregz.SetRange("Student No.", StudNo);
         coregz.SetRange(Programmes, ProgCode);
         coregz.SetRange(Reversed, false);
+        coregz.SetCurrentKey("Academic Year");
         if coregz.Find('+') then begin
             FinalAcadYear := coregz."Academic Year";
         end;
