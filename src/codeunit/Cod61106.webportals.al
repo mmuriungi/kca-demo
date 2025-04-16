@@ -11830,8 +11830,8 @@ Codeunit 61106 webportals
                 Aca2ndSuppResults.Modify;
                 ReturnMessage := 'SUCCESS: Marks Modified!';
             end;
-            SecondSuppDetails."Exam Marks" := Marks;
-            SecondSuppDetails.Modify;
+            // SecondSuppDetails."Exam Marks" := Marks;
+            // SecondSuppDetails.Modify;
         end;
     end;
 
