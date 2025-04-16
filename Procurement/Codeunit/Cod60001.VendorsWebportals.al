@@ -298,7 +298,7 @@ codeunit 60001 VendorsWebportals
                     tenderlines.init;
                     tenderlines.Type := proclines.Type;
                     tenderlines."Line No." := SEQ;
-                    tenderlines."Location Code" := 'MAIN STORE';
+                    tenderlines."Location Code" := 'CENTRAL';
                     tenderlines."No." := itemno;
                     tenderlines."Request for Quote No." := tenderno;
                     tenderlines."Document No." := bidno;

@@ -3009,7 +3009,7 @@ The Chief Executive Officer is hereby presented with the original evaluation rep
             <Top>14.51148cm</Top>
             <Left>0.5842cm</Left>
             <Height>1.56717cm</Height>
-            <Width>19.00482cm</Width>
+            <Width>19.0048cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -3029,19 +3029,54 @@ The Chief Executive Officer is hereby presented with the original evaluation rep
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Image Name="Image1">
-              <Source>Embedded</Source>
-              <Value>psasb</Value>
+              <Source>Database</Source>
+              <Value>=First(Fields!CompInfoPicture.Value, "DataSet_Result")</Value>
+              <MIMEType>image/png</MIMEType>
               <Sizing>FitProportional</Sizing>
-              <Top>0.49953cm</Top>
-              <Left>0.5842cm</Left>
-              <Height>2.60067cm</Height>
-              <Width>19.00483cm</Width>
+              <Top>0.31432cm</Top>
+              <Left>6.95537cm</Left>
+              <Height>2.24083cm</Height>
+              <Width>5.20417cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
               </Style>
             </Image>
+            <Textbox Name="Textbox6">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CompInfoName.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontFamily>Cambria</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox6</rd:DefaultName>
+              <Top>2.9337cm</Top>
+              <Left>5.60599cm</Left>
+              <Height>0.6cm</Height>
+              <Width>7.37375cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>

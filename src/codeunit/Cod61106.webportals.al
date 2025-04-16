@@ -10190,8 +10190,8 @@ procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text
                 AcaSpecialExamsResults.Modify;
                 ReturnMessage := 'SUCCESS: Marks Modified!';
             end;
-            AcaSpecialExamsDetails."Exam Marks" := Marks;
-            AcaSpecialExamsDetails.Modify;
+            // AcaSpecialExamsDetails."Exam Marks" := Marks;
+            // AcaSpecialExamsDetails.Modify;
         end;
     end;
     #Region
@@ -10811,7 +10811,8 @@ procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text
         PurchaseLines."Unit of Measure" := UnitsOfMeasure;
         PurchaseLines.Quantity := Quantityz;
         PurchaseLines."Unit Cost" := UnitPrice;
-        PurchaseLines.Validate(Quantity);
+        PurchaseLines.Amount := Quantityz * UnitPrice;
+        PurchaseLines."Line Amount" := Quantityz * UnitPrice;
         PurchaseLines.Validate("Document No.");
         PurchaseLines.INSERT;
     end;
@@ -11860,8 +11861,8 @@ procedure GenerateMarkEntryExcel(unitcode: Code[20]; prog: Code[20]; stage: Text
                 Aca2ndSuppResults.Modify;
                 ReturnMessage := 'SUCCESS: Marks Modified!';
             end;
-            SecondSuppDetails."Exam Marks" := Marks;
-            SecondSuppDetails.Modify;
+            // SecondSuppDetails."Exam Marks" := Marks;
+            // SecondSuppDetails.Modify;
         end;
     end;
 

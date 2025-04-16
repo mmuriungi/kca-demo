@@ -337,7 +337,7 @@ tableextension 52178701 "ExtPurchase Line" extends "Purchase Line"
     var
         pheader: Record "PROC-Procurement Plan Header";
     begin
-        Rec."Location Code" := 'MAIN STORE';
+        Rec."Location Code" := 'CENTRAL';
         pheader.Reset();
         pheader.SetRange("Global Dimension 1 Code", "Shortcut Dimension 1 Code");
         pheader.SetRange(Active, true);

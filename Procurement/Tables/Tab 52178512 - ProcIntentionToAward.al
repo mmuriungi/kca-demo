@@ -17,7 +17,7 @@ table 52178512 "Proc-Intention To Award"
         field(3; "Bidder No"; Code[50])
         {
             Caption = 'Bidder No';
-            TableRelation = "Purchase Header"."No." where("Quote Status" = filter("Recommended Award"), "Request for Quote No." = field("No."));
+            TableRelation = Vendor."No.";
             trigger OnValidate()
             begin
                 Pheader.Reset();
