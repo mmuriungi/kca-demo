@@ -3887,9 +3887,9 @@ codeunit 57100 studentportals
         OnlineUsersz.RESET;
         OnlineUsersz.SETRANGE(OnlineUsersz.SessionID, sessionIDz);
         IF OnlineUsersz.FIND('-') THEN BEGIN
-            Message := FORMAT(OnlineUsersz.Confirmed);
             OnlineUsersz.Confirmed := TRUE;
             OnlineUsersz.MODIFY;
+            Message := FORMAT(OnlineUsersz.Confirmed);
         END
     end;
 
