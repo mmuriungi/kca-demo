@@ -10191,12 +10191,9 @@ Codeunit 61106 webportals
                 AcaSpecialExamsResults.Modify;
                 ReturnMessage := 'SUCCESS: Marks Modified!';
             end;
-            // AcaSpecialExamsDetails."Exam Marks" := Marks;
-            // AcaSpecialExamsDetails.Modify;
         end;
     end;
     #Region
-    //handle postgraduate submodule
     procedure ApplyForSupervisor(StudentNo: Code[20]) ret_value: Code[20]
     begin
         ret_value := (PostGradHandler.ApplyForSupervisor(StudentNo));
@@ -11921,7 +11918,7 @@ Codeunit 61106 webportals
         if emps.Find('-') then;
         SecondSuppDetails.Reset;
         SecondSuppDetails.SetRange("Current Academic Year", GetCurrentSuppYear());
-       SecondSuppDetails.SetRange("Student No.", StudNo);
+        SecondSuppDetails.SetRange("Student No.", StudNo);
         SecondSuppDetails.SetRange("Unit Code", UnitCode);
         SecondSuppDetails.SetRange(Programme, Prog);
         SecondSuppDetails.SetRange(Stage, Stage);
@@ -11977,9 +11974,29 @@ Codeunit 61106 webportals
         end;
     end;
     #endregion
-#region Registrar_Reports
+    #Region Certificate Application
+    procedure CertificateApplication(studNo: Code[20]) msg: Code[20]
+    var
+        certManagement: Codeunit "Student Certificate Management";
+    begin
+        msg := certManagement.CreateApplication(studNo, 0);
+    end;
 
-#endregion
+    procedure HasApplied(studNo: Code[20]) msg: Boolean
+    var
+        certManagement: Codeunit "Student Certificate Management";
+    begin
+        msg := certManagement.HasApplication(studNo);
+    end;
+
+    procedure GetApplications(studNo: Code[20]) msg: Text
+    var
+        certManagement: Codeunit "Student Certificate Management";
+    begin
+        msg := certManagement.GetApplications(studNo);
+    end;
+    #EndRegion
+
 
 
 }
