@@ -192,7 +192,16 @@ table 50691 "Parttime Claim Header"
             Description = 'Stores the reference of the second Shortcut dimension in the database';
             NotBlank = false;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(3));
-
+        }
+        //Batch
+        field(52; "Batch No."; Code[20])
+        {
+            TableRelation = "Parttime Claims Batch"."No.";
+        }
+        //amount to bacth
+        field(53; "Amount to Batch"; Decimal)
+        {
+            
         }
     }
 

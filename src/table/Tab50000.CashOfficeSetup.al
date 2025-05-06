@@ -272,6 +272,11 @@ table 50000 "Cash Office Setup"
         {
             InitValue = 1;
         }
+        //"Claim Batch Nos."
+        field(50066; "Claim Batch Nos."; code[20])
+        {
+            TableRelation = "No. Series".code;
+        }
     }
 
     keys

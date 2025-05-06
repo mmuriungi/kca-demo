@@ -184,4 +184,13 @@ page 50970 "Parttime Claim List"
             // }
         }
     }
+
+    procedure GetSelectionFilter(): Text
+    Var
+        ObjParttimeClaimHeader: Record "Parttime Claim Header";
+        SelectionFilterManagement: Codeunit "Custom Filter Management";
+    begin
+        CurrPage.SetSelectionFilter(ObjParttimeClaimHeader);
+        exit(SelectionFilterManagement.GetSelectionFilterForParttimeClaimHeader(ObjParttimeClaimHeader));
+    end;
 }
