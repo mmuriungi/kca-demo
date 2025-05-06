@@ -11996,6 +11996,36 @@ Codeunit 61106 webportals
         msg := certManagement.GetApplications(studNo);
     end;
     #EndRegion
+    
+
+    #Region ClinicReport
+    procedure GetTreatments(PatientNo: Code[20])msg: Text
+    var
+    Treatment: Record "HMS-Treatment Form Header";
+    begin
+        msg := '';
+        Treatment.Reset;
+        Treatment.SetRange("Patient No.", PatientNo);
+        if Treatment.FindSet() then begin
+            repeat
+                msg += Treatment."Treatment No." + ' :: ' +Format(Treatment."Treatment Date") + ' :: '+Treatment."Treatment Remarks"+' :::';
+            until Treatment.Next = 0;
+        end;
+    end;
+    procedure GetClinicReport(TreatmentNo: Code[20]; filenameFromApp: Text) filename: Text[100]
+    var
+        Treatment: Record "HMS-Treatment Form Header";
+    begin
+        filename := FILESPATH_S + filenameFromApp;
+        if Exists(filename) then
+            Erase(filename);
+        Treatment.Reset;
+        Treatment.SetRange("Treatment No.", TreatmentNo);
+        if Treatment.FindFirst() then begin
+            report.saveaspdf(report::"Clinic Referal Report", filename, Treatment);
+        end;
+    end;
+    #EndRegion
 
 
 

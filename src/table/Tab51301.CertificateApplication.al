@@ -65,7 +65,7 @@ table 51301 "Certificate Application"
         {
             Caption = 'Special Exam Reason';
         }
-        field(12; "Student Name"; Code[20])
+        field(12; "Student Name"; Text[150])
         {
             Caption = 'Student Name';
         }
