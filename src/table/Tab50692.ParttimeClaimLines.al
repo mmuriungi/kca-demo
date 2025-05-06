@@ -266,6 +266,11 @@ table 50692 "Parttime Claim Lines"
 
             end;
         }
+        //Batch
+        field(24; "Batch No."; Code[20])
+        {
+            TableRelation = "Parttime Claims Batch"."No.";
+        }
     }
 
     keys

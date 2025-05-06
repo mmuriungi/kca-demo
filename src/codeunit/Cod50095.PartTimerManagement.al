@@ -154,4 +154,107 @@ codeunit 50095 "PartTimer Management"
         claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
     end;
 
+
+    procedure CreateBatchPaymentVoucher(BatchNo: Code[20])
+    var
+        PartTime: Record "Parttime Claim Header";
+        BatchRec: Record "Parttime Claims Batch";
+        PVHeader: Record "FIN-Payments Header";
+        PVLine: Record "FIN-Payment Line";
+        LineNo: Integer;
+        Employee: Record "HRM-Employee C";
+        PayTypes: Record "FIN-Receipts and Payment Types";
+        Vendor: Record Vendor;
+        HrSetup: Record "HRM-Setup";
+        TotalAmount: Decimal;
+        LineAmount: Decimal;
+    begin
+        // Get Batch Details
+        if not BatchRec.Get(BatchNo) then
+            Error('Batch %1 does not exist.', BatchNo);
+
+        BatchRec.CalcFields("Total Amount", "Claims Count");
+        if BatchRec."Claims Count" = 0 then
+            Error('No claims found in batch %1.', BatchNo);
+
+        // Create PV header for the batch
+        PVHeader.Init();
+        PVHeader."Document Type" := PVHeader."Document Type"::"Payment Voucher";
+        PVHeader."No." := '';
+        PVHeader."Global Dimension 1 Code" := '';
+        PVHeader."Shortcut Dimension 2 Code" := '';
+        PVHeader."Payment Type" := PVHeader."Payment Type"::Normal;
+        PVHeader."Pay Mode" := PVHeader."Pay Mode"::EFT;
+        PVHeader."Payment Narration" := 'Part Time Claims Batch ' + BatchNo;
+        PVHeader.Payee := 'Part-Time Claims Batch ' + BatchNo;
+        PVHeader."Source Document No" := BatchNo;
+        PVHeader."Source Table" := BatchRec.RecordId.TableNo;
+        PVHeader.Date := Today;
+        PVHeader.Insert(true);
+
+        // Process each claim in the batch
+        LineNo := 10000;
+        PartTime.Reset();
+        PartTime.SetRange("Batch No.", BatchNo);
+        if PartTime.FindSet() then begin
+            repeat
+                PartTime.CalcFields("Payment Amount");
+                LineAmount := PartTime."Payment Amount";
+                TotalAmount += LineAmount;
+
+                // Get employee and setup information
+                getEmployee(Employee, PartTime."Account No.");
+                getPayType(PayTypes, Employee);
+
+                // Update vendor posting group if needed
+                Vendor.Reset();
+                Vendor.SetRange("No.", Employee."Vendor No.");
+                if Vendor.FindFirst() then begin
+                    HrSetup.Get();
+                    Vendor."Vendor Posting Group" := HrSetup."Parttimer Posting Group";
+                    Vendor.Modify();
+                end;
+
+                // Create payment line for each claim
+                PVLine.Init();
+                PVLine."Line No." := LineNo;
+                PVLine.No := PVHeader."No.";
+                PVLine.Type := PayTypes.Code;
+                PVLine.Validate(Type);
+                PVLine."Account Type" := PVLine."Account Type"::Vendor;
+
+                if Employee."Vendor No." <> '' then
+                    PVLine."Account No." := Employee."Vendor No."
+                else
+                    Error('Employee %1 does not have a vendor number.', PartTime."Account No.");
+
+                PVLine.Validate("Account No.");
+                PVLine."Global Dimension 1 Code" := PartTime."Global Dimension 1 Code";
+                PVLine."Shortcut Dimension 2 Code" := PartTime."Global Dimension 2 Code";
+                if PartTime."Shortcut Dimension 3 Code" <> '' then
+                    PVLine."Shortcut Dimension 3 Code" := PartTime."Shortcut Dimension 3 Code";
+                PVLine.Amount := LineAmount;
+                PVLine."Vendor Transaction Type" := PVLine."Vendor Transaction Type"::"Part timer";
+                PVLine.Validate(Amount);
+                PVLine.Insert(true);
+
+                // Mark claim as processed
+                PartTime.Posted := true;
+                PartTime."Date Posted" := Today;
+                PartTime."Time Posted" := Time;
+                PartTime."Posted By" := UserId;
+                PartTime.Modify();
+
+                LineNo += 10000;
+            until PartTime.Next() = 0;
+        end;
+
+        // Update batch record
+        BatchRec."Pv Generated" := true;
+        BatchRec.Modify();
+
+        Message('Payment voucher %1 has been generated for batch %2 with %3 claims totaling %4.',
+            PVHeader."No.", BatchNo, BatchRec."Claims Count", TotalAmount);
+    end;
+
 }

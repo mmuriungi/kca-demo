@@ -599,6 +599,14 @@ codeunit 50091 "Custom Filter Management"
         RecRef.GETTABLE(Stages);
         EXIT(GetSelectionFilter(RecRef, Stages.FIELDNO(Code)));
     end;
+
+    procedure GetSelectionFilterForParttimeClaimHeader(var ParttimeClaimHeader: Record "Parttime Claim Header"): Text
+    var
+        RecRef: RecordRef;
+    begin
+        RecRef.GetTable(ParttimeClaimHeader);
+        exit(GetSelectionFilter(RecRef, ParttimeClaimHeader.FieldNo("No.")));
+    end;
 }
 
 

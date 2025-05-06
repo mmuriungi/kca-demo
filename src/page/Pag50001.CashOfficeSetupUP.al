@@ -137,6 +137,11 @@ page 50001 "Cash Office Setup UP"
                         ApplicationArea = All;
                         ToolTip = 'Specifies the value of the Parttime Claim Nos field.';
                     }
+                    field("Claim Batch Nos."; Rec."Claim Batch Nos.")
+                    {
+                        ApplicationArea = All;
+                        ToolTip = 'Specifies the value of the Claim Batch Nos. field.';
+                    }
                     field("Parttimers Expense Account"; Rec."Parttimers Expense Account")
                     {
                         ApplicationArea = All;
