@@ -10,8 +10,43 @@ codeunit 50200 "Student Certificate Management"
         CertApp.Validate("Application Date", Today);
         CertApp.Validate(Status, CertApp.Status::open);
         CertApp.Insert(true);
-
         SendApplicationConfirmation(CertApp);
+        ret_value := CertApp."No.";
+    end;
+
+    procedure HasApplication(StudentNo: Code[20]) ret_value: Boolean
+    var
+        CertApp: Record "Certificate Application";
+    begin
+        CertApp.Reset();
+        CertApp.SetRange("Student No.", StudentNo);
+        CertApp.SetRange("Application Type", CertApp."Application Type"::"New Certificate");
+        if CertApp.Find('-') then begin
+            ret_value := true;
+        end;
+    end;
+
+    procedure GetApplications(StudentNo: Code[20]) ret_value: Text
+    var
+        CertApp: Record "Certificate Application";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        CertApp.Reset();
+        CertApp.SetRange("Student No.", StudentNo);
+        CertApp.SetRange("Application Type", CertApp."Application Type"::"New Certificate");
+        if CertApp.Find('-') then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('AppNo', CertApp."No.");
+                JObj.Add('AppDate', Format(CertApp."Application Date"));
+                JObj.Add('Status', Format(CertApp."Status"));
+                JArray.Add(JObj);
+            until CertApp.Next() = 0;
+            JArray.WriteTo(JsTxt);
+            ret_value := JsTxt;
+        end;
     end;
 
     procedure ApproveApplication(var CertApp: Record "Certificate Application")
