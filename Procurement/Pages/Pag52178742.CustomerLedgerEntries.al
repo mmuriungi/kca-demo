@@ -84,15 +84,11 @@ page 52178742 "Update Customer Ledger Entries"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Post the selected line to the general ledger.';
+                ToolTip = 'Post the selected line to the general ledger and delete it.';
 
                 trigger OnAction()
-                var
-                    PostedCount: Integer;
-                    SkippedCount: Integer;
                 begin
-                    if InsertAndPostGenJournalLine(PostedCount, SkippedCount) then
-                        Message('Entry posted successfully.');
+                    PostAndDelete();
                 end;
             }
 
@@ -104,89 +100,38 @@ page 52178742 "Update Customer Ledger Entries"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Post all unposted lines to the general ledger.';
+                ToolTip = 'Post all unposted lines to the general ledger and delete them.';
 
                 trigger OnAction()
                 begin
-                    PostAllUnpostedLedgers();
+                    PostAllEntries();
                 end;
             }
         }
     }
 
-    procedure PostAllUnpostedLedgers()
+    // Simple procedure to post a single entry and delete it
+    procedure PostAndDelete()
     var
-        CustLedgerUpload: Record "Customer ledger Upload";
-        PostedCount: Integer;
-        SkippedCount: Integer;
-        TotalToProcess: Integer;
+        GenJournalLine: Record "Gen. Journal Line";
+        LineNo: Integer;
     begin
-        PostedCount := 0;
-        SkippedCount := 0;
-
-        // Get all unposted records
-        CustLedgerUpload.Reset();
-        CustLedgerUpload.SetRange(Posted, false);
-        TotalToProcess := CustLedgerUpload.Count;
-
-        if TotalToProcess = 0 then begin
-            Message('No unposted entries found.');
+        // Skip if amount is zero
+        if Rec.Amount = 0 then begin
+            Message('Entry skipped - Amount is zero.');
             exit;
         end;
 
-        if CustLedgerUpload.FindSet() then
-            repeat
-                Rec := CustLedgerUpload;
-                InsertAndPostGenJournalLine(PostedCount, SkippedCount);
-                // Update the record in the table directly to mark as posted
-                if not CustLedgerUpload.Posted then begin
-                    CustLedgerUpload.Posted := true;
-                    CustLedgerUpload.Modify();
-                end;
-            until CustLedgerUpload.Next() = 0;
-
-        // Refresh the page to show updated Posted field
-        CurrPage.Update(false);
-
-        // Display consolidated message at the end
-        Message('Processing complete: %1 entries posted, %2 entries skipped (zero amount).',
-                PostedCount, SkippedCount);
-    end;
-
-    procedure InsertAndPostGenJournalLine(var PostedCount: Integer; var SkippedCount: Integer) Result: Boolean
-    var
-        GenJournalLine: Record "Gen. Journal Line";
-        GenJournalBatch: Record "Gen. Journal Batch";
-        LineNo: Integer;
-        GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
-    begin
-        Result := false;
-
-        // Skip if amount is zero
-        if Rec.Amount = 0 then begin
-            SkippedCount += 1;
-            exit(false);
-        end;
-
-        // Skip if already posted
-        if Rec.Posted then begin
-            SkippedCount += 1;
-            exit(false);
-        end;
-
         // Validate required fields
-        if Rec."Account No." = '' then
+        if Rec."Account No." = '' then begin
             Error('Account No. must not be empty.');
+            exit;
+        end;
 
-        if Rec."Posting Date" = 0D then
+        if Rec."Posting Date" = 0D then begin
             Error('Posting Date must be specified.');
-
-        // Find the appropriate journal batch
-        GenJournalBatch.Reset();
-        GenJournalBatch.SetRange("Journal Template Name", 'GENERAL');
-        GenJournalBatch.SetRange(Name, 'DEFAULT');
-        if not GenJournalBatch.FindFirst() then
-            Error('Journal batch not found. Please create a GENERAL template with DEFAULT batch.');
+            exit;
+        end;
 
         // Get the next line number
         GenJournalLine.Reset();
@@ -197,47 +142,131 @@ page 52178742 "Update Customer Ledger Entries"
         else
             LineNo := 10000;
 
-        // Clear and initialize the Gen. Journal Line
+        // Create the journal line
         GenJournalLine.Init();
         GenJournalLine."Journal Template Name" := 'GENERAL';
         GenJournalLine."Journal Batch Name" := 'DEFAULT';
         GenJournalLine."Line No." := LineNo;
-
-        // Use provided Document No
         GenJournalLine."Document No." := Rec."Document No";
         GenJournalLine."External Document No." := Rec."External Doc No";
         GenJournalLine."Posting Date" := Rec."Posting Date";
-
-        // Set account information - Default to Customer
         GenJournalLine."Account Type" := GenJournalLine."Account Type"::Customer;
         GenJournalLine."Account No." := Rec."Account No.";
         GenJournalLine.Description := Rec.Description;
         GenJournalLine.Amount := Rec.Amount;
-
-        // Set dimensions
         GenJournalLine."Shortcut Dimension 1 Code" := Rec."Global Dimension 1 Code";
         GenJournalLine."Shortcut Dimension 2 Code" := Rec."Global Dimension 2 Code";
-
-        // Set balancing account - Default to G/L Account 72001
         GenJournalLine."Bal. Account Type" := GenJournalLine."Bal. Account Type"::"G/L Account";
         GenJournalLine."Bal. Account No." := '72001';
 
         // Insert the journal line
-        if GenJournalLine.Insert(true) then;
+        if not GenJournalLine.Insert(true) then
+            Error('Failed to insert journal line');
 
-        // Post the journal line
-        Clear(GenJnlPostLine);
+        // Post the line directly using codeunit
+        if Codeunit.Run(Codeunit::"Gen. Jnl.-Post Line", GenJournalLine) then begin
+            // Delete this record after successful posting
+            Rec.Delete();
+            Message('Entry posted and deleted successfully.');
+        end else
+            Error('Posting failed: %1', GetLastErrorText);
+    end;
 
-        // Use try-catch to handle posting errors
+    // Simple procedure to post all entries
+    procedure PostAllEntries()
+    var
+        CustLedgerUpload: Record "Customer ledger Upload";
+        Count: Integer;
+        TotalCount: Integer;
+    begin
+        Count := 0;
+
+        // Count total records
+        CustLedgerUpload.Reset();
+        CustLedgerUpload.SetRange(Posted, false);
+        TotalCount := CustLedgerUpload.Count;
+
+        if TotalCount = 0 then begin
+            Message('No entries to post.');
+            exit;
+        end;
+
+        if not Confirm('Post %1 entries?', false, TotalCount) then
+            exit;
+
+        // Use a simple approach - get one record at a time
+        CustLedgerUpload.Reset();
+        CustLedgerUpload.SetRange(Posted, false);
+
+        if CustLedgerUpload.FindSet() then
+            repeat
+                // Set current record to the one we found
+                Rec := CustLedgerUpload;
+
+                // Try to post and delete in a separate transaction
+                if TryToPostAndDelete(CustLedgerUpload) then
+                    Count += 1;
+
+            until CustLedgerUpload.Next() = 0;
+
+        // Refresh page
+        CurrPage.Update(false);
+
+        Message('%1 of %2 entries posted and deleted.', Count, TotalCount);
+    end;
+
+    // Helper function that posts a single entry in its own transaction
+    local procedure TryToPostAndDelete(var CustLedgerUpload: Record "Customer ledger Upload"): Boolean
+    var
+        GenJournalLine: Record "Gen. Journal Line";
+        LineNo: Integer;
+        RecID: RecordID;
+    begin
+        // Skip if amount is zero
+        if CustLedgerUpload.Amount = 0 then
+            exit(false);
+
+        // Remember the record ID so we can find it again
+        RecID := CustLedgerUpload.RecordId;
+
+        // Create journal line
+        GenJournalLine.Reset();
+        GenJournalLine.SetRange("Journal Template Name", 'GENERAL');
+        GenJournalLine.SetRange("Journal Batch Name", 'DEFAULT');
+        if GenJournalLine.FindLast() then
+            LineNo := GenJournalLine."Line No." + 10000
+        else
+            LineNo := 10000;
+
+        GenJournalLine.Init();
+        GenJournalLine."Journal Template Name" := 'GENERAL';
+        GenJournalLine."Journal Batch Name" := 'DEFAULT';
+        GenJournalLine."Line No." := LineNo;
+        GenJournalLine."Document No." := CustLedgerUpload."Document No";
+        GenJournalLine."External Document No." := CustLedgerUpload."External Doc No";
+        GenJournalLine."Posting Date" := CustLedgerUpload."Posting Date";
+        GenJournalLine."Account Type" := GenJournalLine."Account Type"::Customer;
+        GenJournalLine."Account No." := CustLedgerUpload."Account No.";
+        GenJournalLine.Description := CustLedgerUpload.Description;
+        GenJournalLine.Amount := CustLedgerUpload.Amount;
+        GenJournalLine."Shortcut Dimension 1 Code" := CustLedgerUpload."Global Dimension 1 Code";
+        GenJournalLine."Shortcut Dimension 2 Code" := CustLedgerUpload."Global Dimension 2 Code";
+        GenJournalLine."Bal. Account Type" := GenJournalLine."Bal. Account Type"::"G/L Account";
+        GenJournalLine."Bal. Account No." := '72001';
+
+        // Insert in its own transaction
+        if not GenJournalLine.Insert(true) then
+            exit(false);
+
+        // Post in its own transaction    
         if not Codeunit.Run(Codeunit::"Gen. Jnl.-Post Line", GenJournalLine) then
-            Error(GetLastErrorText);
+            exit(false);
 
-        // Update the Posted field in the Customer ledger Upload table
-        Rec.Posted := true;
-        Rec.Modify();
+        // Find and delete the original record in its own transaction
+        if CustLedgerUpload.Get(RecID) then
+            if not CustLedgerUpload.Delete(true) then
+                exit(false);
 
-        // Increment posted counter
-        PostedCount += 1;
-        Result := true;
+        exit(true);
     end;
 }
