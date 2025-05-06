@@ -5943,8 +5943,7 @@ Codeunit 61106 webportals
             KUCCPSRaw.Confirmed := true;
             if KUCCPSRaw.Modify then begin
                 KUCCPSRaw.Validate(Confirmed);
-                Message('Confirmed!');
-            end;
+                Message('Confirmed!');            end;
             Msg := true;
         end
     end;
@@ -11978,7 +11977,9 @@ Codeunit 61106 webportals
         end;
     end;
     #endregion
+#region Registrar_Reports
 
+#endregion
 
 
 }
