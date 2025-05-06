@@ -143,13 +143,55 @@ page 52098 "Parttime Claims Batch Card"
                 ToolTip = 'Generate payment voucher for this batch.';
 
                 trigger OnAction()
+                var
+                    PartTimerMgt: Codeunit "PartTimer Management";
                 begin
                     if Confirm('Do you want to generate a payment voucher for this batch?') then begin
-                        
-                        Rec."Pv Generated" := true;
-                        Rec.Modify();
-                        Message('Payment voucher has been generated.');
+                        PartTimerMgt.CreateBatchPaymentVoucher(Rec."No.");
                     end;
+                end;
+            }
+            
+            action(GenerateInvoices)
+            {
+                ApplicationArea = All;
+                Caption = 'Generate Purchase Invoices';
+                Image = Invoice;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Generate purchase invoices for all vendors in this batch.';
+
+                trigger OnAction()
+                var
+                    PartTimerMgt: Codeunit "PartTimer Management";
+                begin
+                    if Confirm('Do you want to generate purchase invoices for this batch? This will create a separate invoice for each part-timer vendor.') then begin
+                        PartTimerMgt.CreateBatchPurchaseInvoices(Rec."No.");
+                    end;
+                end;
+            }
+            
+            action(ViewBatchInvoices)
+            {
+                ApplicationArea = All;
+                Caption = 'View Batch Invoices';
+                Image = ViewDocumentLine;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'View all purchase invoices created for this batch.';
+
+                trigger OnAction()
+                var
+                    PartTimeInvoiceBatch: Record "PartTime Invoice Batch";
+                begin
+                    PartTimeInvoiceBatch.Reset();
+                    PartTimeInvoiceBatch.SetRange("Batch No.", Rec."No.");
+                    if PartTimeInvoiceBatch.FindFirst() then
+                        Page.RunModal(Page::"PartTime Invoice Batch List", PartTimeInvoiceBatch)
+                    else
+                        Message('No invoices have been generated for this batch yet.');
                 end;
             }
         }

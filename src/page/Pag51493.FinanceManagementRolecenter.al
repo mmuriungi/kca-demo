@@ -462,7 +462,24 @@ page 51493 "Finance Management Rolecenter"
                     RunObject = Page "Posted Purchase Invoices";
                     RunPageView = WHERE("Claim Type" = FILTER("Parttime"));
                 }
-
+                group("Batch Parttime")
+                {
+                    Caption = 'Batch Parttime';
+                    action("Parttime Batches")
+                    {
+                        Caption = 'Parttime Batches';
+                        ApplicationArea = All;
+                        Image = CalculateSimulation;
+                        RunObject = Page "PartTime Invoice Batch List";
+                    }
+                    action("Parttime Invoice Batch List")
+                    {
+                        Caption = 'Parttime Invoice Batch List';
+                        ApplicationArea = All;
+                        Image = CalculateSimulation;
+                        RunObject = Page "PartTime Invoice Batch List";
+                    }
+                }
 
             }
             group("Medical Claims")
