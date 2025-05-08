@@ -48,6 +48,7 @@ table 51361 "Parttime Claims Batch"
         field(8; Semester; Code[20])
         {
             Caption = 'Semester';
+            TableRelation="ACA-Semesters";
         }
         field(9; "No. Series"; Code[20])
         {

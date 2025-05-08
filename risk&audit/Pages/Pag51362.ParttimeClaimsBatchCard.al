@@ -111,7 +111,7 @@ page 52098 "Parttime Claims Batch Card"
                     if Rec.Semester = '' then
                         Error('Please specify the Semester before selecting claims.');
                     ParttimeClaimHeader.Reset();
-                    ParttimeClaimHeader.SetRange("Academic Year", Rec.Semester);
+                    ParttimeClaimHeader.SetRange(semester, Rec.Semester);
                     ParttimeClaimHeader.SetRange(Status, ParttimeClaimHeader.Status::Approved);
                     ParttimeClaimHeader.SetRange(Posted, false);
                     ClaimList.SetTableView(ParttimeClaimHeader);

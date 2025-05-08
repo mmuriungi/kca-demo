@@ -107,7 +107,7 @@ table 50691 "Parttime Claim Header"
         field(16; Status; Option)
         {
             Description = 'Stores the status of the record in the database';
-            OptionMembers = Pending,"Pending Approval",,Approved,Posted,Cancelled;
+            OptionMembers = Pending,"Pending Approval",Approved,Posted,Cancelled;
         }
         field(17; Posted; Boolean)
         {
@@ -201,7 +201,7 @@ table 50691 "Parttime Claim Header"
         //amount to bacth
         field(53; "Amount to Batch"; Decimal)
         {
-            
+
         }
     }
 
