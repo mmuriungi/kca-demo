@@ -346,7 +346,7 @@ codeunit 50095 "PartTimer Management"
                 ClaimArray[i] := PartTime;
                 i += 1;
             until PartTime.Next() = 0;
-            ClaimCount := i;
+            ClaimCount := i-1;
         end else begin
             Error('No claims found in batch %1.', BatchNo);
         end;
