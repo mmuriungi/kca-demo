@@ -5943,7 +5943,8 @@ Codeunit 61106 webportals
             KUCCPSRaw.Confirmed := true;
             if KUCCPSRaw.Modify then begin
                 KUCCPSRaw.Validate(Confirmed);
-                Message('Confirmed!');            end;
+                Message('Confirmed!');
+            end;
             Msg := true;
         end
     end;
@@ -11454,12 +11455,137 @@ Codeunit 61106 webportals
     procedure RepairRequestSubmitted(reqno: Code[20]) msg: Boolean
     var
         RepairRequests: Record "Repair Request";
+        mtofficer: Record "Maintenance Officer";
     begin
         RepairRequests.Reset;
         RepairRequests.SetRange("No.", reqno);
         if RepairRequests.Find('-') then begin
             if RepairRequests.Status <> RepairRequests.Status::Open then
                 msg := true;
+        end;
+    end;
+
+    procedure GetAssignedRepairRequest(empno: Code[20]) msg: Text
+    var
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+        mtofficer: Record "Maintenance Officer";
+    begin
+        mtofficer.Reset;
+        mtofficer.SetRange("No.", empno);
+        if mtofficer.Find('-') then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('RepairNo', mtofficer."Repair No.");
+                JObj.Add('Description', mtofficer.Description);
+                JObj.Add('DateAssigned', Format(mtofficer."Date Assigned"));
+                JObj.Add('StartDate', Format(mtofficer."Start Date"));
+                JObj.Add('EndDate', Format(mtofficer."End Date"));
+                JObj.Add('EstimatedEndDate', Format(mtofficer."Estimated End Date"));
+                JObj.Add('RepairFeedback', mtofficer."Repair Feedback");
+                JObj.Add('CompletionFeedback', mtofficer."Completion Feedback");
+                JObj.Add('Status', Format(mtofficer.Status));
+                JArray.Add(JObj);
+            until mtofficer.Next() = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetRepairTrack(reqno: Code[20]) msg: Text
+    var
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+        mtofficer: Record "Maintenance Officer";
+    begin
+        mtofficer.Reset;
+        mtofficer.SetRange("Repair No.", reqno);
+        if mtofficer.Find('-') then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('RepairNo', mtofficer."Repair No.");
+                JObj.Add('Description', mtofficer.Description);
+                JObj.Add('OfficerName', mtofficer."Officer Name");
+                JObj.Add('PhoneNo', mtofficer."Phone No.");
+                JObj.Add('Email', Format(mtofficer."E-Mail"));
+                JObj.Add('StartDate', Format(mtofficer."Start Date"));
+                JObj.Add('EndDate', Format(mtofficer."End Date"));
+                JObj.Add('EstimatedEndDate', Format(mtofficer."Estimated End Date"));
+                JObj.Add('RepairFeedback', mtofficer."Repair Feedback");
+                JObj.Add('CompletionFeedback', mtofficer."Completion Feedback");
+                JObj.Add('ClientFeedback', mtofficer."client Feedback");
+                JObj.Add('Status', Format(mtofficer.Status));
+                JArray.Add(JObj);
+            until mtofficer.Next() = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure MaintenanceOfficerRepairFeedback(empNo: Code[20]; repairNo: Code[20]; description: Text; startDate: Date; estimatedEndDate: Date; feedback: Text) msg: Boolean
+    var
+        mtofficer: Record "Maintenance Officer";
+    begin
+        mtofficer.Reset;
+        mtofficer.SetRange("No.", empNo);
+        mtofficer.SetRange("Repair No.", repairNo);
+        mtofficer.SetRange(Description, description);
+        if mtofficer.Find('-') then begin
+            mtofficer."Start Date" := startDate;
+            mtofficer."Estimated End Date" := estimatedEndDate;
+            mtofficer."Repair Feedback" := feedback;
+            mtofficer.Modify;
+            msg := true;
+        end;
+    end;
+
+    procedure ClientRepairFeedback(repairNo: Code[20]; description: Text; feedback: Text; closed: Boolean) msg: Boolean
+    var
+        mtofficer: Record "Maintenance Officer";
+    begin
+        mtofficer.Reset;
+        mtofficer.SetRange("Repair No.", repairNo);
+        mtofficer.SetRange(Description, description);
+        if mtofficer.Find('-') then begin
+            mtofficer."client Feedback" := feedback;
+            mtofficer."client closed" := closed;
+            mtofficer.Modify;
+            msg := true;
+        end;
+    end;
+
+    procedure MaintenanceOfficerCompletionFeedback(empNo: Code[20]; repairNo: Code[20]; description: Text; endDate: Date; feedback: Text) msg: Boolean
+    var
+        mtofficer: Record "Maintenance Officer";
+    begin
+        mtofficer.Reset;
+        mtofficer.SetRange("No.", empNo);
+        mtofficer.SetRange("Repair No.", repairNo);
+        mtofficer.SetRange(Description, description);
+        if mtofficer.Find('-') then begin
+            mtofficer."End Date" := endDate;
+            mtofficer."Completion Feedback" := feedback;
+            mtofficer.Status := mtofficer.Status::Compeleted;
+            mtofficer.Completed := true;
+            mtofficer.Modify;
+            msg := true;
+        end;
+    end;
+
+    procedure RepairFeedbackSubmitted(empNo: Code[20]; repairNo: Code[20]; description: Text) msg: Boolean
+    var
+        mtofficer: Record "Maintenance Officer";
+    begin
+        mtofficer.Reset;
+        mtofficer.SetRange("No.", empNo);
+        mtofficer.SetRange("Repair No.", repairNo);
+        mtofficer.SetRange(Description, description);
+        if mtofficer.Find('-') then begin
+            if mtofficer."Repair Feedback" <> '' then begin
+                msg := true;
+            end;
         end;
     end;
 
@@ -11996,22 +12122,23 @@ Codeunit 61106 webportals
         msg := certManagement.GetApplications(studNo);
     end;
     #EndRegion
-    
+
 
     #Region ClinicReport
-    procedure GetTreatments(PatientNo: Code[20])msg: Text
+    procedure GetTreatments(PatientNo: Code[20]) msg: Text
     var
-    Treatment: Record "HMS-Treatment Form Header";
+        Treatment: Record "HMS-Treatment Form Header";
     begin
         msg := '';
         Treatment.Reset;
         Treatment.SetRange("Patient No.", PatientNo);
         if Treatment.FindSet() then begin
             repeat
-                msg += Treatment."Treatment No." + ' :: ' +Format(Treatment."Treatment Date") + ' :: '+Treatment."Treatment Remarks"+' :::';
+                msg += Treatment."Treatment No." + ' :: ' + Format(Treatment."Treatment Date") + ' :: ' + Treatment."Treatment Remarks" + ' :::';
             until Treatment.Next = 0;
         end;
     end;
+
     procedure GetClinicReport(TreatmentNo: Code[20]; filenameFromApp: Text) filename: Text[100]
     var
         Treatment: Record "HMS-Treatment Form Header";
@@ -12027,7 +12154,56 @@ Codeunit 61106 webportals
     end;
     #EndRegion
 
+    #Region Meal Booking
+    procedure BookMeal(staffno: Code[20]; mtgdesc: Text; reqDate: Date; reqTime: Time; venue: Text; people: Integer) msg: Text
+    var
+        MealBooking: Record "CAT-Meal Booking Header";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        MealBooking.Init;
+        MealBooking."Staff No." := staffno;
+        MealBooking."Meeting Name" := mtgdesc;
+        MealBooking."Request Date" := reqDate;
+        MealBooking."Required Time" := reqTime;
+        MealBooking."Venue" := venue;
+        MealBooking.Pax := people;
+        MealBooking.Insert(True);
+        if MealBooking.INSERT(true) then begin
+            variant := MealBooking;
+            if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMgmt.OnSendDocForApproval(variant);
+            exit(MealBooking."Booking Id")
+        end
+        else
+            exit('');
+    end;
 
+    procedure GetMealBookings(staffno: Code[20]) msg: Text
+    var
+        MealBooking: Record "CAT-Meal Booking Header";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        MealBooking.Reset;
+        MealBooking.SetRange("Staff No.", staffno);
+        if MealBooking.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('BookingId', MealBooking."Booking Id");
+                JObj.Add('MeetingName', MealBooking."Meeting Name");
+                JObj.Add('BookingDate', Format(MealBooking."Booking Date"));
+                JObj.Add('RequestDate', Format(MealBooking."Request Date"));
+                JObj.Add('RequiredTime', Format(MealBooking."Required Time"));
+                JObj.Add('Venue', MealBooking."Venue");
+                JObj.Add('Pax', FORMAT(MealBooking.Pax));
+                JObj.Add('Status', Format(MealBooking.Status));
+                JArray.Add(JObj);
+            until MealBooking.Next = 0;
+        end;
+    end;
+    #EndRegion
 
 }
 

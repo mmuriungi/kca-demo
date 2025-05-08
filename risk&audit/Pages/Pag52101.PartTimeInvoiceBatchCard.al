@@ -1,17 +1,15 @@
-page 52100 "PartTime Invoice Batch List"
+page 52101 "PartTime Invoice Batch Card"
 {
     ApplicationArea = All;
-    Caption = 'PartTime Invoice Batch List';
-    PageType = List;
+    Caption = 'PartTime Invoice Batch Card';
+    PageType = Card;
     SourceTable = "PartTime Invoice Batch";
-    UsageCategory = Lists;
-    Editable = false;
     
     layout
     {
         area(content)
         {
-            repeater(General)
+            group(General)
             {
                 field("Batch No."; Rec."Batch No.")
                 {
@@ -38,6 +36,12 @@ page 52100 "PartTime Invoice Batch List"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the status of the invoice';
                 }
+            }
+            part(PurchaseInvoices; "PartTime Invoice Subform")
+            {
+                ApplicationArea = All;
+                SubPageLink = "Batch No." = field("Batch No.");
+                UpdatePropagation = Both;
             }
         }
     }

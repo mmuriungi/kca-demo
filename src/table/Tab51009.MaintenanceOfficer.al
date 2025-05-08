@@ -1,4 +1,6 @@
-table 51009 "Maintenance Officer"
+table 51009 
+
+"Maintenance Officer"
 {
     Caption = 'Maintenance Officer';
     DataClassification = ToBeClassified;
@@ -88,7 +90,7 @@ table 51009 "Maintenance Officer"
             OptionMembers = Pending,Compeleted,Overdue;
             trigger OnValidate()
             var
-                CompleteErr: Label 'This line must be complete to mark is has complete';
+                CompleteErr: Label 'This line must be complete to mark it as complete';
             begin
                 if Status = Status::Compeleted then
                     if not Completed then

@@ -149,11 +149,36 @@ codeunit 50095 "PartTimer Management"
         Employee: Record "HRM-Employee C";
     begin
         getEmployee(Employee, PartTime."Account No.");
-        PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime);
+        PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime, '');
         HrSetup.Get();
         claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
     end;
 
+    procedure createPurchaseInvoiceBatch(Var PartTime: Record "Parttime Claim Header"; BatchNo: Code[20])
+    var
+        claimHandler: Codeunit "Claims Handler";
+        PurchHeader: Record "Purchase Header";
+        HrSetup: Record "HRM-Setup";
+        PurchLine: Record "Purchase Line";
+        Employee: Record "HRM-Employee C";
+        BatchInvoice: Record "PartTime Invoice Batch";
+        ClaimsBatch: Record "Parttime Claims Batch";
+    begin
+        getEmployee(Employee, PartTime."Account No.");
+        PurchHeader := claimHandler.CreatePurchaseHeaderApproved(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime, BatchNo);
+        HrSetup.Get();
+        claimHandler.CreatePurchaseLineApproved(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
+        ClaimsBatch.Get(BatchNo);
+        ClaimsBatch.CalcFields("Total Amount");
+        BatchInvoice.init();
+        BatchInvoice."Batch No." := BatchNo;
+        BatchInvoice."Amount" := ClaimsBatch."Total Amount";
+        BatchInvoice."Date Created" := Today;
+        BatchInvoice."Created By" := UserId;
+        BatchInvoice."Status" := BatchInvoice."Status"::Open;
+        if not BatchInvoice.Insert(true) then
+            BatchInvoice.Modify();
+    end;
 
     procedure CreateBatchPaymentVoucher(BatchNo: Code[20])
     var
@@ -181,8 +206,10 @@ codeunit 50095 "PartTimer Management"
         PVHeader.Init();
         PVHeader."Document Type" := PVHeader."Document Type"::"Payment Voucher";
         PVHeader."No." := '';
-        PVHeader."Global Dimension 1 Code" := '';
-        PVHeader."Shortcut Dimension 2 Code" := '';
+        PVHeader."Global Dimension 1 Code" := BatchRec."Global Dimension 1 Code";
+        PVHeader."Shortcut Dimension 2 Code" := BatchRec."Global Dimension 2 Code";
+        PVHeader."Shortcut Dimension 3 Code" := BatchRec."Shortcut Dimension 3 Code";
+        PVHeader."Responsibility Center" := BatchRec."Responsibility Center";
         PVHeader."Payment Type" := PVHeader."Payment Type"::Normal;
         PVHeader."Pay Mode" := PVHeader."Pay Mode"::EFT;
         PVHeader."Payment Narration" := 'Part Time Claims Batch ' + BatchNo;
@@ -275,11 +302,15 @@ codeunit 50095 "PartTimer Management"
         VendorName: Text[100];
         InvoiceNo: Code[20];
         Vendor: Record Vendor;
+        ClaimArray: array[1000] of Record "Parttime Claim Header";
+        Claim: Record "Parttime Claim Header";
+        i: Integer;
+        ClaimCount: Integer;
     begin
         // Get Batch Details
         if not BatchRec.Get(BatchNo) then
             Error('Batch %1 does not exist.', BatchNo);
-        
+
         BatchRec.CalcFields("Total Amount", "Claims Count");
         if BatchRec."Claims Count" = 0 then
             Error('No claims found in batch %1.', BatchNo);
@@ -287,19 +318,20 @@ codeunit 50095 "PartTimer Management"
         // Get HR Setup
         HrSetup.Get();
         HrSetup.TestField("Parttimer G/L Account");
-        
+
         // First, group all claims by vendor
         PartTime.Reset();
         PartTime.SetRange("Batch No.", BatchNo);
-        
+
         if PartTime.FindSet() then begin
+            i := 1;
             repeat
                 // Get employee and check vendor number
                 getEmployee(Employee, PartTime."Account No.");
-                
+
                 if Employee."Vendor No." = '' then
                     Error('Employee %1 does not have a vendor number.', PartTime."Account No.");
-                
+
                 // Group by vendor
                 if not VendorClaims.ContainsKey(Employee."Vendor No.") then begin
                     Clear(TempClaimList);
@@ -307,110 +339,37 @@ codeunit 50095 "PartTimer Management"
                     VendorAmounts.Add(Employee."Vendor No.", 0);
                     VendorList.Add(Employee."Vendor No.");
                 end;
-                
+
                 PartTime.CalcFields("Payment Amount");
                 VendorClaims.Get(Employee."Vendor No.").Add(PartTime."No.");
                 VendorAmounts.Set(Employee."Vendor No.", VendorAmounts.Get(Employee."Vendor No.") + PartTime."Payment Amount");
-                
+                ClaimArray[i] := PartTime;
+                i += 1;
+                TotalAmount += PartTime."Payment Amount";
             until PartTime.Next() = 0;
+            ClaimCount := i - 1;
         end else begin
             Error('No claims found in batch %1.', BatchNo);
         end;
-        
+
         // Now create an invoice for each vendor
-        foreach VendorNo in VendorList do begin
-            InvoiceNo := CreateVendorInvoice(BatchNo, VendorNo, VendorClaims.Get(VendorNo), VendorAmounts.Get(VendorNo));
-            
-            // Get vendor name for message
-            if Vendor.Get(VendorNo) then
-                VendorName := Vendor.Name
-            else
-                VendorName := VendorNo;
-                
-            TotalAmount += VendorAmounts.Get(VendorNo);
-            InvoiceCount += 1;
+        for i := 1 to ClaimCount do begin
+            createPurchaseInvoiceBatch(ClaimArray[i], BatchNo);
         end;
-        
+
         // Update batch record
-        BatchRec."Pv Generated" := true;
+        BatchRec."Invoice Batch Generated" := true;
         BatchRec.Modify();
-        
-        Message('Successfully created %1 purchase invoices for batch %2, totaling %3.', 
-            InvoiceCount, BatchNo, TotalAmount);
+
+        Message('Successfully created %1 purchase invoices for batch %2, totaling %3.',
+            ClaimCount, BatchNo, TotalAmount);
     end;
 
-    local procedure CreateVendorInvoice(BatchNo: Code[20]; VendorNo: Code[20]; ClaimsList: List of [Code[20]]; Amount: Decimal): Code[20]
-    var
-        PurchHeader: Record "Purchase Header";
-        PurchLine: Record "Purchase Line";
-        PartTime: Record "Parttime Claim Header";
-        PartTimeInvoiceBatch: Record "PartTime Invoice Batch";
-        HrSetup: Record "HRM-Setup";
-        LineNo: Integer;
-        ClaimNo: Code[20];
-        Vendor: Record Vendor;
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", OnBeforeConfirmPost, '', false, false)]
+    local procedure PostBatchClaimInvoicesSilent(var PurchaseHeader: Record "Purchase Header"; var HideDialog: Boolean; var IsHandled: Boolean; var DefaultOption: Integer)
     begin
-        HrSetup.Get();
-        
-        // Create purchase header
-        PurchHeader.Init();
-        PurchHeader."Document Type" := PurchHeader."Document Type"::Invoice;
-        PurchHeader."No." := '';
-        PurchHeader."Buy-from Vendor No." := VendorNo;
-        PurchHeader.Validate("Buy-from Vendor No.");
-        PurchHeader."Posting Date" := Today;
-        PurchHeader."Document Date" := Today;
-        PurchHeader."Due Date" := Today;
-        PurchHeader."Vendor Invoice No." := 'PTB-' + BatchNo + '-' + VendorNo;
-        PurchHeader."Your Reference" := 'Part-Time Claims Batch ' + BatchNo;
-        PurchHeader.Insert(true);
-        
-        // Create lines for each claim
-        LineNo := 10000;
-        foreach ClaimNo in ClaimsList do begin
-            if PartTime.Get(ClaimNo) then begin
-                PartTime.CalcFields("Payment Amount");
-                
-                PurchLine.Init();
-                PurchLine."Document Type" := PurchHeader."Document Type";
-                PurchLine."Document No." := PurchHeader."No.";
-                PurchLine."Line No." := LineNo;
-                PurchLine.Type := PurchLine.Type::"G/L Account";
-                PurchLine."No." := HrSetup."Parttimer G/L Account";
-                PurchLine.Validate("No.");
-                PurchLine.Description := 'Payment for Parttime Claim ' + PartTime."No." + ' - ' + PartTime.Payee;
-                PurchLine."Unit of Measure" := 'EACH';
-                PurchLine.Quantity := 1;
-                PurchLine."Direct Unit Cost" := PartTime."Payment Amount";
-                PurchLine.Validate("Direct Unit Cost");
-                PurchLine."Shortcut Dimension 1 Code" := PartTime."Global Dimension 1 Code";
-                PurchLine."Shortcut Dimension 2 Code" := PartTime."Global Dimension 2 Code";
-                PurchLine.Insert(true);
-                
-                // Mark claim as processed
-                PartTime.Posted := true;
-                PartTime."Date Posted" := Today;
-                PartTime."Time Posted" := Time;
-                PartTime."Posted By" := UserId;
-                PartTime.Modify();
-                
-                LineNo += 10000;
-            end;
+        if PurchaseHeader."Batch No." <> '' then begin
+            HideDialog := true;
         end;
-        
-        // Record the invoice in the batch tracking table
-        PartTimeInvoiceBatch.Init();
-        PartTimeInvoiceBatch."Batch No." := BatchNo;
-        PartTimeInvoiceBatch."Invoice No." := PurchHeader."No.";
-        PartTimeInvoiceBatch."Vendor No." := VendorNo;
-        if Vendor.Get(VendorNo) then
-            PartTimeInvoiceBatch."Vendor Name" := Vendor.Name;
-        PartTimeInvoiceBatch."Date Created" := Today;
-        PartTimeInvoiceBatch."Created By" := UserId;
-        PartTimeInvoiceBatch.Amount := Amount;
-        PartTimeInvoiceBatch.Status := PartTimeInvoiceBatch.Status::Open;
-        PartTimeInvoiceBatch.Insert();
-        
-        exit(PurchHeader."No.");
     end;
 }

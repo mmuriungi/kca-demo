@@ -641,6 +641,11 @@ tableextension 52178702 "ExtPurchase Header" extends "Purchase Header"
         {
             DataClassification = ToBeClassified;
         }
+        //Batch No
+        field(52178513; "Batch No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 
