@@ -165,9 +165,9 @@ codeunit 50095 "PartTimer Management"
         ClaimsBatch: Record "Parttime Claims Batch";
     begin
         getEmployee(Employee, PartTime."Account No.");
-        PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime, BatchNo);
+        PurchHeader := claimHandler.CreatePurchaseHeaderApproved(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime, BatchNo);
         HrSetup.Get();
-        claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
+        claimHandler.CreatePurchaseLineApproved(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
         ClaimsBatch.Get(BatchNo);
         ClaimsBatch.CalcFields("Total Amount");
         BatchInvoice.init();
@@ -345,8 +345,9 @@ codeunit 50095 "PartTimer Management"
                 VendorAmounts.Set(Employee."Vendor No.", VendorAmounts.Get(Employee."Vendor No.") + PartTime."Payment Amount");
                 ClaimArray[i] := PartTime;
                 i += 1;
+                TotalAmount += PartTime."Payment Amount";
             until PartTime.Next() = 0;
-            ClaimCount := i-1;
+            ClaimCount := i - 1;
         end else begin
             Error('No claims found in batch %1.', BatchNo);
         end;
@@ -361,7 +362,7 @@ codeunit 50095 "PartTimer Management"
         BatchRec.Modify();
 
         Message('Successfully created %1 purchase invoices for batch %2, totaling %3.',
-            InvoiceCount, BatchNo, TotalAmount);
+            ClaimCount, BatchNo, TotalAmount);
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", OnBeforeConfirmPost, '', false, false)]
