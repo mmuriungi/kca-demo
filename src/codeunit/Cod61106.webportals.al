@@ -11505,7 +11505,7 @@ Codeunit 61106 webportals
         if mtofficer.Find('-') then begin
             repeat
                 Clear(JObj);
-                JObj.Add('RepairNo', mtofficer.Description);
+                JObj.Add('RepairNo', mtofficer."Repair No.");
                 JObj.Add('Description', mtofficer.Description);
                 JObj.Add('OfficerName', mtofficer."Officer Name");
                 JObj.Add('PhoneNo', mtofficer."Phone No.");
