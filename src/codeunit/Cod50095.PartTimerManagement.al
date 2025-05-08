@@ -149,7 +149,7 @@ codeunit 50095 "PartTimer Management"
         Employee: Record "HRM-Employee C";
     begin
         getEmployee(Employee, PartTime."Account No.");
-        PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime,'');
+        PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime, '');
         HrSetup.Get();
         claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
     end;
@@ -165,9 +165,9 @@ codeunit 50095 "PartTimer Management"
         ClaimsBatch: Record "Parttime Claims Batch";
     begin
         getEmployee(Employee, PartTime."Account No.");
-        PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime,BatchNo);
+        PurchHeader := claimHandler.CreatePurchaseHeaderApproved(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime, BatchNo);
         HrSetup.Get();
-        claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
+        claimHandler.CreatePurchaseLineApproved(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
         ClaimsBatch.Get(BatchNo);
         ClaimsBatch.CalcFields("Total Amount");
         BatchInvoice.init();
@@ -345,32 +345,31 @@ codeunit 50095 "PartTimer Management"
                 VendorAmounts.Set(Employee."Vendor No.", VendorAmounts.Get(Employee."Vendor No.") + PartTime."Payment Amount");
                 ClaimArray[i] := PartTime;
                 i += 1;
+                TotalAmount += PartTime."Payment Amount";
             until PartTime.Next() = 0;
-            ClaimCount := i;
+            ClaimCount := i - 1;
         end else begin
             Error('No claims found in batch %1.', BatchNo);
         end;
 
         // Now create an invoice for each vendor
         for i := 1 to ClaimCount do begin
-            //InvoiceNo := CreateVendorInvoice(BatchNo, VendorNo, VendorClaims.Get(VendorNo), VendorAmounts.Get(VendorNo));
-            createPurchaseInvoiceBatch(ClaimArray[i],BatchNo);
-
-            // Get vendor name for message
-            if Vendor.Get(VendorNo) then
-                VendorName := Vendor.Name
-            else
-                VendorName := VendorNo;
-
-            TotalAmount += VendorAmounts.Get(VendorNo);
-            InvoiceCount += 1;
+            createPurchaseInvoiceBatch(ClaimArray[i], BatchNo);
         end;
 
         // Update batch record
-        BatchRec."Pv Generated" := true;
+        BatchRec."Invoice Batch Generated" := true;
         BatchRec.Modify();
 
         Message('Successfully created %1 purchase invoices for batch %2, totaling %3.',
-            InvoiceCount, BatchNo, TotalAmount);
+            ClaimCount, BatchNo, TotalAmount);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", OnBeforeConfirmPost, '', false, false)]
+    local procedure PostBatchClaimInvoicesSilent(var PurchaseHeader: Record "Purchase Header"; var HideDialog: Boolean; var IsHandled: Boolean; var DefaultOption: Integer)
+    begin
+        if PurchaseHeader."Batch No." <> '' then begin
+            HideDialog := true;
+        end;
     end;
 }

@@ -64,7 +64,10 @@ page 52101 "PartTime Invoice Batch Card"
                 var
                     PurchInvHeader: Record "Purchase Header";
                 begin
-                  
+                    PurchInvHeader.SetRange("Document Type", PurchInvHeader."Document Type"::Invoice);
+                    PurchInvHeader.SetRange("Batch No.", Rec."Batch No.");
+                    if PurchInvHeader.FindSet() then
+                        Page.RunModal(Page::"Purchase Invoices", PurchInvHeader);
                 end;
             }
             
@@ -83,33 +86,16 @@ page 52101 "PartTime Invoice Batch Card"
                 var
                     PurchInvHeader: Record "Purch. Inv. Header";
                 begin
-                   
+                    PurchInvHeader.Reset();
+                    PurchInvHeader.SetRange("Batch No.", Rec."Batch No.");
+                    if PurchInvHeader.FindSet() then
+                        Page.RunModal(Page::"Posted Purchase Invoices", PurchInvHeader);
                 end;
             }
         }
         
         area(Processing)
         {
-            action(PostInvoice)
-            {
-                ApplicationArea = All;
-                Caption = 'Post Invoice';
-                Image = PostOrder;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ToolTip = 'Post the selected purchase invoice';
-                Enabled = Rec.Status = Rec.Status::Open;
-                
-                trigger OnAction()
-                var
-                    PurchHeader: Record "Purchase Header";
-                    PurchPost: Codeunit "Purch.-Post";
-                begin
-                   
-                end;
-            }
-            
             action(PostAllInvoices)
             {
                 ApplicationArea = All;
@@ -119,17 +105,23 @@ page 52101 "PartTime Invoice Batch Card"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'Post all open invoices for this batch';
+                Enabled = Rec.Status = Rec.Status::Open;
                 
                 trigger OnAction()
                 var
-                    PartTimeInvoiceBatch: Record "PartTime Invoice Batch";
                     PurchHeader: Record "Purchase Header";
-                    PurchPost: Codeunit "Purch.-Post";
-                    BatchNo: Code[20];
-                    Count: Integer;
-                    FailCount: Integer;
                 begin
-                    
+                    if not confirm('Are you sure you want to post all invoices for this batch?') then exit;
+                    PurchHeader.Reset();
+                    PurchHeader.SetRange("Batch No.", Rec."Batch No.");
+                    if PurchHeader.FindSet() then begin
+                        repeat
+                            if not PurchHeader.SendToPosting(CODEUNIT::"Purch.-Post (Yes/No)") then
+                                exit;
+                        until PurchHeader.Next() = 0;
+                    end;
+                    Rec.Status := Rec.Status::Posted;
+                    Rec.Modify();
                 end;
             }
         }

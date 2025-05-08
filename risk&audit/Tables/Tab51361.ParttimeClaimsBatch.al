@@ -85,6 +85,10 @@ table 51361 "Parttime Claims Batch"
             Caption = 'Responsibility Center';
             TableRelation = "Responsibility Center";
         }
+        field(14; "Invoice Batch Generated"; Boolean)
+        {
+            Caption = 'Invoice Batch Generated';
+        }
 
     }
     keys
