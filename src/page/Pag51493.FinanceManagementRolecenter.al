@@ -470,7 +470,7 @@ page 51493 "Finance Management Rolecenter"
                         Caption = 'Parttime Batches';
                         ApplicationArea = All;
                         Image = CalculateSimulation;
-                        RunObject = Page "PartTime Invoice Batch List";
+                        RunObject = Page "Parttime Claims Batch List";
                     }
                     action("Parttime Invoice Batch List")
                     {
