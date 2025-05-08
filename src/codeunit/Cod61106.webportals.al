@@ -11540,12 +11540,11 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure MaintenanceOfficerCompletionFeedback(empNo: Code[20]; repairNo: Code[20]; description: Text; endDate: Date; feedback: Text) msg: Boolean
+    procedure ClientRepairFeedback(repairNo: Code[20]; description: Text; feedback: Text; closed:Boolean) msg: Boolean
     var
         mtofficer: Record "Maintenance Officer";
     begin
         mtofficer.Reset;
-        mtofficer.SetRange("No.", empNo);
         mtofficer.SetRange("Repair No.", repairNo);
         mtofficer.SetRange(Description, description);
         if mtofficer.Find('-') then begin
@@ -11559,7 +11558,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure ClientRepairFeedback(repairNo: Code[20]; description: Text; feedback: Text; closed:Boolean) msg: Boolean
+    procedure MaintenanceOfficerCompletionFeedback(empNo: Code[20]; repairNo: Code[20]; description: Text; endDate: Date; feedback: Text) msg: Boolean
     var
         mtofficer: Record "Maintenance Officer";
     begin

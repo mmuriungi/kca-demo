@@ -1,17 +1,15 @@
-page 52100 "PartTime Invoice Batch List"
+page 52101 "PartTime Invoice Batch Card"
 {
     ApplicationArea = All;
-    Caption = 'PartTime Invoice Batch List';
-    PageType = List;
+    Caption = 'PartTime Invoice Batch Card';
+    PageType = Card;
     SourceTable = "PartTime Invoice Batch";
-    UsageCategory = Lists;
-    Editable = false;
     
     layout
     {
         area(content)
         {
-            repeater(General)
+            group(General)
             {
                 field("Batch No."; Rec."Batch No.")
                 {
@@ -39,6 +37,12 @@ page 52100 "PartTime Invoice Batch List"
                     ToolTip = 'Specifies the status of the invoice';
                 }
             }
+            part(PurchaseInvoices; "PartTime Invoice Subform")
+            {
+                ApplicationArea = All;
+                SubPageLink = "Batch No." = field("Batch No.");
+                UpdatePropagation = Both;
+            }
         }
     }
     
@@ -60,10 +64,7 @@ page 52100 "PartTime Invoice Batch List"
                 var
                     PurchInvHeader: Record "Purchase Header";
                 begin
-                    PurchInvHeader.SetRange("Document Type", PurchInvHeader."Document Type"::Invoice);
-                    PurchInvHeader.SetRange("Batch No.", Rec."Batch No.");
-                    if PurchInvHeader.FindSet() then
-                        Page.RunModal(Page::"Purchase Invoices", PurchInvHeader);
+                  
                 end;
             }
             
@@ -82,10 +83,7 @@ page 52100 "PartTime Invoice Batch List"
                 var
                     PurchInvHeader: Record "Purch. Inv. Header";
                 begin
-                    PurchInvHeader.Reset();
-                    PurchInvHeader.SetRange("Batch No.", Rec."Batch No.");
-                    if PurchInvHeader.FindSet() then
-                        Page.RunModal(Page::"Posted Purchase Invoices", PurchInvHeader);
+                   
                 end;
             }
         }
@@ -131,7 +129,7 @@ page 52100 "PartTime Invoice Batch List"
                     Count: Integer;
                     FailCount: Integer;
                 begin
-                   
+                    
                 end;
             }
         }
