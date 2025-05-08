@@ -175,7 +175,7 @@ page 52098 "Parttime Claims Batch Card"
                     end;
                 end;
             }
-            
+
             action(GenerateInvoices)
             {
                 ApplicationArea = All;
@@ -184,6 +184,7 @@ page 52098 "Parttime Claims Batch Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                Enabled = not Rec."Invoice Batch Generated";
                 ToolTip = 'Generate purchase invoices for all vendors in this batch.';
 
                 trigger OnAction()
@@ -195,7 +196,7 @@ page 52098 "Parttime Claims Batch Card"
                     end;
                 end;
             }
-            
+
             action(ViewBatchInvoices)
             {
                 ApplicationArea = All;

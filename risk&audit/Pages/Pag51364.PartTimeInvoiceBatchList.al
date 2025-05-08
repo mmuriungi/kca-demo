@@ -92,26 +92,6 @@ page 52100 "PartTime Invoice Batch List"
         
         area(Processing)
         {
-            action(PostInvoice)
-            {
-                ApplicationArea = All;
-                Caption = 'Post Invoice';
-                Image = PostOrder;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ToolTip = 'Post the selected purchase invoice';
-                Enabled = Rec.Status = Rec.Status::Open;
-                
-                trigger OnAction()
-                var
-                    PurchHeader: Record "Purchase Header";
-                    PurchPost: Codeunit "Purch.-Post";
-                begin
-                   
-                end;
-            }
-            
             action(PostAllInvoices)
             {
                 ApplicationArea = All;
@@ -121,17 +101,23 @@ page 52100 "PartTime Invoice Batch List"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'Post all open invoices for this batch';
+                Enabled = Rec.Status = Rec.Status::Open;
                 
                 trigger OnAction()
                 var
-                    PartTimeInvoiceBatch: Record "PartTime Invoice Batch";
                     PurchHeader: Record "Purchase Header";
-                    PurchPost: Codeunit "Purch.-Post";
-                    BatchNo: Code[20];
-                    Count: Integer;
-                    FailCount: Integer;
                 begin
-                   
+                    if not confirm('Are you sure you want to post all invoices for this batch?') then exit;
+                    PurchHeader.Reset();
+                    PurchHeader.SetRange("Batch No.", Rec."Batch No.");
+                    if PurchHeader.FindSet() then begin
+                        repeat
+                            if not PurchHeader.SendToPosting(CODEUNIT::"Purch.-Post (Yes/No)") then
+                                exit;
+                        until PurchHeader.Next() = 0;
+                    end;
+                    Rec.Status := Rec.Status::Posted;
+                    Rec.Modify();
                 end;
             }
         }
