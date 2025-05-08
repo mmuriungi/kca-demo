@@ -11540,7 +11540,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure ClientRepairFeedback(repairNo: Code[20]; description: Text; feedback: Text; closed:Boolean) msg: Boolean
+    procedure ClientRepairFeedback(repairNo: Code[20]; description: Text; feedback: Text; closed: Boolean) msg: Boolean
     var
         mtofficer: Record "Maintenance Officer";
     begin
@@ -11548,11 +11548,8 @@ Codeunit 61106 webportals
         mtofficer.SetRange("Repair No.", repairNo);
         mtofficer.SetRange(Description, description);
         if mtofficer.Find('-') then begin
-            mtofficer."End Date" := endDate;
-            mtofficer."Completion Feedback" := feedback;
-            mtofficer.Status := mtofficer.Status::Compeleted;
-            mtofficer."Repair Period" := endDate - mtofficer."Start Date";
-            mtofficer.Completed := true;
+            mtofficer."client Feedback" := feedback;
+            mtofficer."client closed" := closed;
             mtofficer.Modify;
             msg := true;
         end;
@@ -11563,11 +11560,14 @@ Codeunit 61106 webportals
         mtofficer: Record "Maintenance Officer";
     begin
         mtofficer.Reset;
+        mtofficer.SetRange("No.", empNo);
         mtofficer.SetRange("Repair No.", repairNo);
         mtofficer.SetRange(Description, description);
         if mtofficer.Find('-') then begin
-            mtofficer."client Feedback" := feedback;
-            mtofficer."client Closed" := closed;
+            mtofficer."End Date" := endDate;
+            mtofficer."Completion Feedback" := feedback;
+            mtofficer.Status := mtofficer.Status::Compeleted;
+            mtofficer.Completed := true;
             mtofficer.Modify;
             msg := true;
         end;
