@@ -63,6 +63,30 @@ page 52098 "Parttime Claims Batch Card"
                     ToolTip = 'Specifies whether a PV has been generated for this batch.';
                     Editable = false;
                 }
+                field("Responsibility Center"; Rec."Responsibility Center")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the responsibility center for the batch.';
+                    Editable = true;
+                }
+                field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the global dimension 1 code for the batch.';
+                    Editable = true;
+                }
+                field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the global dimension 2 code for the batch.';
+                    Editable = true;
+                }
+                field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the shortcut dimension 3 code for the batch.';
+                    Editable = true;
+                }
             }
             part(ParttimeClaims; "Parttime Claims Batch Subform")
             {
@@ -119,12 +143,12 @@ page 52098 "Parttime Claims Batch Card"
                     if ClaimList.RunModal() = Action::LookupOK then begin
                         ClaimFilter := ClaimList.GetSelectionFilter();
                         BatchClaimLines.Reset();
-                        BatchClaimLines.SetRange("No.", ClaimFilter);
+                        BatchClaimLines.SetFilter("No.", ClaimFilter);
                         if BatchClaimLines.FindSet() then begin
                             repeat
                                 BatchClaimLines.CalcFields("Payment Amount");
-                                Rec."Total Amount" += BatchClaimLines."Payment Amount";
                                 BatchClaimLines."Batch No." := Rec."No.";
+                                BatchClaimLines."Amount to Batch" := BatchClaimLines."Payment Amount";
                                 BatchClaimLines.Modify();
                             until BatchClaimLines.Next() = 0;
                         end;
@@ -141,7 +165,7 @@ page 52098 "Parttime Claims Batch Card"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'Generate payment voucher for this batch.';
-
+                Enabled = not Rec."Pv Generated";
                 trigger OnAction()
                 var
                     PartTimerMgt: Codeunit "PartTimer Management";

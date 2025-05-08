@@ -11,24 +11,6 @@ table 51363 "PartTime Invoice Batch"
             DataClassification = CustomerContent;
             TableRelation = "Parttime Claims Batch"."No.";
         }
-        field(2; "Invoice No."; Code[20])
-        {
-            Caption = 'Invoice No.';
-            DataClassification = CustomerContent;
-            TableRelation = "Purchase Header"."No." where("Document Type" = const(Invoice));
-        }
-        field(3; "Vendor No."; Code[20])
-        {
-            Caption = 'Vendor No.';
-            DataClassification = CustomerContent;
-            TableRelation = Vendor."No.";
-        }
-        field(4; "Vendor Name"; Text[100])
-        {
-            Caption = 'Vendor Name';
-            DataClassification = CustomerContent;
-            Editable = false;
-        }
         field(5; "Date Created"; Date)
         {
             Caption = 'Date Created';
@@ -54,17 +36,11 @@ table 51363 "PartTime Invoice Batch"
             OptionMembers = "Open","Posted";
             Editable = false;
         }
-        field(9; "Posted Invoice No."; Code[20])
-        {
-            Caption = 'Posted Invoice No.';
-            DataClassification = CustomerContent;
-            Editable = false;
-        }
     }
     
     keys
     {
-        key(PK; "Batch No.", "Invoice No.")
+        key(PK; "Batch No.")
         {
             Clustered = true;
         }

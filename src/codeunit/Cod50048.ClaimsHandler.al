@@ -65,7 +65,7 @@ codeunit 50048 "Claims Handler"
         PayTypes.FindFirst();
     end;
 
-    procedure CreatePurchaseHeader(VendorNo: Code[20]; GlobalDim1: Code[20]; GlobalDim2: Code[20]; GlobalDim3: Code[20]; Date: Date; Description: Text[100]; ClaimNo: Code[20]; ClaimType: Enum "Claim Type"): Record "Purchase Header"
+    procedure CreatePurchaseHeader(VendorNo: Code[20]; GlobalDim1: Code[20]; GlobalDim2: Code[20]; GlobalDim3: Code[20]; Date: Date; Description: Text[100]; ClaimNo: Code[20]; ClaimType: Enum "Claim Type"; BatchNo: Code[20]): Record "Purchase Header"
     var
         PurchSetup: Record "Purchases & Payables Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
@@ -92,6 +92,7 @@ codeunit 50048 "Claims Handler"
         PurchHeader."Claim No." := ClaimNo;
         PurchHeader."Claim Type" := ClaimType;
         PurchHeader."Vendor Invoice No." := ClaimNo;
+        PurchHeader."Batch No." := BatchNo;
         if PurchHeader.INSERT(TRUE) then begin
             exit(PurchHeader);
 
@@ -131,7 +132,7 @@ codeunit 50048 "Claims Handler"
         Employee.get(Claim."Member No");
         HrSetup.Get();
         PurchHeader := CreatePurchaseHeader(Employee."Vendor No.", Claim."Global Dimension 1 Code", Claim."Global Dimension 2 Code", Claim."Shortcut Dimension 3 Code", TODAY, Format(Claim."Claim Type") +
-         ' Claim No: ' + Claim."Claim No" + ' ' + Claim."Member Names", Claim."Claim No", Enum::"Claim Type"::Medical);
+         ' Claim No: ' + Claim."Claim No" + ' ' + Claim."Member Names", Claim."Claim No", Enum::"Claim Type"::Medical,'');
         CreatePurchaseLine(PurchHeader, HrSetup."Claim G/L Account", PurchLine.Type::"G/L Account", 1, Claim."Claim Amount");
     end;
 
