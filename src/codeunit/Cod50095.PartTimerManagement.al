@@ -353,17 +353,7 @@ codeunit 50095 "PartTimer Management"
 
         // Now create an invoice for each vendor
         for i := 1 to ClaimCount do begin
-            //InvoiceNo := CreateVendorInvoice(BatchNo, VendorNo, VendorClaims.Get(VendorNo), VendorAmounts.Get(VendorNo));
             createPurchaseInvoiceBatch(ClaimArray[i], BatchNo);
-
-            // Get vendor name for message
-            if Vendor.Get(VendorNo) then
-                VendorName := Vendor.Name
-            else
-                VendorName := VendorNo;
-
-            TotalAmount += VendorAmounts.Get(VendorNo);
-            InvoiceCount += 1;
         end;
 
         // Update batch record
