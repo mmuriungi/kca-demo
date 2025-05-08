@@ -76,6 +76,10 @@ page 50393 "HRM-SetUp List"
                 {
                     ApplicationArea = all;
                 }
+                field("Medical Claims Batch Nos."; Rec."Medical Claims Batch Nos.")
+                {
+                    ApplicationArea = all;
+                }
                 field("Medical Scheme Nos"; Rec."Medical Scheme Nos")
                 {
                     ApplicationArea = all;

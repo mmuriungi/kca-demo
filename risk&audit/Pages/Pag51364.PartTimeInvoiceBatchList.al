@@ -6,6 +6,7 @@ page 52100 "PartTime Invoice Batch List"
     SourceTable = "PartTime Invoice Batch";
     UsageCategory = Lists;
     Editable = false;
+    CardPageId = "PartTime Invoice Batch Card";
     
     layout
     {
