@@ -12154,7 +12154,56 @@ Codeunit 61106 webportals
     end;
     #EndRegion
 
+    #Region Meal Booking
+    procedure BookMeal(staffno: Code[20]; mtgdesc: Text; reqDate: Date; reqTime: Time; venue: Text; people: Integer) msg: Text
+    var
+        MealBooking: Record "CAT-Meal Booking Header";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        MealBooking.Init;
+        MealBooking."Staff No." := staffno;
+        MealBooking."Meeting Name" := mtgdesc;
+        MealBooking."Request Date" := reqDate;
+        MealBooking."Required Time" := reqTime;
+        MealBooking."Venue" := venue;
+        MealBooking.Pax := people;
+        MealBooking.Insert(True);
+        if MealBooking.INSERT(true) then begin
+            variant := MealBooking;
+            if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMgmt.OnSendDocForApproval(variant);
+            exit(MealBooking."Booking Id")
+        end
+        else
+            exit('');
+    end;
 
+    procedure GetMealBookings(staffno: Code[20]) msg: Text
+    var
+        MealBooking: Record "CAT-Meal Booking Header";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        MealBooking.Reset;
+        MealBooking.SetRange("Staff No.", staffno);
+        if MealBooking.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('BookingId', MealBooking."Booking Id");
+                JObj.Add('MeetingName', MealBooking."Meeting Name");
+                JObj.Add('BookingDate', Format(MealBooking."Booking Date"));
+                JObj.Add('RequestDate', Format(MealBooking."Request Date"));
+                JObj.Add('RequiredTime', Format(MealBooking."Required Time"));
+                JObj.Add('Venue', MealBooking."Venue");
+                JObj.Add('Pax', FORMAT(MealBooking.Pax));
+                JObj.Add('Status', Format(MealBooking.Status));
+                JArray.Add(JObj);
+            until MealBooking.Next = 0;
+        end;
+    end;
+    #EndRegion
 
 }
 

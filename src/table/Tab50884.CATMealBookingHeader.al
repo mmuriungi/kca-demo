@@ -138,6 +138,11 @@ table 50884 "CAT-Meal Booking Header"
         {
             Editable = false;
         }
+        field(50049; "Staff No."; Code[20])
+        {
+            TableRelation = "HRM-Employee C"."No.";
+            Editable = true;
+        }
     }
 
     keys
@@ -164,11 +169,12 @@ table 50884 "CAT-Meal Booking Header"
             NoSeriesMgt.InitSeries(GenSetup."Meals Booking No.", xRec."No. Series", 0D, "Booking Id", "No. Series");
         END;
 
+        if "Requested By" <> '' then
         "Requested By" := USERID;
         "Booking Time" := TIME;
         "Booking Date" := TODAY;
         HRMEmployeeC.RESET;
-        HRMEmployeeC.SETRANGE("User ID", USERID);
+        HRMEmployeeC.SETRANGE("No.", "Staff No.");
         IF HRMEmployeeC.FIND('-') THEN BEGIN
             Department := HRMEmployeeC."Department Code";
             "Contact Mail" := HRMEmployeeC."E-Mail";
