@@ -268,6 +268,10 @@ table 50245 "HRM-Medical Claims"
             OptionCaption = 'Self,Depedant';
             OptionMembers = Self,Depedant;
         }
+        field(3989; "Batch No."; Code[20])
+        {
+            TableRelation = "Medical Claims Batch";
+        }
     }
 
     keys
