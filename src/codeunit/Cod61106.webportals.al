@@ -11559,25 +11559,6 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure MaintenanceOfficerCompletionFeedback(empNo: Code[20]; repairNo: Code[20]; description: Text; endDate: Date; feedback: Text) msg: Boolean
-    var
-        mtofficer: Record "Maintenance Officer";
-    begin
-        mtofficer.Reset;
-        mtofficer.SetRange("No.", empNo);
-        mtofficer.SetRange("Repair No.", repairNo);
-        mtofficer.SetRange(Description, description);
-        if mtofficer.Find('-') then begin
-            mtofficer."End Date" := endDate;
-            mtofficer."Completion Feedback" := feedback;
-            mtofficer.Status := mtofficer.Status::Compeleted;
-            mtofficer."Repair Period" := endDate - mtofficer."Start Date";
-            mtofficer.Completed := true;
-            mtofficer.Modify;
-            msg := true;
-        end;
-    end;
-
     procedure RepairFeedbackSubmitted(empNo: Code[20]; repairNo: Code[20]; description: Text) msg: Boolean
     var
         mtofficer: Record "Maintenance Officer";
