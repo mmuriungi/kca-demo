@@ -12154,7 +12154,7 @@ Codeunit 61106 webportals
     end;
     #EndRegion
 
-    #Region Meal Booking
+    #Region Meal and Venue Booking
     procedure BookMeal(staffno: Code[20]; mtgdesc: Text; reqDate: Date; reqTime: Time; venue: Text; people: Integer) msg: Text
     var
         MealBooking: Record "CAT-Meal Booking Header";
@@ -12173,6 +12173,31 @@ Codeunit 61106 webportals
             if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
                 ApprovalMgmt.OnSendDocForApproval(variant);
             exit(MealBooking."Booking Id")
+        end
+        else
+            exit('');
+    end;
+
+    procedure BookVenue(staffno: Code[20]; venuerm: Code[20]; mtgdesc: Text; reqDate: Date; endDate: Date; reqTime: Time; endTime: Time; venue: Text; people: Integer) msg: Text
+    var
+        VenueBooking: Record "Gen-Venue Booking";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        VenueBooking.Init;
+        VenueBooking."Staff No." := staffno;
+        VenueBooking."Meeting Description" := mtgdesc;
+        VenueBooking."Request Date" := reqDate;
+        VenueBooking."Required Time" := reqTime;
+        VenueBooking."Booking End Date" := endDate;
+        VenueBooking."Booking End Time" := endTime;
+        VenueBooking."Venue" := venuerm;
+        VenueBooking.Pax := people;
+        if VenueBooking.INSERT(true) then begin
+            variant := VenueBooking;
+            if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMgmt.OnSendDocForApproval(variant);
+            exit(VenueBooking."Booking Id")
         end
         else
             exit('');
@@ -12200,6 +12225,57 @@ Codeunit 61106 webportals
                 JObj.Add('Status', Format(MealBooking.Status));
                 JArray.Add(JObj);
             until MealBooking.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetVenue() msg: Text
+    var
+        Venues: Record "Venue Setup";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        Venues.Reset;
+        Venues.SetRange("Status", Venues."Status"::Vaccant);
+        if Venues.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('VenueId', Venues."Venue Code");
+                JObj.Add('VenueName', Venues."Venue Description");
+                JArray.Add(JObj);
+            until Venues.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetVenueBookings(staffno: Code[20]) msg: Text
+    var
+        VenueBooking: Record "Gen-Venue Booking";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        VenueBooking.Reset;
+        VenueBooking.SetRange("Staff No.", staffno);
+        if VenueBooking.FindSet() then begin
+            repeat
+                VenueBooking.CalcFields("Venue Dscription");
+                Clear(JObj);
+                JObj.Add('BookingId', VenueBooking."Booking Id");
+                JObj.Add('MeetingName', VenueBooking."Meeting Description");
+                JObj.Add('BookingDate', Format(VenueBooking."Booking Date"));
+                JObj.Add('RequestDate', Format(VenueBooking."Request Date"));
+                JObj.Add('RequestEndDate', Format(VenueBooking."Booking End Date"));
+                JObj.Add('RequiredTime', Format(VenueBooking."Required Time"));
+                JObj.Add('EndTime', Format(VenueBooking."Booking End Time"));
+                JObj.Add('Venue', VenueBooking."Venue Dscription");
+                JObj.Add('Pax', FORMAT(VenueBooking.Pax));
+                JObj.Add('Status', Format(VenueBooking.Status));
+                JArray.Add(JObj);
+            until VenueBooking.Next = 0;
             JArray.WriteTo(JsTxt);
             msg := JsTxt;
         end;
