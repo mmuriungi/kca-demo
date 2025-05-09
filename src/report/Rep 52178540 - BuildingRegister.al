@@ -1,6 +1,6 @@
 report 52178540 "Building Register"
 {
-    RDLCLayout = 'Reports/ssr/Building Register.rdl';
+    RDLCLayout = './Layouts/Building Register.rdl';
     DefaultLayout = RDLC;
     Caption = 'Building Register';
     dataset

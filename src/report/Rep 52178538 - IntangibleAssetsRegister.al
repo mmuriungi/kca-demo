@@ -1,7 +1,7 @@
 report 52178538 "Intangible Assets Register"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Reports/SSR/Intangible Assets.rdl';
+    RDLCLayout = './Layouts/Intangible Assets.rdl';
     dataset
     {
         dataitem(FixedAsset; "Fixed Asset")

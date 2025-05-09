@@ -1,7 +1,7 @@
 report 52178537 "Office Equipments Register"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Reports/SSR/Office Equipments.rdl';
+    RDLCLayout = './Layouts/Office Equipments.rdl';
     dataset
     {
         dataitem(FixedAsset; "Fixed Asset")

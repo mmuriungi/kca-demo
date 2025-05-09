@@ -1,7 +1,7 @@
 report 52178547 "FA Proceeds on Disposal"
 {
     Caption = 'FA Proceeds on Disposal';
-    RDLCLayout = './Reports/SSR/FA Proceeds on Disposal.rdl';
+    RDLCLayout = './Layouts/FA Proceeds on Disposal.rdl';
     DefaultLayout = rdlc;
     dataset
     {

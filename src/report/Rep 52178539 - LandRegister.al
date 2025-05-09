@@ -1,6 +1,6 @@
 report 52178539 "Land Register"
 {
-    RDLCLayout = 'Reports/ssr/Land Register.rdl';
+    RDLCLayout = './Layouts/Land Register.rdl';
     DefaultLayout = RDLC;
     Caption = 'Land Register';
     dataset
