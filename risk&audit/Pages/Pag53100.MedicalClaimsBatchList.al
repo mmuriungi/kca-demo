@@ -167,7 +167,7 @@ page 53100 "Medical Claims Batch List"
                     FieldRef[16] := recref.Field(MedClaims.FieldNo("Scheme Currency Code"));
                     FieldRef[17] := recref.Field(MedClaims.FieldNo("Scheme Amount Charged"));
                     FileName := 'Medical Claims.xlsx';
-                    csv.ExportExcelFile(FileName, recref, FieldRef, 7, ExcelBuffer, 'Medical Claims', 1);
+                    csv.ExportExcelFile(FileName, recref, FieldRef, 17, ExcelBuffer, 'Medical Claims', 1);
                     csv.downloadFromExelBuffer(ExcelBuffer, FileName);
                 end;
 
