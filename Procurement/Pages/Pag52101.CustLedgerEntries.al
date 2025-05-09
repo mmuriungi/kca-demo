@@ -1,4 +1,4 @@
-page 52101 "Cust Ledger Entries"
+page  52178745 "Cust Ledger Entries Cust"
 {
     ApplicationArea = All;
     Caption = 'Cust Ledger Entries';
