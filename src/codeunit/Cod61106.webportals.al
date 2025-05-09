@@ -12200,6 +12200,8 @@ Codeunit 61106 webportals
                 JObj.Add('Status', Format(MealBooking.Status));
                 JArray.Add(JObj);
             until MealBooking.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
         end;
     end;
     #EndRegion
