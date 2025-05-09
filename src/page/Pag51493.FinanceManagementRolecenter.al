@@ -125,6 +125,54 @@ page 51493 "Finance Management Rolecenter"
                     RunPageView = WHERE(Recurring = CONST(true));
                     ToolTip = 'Post recurring fixed asset transactions, such as acquisition and depreciation book without integration to the general ledger.';
                 }
+                //group Fixed Assets
+                group("FA Reports")
+                {
+                    Caption = 'FA Reports';
+                    Image = ChartOfAccounts;
+                    //equipment
+                    action("Office Equipments Register")
+                    {
+                        ApplicationArea = FixedAssets;
+                        Caption = 'Office Equipments Register';
+                        RunObject = Report "Office Equipments Register";
+                        ToolTip = 'View a list of office equipments and their current status.';
+                    }
+                    //Intangible Assets
+                    action("Intangible Assets Register")
+                    {
+                        ApplicationArea = FixedAssets;
+                        Caption = 'Intangible Assets Register';
+                        RunObject = Report "Intangible Assets Register";
+                        ToolTip = 'View a list of intangible assets and their current status.';
+                    }
+                    //land
+                    action("Land Register")
+                    {
+                        ApplicationArea = FixedAssets;
+                        Caption = 'Land Register';
+                        RunObject = Report "Land Register";
+                        ToolTip = 'View a list of land and their current status.';
+                    }
+                    //Building
+                    action("Building Register")
+                    {
+                        ApplicationArea = FixedAssets;
+                        Caption = 'Building Register';
+                        RunObject = Report "Building Register";
+                        ToolTip = 'View a list of buildings and their current status.';
+                    }
+                    //FA Proceeds on Disposal
+                    action("FA Proceeds on Disposal")
+                    {
+                        ApplicationArea = FixedAssets;
+                        Caption = 'FA Proceeds on Disposal';
+                        RunObject = Report "FA Proceeds on Disposal";
+                        ToolTip = 'View a list of FA Proceeds on Disposal and their current status.';
+                    }
+                    
+                }
+            
             }
             group("Finance Operations")
             {
