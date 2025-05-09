@@ -112,10 +112,10 @@ table 50888 "Gen-Venue Booking"
         END;
         if "Requested By" = '' then
             "Requested By" := USERID;
-        //"Booking Time":=TIME;
-        // "Booking Date":=TODAY;
+        "Booking Time":=TIME;
+        "Booking Date":=TODAY;
         HRMEmployeeC.RESET;
-        HRMEmployeeC.SETRANGE("User ID", "Staff No.");
+        HRMEmployeeC.SETRANGE("No.", "Staff No.");
         IF HRMEmployeeC.FIND('-') THEN BEGIN
             Department := HRMEmployeeC."Department Code";
             "Contact Mail" := HRMEmployeeC."E-Mail";
