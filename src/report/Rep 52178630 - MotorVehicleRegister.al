@@ -1,12 +1,15 @@
-report 52178537 "Office Equipments Register"
+report 52178630 "Motor Vehicle Register"
 {
-    DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/Office Equipments.rdl';
+    Caption = 'Motor Vehicle Register';
+    RDLCLayout = './Layouts/Motor Vehicle Register.rdl';
+    DefaultLayout = rdlc;
     dataset
     {
         dataitem(FixedAsset; "Fixed Asset")
         {
-            DataItemTableView = where("FA Class Code" = filter('TANGIBLE'), "FA Subclass Code" = filter('EQUIPMENT'));
+            DataItemTableView = where("FA Class Code" = filter('TANGIBLE'), "FA Subclass Code" = filter('MV'));
+            CalcFields = "Disposal Amount";  // Using Disposal Amount instead of Disposal Value
+        
             column(CompInfoName; CompInfo.Name)
             {
 
@@ -196,6 +199,10 @@ report 52178537 "Office Equipments Register"
             {
 
             }
+            column(DisporsalValue_FixedAsset; "Disposal Amount" * -1)
+            {
+                // Using Disposal Amount instead of Disposal Value
+            }
             dataitem(FADepreciationBook; "FA Depreciation Book")
             {
                 DataItemLink = "FA No." = field("No.");
@@ -323,7 +330,7 @@ report 52178537 "Office Equipments Register"
     trigger OnInitReport()
     begin
         ClassCode := 'TANGIBLE';
-        SubClassCode := 'OFF EQU';
+        SubClassCode := 'MV';
         CompInfo.get();
         CompInfo.CalcFields(Picture);
     end;
