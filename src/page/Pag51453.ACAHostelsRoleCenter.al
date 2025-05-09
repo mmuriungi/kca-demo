@@ -383,6 +383,12 @@ page 51453 "ACA-Hostels Role Center"
             {
                 Caption = 'Hostel Setups';
                 Image = Setup;
+                action("Meal Booking Setup")
+                {
+                    Caption = 'Meal Booking Setup';
+                    RunObject = Page "Meal Booking Setup";
+                    ApplicationArea = All;
+                }
                 action(ACAHostelPermissions)
 
                 {

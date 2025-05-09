@@ -165,8 +165,8 @@ table 50884 "CAT-Meal Booking Header"
     begin
         IF "Booking Id" = '' THEN BEGIN
             GenSetup.GET;
-            GenSetup.TESTFIELD(GenSetup."Meals Booking No.");
-            NoSeriesMgt.InitSeries(GenSetup."Meals Booking No.", xRec."No. Series", 0D, "Booking Id", "No. Series");
+            GenSetup.TESTFIELD(GenSetup."Meal Booking Nos");
+            NoSeriesMgt.InitSeries(GenSetup."Meal Booking Nos", xRec."No. Series", 0D, "Booking Id", "No. Series");
         END;
 
         if "Requested By" <> '' then
@@ -184,7 +184,7 @@ table 50884 "CAT-Meal Booking Header"
     end;
 
     var
-        GenSetup: Record "General Ledger Setup";
+        GenSetup: Record "Meal Booking Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         HRMEmployeeC: Record "HRM-Employee C";
 }
