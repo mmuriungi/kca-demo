@@ -12168,7 +12168,6 @@ Codeunit 61106 webportals
         MealBooking."Required Time" := reqTime;
         MealBooking."Venue" := venue;
         MealBooking.Pax := people;
-        MealBooking.Insert(True);
         if MealBooking.INSERT(true) then begin
             variant := MealBooking;
             if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
