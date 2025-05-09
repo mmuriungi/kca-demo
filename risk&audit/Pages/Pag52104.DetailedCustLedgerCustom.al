@@ -1,10 +1,10 @@
-page  52178745 "Cust Ledger Entries Cust"
+page 52104 "Detailed Cust Ledger Custom"
 {
     ApplicationArea = All;
-    Caption = 'Cust Ledger Entries Custom';
+    Caption = 'Detailed Cust Ledger Custom';
     PageType = List;
-    UsageCategory=Administration;
-    SourceTable = "Cust Ledger Entries Custom";
+    SourceTable = "Detailed Cust ledger Custom";
+    UsageCategory = Administration;
     
     layout
     {
@@ -12,33 +12,38 @@ page  52178745 "Cust Ledger Entries Cust"
         {
             repeater(General)
             {
-                 field("Document No."; Rec."Document No.")
-                {
-                    ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
-                }
                 field("Posting Date"; Rec."Posting Date")
                 {
                     ToolTip = 'Specifies the value of the Posting Date field.', Comment = '%';
+                }
+                field("Document No."; Rec."Document No.")
+                {
+                    ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
                 }
                 field("Customer No."; Rec."Customer No.")
                 {
                     ToolTip = 'Specifies the value of the Customer No. field.', Comment = '%';
                 }
+                field("Entry Type"; Rec."Entry Type")
+                {
+                    ToolTip = 'Specifies the value of the Entry Type field.', Comment = '%';
+                }
                 field(Amount; Rec.Amount)
                 {
                     ToolTip = 'Specifies the value of the Amount field.', Comment = '%';
                 }
-                field(Posted;Rec.Posted)
+                field(Description;Rec.Description)
+                {
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                }
+                field(Posted; Rec.Posted)
                 {
                     ToolTip = 'Specifies the value of the Posted field.', Comment = '%';
                 }
-               
             }
         }
-        
-        
     }
-    actions
+     actions
 {
     area(Processing)
     {
@@ -62,7 +67,4 @@ page  52178745 "Cust Ledger Entries Cust"
         }
     }
 }
-var
-
-DetailedCustLEdger: Record "Detailed Cust. Ledg. Entry";
 }
