@@ -27,7 +27,7 @@ using System.Utilities;*/
 
 table 52178744 "Cust Ledger Entries Custom"
 {
-    Caption = 'Cust. Ledger Entry';
+    Caption = 'Cust. Ledger Entry Cust';
     //DrillDownPageID = "Customer Ledger Entries";
     //LookupPageID = "Customer Ledger Entries";
     Permissions = tabledata "Reminder/Fin. Charge Entry" = R;
