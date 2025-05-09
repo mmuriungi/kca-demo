@@ -590,6 +590,13 @@ page 51493 "Finance Management Rolecenter"
                     RunObject = Page "Posted Purchase Invoices";
                     RunPageView = WHERE("Claim Type" = FILTER("Medical"));
                 }
+                action("Medical Claim Batches")
+                {
+                    Caption = 'Medical Claim Batches';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims Batch List";
+                }
             }
             group("Posted Documents")
 

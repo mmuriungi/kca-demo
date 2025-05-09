@@ -5,7 +5,7 @@ page 53100 "Medical Claims Batch List"
     PageType = List;
     SourceTable = "Medical Claims Batch";
     UsageCategory = Lists;
-    Editable = false;
+    Editable = true;
     CardPageId = "Medical Claims Batch Card";
 
     layout

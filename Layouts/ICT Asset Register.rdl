@@ -2866,14 +2866,11 @@ End Function
         <Field Name="Revaluation_FixedAsset">
           <DataField>Revaluation_FixedAsset</DataField>
         </Field>
-        <Field Name="Revaluation_FixedAssetFormat">
-          <DataField>Revaluation_FixedAssetFormat</DataField>
-        </Field>
         <Field Name="Description_FixedAsset">
           <DataField>Description_FixedAsset</DataField>
         </Field>
-        <Field Name="Desription2_FixedAsset">
-          <DataField>Desription2_FixedAsset</DataField>
+        <Field Name="Description2_FixedAsset">
+          <DataField>Description2_FixedAsset</DataField>
         </Field>
         <Field Name="ModeofAcquisition_FixedAsset">
           <DataField>ModeofAcquisition_FixedAsset</DataField>
@@ -2926,11 +2923,17 @@ End Function
         <Field Name="EstimatedUsefulLife_FixedAsset">
           <DataField>EstimatedUsefulLife_FixedAsset</DataField>
         </Field>
+        <Field Name="EstimatedUsefulLife_FixedAssetFormat">
+          <DataField>EstimatedUsefulLife_FixedAssetFormat</DataField>
+        </Field>
         <Field Name="NoofFloors_FixedAsset">
           <DataField>NoofFloors_FixedAsset</DataField>
         </Field>
         <Field Name="PlinthArea_FixedAsset">
           <DataField>PlinthArea_FixedAsset</DataField>
+        </Field>
+        <Field Name="PlinthArea_FixedAssetFormat">
+          <DataField>PlinthArea_FixedAssetFormat</DataField>
         </Field>
         <Field Name="VehicleRegistrationNo_FixedAsset">
           <DataField>VehicleRegistrationNo_FixedAsset</DataField>
