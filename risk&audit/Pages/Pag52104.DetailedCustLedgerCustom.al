@@ -44,6 +44,10 @@ page 52104 "Detailed Cust Ledger Custom"
                 {
                     ToolTip = 'Specifies the value of the Source Code Description field.', Comment = '%';
                 }
+                field("Cust. Ledger Entry No."; Rec."Cust. Ledger Entry No.")
+                {
+                    ToolTip = 'Specifies the value of the Cust. Ledger Entry No. field.', Comment = '%';
+                }
             }
         }
     }

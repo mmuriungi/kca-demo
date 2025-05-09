@@ -86,7 +86,7 @@ table 52178744 "Cust Ledger Entries Custom"
         {
             AutoFormatExpression = Rec."Currency Code";
             AutoFormatType = 1;
-            CalcFormula = sum("Detailed Cust ledger Custom".Amount where("Ledger Entry Amount" = const(true),
+            CalcFormula = sum("Detailed Cust ledger Custom".Amount where(
                                                                          "Cust. Ledger Entry No." = field("Entry No."),
                                                                          "Posting Date" = field("Date Filter")));
             Caption = 'Amount';

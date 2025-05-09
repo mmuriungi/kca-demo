@@ -213,7 +213,7 @@ table 51362 "Detailed Cust ledger Custom"
         {
             Caption = 'Description';
             FieldClass = FlowField;
-            CalcFormula = lookup("Cust Ledger Entries Custom".Description where("Entry No." = FIELD("Cust. Ledger Entry No."), "Date Filter" = field("Posting Date")));
+            CalcFormula = lookup("Cust Ledger Entries Custom".Description where("Document No." = field("Document No."), "Posting Date" = field("Posting Date"), "Customer No." = field("Customer No.")));
         }
         field(47; "Source Code Description"; Text[250])
         {

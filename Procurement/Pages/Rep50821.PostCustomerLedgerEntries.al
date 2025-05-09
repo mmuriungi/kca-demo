@@ -107,7 +107,7 @@ report 50821 "Post Customer Ledger Entries"
         // Check for duplicate entries in standard Customer Ledger Entries
         CustomerLedgerEntry.Reset();
         CustomerLedgerEntry.SetRange("Document No.", CustLedgerEntry."Document No.");
-        //CustomerLedgerEntry.SetRange("Posting Date", CustLedgerEntry."Posting Date");
+        CustomerLedgerEntry.SetRange(Amount, CustLedgerEntry.Amount);
         CustomerLedgerEntry.SetRange("Customer No.", CustLedgerEntry."Customer No.");
         DuplicateExists := not CustomerLedgerEntry.IsEmpty;
 
