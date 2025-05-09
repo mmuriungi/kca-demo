@@ -1,6 +1,5 @@
 report 50821 "Post Customer Ledger Entries"
 {
-
     ApplicationArea = All;
     Caption = 'Post Customer Ledger Entries to G/L';
     ProcessingOnly = true;
@@ -21,6 +20,9 @@ report 50821 "Post Customer Ledger Entries"
                 Window.Open('Posting entries #1#### of #2####');
                 TotalCount := Count;
                 Counter := 0;
+                SuccessCount := 0;
+                ErrorCount := 0;
+                SkippedCount := 0;
             end;
             
             trigger OnAfterGetRecord()
@@ -36,6 +38,8 @@ report 50821 "Post Customer Ledger Entries"
             begin
                 Window.Close();
                 Message('Posted %1 entries successfully.', SuccessCount);
+                if SkippedCount > 0 then
+                    Message('%1 entries were skipped because they already exist in Customer Ledger Entries.', SkippedCount);
                 if ErrorCount > 0 then
                     Message('%1 entries had errors during posting.', ErrorCount);
             end;
@@ -89,13 +93,32 @@ report 50821 "Post Customer Ledger Entries"
         Counter: Integer;
         SuccessCount: Integer;
         ErrorCount: Integer;
+        SkippedCount: Integer;
     
     local procedure PostTransactionToGL(var CustLedgerEntry: Record "Cust Ledger Entries Custom")
     var
         GenJournalLine: Record "Gen. Journal Line";
         GenJournalBatch: Record "Gen. Journal Batch";
+        CustomerLedgerEntry: Record "Cust. Ledger Entry";
         NoSeriesMgt: Codeunit NoSeriesManagement;
+        DuplicateExists: Boolean;
     begin
+        // Check for duplicate entries in standard Customer Ledger Entries
+        CustomerLedgerEntry.Reset();
+        CustomerLedgerEntry.SetRange("Document No.", CustLedgerEntry."Document No.");
+        CustomerLedgerEntry.SetRange("Posting Date", CustLedgerEntry."Posting Date");
+        CustomerLedgerEntry.SetRange("Customer No.", CustLedgerEntry."Customer No.");
+        DuplicateExists := not CustomerLedgerEntry.IsEmpty;
+        
+        if DuplicateExists then begin
+            // Mark as processed to avoid future processing attempts
+            CustLedgerEntry.Posted := true;
+            CustLedgerEntry.Modify();
+            // Increment counter for skipped entries
+            SkippedCount += 1;
+            exit;
+        end;
+        
         // Find or create a batch
         GenJournalBatch.Reset();
         GenJournalBatch.SetRange("Journal Template Name", 'GENERAL');
@@ -116,7 +139,7 @@ report 50821 "Post Customer Ledger Entries"
         GenJournalLine."Bal. Account Type" := GenJournalLine."Bal. Account Type"::"G/L Account";
         GenJournalLine."Bal. Account No." := '72001';
         GenJournalLine.Amount := CustLedgerEntry.Amount;
-        GenJournalLine.Description :=CustLedgerEntry.Description;
+        GenJournalLine.Description := CustLedgerEntry.Description;
         
         if GenJournalLine.Insert() then begin
             // Post the journal

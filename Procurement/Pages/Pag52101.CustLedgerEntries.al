@@ -1,7 +1,7 @@
 page  52178745 "Cust Ledger Entries Cust"
 {
     ApplicationArea = All;
-    Caption = 'Cust Ledger Entries';
+    Caption = 'Cust Ledger Entries Custom';
     PageType = List;
     UsageCategory=Administration;
     SourceTable = "Cust Ledger Entries Custom";

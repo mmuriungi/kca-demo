@@ -1,5 +1,5 @@
 
-   /*namespace Microsoft.Sales.Receivables;
+/*namespace Microsoft.Sales.Receivables;
 
 using Microsoft.Bank.BankAccount;
 using Microsoft.Bank.DirectDebit;
@@ -68,10 +68,10 @@ table 52178744 "Cust Ledger Entries Custom"
         {
             Caption = 'Description';
         }
-        field(8; "Customer Name"; Text[100])
-        {
-            Caption = 'Customer Name';
-        }
+        // field(8; "Customer Name"; Text[100])
+        //{
+        //  Caption = 'Customer Name';
+        //}
         field(10; "Your Reference"; Text[35])
         {
             Caption = 'Your Reference';
@@ -587,7 +587,7 @@ table 52178744 "Cust Ledger Entries Custom"
                 IsHandled: Boolean;
             begin
                 IsHandled := false;
-              //  OnBeforeValidateMessagetoRecipient(Rec, IsHandled);
+                //  OnBeforeValidateMessagetoRecipient(Rec, IsHandled);
                 if IsHandled then
                     exit;
 
@@ -691,7 +691,7 @@ table 52178744 "Cust Ledger Entries Custom"
             Caption = 'Promised Pay Date';
             DataClassification = CustomerContent;
         }
-        field(1342;Posted; Boolean)
+        field(1342; Posted; Boolean)
         {
             Caption = 'Posted';
             Editable = false;
@@ -838,7 +838,7 @@ table 52178744 "Cust Ledger Entries Custom"
                 end;
         end;
 
-       // OnAfterShowDoc(Rec);
+        // OnAfterShowDoc(Rec);
     end;
 
     procedure ShowPostedDocAttachment()
@@ -1017,7 +1017,7 @@ table 52178744 "Cust Ledger Entries Custom"
 
     procedure SetAmountToApply(AppliesToDocNo: Code[20]; CustomerNo: Code[20])
     begin
-       // OnBeforeSetAmountToApply(Rec, AppliesToDocNo, CustomerNo);
+        // OnBeforeSetAmountToApply(Rec, AppliesToDocNo, CustomerNo);
 
         SetCurrentKey("Document No.");
         SetRange("Document No.", AppliesToDocNo);
@@ -1091,7 +1091,7 @@ table 52178744 "Cust Ledger Entries Custom"
         "Original Amount" := CVLedgerEntryBuffer."Original Amount";
         "Original Amt. (LCY)" := CVLedgerEntryBuffer."Original Amt. (LCY)";
 
-       // OnAfterCopyCustLedgerEntryFromCVLedgEntryBuffer(Rec, CVLedgerEntryBuffer);
+        // OnAfterCopyCustLedgerEntryFromCVLedgEntryBuffer(Rec, CVLedgerEntryBuffer);
     end;
 
     procedure RecalculateAmounts(FromCurrencyCode: Code[10]; ToCurrencyCode: Code[10]; PostingDate: Date)
@@ -1114,7 +1114,7 @@ table 52178744 "Cust Ledger Entries Custom"
             "Amount to Apply" :=
               CurrExchRate.ExchangeAmount("Amount to Apply", FromCurrencyCode, ToCurrencyCode, PostingDate);
         end;
-      //  OnAfterRecalculateAmounts(Rec, FromCurrencyCode, ToCurrencyCode, PostingDate);
+        //  OnAfterRecalculateAmounts(Rec, FromCurrencyCode, ToCurrencyCode, PostingDate);
     end;
 
     procedure UpdateAmountsForApplication(ApplnDate: Date; ApplnCurrencyCode: Code[10]; RoundAmounts: Boolean; UpdateMaxPaymentTolerance: Boolean)
@@ -1123,7 +1123,7 @@ table 52178744 "Cust Ledger Entries Custom"
         IsHandled: Boolean;
     begin
         IsHandled := false;
-       // OnBeforeUpdateAmountsForApplication(Rec, ApplnDate, ApplnCurrencyCode, RoundAmounts, UpdateMaxPaymentTolerance, IsHandled);
+        // OnBeforeUpdateAmountsForApplication(Rec, ApplnDate, ApplnCurrencyCode, RoundAmounts, UpdateMaxPaymentTolerance, IsHandled);
         if not IsHandled then begin
             //new
             if "Currency Code" = ApplnCurrencyCode then
@@ -1158,14 +1158,14 @@ table 52178744 "Cust Ledger Entries Custom"
                         ApplnDate, "Currency Code", ApplnCurrencyCode, "Amount to Apply");
             end;
         end;
-      //  OnAfterUpdateAmountsForApplication(Rec, ApplnDate, ApplnCurrencyCode, RoundAmounts, UpdateMaxPaymentTolerance);
+        //  OnAfterUpdateAmountsForApplication(Rec, ApplnDate, ApplnCurrencyCode, RoundAmounts, UpdateMaxPaymentTolerance);
     end;
 
     procedure GetRemainingPmtDiscPossible(ReferenceDate: Date) RemainingPmtDiscPossible: Decimal
     begin
         RemainingPmtDiscPossible := "Remaining Pmt. Disc. Possible";
 
-       // OnAfterGetRemainingPmtDiscPossible(Rec, ReferenceDate, RemainingPmtDiscPossible);
+        // OnAfterGetRemainingPmtDiscPossible(Rec, ReferenceDate, RemainingPmtDiscPossible);
     end;
 
     local procedure AreOppositeSign(Amount1: Decimal; Amount2: Decimal): Boolean
