@@ -352,6 +352,10 @@ table 50352 "HRM-Setup"
             FieldClass = FlowField;
             CalcFormula = Lookup("G/L Account".Name WHERE("No." = FIELD("Parttimer G/L Account")));
         }
+        field(50084; "Medical Claims Batch Nos."; Code[20])
+        {
+            TableRelation = "No. Series";
+        }
     }
 
 

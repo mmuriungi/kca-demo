@@ -103,8 +103,10 @@ page 52178742 "Update Customer Ledger Entries"
                 ToolTip = 'Post all unposted lines to the general ledger and delete them.';
 
                 trigger OnAction()
+                var
+                    Processor: Codeunit "Customer Ledger Processor";
                 begin
-                    PostAllEntries();
+                    Processor.InsertUnpostedToGenJournal();
                 end;
             }
         }
@@ -258,9 +260,14 @@ page 52178742 "Update Customer Ledger Entries"
         if not GenJournalLine.Insert(true) then
             exit(false);
 
-        // Post in its own transaction    
-        if not Codeunit.Run(Codeunit::"Gen. Jnl.-Post Line", GenJournalLine) then
+        // Post in its own transaction   
+        //   CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", GenJnlLine);
+
+        if not Codeunit.Run(Codeunit::"Gen. Jnl.-Post Line", GenJournalLine) then begin
+            Error('Posting failed for Document No. %1: %2', GenJournalLine."Document No.", GetLastErrorText);
             exit(false);
+        end;
+
 
         // Find and delete the original record in its own transaction
         if CustLedgerUpload.Get(RecID) then

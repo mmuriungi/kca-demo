@@ -116,6 +116,10 @@ page 50657 "HRM-Setup"
                 {
                     ApplicationArea = all;
                 }
+                field("Medical Claims Batch Nos."; Rec."Medical Claims Batch Nos.")
+                {
+                    ApplicationArea = all;
+                }
                 field("Induction Nos"; Rec."Induction Nos")
                 {
                     ApplicationArea = all;

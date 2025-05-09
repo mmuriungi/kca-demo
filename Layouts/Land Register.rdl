@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompInfoName">
+          <DataField>CompInfoName</DataField>
+        </Field>
+        <Field Name="CompInfoPicture">
+          <DataField>CompInfoPicture</DataField>
+        </Field>
+        <Field Name="CompInfoAddress">
+          <DataField>CompInfoAddress</DataField>
+        </Field>
+        <Field Name="CompInfoPhone">
+          <DataField>CompInfoPhone</DataField>
+        </Field>
+        <Field Name="CompInfoEmail">
+          <DataField>CompInfoEmail</DataField>
+        </Field>
+        <Field Name="CompInfoWebPage">
+          <DataField>CompInfoWebPage</DataField>
+        </Field>
+        <Field Name="No_FixedAsset">
+          <DataField>No_FixedAsset</DataField>
+        </Field>
+        <Field Name="FIxedAssetLocation_FixedAsset">
+          <DataField>FIxedAssetLocation_FixedAsset</DataField>
+        </Field>
+        <Field Name="Revaluation_FixedAsset">
+          <DataField>Revaluation_FixedAsset</DataField>
+        </Field>
+        <Field Name="Revaluation_FixedAssetFormat">
+          <DataField>Revaluation_FixedAssetFormat</DataField>
+        </Field>
+        <Field Name="Description_FixedAsset">
+          <DataField>Description_FixedAsset</DataField>
+        </Field>
+        <Field Name="Desription2_FixedAsset">
+          <DataField>Desription2_FixedAsset</DataField>
+        </Field>
+        <Field Name="ModeofAcquisition_FixedAsset">
+          <DataField>ModeofAcquisition_FixedAsset</DataField>
+        </Field>
+        <Field Name="Category_FixedAsset">
+          <DataField>Category_FixedAsset</DataField>
+        </Field>
+        <Field Name="County_FixedAsset">
+          <DataField>County_FixedAsset</DataField>
+        </Field>
+        <Field Name="NearestTown_FixedAsset">
+          <DataField>NearestTown_FixedAsset</DataField>
+        </Field>
+        <Field Name="LRNo_FixedAsset">
+          <DataField>LRNo_FixedAsset</DataField>
+        </Field>
+        <Field Name="OwnershipStatus_FixedAsset">
+          <DataField>OwnershipStatus_FixedAsset</DataField>
+        </Field>
+        <Field Name="DocumentofOwnership_FixedAsset">
+          <DataField>DocumentofOwnership_FixedAsset</DataField>
+        </Field>
+        <Field Name="LandSize_FixedAsset">
+          <DataField>LandSize_FixedAsset</DataField>
+        </Field>
+        <Field Name="Remarks_FixedAsset">
+          <DataField>Remarks_FixedAsset</DataField>
+        </Field>
+        <Field Name="AnnualRentalIncome_FixedAsset">
+          <DataField>AnnualRentalIncome_FixedAsset</DataField>
+        </Field>
+        <Field Name="AnnualRentalIncome_FixedAssetFormat">
+          <DataField>AnnualRentalIncome_FixedAssetFormat</DataField>
+        </Field>
+        <Field Name="BuildingOwnership_FixedAsset">
+          <DataField>BuildingOwnership_FixedAsset</DataField>
+        </Field>
+        <Field Name="BuildingNo_FixedAsset">
+          <DataField>BuildingNo_FixedAsset</DataField>
+        </Field>
+        <Field Name="SourceofFunds_FixedAsset">
+          <DataField>SourceofFunds_FixedAsset</DataField>
+        </Field>
+        <Field Name="TypeofBuilding_FixedAsset">
+          <DataField>TypeofBuilding_FixedAsset</DataField>
+        </Field>
+        <Field Name="DesignatedUse_FixedAsset">
+          <DataField>DesignatedUse_FixedAsset</DataField>
+        </Field>
+        <Field Name="EstimatedUsefulLife_FixedAsset">
+          <DataField>EstimatedUsefulLife_FixedAsset</DataField>
+        </Field>
+        <Field Name="NoofFloors_FixedAsset">
+          <DataField>NoofFloors_FixedAsset</DataField>
+        </Field>
+        <Field Name="PlinthArea_FixedAsset">
+          <DataField>PlinthArea_FixedAsset</DataField>
+        </Field>
+        <Field Name="VehicleRegistrationNo_FixedAsset">
+          <DataField>VehicleRegistrationNo_FixedAsset</DataField>
+        </Field>
+        <Field Name="EngineNo_FixedAsset">
+          <DataField>EngineNo_FixedAsset</DataField>
+        </Field>
+        <Field Name="ChasisNo_FixedAsset">
+          <DataField>ChasisNo_FixedAsset</DataField>
+        </Field>
+        <Field Name="TagNo_FixedAsset">
+          <DataField>TagNo_FixedAsset</DataField>
+        </Field>
+        <Field Name="Model_FixedAsset">
+          <DataField>Model_FixedAsset</DataField>
+        </Field>
+        <Field Name="YearofPurchase_FixedAsset">
+          <DataField>YearofPurchase_FixedAsset</DataField>
+        </Field>
+        <Field Name="RevaluationDate_FixedAsset">
+          <DataField>RevaluationDate_FixedAsset</DataField>
+        </Field>
+        <Field Name="PvNumber_FixedAsset">
+          <DataField>PvNumber_FixedAsset</DataField>
+        </Field>
+        <Field Name="OriginalLocation_FixedAsset">
+          <DataField>OriginalLocation_FixedAsset</DataField>
+        </Field>
+        <Field Name="ReplacementDate_FixedAsset">
+          <DataField>ReplacementDate_FixedAsset</DataField>
+        </Field>
+        <Field Name="LocationCode_FixedAsset">
+          <DataField>LocationCode_FixedAsset</DataField>
+        </Field>
+        <Field Name="ResponsibleEmployee_FixedAsset">
+          <DataField>ResponsibleEmployee_FixedAsset</DataField>
+        </Field>
+        <Field Name="Condition_FixedAsset">
+          <DataField>Condition_FixedAsset</DataField>
+        </Field>
+        <Field Name="SerialNo_FixedAsset">
+          <DataField>SerialNo_FixedAsset</DataField>
+        </Field>
+        <Field Name="DeliveryDate_FixedAsset">
+          <DataField>DeliveryDate_FixedAsset</DataField>
+        </Field>
+        <Field Name="AcquiredFrom_FixedAsset">
+          <DataField>AcquiredFrom_FixedAsset</DataField>
+        </Field>
+        <Field Name="DocumentName">
+          <DataField>DocumentName</DataField>
+        </Field>
+        <Field Name="InstitutionNo_FixedAsset">
+          <DataField>InstitutionNo_FixedAsset</DataField>
+        </Field>
+        <Field Name="Notes_FixedAsset">
+          <DataField>Notes_FixedAsset</DataField>
+        </Field>
+        <Field Name="Street_FixedAsset">
+          <DataField>Street_FixedAsset</DataField>
+        </Field>
+        <Field Name="EmpName">
+          <DataField>EmpName</DataField>
+        </Field>
+        <Field Name="seq">
+          <DataField>seq</DataField>
+        </Field>
+        <Field Name="AcquisitionCost_FADepreciationBook">
+          <DataField>AcquisitionCost_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="AcquisitionCost_FADepreciationBookFormat">
+          <DataField>AcquisitionCost_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="AcquisitionDate_FADepreciationBook">
+          <DataField>AcquisitionDate_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="BookValue_FADepreciationBook">
+          <DataField>BookValue_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="BookValue_FADepreciationBookFormat">
+          <DataField>BookValue_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="BookValueonDisposal_FADepreciationBook">
+          <DataField>BookValueonDisposal_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="BookValueonDisposal_FADepreciationBookFormat">
+          <DataField>BookValueonDisposal_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="DepreciationEndingDate_FADepreciationBook">
+          <DataField>DepreciationEndingDate_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="DisposalDate_FADepreciationBook">
+          <DataField>DisposalDate_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="EndingBookValue_FADepreciationBook">
+          <DataField>EndingBookValue_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="EndingBookValue_FADepreciationBookFormat">
+          <DataField>EndingBookValue_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="NoofDepreciationMonths_FADepreciationBook">
+          <DataField>NoofDepreciationMonths_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="NoofDepreciationMonths_FADepreciationBookFormat">
+          <DataField>NoofDepreciationMonths_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="NoofDepreciationYears_FADepreciationBook">
+          <DataField>NoofDepreciationYears_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="NoofDepreciationYears_FADepreciationBookFormat">
+          <DataField>NoofDepreciationYears_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="ProjectedDisposalDate_FADepreciationBook">
+          <DataField>ProjectedDisposalDate_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="SalvageValue_FADepreciationBook">
+          <DataField>SalvageValue_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="SalvageValue_FADepreciationBookFormat">
+          <DataField>SalvageValue_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="StraightLine_FADepreciationBook">
+          <DataField>StraightLine_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="StraightLine_FADepreciationBookFormat">
+          <DataField>StraightLine_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="DepreciationStartingDate_FADepreciationBook">
+          <DataField>DepreciationStartingDate_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="DepreciationMethod_FADepreciationBook">
+          <DataField>DepreciationMethod_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="Depreciation_FADepreciationBook">
+          <DataField>Depreciation_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="Depreciation_FADepreciationBookFormat">
+          <DataField>Depreciation_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="DecliningBalance_FADepreciationBook">
+          <DataField>DecliningBalance_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="DecliningBalance_FADepreciationBookFormat">
+          <DataField>DecliningBalance_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="AccumDeprCustom1_FADepreciationBook">
+          <DataField>AccumDeprCustom1_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="AccumDeprCustom1_FADepreciationBookFormat">
+          <DataField>AccumDeprCustom1_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="Description_FADepreciationBook">
+          <DataField>Description_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="FixedDeprAmount_FADepreciationBook">
+          <DataField>FixedDeprAmount_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="FixedDeprAmount_FADepreciationBookFormat">
+          <DataField>FixedDeprAmount_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="LastAcquisitionCostDate_FADepreciationBook">
+          <DataField>LastAcquisitionCostDate_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="LastDepreciationDate_FADepreciationBook">
+          <DataField>LastDepreciationDate_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="LastMaintenanceDate_FADepreciationBook">
+          <DataField>LastMaintenanceDate_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="Maintenance_FADepreciationBook">
+          <DataField>Maintenance_FADepreciationBook</DataField>
+        </Field>
+        <Field Name="Maintenance_FADepreciationBookFormat">
+          <DataField>Maintenance_FADepreciationBookFormat</DataField>
+        </Field>
+        <Field Name="AmountLCY_FALedgerEntries">
+          <DataField>AmountLCY_FALedgerEntries</DataField>
+        </Field>
+        <Field Name="AmountLCY_FALedgerEntriesFormat">
+          <DataField>AmountLCY_FALedgerEntriesFormat</DataField>
+        </Field>
+        <Field Name="Amount_FALedgerEntries">
+          <DataField>Amount_FALedgerEntries</DataField>
+        </Field>
+        <Field Name="Amount_FALedgerEntriesFormat">
+          <DataField>Amount_FALedgerEntriesFormat</DataField>
+        </Field>
+        <Field Name="DocumentType_FALedgerEntries">
+          <DataField>DocumentType_FALedgerEntries</DataField>
+        </Field>
+        <Field Name="DocumentDate_FALedgerEntries">
+          <DataField>DocumentDate_FALedgerEntries</DataField>
+        </Field>
+        <Field Name="ExternalDocumentNo_FALedgerEntries">
+          <DataField>ExternalDocumentNo_FALedgerEntries</DataField>
+        </Field>
+        <Field Name="FAPostingType_FALedgerEntries">
+          <DataField>FAPostingType_FALedgerEntries</DataField>
+        </Field>
+        <Field Name="FixedDeprAmount_FALedgerEntries">
+          <DataField>FixedDeprAmount_FALedgerEntries</DataField>
+        </Field>
+        <Field Name="FixedDeprAmount_FALedgerEntriesFormat">
+          <DataField>FixedDeprAmount_FALedgerEntriesFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>
