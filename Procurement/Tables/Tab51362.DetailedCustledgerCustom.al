@@ -17,7 +17,7 @@ table 51362 "Detailed Cust ledger Custom"
         field(2; "Cust. Ledger Entry No."; Integer)
         {
             Caption = 'Cust. Ledger Entry No.';
-            TableRelation = "Cust. Ledger Entry";
+            TableRelation = "Cust Ledger Entries Custom";
         }
         field(3; "Entry Type"; Enum "Detailed CV Ledger Entry Type")
         {
