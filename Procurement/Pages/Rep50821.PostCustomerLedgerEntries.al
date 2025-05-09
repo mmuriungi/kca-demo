@@ -7,9 +7,9 @@ report 50821 "Post Customer Ledger Entries"
     
     dataset
     {
-        dataitem("Cust Ledger Entries Custom"; "Cust Ledger Entries Custom")
+        dataitem("Detailed Cust ledger Custom"; "Detailed Cust ledger Custom")
         {
-            DataItemTableView = WHERE(Posted = CONST(false));
+            DataItemTableView = WHERE(Posted = CONST(false),"Entry Type"=const("Initial Entry"));
             RequestFilterFields = "Posting Date";
             
             trigger OnPreDataItem()
@@ -31,7 +31,7 @@ report 50821 "Post Customer Ledger Entries"
                 Window.Update(1, Counter);
                 Window.Update(2, TotalCount);
                 
-                PostTransactionToGL("Cust Ledger Entries Custom");
+                PostTransactionToGL("Detailed Cust ledger Custom");
             end;
             
             trigger OnPostDataItem()
@@ -81,7 +81,7 @@ report 50821 "Post Customer Ledger Entries"
     trigger OnPreReport()
     begin
         if (StartDate <> 0D) and (EndDate <> 0D) then begin
-            "Cust Ledger Entries Custom".SetRange("Posting Date", StartDate, EndDate);
+           "Detailed Cust ledger Custom".SetRange("Posting Date", StartDate, EndDate);
         end;
     end;
     
@@ -95,7 +95,7 @@ report 50821 "Post Customer Ledger Entries"
         ErrorCount: Integer;
         SkippedCount: Integer;
     
-    local procedure PostTransactionToGL(var CustLedgerEntry: Record "Cust Ledger Entries Custom")
+    local procedure PostTransactionToGL(var CustLedgerEntry: Record "Detailed Cust ledger Custom")
     var
         GenJournalLine: Record "Gen. Journal Line";
         GenJournalBatch: Record "Gen. Journal Batch";

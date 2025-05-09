@@ -62,4 +62,7 @@ page  52178745 "Cust Ledger Entries Cust"
         }
     }
 }
+var
+
+DetailedCustLEdger: Record "Detailed Cust. Ledg. Entry";
 }
