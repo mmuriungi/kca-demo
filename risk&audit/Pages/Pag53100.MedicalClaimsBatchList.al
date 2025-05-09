@@ -149,25 +149,26 @@ page 53100 "Medical Claims Batch List"
                     MedClaims.Reset();
                     MedClaims.SetRange("Batch No.", Rec."Batch No.");
                     recref.GetTable(MedClaims);
-                    FieldRef[1] := recref.Field(MedClaims.FieldNo("Claim Date"));
-                    FieldRef[2] := recref.Field(MedClaims.FieldNo("Claim Type"));
-                    FieldRef[3] := recref.Field(MedClaims.FieldNo("Member No"));
-                    FieldRef[4] := recref.Field(MedClaims.FieldNo("Member Names"));
-                    FieldRef[5] := recref.Field(MedClaims.FieldNo("Scheme No"));
-                    FieldRef[6] := recref.Field(MedClaims.FieldNo("Scheme Name"));
-                    FieldRef[7] := recref.Field(MedClaims.FieldNo("Facility Attended"));
-                    FieldRef[8] := recref.Field(MedClaims.FieldNo("Date of Service"));
-                    FieldRef[9] := recref.Field(MedClaims.FieldNo("Claim Currency Code"));
-                    FieldRef[10] := recref.Field(MedClaims.FieldNo("Claim Amount"));
-                    FieldRef[11] := recref.Field(MedClaims.FieldNo("Comments"));
-                    FieldRef[12] := recref.Field(MedClaims.FieldNo("Document Ref"));
-                    FieldRef[13] := recref.Field(MedClaims.FieldNo("Dependants"));
-                    FieldRef[14] := recref.Field(MedClaims.FieldNo("Patient Name"));
-                    FieldRef[15] := recref.Field(MedClaims.FieldNo("Patient Type"));
-                    FieldRef[16] := recref.Field(MedClaims.FieldNo("Scheme Currency Code"));
-                    FieldRef[17] := recref.Field(MedClaims.FieldNo("Scheme Amount Charged"));
+                    FieldRef[1] := recref.Field(MedClaims.FieldNo("Batch No."));
+                    FieldRef[2] := recref.Field(MedClaims.FieldNo("Claim Date"));
+                    FieldRef[3] := recref.Field(MedClaims.FieldNo("Claim Type"));
+                    FieldRef[4] := recref.Field(MedClaims.FieldNo("Member No"));
+                    FieldRef[5] := recref.Field(MedClaims.FieldNo("Member Names"));
+                    FieldRef[6] := recref.Field(MedClaims.FieldNo("Scheme No"));
+                    FieldRef[7] := recref.Field(MedClaims.FieldNo("Scheme Name"));
+                    FieldRef[8] := recref.Field(MedClaims.FieldNo("Facility Attended"));
+                    FieldRef[9] := recref.Field(MedClaims.FieldNo("Date of Service"));
+                    FieldRef[10] := recref.Field(MedClaims.FieldNo("Claim Currency Code"));
+                    FieldRef[11] := recref.Field(MedClaims.FieldNo("Claim Amount"));
+                    FieldRef[12] := recref.Field(MedClaims.FieldNo("Comments"));
+                    FieldRef[13] := recref.Field(MedClaims.FieldNo("Document Ref"));
+                    FieldRef[14] := recref.Field(MedClaims.FieldNo("Dependants"));
+                    FieldRef[15] := recref.Field(MedClaims.FieldNo("Patient Name"));
+                    FieldRef[16] := recref.Field(MedClaims.FieldNo("Patient Type"));
+                    FieldRef[17] := recref.Field(MedClaims.FieldNo("Scheme Currency Code"));
+                    FieldRef[18] := recref.Field(MedClaims.FieldNo("Scheme Amount Charged"));
                     FileName := 'Medical Claims.xlsx';
-                    csv.ExportExcelFile(FileName, recref, FieldRef, 17, ExcelBuffer, 'Medical Claims', 1);
+                    csv.ExportExcelFile(FileName, recref, FieldRef, 18, ExcelBuffer, 'Medical Claims', 1);
                     csv.downloadFromExelBuffer(ExcelBuffer, FileName);
                 end;
 
@@ -191,7 +192,10 @@ page 53100 "Medical Claims Batch List"
                 begin
                     recref[1].GetTable(MedClaims);
                     ArrSheetName[1] := 'Medical Claims';
+
+                    fieldlist.Add(MedClaims.FieldNo("Batch No."));
                     fieldlist.Add(MedClaims.FieldNo("Claim Date"));
+                    fieldlist.Add(MedClaims.FieldNo("Claim Type"));
                     fieldlist.Add(MedClaims.FieldNo("Member No"));
                     fieldlist.Add(MedClaims.FieldNo("Member Names"));
                     fieldlist.Add(MedClaims.FieldNo("Scheme No"));
