@@ -3,9 +3,9 @@ table 51362 "Detailed Cust ledger Custom"
 {
     Caption = 'Detailed Cust. Ledg. Entry Custom';
     DataCaptionFields = "Customer No.";
-   // DrillDownPageID = "Detailed Cust. Ledg. Entries";
-   // LookupPageID = "Detailed Cust. Ledg. Entries";
-   // Permissions = TableData "Detailed Cust. Ledg. Entry" = m;
+    // DrillDownPageID = "Detailed Cust. Ledg. Entries";
+    // LookupPageID = "Detailed Cust. Ledg. Entries";
+    // Permissions = TableData "Detailed Cust. Ledg. Entry" = m;
     DataClassification = CustomerContent;
 
     fields
@@ -209,17 +209,18 @@ table 51362 "Detailed Cust ledger Custom"
             Editable = false;
             TableRelation = "Exch. Rate Adjmt. Reg.";
         }
-        field(46;Description; Text[250])
+        field(46; Description; Text[250])
         {
             Caption = 'Description';
-            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Cust Ledger Entries Custom".Description where("Entry No." = FIELD("Cust. Ledger Entry No."), "Date Filter" = field("Posting Date")));
         }
         field(47; "Source Code Description"; Text[250])
         {
             Caption = 'Source Code Description';
             Editable = false;
         }
-        field(48;Posted; Boolean)
+        field(48; Posted; Boolean)
         {
             Caption = 'Posted';
             Editable = false;
@@ -322,7 +323,7 @@ table 51362 "Detailed Cust ledger Custom"
             "Credit Amount (LCY)" := -"Amount (LCY)";
         end;
 
-       // OnAfterUpdateDebitCredit(Rec, Correction);
+        // OnAfterUpdateDebitCredit(Rec, Correction);
     end;
 
     procedure SetZeroTransNo(TransactionNo: Integer)
@@ -348,7 +349,7 @@ table 51362 "Detailed Cust ledger Custom"
         IsHandled: Boolean;
     begin
         IsHandled := false;
-       // OnBeforeSetLedgerEntryAmount(Rec, IsHandled);
+        // OnBeforeSetLedgerEntryAmount(Rec, IsHandled);
         if IsHandled then
             exit;
 

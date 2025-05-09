@@ -5,7 +5,7 @@ page 52104 "Detailed Cust Ledger Custom"
     PageType = List;
     SourceTable = "Detailed Cust ledger Custom";
     UsageCategory = Administration;
-    
+
     layout
     {
         area(Content)
@@ -32,7 +32,7 @@ page 52104 "Detailed Cust Ledger Custom"
                 {
                     ToolTip = 'Specifies the value of the Amount field.', Comment = '%';
                 }
-                field(Description;Rec.Description)
+                field(Description; Rec.Description)
                 {
                     ToolTip = 'Specifies the value of the Description field.', Comment = '%';
                 }
@@ -40,31 +40,35 @@ page 52104 "Detailed Cust Ledger Custom"
                 {
                     ToolTip = 'Specifies the value of the Posted field.', Comment = '%';
                 }
+                field("Source Code Description"; Rec."Source Code Description")
+                {
+                    ToolTip = 'Specifies the value of the Source Code Description field.', Comment = '%';
+                }
             }
         }
     }
-     actions
-{
-    area(Processing)
+    actions
     {
-        action(PostToGL)
+        area(Processing)
         {
-            ApplicationArea = All;
-            Caption = 'Post to G/L';
-            Image = PostBatch;
-            Promoted = true;
-            PromotedCategory = Process;
-            PromotedIsBig = true;
-            ToolTip = 'Post unposted entries to General Ledger';
-            
-            trigger OnAction()
-            var
-                PostCustLedgerReport: Report "Post Customer Ledger Entries";
-            begin
-                PostCustLedgerReport.RunModal();
-                CurrPage.Update(false);
-            end;
+            action(PostToGL)
+            {
+                ApplicationArea = All;
+                Caption = 'Post to G/L';
+                Image = PostBatch;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Post unposted entries to General Ledger';
+
+                trigger OnAction()
+                var
+                    PostCustLedgerReport: Report "Post Customer Ledger Entries";
+                begin
+                    PostCustLedgerReport.RunModal();
+                    CurrPage.Update(false);
+                end;
+            }
         }
     }
-}
 }
