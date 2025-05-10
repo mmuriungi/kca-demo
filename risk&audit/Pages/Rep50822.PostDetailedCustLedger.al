@@ -9,7 +9,7 @@ report 50822 "Post Detailed Cust Ledger"
     {
         dataitem("Detailed Cust ledger Custom"; "Detailed Cust ledger Custom")
         {
-            RequestFilterFields = "Document No.", "Customer No.", "Posting Date", "Entry Type";
+            RequestFilterFields = "Document No.", "Customer No.", "Posting Date", "Entry Type",Posted;
             DataItemTableView = where("Entry Type" = const("Initial Entry"));
 
             trigger OnAfterGetRecord()
@@ -20,6 +20,14 @@ report 50822 "Post Detailed Cust Ledger"
                 PostingSuccess: Boolean;
             begin
                 // Check if the record exists in Customer Ledger Entries
+                 GenJournalLine.Reset();
+                GenJournalLine.SetRange("Journal Template Name", 'GENERAL');
+                GenJournalLine.SetRange("Journal Batch Name", 'DEFAULT');
+                if GenJournalLine.FindSet() then begin
+                    GenJournalLine.DeleteAll();
+
+                end;
+
                 CustLedgerEntry.Reset();
                 CustLedgerEntry.SetRange("Document No.", "Detailed Cust ledger Custom"."Document No.");
                 CustLedgerEntry.SetRange("Customer No.", "Detailed Cust ledger Custom"."Customer No.");
@@ -35,6 +43,7 @@ report 50822 "Post Detailed Cust Ledger"
                     LineNo := GenJournalLine."Line No." + 10000
                 else
                     LineNo := 10000;
+                "Detailed Cust ledger Custom".CalcFields(Description);
 
                 // Insert into Gen. Journal Line
                 GenJournalLine.Init();
@@ -43,6 +52,7 @@ report 50822 "Post Detailed Cust Ledger"
                 GenJournalLine.Validate("Line No.", LineNo);
                 GenJournalLine.Validate("Posting Date", "Detailed Cust ledger Custom"."Posting Date");
                 GenJournalLine.Validate("Document No.", "Detailed Cust ledger Custom"."Document No.");
+                //GenJournalLine.Validate("Shortcut Dimension 1 Code", "Detailed Cust ledger Custom".glo);
                 GenJournalLine.Validate("Account Type", GenJournalLine."Account Type"::Customer);
                 GenJournalLine.Validate("Account No.", "Detailed Cust ledger Custom"."Customer No.");
                 GenJournalLine.Validate(Description, "Detailed Cust ledger Custom".Description);
@@ -100,10 +110,10 @@ report 50822 "Post Detailed Cust Ledger"
             if CloseAction = Action::OK then begin
                 if StartDateFilter = 0D then
                     Error('Start Date is required.');
-                
+
                 if EndDateFilter = 0D then
                     Error('End Date is required.');
-                
+
                 if StartDateFilter > EndDateFilter then
                     Error('Start Date cannot be later than End Date.');
             end;
@@ -116,16 +126,16 @@ report 50822 "Post Detailed Cust Ledger"
         // Validate and apply date filter
         if (StartDateFilter = 0D) or (EndDateFilter = 0D) then
             Error('Both Start Date and End Date are required.');
-            
+
         if StartDateFilter > EndDateFilter then
             Error('Start Date cannot be later than End Date.');
-            
+
         // Apply the date filter
         "Detailed Cust ledger Custom".SetRange("Posting Date", StartDateFilter, EndDateFilter);
 
         // Confirm if only date filters are set
         if "Detailed Cust ledger Custom".GetFilters = '' then
-            if not Confirm('Only date filters are set (%1 to %2). Do you want to process all unposted initial entries within this date range?', 
+            if not Confirm('Only date filters are set (%1 to %2). Do you want to process all unposted initial entries within this date range?',
                             false, StartDateFilter, EndDateFilter) then
                 Error('Report canceled by user.');
 
