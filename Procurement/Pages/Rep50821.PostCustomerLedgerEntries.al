@@ -7,32 +7,45 @@ report 50821 "Post Customer Ledger Entries"
 
     dataset
     {
-        dataitem("Detailed Cust ledger Custom"; "Detailed Cust ledger Custom")
+        dataitem(DetailedEntry; "Detailed Cust ledger Custom")
         {
-            DataItemTableView = WHERE(Posted = CONST(false), "Entry Type" = const("Initial Entry"));
             RequestFilterFields = "Posting Date", "Document No.";
-            CalcFields = Description;
 
-            trigger OnPreDataItem()
-            begin
-                if not Confirm('Do you want to post %1 unposted customer ledger entries?', false, Count) then
-                    CurrReport.Break();
+           trigger OnPreDataItem()
+begin
+    // Apply filters
+    DetailedEntry.SetRange(Posted, false);
+    DetailedEntry.SetRange("Entry Type", DetailedEntry."Entry Type"::"Initial Entry");
 
-                Window.Open('Posting entries #1#### of #2####');
-                TotalCount := Count;
-                Counter := 0;
-                SuccessCount := 0;
-                ErrorCount := 0;
-                SkippedCount := 0;
-            end;
+    if (StartDate <> 0D) and (EndDate <> 0D) then
+        DetailedEntry.SetRange("Posting Date", StartDate, EndDate);
+
+    TotalCount := DetailedEntry.Count;
+
+    if TotalCount = 0 then begin
+        Message('No unposted customer ledger entries found.');
+        CurrReport.Break();
+    end;
+
+    if not Confirm('Do you want to post %1 unposted customer ledger entries?', false, TotalCount) then
+        CurrReport.Break();
+
+    // Only open dialog when you're sure the report will run
+    Window.Open('Posting entry #1#### of #2####');
+    Counter := 0;
+    SuccessCount := 0;
+    ErrorCount := 0;
+    SkippedCount := 0;
+end;
+
+
 
             trigger OnAfterGetRecord()
             begin
                 Counter += 1;
                 Window.Update(1, Counter);
                 Window.Update(2, TotalCount);
-
-                PostTransactionToGL("Detailed Cust ledger Custom");
+                PostTransactionToGL(DetailedEntry);
             end;
 
             trigger OnPostDataItem()
@@ -40,7 +53,7 @@ report 50821 "Post Customer Ledger Entries"
                 Window.Close();
                 Message('Posted %1 entries successfully.', SuccessCount);
                 if SkippedCount > 0 then
-                    Message('%1 entries were skipped because they already exist in Customer Ledger Entries.', SkippedCount);
+                    Message('%1 entries were skipped (duplicate in Cust. Ledger Entry).', SkippedCount);
                 if ErrorCount > 0 then
                     Message('%1 entries had errors during posting.', ErrorCount);
             end;
@@ -56,17 +69,15 @@ report 50821 "Post Customer Ledger Entries"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(StartDateCtrl; StartDate)
+                    field(StartDate; StartDate)
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-                        ToolTip = 'Specifies the starting date for the posting period.';
                     }
-                    field(EndDateCtrl; EndDate)
+                    field(EndDate; EndDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-                        ToolTip = 'Specifies the ending date for the posting period.';
                     }
                 }
             }
@@ -74,16 +85,17 @@ report 50821 "Post Customer Ledger Entries"
 
         trigger OnOpenPage()
         begin
-            EndDate := WorkDate();
-            StartDate := CalcDate('<-CM>', EndDate);
+            if EndDate = 0D then
+                EndDate := WorkDate();
+            if StartDate = 0D then
+                StartDate := CalcDate('<-CM>', EndDate);
         end;
     }
 
     trigger OnPreReport()
     begin
-        if (StartDate <> 0D) and (EndDate <> 0D) then begin
-            "Detailed Cust ledger Custom".SetRange("Posting Date", StartDate, EndDate);
-        end;
+        if (StartDate <> 0D) and (EndDate <> 0D) then
+            DetailedEntry.SetRange("Posting Date", StartDate, EndDate);
     end;
 
     var
@@ -101,34 +113,23 @@ report 50821 "Post Customer Ledger Entries"
         GenJournalLine: Record "Gen. Journal Line";
         GenJournalBatch: Record "Gen. Journal Batch";
         CustomerLedgerEntry: Record "Cust. Ledger Entry";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-        DuplicateExists: Boolean;
     begin
-        // Check for duplicate entries in standard Customer Ledger Entries
-        CustomerLedgerEntry.Reset();
         CustomerLedgerEntry.SetRange("Document No.", CustLedgerEntry."Document No.");
         CustomerLedgerEntry.SetRange(Amount, CustLedgerEntry.Amount);
         CustomerLedgerEntry.SetRange("Customer No.", CustLedgerEntry."Customer No.");
-        DuplicateExists := not CustomerLedgerEntry.IsEmpty;
 
-        if DuplicateExists then begin
-            // Mark as processed to avoid future processing attempts
+        if not CustomerLedgerEntry.IsEmpty then begin
             CustLedgerEntry.Posted := true;
             CustLedgerEntry.Modify();
-            // Increment counter for skipped entries
             SkippedCount += 1;
             exit;
         end;
 
-        // Find or create a batch
-        GenJournalBatch.Reset();
-        GenJournalBatch.SetRange("Journal Template Name", 'GENERAL');
-        if not GenJournalBatch.FindFirst() then begin
+        if not GenJournalBatch.Get('GENERAL', 'DEFAULT') then begin
             ErrorCount += 1;
             exit;
         end;
 
-        // Create journal line
         GenJournalLine.Init();
         GenJournalLine."Journal Template Name" := 'GENERAL';
         GenJournalLine."Journal Batch Name" := GenJournalBatch.Name;
@@ -143,9 +144,7 @@ report 50821 "Post Customer Ledger Entries"
         GenJournalLine.Description := CustLedgerEntry.Description;
 
         if GenJournalLine.Insert() then begin
-            // Post the journal
             if CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post", GenJournalLine) then begin
-                // Update Posted field
                 CustLedgerEntry.Posted := true;
                 CustLedgerEntry.Modify();
                 SuccessCount += 1;
