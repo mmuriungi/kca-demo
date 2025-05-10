@@ -1,7 +1,7 @@
-report 50822 "Post Detailed Cust Ledger"
+report 50822 "PostDetailed_Cust Ledger"
 {
     ApplicationArea = All;
-    Caption = 'Post Detailed Cust Ledger';
+    //Caption = 'Post Detailed Cust Ledger';
     ProcessingOnly = true;
     UsageCategory = ReportsAndAnalysis;
 
@@ -10,18 +10,18 @@ report 50822 "Post Detailed Cust Ledger"
         dataitem("Detailed Cust ledger Custom"; "Detailed Cust ledger Custom")
         {
             RequestFilterFields = "Document No.", "Customer No.", "Posting Date", "Entry Type", Posted;
-            DataItemTableView = where("Entry Type" = const("Initial Entry"), Posted = const(false));
+            // DataItemTableView = where("Entry Type" = const("Initial Entry"), Posted = const(false));
 
             trigger OnPreDataItem()
             begin
-                if (StartDate = 0D) or (EndDate = 0D) then
-                    Error('Both Start Date and End Date must be specified.');
+                /* if (StartDate = 0D) or (EndDate = 0D) then
+                     Error('Both Start Date and End Date must be specified.');
 
-                if StartDate > EndDate then
-                    Error('Start Date cannot be later than End Date.');
+                 if StartDate > EndDate then
+                     Error('Start Date cannot be later than End Date.');*/
 
                 // Apply date filter
-                "Detailed Cust ledger Custom".SetFilter("Posting Date", '%1..%2', StartDate, EndDate);
+                //"Detailed Cust ledger Custom".SetFilter("Posting Date", '%1..%2', StartDate, EndDate);
 
                 // Check if any records match criteria
                 // if "Detailed Cust ledger Custom".IsEmpty then
@@ -137,17 +137,17 @@ report 50822 "Post Detailed Cust Ledger"
 
         trigger OnQueryClosePage(CloseAction: Action): Boolean
         begin
-            if CloseAction = Action::OK then begin
-                if StartDate = 0D then
-                    Error('Start Date is required.');
+            /* if CloseAction = Action::OK then begin
+                 if StartDate = 0D then
+                     Error('Start Date is required.');
 
-                if EndDate = 0D then
-                    Error('End Date is required.');
+                 if EndDate = 0D then
+                     Error('End Date is required.');
 
-                if StartDate > EndDate then
-                    Error('Start Date cannot be later than End Date.');
-            end;
-            exit(true);
+                 if StartDate > EndDate then
+                     Error('Start Date cannot be later than End Date.');
+             end;
+             exit(true);*/
         end;
     }
 

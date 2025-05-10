@@ -1,4 +1,4 @@
-report 50823 "Post Detailed Cust Ledger Entr"
+report 50824 "Post Detailed Cust Ledger"
 {
     Caption = 'Post Detailed Cust Ledger Entries';
     ProcessingOnly = true;
@@ -11,14 +11,6 @@ report 50823 "Post Detailed Cust Ledger Entr"
         {
             RequestFilterFields = "Posting Date", Posted, "Entry Type";
 
-            trigger OnPreDataItem()
-            begin
-                Window.OPEN('Processing Records:\ Document No.: #1##############\ Customer No.: #2##############\ Amount: #3##############\ Records Processed: #4########');
-                TotalRecords := COUNT;
-                MESSAGE('Found %1 records to process', TotalRecords);
-                CurrentRecord := 0;
-            end;
-
             trigger OnAfterGetRecord()
             var
                 GenJnlLine: Record "Gen. Journal Line";
@@ -28,13 +20,6 @@ report 50823 "Post Detailed Cust Ledger Entr"
                 LineNo: Integer;
             begin
                 CALCFIELDS(Description);
-
-                // Update progress window
-                CurrentRecord += 1;
-                Window.UPDATE(1, "Document No.");
-                Window.UPDATE(2, "Customer No.");
-                Window.UPDATE(3, FORMAT(Amount));
-                Window.UPDATE(4, FORMAT(CurrentRecord) + ' of ' + FORMAT(TotalRecords));
 
                 // Setup Journal Template and Batch 
                 GenJnlTemplate := 'GENERAL';
@@ -62,7 +47,6 @@ report 50823 "Post Detailed Cust Ledger Entr"
                 GenJnlLine.Description := Description;
                 GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                 GenJnlLine."Bal. Account No." := '72001';
-                if GenJnlLine.Amount <> 0 then 
                 GenJnlLine.Insert(true);
 
                 // Post the line 
@@ -72,12 +56,6 @@ report 50823 "Post Detailed Cust Ledger Entr"
                 // Mark as posted 
                 Posted := true;
                 Modify();
-            end;
-
-            trigger OnPostDataItem()
-            begin
-                Window.CLOSE();
-                MESSAGE('Processing complete. %1 records were processed.', CurrentRecord);
             end;
         }
     }
@@ -115,13 +93,10 @@ report 50823 "Post Detailed Cust Ledger Entr"
     begin
         "Detailed Cust ledger Custom".SETRANGE("Posting Date", StartDate, EndDate);
         "Detailed Cust ledger Custom".SETRANGE(Posted, FALSE);
-        "Detailed Cust ledger Custom".SETRANGE("Entry Type",  "Detailed Cust ledger Custom"."Entry Type"::"Initial Entry");
+   
     end;
 
     var
         StartDate: Date;
         EndDate: Date;
-        Window: Dialog;
-        TotalRecords: Integer;
-        CurrentRecord: Integer;
 }
