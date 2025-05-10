@@ -9,8 +9,15 @@ report 50822 "Post Detailed Cust Ledger"
     {
         dataitem("Detailed Cust ledger Custom"; "Detailed Cust ledger Custom")
         {
-            RequestFilterFields = "Document No.", "Customer No.", "Posting Date", "Entry Type",Posted;
+            RequestFilterFields = "Document No.", "Customer No.", "Posting Date", "Entry Type", Posted;
             DataItemTableView = where("Entry Type" = const("Initial Entry"));
+
+            trigger OnPreDataItem()
+            begin
+                Window.Open('Processing Records:\ Document No.: #1##############\ Customer No.: #2##############\ Amount: #3##############\ Total Processed: #4########\ Total Failed: #5########');
+                TotalCount := Count;
+                Counter := 0;
+            end;
 
             trigger OnAfterGetRecord()
             var
@@ -19,21 +26,29 @@ report 50822 "Post Detailed Cust Ledger"
                 LineNo: Integer;
                 PostingSuccess: Boolean;
             begin
+                Counter += 1;
+                Window.Update(1, "Document No.");
+                Window.Update(2, "Customer No.");
+                Window.Update(3, Format(Amount));
+                Window.Update(4, TotalPosted);
+                Window.Update(5, TotalFailed);
+
                 // Check if the record exists in Customer Ledger Entries
-                 GenJournalLine.Reset();
+                GenJournalLine.Reset();
                 GenJournalLine.SetRange("Journal Template Name", 'GENERAL');
                 GenJournalLine.SetRange("Journal Batch Name", 'DEFAULT');
                 if GenJournalLine.FindSet() then begin
                     GenJournalLine.DeleteAll();
-
                 end;
 
                 CustLedgerEntry.Reset();
                 CustLedgerEntry.SetRange("Document No.", "Detailed Cust ledger Custom"."Document No.");
                 CustLedgerEntry.SetRange("Customer No.", "Detailed Cust ledger Custom"."Customer No.");
                 CustLedgerEntry.SetRange(Amount, "Detailed Cust ledger Custom".Amount);
-                if not CustLedgerEntry.IsEmpty then
+                if not CustLedgerEntry.IsEmpty then begin
+                    Message('Skipping: Document %1 for Customer %2 - Already exists in Customer Ledger', "Document No.", "Customer No.");
                     CurrReport.Skip();
+                end;
 
                 // Get the next line number
                 GenJournalLine.Reset();
@@ -64,6 +79,7 @@ report 50822 "Post Detailed Cust Ledger"
 
                 // Post the journal line
                 Commit();
+                Message('Posting: Document %1 for Customer %2 with Amount %3', "Document No.", "Customer No.", Amount);
                 PostingSuccess := PostGenJournalLine(GenJournalLine);
 
                 if PostingSuccess then begin
@@ -71,9 +87,16 @@ report 50822 "Post Detailed Cust Ledger"
                     "Detailed Cust ledger Custom".Posted := true;
                     "Detailed Cust ledger Custom".Modify();
                     TotalPosted += 1;
+                    Message('Posted Successfully: Document %1 for Customer %2', "Document No.", "Customer No.");
                 end else begin
                     TotalFailed += 1;
+                    Message('Posting Failed: Document %1 for Customer %2', "Document No.", "Customer No.");
                 end;
+            end;
+
+            trigger OnPostDataItem()
+            begin
+                Window.Close();
             end;
         }
     }
@@ -156,8 +179,11 @@ report 50822 "Post Detailed Cust Ledger"
     end;
 
     var
+        Window: Dialog;
         StartDateFilter: Date;
         EndDateFilter: Date;
         TotalPosted: Integer;
         TotalFailed: Integer;
+        TotalCount: Integer;
+        Counter: Integer;
 }
