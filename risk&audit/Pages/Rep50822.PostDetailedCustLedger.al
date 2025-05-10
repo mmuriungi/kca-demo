@@ -1,6 +1,6 @@
 report 50822 "Post Detailed Cust Ledger"
 {
- ApplicationArea = All;
+    ApplicationArea = All;
     Caption = 'Post Detailed Cust Ledger';
     ProcessingOnly = true;
     UsageCategory = ReportsAndAnalysis;
@@ -9,8 +9,8 @@ report 50822 "Post Detailed Cust Ledger"
     {
         dataitem("Detailed Cust ledger Custom"; "Detailed Cust ledger Custom")
         {
-            RequestFilterFields = "Posting Date", "Document No.", "Customer No.";
-            DataItemTableView = where(Posted = const(false), "Entry Type" = const("Initial Entry"));
+            RequestFilterFields = "Document No.", "Customer No.", "Posting Date", "Entry Type";
+            DataItemTableView = where("Entry Type" = const("Initial Entry"));
 
             trigger OnAfterGetRecord()
             var
@@ -76,22 +76,57 @@ report 50822 "Post Detailed Cust Ledger"
             {
                 group(Options)
                 {
-                    Caption = 'Options';
-                    field(PostingDate; PostingDateFilter)
+                    Caption = 'Date Filter';
+                    field(StartDate; StartDateFilter)
                     {
                         ApplicationArea = All;
-                        Caption = 'Posting Date';
-                        ToolTip = 'Specifies the posting date filter.';
+                        Caption = 'Start Date';
+                        ToolTip = 'Specifies the start date for filtering records.';
+                        ShowMandatory = true;
+                    }
+                    field(EndDate; EndDateFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'End Date';
+                        ToolTip = 'Specifies the end date for filtering records.';
+                        ShowMandatory = true;
                     }
                 }
             }
         }
+
+        trigger OnQueryClosePage(CloseAction: Action): Boolean
+        begin
+            if CloseAction = Action::OK then begin
+                if StartDateFilter = 0D then
+                    Error('Start Date is required.');
+                
+                if EndDateFilter = 0D then
+                    Error('End Date is required.');
+                
+                if StartDateFilter > EndDateFilter then
+                    Error('Start Date cannot be later than End Date.');
+            end;
+            exit(true);
+        end;
     }
 
     trigger OnPreReport()
     begin
+        // Validate and apply date filter
+        if (StartDateFilter = 0D) or (EndDateFilter = 0D) then
+            Error('Both Start Date and End Date are required.');
+            
+        if StartDateFilter > EndDateFilter then
+            Error('Start Date cannot be later than End Date.');
+            
+        // Apply the date filter
+        "Detailed Cust ledger Custom".SetRange("Posting Date", StartDateFilter, EndDateFilter);
+
+        // Confirm if only date filters are set
         if "Detailed Cust ledger Custom".GetFilters = '' then
-            if not Confirm('No filters set. Do you want to process all unposted entries?', false) then
+            if not Confirm('Only date filters are set (%1 to %2). Do you want to process all unposted initial entries within this date range?', 
+                            false, StartDateFilter, EndDateFilter) then
                 Error('Report canceled by user.');
 
         TotalPosted := 0;
@@ -111,7 +146,8 @@ report 50822 "Post Detailed Cust Ledger"
     end;
 
     var
-        PostingDateFilter: Date;
+        StartDateFilter: Date;
+        EndDateFilter: Date;
         TotalPosted: Integer;
         TotalFailed: Integer;
 }
