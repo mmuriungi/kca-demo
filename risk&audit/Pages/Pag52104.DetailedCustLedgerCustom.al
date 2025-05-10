@@ -5,7 +5,7 @@ page 52104 "Detailed Cust Ledger Custom"
     PageType = List;
     SourceTable = "Detailed Cust ledger Custom";
     UsageCategory = Administration;
-    
+
     layout
     {
         area(Content)
@@ -51,7 +51,7 @@ page 52104 "Detailed Cust Ledger Custom"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -65,12 +65,12 @@ page 52104 "Detailed Cust Ledger Custom"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'Post the selected entries to the general ledger.';
-                
+
                 trigger OnAction()
                 var
                     DetailedCustLedgerCustom: Record "Detailed Cust ledger Custom";
                 begin
-                    DetailedCustLedgerCustom.CopyFilters(Rec);
+                    // DetailedCustLedgerCustom.CopyFilters(Rec);
                     Report.Run(Report::"Post Detailed Cust Ledger", true, false, DetailedCustLedgerCustom);
                 end;
             }

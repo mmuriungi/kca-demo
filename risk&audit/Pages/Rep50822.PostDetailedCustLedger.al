@@ -10,84 +10,93 @@ report 50822 "Post Detailed Cust Ledger"
         dataitem("Detailed Cust ledger Custom"; "Detailed Cust ledger Custom")
         {
             RequestFilterFields = "Document No.", "Customer No.", "Posting Date", "Entry Type", Posted;
-            DataItemTableView = where("Entry Type" = const("Initial Entry"));
+            DataItemTableView = where("Entry Type" = const("Initial Entry"), Posted = const(false));
 
             trigger OnPreDataItem()
             begin
-                Window.Open('Processing Records:\ Document No.: #1##############\ Customer No.: #2##############\ Amount: #3##############\ Total Processed: #4########\ Total Failed: #5########');
-                TotalCount := Count;
-                Counter := 0;
+                if (StartDate = 0D) or (EndDate = 0D) then
+                    Error('Both Start Date and End Date must be specified.');
+
+                if StartDate > EndDate then
+                    Error('Start Date cannot be later than End Date.');
+
+                // Apply date filter
+                "Detailed Cust ledger Custom".SetFilter("Posting Date", '%1..%2', StartDate, EndDate);
+
+                // Check if any records match criteria
+                // if "Detailed Cust ledger Custom".IsEmpty then
+                //   Error('No records found matching the filter criteria. Please check your date range and other filters.');
+
+                // Clean up existing journal entries
+                GenLine.Reset();
+                GenLine.SetRange("Journal Batch Name", 'DEFAULT');
+                GenLine.SetRange("Journal Template Name", 'GENERAL');
+                if not GenLine.IsEmpty() then
+                    GenLine.DeleteAll();
+
+                // Find and exclude records that already exist in Customer Ledger
+                // ExcludeExistingEntries();
+
+                // Check again if we have records to process
+                //  if "Detailed Cust ledger Custom".IsEmpty then
+                // Error('All found records already exist in Customer Ledger Entries. No records to process.');
+
+                Window.Open('Processing Records:\ Document No.: #1##############\ Customer No.: #2##############\ Amount: #3##############\ Records Processed: #4########');
+                TotalRecords := Count;
+                Message('Found %1 records to process', TotalRecords);
+                TotalPosted := 0;
+                TotalFailed := 0;
+                CurrentRecord := 0;
             end;
 
             trigger OnAfterGetRecord()
-            var
-                CustLedgerEntry: Record "Cust. Ledger Entry";
-                GenJournalLine: Record "Gen. Journal Line";
-                LineNo: Integer;
-                PostingSuccess: Boolean;
             begin
-                Counter += 1;
+                CurrentRecord += 1;
                 Window.Update(1, "Document No.");
                 Window.Update(2, "Customer No.");
                 Window.Update(3, Format(Amount));
-                Window.Update(4, TotalPosted);
-                Window.Update(5, TotalFailed);
+                Window.Update(4, Format(CurrentRecord) + ' of ' + Format(TotalRecords));
 
-                // Check if the record exists in Customer Ledger Entries
-                GenJournalLine.Reset();
-                GenJournalLine.SetRange("Journal Template Name", 'GENERAL');
-                GenJournalLine.SetRange("Journal Batch Name", 'DEFAULT');
-                if GenJournalLine.FindSet() then begin
-                    GenJournalLine.DeleteAll();
-                end;
-
-                CustLedgerEntry.Reset();
-                CustLedgerEntry.SetRange("Document No.", "Detailed Cust ledger Custom"."Document No.");
-                CustLedgerEntry.SetRange("Customer No.", "Detailed Cust ledger Custom"."Customer No.");
-                CustLedgerEntry.SetRange(Amount, "Detailed Cust ledger Custom".Amount);
-                if not CustLedgerEntry.IsEmpty then begin
-                    Message('Skipping: Document %1 for Customer %2 - Already exists in Customer Ledger', "Document No.", "Customer No.");
+                // Skip if amount is zero
+                if Amount = 0 then
                     CurrReport.Skip();
-                end;
 
-                // Get the next line number
-                GenJournalLine.Reset();
-                GenJournalLine.SetRange("Journal Template Name", 'GENERAL');
-                GenJournalLine.SetRange("Journal Batch Name", 'DEFAULT');
-                if GenJournalLine.FindLast() then
-                    LineNo := GenJournalLine."Line No." + 10000
+                // Get next line number
+                GenLine.Reset();
+                GenLine.SetRange("Journal Template Name", 'GENERAL');
+                GenLine.SetRange("Journal Batch Name", 'DEFAULT');
+                if GenLine.FindLast() then
+                    LineNo := GenLine."Line No." + 10000
                 else
                     LineNo := 10000;
+
+                // Make sure Description is calculated
                 "Detailed Cust ledger Custom".CalcFields(Description);
 
-                // Insert into Gen. Journal Line
-                GenJournalLine.Init();
-                GenJournalLine.Validate("Journal Template Name", 'GENERAL');
-                GenJournalLine.Validate("Journal Batch Name", 'DEFAULT');
-                GenJournalLine.Validate("Line No.", LineNo);
-                GenJournalLine.Validate("Posting Date", "Detailed Cust ledger Custom"."Posting Date");
-                GenJournalLine.Validate("Document No.", "Detailed Cust ledger Custom"."Document No.");
-                //GenJournalLine.Validate("Shortcut Dimension 1 Code", "Detailed Cust ledger Custom".glo);
-                GenJournalLine.Validate("Account Type", GenJournalLine."Account Type"::Customer);
-                GenJournalLine.Validate("Account No.", "Detailed Cust ledger Custom"."Customer No.");
-                GenJournalLine.Validate(Description, "Detailed Cust ledger Custom".Description);
-                GenJournalLine.Validate(Amount, "Detailed Cust ledger Custom".Amount);
-                GenJournalLine.Validate("Bal. Account Type", GenJournalLine."Bal. Account Type"::"G/L Account");
-                GenJournalLine.Validate("Bal. Account No.", '72001');
-                GenJournalLine.Validate("Source Code", 'GENJNL');
-                GenJournalLine.Insert(true);
+                // Create journal line
+                GenLine.Init();
+                GenLine."Journal Template Name" := 'GENERAL';
+                GenLine."Journal Batch Name" := 'DEFAULT';
+                GenLine."Line No." := LineNo;
+                GenLine."Posting Date" := "Detailed Cust ledger Custom"."Posting Date";
+                GenLine."Document No." := "Detailed Cust ledger Custom"."Document No.";
+                GenLine."Account Type" := GenLine."Account Type"::Customer;
+                GenLine."Account No." := "Detailed Cust ledger Custom"."Customer No.";
+                GenLine.Description := "Detailed Cust ledger Custom".Description;
+                GenLine.Amount := "Detailed Cust ledger Custom".Amount;
+                GenLine."Bal. Account Type" := GenLine."Bal. Account Type"::"G/L Account";
+                GenLine."Bal. Account No." := '72001';
 
-                // Post the journal line
+                GenLine.Insert(true);
                 Commit();
-                Message('Posting: Document %1 for Customer %2 with Amount %3', "Document No.", "Customer No.", Amount);
-                PostingSuccess := PostGenJournalLine(GenJournalLine);
+
+                PostingSuccess := PostGenLine(GenLine);
 
                 if PostingSuccess then begin
                     // Update Posted field to true
                     "Detailed Cust ledger Custom".Posted := true;
                     "Detailed Cust ledger Custom".Modify();
                     TotalPosted += 1;
-                    Message('Posted Successfully: Document %1 for Customer %2', "Document No.", "Customer No.");
                 end else begin
                     TotalFailed += 1;
                     Message('Posting Failed: Document %1 for Customer %2', "Document No.", "Customer No.");
@@ -109,19 +118,17 @@ report 50822 "Post Detailed Cust Ledger"
             {
                 group(Options)
                 {
-                    Caption = 'Date Filter';
-                    field(StartDate; StartDateFilter)
+                    Caption = 'Options';
+                    field(StartDate; StartDate)
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-                        ToolTip = 'Specifies the start date for filtering records.';
                         ShowMandatory = true;
                     }
-                    field(EndDate; EndDateFilter)
+                    field(EndDate; EndDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-                        ToolTip = 'Specifies the end date for filtering records.';
                         ShowMandatory = true;
                     }
                 }
@@ -131,59 +138,76 @@ report 50822 "Post Detailed Cust Ledger"
         trigger OnQueryClosePage(CloseAction: Action): Boolean
         begin
             if CloseAction = Action::OK then begin
-                if StartDateFilter = 0D then
+                if StartDate = 0D then
                     Error('Start Date is required.');
 
-                if EndDateFilter = 0D then
+                if EndDate = 0D then
                     Error('End Date is required.');
 
-                if StartDateFilter > EndDateFilter then
+                if StartDate > EndDate then
                     Error('Start Date cannot be later than End Date.');
             end;
             exit(true);
         end;
     }
 
-    trigger OnPreReport()
+    local procedure ExcludeExistingEntries()
+    var
+        TempDetailedCustLedger: Record "Detailed Cust ledger Custom" temporary;
+        CustLedgerEntry: Record "Cust. Ledger Entry";
+        RecordsToExclude: Integer;
     begin
-        // Validate and apply date filter
-        if (StartDateFilter = 0D) or (EndDateFilter = 0D) then
-            Error('Both Start Date and End Date are required.');
+        // First, copy all matching records to a temporary table
+        "Detailed Cust ledger Custom".FindSet();
+        repeat
+            TempDetailedCustLedger := "Detailed Cust ledger Custom";
+            TempDetailedCustLedger.Insert();
+        until "Detailed Cust ledger Custom".Next() = 0;
 
-        if StartDateFilter > EndDateFilter then
-            Error('Start Date cannot be later than End Date.');
+        // Now check each record against Customer Ledger Entries
+        RecordsToExclude := 0;
+        TempDetailedCustLedger.FindSet();
+        repeat
+            CustLedgerEntry.Reset();
+            CustLedgerEntry.SetRange("Document No.", TempDetailedCustLedger."Document No.");
+            CustLedgerEntry.SetRange("Customer No.", TempDetailedCustLedger."Customer No.");
+            CustLedgerEntry.SetRange(Amount, TempDetailedCustLedger.Amount);
 
-        // Apply the date filter
-        "Detailed Cust ledger Custom".SetRange("Posting Date", StartDateFilter, EndDateFilter);
+            if not CustLedgerEntry.IsEmpty() then begin
+                // This record already exists in Customer Ledger - exclude it by adding a filter
+                "Detailed Cust ledger Custom".SetFilter("Entry No.", '<>%1', TempDetailedCustLedger."Entry No.");
+                RecordsToExclude += 1;
+            end;
+        until TempDetailedCustLedger.Next() = 0;
 
-        // Confirm if only date filters are set
-        if "Detailed Cust ledger Custom".GetFilters = '' then
-            if not Confirm('Only date filters are set (%1 to %2). Do you want to process all unposted initial entries within this date range?',
-                            false, StartDateFilter, EndDateFilter) then
-                Error('Report canceled by user.');
-
-        TotalPosted := 0;
-        TotalFailed := 0;
+        if RecordsToExclude > 0 then
+            Message('%1 records already exist in Customer Ledger Entries and will be skipped.', RecordsToExclude);
     end;
+
+    var
+        StartDate: Date;
+        EndDate: Date;
+        LineNo: Integer;
+        GenLine: Record "Gen. Journal Line";
+        TotalPosted: Integer;
+        TotalFailed: Integer;
+        TotalRecords: Integer;
+        CurrentRecord: Integer;
+        PostingSuccess: Boolean;
+        Window: Dialog;
 
     trigger OnPostReport()
     begin
-        Message('Process completed: %1 transactions posted, %2 transactions failed.', TotalPosted, TotalFailed);
+        if (TotalPosted = 0) and (TotalFailed = 0) then
+            Message('No records were processed. Please check your filter criteria and try again.')
+        else
+            Message('Process completed: %1 transactions posted, %2 transactions failed.', TotalPosted, TotalFailed);
     end;
 
-    local procedure PostGenJournalLine(var GenJournalLine: Record "Gen. Journal Line"): Boolean
+    local procedure PostGenLine(var GenJournalLine: Record "Gen. Journal Line"): Boolean
     var
         GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
     begin
         exit(GenJnlPostLine.Run(GenJournalLine));
     end;
-
-    var
-        Window: Dialog;
-        StartDateFilter: Date;
-        EndDateFilter: Date;
-        TotalPosted: Integer;
-        TotalFailed: Integer;
-        TotalCount: Integer;
-        Counter: Integer;
 }
