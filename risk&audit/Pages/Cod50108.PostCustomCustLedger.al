@@ -1,32 +1,35 @@
 codeunit 50108 "Post Custom Cust Ledger"
-
 {
     trigger OnRun()
     begin
-        PostUnpostedEntries();
+        // Show the filter page when running the codeunit directly
+        ShowDateFilterPage();
+    end;
+    
+    procedure ProcessEntriesByDateRange(StartDate: Date; EndDate: Date)
+    begin
+        PostUnpostedEntries(StartDate, EndDate);
+    end;
+    
+    local procedure ShowDateFilterPage()
+    var
+        DateFilterDialog: Page "Post Custom Ledger Filter";
+    begin
+        DateFilterDialog.RunModal();
+        // The page will handle calling ProcessEntriesByDateRange
     end;
 
-    local procedure PostUnpostedEntries()
+    local procedure PostUnpostedEntries(StartDate: Date; EndDate: Date)
     var
         DetailedCustLedgerCustom: Record "Detailed Cust ledger Custom";
         GenJournalLine: Record "Gen. Journal Line";
         GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
-        DateFilterDialog: Page "Post Custom Ledger Filter";
         Window: Dialog;
-        StartDate: Date;
-        EndDate: Date;
         LineNo: Integer;
         RecordCount: Integer;
         TotalCount: Integer;
         RecordNo: Integer;
     begin
-        // Get date range from user
-        DateFilterDialog.LookupMode(true);
-        if DateFilterDialog.RunModal() <> Action::LookupOK then
-            exit;
-            
-        DateFilterDialog.GetDateFilter(StartDate, EndDate);
-
         // Filter to get only unposted records with entry type 'Initial Entry' within date range
         DetailedCustLedgerCustom.SetRange(Posted, false);
         DetailedCustLedgerCustom.SetRange("Entry Type", DetailedCustLedgerCustom."Entry Type"::"Initial Entry");
@@ -81,7 +84,7 @@ codeunit 50108 "Post Custom Cust Ledger"
             if GenJournalLine.Insert() then
                 RecordCount += 1;
                 
-            // Post the journal line - Fixed the method call
+            // Post the journal line
             GenJnlPostLine.RunWithCheck(GenJournalLine);
             
             // Update the original record to mark as posted
