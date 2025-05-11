@@ -2,7 +2,11 @@ report 50821 "Post Customer Ledger Entries"
 {
     ApplicationArea = All;
     Caption = 'Post Customer Ledger Entries to G/L';
-    ProcessingOnly = true;
+    //ProcessingOnly = true;
+    DefaultLayout = RDLC;
+    RDLCLayout = './Layouts/detailed.rdlc';
+    PreviewMode = PrintLayout;
+
     UsageCategory = ReportsAndAnalysis;
 
     dataset
@@ -106,6 +110,7 @@ report 50821 "Post Customer Ledger Entries"
         Counter: Integer;
         SuccessCount: Integer;
         ErrorCount: Integer;
+        lineNo: Integer;
         SkippedCount: Integer;
 
     local procedure PostTransactionToGL(var CustLedgerEntry: Record "Detailed Cust ledger Custom")
@@ -114,26 +119,28 @@ report 50821 "Post Customer Ledger Entries"
         GenJournalBatch: Record "Gen. Journal Batch";
         CustomerLedgerEntry: Record "Cust. Ledger Entry";
     begin
-        CustomerLedgerEntry.SetRange("Document No.", CustLedgerEntry."Document No.");
-        CustomerLedgerEntry.SetRange(Amount, CustLedgerEntry.Amount);
-        CustomerLedgerEntry.SetRange("Customer No.", CustLedgerEntry."Customer No.");
+        //  CustomerLedgerEntry.SetRange("Document No.", CustLedgerEntry."Document No.");
+        //CustomerLedgerEntry.SetRange(Amount, CustLedgerEntry.Amount);
+        //CustomerLedgerEntry.SetRange("Customer No.", CustLedgerEntry."Customer No.");
 
-        if not CustomerLedgerEntry.IsEmpty then begin
-            CustLedgerEntry.Posted := true;
-            CustLedgerEntry.Modify();
-            SkippedCount += 1;
-            exit;
-        end;
+        // if not CustomerLedgerEntry.IsEmpty then begin
+        //  CustLedgerEntry.Posted := true;
+        // CustLedgerEntry.Modify();
+        // SkippedCount += 1;
+        // exit;
+        // end;
 
-        if not GenJournalBatch.Get('GENERAL', 'DEFAULT') then begin
-            ErrorCount += 1;
-            exit;
-        end;
+        //if not GenJournalBatch.Get('GENERAL', 'DEFAULT') then begin
+        //  ErrorCount += 1;
+        //   exit;
+        //  end;
+        lineNo := lineNo + 1;
+        ;
 
         GenJournalLine.Init();
         GenJournalLine."Journal Template Name" := 'GENERAL';
-        GenJournalLine."Journal Batch Name" := GenJournalBatch.Name;
-        GenJournalLine."Line No." := 10000;
+        GenJournalLine."Journal Batch Name" := 'DEFAULT';
+        GenJournalLine."Line No." := lineNo;
         GenJournalLine."Document No." := CustLedgerEntry."Document No.";
         GenJournalLine."Posting Date" := CustLedgerEntry."Posting Date";
         GenJournalLine."Account Type" := GenJournalLine."Account Type"::Customer;
