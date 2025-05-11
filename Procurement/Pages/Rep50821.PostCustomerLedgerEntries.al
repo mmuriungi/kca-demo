@@ -24,7 +24,7 @@ report 50821 "Post Customer Ledger Entries"
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
                 GenJournalLine1."Journal Batch Name" := 'DEFAULT';
                 GenJournalLine1."Line No." := GenJournalLine1."Line No." + 10000;
-                GenJournalLine1."Line No." := lineNo;
+                //GenJournalLine1."Line No." := lineNo;
                 GenJournalLine1."Document No." := DetailedEntry."Document No.";
                 GenJournalLine1."Posting Date" := DetailedEntry."Posting Date";
                 GenJournalLine1."Account Type" := GenJournalLine1."Account Type"::Customer;
