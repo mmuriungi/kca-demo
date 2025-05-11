@@ -1,6 +1,6 @@
+// Modify the existing page
 page 52104 "Custom Det cust ledgers"
 {
-
     ApplicationArea = All;
     Caption = 'Custom Det cust ledgers';
     PageType = List;
@@ -49,28 +49,21 @@ page 52104 "Custom Det cust ledgers"
     {
         area(Processing)
         {
-            action(ShowPostingDialog)
+            action(PostAllRecords)
             {
                 ApplicationArea = All;
-                Caption = 'Post Unposted Entries';
+                Caption = 'Post All Records';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Post unposted entries to the general journal and mark them as posted.';
+                ToolTip = 'Post all records to the general journal without any filters.';
 
                 trigger OnAction()
                 var
-                    DateFilterDialog: Page "Post Custom Ledger Filter";
+                    PostAllCustLedgerEntries: Codeunit "Post Custom Cust Ledger";
                 begin
-                    // Configure the dialog as a lookup
-                    DateFilterDialog.LookupMode(true);
-
-                    // If the user filled the dates and clicked OK
-                    if DateFilterDialog.RunModal() = Action::LookupOK then begin
-                        // Let the page process the records
-                        DateFilterDialog.ProcessRecords();
-                    end;
+                    PostAllCustLedgerEntries.Run();
                 end;
             }
         }
