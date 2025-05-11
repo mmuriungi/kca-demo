@@ -1,9 +1,11 @@
 report 50823 "Post Detailed Cust Ledger Entr"
 {
-    Caption = 'Post Detailed Cust Ledger Entries';
-    ProcessingOnly = true;
+    Caption = 'Post Cust Ledger Entries';
+    /// ProcessingOnly = true;
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
+    DefaultLayout = RDLC;
+    RDLCLayout = './Layouts/PostCusrLedgers.rdlc';
 
     dataset
     {
@@ -13,10 +15,10 @@ report 50823 "Post Detailed Cust Ledger Entr"
 
             trigger OnPreDataItem()
             begin
-                Window.OPEN('Processing Records:\ Document No.: #1##############\ Customer No.: #2##############\ Amount: #3##############\ Records Processed: #4########');
-                TotalRecords := COUNT;
-                MESSAGE('Found %1 records to process', TotalRecords);
-                CurrentRecord := 0;
+                //Window.OPEN('Processing Records:\ Document No.: #1##############\ Customer No.: //#2##############\ Amount: #3##############\ Records Processed: #4########');
+                // TotalRecords := COUNT;
+                // MESSAGE('Found %1 records to process', TotalRecords);
+                // CurrentRecord := 0;
             end;
 
             trigger OnAfterGetRecord()
@@ -30,11 +32,11 @@ report 50823 "Post Detailed Cust Ledger Entr"
                 CALCFIELDS(Description);
 
                 // Update progress window
-                CurrentRecord += 1;
-                Window.UPDATE(1, "Document No.");
-                Window.UPDATE(2, "Customer No.");
-                Window.UPDATE(3, FORMAT(Amount));
-                Window.UPDATE(4, FORMAT(CurrentRecord) + ' of ' + FORMAT(TotalRecords));
+                // CurrentRecord += 1;
+                //  Window.UPDATE(1, "Document No.");
+                //  Window.UPDATE(2, "Customer No.");
+                //  Window.UPDATE(3, FORMAT(Amount));
+                //  Window.UPDATE(4, FORMAT(CurrentRecord) + ' of ' + FORMAT(TotalRecords));
 
                 // Setup Journal Template and Batch 
                 GenJnlTemplate := 'GENERAL';
@@ -62,8 +64,8 @@ report 50823 "Post Detailed Cust Ledger Entr"
                 GenJnlLine.Description := Description;
                 GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
                 GenJnlLine."Bal. Account No." := '72001';
-                if GenJnlLine.Amount <> 0 then 
-                GenJnlLine.Insert(true);
+                if GenJnlLine.Amount <> 0 then
+                    GenJnlLine.Insert(true);
 
                 // Post the line 
                 CLEAR(GenJnlPostLine);
@@ -76,8 +78,8 @@ report 50823 "Post Detailed Cust Ledger Entr"
 
             trigger OnPostDataItem()
             begin
-                Window.CLOSE();
-                MESSAGE('Processing complete. %1 records were processed.', CurrentRecord);
+                // Window.CLOSE();
+                // MESSAGE('Processing complete. %1 records were processed.', CurrentRecord);
             end;
         }
     }
@@ -115,7 +117,7 @@ report 50823 "Post Detailed Cust Ledger Entr"
     begin
         "Detailed Cust ledger Custom".SETRANGE("Posting Date", StartDate, EndDate);
         "Detailed Cust ledger Custom".SETRANGE(Posted, FALSE);
-        "Detailed Cust ledger Custom".SETRANGE("Entry Type",  "Detailed Cust ledger Custom"."Entry Type"::"Initial Entry");
+        "Detailed Cust ledger Custom".SETRANGE("Entry Type", "Detailed Cust ledger Custom"."Entry Type"::"Initial Entry");
     end;
 
     var
