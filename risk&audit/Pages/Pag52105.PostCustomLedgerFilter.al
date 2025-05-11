@@ -2,6 +2,7 @@ page 52105 "Post Custom Ledger Filter"
 {
     PageType = StandardDialog;
     Caption = 'Filter Date Range';
+    UsageCategory = Administration;
     
     layout
     {
