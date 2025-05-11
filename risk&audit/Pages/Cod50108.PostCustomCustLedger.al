@@ -1,28 +1,26 @@
 codeunit 50108 "Post Custom Cust Ledger"
+
 {
     trigger OnRun()
     begin
-        ShowDateFilterPage();
+        ShowDateFilter();
     end;
 
-    local procedure ShowDateFilterPage()
+    local procedure ShowDateFilter()
     var
-        DateFilterDialog: Page "Post Custom Ledger Filter";
+        DateFilterPage: Page "Post Custom Ledger Filter";
+        StartDate: Date;
+        EndDate: Date;
     begin
-        // Configure dialog in lookup mode to ensure it returns properly
-        DateFilterDialog.LookupMode(true);
+        DateFilterPage.LookupMode(true);
 
-        // Run the dialog and check if user clicked OK
-        if DateFilterDialog.RunModal() = Action::LookupOK then begin
-            // Get the date range
-            DateFilterDialog.GetDateFilter(GlobalStartDate, GlobalEndDate);
-
-            // Process the records directly
-            ProcessRecords();
+        if DateFilterPage.RunModal() = Action::LookupOK then begin
+            DateFilterPage.GetDateFilter(StartDate, EndDate);
+            ProcessRecordsWithinDateRange(StartDate, EndDate);
         end;
     end;
 
-    local procedure ProcessRecords()
+    local procedure ProcessRecordsWithinDateRange(FromDate: Date; ToDate: Date)
     var
         DetailedCustLedgerCustom: Record "Detailed Cust ledger Custom";
         GenJournalLine: Record "Gen. Journal Line";
@@ -30,96 +28,74 @@ codeunit 50108 "Post Custom Cust Ledger"
         Window: Dialog;
         LineNo: Integer;
         RecordCount: Integer;
-        TotalRecords: Integer;
-        RecordNo: Integer;
+        ProcessedCount: Integer;
     begin
-        // First get all records without applying any filters
+        // Open all records
+        DetailedCustLedgerCustom.Reset();
+
         if not DetailedCustLedgerCustom.FindSet() then begin
             Message('No records found in the table.');
             exit;
         end;
 
-        // Count total records for the confirmation message
-        TotalRecords := DetailedCustLedgerCustom.Count;
-
-
-        if not Confirm('Found %1 total records. Process those within date range %2..%3?',
-                      true, TotalRecords, Format(GlobalStartDate), Format(GlobalEndDate)) then
-            exit;
-
         // Setup progress window
         Window.Open('Processing Records\' +
-                    'Current: #1####\' +
-                    'Document No.: #2##########\' +
-                    'Customer: #3##########\' +
-                    'Posting Date: #4############\' +
-                    'Amount: #5############');
+                    'Document: #1##########\' +
+                    'Date: #2##########\' +
+                    'Amount: #3##########\' +
+                    'Processed: #4#### of #5####');
 
-        RecordCount := 0;
-        RecordNo := 0;
+        // Count total records for display
+        RecordCount := DetailedCustLedgerCustom.Count;
+        ProcessedCount := 0;
+        LineNo := 10000;
 
         repeat
-            RecordNo += 1;
-
-            // Only process records that match our criteria
+            // Check if record should be processed
             if (DetailedCustLedgerCustom."Entry Type" = DetailedCustLedgerCustom."Entry Type"::"Initial Entry") and
-               (DetailedCustLedgerCustom."Posting Date" >= GlobalStartDate) and
-               (DetailedCustLedgerCustom."Posting Date" <= GlobalEndDate) then begin
-                // Update progress window
-                Window.Update(1, RecordNo);
-                Window.Update(2, DetailedCustLedgerCustom."Document No.");
-                Window.Update(3, DetailedCustLedgerCustom."Customer No.");
-                Window.Update(4, Format(DetailedCustLedgerCustom."Posting Date"));
-                Window.Update(5, Format(DetailedCustLedgerCustom.Amount));
+               (DetailedCustLedgerCustom."Posting Date" >= FromDate) and
+               (DetailedCustLedgerCustom."Posting Date" <= ToDate) then begin
+                // Update progress dialog
+                Window.Update(1, DetailedCustLedgerCustom."Document No.");
+                Window.Update(2, Format(DetailedCustLedgerCustom."Posting Date"));
+                Window.Update(3, Format(DetailedCustLedgerCustom.Amount));
+                Window.Update(4, ProcessedCount);
+                Window.Update(5, RecordCount);
 
-                // We need to calculate FlowFields for each record
+                // Calculate flowfields
                 DetailedCustLedgerCustom.CalcFields(Description);
 
-                // Clear Gen Journal Line to prepare for new entry
+                // Create journal line
                 GenJournalLine.Init();
-
-                // Set up line number
-                LineNo := 10000 + RecordCount;
-
-                // Fill Gen Journal Line
                 GenJournalLine."Journal Template Name" := 'GENERAL';
                 GenJournalLine."Journal Batch Name" := 'DEFAULT';
                 GenJournalLine."Line No." := LineNo;
                 GenJournalLine."Document No." := DetailedCustLedgerCustom."Document No.";
                 GenJournalLine."Posting Date" := DetailedCustLedgerCustom."Posting Date";
-
-                // Account side (Customer)
                 GenJournalLine."Account Type" := GenJournalLine."Account Type"::Customer;
                 GenJournalLine."Account No." := DetailedCustLedgerCustom."Customer No.";
-
-                // Balancing account side (G/L Account)
                 GenJournalLine."Bal. Account Type" := GenJournalLine."Bal. Account Type"::"G/L Account";
                 GenJournalLine."Bal. Account No." := '72001';
-
                 GenJournalLine.Description := DetailedCustLedgerCustom.Description;
                 GenJournalLine.Amount := DetailedCustLedgerCustom.Amount;
 
-                // Insert the line
-                if GenJournalLine.Insert() then
-                    RecordCount += 1;
+                // Insert and post
+                if GenJournalLine.Insert() then begin
+                    GenJnlPostLine.RunWithCheck(GenJournalLine);
 
-                // Post the journal line
-                GenJnlPostLine.RunWithCheck(GenJournalLine);
+                    // Mark as posted
+                    DetailedCustLedgerCustom.Posted := true;
+                    DetailedCustLedgerCustom.Modify();
 
-                // Update the original record to mark as posted
-                DetailedCustLedgerCustom.Posted := true;
-                DetailedCustLedgerCustom.Modify();
+                    ProcessedCount += 1;
+                end;
+
+                LineNo += 10000;
             end;
-
         until DetailedCustLedgerCustom.Next() = 0;
 
-        // Close progress window
         Window.Close();
 
-        Message('Posted %1 records successfully.', RecordCount);
+        Message('Successfully posted %1 records.', ProcessedCount);
     end;
-
-    var
-        GlobalStartDate: Date;
-        GlobalEndDate: Date;
 }

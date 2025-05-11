@@ -10,7 +10,7 @@ page 52105 "Post Custom Ledger Filter"
             group(Instructions)
             {
                 Caption = 'Instructions';
-                InstructionalText = 'Select the date range for processing entries. The default range covers the last month, but you can adjust it as needed.';
+                InstructionalText = 'Select the date range for processing entries.';
             }
             group(DateFilters)
             {
@@ -38,9 +38,9 @@ page 52105 "Post Custom Ledger Filter"
 
     trigger OnOpenPage()
     begin
-        // Set default range to cover the last month
+        // Default to current month
         EndDate := WorkDate();
-        StartDate := CalcDate('<-1M>', EndDate);
+        StartDate := CalcDate('<-CM>', WorkDate());
     end;
 
     procedure GetDateFilter(var FromDate: Date; var ToDate: Date)
