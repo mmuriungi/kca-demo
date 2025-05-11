@@ -10,7 +10,7 @@ page 52105 "Post Custom Ledger Filter"
             group(Instructions)
             {
                 Caption = 'Instructions';
-                InstructionalText = 'Select the date range for processing unposted entries. Records from 2019 are in the system.';
+                InstructionalText = 'Select the date range for processing entries. The default range covers the last month, but you can adjust it as needed.';
             }
             group(DateFilters)
             {
@@ -38,22 +38,14 @@ page 52105 "Post Custom Ledger Filter"
 
     trigger OnOpenPage()
     begin
-        // Set default range to include 2019 dates
-        StartDate := DMY2Date(1, 1, 2019);
-        EndDate := DMY2Date(31, 12, 2019);
+        // Set default range to cover the last month
+        EndDate := WorkDate();
+        StartDate := CalcDate('<-1M>', EndDate);
     end;
 
     procedure GetDateFilter(var FromDate: Date; var ToDate: Date)
     begin
         FromDate := StartDate;
         ToDate := EndDate;
-    end;
-
-    procedure ProcessRecords()
-    var
-    // PostCustLedger: Codeunit "Post Custom Cust Ledger";
-    begin
-        // Call the codeunit directly (OnRun method)
-        // PostCustLedger.Run();
     end;
 }

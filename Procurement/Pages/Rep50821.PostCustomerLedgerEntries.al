@@ -11,32 +11,32 @@ report 50821 "Post Customer Ledger Entries"
         {
             RequestFilterFields = "Posting Date", "Document No.";
 
-           trigger OnPreDataItem()
-begin
-    // Apply filters
-    DetailedEntry.SetRange(Posted, false);
-    DetailedEntry.SetRange("Entry Type", DetailedEntry."Entry Type"::"Initial Entry");
+            trigger OnPreDataItem()
+            begin
+                // Apply filters
+                //DetailedEntry.SetRange(Posted, false);
+                DetailedEntry.SetRange("Entry Type", DetailedEntry."Entry Type"::"Initial Entry");
 
-    if (StartDate <> 0D) and (EndDate <> 0D) then
-        DetailedEntry.SetRange("Posting Date", StartDate, EndDate);
+                if (StartDate <> 0D) and (EndDate <> 0D) then
+                    DetailedEntry.SetRange("Posting Date", StartDate, EndDate);
 
-    TotalCount := DetailedEntry.Count;
+                TotalCount := DetailedEntry.Count;
 
-    if TotalCount = 0 then begin
-        Message('No unposted customer ledger entries found.');
-        CurrReport.Break();
-    end;
+                if TotalCount = 0 then begin
+                    Message('No unposted customer ledger entries found.');
+                    CurrReport.Break();
+                end;
 
-    if not Confirm('Do you want to post %1 unposted customer ledger entries?', false, TotalCount) then
-        CurrReport.Break();
+                if not Confirm('Do you want to post %1 unposted customer ledger entries?', false, TotalCount) then
+                    CurrReport.Break();
 
-    // Only open dialog when you're sure the report will run
-    Window.Open('Posting entry #1#### of #2####');
-    Counter := 0;
-    SuccessCount := 0;
-    ErrorCount := 0;
-    SkippedCount := 0;
-end;
+                // Only open dialog when you're sure the report will run
+                Window.Open('Posting entry #1#### of #2####');
+                Counter := 0;
+                SuccessCount := 0;
+                ErrorCount := 0;
+                SkippedCount := 0;
+            end;
 
 
 
@@ -140,8 +140,10 @@ end;
         GenJournalLine."Account No." := CustLedgerEntry."Customer No.";
         GenJournalLine."Bal. Account Type" := GenJournalLine."Bal. Account Type"::"G/L Account";
         GenJournalLine."Bal. Account No." := '72001';
-        GenJournalLine.Amount := CustLedgerEntry.Amount;
+        //GenJournalLine.Amount := CustLedgerEntry.Amount;
         GenJournalLine.Description := CustLedgerEntry.Description;
+        if CustLedgerEntry.Amount <> 0 then
+            GenJournalLine.Amount := CustLedgerEntry.Amount;
 
         if GenJournalLine.Insert() then begin
             if CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post", GenJournalLine) then begin
