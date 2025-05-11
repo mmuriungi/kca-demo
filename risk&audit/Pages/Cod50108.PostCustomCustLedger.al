@@ -1,27 +1,5 @@
 codeunit 50108 "Post Custom Cust Ledger"
 {
-
-    trigger OnRun()
-    begin
-        // Show the date filter page
-        ShowDateFilterPage();
-    end;
-
-    local procedure ShowDateFilterPage()
-    var
-        DateFilterDialog: Page "Post Custom Ledger Filter";
-    begin
-        // Configure dialog in lookup mode to ensure it returns properly
-        DateFilterDialog.LookupMode(true);
-
-        // Run the dialog and check if user clicked OK
-        if DateFilterDialog.RunModal() = Action::LookupOK then begin
-            // Get the date range and process records
-            DateFilterDialog.GetDateFilter(StartDate, EndDate);
-            ProcessEntriesByDateRange(StartDate, EndDate);
-        end;
-    end;
-
     procedure ProcessEntriesByDateRange(StartDate: Date; EndDate: Date)
     var
         DetailedCustLedgerCustom: Record "Detailed Cust ledger Custom";
@@ -81,7 +59,11 @@ codeunit 50108 "Post Custom Cust Ledger"
             GenJournalLine."Account Type" := GenJournalLine."Account Type"::Customer;
             GenJournalLine."Account No." := DetailedCustLedgerCustom."Customer No.";
             GenJournalLine.Description := DetailedCustLedgerCustom.Description;
-            GenJournalLine.Amount := DetailedCustLedgerCustom.Amount;
+            // GenJournalLine.Amount := DetailedCustLedgerCustom.Amount;
+            GenJournalLine."Bal. Account Type" := GenJournalLine."Bal. Account Type"::"G/L Account";
+            GenJournalLine."Bal. Account No." := '72001';  // Example G/L Account
+            IF DetailedCustLedgerCustom.Amount <> 0 THEN
+                GenJournalLine.Amount := DetailedCustLedgerCustom.Amount;
 
             // Insert the line
             if GenJournalLine.Insert() then
@@ -103,8 +85,4 @@ codeunit 50108 "Post Custom Cust Ledger"
 
         Message('Posted %1 records successfully.', RecordCount);
     end;
-
-    var
-        StartDate: Date;
-        EndDate: Date;
 }
