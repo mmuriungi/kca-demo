@@ -17,14 +17,14 @@ report 50821 "Post Customer Ledger Entries"
 
             trigger OnAfterGetRecord()
             begin
-
-                // lineNo := lineNo + 10000;
-
                 GenJournalLine1.Init();
+
+                // Set these fields AFTER Init()
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
                 GenJournalLine1."Journal Batch Name" := 'DEFAULT';
-                GenJournalLine1."Line No." := GenJournalLine1."Line No." + 10000;
-                //GenJournalLine1."Line No." := lineNo;
+                GenJournalLine1."Line No." := lineNo + 10000;
+                lineNo := lineNo + 10000;
+
                 GenJournalLine1."Document No." := DetailedEntry."Document No.";
                 GenJournalLine1."Posting Date" := DetailedEntry."Posting Date";
                 GenJournalLine1."Account Type" := GenJournalLine1."Account Type"::Customer;
@@ -41,7 +41,6 @@ report 50821 "Post Customer Ledger Entries"
                 DetailedEntry.Posted := true;
                 DetailedEntry.Modify();
             end;
-
 
             trigger OnPostDataItem()
             begin
