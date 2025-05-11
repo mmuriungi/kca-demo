@@ -1,6 +1,7 @@
 report 50821 "Post Customer Ledger Entries"
 {
     ApplicationArea = All;
+
     Caption = 'Post Customer Ledger Entries to G/L';
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/detailed.rdlc';
@@ -12,27 +13,17 @@ report 50821 "Post Customer Ledger Entries"
         dataitem(DetailedEntry; "Detailed Cust ledger Custom")
         {
             RequestFilterFields = "Posting Date", "Document No.", "Entry Type", Posted;
+            CalcFields = description;
 
             trigger OnAfterGetRecord()
             begin
-                // Always set template and batch before using GenJournalLine1
-                GenJournalLine1."Journal Template Name" := 'GENERAL';
-                GenJournalLine1."Journal Batch Name" := 'DEFAULT';
 
-                // Get last Line No. only once
-                if lineNo = 0 then begin
-                    GenJournalLine1.Reset();
-                    GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
-                    GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
-                    if GenJournalLine1.FindLast() then
-                        lineNo := GenJournalLine1."Line No.";
-                end;
-
-                lineNo := lineNo + 10000;
+                // lineNo := lineNo + 10000;
 
                 GenJournalLine1.Init();
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
                 GenJournalLine1."Journal Batch Name" := 'DEFAULT';
+                GenJournalLine1."Line No." := GenJournalLine1."Line No." + 10000;
                 GenJournalLine1."Line No." := lineNo;
                 GenJournalLine1."Document No." := DetailedEntry."Document No.";
                 GenJournalLine1."Posting Date" := DetailedEntry."Posting Date";
@@ -90,4 +81,16 @@ report 50821 "Post Customer Ledger Entries"
         SuccessCount: Integer;
         GenJournalLine1: Record "Gen. Journal Line";
         lineNo: Integer;
+
+    trigger OnPreReport()
+    begin
+        GenJournalLine1.reset;
+        GenJournalLine1.setrange("Journal Template Name", 'GENERAL');
+        GenJournalLine1.setrange("Journal Batch Name", 'DEFAULT');
+        if GenJournalLine1.FindSet() then begin
+            GenJournalLine1.DeleteAll();
+
+        end
+
+    end;
 }
