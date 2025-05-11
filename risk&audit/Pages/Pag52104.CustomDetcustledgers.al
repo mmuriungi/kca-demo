@@ -1,11 +1,12 @@
 page 52104 "Custom Det cust ledgers"
 {
+ 
     ApplicationArea = All;
     Caption = 'Custom Det cust ledgers';
     PageType = List;
     SourceTable = "Detailed Cust ledger Custom";
     UsageCategory = Administration;
-
+    
     layout
     {
         area(Content)
@@ -43,7 +44,7 @@ page 52104 "Custom Det cust ledgers"
             }
         }
     }
-
+    
     actions
     {
         area(Processing)
@@ -57,12 +58,13 @@ page 52104 "Custom Det cust ledgers"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'Post unposted entries to the general journal and mark them as posted.';
-
+                
                 trigger OnAction()
                 var
-                    DateFilterDialog: Page "Post Custom Ledger Filter";
+                    PostCustomCustLedger: Codeunit "Post Custom Cust Ledger";
                 begin
-                    DateFilterDialog.RunModal();
+                    // Run the codeunit directly
+                    PostCustomCustLedger.Run();
                 end;
             }
         }
