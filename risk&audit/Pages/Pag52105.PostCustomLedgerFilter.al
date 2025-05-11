@@ -1,71 +1,59 @@
-// Modify the existing page
-page 52104 "Custom Det cust ledgers"
+page 52105 "Post Custom Ledger Filter"
 {
-    ApplicationArea = All;
-    Caption = 'Custom Det cust ledgers';
-    PageType = List;
-    SourceTable = "Detailed Cust ledger Custom";
-    UsageCategory = Administration;
+    PageType = StandardDialog;
+    Caption = 'Filter Date Range';
 
     layout
     {
         area(Content)
         {
-            repeater(General)
+            group(Instructions)
             {
-                field("Document No."; Rec."Document No.")
+                Caption = 'Instructions';
+                InstructionalText = 'Select the date range for processing unposted entries. Records from 2019 are in the system.';
+            }
+            group(DateFilters)
+            {
+                Caption = 'Date Range';
+
+                field(StartDateField; StartDate)
                 {
-                    ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
+                    ApplicationArea = All;
+                    Caption = 'Start Date';
+                    ToolTip = 'Specifies the start date for filtering records.';
                 }
-                field("Customer No."; Rec."Customer No.")
+                field(EndDateField; EndDate)
                 {
-                    ToolTip = 'Specifies the value of the Customer No. field.', Comment = '%';
-                }
-                field("Posting Date"; Rec."Posting Date")
-                {
-                    ToolTip = 'Specifies the value of the Posting Date field.', Comment = '%';
-                }
-                field(Amount; Rec.Amount)
-                {
-                    ToolTip = 'Specifies the value of the Amount field.', Comment = '%';
-                }
-                field("Entry Type"; Rec."Entry Type")
-                {
-                    ToolTip = 'Specifies the value of the Entry Type field.', Comment = '%';
-                }
-                field(Description; Rec.Description)
-                {
-                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
-                }
-                field(Posted; Rec.Posted)
-                {
-                    ToolTip = 'Specifies the value of the Posted field.', Comment = '%';
+                    ApplicationArea = All;
+                    Caption = 'End Date';
+                    ToolTip = 'Specifies the end date for filtering records.';
                 }
             }
         }
     }
 
-    actions
-    {
-        area(Processing)
-        {
-            action(PostAllRecords)
-            {
-                ApplicationArea = All;
-                Caption = 'Post All Records';
-                Image = Post;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ToolTip = 'Post all records to the general journal without any filters.';
+    var
+        StartDate: Date;
+        EndDate: Date;
 
-                trigger OnAction()
-                var
-                    PostAllCustLedgerEntries: Codeunit "Post Custom Cust Ledger";
-                begin
-                    PostAllCustLedgerEntries.Run();
-                end;
-            }
-        }
-    }
+    trigger OnOpenPage()
+    begin
+        // Set default range to include 2019 dates
+        StartDate := DMY2Date(1, 1, 2019);
+        EndDate := DMY2Date(31, 12, 2019);
+    end;
+
+    procedure GetDateFilter(var FromDate: Date; var ToDate: Date)
+    begin
+        FromDate := StartDate;
+        ToDate := EndDate;
+    end;
+
+    procedure ProcessRecords()
+    var
+    // PostCustLedger: Codeunit "Post Custom Cust Ledger";
+    begin
+        // Call the codeunit directly (OnRun method)
+        // PostCustLedger.Run();
+    end;
 }

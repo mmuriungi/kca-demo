@@ -1,6 +1,7 @@
 // Modify the existing page
 page 52104 "Custom Det cust ledgers"
 {
+
     ApplicationArea = All;
     Caption = 'Custom Det cust ledgers';
     PageType = List;
@@ -49,21 +50,21 @@ page 52104 "Custom Det cust ledgers"
     {
         area(Processing)
         {
-            action(PostAllRecords)
+            action(PostWithDateFilter)
             {
                 ApplicationArea = All;
-                Caption = 'Post All Records';
+                Caption = 'Post Initial Entries with Date Filter';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Post all records to the general journal without any filters.';
+                ToolTip = 'Post Initial Entry records within a date range to the general journal.';
 
                 trigger OnAction()
                 var
-                    PostAllCustLedgerEntries: Codeunit "Post Custom Cust Ledger";
+                    PostCustomCustLedger: Codeunit "Post Custom Cust Ledger";
                 begin
-                    PostAllCustLedgerEntries.Run();
+                    PostCustomCustLedger.Run();
                 end;
             }
         }

@@ -1,14 +1,12 @@
 codeunit 50108 "Post Custom Cust Ledger"
 
-
 {
     trigger OnRun()
     begin
-        // Simply process all unposted records
-        ProcessUnpostedRecords(false);
+        PostAllRecords();
     end;
 
-    local procedure ProcessUnpostedRecords(FilterByEntryType: Boolean)
+    local procedure PostAllRecords()
     var
         DetailedCustLedgerCustom: Record "Detailed Cust ledger Custom";
         GenJournalLine: Record "Gen. Journal Line";
@@ -18,17 +16,10 @@ codeunit 50108 "Post Custom Cust Ledger"
         RecordCount: Integer;
         TotalCount: Integer;
         RecordNo: Integer;
-        EntryTypeText: Text;
     begin
-        // Filter for unposted records
-        DetailedCustLedgerCustom.SetRange(Posted, false);
-
-        // Only apply Entry Type filter if requested
-        if FilterByEntryType then
-            DetailedCustLedgerCustom.SetRange("Entry Type", DetailedCustLedgerCustom."Entry Type"::"Initial Entry");
-
+        // Get all records without any filters
         if not DetailedCustLedgerCustom.FindSet() then begin
-            Message('No matching unposted records found.');
+            Message('No records found in the table.');
             exit;
         end;
 
@@ -41,8 +32,7 @@ codeunit 50108 "Post Custom Cust Ledger"
         // Setup progress window
         Window.Open('Processing Record #1#### of #2####\' +
                     'Document No.: #3##########\' +
-                    'Customer: #4##########\' +
-                    'Entry Type: #5##########');
+                    'Customer: #4##########');
 
         RecordCount := 0;
         RecordNo := 0;
@@ -50,18 +40,11 @@ codeunit 50108 "Post Custom Cust Ledger"
         repeat
             RecordNo += 1;
 
-            // Get Entry Type as text for display
-            if DetailedCustLedgerCustom."Entry Type" = DetailedCustLedgerCustom."Entry Type"::"Initial Entry" then
-                EntryTypeText := 'Initial Entry'
-            else
-                EntryTypeText := Format(DetailedCustLedgerCustom."Entry Type");
-
             // Update progress window
             Window.Update(1, RecordNo);
             Window.Update(2, TotalCount);
             Window.Update(3, DetailedCustLedgerCustom."Document No.");
             Window.Update(4, DetailedCustLedgerCustom."Customer No.");
-            Window.Update(5, EntryTypeText);
 
             // We need to calculate FlowFields for each record
             DetailedCustLedgerCustom.CalcFields(Description);
@@ -69,8 +52,8 @@ codeunit 50108 "Post Custom Cust Ledger"
             // Clear Gen Journal Line to prepare for new entry
             GenJournalLine.Init();
 
-            // Set up line number
-            LineNo := 10000;
+            // Set up line number (unique for each entry)
+            LineNo := 10000 * RecordNo;
 
             // Fill Gen Journal Line
             GenJournalLine."Journal Template Name" := 'GENERAL';
@@ -97,11 +80,9 @@ codeunit 50108 "Post Custom Cust Ledger"
             // Post the journal line
             GenJnlPostLine.RunWithCheck(GenJournalLine);
 
-            // Update the original record to mark as posted
-            DetailedCustLedgerCustom.Posted := true;
-            DetailedCustLedgerCustom.Modify();
-
-            LineNo += 10000;  // Increment line number for next entry
+        // NOTE: Not marking the record as posted as requested
+        // DetailedCustLedgerCustom.Posted := true;
+        // DetailedCustLedgerCustom.Modify();
 
         until DetailedCustLedgerCustom.Next() = 0;
 
