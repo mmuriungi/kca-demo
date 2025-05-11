@@ -15,6 +15,11 @@ report 50821 "Post Customer Ledger Entries"
 
             trigger OnAfterGetRecord()
             begin
+                // Always set template and batch before using GenJournalLine1
+                GenJournalLine1."Journal Template Name" := 'GENERAL';
+                GenJournalLine1."Journal Batch Name" := 'DEFAULT';
+
+                // Get last Line No. only once
                 if lineNo = 0 then begin
                     GenJournalLine1.Reset();
                     GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
@@ -24,7 +29,6 @@ report 50821 "Post Customer Ledger Entries"
                 end;
 
                 lineNo := lineNo + 10000;
-                DetailedEntry.CalcFields(Description);
 
                 GenJournalLine1.Init();
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
