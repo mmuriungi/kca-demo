@@ -22,18 +22,18 @@ report 50821 "Post Customer Ledger Entries"
                 // Initialize the journal line without checking if it exists
                 // IF DetailedEntry.Posted = false THEN BEGIN
                 // Initialize the journal line
-                GenJournalLine1.Reset();
-                GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
-                GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
+                /* GenJournalLine1.Reset();
+                 GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
+                 GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
 
-                // Check if the journal line already exists
-                IF NOT GenJournalLine1.Find('-') THEN BEGIN
-                    // If it doesn't exist, create a new one
-                    lineNo := 0;
-                END ELSE BEGIN
-                    // If it exists, set the line number to the last one + 10000
-                    lineNo := GenJournalLine1."Line No." + 10000;
-                END;
+                 // Check if the journal line already exists
+                 IF NOT GenJournalLine1.Find('-') THEN BEGIN
+                     // If it doesn't exist, create a new one
+                     lineNo := 0;
+                 END ELSE BEGIN
+                     // If it exists, set the line number to the last one + 10000
+                     lineNo := GenJournalLine1."Line No." + 10000;
+                 END;*/
                 GenJournalLine1.Init();
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
                 GenJournalLine1."Journal Batch Name" := 'DEFAULT';
@@ -105,15 +105,20 @@ report 50821 "Post Customer Ledger Entries"
         GenJournalLine1: Record "Gen. Journal Line";
         lineNo: Integer;
 
+    // In the OnPreReport trigger
     trigger OnPreReport()
     begin
-        // Always clear the journal lines before starting
-        //GenJournalLine1.Reset();
-        // GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
-        // GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
-        // GenJournalLine1.DeleteAll();
+        GenJournalLine1.Reset();
+        GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
+        GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
+        GenJournalLine1.DeleteAll();
 
-        // Initialize lineNo
-        // lineNo := 0;
+        lineNo := 0;
+
+        // Convert boolean filter to numeric filter
+        if DetailedEntry.GetFilter(Posted) = 'Yes' then
+            DetailedEntry.SetRange(Posted, true)
+        else if DetailedEntry.GetFilter(Posted) = 'No' then
+            DetailedEntry.SetRange(Posted, false);
     end;
 }
