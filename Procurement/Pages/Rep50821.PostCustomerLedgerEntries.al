@@ -1,7 +1,6 @@
 report 50821 "Post Customer Ledger Entries"
 {
     ApplicationArea = All;
-
     Caption = 'Post Customer Ledger Entries to G/L';
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/detailed.rdlc';
@@ -17,13 +16,29 @@ report 50821 "Post Customer Ledger Entries"
 
             trigger OnAfterGetRecord()
             begin
-                GenJournalLine1.Init();
+                // Always clear the journal lines before starting
 
-                // Set these fields AFTER Init()
+
+                // Initialize the journal line without checking if it exists
+                // IF DetailedEntry.Posted = false THEN BEGIN
+                // Initialize the journal line
+                GenJournalLine1.Reset();
+                GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
+                GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
+
+                // Check if the journal line already exists
+                IF NOT GenJournalLine1.Find('-') THEN BEGIN
+                    // If it doesn't exist, create a new one
+                    lineNo := 0;
+                END ELSE BEGIN
+                    // If it exists, set the line number to the last one + 10000
+                    lineNo := GenJournalLine1."Line No." + 10000;
+                END;
+                GenJournalLine1.Init();
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
                 GenJournalLine1."Journal Batch Name" := 'DEFAULT';
-                GenJournalLine1."Line No." := lineNo + 10000;
-                lineNo := lineNo + 10000;
+                GenJournalLine1."Line No." := GenJournalLine1."Line No." + 10000;
+                //lineNo := lineNo + 10000;
 
                 GenJournalLine1."Document No." := DetailedEntry."Document No.";
                 GenJournalLine1."Posting Date" := DetailedEntry."Posting Date";
@@ -40,10 +55,17 @@ report 50821 "Post Customer Ledger Entries"
 
                 DetailedEntry.Posted := true;
                 DetailedEntry.Modify();
-            end;
+            END;
+            //  END;
 
             trigger OnPostDataItem()
+            var
+                GenJournalLineToPost: Record "Gen. Journal Line";
             begin
+                //GenJournalLineToPost.Reset();
+                //GenJournalLineToPost.SetRange("Journal Template Name", 'GENERAL');
+                //GenJournalLineToPost.SetRange("Journal Batch Name", 'DEFAULT');
+
                 CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post Batch", GenJournalLine1);
             end;
         }
@@ -74,6 +96,8 @@ report 50821 "Post Customer Ledger Entries"
     }
 
     var
+        GentempCode: code[20];
+        genbatchName: code[20];
         StartDate: Date;
         EndDate: Date;
         Window: Dialog;
@@ -83,13 +107,13 @@ report 50821 "Post Customer Ledger Entries"
 
     trigger OnPreReport()
     begin
-        GenJournalLine1.reset;
-        GenJournalLine1.setrange("Journal Template Name", 'GENERAL');
-        GenJournalLine1.setrange("Journal Batch Name", 'DEFAULT');
-        if GenJournalLine1.FindSet() then begin
-            GenJournalLine1.DeleteAll();
+        // Always clear the journal lines before starting
+        //GenJournalLine1.Reset();
+        // GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
+        // GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
+        // GenJournalLine1.DeleteAll();
 
-        end
-
+        // Initialize lineNo
+        // lineNo := 0;
     end;
 }
