@@ -78,7 +78,13 @@ codeunit 50108 "Post Custom Cust Ledger"
             GenJournalLine."Account Type" := GenJournalLine."Account Type"::Customer;
             GenJournalLine."Account No." := DetailedCustLedgerCustom."Customer No.";
             GenJournalLine.Description := DetailedCustLedgerCustom.Description;
-            GenJournalLine.Amount := DetailedCustLedgerCustom.Amount;
+           GenJournalLine."Bal. Account Type" := GenJournalLine."Bal. Account Type"::"G/L Account";
+            GenJournalLine."Bal. Account No." := '72001'; 
+           
+            if DetailedCustLedgerCustom.Amount <> 0 then
+             GenJournalLine.Amount := DetailedCustLedgerCustom.Amount;
+               
+
             
             // Insert the line
             if GenJournalLine.Insert() then
