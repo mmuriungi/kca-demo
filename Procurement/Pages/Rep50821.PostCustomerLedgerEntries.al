@@ -11,60 +11,46 @@ report 50821 "Post Customer Ledger Entries"
     {
         dataitem(DetailedEntry; "Detailed Cust ledger Custom")
         {
-            RequestFilterFields = "Posting Date", "Document No.";
+            RequestFilterFields = "Posting Date", "Document No.", "Entry Type", Posted;
 
             trigger OnAfterGetRecord()
             begin
-                IF DetailedEntry."Entry Type" = DetailedEntry."Entry Type"::"Initial Entry" then begin
-                    CUstLedger.RESET;
-                    CUstLedger.SETRANGE("Document No.", DetailedEntry."Document No.");
-                    CUstLedger.SETRANGE("Customer No.", DetailedEntry."Customer No.");
-                    CUstLedger.SETRANGE(Posted, false);
-                    CUstLedger.SetRange("Posting Date", StartDate, EndDate);
-
-                    IF CUstLedger.FindSet() then begin
-                        repeat
-                            lineNo := lineNo + 10000;
-                            CUstLedger.CalcFields(Description);
-
-                            GenJournalLine1.Init();
-                            GenJournalLine1."Journal Template Name" := 'GENERAL';
-                            GenJournalLine1."Journal Batch Name" := 'DEFAULT';
-                            GenJournalLine1."Line No." := lineNo;
-                            GenJournalLine1."Document No." := CUstLedger."Document No.";
-                            GenJournalLine1."Posting Date" := CUstLedger."Posting Date";
-                            GenJournalLine1."Account Type" := GenJournalLine1."Account Type"::Customer;
-                            GenJournalLine1."Account No." := CUstLedger."Customer No.";
-                            GenJournalLine1."Bal. Account Type" := GenJournalLine1."Bal. Account Type"::"G/L Account";
-                            GenJournalLine1."Bal. Account No." := '72001';
-                            GenJournalLine1.Description := CUstLedger.Description;
-
-                            if CUstLedger.Amount <> 0 then
-                                GenJournalLine1.Amount := CUstLedger.Amount;
-
-                            if GenJournalLine1.Insert(True) then begin
-                                if CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post", GenJournalLine1) then begin
-                                    CUstLedger.Posted := true;
-                                    CUstLedger.Modify();
-                                    SuccessCount += 1;
-                                end;
-                            end;
-                        until CUstLedger.Next() = 0;
-                    end;
+                if lineNo = 0 then begin
+                    GenJournalLine1.Reset();
+                    GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
+                    GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
+                    if GenJournalLine1.FindLast() then
+                        lineNo := GenJournalLine1."Line No.";
                 end;
+
+                lineNo := lineNo + 10000;
+                DetailedEntry.CalcFields(Description);
+
+                GenJournalLine1.Init();
+                GenJournalLine1."Journal Template Name" := 'GENERAL';
+                GenJournalLine1."Journal Batch Name" := 'DEFAULT';
+                GenJournalLine1."Line No." := lineNo;
+                GenJournalLine1."Document No." := DetailedEntry."Document No.";
+                GenJournalLine1."Posting Date" := DetailedEntry."Posting Date";
+                GenJournalLine1."Account Type" := GenJournalLine1."Account Type"::Customer;
+                GenJournalLine1."Account No." := DetailedEntry."Customer No.";
+                GenJournalLine1."Bal. Account Type" := GenJournalLine1."Bal. Account Type"::"G/L Account";
+                GenJournalLine1."Bal. Account No." := '72001';
+                GenJournalLine1.Description := DetailedEntry.Description;
+
+                if DetailedEntry.Amount <> 0 then
+                    GenJournalLine1.Amount := DetailedEntry.Amount;
+
+                GenJournalLine1.Insert(true);
+
+                DetailedEntry.Posted := true;
+                DetailedEntry.Modify();
             end;
 
-            trigger OnPreDataItem()
-            begin
-                Window.Open('Processing...');
-                lineNo := 0;
-                SuccessCount := 0;
-            end;
 
             trigger OnPostDataItem()
             begin
-                Window.Close();
-                Message('Successfully posted %1 records.', SuccessCount);
+                CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post Batch", GenJournalLine1);
             end;
         }
     }
@@ -91,21 +77,12 @@ report 50821 "Post Customer Ledger Entries"
                 }
             }
         }
-
-        trigger OnOpenPage()
-        begin
-            if StartDate = 0D then begin
-                StartDate := CalcDate('<-CM>', WorkDate());
-                EndDate := WorkDate();
-            end;
-        end;
     }
 
     var
         StartDate: Date;
         EndDate: Date;
         Window: Dialog;
-        CUstLedger: Record "Detailed Cust ledger Custom";
         SuccessCount: Integer;
         GenJournalLine1: Record "Gen. Journal Line";
         lineNo: Integer;
