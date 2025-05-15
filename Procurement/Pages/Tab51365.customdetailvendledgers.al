@@ -3,7 +3,7 @@ table 51365 "custom detail vend ledgers"
 {
     Caption = 'Detailed Vendor Ledg. Entry';
     DataCaptionFields = "Vendor No.";
-  
+
     DataClassification = CustomerContent;
 
     fields
@@ -207,6 +207,25 @@ table 51365 "custom detail vend ledgers"
             Editable = false;
             TableRelation = "Exch. Rate Adjmt. Reg.";
         }
+        //Posted
+        field(46; Posted; Boolean)
+        {
+            Caption = 'Posted';
+            Editable = false;
+        }
+        //description
+        field(47; description; Text[250])
+        {
+            FieldClass = FlowField;
+            Caption = 'Description';
+            Editable = false;
+            CalcFormula = lookup("Vendor ledger entries custom".Description where("Document No." = field("Document No."), "Posting Date" = field("Posting Date"), "Vendor No." = field("Vendor No.")));
+        }
+        field(48; "Initial Entry No."; Integer)
+        {
+            Caption = 'Initial Entry No.';
+            Editable = false;
+        }
     }
 
     keys
@@ -264,12 +283,15 @@ table 51365 "custom detail vend ledgers"
     }
 
     trigger OnInsert()
+
+
     begin
         SetLedgerEntryAmount();
     end;
 
     procedure GetLastEntryNo(): Integer;
     var
+        VendorLedgEntry: Record "Vendor Ledger Entry";
         FindRecordManagement: Codeunit "Find Record Management";
     begin
         exit(FindRecordManagement.GetLastEntryIntFieldValue(Rec, FieldNo("Entry No.")))
