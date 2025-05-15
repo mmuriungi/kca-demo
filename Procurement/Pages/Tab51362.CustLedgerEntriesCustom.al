@@ -86,7 +86,7 @@ table 52178744 "Cust Ledger Entries Custom"
         {
             AutoFormatExpression = Rec."Currency Code";
             AutoFormatType = 1;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry".Amount where("Ledger Entry Amount" = const(true),
+            CalcFormula = sum("Detailed Cust ledger Custom".Amount where(
                                                                          "Cust. Ledger Entry No." = field("Entry No."),
                                                                          "Posting Date" = field("Date Filter")));
             Caption = 'Amount';
@@ -97,7 +97,7 @@ table 52178744 "Cust Ledger Entries Custom"
         {
             AutoFormatExpression = Rec."Currency Code";
             AutoFormatType = 1;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry".Amount where("Cust. Ledger Entry No." = field("Entry No."),
+            CalcFormula = sum("Detailed Cust ledger Custom".Amount where("Cust. Ledger Entry No." = field("Entry No."),
                                                                          "Posting Date" = field("Date Filter")));
             Caption = 'Remaining Amount';
             Editable = false;
@@ -106,7 +106,7 @@ table 52178744 "Cust Ledger Entries Custom"
         field(15; "Original Amt. (LCY)"; Decimal)
         {
             AutoFormatType = 1;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" where("Cust. Ledger Entry No." = field("Entry No."),
+            CalcFormula = sum("Detailed Cust ledger Custom"."Amount (LCY)" where("Cust. Ledger Entry No." = field("Entry No."),
                                                                                  "Entry Type" = filter("Initial Entry"),
                                                                                  "Posting Date" = field("Date Filter")));
             Caption = 'Original Amt. (LCY)';
@@ -116,7 +116,7 @@ table 52178744 "Cust Ledger Entries Custom"
         field(16; "Remaining Amt. (LCY)"; Decimal)
         {
             AutoFormatType = 1;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" where("Cust. Ledger Entry No." = field("Entry No."),
+            CalcFormula = sum("Detailed Cust ledger Custom"."Amount (LCY)" where("Cust. Ledger Entry No." = field("Entry No."),
                                                                                  "Posting Date" = field("Date Filter")));
             Caption = 'Remaining Amt. (LCY)';
             Editable = false;
@@ -125,7 +125,7 @@ table 52178744 "Cust Ledger Entries Custom"
         field(17; "Amount (LCY)"; Decimal)
         {
             AutoFormatType = 1;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Amount (LCY)" where("Ledger Entry Amount" = const(true),
+            CalcFormula = sum("Detailed Cust ledger Custom"."Amount (LCY)" where("Ledger Entry Amount" = const(true),
                                                                                  "Cust. Ledger Entry No." = field("Entry No."),
                                                                                  "Posting Date" = field("Date Filter")));
             Caption = 'Amount (LCY)';
@@ -343,7 +343,7 @@ table 52178744 "Cust Ledger Entries Custom"
             AutoFormatExpression = Rec."Currency Code";
             AutoFormatType = 1;
             BlankZero = true;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Debit Amount" where("Ledger Entry Amount" = const(true),
+            CalcFormula = sum("Detailed Cust ledger Custom"."Debit Amount" where("Ledger Entry Amount" = const(true),
                                                                                  "Cust. Ledger Entry No." = field("Entry No."),
                                                                                  "Posting Date" = field("Date Filter")));
             Caption = 'Debit Amount';
@@ -355,7 +355,7 @@ table 52178744 "Cust Ledger Entries Custom"
             AutoFormatExpression = Rec."Currency Code";
             AutoFormatType = 1;
             BlankZero = true;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Credit Amount" where("Ledger Entry Amount" = const(true),
+            CalcFormula = sum("Detailed Cust ledger Custom"."Credit Amount" where("Ledger Entry Amount" = const(true),
                                                                                   "Cust. Ledger Entry No." = field("Entry No."),
                                                                                   "Posting Date" = field("Date Filter")));
             Caption = 'Credit Amount';
@@ -366,7 +366,7 @@ table 52178744 "Cust Ledger Entries Custom"
         {
             AutoFormatType = 1;
             BlankZero = true;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Debit Amount (LCY)" where("Ledger Entry Amount" = const(true),
+            CalcFormula = sum("Detailed Cust ledger Custom"."Debit Amount (LCY)" where("Ledger Entry Amount" = const(true),
                                                                                        "Cust. Ledger Entry No." = field("Entry No."),
                                                                                        "Posting Date" = field("Date Filter")));
             Caption = 'Debit Amount (LCY)';
@@ -377,7 +377,7 @@ table 52178744 "Cust Ledger Entries Custom"
         {
             AutoFormatType = 1;
             BlankZero = true;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry"."Credit Amount (LCY)" where("Ledger Entry Amount" = const(true),
+            CalcFormula = sum("Detailed Cust ledger Custom"."Credit Amount (LCY)" where("Ledger Entry Amount" = const(true),
                                                                                         "Cust. Ledger Entry No." = field("Entry No."),
                                                                                         "Posting Date" = field("Date Filter")));
             Caption = 'Credit Amount (LCY)';
@@ -431,7 +431,7 @@ table 52178744 "Cust Ledger Entries Custom"
         {
             AutoFormatExpression = Rec."Currency Code";
             AutoFormatType = 1;
-            CalcFormula = sum("Detailed Cust. Ledg. Entry".Amount where("Cust. Ledger Entry No." = field("Entry No."),
+            CalcFormula = sum("Detailed Cust ledger Custom".Amount where("Cust. Ledger Entry No." = field("Entry No."),
                                                                          "Entry Type" = filter("Initial Entry"),
                                                                          "Posting Date" = field("Date Filter")));
             Caption = 'Original Amount';
@@ -912,7 +912,7 @@ table 52178744 "Cust Ledger Entries Custom"
         exit(HasPostedDocumentAttachment);
     end;
 
-    procedure DrillDownOnEntries(var DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry")
+    procedure DrillDownOnEntries(var DtldCustLedgEntry: Record "Detailed Cust ledger Custom")
     var
         CustLedgEntry: Record "Cust. Ledger Entry";
         DrillDownPageID: Integer;
@@ -929,7 +929,7 @@ table 52178744 "Cust Ledger Entries Custom"
         PAGE.Run(DrillDownPageID, CustLedgEntry);
     end;
 
-    procedure DrillDownOnOverdueEntries(var DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry")
+    procedure DrillDownOnOverdueEntries(var DtldCustLedgEntry: Record "Detailed Cust ledger Custom")
     var
         CustLedgEntry: Record "Cust. Ledger Entry";
         DrillDownPageID: Integer;
@@ -1209,12 +1209,12 @@ table 52178744 "Cust Ledger Entries Custom"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeDrillDownEntries(var CustLedgerEntry: Record "Cust. Ledger Entry"; var DetailedCustLedgEntry: Record "Detailed Cust. Ledg. Entry"; var DrillDownPageID: Integer)
+    local procedure OnBeforeDrillDownEntries(var CustLedgerEntry: Record "Cust. Ledger Entry"; var DetailedCustLedgEntry: Record "Detailed Cust ledger Custom"; var DrillDownPageID: Integer)
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeDrillDownOnOverdueEntries(var CustLedgerEntry: Record "Cust. Ledger Entry"; var DetailedCustLedgEntry: Record "Detailed Cust. Ledg. Entry"; var DrillDownPageID: Integer)
+    local procedure OnBeforeDrillDownOnOverdueEntries(var CustLedgerEntry: Record "Cust. Ledger Entry"; var DetailedCustLedgEntry: Record "Detailed Cust ledger Custom"; var DrillDownPageID: Integer)
     begin
     end;
 
@@ -1249,7 +1249,7 @@ table 52178744 "Cust Ledger Entries Custom"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeDrillDownOnOverdueEntriesBeforeCode(var DetailedCustLedgEntry: Record "Detailed Cust. Ledg. Entry"; var IsHandled: Boolean)
+    local procedure OnBeforeDrillDownOnOverdueEntriesBeforeCode(var DetailedCustLedgEntry: Record "Detailed Cust ledger Custom"; var IsHandled: Boolean)
     begin
     end;
 
