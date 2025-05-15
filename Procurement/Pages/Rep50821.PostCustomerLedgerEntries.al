@@ -52,8 +52,10 @@ report 50821 "Post Customer Ledger Entries"
                     GenJournalLine1.Amount := DetailedEntry.Amount;
 
                 GenJournalLine1.Insert(true);
+                DetailedEntry.Posted := true;
+                DetailedEntry.Modify();
 
-               
+
             END;
             //  END;
 
@@ -66,8 +68,7 @@ report 50821 "Post Customer Ledger Entries"
                 //GenJournalLineToPost.SetRange("Journal Batch Name", 'DEFAULT');
 
                 CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post Batch", GenJournalLine1);
-                 DetailedEntry.Posted := true;
-                DetailedEntry.Modify();
+
             end;
         }
     }
