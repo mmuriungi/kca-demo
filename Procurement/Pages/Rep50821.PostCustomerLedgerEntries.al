@@ -15,30 +15,28 @@ report 50821 "Post Customer Ledger Entries"
             CalcFields = description;
 
             trigger OnAfterGetRecord()
+            var
+                CustLedgerEntry: Record "Cust. Ledger Entry";
             begin
-                // Always clear the journal lines before starting
+                // Check if record already exists in customer ledger entries
+                CustLedgerEntry.Reset();
+                CustLedgerEntry.SetRange("Document No.", DetailedEntry."Document No.");
+                CustLedgerEntry.SetRange(Amount, DetailedEntry.Amount);
+                CustLedgerEntry.SetRange("Customer No.", DetailedEntry."Customer No.");
 
+                // If record exists, skip insertion
+                if not CustLedgerEntry.IsEmpty then begin
+                    // Optionally mark as posted if it exists elsewhere
+                    DetailedEntry.Posted := true;
+                    DetailedEntry.Modify();
+                    exit;  // Skip the rest of the trigger
+                end;
 
-                // Initialize the journal line without checking if it exists
-                // IF DetailedEntry.Posted = false THEN BEGIN
-                // Initialize the journal line
-                /* GenJournalLine1.Reset();
-                 GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
-                 GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
-
-                 // Check if the journal line already exists
-                 IF NOT GenJournalLine1.Find('-') THEN BEGIN
-                     // If it doesn't exist, create a new one
-                     lineNo := 0;
-                 END ELSE BEGIN
-                     // If it exists, set the line number to the last one + 10000
-                     lineNo := GenJournalLine1."Line No." + 10000;
-                 END;*/
+                // Only proceed if no matching record was found
                 GenJournalLine1.Init();
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
                 GenJournalLine1."Journal Batch Name" := 'DEFAULT';
                 GenJournalLine1."Line No." := GenJournalLine1."Line No." + 10000;
-                //lineNo := lineNo + 10000;
 
                 GenJournalLine1."Document No." := DetailedEntry."Document No.";
                 GenJournalLine1."Posting Date" := DetailedEntry."Posting Date";
@@ -54,21 +52,13 @@ report 50821 "Post Customer Ledger Entries"
                 GenJournalLine1.Insert(true);
                 DetailedEntry.Posted := true;
                 DetailedEntry.Modify();
-
-
-            END;
-            //  END;
+            end;
 
             trigger OnPostDataItem()
             var
                 GenJournalLineToPost: Record "Gen. Journal Line";
             begin
-                //GenJournalLineToPost.Reset();
-                //GenJournalLineToPost.SetRange("Journal Template Name", 'GENERAL');
-                //GenJournalLineToPost.SetRange("Journal Batch Name", 'DEFAULT');
-
                 CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post Batch", GenJournalLine1);
-
             end;
         }
     }
@@ -107,7 +97,6 @@ report 50821 "Post Customer Ledger Entries"
         GenJournalLine1: Record "Gen. Journal Line";
         lineNo: Integer;
 
-    // In the OnPreReport trigger
     trigger OnPreReport()
     begin
         GenJournalLine1.Reset();
