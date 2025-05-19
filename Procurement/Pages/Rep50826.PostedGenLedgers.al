@@ -35,9 +35,9 @@ report 50826 "Posted Gen Ledgers"
                 CurrentRecord := 0;
 
                 // Clear existing journal entries
-                //  GenJournalLine1.Reset();
-                // GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
-                //// GenJournalLine1.SetRange("Journal Batch Name", 'DATAUPLOAD');
+                GenJournalLine1.Reset();
+                GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
+                GenJournalLine1.SetRange("Journal Batch Name", 'DATAUPLOAD');
                 GenJournalLine1.DeleteAll();
             end;
 
@@ -49,16 +49,14 @@ report 50826 "Posted Gen Ledgers"
                 Window.Update(1, CurrentRecord);
                 Window.Update(2, RecordCount);
 
-                // Debug information (you can comment this out in production)
-                Message('Processing record: %1, Amount: %2, Account: %3',
-                    DetailedEntry."Document No",
-                    DetailedEntry.Amount,
-                    DetailedEntry."Account No");
+                // Log information to a temporary storage instead of showing messages
+                // Remove the Message calls that were here before
 
                 // Skip records with zero amount or empty account
                 if (DetailedEntry.Amount = 0) or (DetailedEntry."Account No" = '') then begin
                     SkippedCount += 1;
-                    Message('Skipping record due to zero amount or empty account: %1', DetailedEntry."Document No");
+                    // Store in a log instead of showing message
+                    LogSkippedDocuments += DetailedEntry."Document No" + ', ';
                     exit;
                 end;
 
@@ -95,18 +93,30 @@ report 50826 "Posted Gen Ledgers"
                     SuccessCount += 1;
                 end else begin
                     ErrorCount += 1;
-                    Message('Error inserting journal line for document: %1', DetailedEntry."Document No");
+                    // Store in a log instead of showing message
+                    LogErrorDocuments += DetailedEntry."Document No" + ', ';
                 end;
             end;
 
             trigger OnPostDataItem()
             begin
                 Window.Close();
+
+                // Display message with summary after all records are processed
                 if SuccessCount = 0 then
                     Message('No records were processed successfully.')
                 else
                     Message('%1 records were successfully processed, %2 were skipped, %3 had errors.',
                         SuccessCount, SkippedCount, ErrorCount);
+
+                // Optionally, if detailed logs are needed, show them in a separate message
+                if ShowDetailedLog then begin
+                    if LogSkippedDocuments <> '' then
+                        Message('Skipped Documents: %1', LogSkippedDocuments);
+
+                    if LogErrorDocuments <> '' then
+                        Message('Error Documents: %1', LogErrorDocuments);
+                end;
             end;
         }
     }
@@ -137,7 +147,12 @@ report 50826 "Posted Gen Ledgers"
                         ApplicationArea = All;
                         Caption = 'Process Only Unposted Records';
                         ToolTip = 'Enable this to process only records where Posted = No';
-                        // Removed InitValue property as it's causing issues
+                    }
+                    field(ShowDetailedLog; ShowDetailedLog)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Show Detailed Error Log';
+                        ToolTip = 'Enable to see detailed document numbers for skipped and error records';
                     }
                 }
             }
@@ -145,8 +160,9 @@ report 50826 "Posted Gen Ledgers"
 
         trigger OnOpenPage()
         begin
-            // Set default value for ProcessOnlyUnposted here instead
+            // Set default values
             ProcessOnlyUnposted := true;
+            ShowDetailedLog := false;
         end;
     }
 
@@ -155,7 +171,9 @@ report 50826 "Posted Gen Ledgers"
         genbatchName: code[20];
         StartDate: Date;
         EndDate: Date;
-
+        ShowDetailedLog: Boolean;
+        LogSkippedDocuments: Text;
+        LogErrorDocuments: Text;
         Window: Dialog;
         SuccessCount: Integer;
         SkippedCount: Integer;
@@ -168,9 +186,11 @@ report 50826 "Posted Gen Ledgers"
 
     trigger OnPreReport()
     begin
-        // Initialization moved to OnPreDataItem of DetailedEntry
+        // Initialize variables
         SuccessCount := 0;
         SkippedCount := 0;
         ErrorCount := 0;
+        LogSkippedDocuments := '';
+        LogErrorDocuments := '';
     end;
 }
