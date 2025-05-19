@@ -5,7 +5,7 @@ table 51367 "Custom Gen Ledgers"
     
     fields
     {
-        field(1; "Line No"; )
+        field(1; "Line No"; Integer)
         {
             Caption = 'Line No';
         }
