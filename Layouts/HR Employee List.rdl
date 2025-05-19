@@ -24,106 +24,6 @@
       <rd:DataSourceID>efdc5103-7337-420c-851c-edd49c6c294f</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="CI_Name">
-          <DataField>CI_Name</DataField>
-        </Field>
-        <Field Name="CI_Address">
-          <DataField>CI_Address</DataField>
-        </Field>
-        <Field Name="CI_Address2">
-          <DataField>CI_Address2</DataField>
-        </Field>
-        <Field Name="CI_City">
-          <DataField>CI_City</DataField>
-        </Field>
-        <Field Name="CI_EMail">
-          <DataField>CI_EMail</DataField>
-        </Field>
-        <Field Name="CI_HomePage">
-          <DataField>CI_HomePage</DataField>
-        </Field>
-        <Field Name="CI_PhoneNo">
-          <DataField>CI_PhoneNo</DataField>
-        </Field>
-        <Field Name="CI_Picture">
-          <DataField>CI_Picture</DataField>
-        </Field>
-        <Field Name="HR_Employees__No__">
-          <DataField>HR_Employees__No__</DataField>
-        </Field>
-        <Field Name="HR_Employees__ID_Number_">
-          <DataField>HR_Employees__ID_Number_</DataField>
-        </Field>
-        <Field Name="HR_Employees__Date_Of_Joining_the_Company_">
-          <DataField>HR_Employees__Date_Of_Joining_the_Company_</DataField>
-        </Field>
-        <Field Name="HR_Employees__FullName">
-          <DataField>HR_Employees__FullName</DataField>
-        </Field>
-        <Field Name="HR_Employees__Cell_Phone_Number_">
-          <DataField>HR_Employees__Cell_Phone_Number_</DataField>
-        </Field>
-        <Field Name="EmployeeCaption">
-          <DataField>EmployeeCaption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="Employee_ListCaption">
-          <DataField>Employee_ListCaption</DataField>
-        </Field>
-        <Field Name="P_O__BoxCaption">
-          <DataField>P_O__BoxCaption</DataField>
-        </Field>
-        <Field Name="HR_Employees__No__Caption">
-          <DataField>HR_Employees__No__Caption</DataField>
-        </Field>
-        <Field Name="HR_Employees__ID_Number_Caption">
-          <DataField>HR_Employees__ID_Number_Caption</DataField>
-        </Field>
-        <Field Name="HR_Employees__Date_Of_Joining_the_Company_Caption">
-          <DataField>HR_Employees__Date_Of_Joining_the_Company_Caption</DataField>
-        </Field>
-        <Field Name="Full_NamesCaption">
-          <DataField>Full_NamesCaption</DataField>
-        </Field>
-        <Field Name="LengthOfService_HREmployees">
-          <DataField>LengthOfService_HREmployees</DataField>
-        </Field>
-        <Field Name="LenghtOfServices">
-          <DataField>LenghtOfServices</DataField>
-        </Field>
-        <Field Name="Age">
-          <DataField>Age</DataField>
-        </Field>
-        <Field Name="JobTitle_HREmployeeC">
-          <DataField>JobTitle_HREmployeeC</DataField>
-        </Field>
-        <Field Name="Gender_HREmployeeC">
-          <DataField>Gender_HREmployeeC</DataField>
-        </Field>
-        <Field Name="DateofBirth">
-          <DataField>DateofBirth</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -799,8 +699,50 @@
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
+      <NumberOfColumns>1</NumberOfColumns>
+      <NumberOfRows>8</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>CI_NameCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>CI_AddressCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>CI_Address2Caption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>CI_CityCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>CI_EMailCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>CI_HomePageCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>CI_PhoneNoCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>CI_PictureCaption</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
@@ -840,4 +782,104 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="CI_Name">
+          <DataField>CI_Name</DataField>
+        </Field>
+        <Field Name="CI_Address">
+          <DataField>CI_Address</DataField>
+        </Field>
+        <Field Name="CI_Address2">
+          <DataField>CI_Address2</DataField>
+        </Field>
+        <Field Name="CI_City">
+          <DataField>CI_City</DataField>
+        </Field>
+        <Field Name="CI_EMail">
+          <DataField>CI_EMail</DataField>
+        </Field>
+        <Field Name="CI_HomePage">
+          <DataField>CI_HomePage</DataField>
+        </Field>
+        <Field Name="CI_PhoneNo">
+          <DataField>CI_PhoneNo</DataField>
+        </Field>
+        <Field Name="CI_Picture">
+          <DataField>CI_Picture</DataField>
+        </Field>
+        <Field Name="HR_Employees__No__">
+          <DataField>HR_Employees__No__</DataField>
+        </Field>
+        <Field Name="HR_Employees__ID_Number_">
+          <DataField>HR_Employees__ID_Number_</DataField>
+        </Field>
+        <Field Name="HR_Employees__Date_Of_Joining_the_Company_">
+          <DataField>HR_Employees__Date_Of_Joining_the_Company_</DataField>
+        </Field>
+        <Field Name="HR_Employees__FullName">
+          <DataField>HR_Employees__FullName</DataField>
+        </Field>
+        <Field Name="HR_Employees__Cell_Phone_Number_">
+          <DataField>HR_Employees__Cell_Phone_Number_</DataField>
+        </Field>
+        <Field Name="EmployeeCaption">
+          <DataField>EmployeeCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="Employee_ListCaption">
+          <DataField>Employee_ListCaption</DataField>
+        </Field>
+        <Field Name="P_O__BoxCaption">
+          <DataField>P_O__BoxCaption</DataField>
+        </Field>
+        <Field Name="HR_Employees__No__Caption">
+          <DataField>HR_Employees__No__Caption</DataField>
+        </Field>
+        <Field Name="HR_Employees__ID_Number_Caption">
+          <DataField>HR_Employees__ID_Number_Caption</DataField>
+        </Field>
+        <Field Name="HR_Employees__Date_Of_Joining_the_Company_Caption">
+          <DataField>HR_Employees__Date_Of_Joining_the_Company_Caption</DataField>
+        </Field>
+        <Field Name="Full_NamesCaption">
+          <DataField>Full_NamesCaption</DataField>
+        </Field>
+        <Field Name="LengthOfService_HREmployees">
+          <DataField>LengthOfService_HREmployees</DataField>
+        </Field>
+        <Field Name="LenghtOfServices">
+          <DataField>LenghtOfServices</DataField>
+        </Field>
+        <Field Name="Age">
+          <DataField>Age</DataField>
+        </Field>
+        <Field Name="JobTitle_HREmployeeC">
+          <DataField>JobTitle_HREmployeeC</DataField>
+        </Field>
+        <Field Name="Gender_HREmployeeC">
+          <DataField>Gender_HREmployeeC</DataField>
+        </Field>
+        <Field Name="DateofBirth">
+          <DataField>DateofBirth</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

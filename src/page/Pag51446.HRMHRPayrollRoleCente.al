@@ -9,7 +9,7 @@ page 51446 "HRM-HR&Payroll Role Cente"
     {
         area(rolecenter)
         {
-            part(HOD; "Approvals Activities One")
+            part(requests; "Approvals Activities")
             {
                 ApplicationArea = Suite;
             }
@@ -37,52 +37,52 @@ page 51446 "HRM-HR&Payroll Role Cente"
     {
         area(Embedding)
         {
-            action("Bank Accounts")
-            {
-                ApplicationArea = Basic, Suite;
-                Caption = 'Bank Accounts';
-                Image = BankAccount;
-                RunObject = Page "Bank Account List";
-                ToolTip = 'View or set up detailed information about your bank account, such as which currency to use, the format of bank files that you import and export as electronic payments, and the numbering of checks.';
-            }
-            action("Chart of Accounts")
-            {
-                ApplicationArea = Basic, Suite;
-                Image = ChartOfAccounts;
-                RunObject = Page "Chart of Accounts";
-            }
-            action("Customers")
-            {
-                ApplicationArea = Basic, suite;
-                Image = CustomerGroup;
-                RunObject = page "Customer List";
-            }
-            action("Asset List")
-            {
-                ApplicationArea = All;
-                Image = FixedAssets;
-                RunObject = Page "Fixed Asset List";
-            }
-            action("Vendors")
-            {
-                ApplicationArea = Basic, suite;
-                image = Vendor;
-                RunObject = Page "Vendor List";
-            }
-            action("Budget List")
-            {
-                ApplicationArea = Basic, Suite;
-                Caption = 'Budget Names';
-                Image = GLRegisters;
-                RunObject = Page "G/L Budget Names";
-                ToolTip = 'View List of Budgets';
-            }
-            action("Budget Period")
-            {
-                ApplicationArea = Basic, Suite;
-                Image = PeriodStatus;
-                RunObject = Page "Fin Quatery Budget Periods";
-            }
+            // action("Bank Accounts")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Caption = 'Bank Accounts';
+            //     Image = BankAccount;
+            //     RunObject = Page "Bank Account List";
+            //     ToolTip = 'View or set up detailed information about your bank account, such as which currency to use, the format of bank files that you import and export as electronic payments, and the numbering of checks.';
+            // }
+            // action("Chart of Accounts")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Image = ChartOfAccounts;
+            //     RunObject = Page "Chart of Accounts";
+            // }
+            // action("Customers")
+            // {
+            //     ApplicationArea = Basic, suite;
+            //     Image = CustomerGroup;
+            //     RunObject = page "Customer List";
+            // }
+            // action("Asset List")
+            // {
+            //     ApplicationArea = All;
+            //     Image = FixedAssets;
+            //     RunObject = Page "Fixed Asset List";
+            // }
+            // action("Vendors")
+            // {
+            //     ApplicationArea = Basic, suite;
+            //     image = Vendor;
+            //     RunObject = Page "Vendor List";
+            // }
+            // action("Budget List")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Caption = 'Budget Names';
+            //     Image = GLRegisters;
+            //     RunObject = Page "G/L Budget Names";
+            //     ToolTip = 'View List of Budgets';
+            // }
+            // action("Budget Period")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Image = PeriodStatus;
+            //     RunObject = Page "Fin Quatery Budget Periods";
+            // }
         }
         area(reporting)
         {
@@ -92,6 +92,7 @@ page 51446 "HRM-HR&Payroll Role Cente"
 
                 Caption = 'Payroll Reports';
                 Image = Payables;
+                visible=false;
                 action(Payslips)
                 {
                     ApplicationArea = area;
@@ -459,11 +460,20 @@ page 51446 "HRM-HR&Payroll Role Cente"
                     ApplicationArea = all;
                     Caption = 'Employee List';
                     RunObject = Page "HRM-Employee List";
+                    RunPageView=where("Full / Part Time"=filter(<>"Part Time"));
+                }
+                action(Action23)
+                {
+                    ApplicationArea = all;
+                    Caption = 'Part Time Employee List';
+                    RunObject = Page "HRM-Employee List";
+                    RunPageView=where("Full / Part Time"=const("Part Time"));
                 }
 
             }
             group("Payroll Info")
             {
+                Visible=false;
 
                 group(PayRollData)
                 {
