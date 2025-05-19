@@ -35,7 +35,7 @@ report 50821 "Post Customer Ledger Entries"
                 // Only proceed if no matching record was found
                 GenJournalLine1.Init();
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
-                GenJournalLine1."Journal Batch Name" := 'DEFAULT';
+                GenJournalLine1."Journal Batch Name" := 'DATAUPLOAD';
                 GenJournalLine1."Line No." := GenJournalLine1."Line No." + 10000;
 
                 GenJournalLine1."Document No." := DetailedEntry."Document No.";
