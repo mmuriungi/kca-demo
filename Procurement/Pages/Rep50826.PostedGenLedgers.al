@@ -6,7 +6,7 @@ report 50826 "Posted Gen Ledgers"
     RDLCLayout = './Layouts/gendetailed.rdlc';
     PreviewMode = PrintLayout;
     UsageCategory = ReportsAndAnalysis;
-    ProcessingOnly = true; // Change to true since we're not actually printing anything
+    ProcessingOnly = true;
 
     dataset
     {
@@ -34,11 +34,6 @@ report 50826 "Posted Gen Ledgers"
                 Window.Open('Processing record #1#### of #2####');
                 CurrentRecord := 0;
 
-                // Clear existing journal entries
-                GenJournalLine1.Reset();
-                GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
-                GenJournalLine1.SetRange("Journal Batch Name", 'DATAUPLOAD');
-                GenJournalLine1.DeleteAll();
             end;
 
             trigger OnAfterGetRecord()
