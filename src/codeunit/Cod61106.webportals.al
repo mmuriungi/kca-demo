@@ -4922,7 +4922,7 @@ Codeunit 61106 webportals
     end;
 
 
-    procedure SubmitSpecialAndSupplementary(StudNo: Code[20]; LectNo: Code[20]; Marks: Decimal; AcademicYear: Code[20]; UnitCode: Code[20]) ReturnMessage: Text[250]
+    procedure SubmitSpecialAndSupplementary(StudNo: Code[20]; LectNo: Code[20]; Marks: Decimal; UnitCode: Code[20]) ReturnMessage: Text[250]
     var
         AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
         AcaSpecialExamsResults: Record "Aca-Special Exams Results";
@@ -4934,12 +4934,12 @@ Codeunit 61106 webportals
         emps.SetRange("No.", LectNo);
         if emps.Find('-') then;
         AcaSpecialExamsDetails.Reset;
-        AcaSpecialExamsDetails.SetRange("Current Academic Year", AcademicYear);
+        //AcaSpecialExamsDetails.SetRange("Current Academic Year", AcademicYear);
         AcaSpecialExamsDetails.SetRange("Student No.", StudNo);
         AcaSpecialExamsDetails.SetRange("Unit Code", UnitCode);
         if AcaSpecialExamsDetails.Find('-') then begin
             AcaSpecialExamsResults.Reset;
-            AcaSpecialExamsResults.SetRange("Current Academic Year", AcademicYear);
+            //AcaSpecialExamsResults.SetRange("Current Academic Year", AcademicYear);
             AcaSpecialExamsResults.SetRange("Student No.", StudNo);
             AcaSpecialExamsResults.SetRange(Unit, UnitCode);
             if AcaSpecialExamsResults.Find('-') then begin
@@ -4956,9 +4956,9 @@ Codeunit 61106 webportals
                 AcaSpecialExamsResults.Unit := UnitCode;
                 AcaSpecialExamsResults.Semester := AcaSpecialExamsDetails.Semester;
                 AcaSpecialExamsResults."Student No." := AcaSpecialExamsDetails."Student No.";
-                AcaSpecialExamsResults."Academic Year" := AcademicYear;
+                AcaSpecialExamsResults."Academic Year" := AcaSpecialExamsDetails."Academic Year";
                 AcaSpecialExamsResults."Admission No" := StudNo;
-                AcaSpecialExamsResults."Current Academic Year" := AcademicYear;
+                AcaSpecialExamsResults."Current Academic Year" := AcaSpecialExamsDetails."Current Academic Year";
                 AcaSpecialExamsResults.UserID := LectNo;
                 AcaSpecialExamsResults."Capture Date" := Today;
                 AcaSpecialExamsResults.category := AcaSpecialExamsDetails.Category;
@@ -12178,7 +12178,7 @@ Codeunit 61106 webportals
             exit('');
     end;
 
-    procedure BookVenue(staffno: Code[20]; venuerm: Code[20]; mtgdesc: Text; reqDate: Date; endDate: Date; reqTime: Time; endTime: Time; venue: Text; people: Integer) msg: Text
+    procedure BookVenue(staffno: Code[20]; mtgdesc: Text; reqDate: Date; endDate: Date; reqTime: Time; endTime: Time; venue: Code[20]; people: Integer) msg: Text
     var
         VenueBooking: Record "Gen-Venue Booking";
         ApprovalMgmt: Codeunit "Approval Workflows V1";
@@ -12191,7 +12191,7 @@ Codeunit 61106 webportals
         VenueBooking."Required Time" := reqTime;
         VenueBooking."Booking End Date" := endDate;
         VenueBooking."Booking End Time" := endTime;
-        VenueBooking."Venue" := venuerm;
+        VenueBooking."Venue" := venue;
         VenueBooking.Pax := people;
         if VenueBooking.INSERT(true) then begin
             variant := VenueBooking;
@@ -12267,9 +12267,9 @@ Codeunit 61106 webportals
                 JObj.Add('BookingId', VenueBooking."Booking Id");
                 JObj.Add('MeetingName', VenueBooking."Meeting Description");
                 JObj.Add('BookingDate', Format(VenueBooking."Booking Date"));
-                JObj.Add('RequestDate', Format(VenueBooking."Request Date"));
-                JObj.Add('RequestEndDate', Format(VenueBooking."Booking End Date"));
-                JObj.Add('RequiredTime', Format(VenueBooking."Required Time"));
+                JObj.Add('StartDate', Format(VenueBooking."Request Date"));
+                JObj.Add('EndDate', Format(VenueBooking."Booking End Date"));
+                JObj.Add('StartTime', Format(VenueBooking."Required Time"));
                 JObj.Add('EndTime', Format(VenueBooking."Booking End Time"));
                 JObj.Add('Venue', VenueBooking."Venue Dscription");
                 JObj.Add('Pax', FORMAT(VenueBooking.Pax));
