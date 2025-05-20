@@ -1,7 +1,7 @@
 page 50621 "HRM-Employee List"
 {
     CardPageID = "HRM-Employee (B)";
-    DeleteAllowed = true;
+    DeleteAllowed = false;
     Editable = false;
     PageType = List;
     SourceTable = "HRM-Employee C";
@@ -28,16 +28,61 @@ page 50621 "HRM-Employee List"
                 {
                     ApplicationArea = all;
                 }
+                field("Phone Number"; Rec."Phone Number")
+                {
+                    ApplicationArea = all;
+                }
+                field("Job Title"; Rec."Job Title")
+                {
+                    ApplicationArea = all;
+                }
+                field(Grade;Rec.Grade)
+                {
+                    ApplicationArea = all;
+                }
+                field(Category;Rec.Category)
+                {
+                    ApplicationArea = all;
+                }
+                field(Age;Rec.Age)
+                {
+                    ApplicationArea = all;
+                }
                 field(Picture; Rec.Picture)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Picture field.';
                 }
+
                 field(Gender; Rec.Gender)
                 {
                     ApplicationArea = all;
                 }
-
+                field(Tribe;Rec.Tribe)
+                {
+                    ApplicationArea = all;
+                }
+                field("County Name";Rec."County Name")
+                {
+                    ApplicationArea = all;
+                }
+                field("Terms of Service";Rec."Terms of Service")
+                {
+                    ApplicationArea = all;
+                }
+                field("Date of Join";Rec."Date of Join")
+                {
+                    ApplicationArea = all;
+                }
+                field(Status;Rec.Status)
+                {
+                    ApplicationArea = all;
+                }
+                field("Length Of Service";Rec."Length Of Service")
+                {
+                    ApplicationArea = all;
+                }
+                
                 field("Postal Address"; Rec."Postal Address")
                 {
                     ApplicationArea = all;

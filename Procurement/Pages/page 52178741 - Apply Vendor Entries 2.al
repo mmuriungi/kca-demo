@@ -408,6 +408,8 @@ page 52178741 "Apply Vendor Entries 2"
                     Visible = NOT IsOfficeAddin;
 
                     trigger OnAction()
+                    var
+                    detailedVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
                     begin
                         Navigate.SetDoc(Rec."Posting Date", Rec."Document No.");
                         Navigate.RUN;

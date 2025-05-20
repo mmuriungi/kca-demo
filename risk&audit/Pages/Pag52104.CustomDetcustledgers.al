@@ -1,10 +1,12 @@
-page 52178745 "Cust Ledger Entries Cust"
+// Modify the existing page
+page 52104 "Custom Det cust ledgers"
 {
+
     ApplicationArea = All;
-    Caption = 'Cust Ledger Entries Custom';
+    Caption = 'Custom Det cust ledgers';
     PageType = List;
+    SourceTable = "Detailed Cust ledger Custom";
     UsageCategory = Administration;
-    SourceTable = "Cust Ledger Entries Custom";
 
     layout
     {
@@ -16,54 +18,55 @@ page 52178745 "Cust Ledger Entries Cust"
                 {
                     ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
                 }
-                field("Posting Date"; Rec."Posting Date")
-                {
-                    ToolTip = 'Specifies the value of the Posting Date field.', Comment = '%';
-                }
                 field("Customer No."; Rec."Customer No.")
                 {
                     ToolTip = 'Specifies the value of the Customer No. field.', Comment = '%';
+                }
+                field("Posting Date"; Rec."Posting Date")
+                {
+                    ToolTip = 'Specifies the value of the Posting Date field.', Comment = '%';
                 }
                 field(Amount; Rec.Amount)
                 {
                     ToolTip = 'Specifies the value of the Amount field.', Comment = '%';
                 }
+                field("Entry Type"; Rec."Entry Type")
+                {
+                    ToolTip = 'Specifies the value of the Entry Type field.', Comment = '%';
+                }
+                field(Description; Rec.Description)
+                {
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                }
                 field(Posted; Rec.Posted)
                 {
                     ToolTip = 'Specifies the value of the Posted field.', Comment = '%';
                 }
-
-
             }
         }
-
-
     }
+
     actions
     {
         area(Processing)
         {
-            action(PostToGL)
+            action(PostWithDateFilter)
             {
                 ApplicationArea = All;
-                Caption = 'Post to G/L';
-                Image = PostBatch;
+                Caption = 'Post Initial Entries with Date Filter';
+                Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Post unposted entries to General Ledger';
+                ToolTip = 'Post Initial Entry records within a date range to the general journal.';
 
                 trigger OnAction()
                 var
-                    PostCustLedgerReport: Report "Post Customer Ledger Entries";
+                    PostCustomCustLedger: Codeunit "Post Custom Cust Ledger";
                 begin
-                    PostCustLedgerReport.RunModal();
-                    CurrPage.Update(false);
+                    PostCustomCustLedger.Run();
                 end;
             }
         }
     }
-    var
-
-        DetailedCustLEdger: Record "Detailed Cust. Ledg. Entry";
 }

@@ -1,12 +1,12 @@
-report 52178537 "Office Equipments Register"
+report 52178631 "ICT Asset Register"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/Office Equipments.rdl';
+    RDLCLayout = './Layouts/ICT Asset Register.rdl';
     dataset
     {
         dataitem(FixedAsset; "Fixed Asset")
         {
-            DataItemTableView = where("FA Class Code" = filter('TANGIBLE'), "FA Subclass Code" = filter('EQUIPMENT'));
+            DataItemTableView = where("FA Class Code" = filter('TANGIBLE'), "FA Subclass Code" = filter('COMP' | 'COMPUTERS' | 'COMPUTER'));
             column(CompInfoName; CompInfo.Name)
             {
 
@@ -323,7 +323,7 @@ report 52178537 "Office Equipments Register"
     trigger OnInitReport()
     begin
         ClassCode := 'TANGIBLE';
-        SubClassCode := 'OFF EQU';
+        SubClassCode := 'COMP';
         CompInfo.get();
         CompInfo.CalcFields(Picture);
     end;
@@ -338,5 +338,6 @@ report 52178537 "Office Equipments Register"
         CompInfo: Record "Company Information";
         HrmEmp: Record "HRM-Employee C";
         EmpName: text;
+
 }
 

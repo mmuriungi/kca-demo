@@ -1,60 +1,53 @@
-report 50821 "Post Customer Ledger Entries"
+report 50825 "Post Vendor Ledgers"
 {
+
     ApplicationArea = All;
-    Caption = 'Post Customer Ledger Entries to G/L';
+    Caption = 'Post Vendor Ledger Entries to G/L';
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/detailed.rdlc';
+    RDLCLayout = './Layouts/Venddetailed.rdlc';
     PreviewMode = PrintLayout;
     UsageCategory = ReportsAndAnalysis;
 
     dataset
     {
-        dataitem(DetailedEntry; "Detailed Cust ledger Custom")
+        dataitem(DetailedEntry; "custom detail vend ledgers")
         {
             RequestFilterFields = "Posting Date", "Document No.", "Entry Type", Posted;
             CalcFields = description;
 
             trigger OnAfterGetRecord()
-            var
-                CustLedgerEntry: Record "Cust. Ledger Entry";
             begin
-                // Skip processing if entry type is not "Initial Entry"
-                if DetailedEntry."Entry Type" <> DetailedEntry."Entry Type"::"Initial Entry" then
-                    exit;
+                // Always clear the journal lines before starting
 
-                // Check if record already exists in customer ledger entries
-                CustLedgerEntry.Reset();
-                CustLedgerEntry.SetRange("Document No.", DetailedEntry."Document No.");
-                CustLedgerEntry.SetRange(Amount, DetailedEntry.Amount);
-                CustLedgerEntry.SetRange("Customer No.", DetailedEntry."Customer No.");
 
-                // If record exists, skip insertion
-                if not CustLedgerEntry.IsEmpty then begin
-                    // Optionally mark as posted if it exists elsewhere
-                    DetailedEntry.Posted := true;
-                    DetailedEntry.Modify();
-                    exit;  // Skip the rest of the trigger
-                end;
-                LastGenJournalLine.Reset();
-                LastGenJournalLine.SetRange("Journal Template Name", 'GENERAL');
-                LastGenJournalLine.SetRange("Journal Batch Name", 'DATAUPLOAD');
-                if LastGenJournalLine.FindLast() then
-                    lineNo := LastGenJournalLine."Line No." + 10000
-                else
-                    lineNo := 10000;
+                // Initialize the journal line without checking if it exists
+                // IF DetailedEntry.Posted = false THEN BEGIN
+                // Initialize the journal line
+                /* GenJournalLine1.Reset();
+                 GenJournalLine1.SetRange("Journal Template Name", 'GENERAL');
+                 GenJournalLine1.SetRange("Journal Batch Name", 'DEFAULT');
 
-                // Only proceed if no matching record was found
+                 // Check if the journal line already exists
+                 IF NOT GenJournalLine1.Find('-') THEN BEGIN
+                     // If it doesn't exist, create a new one
+                     lineNo := 0;
+                 END ELSE BEGIN
+                     // If it exists, set the line number to the last one + 10000
+                     lineNo := GenJournalLine1."Line No." + 10000;
+                 END;*/
                 GenJournalLine1.Init();
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
-                GenJournalLine1."Journal Batch Name" := 'DATAUPLOAD';
-                GenJournalLine1."Line No." := lineNo;
+                GenJournalLine1."Journal Batch Name" := 'DEFAULT';
+                GenJournalLine1."Line No." := GenJournalLine1."Line No." + 10000;
+                //lineNo := lineNo + 10000;
+
                 GenJournalLine1."Document No." := DetailedEntry."Document No.";
                 GenJournalLine1."Posting Date" := DetailedEntry."Posting Date";
-                GenJournalLine1."Account Type" := GenJournalLine1."Account Type"::Customer;
-                GenJournalLine1."Account No." := DetailedEntry."Customer No.";
+                GenJournalLine1."Account Type" := GenJournalLine1."Account Type"::vendor;
+                GenJournalLine1."Account No." := DetailedEntry."Vendor No.";
                 GenJournalLine1."Bal. Account Type" := GenJournalLine1."Bal. Account Type"::"G/L Account";
                 GenJournalLine1."Bal. Account No." := '72001';
-                GenJournalLine1.Description := DetailedEntry.Description;
+                GenJournalLine1.Description := DetailedEntry.description;
 
                 if DetailedEntry.Amount <> 0 then
                     GenJournalLine1.Amount := DetailedEntry.Amount;
@@ -62,13 +55,21 @@ report 50821 "Post Customer Ledger Entries"
                 GenJournalLine1.Insert(true);
                 DetailedEntry.Posted := true;
                 DetailedEntry.Modify();
-            end;
+
+
+            END;
+            //  END;
 
             trigger OnPostDataItem()
             var
                 GenJournalLineToPost: Record "Gen. Journal Line";
             begin
+                //GenJournalLineToPost.Reset();
+                //GenJournalLineToPost.SetRange("Journal Template Name", 'GENERAL');
+                //GenJournalLineToPost.SetRange("Journal Batch Name", 'DEFAULT');
+
                 CODEUNIT.Run(CODEUNIT::"Gen. Jnl.-Post Batch", GenJournalLine1);
+
             end;
         }
     }
@@ -106,8 +107,8 @@ report 50821 "Post Customer Ledger Entries"
         SuccessCount: Integer;
         GenJournalLine1: Record "Gen. Journal Line";
         lineNo: Integer;
-        LastGenJournalLine: Record "Gen. Journal Line";
 
+    // In the OnPreReport trigger
     trigger OnPreReport()
     begin
         GenJournalLine1.Reset();
