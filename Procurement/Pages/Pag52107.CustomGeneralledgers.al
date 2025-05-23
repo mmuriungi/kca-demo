@@ -4,6 +4,7 @@ page 52107 "Custom General ledgers"
     Caption = 'Custom General ledgers';
     PageType = List;
     SourceTable = "Custom Gen Ledgers";
+    UsageCategory=Administration;
     
     layout
     {
@@ -46,6 +47,10 @@ page 52107 "Custom General ledgers"
                 field("Shortcut dim 2"; Rec."Shortcut dim 2")
                 {
                     ToolTip = 'Specifies the value of the Shortcut dim 2 field.', Comment = '%';
+                }
+                field(posted; Rec.posted)
+                {
+                    ToolTip = 'Specifies the value of the posted field.', Comment = '%';
                 }
             }
         }

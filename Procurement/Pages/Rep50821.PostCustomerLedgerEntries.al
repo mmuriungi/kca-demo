@@ -18,6 +18,10 @@ report 50821 "Post Customer Ledger Entries"
             var
                 CustLedgerEntry: Record "Cust. Ledger Entry";
             begin
+                // Skip processing if entry type is not "Initial Entry"
+                if DetailedEntry."Entry Type" <> DetailedEntry."Entry Type"::"Initial Entry" then
+                    exit;
+
                 // Check if record already exists in customer ledger entries
                 CustLedgerEntry.Reset();
                 CustLedgerEntry.SetRange("Document No.", DetailedEntry."Document No.");
@@ -31,13 +35,19 @@ report 50821 "Post Customer Ledger Entries"
                     DetailedEntry.Modify();
                     exit;  // Skip the rest of the trigger
                 end;
+                LastGenJournalLine.Reset();
+                LastGenJournalLine.SetRange("Journal Template Name", 'GENERAL');
+                LastGenJournalLine.SetRange("Journal Batch Name", 'DATAUPLOAD');
+                if LastGenJournalLine.FindLast() then
+                    lineNo := LastGenJournalLine."Line No." + 10000
+                else
+                    lineNo := 10000;
 
                 // Only proceed if no matching record was found
                 GenJournalLine1.Init();
                 GenJournalLine1."Journal Template Name" := 'GENERAL';
-                GenJournalLine1."Journal Batch Name" := 'DEFAULT';
-                GenJournalLine1."Line No." := GenJournalLine1."Line No." + 10000;
-
+                GenJournalLine1."Journal Batch Name" := 'DATAUPLOAD';
+                GenJournalLine1."Line No." := lineNo;
                 GenJournalLine1."Document No." := DetailedEntry."Document No.";
                 GenJournalLine1."Posting Date" := DetailedEntry."Posting Date";
                 GenJournalLine1."Account Type" := GenJournalLine1."Account Type"::Customer;
@@ -96,6 +106,7 @@ report 50821 "Post Customer Ledger Entries"
         SuccessCount: Integer;
         GenJournalLine1: Record "Gen. Journal Line";
         lineNo: Integer;
+        LastGenJournalLine: Record "Gen. Journal Line";
 
     trigger OnPreReport()
     begin

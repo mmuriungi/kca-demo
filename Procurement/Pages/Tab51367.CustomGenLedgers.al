@@ -2,12 +2,13 @@ table 51367 "Custom Gen Ledgers"
 {
     Caption = 'Custom Gen Ledgers';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Line No"; Integer)
         {
             Caption = 'Line No';
+            AutoIncrement = true;
         }
         field(2; "Document No"; Code[20])
         {
@@ -44,6 +45,10 @@ table 51367 "Custom Gen Ledgers"
         field(10; "External Doc No"; Code[100])
         {
             Caption = 'External Doc No';
+        }
+        field(11; posted; Boolean)
+        {
+            Caption = 'Posted';
         }
     }
     keys
