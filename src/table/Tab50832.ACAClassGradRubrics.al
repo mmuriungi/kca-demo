@@ -114,6 +114,11 @@ table 50832 "ACA-Class/Grad. Rubrics"
         {
 
         }
+        //"Grad. Title Page Caption"
+        field(63042; "Grad. Title Page Caption"; Text[300])
+        {
+
+        }
     }
 
     keys

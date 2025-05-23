@@ -35,6 +35,15 @@ codeunit 50096 "Timetable Management"
         Message('Time slots generated successfully.');
     end;
 
+    local procedure IsHoliday(CheckDate: Date): Boolean
+    var
+        TimetableHolidays: Record "Timetable Holidays";
+    begin
+        TimetableHolidays.Reset();
+        TimetableHolidays.SetRange("Date", CheckDate);
+        exit(not TimetableHolidays.IsEmpty);
+    end;
+
     procedure GenerateSuppExamTimeSlots(SemesterCode: Code[25])
     var
         Semester: Record "ACA-Semesters";
@@ -72,8 +81,8 @@ codeunit 50096 "Timetable Management"
     begin
         CurrentDate := Semester."Exam Start Date";
         while CurrentDate <= Semester."Exam End Date" do begin
-            // Skip weekends
-            if Date2DWY(CurrentDate, 1) <= 5 then begin
+            // Skip weekends AND holidays
+            if (Date2DWY(CurrentDate, 1) <= 5) and (not IsHoliday(CurrentDate)) then begin
 
                 // Morning session (9:00 AM - 11:00 AM)
                 SlotCode := CreateSlotCode(CurrentDate, 'R-M');
@@ -132,8 +141,8 @@ codeunit 50096 "Timetable Management"
     begin
         CurrentDate := Semester."Supp Start Date";
         while CurrentDate <= Semester."Supp End Date" do begin
-            // Skip weekends
-            if Date2DWY(CurrentDate, 1) <= 5 then begin
+            // Skip weekends AND holidays
+            if (Date2DWY(CurrentDate, 1) <= 5) and (not IsHoliday(CurrentDate)) then begin
 
                 // Morning session (9:00 AM - 11:00 AM)
                 SlotCode := CreateSlotCode(CurrentDate, 'R-M');
@@ -195,8 +204,8 @@ codeunit 50096 "Timetable Management"
         DayCount := 0;
 
         while CurrentDate <= Semester."Supp End Date" do begin
-            // Skip weekends
-            if Date2DWY(CurrentDate, 1) <= 5 then begin
+            // Skip weekends AND holidays
+            if (Date2DWY(CurrentDate, 1) <= 5) and (not IsHoliday(CurrentDate)) then begin
                 DayCount += 1;
 
                 if DayCount = 1 then begin
@@ -293,8 +302,8 @@ codeunit 50096 "Timetable Management"
         DayCount := 0;
 
         while CurrentDate <= Semester."Exam End Date" do begin
-            // Skip weekends
-            if Date2DWY(CurrentDate, 1) <= 5 then begin
+            // Skip weekends AND holidays
+            if (Date2DWY(CurrentDate, 1) <= 5) and (not IsHoliday(CurrentDate)) then begin
                 DayCount += 1;
 
                 if DayCount = 1 then begin
@@ -1699,10 +1708,10 @@ codeunit 50096 "Timetable Management"
                     MaxAttempts := 10; // Try up to 10 different days
                     AttemptCounter := 0;
                     SlotFound := false;
-                    
+
                     repeat
                         AttemptCounter += 1;
-                        
+
                         if FindOptimalExamSlot(CourseOffering, Semester, ExamTimeSlot, ExamDate, CoursesPerDay, DayCounter) then begin
                             ProgressWindow.Update(4, ExamDate);
                             ProgressWindow.Update(5, DayCounter + 1);
@@ -1725,7 +1734,7 @@ codeunit 50096 "Timetable Management"
                             break;
                         end;
                     until (AttemptCounter >= MaxAttempts) or SlotFound;
-                    
+
                     if not SlotFound then
                         LogSchedulingIssue(CourseOffering);
                 end;
@@ -1923,13 +1932,13 @@ codeunit 50096 "Timetable Management"
             if CurrentDate > Semester."Exam End Date" then
                 break;
 
-            // Skip weekends
-            while (Date2DWY(CurrentDate, 1) > 5) and (CurrentDate <= Semester."Exam End Date") do begin
+            // Skip weekends AND holidays
+            while ((Date2DWY(CurrentDate, 1) > 5) or IsHoliday(CurrentDate)) and (CurrentDate <= Semester."Exam End Date") do begin
                 CurrentDate := CalcDate('1D', CurrentDate);
                 DayCounter += 1;
             end;
 
-            // Break the loop if we've gone beyond exam end date after skipping weekends
+            // Break the loop if we've gone beyond exam end date after skipping weekends and holidays
             if CurrentDate > Semester."Exam End Date" then
                 break;
 
@@ -1967,11 +1976,11 @@ codeunit 50096 "Timetable Management"
     end;
 
     local procedure FindOptimalExamSlotSupp(SuppUnits: Record "Supp. Exam Units";
-        Semester: Record "ACA-Semesters";
-        var ExamTimeSlot: Record "Exam Time Slot";
-        var OptimalDate: Date;
-        var CoursesPerDay: Dictionary of [Date, Integer];
-        DayCounter: Integer): Boolean
+         Semester: Record "ACA-Semesters";
+         var ExamTimeSlot: Record "Exam Time Slot";
+         var OptimalDate: Date;
+         var CoursesPerDay: Dictionary of [Date, Integer];
+         DayCounter: Integer): Boolean
     var
         IsMedical: Boolean;
         CurrentDate: Date;
@@ -1987,8 +1996,8 @@ codeunit 50096 "Timetable Management"
         if CurrentDate > Semester."supp End Date" then
             exit(false);
 
-        // Skip weekends
-        while (Date2DWY(CurrentDate, 1) > 5) and (CurrentDate <= Semester."supp End Date") do begin
+        // Skip weekends AND holidays
+        while ((Date2DWY(CurrentDate, 1) > 5) or IsHoliday(CurrentDate)) and (CurrentDate <= Semester."supp End Date") do begin
             CurrentDate := CalcDate('1D', CurrentDate);
             DayCounter += 1;
         end;
@@ -2112,7 +2121,7 @@ codeunit 50096 "Timetable Management"
     local procedure ScheduleExamWithRoomAllocation(CourseOffering: Record "ACA-Lecturers Units";
         ExamDate: Date;
         ExamTimeSlot: Record "Exam Time Slot";
-        Semester: Record "ACA-Semesters") : Boolean
+        Semester: Record "ACA-Semesters"): Boolean
     var
         TotalStudents: Integer;
         RemainingStudents: Integer;
@@ -2226,7 +2235,7 @@ codeunit 50096 "Timetable Management"
             LogSchedulingIssue(CourseOffering);
             exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -2551,8 +2560,8 @@ codeunit 50096 "Timetable Management"
         // Get department from course offering
         Department := GetCourseDepartment(CourseOffering);
 
-        // Get available invigilators from department
-        GetAvailableInvigilators(Department, ExamDate, ExamTimeSlot, AvailableInvigilators);
+        // Get available invigilators from lecturer units, starting with unit lecturer
+        GetAvailableInvigilatorsFromLecturers(Department, ExamDate, ExamTimeSlot, CourseOffering.Lecturer, AvailableInvigilators);
 
         // Select required number of invigilators, prioritizing full-timers
         SelectInvigilators(AvailableInvigilators, InvigilatorCount, SelectedInvigilators);
@@ -2569,10 +2578,26 @@ codeunit 50096 "Timetable Management"
                 ExamInvigilator."End Time" := ExamTimeSlot."End Time";
                 ExamInvigilator."No." := InvigilatorNo;
                 ExamInvigilator.Name := Employee."First Name" + ' ' + Employee."Last Name";
-                ExamInvigilator.Category := GetEmployeeCategory(Employee);
+                ExamInvigilator.Category := GetEmployeeCategoryFromLecturer(InvigilatorNo);
                 ExamInvigilator.Insert();
             end;
         end;
+    end;
+
+    local procedure GetEmployeeCategoryFromLecturer(LecturerNo: Code[20]): Option "Full-Timer","Part-Timer"
+    var
+        Employee: Record "HRM-Employee C";
+    begin
+        if Employee.Get(LecturerNo) then begin
+            if (Employee."Full / Part Time" = Employee."Full / Part Time"::"Full Time") or
+               (Employee."Full / Part Time" = Employee."Full / Part Time"::Contract) then
+                exit(0) // Full-Timer
+            else
+                exit(1); // Part-Timer
+        end;
+
+        // Default to Full-Timer if employee record not found
+        exit(0);
     end;
 
     local procedure AssignInvigilatorsToRoomSupp(SuppUnits: Record "Supp. Exam Units";
@@ -2610,8 +2635,8 @@ codeunit 50096 "Timetable Management"
         // Get department from course offering
         Department := GetCourseDepartmentSupp(SuppUnits);
 
-        // Get available invigilators from department
-        GetAvailableInvigilators(Department, ExamDate, ExamTimeSlot, AvailableInvigilators);
+        // Get available invigilators from lecturer units, starting with unit lecturer
+        GetAvailableInvigilatorsFromLecturers(Department, ExamDate, ExamTimeSlot, SuppUnits."Lecturer Code", AvailableInvigilators);
 
         // Select required number of invigilators, prioritizing full-timers
         SelectInvigilators(AvailableInvigilators, InvigilatorCount, SelectedInvigilators);
@@ -2628,9 +2653,157 @@ codeunit 50096 "Timetable Management"
                 ExamInvigilator."End Time" := ExamTimeSlot."End Time";
                 ExamInvigilator."No." := InvigilatorNo;
                 ExamInvigilator.Name := Employee."First Name" + ' ' + Employee."Last Name";
-                ExamInvigilator.Category := GetEmployeeCategory(Employee);
+                ExamInvigilator.Category := GetEmployeeCategoryFromLecturer(InvigilatorNo);
                 ExamInvigilator.Insert();
             end;
+        end;
+    end;
+
+    local procedure GetAvailableInvigilatorsFromLecturers(Department: Code[20];
+            ExamDate: Date;
+            ExamTimeSlot: Record "Exam Time Slot";
+            UnitLecturer: Code[20];
+            var AvailableInvigilators: List of [Code[20]])
+    var
+        LecturerUnits: Record "ACA-Lecturers Units";
+        Employee: Record "HRM-Employee C";
+        ExamInvigilator: Record "Exam Invigilators";
+        IsAvailable: Boolean;
+        ProcessedLecturers: List of [Code[20]];
+    begin
+        Clear(AvailableInvigilators);
+        Clear(ProcessedLecturers);
+
+        // STEP 1: First check if the unit lecturer is available and add them with priority
+        if UnitLecturer <> '' then begin
+            if Employee.Get(UnitLecturer) then begin
+                if Employee.Status = Employee.Status::Active then begin
+                    // Check if the unit lecturer is available at this time
+                    IsAvailable := true;
+
+                    ExamInvigilator.Reset();
+                    ExamInvigilator.SetRange(Date, ExamDate);
+                    ExamInvigilator.SetRange("No.", UnitLecturer);
+
+                    if ExamInvigilator.FindSet() then
+                        repeat
+                            // Check for time overlap
+                            if (ExamInvigilator."Start Time" <= ExamTimeSlot."End Time") and
+                               (ExamInvigilator."End Time" >= ExamTimeSlot."Start Time") then
+                                IsAvailable := false;
+                        until (ExamInvigilator.Next() = 0) or not IsAvailable;
+
+                    if IsAvailable then begin
+                        AvailableInvigilators.Add(UnitLecturer);
+                        ProcessedLecturers.Add(UnitLecturer);
+                    end;
+                end;
+            end;
+        end;
+
+        // STEP 2: Get other lecturers from the same department via Lecturer Units
+        LecturerUnits.Reset();
+        LecturerUnits.SetCurrentKey(Lecturer);
+        LecturerUnits.CalcFields("Department Code");
+        LecturerUnits.SetRange("Department Code", Department);
+
+        if LecturerUnits.FindSet() then
+            repeat
+                // Skip if we've already processed this lecturer or if it's empty
+                if (LecturerUnits.Lecturer <> '') and (not ProcessedLecturers.Contains(LecturerUnits.Lecturer)) then begin
+                    if Employee.Get(LecturerUnits.Lecturer) then begin
+                        if (Employee.Status = Employee.Status::Active) and (Employee.Lecturer = true) then begin
+                            // Check if the lecturer is available at this time
+                            IsAvailable := true;
+
+                            ExamInvigilator.Reset();
+                            ExamInvigilator.SetRange(Date, ExamDate);
+                            ExamInvigilator.SetRange("No.", LecturerUnits.Lecturer);
+
+                            if ExamInvigilator.FindSet() then
+                                repeat
+                                    // Check for time overlap
+                                    if (ExamInvigilator."Start Time" <= ExamTimeSlot."End Time") and
+                                       (ExamInvigilator."End Time" >= ExamTimeSlot."Start Time") then
+                                        IsAvailable := false;
+                                until (ExamInvigilator.Next() = 0) or not IsAvailable;
+
+                            if IsAvailable then begin
+                                AvailableInvigilators.Add(LecturerUnits.Lecturer);
+                                ProcessedLecturers.Add(LecturerUnits.Lecturer);
+                            end;
+                        end;
+                    end;
+                end;
+            until LecturerUnits.Next() = 0;
+
+        // STEP 3: If not enough invigilators from department, get lecturers from other departments
+        if AvailableInvigilators.Count < 2 then begin
+            LecturerUnits.Reset();
+            LecturerUnits.SetCurrentKey(Lecturer);
+            LecturerUnits.CalcFields("Department Code");
+            LecturerUnits.SetFilter("Department Code", '<>%1&<>%2', Department, ''); // Exclude current department and empty
+
+            if LecturerUnits.FindSet() then
+                repeat
+                    // Skip if we've already processed this lecturer or if it's empty
+                    if (LecturerUnits.Lecturer <> '') and (not ProcessedLecturers.Contains(LecturerUnits.Lecturer)) then begin
+                        if Employee.Get(LecturerUnits.Lecturer) then begin
+                            if (Employee.Status = Employee.Status::Active) and (Employee.Lecturer = true) then begin
+                                // Check if the lecturer is available at this time
+                                IsAvailable := true;
+
+                                ExamInvigilator.Reset();
+                                ExamInvigilator.SetRange(Date, ExamDate);
+                                ExamInvigilator.SetRange("No.", LecturerUnits.Lecturer);
+
+                                if ExamInvigilator.FindSet() then
+                                    repeat
+                                        // Check for time overlap
+                                        if (ExamInvigilator."Start Time" <= ExamTimeSlot."End Time") and
+                                           (ExamInvigilator."End Time" >= ExamTimeSlot."Start Time") then
+                                            IsAvailable := false;
+                                    until (ExamInvigilator.Next() = 0) or not IsAvailable;
+
+                                if IsAvailable then begin
+                                    AvailableInvigilators.Add(LecturerUnits.Lecturer);
+                                    ProcessedLecturers.Add(LecturerUnits.Lecturer);
+                                end;
+                            end;
+                        end;
+                    end;
+                until LecturerUnits.Next() = 0;
+        end;
+
+        // STEP 4: Final fallback - get from all lecturers in employee table if still not enough
+        if AvailableInvigilators.Count < 2 then begin
+            Employee.Reset();
+            Employee.SetRange(Lecturer, true);
+            Employee.SetRange(Status, Employee.Status::Active);
+
+            if Employee.FindSet() then
+                repeat
+                    // Skip if we've already processed this lecturer
+                    if not ProcessedLecturers.Contains(Employee."No.") then begin
+                        // Check if the lecturer is available at this time
+                        IsAvailable := true;
+
+                        ExamInvigilator.Reset();
+                        ExamInvigilator.SetRange(Date, ExamDate);
+                        ExamInvigilator.SetRange("No.", Employee."No.");
+
+                        if ExamInvigilator.FindSet() then
+                            repeat
+                                // Check for time overlap
+                                if (ExamInvigilator."Start Time" <= ExamTimeSlot."End Time") and
+                                   (ExamInvigilator."End Time" >= ExamTimeSlot."Start Time") then
+                                    IsAvailable := false;
+                            until (ExamInvigilator.Next() = 0) or not IsAvailable;
+
+                        if IsAvailable then
+                            AvailableInvigilators.Add(Employee."No.");
+                    end;
+                until Employee.Next() = 0;
         end;
     end;
 
@@ -3133,7 +3306,8 @@ codeunit 50096 "Timetable Management"
         CurrentDate := Semester."Exam Start Date";
 
         while CurrentDate <= Semester."Exam End Date" do begin
-            if Date2DWY(CurrentDate, 1) <= 5 then begin  // Monday to Friday
+            // Check weekdays that are not holidays
+            if (Date2DWY(CurrentDate, 1) <= 5) and (not IsHoliday(CurrentDate)) then begin
                 if not ExamsPerDay.ContainsKey(CurrentDate) then
                     ExamsPerDay.Add(CurrentDate, 0);
 

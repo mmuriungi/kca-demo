@@ -1001,8 +1001,8 @@ page 50621 "HRM-Employee List"
     NoTxt: Text;
     begin
         NoTxt := Rec."No.";
-        if NoTxt.Contains('PT-') then begin
-            Rec."Full / Part Time" := Rec."Full / Part Time"::"Part Time";
+        if NoTxt.Contains('PT_') then begin
+            Rec.Status := Rec.Status::Inactive;
             Rec.Modify;
         end;
     end;
