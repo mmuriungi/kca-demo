@@ -376,7 +376,16 @@ page 51464 "ACA-Exam Man. Role Centre"
                     Caption = 'Classification List';
                     Image = Completed;
 
-                    RunObject = Report "Final Deans Classification 2";
+                    RunObject = Report "ACA-Classification List";
+                    ApplicationArea = All;
+                }
+                //ACA-Classification Incomplete
+                action("Classification Incomplete")
+                {
+                    Caption = 'Classification List Incomplete';
+                    Image = Completed;
+
+                    RunObject = Report "ACA-Classification Incomplete";
                     ApplicationArea = All;
                 }
                 action("Graduation List")
@@ -384,7 +393,7 @@ page 51464 "ACA-Exam Man. Role Centre"
                     Caption = 'Graduation List';
                     Image = CompleteLine;
 
-                    RunObject = Report "Final Deans Graduation List 2";
+                    RunObject = Report "ACA-Classification Incomplete";
                     ApplicationArea = All;
                 }
                 action("Final Consolidated Marksheet")
@@ -392,24 +401,16 @@ page 51464 "ACA-Exam Man. Role Centre"
                     Caption = 'Final Consolidated Marksheet';
                     Image = CompleteLine;
 
-                    RunObject = Report "ACA-Consolidated Marksheet 1";
+                    RunObject = Report "ACA-Final Cons. Grad.";
                     ApplicationArea = All;
                 }
-                // action("Classification Marksheet")
-                // {
-                //     Caption = 'Classification Marksheet';
-                //     Image = Aging;
-                //     
-                //     PromotedIsBig = false;
-                //     RunObject = Report Report78015;
-                //     Visible = false;
-                // }
-                action("Incomplete List")
+                //summary classification marksheet  
+                action("Summary Classification Marksheet")
                 {
-                    Caption = 'Incomplete List';
-                    Image = ContactFilter;
+                    Caption = 'Summary Classification Marksheet';
+                    Image = Aging;
 
-                    RunObject = Report "Deans Incomplete List";
+                    RunObject = Report "Aca-Summ. Classification List";
                     ApplicationArea = All;
                 }
                 action("Incomplete List (Detailed)")
@@ -925,14 +926,14 @@ page 51464 "ACA-Exam Man. Role Centre"
                         Caption = 'Classification List';
                         Image = Completed;
 
-                        RunObject = Report "Final Deans Classification 2";
+                        RunObject = Report "ACA-Classification List";
                         ApplicationArea = All;
                     }
                     action("GraduationList")
                     {
                         Caption = 'Graduation List';
                         Image = CompleteLine;
-                        RunObject = Report "Final Deans Graduation List 2";
+                        RunObject = Report "ACA-Graduation List";
                         ApplicationArea = All;
                     }
                     action("ConsolidatedMarksheet")
@@ -940,7 +941,7 @@ page 51464 "ACA-Exam Man. Role Centre"
                         Caption = 'Consolidated Marksheet';
                         Image = CompleteLine;
 
-                        RunObject = Report "ACA-Consolidated Marksheet 1";
+                        RunObject = Report "ACA-Final Cons. Grad.";
                         ApplicationArea = All;
                     }
                     action("ClassificationMarksheet")
@@ -956,7 +957,7 @@ page 51464 "ACA-Exam Man. Role Centre"
                         Caption = 'Incomplete List';
                         Image = ContactFilter;
 
-                        RunObject = Report "Deans Incomplete List";
+                        RunObject = Report "ACA-Classification Incomplete";
                         ApplicationArea = All;
                     }
                     action("IncompleteList (Detailed)")
