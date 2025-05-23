@@ -90,6 +90,12 @@ page 50087 "Timetable Role Center"
                     RunObject = Page "Exam First Day Units";
                     ApplicationArea = All;
                 }
+                action("Holidays")
+                {
+                    Image = Setup;
+                    RunObject = Page "Timetable Holidays";
+                    ApplicationArea = All;
+                }
                 action("Exam Time Slots")
                 {
                     Image = Report;

@@ -403,6 +403,12 @@ table 50793 "ACA-Classification Course Reg."
         {
             DataClassification = ToBeClassified;
         }
+        //"Prog. Name"
+        field(65; "Prog. Name"; Text[150])
+        {
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Programme".Description WHERE(Code = FIELD(Programme)));
+        }
     }
 
     keys

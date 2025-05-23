@@ -82,7 +82,7 @@ page 50621 "HRM-Employee List"
                 {
                     ApplicationArea = all;
                 }
-                
+
                 field("Postal Address"; Rec."Postal Address")
                 {
                     ApplicationArea = all;
@@ -994,6 +994,17 @@ page 50621 "HRM-Employee List"
     local procedure AllgOptActiveOnValidate()
     begin
         AllgOptActiveOnPush;
+    end;
+
+    trigger OnAfterGetRecord()
+    var
+    NoTxt: Text;
+    begin
+        NoTxt := Rec."No.";
+        if NoTxt.Contains('PT_') then begin
+            Rec.Status := Rec.Status::Inactive;
+            Rec.Modify;
+        end;
     end;
 }
 
