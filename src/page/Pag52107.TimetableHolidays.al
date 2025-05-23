@@ -1,4 +1,4 @@
-page 52107 "Timetable Holidays"
+page 52109 "Timetable Holidays"
 {
     ApplicationArea = All;
     Caption = 'Timetable Holidays';

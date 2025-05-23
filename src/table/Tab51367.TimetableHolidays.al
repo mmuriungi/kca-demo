@@ -1,4 +1,4 @@
-table 51367 "Timetable Holidays"
+table 51371 "Timetable Holidays"
 {
     Caption = 'Timetable Holidays';
     DataClassification = ToBeClassified;
