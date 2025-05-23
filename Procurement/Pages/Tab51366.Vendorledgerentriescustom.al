@@ -2,8 +2,8 @@ table 51366 "Vendor ledger entries custom"
 {
 
     Caption = ' Custom Vendor Ledger Entry';
-    DrillDownPageID = "Vendor Ledger Entries";
-    LookupPageID = "Vendor Ledger Entries";
+    // DrillDownPageID = "Vendor Ledger Entries";
+    // LookupPageID = "Vendor Ledger Entries";
     DataClassification = CustomerContent;
 
     fields
