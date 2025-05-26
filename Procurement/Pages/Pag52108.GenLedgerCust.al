@@ -49,6 +49,7 @@ page 52108 "Gen Ledger Cust"
             action(New)
             {
                 ApplicationArea = All;
+                Caption = 'gen Line Import';
                 runobject = XmlPort "Gen Journal Import";
 
             }
