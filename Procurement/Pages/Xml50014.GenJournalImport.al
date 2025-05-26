@@ -1,12 +1,21 @@
 xmlport 50014 "Gen Journal Import"
 {
     Caption = 'Gen Journal Import';
+
     schema
     {
         textelement(RootNodeName)
         {
             tableelement(GenJournalLine; "Gen. Journal Line")
             {
+                //journalname
+                fieldelement(JournalName; GenJournalLine."Journal Template Name")
+                {
+                }
+                fieldelement(JournalBatchName; GenJournalLine."Journal Batch Name")
+                {
+                }
+
                 fieldelement(LineNo; GenJournalLine."Line No.")
                 {
                 }
