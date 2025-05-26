@@ -12,6 +12,7 @@ page 52108 "Gen Ledger Cust"
         {
             repeater(General)
             {
+
                 field("Account No"; Rec."Account No")
                 {
                     ToolTip = 'Specifies the value of the Account No field.', Comment = '%';
