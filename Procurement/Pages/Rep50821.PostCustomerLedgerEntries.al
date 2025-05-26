@@ -98,6 +98,7 @@ report 50821 "Post Customer Ledger Entries"
     }
 
     var
+
         GentempCode: code[20];
         genbatchName: code[20];
         StartDate: Date;

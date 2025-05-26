@@ -37,6 +37,21 @@ page 52108 "Gen Ledger Cust"
                     ToolTip = 'Specifies the value of the Posting Date field.', Comment = '%';
                 }
             }
+
         }
+
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action(New)
+            {
+                ApplicationArea = All;
+                runobject = XmlPort "Gen Journal Import";
+
+            }
+        }
+
     }
 }
