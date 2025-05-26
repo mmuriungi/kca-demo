@@ -1,10 +1,12 @@
 xmlport 50014 "Gen Journal Import"
 {
-    Caption = 'Gen Journal Import';
+    Caption = 'Gen Journal Line Import';
+    Direction = Import;
+    Format = VariableText;
 
     schema
     {
-        textelement(RootNodeName)
+        textelement(Root)
         {
             tableelement(GenJournalLine; "Gen. Journal Line")
             {
@@ -38,12 +40,7 @@ xmlport 50014 "Gen Journal Import"
                 fieldelement(Amount; GenJournalLine.Amount)
                 {
                 }
-                fieldelement(ShortcutDimension1Code; GenJournalLine."Shortcut Dimension 1 Code")
-                {
-                }
-                fieldelement(ShortcutDimension2Code; GenJournalLine."Shortcut Dimension 2 Code")
-                {
-                }
+
                 fieldelement(ExternalDocumentNo; GenJournalLine."External Document No.")
                 {
                 }
