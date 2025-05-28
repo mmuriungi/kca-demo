@@ -53,10 +53,43 @@ page 52087 "Timetable Header"
                 field("School Filter"; Rec."School Filter")
                 {
                     ToolTip = 'Specifies the value of the School Filter field.', Comment = '%';
+                    trigger OnDrillDown()
+                    var
+                        sFilters: Text;
+                        DimValList: Page "Dimension Value List";
+                        DimValRec: Record "Dimension Value";
+                    begin
+                        DimValRec.Reset();
+                        DimValRec.SetRange("Global Dimension No.", 3);
+                        if DimValRec.FindSet() then begin
+                            DimValList.SetTableView(DimValRec);
+                            if DimValList.RunModal = ACTION::LookupOK then begin
+                                sFilters := DimValList.GetSelectionFilter;
+                                sFilters := sFilters.Replace('|', '');
+                            end;
+                            Rec."School Filter" := sFilters;
+                        end;
+                    end;
                 }
                 field("Programme Filter"; Rec."Programme Filter")
                 {
                     ToolTip = 'Specifies the value of the Programme Filter field.', Comment = '%';
+                    trigger OnDrillDown()
+                    var
+                        sFilters: Text;
+                        DimValList: Page "Dimension Value List";
+                        ProgrammeRec: Record "ACA-Programme";
+                    begin
+                        ProgrammeRec.Reset();
+                        if ProgrammeRec.FindSet() then begin
+                            DimValList.SetTableView(ProgrammeRec);
+                            if DimValList.RunModal = ACTION::LookupOK then begin
+                                sFilters := DimValList.GetSelectionFilter;
+                                sFilters := sFilters.Replace('|', '');
+                            end;
+                            Rec."Programme Filter" := sFilters;
+                        end;
+                    end;
                 }
                 field("Exclude Years"; Rec."Exclude Years")
                 {
