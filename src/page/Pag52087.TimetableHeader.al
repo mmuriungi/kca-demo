@@ -62,6 +62,7 @@ page 52087 "Timetable Header"
                         DimValRec.Reset();
                         DimValRec.SetRange("Global Dimension No.", 3);
                         if DimValRec.FindSet() then begin
+                            DimValList.LookupMode(true);
                             DimValList.SetTableView(DimValRec);
                             if DimValList.RunModal = ACTION::LookupOK then begin
                                 sFilters := DimValList.GetSelectionFilter;
@@ -77,11 +78,12 @@ page 52087 "Timetable Header"
                     trigger OnDrillDown()
                     var
                         sFilters: Text;
-                        DimValList: Page "Dimension Value List";
+                        DimValList: Page "ACA-Programmes List";
                         ProgrammeRec: Record "ACA-Programme";
                     begin
                         ProgrammeRec.Reset();
                         if ProgrammeRec.FindSet() then begin
+                            DimValList.LookupMode(true);
                             DimValList.SetTableView(ProgrammeRec);
                             if DimValList.RunModal = ACTION::LookupOK then begin
                                 sFilters := DimValList.GetSelectionFilter;
