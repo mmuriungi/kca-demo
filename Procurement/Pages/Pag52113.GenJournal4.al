@@ -18,6 +18,10 @@ page 52113 "Gen Journal 4"
                 {
                     ToolTip = 'Specifies the value of the Account Type field.', Comment = '%';
                 }
+                field("Account No."; Rec."Account No.")
+                {
+                    ApplicationArea = all;
+                }
                 field("Document No."; Rec."Document No.")
                 {
                     ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
