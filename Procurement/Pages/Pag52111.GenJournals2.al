@@ -1,9 +1,8 @@
-page 52110 "Gen Journals "
+page 52111 "Gen Journals 2"
 {
-    ApplicationArea = All;
-    Caption = 'Gen Journals 1';
-    PageType = List;
-    SourceTable = "Gen Line Custom";
+    Caption = 'Gen Journals 2';
+   PageType = List;
+    SourceTable = "Gen Line Custom1";
     UsageCategory = Administration;
 
     layout
