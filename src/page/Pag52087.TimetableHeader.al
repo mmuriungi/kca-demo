@@ -31,6 +31,46 @@ page 52087 "Timetable Header"
                     ToolTip = 'Specifies the value of the Exam Type field.', Comment = '%';
                 }
             }
+            group(ExamGroup)
+            {
+                Caption = 'Exam Controls';
+                field("Start Date"; Rec."Start Date")
+                {
+                    ToolTip = 'Specifies the value of the Start Date field.', Comment = '%';
+                }
+                field("End Date"; Rec."End Date")
+                {
+                    ToolTip = 'Specifies the value of the End Date field.', Comment = '%';
+                }
+                field("Group Description"; Rec."Group Description")
+                {
+                    ToolTip = 'Specifies the value of the Group Description field.', Comment = '%';
+                }
+                field("Year Filter"; Rec."Year Filter")
+                {
+                    ToolTip = 'Specifies the value of the Year Filter field.', Comment = '%';
+                }
+                field("School Filter"; Rec."School Filter")
+                {
+                    ToolTip = 'Specifies the value of the School Filter field.', Comment = '%';
+                }
+                field("Programme Filter"; Rec."Programme Filter")
+                {
+                    ToolTip = 'Specifies the value of the Programme Filter field.', Comment = '%';
+                }
+                field("Exclude Years"; Rec."Exclude Years")
+                {
+                    ToolTip = 'Specifies the value of the Exclude Years field.', Comment = '%';
+                }
+                field("Exclude Schools"; Rec."Exclude Schools")
+                {
+                    ToolTip = 'Specifies the value of the Exclude Schools field.', Comment = '%';
+                }
+                field("Exclude Programmes"; Rec."Exclude Programmes")
+                {
+                    ToolTip = 'Specifies the value of the Exclude Programmes field.', Comment = '%';
+                }
+            }
             part(timetableEntry; "Timetable Entry")
             {
                 Visible = Rec."Type" <> Rec."Type"::Exam;
@@ -89,6 +129,32 @@ page 52087 "Timetable Header"
                     TtCu: codeunit "Timetable Management";
                 begin
                     TtCu.GenerateTimetable(Rec."Academic Year", Rec.Semester);
+                end;
+            }
+            action(GenerateExamTimetableByGroup)
+            {
+                ApplicationArea = All;
+                Caption = 'Generate Exam Timetable By Group';
+                Promoted = true;
+                PromotedCategory = Process;
+                Visible = (rec.Type = rec.Type::Exam) and (rec."Exam Type" = rec."Exam Type"::Regular);
+                PromotedIsBig = true;
+                Image = GetLines;
+                trigger OnAction()
+                var
+                    TtCu: codeunit "Timetable Management";
+                begin
+                    TtCu.GenerateExamTimetableByGroup(
+                        Rec.Semester,
+                        Rec."Start Date",
+                        Rec."End Date",
+                        Rec."Group Description",
+                        Rec."Year Filter",
+                        Rec."School Filter",
+                        Rec."Programme Filter",
+                        Rec."Exclude Years",
+                        Rec."Exclude Schools",
+                        Rec."Exclude Programmes");
                 end;
             }
             action(GenerateExamTimetable)
