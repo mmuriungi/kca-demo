@@ -96,6 +96,11 @@ table 51315 "Timetable Header"
             Caption = 'Entry No.';
             AutoIncrement = true;
         }
+        //programme filter
+        field(18; "Exam Programme Filter"; Text[1048])
+        {
+            Caption = 'Exam Programme Filter';
+        }
     }
     keys
     {

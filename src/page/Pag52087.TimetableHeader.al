@@ -100,7 +100,7 @@ page 52087 "Timetable Header"
                         ProgrammeRec.SetFilter(Code, sFilters);
                         if ProgrammeRec.FindSet() then begin
                             repeat
-                                Rec."Programme Filter" += ProgrammeRec.Code + ',';
+                                Rec."Exam Programme Filter" += ProgrammeRec.Code + ',';
                             until ProgrammeRec.Next() = 0;
                         end;
                     end;
@@ -198,7 +198,7 @@ page 52087 "Timetable Header"
                         Rec."Group Description",
                         Rec."Year Filter",
                         Rec."School Filter",
-                        Rec."Programme Filter",
+                        Rec."Exam Programme Filter",
                         Rec."Exclude Years",
                         Rec."Exclude Schools",
                         Rec."Exclude Programmes");
