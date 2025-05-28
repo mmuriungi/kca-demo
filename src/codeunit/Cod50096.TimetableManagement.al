@@ -528,69 +528,168 @@ codeunit 50096 "Timetable Management"
         ExcludeSchools: Boolean;
         ExcludeProgrammes: Boolean)
     var
-        Programme: Record "ACA-Programme";
-        YearOfStudy: Integer;
-        TempCourseOffering: Record "ACA-Lecturers Units" temporary;
-        ShouldInclude: Boolean;
+        YearFilterText: Text;
+        StageFilterText: Text;
+        SchoolFilterText: Text;
+        ProgrammeFilterText: Text;
     begin
-        // If we need to filter by school or check years, we need to process record by record
-        if (YearFilter <> '') or (SchoolFilter <> '') then begin
-            if CourseOffering.FindSet() then begin
-                repeat
-                    ShouldInclude := true;
-
-                    // Check year filter
-                    if YearFilter <> '' then begin
-                        YearOfStudy := GetYearOfStudyFromStage(CourseOffering.Stage);
-
-                        if ExcludeYears then
-                            ShouldInclude := not IsYearInFilter(YearOfStudy, YearFilter)
-                        else
-                            ShouldInclude := IsYearInFilter(YearOfStudy, YearFilter);
-                    end;
-
-                    // Check school filter
-                    if ShouldInclude and (SchoolFilter <> '') then begin
-                        if Programme.Get(CourseOffering.Programme) then begin
-                            if ExcludeSchools then
-                                ShouldInclude := not IsTextInFilter(Programme."School Code", SchoolFilter)
-                            else
-                                ShouldInclude := IsTextInFilter(Programme."School Code", SchoolFilter);
-                        end;
-                    end;
-
-                    // Check programme filter
-                    if ShouldInclude and (ProgrammeFilter <> '') then begin
-                        if ExcludeProgrammes then
-                            ShouldInclude := not IsTextInFilter(CourseOffering.Programme, ProgrammeFilter)
-                        else
-                            ShouldInclude := IsTextInFilter(CourseOffering.Programme, ProgrammeFilter);
-                    end;
-
-                    if ShouldInclude then begin
-                        TempCourseOffering := CourseOffering;
-                        TempCourseOffering.Insert();
-                    end;
-                until CourseOffering.Next() = 0;
-
-                // Copy filtered records back
-                CourseOffering.Reset();
-                CourseOffering.DeleteAll();
-
-                if TempCourseOffering.FindSet() then begin
-                    repeat
-                        CourseOffering := TempCourseOffering;
-                        CourseOffering.Insert();
-                    until TempCourseOffering.Next() = 0;
-                end;
-            end;
-        end else if ProgrammeFilter <> '' then begin
-            // Simple programme filter can be applied directly
-            if ExcludeProgrammes then
-                CourseOffering.SetFilter(Programme, '<>%1', ProgrammeFilter)
-            else
-                CourseOffering.SetFilter(Programme, ProgrammeFilter);
+        // Apply Programme filter
+        if ProgrammeFilter <> '' then begin
+            ProgrammeFilterText := BuildFilterText(ProgrammeFilter, ExcludeProgrammes);
+            CourseOffering.SetFilter(Programme, ProgrammeFilterText);
         end;
+
+        // Apply Year filter (through Stage)
+        if YearFilter <> '' then begin
+            StageFilterText := BuildStageFilterFromYears(YearFilter, ExcludeYears);
+            if StageFilterText <> '' then
+                CourseOffering.SetFilter(Stage, StageFilterText);
+        end;
+
+        // Apply School filter (through Programme relationship)
+        if SchoolFilter <> '' then begin
+            CourseOffering.CalcFields("School Code"); // Ensure flowfield is calculated
+            SchoolFilterText := BuildFilterText(SchoolFilter, ExcludeSchools);
+            CourseOffering.SetFilter("School Code", SchoolFilterText);
+        end;
+    end;
+
+    local procedure BuildFilterText(FilterValues: Text; Exclude: Boolean): Text
+    var
+        FilterList: List of [Text];
+        FilterItem: Text;
+        ResultFilter: Text;
+        IsFirst: Boolean;
+    begin
+        IsFirst := true;
+        FilterList := FilterValues.Split(',');
+
+        foreach FilterItem in FilterList do begin
+            FilterItem := FilterItem.Trim();
+            if FilterItem <> '' then begin
+                if Exclude then begin
+                    // For exclusions, we need to chain with & operator
+                    if not IsFirst then
+                        ResultFilter += '&';
+                    ResultFilter += '<>' + FilterItem;
+                end else begin
+                    // For inclusions, we use | operator
+                    if not IsFirst then
+                        ResultFilter += '|';
+                    ResultFilter += FilterItem;
+                end;
+                IsFirst := false;
+            end;
+        end;
+
+        exit(ResultFilter);
+    end;
+
+    local procedure BuildStageFilterFromYears(YearFilter: Text; ExcludeYears: Boolean): Text
+    var
+        FilterList: List of [Text];
+        FilterValue: Text;
+        ResultFilter: Text;
+        YearValue: Integer;
+        StartYear: Integer;
+        EndYear: Integer;
+        i: Integer;
+        IsFirst: Boolean;
+        StageList: List of [Text];
+        StageCode: Text;
+    begin
+        // Parse year filter and build corresponding stage filter
+        FilterList := YearFilter.Split(',');
+
+        // First, collect all stage codes based on year filter
+        foreach FilterValue in FilterList do begin
+            FilterValue := FilterValue.Trim();
+
+            if FilterValue.Contains('-') then begin
+                // Handle range (e.g., "2-4")
+                if ParseYearRange(FilterValue, StartYear, EndYear) then begin
+                    for i := StartYear to EndYear do begin
+                        AddYearToStageFilter(i, StageList);
+                    end;
+                end;
+            end else begin
+                // Handle single year
+                if Evaluate(YearValue, FilterValue) then
+                    AddYearToStageFilter(YearValue, StageList);
+            end;
+        end;
+
+        // Build the filter string
+        IsFirst := true;
+        foreach StageCode in StageList do begin
+            if ExcludeYears then begin
+                // For exclusions, chain with & operator
+                if not IsFirst then
+                    ResultFilter += '&';
+                ResultFilter += '<>' + StageCode;
+            end else begin
+                // For inclusions, use | operator
+                if not IsFirst then
+                    ResultFilter += '|';
+                ResultFilter += StageCode;
+            end;
+            IsFirst := false;
+        end;
+
+        exit(ResultFilter);
+    end;
+
+    local procedure ParseYearRange(RangeText: Text; var StartYear: Integer; var EndYear: Integer): Boolean
+    var
+        Parts: List of [Text];
+    begin
+        Parts := RangeText.Split('-');
+
+        if Parts.Count = 2 then begin
+            if Evaluate(StartYear, Parts.Get(1).Trim()) and
+               Evaluate(EndYear, Parts.Get(2).Trim()) then begin
+                // Validate range
+                if (StartYear > 0) and (EndYear >= StartYear) and (EndYear <= 10) then
+                    exit(true);
+            end;
+        end;
+
+        exit(false);
+    end;
+
+    local procedure AddYearToStageFilter(YearValue: Integer; var StageList: List of [Text])
+    var
+        StageCode: Text;
+    begin
+        // Add all possible stage codes for this year
+        // This handles semester system (S1, S2)
+        StageCode := 'Y' + Format(YearValue) + 'S1';
+        if not StageList.Contains(StageCode) then
+            StageList.Add(StageCode);
+
+        StageCode := 'Y' + Format(YearValue) + 'S2';
+        if not StageList.Contains(StageCode) then
+            StageList.Add(StageCode);
+
+        // If your institution uses trimester system, add these:
+        // StageCode := 'Y' + Format(YearValue) + 'T1';
+        // if not StageList.Contains(StageCode) then
+        //     StageList.Add(StageCode);
+        //     
+        // StageCode := 'Y' + Format(YearValue) + 'T2';
+        // if not StageList.Contains(StageCode) then
+        //     StageList.Add(StageCode);
+        //     
+        // StageCode := 'Y' + Format(YearValue) + 'T3';
+        // if not StageList.Contains(StageCode) then
+        //     StageList.Add(StageCode);
+
+        // If you have other stage naming patterns, add them here
+        // For example, for medical programs with different patterns:
+        // if your medical programs use 'M1S1', 'M1S2' format:
+        // StageCode := 'M' + Format(YearValue) + 'S1';
+        // if not StageList.Contains(StageCode) then
+        //     StageList.Add(StageCode);
     end;
 
     local procedure IsYearInFilter(YearOfStudy: Integer; YearFilter: Text): Boolean
