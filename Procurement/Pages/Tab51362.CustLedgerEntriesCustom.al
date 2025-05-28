@@ -702,8 +702,8 @@ table 52178744 "Cust Ledger Entries Custom"
             Caption = 'Ledger Entry Amount';
             Editable = false;
             FieldClass = FlowField;
-            // CalcFormula = sum(detailed cusr where("Cust. Ledger Entry No." = field("Entry No."),
-            //  "Posting Date" = field("Date Filter")));
+            CalcFormula = sum("Detailed Cust. Ledg".Entry.amount where("Cust. Ledger Entry No." = field("Entry No."),
+             "Posting Date" = field("Date Filter")));
         }
 
     keys
@@ -792,12 +792,12 @@ table 52178744 "Cust Ledger Entries Custom"
     var
         FindRecordManagement: Codeunit "Find Record Management";
     begin
-        exit(FindRecordManagement.GetLastEntryIntFieldValue(Rec, FieldNo("Entry No.")))
+        // exit(FindRecordManagement.GetLastEntryIntFieldValue(Rec, FieldNo("Entry No.")))
     end;
 
     procedure ShowDoc(): Boolean
     var
-        customerLedgerEntry: Record detailed
+        customerLedgerEntry: Record 379;
         SalesInvoiceHdr: Record "Sales Invoice Header";
         SalesCrMemoHdr: Record "Sales Cr.Memo Header";
         ServiceInvoiceHeader: Record "Service Invoice Header";

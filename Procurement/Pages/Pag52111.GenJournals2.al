@@ -1,7 +1,7 @@
 page 52111 "Gen Journals 2"
 {
-    Caption = 'Gen Journals 2';
-   PageType = List;
+    Caption = 'Gen Journals 1';
+    PageType = List;
     SourceTable = "Gen Line Custom1";
     UsageCategory = Administration;
 
@@ -52,7 +52,7 @@ page 52111 "Gen Journals 2"
                 Caption = 'Import';
                 Image = Import;
                 ToolTip = 'Imports data from an XML file.';
-                RunObject = xmlport "Import Custom Journal1";
+                RunObject = xmlport "Import Custom Journal";
 
             }
         }

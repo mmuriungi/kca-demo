@@ -1,7 +1,7 @@
 page 52110 "Gen Journals "
 {
     ApplicationArea = All;
-    Caption = 'Gen Journals 1';
+    Caption = 'Gen Journals';
     PageType = List;
     SourceTable = "Gen Line Custom";
     UsageCategory = Administration;
