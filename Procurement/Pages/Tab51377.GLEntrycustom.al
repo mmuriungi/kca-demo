@@ -447,6 +447,13 @@ table 51377 "G/L Entry custom"
 
 
         }
+        field(8007; Totalamount; Decimal)
+        {
+            AutoFormatType = 1;
+            Caption = 'Total Amount';
+            FieldClass = FlowField;
+            CalcFormula = sum("G/L Entry custom".Amount where("G/L Account No." = field("G/L Account No."), "Posting Date" = field("Posting Date"), "Document No." = field("Document No.")));
+        }
     }
 
     keys
