@@ -66,9 +66,16 @@ page 52087 "Timetable Header"
                             DimValList.SetTableView(DimValRec);
                             if DimValList.RunModal = ACTION::LookupOK then begin
                                 sFilters := DimValList.GetSelectionFilter;
-                                sFilters := sFilters.Replace('|', '');
                             end;
-                            Rec."School Filter" := sFilters;
+                        end;
+
+                        DimValRec.Reset();
+                        DimValRec.SetRange("Global Dimension No.", 3);
+                        DimValRec.SetFilter(Code, sFilters);
+                        if DimValRec.FindSet() then begin
+                            repeat
+                                Rec."School Filter" += DimValRec.Code + ',';
+                            until DimValRec.Next() = 0;
                         end;
                     end;
                 }
@@ -87,9 +94,14 @@ page 52087 "Timetable Header"
                             DimValList.SetTableView(ProgrammeRec);
                             if DimValList.RunModal = ACTION::LookupOK then begin
                                 sFilters := DimValList.GetSelectionFilter;
-                                sFilters := sFilters.Replace('|', '');
                             end;
-                            Rec."Programme Filter" := sFilters;
+                        end;
+                        ProgrammeRec.Reset();
+                        ProgrammeRec.SetFilter(Code, sFilters);
+                        if ProgrammeRec.FindSet() then begin
+                            repeat
+                                Rec."Programme Filter" += ProgrammeRec.Code + ',';
+                            until ProgrammeRec.Next() = 0;
                         end;
                     end;
                 }
