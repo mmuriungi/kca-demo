@@ -5,7 +5,7 @@ page 52110 "Gen Journals "
     PageType = List;
     SourceTable = "Gen Line Custom";
     UsageCategory = Administration;
-    
+
     layout
     {
         area(Content)
@@ -53,8 +53,8 @@ page 52110 "Gen Journals "
                 Caption = 'Import';
                 Image = Import;
                 ToolTip = 'Imports data from an XML file.';
-                RunObject = xmlport "Import Custom Journal";
-                
+                RunObject = xmlport "Import Custom Journal1";
+
             }
         }
     }
