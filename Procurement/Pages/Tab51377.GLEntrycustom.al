@@ -2,9 +2,9 @@ table 51377 "G/L Entry custom"
 {
     Caption = 'G/L Entry custom';
 
-    DrillDownPageID = "General Ledger Entries";
-    LookupPageID = "General Ledger Entries";
-    DataClassification = CustomerContent;
+    //DrillDownPageID = "General Ledger Entries";
+    // LookupPageID = "General Ledger Entries";
+    //DataClassification = CustomerContent;
 
     fields
     {
