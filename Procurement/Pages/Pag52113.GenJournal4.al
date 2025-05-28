@@ -26,6 +26,10 @@ page 52113 "Gen Journal 4"
                 {
                     ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
                 }
+                field(Description; Rec.Description)
+                {
+                    ToolTip = 'Specifies the value of the Description field.', Comment = '%';
+                }
                 field("Journal Batch Name"; Rec."Journal Batch Name")
                 {
                     ToolTip = 'Specifies the value of the Journal Batch Name field.', Comment = '%';

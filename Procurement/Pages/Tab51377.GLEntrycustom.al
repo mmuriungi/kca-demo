@@ -443,8 +443,7 @@ table 51377 "G/L Entry custom"
             Caption = 'Ledger Amount';
 
             FieldClass = FlowField;
-            CalcFormula = sum("G/L Entry".Amount where("G/L Account No." = field("G/L Account No."),
-                                                                                  "Posting Date" = field("Posting Date")));
+            CalcFormula = sum("G/L Entry".Amount where("G/L Account No." = field("G/L Account No."), "Posting Date" = field("Posting Date"), "Document No." = field("Document No.")));
 
 
         }
