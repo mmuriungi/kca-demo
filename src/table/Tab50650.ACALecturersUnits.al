@@ -297,6 +297,11 @@ table 50650 "ACA-Lecturers Units"
             FieldClass = FlowField;
             CalcFormula = lookup("ACA-Programme"."Department Code" where(Code = field(Programme)));
         }
+        field(55; "School Code"; Code[20])
+        {
+            FieldClass = FlowField;
+            CalcFormula = lookup("ACA-Programme"."School Code" where(Code = field(Programme)));
+        }
     }
 
     keys
