@@ -50,10 +50,56 @@ table 51315 "Timetable Header"
             OptionMembers = Regular,Supplementary,Special;
             OptionCaption = 'Regular,Supplementary,Special';
         }
+        //Start Date
+        field(9; "Start Date"; Date)
+        {
+            Caption = 'Start Date';
+        }
+        //End Date
+        field(10; "End Date"; Date)
+        {
+            Caption = 'End Date';
+        }
+        //Group Description
+        field(11; "Group Description"; Text[100])
+        {
+            Caption = 'Group Description';
+        }
+        //Year Filter
+        field(12; "Year Filter"; Text[100])
+        {
+            Caption = 'Year Filter';
+        }
+        //School Filter
+        field(13; "School Filter"; Text[1048])
+        {
+            Caption = 'School Filter';
+        }
+        //Exclude Years
+        field(14; "Exclude Years"; Boolean)
+        {
+            Caption = 'Exclude Years';
+        }
+        //Exclude Schools
+        field(15; "Exclude Schools"; Boolean)
+        {
+            Caption = 'Exclude Schools';
+        }
+        //Exclude Programmes
+        field(16; "Exclude Programmes"; Boolean)
+        {
+            Caption = 'Exclude Programmes';
+        }
+        //Entry No
+        field(17; "Entry No."; Integer)
+        {
+            Caption = 'Entry No.';
+            AutoIncrement = true;
+        }
     }
     keys
     {
-        key(PK; "Academic Year", Semester, "Type", "Exam Type")
+        key(PK; "Academic Year", Semester, "Type", "Exam Type", "Entry No.")
         {
             Clustered = true;
         }

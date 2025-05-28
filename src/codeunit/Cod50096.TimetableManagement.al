@@ -418,6 +418,475 @@ codeunit 50096 "Timetable Management"
         ExamTimeSlot.Insert();
     end;
 
+    procedure GenerateExamTimetableByGroup(
+    SemesterCode: Code[25];
+    StartDate: Date;
+    EndDate: Date;
+    GroupDescription: Text[100];
+    YearFilter: Text;
+    SchoolFilter: Text;
+    ProgrammeFilter: Text;
+    ExcludeYears: Boolean;
+    ExcludeSchools: Boolean;
+    ExcludeProgrammes: Boolean)
+    var
+        Semester: Record "ACA-Semesters";
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+        CourseOffering: Record "ACA-Lecturers Units";
+        ExamTimeSlot: Record "Exam Time Slot";
+        ProgressWindow: Dialog;
+        TotalExams, CurrentExam : Integer;
+        CoursesPerDay: Dictionary of [Date, Integer];
+        DayCounter: Integer;
+        Programme: Record "ACA-Programme";
+        ShouldInclude: Boolean;
+        GroupCode: Code[20];
+    begin
+        FindSemester(SemesterCode, Semester);
+
+        // Validate dates
+        if StartDate = 0D then
+            StartDate := Semester."Exam Start Date";
+        if EndDate = 0D then
+            EndDate := Semester."Exam End Date";
+
+        if StartDate > EndDate then
+            Error('Start date cannot be after end date');
+
+        // Generate unique group code
+        GroupCode := GenerateGroupCode(SemesterCode, GroupDescription);
+
+        // Get active exam time slots for the date range
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetRange("Semester Code", SemesterCode);
+        ExamTimeSlot.SetRange(Active, true);
+        ExamTimeSlot.SetFilter("Valid From Date", '<=%1', EndDate);
+        ExamTimeSlot.SetFilter("Valid To Date", '>=%1', StartDate);
+
+        if not ExamTimeSlot.FindSet() then
+            Error('No active exam time slots defined for the specified date range');
+
+        // Get courses with filters applied
+        CourseOffering.Reset();
+        CourseOffering.SetRange(Semester, SemesterCode);
+        CourseOffering.SetCurrentKey("Time Table Hours");
+
+        // Apply filters based on criteria
+        ApplyGroupFilters(CourseOffering, YearFilter, SchoolFilter, ProgrammeFilter,
+                         ExcludeYears, ExcludeSchools, ExcludeProgrammes);
+
+        TotalExams := CourseOffering.Count();
+
+        if TotalExams = 0 then
+            Error('No courses found matching the specified criteria');
+
+        ProgressWindow.Open('Scheduling Exams for Group: ' + GroupDescription + '\' +
+                          'Total: #1###\' +
+                          'Current Unit: #2##################\' +
+                          'Current Date: #3##################');
+
+        DayCounter := 0;
+
+        if CourseOffering.FindSet() then begin
+            repeat
+                // Check if exam already scheduled in another group
+                if not IsExamAlreadyScheduled(CourseOffering.Unit, SemesterCode) then begin
+                    CurrentExam += 1;
+                    ProgressWindow.Update(1, Format(CurrentExam) + ' of ' + Format(TotalExams));
+                    ProgressWindow.Update(2, CourseOffering.Unit);
+
+                    // Schedule the exam within the specified date range
+                    if ScheduleExamInDateRange(
+                        CourseOffering,
+                        Semester,
+                        StartDate,
+                        EndDate,
+                        DayCounter,
+                        CoursesPerDay,
+                        GroupCode) then begin
+                        // Successfully scheduled
+                    end else
+                        LogSchedulingIssueWithGroup(CourseOffering, GroupCode, GroupDescription);
+                end;
+            until CourseOffering.Next() = 0;
+        end;
+
+        // Assign invigilators to all scheduled exams in this group
+        AssignInvigilatorsToExamsInGroup(SemesterCode, GroupCode);
+
+        ProgressWindow.Close();
+        Message('Exam timetable generation completed for group: %1\' +
+                'Total exams scheduled: %2', GroupDescription, CurrentExam);
+    end;
+
+    local procedure ApplyGroupFilters(
+        var CourseOffering: Record "ACA-Lecturers Units";
+        YearFilter: Text;
+        SchoolFilter: Text;
+        ProgrammeFilter: Text;
+        ExcludeYears: Boolean;
+        ExcludeSchools: Boolean;
+        ExcludeProgrammes: Boolean)
+    var
+        Programme: Record "ACA-Programme";
+        YearOfStudy: Integer;
+        TempCourseOffering: Record "ACA-Lecturers Units" temporary;
+        ShouldInclude: Boolean;
+    begin
+        // If we need to filter by school or check years, we need to process record by record
+        if (YearFilter <> '') or (SchoolFilter <> '') then begin
+            if CourseOffering.FindSet() then begin
+                repeat
+                    ShouldInclude := true;
+
+                    // Check year filter
+                    if YearFilter <> '' then begin
+                        YearOfStudy := GetYearOfStudyFromStage(CourseOffering.Stage);
+
+                        if ExcludeYears then
+                            ShouldInclude := not IsYearInFilter(YearOfStudy, YearFilter)
+                        else
+                            ShouldInclude := IsYearInFilter(YearOfStudy, YearFilter);
+                    end;
+
+                    // Check school filter
+                    if ShouldInclude and (SchoolFilter <> '') then begin
+                        if Programme.Get(CourseOffering.Programme) then begin
+                            if ExcludeSchools then
+                                ShouldInclude := not IsTextInFilter(Programme."School Code", SchoolFilter)
+                            else
+                                ShouldInclude := IsTextInFilter(Programme."School Code", SchoolFilter);
+                        end;
+                    end;
+
+                    // Check programme filter
+                    if ShouldInclude and (ProgrammeFilter <> '') then begin
+                        if ExcludeProgrammes then
+                            ShouldInclude := not IsTextInFilter(CourseOffering.Programme, ProgrammeFilter)
+                        else
+                            ShouldInclude := IsTextInFilter(CourseOffering.Programme, ProgrammeFilter);
+                    end;
+
+                    if ShouldInclude then begin
+                        TempCourseOffering := CourseOffering;
+                        TempCourseOffering.Insert();
+                    end;
+                until CourseOffering.Next() = 0;
+
+                // Copy filtered records back
+                CourseOffering.Reset();
+                CourseOffering.DeleteAll();
+
+                if TempCourseOffering.FindSet() then begin
+                    repeat
+                        CourseOffering := TempCourseOffering;
+                        CourseOffering.Insert();
+                    until TempCourseOffering.Next() = 0;
+                end;
+            end;
+        end else if ProgrammeFilter <> '' then begin
+            // Simple programme filter can be applied directly
+            if ExcludeProgrammes then
+                CourseOffering.SetFilter(Programme, '<>%1', ProgrammeFilter)
+            else
+                CourseOffering.SetFilter(Programme, ProgrammeFilter);
+        end;
+    end;
+
+    local procedure IsYearInFilter(YearOfStudy: Integer; YearFilter: Text): Boolean
+    var
+        FilterList: List of [Text];
+        FilterValue: Text;
+        YearValue: Integer;
+    begin
+        // Parse comma-separated years or ranges (e.g., "1,3-5,7")
+        FilterList := YearFilter.Split(',');
+
+        foreach FilterValue in FilterList do begin
+            if FilterValue.Contains('-') then begin
+                // Handle range
+                if IsInRange(YearOfStudy, FilterValue) then
+                    exit(true);
+            end else begin
+                // Handle single value
+                if Evaluate(YearValue, FilterValue.Trim()) then
+                    if YearOfStudy = YearValue then
+                        exit(true);
+            end;
+        end;
+
+        exit(false);
+    end;
+
+    local procedure IsInRange(Value: Integer; RangeText: Text): Boolean
+    var
+        Parts: List of [Text];
+        StartValue, EndValue : Integer;
+    begin
+        Parts := RangeText.Split('-');
+
+        if Parts.Count = 2 then begin
+            if Evaluate(StartValue, Parts.Get(1).Trim()) and
+               Evaluate(EndValue, Parts.Get(2).Trim()) then
+                exit((Value >= StartValue) and (Value <= EndValue));
+        end;
+
+        exit(false);
+    end;
+
+    local procedure IsTextInFilter(TextValue: Text; Filter: Text): Boolean
+    var
+        FilterList: List of [Text];
+        FilterItem: Text;
+    begin
+        FilterList := Filter.Split(',');
+
+        foreach FilterItem in FilterList do begin
+            if TextValue = FilterItem.Trim() then
+                exit(true);
+        end;
+
+        exit(false);
+    end;
+
+    local procedure ScheduleExamInDateRange(
+        var CourseOffering: Record "ACA-Lecturers Units";
+        Semester: Record "ACA-Semesters";
+        StartDate: Date;
+        EndDate: Date;
+        var DayCounter: Integer;
+        var CoursesPerDay: Dictionary of [Date, Integer];
+        GroupCode: Code[20]): Boolean
+    var
+        ExamTimeSlot: Record "Exam Time Slot";
+        CurrentDate: Date;
+        OptimalDate: Date;
+        IsMedical: Boolean;
+        SlotFound: Boolean;
+        MaxAttempts: Integer;
+        AttemptCounter: Integer;
+    begin
+        IsMedical := IsMedicalProgramme(CourseOffering.Programme);
+
+        MaxAttempts := 10;
+        AttemptCounter := 0;
+        SlotFound := false;
+
+        repeat
+            AttemptCounter += 1;
+
+            // Calculate date based on day counter
+            CurrentDate := CalcDate(StrSubstNo('%1D', DayCounter), StartDate);
+
+            // Break if we've gone beyond the end date
+            if CurrentDate > EndDate then
+                exit(false);
+
+            // Skip weekends and holidays
+            while ((Date2DWY(CurrentDate, 1) > 5) or IsHoliday(CurrentDate)) and (CurrentDate <= EndDate) do begin
+                CurrentDate := CalcDate('1D', CurrentDate);
+                DayCounter += 1;
+            end;
+
+            // Break if we've gone beyond the end date after skipping
+            if CurrentDate > EndDate then
+                exit(false);
+
+            // Try to find a time slot on this date
+            if FindTimeSlotForDay(CourseOffering, CurrentDate, ExamTimeSlot, IsMedical) then begin
+                OptimalDate := CurrentDate;
+
+                // Try to schedule with room allocation
+                if ScheduleExamWithRoomAllocationGroup(
+                    CourseOffering,
+                    OptimalDate,
+                    ExamTimeSlot,
+                    Semester,
+                    GroupCode) then begin
+
+                    // Update courses per day counter
+                    if not CoursesPerDay.ContainsKey(OptimalDate) then
+                        CoursesPerDay.Add(OptimalDate, 1)
+                    else
+                        CoursesPerDay.Set(OptimalDate, CoursesPerDay.Get(OptimalDate) + 1);
+
+                    exit(true);
+                end;
+            end;
+
+            // Try the next day
+            DayCounter += 1;
+
+        until AttemptCounter >= MaxAttempts;
+
+        exit(false);
+    end;
+
+    local procedure ScheduleExamWithRoomAllocationGroup(
+        CourseOffering: Record "ACA-Lecturers Units";
+        ExamDate: Date;
+        ExamTimeSlot: Record "Exam Time Slot";
+        Semester: Record "ACA-Semesters";
+        GroupCode: Code[20]): Boolean
+    var
+        TotalStudents: Integer;
+        RemainingStudents: Integer;
+        AvailableRooms: array[100] of Record "ACA-Lecturer Halls Setup";
+        AvailableCapacities: array[100] of Integer;
+        RoomCount: Integer;
+        i: Integer;
+        StudentsInRoom: Integer;
+    begin
+        TotalStudents := CourseOffering."Student Allocation";
+        RemainingStudents := TotalStudents;
+
+        // Get available exam rooms
+        GetAvailableExamRooms(ExamDate, ExamTimeSlot, AvailableRooms, AvailableCapacities, RoomCount);
+
+        if RoomCount = 0 then
+            exit(false);
+
+        // Try to allocate all students to a single room if possible
+        for i := 1 to RoomCount do begin
+            if AvailableCapacities[i] >= TotalStudents then begin
+                // Create exam entry for the entire class
+                CreateExamEntryWithGroup(CourseOffering, ExamDate, ExamTimeSlot,
+                    AvailableRooms[i]."Lecture Room Code", TotalStudents, Semester.Code, GroupCode);
+
+                exit(true);
+            end;
+        end;
+
+        // If we need to split across multiple rooms
+        i := 1;
+        while (RemainingStudents > 0) and (i <= RoomCount) do begin
+            if AvailableCapacities[i] > 0 then begin
+                StudentsInRoom := MinValue(RemainingStudents, AvailableCapacities[i]);
+
+                // Create exam entry
+                CreateExamEntryWithGroup(CourseOffering, ExamDate, ExamTimeSlot,
+                    AvailableRooms[i]."Lecture Room Code", StudentsInRoom, Semester.Code, GroupCode);
+
+                RemainingStudents -= StudentsInRoom;
+            end;
+            i += 1;
+        end;
+
+        exit(RemainingStudents = 0);
+    end;
+
+    local procedure CreateExamEntryWithGroup(
+        CourseOffering: Record "ACA-Lecturers Units";
+        ExamDate: Date;
+        ExamTimeSlot: Record "Exam Time Slot";
+        LectureHall: Code[20];
+        StudentCount: Integer;
+        SemesterCode: Code[25];
+        GroupCode: Code[20])
+    var
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+    begin
+        ExamTimetableEntry.Init();
+        ExamTimetableEntry."Unit Code" := CourseOffering.Unit;
+        ExamTimetableEntry.Semester := SemesterCode;
+        ExamTimetableEntry."Exam Date" := ExamDate;
+        ExamTimetableEntry."Time Slot" := ExamTimeSlot.Code;
+        ExamTimetableEntry."Start Time" := ExamTimeSlot."Start Time";
+        ExamTimetableEntry."End Time" := ExamTimeSlot."End Time";
+        ExamTimetableEntry."Lecture Hall" := LectureHall;
+        ExamTimetableEntry."Programme Code" := CourseOffering.Programme;
+        ExamTimetableEntry."Stage Code" := CourseOffering.Stage;
+        ExamTimetableEntry.Status := ExamTimetableEntry.Status::Scheduled;
+        ExamTimetableEntry."Student Count" := StudentCount;
+        ExamTimetableEntry."Exam Type" := ExamTimetableEntry."Exam Type"::Regular;
+        ExamTimetableEntry."Exam Group" := GroupCode; // You'll need to add this field
+        ExamTimetableEntry.Insert(true);
+    end;
+
+    local procedure GenerateGroupCode(SemesterCode: Code[25]; Description: Text[100]): Code[20]
+    var
+        GroupCode: Code[20];
+        Counter: Integer;
+    begin
+        // Generate a unique group code based on semester and description
+        GroupCode := CopyStr(SemesterCode + '-G1', 1, 20);
+        Counter := 1;
+
+        // Find next available code
+        while ExamGroupExists(GroupCode) do begin
+            Counter += 1;
+            GroupCode := CopyStr(SemesterCode + '-G' + Format(Counter), 1, 20);
+        end;
+
+        // Store group information
+        CreateExamGroup(GroupCode, Description);
+
+        exit(GroupCode);
+    end;
+
+    local procedure ExamGroupExists(GroupCode: Code[20]): Boolean
+    var
+        ExamGroup: Record "Exam Groups"; // You'll need to create this table
+    begin
+        exit(ExamGroup.Get(GroupCode));
+    end;
+
+    local procedure CreateExamGroup(GroupCode: Code[20]; Description: Text[100])
+    var
+        ExamGroup: Record "Exam Groups"; // You'll need to create this table
+    begin
+        ExamGroup.Init();
+        ExamGroup.Code := GroupCode;
+        ExamGroup.Description := Description;
+        ExamGroup."Creation Date" := Today;
+        ExamGroup."Created By" := UserId;
+        ExamGroup.Insert();
+    end;
+
+    local procedure LogSchedulingIssueWithGroup(
+        CourseOffering: Record "ACA-Lecturers Units";
+        GroupCode: Code[20];
+        GroupDescription: Text[100])
+    var
+        SchedulingIssue: Record "Scheduling Issue";
+    begin
+        SchedulingIssue.Init();
+        SchedulingIssue."Course Code" := CourseOffering.Unit;
+        SchedulingIssue."Programme" := CourseOffering.Programme;
+        SchedulingIssue."Lecturer Code" := CourseOffering.Lecturer;
+        SchedulingIssue."Issue Description" :=
+            StrSubstNo('Unable to schedule exam for group: %1 (%2)', GroupCode, GroupDescription);
+        SchedulingIssue.Insert();
+    end;
+
+    local procedure AssignInvigilatorsToExamsInGroup(SemesterCode: Code[25]; GroupCode: Code[20])
+    var
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+        StudentCount: Integer;
+    begin
+        ExamTimetableEntry.Reset();
+        ExamTimetableEntry.SetRange(Semester, SemesterCode);
+        ExamTimetableEntry.SetRange("Exam Group", GroupCode);
+
+        if ExamTimetableEntry.FindSet() then
+            repeat
+                // Get student count
+                if ExamTimetableEntry."Student Count" > 0 then
+                    StudentCount := ExamTimetableEntry."Student Count"
+                else
+                    StudentCount := GetExamStudentCount(ExamTimetableEntry);
+
+                // Assign invigilators based on student count
+                AssignInvigilatorsToRoom(
+                    GetCourseOffering(ExamTimetableEntry."Unit Code", SemesterCode),
+                    ExamTimetableEntry."Exam Date",
+                    GetExamTimeSlot(ExamTimetableEntry."Time Slot", SemesterCode),
+                    ExamTimetableEntry."Lecture Hall",
+                    StudentCount,
+                    SemesterCode);
+            until ExamTimetableEntry.Next() = 0;
+    end;
+
     procedure GenerateTimetable(AcademicYear: Code[20]; Semester: Code[20])
     var
         CourseOffering: Record "ACA-Lecturers Units";
@@ -2750,7 +3219,7 @@ codeunit 50096 "Timetable Management"
                     if (LecturerUnits.Lecturer <> '') and (not ProcessedLecturers.Contains(LecturerUnits.Lecturer)) then begin
                         if Employee.Get(LecturerUnits.Lecturer) then begin
                             if (Employee.Status = Employee.Status::Active) and (Employee.Lecturer = true) then begin
-                                // Check if the lecturer is available at this time
+                                // Check if the lecturer  is available at this time
                                 IsAvailable := true;
 
                                 ExamInvigilator.Reset();

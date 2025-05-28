@@ -119,6 +119,11 @@ table 50066 "Exam Timetable Entry"
         {
             Caption = 'Student Count';
         }
+        field(22; "Exam Group"; Code[20])
+        {
+            Caption = 'Exam Group';
+            TableRelation = "Exam Groups";
+        }
     }
 
     keys
