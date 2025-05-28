@@ -155,6 +155,7 @@ report 50822 "PostDetailed_Cust Ledger"
     var
         TempDetailedCustLedger: Record "Detailed Cust ledger Custom" temporary;
         CustLedgerEntry: Record "Cust. Ledger Entry";
+        //det:record detailed cus
         RecordsToExclude: Integer;
     begin
         // First, copy all matching records to a temporary table

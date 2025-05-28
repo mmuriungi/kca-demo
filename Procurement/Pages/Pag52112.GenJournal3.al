@@ -1,9 +1,7 @@
-page 52110 "Gen Journals "
+page 52112 "Gen Journal 3"
 {
-    ApplicationArea = All;
-    Caption = 'Gen Journals';
-    PageType = List;
-    SourceTable = "Gen Line Custom";
+    Caption = 'Gen Journal 2';
+    SourceTable = "Gen Line Custom2";
     UsageCategory = Administration;
 
     layout
@@ -53,7 +51,7 @@ page 52110 "Gen Journals "
                 Caption = 'Import';
                 Image = Import;
                 ToolTip = 'Imports data from an XML file.';
-                RunObject = xmlport "Import Custom Journal1";
+                RunObject = xmlport "Import Gen Journal 2";
 
             }
         }

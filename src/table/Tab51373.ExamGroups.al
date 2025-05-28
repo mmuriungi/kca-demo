@@ -1,8 +1,8 @@
-table 51373 "Exam Groups"
+table 51376 "Exam Groups"
 {
     Caption = 'Exam Groups';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Code"; Code[20])
