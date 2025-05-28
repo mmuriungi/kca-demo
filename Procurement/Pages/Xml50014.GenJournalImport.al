@@ -3,6 +3,8 @@ xmlport 50014 "Gen Journal Import"
     Caption = 'Gen Journal Line Import';
     Direction = Import;
     Format = VariableText;
+    // TextEncoding = MSDos; // Matches tab-delimited default from Windows Notepad
+    //FieldSeparator = '\t';
 
     schema
     {
