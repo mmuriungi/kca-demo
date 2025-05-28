@@ -79,7 +79,7 @@ page 52087 "Timetable Header"
                         end;
                     end;
                 }
-                field("Programme Filter"; Rec."Programme Filter")
+                field("Programme Filter"; Rec."Exam Programme Filter")
                 {
                     ToolTip = 'Specifies the value of the Programme Filter field.', Comment = '%';
                     trigger OnDrillDown()
