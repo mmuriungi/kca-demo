@@ -696,7 +696,15 @@ table 52178744 "Cust Ledger Entries Custom"
             Caption = 'Posted';
             Editable = false;
         }
-    }
+        //ledger amouunt
+        field(1343; "Ledger Entry Amount"; Boolean)
+        {
+            Caption = 'Ledger Entry Amount';
+            Editable = false;
+            FieldClass = FlowField;
+            // CalcFormula = sum(detailed cusr where("Cust. Ledger Entry No." = field("Entry No."),
+            //  "Posting Date" = field("Date Filter")));
+        }
 
     keys
     {
@@ -789,6 +797,7 @@ table 52178744 "Cust Ledger Entries Custom"
 
     procedure ShowDoc(): Boolean
     var
+        customerLedgerEntry: Record detailed
         SalesInvoiceHdr: Record "Sales Invoice Header";
         SalesCrMemoHdr: Record "Sales Cr.Memo Header";
         ServiceInvoiceHeader: Record "Service Invoice Header";
