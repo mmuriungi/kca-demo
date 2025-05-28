@@ -2,7 +2,7 @@ xmlport 50017 "Import Gen Journal 2"
 {
     Caption = 'Import Gen Journal 2';
 
-    Caption = 'Gen Journal Line Import';
+
     Direction = Import;
     Format = VariableText;
 

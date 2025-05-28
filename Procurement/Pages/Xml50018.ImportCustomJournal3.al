@@ -1,7 +1,7 @@
 xmlport 50018 "Import Custom Journal 3"
 {
     Caption = 'Import Custom Journal 3';
-    Caption = 'Gen Journal Line Import';
+
     Direction = Import;
     Format = VariableText;
 

@@ -697,14 +697,20 @@ table 52178744 "Cust Ledger Entries Custom"
             Editable = false;
         }
         //ledger amouunt
-        field(1343; "Ledger Entry Amount"; Boolean)
+        field(1343; "Ledger Entry Amount"; Decimal)
         {
             Caption = 'Ledger Entry Amount';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = sum("Detailed Cust. Ledg".Entry.amount where("Cust. Ledger Entry No." = field("Entry No."),
-             "Posting Date" = field("Date Filter")));
+            CalcFormula = sum("Detailed Cust. Ledg. Entry".amount where("Document No." = field("Document No."),
+
+                                                                        "Customer No." = field("Customer No."),
+                                                                        "Posting Date" = field("Posting Date"),
+                                                                       Amount = field("Amount"), "Entry Type" = filter("Initial Entry"
+                                                                        )));
+
         }
+    }
 
     keys
     {
