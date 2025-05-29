@@ -249,7 +249,7 @@ page 52087 "Timetable Header"
                 var
                     TtCu: codeunit "Timetable Management";
                 begin
-                    TtCu.GenerateExamTimeSlots(Rec.Semester);
+                    TtCu.GenerateExamTimeSlots(Rec);
                 end;
             }
             action(GenerateSupplementaryExamTimeSlots)

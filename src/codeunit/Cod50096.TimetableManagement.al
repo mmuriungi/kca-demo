@@ -6,7 +6,7 @@ codeunit 50096 "Timetable Management"
         GenerateTimetable('2024', 'S1');
     end;
 
-    procedure GenerateExamTimeSlots(SemesterCode: Code[25])
+    procedure GenerateExamTimeSlots(TTHeader: Record "Timetable Header")
     var
         Semester: Record "ACA-Semesters";
         ExamTimeSlot: Record "Exam Time Slot";
@@ -14,16 +14,18 @@ codeunit 50096 "Timetable Management"
         CurrentDate: Date;
         Window: Dialog;
         SlotGroup: Option Regular,Medical;
+        SemesterCode: Code[25];
     begin
         // Validate semester
+        SemesterCode := TTHeader.Semester;
         FindSemester(SemesterCode, Semester);
-        Semester.TestField("Exam Start Date");
-        Semester.TestField("Exam End Date");
+       TTHeader.TestField("Start Date");
+       TTHeader.TestField("End Date");
 
         // Clear existing slots for this semester
         ExamTimeSlot.Reset();
         ExamTimeSlot.SetRange("Semester Code", SemesterCode);
-        ExamTimeSlot.SetFilter("Valid From Date", '%1..%2', Semester."Exam Start Date", Semester."Exam End Date");
+        ExamTimeSlot.SetFilter("Valid From Date", '%1..%2', TTHeader."Start Date", TTHeader."End Date");
         ExamTimeSlot.DeleteAll();
 
         // Generate Regular Exam Slots
@@ -441,6 +443,8 @@ codeunit 50096 "Timetable Management"
         Programme: Record "ACA-Programme";
         ShouldInclude: Boolean;
         GroupCode: Code[20];
+        Sudo: Boolean;
+
     begin
         FindSemester(SemesterCode, Semester);
 
@@ -494,7 +498,9 @@ codeunit 50096 "Timetable Management"
                     CurrentExam += 1;
                     ProgressWindow.Update(1, Format(CurrentExam) + ' of ' + Format(TotalExams));
                     ProgressWindow.Update(2, CourseOffering.Unit);
-
+                    if CurrentExam >= 367 then begin
+                        Sudo := true;
+                    end;
                     // Schedule the exam within the specified date range
                     if ScheduleExamInDateRange(
                         CourseOffering,
