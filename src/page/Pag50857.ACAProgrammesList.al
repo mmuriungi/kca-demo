@@ -289,5 +289,14 @@ page 50857 "ACA-Programmes List"
             until reg.Next() = 0;
         end;
     end;
+
+    procedure GetSelectionFilter(): Text
+    var
+        Prog: Record "ACA-Programme";
+        SelectionFilterManagement: Codeunit "Custom Filter Management";
+    begin
+        CurrPage.SetSelectionFilter(Prog);
+        exit(SelectionFilterManagement.GetSelectionFilterForProgramme(Prog));
+    end;
 }
 

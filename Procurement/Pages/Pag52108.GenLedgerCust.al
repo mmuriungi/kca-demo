@@ -12,6 +12,7 @@ page 52108 "Gen Ledger Cust"
         {
             repeater(General)
             {
+
                 field("Account No"; Rec."Account No")
                 {
                     ToolTip = 'Specifies the value of the Account No field.', Comment = '%';
@@ -37,6 +38,22 @@ page 52108 "Gen Ledger Cust"
                     ToolTip = 'Specifies the value of the Posting Date field.', Comment = '%';
                 }
             }
+
         }
+
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action(New)
+            {
+                ApplicationArea = All;
+                Caption = 'gen Line Import';
+                runobject = XmlPort "Gen Journal Import";
+
+            }
+        }
+
     }
 }

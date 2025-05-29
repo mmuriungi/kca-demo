@@ -232,6 +232,7 @@ table 52178744 "Cust Ledger Entries Custom"
             var
                 ReminderEntry: Record "Reminder/Fin. Charge Entry";
                 ReminderIssue: Codeunit "Reminder-Issue";
+                glentry: Record 17;
             begin
                 TestField(Open, true);
                 if "Due Date" <> xRec."Due Date" then begin
@@ -696,6 +697,20 @@ table 52178744 "Cust Ledger Entries Custom"
             Caption = 'Posted';
             Editable = false;
         }
+        //ledger amouunt
+        field(1343; "Ledger Entry Amount"; Decimal)
+        {
+            Caption = 'Ledger Entry Amount';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = sum("Detailed Cust. Ledg. Entry".amount where("Document No." = field("Document No."),
+
+                                                                        "Customer No." = field("Customer No."),
+                                                                        "Posting Date" = field("Posting Date"),
+                                                                       Amount = field("Amount"), "Entry Type" = filter("Initial Entry"
+                                                                        )));
+
+        }
     }
 
     keys
@@ -784,11 +799,12 @@ table 52178744 "Cust Ledger Entries Custom"
     var
         FindRecordManagement: Codeunit "Find Record Management";
     begin
-        exit(FindRecordManagement.GetLastEntryIntFieldValue(Rec, FieldNo("Entry No.")))
+        // exit(FindRecordManagement.GetLastEntryIntFieldValue(Rec, FieldNo("Entry No.")))
     end;
 
     procedure ShowDoc(): Boolean
     var
+        customerLedgerEntry: Record 379;
         SalesInvoiceHdr: Record "Sales Invoice Header";
         SalesCrMemoHdr: Record "Sales Cr.Memo Header";
         ServiceInvoiceHeader: Record "Service Invoice Header";

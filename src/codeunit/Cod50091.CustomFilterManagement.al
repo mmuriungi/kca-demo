@@ -607,6 +607,14 @@ codeunit 50091 "Custom Filter Management"
         RecRef.GetTable(ParttimeClaimHeader);
         exit(GetSelectionFilter(RecRef, ParttimeClaimHeader.FieldNo("No.")));
     end;
+
+    procedure GetSelectionFilterForProgramme(var Programme: Record "ACA-Programme"): Text
+    var
+        RecRef: RecordRef;
+    begin
+        RecRef.GetTable(Programme);
+        exit(GetSelectionFilter(RecRef, Programme.FieldNo(Code)));
+    end;
 }
 
 
