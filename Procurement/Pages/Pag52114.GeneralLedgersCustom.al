@@ -32,6 +32,14 @@ page 52114 "General Ledgers Custom"
                 {
                     ToolTip = 'Specifies the value of the Amount (LCY) field.', Comment = '%';
                 }
+                field(Totalamount; Rec.Totalamount)
+                {
+                    ToolTip = 'Specifies the value of the Total Amount field.', Comment = '%';
+                }
+                field(Reversed; Rec.Reversed)
+                {
+                    ToolTip = 'Specifies whether the entry is reversed.', Comment = '%';
+                }
                 field("Ledger Amount"; Rec."Ledger Amount")
                 {
                     ToolTip = 'Specifies the value of the Ledger Amount field.', Comment = '%';

@@ -232,6 +232,7 @@ table 52178744 "Cust Ledger Entries Custom"
             var
                 ReminderEntry: Record "Reminder/Fin. Charge Entry";
                 ReminderIssue: Codeunit "Reminder-Issue";
+                glentry: Record 17;
             begin
                 TestField(Open, true);
                 if "Due Date" <> xRec."Due Date" then begin
