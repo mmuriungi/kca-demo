@@ -7,6 +7,7 @@ page 52104 "Custom Det cust ledgers"
     PageType = List;
     SourceTable = "Detailed Cust ledger Custom";
     UsageCategory = Administration;
+    SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"));
 
     layout
     {

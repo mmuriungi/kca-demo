@@ -225,6 +225,14 @@ table 51362 "Detailed Cust ledger Custom"
             Caption = 'Posted';
             Editable = false;
         }
+        field(49; "Entry Amount"; Decimal)
+        {
+            Caption = 'Entry Amount';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("Detailed Cust. Ledg. Entry".amount where("Customer No." = field("Customer No."), "Document No." = field("Document No."), "Entry Type" = filter("Initial Entry")));
+
+        }
     }
 
     keys
