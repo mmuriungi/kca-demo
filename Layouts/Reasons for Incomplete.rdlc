@@ -11,135 +11,6 @@
       <rd:DataSourceID>41ef777f-0674-478d-aea5-3f3813a41e0d</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Filtersz">
-          <DataField>Filtersz</DataField>
-        </Field>
-        <Field Name="ClassCode">
-          <DataField>ClassCode</DataField>
-        </Field>
-        <Field Name="GradAcademicYear">
-          <DataField>GradAcademicYear</DataField>
-        </Field>
-        <Field Name="ProgCode">
-          <DataField>ProgCode</DataField>
-        </Field>
-        <Field Name="PassStatus">
-          <DataField>PassStatus</DataField>
-        </Field>
-        <Field Name="PassStatusOrder">
-          <DataField>PassStatusOrder</DataField>
-        </Field>
-        <Field Name="ClassOrders">
-          <DataField>ClassOrders</DataField>
-        </Field>
-        <Field Name="ClassOrder">
-          <DataField>ClassOrder</DataField>
-        </Field>
-        <Field Name="YearOfStudy">
-          <DataField>YearOfStudy</DataField>
-        </Field>
-        <Field Name="PassOrder">
-          <DataField>PassOrder</DataField>
-        </Field>
-        <Field Name="Pics">
-          <DataField>Pics</DataField>
-        </Field>
-        <Field Name="Compname">
-          <DataField>Compname</DataField>
-        </Field>
-        <Field Name="StatusOrderCompiled">
-          <DataField>StatusOrderCompiled</DataField>
-        </Field>
-        <Field Name="statusCompiled">
-          <DataField>statusCompiled</DataField>
-        </Field>
-        <Field Name="StatusCode">
-          <DataField>StatusCode</DataField>
-        </Field>
-        <Field Name="StatusDesc">
-          <DataField>StatusDesc</DataField>
-        </Field>
-        <Field Name="SummaryPageCaption">
-          <DataField>SummaryPageCaption</DataField>
-        </Field>
-        <Field Name="StatusOrder">
-          <DataField>StatusOrder</DataField>
-        </Field>
-        <Field Name="StatCodes">
-          <DataField>StatCodes</DataField>
-        </Field>
-        <Field Name="ApprovalsClaimer">
-          <DataField>ApprovalsClaimer</DataField>
-        </Field>
-        <Field Name="ProgName">
-          <DataField>ProgName</DataField>
-        </Field>
-        <Field Name="facCode">
-          <DataField>facCode</DataField>
-        </Field>
-        <Field Name="FacDesc">
-          <DataField>FacDesc</DataField>
-        </Field>
-        <Field Name="YoS">
-          <DataField>YoS</DataField>
-        </Field>
-        <Field Name="AcadYear">
-          <DataField>AcadYear</DataField>
-        </Field>
-        <Field Name="YearOfStudyText">
-          <DataField>YearOfStudyText</DataField>
-        </Field>
-        <Field Name="NextYear">
-          <DataField>NextYear</DataField>
-        </Field>
-        <Field Name="SaltedExamStatusDesc">
-          <DataField>SaltedExamStatusDesc</DataField>
-        </Field>
-        <Field Name="SaltedExamStatus">
-          <DataField>SaltedExamStatus</DataField>
-        </Field>
-        <Field Name="YoSTexed">
-          <DataField>YoSTexed</DataField>
-        </Field>
-        <Field Name="ExamStatus">
-          <DataField>ExamStatus</DataField>
-        </Field>
-        <Field Name="Names">
-          <DataField>Names</DataField>
-        </Field>
-        <Field Name="StudNo">
-          <DataField>StudNo</DataField>
-        </Field>
-        <Field Name="Required">
-          <DataField>Required</DataField>
-        </Field>
-        <Field Name="RequiredFormat">
-          <DataField>RequiredFormat</DataField>
-        </Field>
-        <Field Name="Attained">
-          <DataField>Attained</DataField>
-        </Field>
-        <Field Name="ResonCode">
-          <DataField>ResonCode</DataField>
-        </Field>
-        <Field Name="ReasonDetails">
-          <DataField>ReasonDetails</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -627,4 +498,134 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>60f4ddcf-9fb1-4ce5-8004-a8edd47b173f</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_2">
+          <DataField>ReportForNavId_2</DataField>
+        </Field>
+        <Field Name="Filtersz">
+          <DataField>Filtersz</DataField>
+        </Field>
+        <Field Name="ClassCode">
+          <DataField>ClassCode</DataField>
+        </Field>
+        <Field Name="GradAcademicYear">
+          <DataField>GradAcademicYear</DataField>
+        </Field>
+        <Field Name="ProgCode">
+          <DataField>ProgCode</DataField>
+        </Field>
+        <Field Name="PassStatus">
+          <DataField>PassStatus</DataField>
+        </Field>
+        <Field Name="PassStatusOrder">
+          <DataField>PassStatusOrder</DataField>
+        </Field>
+        <Field Name="ClassOrders">
+          <DataField>ClassOrders</DataField>
+        </Field>
+        <Field Name="ClassOrder">
+          <DataField>ClassOrder</DataField>
+        </Field>
+        <Field Name="YearOfStudy">
+          <DataField>YearOfStudy</DataField>
+        </Field>
+        <Field Name="PassOrder">
+          <DataField>PassOrder</DataField>
+        </Field>
+        <Field Name="Pics">
+          <DataField>Pics</DataField>
+        </Field>
+        <Field Name="Compname">
+          <DataField>Compname</DataField>
+        </Field>
+        <Field Name="StatusOrderCompiled">
+          <DataField>StatusOrderCompiled</DataField>
+        </Field>
+        <Field Name="statusCompiled">
+          <DataField>statusCompiled</DataField>
+        </Field>
+        <Field Name="StatusCode">
+          <DataField>StatusCode</DataField>
+        </Field>
+        <Field Name="StatusDesc">
+          <DataField>StatusDesc</DataField>
+        </Field>
+        <Field Name="SummaryPageCaption">
+          <DataField>SummaryPageCaption</DataField>
+        </Field>
+        <Field Name="StatusOrder">
+          <DataField>StatusOrder</DataField>
+        </Field>
+        <Field Name="StatCodes">
+          <DataField>StatCodes</DataField>
+        </Field>
+        <Field Name="ApprovalsClaimer">
+          <DataField>ApprovalsClaimer</DataField>
+        </Field>
+        <Field Name="ProgName">
+          <DataField>ProgName</DataField>
+        </Field>
+        <Field Name="facCode">
+          <DataField>facCode</DataField>
+        </Field>
+        <Field Name="FacDesc">
+          <DataField>FacDesc</DataField>
+        </Field>
+        <Field Name="YoS">
+          <DataField>YoS</DataField>
+        </Field>
+        <Field Name="AcadYear">
+          <DataField>AcadYear</DataField>
+        </Field>
+        <Field Name="YearOfStudyText">
+          <DataField>YearOfStudyText</DataField>
+        </Field>
+        <Field Name="NextYear">
+          <DataField>NextYear</DataField>
+        </Field>
+        <Field Name="SaltedExamStatusDesc">
+          <DataField>SaltedExamStatusDesc</DataField>
+        </Field>
+        <Field Name="SaltedExamStatus">
+          <DataField>SaltedExamStatus</DataField>
+        </Field>
+        <Field Name="YoSTexed">
+          <DataField>YoSTexed</DataField>
+        </Field>
+        <Field Name="ExamStatus">
+          <DataField>ExamStatus</DataField>
+        </Field>
+        <Field Name="Names">
+          <DataField>Names</DataField>
+        </Field>
+        <Field Name="StudNo">
+          <DataField>StudNo</DataField>
+        </Field>
+        <Field Name="Required">
+          <DataField>Required</DataField>
+        </Field>
+        <Field Name="RequiredFormat">
+          <DataField>RequiredFormat</DataField>
+        </Field>
+        <Field Name="Attained">
+          <DataField>Attained</DataField>
+        </Field>
+        <Field Name="ReportForNavId_28">
+          <DataField>ReportForNavId_28</DataField>
+        </Field>
+        <Field Name="ResonCode">
+          <DataField>ResonCode</DataField>
+        </Field>
+        <Field Name="ReasonDetails">
+          <DataField>ReasonDetails</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
