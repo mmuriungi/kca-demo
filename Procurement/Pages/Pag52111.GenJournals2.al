@@ -63,6 +63,23 @@ page 52111 "Gen Journals 2"
                 RunObject = xmlport "Import Custom Journal";
 
             }
+            action(ExportToXML)
+            {
+                ApplicationArea = All;
+                Caption = 'Export to XML Cust ledgers';
+                Image = Export;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Export customer ledger entries to XML file with date filter.';
+
+                trigger OnAction()
+                var
+                    ExportXMLPort: XMLport "Export Cust Ledgers";
+                begin
+                    ExportXMLPort.Run();
+                end;
+            }
         }
     }
 }
