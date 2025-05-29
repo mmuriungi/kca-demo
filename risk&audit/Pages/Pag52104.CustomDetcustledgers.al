@@ -42,9 +42,9 @@ page 52104 "Custom Det cust ledgers"
                 {
                     ToolTip = 'Specifies the value of the Posted field.', Comment = '%';
                 }
-                field("Ledger Entry Amount"; Rec."Ledger Entry Amount")
+                field("Entry Amount"; Rec."Entry Amount")
                 {
-                    ToolTip = 'Specifies the value of the Ledger Entry Amount field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Entry Amount field.', Comment = '%';
                 }
             }
         }
