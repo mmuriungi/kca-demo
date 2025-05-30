@@ -15,6 +15,11 @@ pageextension 50017 "Inventory Setups" extends "Inventory Setup"
                 ApplicationArea = All;
                 Editable = true;
             }
+            field("Item Transfer Nos."; Rec."Item Transfer Nos.")
+            {
+                ApplicationArea = All;
+                Editable = true;
+            }
         }
     }
 }

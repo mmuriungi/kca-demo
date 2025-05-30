@@ -287,6 +287,27 @@ page 52087 "Timetable Header"
                         Report.Run(Report::"Class Timetable Report", TRUE, FALSE, THeader);
                 end;
             }
+
+            action("New Exam Timetable Report")
+            {
+                ApplicationArea = All;
+                Caption = 'New Exam Timetable Report';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = GetLines;
+                Visible = rec.Type = rec.Type::Exam;
+                trigger OnAction()
+                var
+                    TTEntry: Record "Exam Timetable Entry";
+                begin
+                    TTEntry.Reset();
+                    TTEntry.SetRange(Semester, Rec.Semester);
+                    TTEntry.SetRange("Exam Type", Rec."Exam Type");
+                    if TTEntry.FindFirst() then
+                        Report.Run(Report::"Exam Timetable Report", TRUE, FALSE, TTEntry);
+                end;
+            }
             action("Exam Timetable Report")
             {
                 ApplicationArea = All;

@@ -109,6 +109,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelStoreRequisitionRequestTxt: Label 'An Approval request for SRN is Cancelled';
         RunWorkflowOnSendStoreRequisitionForApprovalCode: Label 'RUNWORKFLOWONSENDSRNFORAPPROVAL';
         RunWorkflowOnCancelStoreRequisitionForApprovalCode: Label 'RUNWORKFLOWONCANCELSRNFORAPPROVAL';
+        //Item Transfer Header
+        OnSendItemTransferRequestTxt: Label 'Approval request for Item Transfer is requested';
+        OnCancelItemTransferRequestTxt: Label 'An Approval request for Item Transfer is Cancelled';
+        RunWorkflowOnSendItemTransferForApprovalCode: Label 'RUNWORKFLOWONSENDITEMTRANSFERFORAPPROVAL';
+        RunWorkflowOnCancelItemTransferForApprovalCode: Label 'RUNWORKFLOWONCANCELITEMTRANSFERFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -160,6 +165,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendAuditHeaderForApprovalCode));
             Database::"PROC-Store Requistion Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendStoreRequisitionForApprovalCode));
+            Database::"Item Transfer Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendItemTransferForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -258,6 +265,9 @@ codeunit 50089 "Approval Workflows V1"
         //Store Requisition
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendStoreRequisitionForApprovalCode, Database::"PROC-Store Requistion Header", OnSendStoreRequisitionRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelStoreRequisitionForApprovalCode, Database::"PROC-Store Requistion Header", OnCancelStoreRequisitionRequestTxt, 0, false);
+        //Item Transfer
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendItemTransferForApprovalCode, Database::"Item Transfer Header", OnSendItemTransferRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelItemTransferForApprovalCode, Database::"Item Transfer Header", OnCancelItemTransferRequestTxt, 0, false);
     end;
 
 
@@ -316,6 +326,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendAuditHeaderForApprovalCode, Variant);
             Database::"PROC-Store Requistion Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendStoreRequisitionForApprovalCode, Variant);
+            Database::"Item Transfer Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendItemTransferForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -372,6 +384,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelAuditHeaderForApprovalCode, Variant);
             Database::"PROC-Store Requistion Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelStoreRequisitionForApprovalCode, Variant);
+            Database::"Item Transfer Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelItemTransferForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -403,6 +417,7 @@ codeunit 50089 "Approval Workflows V1"
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
+        ItemTransferHeader: Record "Item Transfer Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -552,6 +567,13 @@ codeunit 50089 "Approval Workflows V1"
                     StoreRequisition.Modify();
                     Handled := true;
                 end;
+            Database::"Item Transfer Header":
+                begin
+                    RecRef.SetTable(ItemTransferHeader);
+                    ItemTransferHeader.Validate("Approval Status", ItemTransferHeader."Approval Status"::Open);
+                    ItemTransferHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -579,6 +601,7 @@ codeunit 50089 "Approval Workflows V1"
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
+        ItemTransferHeader: Record "Item Transfer Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -732,6 +755,13 @@ codeunit 50089 "Approval Workflows V1"
                     StoreRequisition.Modify();
                     IsHandled := true;
                 end;
+            Database::"Item Transfer Header":
+                begin
+                    RecRef.SetTable(ItemTransferHeader);
+                    ItemTransferHeader.Validate("Approval Status", ItemTransferHeader."Approval Status"::"Pending");
+                    ItemTransferHeader.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -759,6 +789,7 @@ codeunit 50089 "Approval Workflows V1"
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
+        ItemTransferHeader: Record "Item Transfer Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -866,6 +897,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(StoreRequisition);
                     ApprovalEntryArgument."Document No." := StoreRequisition."No.";
                 end;
+            Database::"Item Transfer Header":
+                begin
+                    RecRef.SetTable(ItemTransferHeader);
+                    ApprovalEntryArgument."Document No." := ItemTransferHeader."No.";
+                end;
         end;
     end;
 
@@ -898,6 +934,7 @@ codeunit 50089 "Approval Workflows V1"
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
+        ItemTransferHeader: Record "Item Transfer Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -1051,6 +1088,14 @@ codeunit 50089 "Approval Workflows V1"
                     StoreRequisition.Modify();
                     Handled := true;
                 end;
+            Database::"Item Transfer Header":
+                begin
+                    RecRef.SetTable(ItemTransferHeader);
+                    ItemTransferHeader.Validate("Approval Status", ItemTransferHeader."Approval Status"::Approved);
+                    ItemTransferHeader.Validate(Status, ItemTransferHeader.Status::Released);
+                    ItemTransferHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -1078,6 +1123,7 @@ codeunit 50089 "Approval Workflows V1"
         VenueBooking: Record "Gen-Venue Booking";
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
+        ItemTransferHeader: Record "Item Transfer Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -1231,320 +1277,13 @@ codeunit 50089 "Approval Workflows V1"
                         StoreRequisition.Modify(true);
                     end;
                 end;
-        end;
-    end;
-
-
-    procedure ReOpen(var Variant: Variant)
-    var
-        club: Record "Club";
-        RecRef: RecordRef;
-        StudentLeave: Record "Student Leave";
-        PostgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
-        CertApplic: Record "Certificate Application";
-        PhamacyHeader: Record "Pharmacy Requests Header";
-        Medclaims: Record "HRM-Medical Claims";
-        ProcplanHeader: Record "PROC-Procurement Plan Header";
-        TenderHeader: Record "Tender HEader";
-        RFQHeader: Record "Proc-Purchase Quote Header";
-        PartTimeClaim: Record "Parttime Claim Header";
-        MealBooking: Record "CAT-Meal Booking Header";
-        impSurHeader: Record "FIN-Imprest Surr. Header";
-        EmployeeRequisition: Record "HRM-Employee Requisitions";
-        SpecialExams: Record "Aca-Special Exams Details";
-        ItemDisposalHeader: Record "Item Disposal Header";
-        VenueBooking: Record "Gen-Venue Booking";
-        AuditHeader: Record "Audit Header";
-        StoreRequisition: Record "PROC-Store Requistion Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number of
-
-            Database::club:
+            Database::"Item Transfer Header":
                 begin
-                    RecRef.SetTable(club);
-                    club.validate("Approval Status", club."Approval Status"::Open);
-                    club.Modify;
-                    Variant := club;
+                    if ItemTransferHeader.Get(ApprovalEntry."Document No.") then begin
+                        ItemTransferHeader."Approval Status" := ItemTransferHeader."Approval Status"::Open;
+                        ItemTransferHeader.Modify(true);
+                    end;
                 end;
-            Database::"Student Leave":
-                begin
-                    RecRef.SetTable(StudentLeave);
-                    StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::Open);
-                    StudentLeave.Modify();
-                    Variant := StudentLeave;
-                end;
-            Database::"Postgrad Supervisor Applic.":
-                begin
-                    RecRef.SetTable(PostgradSupervisorApplic);
-                    PostgradSupervisorApplic.Validate("Status", PostgradSupervisorApplic."Status"::Open);
-                    PostgradSupervisorApplic.Modify();
-                    Variant := PostgradSupervisorApplic;
-                end;
-            Database::"Certificate Application":
-                begin
-                    RecRef.SetTable(CertApplic);
-                    CertApplic.Validate("Status", CertApplic.Status::Open);
-                    CertApplic.Modify();
-                    Variant := CertApplic;
-                end;
-            Database::"Pharmacy Requests Header":
-                begin
-                    RecRef.SetTable(PhamacyHeader);
-                    PhamacyHeader.Validate("Status", PhamacyHeader.Status::Pending);
-                    PhamacyHeader.Modify();
-                    Variant := PhamacyHeader;
-                end;
-            Database::"HRM-Medical Claims":
-                begin
-                    RecRef.SetTable(Medclaims);
-                    Medclaims.Validate("Status", Medclaims.Status::Open);
-                    Medclaims.Modify();
-                    Variant := Medclaims;
-                end;
-            Database::"PROC-Procurement Plan Header":
-                begin
-                    RecRef.SetTable(ProcplanHeader);
-                    ProcplanHeader.Validate("Status", ProcplanHeader.Status::Open);
-                    ProcplanHeader.Modify();
-                    Variant := ProcplanHeader;
-                end;
-            Database::"Tender Header":
-                begin
-                    RecRef.SetTable(TenderHeader);
-                    TenderHeader.Validate("Status", TenderHeader.Status::Open);
-                    TenderHeader.Modify();
-                    Variant := TenderHeader;
-                end;
-            Database::"Proc-Purchase Quote Header":
-                begin
-                    RecRef.SetTable(RFQHeader);
-                    RFQHeader.Validate("Status", RFQHeader.Status::Open);
-                    RFQHeader.Modify();
-                    Variant := RFQHeader;
-                end;
-            Database::"Parttime Claim Header":
-                begin
-                    RecRef.SetTable(PartTimeClaim);
-                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::Pending);
-                    PartTimeClaim.Modify();
-                    Variant := PartTimeClaim;
-                end;
-            Database::"CAT-Meal Booking Header":
-                begin
-                    RecRef.SetTable(MealBooking);
-                    MealBooking.Validate("Status", MealBooking.Status::New);
-                    MealBooking.Modify();
-                    Variant := MealBooking;
-                end;
-            Database::"FIN-Imprest Surr. Header":
-                begin
-                    RecRef.SetTable(impSurHeader);
-                    impSurHeader.Validate("Status", impSurHeader.Status::Pending);
-                    impSurHeader.Modify();
-                    Variant := impSurHeader;
-                end;
-            Database::"HRM-Employee Requisitions":
-                begin
-                    RecRef.SetTable(EmployeeRequisition);
-                    EmployeeRequisition.Validate("Status", EmployeeRequisition.Status::New);
-                    EmployeeRequisition.Modify();
-                    Variant := EmployeeRequisition;
-                end;
-            Database::"Aca-Special Exams Details":
-                begin
-                    RecRef.SetTable(SpecialExams);
-                    SpecialExams.Validate("Status", SpecialExams.Status::New);
-                    SpecialExams.Modify();
-                    Variant := SpecialExams;
-                end;
-            Database::"Item Disposal Header":
-                begin
-                    RecRef.SetTable(ItemDisposalHeader);
-                    ItemDisposalHeader.Validate("Status", ItemDisposalHeader.Status::Open);
-                    ItemDisposalHeader.Modify();
-                    Variant := ItemDisposalHeader;
-                end;
-            Database::"Gen-Venue Booking":
-                begin
-                    RecRef.SetTable(VenueBooking);
-                    VenueBooking.Validate(Status, VenueBooking.Status::New);
-                    VenueBooking.Modify();
-                    Variant := VenueBooking;
-                end;
-            Database::"Audit Header":
-                begin
-                    RecRef.SetTable(AuditHeader);
-                    AuditHeader.Validate(Status, AuditHeader.Status::"Pending Approval");
-                    AuditHeader.Modify();
-                    Variant := AuditHeader;
-                end;
-            Database::"PROC-Store Requistion Header":
-                begin
-                    RecRef.SetTable(StoreRequisition);
-                    StoreRequisition.Validate("Status", StoreRequisition.Status::"Pending Approval");
-                    StoreRequisition.Modify();
-                    Variant := StoreRequisition;
-                end;
-            else
-                Error(UnsupportedRecordTypeErr, RecRef.Caption);
-
-        end;
-    end;
-
-    procedure SetStatusToPending(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        club: Record "Club";
-        StudentLeave: Record "Student Leave";
-        PostgradSupervisorApplic: Record "Postgrad Supervisor Applic.";
-        CertApplic: Record "Certificate Application";
-        PhamacyHeader: Record "Pharmacy Requests Header";
-        Medclaims: Record "HRM-Medical Claims";
-        ProcplanHeader: Record "PROC-Procurement Plan Header";
-        TenderHeader: Record "Tender Header";
-        RFQHeader: Record "Proc-Purchase Quote Header";
-        PartTimeClaim: Record "Parttime Claim Header";
-        MealBooking: Record "CAT-Meal Booking Header";
-        impsurHeader: Record "FIN-Imprest Surr. Header";
-        emprequisition: Record "HRM-Employee Requisitions";
-        SpecialExams: Record "Aca-Special Exams Details";
-        ItemDisposalHeader: Record "Item Disposal Header";
-        VenueBooking: Record "Gen-Venue Booking";
-        AuditHeader: Record "Audit Header";
-        StoreRequisition: Record "PROC-Store Requistion Header";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number of
-
-            Database::Club:
-                begin
-                    RecRef.SetTable(club);
-                    club.validate("Approval Status", club."Approval Status"::"Pending");
-                    club.Modify;
-                    Variant := club;
-                end;
-            Database::"Student Leave":
-                begin
-                    RecRef.SetTable(StudentLeave);
-                    StudentLeave.Validate("Approval Status", StudentLeave."Approval Status"::"Pending");
-                    StudentLeave.Modify();
-                    Variant := StudentLeave;
-                end;
-            Database::"Postgrad Supervisor Applic.":
-                begin
-                    RecRef.SetTable(PostgradSupervisorApplic);
-                    PostgradSupervisorApplic.Validate("Status", PostgradSupervisorApplic."Status"::"Pending");
-                    PostgradSupervisorApplic.Modify();
-                    Variant := PostgradSupervisorApplic;
-                end;
-            Database::"Certificate Application":
-                begin
-                    RecRef.SetTable(CertApplic);
-                    CertApplic.Validate("Status", CertApplic.Status::Pending);
-                    CertApplic.Modify();
-                    Variant := CertApplic;
-                end;
-            Database::"Pharmacy Requests Header":
-                begin
-                    RecRef.SetTable(PhamacyHeader);
-                    PhamacyHeader.Validate("Status", PhamacyHeader.Status::Pending);
-                    PhamacyHeader.Modify();
-                    Variant := PhamacyHeader;
-                end;
-            Database::"HRM-Medical Claims":
-                begin
-                    RecRef.SetTable(Medclaims);
-                    Medclaims.Validate("Status", Medclaims.Status::Pending);
-                    Medclaims.Modify();
-                    Variant := Medclaims;
-                end;
-            Database::"PROC-Procurement Plan Header":
-                begin
-                    RecRef.SetTable(ProcplanHeader);
-                    ProcplanHeader.Validate("Status", ProcplanHeader.Status::"Pending Approval");
-                    ProcplanHeader.Modify();
-                    Variant := ProcplanHeader;
-                end;
-            Database::"Tender Header":
-                begin
-                    RecRef.SetTable(TenderHeader);
-                    TenderHeader.Validate("Status", TenderHeader.Status::"Pending Approval");
-                    TenderHeader.Modify();
-                    Variant := TenderHeader;
-                end;
-            Database::"Proc-Purchase Quote Header":
-                begin
-                    RecRef.SetTable(RFQHeader);
-                    RFQHeader.Validate("Status", RFQHeader.Status::"Pending Approval");
-                    RFQHeader.Modify();
-                    Variant := RFQHeader;
-                end;
-            Database::"Parttime Claim Header":
-                begin
-                    RecRef.SetTable(PartTimeClaim);
-                    PartTimeClaim.Validate("Status", PartTimeClaim.Status::"Pending Approval");
-                    PartTimeClaim.Modify();
-                    Variant := PartTimeClaim;
-                end;
-            Database::"CAT-Meal Booking Header":
-                begin
-                    RecRef.SetTable(MealBooking);
-                    MealBooking.Validate("Status", MealBooking.Status::"Pending Approval");
-                    MealBooking.Modify();
-                    Variant := MealBooking;
-                end;
-            Database::"FIN-Imprest Surr. Header":
-                begin
-                    RecRef.SetTable(impSurHeader);
-                    impSurHeader.Validate("Status", impSurHeader.Status::"Pending Approval");
-                    impSurHeader.Modify();
-                    Variant := impSurHeader;
-                end;
-            Database::"HRM-Employee Requisitions":
-                begin
-                    RecRef.SetTable(emprequisition);
-                    emprequisition.Validate("Status", emprequisition.Status::"Pending Approval");
-                    emprequisition.Modify();
-                    Variant := emprequisition;
-                end;
-            Database::"Aca-Special Exams Details":
-                begin
-                    RecRef.SetTable(SpecialExams);
-                    SpecialExams.Validate("Status", SpecialExams.Status::"Pending Approval");
-                    SpecialExams.Modify();
-                    Variant := SpecialExams;
-                end;
-            Database::"Item Disposal Header":
-                begin
-                    RecRef.SetTable(ItemDisposalHeader);
-                    ItemDisposalHeader.Validate("Status", ItemDisposalHeader.Status::"Pending Approval");
-                    ItemDisposalHeader.Modify();
-                    Variant := ItemDisposalHeader;
-                end;
-            Database::"Gen-Venue Booking":
-                begin
-                    RecRef.SetTable(VenueBooking);
-                    VenueBooking.Validate(Status, VenueBooking.Status::"Pending Approval");
-                    VenueBooking.Modify();
-                    Variant := VenueBooking;
-                end;
-            Database::"Audit Header":
-                begin
-                    RecRef.SetTable(AuditHeader);
-                    AuditHeader.Validate(Status, AuditHeader.Status::"Pending Approval");
-                    AuditHeader.Modify();
-                    Variant := AuditHeader;
-                end;
-            Database::"PROC-Store Requistion Header":
-                begin
-                    RecRef.SetTable(StoreRequisition);
-                    StoreRequisition.Validate("Status", StoreRequisition.Status::"Pending Approval");
-                    StoreRequisition.Modify();
-                    Variant := StoreRequisition;
-                end;
-            else
-                Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
     end;
 

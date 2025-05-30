@@ -11,6 +11,12 @@ tableextension 50007 "Inventory Setup Ext" extends "Inventory Setup"
         {
 
         }
+        field(56603; "Item Transfer Nos."; Code[20])
+        {
+            Caption = 'Item Transfer Nos.';
+            TableRelation = "No. Series";
+            DataClassification = ToBeClassified;
+        }
     }
 
     var
