@@ -44,6 +44,10 @@ page 52114 "General Ledgers Custom"
                 {
                     ToolTip = 'Specifies the value of the Ledger Amount field.', Comment = '%';
                 }
+                field("Source No."; Rec."Source No.")
+                {
+                    ToolTip = 'Specifies the value of the Source No. field.', Comment = '%';
+                }
             }
         }
     }

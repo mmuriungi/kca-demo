@@ -454,6 +454,12 @@ table 51377 "G/L Entry custom"
             FieldClass = FlowField;
             CalcFormula = sum("G/L Entry custom".Amount where("G/L Account No." = field("G/L Account No."), "Posting Date" = field("Posting Date"), "Document No." = field("Document No.")));
         }
+        field(8008;"EntryCount"; Integer)
+        {
+            Caption = 'Entry Count';
+            FieldClass = FlowField;
+            CalcFormula = count("G/L Entry" where("G/L Account No." = field("G/L Account No."), "Posting Date" = field("Posting Date"), "Document No." = field("Document No.")));
+        }
     }
 
     keys
