@@ -19,8 +19,8 @@ codeunit 50096 "Timetable Management"
         // Validate semester
         SemesterCode := TTHeader.Semester;
         FindSemester(SemesterCode, Semester);
-       TTHeader.TestField("Start Date");
-       TTHeader.TestField("End Date");
+        TTHeader.TestField("Start Date");
+        TTHeader.TestField("End Date");
 
         // Clear existing slots for this semester
         ExamTimeSlot.Reset();
@@ -494,7 +494,7 @@ codeunit 50096 "Timetable Management"
         if CourseOffering.FindSet() then begin
             repeat
                 // Check if exam already scheduled in another group
-                if not IsExamAlreadyScheduled(CourseOffering.Unit, SemesterCode) then begin
+                if not IsExamAlreadyScheduled(CourseOffering.Unit, CourseOffering.Stage, SemesterCode, CourseOffering.Programme) then begin
                     CurrentExam += 1;
                     ProgressWindow.Update(1, Format(CurrentExam) + ' of ' + Format(TotalExams));
                     ProgressWindow.Update(2, CourseOffering.Unit);
@@ -755,6 +755,335 @@ codeunit 50096 "Timetable Management"
     end;
 
     local procedure ScheduleExamInDateRange(
+     var CourseOffering: Record "ACA-Lecturers Units";
+     Semester: Record "ACA-Semesters";
+     StartDate: Date;
+     EndDate: Date;
+     var DayCounter: Integer;
+     var CoursesPerDay: Dictionary of [Date, Integer];
+     GroupCode: Code[20]): Boolean
+    var
+        ExamTimeSlot: Record "Exam Time Slot";
+        CurrentDate: Date;
+        OptimalDate: Date;
+        IsMedical: Boolean;
+        SlotFound: Boolean;
+        MaxDaysToCheck: Integer;
+        DaysChecked: Integer;
+        AllTimeSlots: Record "Exam Time Slot" temporary;
+        TriedCombinations: List of [Text];
+        CombinationKey: Text;
+        FirstDayUnits: Record "Exam First Day Units";
+        IsFirstDayUnit: Boolean;
+        DateAttempts: Integer;
+        MaxDateAttempts: Integer;
+        AvailableDates: List of [Date];
+        BestDate: Date;
+        LowestLoadDate: Date;
+        LowestLoad: Integer;
+        CurrentLoad: Integer;
+        TempDate: Date;
+    begin
+        IsMedical := IsMedicalProgramme(CourseOffering.Programme);
+        MaxDaysToCheck := (EndDate - StartDate) + 1;
+        DaysChecked := 0;
+        SlotFound := false;
+        MaxDateAttempts := 3; // Try up to 3 different dates for better distribution
+
+        // Check if this is a first day preference unit
+        FirstDayUnits.Reset();
+        FirstDayUnits.SetRange(Unit, CourseOffering.Unit);
+        IsFirstDayUnit := FirstDayUnits.FindFirst();
+
+        // If this is a first day unit, try to schedule on the first day first
+        if IsFirstDayUnit then begin
+            CurrentDate := StartDate;
+            // Skip weekends for start date
+            while ((Date2DWY(CurrentDate, 1) > 5) or IsHoliday(CurrentDate)) and (CurrentDate <= EndDate) do
+                CurrentDate := CalcDate('1D', CurrentDate);
+                
+            if CurrentDate <= EndDate then begin
+                if TryScheduleExamOnDate(CourseOffering, CurrentDate, Semester, GroupCode, CoursesPerDay, IsMedical) then
+                    exit(true);
+            end;
+        end;
+
+        // Build a list of all possible time slots for this period
+        BuildAvailableTimeSlots(StartDate, EndDate, IsMedical, AllTimeSlots);
+
+        // Build list of available dates for better distribution
+        BuildAvailableDatesList(StartDate, EndDate, AvailableDates);
+
+        // For better distribution, try to find the date with lowest exam load
+        DateAttempts := 0;
+        repeat
+            DateAttempts += 1;
+            
+            // Find the date with the lowest exam load for better distribution
+            if DateAttempts = 1 then begin
+                BestDate := FindLeastLoadedDate(AvailableDates, CoursesPerDay);
+            end else begin
+                // Calculate date based on day counter for subsequent attempts
+                BestDate := CalcDate(StrSubstNo('%1D', DayCounter), StartDate);
+                
+                // Cycle through available dates if we go beyond range
+                while BestDate > EndDate do begin
+                    DayCounter := DayCounter - MaxDaysToCheck;
+                    if DayCounter < 0 then DayCounter := 0;
+                    BestDate := CalcDate(StrSubstNo('%1D', DayCounter), StartDate);
+                end;
+            end;
+
+            // Skip weekends and holidays
+            while ((Date2DWY(BestDate, 1) > 5) or IsHoliday(BestDate)) and (BestDate <= EndDate) do begin
+                BestDate := CalcDate('1D', BestDate);
+            end;
+
+            // Break if we've gone beyond the end date after skipping
+            if BestDate > EndDate then begin
+                DayCounter += 1;
+            end else begin
+                // Try to schedule on this date
+                if TryScheduleExamOnDate(CourseOffering, BestDate, Semester, GroupCode, CoursesPerDay, IsMedical) then
+                    exit(true);
+            end;
+
+            // Try the next day
+            DayCounter += 1;
+            
+        until DateAttempts >= MaxDateAttempts;
+
+        // If specific date attempts failed, try sequential scheduling with better distribution
+        DaysChecked := 0;
+        repeat
+            DaysChecked += 1;
+
+            // Calculate date based on day counter with modulo to ensure distribution
+            CurrentDate := CalcDate(StrSubstNo('%1D', (DayCounter mod MaxDaysToCheck)), StartDate);
+
+            // Skip weekends and holidays
+            while ((Date2DWY(CurrentDate, 1) > 5) or IsHoliday(CurrentDate)) and (CurrentDate <= EndDate) do begin
+                CurrentDate := CalcDate('1D', CurrentDate);
+            end;
+
+            // Break if we've gone beyond the end date after skipping
+            if CurrentDate > EndDate then begin
+                DayCounter += 1;
+                if DaysChecked >= MaxDaysToCheck then
+                    exit(false);
+            end else begin
+                // Try to schedule on this date
+                if TryScheduleExamOnDate(CourseOffering, CurrentDate, Semester, GroupCode, CoursesPerDay, IsMedical) then
+                    exit(true);
+            end;
+
+            // Try the next day
+            DayCounter += 1;
+
+        until DaysChecked >= MaxDaysToCheck;
+
+        exit(false);
+    end;
+
+    local procedure ScheduleExamWithRoomAllocationGroup(
+    CourseOffering: Record "ACA-Lecturers Units";
+    ExamDate: Date;
+    ExamTimeSlot: Record "Exam Time Slot";
+    Semester: Record "ACA-Semesters";
+    GroupCode: Code[20]): Boolean
+    var
+        TotalStudents: Integer;
+        RemainingStudents: Integer;
+        AvailableRooms: array[100] of Record "ACA-Lecturer Halls Setup";
+        AvailableCapacities: array[100] of Integer;
+        RoomCount: Integer;
+        i: Integer;
+        StudentsInRoom: Integer;
+        MinStudentsPerRoom: Integer;
+        ActuallyScheduledStudents: Integer;
+    begin
+        TotalStudents := CourseOffering."Student Allocation";
+        RemainingStudents := TotalStudents;
+        ActuallyScheduledStudents := 0;
+        MinStudentsPerRoom := 15; // Minimum students to make a room allocation worthwhile
+
+        // Get available exam rooms
+        GetAvailableExamRoomsEnhanced(ExamDate, ExamTimeSlot, AvailableRooms, AvailableCapacities, RoomCount);
+
+        if RoomCount = 0 then
+            exit(false);
+
+        // Calculate total available capacity
+        i := 1;
+        while i <= RoomCount do begin
+            ActuallyScheduledStudents += AvailableCapacities[i];
+            i += 1;
+        end;
+
+        // If total available capacity is less than required, don't proceed
+        if ActuallyScheduledStudents < (TotalStudents * 0.8) then // Allow 80% minimum
+            exit(false);
+
+        // Try to allocate all students to a single room if possible
+        for i := 1 to RoomCount do begin
+            if AvailableCapacities[i] >= TotalStudents then begin
+                // Create exam entry for the entire class
+                CreateExamEntryWithGroup(CourseOffering, ExamDate, ExamTimeSlot,
+                    AvailableRooms[i]."Lecture Room Code", TotalStudents, Semester.Code, GroupCode);
+                exit(true);
+            end;
+        end;
+
+        // If we need to split across multiple rooms, ensure we can accommodate at least 80% of students
+        ActuallyScheduledStudents := 0;
+        i := 1;
+        while (RemainingStudents > 0) and (i <= RoomCount) do begin
+            if AvailableCapacities[i] >= MinStudentsPerRoom then begin
+                StudentsInRoom := MinValue(RemainingStudents, AvailableCapacities[i]);
+
+                // Create exam entry
+                CreateExamEntryWithGroup(CourseOffering, ExamDate, ExamTimeSlot,
+                    AvailableRooms[i]."Lecture Room Code", StudentsInRoom, Semester.Code, GroupCode);
+
+                RemainingStudents -= StudentsInRoom;
+                ActuallyScheduledStudents += StudentsInRoom;
+            end;
+            i += 1;
+        end;
+
+        // If we couldn't schedule at least 80% of students, rollback
+        if ActuallyScheduledStudents < (TotalStudents * 0.8) then begin
+            // Delete the entries we just created
+            DeleteExamEntries(CourseOffering.Unit, ExamDate, ExamTimeSlot.Code, Semester.Code);
+            exit(false);
+        end;
+
+        exit(RemainingStudents = 0);
+    end;
+
+    local procedure GetAvailableExamRoomsEnhanced(ExamDate: Date;
+        ExamTimeSlot: Record "Exam Time Slot";
+        var AvailableRooms: array[100] of Record "ACA-Lecturer Halls Setup";
+        var AvailableCapacities: array[100] of Integer;
+        var RoomCount: Integer)
+    var
+        LectureHall: Record "ACA-Lecturer Halls Setup";
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+        TotalCapacity: Integer;
+        UsedCapacity: Integer;
+        BufferPercentage: Decimal;
+    begin
+        Clear(RoomCount);
+        Clear(AvailableRooms);
+        Clear(AvailableCapacities);
+        BufferPercentage := 0.9; // Use 90% of room capacity for comfort
+
+        LectureHall.Reset();
+        LectureHall.SetFilter("Exam Sitting Capacity", '>0');
+        LectureHall.SetRange(Status, LectureHall.Status::Active);
+
+        // Include both Normal and Lab rooms if enabled
+        if EnableLabsForExam() then
+            LectureHall.SetFilter("Hall Category", '%1|%2',
+                LectureHall."Hall Category"::Normal,
+                LectureHall."Hall Category"::Lab)
+        else
+            LectureHall.SetRange("Hall Category", LectureHall."Hall Category"::Normal);
+
+        // Sort by capacity descending to prioritize larger rooms
+        LectureHall.SetCurrentKey("Exam Sitting Capacity");
+        LectureHall.SetAscending("Exam Sitting Capacity", false);
+
+        if LectureHall.FindSet() then
+            repeat
+                Clear(UsedCapacity);
+                TotalCapacity := Round(LectureHall."Exam Sitting Capacity" * BufferPercentage, 1);
+
+                // Check existing bookings for this room at this time
+                ExamTimetableEntry.Reset();
+                ExamTimetableEntry.SetRange("Exam Date", ExamDate);
+                ExamTimetableEntry.SetRange("Time Slot", ExamTimeSlot.Code);
+                ExamTimetableEntry.SetRange("Lecture Hall", LectureHall."Lecture Room Code");
+
+                if ExamTimetableEntry.FindSet() then
+                    repeat
+                        if ExamTimetableEntry."Student Count" > 0 then
+                            UsedCapacity += ExamTimetableEntry."Student Count"
+                        else
+                            UsedCapacity += GetExamStudentCount(ExamTimetableEntry);
+                    until ExamTimetableEntry.Next() = 0;
+
+                // If there's still capacity available
+                if TotalCapacity > UsedCapacity then begin
+                    RoomCount += 1;
+                    if RoomCount <= 100 then begin
+                        AvailableRooms[RoomCount] := LectureHall;
+                        AvailableCapacities[RoomCount] := TotalCapacity - UsedCapacity;
+                    end;
+                end;
+            until (LectureHall.Next() = 0) or (RoomCount >= 100);
+    end;
+
+    // 6. Helper to delete exam entries (for rollback)
+    local procedure DeleteExamEntries(UnitCode: Code[25]; ExamDate: Date; TimeSlot: Code[20]; SemesterCode: Code[25])
+    var
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+    begin
+        ExamTimetableEntry.Reset();
+        ExamTimetableEntry.SetRange("Unit Code", UnitCode);
+        ExamTimetableEntry.SetRange("Exam Date", ExamDate);
+        ExamTimetableEntry.SetRange("Time Slot", TimeSlot);
+        ExamTimetableEntry.SetRange(Semester, SemesterCode);
+        ExamTimetableEntry.DeleteAll();
+    end;
+
+    // 7. Add retry mechanism for failed units
+    procedure RetryFailedExamScheduling(SemesterCode: Code[25])
+    var
+        SchedulingIssue: Record "Scheduling Issue";
+        CourseOffering: Record "ACA-Lecturers Units";
+        Semester: Record "ACA-Semesters";
+        ExamTimeSlot: Record "Exam Time Slot";
+        DayCounter: Integer;
+        CoursesPerDay: Dictionary of [Date, Integer];
+        RetryCount: Integer;
+        MaxRetries: Integer;
+    begin
+        MaxRetries := 3;
+        FindSemester(SemesterCode, Semester);
+
+        for RetryCount := 1 to MaxRetries do begin
+            SchedulingIssue.Reset();
+            if SchedulingIssue.FindSet() then begin
+                repeat
+                    CourseOffering.Reset();
+                    CourseOffering.SetRange(Unit, SchedulingIssue."Course Code");
+                    CourseOffering.SetRange(Semester, SemesterCode);
+                    CourseOffering.SetRange(Programme, SchedulingIssue."Programme");
+
+                    if CourseOffering.FindFirst() then begin
+                        DayCounter := 0;
+
+                        // Try with relaxed constraints
+                        if ScheduleExamInDateRangeRelaxed(
+                            CourseOffering,
+                            Semester,
+                            Semester."Exam Start Date",
+                            Semester."Exam End Date",
+                            DayCounter,
+                            CoursesPerDay,
+                            '') then begin
+                            // Successfully scheduled, remove from issues
+                            SchedulingIssue.Delete();
+                        end;
+                    end;
+                until SchedulingIssue.Next() = 0;
+            end;
+        end;
+    end;
+
+    // 8. Relaxed scheduling for retry attempts
+    local procedure ScheduleExamInDateRangeRelaxed(
         var CourseOffering: Record "ACA-Lecturers Units";
         Semester: Record "ACA-Semesters";
         StartDate: Date;
@@ -765,69 +1094,41 @@ codeunit 50096 "Timetable Management"
     var
         ExamTimeSlot: Record "Exam Time Slot";
         CurrentDate: Date;
-        OptimalDate: Date;
         IsMedical: Boolean;
-        SlotFound: Boolean;
-        MaxAttempts: Integer;
-        AttemptCounter: Integer;
     begin
         IsMedical := IsMedicalProgramme(CourseOffering.Programme);
 
-        MaxAttempts := 10;
-        AttemptCounter := 0;
-        SlotFound := false;
+        // Try all dates and all time slots without restrictions
+        CurrentDate := StartDate;
+        while CurrentDate <= EndDate do begin
+            if (Date2DWY(CurrentDate, 1) <= 5) and (not IsHoliday(CurrentDate)) then begin
+                ExamTimeSlot.Reset();
+                ExamTimeSlot.SetRange(Active, true);
+                ExamTimeSlot.SetFilter("Valid From Date", '<=%1', CurrentDate);
+                ExamTimeSlot.SetFilter("Valid To Date", '>=%1', CurrentDate);
+                ExamTimeSlot.SetRange("Day of Week", Date2DWY(CurrentDate, 1) - 1);
 
-        repeat
-            AttemptCounter += 1;
-
-            // Calculate date based on day counter
-            CurrentDate := CalcDate(StrSubstNo('%1D', DayCounter), StartDate);
-
-            // Break if we've gone beyond the end date
-            if CurrentDate > EndDate then
-                exit(false);
-
-            // Skip weekends and holidays
-            while ((Date2DWY(CurrentDate, 1) > 5) or IsHoliday(CurrentDate)) and (CurrentDate <= EndDate) do begin
-                CurrentDate := CalcDate('1D', CurrentDate);
-                DayCounter += 1;
-            end;
-
-            // Break if we've gone beyond the end date after skipping
-            if CurrentDate > EndDate then
-                exit(false);
-
-            // Try to find a time slot on this date
-            if FindTimeSlotForDay(CourseOffering, CurrentDate, ExamTimeSlot, IsMedical) then begin
-                OptimalDate := CurrentDate;
-
-                // Try to schedule with room allocation
-                if ScheduleExamWithRoomAllocationGroup(
-                    CourseOffering,
-                    OptimalDate,
-                    ExamTimeSlot,
-                    Semester,
-                    GroupCode) then begin
-
-                    // Update courses per day counter
-                    if not CoursesPerDay.ContainsKey(OptimalDate) then
-                        CoursesPerDay.Add(OptimalDate, 1)
-                    else
-                        CoursesPerDay.Set(OptimalDate, CoursesPerDay.Get(OptimalDate) + 1);
-
-                    exit(true);
+                // Try both regular and medical slots if needed
+                if ExamTimeSlot.FindSet() then begin
+                    repeat
+                        if ScheduleExamWithPartialAllocation(
+                            CourseOffering,
+                            CurrentDate,
+                            ExamTimeSlot,
+                            Semester,
+                            GroupCode) then
+                            exit(true);
+                    until ExamTimeSlot.Next() = 0;
                 end;
             end;
-
-            // Try the next day
-            DayCounter += 1;
-
-        until AttemptCounter >= MaxAttempts;
+            CurrentDate := CalcDate('1D', CurrentDate);
+        end;
 
         exit(false);
     end;
 
-    local procedure ScheduleExamWithRoomAllocationGroup(
+    // 9. Allow partial allocation as last resort
+    local procedure ScheduleExamWithPartialAllocation(
         CourseOffering: Record "ACA-Lecturers Units";
         ExamDate: Date;
         ExamTimeSlot: Record "Exam Time Slot";
@@ -835,49 +1136,98 @@ codeunit 50096 "Timetable Management"
         GroupCode: Code[20]): Boolean
     var
         TotalStudents: Integer;
-        RemainingStudents: Integer;
         AvailableRooms: array[100] of Record "ACA-Lecturer Halls Setup";
         AvailableCapacities: array[100] of Integer;
         RoomCount: Integer;
         i: Integer;
-        StudentsInRoom: Integer;
+        TotalAvailableCapacity: Integer;
+        StudentsToSchedule: Integer;
     begin
         TotalStudents := CourseOffering."Student Allocation";
-        RemainingStudents := TotalStudents;
 
         // Get available exam rooms
-        GetAvailableExamRooms(ExamDate, ExamTimeSlot, AvailableRooms, AvailableCapacities, RoomCount);
+        GetAvailableExamRoomsEnhanced(ExamDate, ExamTimeSlot, AvailableRooms, AvailableCapacities, RoomCount);
 
         if RoomCount = 0 then
             exit(false);
 
-        // Try to allocate all students to a single room if possible
-        for i := 1 to RoomCount do begin
-            if AvailableCapacities[i] >= TotalStudents then begin
-                // Create exam entry for the entire class
-                CreateExamEntryWithGroup(CourseOffering, ExamDate, ExamTimeSlot,
-                    AvailableRooms[i]."Lecture Room Code", TotalStudents, Semester.Code, GroupCode);
+        // Calculate total available capacity
+        TotalAvailableCapacity := 0;
+        for i := 1 to RoomCount do
+            TotalAvailableCapacity += AvailableCapacities[i];
 
+        // If we can accommodate at least 50% of students, proceed
+        if TotalAvailableCapacity >= (TotalStudents * 0.5) then begin
+            StudentsToSchedule := MinValue(TotalStudents, TotalAvailableCapacity);
+
+            // Schedule what we can
+            i := 1;
+            while (StudentsToSchedule > 0) and (i <= RoomCount) do begin
+                if AvailableCapacities[i] > 0 then begin
+                    CreateExamEntryWithGroup(
+                        CourseOffering,
+                        ExamDate,
+                        ExamTimeSlot,
+                        AvailableRooms[i]."Lecture Room Code",
+                        MinValue(StudentsToSchedule, AvailableCapacities[i]),
+                        Semester.Code,
+                        GroupCode);
+
+                    StudentsToSchedule -= MinValue(StudentsToSchedule, AvailableCapacities[i]);
+                end;
+                i += 1;
+            end;
+
+            // Log partial allocation
+            LogPartialAllocation(CourseOffering, TotalStudents - StudentsToSchedule, TotalStudents);
+            exit(true);
+        end;
+
+        exit(false);
+    end;
+
+    // 10. Log partial allocations
+    local procedure LogPartialAllocation(CourseOffering: Record "ACA-Lecturers Units"; ScheduledCount: Integer; TotalCount: Integer)
+    var
+        SchedulingIssue: Record "Scheduling Issue";
+    begin
+        SchedulingIssue.Init();
+        SchedulingIssue."Course Code" := CourseOffering.Unit;
+        SchedulingIssue."Programme" := CourseOffering.Programme;
+        SchedulingIssue."Lecturer Code" := CourseOffering.Lecturer;
+        SchedulingIssue.Stage := CourseOffering.Stage;
+        SchedulingIssue."Issue Description" :=
+            StrSubstNo('Partial allocation: %1 of %2 students scheduled', ScheduledCount, TotalCount);
+        SchedulingIssue.Insert();
+    end;
+
+    local procedure BuildAvailableTimeSlots(StartDate: Date; EndDate: Date; IsMedical: Boolean; var TempTimeSlots: Record "Exam Time Slot" temporary)
+    var
+        ExamTimeSlot: Record "Exam Time Slot";
+    begin
+        TempTimeSlots.DeleteAll();
+
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetRange(Active, true);
+        ExamTimeSlot.SetFilter("Valid From Date", '<=%1', EndDate);
+        ExamTimeSlot.SetFilter("Valid To Date", '>=%1', StartDate);
+
+        if ExamTimeSlot.FindSet() then begin
+            repeat
+                TempTimeSlots := ExamTimeSlot;
+                TempTimeSlots.Insert();
+            until ExamTimeSlot.Next() = 0;
+        end;
+    end;
+
+    // 3. New helper to check if time slot is valid for specific date
+    local procedure IsTimeSlotValidForDate(TimeSlot: Record "Exam Time Slot"; ExamDate: Date): Boolean
+    begin
+        if (TimeSlot."Valid From Date" <= ExamDate) and (TimeSlot."Valid To Date" >= ExamDate) then
+            if TimeSlot."Day of Week" = (Date2DWY(ExamDate, 1) - 1) then
                 exit(true);
-            end;
-        end;
 
-        // If we need to split across multiple rooms
-        i := 1;
-        while (RemainingStudents > 0) and (i <= RoomCount) do begin
-            if AvailableCapacities[i] > 0 then begin
-                StudentsInRoom := MinValue(RemainingStudents, AvailableCapacities[i]);
-
-                // Create exam entry
-                CreateExamEntryWithGroup(CourseOffering, ExamDate, ExamTimeSlot,
-                    AvailableRooms[i]."Lecture Room Code", StudentsInRoom, Semester.Code, GroupCode);
-
-                RemainingStudents -= StudentsInRoom;
-            end;
-            i += 1;
-        end;
-
-        exit(RemainingStudents = 0);
+        exit(false);
     end;
 
     local procedure CreateExamEntryWithGroup(
@@ -2269,7 +2619,7 @@ codeunit 50096 "Timetable Management"
         if CourseOffering.FindSet() then begin
             repeat
                 // Skip units that have already been scheduled
-                if not IsExamAlreadyScheduled(CourseOffering.Unit, SemesterCode) then begin
+                if not IsExamAlreadyScheduled(CourseOffering.Unit, CourseOffering.Stage, SemesterCode, CourseOffering.Programme) then begin
                     CurrentExam += 1;
                     Clear(ExamDate);
 
@@ -2469,15 +2819,18 @@ codeunit 50096 "Timetable Management"
     end;
 
 
-    local procedure IsExamAlreadyScheduledSupp(UnitCode: Code[25]; SemesterCode: Code[25]): Boolean
+    local procedure IsExamAlreadyScheduledSupp(UnitCode: Code[25]; StageCode: Code[25]; SemesterCode: Code[25]; ProgrammeCode: Code[25]): Boolean
     var
         ExamTimetableEntry: Record "Exam Timetable Entry";
     begin
         ExamTimetableEntry.Reset();
         ExamTimetableEntry.SetRange("Unit Code", UnitCode);
+        ExamTimetableEntry.SetRange("Stage Code", StageCode);  // Added stage check
         ExamTimetableEntry.SetRange(Semester, SemesterCode);
+        ExamTimetableEntry.SetRange("Programme Code", ProgrammeCode);
         exit(not ExamTimetableEntry.IsEmpty);
     end;
+
 
     local procedure FindOptimalExamSlot(CourseOffering: Record "ACA-Lecturers Units";
         Semester: Record "ACA-Semesters";
@@ -2539,13 +2892,15 @@ codeunit 50096 "Timetable Management"
         exit(false);
     end;
 
-    local procedure IsExamAlreadyScheduled(UnitCode: Code[25]; SemesterCode: Code[25]): Boolean
+    local procedure IsExamAlreadyScheduled(UnitCode: Code[25]; StageCode: Code[25]; SemesterCode: Code[25]; ProgrammeCode: Code[25]): Boolean
     var
         ExamTimetableEntry: Record "Exam Timetable Entry";
     begin
         ExamTimetableEntry.Reset();
         ExamTimetableEntry.SetRange("Unit Code", UnitCode);
+        ExamTimetableEntry.SetRange("Stage Code", StageCode);
         ExamTimetableEntry.SetRange(Semester, SemesterCode);
+        ExamTimetableEntry.SetRange("Programme Code", ProgrammeCode);
         exit(not ExamTimetableEntry.IsEmpty);
     end;
 
@@ -3116,20 +3471,36 @@ codeunit 50096 "Timetable Management"
         InvigilatorNo: Code[20];
         ExamInvigilator: Record "Exam Invigilators";
         Employee: Record "HRM-Employee C";
+        MinimumRequired: Integer;
+        MaxAllowed: Integer;
     begin
         // Get invigilator setup
         if not InvigilatorSetup.FindFirst() then
             exit;
 
-        // Calculate number of invigilators needed
+        // Calculate number of invigilators needed based on criteria
         FirstInvigilators := InvigilatorSetup."First 100";
-
-        if StudentCount <= 100 then
-            InvigilatorCount := FirstInvigilators
-        else begin
+        
+        // Ensure minimum invigilators based on setup criteria
+        if StudentCount <= 100 then begin
+            InvigilatorCount := FirstInvigilators;
+            // Use a minimum of 1 invigilator for any exam
+            MinimumRequired := 1;
+            if InvigilatorCount < MinimumRequired then
+                InvigilatorCount := MinimumRequired;
+        end else begin
             AdditionalInvigilators := ROUND((StudentCount - 100) / 50, 1, '>') * InvigilatorSetup."Next 50";
             InvigilatorCount := FirstInvigilators + AdditionalInvigilators;
+            
+            // Apply reasonable maximum limit (e.g., max 6 invigilators per exam)
+            MaxAllowed := 6;
+            if InvigilatorCount > MaxAllowed then
+                InvigilatorCount := MaxAllowed;
         end;
+        
+        // Ensure we have at least 1 invigilator
+        if InvigilatorCount < 1 then
+            InvigilatorCount := 1;
 
         // Get department from course offering
         Department := GetCourseDepartment(CourseOffering);
@@ -3137,8 +3508,8 @@ codeunit 50096 "Timetable Management"
         // Get available invigilators from lecturer units, starting with unit lecturer
         GetAvailableInvigilatorsFromLecturers(Department, ExamDate, ExamTimeSlot, CourseOffering.Lecturer, AvailableInvigilators);
 
-        // Select required number of invigilators, prioritizing full-timers
-        SelectInvigilators(AvailableInvigilators, InvigilatorCount, SelectedInvigilators);
+        // Select required number of invigilators, prioritizing full-timers and following workload criteria
+        SelectInvigilatorsOptimized(AvailableInvigilators, InvigilatorCount, SelectedInvigilators, ExamDate, ExamTimeSlot);
 
         // Assign the selected invigilators
         foreach InvigilatorNo in SelectedInvigilators do begin
@@ -3606,6 +3977,8 @@ codeunit 50096 "Timetable Management"
         // Check for student conflicts - students taking both exams
         StudentUnits.Reset();
         StudentUnits.SetRange(Unit, CourseOffering.Unit);
+        StudentUnits.SetRange(Programme, CourseOffering.Programme);
+        StudentUnits.SetRange(Stage, CourseOffering.Stage);
         StudentUnits.SetRange(Semester, Semester.Code);
 
         if StudentUnits.FindSet() then
@@ -4018,7 +4391,7 @@ codeunit 50096 "Timetable Management"
         if SuppUnits.FindSet() then begin
             repeat
                 // Skip units that have already been scheduled
-                if not IsExamAlreadyScheduled(SuppUnits."Unit Code", SemesterCode) then begin
+                if not IsExamAlreadyScheduled(SuppUnits."Unit Code", SuppUnits."Stage Code", SemesterCode, SuppUnits.Programme) then begin
                     CurrentExam += 1;
                     Clear(ExamDate);
 
@@ -4049,6 +4422,219 @@ codeunit 50096 "Timetable Management"
 
         ProgressWindow.Close();
         Message('Exam timetable generation completed successfully.');
+    end;
+
+    local procedure TryScheduleExamOnDate(
+        CourseOffering: Record "ACA-Lecturers Units";
+        ExamDate: Date;
+        Semester: Record "ACA-Semesters";
+        GroupCode: Code[20];
+        var CoursesPerDay: Dictionary of [Date, Integer];
+        IsMedical: Boolean): Boolean
+    var
+        AllTimeSlots: Record "Exam Time Slot" temporary;
+        CombinationKey: Text;
+    begin
+        // Build available time slots for this date
+        BuildAvailableTimeSlotsForDate(ExamDate, IsMedical, AllTimeSlots);
+        
+        // Try all available time slots for this day
+        AllTimeSlots.Reset();
+        if AllTimeSlots.FindSet() then begin
+            repeat
+                // Check if this specific time slot is available
+                if IsTimeSlotValidForDate(AllTimeSlots, ExamDate) then begin
+                    // Try to schedule with room allocation
+                    if ScheduleExamWithRoomAllocationGroup(
+                        CourseOffering,
+                        ExamDate,
+                        AllTimeSlots,
+                        Semester,
+                        GroupCode) then begin
+
+                        // Update courses per day counter
+                        if not CoursesPerDay.ContainsKey(ExamDate) then
+                            CoursesPerDay.Add(ExamDate, 1)
+                        else
+                            CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
+
+                        exit(true);
+                    end;
+                end;
+            until AllTimeSlots.Next() = 0;
+        end;
+        
+        exit(false);
+    end;
+
+    local procedure BuildAvailableDatesList(StartDate: Date; EndDate: Date; var AvailableDates: List of [Date])
+    var
+        CurrentDate: Date;
+    begin
+        AvailableDates.RemoveRange(1, AvailableDates.Count);
+        CurrentDate := StartDate;
+        
+        while CurrentDate <= EndDate do begin
+            // Skip weekends and holidays
+            if (Date2DWY(CurrentDate, 1) <= 5) and not IsHoliday(CurrentDate) then
+                AvailableDates.Add(CurrentDate);
+            CurrentDate := CalcDate('1D', CurrentDate);
+        end;
+    end;
+
+    local procedure FindLeastLoadedDate(AvailableDates: List of [Date]; CoursesPerDay: Dictionary of [Date, Integer]): Date
+    var
+        BestDate: Date;
+        CurrentDate: Date;
+        LowestLoad: Integer;
+        CurrentLoad: Integer;
+        IsFirst: Boolean;
+    begin
+        IsFirst := true;
+        LowestLoad := 99999;
+        
+        foreach CurrentDate in AvailableDates do begin
+            if CoursesPerDay.ContainsKey(CurrentDate) then
+                CurrentLoad := CoursesPerDay.Get(CurrentDate)
+            else
+                CurrentLoad := 0;
+                
+            if IsFirst or (CurrentLoad < LowestLoad) then begin
+                LowestLoad := CurrentLoad;
+                BestDate := CurrentDate;
+                IsFirst := false;
+            end;
+        end;
+        
+        exit(BestDate);
+    end;
+
+    local procedure BuildAvailableTimeSlotsForDate(ExamDate: Date; IsMedical: Boolean; var AllTimeSlots: Record "Exam Time Slot" temporary)
+    var
+        ExamTimeSlot: Record "Exam Time Slot";
+    begin
+        AllTimeSlots.Reset();
+        AllTimeSlots.DeleteAll();
+        
+        ExamTimeSlot.Reset();
+        ExamTimeSlot.SetRange(Active, true);
+        ExamTimeSlot.SetRange("Day of Week", Date2DWY(ExamDate, 1) - 1);
+        if IsMedical then
+            ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Medical)
+        else
+            ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Regular);
+            
+        if ExamTimeSlot.FindSet() then begin
+            repeat
+                AllTimeSlots := ExamTimeSlot;
+                AllTimeSlots.Insert();
+            until ExamTimeSlot.Next() = 0;
+        end;
+    end;
+
+    local procedure SelectInvigilatorsOptimized(
+        AvailableInvigilators: List of [Code[20]];
+        RequiredCount: Integer;
+        var SelectedInvigilators: List of [Code[20]];
+        ExamDate: Date;
+        ExamTimeSlot: Record "Exam Time Slot")
+    var
+        InvigilatorNo: Code[20];
+        Employee: Record "HRM-Employee C";
+        InvigilatorWorkload: Record "Exam Invigilators";
+        CurrentWorkload: Integer;
+        WorkloadDict: Dictionary of [Code[20], Integer];
+        SortedInvigilators: List of [Code[20]];
+        Count: Integer;
+    begin
+        SelectedInvigilators.RemoveRange(1, SelectedInvigilators.Count);
+        
+        // Calculate current workload for each available invigilator
+        foreach InvigilatorNo in AvailableInvigilators do begin
+            InvigilatorWorkload.Reset();
+            InvigilatorWorkload.SetRange("No.", InvigilatorNo);
+            InvigilatorWorkload.SetRange(Date, ExamDate);
+            CurrentWorkload := InvigilatorWorkload.Count();
+            WorkloadDict.Add(InvigilatorNo, CurrentWorkload);
+        end;
+        
+        // Sort invigilators by workload (ascending) and employment type (full-time first)
+        SortInvigilatorsByWorkloadAndType(AvailableInvigilators, WorkloadDict, SortedInvigilators);
+        
+        // Select the required number
+        Count := 0;
+        foreach InvigilatorNo in SortedInvigilators do begin
+            if Count >= RequiredCount then
+                break;
+            SelectedInvigilators.Add(InvigilatorNo);
+            Count += 1;
+        end;
+    end;
+
+    local procedure SortInvigilatorsByWorkloadAndType(
+        AvailableInvigilators: List of [Code[20]];
+        WorkloadDict: Dictionary of [Code[20], Integer];
+        var SortedInvigilators: List of [Code[20]])
+    var
+        InvigilatorNo: Code[20];
+        Employee: Record "HRM-Employee C";
+        FullTimeInvigilators: List of [Code[20]];
+        PartTimeInvigilators: List of [Code[20]];
+        TempInvigilator: Code[20];
+        TempWorkload: Integer;
+        i, j: Integer;
+    begin
+        SortedInvigilators.RemoveRange(1, SortedInvigilators.Count);
+        
+        // Add all invigilators to full-time list (prioritize all equally for now)
+        // TODO: Implement employment type check when field is available
+        foreach InvigilatorNo in AvailableInvigilators do begin
+            FullTimeInvigilators.Add(InvigilatorNo);
+        end;
+        
+        // Sort full-time by workload first
+        SortByWorkload(FullTimeInvigilators, WorkloadDict);
+        SortByWorkload(PartTimeInvigilators, WorkloadDict);
+        
+        // Add to sorted list (full-time first)
+        foreach InvigilatorNo in FullTimeInvigilators do
+            SortedInvigilators.Add(InvigilatorNo);
+        foreach InvigilatorNo in PartTimeInvigilators do
+            SortedInvigilators.Add(InvigilatorNo);
+    end;
+
+    local procedure SortByWorkload(var InvigilatorList: List of [Code[20]]; WorkloadDict: Dictionary of [Code[20], Integer])
+    var
+        i, j: Integer;
+        TempInvigilator: Code[20];
+        Swapped: Boolean;
+        InvigilatorArray: array[100] of Code[20];
+        Count: Integer;
+    begin
+        // Convert list to array for sorting
+        Count := InvigilatorList.Count;
+        for i := 1 to Count do begin
+            InvigilatorArray[i] := InvigilatorList.Get(i);
+        end;
+        
+        // Bubble sort by workload
+        repeat
+            Swapped := false;
+            for i := 1 to Count - 1 do begin
+                if WorkloadDict.Get(InvigilatorArray[i]) > WorkloadDict.Get(InvigilatorArray[i + 1]) then begin
+                    TempInvigilator := InvigilatorArray[i];
+                    InvigilatorArray[i] := InvigilatorArray[i + 1];
+                    InvigilatorArray[i + 1] := TempInvigilator;
+                    Swapped := true;
+                end;
+            end;
+        until not Swapped;
+        
+        // Convert back to list
+        InvigilatorList.RemoveRange(1, InvigilatorList.Count);
+        for i := 1 to Count do begin
+            InvigilatorList.Add(InvigilatorArray[i]);
+        end;
     end;
 
 }
