@@ -492,6 +492,37 @@ page 51449 "HMS-Hospital Role Centre"
                     RunPageView = where(Status = filter(rejected));
                 }
             }
+            group("Items Transfer")
+            {
+                action("Items Transfer List")
+                {
+                    ApplicationArea = All;
+                    Image = ApplyTemplate;
+                    RunObject = Page "Item Transfer List";
+                    RunPageView = where("Approval Status" = filter(Open | Pending));
+                }
+                action("Approved Transfer")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Approved Transfer';
+                    RunObject = Page "Item Transfer List";
+                    RunPageView = where("Approval Status" = filter(Approved));
+                }
+                action("Rejected Transfer")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Rejected Transfer';
+                    RunObject = Page "Item Transfer List";
+                    RunPageView = where("Approval Status" = filter(rejected));
+                }
+                action("Posted Transfer")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Posted Transfer';
+                    RunObject = Page "Item Transfer List";
+                    RunPageView = where(Status = filter(Posted));
+                }
+            }
             group("Medical Claims")
             {
                 Caption = 'Medical Claims';
