@@ -7,6 +7,7 @@ page 52104 "Custom Det cust ledgers"
     PageType = List;
     SourceTable = "Detailed Cust ledger Custom";
     UsageCategory = Administration;
+    SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"));
 
     layout
     {
@@ -42,10 +43,12 @@ page 52104 "Custom Det cust ledgers"
                 {
                     ToolTip = 'Specifies the value of the Posted field.', Comment = '%';
                 }
-                field("Ledger Entry Amount"; Rec."Ledger Entry Amount")
+                field("Entry Amount"; Rec."Entry Amount")
                 {
-                    ToolTip = 'Specifies the value of the Ledger Entry Amount field.', Comment = '%';
+                    ApplicationArea = all;
+                    ToolTip = 'Specifies the value of the Entry Amount field.', Comment = '%';
                 }
+
             }
         }
     }

@@ -44,6 +44,29 @@ page 52114 "General Ledgers Custom"
                 {
                     ToolTip = 'Specifies the value of the Ledger Amount field.', Comment = '%';
                 }
+                field("Source No."; Rec."Source No.")
+                {
+                    ToolTip = 'Specifies the value of the Source No. field.', Comment = '%';
+                }
+                field("Source Type"; Rec."Source Type")
+                {
+                    ToolTip = 'Specifies the value of the Source Type field.', Comment = '%';
+                }
+                field(EntryCount; Rec.EntryCount)
+                {
+                    ToolTip = 'Specifies the value of the Entry Count field.', Comment = '%';
+                }
+                field("System-Created Entry"; Rec."System-Created Entry")
+                {
+                    ToolTip = 'Specifies whether the entry was created by the system.', Comment = '%';
+                }
+                field("System Created Entry"; Rec."System Created Entry")
+                {
+                    Caption = 'System Created Entry Bc';
+                    ToolTip = 'Specifies whether the entry was created by the system.', Comment = '%';
+                }
+
+
             }
         }
     }
