@@ -60,11 +60,11 @@ page 52114 "General Ledgers Custom"
                 {
                     ToolTip = 'Specifies whether the entry was created by the system.', Comment = '%';
                 }
-                field("System Created Entry"; Rec."System Created Entry")
-                {
-                    Caption = 'System Created Entry Bc';
-                    ToolTip = 'Specifies whether the entry was created by the system.', Comment = '%';
-                }
+                // field("System Created Entry"; Rec."System Created Entry")
+                // {
+                //     Caption = 'System Created Entry Bc';
+                //     ToolTip = 'Specifies whether the entry was created by the system.', Comment = '%';
+                // }
 
 
             }
