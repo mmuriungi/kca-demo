@@ -3,6 +3,7 @@ page 52115 "Item Transfer"
     Caption = 'Item Transfer';
     PageType = Document;
     SourceTable = "Item Transfer Header";
+    PromotedActionCategories = 'New,Process,Report,Approvals,Posting';
     
     layout
     {
@@ -87,6 +88,8 @@ page 52115 "Item Transfer"
                 Caption = 'Release';
                 ApplicationArea = All;
                 Image = ReleaseDoc;
+                Promoted = true;
+                PromotedCategory = Process;
                 Enabled = Rec.Status = Rec.Status::Open;
                 
                 trigger OnAction()
@@ -101,6 +104,8 @@ page 52115 "Item Transfer"
                 Caption = 'Send Approval Request';
                 ApplicationArea = All;
                 Image = SendApprovalRequest;
+                Promoted = true;
+                PromotedCategory = Category4;
                 Enabled = Rec.Status = Rec.Status::Open;
                 
                 trigger OnAction()
@@ -118,6 +123,8 @@ page 52115 "Item Transfer"
                 Caption = 'Cancel Approval Request';
                 ApplicationArea = All;
                 Image = CancelApprovalRequest;
+                Promoted = true;
+                PromotedCategory = Category4;
                 Enabled = Rec."Approval Status" = Rec."Approval Status"::Pending;
                 
                 trigger OnAction()
@@ -129,12 +136,23 @@ page 52115 "Item Transfer"
                     ApprovalsMgmt.OnCancelDocApprovalRequest(Variant);
                 end;
             }
-            
+            action("Approvals")
+            {
+                Caption = 'Approvals';
+                ApplicationArea = All;
+                Image = Approval;
+                Promoted = true;
+                PromotedCategory = Category4;
+                RunObject = Page "Approval Entries";
+                RunPageLink = "Document No." = field("No.");
+            }
             action("Post Transfer")
             {
                 Caption = 'Post Transfer';
                 ApplicationArea = All;
                 Image = PostOrder;
+                Promoted = true;
+                PromotedCategory = Category5;
                 Enabled = (Rec.Status = Rec.Status::Released) and not Rec.Posted;
                 
                 trigger OnAction()
