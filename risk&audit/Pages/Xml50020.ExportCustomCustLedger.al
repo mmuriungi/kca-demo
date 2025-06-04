@@ -23,7 +23,11 @@ xmlport 50020 "Export Custom Cust Ledger"
                 fieldelement(PostingDate; DetailedCustLedgerCustom."Posting Date")
                 {
                 }
-                fieldelement(Amount; DetailedCustLedgerCustom.Amount)
+                fieldelement(EntryAmount; DetailedCustLedgerCustom.Amount)
+                {
+                }
+
+                fieldelement(Amount; DetailedCustLedgerCustom."Total Amount")
                 {
                 }
                 fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type")

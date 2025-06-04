@@ -230,7 +230,23 @@ table 51362 "Detailed Cust ledger Custom"
             Caption = 'Entry Amount';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("Detailed Cust. Ledg. Entry".amount where("Customer No." = field("Customer No."), "Document No." = field("Document No."), "Entry Type" = filter("Initial Entry"), "Posting Date" = field("Posting Date")));
+            CalcFormula = Sum("Detailed Cust. Ledg. Entry".Amount WHERE(
+        "Customer No." = FIELD("Customer No."),
+        "Document No." = FIELD("Document No."),
+        "Entry Type" = CONST("Initial Entry"),
+        "Posting Date" = FIELD("Posting Date")));
+        }
+
+        field(50; "Total Amount"; Decimal)
+        {
+            Caption = 'Entry Amount';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Detailed Cust ledger Custom".Amount WHERE(
+        "Customer No." = FIELD("Customer No."),
+        "Document No." = FIELD("Document No."),
+        "Entry Type" = CONST("Initial Entry"),
+        "Posting Date" = FIELD("Posting Date")));
 
         }
     }
