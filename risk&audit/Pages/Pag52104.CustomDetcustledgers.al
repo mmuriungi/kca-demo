@@ -59,24 +59,23 @@ page 52104 "Custom Det cust ledgers"
         {
             // Add this action to your existing actions area in page 52104 "Custom Det cust ledgers"
 
-          action(ExportToExcel)
-{
-    ApplicationArea = All;
-    Caption = 'Export to Excel';
-    Image = ExportToExcel;
-    Promoted = true;
-    PromotedCategory = Process;
-    PromotedIsBig = true;
-    ToolTip = 'Export detailed customer ledger entries to Excel file';
+            action(ExportToXML)
+            {
+                ApplicationArea = All;
+                Caption = 'Export to XML';
+                Image = Export;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Export customer ledger entries to XML file with date filter.';
 
-    trigger OnAction()
-    var
-        ExportXMLPort: XMLport "Export Custom Cust Ledger";
-    begin
-        // Simply run the XMLport - it will handle all filtering
-        ExportXMLPort.Run();
-    end;
-}
+                trigger OnAction()
+                var
+                    ExportXMLPort: XMLport "Export Custom Cust Ledger";
+                begin
+                    ExportXMLPort.Run();
+                end;
+            }
             action(PostWithDateFilter)
             {
                 ApplicationArea = All;
