@@ -233,7 +233,7 @@ table 51362 "Detailed Cust ledger Custom"
             CalcFormula = Sum("Detailed Cust. Ledg. Entry".Amount WHERE(
         "Customer No." = FIELD("Customer No."),
         "Document No." = FIELD("Document No."),
-        "Entry Type" = CONST("Initial Entry"),
+        "Entry Type" = CONST("Initial Entry")
         ));
         }
 
@@ -246,7 +246,7 @@ table 51362 "Detailed Cust ledger Custom"
         "Customer No." = FIELD("Customer No."),
         "Document No." = FIELD("Document No."),
         "Entry Type" = CONST("Initial Entry"),
-        ));
+        "Posting Date" = FIELD("Posting Date")));
 
         }
     }
