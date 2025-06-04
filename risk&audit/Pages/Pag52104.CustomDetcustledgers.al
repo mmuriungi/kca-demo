@@ -57,6 +57,31 @@ page 52104 "Custom Det cust ledgers"
     {
         area(Processing)
         {
+            action(ExportToExcel)
+            {
+                ApplicationArea = All;
+                Caption = 'Export to Excel';
+                Image = ExportToExcel;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Export customer ledger entries to Excel file';
+
+                trigger OnAction()
+                var
+                    CustLedgerEntriesCustom: Record "Cust Ledger Entries Custom";
+                    ExportXMLPort: XMLport "Export Custom Cust Ledger";
+                begin
+                    // Apply current page filters to the export
+                    CustLedgerEntriesCustom.CopyFilters(Rec);
+
+                    // Set the table view for the XMLport
+                    ExportXMLPort.SetTableView(CustLedgerEntriesCustom);
+
+                    // Run the XMLport
+                    ExportXMLPort.Run();
+                end;
+            }
             action(PostWithDateFilter)
             {
                 ApplicationArea = All;
