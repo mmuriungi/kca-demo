@@ -817,7 +817,7 @@ page 50648 "HRM-Casual Pay List"
         PeriodName: Text[30];
         PeriodMonth: Integer;
         PeriodYear: Integer;
-        // ProcessPayroll: Codeunit "prPayrollProcessing Casual"; //Removed Comm
+         ProcessPayroll: Codeunit "prPayrollProcessing Casual"; //Removed Comm
         HrEmployee: Record "HRM-Employee C";
         ProgressWindow: Dialog;
         prPeriodTransactions: Record "PRL-Casual Period Transactions";
