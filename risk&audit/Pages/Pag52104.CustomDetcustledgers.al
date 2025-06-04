@@ -59,70 +59,24 @@ page 52104 "Custom Det cust ledgers"
         {
             // Add this action to your existing actions area in page 52104 "Custom Det cust ledgers"
 
-            action(ExportToExcel)
-            {
-                ApplicationArea = All;
-                Caption = 'Export to Excel';
-                Image = ExportToExcel;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ToolTip = 'Export detailed customer ledger entries to Excel file';
+          action(ExportToExcel)
+{
+    ApplicationArea = All;
+    Caption = 'Export to Excel';
+    Image = ExportToExcel;
+    Promoted = true;
+    PromotedCategory = Process;
+    PromotedIsBig = true;
+    ToolTip = 'Export detailed customer ledger entries to Excel file';
 
-                trigger OnAction()
-                var
-                    DetailedCustLedgerCustom: Record "Detailed Cust ledger Custom";
-                    ExportXMLPort: XMLport "Export Custom Cust Ledger";
-                    FilterText: Text;
-                begin
-                    // Apply individual filters from the current page
-                    DetailedCustLedgerCustom.Reset();
-
-                    // Apply the same default filter as the page
-                    DetailedCustLedgerCustom.SetRange("Entry Type", DetailedCustLedgerCustom."Entry Type"::"Initial Entry");
-
-                    // Copy posting date filter if exists
-                    FilterText := Rec.GetFilter("Posting Date");
-                    if FilterText <> '' then
-                        DetailedCustLedgerCustom.SetFilter("Posting Date", FilterText);
-
-                    // Copy customer number filter if exists
-                    FilterText := Rec.GetFilter("Customer No.");
-                    if FilterText <> '' then
-                        DetailedCustLedgerCustom.SetFilter("Customer No.", FilterText);
-
-                    // Copy document number filter if exists
-                    FilterText := Rec.GetFilter("Document No.");
-                    if FilterText <> '' then
-                        DetailedCustLedgerCustom.SetFilter("Document No.", FilterText);
-
-                    // Copy entry type filter if exists (though page defaults to Initial Entry)
-                    FilterText := Rec.GetFilter("Entry Type");
-                    if FilterText <> '' then
-                        DetailedCustLedgerCustom.SetFilter("Entry Type", FilterText);
-
-                    // Copy posted filter if exists
-                    FilterText := Rec.GetFilter(Posted);
-                    if FilterText <> '' then
-                        DetailedCustLedgerCustom.SetFilter(Posted, FilterText);
-
-                    // Copy amount filter if exists
-                    FilterText := Rec.GetFilter(Amount);
-                    if FilterText <> '' then
-                        DetailedCustLedgerCustom.SetFilter(Amount, FilterText);
-
-                    // Copy entry amount filter if exists
-                    FilterText := Rec.GetFilter("Entry Amount");
-                    if FilterText <> '' then
-                        DetailedCustLedgerCustom.SetFilter("Entry Amount", FilterText);
-
-                    // Set the table view for the XMLport
-                    ExportXMLPort.SetTableView(DetailedCustLedgerCustom);
-
-                    // Run the XMLport
-                    ExportXMLPort.Run();
-                end;
-            }
+    trigger OnAction()
+    var
+        ExportXMLPort: XMLport "Export Custom Cust Ledger";
+    begin
+        // Simply run the XMLport - it will handle all filtering
+        ExportXMLPort.Run();
+    end;
+}
             action(PostWithDateFilter)
             {
                 ApplicationArea = All;

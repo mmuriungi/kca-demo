@@ -1,10 +1,9 @@
 xmlport 50020 "Export Custom Cust Ledger"
 {
- 
+
     Caption = 'Export Custom Customer Ledger';
     Direction = Export;
     Format = VariableText;
-    FormatEvaluate = Legacy;
     UseRequestPage = true;
 
     schema
@@ -13,9 +12,6 @@ xmlport 50020 "Export Custom Cust Ledger"
         {
             tableelement(DetailedCustLedgerCustom; "Detailed Cust ledger Custom")
             {
-                RequestFilterFields = "Posting Date", "Entry Type", Posted;
-                SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"), Posted = const(false));
-
                 textelement(DocumentNo)
                 {
                     trigger OnBeforePassVariable()
@@ -89,56 +85,78 @@ xmlport 50020 "Export Custom Cust Ledger"
         {
             area(Content)
             {
+                group(DateFilters)
+                {
+                    Caption = 'Date Filters';
+
+                    field(StartDate; StartDate)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Start Date';
+                        ToolTip = 'Enter the start date for the posting date filter';
+                    }
+
+                    field(EndDate; EndDate)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'End Date';
+                        ToolTip = 'Enter the end date for the posting date filter';
+                    }
+                }
+
                 group(Options)
                 {
-                    Caption = 'Export Options';
-                    
+                    Caption = 'Options';
+
                     field(IncludeHeaders; IncludeHeaders)
                     {
                         ApplicationArea = All;
-                        Caption = 'Include Column Headers';
-                        ToolTip = 'Include column headers in the export file.';
+                        Caption = 'Include Headers';
+                        ToolTip = 'Include column headers in the export';
                     }
-                }
-                group(Filters)
-                {
-                    Caption = 'Filters';
-                    
-                    field(PostingDateFilter; PostingDateFilterText)
+
+                    field(OnlyUnposted; OnlyUnposted)
                     {
                         ApplicationArea = All;
-                        Caption = 'Posting Date Filter';
-                        ToolTip = 'Specify date range for posting date (e.g., 01/01/2024..12/31/2024)';
-                        
-                        trigger OnValidate()
-                        begin
-                            if PostingDateFilterText <> '' then
-                                DetailedCustLedgerCustom.SetFilter("Posting Date", PostingDateFilterText);
-                        end;
+                        Caption = 'Only Unposted';
+                        ToolTip = 'Export only unposted entries (Posted = No)';
                     }
                 }
             }
         }
+
+        trigger OnOpenPage()
+        begin
+            // Set default dates
+            if StartDate = 0D then
+                StartDate := CalcDate('<-1M>', Today());
+            if EndDate = 0D then
+                EndDate := Today();
+        end;
     }
 
     trigger OnPreXmlPort()
     begin
-        // Set default filters
+        // Always filter for Initial Entry (same as your page)
         DetailedCustLedgerCustom.SetRange("Entry Type", DetailedCustLedgerCustom."Entry Type"::"Initial Entry");
-        DetailedCustLedgerCustom.SetRange(Posted, false);
-        
-        // Apply posting date filter if specified
-        if PostingDateFilterText <> '' then
-            DetailedCustLedgerCustom.SetFilter("Posting Date", PostingDateFilterText);
-            
-        // Add headers if requested
-        if IncludeHeaders then
-            WriteHeaders();
-    end;
 
-    trigger OnPostXmlPort()
-    begin
-        Message('Export completed successfully.');
+        // Apply date filters
+        if (StartDate <> 0D) and (EndDate <> 0D) then
+            DetailedCustLedgerCustom.SetRange("Posting Date", StartDate, EndDate)
+        else if StartDate <> 0D then
+            DetailedCustLedgerCustom.SetFilter("Posting Date", '>=%1', StartDate)
+        else if EndDate <> 0D then
+            DetailedCustLedgerCustom.SetFilter("Posting Date", '<=%1', EndDate);
+
+        // Apply Posted filter if requested
+        if OnlyUnposted then
+            DetailedCustLedgerCustom.SetRange(Posted, false);
+
+        // Write headers if requested and this is the first record
+        if IncludeHeaders then begin
+            WriteHeaders();
+            FirstRecord := false;
+        end;
     end;
 
     local procedure WriteHeaders()
@@ -154,6 +172,9 @@ xmlport 50020 "Export Custom Cust Ledger"
     end;
 
     var
+        StartDate: Date;
+        EndDate: Date;
         IncludeHeaders: Boolean;
-        PostingDateFilterText: Text[50];
+        OnlyUnposted: Boolean;
+        FirstRecord: Boolean;
 }
