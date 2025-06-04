@@ -1,6 +1,6 @@
 xmlport 50020 "Export Custom Cust Ledger"
-{
 
+{
     Caption = 'Export Custom Customer Ledger';
     Direction = Export;
     Format = VariableText;
@@ -72,6 +72,8 @@ xmlport 50020 "Export Custom Cust Ledger"
                 {
                     trigger OnBeforePassVariable()
                     begin
+                        // Calculate FlowField before getting the value
+                        DetailedCustLedgerCustom.CalcFields("Entry Amount");
                         EntryAmount := Format(DetailedCustLedgerCustom."Entry Amount");
                     end;
                 }
