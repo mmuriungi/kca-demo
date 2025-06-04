@@ -3,7 +3,7 @@ xmlport 50020 "Export Custom Cust Ledger"
 {
     Caption = 'Export Custom Detailed Customer Ledgers';
     Direction = Export;
-    Format = Xml;
+    Format = VariableText;
     UseRequestPage = true;
 
     schema
