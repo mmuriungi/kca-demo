@@ -234,7 +234,7 @@ table 51362 "Detailed Cust ledger Custom"
         "Customer No." = FIELD("Customer No."),
         "Document No." = FIELD("Document No."),
         "Entry Type" = CONST("Initial Entry"),
-        "Posting Date" = FIELD("Posting Date")));
+        ));
         }
 
         field(50; "Total Amount"; Decimal)
@@ -246,7 +246,7 @@ table 51362 "Detailed Cust ledger Custom"
         "Customer No." = FIELD("Customer No."),
         "Document No." = FIELD("Document No."),
         "Entry Type" = CONST("Initial Entry"),
-        "Posting Date" = FIELD("Posting Date")));
+        ));
 
         }
     }
