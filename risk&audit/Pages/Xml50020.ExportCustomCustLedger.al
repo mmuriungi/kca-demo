@@ -1,86 +1,55 @@
 xmlport 50020 "Export Custom Cust Ledger"
-{
 
-    Caption = 'Export Custom Customer Ledger';
+{
+    Caption = 'Export Custom Detailed Customer Ledgers';
     Direction = Export;
     Format = VariableText;
-    FormatEvaluate = Legacy;
     UseRequestPage = true;
 
     schema
     {
-        textelement(Root)
+        textelement(CustomerLedgerEntries)
         {
-            tableelement(DetailedCustLedgerCustom; "Detailed Cust ledger Custom")
+                tableelement(DetailedCustLedgerCustom; "Detailed Cust ledger Custom")
             {
-                RequestFilterFields = "Posting Date", "Entry Type", Posted;
-                SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"), Posted = const(false));
-
-                textelement(DocumentNo)
+                SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"));
+    
+                fieldelement(DocumentNo; DetailedCustLedgerCustom."Document No.")
+                        {
+                        }
+                        fieldelement(CustomerNo; DetailedCustLedgerCustom."Customer No.")
                 {
-                    trigger OnBeforePassVariable()
-                    begin
-                        DocumentNo := DetailedCustLedgerCustom."Document No.";
-                    end;
-                }
-
-                textelement(CustomerNo)
+                        }
+                fieldelement(PostingDate; DetailedCustLedgerCustom."Posting Date")
                 {
-                    trigger OnBeforePassVariable()
-                    begin
-                        CustomerNo := DetailedCustLedgerCustom."Customer No.";
-                    end;
-                }
-
-                textelement(PostingDate)
+                            }
+                fieldelement(EntryAmount; DetailedCustLedgerCustom.Amount)
                 {
-                    trigger OnBeforePassVariable()
-                    begin
-                        PostingDate := Format(DetailedCustLedgerCustom."Posting Date");
-                    end;
-                }
+                            }
 
-                textelement(Amount)
-                {
-                    trigger OnBeforePassVariable()
-                    begin
-                        Amount := Format(DetailedCustLedgerCustom.Amount);
-                    end;
-                }
+                            fieldelement(Amount; DetailedCustLedgerCustom."Total Amount")
+                            {
+                                }
+                fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type")
+                                    {
+                                        }
+                fieldelement(Description; DetailedCustLedgerCustom.Description)
+                                            {
+                                                }
+                fieldelement(Posted; DetailedCustLedgerCustom.Posted)
+                                                    {
+                                                    }
+                                                    fieldelement(EntryAmount; DetailedCustLedgerCustom."Entry Amount")
+                                                    {
 
-                textelement(EntryType)
-                {
-                    trigger OnBeforePassVariable()
-                    begin
-                        EntryType := Format(DetailedCustLedgerCustom."Entry Type");
-                    end;
-                }
-
-                textelement(Description)
-                {
-                    trigger OnBeforePassVariable()
-                    begin
-                        Description := DetailedCustLedgerCustom.Description;
-                    end;
-                }
-
-                textelement(Posted)
-                {
-                    trigger OnBeforePassVariable()
-                    begin
-                        Posted := Format(DetailedCustLedgerCustom.Posted);
-                    end;
-                }
-
-                textelement(EntryAmount)
-                {
-                    trigger OnBeforePassVariable()
-                    begin
-                        EntryAmount := Format(DetailedCustLedgerCustom."Entry Amount");
-                    end;
-                }
-            }
-        }
+                                         
+                trigger OnPreXMLItem()
+                                                        begin
+                                                            if StartDate <> 0D then
+                                                                DetailedCustLedgerCustom.SetRange("Posting Date", StartDate, EndDate);
+                                                        end;
+                                                    }
+                                                    }
     }
 
     requestpage
@@ -89,71 +58,57 @@ xmlport 50020 "Export Custom Cust Ledger"
         {
             area(Content)
             {
+                group(DateFilter)
+                    {
+                    Caption = 'Date Filter';
+                        field(StartDateField; StartDate)
+                        {
+                            ApplicationArea = All;
+                            Caption = 'Start Date';
+                            ToolTip = 'Specifies the start date for the posting date filter.';
+                        }
+                        field(EndDateField; EndDate)
+                    {
+                            ApplicationArea = All;
+                            Caption = 'End Date';
+                            ToolTip = 'Specifies the end date for the posting date filter.';
+                        }
+                        }
                 group(Options)
                 {
                     Caption = 'Export Options';
-
-                    field(IncludeHeaders; IncludeHeaders)
+                                field(IncludeHeaderField; IncludeHeader)
                     {
-                        ApplicationArea = All;
-                        Caption = 'Include Column Headers';
-                        ToolTip = 'Include column headers in the export file.';
-                    }
-                }
-                group(Filters)
-                {
-                    Caption = 'Filters';
+                                    ApplicationArea = All;
+                                    Caption = 'Include Header';
+                                    ToolTip = 'Specifies whether to include column headers in the export.';
+                    }            
+                }            begin
+                        }
+        }            
+    }            
+r
 
-                    field(PostingDateFilter; PostingDateFilterText)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Posting Date Filter';
-                        ToolTip = 'Specify date range for posting date (e.g., 01/01/2024..12/31/2024)';
+        var
+            StartDate: Date;
+            EndDate: Date;
+            IncludeHeader: Boolean;
 
-                        trigger OnValidate()
-                        begin
-                            if PostingDateFilterText <> '' then
-                                DetailedCustLedgerCustom.SetFilter("Posting Date", PostingDateFilterText);
-                        end;
-                    }
-                }
-            }
-        }
-    }
-
-    trigger OnPreXmlPort()
+     
+    trigger OnInitXMLport()
     begin
-        // Set default filters
-        DetailedCustLedgerCustom.SetRange("Entry Type", DetailedCustLedgerCustom."Entry Type"::"Initial Entry");
-        DetailedCustLedgerCustom.SetRange(Posted, false);
-
-        // Apply posting date filter if specified
-        if PostingDateFilterText <> '' then
-            DetailedCustLedgerCustom.SetFilter("Posting Date", PostingDateFilterText);
-
-        // Add headers if requested
-        if IncludeHeaders then
-            WriteHeaders();
+            StartDate := CalcDate('-1M', Today);
+            EndDate := Today;
+            IncludeHeader := true;
     end;
 
-    trigger OnPostXmlPort()
+    trigger OnPreXMLport()
     begin
-        Message('Export completed successfully.');
-    end;
-
-    local procedure WriteHeaders()
-    begin
-        DocumentNo := 'Document No.';
-        CustomerNo := 'Customer No.';
-        PostingDate := 'Posting Date';
-        Amount := 'Amount';
-        EntryType := 'Entry Type';
-        Description := 'Description';
-        Posted := 'Posted';
-        EntryAmount := 'Entry Amount';
-    end;
-
-    var
-        IncludeHeaders: Boolean;
-        PostingDateFilterText: Text[50];
+        if StartDate = 0D then
+                Error('Start Date must be specified.');
+            if EndDate = 0D then
+                Error('End Date must be specified.');
+            if StartDate > EndDate then
+                Error('Start Date cannot be later than End Date.');
+        end;
 }
