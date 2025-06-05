@@ -65,6 +65,29 @@ table 51373 "Gen Line Custom1"
         {
             Caption = 'External Document No.';
         }
+        field(16; "Bal. Account Type"; Enum "Gen. Journal Account Type")
+        {
+        }
+        field(11; "Bal. Account No."; Code[20])
+        {
+            Caption = 'Bal. Account No.';
+            TableRelation = if ("Bal. Account Type" = const("G/L Account")) "G/L Account" where("Account Type" = const(Posting),
+                                                                                               Blocked = const(false))
+            else
+            if ("Bal. Account Type" = const(Customer)) Customer
+            else
+            if ("Bal. Account Type" = const(Vendor)) Vendor
+            else
+            if ("Bal. Account Type" = const("Bank Account")) "Bank Account"
+            else
+            if ("Bal. Account Type" = const("Fixed Asset")) "Fixed Asset"
+            else
+            if ("Bal. Account Type" = const("IC Partner")) "IC Partner"
+            else
+            if ("Bal. Account Type" = const("Allocation Account")) "Allocation Account"
+            else
+            if ("Bal. Account Type" = const(Employee)) Employee;
+        }
     }
     keys
     {

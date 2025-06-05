@@ -46,6 +46,13 @@ xmlport 50016 "Import Custom Journal"
                 fieldelement(ExternalDocumentNo; GenJournalLine."External Document No.")
                 {
                 }
+                fieldelement(BalAccType; GenJournalLine."Bal. Account Type")
+                {
+                }
+                fieldelement(BalAccountNo; GenJournalLine."Bal. Account No.")
+                {
+                }
+
 
             }
         }
@@ -68,4 +75,7 @@ xmlport 50016 "Import Custom Journal"
             }
         }
     }
+    var
+
+        line: Record 81;
 }
