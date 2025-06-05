@@ -483,25 +483,23 @@ page 50648 "HRM-Casual Pay List"
                             if PeriodTrans.Find('-') then
                                 PeriodTrans.DeleteAll;
                             Clear(computedBasic);
-                            /* //Removed Comments
-                             PRLEmployeeDaysWorked.RESET;
-                             PRLEmployeeDaysWorked.SETRANGE("Payroll Period", SelectedPeriod);
-                             PRLEmployeeDaysWorked.SETRANGE("Employee Code", HrEmployee."No.");
-                             IF PRLEmployeeDaysWorked.FIND('-') THEN BEGIN
-                                 IF HrEmployee."Daily Rate" > 0 THEN BEGIN
-                                     IF PRLEmployeeDaysWorked."Days Worked" > 0 THEN
-                                         computedBasic := PRLEmployeeDaysWorked."Days Worked" * HrEmployee."Daily Rate"
-                                     ELSE
-                                         IF PRLEmployeeDaysWorked."Computed Days" > 0 THEN computedBasic := PRLEmployeeDaysWorked."Computed Days" * HrEmployee."Daily Rate";
-                                 END ELSE BEGIN
-                                     IF PRLEmployeeDaysWorked."Days Worked" > 0 THEN
-                                         computedBasic := PRLEmployeeDaysWorked."Days Worked" * StdDailyRate
-                                     ELSE
-                                         IF PRLEmployeeDaysWorked."Computed Days" > 0 THEN computedBasic := PRLEmployeeDaysWorked."Computed Days" * StdDailyRate;
-                                 END;
-                             END;//Removed Comments*/
+                            PRLEmployeeDaysWorked.Reset;
+                            PRLEmployeeDaysWorked.SetRange("Payroll Period", SelectedPeriod);
+                            PRLEmployeeDaysWorked.SetRange("Employee Code", HrEmployee."No.");
+                            if PRLEmployeeDaysWorked.Find('-') then begin
+                                if HrEmployee."Daily Rate" > 0 then begin
+                                    if PRLEmployeeDaysWorked."Days Worked" > 0 then
+                                        computedBasic := PRLEmployeeDaysWorked."Days Worked" * HrEmployee."Daily Rate"
+                                    else
+                                        if PRLEmployeeDaysWorked."Computed Days" > 0 then computedBasic := PRLEmployeeDaysWorked."Computed Days" * HrEmployee."Daily Rate";
+                                end else begin
+                                    if PRLEmployeeDaysWorked."Days Worked" > 0 then
+                                        computedBasic := PRLEmployeeDaysWorked."Days Worked" * StdDailyRate
+                                    else
+                                        if PRLEmployeeDaysWorked."Computed Days" > 0 then computedBasic := PRLEmployeeDaysWorked."Computed Days" * StdDailyRate;
+                                end;
+                            end;
 
-                            computedBasic := 0;
                             if computedBasic = 0 then begin
                                 //update or insert SalaryCard
 
@@ -600,11 +598,9 @@ page 50648 "HRM-Casual Pay List"
                                           PeriodTrans.SETRANGE(PeriodTrans."Payroll Period",SelectedPeriod);
                                           PeriodTrans.DELETEALL; // Delete Processed Transactions
                                           */
-                                    /*//Removed Comment
                                     ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, 0, FALSE
                                         , FALSE, FALSE, SelectedPeriod, SelectedPeriod, '', '',
                                         dateofLeaving, FALSE, HrEmployee."Department Code", HrEmployee."Payroll Code", TRUE, objPeriod."Current Instalment");
-                                    //Removed Comment*/
 
                                     //END;// Hast Transaction
                                 end else
@@ -628,11 +624,9 @@ page 50648 "HRM-Casual Pay List"
                                               PeriodTrans.DELETEALL;
                                          END// delete stuff from transactions table
                                          ELSE BEGIN*/
-                                        /*//Removed Comm
                                         ProcessPayroll.fnProcesspayroll(HrEmployee."No.", DOJ, (salaryCard."Days Worked" * salaryCard."Daily Rate"), false
                                            , true, true, SelectedPeriod, SelectedPeriod, '', '',
                                            dateofLeaving, GetsPAYERelief, HrEmployee."Department Code", HrEmployee."Payroll Code", true, objPeriod."Current Instalment");
-                                        //Removed Comm*/
                                         Clear(Var1);
                                         counts := counts + 1;
                                         if ((counted = 21) or (counted = 11)) then begin
@@ -817,7 +811,7 @@ page 50648 "HRM-Casual Pay List"
         PeriodName: Text[30];
         PeriodMonth: Integer;
         PeriodYear: Integer;
-         ProcessPayroll: Codeunit "prPayrollProcessing Casual"; //Removed Comm
+        ProcessPayroll: Codeunit "prPayrollProcessing Casual";
         HrEmployee: Record "HRM-Employee C";
         ProgressWindow: Dialog;
         prPeriodTransactions: Record "PRL-Casual Period Transactions";
