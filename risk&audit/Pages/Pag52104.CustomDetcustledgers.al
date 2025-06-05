@@ -7,7 +7,7 @@ page 52104 "Custom Det cust ledgers"
     PageType = List;
     SourceTable = "Detailed Cust ledger Custom";
     UsageCategory = Administration;
-    SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"));
+    // SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"));
 
     layout
     {
@@ -57,6 +57,25 @@ page 52104 "Custom Det cust ledgers"
     {
         area(Processing)
         {
+            // Add this action to your existing actions area in page 52104 "Custom Det cust ledgers"
+
+            action(ExportToXML)
+            {
+                ApplicationArea = All;
+                Caption = 'Export to XML';
+                Image = Export;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Export customer ledger entries to XML file with date filter.';
+
+                trigger OnAction()
+                var
+                    ExportXMLPort: XMLport "Export Custom Cust Ledger";
+                begin
+                    ExportXMLPort.Run();
+                end;
+            }
             action(PostWithDateFilter)
             {
                 ApplicationArea = All;

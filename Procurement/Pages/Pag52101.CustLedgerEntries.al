@@ -43,6 +43,31 @@ page 52178745 "Cust Ledger Entries Cust"
     {
         area(Processing)
         {
+            action(ExportToExcel)
+            {
+                ApplicationArea = All;
+                Caption = 'Export to Excel';
+                Image = ExportToExcel;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Export customer ledger entries to Excel file';
+
+                trigger OnAction()
+                var
+                    CustLedgerEntriesCustom: Record "Cust Ledger Entries Custom";
+                    ExportXMLPort: XMLport "Export Custom Cust Ledger";
+                begin
+                    // Apply current page filters to the export
+                    CustLedgerEntriesCustom.CopyFilters(Rec);
+
+                    // Set the table view for the XMLport
+                    ExportXMLPort.SetTableView(CustLedgerEntriesCustom);
+
+                    // Run the XMLport
+                    ExportXMLPort.Run();
+                end;
+            }
             action(PostToGL)
             {
                 ApplicationArea = All;
