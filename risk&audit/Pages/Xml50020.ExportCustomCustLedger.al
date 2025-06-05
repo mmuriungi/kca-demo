@@ -1,6 +1,6 @@
 xmlport 50020 "Export Custom Cust Ledger"
 {
- 
+
     Caption = 'Export Custom Customer Ledger';
     Direction = Export;
     Format = VariableText;
@@ -92,7 +92,7 @@ xmlport 50020 "Export Custom Cust Ledger"
                 group(Options)
                 {
                     Caption = 'Export Options';
-                    
+
                     field(IncludeHeaders; IncludeHeaders)
                     {
                         ApplicationArea = All;
@@ -103,13 +103,13 @@ xmlport 50020 "Export Custom Cust Ledger"
                 group(Filters)
                 {
                     Caption = 'Filters';
-                    
+
                     field(PostingDateFilter; PostingDateFilterText)
                     {
                         ApplicationArea = All;
                         Caption = 'Posting Date Filter';
                         ToolTip = 'Specify date range for posting date (e.g., 01/01/2024..12/31/2024)';
-                        
+
                         trigger OnValidate()
                         begin
                             if PostingDateFilterText <> '' then
@@ -126,11 +126,11 @@ xmlport 50020 "Export Custom Cust Ledger"
         // Set default filters
         DetailedCustLedgerCustom.SetRange("Entry Type", DetailedCustLedgerCustom."Entry Type"::"Initial Entry");
         DetailedCustLedgerCustom.SetRange(Posted, false);
-        
+
         // Apply posting date filter if specified
         if PostingDateFilterText <> '' then
             DetailedCustLedgerCustom.SetFilter("Posting Date", PostingDateFilterText);
-            
+
         // Add headers if requested
         if IncludeHeaders then
             WriteHeaders();
