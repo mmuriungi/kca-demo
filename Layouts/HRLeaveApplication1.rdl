@@ -1504,197 +1504,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParameters>
-    <ReportParameter Name="RequisitionNo_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>RequisitionNo_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>RequisitionNo_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="JobDescription_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>JobDescription_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>JobDescription_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="JobGrade_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>JobGrade_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>JobGrade_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="GlobalDimension2Code_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>GlobalDimension2Code_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>GlobalDimension2Code_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="ReasonforRequestOther_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>ReasonforRequestOther_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>ReasonforRequestOther_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="ReasonForRequest_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>ReasonForRequest_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>ReasonForRequest_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="TypeofContractRequired_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>TypeofContractRequired_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>TypeofContractRequired_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="AnyAdditionalInformation_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>AnyAdditionalInformation_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>AnyAdditionalInformation_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="RequisitionDate_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>RequisitionDate_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>RequisitionDate_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="JobSupervisorManager_HREmployeeRequisitionsCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>JobSupervisorManager_HREmployeeRequisitionsCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>JobSupervisorManager_HREmployeeRequisitionsCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="CI_PictureCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>CI_PictureCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>CI_PictureCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="CI_NameCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>CI_NameCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>CI_NameCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="CI_AddressCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>CI_AddressCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>CI_AddressCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="CI_Address2Caption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>CI_Address2Caption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>CI_Address2Caption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="CI_CityCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>CI_CityCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>CI_CityCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="CI_PhoneNoCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>CI_PhoneNoCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>CI_PhoneNoCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Comment_ApprovalEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>Comment_ApprovalEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>Comment_ApprovalEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="ApproverID_ApprovalEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>ApproverID_ApprovalEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>ApproverID_ApprovalEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="DateTimeSentforApproval_ApprovalEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>DateTimeSentforApproval_ApprovalEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>DateTimeSentforApproval_ApprovalEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="SenderID_ApprovalEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>SenderID_ApprovalEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>SenderID_ApprovalEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="UserID_UserSetupCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>UserID_UserSetupCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>UserID_UserSetupCaption</Prompt>
-    </ReportParameter>
-  </ReportParameters>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1737,71 +1546,158 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="RequisitionNo_HREmployeeRequisitions">
-          <DataField>RequisitionNo_HREmployeeRequisitions</DataField>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
         </Field>
-        <Field Name="JobDescription_HREmployeeRequisitions">
-          <DataField>JobDescription_HREmployeeRequisitions</DataField>
+        <Field Name="Address">
+          <DataField>Address</DataField>
         </Field>
-        <Field Name="JobGrade_HREmployeeRequisitions">
-          <DataField>JobGrade_HREmployeeRequisitions</DataField>
+        <Field Name="Phones">
+          <DataField>Phones</DataField>
         </Field>
-        <Field Name="GlobalDimension2Code_HREmployeeRequisitions">
-          <DataField>GlobalDimension2Code_HREmployeeRequisitions</DataField>
+        <Field Name="Mails">
+          <DataField>Mails</DataField>
         </Field>
-        <Field Name="ReasonforRequestOther_HREmployeeRequisitions">
-          <DataField>ReasonforRequestOther_HREmployeeRequisitions</DataField>
+        <Field Name="pics">
+          <DataField>pics</DataField>
         </Field>
-        <Field Name="ReasonForRequest_HREmployeeRequisitions">
-          <DataField>ReasonForRequest_HREmployeeRequisitions</DataField>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
         </Field>
-        <Field Name="TypeofContractRequired_HREmployeeRequisitions">
-          <DataField>TypeofContractRequired_HREmployeeRequisitions</DataField>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
         </Field>
-        <Field Name="AnyAdditionalInformation_HREmployeeRequisitions">
-          <DataField>AnyAdditionalInformation_HREmployeeRequisitions</DataField>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
         </Field>
-        <Field Name="RequisitionDate_HREmployeeRequisitions">
-          <DataField>RequisitionDate_HREmployeeRequisitions</DataField>
+        <Field Name="LeaveNo_">
+          <DataField>LeaveNo_</DataField>
         </Field>
-        <Field Name="JobSupervisorManager_HREmployeeRequisitions">
-          <DataField>JobSupervisorManager_HREmployeeRequisitions</DataField>
+        <Field Name="HR_Leave_Requisition_Date">
+          <DataField>HR_Leave_Requisition_Date</DataField>
         </Field>
-        <Field Name="CI_Picture">
-          <DataField>CI_Picture</DataField>
+        <Field Name="HR_Leave_Requisition__Employee_No_">
+          <DataField>HR_Leave_Requisition__Employee_No_</DataField>
         </Field>
-        <Field Name="CI_Name">
-          <DataField>CI_Name</DataField>
+        <Field Name="HR_Leave_Requisition__Employee_Name_">
+          <DataField>HR_Leave_Requisition__Employee_Name_</DataField>
         </Field>
-        <Field Name="CI_Address">
-          <DataField>CI_Address</DataField>
+        <Field Name="HR_Leave_Requisition__Department_Code_">
+          <DataField>HR_Leave_Requisition__Department_Code_</DataField>
         </Field>
-        <Field Name="CI_Address2">
-          <DataField>CI_Address2</DataField>
+        <Field Name="HR_Leave_Requisition__Applied_Days_">
+          <DataField>HR_Leave_Requisition__Applied_Days_</DataField>
         </Field>
-        <Field Name="CI_City">
-          <DataField>CI_City</DataField>
+        <Field Name="HR_Leave_Requisition__Applied_Days_Format">
+          <DataField>HR_Leave_Requisition__Applied_Days_Format</DataField>
         </Field>
-        <Field Name="CI_PhoneNo">
-          <DataField>CI_PhoneNo</DataField>
+        <Field Name="HR_Leave_Requisition__Starting_Date_">
+          <DataField>HR_Leave_Requisition__Starting_Date_</DataField>
         </Field>
-        <Field Name="Comment_ApprovalEntry">
-          <DataField>Comment_ApprovalEntry</DataField>
+        <Field Name="HR_Leave_Requisition__End_Date_">
+          <DataField>HR_Leave_Requisition__End_Date_</DataField>
         </Field>
-        <Field Name="ApproverID_ApprovalEntry">
-          <DataField>ApproverID_ApprovalEntry</DataField>
+        <Field Name="ReturnDate">
+          <DataField>ReturnDate</DataField>
         </Field>
-        <Field Name="DateTimeSentforApproval_ApprovalEntry">
-          <DataField>DateTimeSentforApproval_ApprovalEntry</DataField>
+        <Field Name="HR_Leave_Requisition_Purpose">
+          <DataField>HR_Leave_Requisition_Purpose</DataField>
         </Field>
-        <Field Name="SenderID_ApprovalEntry">
-          <DataField>SenderID_ApprovalEntry</DataField>
+        <Field Name="HR_Leave_Requisition__Leave_Type_">
+          <DataField>HR_Leave_Requisition__Leave_Type_</DataField>
         </Field>
-        <Field Name="LastDateTimeModified_ApprovalEntry">
-          <DataField>LastDateTimeModified_ApprovalEntry</DataField>
+        <Field Name="HR_Leave_Requisition__Leave_Balance_">
+          <DataField>HR_Leave_Requisition__Leave_Balance_</DataField>
         </Field>
-        <Field Name="UserID_UserSetup">
-          <DataField>UserID_UserSetup</DataField>
+        <Field Name="HR_Leave_Requisition__Leave_Balance_Format">
+          <DataField>HR_Leave_Requisition__Leave_Balance_Format</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition_Status">
+          <DataField>HR_Leave_Requisition_Status</DataField>
+        </Field>
+        <Field Name="LEAVE_APPLICATIONCaption">
+          <DataField>LEAVE_APPLICATIONCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition__No__Caption">
+          <DataField>HR_Leave_Requisition__No__Caption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition_DateCaption">
+          <DataField>HR_Leave_Requisition_DateCaption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition__Employee_No_Caption">
+          <DataField>HR_Leave_Requisition__Employee_No_Caption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition__Department_Code_Caption">
+          <DataField>HR_Leave_Requisition__Department_Code_Caption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition__Applied_Days_Caption">
+          <DataField>HR_Leave_Requisition__Applied_Days_Caption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition__Starting_Date_Caption">
+          <DataField>HR_Leave_Requisition__Starting_Date_Caption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition__End_Date_Caption">
+          <DataField>HR_Leave_Requisition__End_Date_Caption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition_PurposeCaption">
+          <DataField>HR_Leave_Requisition_PurposeCaption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition__Leave_Type_Caption">
+          <DataField>HR_Leave_Requisition__Leave_Type_Caption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition__Leave_Balance_Caption">
+          <DataField>HR_Leave_Requisition__Leave_Balance_Caption</DataField>
+        </Field>
+        <Field Name="HR_Leave_Requisition_StatusCaption">
+          <DataField>HR_Leave_Requisition_StatusCaption</DataField>
+        </Field>
+        <Field Name="NameCaption">
+          <DataField>NameCaption</DataField>
+        </Field>
+        <Field Name="Approval_Entry__Approver_ID_">
+          <DataField>Approval_Entry__Approver_ID_</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Status">
+          <DataField>Approval_Entry_Status</DataField>
+        </Field>
+        <Field Name="Approval_Entry__Last_Date_Time_Modified_">
+          <DataField>Approval_Entry__Last_Date_Time_Modified_</DataField>
+        </Field>
+        <Field Name="APPROVALSCaption">
+          <DataField>APPROVALSCaption</DataField>
+        </Field>
+        <Field Name="APPROVER_IDCaption">
+          <DataField>APPROVER_IDCaption</DataField>
+        </Field>
+        <Field Name="APPROVAL_DATECaption">
+          <DataField>APPROVAL_DATECaption</DataField>
+        </Field>
+        <Field Name="APPROVAL_ACTIONCaption">
+          <DataField>APPROVAL_ACTIONCaption</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Table_ID">
+          <DataField>Approval_Entry_Table_ID</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Document_Type">
+          <DataField>Approval_Entry_Document_Type</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Document_No_">
+          <DataField>Approval_Entry_Document_No_</DataField>
+        </Field>
+        <Field Name="Approval_Entry_Sequence_No_">
+          <DataField>Approval_Entry_Sequence_No_</DataField>
+        </Field>
+        <Field Name="ApprovalTitle">
+          <DataField>ApprovalTitle</DataField>
+        </Field>
+        <Field Name="ApprovalSignature">
+          <DataField>ApprovalSignature</DataField>
+        </Field>
+        <Field Name="ApproveDateTime">
+          <DataField>ApproveDateTime</DataField>
         </Field>
       </Fields>
       <Query>

@@ -4433,32 +4433,62 @@ codeunit 50096 "Timetable Management"
         IsMedical: Boolean): Boolean
     var
         AllTimeSlots: Record "Exam Time Slot" temporary;
+        BestTimeSlot: Record "Exam Time Slot";
         CombinationKey: Text;
+        SlotFound: Boolean;
     begin
-        // Build available time slots for this date
+        // Build available time slots for this date (now ordered by start time)
         BuildAvailableTimeSlotsForDate(ExamDate, IsMedical, AllTimeSlots);
         
-        // Try all available time slots for this day
+        // Find the time slot with the least load for better distribution
+        SlotFound := FindLeastLoadedTimeSlot(AllTimeSlots, ExamDate, GroupCode, BestTimeSlot);
+        
+        if SlotFound then begin
+            // Check if this specific time slot is available
+            if IsTimeSlotValidForDate(BestTimeSlot, ExamDate) then begin
+                // Try to schedule with room allocation
+                if ScheduleExamWithRoomAllocationGroup(
+                    CourseOffering,
+                    ExamDate,
+                    BestTimeSlot,
+                    Semester,
+                    GroupCode) then begin
+
+                    // Update courses per day counter
+                    if not CoursesPerDay.ContainsKey(ExamDate) then
+                        CoursesPerDay.Add(ExamDate, 1)
+                    else
+                        CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
+
+                    exit(true);
+                end;
+            end;
+        end;
+        
+        // If optimal slot failed, try other slots as fallback
         AllTimeSlots.Reset();
         if AllTimeSlots.FindSet() then begin
             repeat
-                // Check if this specific time slot is available
-                if IsTimeSlotValidForDate(AllTimeSlots, ExamDate) then begin
-                    // Try to schedule with room allocation
-                    if ScheduleExamWithRoomAllocationGroup(
-                        CourseOffering,
-                        ExamDate,
-                        AllTimeSlots,
-                        Semester,
-                        GroupCode) then begin
+                // Skip the already tried optimal slot
+                if AllTimeSlots.Code <> BestTimeSlot.Code then begin
+                    // Check if this specific time slot is available
+                    if IsTimeSlotValidForDate(AllTimeSlots, ExamDate) then begin
+                        // Try to schedule with room allocation
+                        if ScheduleExamWithRoomAllocationGroup(
+                            CourseOffering,
+                            ExamDate,
+                            AllTimeSlots,
+                            Semester,
+                            GroupCode) then begin
 
-                        // Update courses per day counter
-                        if not CoursesPerDay.ContainsKey(ExamDate) then
-                            CoursesPerDay.Add(ExamDate, 1)
-                        else
-                            CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
+                            // Update courses per day counter
+                            if not CoursesPerDay.ContainsKey(ExamDate) then
+                                CoursesPerDay.Add(ExamDate, 1)
+                            else
+                                CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
 
-                        exit(true);
+                            exit(true);
+                        end;
                     end;
                 end;
             until AllTimeSlots.Next() = 0;
@@ -4509,6 +4539,160 @@ codeunit 50096 "Timetable Management"
         exit(BestDate);
     end;
 
+    local procedure FindLeastLoadedTimeSlot(
+        var AvailableTimeSlots: Record "Exam Time Slot" temporary; 
+        ExamDate: Date; 
+        GroupCode: Code[20]; 
+        var BestTimeSlot: Record "Exam Time Slot"): Boolean
+    var
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+        CurrentSlot: Record "Exam Time Slot" temporary;
+        MorningSlot, MiddaySlot, AfternoonSlot: Record "Exam Time Slot" temporary;
+        MorningLoad, MiddayLoad, AfternoonLoad: Integer;
+        SlotFound: Boolean;
+        TargetSlot: Option Morning,Midday,Afternoon;
+        SlotsAvailable: array[3] of Boolean;
+        SlotLoads: array[3] of Integer;
+        SlotRecords: array[3] of Record "Exam Time Slot" temporary;
+        i: Integer;
+        MinLoad, MaxLoad, LoadDifference: Integer;
+        NextSlotToUse: Integer;
+    begin
+        SlotFound := false;
+        Clear(SlotsAvailable);
+        Clear(SlotLoads);
+        
+        // Categorize available time slots by session type
+        AvailableTimeSlots.Reset();
+        if AvailableTimeSlots.FindSet() then begin
+            repeat
+                CurrentSlot := AvailableTimeSlots;
+                
+                // Count existing exams for this slot on this date
+                ExamTimetableEntry.Reset();
+                ExamTimetableEntry.SetRange("Exam Date", ExamDate);
+                ExamTimetableEntry.SetRange("Time Slot", CurrentSlot.Code);
+                
+                case CurrentSlot."Session Type" of
+                    CurrentSlot."Session Type"::Morning:
+                        begin
+                            MorningLoad := ExamTimetableEntry.Count();
+                            MorningSlot := CurrentSlot;
+                            SlotsAvailable[1] := true;
+                            SlotLoads[1] := MorningLoad;
+                            SlotRecords[1] := CurrentSlot;
+                        end;
+                    CurrentSlot."Session Type"::Midday:
+                        begin
+                            MiddayLoad := ExamTimetableEntry.Count();
+                            MiddaySlot := CurrentSlot;
+                            SlotsAvailable[2] := true;
+                            SlotLoads[2] := MiddayLoad;
+                            SlotRecords[2] := CurrentSlot;
+                        end;
+                    CurrentSlot."Session Type"::Afternoon:
+                        begin
+                            AfternoonLoad := ExamTimetableEntry.Count();
+                            AfternoonSlot := CurrentSlot;
+                            SlotsAvailable[3] := true;
+                            SlotLoads[3] := AfternoonLoad;
+                            SlotRecords[3] := CurrentSlot;
+                        end;
+                end;
+            until AvailableTimeSlots.Next() = 0;
+        end;
+        
+        // Implement round-robin distribution with load balancing
+        // Find the slot with minimum load
+        MinLoad := 99999;
+        MaxLoad := 0;
+        NextSlotToUse := 0;
+        
+        for i := 1 to 3 do begin
+            if SlotsAvailable[i] then begin
+                if SlotLoads[i] < MinLoad then begin
+                    MinLoad := SlotLoads[i];
+                    NextSlotToUse := i;
+                end;
+                if SlotLoads[i] > MaxLoad then
+                    MaxLoad := SlotLoads[i];
+            end;
+        end;
+        
+        // Check if distribution is getting uneven (difference > 2 exams)
+        LoadDifference := MaxLoad - MinLoad;
+        
+        // If loads are balanced (difference <= 1), use round-robin
+        // Otherwise, prioritize the least loaded slot
+        if (LoadDifference <= 1) and (NextSlotToUse > 0) then begin
+            // Use round-robin: cycle through available slots
+            NextSlotToUse := GetNextRoundRobinSlot(GroupCode, SlotsAvailable);
+        end;
+        // If LoadDifference > 1, NextSlotToUse already points to minimum load slot
+        
+        // Return the selected slot
+        if (NextSlotToUse > 0) and SlotsAvailable[NextSlotToUse] then begin
+            BestTimeSlot := SlotRecords[NextSlotToUse];
+            SlotFound := true;
+        end;
+        
+        exit(SlotFound);
+    end;
+    
+    local procedure GetNextRoundRobinSlot(GroupCode: Code[20]; SlotsAvailable: array[3] of Boolean): Integer
+    var
+        ExamTimetableEntry: Record "Exam Timetable Entry";
+        LastUsedSlot: Integer;
+        NextSlot: Integer;
+        AttemptsCount: Integer;
+        MorningTime: Time;
+        MiddayTime: Time;
+        AfternoonTime: Time;
+    begin
+        // Initialize time constants
+        MorningTime := 090000T;
+        MiddayTime := 120000T;
+        AfternoonTime := 150000T;
+        
+        // Get the last used slot for this group from the most recent entry
+        ExamTimetableEntry.Reset();
+        ExamTimetableEntry.SetRange("Exam Group", GroupCode);
+        if ExamTimetableEntry.FindLast() then begin
+            // Determine what type of slot was used last
+            if ExamTimetableEntry."Start Time" = MorningTime then
+                LastUsedSlot := 1 // Morning
+            else if ExamTimetableEntry."Start Time" = MiddayTime then
+                LastUsedSlot := 2 // Midday  
+            else if ExamTimetableEntry."Start Time" = AfternoonTime then
+                LastUsedSlot := 3 // Afternoon
+            else
+                LastUsedSlot := 0;
+        end else
+            LastUsedSlot := 0; // No previous entries, start with first available
+        
+        // Find next available slot in round-robin fashion
+        NextSlot := LastUsedSlot + 1;
+        AttemptsCount := 0;
+        
+        while AttemptsCount < 3 do begin
+            if NextSlot > 3 then
+                NextSlot := 1; // Wrap around
+                
+            if SlotsAvailable[NextSlot] then
+                exit(NextSlot);
+                
+            NextSlot += 1;
+            AttemptsCount += 1;
+        end;
+        
+        // Fallback: return first available slot
+        if SlotsAvailable[1] then exit(1);
+        if SlotsAvailable[2] then exit(2);
+        if SlotsAvailable[3] then exit(3);
+        
+        exit(0); // No slots available
+    end;
+
     local procedure BuildAvailableTimeSlotsForDate(ExamDate: Date; IsMedical: Boolean; var AllTimeSlots: Record "Exam Time Slot" temporary)
     var
         ExamTimeSlot: Record "Exam Time Slot";
@@ -4523,6 +4707,10 @@ codeunit 50096 "Timetable Management"
             ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Medical)
         else
             ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Regular);
+            
+        // Order time slots by start time to ensure proper distribution
+        ExamTimeSlot.SetCurrentKey("Start Time");
+        ExamTimeSlot.SetAscending("Start Time", true);
             
         if ExamTimeSlot.FindSet() then begin
             repeat

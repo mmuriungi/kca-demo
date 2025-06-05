@@ -124,6 +124,15 @@ table 50066 "Exam Timetable Entry"
             Caption = 'Exam Group';
             TableRelation = "Exam Groups";
         }
+        //session type
+        field(23; "Session Type"; Option)
+        {
+            Caption = 'Session Type';
+            OptionMembers = Morning,Midday,Afternoon;
+            OptionCaption = 'Morning,Midday,Afternoon';
+            FieldClass = FlowField;
+            CalcFormula = lookup("Exam Time Slot"."Session Type" where("Code" = field("Time Slot")));
+        }
     }
 
     keys
