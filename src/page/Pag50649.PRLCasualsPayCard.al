@@ -1,7 +1,7 @@
 page 50649 "PRL-Casuals Pay Card"
 {
     // strempcode,dtDOE,curbasicpay,blnpaye,blnnssf,blnnhif,selectedperio,dtopenperio,
-    // membership,referenceno,dttermination,blngetspayereleif
+    // membership,referenceno,dttermination,blngetspayereleif 
 
     PageType = Document;
     SaveValues = true;

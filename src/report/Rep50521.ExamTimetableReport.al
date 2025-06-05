@@ -69,7 +69,7 @@ report 50521 "Exam Timetable Report"
             column(StudentCount; "Student Count")
             {
             }
-            column(TimeSlot; "Time Slot")
+            column(TimeSlot; format("Session Type"))
             {
             }
             column(UnitCode; "Unit Code")
