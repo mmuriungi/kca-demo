@@ -344,7 +344,7 @@ page 50648 "HRM-Casual Pay List"
                     //Use CODEUNIT
                     HrEmployee.Reset;
                     HrEmployee.SetRange(HrEmployee.Status, HrEmployee.Status::Active);
-                    HrEmployee.SetFilter(HrEmployee."Employee Category", '%1|%2', 'CASUALS', 'CASUAL');
+                    HrEmployee.SetFilter(HrEmployee."Payroll Posting Group", '%1|%2', 'CASUALS', 'CASUAL');
                     //HrEmployee.SETRANGE(HrEmployee.Status,HrEmployee.Status::Normal);
                     if HrEmployee.Find('-') then begin
                         PeriodTrans.Reset;
