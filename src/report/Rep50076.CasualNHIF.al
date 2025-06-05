@@ -1,7 +1,7 @@
 report 50076 "Casual-NHIF"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/Casual-NHIF.rdl';
+    RDLCLayout = './Layouts/CasualNHIF.rdl';
 
     dataset
     {
