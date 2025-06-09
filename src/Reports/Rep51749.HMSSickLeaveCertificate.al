@@ -3,7 +3,7 @@ report 51903 "HMS Sick Leave Certificate"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = RDLC;
-    RDLCLayout = 'Layouts/HMS Sick Leave Certificate.rdl';
+    RDLCLayout = './Layouts/HMS Sick Leave Certificate.rdl';
     Caption = 'Sick Leave Certificate';
 
     dataset
