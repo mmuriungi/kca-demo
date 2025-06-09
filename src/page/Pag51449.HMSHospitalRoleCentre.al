@@ -775,7 +775,7 @@ page 51449 "HMS-Hospital Role Centre"
             {
                 Caption = 'Referrals';
                 Image = RegisteredDocs;
-                Visible = false;
+                Visible = true;
                 action(ref)
                 {
                     Caption = 'Referrals';

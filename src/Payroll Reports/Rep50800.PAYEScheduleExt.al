@@ -188,8 +188,8 @@ report 50800 "PAYE Schedule Ext"
                             PersonalRelief := PeriodTrans.Amount;
                         end;
 
-                        if (PeriodTrans."Transaction Code" = 'NSSF') then begin
-                            Nssf := PeriodTrans.Amount;
+                        if (PeriodTrans."Transaction Code" = 'NSSF(I)') or (PeriodTrans."Transaction Code" = 'NSSF(2)') then begin
+                            Nssf += PeriodTrans.Amount;
                         end;
 
                         if (PeriodTrans."Transaction Code" = 'TXBP') then begin
@@ -201,10 +201,10 @@ report 50800 "PAYE Schedule Ext"
                         if (PeriodTrans."Transaction Code" = 'PNSR') then begin
                             PensionRelief := PeriodTrans.Amount;
                         end;
-                        if (PeriodTrans."Transaction Code" = 'NHIFINSR') then begin
+                        if (PeriodTrans."Transaction Code" = 'SHIF') then begin
                             NHIFRelief := PeriodTrans.Amount;
                         end;
-                        if (PeriodTrans."Transaction Code" = '903') then begin
+                        if (PeriodTrans."Transaction Code" = '996') then begin
                             HseLevyRelief := PeriodTrans.Amount;
                         end;
 

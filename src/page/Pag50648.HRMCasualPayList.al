@@ -184,6 +184,14 @@ page 50648 "HRM-Casual Pay List"
                 Promoted = true;
                 RunObject = Report "Casual-NHIF";
             }
+            //Housing Levy
+            action("Housing Levy - Casual")
+            {
+                ApplicationArea = all;
+                Caption = 'Housing Levy - Casual';
+                Image = "Report";
+                RunObject = Report "Casual-Housing Levy";
+            }
             action("NSSF - Casual")
             {
                 ApplicationArea = all;

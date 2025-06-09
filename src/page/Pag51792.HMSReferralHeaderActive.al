@@ -9,9 +9,15 @@ page 51792 "HMS Referral Header Active"
         {
             group(Group)
             {
-                field("Treatment no."; Rec."Treatment no.")
+
+                field("Referral No."; Rec."Referral No.")
                 {
                     Editable = false;
+                    ApplicationArea = All;
+                }
+                field("Treatment no."; Rec."Treatment no.")
+                {
+                    Editable = true;
                     ApplicationArea = All;
                 }
                 field("Date Referred"; Rec."Date Referred")
@@ -31,7 +37,7 @@ page 51792 "HMS Referral Header Active"
                 }
                 field("Hospital No."; Rec."Hospital No.")
                 {
-                    Editable = false;
+                    Editable = true;
                     ApplicationArea = All;
                 }
                 field(HospitalName; HospitalName)

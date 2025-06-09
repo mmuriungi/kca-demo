@@ -2,6 +2,7 @@ page 51796 "HMS Referral List"
 {
     PageType = List;
     SourceTable = "HMS-Referral Header";
+    CardPageID = "HMS Referral Header Active";
 
     layout
     {
@@ -9,7 +10,11 @@ page 51796 "HMS Referral List"
         {
             repeater(rep)
             {
-                Editable = false;
+                Editable = true;
+                field("Referral No."; Rec."Referral No.")
+                {
+                    ApplicationArea = All;
+                }
                 field("Treatment no."; Rec."Treatment no.")
                 {
                     ApplicationArea = All;
