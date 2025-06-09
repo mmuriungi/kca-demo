@@ -802,6 +802,18 @@ page 51449 "HMS-Hospital Role Centre"
                     ApplicationArea = All;
                 }
             }
+            //Sick Off
+           group(SickOff)
+           {
+            Caption = 'Sick Off';
+            action("SickOff List")
+            {
+                Caption = 'Sick Off';
+                Image = Register;
+                RunObject = Page "HMS Sick Leave Cert. List";
+                ApplicationArea = All;
+            }
+           }
             group(Immuns)
             {
                 Caption = 'Immunizations';

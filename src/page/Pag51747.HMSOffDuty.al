@@ -58,7 +58,7 @@ page 51747 "HMS Off Duty"
 
                 trigger OnAction()
                 var
-                    Referral: Record "HMS-Off Duty";
+                    Referral: Record "HMS-Referral Header";
                     TreatmentHeader: Record "HMS-Treatment Form Header";
                 begin
                     IF CONFIRM('Register Off duty?', FALSE) = FALSE THEN BEGIN EXIT END;
@@ -67,13 +67,47 @@ page 51747 "HMS Off Duty"
                     IF TreatmentHeader.GET(Rec."Treatment No.") THEN BEGIN
                         Referral.INIT;
                         Referral."Treatment No." := Rec."Treatment No.";
+                        Referral.Validate("Treatment No.");
                         Referral."Staff No" := TreatmentHeader."Employee No.";
-                        Referral."Patient No" := TreatmentHeader."Patient No.";
+                        Referral."Patient No." := TreatmentHeader."Patient No.";
                         //Referral."Off Duty Start Date":="Date Referred";
 
-                        Referral.INSERT();
+                        Referral.INSERT(true);
                     END;
                 end;
+            }
+            
+            action("Create Sick Leave Certificate")
+            {
+                Caption = 'Create Sick Leave Certificate';
+                Image = Certificate;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    SickLeaveCert: Record "HMS-Off Duty";
+                    SickLeavePage: Page "HMS Sick Leave Cert. Card";
+                begin
+                    SickLeaveCert.Init();
+                    SickLeaveCert."Treatment No." := Rec."Treatment No.";
+                    SickLeaveCert.Insert(true);
+                    
+                    SickLeavePage.SetRecord(SickLeaveCert);
+                    SickLeavePage.Run();
+                end;
+            }
+            
+            action("Sick Leave Certificates")
+            {
+                Caption = 'All Sick Leave Certificates';
+                Image = List;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                RunObject = Page "HMS Sick Leave Cert. List";
             }
         }
     }
