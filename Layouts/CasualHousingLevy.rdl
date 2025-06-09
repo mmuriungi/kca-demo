@@ -632,29 +632,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParameters>
-    <ReportParameter Name="DataSetResultCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>Data Set Result</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>Data Set Result Caption</Prompt>
-    </ReportParameter>
-  </ReportParameters>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>b6ece9c7-8533-4f8a-bd8c-a74a3cb42b0e</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
       <Fields>
         <Field Name="USERID">
           <DataField>USERID</DataField>
@@ -683,8 +666,14 @@
         <Field Name="CompPINNo">
           <DataField>CompPINNo</DataField>
         </Field>
+        <Field Name="PeriodName_Control1102756007">
+          <DataField>PeriodName_Control1102756007</DataField>
+        </Field>
         <Field Name="HousingLevyAmount">
           <DataField>HousingLevyAmount</DataField>
+        </Field>
+        <Field Name="HousingLevyAmountFormat">
+          <DataField>HousingLevyAmountFormat</DataField>
         </Field>
         <Field Name="IDNumber">
           <DataField>IDNumber</DataField>
@@ -701,19 +690,83 @@
         <Field Name="GrossAmt">
           <DataField>GrossAmt</DataField>
         </Field>
+        <Field Name="GrossAmtFormat">
+          <DataField>GrossAmtFormat</DataField>
+        </Field>
         <Field Name="TotHousingLevyAmount">
           <DataField>TotHousingLevyAmount</DataField>
         </Field>
+        <Field Name="TotHousingLevyAmountFormat">
+          <DataField>TotHousingLevyAmountFormat</DataField>
+        </Field>
+        <Field Name="HOUSING_LEVY_FUNDCaption">
+          <DataField>HOUSING_LEVY_FUNDCaption</DataField>
+        </Field>
+        <Field Name="User_Name_Caption">
+          <DataField>User_Name_Caption</DataField>
+        </Field>
+        <Field Name="Print_Date_Caption">
+          <DataField>Print_Date_Caption</DataField>
+        </Field>
+        <Field Name="Period_Caption">
+          <DataField>Period_Caption</DataField>
+        </Field>
+        <Field Name="Page_No_Caption">
+          <DataField>Page_No_Caption</DataField>
+        </Field>
+        <Field Name="PERIOD_Caption_Control1102755032">
+          <DataField>PERIOD_Caption_Control1102755032</DataField>
+        </Field>
+        <Field Name="ADDRESS_Caption">
+          <DataField>ADDRESS_Caption</DataField>
+        </Field>
+        <Field Name="EMPLOYER_Caption">
+          <DataField>EMPLOYER_Caption</DataField>
+        </Field>
+        <Field Name="EMPLOYER_PIN_NO_Caption">
+          <DataField>EMPLOYER_PIN_NO_Caption</DataField>
+        </Field>
+        <Field Name="TEL_NO_Caption">
+          <DataField>TEL_NO_Caption</DataField>
+        </Field>
+        <Field Name="AmountCaption">
+          <DataField>AmountCaption</DataField>
+        </Field>
+        <Field Name="ID_Number_Caption">
+          <DataField>ID_Number_Caption</DataField>
+        </Field>
+        <Field Name="KRA_PIN_Caption">
+          <DataField>KRA_PIN_Caption</DataField>
+        </Field>
+        <Field Name="Employee_NameCaption">
+          <DataField>Employee_NameCaption</DataField>
+        </Field>
+        <Field Name="No_Caption">
+          <DataField>No_Caption</DataField>
+        </Field>
+        <Field Name="Gross_Pay_Caption">
+          <DataField>Gross_Pay_Caption</DataField>
+        </Field>
+        <Field Name="Prepared_by_______________________________________Date_________________Caption">
+          <DataField>Prepared_by_______________________________________Date_________________Caption</DataField>
+        </Field>
+        <Field Name="Checked_by________________________________________Date_________________Caption">
+          <DataField>Checked_by________________________________________Date_________________Caption</DataField>
+        </Field>
+        <Field Name="Authorized_by____________________________________Date_________________Caption">
+          <DataField>Authorized_by____________________________________Date_________________Caption</DataField>
+        </Field>
+        <Field Name="Total_Housing_Levy_Caption">
+          <DataField>Total_Housing_Levy_Caption</DataField>
+        </Field>
+        <Field Name="Approved_by______________________________________Date_________________Caption">
+          <DataField>Approved_by______________________________________Date_________________Caption</DataField>
+        </Field>
       </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSource</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
     </DataSet>
   </DataSets>
-  <Language>en-US</Language>
-  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>b6ece9c7-8533-4f8a-bd8c-a74a3cb42b0e</rd:ReportID>
 </Report>

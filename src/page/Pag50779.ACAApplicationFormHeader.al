@@ -704,7 +704,7 @@ page 50779 "ACA-Application Form Header"
                     IF AppSetup.GET() THEN
                         //IF (TODAY-"Date Of Birth")<(AppSetup."Minimum Age"*365) THEN ERROR('The Minimum Required Age for Admission is '+FORMAT(AppSetup."Minimum Age")+' years');
 
-                        IF CONFIRM('Do You Want to Send This Application to The COD', TRUE) = FALSE THEN EXIT;
+                        IF CONFIRM('Do You Want to Send This Application to The HOD', TRUE) = FALSE THEN EXIT;
 
                     IF Rec."Application No." = '' THEN
                         ERROR('There are no Applicants Specified.');
