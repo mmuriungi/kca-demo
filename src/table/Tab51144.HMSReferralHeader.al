@@ -87,5 +87,15 @@ table 51144 "HMS-Referral Header"
     fieldgroups
     {
     }
+
+    trigger OnInsert()
+    var
+        NoSeriesManagement: Codeunit NoSeriesManagement;
+        HmsSetup: Record "HMS-Setup";
+    begin
+        HmsSetup.Get();
+        HmsSetup.TestField("Referral Nos");
+        NoSeriesManagement.InitSeries(HmsSetup."Referral Nos", xRec."No. Series", 0D, Rec."Treatment no.", Rec."No. Series");
+    end;
 }
 
