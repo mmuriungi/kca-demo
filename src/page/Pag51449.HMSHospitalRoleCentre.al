@@ -544,6 +544,16 @@ page 51449 "HMS-Hospital Role Centre"
                     Caption = 'Medical Claims';
                     RunObject = Page "Medical Claims List";
                 }
+                group("Batch Claims")
+                {
+                    action("Medical Claim Batches")
+                    {
+                        Caption = 'Medical Claim Batches';
+                        ApplicationArea = All;
+                        Image = CalculateSimulation;
+                        RunObject = Page "Medical Claims Batch List";
+                    }
+                }
             }
 
             group(HMS_Admissions)
