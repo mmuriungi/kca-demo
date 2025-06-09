@@ -193,6 +193,20 @@ codeunit 50048 "Claims Handler"
         CreatePurchaseLine(PurchHeader, HrSetup."Claim G/L Account", PurchLine.Type::"G/L Account", 1, Claim."Claim Amount");
     end;
 
+    //Create purchase invoice from batch
+    procedure CreatePurchaseInvoiceFromBatch(Batch: Record "Medical Claims Batch")
+    var
+        PurchHeader: Record "Purchase Header";
+        PurchLine: Record "Purchase Line";
+        HrSetup: Record "HRM-Setup";
+    begin
+        HrSetup.Get();
+        PurchHeader := CreatePurchaseHeader(Batch."Vendor No.", Batch."Global Dimension 1 Code", Batch."Global Dimension 2 Code", Batch."Shortcut Dimension 3 Code", TODAY, Batch.Description, Batch."Batch No.", Enum::"Claim Type"::Medical, '');
+        CreatePurchaseLine(PurchHeader, HrSetup."Claim G/L Account", PurchLine.Type::"G/L Account", 1, Batch."Total Amount");
+    end;
+
+    
+
 
 
 
