@@ -154,6 +154,12 @@ table 51145 "HMS-Setup"
         {
             TableRelation = "No. Series".Code;
         }
+        field(38; "Sick Leave Cert. Nos."; Code[20])
+        {
+            Caption = 'Sick Leave Certificate Nos.';
+            Description = 'Stores the number series for sick leave certificates';
+            TableRelation = "No. Series".Code;
+        }
     }
 
     keys

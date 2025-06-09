@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:DataSourceID>7c5c5e5a-8e3b-4e3e-b3c3-3e3e3e3e3e3e</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Certificate_No">
+          <DataField>Certificate_No</DataField>
+        </Field>
+        <Field Name="Certificate_Date">
+          <DataField>Certificate_Date</DataField>
+        </Field>
+        <Field Name="Title">
+          <DataField>Title</DataField>
+        </Field>
+        <Field Name="Staff_Name">
+          <DataField>Staff_Name</DataField>
+        </Field>
+        <Field Name="PF_No">
+          <DataField>PF_No</DataField>
+        </Field>
+        <Field Name="Student_No">
+          <DataField>Student_No</DataField>
+        </Field>
+        <Field Name="Department">
+          <DataField>Department</DataField>
+        </Field>
+        <Field Name="Sick_Leave_Duration">
+          <DataField>Sick_Leave_Duration</DataField>
+        </Field>
+        <Field Name="Duration_Unit">
+          <DataField>Duration_Unit</DataField>
+        </Field>
+        <Field Name="Duration_Text">
+          <DataField>Duration_Text</DataField>
+        </Field>
+        <Field Name="Off_Duty_Start_Date">
+          <DataField>Off_Duty_Start_Date</DataField>
+        </Field>
+        <Field Name="Review_Date">
+          <DataField>Review_Date</DataField>
+        </Field>
+        <Field Name="Chief_Medical_Officer">
+          <DataField>Chief_Medical_Officer</DataField>
+        </Field>
+        <Field Name="Illness_Description">
+          <DataField>Illness_Description</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="CompanyAddress">
+          <DataField>CompanyAddress</DataField>
+        </Field>
+        <Field Name="CompanyCity">
+          <DataField>CompanyCity</DataField>
+        </Field>
+        <Field Name="CompanyPhone">
+          <DataField>CompanyPhone</DataField>
+        </Field>
+        <Field Name="CompanyEmail">
+          <DataField>CompanyEmail</DataField>
+        </Field>
+        <Field Name="CompanyLogo">
+          <DataField>CompanyLogo</DataField>
+        </Field>
+        <Field Name="TitleText">
+          <DataField>TitleText</DataField>
+        </Field>
+        <Field Name="IdentificationText">
+          <DataField>IdentificationText</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Rectangle Name="Rectangle1">
+            <ReportItems>
+              <Image Name="CompanyLogo">
+                <Source>Database</Source>
+                <Value>=First(Fields!CompanyLogo.Value, "DataSet_Result")</Value>
+                <MIMEType>image/png</MIMEType>
+                <Sizing>FitProportional</Sizing>
+                <Top>0.2in</Top>
+                <Left>0.2in</Left>
+                <Height>1in</Height>
+                <Width>1.5in</Width>
+                <ZIndex>1</ZIndex>
+              </Image>
+              <Textbox Name="CompanyName">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!CompanyName.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>16pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>0.2in</Top>
+                <Left>1.8in</Left>
+                <Height>0.35in</Height>
+                <Width>4.9in</Width>
+                <ZIndex>2</ZIndex>
+              </Textbox>
+              <Textbox Name="CertificateTitle">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>SICK LEAVE CERTIFICATE</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>14pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                          <TextDecoration>Underline</TextDecoration>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>1.5in</Top>
+                <Left>0.2in</Left>
+                <Height>0.35in</Height>
+                <Width>6.5in</Width>
+                <ZIndex>3</ZIndex>
+              </Textbox>
+              <Textbox Name="DateField">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Date: </Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value>=First(Fields!Certificate_Date.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>2.2in</Top>
+                <Left>0.5in</Left>
+                <Height>0.25in</Height>
+                <Width>6in</Width>
+                <ZIndex>4</ZIndex>
+              </Textbox>
+              <Textbox Name="NameField">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Name: </Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value>=First(Fields!TitleText.Value, "DataSet_Result") &amp; " " &amp; First(Fields!Staff_Name.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>2.6in</Top>
+                <Left>0.5in</Left>
+                <Height>0.25in</Height>
+                <Width>6in</Width>
+                <ZIndex>5</ZIndex>
+              </Textbox>
+              <Textbox Name="IdentificationField">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!IdentificationText.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>3in</Top>
+                <Left>0.5in</Left>
+                <Height>0.25in</Height>
+                <Width>6in</Width>
+                <ZIndex>6</ZIndex>
+              </Textbox>
+              <Textbox Name="DepartmentField">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Department: </Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value>=First(Fields!Department.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>3.4in</Top>
+                <Left>0.5in</Left>
+                <Height>0.25in</Height>
+                <Width>6in</Width>
+                <ZIndex>7</ZIndex>
+              </Textbox>
+              <Textbox Name="CertificationText">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>This is to certify that the above named person has been granted </Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value>=First(Fields!Duration_Text.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value> sick leave on account of illness.</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>4in</Top>
+                <Left>0.5in</Left>
+                <Height>0.5in</Height>
+                <Width>6in</Width>
+                <ZIndex>8</ZIndex>
+              </Textbox>
+              <Textbox Name="IllnessField">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Illness/Condition: </Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value>=First(Fields!Illness_Description.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>4.7in</Top>
+                <Left>0.5in</Left>
+                <Height>0.3in</Height>
+                <Width>6in</Width>
+                <ZIndex>9</ZIndex>
+              </Textbox>
+              <Textbox Name="StartDateField">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Leave Start Date: </Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value>=First(Fields!Off_Duty_Start_Date.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>5.2in</Top>
+                <Left>0.5in</Left>
+                <Height>0.25in</Height>
+                <Width>3in</Width>
+                <ZIndex>10</ZIndex>
+              </Textbox>
+              <Textbox Name="ReviewDateField">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Review Date: </Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value>=First(Fields!Review_Date.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>5.2in</Top>
+                <Left>3.7in</Left>
+                <Height>0.25in</Height>
+                <Width>2.8in</Width>
+                <ZIndex>11</ZIndex>
+              </Textbox>
+              <Textbox Name="SignatureLabel">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Chief Medical Officer:</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>11pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>6.2in</Top>
+                <Left>0.5in</Left>
+                <Height>0.25in</Height>
+                <Width>2in</Width>
+                <ZIndex>12</ZIndex>
+              </Textbox>
+              <Line Name="SignatureLine">
+                <Top>6.6in</Top>
+                <Left>2.5in</Left>
+                <Height>0in</Height>
+                <Width>2.5in</Width>
+                <ZIndex>13</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Line>
+              <Textbox Name="CMOName">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Chief_Medical_Officer.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>10pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>6.65in</Top>
+                <Left>2.5in</Left>
+                <Height>0.2in</Height>
+                <Width>2.5in</Width>
+                <ZIndex>14</ZIndex>
+              </Textbox>
+              <Textbox Name="NotesTitle">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Notes:</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>10pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                          <TextDecoration>Underline</TextDecoration>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>7.5in</Top>
+                <Left>0.5in</Left>
+                <Height>0.2in</Height>
+                <Width>1in</Width>
+                <ZIndex>15</ZIndex>
+              </Textbox>
+              <Textbox Name="Notes">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>- Original to Head of Department</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>- Duplicate to staff file (personnel) or students file</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>- Triplicate to patients file (clinic)</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>7.7in</Top>
+                <Left>0.5in</Left>
+                <Height>0.6in</Height>
+                <Width>6in</Width>
+                <ZIndex>16</ZIndex>
+              </Textbox>
+              <Textbox Name="CertificateNumber">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Certificate No: </Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>10pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                      <TextRun>
+                        <Value>=First(Fields!Certificate_No.Value, "DataSet_Result")</Value>
+                        <Style>
+                          <FontFamily>Arial</FontFamily>
+                          <FontSize>10pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                  </Paragraph>
+                </Paragraphs>
+                <Top>1.9in</Top>
+                <Left>4.5in</Left>
+                <Height>0.2in</Height>
+                <Width>2in</Width>
+                <ZIndex>17</ZIndex>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>0.125in</Top>
+            <Left>0.125in</Left>
+            <Height>8.5in</Height>
+            <Width>6.9in</Width>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+        </ReportItems>
+        <Height>9in</Height>
+        <Style />
+      </Body>
+      <Width>7.5in</Width>
+      <Page>
+        <PageHeight>11in</PageHeight>
+        <PageWidth>8.5in</PageWidth>
+        <LeftMargin>0.5in</LeftMargin>
+        <RightMargin>0.5in</RightMargin>
+        <TopMargin>0.5in</TopMargin>
+        <BottomMargin>0.5in</BottomMargin>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>c5c5c5c5-c5c5-c5c5-c5c5-c5c5c5c5c5c5</rd:ReportID>
+</Report>

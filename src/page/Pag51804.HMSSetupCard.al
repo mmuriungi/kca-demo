@@ -48,6 +48,10 @@ page 51804 "HMS-Setup Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Sick Leave Cert. Nos."; Rec."Sick Leave Cert. Nos.")
+                {
+                    ApplicationArea = All;
+                }
                 field("Pharmacy Items Nos"; Rec."Pharmacy Items Nos")
                 {
                     ApplicationArea = All;
