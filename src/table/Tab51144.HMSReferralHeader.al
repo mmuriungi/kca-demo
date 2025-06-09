@@ -6,6 +6,18 @@ table 51144 "HMS-Referral Header"
     {
         field(1; "Treatment no."; Code[20])
         {
+            TableRelation ="HMS-Treatment Form Header"."Treatment No.";
+            trigger OnValidate()
+            var
+                Hms: Record "HMS-Treatment Form Header";
+            begin
+                if Hms.Get("Treatment no.") then begin
+                    "Patient No." := Hms."Patient No.";
+                    "Date Referred" := Hms."Treatment Date";
+
+                end;
+
+            end;
         }
         field(2; "Hospital No."; Code[20])
         {
@@ -74,11 +86,15 @@ table 51144 "HMS-Referral Header"
         field(36; "No. Series"; Code[20])
         {
         }
+        //referral No.
+        field(37; "Referral No."; Code[20])
+        {
+        }
     }
 
     keys
     {
-        key(Key1; "Treatment no.")
+        key(Key1; "Treatment no.","Referral No.")
         {
             Clustered = true;
         }
@@ -95,7 +111,7 @@ table 51144 "HMS-Referral Header"
     begin
         HmsSetup.Get();
         HmsSetup.TestField("Referral Nos");
-        NoSeriesManagement.InitSeries(HmsSetup."Referral Nos", xRec."No. Series", 0D, Rec."Treatment no.", Rec."No. Series");
+        NoSeriesManagement.InitSeries(HmsSetup."Referral Nos", xRec."No. Series", 0D, Rec."Referral No.", Rec."No. Series");
     end;
 }
 

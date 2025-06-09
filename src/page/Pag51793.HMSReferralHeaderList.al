@@ -12,7 +12,7 @@ page 51793 "HMS-Referral Header List"
             {
                 field("Treatment no."; Rec."Treatment no.")
                 {
-                    Editable = false;
+                    Editable = true;
                     ApplicationArea = All;
                 }
                 field("Date Referred"; Rec."Date Referred")
