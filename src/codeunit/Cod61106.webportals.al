@@ -12203,6 +12203,32 @@ Codeunit 61106 webportals
             exit('');
     end;
 
+    procedure InsertTransportRequisition(staffno: Code[20]; destination: Text; tripDate: Date; timeOut: Time; returnDate:Date; passengers: Integer; purpose: Text) msg: Text
+    var
+        TransReq: Record "FLT-Transport Requisition";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        TransReq.Init;
+        TransReq."Emp No" := staffno;
+        TransReq.Validate("Emp No");
+        TransReq.Destination := destination;
+        TransReq."Date of Trip" := tripDate;
+        TransReq."Time Out" := timeOut;
+        TransReq."Date of Request" := Today;
+        TransReq."Return Date" := returnDate;   
+        TransReq."No Of Passangers" := passengers;
+        TransReq."Purpose of Trip" := purpose;
+        if TransReq.INSERT(true) then begin
+            variant := TransReq;
+            if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMgmt.OnSendDocForApproval(variant);
+            exit(TransReq."Transport Requisition No");
+        end
+        else
+            exit('');
+    end;
+
     procedure GetMealBookings(staffno: Code[20]) msg: Text
     var
         MealBooking: Record "CAT-Meal Booking Header";
