@@ -25,6 +25,11 @@ table 50079 "Timetable Setup"
         {
             DataClassification = ToBeClassified;
         }
+        field(6; "Timetable Document Nos."; Code[20])
+        {
+            Caption = 'Timetable Document Nos.';
+            TableRelation = "No. Series";
+        }
     }
     keys
     {

@@ -12,6 +12,10 @@ page 52086 "Timetable Header List"
         {
             repeater(General)
             {
+                field("Document No."; Rec."Document No.")
+                {
+                    ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
+                }
                 field("Academic Year"; Rec."Academic Year")
                 {
                     ToolTip = 'Specifies the value of the Academic Year field.', Comment = '%';

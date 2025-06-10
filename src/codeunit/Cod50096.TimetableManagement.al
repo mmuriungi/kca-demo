@@ -421,6 +421,7 @@ codeunit 50096 "Timetable Management"
     end;
 
     procedure GenerateExamTimetableByGroup(
+    TTHeader: Record "Timetable Header";
     SemesterCode: Code[25];
     StartDate: Date;
     EndDate: Date;
@@ -509,7 +510,8 @@ codeunit 50096 "Timetable Management"
                         EndDate,
                         DayCounter,
                         CoursesPerDay,
-                        GroupCode) then begin
+                        GroupCode,
+                        TTHeader."Document No.") then begin
                         // Successfully scheduled
                     end else
                         LogSchedulingIssueWithGroup(CourseOffering, GroupCode, GroupDescription);
@@ -761,7 +763,8 @@ codeunit 50096 "Timetable Management"
      EndDate: Date;
      var DayCounter: Integer;
      var CoursesPerDay: Dictionary of [Date, Integer];
-     GroupCode: Code[20]): Boolean
+     GroupCode: Code[20];
+     DocumentNo: Code[20]): Boolean
     var
         ExamTimeSlot: Record "Exam Time Slot";
         CurrentDate: Date;
@@ -803,7 +806,7 @@ codeunit 50096 "Timetable Management"
                 CurrentDate := CalcDate('1D', CurrentDate);
                 
             if CurrentDate <= EndDate then begin
-                if TryScheduleExamOnDate(CourseOffering, CurrentDate, Semester, GroupCode, CoursesPerDay, IsMedical) then
+                if TryScheduleExamOnDate(CourseOffering, CurrentDate, Semester, GroupCode, CoursesPerDay, IsMedical, DocumentNo) then
                     exit(true);
             end;
         end;
@@ -844,7 +847,7 @@ codeunit 50096 "Timetable Management"
                 DayCounter += 1;
             end else begin
                 // Try to schedule on this date
-                if TryScheduleExamOnDate(CourseOffering, BestDate, Semester, GroupCode, CoursesPerDay, IsMedical) then
+                if TryScheduleExamOnDate(CourseOffering, BestDate, Semester, GroupCode, CoursesPerDay, IsMedical, DocumentNo) then
                     exit(true);
             end;
 
@@ -873,7 +876,7 @@ codeunit 50096 "Timetable Management"
                     exit(false);
             end else begin
                 // Try to schedule on this date
-                if TryScheduleExamOnDate(CourseOffering, CurrentDate, Semester, GroupCode, CoursesPerDay, IsMedical) then
+                if TryScheduleExamOnDate(CourseOffering, CurrentDate, Semester, GroupCode, CoursesPerDay, IsMedical, DocumentNo) then
                     exit(true);
             end;
 
@@ -890,7 +893,8 @@ codeunit 50096 "Timetable Management"
     ExamDate: Date;
     ExamTimeSlot: Record "Exam Time Slot";
     Semester: Record "ACA-Semesters";
-    GroupCode: Code[20]): Boolean
+    GroupCode: Code[20];
+    DocumentNo: Code[20]): Boolean
     var
         TotalStudents: Integer;
         RemainingStudents: Integer;
@@ -929,7 +933,7 @@ codeunit 50096 "Timetable Management"
             if AvailableCapacities[i] >= TotalStudents then begin
                 // Create exam entry for the entire class
                 CreateExamEntryWithGroup(CourseOffering, ExamDate, ExamTimeSlot,
-                    AvailableRooms[i]."Lecture Room Code", TotalStudents, Semester.Code, GroupCode);
+                    AvailableRooms[i]."Lecture Room Code", TotalStudents, Semester.Code, GroupCode, DocumentNo);
                 exit(true);
             end;
         end;
@@ -943,7 +947,7 @@ codeunit 50096 "Timetable Management"
 
                 // Create exam entry
                 CreateExamEntryWithGroup(CourseOffering, ExamDate, ExamTimeSlot,
-                    AvailableRooms[i]."Lecture Room Code", StudentsInRoom, Semester.Code, GroupCode);
+                    AvailableRooms[i]."Lecture Room Code", StudentsInRoom, Semester.Code, GroupCode, DocumentNo);
 
                 RemainingStudents -= StudentsInRoom;
                 ActuallyScheduledStudents += StudentsInRoom;
@@ -1171,7 +1175,8 @@ codeunit 50096 "Timetable Management"
                         AvailableRooms[i]."Lecture Room Code",
                         MinValue(StudentsToSchedule, AvailableCapacities[i]),
                         Semester.Code,
-                        GroupCode);
+                        GroupCode,
+                        '');
 
                     StudentsToSchedule -= MinValue(StudentsToSchedule, AvailableCapacities[i]);
                 end;
@@ -1237,7 +1242,8 @@ codeunit 50096 "Timetable Management"
         LectureHall: Code[20];
         StudentCount: Integer;
         SemesterCode: Code[25];
-        GroupCode: Code[20])
+        GroupCode: Code[20];
+        DocumentNo: Code[20])
     var
         ExamTimetableEntry: Record "Exam Timetable Entry";
     begin
@@ -1255,6 +1261,7 @@ codeunit 50096 "Timetable Management"
         ExamTimetableEntry."Student Count" := StudentCount;
         ExamTimetableEntry."Exam Type" := ExamTimetableEntry."Exam Type"::Regular;
         ExamTimetableEntry."Exam Group" := GroupCode; // You'll need to add this field
+        ExamTimetableEntry."Document No." := DocumentNo;
         ExamTimetableEntry.Insert(true);
     end;
 
@@ -1448,6 +1455,7 @@ codeunit 50096 "Timetable Management"
                         TimetableEntry."Programme Code" := CourseOffering.Programme;
                         TimetableEntry."Stage Code" := CourseOffering.Stage;
                         TimetableEntry.Type := TimetableEntry.Type::Class;
+                        // Note: Document No. will need to be added when GenerateTimetable is updated to use header
                         if TimetableEntry.Insert() then
                             exit(true);
                     end
@@ -1467,6 +1475,7 @@ codeunit 50096 "Timetable Management"
                             TimetableEntry."Programme Code" := CourseOffering.Programme;
                             TimetableEntry."Stage Code" := CourseOffering.Stage;
                             TimetableEntry.Type := TimetableEntry.Type::Class;
+                            // Note: Document No. will need to be added when GenerateTimetable is updated to use header
                             if TimetableEntry.Insert() then
                                 exit(true);
                         end else begin
@@ -4430,7 +4439,8 @@ codeunit 50096 "Timetable Management"
         Semester: Record "ACA-Semesters";
         GroupCode: Code[20];
         var CoursesPerDay: Dictionary of [Date, Integer];
-        IsMedical: Boolean): Boolean
+        IsMedical: Boolean;
+        DocumentNo: Code[20]): Boolean
     var
         AllTimeSlots: Record "Exam Time Slot" temporary;
         BestTimeSlot: Record "Exam Time Slot";
@@ -4452,7 +4462,8 @@ codeunit 50096 "Timetable Management"
                     ExamDate,
                     BestTimeSlot,
                     Semester,
-                    GroupCode) then begin
+                    GroupCode,
+                    DocumentNo) then begin
 
                     // Update courses per day counter
                     if not CoursesPerDay.ContainsKey(ExamDate) then
@@ -4479,7 +4490,8 @@ codeunit 50096 "Timetable Management"
                             ExamDate,
                             AllTimeSlots,
                             Semester,
-                            GroupCode) then begin
+                            GroupCode,
+                            DocumentNo) then begin
 
                             // Update courses per day counter
                             if not CoursesPerDay.ContainsKey(ExamDate) then

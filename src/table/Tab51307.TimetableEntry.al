@@ -85,6 +85,11 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Session Type';
         }
+        field(18; "Document No."; Code[20])
+        {
+            Caption = 'Document No.';
+            TableRelation = "Timetable Header"."Document No.";
+        }
     }
 
     keys
