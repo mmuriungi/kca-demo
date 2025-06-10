@@ -14,6 +14,11 @@ page 52087 "Timetable Header"
             {
                 Caption = 'General';
 
+                field("Document No."; Rec."Document No.")
+                {
+                    ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
+                    Importance = Promoted;
+                }
                 field("Academic Year"; Rec."Academic Year")
                 {
                     ToolTip = 'Specifies the value of the Academic Year field.', Comment = '%';
@@ -123,12 +128,12 @@ page 52087 "Timetable Header"
                 Visible = Rec."Type" <> Rec."Type"::Exam;
                 ApplicationArea = All;
                 Caption = 'Timetable Entry';
-                SubPageLink = Semester = field(Semester);
+                SubPageLink = Semester = field(Semester), "Document No." = field("Document No.");
             }
             part(examTimetableEntry; "Exam Timetable Entry")
             {
                 Visible = Rec."Type" = Rec."Type"::Exam;
-                SubPageLink = Semester = field(Semester), "Exam Type" = field("Exam Type");
+                SubPageLink = Semester = field(Semester), "Exam Type" = field("Exam Type"), "Document No." = field("Document No.");
                 ApplicationArea = All;
                 Caption = 'Exam Timetable Entry';
             }
@@ -192,6 +197,7 @@ page 52087 "Timetable Header"
                     TtCu: codeunit "Timetable Management";
                 begin
                     TtCu.GenerateExamTimetableByGroup(
+                        Rec,
                         Rec.Semester,
                         Rec."Start Date",
                         Rec."End Date",
@@ -306,6 +312,28 @@ page 52087 "Timetable Header"
                     TTEntry.SetRange("Exam Type", Rec."Exam Type");
                     if TTEntry.FindFirst() then
                         Report.Run(Report::"Exam Timetable Report", TRUE, FALSE, TTEntry);
+                end;
+            }
+            action("Examinations Timetable")
+            {
+                ApplicationArea = All;
+                Caption = 'Examinations Timetable';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = Report;
+                Visible = rec.Type = rec.Type::Exam;
+                trigger OnAction()
+                var
+                    TTEntry: Record "Exam Timetable Entry";
+                begin
+                    TTEntry.Reset();
+                    TTEntry.SetRange(Semester, Rec.Semester);
+                    TTEntry.SetRange("Exam Type", Rec."Exam Type");
+                    if Rec."Document No." <> '' then
+                        TTEntry.SetRange("Document No.", Rec."Document No.");
+                    if TTEntry.FindFirst() then
+                        Report.Run(Report::"Examinations Timetable", TRUE, FALSE, TTEntry);
                 end;
             }
             action("Exam Timetable Report")

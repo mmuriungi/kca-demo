@@ -133,6 +133,11 @@ table 50066 "Exam Timetable Entry"
             FieldClass = FlowField;
             CalcFormula = lookup("Exam Time Slot"."Session Type" where("Code" = field("Time Slot")));
         }
+        field(24; "Document No."; Code[20])
+        {
+            Caption = 'Document No.';
+            TableRelation = "Timetable Header"."Document No.";
+        }
     }
 
     keys
