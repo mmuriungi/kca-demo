@@ -56,6 +56,7 @@ page 51397 "FLT-Transport Req."
                 field(Destination; Rec.Destination)
                 {
                     ApplicationArea = All;
+                    MultiLine = true;
                     ToolTip = 'Specifies the value of the Destination field.';
                 }
                 field("Date of Trip"; Rec."Date of Trip")
@@ -63,15 +64,20 @@ page 51397 "FLT-Transport Req."
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Date of Trip field.';
                 }
+                field("Nature of Trip"; Rec."Nature of Trip")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Nature of Trip field.';
+                }
                 field("Time out"; Rec."Time out")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Time out field.';
                 }
-                field("Duration to be Away"; Rec."Duration to be Away")
+                field("Return Date"; Rec."Return Date")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Duration to be Away field.';
+                    ToolTip = 'Specifies the value of the Return Date field.';
                 }
                 field("Number of Passangers"; Rec."Number of Passangers")
                 {
@@ -81,12 +87,14 @@ page 51397 "FLT-Transport Req."
                 field("Vehicle Number "; Rec."Vehicle  Registartion Number")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the value of the Vehicle Allocated field.';
                 }
 
                 field("Vehicle seat Capacity"; Rec."Veh Capacity")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the value of the Vehicle Capacity field.';
                 }
 
@@ -150,7 +158,7 @@ page 51397 "FLT-Transport Req."
 
 
             }
-            group("PART THREE: REGISTRAR (VICE-CHANCELLOR'S OFFICE)")
+            group("PART THREE: REGISTRAR")
             {
                 Editable = group4;
                 field("Approved/Not Approved request"; Rec."Approved Request ?")
@@ -172,13 +180,13 @@ page 51397 "FLT-Transport Req."
                 {
                     Editable = false;
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the HOD UserName field.';
+                    ToolTip = 'Specifies the value of the Registrar Approval Date field.';
                 }
                 field("Registrar Approval Time"; rec."VC Approval Time")
                 {
                     Editable = false;
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the HOD UserName field.';
+                    ToolTip = 'Specifies the value of the Registrar Approval Time field.';
                 }
             }
             group("PART FOUR:ALLOCATION DETAILS BY TRANSPORT OFFICER ")
@@ -195,6 +203,27 @@ page 51397 "FLT-Transport Req."
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Vehicle Capacity field.';
                 }
+                field("Vehicle II"; Rec."Vehicle II")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Vehicle II field.', Comment = '%';
+                }
+                field("Vehicle II Capacity"; Rec."Vehicle II Capacity")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Vehicle II Capacity field.', Comment = '%';
+                }
+                field("Vehicle III"; Rec."Vehicle III")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Vehicle III field.', Comment = '%';
+                }
+                field("Vehicle III Capacity"; Rec."Vehicle III Capacity")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Vehicle III Capacity field.', Comment = '%';
+                }
+
                 field("Mileage Before Trip"; Rec."Mileage Before Trip")
                 {
                     ApplicationArea = All;
@@ -216,31 +245,72 @@ page 51397 "FLT-Transport Req."
                     Editable = false;
                     ApplicationArea = All;
                 }
+                field("Driver I DSA"; Rec."Driver I DSA")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver II"; Rec."Driver II")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver II Name"; Rec."Driver II Name")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver II Contact"; Rec."Driver II Contact")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver II DSA"; Rec."Driver II DSA")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver III"; Rec."Driver III")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver III Name"; Rec."Driver III Name")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver III Contact"; Rec."Driver III Contact")
+                {
+                    ApplicationArea = All;
+                }
+                field("Driver III DSA"; Rec."Driver III DSA")
+                {
+                    ApplicationArea = All;
+                }
                 field("Cost Per Kilometer"; Rec."Cost Per Kilometer")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the value of the Cost Per Kilometer field.';
                 }
 
                 field("Fuel Unit Cost"; Rec."Fuel Unit Cost")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the value of the Fuel Unit Cost field.';
                 }
                 field("Transport Available/Not Av."; Rec."Transport Availability.")
                 {
                     ApplicationArea = All;
+                    visible = false;
                     ToolTip = 'Specifies the value of the Transport Available/Not Av. field.';
                 }
                 field("Car Pool"; Rec."Car Pool")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
 
             }
             group("PART FOUR: ADMINISTRATION AND CENTRAL SERVICES")
             {
                 Editable = group4;
+                Visible = false;
                 field("Approved/Not Approved"; Rec."Approved Request ?")
                 {
                     ApplicationArea = All;
@@ -351,6 +421,7 @@ page 51397 "FLT-Transport Req."
             {
                 //Caption = 'Print/Preview';
                 Image = PrintReport;
+                Visible = false;
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
@@ -372,7 +443,7 @@ page 51397 "FLT-Transport Req."
                     transRe.Reset;
                     transRe.SetFilter(transRe."Transport Requisition No", Rec."Transport Requisition No");
                     if transRe.Find('-') then
-                        REPORT.Run(Report::"FTL- Transport Requests", true, true, transRe);
+                        REPORT.Run(Report::"Transport Request", true, true, transRe);
                 end;
             }
             action(Attachments2)

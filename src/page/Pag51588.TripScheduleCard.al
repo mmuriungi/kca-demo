@@ -11,7 +11,11 @@ page 51588 "Trip Schedule Card"
             group(General)
             {
                 Caption = 'General';
-
+                field("Vehicle Reg No"; Rec."Vehicle Reg No")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Vehicle Reg No field.', Comment = '%';
+                }
                 field("Driver Code "; Rec."Driver Code ")
                 {
                     ApplicationArea = All;
@@ -42,11 +46,7 @@ page 51588 "Trip Schedule Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Amount field.', Comment = '%';
                 }
-                field("Vehicle Reg No"; Rec."Vehicle Reg No")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Vehicle Reg No field.', Comment = '%';
-                }
+
             }
         }
     }

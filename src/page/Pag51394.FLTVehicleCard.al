@@ -25,6 +25,7 @@ page 51394 "FLT-Vehicle Card"
                 field("Registration No."; Rec."Registration No.")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field(Description; Rec.Description)
                 {
@@ -34,6 +35,7 @@ page 51394 "FLT-Vehicle Card"
                 field("Description 2"; Rec."Description 2")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
 
                 field("Driver Number"; Rec."Responsible Driver")
@@ -73,6 +75,7 @@ page 51394 "FLT-Vehicle Card"
                 field(Blocked; Rec.Blocked)
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field(Inactive; Rec.Inactive)
                 {
@@ -131,10 +134,12 @@ page 51394 "FLT-Vehicle Card"
                 field("Ignition Key Code"; Rec."Ignition Key Code")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field("Door Key Code"; Rec."Door Key Code")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
 
                 field("Tare Weight"; Rec."Tare Weight")
@@ -164,6 +169,7 @@ page 51394 "FLT-Vehicle Card"
 
             group(Posting)
             {
+                visible = false;
                 field("FA Class Code"; Rec."FA Class Code")
                 {
                     ApplicationArea = All;
@@ -186,10 +192,12 @@ page 51394 "FLT-Vehicle Card"
                 field("Inspection Start Date"; Rec."Inspection Start Date")
                 {
                     ApplicationArea = All;
+                    
                 }
                 field("Inspection End Date"; rec."Inspection End Date")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field("Insurance Start Date"; rec."Insurance Start Date")
                 {
@@ -198,6 +206,7 @@ page 51394 "FLT-Vehicle Card"
                 field("Insurance End Date"; rec."Insurance End Date")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field("Speed Governor Start Date"; rec."Speed Governor Start Date")
                 {
@@ -206,6 +215,7 @@ page 51394 "FLT-Vehicle Card"
                 field("Speed Governor End Date"; rec."Speed Governor End Date")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field("Road service Lic start Date"; rec."Road service Lic start Date")
                 {
@@ -214,6 +224,7 @@ page 51394 "FLT-Vehicle Card"
                 field("Road service Licence End Date"; rec."Road service Licence End Date")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
 
 
@@ -238,10 +249,12 @@ page 51394 "FLT-Vehicle Card"
                 field("Next Service Mileage"; rec."Next Service Mileage")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Service Interval"; Rec."Service Interval")
                 {
                     ApplicationArea = All;
+                    visible = false;
 
                 }
                 field("Service Interval Value"; Rec."Service Interval Value")
@@ -252,14 +265,17 @@ page 51394 "FLT-Vehicle Card"
                 field("Next Service Date"; Rec."Next Service Date")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field("Warranty Date"; Rec."Warranty Date")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field(Insured; Rec.Insured)
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field("Under Maintenance"; Rec."Under Maintenance")
                 {
@@ -269,6 +285,7 @@ page 51394 "FLT-Vehicle Card"
 
             group("Mileage/Hrs Worded Details")
             {
+                visible = false;
                 field("Readings Based On"; Rec."Readings Based On")
                 {
                     ApplicationArea = All;

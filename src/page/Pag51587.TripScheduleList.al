@@ -11,15 +11,10 @@ page 51587 "Trip Schedule List"
         {
             repeater(General)
             {
-                field("Driver Code "; Rec."Driver Code ")
+                field("Vehicle Reg No";Rec."Vehicle Reg No")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Driver Code field.', Comment = '%';
-                }
-                field("Driver Name"; Rec."Driver Name")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Driver Name field.', Comment = '%';
+                    ToolTip = 'Specifies the value of the Vehicle Reg No field.', Comment = '%';
                 }
                 field("Date"; Rec."Date")
                 {
@@ -40,11 +35,6 @@ page 51587 "Trip Schedule List"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Amount field.', Comment = '%';
-                }
-                field("Vehicle Reg No"; Rec."Vehicle Reg No")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Vehicle Reg No field.', Comment = '%';
                 }
             }
         }

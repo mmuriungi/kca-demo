@@ -27,7 +27,7 @@ table 50950 "FLT-Driver"
         }
         field(3; "Driver License Number"; Code[20])
         {
-            Editable = false;
+            Editable = true;
         }
         field(4; "Last License Renewal"; Date)
         {

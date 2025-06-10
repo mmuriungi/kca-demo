@@ -144,6 +144,7 @@ table 50968 "FLT-Vehicle Header"
         {
             Caption = 'Responsible Driver';
             TableRelation = "FLT-Driver".Driver;
+            Editable = false;
 
             trigger OnValidate()
 
@@ -205,10 +206,15 @@ table 50968 "FLT-Vehicle Header"
         {
             Caption = 'Maintenance Vendor No.';
             TableRelation = Vendor;
+            FieldClass = FlowField;
+            CalcFormula = lookup("FLT Maintenance Request."."Vendor(Dealer)" WHERE("Vehicle Reg No" = FIELD("No."),status=const(Approved)));
         }
         field(24; "Under Maintenance"; Boolean)
         {
             Caption = 'Under Maintenance';
+            FieldClass = FlowField;
+            CalcFormula = Exist("FLT Maintenance Request." WHERE("Vehicle Reg No" = FIELD("No."),status=const(Approved)));
+
         }
         field(25; "Next Service Date"; Date)
         {
@@ -234,8 +240,10 @@ table 50968 "FLT-Vehicle Header"
             Caption = 'FA Posting Group';
             TableRelation = "FA Posting Group";
         }
-        field(39006075; "Last serviced mileage"; Date)
+        field(39006075; "Last serviced mileage"; Decimal)
         {
+            FieldClass = FlowField;
+            CalcFormula = lookup("FLT Maintenance Request."."Odometer Reading" WHERE("Vehicle Reg No" = FIELD("No."),status=const(Approved)));
         }
         field(39006076; "Service Interval"; Option)
         {
@@ -360,14 +368,17 @@ table 50968 "FLT-Vehicle Header"
         field(39554; "Insurance Start Date"; Date)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Insurance Due Date';
         }
         field(39555; "Insurance End Date"; Date)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Insurance End Date';
         }
         field(39557; "Inspection Start Date"; Date)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Inspection Due Date';
         }
         field(39558; "Inspection End Date"; Date)
         {
@@ -376,6 +387,7 @@ table 50968 "FLT-Vehicle Header"
         field(39559; "Speed Governor Start Date"; Date)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Speed Governor Due Date';
         }
         field(39560; "Speed Governor End Date"; Date)
         {
@@ -384,6 +396,7 @@ table 50968 "FLT-Vehicle Header"
         field(39561; "Road service Lic start Date"; Date)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Road Service Due Date';
         }
         field(39563; "Road service Licence End Date"; Date)
         {
