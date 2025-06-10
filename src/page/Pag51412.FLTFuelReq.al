@@ -49,10 +49,12 @@ page 51412 "FLT-Fuel Req."
                 field("Date Taken for Fueling"; Rec."Date Taken for Fueling")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field("Time Fuel Is Required"; rec."Time Fuel Is Required")
                 {
                     ApplicationArea = all;
+                    visible = false;
                 }
                 field(Status; Rec.Status)
                 {
@@ -70,6 +72,7 @@ page 51412 "FLT-Fuel Req."
                 field("Date Closed"; Rec."Date Closed")
                 {
                     ApplicationArea = All;
+                    visible = false;
                 }
                 field("Vendor Invoice No"; Rec."Vendor Invoice No")
                 {
@@ -83,7 +86,8 @@ page 51412 "FLT-Fuel Req."
                 }
                 field(Purpose; rec.Description)
                 {
-                    Caption = 'purpose';
+                    Caption = 'Description';
+                    multiline = true;
                     ApplicationArea = All;
                 }
                 field(Department; Rec.Department)
@@ -106,9 +110,10 @@ page 51412 "FLT-Fuel Req."
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Type; Rec.Type)
+                field("Type of Fuel Requisition";Rec."Type of Fuel Requisition")
                 {
                     ApplicationArea = All;
+                    Caption = 'Type';
                 }
                 field("Type of Maintenance"; Rec."Type of Maintenance")
                 {

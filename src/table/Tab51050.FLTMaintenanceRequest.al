@@ -7,14 +7,12 @@ table 51050 "FLT Maintenance Request."
         }
         field(2; "Vehicle Reg No"; Code[20])
         {
-            TableRelation = "FLT-Vehicle Header"."Registration No.";
+            TableRelation = "FLT-Vehicle Header"."No.";
 
             trigger OnValidate()
             begin
-                WshpFA.Reset;
-                WshpFA.SetRange(WshpFA."Registration No.", "Vehicle Reg No");
-                if WshpFA.Find('-') then
-                    "Fixed Asset No" := WshpFA."No.";
+               
+                    "Fixed Asset No" := "Vehicle Reg No";
             end;
         }
         field(3; "Vendor(Dealer)"; Code[20])

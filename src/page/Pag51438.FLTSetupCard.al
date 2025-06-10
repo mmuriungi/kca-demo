@@ -34,6 +34,11 @@ page 51438 "FLT-Setup Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Fuel Expense Account"; Rec."Fuel Expense Account")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the G/L Account to use for fuel expenses when creating purchase invoices from fuel payment batches.';
+                }
             }
         }
     }

@@ -89,12 +89,21 @@ page 51437 "FLT-Role Center"
                     ApplicationArea = All;
                     RunObject = Page "FLT-Vehicle Card List";
                 }
-                action("Driver Card")
+                action("Active Drivers")
                 {
-                    Caption = 'Driver Card';
+                    Caption = 'Active Drivers';
                     Image = History;
                     ApplicationArea = All;
                     RunObject = Page "FLT-Driver List";
+                    RunPageView = where(Active = const(true));
+                }
+                action("Inactive Drivers")
+                {
+                    Caption = 'Inactive Drivers';
+                    Image = History;
+                    ApplicationArea = All;
+                    RunObject = Page "FLT-Driver List";
+                    RunPageView = where(Active = const(false));
                 }
             }
             group(Transport_re)
@@ -127,6 +136,7 @@ page 51437 "FLT-Role Center"
                 }
                 action(Places)
                 {
+                    Visible = false;
                     Caption = 'Transport Places';
                     RunObject = page "FLT-Transport Places";
                     ApplicationArea = All;
@@ -136,6 +146,7 @@ page 51437 "FLT-Role Center"
             {
                 Caption = 'Travel Notices';
                 Image = ResourcePlanning;
+                Visible = false;
                 action(Travel_Notices)
                 {
                     Caption = 'Travel Notice';
@@ -167,6 +178,7 @@ page 51437 "FLT-Role Center"
                     Caption = 'Repair and Maintance Schedule';
                     Image = History;
                     ApplicationArea = All;
+                    Visible = false;
                     RunObject = Page "Repair Maint Schedule list";
                 }
 

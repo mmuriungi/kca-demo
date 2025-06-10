@@ -88,9 +88,10 @@ page 51413 "FLT-Fuel Req. List"
                 {
                     ApplicationArea = All;
                 }
-                field(Type; Rec.Type)
+                field("Type of Fuel Requisition"; Rec."Type of Fuel Requisition")
                 {
                     ApplicationArea = All;
+                    Caption = 'Type';
                 }
                 field("Type of Maintenance"; Rec."Type of Maintenance")
                 {

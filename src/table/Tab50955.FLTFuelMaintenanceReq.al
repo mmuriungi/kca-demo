@@ -7,6 +7,7 @@ table 50955 "FLT-Fuel & Maintenance Req."
     {
         field(1; "Requisition No"; Code[20])
         {
+            Editable = false;
         }
         field(2; "Vehicle Reg No"; Code[20])
         {
@@ -61,6 +62,7 @@ table 50955 "FLT-Fuel & Maintenance Req."
         }
         field(10; "Prepared By"; Code[20])
         {
+            Editable = false;
         }
         field(11; "Closed By"; Code[20])
         {
@@ -207,6 +209,11 @@ table 50955 "FLT-Fuel & Maintenance Req."
         field(41; "Time Fuel Is Required"; Time)
         {
             DataClassification = ToBeClassified;
+        }
+        //Type of Fuel Requisition
+        field(42; "Type of Fuel Requisition"; Option)
+        {
+            OptionMembers = " ",Imprest,Invoice,Card;
         }
 
 
