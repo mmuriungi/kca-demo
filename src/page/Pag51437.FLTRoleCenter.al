@@ -168,7 +168,7 @@ page 51437 "FLT-Role Center"
                 Caption = 'Transport Schedule';
                 action("Trip Schedule")
                 {
-                    Caption = 'Drivers Trip Schedule';
+                    Caption = 'Vehicle Trip Schedule';
                     Image = History;
                     ApplicationArea = All;
                     RunObject = Page "Trip Schedule List";

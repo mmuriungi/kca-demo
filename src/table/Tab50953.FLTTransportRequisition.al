@@ -61,7 +61,7 @@ table 50953 "FLT-Transport Requisition"
         }
         field(5; "Driver Allocated"; Code[20])
         {
-
+            Caption = 'Driver I Allocated';
             TableRelation = "FLT-Driver".Driver where(Active = const(false));
 
             trigger OnValidate()
@@ -109,6 +109,7 @@ table 50953 "FLT-Transport Requisition"
         field(56; DriverContact; Code[50])
         {
             DataClassification = ToBeClassified;
+            Caption = 'Driver I Contact';
         }
         field(8; "Vehicle Allocated by"; Code[20])
         {
@@ -181,6 +182,7 @@ table 50953 "FLT-Transport Requisition"
         }
         field(63; "Driver Name"; Text[100])
         {
+            Caption = 'Driver I Name';
         }
         field(64; "Responsibility Center"; Code[10])
         {
@@ -714,6 +716,19 @@ table 50953 "FLT-Transport Requisition"
 
         }
         field(50069; "Driver III DSA"; Decimal)
+        {
+
+        }
+        //Vehicle Fuel Cost
+        field(50070; "Vehicle I Fuel Cost"; Decimal)
+        {
+
+        }
+        field(50071; "Vehicle II Fuel Cost"; Decimal)
+        {
+
+        }
+        field(50072; "Vehicle III Fuel Cost"; Decimal)
         {
 
         }
