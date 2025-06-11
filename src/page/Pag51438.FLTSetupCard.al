@@ -39,6 +39,16 @@ page 51438 "FLT-Setup Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the G/L Account to use for fuel expenses when creating purchase invoices from fuel payment batches.';
                 }
+                field("Mileage Claim Nos."; Rec."Mileage Claim Nos.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Mileage Claim Nos. field.', Comment = '%';
+                }
+                field("Asset Incident Nos"; Rec."Asset Incident Nos")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Asset Incident Nos field.', Comment = '%';
+                }
             }
         }
     }
