@@ -321,6 +321,12 @@ page 51397 "FLT-Transport Req."
                     ApplicationArea = All;
                     visible = false;
                 }
+                field("Transport Officer Comments"; Rec."Transport Officer Comments")
+                {
+                    ApplicationArea = All;
+                    visible = true;
+                    MultiLine = true;
+                }
 
             }
             group("PART FOUR: ADMINISTRATION AND CENTRAL SERVICES")

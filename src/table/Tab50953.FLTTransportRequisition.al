@@ -69,6 +69,7 @@ table 50953 "FLT-Transport Requisition"
             var
                 FLT: record "FLT-Driver";
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
                 IF FLT.GET("Driver Name") THEN begin
                     "Driver Name" := (FLT."Driver Name");
@@ -241,6 +242,7 @@ table 50953 "FLT-Transport Requisition"
             OptionMembers = ,Yes,No;
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId() <> HOD then Error('You are not authorised to modify this Request');
                 "HOD Approved Date" := WorkDate();
                 "HoD  Approval Time" := Time;
@@ -250,6 +252,7 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId() <> HOD then Error('You are not authorised to modify this Request');
             end;
         }
@@ -271,6 +274,7 @@ table 50953 "FLT-Transport Requisition"
             var
                 usr: Record Users;
             begin
+                PopulateApprovers();
                 if UserId <> Registrar then Error('You are not authorised to modify this Request');
                 usr.Reset();
                 usr.SetRange("User Name", Registrar);
@@ -557,6 +561,7 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
@@ -564,6 +569,7 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
                 "Total Mileage Travelled" := rec."Mileage Before Trip" + rec."Milleage after Trip";
                 rec.Modify();
@@ -574,6 +580,7 @@ table 50953 "FLT-Transport Requisition"
             Editable = false;
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
 
             end;
@@ -582,6 +589,7 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
@@ -589,6 +597,7 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
@@ -597,6 +606,7 @@ table 50953 "FLT-Transport Requisition"
             Caption = 'Vehicle I Capacity';
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
@@ -613,6 +623,7 @@ table 50953 "FLT-Transport Requisition"
             OptionMembers = " ",Available,"Not Available";
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
@@ -631,6 +642,7 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
+                PopulateApprovers();
                 if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
 
@@ -733,6 +745,11 @@ table 50953 "FLT-Transport Requisition"
         {
 
         }
+        //Transport officer comments
+        field(50073; "Transport Officer Comments"; Text[2048])
+        {
+
+        }
 
     }
 
@@ -825,6 +842,8 @@ table 50953 "FLT-Transport Requisition"
         ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", 1);
         if ApprovalEntry.FindLast() then begin
             HOD := ApprovalEntry."Approver ID";
+            Registrar := ApprovalEntry."Approver ID";
+            Transofficer := ApprovalEntry."Approver ID";
         end;
         ApprovalEntry.Reset;
         ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Transport Requisition");
@@ -832,6 +851,7 @@ table 50953 "FLT-Transport Requisition"
         ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", 2);
         if ApprovalEntry.FindLast() then begin
             Registrar := ApprovalEntry."Approver ID";
+            Transofficer := ApprovalEntry."Approver ID";
         end;
         ApprovalEntry.Reset;
         ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Transport Requisition");
