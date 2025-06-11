@@ -12308,6 +12308,19 @@ Codeunit 61106 webportals
     end;
     #EndRegion
 
+    procedure CancelTransportRequisition(transportReqNo: Code[20]) msg: Boolean
+    var
+        TransReq: Record "FLT-Transport Requisition";
+        Approv: Codeunit "Init Codeunit";
+    begin
+        TransReq.Reset;
+        transReq.SetRange("Transport Requisition No", transportReqNo);
+        if TransReq.Find('-') then begin    
+            Approv.OnCancelTransportReqForApproval(TransReq);
+            msg := true;
+        end;
+    end;
+
 }
 
 
