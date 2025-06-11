@@ -23,7 +23,7 @@ table 50968 "FLT-Vehicle Header"
 
             end;
         }
-        field(31; "Registration No."; Code[10])
+        field(31; "Registration No."; Code[20])
         {
             NotBlank = False;
         }
@@ -54,12 +54,12 @@ table 50968 "FLT-Vehicle Header"
         {
             Caption = 'Description 2';
         }
-        field(5; "FA Class Code"; Code[10])
+        field(5; "FA Class Code"; Code[20])
         {
             Caption = 'FA Class Code';
             TableRelation = "FA Class";
         }
-        field(6; "FA Subclass Code"; Code[10])
+        field(6; "FA Subclass Code"; Code[20])
         {
             Caption = 'FA Subclass Code';
             TableRelation = "FA Subclass";
@@ -96,12 +96,12 @@ table 50968 "FLT-Vehicle Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(9; "Location Code"; Code[10])
+        field(9; "Location Code"; Code[20])
         {
             Caption = 'Location Code';
             TableRelation = Location WHERE("Use As In-Transit" = CONST(false));
         }
-        field(10; "FA Location Code"; Code[10])
+        field(10; "FA Location Code"; Code[20])
         {
             Caption = 'FA Location Code';
             TableRelation = "FA Location";
@@ -229,13 +229,13 @@ table 50968 "FLT-Vehicle Header"
             Caption = 'FA Posting Date Filter';
             FieldClass = FlowFilter;
         }
-        field(28; "No. Series"; Code[10])
+        field(28; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
             Editable = false;
             TableRelation = "No. Series";
         }
-        field(29; "FA Posting Group"; Code[10])
+        field(29; "FA Posting Group"; Code[20])
         {
             Caption = 'FA Posting Group';
             TableRelation = "FA Posting Group";
@@ -252,25 +252,25 @@ table 50968 "FLT-Vehicle Header"
         field(39006077; "Service Interval Value"; Integer)
         {
         }
-        field(39006078; "Last Service No."; Code[10])
+        field(39006078; "Last Service No."; Code[20])
         {
         }
         field(39006079; Type; Option)
         {
             OptionMembers = " ",Vehicle,Machinery;
         }
-        field(39006080; Make; Code[10])
+        field(39006080; Make; Code[20])
         {
             TableRelation = "FLT-Make".Code;
         }
-        field(39006081; Model; Code[10])
+        field(39006081; Model; Code[20])
         {
             TableRelation = "FLT-Flt Model".Code;
         }
         field(39006082; "Year Of Manufacture"; Integer)
         {
         }
-        field(39006083; "Country Of Origin"; Code[10])
+        field(39006083; "Country Of Origin"; Code[20])
         {
             TableRelation = "Country/Region";
         }
@@ -290,16 +290,16 @@ table 50968 "FLT-Vehicle Header"
         field(39006088; "Horse Power"; Integer)
         {
         }
-        field(39006089; "Ignition Key Code"; Code[10])
+        field(39006089; "Ignition Key Code"; Code[20])
         {
         }
-        field(39006090; "Door Key Code"; Code[10])
+        field(39006090; "Door Key Code"; Code[20])
         {
         }
-        field(39006091; "Body Color"; Code[10])
+        field(39006091; "Body Color"; Code[20])
         {
         }
-        field(39006092; "Interior Color"; Code[10])
+        field(39006092; "Interior Color"; Code[20])
         {
         }
         field(39006093; Cylinders; Integer)
