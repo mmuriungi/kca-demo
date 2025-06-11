@@ -232,17 +232,17 @@ page 52121 "FLT-Mileage Claim Card"
         }
     }
 
-    trigger OnAfterGetCurrRecord()
+    trigger OnAfterGetRecord()
     begin
         SetControlVisibility();
         SetControlEditable();
     end;
 
-    trigger OnOpenPage()
-    begin
-        SetControlVisibility();
-        SetControlEditable();
-    end;
+    // trigger OnOpenPage()
+    // begin
+    //     SetControlVisibility();
+    //     SetControlEditable();
+    // end;
 
     var
         TransportOfficerVisible: Boolean;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,64 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Date_">
-          <DataField>Date_</DataField>
-        </Field>
-        <Field Name="EmployeeNo_">
-          <DataField>EmployeeNo_</DataField>
-        </Field>
-        <Field Name="EmployeeName">
-          <DataField>EmployeeName</DataField>
-        </Field>
-        <Field Name="DepartmentCode">
-          <DataField>DepartmentCode</DataField>
-        </Field>
-        <Field Name="Designation">
-          <DataField>Designation</DataField>
-        </Field>
-        <Field Name="TotalEstimatedMileage">
-          <DataField>TotalEstimatedMileage</DataField>
-        </Field>
-        <Field Name="TotalEstimatedCost">
-          <DataField>TotalEstimatedCost</DataField>
-        </Field>
-        <Field Name="ApprovedRatePerKm">
-          <DataField>ApprovedRatePerKm</DataField>
-        </Field>
-        <Field Name="TransportOfficer">
-          <DataField>TransportOfficer</DataField>
-        </Field>
-        <Field Name="TransportOfficerDate">
-          <DataField>TransportOfficerDate</DataField>
-        </Field>
-        <Field Name="ApproverName">
-          <DataField>ApproverName</DataField>
-        </Field>
-        <Field Name="ApprovedDate">
-          <DataField>ApprovedDate</DataField>
-        </Field>
-        <Field Name="Remarks">
-          <DataField>Remarks</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="ReportTitle">
-          <DataField>ReportTitle</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -104,7 +46,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Instructions -->
           <Textbox Name="Instructions">
             <CanGrow>true</CanGrow>
@@ -127,7 +68,6 @@
             <Height>0.5in</Height>
             <Width>7in</Width>
           </Textbox>
-
           <!-- Part One Header -->
           <Textbox Name="PartOneHeader">
             <Paragraphs>
@@ -157,7 +97,6 @@
               <PaddingLeft>5pt</PaddingLeft>
             </Style>
           </Textbox>
-
           <!-- Document Number -->
           <Textbox Name="DocumentNoLabel">
             <Paragraphs>
@@ -206,7 +145,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Date -->
           <Textbox Name="DateLabel">
             <Paragraphs>
@@ -255,7 +193,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Department/School -->
           <Textbox Name="DeptLabel">
             <Paragraphs>
@@ -304,7 +241,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Name of Claiming Officer -->
           <Textbox Name="NameLabel">
             <Paragraphs>
@@ -353,7 +289,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Designation -->
           <Textbox Name="DesignationLabel">
             <Paragraphs>
@@ -402,7 +337,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Total Estimated Mileage -->
           <Textbox Name="MileageLabel">
             <Paragraphs>
@@ -451,7 +385,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Part Two Header -->
           <Textbox Name="PartTwoHeader">
             <Paragraphs>
@@ -481,7 +414,6 @@
               <PaddingLeft>5pt</PaddingLeft>
             </Style>
           </Textbox>
-
           <!-- Approved Rate Per Km -->
           <Textbox Name="RateLabel">
             <Paragraphs>
@@ -530,7 +462,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Total Cost -->
           <Textbox Name="TotalCostLabel">
             <Paragraphs>
@@ -579,7 +510,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Transport Officer Signature -->
           <Textbox Name="TOSignatureLabel">
             <Paragraphs>
@@ -628,7 +558,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Transport Officer Date -->
           <Textbox Name="TODateLabel">
             <Paragraphs>
@@ -677,7 +606,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Part Three Header -->
           <Textbox Name="PartThreeHeader">
             <Paragraphs>
@@ -707,7 +635,6 @@
               <PaddingLeft>5pt</PaddingLeft>
             </Style>
           </Textbox>
-
           <!-- Approver Name -->
           <Textbox Name="ApproverLabel">
             <Paragraphs>
@@ -756,7 +683,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Approved Date -->
           <Textbox Name="ApprovedDateLabel">
             <Paragraphs>
@@ -805,7 +731,6 @@
               </Border>
             </Style>
           </Textbox>
-
           <!-- Remarks -->
           <Textbox Name="RemarksLabel">
             <Paragraphs>
@@ -917,4 +842,188 @@
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>a0123456-7890-1234-5678-9abcdef01234</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Date_">
+          <DataField>Date_</DataField>
+        </Field>
+        <Field Name="EmployeeNo_">
+          <DataField>EmployeeNo_</DataField>
+        </Field>
+        <Field Name="EmployeeName">
+          <DataField>EmployeeName</DataField>
+        </Field>
+        <Field Name="DepartmentCode">
+          <DataField>DepartmentCode</DataField>
+        </Field>
+        <Field Name="Designation">
+          <DataField>Designation</DataField>
+        </Field>
+        <Field Name="PhoneNumber">
+          <DataField>PhoneNumber</DataField>
+        </Field>
+        <Field Name="TotalEstimatedMileage">
+          <DataField>TotalEstimatedMileage</DataField>
+        </Field>
+        <Field Name="TotalEstimatedMileageFormat">
+          <DataField>TotalEstimatedMileageFormat</DataField>
+        </Field>
+        <Field Name="TotalEstimatedCost">
+          <DataField>TotalEstimatedCost</DataField>
+        </Field>
+        <Field Name="TotalEstimatedCostFormat">
+          <DataField>TotalEstimatedCostFormat</DataField>
+        </Field>
+        <Field Name="ApprovedRatePerKm">
+          <DataField>ApprovedRatePerKm</DataField>
+        </Field>
+        <Field Name="ApprovedRatePerKmFormat">
+          <DataField>ApprovedRatePerKmFormat</DataField>
+        </Field>
+        <Field Name="TransportOfficer">
+          <DataField>TransportOfficer</DataField>
+        </Field>
+        <Field Name="TransportOfficerDate">
+          <DataField>TransportOfficerDate</DataField>
+        </Field>
+        <Field Name="ApproverName">
+          <DataField>ApproverName</DataField>
+        </Field>
+        <Field Name="ApprovedDate">
+          <DataField>ApprovedDate</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="ApprovalStage">
+          <DataField>ApprovalStage</DataField>
+        </Field>
+        <Field Name="RequestedBy">
+          <DataField>RequestedBy</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="CompanyAddress">
+          <DataField>CompanyAddress</DataField>
+        </Field>
+        <Field Name="CompanyCity">
+          <DataField>CompanyCity</DataField>
+        </Field>
+        <Field Name="CompanyPhoneNo">
+          <DataField>CompanyPhoneNo</DataField>
+        </Field>
+        <Field Name="CompanyPicture">
+          <DataField>CompanyPicture</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="LineNo_">
+          <DataField>LineNo_</DataField>
+        </Field>
+        <Field Name="TravelDate">
+          <DataField>TravelDate</DataField>
+        </Field>
+        <Field Name="VehicleRegistrationNo_">
+          <DataField>VehicleRegistrationNo_</DataField>
+        </Field>
+        <Field Name="VehicleMake">
+          <DataField>VehicleMake</DataField>
+        </Field>
+        <Field Name="VehicleModel">
+          <DataField>VehicleModel</DataField>
+        </Field>
+        <Field Name="EngineCapacity">
+          <DataField>EngineCapacity</DataField>
+        </Field>
+        <Field Name="StartingPoint">
+          <DataField>StartingPoint</DataField>
+        </Field>
+        <Field Name="Destination">
+          <DataField>Destination</DataField>
+        </Field>
+        <Field Name="PurposeofTrip">
+          <DataField>PurposeofTrip</DataField>
+        </Field>
+        <Field Name="NumberofPassengers">
+          <DataField>NumberofPassengers</DataField>
+        </Field>
+        <Field Name="DistanceKM_">
+          <DataField>DistanceKM_</DataField>
+        </Field>
+        <Field Name="DistanceKM_Format">
+          <DataField>DistanceKM_Format</DataField>
+        </Field>
+        <Field Name="RatePerKM">
+          <DataField>RatePerKM</DataField>
+        </Field>
+        <Field Name="RatePerKMFormat">
+          <DataField>RatePerKMFormat</DataField>
+        </Field>
+        <Field Name="TotalCost">
+          <DataField>TotalCost</DataField>
+        </Field>
+        <Field Name="TotalCostFormat">
+          <DataField>TotalCostFormat</DataField>
+        </Field>
+        <Field Name="DepartureTime">
+          <DataField>DepartureTime</DataField>
+        </Field>
+        <Field Name="ReturnDate">
+          <DataField>ReturnDate</DataField>
+        </Field>
+        <Field Name="ReturnTime">
+          <DataField>ReturnTime</DataField>
+        </Field>
+        <Field Name="StartingOdometerReading">
+          <DataField>StartingOdometerReading</DataField>
+        </Field>
+        <Field Name="StartingOdometerReadingFormat">
+          <DataField>StartingOdometerReadingFormat</DataField>
+        </Field>
+        <Field Name="EndingOdometerReading">
+          <DataField>EndingOdometerReading</DataField>
+        </Field>
+        <Field Name="EndingOdometerReadingFormat">
+          <DataField>EndingOdometerReadingFormat</DataField>
+        </Field>
+        <Field Name="ActualDistanceKM_">
+          <DataField>ActualDistanceKM_</DataField>
+        </Field>
+        <Field Name="ActualDistanceKM_Format">
+          <DataField>ActualDistanceKM_Format</DataField>
+        </Field>
+        <Field Name="ActualTotalCost">
+          <DataField>ActualTotalCost</DataField>
+        </Field>
+        <Field Name="ActualTotalCostFormat">
+          <DataField>ActualTotalCostFormat</DataField>
+        </Field>
+        <Field Name="FuelReceiptsAttached">
+          <DataField>FuelReceiptsAttached</DataField>
+        </Field>
+        <Field Name="MaintenanceReceiptsAttached">
+          <DataField>MaintenanceReceiptsAttached</DataField>
+        </Field>
+        <Field Name="TransportOfficerRemarks">
+          <DataField>TransportOfficerRemarks</DataField>
+        </Field>
+        <Field Name="LineStatus">
+          <DataField>LineStatus</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

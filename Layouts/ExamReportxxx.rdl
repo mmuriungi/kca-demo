@@ -1,13 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>d5f8e9b0-4c3a-2b1e-8d7c-6f5e4a3b2c1a</rd:ReportID>
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>PBIRB</am:Name>
+      <am:Version>15.7.1813.16</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>PBIRB</am:Name>
+      <am:Version>15.7.1813.16</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2025-06-11T10:34:46.4984218Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
+      <rd:SecurityType>None</rd:SecurityType>
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
         <ConnectString />
       </ConnectionProperties>
-      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>1d3a5e89-8b5d-4e21-8a7f-3c2b4d5e6f7a</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -55,7 +68,6 @@
                                 <TextRun>
                                   <Value>=First(Fields!CompanyName.Value, "DataSet_Result")</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>16pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -102,7 +114,6 @@
                                 <TextRun>
                                   <Value>=First(Fields!ReportTitle.Value, "DataSet_Result")</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>14pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -145,7 +156,6 @@
                                 <TextRun>
                                   <Value>=First(Fields!SemesterName.Value, "DataSet_Result") &amp; " " &amp; First(Fields!AcademicYear.Value, "DataSet_Result") &amp; " EXAMINATION TIMETABLE"</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -188,7 +198,6 @@
                                 <TextRun>
                                   <Value>="DATE: " &amp; First(Fields!ExamPeriod.Value, "DataSet_Result")</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -230,7 +239,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value></Value>
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -239,9 +248,7 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
                           </Style>
                         </Textbox>
@@ -258,8 +265,6 @@
                                 <TextRun>
                                   <Value>MORNING (9.00 A.M. - 11.00 A.M.)</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
                                   </Style>
@@ -272,11 +277,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
@@ -294,8 +297,6 @@
                                 <TextRun>
                                   <Value>MID-DAY (12.00 P.M.-2.00 P.M.)</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
                                   </Style>
@@ -308,11 +309,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
@@ -330,8 +329,6 @@
                                 <TextRun>
                                   <Value>AFTERNOON ((3.00 P.M.-5.00 P.M.)</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>10pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
                                   </Style>
@@ -344,11 +341,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
@@ -371,7 +366,6 @@
                                 <TextRun>
                                   <Value>DAY &amp; DATE</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -385,11 +379,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -405,7 +397,6 @@
                                 <TextRun>
                                   <Value>COURSE CODE AND TITLE</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -419,11 +410,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -439,7 +428,6 @@
                                 <TextRun>
                                   <Value>NO. of VENUE INVIGILATORS</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -453,11 +441,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -473,7 +459,6 @@
                                 <TextRun>
                                   <Value>COURSE CODE AND TITLE</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -487,11 +472,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -507,7 +490,6 @@
                                 <TextRun>
                                   <Value>NO. VENUE INVIGILATORS</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -521,11 +503,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -541,7 +521,6 @@
                                 <TextRun>
                                   <Value>COURSE CODE AND TITLE</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -555,11 +534,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -575,7 +552,6 @@
                                 <TextRun>
                                   <Value>NO. VENUE INVIGILATORS</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
@@ -589,11 +565,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightGray</BackgroundColor>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -614,7 +588,6 @@
                                 <TextRun>
                                   <Value>=Fields!DayOfWeek.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -629,7 +602,6 @@
                                 <TextRun>
                                   <Value>=Fields!ExamDate.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -641,9 +613,7 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -665,7 +635,6 @@
                                 <TextRun>
                                   <Value>=Replace(Fields!MorningExams.Value, Chr(13) &amp; Chr(10), vbCrLf)</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -677,9 +646,7 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
                             <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -703,7 +670,6 @@
                                 <TextRun>
                                   <Value>=Replace(Fields!MiddayExams.Value, Chr(13) &amp; Chr(10), vbCrLf)</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -715,9 +681,7 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
                             <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -741,7 +705,6 @@
                                 <TextRun>
                                   <Value>=Replace(Fields!AfternoonExams.Value, Chr(13) &amp; Chr(10), vbCrLf)</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -753,9 +716,7 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
                             <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -811,7 +772,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!ExamDate.Value</Value>
+                      <Value>=Fields!Date.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
@@ -826,8 +787,8 @@
             </PageBreak>
             <Top>0.5in</Top>
             <Left>0.25in</Left>
-            <Height>3.5in</Height>
-            <Width>20.8in</Width>
+            <Height>2.65in</Height>
+            <Width>20.7in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -841,7 +802,7 @@
       <Width>21.3in</Width>
       <Page>
         <PageHeight>11.69in</PageHeight>
-        <PageWidth>16.54in</PageWidth>
+        <PageWidth>24in</PageWidth>
         <InteractiveHeight>11.69in</InteractiveHeight>
         <InteractiveWidth>16.54in</InteractiveWidth>
         <LeftMargin>0.5in</LeftMargin>
@@ -889,8 +850,6 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>d5f8e9b0-4c3a-2b1e-8d7c-6f5e4a3b2c1a</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
