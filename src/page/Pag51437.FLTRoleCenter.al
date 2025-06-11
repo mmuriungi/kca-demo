@@ -322,14 +322,6 @@ page 51437 "FLT-Role Center"
             {
                 Caption = 'Mileage Claims';
                 Image = Travel;
-                action("New Mileage Claim")
-                {
-                    Caption = 'New Mileage Claim';
-                    Image = NewDocument;
-                    RunObject = Page "FLT-Mileage Claim Card";
-                    RunPageMode = Create;
-                    ApplicationArea = All;
-                }
                 action("Mileage Claims List")
                 {
                     Caption = 'Mileage Claims';
@@ -343,14 +335,6 @@ page 51437 "FLT-Role Center"
                     Image = Approval;
                     RunObject = Page "FLT-Mileage Claim List";
                     RunPageView = where(Status = filter("Pending Approval"));
-                    ApplicationArea = All;
-                }
-                action("My Mileage Claims")
-                {
-                    Caption = 'My Mileage Claims';
-                    Image = PersonInCharge;
-                    RunObject = Page "FLT-Mileage Claim List";
-                    // RunPageView = where("Requested By" = filter('@*' + UserId + '*'));
                     ApplicationArea = All;
                 }
             }

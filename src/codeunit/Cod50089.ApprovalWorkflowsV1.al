@@ -114,6 +114,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelItemTransferRequestTxt: Label 'An Approval request for Item Transfer is Cancelled';
         RunWorkflowOnSendItemTransferForApprovalCode: Label 'RUNWORKFLOWONSENDITEMTRANSFERFORAPPROVAL';
         RunWorkflowOnCancelItemTransferForApprovalCode: Label 'RUNWORKFLOWONCANCELITEMTRANSFERFORAPPROVAL';
+        //Mileage Claim
+        OnSendMileageClaimRequestTxt: Label 'Approval request for Mileage Claim is requested';
+        OnCancelMileageClaimRequestTxt: Label 'An Approval request for Mileage Claim is Cancelled';
+        RunWorkflowOnSendMileageClaimForApprovalCode: Label 'RUNWORKFLOWONSENDMILEAGECLAIMFORAPPROVAL';
+        RunWorkflowOnCancelMileageClaimForApprovalCode: Label 'RUNWORKFLOWONCANCELMILEAGECLAIMFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -167,6 +172,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendStoreRequisitionForApprovalCode));
             Database::"Item Transfer Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendItemTransferForApprovalCode));
+            Database::"FLT-Mileage Claim Header":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendMileageClaimForApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -268,6 +275,9 @@ codeunit 50089 "Approval Workflows V1"
         //Item Transfer
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendItemTransferForApprovalCode, Database::"Item Transfer Header", OnSendItemTransferRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelItemTransferForApprovalCode, Database::"Item Transfer Header", OnCancelItemTransferRequestTxt, 0, false);
+        //Mileage Claim
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendMileageClaimForApprovalCode, Database::"FLT-Mileage Claim Header", OnSendMileageClaimRequestTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelMileageClaimForApprovalCode, Database::"FLT-Mileage Claim Header", OnCancelMileageClaimRequestTxt, 0, false);
     end;
 
 
@@ -328,6 +338,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendStoreRequisitionForApprovalCode, Variant);
             Database::"Item Transfer Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendItemTransferForApprovalCode, Variant);
+            Database::"FLT-Mileage Claim Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendMileageClaimForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -386,6 +398,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelStoreRequisitionForApprovalCode, Variant);
             Database::"Item Transfer Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelItemTransferForApprovalCode, Variant);
+            Database::"FLT-Mileage Claim Header":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelMileageClaimForApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -418,6 +432,7 @@ codeunit 50089 "Approval Workflows V1"
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
+        MileageClaimHeader: Record "FLT-Mileage Claim Header";
     begin
         case RecRef.Number of
             Database::club:
@@ -574,6 +589,13 @@ codeunit 50089 "Approval Workflows V1"
                     ItemTransferHeader.Modify();
                     Handled := true;
                 end;
+            Database::"FLT-Mileage Claim Header":
+                begin
+                    RecRef.SetTable(MileageClaimHeader);
+                    MileageClaimHeader.Validate("Status", MileageClaimHeader.Status::Open);
+                    MileageClaimHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -602,7 +624,8 @@ codeunit 50089 "Approval Workflows V1"
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
-    begin
+        MileageClaimHeader: Record "FLT-Mileage Claim Header";
+        begin
         case RecRef.Number of
             Database::club:
                 begin
@@ -762,6 +785,13 @@ codeunit 50089 "Approval Workflows V1"
                     ItemTransferHeader.Modify();
                     IsHandled := true;
                 end;
+            Database::"FLT-Mileage Claim Header":
+                begin
+                    RecRef.SetTable(MileageClaimHeader);
+                    MileageClaimHeader.Validate("Status", MileageClaimHeader.Status::"Pending Approval");
+                    MileageClaimHeader.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -790,6 +820,7 @@ codeunit 50089 "Approval Workflows V1"
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
+        MileageClaimHeader: Record "FLT-Mileage Claim Header";
     begin
         case RecRef.number of
             Database::Club:
@@ -902,6 +933,12 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(ItemTransferHeader);
                     ApprovalEntryArgument."Document No." := ItemTransferHeader."No.";
                 end;
+            Database::"FLT-Mileage Claim Header":
+                begin
+                    RecRef.SetTable(MileageClaimHeader);
+                    ApprovalEntryArgument."Document No." := MileageClaimHeader."No.";
+                    ApprovalEntryArgument.Amount := MileageClaimHeader."Total Estimated Cost";
+                end;
         end;
     end;
 
@@ -935,6 +972,7 @@ codeunit 50089 "Approval Workflows V1"
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
+        MileageClaimHeader: Record "FLT-Mileage Claim Header";
     begin
         case RecRef.Number of
             Database::Club:
@@ -1096,6 +1134,13 @@ codeunit 50089 "Approval Workflows V1"
                     ItemTransferHeader.Modify();
                     Handled := true;
                 end;
+            Database::"FLT-Mileage Claim Header":
+                begin
+                    RecRef.SetTable(MileageClaimHeader);
+                    MileageClaimHeader.Validate(Status, MileageClaimHeader.Status::Approved);
+                    MileageClaimHeader.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -1124,6 +1169,7 @@ codeunit 50089 "Approval Workflows V1"
         AuditHeader: Record "Audit Header";
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
+        MileageClaimHeader: Record "FLT-Mileage Claim Header";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -1280,8 +1326,15 @@ codeunit 50089 "Approval Workflows V1"
             Database::"Item Transfer Header":
                 begin
                     if ItemTransferHeader.Get(ApprovalEntry."Document No.") then begin
-                        ItemTransferHeader."Approval Status" := ItemTransferHeader."Approval Status"::Open;
+                        ItemTransferHeader."Approval Status" := ItemTransferHeader."Approval Status"::Rejected;
                         ItemTransferHeader.Modify(true);
+                    end;
+                end;
+            Database::"FLT-Mileage Claim Header":
+                begin
+                    if MileageClaimHeader.Get(ApprovalEntry."Document No.") then begin
+                        MileageClaimHeader.Status := MileageClaimHeader.Status::Rejected;
+                        MileageClaimHeader.Modify(true);
                     end;
                 end;
         end;

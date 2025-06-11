@@ -927,6 +927,9 @@ End Function
         <Field Name="PrintedTime">
           <DataField>PrintedTime</DataField>
         </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+        </Field>
         <Field Name="ExamDate">
           <DataField>ExamDate</DataField>
         </Field>

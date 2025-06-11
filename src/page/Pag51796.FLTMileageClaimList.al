@@ -108,47 +108,52 @@ page 52119 "FLT-Mileage Claim List"
                 Enabled = SendForApprovalEnabled;
                 
                 trigger OnAction()
+                var
+                VariantRec: Variant;
+                Approv: Codeunit "Approval Workflows V1";
                 begin
-                    Rec.SendForApproval();
-                    CurrPage.Update(false);
+                    VariantRec := Rec;
+                    if Approv.CheckApprovalsWorkflowEnabled(VariantRec) then begin
+                        Approv.OnSendDocForApproval(VariantRec);
+                    end;
                 end;
             }
             
-            action(ApproveByTransportOfficer)
-            {
-                Caption = 'Approve (Transport Officer)';
-                Image = Approve;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ApplicationArea = All;
-                Visible = TransportOfficerVisible;
-                Enabled = TransportOfficerEnabled;
+            // action(ApproveByTransportOfficer)
+            // {
+            //     Caption = 'Approve (Transport Officer)';
+            //     Image = Approve;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     PromotedIsBig = true;
+            //     ApplicationArea = All;
+            //     Visible = TransportOfficerVisible;
+            //     Enabled = TransportOfficerEnabled;
                 
-                trigger OnAction()
-                begin
-                    Rec.ApproveByTransportOfficer();
-                    CurrPage.Update(false);
-                end;
-            }
+            //     trigger OnAction()
+            //     begin
+            //         Rec.ApproveByTransportOfficer();
+            //         CurrPage.Update(false);
+            //     end;
+            // }
             
-            action(FinalApproval)
-            {
-                Caption = 'Final Approval';
-                Image = Approve;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ApplicationArea = All;
-                Visible = FinalApproverVisible;
-                Enabled = FinalApproverEnabled;
+            // action(FinalApproval)
+            // {
+            //     Caption = 'Final Approval';
+            //     Image = Approve;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     PromotedIsBig = true;
+            //     ApplicationArea = All;
+            //     Visible = FinalApproverVisible;
+            //     Enabled = FinalApproverEnabled;
                 
-                trigger OnAction()
-                begin
-                    Rec.FinalApproval();
-                    CurrPage.Update(false);
-                end;
-            }
+            //     trigger OnAction()
+            //     begin
+            //         Rec.FinalApproval();
+            //         CurrPage.Update(false);
+            //     end;
+            // }
         }
         
         area(Reporting)
@@ -163,9 +168,12 @@ page 52119 "FLT-Mileage Claim List"
                 ApplicationArea = All;
                 
                 trigger OnAction()
+                var
+                    MileageClaimHeader: Record "FLT-Mileage Claim Header";
                 begin
-                    // Report will be created later
-                    Message('Mileage Claim Form report will be available once created.');
+                    MileageClaimHeader.Copy(Rec);
+                    CurrPage.SetSelectionFilter(MileageClaimHeader);
+                    Report.RunModal(Report::"FLT-Mileage Claim Form", true, true, MileageClaimHeader);
                 end;
             }
         }

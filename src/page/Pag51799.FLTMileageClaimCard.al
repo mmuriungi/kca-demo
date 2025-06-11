@@ -3,7 +3,7 @@ page 52121 "FLT-Mileage Claim Card"
     Caption = 'Transport Mileage Claim Form';
     PageType = Document;
     SourceTable = "FLT-Mileage Claim Header";
-    
+
     layout
     {
         area(Content)
@@ -11,7 +11,7 @@ page 52121 "FLT-Mileage Claim Card"
             group("PART ONE: APPLICANT")
             {
                 Caption = 'PART ONE: APPLICANT';
-                
+
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
@@ -27,7 +27,7 @@ page 52121 "FLT-Mileage Claim Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the employee number.';
-                    
+
                     trigger OnValidate()
                     begin
                         CurrPage.Update();
@@ -82,12 +82,12 @@ page 52121 "FLT-Mileage Claim Card"
                     Editable = false;
                 }
             }
-            
+
             group("PART TWO: TRANSPORT OFFICER")
             {
                 Caption = 'PART TWO: TRANSPORT OFFICER';
                 Visible = TransportOfficerVisible;
-                
+
                 field("Approved Rate Per Km"; Rec."Approved Rate Per Km")
                 {
                     ApplicationArea = All;
@@ -107,12 +107,12 @@ page 52121 "FLT-Mileage Claim Card"
                     Editable = false;
                 }
             }
-            
+
             group("PART THREE: VC/DVC/REGISTRAR")
             {
                 Caption = 'PART THREE: VC/DVC/REGISTRAR';
                 Visible = FinalApproverVisible;
-                
+
                 field("Approver Name"; Rec."Approver Name")
                 {
                     ApplicationArea = All;
@@ -133,7 +133,7 @@ page 52121 "FLT-Mileage Claim Card"
                     Editable = FinalApproverEditable;
                 }
             }
-            
+
             part(MileageClaimLines; "FLT-Mileage Claim Subform")
             {
                 ApplicationArea = All;
@@ -154,7 +154,7 @@ page 52121 "FLT-Mileage Claim Card"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -167,51 +167,41 @@ page 52121 "FLT-Mileage Claim Card"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ApplicationArea = All;
-                Enabled = SendForApprovalEnabled;
-                
+
                 trigger OnAction()
+                var
+                    VariantRec: Variant;
+                    Approv: Codeunit "Approval Workflows V1";
                 begin
-                    Rec.SendForApproval();
-                    CurrPage.Update(false);
+                    VariantRec := Rec;
+                    if Approv.CheckApprovalsWorkflowEnabled(VariantRec) then begin
+                        Approv.OnSendDocForApproval(VariantRec);
+                    end;
                 end;
             }
-            
-            action(ApproveByTransportOfficer)
+            //cancel approval request
+            action(CancelApprovalRequest)
             {
-                Caption = 'Approve (Transport Officer)';
-                Image = Approve;
+                Caption = 'Cancel Approval Request';
+                Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ApplicationArea = All;
-                Visible = TransportOfficerVisible;
-                Enabled = TransportOfficerEditable;
-                
+
                 trigger OnAction()
+                var
+                    VariantRec: Variant;
+                    Approv: Codeunit "Approval Workflows V1";
                 begin
-                    Rec.ApproveByTransportOfficer();
-                    CurrPage.Update(false);
+                    VariantRec := Rec;
+                    if Approv.CheckApprovalsWorkflowEnabled(VariantRec) then begin
+                        Approv.OnCancelDocApprovalRequest(VariantRec);
+                    end;
                 end;
             }
-            
-            action(FinalApproval)
-            {
-                Caption = 'Final Approval';
-                Image = Approve;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ApplicationArea = All;
-                Visible = FinalApproverVisible;
-                Enabled = FinalApproverEditable;
-                
-                trigger OnAction()
-                begin
-                    Rec.FinalApproval();
-                    CurrPage.Update(false);
-                end;
-            }
-            
+
+
             action(PrintPreview)
             {
                 Caption = 'Print/Preview';
@@ -220,60 +210,40 @@ page 52121 "FLT-Mileage Claim Card"
                 PromotedCategory = Report;
                 PromotedIsBig = true;
                 ApplicationArea = All;
-                
+
                 trigger OnAction()
+                var
+                    MileageClaimHeader: Record "FLT-Mileage Claim Header";
                 begin
-                    // Report will be created later
-                    Message('Mileage Claim Form report will be available once created.');
+                    MileageClaimHeader.Reset();
+                    MileageClaimHeader.SetRange("No.", Rec."No.");
+                    if MileageClaimHeader.FindFirst() then begin
+                        Report.RunModal(Report::"FLT-Mileage Claim Form", true, false, MileageClaimHeader);
+                    end;
                 end;
             }
-            
-            action(Attachments)
-            {
-                ApplicationArea = All;
-                Caption = 'Attachments';
-                Image = Attach;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                
-                trigger OnAction()
-                begin
-                    // Document attachments functionality
-                    Message('Document attachments functionality will be available.');
-                end;
-            }
+
+
         }
-        
+
         area(Navigation)
         {
-            action(Dimensions)
-            {
-                ApplicationArea = All;
-                Caption = 'Dimensions';
-                Image = Dimensions;
-                
-                trigger OnAction()
-                begin
-                    // Dimensions functionality
-                    Message('Dimensions functionality will be available.');
-                end;
-            }
+
         }
     }
-    
+
     trigger OnAfterGetCurrRecord()
     begin
         SetControlVisibility();
         SetControlEditable();
     end;
-    
+
     trigger OnOpenPage()
     begin
         SetControlVisibility();
         SetControlEditable();
     end;
-    
+
     var
         TransportOfficerVisible: Boolean;
         FinalApproverVisible: Boolean;
@@ -281,42 +251,52 @@ page 52121 "FLT-Mileage Claim Card"
         FinalApproverEditable: Boolean;
         LinesEditable: Boolean;
         SendForApprovalEnabled: Boolean;
-    
+
     local procedure SetControlVisibility()
     begin
-        TransportOfficerVisible := Rec."Approval Stage" in [Rec."Approval Stage"::"Transport Officer", 
-                                                           Rec."Approval Stage"::"VC/DVC/Registrar", 
+        TransportOfficerVisible := Rec."Approval Stage" in [Rec."Approval Stage"::"Transport Officer",
+                                                           Rec."Approval Stage"::"VC/DVC/Registrar",
                                                            Rec."Approval Stage"::"Fully Approved"];
-        
-        FinalApproverVisible := Rec."Approval Stage" in [Rec."Approval Stage"::"VC/DVC/Registrar", 
+
+        FinalApproverVisible := Rec."Approval Stage" in [Rec."Approval Stage"::"VC/DVC/Registrar",
                                                          Rec."Approval Stage"::"Fully Approved"];
     end;
-    
+
     local procedure SetControlEditable()
     var
         UserSetup: Record "User Setup";
         IsTransportOfficer: Boolean;
         IsFinalApprover: Boolean;
+        Approvals: Record "Approval Entry";
     begin
+
+
+
         // Check if current user is transport officer
         if UserSetup.Get(UserId) then begin
             // Add logic to check if user is transport officer
             IsTransportOfficer := true; // Simplified for now
         end;
-        
+
         // Check if current user is final approver (VC/DVC/Registrar)
         IsFinalApprover := true; // Simplified for now
-        
+
         // Set editability based on status and user role
         LinesEditable := Rec.Status = Rec.Status::Open;
         SendForApprovalEnabled := (Rec.Status = Rec.Status::Open) and (Rec."Requested By" = UserId);
-        
-        TransportOfficerEditable := (Rec.Status = Rec.Status::"Pending Approval") and 
-                                   (Rec."Approval Stage" = Rec."Approval Stage"::"Transport Officer") and 
+
+        TransportOfficerEditable := (Rec.Status = Rec.Status::"Pending Approval") and
+                                   (Rec."Approval Stage" = Rec."Approval Stage"::"Transport Officer") and
                                    IsTransportOfficer;
-        
-        FinalApproverEditable := (Rec.Status = Rec.Status::"Pending Approval") and 
-                                (Rec."Approval Stage" = Rec."Approval Stage"::"VC/DVC/Registrar") and 
+
+        FinalApproverEditable := (Rec.Status = Rec.Status::"Pending Approval") and
+                                (Rec."Approval Stage" = Rec."Approval Stage"::"VC/DVC/Registrar") and
                                 IsFinalApprover;
+
+        //set all true
+        TransportOfficerEditable := true;
+        FinalApproverEditable := true;
+        LinesEditable := true;
+        SendForApprovalEnabled := true;
     end;
 }
