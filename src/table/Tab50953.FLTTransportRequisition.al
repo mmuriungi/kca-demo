@@ -41,7 +41,8 @@ table 50953 "FLT-Transport Requisition"
             var
                 usr: Record Users;
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                PopulateApprovers();
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
                 usr.Reset();
                 usr.SetRange("User Name", "Transport Officer");
                 if usr.Find('-') then
@@ -68,7 +69,7 @@ table 50953 "FLT-Transport Requisition"
             var
                 FLT: record "FLT-Driver";
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
                 IF FLT.GET("Driver Name") THEN begin
                     "Driver Name" := (FLT."Driver Name");
                     Designation := FLT.Designation;
@@ -156,23 +157,23 @@ table 50953 "FLT-Transport Requisition"
                 usr: Record User;
                 dimvalue: Record "Dimension Value";
             begin
-                ApprovalSetup.Reset();
-                ApprovalSetup.SetRange(Department, "Department Code");
-                if ApprovalSetup.Find('-') then begin
-                    ApprovalSetup.TestField("Head of Department");
-                    ApprovalSetup.TestField("Registrar VC");
-                    ApprovalSetup.TestField("Registrar VC");
+                // ApprovalSetup.Reset();
+                // ApprovalSetup.SetRange(Department, "Department Code");
+                // if ApprovalSetup.Find('-') then begin
+                //     ApprovalSetup.TestField("Head of Department");
+                //     ApprovalSetup.TestField("Registrar VC");
+                //     ApprovalSetup.TestField("Registrar VC");
 
-                    "Head of Department" := ApprovalSetup."Head of Department";
-                    "Transport Officer" := ApprovalSetup."Registrar VC";
-                    "Registrar HRM" := ApprovalSetup."Head Of Transport";
-                    usr.Reset();
-                    usr.SetRange("User Name", ApprovalSetup."Head of Department");
-                    if usr.Find('-') then begin
-                        "HOD UserName" := ApprovalSetup."Head of Department";
-                        "HOD Name" := usr."Full Name";
-                    end;
-                end;
+                //     "Head of Department" := ApprovalSetup."Head of Department";
+                //     "Transport Officer" := ApprovalSetup."Registrar VC";
+                //     "Registrar HRM" := ApprovalSetup."Head Of Transport";
+                //     usr.Reset();
+                //     usr.SetRange("User Name", ApprovalSetup."Head of Department");
+                //     if usr.Find('-') then begin
+                //         "HOD UserName" := ApprovalSetup."Head of Department";
+                //         "HOD Name" := usr."Full Name";
+                //     end;
+                // end;
                 dimvalue.Reset();
                 dimvalue.SetRange(Code, "Department Code");
                 if dimvalue.Find('-') then
@@ -240,7 +241,7 @@ table 50953 "FLT-Transport Requisition"
             OptionMembers = ,Yes,No;
             trigger OnValidate()
             begin
-                if UserId() <> "Head of Department" then Error('You are not authorised to modify this Request');
+                if UserId() <> HOD then Error('You are not authorised to modify this Request');
                 "HOD Approved Date" := WorkDate();
                 "HoD  Approval Time" := Time;
             end;
@@ -249,7 +250,7 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
-                if UserId() <> "Head of Department" then Error('You are not authorised to modify this Request');
+                if UserId() <> HOD then Error('You are not authorised to modify this Request');
             end;
         }
         field(894; "HoD  Approval Time"; Time)
@@ -270,12 +271,12 @@ table 50953 "FLT-Transport Requisition"
             var
                 usr: Record Users;
             begin
-                if UserId <> "Registrar HRM" then Error('You are not authorised to modify this Request');
+                if UserId <> Registrar then Error('You are not authorised to modify this Request');
                 usr.Reset();
-                usr.SetRange("User Name", "Registrar HRM");
+                usr.SetRange("User Name", Registrar);
                 if usr.Find('-') then begin
                     "Admin Head Name" := usr."Full Name";
-                    "Admin Head Username" := "Registrar HRM";
+                    "Admin Head Username" := Registrar;
                     "VC  Approval Date" := WorkDate();
                     "VC Approval Time" := Time;
                 end;
@@ -556,14 +557,14 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
         field(50038; "Milleage after Trip"; Decimal)
         {
             trigger OnValidate()
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
                 "Total Mileage Travelled" := rec."Mileage Before Trip" + rec."Milleage after Trip";
                 rec.Modify();
             end;
@@ -573,7 +574,7 @@ table 50953 "FLT-Transport Requisition"
             Editable = false;
             trigger OnValidate()
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
 
             end;
         }
@@ -581,14 +582,14 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
         field(50041; "Cost Per Kilometer"; Decimal)
         {
             trigger OnValidate()
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
         field(50043; "Vehicle Capacity"; Integer)
@@ -596,7 +597,7 @@ table 50953 "FLT-Transport Requisition"
             Caption = 'Vehicle I Capacity';
             trigger OnValidate()
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
         field(50044; "Return Confirmed By"; Code[20])
@@ -612,7 +613,7 @@ table 50953 "FLT-Transport Requisition"
             OptionMembers = " ",Available,"Not Available";
             trigger OnValidate()
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
         }
         field(50047; Submitted; Boolean)
@@ -630,7 +631,7 @@ table 50953 "FLT-Transport Requisition"
         {
             trigger OnValidate()
             begin
-                if UserId <> "Transport Officer" then Error('You are not authorised to modify this Request');
+                if UserId <> Transofficer then Error('You are not authorised to modify this Request');
             end;
 
         }
@@ -811,5 +812,35 @@ table 50953 "FLT-Transport Requisition"
         fltman5: Record "FLT-Mgt Approval Setups";
         Emp1: Record "HRM-Employee C";
         userset5: Record "User Setup";
+        ApprovalEntry: Record "Approval Entry";
+        Transofficer: Code[50];
+        HOD: Code[50];
+        Registrar: Code[50];
+
+    procedure PopulateApprovers()
+    begin
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Transport Requisition");
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", "Transport Requisition No");
+        ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", 1);
+        if ApprovalEntry.FindLast() then begin
+            HOD := ApprovalEntry."Approver ID";
+        end;
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Transport Requisition");
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", "Transport Requisition No");
+        ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", 2);
+        if ApprovalEntry.FindLast() then begin
+            Registrar := ApprovalEntry."Approver ID";
+        end;
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Transport Requisition");
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", "Transport Requisition No");
+        ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", 3);
+        if ApprovalEntry.FindLast() then begin
+            Transofficer := ApprovalEntry."Approver ID";
+        end;
+
+    end;
 }
 
