@@ -4,7 +4,7 @@ report 51523 "Examinations Timetable"
     Caption = 'Examinations Timetable';
     UsageCategory = ReportsAndAnalysis;
     DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/ExaminationsTimetable.rdlc';
+    RDLCLayout = './Layouts/ExamReportxxx.rdl';
 
     dataset
     {
@@ -49,6 +49,9 @@ report 51523 "Examinations Timetable"
             }
 
             // Detail columns
+            column(Date; "Exam Date")
+            {
+            }
             column(ExamDate; Format("Exam Date", 0, '<Weekday Text>, <Day,2> <Month Text> <Year4>'))
             {
             }

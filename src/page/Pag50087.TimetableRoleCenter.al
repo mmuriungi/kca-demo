@@ -67,6 +67,7 @@ page 50087 "Timetable Role Center"
                     Image = Report;
                     Caption = 'Regular Exam Timetable';
                     RunObject = Page "Timetable Header List";
+                    RunPageLink = "Type" = const(Exam);
                     RunPageView = where("Type" = const(Exam));
                     ApplicationArea = All;
                 }

@@ -10,4 +10,7 @@ enum 50015 "Claim Type"
     value(2; Parttime)
     {
     }
+    value(3; Mileage)
+    {
+    }
 }
