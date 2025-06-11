@@ -402,15 +402,19 @@ page 51397 "FLT-Transport Req."
                 ApplicationArea = All;
                 trigger OnAction()
                 var
-                    ApprovalMgt: Codeunit "Init Codeunit";
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
                 begin
+
                     rec."Requested By" := UserId;
                     Rec."Date Requisition Received" := Today;
                     Rec."Time Requisition Received" := Time;
                     If Confirm('Send this Request for Approval ?', true) = false then ERROR('Cancelled');
                     Rec."Approval Stage" := Rec."Approval Stage"::"Head of Department";
 
-                    ApprovalMgt.OnSendTransportReqforApproval(Rec);
+                    Variant := Rec;
+                    if ApprovalMgt.CheckApprovalsWorkflowEnabled(Variant) then
+                        ApprovalMgt.OnSendDocForApproval(Variant);
                 end;
             }
             action(cancellsApproval)
@@ -421,18 +425,24 @@ page 51397 "FLT-Transport Req."
                 PromotedCategory = Process;
                 ApplicationArea = All;
                 trigger OnAction()
+                var
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
                 begin
-                    if Rec."Requested By" = UserId then begin
-                        If Confirm('cancel this Request from Approval ?', true) = false then ERROR('Cancelled');
-                        if ((Rec.Status = Rec.Status::"Pending Approval") and (Rec."Approval Stage" = Rec."Approval Stage"::"Head of Department")) then begin
-                            Rec.Status := Rec.Status::Open;
-                            Rec."Approval Stage" := Rec."Approval Stage"::New;
-                            Rec.Modify();
-                        end else
-                            ERROR('Contact Trasport officer to assist');
+                    // if Rec."Requested By" = UserId then begin
+                    //     If Confirm('cancel this Request from Approval ?', true) = false then ERROR('Cancelled');
+                    //     if ((Rec.Status = Rec.Status::"Pending Approval") and (Rec."Approval Stage" = Rec."Approval Stage"::"Head of Department")) then begin
+                    //         Rec.Status := Rec.Status::Open;
+                    //         Rec."Approval Stage" := Rec."Approval Stage"::New;
+                    //         Rec.Modify();
+                    //     end else
+                    //         ERROR('Contact Trasport officer to assist');
 
-                    end else
-                        ERROR('You Cannot Cancel this request');
+                    // end else
+                    //     ERROR('You Cannot Cancel this request');
+                    rec."Approval Stage" := rec."Approval Stage"::New;
+                    Variant := Rec;
+                    ApprovalMgt.OnCancelDocApprovalRequest(Variant);
 
                 end;
             }

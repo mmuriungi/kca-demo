@@ -1,7 +1,8 @@
 report 52122 "FLT-Mileage Claim Form"
 {
-    DefaultLayout = RDLC;
-    RDLCLayout = './Layouts/FLT-Mileage Claim Form.rdl';
+    DefaultLayout = Word;
+    //RDLCLayout = './Layouts/FLT-Mileage Claim Form.rdl';
+    WordLayout = './Layouts/FLT-Mileage Claim Form.docx';
     Caption = 'Transport Mileage Claim Form';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
@@ -82,7 +83,25 @@ report 52122 "FLT-Mileage Claim Form"
             column(ReportTitle; 'TRANSPORT MILEAGE CLAIM FORM')
             {
             }
-            
+            column(TransportOfficerSignature; UserSetup."User Signature")
+            {
+            }
+            column(ApproverSignature; UserSetup2."User Signature")
+            {
+            }
+            column(TransportOfficerName; UserSetup.UserName)
+            {
+            }
+            column(ApproversName; UserSetup2.UserName)
+            {
+            }
+            column(TransportOfficersDate; TransportOfficerDate)
+            {
+            }
+            column(ApproverDate; ApproverDate)
+            {
+            }
+
             dataitem(Lines; "FLT-Mileage Claim Lines")
             {
                 DataItemLink = "Mileage Claim No." = field("No.");
@@ -159,33 +178,58 @@ report 52122 "FLT-Mileage Claim Form"
                 {
                 }
             }
+            trigger OnAfterGetRecord()
+            begin
+                ShowCompanyLogo := true;
+                ShowLineDetails := true;
+                ApprovalEntry.Reset();
+                ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Mileage Claim Header");
+                ApprovalEntry.SetRange(ApprovalEntry."Document No.", Header."No.");
+                ApprovalEntry.SetRange("Sequence No.", 1);
+                if ApprovalEntry.FindFirst() then begin
+                    if UserSetup.Get(ApprovalEntry."Approver ID") then begin
+                        UserSetup.CalcFields(UserSetup."User Signature");
+                    end;
+                    TransportOfficerDate := ApprovalEntry."Last Date-Time Modified";
+                end;
+                ApprovalEntry.Reset();
+                ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Mileage Claim Header");
+                ApprovalEntry.SetRange(ApprovalEntry."Document No.", Header."No.");
+                ApprovalEntry.SetRange("Sequence No.", 2);
+                if ApprovalEntry.FindFirst() then begin
+                    if UserSetup.Get(ApprovalEntry."Approver ID") then begin
+                        UserSetup.CalcFields(UserSetup."User Signature");
+                        ApproverDate := ApprovalEntry."Last Date-Time Modified";
+                    end;
+                end;
+            end;
         }
     }
 
     requestpage
     {
         SaveValues = true;
-        
+
         layout
         {
             area(content)
             {
-                group(Options)
-                {
-                    Caption = 'Options';
-                    field(ShowCompanyLogo; ShowCompanyLogo)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Show Company Logo';
-                        ToolTip = 'Specifies if the company logo should be shown on the report.';
-                    }
-                    field(ShowLineDetails; ShowLineDetails)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Show Line Details';
-                        ToolTip = 'Specifies if detailed line information should be shown on the report.';
-                    }
-                }
+                // group(Options)
+                // {
+                //     Caption = 'Options';
+                //     field(ShowCompanyLogo; ShowCompanyLogo)
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Show Company Logo';
+                //         ToolTip = 'Specifies if the company logo should be shown on the report.';
+                //     }
+                //     field(ShowLineDetails; ShowLineDetails)
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Show Line Details';
+                //         ToolTip = 'Specifies if detailed line information should be shown on the report.';
+                //     }
+                // }
             }
         }
     }
@@ -200,4 +244,9 @@ report 52122 "FLT-Mileage Claim Form"
         CompanyInfo: Record "Company Information";
         ShowCompanyLogo: Boolean;
         ShowLineDetails: Boolean;
+        ApprovalEntry: Record "Approval Entry";
+        UserSetup: Record "User Setup";
+        UserSetup2: Record "User Setup";
+        TransportOfficerDate: DateTime;
+        ApproverDate: DateTime;
 }
