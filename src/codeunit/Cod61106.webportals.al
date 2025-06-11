@@ -12420,7 +12420,8 @@ Codeunit 61106 webportals
         FuelReq."Vendor(Dealer)" := vendorNo;
         FuelReq.Validate("Vendor(Dealer)");
         FuelReq."Request Date" := requestDate;
-        FuelReq.Type := paymenttype;
+        FuelReq.Type := FuelReq.Type::Fuel;
+        FuelReq."Type of Fuel Requisition" := paymenttype;
         FuelReq.Description := description;
         if FuelReq.INSERT(true) then begin
             variant := FuelReq;
@@ -12449,7 +12450,7 @@ Codeunit 61106 webportals
                 JObj.Add('QuantityOfFuel', FORMAT(FuelReq."Quantity of Fuel(Litres)"));
                 JObj.Add('OdometerReading', FORMAT(FuelReq."Odometer Reading"));
                 JObj.Add('Vendor', FuelReq."Vendor Name");
-                JObj.Add('PaymentType', FORMAT(FuelReq.Type));
+                JObj.Add('PaymentType', FORMAT(FuelReq."Type of Fuel Requisition"));
                 JObj.Add('RequestDate', Format(FuelReq."Request Date"));
                 JObj.Add('Status', Format(FuelReq.Status));
                 JArray.Add(JObj);
