@@ -12401,14 +12401,16 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure CreateFuelRequisition(staffNo: Code[20]; vehicleNo: Code[20]; fuelType: Code[20]; quantity: Decimal; odometerreading: Decimal; vendorNo: Code[20]; requestDate: Date; paymenttype: option; description: Text) msg: Text
+    procedure CreateFuelRequisition(staffNo: Code[20];driver:Code[20]; vehicleNo: Code[20]; fuelType: Code[20]; quantity: Decimal; odometerreading: Decimal; vendorNo: Code[20]; requestDate: Date; paymenttype: option; description: Text) msg: Text
     var
         FuelReq: Record "FLT-Fuel & Maintenance Req.";
         ApprovalMgmt: Codeunit "Approval Workflows V1";
         variant: Variant;
     begin
         FuelReq.Init;
-        FuelReq.Driver := staffNo;
+        FuelReq."Requesting officer" := staffNo;
+        FuelReq.Validate("Requesting officer");
+        FuelReq.Driver := driver;
         FuelReq.Validate(Driver);
         FuelReq."Vehicle Reg No" := vehicleNo;
         FuelReq.Validate("Vehicle Reg No");
@@ -12436,12 +12438,13 @@ Codeunit 61106 webportals
         JArray: JsonArray;
     begin
         FuelReq.Reset;
-        FuelReq.SetRange(Driver, staffNo);
+        FuelReq.SetRange("Requesting Officer", staffNo);
         if FuelReq.FindSet() then begin
             repeat
                 Clear(JObj);
                 JObj.Add('RequisitionNo', FuelReq."Requisition No");
                 JObj.Add('VehicleRegNo', FuelReq."Vehicle Reg No");
+                JObj.Add('Driver', FuelReq."Driver Name");
                 JObj.Add('FuelType', FuelReq."Type Of Fuel");
                 JObj.Add('QuantityOfFuel', FORMAT(FuelReq."Quantity of Fuel(Litres)"));
                 JObj.Add('OdometerReading', FORMAT(FuelReq."Odometer Reading"));
