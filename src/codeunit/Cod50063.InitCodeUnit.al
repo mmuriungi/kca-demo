@@ -10,28 +10,28 @@ codeunit 50063 "Init CodeUnit"
     //Imprest 
 
 
-    [IntegrationEvent(false, false)]
-    PROCEDURE OnSendTransportReqforApproval(VAR TransportReq: Record "FLT-Transport Requisition");
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // PROCEDURE OnSendTransportReqforApproval(VAR TransportReq: Record "FLT-Transport Requisition");
+    // begin
+    // end;
 
-    procedure IsTransportReqEnabled(var TransportReq: Record "FLT-Transport Requisition"): Boolean
-    var
-        WFMngt: Codeunit "Workflow Management";
-        WFCode: Codeunit "WorkFlow Code";
-    begin
-        exit(WFMngt.CanExecuteWorkflow(TransportReq, WFCode.RunWorkflowOnSendTransportReqApprovalCode()))
-    end;
+    // procedure IsTransportReqEnabled(var TransportReq: Record "FLT-Transport Requisition"): Boolean
+    // var
+    //     WFMngt: Codeunit "Workflow Management";
+    //     WFCode: Codeunit "WorkFlow Code";
+    // begin
+    //     exit(WFMngt.CanExecuteWorkflow(TransportReq, WFCode.RunWorkflowOnSendTransportReqApprovalCode()))
+    // end;
 
-    local procedure CheckWorkflowEnabled(): Boolean
-    var
-        TransportReq: Record "FLT-Transport Requisition";
-        NoWorkflowEnb: TextConst ENU = 'No workflow Enabled for this Record type', ENG = 'No workflow Enabled for this Record type';
+    // local procedure CheckWorkflowEnabled(): Boolean
+    // var
+    //     TransportReq: Record "FLT-Transport Requisition";
+    //     NoWorkflowEnb: TextConst ENU = 'No workflow Enabled for this Record type', ENG = 'No workflow Enabled for this Record type';
 
-    begin
-        if not IsTransportReqEnabled(TransportReq) then
-            Error(NoWorkflowEnb);
-    end;
+    // begin
+    //     if not IsTransportReqEnabled(TransportReq) then
+    //         Error(NoWorkflowEnb);
+    // end;
 
 
     //Claims Workflow
@@ -76,18 +76,17 @@ codeunit 50063 "Init CodeUnit"
     //WorkflowStepInstance: Record "Workflow Step Instance") commented
     var
 
-        TransportReq: Record "FLT-Transport Requisition";
         PharmRequests: Record "Pharmacy Requests Header";
     begin
         case
             RecRef.Number of
 
-            Database::"FLT-Transport Requisition":
-                begin
-                    RecRef.SetTable(TransportReq);
-                    ApprovalEntryArgument."Document No." := TransportReq."Transport Requisition No";
-                    //  ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::
-                end;
+            // Database::"FLT-Transport Requisition":
+            //     begin
+            //         RecRef.SetTable(TransportReq);
+            //         ApprovalEntryArgument."Document No." := TransportReq."Transport Requisition No";
+            //         //  ApprovalEntryArgument."Document Type" := ApprovalEntryArgument."Document Type"::
+            //     end;
             Database::"Pharmacy Requests Header":
                 begin
                     RecRef.SetTable(PharmRequests);
@@ -103,13 +102,13 @@ codeunit 50063 "Init CodeUnit"
     /// //////////////////************************CANCELLING OF PROCESSES**********************************/////////////////////
 
 
-    //cancelling of Transport
-    [IntegrationEvent(false, false)]
-    procedure OnCancelTransportReqForApproval(var TransportReq: Record "FLT-Transport Requisition")
-    begin
+    // //cancelling of Transport
+    // [IntegrationEvent(false, false)]
+    // procedure OnCancelTransportReqForApproval(var TransportReq: Record "FLT-Transport Requisition")
+    // begin
 
-    end;
-    //End cancel of Transport
+    // end;
+    // //End cancel of Transport
 
 
 

@@ -4629,29 +4629,27 @@ codeunit 50096 "Timetable Management"
     end;
 
     local procedure FindLeastLoadedTimeSlot(
-        var AvailableTimeSlots: Record "Exam Time Slot" temporary;
-        ExamDate: Date;
-        GroupCode: Code[20];
-        var BestTimeSlot: Record "Exam Time Slot"): Boolean
+    var AvailableTimeSlots: Record "Exam Time Slot" temporary;
+    ExamDate: Date;
+    GroupCode: Code[20];
+    var BestTimeSlot: Record "Exam Time Slot"): Boolean
     var
         ExamTimetableEntry: Record "Exam Timetable Entry";
         CurrentSlot: Record "Exam Time Slot" temporary;
-        MorningSlot, MiddaySlot, AfternoonSlot : Record "Exam Time Slot" temporary;
-        MorningLoad, MiddayLoad, AfternoonLoad : Integer;
         SlotFound: Boolean;
-        TargetSlot: Option Morning,Midday,Afternoon;
         SlotsAvailable: array[3] of Boolean;
         SlotLoads: array[3] of Integer;
         SlotRecords: array[3] of Record "Exam Time Slot" temporary;
         i: Integer;
-        MinLoad, MaxLoad, LoadDifference : Integer;
+        MinLoad: Integer;
         NextSlotToUse: Integer;
+        GroupSlotCounter: Integer;
     begin
         SlotFound := false;
         Clear(SlotsAvailable);
         Clear(SlotLoads);
 
-        // Categorize available time slots by session type
+        // Categorize available time slots by session type and count existing loads
         AvailableTimeSlots.Reset();
         if AvailableTimeSlots.FindSet() then begin
             repeat
@@ -4661,63 +4659,60 @@ codeunit 50096 "Timetable Management"
                 ExamTimetableEntry.Reset();
                 ExamTimetableEntry.SetRange("Exam Date", ExamDate);
                 ExamTimetableEntry.SetRange("Time Slot", CurrentSlot.Code);
+                // Only count exams from the same group to ensure even distribution within group
+                ExamTimetableEntry.SetRange("Exam Group", GroupCode);
 
                 case CurrentSlot."Session Type" of
                     CurrentSlot."Session Type"::Morning:
                         begin
-                            MorningLoad := ExamTimetableEntry.Count();
-                            MorningSlot := CurrentSlot;
+                            SlotLoads[1] := ExamTimetableEntry.Count();
                             SlotsAvailable[1] := true;
-                            SlotLoads[1] := MorningLoad;
                             SlotRecords[1] := CurrentSlot;
                         end;
                     CurrentSlot."Session Type"::Midday:
                         begin
-                            MiddayLoad := ExamTimetableEntry.Count();
-                            MiddaySlot := CurrentSlot;
+                            SlotLoads[2] := ExamTimetableEntry.Count();
                             SlotsAvailable[2] := true;
-                            SlotLoads[2] := MiddayLoad;
                             SlotRecords[2] := CurrentSlot;
                         end;
                     CurrentSlot."Session Type"::Afternoon:
                         begin
-                            AfternoonLoad := ExamTimetableEntry.Count();
-                            AfternoonSlot := CurrentSlot;
+                            SlotLoads[3] := ExamTimetableEntry.Count();
                             SlotsAvailable[3] := true;
-                            SlotLoads[3] := AfternoonLoad;
                             SlotRecords[3] := CurrentSlot;
                         end;
                 end;
             until AvailableTimeSlots.Next() = 0;
         end;
 
-        // Implement round-robin distribution with load balancing
-        // Find the slot with minimum load
-        MinLoad := 99999;
-        MaxLoad := 0;
-        NextSlotToUse := 0;
+        // Count total exams scheduled so far for this group
+        ExamTimetableEntry.Reset();
+        ExamTimetableEntry.SetRange("Exam Group", GroupCode);
+        GroupSlotCounter := ExamTimetableEntry.Count();
 
-        for i := 1 to 3 do begin
-            if SlotsAvailable[i] then begin
-                if SlotLoads[i] < MinLoad then begin
+        // Use pure round-robin based on group exam count
+        // This ensures even distribution regardless of other factors
+        NextSlotToUse := GetNextRoundRobinSlotImproved(GroupSlotCounter, SlotsAvailable);
+
+        // If round-robin slot has significantly more load than others, use least loaded
+        if NextSlotToUse > 0 then begin
+            MinLoad := 99999;
+            for i := 1 to 3 do begin
+                if SlotsAvailable[i] and (SlotLoads[i] < MinLoad) then
                     MinLoad := SlotLoads[i];
-                    NextSlotToUse := i;
+            end;
+
+            // Only override round-robin if the selected slot has 3+ more exams than minimum
+            if (SlotLoads[NextSlotToUse] - MinLoad) >= 3 then begin
+                // Find the slot with minimum load
+                for i := 1 to 3 do begin
+                    if SlotsAvailable[i] and (SlotLoads[i] = MinLoad) then begin
+                        NextSlotToUse := i;
+                        break;
+                    end;
                 end;
-                if SlotLoads[i] > MaxLoad then
-                    MaxLoad := SlotLoads[i];
             end;
         end;
-
-        // Check if distribution is getting uneven (difference > 2 exams)
-        LoadDifference := MaxLoad - MinLoad;
-
-        // If loads are balanced (difference <= 1), use round-robin
-        // Otherwise, prioritize the least loaded slot
-        if (LoadDifference <= 1) and (NextSlotToUse > 0) then begin
-            // Use round-robin: cycle through available slots
-            NextSlotToUse := GetNextRoundRobinSlot(GroupCode, SlotsAvailable);
-        end;
-        // If LoadDifference > 1, NextSlotToUse already points to minimum load slot
 
         // Return the selected slot
         if (NextSlotToUse > 0) and SlotsAvailable[NextSlotToUse] then begin
@@ -4726,6 +4721,53 @@ codeunit 50096 "Timetable Management"
         end;
 
         exit(SlotFound);
+    end;
+
+    local procedure GetNextRoundRobinSlotImproved(GroupExamCount: Integer; SlotsAvailable: array[3] of Boolean): Integer
+    var
+        AvailableSlotCount: Integer;
+        SlotIndex: Integer;
+        TargetSlot: Integer;
+        i: Integer;
+    begin
+        // Count available slots
+        AvailableSlotCount := 0;
+        for i := 1 to 3 do begin
+            if SlotsAvailable[i] then
+                AvailableSlotCount += 1;
+        end;
+
+        if AvailableSlotCount = 0 then
+            exit(0);
+
+        // For pure round-robin, use modulo to cycle through slots
+        // This ensures each slot gets used in turn
+        SlotIndex := GroupExamCount mod 3; // 0, 1, 2, 0, 1, 2...
+
+        // Map to 1-based index
+        TargetSlot := SlotIndex + 1; // 1, 2, 3, 1, 2, 3...
+
+        // If target slot is available, use it
+        if SlotsAvailable[TargetSlot] then
+            exit(TargetSlot);
+
+        // Otherwise, find next available slot in sequence
+        for i := 1 to 3 do begin
+            TargetSlot += 1;
+            if TargetSlot > 3 then
+                TargetSlot := 1;
+
+            if SlotsAvailable[TargetSlot] then
+                exit(TargetSlot);
+        end;
+
+        // Fallback: return first available
+        for i := 1 to 3 do begin
+            if SlotsAvailable[i] then
+                exit(i);
+        end;
+
+        exit(0);
     end;
 
     local procedure GetNextRoundRobinSlot(GroupCode: Code[20]; SlotsAvailable: array[3] of Boolean): Integer
