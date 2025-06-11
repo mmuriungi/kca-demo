@@ -77,6 +77,11 @@ table 50952 "FLT-Fleet Mgt Setup"
             Caption = 'Fuel Expense G/L Account';
             TableRelation = "G/L Account" WHERE("Account Type" = CONST(Posting));
         }
+        field(20; "Mileage Claim Nos."; Code[20])
+        {
+            Caption = 'Mileage Claim Nos.';
+            TableRelation = "No. Series";
+        }
     }
 
     keys

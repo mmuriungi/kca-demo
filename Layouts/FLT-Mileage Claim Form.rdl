@@ -1,0 +1,1029 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <!-- Company Header -->
+          <Textbox Name="CompanyHeader">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!CompanyName.Value &amp; vbCrLf &amp; "TRANSPORT DEPARTMENT" &amp; vbCrLf &amp; vbCrLf &amp; "MILEAGE CLAIM FORM"</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.25in</Top>
+            <Left>0.5in</Left>
+            <Height>1in</Height>
+            <Width>7in</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Instructions -->
+          <Textbox Name="Instructions">
+            <CanGrow>true</CanGrow>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>1. To fill in duplicate
+2. The request should be received by the transport office at least two (2) working days before the intended time of travel</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>1.25in</Top>
+            <Left>0.5in</Left>
+            <Height>0.5in</Height>
+            <Width>7in</Width>
+          </Textbox>
+          <!-- Part One Header -->
+          <Textbox Name="PartOneHeader">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>PART ONE (APPLICANT)</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>1.75in</Top>
+            <Left>0.5in</Left>
+            <Height>0.25in</Height>
+            <Width>7in</Width>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+                <Width>1pt</Width>
+              </Border>
+              <BackgroundColor>LightGray</BackgroundColor>
+              <PaddingLeft>5pt</PaddingLeft>
+            </Style>
+          </Textbox>
+          <!-- Document Number -->
+          <Textbox Name="DocumentNoLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Document No.:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>1.5in</Width>
+          </Textbox>
+          <Textbox Name="DocumentNo">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!No_.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2in</Top>
+            <Left>2in</Left>
+            <Height>0.2in</Height>
+            <Width>2in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Date -->
+          <Textbox Name="DateLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Date:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2in</Top>
+            <Left>4.5in</Left>
+            <Height>0.2in</Height>
+            <Width>0.75in</Width>
+          </Textbox>
+          <Textbox Name="DateValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!Date_.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2in</Top>
+            <Left>5.25in</Left>
+            <Height>0.2in</Height>
+            <Width>2.25in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Department/School -->
+          <Textbox Name="DeptLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Department/School:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2.3in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>1.5in</Width>
+          </Textbox>
+          <Textbox Name="DeptValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!DepartmentCode.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2.3in</Top>
+            <Left>2in</Left>
+            <Height>0.2in</Height>
+            <Width>5.5in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Name of Claiming Officer -->
+          <Textbox Name="NameLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Name of Claiming Officer:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2.6in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>2in</Width>
+          </Textbox>
+          <Textbox Name="NameValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!EmployeeName.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2.6in</Top>
+            <Left>2.5in</Left>
+            <Height>0.2in</Height>
+            <Width>5in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Designation -->
+          <Textbox Name="DesignationLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Designation:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2.9in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>1.2in</Width>
+          </Textbox>
+          <Textbox Name="DesignationValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!Designation.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>2.9in</Top>
+            <Left>1.7in</Left>
+            <Height>0.2in</Height>
+            <Width>5.8in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Total Estimated Mileage -->
+          <Textbox Name="MileageLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Total Estimated Mileage (KM):</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>3.2in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>2.2in</Width>
+          </Textbox>
+          <Textbox Name="MileageValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!TotalEstimatedMileage.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>3.2in</Top>
+            <Left>2.7in</Left>
+            <Height>0.2in</Height>
+            <Width>4.8in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Part Two Header -->
+          <Textbox Name="PartTwoHeader">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>PART TWO (TRANSPORT OFFICER)</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4in</Top>
+            <Left>0.5in</Left>
+            <Height>0.25in</Height>
+            <Width>7in</Width>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+                <Width>1pt</Width>
+              </Border>
+              <BackgroundColor>LightGray</BackgroundColor>
+              <PaddingLeft>5pt</PaddingLeft>
+            </Style>
+          </Textbox>
+          <!-- Approved Rate Per Km -->
+          <Textbox Name="RateLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Approved Rate Per Km:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4.3in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>1.8in</Width>
+          </Textbox>
+          <Textbox Name="RateValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ApprovedRatePerKm.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4.3in</Top>
+            <Left>2.3in</Left>
+            <Height>0.2in</Height>
+            <Width>1.5in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Total Cost -->
+          <Textbox Name="TotalCostLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Total Cost:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4.3in</Top>
+            <Left>4in</Left>
+            <Height>0.2in</Height>
+            <Width>1in</Width>
+          </Textbox>
+          <Textbox Name="TotalCostValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!TotalEstimatedCost.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4.3in</Top>
+            <Left>5in</Left>
+            <Height>0.2in</Height>
+            <Width>2.5in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Transport Officer Signature -->
+          <Textbox Name="TOSignatureLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Transport Officer:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4.6in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>1.5in</Width>
+          </Textbox>
+          <Textbox Name="TOSignatureValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!TransportOfficer.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4.6in</Top>
+            <Left>2in</Left>
+            <Height>0.2in</Height>
+            <Width>2.5in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Transport Officer Date -->
+          <Textbox Name="TODateLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Date:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4.6in</Top>
+            <Left>4.75in</Left>
+            <Height>0.2in</Height>
+            <Width>0.75in</Width>
+          </Textbox>
+          <Textbox Name="TODateValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!TransportOfficerDate.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>4.6in</Top>
+            <Left>5.5in</Left>
+            <Height>0.2in</Height>
+            <Width>2in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Part Three Header -->
+          <Textbox Name="PartThreeHeader">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>PART THREE (VICE CHANCELLOR, DVC – P, F&amp;A, DVC- ARSA, REGISTRAR-P&amp;A)</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.2in</Top>
+            <Left>0.5in</Left>
+            <Height>0.25in</Height>
+            <Width>7in</Width>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+                <Width>1pt</Width>
+              </Border>
+              <BackgroundColor>LightGray</BackgroundColor>
+              <PaddingLeft>5pt</PaddingLeft>
+            </Style>
+          </Textbox>
+          <!-- Approver Name -->
+          <Textbox Name="ApproverLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Approver:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.5in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>1in</Width>
+          </Textbox>
+          <Textbox Name="ApproverValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ApproverName.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.5in</Top>
+            <Left>1.5in</Left>
+            <Height>0.2in</Height>
+            <Width>2.5in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Approved Date -->
+          <Textbox Name="ApprovedDateLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Date:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.5in</Top>
+            <Left>4.25in</Left>
+            <Height>0.2in</Height>
+            <Width>0.75in</Width>
+          </Textbox>
+          <Textbox Name="ApprovedDateValue">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ApprovedDate.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.5in</Top>
+            <Left>5in</Left>
+            <Height>0.2in</Height>
+            <Width>2.5in</Width>
+            <Style>
+              <Border>
+                <Bottom>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </Bottom>
+              </Border>
+            </Style>
+          </Textbox>
+          <!-- Remarks -->
+          <Textbox Name="RemarksLabel">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Remarks:</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.8in</Top>
+            <Left>0.5in</Left>
+            <Height>0.2in</Height>
+            <Width>1in</Width>
+          </Textbox>
+          <Textbox Name="RemarksValue">
+            <CanGrow>true</CanGrow>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!Remarks.Value</Value>
+                    <Style>
+                      <FontFamily>Arial</FontFamily>
+                      <FontSize>10pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.8in</Top>
+            <Left>1.5in</Left>
+            <Height>0.6in</Height>
+            <Width>6in</Width>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+                <Width>1pt</Width>
+              </Border>
+              <PaddingLeft>5pt</PaddingLeft>
+              <PaddingTop>5pt</PaddingTop>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Height>8.5in</Height>
+        <Style />
+      </Body>
+      <Width>8.5in</Width>
+      <Page>
+        <PageHeader>
+          <Height>0.5in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageHeader>
+        <PageFooter>
+          <Height>0.5in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="PageNumber">
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>="Page " &amp; Globals!PageNumber &amp; " of " &amp; Globals!TotalPages</Value>
+                      <Style>
+                        <FontFamily>Arial</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.1in</Top>
+              <Left>0in</Left>
+              <Height>0.25in</Height>
+              <Width>8in</Width>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
+        <LeftMargin>0.5in</LeftMargin>
+        <RightMargin>0.5in</RightMargin>
+        <TopMargin>0.5in</TopMargin>
+        <BottomMargin>0.5in</BottomMargin>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>a0123456-7890-1234-5678-9abcdef01234</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Date_">
+          <DataField>Date_</DataField>
+        </Field>
+        <Field Name="EmployeeNo_">
+          <DataField>EmployeeNo_</DataField>
+        </Field>
+        <Field Name="EmployeeName">
+          <DataField>EmployeeName</DataField>
+        </Field>
+        <Field Name="DepartmentCode">
+          <DataField>DepartmentCode</DataField>
+        </Field>
+        <Field Name="Designation">
+          <DataField>Designation</DataField>
+        </Field>
+        <Field Name="PhoneNumber">
+          <DataField>PhoneNumber</DataField>
+        </Field>
+        <Field Name="TotalEstimatedMileage">
+          <DataField>TotalEstimatedMileage</DataField>
+        </Field>
+        <Field Name="TotalEstimatedMileageFormat">
+          <DataField>TotalEstimatedMileageFormat</DataField>
+        </Field>
+        <Field Name="TotalEstimatedCost">
+          <DataField>TotalEstimatedCost</DataField>
+        </Field>
+        <Field Name="TotalEstimatedCostFormat">
+          <DataField>TotalEstimatedCostFormat</DataField>
+        </Field>
+        <Field Name="ApprovedRatePerKm">
+          <DataField>ApprovedRatePerKm</DataField>
+        </Field>
+        <Field Name="ApprovedRatePerKmFormat">
+          <DataField>ApprovedRatePerKmFormat</DataField>
+        </Field>
+        <Field Name="TransportOfficer">
+          <DataField>TransportOfficer</DataField>
+        </Field>
+        <Field Name="TransportOfficerDate">
+          <DataField>TransportOfficerDate</DataField>
+        </Field>
+        <Field Name="ApproverName">
+          <DataField>ApproverName</DataField>
+        </Field>
+        <Field Name="ApprovedDate">
+          <DataField>ApprovedDate</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="ApprovalStage">
+          <DataField>ApprovalStage</DataField>
+        </Field>
+        <Field Name="RequestedBy">
+          <DataField>RequestedBy</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="CompanyAddress">
+          <DataField>CompanyAddress</DataField>
+        </Field>
+        <Field Name="CompanyCity">
+          <DataField>CompanyCity</DataField>
+        </Field>
+        <Field Name="CompanyPhoneNo">
+          <DataField>CompanyPhoneNo</DataField>
+        </Field>
+        <Field Name="CompanyPicture">
+          <DataField>CompanyPicture</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="LineNo_">
+          <DataField>LineNo_</DataField>
+        </Field>
+        <Field Name="TravelDate">
+          <DataField>TravelDate</DataField>
+        </Field>
+        <Field Name="VehicleRegistrationNo_">
+          <DataField>VehicleRegistrationNo_</DataField>
+        </Field>
+        <Field Name="VehicleMake">
+          <DataField>VehicleMake</DataField>
+        </Field>
+        <Field Name="VehicleModel">
+          <DataField>VehicleModel</DataField>
+        </Field>
+        <Field Name="EngineCapacity">
+          <DataField>EngineCapacity</DataField>
+        </Field>
+        <Field Name="StartingPoint">
+          <DataField>StartingPoint</DataField>
+        </Field>
+        <Field Name="Destination">
+          <DataField>Destination</DataField>
+        </Field>
+        <Field Name="PurposeofTrip">
+          <DataField>PurposeofTrip</DataField>
+        </Field>
+        <Field Name="NumberofPassengers">
+          <DataField>NumberofPassengers</DataField>
+        </Field>
+        <Field Name="DistanceKM_">
+          <DataField>DistanceKM_</DataField>
+        </Field>
+        <Field Name="DistanceKM_Format">
+          <DataField>DistanceKM_Format</DataField>
+        </Field>
+        <Field Name="RatePerKM">
+          <DataField>RatePerKM</DataField>
+        </Field>
+        <Field Name="RatePerKMFormat">
+          <DataField>RatePerKMFormat</DataField>
+        </Field>
+        <Field Name="TotalCost">
+          <DataField>TotalCost</DataField>
+        </Field>
+        <Field Name="TotalCostFormat">
+          <DataField>TotalCostFormat</DataField>
+        </Field>
+        <Field Name="DepartureTime">
+          <DataField>DepartureTime</DataField>
+        </Field>
+        <Field Name="ReturnDate">
+          <DataField>ReturnDate</DataField>
+        </Field>
+        <Field Name="ReturnTime">
+          <DataField>ReturnTime</DataField>
+        </Field>
+        <Field Name="StartingOdometerReading">
+          <DataField>StartingOdometerReading</DataField>
+        </Field>
+        <Field Name="StartingOdometerReadingFormat">
+          <DataField>StartingOdometerReadingFormat</DataField>
+        </Field>
+        <Field Name="EndingOdometerReading">
+          <DataField>EndingOdometerReading</DataField>
+        </Field>
+        <Field Name="EndingOdometerReadingFormat">
+          <DataField>EndingOdometerReadingFormat</DataField>
+        </Field>
+        <Field Name="ActualDistanceKM_">
+          <DataField>ActualDistanceKM_</DataField>
+        </Field>
+        <Field Name="ActualDistanceKM_Format">
+          <DataField>ActualDistanceKM_Format</DataField>
+        </Field>
+        <Field Name="ActualTotalCost">
+          <DataField>ActualTotalCost</DataField>
+        </Field>
+        <Field Name="ActualTotalCostFormat">
+          <DataField>ActualTotalCostFormat</DataField>
+        </Field>
+        <Field Name="FuelReceiptsAttached">
+          <DataField>FuelReceiptsAttached</DataField>
+        </Field>
+        <Field Name="MaintenanceReceiptsAttached">
+          <DataField>MaintenanceReceiptsAttached</DataField>
+        </Field>
+        <Field Name="TransportOfficerRemarks">
+          <DataField>TransportOfficerRemarks</DataField>
+        </Field>
+        <Field Name="LineStatus">
+          <DataField>LineStatus</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

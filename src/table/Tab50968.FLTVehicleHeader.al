@@ -144,7 +144,7 @@ table 50968 "FLT-Vehicle Header"
         {
             Caption = 'Responsible Driver';
             TableRelation = "FLT-Driver".Driver;
-            Editable = false;
+            Editable = true;
 
             trigger OnValidate()
 
@@ -207,13 +207,13 @@ table 50968 "FLT-Vehicle Header"
             Caption = 'Maintenance Vendor No.';
             TableRelation = Vendor;
             FieldClass = FlowField;
-            CalcFormula = lookup("FLT Maintenance Request."."Vendor(Dealer)" WHERE("Vehicle Reg No" = FIELD("No."),status=const(Approved)));
+            CalcFormula = lookup("FLT Maintenance Request."."Vendor(Dealer)" WHERE("Vehicle Reg No" = FIELD("No."), status = const(Approved)));
         }
         field(24; "Under Maintenance"; Boolean)
         {
             Caption = 'Under Maintenance';
             FieldClass = FlowField;
-            CalcFormula = Exist("FLT Maintenance Request." WHERE("Vehicle Reg No" = FIELD("No."),status=const(Approved)));
+            CalcFormula = Exist("FLT Maintenance Request." WHERE("Vehicle Reg No" = FIELD("No."), status = const(Approved)));
 
         }
         field(25; "Next Service Date"; Date)
@@ -243,7 +243,7 @@ table 50968 "FLT-Vehicle Header"
         field(39006075; "Last serviced mileage"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = lookup("FLT Maintenance Request."."Odometer Reading" WHERE("Vehicle Reg No" = FIELD("No."),status=const(Approved)));
+            CalcFormula = lookup("FLT Maintenance Request."."Odometer Reading" WHERE("Vehicle Reg No" = FIELD("No."), status = const(Approved)));
         }
         field(39006076; "Service Interval"; Option)
         {
@@ -334,7 +334,7 @@ table 50968 "FLT-Vehicle Header"
         }
         field(30; "Driver Name"; text[60])
         {
-
+            Editable = false;
         }
         field(39006103; "Total Consumption"; Decimal)
         {
