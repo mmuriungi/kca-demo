@@ -14,18 +14,18 @@ codeunit 50064 "WorkFlow Code"
 
         //PVS
 
-        //Start Transport Requisition
-        SendTransportReq: TextConst ENU = 'Approval Request for Transport is requested', ENG = 'Approval Request for Transport is requested';
-        AppTransportReq: TextConst ENU = 'Approval Request for Transport is approved', ENG = 'Approval Request for Transport is approved';
-        RejTransportReq: TextConst ENU = 'Approval Request for Transport is rejected', ENG = 'Approval Request for Transport is rejected';
-        CancelTransportReq: TextConst ENU = 'Approval Request for Transport is cancelled', ENG = 'Approval Request for Transport is cancelled';
+        // //Start Transport Requisition
+        // SendTransportReq: TextConst ENU = 'Approval Request for Transport is requested', ENG = 'Approval Request for Transport is requested';
+        // AppTransportReq: TextConst ENU = 'Approval Request for Transport is approved', ENG = 'Approval Request for Transport is approved';
+        // RejTransportReq: TextConst ENU = 'Approval Request for Transport is rejected', ENG = 'Approval Request for Transport is rejected';
+        // CancelTransportReq: TextConst ENU = 'Approval Request for Transport is cancelled', ENG = 'Approval Request for Transport is cancelled';
 
-        DelTransportReq: TextConst ENU = 'Approval Request for Transport is delegated', ENG = 'Approval Request for Transport is delegated';
-        SendForPendingTransTxt: TextConst ENU = 'Status of Transport changed to Pending approval',
-                                        ENG = 'Status of Transport changed to Pending approval';
-        ReleaseTransportReqTxt: TextConst ENU = 'Release Transport', ENG = 'Release Transport';
-        ReOpenTransportReqTxt: TextConst ENU = 'ReOpen Transport', ENG = 'ReOpen Transport';
-        UserCancelTransportReq: TextConst ENU = 'Approval Request for Transport is cancelled by user', ENG = 'Approval Request for Transport is cancelled by user';
+        // DelTransportReq: TextConst ENU = 'Approval Request for Transport is delegated', ENG = 'Approval Request for Transport is delegated';
+        // SendForPendingTransTxt: TextConst ENU = 'Status of Transport changed to Pending approval',
+        //                                 ENG = 'Status of Transport changed to Pending approval';
+        // ReleaseTransportReqTxt: TextConst ENU = 'Release Transport', ENG = 'Release Transport';
+        // ReOpenTransportReqTxt: TextConst ENU = 'ReOpen Transport', ENG = 'ReOpen Transport';
+        // UserCancelTransportReq: TextConst ENU = 'Approval Request for Transport is cancelled by user', ENG = 'Approval Request for Transport is cancelled by user';
 
         //PharmRequests REssponses
 
@@ -44,196 +44,196 @@ codeunit 50064 "WorkFlow Code"
 
     //PVS WF Code
 
-    procedure RunWorkflowOnSendTransportReqApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnSendTransportReqApproval'))
-    end;
+    // procedure RunWorkflowOnSendTransportReqApprovalCode(): Code[128]
+    // begin
+    //     exit(UpperCase('RunWorkflowOnSendTransportReqApproval'))
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Init CodeUnit", 'OnSendTransportReqforApproval', '', false, false)]
-    procedure RunWorkflowOnSendTransportReqApproval(var TransportReq: Record "FLT-Transport Requisition")
-    begin
-        WFMngt.HandleEvent(RunWorkflowOnSendTransportReqApprovalCode(), TransportReq);
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Init CodeUnit", 'OnSendTransportReqforApproval', '', false, false)]
+    // procedure RunWorkflowOnSendTransportReqApproval(var TransportReq: Record "FLT-Transport Requisition")
+    // begin
+    //     WFMngt.HandleEvent(RunWorkflowOnSendTransportReqApprovalCode(), TransportReq);
 
-    end;
+    // end;
 
-    procedure RunWorkflowOnApproveTransportReqApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnApproveTransportReqApproval'))
-    end;
+    // procedure RunWorkflowOnApproveTransportReqApprovalCode(): Code[128]
+    // begin
+    //     exit(UpperCase('RunWorkflowOnApproveTransportReqApproval'))
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnApproveTransportReqApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveTransportReqApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnApproveApprovalRequest', '', false, false)]
+    // procedure RunWorkflowOnApproveTransportReqApproval(var ApprovalEntry: Record "Approval Entry")
+    // begin
+    //     WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnApproveTransportReqApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+    // end;
 
-    procedure RunWorkflowOnRejectTransportReqApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectTransportReqApproval'))
-    end;
+    // procedure RunWorkflowOnRejectTransportReqApprovalCode(): Code[128]
+    // begin
+    //     exit(UpperCase('RunWorkflowOnRejectTransportReqApproval'))
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnRejectTransportReqApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectTransportReqApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
+    // procedure RunWorkflowOnRejectTransportReqApproval(var ApprovalEntry: Record "Approval Entry")
+    // begin
+    //     WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnRejectTransportReqApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+    // end;
 
-    procedure RunWorkflowOnCancelledTransportReqApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnRejectTransportReqApproval'))
-    end;
+    // procedure RunWorkflowOnCancelledTransportReqApprovalCode(): Code[128]
+    // begin
+    //     exit(UpperCase('RunWorkflowOnRejectTransportReqApproval'))
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnCancelledTransportReqApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnCancelledTransportReqApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
+    // procedure RunWorkflowOnCancelledTransportReqApproval(var ApprovalEntry: Record "Approval Entry")
+    // begin
+    //     WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnCancelledTransportReqApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+    // end;
 
-    procedure RunWorkflowOnDelegateTransportReqApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnDelegateTransportReqApproval'))
-    end;
+    // procedure RunWorkflowOnDelegateTransportReqApprovalCode(): Code[128]
+    // begin
+    //     exit(UpperCase('RunWorkflowOnDelegateTransportReqApproval'))
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
-    procedure RunWorkflowOnDelegateTransportReqApproval(var ApprovalEntry: Record "Approval Entry")
-    begin
-        WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateTransportReqApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnDelegateApprovalRequest', '', false, false)]
+    // procedure RunWorkflowOnDelegateTransportReqApproval(var ApprovalEntry: Record "Approval Entry")
+    // begin
+    //     WFMngt.HandleEventOnKnownWorkflowInstance(RunWorkflowOnDelegateTransportReqApprovalCode(), ApprovalEntry, ApprovalEntry."Workflow Step Instance ID");
+    // end;
 
-    procedure SetStatusToPendingApprovalCodeTransportReq(): Code[128]
-    begin
-        exit(UpperCase('SetStatusToPendingApprovalTransportReq'));
-    end;
+    // procedure SetStatusToPendingApprovalCodeTransportReq(): Code[128]
+    // begin
+    //     exit(UpperCase('SetStatusToPendingApprovalTransportReq'));
+    // end;
 
-    procedure SetStatusToPendingApprovalTransportReq(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TransportReq: Record "FLT-Transport Requisition";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"FLT-Transport Requisition":
-                begin
-                    RecRef.SetTable(TransportReq);
-                    TransportReq.Validate(Status, TransportReq.Status::"Pending Approval");
-                    TransportReq.Modify();
-                    Variant := TransportReq;
-                end;
-        end;
-    end;
+    // procedure SetStatusToPendingApprovalTransportReq(var Variant: Variant)
+    // var
+    //     RecRef: RecordRef;
+    //     TransportReq: Record "FLT-Transport Requisition";
+    // begin
+    //     RecRef.GetTable(Variant);
+    //     case RecRef.Number() of
+    //         DATABASE::"FLT-Transport Requisition":
+    //             begin
+    //                 RecRef.SetTable(TransportReq);
+    //                 TransportReq.Validate(Status, TransportReq.Status::"Pending Approval");
+    //                 TransportReq.Modify();
+    //                 Variant := TransportReq;
+    //             end;
+    //     end;
+    // end;
 
-    procedure ReleaseTransportReqCode(): Code[128]
-    begin
-        exit(UpperCase('ReleaseTransportReq'));
-    end;
+    // procedure ReleaseTransportReqCode(): Code[128]
+    // begin
+    //     exit(UpperCase('ReleaseTransportReq'));
+    // end;
 
-    procedure ReleaseTransportReq(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        TransportReq: Record "FLT-Transport Requisition";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReleaseTransportReq(Variant);
-                end;
-            DATABASE::"FLT-Transport Requisition":
-                begin
-                    RecRef.SetTable(TransportReq);
-                    TransportReq.Validate(Status, TransportReq.Status::Approved);
-                    TransportReq.Modify();
-                    Variant := TransportReq;
-                end;
-        end;
-    end;
+    // procedure ReleaseTransportReq(var Variant: Variant)
+    // var
+    //     RecRef: RecordRef;
+    //     TargetRecRef: RecordRef;
+    //     ApprovalEntry: Record "Approval Entry";
+    //     TransportReq: Record "FLT-Transport Requisition";
+    // begin
+    //     RecRef.GetTable(Variant);
+    //     case RecRef.Number() of
+    //         DATABASE::"Approval Entry":
+    //             begin
+    //                 ApprovalEntry := Variant;
+    //                 TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
+    //                 Variant := TargetRecRef;
+    //                 ReleaseTransportReq(Variant);
+    //             end;
+    //         DATABASE::"FLT-Transport Requisition":
+    //             begin
+    //                 RecRef.SetTable(TransportReq);
+    //                 TransportReq.Validate(Status, TransportReq.Status::Approved);
+    //                 TransportReq.Modify();
+    //                 Variant := TransportReq;
+    //             end;
+    //     end;
+    // end;
 
-    procedure ReOpenTransportReqCode(): Code[128]
-    begin
-        exit(UpperCase('ReOpenTransportReq'));
-    end;
+    // procedure ReOpenTransportReqCode(): Code[128]
+    // begin
+    //     exit(UpperCase('ReOpenTransportReq'));
+    // end;
 
-    procedure ReOpenTransportReq(var Variant: Variant)
-    var
-        RecRef: RecordRef;
-        TargetRecRef: RecordRef;
-        ApprovalEntry: Record "Approval Entry";
-        TransportReq: Record "FLT-Transport Requisition";
-    begin
-        RecRef.GetTable(Variant);
-        case RecRef.Number() of
-            DATABASE::"Approval Entry":
-                begin
-                    ApprovalEntry := Variant;
-                    TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
-                    Variant := TargetRecRef;
-                    ReOpenTransportReq(Variant);
-                end;
-            DATABASE::"FLT-Transport Requisition":
-                begin
-                    RecRef.SetTable(TransportReq);
-                    TransportReq.Validate(Status, TransportReq.Status::Open);
-                    TransportReq.Modify();
-                    Message('Hi there');
-                    Variant := TransportReq;
-                end;
-        end;
-    end;
+    // procedure ReOpenTransportReq(var Variant: Variant)
+    // var
+    //     RecRef: RecordRef;
+    //     TargetRecRef: RecordRef;
+    //     ApprovalEntry: Record "Approval Entry";
+    //     TransportReq: Record "FLT-Transport Requisition";
+    // begin
+    //     RecRef.GetTable(Variant);
+    //     case RecRef.Number() of
+    //         DATABASE::"Approval Entry":
+    //             begin
+    //                 ApprovalEntry := Variant;
+    //                 TargetRecRef.Get(ApprovalEntry."Record ID to Approve");
+    //                 Variant := TargetRecRef;
+    //                 ReOpenTransportReq(Variant);
+    //             end;
+    //         DATABASE::"FLT-Transport Requisition":
+    //             begin
+    //                 RecRef.SetTable(TransportReq);
+    //                 TransportReq.Validate(Status, TransportReq.Status::Open);
+    //                 TransportReq.Modify();
+    //                 Message('Hi there');
+    //                 Variant := TransportReq;
+    //             end;
+    //     end;
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
-    procedure AddTransportReqEventToLibrary()
-    begin
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendTransportReqApprovalCode(), Database::"FLT-Transport Requisition", SendTransportReq, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveTransportReqApprovalCode(), Database::"Approval Entry", AppTransportReq, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectTransportReqApprovalCode(), Database::"Approval Entry", RejTransportReq, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateTransportReqApprovalCode(), Database::"Approval Entry", DelTransportReq, 0, false);
-        WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnCancelledTransportReqApprovalCode(), Database::"Approval Entry", CancelTransportReq, 0, false);
-        //cancelling of douments
-        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelTransportReqApprovalCode, Database::"FLT-Transport Requisition", UserCancelTransportReq, 0, false);
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Event Handling", 'OnAddWorkflowEventsToLibrary', '', false, false)]
+    // procedure AddTransportReqEventToLibrary()
+    // begin
+    //     WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnSendTransportReqApprovalCode(), Database::"FLT-Transport Requisition", SendTransportReq, 0, false);
+    //     WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnApproveTransportReqApprovalCode(), Database::"Approval Entry", AppTransportReq, 0, false);
+    //     WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnRejectTransportReqApprovalCode(), Database::"Approval Entry", RejTransportReq, 0, false);
+    //     WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnDelegateTransportReqApprovalCode(), Database::"Approval Entry", DelTransportReq, 0, false);
+    //     WorkflowEventHandling.AddEventToLibrary(RunWorkflowOnCancelledTransportReqApprovalCode(), Database::"Approval Entry", CancelTransportReq, 0, false);
+    //     //cancelling of douments
+    //     WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelTransportReqApprovalCode, Database::"FLT-Transport Requisition", UserCancelTransportReq, 0, false);
 
 
-    end;
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
-    procedure AddTransportReqRespToLibrary()
-    begin
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnAddWorkflowResponsesToLibrary', '', false, false)]
+    // procedure AddTransportReqRespToLibrary()
+    // begin
 
-        WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeTransportReq(), 0, SendForPendingTransTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReleaseTransportReqCode(), 0, ReleaseTransportReqTxt, 'GROUP 0');
-        WorkflowResponseHandling.AddResponseToLibrary(ReOpenTransportReqCode(), 0, ReOpenTransportReqTxt, 'GROUP 0');
-        // try me WorkflowResponseHandling.AddResponseToLibrary(ReOpenPVSCode(), 0, ReOpenPVSTxt, 'GROUP 0');
-    end;
+    //     WorkflowResponseHandling.AddResponseToLibrary(SetStatusToPendingApprovalCodeTransportReq(), 0, SendForPendingTransTxt, 'GROUP 0');
+    //     WorkflowResponseHandling.AddResponseToLibrary(ReleaseTransportReqCode(), 0, ReleaseTransportReqTxt, 'GROUP 0');
+    //     WorkflowResponseHandling.AddResponseToLibrary(ReOpenTransportReqCode(), 0, ReOpenTransportReqTxt, 'GROUP 0');
+    //     // try me WorkflowResponseHandling.AddResponseToLibrary(ReOpenPVSCode(), 0, ReOpenPVSTxt, 'GROUP 0');
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
-    procedure ExeRespForTransportReq(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
-    var
-        WorkflowResponse: Record "Workflow Response";
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnExecuteWorkflowResponse', '', false, false)]
+    // procedure ExeRespForTransportReq(var ResponseExecuted: Boolean; Variant: Variant; xVariant: Variant; ResponseWorkflowStepInstance: Record "Workflow Step Instance")
+    // var
+    //     WorkflowResponse: Record "Workflow Response";
 
-    begin
-        IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
-            case WorkflowResponse."Function Name" of
-                SetStatusToPendingApprovalCodeTransportReq():
-                    begin
-                        SetStatusToPendingApprovalTransportReq(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReleaseTransportReqCode():
-                    begin
-                        ReleaseTransportReq(Variant);
-                        ResponseExecuted := true;
-                    end;
-                ReOpenTransportReqCode():
-                    begin
-                        ReOpenTransportReq(Variant);
-                        ResponseExecuted := true;
-                    end;
-            end;
-    end;
+    // begin
+    //     IF WorkflowResponse.GET(ResponseWorkflowStepInstance."Function Name") THEN
+    //         case WorkflowResponse."Function Name" of
+    //             SetStatusToPendingApprovalCodeTransportReq():
+    //                 begin
+    //                     SetStatusToPendingApprovalTransportReq(Variant);
+    //                     ResponseExecuted := true;
+    //                 end;
+    //             ReleaseTransportReqCode():
+    //                 begin
+    //                     ReleaseTransportReq(Variant);
+    //                     ResponseExecuted := true;
+    //                 end;
+    //             ReOpenTransportReqCode():
+    //                 begin
+    //                     ReOpenTransportReq(Variant);
+    //                     ResponseExecuted := true;
+    //                 end;
+    //         end;
+    // end;
 
 
 
@@ -243,18 +243,18 @@ codeunit 50064 "WorkFlow Code"
     /// 
     /// 
     //Cancelling of Transport
-    procedure RunWorkflowOnCancelTransportReqApprovalCode(): Code[128]
-    begin
-        exit(UpperCase('RunWorkflowOnCancelTransportReqApproval'))
-    end;
+    // procedure RunWorkflowOnCancelTransportReqApprovalCode(): Code[128]
+    // begin
+    //     exit(UpperCase('RunWorkflowOnCancelTransportReqApproval'))
+    // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Init CodeUnit", 'OnCancelTransportReqForApproval', '', false, false)]
-    procedure RunWorkflowOnCancelTransportReqApproval(var TransportReq: Record "FLT-Transport Requisition")
-    begin
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Init CodeUnit", 'OnCancelTransportReqForApproval', '', false, false)]
+    // procedure RunWorkflowOnCancelTransportReqApproval(var TransportReq: Record "FLT-Transport Requisition")
+    // begin
 
-        WFMngt.HandleEvent(RunWorkflowOnCancelTransportReqApprovalCode(), TransportReq);
+    //     WFMngt.HandleEvent(RunWorkflowOnCancelTransportReqApprovalCode(), TransportReq);
 
-    end;
+    // end;
     //End cancelling Transport
 
 

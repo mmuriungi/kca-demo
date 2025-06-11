@@ -3827,13 +3827,16 @@ Codeunit 61106 webportals
 
     procedure TransportRequisitionApprovalRequest(ReqNo: Text)
     var
-        AppRVMgt: Codeunit "iNIT cODEUNIT";
+        AppRVMgt: Codeunit "Approval Workflows V1";
+        Variant: Variant;
     begin
         TransportRequisition.Reset;
         TransportRequisition.SetRange(TransportRequisition."Transport Requisition No", ReqNo);
         if TransportRequisition.Find('-')
         then begin
-            AppRVMgt.OnSendTransportReqforApproval(TransportRequisition);
+            Variant := TransportRequisition;
+            if AppRVMgt.CheckApprovalsWorkflowEnabled(Variant) then
+                AppRVMgt.OnSendDocForApproval(Variant);
         end;
     end;
 
@@ -12311,12 +12314,14 @@ Codeunit 61106 webportals
     procedure CancelTransportRequisition(transportReqNo: Code[20]) msg: Boolean
     var
         TransReq: Record "FLT-Transport Requisition";
-        Approv: Codeunit "Init Codeunit";
+        Approv: Codeunit "Approval Workflows V1";
+        Variant: Variant;
     begin
         TransReq.Reset;
         transReq.SetRange("Transport Requisition No", transportReqNo);
         if TransReq.Find('-') then begin
-            Approv.OnCancelTransportReqForApproval(TransReq);
+            Variant := TransReq;
+            Approv.OnCancelDocApprovalRequest(Variant);
             msg := true;
         end;
     end;

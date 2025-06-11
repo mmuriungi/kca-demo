@@ -64,12 +64,12 @@ page 51396 "FLT-Transport Req. List"
                 Image = SendApprovalRequest;
                 trigger OnAction()
                 var
-                    ApprovalMgt: Codeunit "Init Codeunit";
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
                 begin
-                    if ApprovalMgt.IsTransportReqEnabled(Rec) then begin
-                        ApprovalMgt.OnSendTransportReqforApproval(Rec);
-                    end ELSE
-                        ERROR('Check Your Workflow and try again')
+                    Variant := Rec;
+                    if ApprovalMgt.CheckApprovalsWorkflowEnabled(Variant) then
+                        ApprovalMgt.OnSendDocForApproval(Variant);
                 end;
             }
             action(Approvals)
@@ -93,9 +93,11 @@ page 51396 "FLT-Transport Req. List"
 
                 trigger OnAction()
                 var
-                    ApprovalMgt: Codeunit "Init Codeunit";
+                    ApprovalMgt: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
                 begin
-                    ApprovalMgt.OnCancelTransportReqforApproval(Rec);
+                    Variant := Rec;
+                    ApprovalMgt.OnCancelDocApprovalRequest(Variant);
                 end;
             }
 

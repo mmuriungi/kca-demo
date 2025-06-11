@@ -130,13 +130,23 @@ table 50066 "Exam Timetable Entry"
             Caption = 'Session Type';
             OptionMembers = Morning,Midday,Afternoon;
             OptionCaption = 'Morning,Midday,Afternoon';
-            FieldClass = FlowField;
-            CalcFormula = lookup("Exam Time Slot"."Session Type" where("Code" = field("Time Slot")));
+            // FieldClass = FlowField;
+            // CalcFormula = lookup("Exam Time Slot"."Session Type" where("Code" = field("Time Slot")));
         }
         field(24; "Document No."; Code[20])
         {
             Caption = 'Document No.';
             TableRelation = "Timetable Header"."Document No.";
+        }
+        field(25; "Invigilators Assigned"; Boolean)
+        {
+            Caption = 'Invigilators Assigned';
+            Editable = false;
+        }
+        field(26; "Invigilator Assignment Date"; DateTime)
+        {
+            Caption = 'Invigilator Assignment Date';
+            Editable = false;
         }
     }
 

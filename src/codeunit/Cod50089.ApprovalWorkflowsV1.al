@@ -119,6 +119,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelMileageClaimRequestTxt: Label 'An Approval request for Mileage Claim is Cancelled';
         RunWorkflowOnSendMileageClaimForApprovalCode: Label 'RUNWORKFLOWONSENDMILEAGECLAIMFORAPPROVAL';
         RunWorkflowOnCancelMileageClaimForApprovalCode: Label 'RUNWORKFLOWONCANCELMILEAGECLAIMFORAPPROVAL';
+        //Transport Requisition
+        OnSendTransportReqforApprovalTxt: Label 'Approval request for Transport is requested';
+        OnCancelTransportReqforApprovalTxt: Label 'An Approval request for Transport is Cancelled';
+        RunWorkflowOnSendTransportReqforApprovalCode: Label 'RUNWORKFLOWONSENDTRANSPORTREQFORAPPROVAL';
+        RunWorkflowOnCancelTransportReqforApprovalCode: Label 'RUNWORKFLOWONCANCELTRANSPORTREQFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -174,6 +179,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendItemTransferForApprovalCode));
             Database::"FLT-Mileage Claim Header":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendMileageClaimForApprovalCode));
+            Database::"FLT-Transport Requisition":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendTransportReqforApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -278,6 +285,9 @@ codeunit 50089 "Approval Workflows V1"
         //Mileage Claim
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendMileageClaimForApprovalCode, Database::"FLT-Mileage Claim Header", OnSendMileageClaimRequestTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelMileageClaimForApprovalCode, Database::"FLT-Mileage Claim Header", OnCancelMileageClaimRequestTxt, 0, false);
+        //Transport Requisition
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendTransportReqforApprovalCode, Database::"FLT-Transport Requisition", OnSendTransportReqforApprovalTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelTransportReqforApprovalCode, Database::"FLT-Transport Requisition", OnCancelTransportReqforApprovalTxt, 0, false);
     end;
 
 
@@ -340,6 +350,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendItemTransferForApprovalCode, Variant);
             Database::"FLT-Mileage Claim Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendMileageClaimForApprovalCode, Variant);
+            Database::"FLT-Transport Requisition":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendTransportReqforApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -400,6 +412,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelItemTransferForApprovalCode, Variant);
             Database::"FLT-Mileage Claim Header":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelMileageClaimForApprovalCode, Variant);
+            Database::"FLT-Transport Requisition":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelTransportReqforApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -433,6 +447,7 @@ codeunit 50089 "Approval Workflows V1"
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
+        TransportReq: Record "FLT-Transport Requisition";
     begin
         case RecRef.Number of
             Database::club:
@@ -596,6 +611,13 @@ codeunit 50089 "Approval Workflows V1"
                     MileageClaimHeader.Modify();
                     Handled := true;
                 end;
+            Database::"FLT-Transport Requisition":
+                begin
+                    RecRef.SetTable(TransportReq);
+                    TransportReq.Validate("Status", TransportReq.Status::Open);
+                    TransportReq.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -625,7 +647,8 @@ codeunit 50089 "Approval Workflows V1"
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
-        begin
+        TransportReq: Record "FLT-Transport Requisition";
+            begin
         case RecRef.Number of
             Database::club:
                 begin
@@ -792,6 +815,13 @@ codeunit 50089 "Approval Workflows V1"
                     MileageClaimHeader.Modify();
                     IsHandled := true;
                 end;
+            Database::"FLT-Transport Requisition":
+                begin
+                    RecRef.SetTable(TransportReq);
+                    TransportReq.Validate("Status", TransportReq.Status::"Pending Approval");
+                    TransportReq.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -821,6 +851,7 @@ codeunit 50089 "Approval Workflows V1"
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
+        TransportReq: Record "FLT-Transport Requisition";
     begin
         case RecRef.number of
             Database::Club:
@@ -939,6 +970,11 @@ codeunit 50089 "Approval Workflows V1"
                     ApprovalEntryArgument."Document No." := MileageClaimHeader."No.";
                     ApprovalEntryArgument.Amount := MileageClaimHeader."Total Estimated Cost";
                 end;
+            Database::"FLT-Transport Requisition":
+                begin
+                    RecRef.SetTable(TransportReq);
+                    ApprovalEntryArgument."Document No." := TransportReq."Transport Requisition No";
+                end;
         end;
     end;
 
@@ -973,6 +1009,7 @@ codeunit 50089 "Approval Workflows V1"
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
+        TransportReq: Record "FLT-Transport Requisition";
     begin
         case RecRef.Number of
             Database::Club:
@@ -1141,6 +1178,13 @@ codeunit 50089 "Approval Workflows V1"
                     MileageClaimHeader.Modify();
                     Handled := true;
                 end;
+            Database::"FLT-Transport Requisition":
+                begin
+                    RecRef.SetTable(TransportReq);
+                    TransportReq.Validate(Status, TransportReq.Status::Approved);
+                    TransportReq.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -1170,6 +1214,7 @@ codeunit 50089 "Approval Workflows V1"
         StoreRequisition: Record "PROC-Store Requistion Header";
         ItemTransferHeader: Record "Item Transfer Header";
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
+        TransportReq: Record "FLT-Transport Requisition";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -1335,6 +1380,14 @@ codeunit 50089 "Approval Workflows V1"
                     if MileageClaimHeader.Get(ApprovalEntry."Document No.") then begin
                         MileageClaimHeader.Status := MileageClaimHeader.Status::Rejected;
                         MileageClaimHeader.Modify(true);
+                    end;
+                end;
+            Database::"FLT-Transport Requisition":
+                begin
+                    if TransportReq.Get(ApprovalEntry."Document No.") then begin
+                        TransportReq."Approval Stage" := TransportReq."Approval Stage"::New;
+                        TransportReq.Status := TransportReq.Status::Open;
+                        TransportReq.Modify(true);
                     end;
                 end;
         end;

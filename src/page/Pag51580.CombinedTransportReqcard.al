@@ -79,12 +79,15 @@ page 51580 "Combined Transport Req card"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Codeunit";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
+                        Variant: Variant;
                     begin
                         rec."Requested By" := UserId;
                         Rec."Date Requisition Received" := Today;
                         Rec."Time Requisition Received" := Time;
-                        ApprovalMgt.OnSendTransportReqforApproval(Rec);
+                        Variant := Rec;
+                        if ApprovalMgt.CheckApprovalsWorkflowEnabled(Variant) then
+                            ApprovalMgt.OnSendDocForApproval(Variant);
                     end;
                 }
                 action(cancellsApproval)
@@ -98,7 +101,8 @@ page 51580 "Combined Transport Req card"
 
                     trigger OnAction()
                     var
-                        ApprovalMgt: Codeunit "Init Codeunit";
+                        ApprovalMgt: Codeunit "Approval Workflows V1";
+                        Variant: Variant;
                         // showmessage: Boolean;
                         // ManualCancel: Boolean;
                         // State: Option Open,"Pending Approval",Cancelled,Approved;
@@ -110,7 +114,8 @@ page 51580 "Combined Transport Req card"
                         //  ManualCancel:=true;
                         //  Clear(tableNo);
                         //  tableNo:=52018054;
-                        ApprovalMgt.OnCancelTransportReqforApproval(Rec);
+                        Variant := Rec;
+                        ApprovalMgt.OnCancelDocApprovalRequest(Variant);
                     end;
                 }
                 action("Print/Preview")
