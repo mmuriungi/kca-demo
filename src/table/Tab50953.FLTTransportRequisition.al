@@ -35,7 +35,7 @@ table 50953 "FLT-Transport Requisition"
         }
         field(4; "Vehicle Allocated"; Code[20])
         {
-            TableRelation = "FLT-Vehicle Header"."Registration No.";
+            TableRelation = "FLT-Vehicle Header"."No.";
             Caption = 'Vehicle I Allocated';
             trigger OnValidate()
             var
@@ -654,35 +654,35 @@ table 50953 "FLT-Transport Requisition"
         //Vehicle II and Vehicle III
         field(50053; "Vehicle II"; Code[20])
         {
-            TableRelation = "FLT-Vehicle Header"."Registration No.";
+            TableRelation = "FLT-Vehicle Header"."No.";
             Caption = 'Vehicle II';
         }
         field(50054; "Vehicle III"; Code[20])
         {
-            TableRelation = "FLT-Vehicle Header"."Registration No.";
+            TableRelation = "FLT-Vehicle Header"."No.";
             Caption = 'Vehicle III';
         }
         field(50055; "Vehicle II Make"; Code[20])
         {
-            CalcFormula = Lookup("FLT-Vehicle Header".Make WHERE("Registration No." = FIELD("Vehicle II")));
+            CalcFormula = Lookup("FLT-Vehicle Header".Make WHERE("No." = FIELD("Vehicle II")));
             FieldClass = FlowField;
             Caption = 'Make II';
         }
         field(50056; "Vehicle III Make"; Code[20])
         {
-            CalcFormula = Lookup("FLT-Vehicle Header".Make WHERE("Registration No." = FIELD("Vehicle III")));
+            CalcFormula = Lookup("FLT-Vehicle Header".Make WHERE("No." = FIELD("Vehicle III")));
             FieldClass = FlowField;
             Caption = 'Make III';
         }
         field(50057; "Vehicle II Model"; Code[20])
         {
-            CalcFormula = Lookup("FLT-Vehicle Header".Model WHERE("Registration No." = FIELD("Vehicle II")));
+            CalcFormula = Lookup("FLT-Vehicle Header".Model WHERE("No." = FIELD("Vehicle II")));
             FieldClass = FlowField;
             Caption = 'Model II';
         }
         field(50058; "Vehicle III Model"; Code[20])
         {
-            CalcFormula = Lookup("FLT-Vehicle Header".Model WHERE("Registration No." = FIELD("Vehicle III")));
+            CalcFormula = Lookup("FLT-Vehicle Header".Model WHERE("No." = FIELD("Vehicle III")));
             FieldClass = FlowField;
             Caption = 'Model III';
         }
@@ -697,11 +697,33 @@ table 50953 "FLT-Transport Requisition"
         //Drivers II and III
         field(50061; "Driver II"; Code[20])
         {
+            TableRelation = "FLT-Driver";
+            trigger OnValidate()
+            var
+                FLT: record "FLT-Driver";
+            begin
+                if FLT.GET("Driver Name") THEN begin
+                    "Driver Name" := (FLT."Driver Name");
+                    Designation := FLT.Designation;
+                    DriverContact := FLT."Driver Contact";
+                end;
 
+            end;
         }
         field(50062; "Driver III"; Code[20])
         {
+            TableRelation = "FLT-Driver";
+            trigger OnValidate()
+            var
+                FLT: record "FLT-Driver";
+            begin
+                if FLT.GET("Driver Name") THEN begin
+                    "Driver Name" := (FLT."Driver Name");
+                    Designation := FLT.Designation;
+                    DriverContact := FLT."Driver Contact";
+                end;
 
+            end;
         }
         field(50063; "Driver II Name"; Text[250])
         {

@@ -503,11 +503,13 @@ page 51397 "FLT-Transport Req."
                 PromotedCategory = Process;
                 ApplicationArea = All;
                 trigger OnAction()
+                var
                 begin
-                    if Rec."Head of Department" = UserID then begin
-                        Rec.TestField("Transport Officer");
+                    FnPopulateApprovers();
+                    if HOD = UserID then begin
+                        //Rec.TestField("Transport Officer");
                         Rec.TestField("Recommed this Request");
-                        Rec.TestField("Recommendation Reason");
+                       // Rec.TestField("Recommendation Reason");
                         if Confirm('Approve the request ?', true) = false then Error('Cancelled');
                         Rec."Approval Stage" := Rec."Approval Stage"::"Registra HRM";
                         Rec."HOD Approved" := true;
@@ -531,7 +533,8 @@ page 51397 "FLT-Transport Req."
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    if Rec."Registrar HRM" = UserID then begin
+                    FnPopulateApprovers();
+                    if Registrar = UserID then begin
                         //  Rec.TestField("Vehicle Allocated");
                         // Rec.TestField("Driver Allocated");
                         if Confirm('Approve the request ?', true) = false then Error('Cancelled');
@@ -561,10 +564,11 @@ page 51397 "FLT-Transport Req."
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    if Rec."Transport Officer" = UserID then begin
-                        Rec.TestField("Registrar HRM");
-                        Rec.TestField("Vehicle Allocated");
-                        Rec.TestField("Driver Allocated");
+                    FnPopulateApprovers();
+                    if Transofficer = UserID then begin
+                        // Rec.TestField("Registrar HRM");
+                        // Rec.TestField("Vehicle Allocated");
+                        // Rec.TestField("Driver Allocated");
                         if Confirm('Approve the request ?', true) = false then Error('Cancelled');
                         Rec."Approval Stage" := Rec."Approval Stage"::"Fully Approved";
                         Rec."TR Officer Approved" := true;
@@ -792,5 +796,40 @@ page 51397 "FLT-Transport Req."
         exit(true);
     end;
 
+    procedure FnPopulateApprovers()
+    var
+        ApprovalEntry: Record "Approval Entry";
+    begin
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Transport Requisition");
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", Rec."Transport Requisition No");
+        ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", 1);
+        if ApprovalEntry.FindLast() then begin
+            HOD := ApprovalEntry."Approver ID";
+            Registrar := ApprovalEntry."Approver ID";
+            Transofficer := ApprovalEntry."Approver ID";
+        end;
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Transport Requisition");
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", Rec."Transport Requisition No");
+        ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", 2);
+        if ApprovalEntry.FindLast() then begin
+            Registrar := ApprovalEntry."Approver ID";
+            Transofficer := ApprovalEntry."Approver ID";
+        end;
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange(ApprovalEntry."Table ID", DATABASE::"FLT-Transport Requisition");
+        ApprovalEntry.SetRange(ApprovalEntry."Document No.", Rec."Transport Requisition No");
+        ApprovalEntry.SetRange(ApprovalEntry."Sequence No.", 3);
+        if ApprovalEntry.FindLast() then begin
+            Transofficer := ApprovalEntry."Approver ID";
+        end;
+
+    end;
+
+    var
+        HOD: Code[50];
+        Registrar: Code[50];
+        Transofficer: Code[50];
 }
 

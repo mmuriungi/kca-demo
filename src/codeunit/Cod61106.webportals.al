@@ -12406,7 +12406,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure CreateFuelRequisition(staffNo: Code[20];driver:Code[20]; vehicleNo: Code[20]; fuelType: Code[20]; quantity: Decimal; odometerreading: Decimal; vendorNo: Code[20]; requestDate: Date; paymenttype: option; description: Text) msg: Text
+    procedure CreateFuelRequisition(staffNo: Code[20]; driver: Code[20]; vehicleNo: Code[20]; fuelType: Code[20]; quantity: Decimal; odometerreading: Decimal; vendorNo: Code[20]; requestDate: Date; paymenttype: option; description: Text) msg: Text
     var
         FuelReq: Record "FLT-Fuel & Maintenance Req.";
         ApprovalMgmt: Codeunit "Approval Workflows V1";
@@ -12463,6 +12463,27 @@ Codeunit 61106 webportals
             JArray.WriteTo(JsTxt);
             msg := JsTxt;
         end;
+    end;
+
+    procedure GetTransportRequisitionsReport(RequisitionNo: Code[20]) RptBase64: Text
+    var
+        TransportReq: Record "FLT-Transport Requisition";
+        Base64: Codeunit "Base64 Convert";
+        RecRef: RecordRef;
+        ReportInStream: InStream;
+        ReportOutStream: OutStream;
+        TempBlob: Codeunit "Temp Blob";
+    begin
+        TransportReq.Reset();
+        TransportReq.SetRange(TransportReq."Transport Requisition No", RequisitionNo);
+        if TransportReq.Find('-') then begin
+            RecRef.GetTable(TransportReq);
+            TempBlob.CreateOutStream(ReportOutStream);
+            Report.SaveAs(Report::"Transport Request", '', ReportFormat::Pdf, ReportOutStream, recRef);
+            TempBlob.CreateInStream(ReportInStream);
+            RptBase64 := Base64.ToBase64(ReportInStream, true);
+        end;
+        exit(RptBase64);
     end;
 }
 

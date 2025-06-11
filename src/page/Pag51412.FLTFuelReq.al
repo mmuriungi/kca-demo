@@ -110,7 +110,7 @@ page 51412 "FLT-Fuel Req."
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Type of Fuel Requisition";Rec."Type of Fuel Requisition")
+                field("Type of Fuel Requisition"; Rec."Type of Fuel Requisition")
                 {
                     ApplicationArea = All;
                     Caption = 'Type';
@@ -282,26 +282,14 @@ page 51412 "FLT-Fuel Req."
 
                     trigger OnAction()
                     var
-                    // ApprovalMgt: Codeunit "Approvals Management";
-                    // showmessage: Boolean;
-                    // ManualCancel: Boolean;
-                    // State: Option Open,"Pending Approval",Cancelled,Approved;
-                    // DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
-                    // tableNo: Integer;
+                        variant: Variant;
+                        Approv: Codeunit "Approval Workflows V1";
                     begin
+                        variant := Rec;
+                        if Approv.CheckApprovalsWorkflowEnabled(variant) then begin
+                            Approv.OnSendDocForApproval(variant);
+                        end;
 
-
-                        Rec.TestField(Status, Rec.Status::Open);
-
-
-                        Rec.Modify;
-
-                        // State:=State::Open;
-                        //  if Status<>Status::Open then State:=State::"Pending Approval";
-                        //  DocType:=DocType::TR;
-                        //  Clear(tableNo);
-                        //tableNo:=52018054;
-                        //  if ApprovalMgt.SendApproval(tableNo,Rec."Transport Requisition No",DocType,State) then;
                     end;
                 }
                 action(cancellsApproval)
@@ -315,19 +303,14 @@ page 51412 "FLT-Fuel Req."
 
                     trigger OnAction()
                     var
-                        // ApprovalMgt: Codeunit "Approvals Management";
-                        // showmessage: Boolean;
-                        // ManualCancel: Boolean;
-                        // State: Option Open,"Pending Approval",Cancelled,Approved;
-                        DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order","None","Payment Voucher","Petty Cash",Imprest,Requisition,ImprestSurrender,Interbank,TransportRequest,Maintenance,Fuel,ImporterExporter,"Import Permit","Export Permit",TR,"Safari Notice","Student Applications","Water Research","Consultancy Requests","Consultancy Proposals","Meals Bookings","General Journal","Student Admissions","Staff Claim",KitchenStoreRequisition,"Leave Application","Staff Advance","Staff Advance Accounting";
-                    // tableNo: Integer;
+                        variant: Variant;
+                        Approv: Codeunit "Approval Workflows V1";
                     begin
-                        DocType := DocType::TR;
-                        //  showmessage:=true;
-                        //  ManualCancel:=true;
-                        //  Clear(tableNo);
-                        //  tableNo:=52018054;
-                        //   if ApprovalMgt.CancelApproval(tableNo,DocType,Rec."Transport Requisition No",showmessage,ManualCancel) then;
+                        variant := Rec;
+                        if Approv.CheckApprovalsWorkflowEnabled(variant) then begin
+                            Approv.OnCancelDocApprovalRequest(variant);
+                        end;
+
                     end;
                 }
                 separator(Separator28)

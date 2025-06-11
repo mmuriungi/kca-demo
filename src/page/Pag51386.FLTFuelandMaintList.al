@@ -54,6 +54,52 @@ page 51386 "FLT-Fuel and Maint. List"
 
     actions
     {
+        area(processing)
+        {
+            action(sendApproval)
+            {
+                Caption = 'Send A&pproval Request';
+                Image = SendApprovalRequest;
+                Promoted = true;
+                PromotedCategory = Category4;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    variant: Variant;
+                    Approv: Codeunit "Approval Workflows V1";
+                begin
+                    variant := Rec;
+                    if Approv.CheckApprovalsWorkflowEnabled(variant) then begin
+                        Approv.OnSendDocForApproval(variant);
+                    end;
+
+                end;
+            }
+            action(cancellsApproval)
+            {
+                Caption = 'Cancel Approval Re&quest';
+                Image = Cancel;
+                Promoted = true;
+                PromotedCategory = Category4;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    variant: Variant;
+                    Approv: Codeunit "Approval Workflows V1";
+                begin
+                    variant := Rec;
+                    if Approv.CheckApprovalsWorkflowEnabled(variant) then begin
+                        Approv.OnCancelDocApprovalRequest(variant);
+                    end;
+
+                end;
+            }
+
+        }
     }
 }
 
