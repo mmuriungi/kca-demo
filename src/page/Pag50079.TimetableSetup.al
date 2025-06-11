@@ -25,6 +25,12 @@ page 50079 "Timetable Setup"
                 {
                     ApplicationArea = all;
                 }
+                field("Timetable Document Nos."; Rec."Timetable Document Nos.")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Timetable Document Nos.';
+                    ToolTip = 'Specifies the number series for timetable documents.';
+                }
             }
         }
     }

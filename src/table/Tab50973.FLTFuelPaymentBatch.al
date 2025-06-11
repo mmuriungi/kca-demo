@@ -74,7 +74,7 @@ table 50973 "FLT-Fuel Payment Batch"
                 FuelReq.SetRange("Vendor(Dealer)", "Vendor No");
                 FuelReq.SetRange(Status, FuelReq.Status::Approved);
                 FuelReq.SetRange(Type, FuelReq.Type::fuel);
-                FuelReq.SetRange("Date Taken for Fueling", From, DTo);
+                FuelReq.SetRange(FuelReq."Request Date", From, DTo);
                 FuelReq.SetRange("Type of Fuel Requisition", FuelReq."Type of Fuel Requisition"::Invoice);
                 FuelReq.SetFilter("Posted Invoice No", '=%1', ''); // Only get non-invoiced requisitions
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,180 +10,6 @@
       <rd:DataSourceID>7c6a5b88-2b0b-4e0a-b3f4-9a2b3c4d5e6f</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="CompName">
-          <DataField>CompName</DataField>
-        </Field>
-        <Field Name="Address">
-          <DataField>Address</DataField>
-        </Field>
-        <Field Name="conts">
-          <DataField>conts</DataField>
-        </Field>
-        <Field Name="mails">
-          <DataField>mails</DataField>
-        </Field>
-        <Field Name="Logo">
-          <DataField>Logo</DataField>
-        </Field>
-        <Field Name="BatteryWater">
-          <DataField>BatteryWater</DataField>
-        </Field>
-        <Field Name="CarWash">
-          <DataField>CarWash</DataField>
-        </Field>
-        <Field Name="ClosedBy">
-          <DataField>ClosedBy</DataField>
-        </Field>
-        <Field Name="Coolant">
-          <DataField>Coolant</DataField>
-        </Field>
-        <Field Name="DateClosed">
-          <DataField>DateClosed</DataField>
-        </Field>
-        <Field Name="DateTakenforFueling">
-          <DataField>DateTakenforFueling</DataField>
-        </Field>
-        <Field Name="DateTakenforMaintenance">
-          <DataField>DateTakenforMaintenance</DataField>
-        </Field>
-        <Field Name="DateofService">
-          <DataField>DateofService</DataField>
-        </Field>
-        <Field Name="Department">
-          <DataField>Department</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Designation2">
-          <DataField>Designation2</DataField>
-        </Field>
-        <Field Name="Driver">
-          <DataField>Driver</DataField>
-        </Field>
-        <Field Name="DriverName">
-          <DataField>DriverName</DataField>
-        </Field>
-        <Field Name="FixedAssetNo">
-          <DataField>FixedAssetNo</DataField>
-        </Field>
-        <Field Name="FuelFor">
-          <DataField>FuelFor</DataField>
-        </Field>
-        <Field Name="LitresofOil">
-          <DataField>LitresofOil</DataField>
-        </Field>
-        <Field Name="MaintananceType">
-          <DataField>MaintananceType</DataField>
-        </Field>
-        <Field Name="NoSeries">
-          <DataField>NoSeries</DataField>
-        </Field>
-        <Field Name="OdometerReading">
-          <DataField>OdometerReading</DataField>
-        </Field>
-        <Field Name="PostedInvoiceNo">
-          <DataField>PostedInvoiceNo</DataField>
-        </Field>
-        <Field Name="PreparedBy">
-          <DataField>PreparedBy</DataField>
-        </Field>
-        <Field Name="PriceLitre">
-          <DataField>PriceLitre</DataField>
-        </Field>
-        <Field Name="QuantityofFuelLitres">
-          <DataField>QuantityofFuelLitres</DataField>
-        </Field>
-        <Field Name="QuoteNo">
-          <DataField>QuoteNo</DataField>
-        </Field>
-        <Field Name="RequestDate">
-          <DataField>RequestDate</DataField>
-        </Field>
-        <Field Name="RequesterName">
-          <DataField>RequesterName</DataField>
-        </Field>
-        <Field Name="Requestingofficer">
-          <DataField>Requestingofficer</DataField>
-        </Field>
-        <Field Name="RequisitionNo">
-          <DataField>RequisitionNo</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-        <Field Name="TimeFuelIsRequired">
-          <DataField>TimeFuelIsRequired</DataField>
-        </Field>
-        <Field Name="TotalPriceofFuel">
-          <DataField>TotalPriceofFuel</DataField>
-        </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-        </Field>
-        <Field Name="TypeofFuel">
-          <DataField>TypeofFuel</DataField>
-        </Field>
-        <Field Name="TypeofFuelRequisition">
-          <DataField>TypeofFuelRequisition</DataField>
-        </Field>
-        <Field Name="TypeofMaintenance">
-          <DataField>TypeofMaintenance</DataField>
-        </Field>
-        <Field Name="VehicleRegNo">
-          <DataField>VehicleRegNo</DataField>
-        </Field>
-        <Field Name="VendorInvoiceNo">
-          <DataField>VendorInvoiceNo</DataField>
-        </Field>
-        <Field Name="VendorName">
-          <DataField>VendorName</DataField>
-        </Field>
-        <Field Name="VendorDealer">
-          <DataField>VendorDealer</DataField>
-        </Field>
-        <Field Name="WheelAlignment">
-          <DataField>WheelAlignment</DataField>
-        </Field>
-        <Field Name="WheelBalancing">
-          <DataField>WheelBalancing</DataField>
-        </Field>
-        <Field Name="mileageatrequestofservices">
-          <DataField>mileageatrequestofservices</DataField>
-        </Field>
-        <Field Name="mileageatservice">
-          <DataField>mileageatservice</DataField>
-        </Field>
-        <Field Name="requesterContactnumber">
-          <DataField>requesterContactnumber</DataField>
-        </Field>
-        <Field Name="UserSignature">
-          <DataField>UserSignature</DataField>
-        </Field>
-        <Field Name="UserName">
-          <DataField>UserName</DataField>
-        </Field>
-        <Field Name="ApprovalDate">
-          <DataField>ApprovalDate</DataField>
-        </Field>
-        <Field Name="ApproverID">
-          <DataField>ApproverID</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -399,7 +225,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.05in</Top>
@@ -433,7 +259,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -464,7 +290,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -496,7 +322,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -527,7 +353,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -560,7 +386,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -591,7 +417,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -623,7 +449,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -654,7 +480,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -701,7 +527,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.05in</Top>
@@ -735,7 +561,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -766,7 +592,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -798,7 +624,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -829,7 +655,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -862,7 +688,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -893,7 +719,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -925,7 +751,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -956,7 +782,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1003,7 +829,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.05in</Top>
@@ -1037,7 +863,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1068,7 +894,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1100,7 +926,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1131,7 +957,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1164,7 +990,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1195,7 +1021,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1242,7 +1068,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.05in</Top>
@@ -1276,7 +1102,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1307,7 +1133,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1339,7 +1165,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1370,7 +1196,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1403,7 +1229,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1434,7 +1260,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1466,7 +1292,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1497,7 +1323,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1544,7 +1370,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.05in</Top>
@@ -1576,7 +1402,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1623,7 +1449,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.05in</Top>
@@ -1657,7 +1483,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1688,7 +1514,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.35in</Top>
@@ -1721,7 +1547,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1752,7 +1578,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1784,7 +1610,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1815,7 +1641,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>0.65in</Top>
@@ -1863,7 +1689,7 @@
                             </Style>
                           </TextRun>
                         </TextRuns>
-                        <Style/>
+                        <Style />
                       </Paragraph>
                     </Paragraphs>
                     <Top>1.25in</Top>
@@ -1921,12 +1747,205 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>1</NumberOfColumns>
-      <NumberOfRows>1</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>5b6e4f8a-2c7d-4a8b-9f3e-1d2e3c4b5a6f</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
+        <Field Name="conts">
+          <DataField>conts</DataField>
+        </Field>
+        <Field Name="mails">
+          <DataField>mails</DataField>
+        </Field>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+        </Field>
+        <Field Name="BatteryWater">
+          <DataField>BatteryWater</DataField>
+        </Field>
+        <Field Name="BatteryWaterFormat">
+          <DataField>BatteryWaterFormat</DataField>
+        </Field>
+        <Field Name="CarWash">
+          <DataField>CarWash</DataField>
+        </Field>
+        <Field Name="CarWashFormat">
+          <DataField>CarWashFormat</DataField>
+        </Field>
+        <Field Name="ClosedBy">
+          <DataField>ClosedBy</DataField>
+        </Field>
+        <Field Name="Coolant">
+          <DataField>Coolant</DataField>
+        </Field>
+        <Field Name="CoolantFormat">
+          <DataField>CoolantFormat</DataField>
+        </Field>
+        <Field Name="DateClosed">
+          <DataField>DateClosed</DataField>
+        </Field>
+        <Field Name="DateTakenforFueling">
+          <DataField>DateTakenforFueling</DataField>
+        </Field>
+        <Field Name="DateTakenforMaintenance">
+          <DataField>DateTakenforMaintenance</DataField>
+        </Field>
+        <Field Name="DateofService">
+          <DataField>DateofService</DataField>
+        </Field>
+        <Field Name="Department">
+          <DataField>Department</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Designation2">
+          <DataField>Designation2</DataField>
+        </Field>
+        <Field Name="Driver">
+          <DataField>Driver</DataField>
+        </Field>
+        <Field Name="DriverName">
+          <DataField>DriverName</DataField>
+        </Field>
+        <Field Name="FixedAssetNo">
+          <DataField>FixedAssetNo</DataField>
+        </Field>
+        <Field Name="FuelFor">
+          <DataField>FuelFor</DataField>
+        </Field>
+        <Field Name="LitresofOil">
+          <DataField>LitresofOil</DataField>
+        </Field>
+        <Field Name="LitresofOilFormat">
+          <DataField>LitresofOilFormat</DataField>
+        </Field>
+        <Field Name="MaintananceType">
+          <DataField>MaintananceType</DataField>
+        </Field>
+        <Field Name="NoSeries">
+          <DataField>NoSeries</DataField>
+        </Field>
+        <Field Name="OdometerReading">
+          <DataField>OdometerReading</DataField>
+        </Field>
+        <Field Name="OdometerReadingFormat">
+          <DataField>OdometerReadingFormat</DataField>
+        </Field>
+        <Field Name="PostedInvoiceNo">
+          <DataField>PostedInvoiceNo</DataField>
+        </Field>
+        <Field Name="PreparedBy">
+          <DataField>PreparedBy</DataField>
+        </Field>
+        <Field Name="PriceLitre">
+          <DataField>PriceLitre</DataField>
+        </Field>
+        <Field Name="PriceLitreFormat">
+          <DataField>PriceLitreFormat</DataField>
+        </Field>
+        <Field Name="QuantityofFuelLitres">
+          <DataField>QuantityofFuelLitres</DataField>
+        </Field>
+        <Field Name="QuantityofFuelLitresFormat">
+          <DataField>QuantityofFuelLitresFormat</DataField>
+        </Field>
+        <Field Name="QuoteNo">
+          <DataField>QuoteNo</DataField>
+        </Field>
+        <Field Name="RequestDate">
+          <DataField>RequestDate</DataField>
+        </Field>
+        <Field Name="RequesterName">
+          <DataField>RequesterName</DataField>
+        </Field>
+        <Field Name="Requestingofficer">
+          <DataField>Requestingofficer</DataField>
+        </Field>
+        <Field Name="RequisitionNo">
+          <DataField>RequisitionNo</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="TimeFuelIsRequired">
+          <DataField>TimeFuelIsRequired</DataField>
+        </Field>
+        <Field Name="TotalPriceofFuel">
+          <DataField>TotalPriceofFuel</DataField>
+        </Field>
+        <Field Name="TotalPriceofFuelFormat">
+          <DataField>TotalPriceofFuelFormat</DataField>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
+        <Field Name="TypeofFuel">
+          <DataField>TypeofFuel</DataField>
+        </Field>
+        <Field Name="TypeofFuelRequisition">
+          <DataField>TypeofFuelRequisition</DataField>
+        </Field>
+        <Field Name="TypeofMaintenance">
+          <DataField>TypeofMaintenance</DataField>
+        </Field>
+        <Field Name="VehicleRegNo">
+          <DataField>VehicleRegNo</DataField>
+        </Field>
+        <Field Name="VendorInvoiceNo">
+          <DataField>VendorInvoiceNo</DataField>
+        </Field>
+        <Field Name="VendorName">
+          <DataField>VendorName</DataField>
+        </Field>
+        <Field Name="VendorDealer">
+          <DataField>VendorDealer</DataField>
+        </Field>
+        <Field Name="WheelAlignment">
+          <DataField>WheelAlignment</DataField>
+        </Field>
+        <Field Name="WheelAlignmentFormat">
+          <DataField>WheelAlignmentFormat</DataField>
+        </Field>
+        <Field Name="WheelBalancing">
+          <DataField>WheelBalancing</DataField>
+        </Field>
+        <Field Name="WheelBalancingFormat">
+          <DataField>WheelBalancingFormat</DataField>
+        </Field>
+        <Field Name="mileageatrequestofservices">
+          <DataField>mileageatrequestofservices</DataField>
+        </Field>
+        <Field Name="mileageatservice">
+          <DataField>mileageatservice</DataField>
+        </Field>
+        <Field Name="requesterContactnumber">
+          <DataField>requesterContactnumber</DataField>
+        </Field>
+        <Field Name="UserSignature">
+          <DataField>UserSignature</DataField>
+        </Field>
+        <Field Name="UserName">
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="ApprovalDate">
+          <DataField>ApprovalDate</DataField>
+        </Field>
+        <Field Name="ApproverID">
+          <DataField>ApproverID</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
