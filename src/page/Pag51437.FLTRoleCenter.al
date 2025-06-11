@@ -168,7 +168,7 @@ page 51437 "FLT-Role Center"
                 Caption = 'Transport Schedule';
                 action("Trip Schedule")
                 {
-                    Caption = 'Drivers Trip Schedule';
+                    Caption = 'Vehicle Trip Schedule';
                     Image = History;
                     ApplicationArea = All;
                     RunObject = Page "Trip Schedule List";
@@ -315,6 +315,26 @@ page 51437 "FLT-Role Center"
                 {
                     Caption = 'My Approval Entries';
                     RunObject = Page "Approval Request Entries";
+                    ApplicationArea = All;
+                }
+            }
+            group("Mileage Claims")
+            {
+                Caption = 'Mileage Claims';
+                Image = Travel;
+                action("Mileage Claims List")
+                {
+                    Caption = 'Mileage Claims';
+                    Image = AllLines;
+                    RunObject = Page "FLT-Mileage Claim List";
+                    ApplicationArea = All;
+                }
+                action("Pending Mileage Claims")
+                {
+                    Caption = 'Pending My Approval';
+                    Image = Approval;
+                    RunObject = Page "FLT-Mileage Claim List";
+                    RunPageView = where(Status = filter("Pending Approval"));
                     ApplicationArea = All;
                 }
             }
