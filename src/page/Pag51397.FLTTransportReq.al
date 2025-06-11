@@ -408,11 +408,7 @@ page 51397 "FLT-Transport Req."
                     Rec."Date Requisition Received" := Today;
                     Rec."Time Requisition Received" := Time;
                     If Confirm('Send this Request for Approval ?', true) = false then ERROR('Cancelled');
-                    Rec.Status := Rec.Status::"Pending Approval";
                     Rec."Approval Stage" := Rec."Approval Stage"::"Head of Department";
-                    Rec.Modify();
-                    Message('Sent Successfully to Head Of Department/Faculty/Section ');
-                    CurrPage.Close();
 
                     ApprovalMgt.OnSendTransportReqforApproval(Rec);
                 end;
