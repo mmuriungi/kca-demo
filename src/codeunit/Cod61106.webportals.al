@@ -12332,8 +12332,8 @@ Codeunit 61106 webportals
         if Vehicles.FindSet() then begin
             repeat
                 Clear(JObj);
-                JObj.Add('VehicleNo', Vehicles."No.");
-                JObj.Add('VehicleName', Vehicles.Description);
+                JObj.Add('Code', Vehicles."No.");
+                JObj.Add('Description', Vehicles.Description);
                 JArray.Add(JObj);
             until Vehicles.Next = 0;
             JArray.WriteTo(JsTxt);
@@ -12352,8 +12352,8 @@ Codeunit 61106 webportals
         if Drivers.FindSet() then begin
             repeat
                 Clear(JObj);
-                JObj.Add('DriverNo', Drivers.Driver);
-                JObj.Add('DriverName', Drivers."Driver Name");
+                JObj.Add('Code', Drivers.Driver);
+                JObj.Add('Description', Drivers."Driver Name");
                 JArray.Add(JObj);
             until Drivers.Next = 0;
             JArray.WriteTo(JsTxt);
@@ -12372,8 +12372,8 @@ Codeunit 61106 webportals
         if Vendors.FindSet() then begin
             repeat
                 Clear(JObj);
-                JObj.Add('VendorNo', Vendors."No.");
-                JObj.Add('VendorName', Vendors.Name);
+                JObj.Add('Code', Vendors."No.");
+                JObj.Add('Description', Vendors.Name);
                 JArray.Add(JObj);
             until Vendors.Next = 0;
             JArray.WriteTo(JsTxt);
@@ -12392,8 +12392,8 @@ Codeunit 61106 webportals
         if Fuels.FindSet() then begin
             repeat
                 Clear(JObj);
-                JObj.Add('FuelCode', Fuels."Fuel Code");
-                JObj.Add('FuelName', Fuels."Fuel Name");
+                JObj.Add('Code', Fuels."Fuel Code");
+                JObj.Add('Description', Fuels."Fuel Name");
                 JArray.Add(JObj);
             until Fuels.Next = 0;
             JArray.WriteTo(JsTxt);
