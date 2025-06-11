@@ -12338,6 +12338,7 @@ Codeunit 61106 webportals
             repeat
                 Clear(JObj);
                 JObj.Add('Code', Vehicles."No.");
+                JObj.Add('RegistrationNo', Vehicles."Registration No.");
                 JObj.Add('Description', Vehicles.Description);
                 JArray.Add(JObj);
             until Vehicles.Next = 0;
