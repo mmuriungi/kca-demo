@@ -82,7 +82,7 @@ table 50955 "FLT-Fuel & Maintenance Req."
         field(16; Department; Code[20])
         {
         }
-        field(17; "No. Series"; Code[10])
+        field(17; "No. Series"; Code[20])
         {
         }
         field(18; "Vendor Name"; Text[100])
@@ -109,7 +109,7 @@ table 50955 "FLT-Fuel & Maintenance Req."
         {
             //   OptionMembers = " ",Repair,"Scheduled Service",Tyre;
         }
-        field(22; Driver; Code[10])
+        field(22; Driver; Code[20])
         {
             TableRelation = "FLT-Driver";
 
