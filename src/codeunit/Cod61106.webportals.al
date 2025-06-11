@@ -12326,6 +12326,140 @@ Codeunit 61106 webportals
         end;
     end;
 
+    procedure GetVehicles() msg: Text
+    var
+        Vehicles: Record "FLT-Vehicle Header";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        Vehicles.Reset;
+        if Vehicles.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('VehicleNo', Vehicles."No.");
+                JObj.Add('VehicleName', Vehicles.Description);
+                JArray.Add(JObj);
+            until Vehicles.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetDrivers() msg: Text
+    var
+        Drivers: Record "FLT-Driver";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        Drivers.Reset;
+        if Drivers.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('DriverNo', Drivers.Driver);
+                JObj.Add('DriverName', Drivers."Driver Name");
+                JArray.Add(JObj);
+            until Drivers.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetVendors() msg: Text
+    var
+        Vendors: Record Vendor;
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        Vendors.Reset;
+        if Vendors.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('VendorNo', Vendors."No.");
+                JObj.Add('VendorName', Vendors.Name);
+                JArray.Add(JObj);
+            until Vendors.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetFuelTypes() msg: Text
+    var
+        Fuels: Record "Fuel Type";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        Fuels.Reset;
+        if Fuels.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('FuelCode', Fuels."Fuel Code");
+                JObj.Add('FuelName', Fuels."Fuel Name");
+                JArray.Add(JObj);
+            until Fuels.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure CreateFuelRequisition(staffNo: Code[20]; vehicleNo: Code[20]; fuelType: Code[20]; quantity: Decimal; odometerreading: Decimal; vendorNo: Code[20]; requestDate: Date; paymenttype: option; description: Text) msg: Text
+    var
+        FuelReq: Record "FLT-Fuel & Maintenance Req.";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        FuelReq.Init;
+        FuelReq.Driver := staffNo;
+        FuelReq.Validate(Driver);
+        FuelReq."Vehicle Reg No" := vehicleNo;
+        FuelReq.Validate("Vehicle Reg No");
+        FuelReq."Type Of Fuel" := fuelType;
+        FuelReq."Quantity of Fuel(Litres)" := quantity;
+        FuelReq."Odometer Reading" := odometerreading;
+        FuelReq."Vendor(Dealer)" := vendorNo;
+        FuelReq.Validate("Vendor(Dealer)");
+        FuelReq."Request Date" := requestDate;
+        FuelReq.Type := paymenttype;
+        FuelReq.Description := description;
+        if FuelReq.INSERT(true) then begin
+            variant := FuelReq;
+            if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                ApprovalMgmt.OnSendDocForApproval(variant);
+            exit(FuelReq."Requisition No");
+        end;
+    end;
+
+    procedure GetFuelRequisitions(staffNo: Code[20]) msg: Text
+    var
+        FuelReq: Record "FLT-Fuel & Maintenance Req.";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        FuelReq.Reset;
+        FuelReq.SetRange(Driver, staffNo);
+        if FuelReq.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('RequisitionNo', FuelReq."Requisition No");
+                JObj.Add('VehicleRegNo', FuelReq."Vehicle Reg No");
+                JObj.Add('FuelType', FuelReq."Type Of Fuel");
+                JObj.Add('QuantityOfFuel', FORMAT(FuelReq."Quantity of Fuel(Litres)"));
+                JObj.Add('OdometerReading', FORMAT(FuelReq."Odometer Reading"));
+                JObj.Add('Vendor', FuelReq."Vendor Name");
+                JObj.Add('PaymentType', FORMAT(FuelReq.Type));
+                JObj.Add('RequestDate', Format(FuelReq."Request Date"));
+                JObj.Add('Status', Format(FuelReq.Status));
+                JArray.Add(JObj);
+            until FuelReq.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
 }
 
 
