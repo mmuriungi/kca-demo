@@ -4022,6 +4022,7 @@ Codeunit 61106 webportals
         "Employee Card".SetRange("No.", username);
         if "Employee Card".Find('-') then begin
             "Employee Card"."Portal Password" := newPassword;
+            "Employee Card"."Changed Password" := true;
             "Employee Card".Modify;
             msg := true;
         end;
@@ -4787,7 +4788,7 @@ Codeunit 61106 webportals
         if EmployeeCard.Find('-') then begin
             EmployeeCard."Portal Password" := genpass;
             EmployeeCard.Modify;
-            Message('Meal Item Updated Successfully');
+            Message('Password Updated Successfully');
         end;
     end;
 
