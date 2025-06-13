@@ -12526,6 +12526,7 @@ Codeunit 61106 webportals
             end;
         end;
     end;
+
     procedure GetMileageClaims(staffNo: Code[20]) msg: Text
     var
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
@@ -12538,6 +12539,24 @@ Codeunit 61106 webportals
         MileageClaimHeader.SetRange("Employee No.", staffNo);
         if MileageClaimHeader.FindSet() then begin
             repeat
+                MileageClaimLines.Reset;
+                MileageClaimLines.SetRange("Mileage Claim No.", MileageClaimHeader."No.");
+                if MileageClaimLines.FindSet() then begin
+                    Clear(JObj);
+                    JObj.Add('RequisitionNo', MileageClaimLines."Mileage Claim No.");
+                    JObj.Add('VehicleRegNo', MileageClaimLines."Vehicle Registration No.");
+                    JObj.Add('VehicleModel', MileageClaimLines."Vehicle Model");
+                    JObj.Add('Engine Capacity', MileageClaimLines."Engine Capacity");
+                    JObj.Add('StartingPoint', MileageClaimLines."Starting Point");
+                    JObj.Add('Destination', MileageClaimLines.Destination);
+                    JObj.Add('Passengers', MileageClaimLines."Number of Passengers");
+                    JObj.Add('Purpose', MileageClaimLines."Purpose of Trip");
+                    JObj.Add('TravelDate', Format(MileageClaimLines."Travel Date"));
+                    JObj.Add('Distance', Format(MileageClaimLines."Distance (KM)"));
+                    JObj.Add('Amount', Format(MileageClaimLines."Total Cost"));
+                    JObj.Add('Status', Format(MileageClaimLines.Status));
+                    JArray.Add(JObj);
+                end;
             MileageClaimLines.Reset;
             MileageClaimLines.SetRange("Mileage Claim No.", MileageClaimHeader."No.");
             if MileageClaimLines.FindSet() then begin
