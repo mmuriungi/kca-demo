@@ -12326,7 +12326,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure () msg: Text
+    procedure GetVehicles() msg: Text
     var
         Vehicles: Record "FLT-Vehicle Header";
         JObj: JsonObject;
@@ -12338,10 +12338,6 @@ Codeunit 61106 webportals
             repeat
                 Clear(JObj);
                 JObj.Add('Code', Vehicles."Registration No.");
-<<<<<<< HEAD
-                //JObj.Add('RegistrationNo', Vehicles."Registration No.");
-=======
->>>>>>> d18851d538298b8111badf223cbae34133b0842f
                 JObj.Add('Description', Vehicles.Description);
                 JArray.Add(JObj);
             until Vehicles.Next = 0;
