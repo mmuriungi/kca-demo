@@ -12519,9 +12519,9 @@ Codeunit 61106 webportals
             MileageClaimLines."Number of Passengers" := Passengers;
             MileageClaimLines."Purpose of Trip" := purpose;
             if MileageClaimLines.Insert() then begin
-                variant := MileageClaimHeader;
+                /*variant := MileageClaimHeader;
                 if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
-                    ApprovalMgmt.OnSendDocForApproval(variant);
+                    ApprovalMgmt.OnSendDocForApproval(variant);*/
                 msg := MileageClaimHeader."No.";
             end;
         end;
@@ -12557,6 +12557,24 @@ Codeunit 61106 webportals
                     JObj.Add('Status', Format(MileageClaimLines.Status));
                     JArray.Add(JObj);
                 end;
+            MileageClaimLines.Reset;
+            MileageClaimLines.SetRange("Mileage Claim No.", MileageClaimHeader."No.");
+            if MileageClaimLines.FindSet() then begin
+                Clear(JObj);
+                JObj.Add('RequisitionNo', MileageClaimLines."Mileage Claim No.");
+                JObj.Add('VehicleRegNo', MileageClaimLines."Vehicle Registration No.");
+                JObj.Add('VehicleModel', MileageClaimLines."Vehicle Model");
+                JObj.Add('EngineCapacity', MileageClaimLines."Engine Capacity");
+                JObj.Add('StartingPoint', MileageClaimLines."Starting Point");
+                JObj.Add('Destination', MileageClaimLines.Destination);
+                JObj.Add('Passengers', MileageClaimLines."Number of Passengers");
+                JObj.Add('Purpose', MileageClaimLines."Purpose of Trip");
+                JObj.Add('TravelDate', Format(MileageClaimLines."Travel Date"));
+                JObj.Add('Distance', Format(MileageClaimLines."Distance (KM)"));
+                JObj.Add('Amount', Format(MileageClaimLines."Total Cost"));
+                JObj.Add('Status', Format(MileageClaimHeader.Status));
+                JArray.Add(JObj);
+            end;
             until MileageClaimHeader.Next = 0;
             JArray.WriteTo(JsTxt);
             msg := JsTxt;
