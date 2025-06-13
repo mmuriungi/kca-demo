@@ -4022,6 +4022,7 @@ Codeunit 61106 webportals
         "Employee Card".SetRange("No.", username);
         if "Employee Card".Find('-') then begin
             "Employee Card"."Portal Password" := newPassword;
+            "Employee Card"."Changed Password" := true;
             "Employee Card".Modify;
             msg := true;
         end;
@@ -4786,9 +4787,8 @@ Codeunit 61106 webportals
         EmployeeCard.SetRange(EmployeeCard."No.", username);
         if EmployeeCard.Find('-') then begin
             EmployeeCard."Portal Password" := genpass;
-            EmployeeCard."Changed Password" := true;
             EmployeeCard.Modify;
-            Message('Meal Item Updated Successfully');
+            Message('Password Updated Successfully');
         end;
     end;
 
@@ -12326,7 +12326,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure GetVehicles() msg: Text
+    procedure () msg: Text
     var
         Vehicles: Record "FLT-Vehicle Header";
         JObj: JsonObject;
@@ -12338,7 +12338,10 @@ Codeunit 61106 webportals
             repeat
                 Clear(JObj);
                 JObj.Add('Code', Vehicles."Registration No.");
+<<<<<<< HEAD
                 //JObj.Add('RegistrationNo', Vehicles."Registration No.");
+=======
+>>>>>>> d18851d538298b8111badf223cbae34133b0842f
                 JObj.Add('Description', Vehicles.Description);
                 JArray.Add(JObj);
             until Vehicles.Next = 0;
@@ -12364,6 +12367,17 @@ Codeunit 61106 webportals
             until Drivers.Next = 0;
             JArray.WriteTo(JsTxt);
             msg := JsTxt;
+        end;
+    end;
+
+    procedure IsDriver(staffNo: Code[20]) msg: Boolean
+    var
+        Drivers: Record "FLT-Driver";
+    begin
+        Drivers.Reset;
+        Drivers.SetRange(Driver, staffNo);
+        if Drivers.FindSet() then begin
+            msg := true;
         end;
     end;
 
@@ -12407,7 +12421,7 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure CreateFuelRequisition(staffNo: Code[20]; driver: Code[20]; vehicleNo: Code[20]; fuelType: Code[20]; quantity: Decimal; odometerreading: Decimal; vendorNo: Code[20]; requestDate: Date; paymenttype: option; description: Text) msg: Text
+    procedure CreateFuelRequisition(staffNo: Code[20]; vehicleNo: Code[20]; fuelType: Code[20]; quantity: Decimal; odometerreading: Decimal; vendorNo: Code[20]; requestDate: Date; paymenttype: option; description: Text) msg: Text
     var
         FuelReq: Record "FLT-Fuel & Maintenance Req.";
         ApprovalMgmt: Codeunit "Approval Workflows V1";
@@ -12416,7 +12430,7 @@ Codeunit 61106 webportals
         FuelReq.Init;
         FuelReq."Requesting officer" := staffNo;
         FuelReq.Validate("Requesting officer");
-        FuelReq.Driver := driver;
+        FuelReq.Driver := staffNo;
         FuelReq.Validate(Driver);
         FuelReq."Vehicle Reg No" := vehicleNo;
         FuelReq.Validate("Vehicle Reg No");
@@ -12485,6 +12499,72 @@ Codeunit 61106 webportals
             RptBase64 := Base64.ToBase64(ReportInStream, true);
         end;
         exit(RptBase64);
+    end;
+
+    procedure CreateMileageClaim(staffNo: Code[20]; travelDate: Date; vehicleRegNo: Text; vehiclemodel: Text; engineCapacity: Text; startingPoint: Text; destination: Text; passengers: Integer; purpose: Text) msg: Text
+    var
+        MileageClaimHeader: Record "FLT-Mileage Claim Header";
+        MileageClaimLines: Record "FLT-Mileage Claim Lines";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        MileageClaimHeader.Init;
+        MileageClaimHeader."Employee No." := staffNo;
+        MileageClaimHeader.Validate("Employee No.");
+        if MileageClaimHeader.Insert(true) then begin
+            MileageClaimLines.Init;
+            MileageClaimLines."Mileage Claim No." := MileageClaimHeader."No.";
+            MileageClaimLines."Travel Date" := travelDate;
+            MileageClaimLines."Vehicle Registration No." := vehicleRegNo;
+            MileageClaimLines."Vehicle Model" := vehiclemodel;
+            MileageClaimLines."Engine Capacity" := engineCapacity;
+            MileageClaimLines."Starting Point" := startingPoint;
+            MileageClaimLines.Destination := destination;
+            MileageClaimLines."Number of Passengers" := Passengers;
+            MileageClaimLines."Purpose of Trip" := purpose;
+            if MileageClaimLines.Insert() then begin
+                variant := MileageClaimHeader;
+                if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
+                    ApprovalMgmt.OnSendDocForApproval(variant);
+                msg := MileageClaimHeader."No.";
+            end;
+        end;
+    end;
+
+    procedure GetMileageClaims(staffNo: Code[20]) msg: Text
+    var
+        MileageClaimHeader: Record "FLT-Mileage Claim Header";
+        MileageClaimLines: Record "FLT-Mileage Claim Lines";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        MileageClaimHeader.Reset;
+        MileageClaimHeader.SetRange("Employee No.", staffNo);
+        if MileageClaimHeader.FindSet() then begin
+            repeat
+                MileageClaimLines.Reset;
+                MileageClaimLines.SetRange("Mileage Claim No.", MileageClaimHeader."No.");
+                if MileageClaimLines.FindSet() then begin
+                    Clear(JObj);
+                    JObj.Add('RequisitionNo', MileageClaimLines."Mileage Claim No.");
+                    JObj.Add('VehicleRegNo', MileageClaimLines."Vehicle Registration No.");
+                    JObj.Add('VehicleModel', MileageClaimLines."Vehicle Model");
+                    JObj.Add('Engine Capacity', MileageClaimLines."Engine Capacity");
+                    JObj.Add('StartingPoint', MileageClaimLines."Starting Point");
+                    JObj.Add('Destination', MileageClaimLines.Destination);
+                    JObj.Add('Passengers', MileageClaimLines."Number of Passengers");
+                    JObj.Add('Purpose', MileageClaimLines."Purpose of Trip");
+                    JObj.Add('TravelDate', Format(MileageClaimLines."Travel Date"));
+                    JObj.Add('Distance', Format(MileageClaimLines."Distance (KM)"));
+                    JObj.Add('Amount', Format(MileageClaimLines."Total Cost"));
+                    JObj.Add('Status', Format(MileageClaimLines.Status));
+                    JArray.Add(JObj);
+                end;
+            until MileageClaimHeader.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
     end;
 }
 
