@@ -11,16 +11,26 @@ xmlport 50020 "Export Custom Cust Ledger"
         {
             tableelement(DetailedCustLedgerCustom; "Detailed Cust ledger Custom")
             {
-                SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"));
+                SourceTableView = sorting("Posting Date", "Customer No.", "Document No.")
+                                where("Entry Type" = const("Initial Entry"));
 
+                // Consolidated field elements with proper naming
                 fieldelement(DocumentNo; DetailedCustLedgerCustom."Document No.") { }
                 fieldelement(CustomerNo; DetailedCustLedgerCustom."Customer No.") { }
                 fieldelement(PostingDate; DetailedCustLedgerCustom."Posting Date") { }
-                fieldelement(Amount; DetailedCustLedgerCustom."Total Amount") { }
+                fieldelement(Amount; DetailedCustLedgerCustom.Amount) { }
+                fieldelement(TotalAmount; DetailedCustLedgerCustom."Total Amount") { }
+                fieldelement(EntryAmount; DetailedCustLedgerCustom."Entry Amount") { }
                 fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type") { }
                 fieldelement(Description; DetailedCustLedgerCustom.Description) { }
                 fieldelement(Posted; DetailedCustLedgerCustom.Posted) { }
-                fieldelement(EntryAmount; DetailedCustLedgerCustom."Entry Amount") { } // Only keep one
+
+                trigger OnPreXMLItem()
+                begin
+                    // Apply date filter if specified
+                    if StartDate <> 0D then
+                        DetailedCustLedgerCustom.SetRange("Posting Date", StartDate, EndDate);
+                end;
             }
         }
     }
@@ -34,28 +44,29 @@ xmlport 50020 "Export Custom Cust Ledger"
                 group(DateFilter)
                 {
                     Caption = 'Date Filter';
+
                     field(StartDateField; StartDate)
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-                        ToolTip = 'Specifies the start date for the posting date filter.';
+                        ToolTip = 'Start date for the posting date filter.';
                     }
                     field(EndDateField; EndDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-                        ToolTip = 'Specifies the end date for the posting date filter.';
+                        ToolTip = 'End date for the posting date filter.';
                     }
                 }
-
                 group(Options)
                 {
                     Caption = 'Export Options';
+
                     field(IncludeHeaderField; IncludeHeader)
                     {
                         ApplicationArea = All;
                         Caption = 'Include Header';
-                        ToolTip = 'Specifies whether to include column headers in the export.';
+                        ToolTip = 'Include column headers in the export.';
                     }
                 }
             }
@@ -76,17 +87,12 @@ xmlport 50020 "Export Custom Cust Ledger"
 
     trigger OnPreXMLport()
     begin
+        // Validate date range
         if StartDate = 0D then
             Error('Start Date must be specified.');
         if EndDate = 0D then
             Error('End Date must be specified.');
         if StartDate > EndDate then
             Error('Start Date cannot be later than End Date.');
-
-        DetailedCustLedgerCustom.SetRange("Entry Type", DetailedCustLedgerCustom."Entry Type"::"Initial Entry");
-        DetailedCustLedgerCustom.SetRange("Posting Date", StartDate, EndDate);
-
-        // if not IncludeHeader then
-        // CurrXMLport.SKIPHEADER := true;
     end;
 }
