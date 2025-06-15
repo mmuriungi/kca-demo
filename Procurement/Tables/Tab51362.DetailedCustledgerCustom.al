@@ -227,7 +227,7 @@ table 51362 "Detailed Cust ledger Custom"
         }
         field(49; "Entry Amount"; Decimal)
         {
-            Caption = 'Entry Amount';
+            Caption = 'Entry Amount Det';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = Sum("Detailed Cust. Ledg. Entry".Amount WHERE(
@@ -239,7 +239,7 @@ table 51362 "Detailed Cust ledger Custom"
 
         field(50; "Total Amount"; Decimal)
         {
-            Caption = 'Entry Amount';
+            Caption = 'Entry Amount Custom';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = Sum("Detailed Cust ledger Custom".Amount WHERE(
