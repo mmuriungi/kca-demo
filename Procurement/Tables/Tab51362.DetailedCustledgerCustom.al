@@ -232,10 +232,11 @@ table 51362 "Detailed Cust ledger Custom"
             FieldClass = FlowField;
             CalcFormula = Sum("Detailed Cust. Ledg. Entry".Amount WHERE(
         "Customer No." = FIELD("Customer No."),
-        "Document No." = FIELD("Document No."),
+        "Document No." = FIELD("Normalized Document No."),
         "Entry Type" = CONST("Initial Entry")
-        ));
+    ));
         }
+
 
         field(50; "Total Amount"; Decimal)
         {
@@ -249,6 +250,12 @@ table 51362 "Detailed Cust ledger Custom"
         ));
 
         }
+        field(60; "Normalized Document No."; Code[20])
+        {
+            Caption = 'Normalized Document No';
+            Editable = false;
+        }
+
     }
 
     keys
@@ -323,6 +330,29 @@ table 51362 "Detailed Cust ledger Custom"
     begin
         SetLedgerEntryAmount();
     end;
+
+    local procedure SetNormalizedDocNo()
+    begin
+        "Normalized Document No." := PadOrNormalizeDocNo("Document No.");
+    end;
+
+    local procedure PadOrNormalizeDocNo(DocNo: Code[20]): Code[20]
+    var
+        DocInt: Integer;
+    begin
+        if Evaluate(DocInt, DocNo) then
+            exit(PadLeft(Format(DocInt), 4, '0'))
+        else
+            exit(DocNo);
+    end;
+
+    local procedure PadLeft(TextIn: Text; TotalLength: Integer; PadChar: Char): Text
+    begin
+        while StrLen(TextIn) < TotalLength do
+            TextIn := PadChar + TextIn;
+        exit(TextIn);
+    end;
+
 
     procedure GetLastEntryNo(): Integer;
     var
