@@ -1,5 +1,4 @@
 xmlport 50020 "Export Custom Cust Ledger"
-
 {
     Caption = 'Export Custom Detailed Customer Ledgers';
     Direction = Export;
@@ -14,40 +13,14 @@ xmlport 50020 "Export Custom Cust Ledger"
             {
                 SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"));
 
-                fieldelement(DocumentNo; DetailedCustLedgerCustom."Document No.")
-                {
-                }
-                fieldelement(CustomerNo; DetailedCustLedgerCustom."Customer No.")
-                {
-                }
-                fieldelement(PostingDate; DetailedCustLedgerCustom."Posting Date")
-                {
-                }
-                fieldelement(EntryAmount; DetailedCustLedgerCustom.Amount)
-                {
-                }
-
-                fieldelement(Amount; DetailedCustLedgerCustom."Total Amount")
-                {
-                }
-                fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type")
-                {
-                }
-                fieldelement(Description; DetailedCustLedgerCustom.Description)
-                {
-                }
-                fieldelement(Posted; DetailedCustLedgerCustom.Posted)
-                {
-                }
-                fieldelement(EntryAmount; DetailedCustLedgerCustom."Entry Amount")
-                {
-                }
-
-                trigger OnPreXMLItem()
-                begin
-                    if StartDate <> 0D then
-                        DetailedCustLedgerCustom.SetRange("Posting Date", StartDate, EndDate);
-                end;
+                fieldelement(DocumentNo; DetailedCustLedgerCustom."Document No.") { }
+                fieldelement(CustomerNo; DetailedCustLedgerCustom."Customer No.") { }
+                fieldelement(PostingDate; DetailedCustLedgerCustom."Posting Date") { }
+                fieldelement(Amount; DetailedCustLedgerCustom."Total Amount") { }
+                fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type") { }
+                fieldelement(Description; DetailedCustLedgerCustom.Description) { }
+                fieldelement(Posted; DetailedCustLedgerCustom.Posted) { }
+                fieldelement(EntryAmount; DetailedCustLedgerCustom."Entry Amount") { } // Only keep one
             }
         }
     }
@@ -74,6 +47,7 @@ xmlport 50020 "Export Custom Cust Ledger"
                         ToolTip = 'Specifies the end date for the posting date filter.';
                     }
                 }
+
                 group(Options)
                 {
                     Caption = 'Export Options';
@@ -108,5 +82,11 @@ xmlport 50020 "Export Custom Cust Ledger"
             Error('End Date must be specified.');
         if StartDate > EndDate then
             Error('Start Date cannot be later than End Date.');
+
+        DetailedCustLedgerCustom.SetRange("Entry Type", DetailedCustLedgerCustom."Entry Type"::"Initial Entry");
+        DetailedCustLedgerCustom.SetRange("Posting Date", StartDate, EndDate);
+
+        // if not IncludeHeader then
+        // CurrXMLport.SKIPHEADER := true;
     end;
 }
