@@ -19,6 +19,11 @@ page 52104 "Custom Det cust ledgers"
                 {
                     ToolTip = 'Specifies the value of the Document No. field.', Comment = '%';
                 }
+                field("Normalized Document No."; Rec."Normalized Document No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Normalized Document No. field.', Comment = '%';
+                }
                 field("Customer No."; Rec."Customer No.")
                 {
                     ToolTip = 'Specifies the value of the Customer No. field.', Comment = '%';

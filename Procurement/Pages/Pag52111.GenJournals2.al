@@ -54,6 +54,23 @@ page 52111 "Gen Journals 2"
     {
         area(Processing)
         {
+            action(RunNormalizeCodeunit)
+            {
+                ApplicationArea = All;
+                Caption = 'Normalize Document Numbers';
+                Image = Process;
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'Runs normalization to align document numbers like 950 and 0950.';
+
+                trigger OnAction()
+                var
+                    NormalizeCodeunit: Codeunit "Normalize DocNo Processor";
+                begin
+                    NormalizeCodeunit.Run();
+                end;
+            }
+
             action(Import)
             {
                 ApplicationArea = All;
