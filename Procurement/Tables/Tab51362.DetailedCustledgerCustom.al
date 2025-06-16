@@ -331,6 +331,19 @@ table 51362 "Detailed Cust ledger Custom"
         SetLedgerEntryAmount();
     end;
 
+    local procedure NormalizeDocNo(DocNo: Code[20]): Code[20]
+    var
+        i: Integer;
+    begin
+        for i := 1 to StrLen(DocNo) do begin
+            if CopyStr(DocNo, i, 1) <> '0' then
+                exit(CopyStr(DocNo, i));
+        end;
+
+        exit(''); // fallback if DocNo is all zeros
+    end;
+
+
     local procedure SetNormalizedDocNo()
     begin
         "Normalized Document No." := PadOrNormalizeDocNo("Document No.");
