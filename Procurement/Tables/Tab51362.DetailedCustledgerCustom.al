@@ -255,6 +255,11 @@ table 51362 "Detailed Cust ledger Custom"
             Caption = 'Normalized Document No';
             Editable = false;
         }
+        //YEAR
+        field(61; Year; integer)
+        {
+
+        }
 
     }
 
