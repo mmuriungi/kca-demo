@@ -53,6 +53,10 @@ page 52104 "Custom Det cust ledgers"
                     ApplicationArea = all;
                     ToolTip = 'Specifies the value of the Entry Amount field.', Comment = '%';
                 }
+                field(Year;Rec.Year)
+                {
+                    ApplicationArea=all;
+                }
 
             }
         }
