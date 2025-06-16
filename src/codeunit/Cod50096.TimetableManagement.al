@@ -502,9 +502,6 @@ codeunit 50096 "Timetable Management"
                     CurrentExam += 1;
                     ProgressWindow.Update(1, Format(CurrentExam) + ' of ' + Format(TotalExams));
                     ProgressWindow.Update(2, CourseOffering.Unit);
-                    if CurrentExam >= 367 then begin
-                        Sudo := true;
-                    end;
                     // Schedule the exam within the specified date range
                     if ScheduleExamInDateRange(
                         CourseOffering,
