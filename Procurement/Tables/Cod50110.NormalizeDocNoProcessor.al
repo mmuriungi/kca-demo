@@ -1,4 +1,4 @@
-codeunit 50108 "Normalize DocNo Processor"
+codeunit 50110 "Normalize DocNo Processor"
 
 {
     Subtype = Normal;
