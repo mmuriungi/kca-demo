@@ -502,9 +502,6 @@ codeunit 50096 "Timetable Management"
                     CurrentExam += 1;
                     ProgressWindow.Update(1, Format(CurrentExam) + ' of ' + Format(TotalExams));
                     ProgressWindow.Update(2, CourseOffering.Unit);
-                    if CurrentExam >= 367 then begin
-                        Sudo := true;
-                    end;
                     // Schedule the exam within the specified date range
                     if ScheduleExamInDateRange(
                         CourseOffering,
@@ -1239,14 +1236,14 @@ codeunit 50096 "Timetable Management"
     end;
 
     local procedure CreateExamEntryWithGroup(
-    CourseOffering: Record "ACA-Lecturers Units";
-    ExamDate: Date;
-    ExamTimeSlot: Record "Exam Time Slot";
-    LectureHall: Code[20];
-    StudentCount: Integer;
-    SemesterCode: Code[25];
-    GroupCode: Code[20];
-    DocumentNo: Code[20])
+        CourseOffering: Record "ACA-Lecturers Units";
+        ExamDate: Date;
+        ExamTimeSlot: Record "Exam Time Slot";
+        LectureHall: Code[20];
+        StudentCount: Integer;
+        SemesterCode: Code[25];
+        GroupCode: Code[20];
+        DocumentNo: Code[20])
     var
         ExamTimetableEntry: Record "Exam Timetable Entry";
     begin
@@ -1268,8 +1265,8 @@ codeunit 50096 "Timetable Management"
         ExamTimetableEntry."Session Type" := ExamTimeSlot."Session Type";
         ExamTimetableEntry.Insert(true);
 
-        // Don't update global counter here - it's already updated in FindTimeSlotForDay
-        // UpdateGlobalSessionCounter(ExamTimeSlot."Session Type");
+        // Update global session counter for distribution tracking
+        UpdateGlobalSessionCounter(ExamTimeSlot."Session Type");
 
         // Immediately assign invigilators after creating the exam entry
         AssignInvigilatorsToRoomOptimized(
@@ -2988,89 +2985,75 @@ codeunit 50096 "Timetable Management"
     end;
 
     local procedure FindTimeSlotForDay(CourseOffering: Record "ACA-Lecturers Units";
-    ExamDate: Date;
-    var SelectedTimeSlot: Record "Exam Time Slot";
-    IsMedical: Boolean): Boolean
+        ExamDate: Date;
+        var SelectedTimeSlot: Record "Exam Time Slot";
+        IsMedical: Boolean): Boolean
     var
         ExamTimeSlot: Record "Exam Time Slot";
+        PreferredSessionType: Integer;
         SessionTypesToTry: array[3] of Integer;
         i: Integer;
-        SessionTypeCount: array[3] of Integer;
-        TotalScheduled: Integer;
-        NextSessionType: Integer;
+        Found: Boolean;
     begin
-        // Count available session types for this date
-        Clear(SessionTypeCount);
-        ExamTimeSlot.Reset();
-        ExamTimeSlot.SetFilter("Valid From Date", '<=%1', ExamDate);
-        ExamTimeSlot.SetFilter("Valid To Date", '>=%1', ExamDate);
-        ExamTimeSlot.SetRange("Day of Week", Date2DWY(ExamDate, 1) - 1);
-        if IsMedical then
-            ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Medical)
-        else
-            ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Regular);
+        // STEP 1: Determine preferred session type using strict rotation
+        PreferredSessionType := GetNextSessionTypeInRotation();
 
-        if ExamTimeSlot.FindSet() then
-            repeat
-                case ExamTimeSlot."Session Type" of
-                    0:
-                        SessionTypeCount[1] += 1; // Morning
-                    1:
-                        SessionTypeCount[2] += 1; // Midday
-                    2:
-                        SessionTypeCount[3] += 1; // Afternoon
+        // STEP 2: Setup session types to try in order
+        case PreferredSessionType of
+            0: // Morning preferred
+                begin
+                    SessionTypesToTry[1] := 0; // Morning
+                    SessionTypesToTry[2] := 1; // Midday  
+                    SessionTypesToTry[3] := 2; // Afternoon
                 end;
-            until ExamTimeSlot.Next() = 0;
+            1: // Midday preferred
+                begin
+                    SessionTypesToTry[1] := 1; // Midday
+                    SessionTypesToTry[2] := 2; // Afternoon
+                    SessionTypesToTry[3] := 0; // Morning
+                end;
+            2: // Afternoon preferred
+                begin
+                    SessionTypesToTry[1] := 2; // Afternoon
+                    SessionTypesToTry[2] := 0; // Morning
+                    SessionTypesToTry[3] := 1; // Midday
+                end;
+        end;
 
-        // Simple round-robin: cycle through 0, 1, 2, 0, 1, 2...
-        TotalScheduled := GlobalMorningCount + GlobalMiddayCount + GlobalAfternoonCount;
-        NextSessionType := TotalScheduled mod 3; // This gives us 0, 1, 2 in sequence
-
-        // Set priority order starting from the next session in rotation
-        SessionTypesToTry[1] := NextSessionType;
-        SessionTypesToTry[2] := (NextSessionType + 1) mod 3;
-        SessionTypesToTry[3] := (NextSessionType + 2) mod 3;
-
-        // Try each session type in rotation order
+        // STEP 3: Try each session type in order
+        Found := false;
         for i := 1 to 3 do begin
-            // Only try if this session type is available
-            if ((SessionTypesToTry[i] = 0) and (SessionTypeCount[1] > 0)) or
-               ((SessionTypesToTry[i] = 1) and (SessionTypeCount[2] > 0)) or
-               ((SessionTypesToTry[i] = 2) and (SessionTypeCount[3] > 0)) then begin
+            ExamTimeSlot.Reset();
+            ExamTimeSlot.SetFilter("Valid From Date", '<=%1', ExamDate);
+            ExamTimeSlot.SetFilter("Valid To Date", '>=%1', ExamDate);
+            ExamTimeSlot.SetRange("Day of Week", Date2DWY(ExamDate, 1) - 1);
+            ExamTimeSlot.SetRange("Session Type", SessionTypesToTry[i]);
 
-                ExamTimeSlot.Reset();
-                ExamTimeSlot.SetFilter("Valid From Date", '<=%1', ExamDate);
-                ExamTimeSlot.SetFilter("Valid To Date", '>=%1', ExamDate);
-                ExamTimeSlot.SetRange("Day of Week", Date2DWY(ExamDate, 1) - 1);
-                ExamTimeSlot.SetRange("Session Type", SessionTypesToTry[i]);
+            if IsMedical then
+                ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Medical)
+            else
+                ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Regular);
 
-                if IsMedical then
-                    ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Medical)
-                else
-                    ExamTimeSlot.SetRange("Slot Group", ExamTimeSlot."Slot Group"::Regular);
+            if ExamTimeSlot.FindSet() then begin
+                repeat
+                    // Check if this slot would have conflicts
+                    if not HasSchedulingConflicts(CourseOffering, ExamDate, ExamTimeSlot) then begin
+                        // Check invigilator availability for this slot
+                        if HasSufficientInvigilatorsForSlot(ExamDate, ExamTimeSlot, CourseOffering) then begin
+                            SelectedTimeSlot := ExamTimeSlot;
 
-                if ExamTimeSlot.FindSet() then begin
-                    repeat
-                        // Check if this slot would have conflicts
-                        if not HasSchedulingConflicts(CourseOffering, ExamDate, ExamTimeSlot) then begin
-                            // Check invigilator availability for this slot
-                            if HasSufficientInvigilatorsForSlot(ExamDate, ExamTimeSlot, CourseOffering) then begin
-                                SelectedTimeSlot := ExamTimeSlot;
+                            // Update global counters
+                            UpdateGlobalSessionCounter(SessionTypesToTry[i]);
 
-                                // Update global counters immediately
-                                UpdateGlobalSessionCounter(SessionTypesToTry[i]);
-
-                                exit(true);
-                            end;
+                            exit(true);
                         end;
-                    until ExamTimeSlot.Next() = 0;
-                end;
+                    end;
+                until ExamTimeSlot.Next() = 0;
             end;
         end;
 
         exit(false);
     end;
-
 
     local procedure FindTimeSlotForDaySupp(SuppUnits: Record "Supp. Exam Units";
            ExamDate: Date;
@@ -4624,40 +4607,68 @@ codeunit 50096 "Timetable Management"
         IsMedical: Boolean;
         DocumentNo: Code[20]): Boolean
     var
-        ExamTimeSlot: Record "Exam Time Slot";
+        AllTimeSlots: Record "Exam Time Slot" temporary;
+        BestTimeSlot: Record "Exam Time Slot";
+        CombinationKey: Text;
         SlotFound: Boolean;
     begin
-        // Use FindTimeSlotForDay which now implements simple round-robin
-        SlotFound := FindTimeSlotForDay(CourseOffering, ExamDate, ExamTimeSlot, IsMedical);
+        // Build available time slots for this date (now ordered by start time)
+        BuildAvailableTimeSlotsForDate(ExamDate, IsMedical, AllTimeSlots);
+
+        // Find the time slot with the least load for better distribution
+        SlotFound := FindLeastLoadedTimeSlot(AllTimeSlots, ExamDate, GroupCode, BestTimeSlot);
 
         if SlotFound then begin
-            // Try to schedule with room allocation
-            if ScheduleExamWithRoomAllocationGroup(
-                CourseOffering,
-                ExamDate,
-                ExamTimeSlot,
-                Semester,
-                GroupCode,
-                DocumentNo) then begin
+            // Check if this specific time slot is available
+            if IsTimeSlotValidForDate(BestTimeSlot, ExamDate) then begin
+                // Try to schedule with room allocation
+                if ScheduleExamWithRoomAllocationGroup(
+                    CourseOffering,
+                    ExamDate,
+                    BestTimeSlot,
+                    Semester,
+                    GroupCode,
+                    DocumentNo) then begin
 
-                // Update courses per day counter
-                if not CoursesPerDay.ContainsKey(ExamDate) then
-                    CoursesPerDay.Add(ExamDate, 1)
-                else
-                    CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
+                    // Update courses per day counter
+                    if not CoursesPerDay.ContainsKey(ExamDate) then
+                        CoursesPerDay.Add(ExamDate, 1)
+                    else
+                        CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
 
-                exit(true);
-            end else begin
-                // If room allocation failed, decrement the global counter
-                case ExamTimeSlot."Session Type" of
-                    0:
-                        GlobalMorningCount -= 1;
-                    1:
-                        GlobalMiddayCount -= 1;
-                    2:
-                        GlobalAfternoonCount -= 1;
+                    exit(true);
                 end;
             end;
+        end;
+
+        // If optimal slot failed, try other slots as fallback
+        AllTimeSlots.Reset();
+        if AllTimeSlots.FindSet() then begin
+            repeat
+                // Skip the already tried optimal slot
+                if AllTimeSlots.Code <> BestTimeSlot.Code then begin
+                    // Check if this specific time slot is available
+                    if IsTimeSlotValidForDate(AllTimeSlots, ExamDate) then begin
+                        // Try to schedule with room allocation
+                        if ScheduleExamWithRoomAllocationGroup(
+                            CourseOffering,
+                            ExamDate,
+                            AllTimeSlots,
+                            Semester,
+                            GroupCode,
+                            DocumentNo) then begin
+
+                            // Update courses per day counter
+                            if not CoursesPerDay.ContainsKey(ExamDate) then
+                                CoursesPerDay.Add(ExamDate, 1)
+                            else
+                                CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
+
+                            exit(true);
+                        end;
+                    end;
+                end;
+            until AllTimeSlots.Next() = 0;
         end;
 
         exit(false);
@@ -4706,10 +4717,10 @@ codeunit 50096 "Timetable Management"
     end;
 
     local procedure FindLeastLoadedTimeSlot(
- var AvailableTimeSlots: Record "Exam Time Slot" temporary;
- ExamDate: Date;
- GroupCode: Code[20];
- var BestTimeSlot: Record "Exam Time Slot"): Boolean
+    var AvailableTimeSlots: Record "Exam Time Slot" temporary;
+    ExamDate: Date;
+    GroupCode: Code[20];
+    var BestTimeSlot: Record "Exam Time Slot"): Boolean
     var
         CurrentSlot: Record "Exam Time Slot" temporary;
         SlotFound: Boolean;
@@ -4717,9 +4728,7 @@ codeunit 50096 "Timetable Management"
         SlotRecords: array[3] of Record "Exam Time Slot" temporary;
         RotationIndex: Integer;
         SessionTypeToUse: Integer;
-        NextSessionType: Integer;
         i: Integer;
-        SessionOrder: array[3] of Integer;
     begin
         SlotFound := false;
         Clear(SlotsAvailable);
@@ -4751,29 +4760,23 @@ codeunit 50096 "Timetable Management"
             until AvailableTimeSlots.Next() = 0;
         end;
 
-        // Determine which session type has been used least
-        // This ensures true load balancing
-        if GlobalMorningCount <= GlobalMiddayCount then begin
-            if GlobalMorningCount <= GlobalAfternoonCount then
-                SessionTypeToUse := 1 // Morning is least used
-            else
-                SessionTypeToUse := 3; // Afternoon is least used
-        end else begin
-            if GlobalMiddayCount <= GlobalAfternoonCount then
-                SessionTypeToUse := 2 // Midday is least used
-            else
-                SessionTypeToUse := 3; // Afternoon is least used
+        // Use sequence-based round-robin: increment sequence on each attempt
+        RotationIndex := GlobalRotationSequence mod 3;
+        GlobalRotationSequence += 1;
+
+        // Convert rotation index to session type (1=Morning, 2=Midday, 3=Afternoon)
+        SessionTypeToUse := RotationIndex + 1;
+
+        // Try the rotation-determined session type first
+        if SlotsAvailable[SessionTypeToUse] then begin
+            BestTimeSlot := SlotRecords[SessionTypeToUse];
+            exit(true);
         end;
 
-        // Build rotation order starting from least used
-        SessionOrder[1] := SessionTypeToUse;
-        SessionOrder[2] := SessionTypeToUse mod 3 + 1; // Next in rotation
-        SessionOrder[3] := (SessionTypeToUse + 1) mod 3 + 1; // Last in rotation
-
-        // Try sessions in order of least used to most used
+        // If rotation choice isn't available, try the other two in order
         for i := 1 to 3 do begin
-            if SlotsAvailable[SessionOrder[i]] then begin
-                BestTimeSlot := SlotRecords[SessionOrder[i]];
+            if (i <> SessionTypeToUse) and SlotsAvailable[i] then begin
+                BestTimeSlot := SlotRecords[i];
                 exit(true);
             end;
         end;
@@ -5049,10 +5052,11 @@ codeunit 50096 "Timetable Management"
         Clear(CachedLecturersByDept);
         CacheInitialized := false;
 
-        // Reset global session counters
+        // Reset global session counters and rotation sequence
         GlobalMorningCount := 0;
         GlobalMiddayCount := 0;
         GlobalAfternoonCount := 0;
+        GlobalRotationSequence := 0;
     end;
 
     local procedure GetNextSessionTypeInRotation(): Integer
@@ -5535,7 +5539,6 @@ codeunit 50096 "Timetable Management"
         MorningPct: Decimal;
         MiddayPct: Decimal;
         AfternoonPct: Decimal;
-        DebugMessage: Text;
     begin
         // Count actual sessions by session type
         ExamTimetableEntry.Reset();
@@ -5553,10 +5556,6 @@ codeunit 50096 "Timetable Management"
 
         TotalCount := MorningCount + MiddayCount + AfternoonCount;
 
-        // Debug information about global counters
-        DebugMessage := StrSubstNo('Debug - Global Counters: Morning=%1, Midday=%2, Afternoon=%3',
-                                  GlobalMorningCount, GlobalMiddayCount, GlobalAfternoonCount);
-
         if TotalCount > 0 then begin
             MorningPct := Round((MorningCount * 100.0) / TotalCount, 0.01);
             MiddayPct := Round((MiddayCount * 100.0) / TotalCount, 0.01);
@@ -5568,14 +5567,11 @@ codeunit 50096 "Timetable Management"
                     'Session Distribution:\' +
                     'Morning: %3 exams (%4%%)\' +
                     'Midday: %5 exams (%6%%)\' +
-                    'Afternoon: %7 exams (%8%%)\' +
-                    '\' +
-                    '%9',
+                    'Afternoon: %7 exams (%8%%)',
                     GroupDescription, CurrentExam,
                     MorningCount, MorningPct,
                     MiddayCount, MiddayPct,
-                    AfternoonCount, AfternoonPct,
-                    DebugMessage);
+                    AfternoonCount, AfternoonPct);
         end else begin
             Message('Exam timetable generation completed for group: %1\' +
                     'No exams were scheduled.', GroupDescription);
@@ -5587,5 +5583,6 @@ codeunit 50096 "Timetable Management"
         GlobalMorningCount: Integer;
         GlobalMiddayCount: Integer;
         GlobalAfternoonCount: Integer;
+        GlobalRotationSequence: Integer;
 
 }
