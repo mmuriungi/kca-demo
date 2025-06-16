@@ -4760,8 +4760,9 @@ codeunit 50096 "Timetable Management"
             until AvailableTimeSlots.Next() = 0;
         end;
 
-        // Use simple round-robin: determine which session type should be used next
-        RotationIndex := (GlobalMorningCount + GlobalMiddayCount + GlobalAfternoonCount) mod 3;
+        // Use sequence-based round-robin: increment sequence on each attempt
+        RotationIndex := GlobalRotationSequence mod 3;
+        GlobalRotationSequence += 1;
 
         // Convert rotation index to session type (1=Morning, 2=Midday, 3=Afternoon)
         SessionTypeToUse := RotationIndex + 1;
@@ -5051,10 +5052,11 @@ codeunit 50096 "Timetable Management"
         Clear(CachedLecturersByDept);
         CacheInitialized := false;
 
-        // Reset global session counters
+        // Reset global session counters and rotation sequence
         GlobalMorningCount := 0;
         GlobalMiddayCount := 0;
         GlobalAfternoonCount := 0;
+        GlobalRotationSequence := 0;
     end;
 
     local procedure GetNextSessionTypeInRotation(): Integer
@@ -5581,5 +5583,6 @@ codeunit 50096 "Timetable Management"
         GlobalMorningCount: Integer;
         GlobalMiddayCount: Integer;
         GlobalAfternoonCount: Integer;
+        GlobalRotationSequence: Integer;
 
 }
