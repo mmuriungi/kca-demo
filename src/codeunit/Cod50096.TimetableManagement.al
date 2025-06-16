@@ -2993,12 +2993,11 @@ codeunit 50096 "Timetable Management"
     IsMedical: Boolean): Boolean
     var
         ExamTimeSlot: Record "Exam Time Slot";
-        PreferredSessionType: Integer;
         SessionTypesToTry: array[3] of Integer;
         i: Integer;
-        Found: Boolean;
-        AvailableSessionTypes: List of [Integer];
         SessionTypeCount: array[3] of Integer;
+        TotalScheduled: Integer;
+        NextSessionType: Integer;
     begin
         // Count available session types for this date
         Clear(SessionTypeCount);
@@ -3023,41 +3022,16 @@ codeunit 50096 "Timetable Management"
                 end;
             until ExamTimeSlot.Next() = 0;
 
-        // Determine which session type should be used next based on global usage
-        if GlobalMorningCount <= GlobalMiddayCount then begin
-            if GlobalMorningCount <= GlobalAfternoonCount then begin
-                SessionTypesToTry[1] := 0; // Morning least used
-                if GlobalMiddayCount <= GlobalAfternoonCount then begin
-                    SessionTypesToTry[2] := 1; // Then Midday
-                    SessionTypesToTry[3] := 2; // Then Afternoon
-                end else begin
-                    SessionTypesToTry[2] := 2; // Then Afternoon
-                    SessionTypesToTry[3] := 1; // Then Midday
-                end;
-            end else begin
-                SessionTypesToTry[1] := 2; // Afternoon least used
-                SessionTypesToTry[2] := 0; // Then Morning
-                SessionTypesToTry[3] := 1; // Then Midday
-            end;
-        end else begin
-            if GlobalMiddayCount <= GlobalAfternoonCount then begin
-                SessionTypesToTry[1] := 1; // Midday least used
-                if GlobalMorningCount <= GlobalAfternoonCount then begin
-                    SessionTypesToTry[2] := 0; // Then Morning
-                    SessionTypesToTry[3] := 2; // Then Afternoon
-                end else begin
-                    SessionTypesToTry[2] := 2; // Then Afternoon
-                    SessionTypesToTry[3] := 0; // Then Morning
-                end;
-            end else begin
-                SessionTypesToTry[1] := 2; // Afternoon least used
-                SessionTypesToTry[2] := 1; // Then Midday
-                SessionTypesToTry[3] := 0; // Then Morning
-            end;
-        end;
+        // Simple round-robin: cycle through 0, 1, 2, 0, 1, 2...
+        TotalScheduled := GlobalMorningCount + GlobalMiddayCount + GlobalAfternoonCount;
+        NextSessionType := TotalScheduled mod 3; // This gives us 0, 1, 2 in sequence
 
-        // Try each session type in order of least global usage
-        Found := false;
+        // Set priority order starting from the next session in rotation
+        SessionTypesToTry[1] := NextSessionType;
+        SessionTypesToTry[2] := (NextSessionType + 1) mod 3;
+        SessionTypesToTry[3] := (NextSessionType + 2) mod 3;
+
+        // Try each session type in rotation order
         for i := 1 to 3 do begin
             // Only try if this session type is available
             if ((SessionTypesToTry[i] = 0) and (SessionTypeCount[1] > 0)) or
@@ -4642,18 +4616,18 @@ codeunit 50096 "Timetable Management"
     end;
 
     local procedure TryScheduleExamOnDate(
-    CourseOffering: Record "ACA-Lecturers Units";
-    ExamDate: Date;
-    Semester: Record "ACA-Semesters";
-    GroupCode: Code[20];
-    var CoursesPerDay: Dictionary of [Date, Integer];
-    IsMedical: Boolean;
-    DocumentNo: Code[20]): Boolean
+        CourseOffering: Record "ACA-Lecturers Units";
+        ExamDate: Date;
+        Semester: Record "ACA-Semesters";
+        GroupCode: Code[20];
+        var CoursesPerDay: Dictionary of [Date, Integer];
+        IsMedical: Boolean;
+        DocumentNo: Code[20]): Boolean
     var
         ExamTimeSlot: Record "Exam Time Slot";
         SlotFound: Boolean;
     begin
-        // Use the regular FindTimeSlotForDay which now includes proper load balancing
+        // Use FindTimeSlotForDay which now implements simple round-robin
         SlotFound := FindTimeSlotForDay(CourseOffering, ExamDate, ExamTimeSlot, IsMedical);
 
         if SlotFound then begin
@@ -4674,7 +4648,7 @@ codeunit 50096 "Timetable Management"
 
                 exit(true);
             end else begin
-                // If room allocation failed, decrement the global counter since we didn't actually schedule
+                // If room allocation failed, decrement the global counter
                 case ExamTimeSlot."Session Type" of
                     0:
                         GlobalMorningCount -= 1;
