@@ -4641,7 +4641,41 @@ codeunit 50096 "Timetable Management"
             end;
         end;
 
-        // If optimal slot failed, try other slots as fallback
+        // If optimal slot failed, try remaining slots in session preference order
+        // Try to maintain session balance by preferring sessions with lower counts
+        AllTimeSlots.Reset();
+        if AllTimeSlots.FindSet() then begin
+            repeat
+                // Skip the already tried optimal slot
+                if AllTimeSlots.Code <> BestTimeSlot.Code then begin
+                    // Prefer sessions with lower global counts to maintain balance
+                    if ShouldPreferThisSession(AllTimeSlots."Session Type") then begin
+                        // Check if this specific time slot is available
+                        if IsTimeSlotValidForDate(AllTimeSlots, ExamDate) then begin
+                            // Try to schedule with room allocation
+                            if ScheduleExamWithRoomAllocationGroup(
+                                CourseOffering,
+                                ExamDate,
+                                AllTimeSlots,
+                                Semester,
+                                GroupCode,
+                                DocumentNo) then begin
+
+                                // Update courses per day counter
+                                if not CoursesPerDay.ContainsKey(ExamDate) then
+                                    CoursesPerDay.Add(ExamDate, 1)
+                                else
+                                    CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
+
+                                exit(true);
+                            end;
+                        end;
+                    end;
+                end;
+            until AllTimeSlots.Next() = 0;
+        end;
+
+        // If balanced approach failed, try any remaining slot
         AllTimeSlots.Reset();
         if AllTimeSlots.FindSet() then begin
             repeat
@@ -4669,6 +4703,36 @@ codeunit 50096 "Timetable Management"
                     end;
                 end;
             until AllTimeSlots.Next() = 0;
+        end;
+
+        exit(false);
+    end;
+
+    local procedure ShouldPreferThisSession(SessionType: Option Morning,Midday,Afternoon): Boolean
+    var
+        MorningCount, MiddayCount, AfternoonCount: Integer;
+        MinCount: Integer;
+    begin
+        // Get current counts
+        MorningCount := GlobalMorningCount;
+        MiddayCount := GlobalMiddayCount;
+        AfternoonCount := GlobalAfternoonCount;
+
+        // Find the minimum count
+        MinCount := MorningCount;
+        if MiddayCount < MinCount then
+            MinCount := MiddayCount;
+        if AfternoonCount < MinCount then
+            MinCount := AfternoonCount;
+
+        // Prefer sessions that have the minimum count (to balance)
+        case SessionType of
+            SessionType::Morning:
+                exit(MorningCount = MinCount);
+            SessionType::Midday:
+                exit(MiddayCount = MinCount);
+            SessionType::Afternoon:
+                exit(AfternoonCount = MinCount);
         end;
 
         exit(false);
