@@ -141,13 +141,24 @@ report 51523 "Examinations Timetable"
             column(AfternoonExams; GetSessionExams(ExamTimetableEntry."Session Type"::Afternoon))
             {
             }
+            column(MorningInvigilators; GetSessionInvigilators(ExamTimetableEntry."Session Type"::Morning))
+            {
+            }
+            column(MiddayInvigilators; GetSessionInvigilators(ExamTimetableEntry."Session Type"::Midday))
+            {
+            }
+            column(AfternoonInvigilators; GetSessionInvigilators(ExamTimetableEntry."Session Type"::Afternoon))
+            {
+            }
             column(DayOfWeekText; Format(ExamTimetableEntry."Exam Date", 0, '<Weekday Text>'))
             {
             }
             column(DateFormatted; Format(ExamTimetableEntry."Exam Date", 0, '<Day,2>/<Month,2>/<Year4>'))
             {
             }
-
+            column(Invigilators; InvigilatorsTxt)
+            {
+            }
             dataitem(ExamInvigilators; "Exam Invigilators")
             {
                 DataItemLink = Semester = field(Semester),
@@ -165,6 +176,14 @@ report 51523 "Examinations Timetable"
                 column(InvigilatorCategory; Format(Category))
                 {
                 }
+                trigger OnAfterGetRecord()
+                var
+                    LineBreak: Text;
+                    THelper: Codeunit "Type Helper";
+                begin
+                    LineBreak := THelper.CRLFSeparator();
+                    InvigilatorsTxt += Name + LineBreak;
+                end;
             }
 
             trigger OnAfterGetRecord()
@@ -245,6 +264,8 @@ report 51523 "Examinations Timetable"
         GroupByDate: Boolean;
         ShowInvigilators: Boolean;
         ShowVenueCapacity: Boolean;
+        InvigilatorsTxt: Text[2048];
+        InvigilatorsInfo: Text[2048];
 
     trigger OnInitReport()
     begin
@@ -299,6 +320,7 @@ report 51523 "Examinations Timetable"
             end;
         end;
     end;
+
 
     local procedure GetUnitDetails()
     begin
@@ -448,7 +470,45 @@ report 51523 "Examinations Timetable"
 
             until TempExamEntry.Next() = 0;
         end;
-
         exit(ExamInfo);
     end;
+
+    local procedure GetSessionInvigilators(SessionType: Option Morning,Midday,Afternoon): Text
+    var
+        TempExamEntry: Record "Exam Timetable Entry";
+        InvigilatorsInfo: Text;
+        LineBreak: Text;
+        ExamBlock: Text;
+        THelper: Codeunit "Type Helper";
+        TempInvigilators: Record "Exam Invigilators";
+    begin
+        LineBreak := THelper.CRLFSeparator(); // Line break for RDLC
+
+        // Get all exams for this date and session type
+        TempInvigilators.Reset();
+        TempInvigilators.SetRange(TempInvigilators.Date, ExamTimetableEntry."Exam Date");
+        TempInvigilators.SetRange("Session Type", SessionType);
+        TempInvigilators.SetRange(Semester, ExamTimetableEntry.Semester);
+        //TempInvigilators.SetRange("Exam Type", ExamTimetableEntry."Exam Type");
+
+        // Apply same filters as main dataitem
+        if ExamTimetableEntry.GetFilter("Programme Code") <> '' then
+            TempInvigilators.SetFilter("Programme Code", ExamTimetableEntry.GetFilter("Programme Code"));
+        if ExamTimetableEntry.GetFilter("Stage Code") <> '' then
+            TempInvigilators.SetFilter("Stage Code", ExamTimetableEntry.GetFilter("Stage Code"));
+
+        if TempInvigilators.FindSet() then begin
+            repeat
+              InvigilatorsInfo += TempInvigilators.Name + LineBreak;
+                // Add to main info with separator
+                if InvigilatorsInfo <> '' then
+                    InvigilatorsInfo += LineBreak + '---' + LineBreak;
+
+                InvigilatorsInfo += TempInvigilators.Name;
+
+            until TempInvigilators.Next() = 0;
+        end;
+        exit(InvigilatorsInfo);
+    end;
+
 }
