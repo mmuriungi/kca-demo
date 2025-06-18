@@ -119,6 +119,12 @@ page 52081 "Medical Claims Card"
                 {
                     ApplicationArea = All;
                     Importance = Promoted;
+                    
+                    trigger OnValidate()
+                    begin
+                        // Table-level validation will handle all checks
+                        CurrPage.Update();
+                    end;
                 }
                 field("Currency Factor"; Rec."Currency Factor")
                 {
@@ -134,6 +140,96 @@ page 52081 "Medical Claims Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+            }
+
+            group("Medical Limits & Balances")
+            {
+                Caption = 'Medical Limits & Running Balances';
+                field("Employee Category"; Rec."Employee Category")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Salary Grade"; Rec."Salary Grade")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                group("Inpatient")
+                {
+                    Caption = 'Inpatient Medical Ceiling';
+                    field("Inpatient Limit"; Rec."Inpatient Limit")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Inpatient Limit';
+                        Editable = false;
+                        Style = Favorable;
+                    }
+                    field("Inpatient Running Balance"; Rec."Inpatient Running Balance")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Used This Year';
+                        Editable = false;
+                        Style = Attention;
+                    }
+                    field(InpatientAvailable; GetAvailableBalance(0))
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Available Balance';
+                        Editable = false;
+                        Style = Favorable;
+                    }
+                }
+                group("Outpatient")
+                {
+                    Caption = 'Outpatient Medical Ceiling';
+                    field("Outpatient Limit"; Rec."Outpatient Limit")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Outpatient Limit';
+                        Editable = false;
+                        Style = Favorable;
+                    }
+                    field("Outpatient Running Balance"; Rec."Outpatient Running Balance")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Used This Year';
+                        Editable = false;
+                        Style = Attention;
+                    }
+                    field(OutpatientAvailable; GetAvailableBalance(1))
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Available Balance';
+                        Editable = false;
+                        Style = Favorable;
+                    }
+                }
+                group("Optical")
+                {
+                    Caption = 'Optical Medical Ceiling';
+                    field("Optical Limit"; Rec."Optical Limit")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Optical Limit';
+                        Editable = false;
+                        Style = Favorable;
+                    }
+                    field("Optical Running Balance"; Rec."Optical Running Balance")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Used This Year';
+                        Editable = false;
+                        Style = Attention;
+                    }
+                    field(OpticalAvailable; GetAvailableBalance(2))
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Available Balance';
+                        Editable = false;
+                        Style = Favorable;
+                    }
                 }
             }
 
@@ -241,4 +337,59 @@ page 52081 "Medical Claims Card"
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        Rec.SetCurrentFiscalYearFilter();
+        Rec.CalcFields("Employee Category", "Salary Grade", "Inpatient Limit", "Outpatient Limit", "Optical Limit", 
+                      "Inpatient Running Balance", "Outpatient Running Balance", "Optical Running Balance");
+    end;
+
+    local procedure GetAvailableBalance(ClaimType: Integer): Decimal
+    begin
+        case ClaimType of
+            0: // Inpatient
+                exit(Rec.GetAvailableBalance(Rec."Claim Type"::Inpatient));
+            1: // Outpatient
+                exit(Rec.GetAvailableBalance(Rec."Claim Type"::Outpatient));
+            2: // Optical
+                exit(Rec.GetAvailableBalance(Rec."Claim Type"::Optical));
+        end;
+    end;
+
+    local procedure GetClaimAmountStyle(): Text
+    var
+        AvailableBalance: Decimal;
+    begin
+        if Rec."Member No" = '' then
+            exit('Standard');
+
+        AvailableBalance := Rec.GetAvailableBalance(Rec."Claim Type");
+        
+        if Rec."Claim Amount" > AvailableBalance then
+            exit('Unfavorable')
+        else if Rec."Claim Amount" > (AvailableBalance * 0.8) then
+            exit('Attention')
+        else
+            exit('Favorable');
+    end;
+
+    local procedure CheckLimitWarning()
+    var
+        AvailableBalance: Decimal;
+        WarningMsg: Text;
+    begin
+        if Rec."Member No" = '' then
+            exit;
+
+        AvailableBalance := Rec.GetAvailableBalance(Rec."Claim Type");
+        
+        if Rec."Claim Amount" > AvailableBalance then begin
+            WarningMsg := 'WARNING: Claim amount (%1) exceeds available balance (%2) for %3 claims.';
+            Message(WarningMsg, Rec."Claim Amount", AvailableBalance, Format(Rec."Claim Type"));
+        end else if Rec."Claim Amount" > (AvailableBalance * 0.8) then begin
+            WarningMsg := 'CAUTION: Claim amount (%1) is approaching the limit. Available balance: (%2) for %3 claims.';
+            Message(WarningMsg, Rec."Claim Amount", AvailableBalance, Format(Rec."Claim Type"));
+        end;
+    end;
 }

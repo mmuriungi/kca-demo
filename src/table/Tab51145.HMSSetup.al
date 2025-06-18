@@ -160,6 +160,17 @@ table 51145 "HMS-Setup"
             Description = 'Stores the number series for sick leave certificates';
             TableRelation = "No. Series".Code;
         }
+        field(39; "Medical Officer Email"; Text[100])
+        {
+            Caption = 'Medical Officer Email';
+            Description = 'Email address for medical officer alerts and notifications';
+        }
+        field(40; "Referral Nos. Series"; Code[20])
+        {
+            Caption = 'Referral Number Series';
+            Description = 'Number series for referral letters';
+            TableRelation = "No. Series".Code;
+        }
     }
 
     keys

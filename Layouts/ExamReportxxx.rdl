@@ -24,166 +24,6 @@
       <rd:DataSourceID>1d3a5e89-8b5d-4e21-8a7f-3c2b4d5e6f7a</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="ReportTitle">
-          <DataField>ReportTitle</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="CompanyPicture">
-          <DataField>CompanyPicture</DataField>
-        </Field>
-        <Field Name="AcademicYear">
-          <DataField>AcademicYear</DataField>
-        </Field>
-        <Field Name="SemesterName">
-          <DataField>SemesterName</DataField>
-        </Field>
-        <Field Name="ExamPeriod">
-          <DataField>ExamPeriod</DataField>
-        </Field>
-        <Field Name="ProgrammeFilter">
-          <DataField>ProgrammeFilter</DataField>
-        </Field>
-        <Field Name="StageFilter">
-          <DataField>StageFilter</DataField>
-        </Field>
-        <Field Name="PrintedBy">
-          <DataField>PrintedBy</DataField>
-        </Field>
-        <Field Name="PrintedDate">
-          <DataField>PrintedDate</DataField>
-        </Field>
-        <Field Name="PrintedTime">
-          <DataField>PrintedTime</DataField>
-        </Field>
-        <Field Name="Date">
-          <DataField>Date</DataField>
-        </Field>
-        <Field Name="ExamDate">
-          <DataField>ExamDate</DataField>
-        </Field>
-        <Field Name="ExamDateShort">
-          <DataField>ExamDateShort</DataField>
-        </Field>
-        <Field Name="DayOfWeek">
-          <DataField>DayOfWeek</DataField>
-        </Field>
-        <Field Name="TimeSlot">
-          <DataField>TimeSlot</DataField>
-        </Field>
-        <Field Name="StartTime">
-          <DataField>StartTime</DataField>
-        </Field>
-        <Field Name="EndTime">
-          <DataField>EndTime</DataField>
-        </Field>
-        <Field Name="Duration">
-          <DataField>Duration</DataField>
-        </Field>
-        <Field Name="UnitCode">
-          <DataField>UnitCode</DataField>
-        </Field>
-        <Field Name="UnitDescription">
-          <DataField>UnitDescription</DataField>
-        </Field>
-        <Field Name="LectureHall">
-          <DataField>LectureHall</DataField>
-        </Field>
-        <Field Name="RoomCapacity">
-          <DataField>RoomCapacity</DataField>
-        </Field>
-        <Field Name="ProgrammeCode">
-          <DataField>ProgrammeCode</DataField>
-        </Field>
-        <Field Name="ProgrammeName">
-          <DataField>ProgrammeName</DataField>
-        </Field>
-        <Field Name="StageCode">
-          <DataField>StageCode</DataField>
-        </Field>
-        <Field Name="StageName">
-          <DataField>StageName</DataField>
-        </Field>
-        <Field Name="StudentCount">
-          <DataField>StudentCount</DataField>
-        </Field>
-        <Field Name="NoofStudents">
-          <DataField>NoofStudents</DataField>
-        </Field>
-        <Field Name="ExamType">
-          <DataField>ExamType</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-        <Field Name="SessionType">
-          <DataField>SessionType</DataField>
-        </Field>
-        <Field Name="ChiefInvigilator">
-          <DataField>ChiefInvigilator</DataField>
-        </Field>
-        <Field Name="ChiefInvigilatorName">
-          <DataField>ChiefInvigilatorName</DataField>
-        </Field>
-        <Field Name="AdditionalInvigilators">
-          <DataField>AdditionalInvigilators</DataField>
-        </Field>
-        <Field Name="DocumentNo">
-          <DataField>DocumentNo</DataField>
-        </Field>
-        <Field Name="ExamGroup">
-          <DataField>ExamGroup</DataField>
-        </Field>
-        <Field Name="EntryNo">
-          <DataField>EntryNo</DataField>
-        </Field>
-        <Field Name="MorningExams">
-          <DataField>MorningExams</DataField>
-        </Field>
-        <Field Name="MiddayExams">
-          <DataField>MiddayExams</DataField>
-        </Field>
-        <Field Name="AfternoonExams">
-          <DataField>AfternoonExams</DataField>
-        </Field>
-        <Field Name="MorningInvigilators">
-          <DataField>MorningInvigilators</DataField>
-        </Field>
-        <Field Name="MiddayInvigilators">
-          <DataField>MiddayInvigilators</DataField>
-        </Field>
-        <Field Name="AfternoonInvigilators">
-          <DataField>AfternoonInvigilators</DataField>
-        </Field>
-        <Field Name="DayOfWeekText">
-          <DataField>DayOfWeekText</DataField>
-        </Field>
-        <Field Name="DateFormatted">
-          <DataField>DateFormatted</DataField>
-        </Field>
-        <Field Name="Invigilators">
-          <DataField>Invigilators</DataField>
-        </Field>
-        <Field Name="InvigilatorNo">
-          <DataField>InvigilatorNo</DataField>
-        </Field>
-        <Field Name="InvigilatorName">
-          <DataField>InvigilatorName</DataField>
-        </Field>
-        <Field Name="InvigilatorCategory">
-          <DataField>InvigilatorCategory</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1085,12 +925,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1128,4 +962,164 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="CompanyPicture">
+          <DataField>CompanyPicture</DataField>
+        </Field>
+        <Field Name="AcademicYear">
+          <DataField>AcademicYear</DataField>
+        </Field>
+        <Field Name="SemesterName">
+          <DataField>SemesterName</DataField>
+        </Field>
+        <Field Name="ExamPeriod">
+          <DataField>ExamPeriod</DataField>
+        </Field>
+        <Field Name="ProgrammeFilter">
+          <DataField>ProgrammeFilter</DataField>
+        </Field>
+        <Field Name="StageFilter">
+          <DataField>StageFilter</DataField>
+        </Field>
+        <Field Name="PrintedBy">
+          <DataField>PrintedBy</DataField>
+        </Field>
+        <Field Name="PrintedDate">
+          <DataField>PrintedDate</DataField>
+        </Field>
+        <Field Name="PrintedTime">
+          <DataField>PrintedTime</DataField>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+        </Field>
+        <Field Name="ExamDate">
+          <DataField>ExamDate</DataField>
+        </Field>
+        <Field Name="ExamDateShort">
+          <DataField>ExamDateShort</DataField>
+        </Field>
+        <Field Name="DayOfWeek">
+          <DataField>DayOfWeek</DataField>
+        </Field>
+        <Field Name="TimeSlot">
+          <DataField>TimeSlot</DataField>
+        </Field>
+        <Field Name="StartTime">
+          <DataField>StartTime</DataField>
+        </Field>
+        <Field Name="EndTime">
+          <DataField>EndTime</DataField>
+        </Field>
+        <Field Name="Duration">
+          <DataField>Duration</DataField>
+        </Field>
+        <Field Name="UnitCode">
+          <DataField>UnitCode</DataField>
+        </Field>
+        <Field Name="UnitDescription">
+          <DataField>UnitDescription</DataField>
+        </Field>
+        <Field Name="LectureHall">
+          <DataField>LectureHall</DataField>
+        </Field>
+        <Field Name="RoomCapacity">
+          <DataField>RoomCapacity</DataField>
+        </Field>
+        <Field Name="ProgrammeCode">
+          <DataField>ProgrammeCode</DataField>
+        </Field>
+        <Field Name="ProgrammeName">
+          <DataField>ProgrammeName</DataField>
+        </Field>
+        <Field Name="StageCode">
+          <DataField>StageCode</DataField>
+        </Field>
+        <Field Name="StageName">
+          <DataField>StageName</DataField>
+        </Field>
+        <Field Name="StudentCount">
+          <DataField>StudentCount</DataField>
+        </Field>
+        <Field Name="NoofStudents">
+          <DataField>NoofStudents</DataField>
+        </Field>
+        <Field Name="ExamType">
+          <DataField>ExamType</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="SessionType">
+          <DataField>SessionType</DataField>
+        </Field>
+        <Field Name="ChiefInvigilator">
+          <DataField>ChiefInvigilator</DataField>
+        </Field>
+        <Field Name="ChiefInvigilatorName">
+          <DataField>ChiefInvigilatorName</DataField>
+        </Field>
+        <Field Name="AdditionalInvigilators">
+          <DataField>AdditionalInvigilators</DataField>
+        </Field>
+        <Field Name="DocumentNo">
+          <DataField>DocumentNo</DataField>
+        </Field>
+        <Field Name="ExamGroup">
+          <DataField>ExamGroup</DataField>
+        </Field>
+        <Field Name="EntryNo">
+          <DataField>EntryNo</DataField>
+        </Field>
+        <Field Name="MorningExams">
+          <DataField>MorningExams</DataField>
+        </Field>
+        <Field Name="MiddayExams">
+          <DataField>MiddayExams</DataField>
+        </Field>
+        <Field Name="AfternoonExams">
+          <DataField>AfternoonExams</DataField>
+        </Field>
+        <Field Name="MorningInvigilators">
+          <DataField>MorningInvigilators</DataField>
+        </Field>
+        <Field Name="MiddayInvigilators">
+          <DataField>MiddayInvigilators</DataField>
+        </Field>
+        <Field Name="AfternoonInvigilators">
+          <DataField>AfternoonInvigilators</DataField>
+        </Field>
+        <Field Name="DayOfWeekText">
+          <DataField>DayOfWeekText</DataField>
+        </Field>
+        <Field Name="DateFormatted">
+          <DataField>DateFormatted</DataField>
+        </Field>
+        <Field Name="Invigilators">
+          <DataField>Invigilators</DataField>
+        </Field>
+        <Field Name="InvigilatorNo">
+          <DataField>InvigilatorNo</DataField>
+        </Field>
+        <Field Name="InvigilatorName">
+          <DataField>InvigilatorName</DataField>
+        </Field>
+        <Field Name="InvigilatorCategory">
+          <DataField>InvigilatorCategory</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

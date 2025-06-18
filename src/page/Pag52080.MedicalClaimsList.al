@@ -53,7 +53,29 @@ page 52080 "Medical Claims List"
                 {
                     ToolTip = 'Specifies the value of the Date of Service field.', Comment = '%';
                 }
+                field("Claim Amount"; Rec."Claim Amount")
+                {
+                    ToolTip = 'Specifies the value of the Claim Amount field.', Comment = '%';
+                }
+                field("Available Balance"; GetAvailableBalanceForClaimType())
+                {
+                    Caption = 'Available Balance';
+                    ToolTip = 'Shows the available balance for this claim type';
+                    Editable = false;
+                    Style = Favorable;
+                }
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        Rec.SetCurrentFiscalYearFilter();
+        Rec.CalcFields("Employee Category", "Salary Grade");
+    end;
+
+    local procedure GetAvailableBalanceForClaimType(): Decimal
+    begin
+        exit(Rec.GetAvailableBalance(Rec."Claim Type"));
+    end;
 }

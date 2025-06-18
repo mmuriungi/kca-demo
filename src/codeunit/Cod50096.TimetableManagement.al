@@ -3573,6 +3573,7 @@ codeunit 50096 "Timetable Management"
             ExamDate,
             ExamTimeSlot,
             CourseOffering.Lecturer,
+            CourseOffering.Semester,
             AvailableInvigilators);
 
         // Select required number of invigilators
@@ -3653,7 +3654,7 @@ codeunit 50096 "Timetable Management"
         Department := GetCourseDepartmentSupp(SuppUnits);
 
         // Get available invigilators from lecturer units, starting with unit lecturer
-        GetAvailableInvigilatorsFromLecturersOptimized(Department, ExamDate, ExamTimeSlot, SuppUnits."Lecturer Code", AvailableInvigilators);
+        GetAvailableInvigilatorsFromLecturersOptimized(Department, ExamDate, ExamTimeSlot, SuppUnits."Lecturer Code", SemesterCode, AvailableInvigilators);
 
         // Select required number of invigilators, prioritizing full-timers
         SelectInvigilatorsWithWorkloadBalance(AvailableInvigilators, InvigilatorCount, SelectedInvigilators, ExamDate, SemesterCode);
@@ -3681,6 +3682,7 @@ codeunit 50096 "Timetable Management"
         ExamDate: Date;
         ExamTimeSlot: Record "Exam Time Slot";
         UnitLecturer: Code[20];
+        SemesterCode: Code[25];
         var AvailableInvigilators: List of [Code[20]])
     var
         Employee: Record "HRM-Employee C";
@@ -3727,11 +3729,11 @@ codeunit 50096 "Timetable Management"
         end;
 
         // STEP 3: Get department lecturers using cached approach
-        CollectDepartmentLecturersOptimized(Department, BusyInvigilators, ProcessedLecturers, AvailableInvigilators);
+        CollectDepartmentLecturersOptimized(Department, BusyInvigilators, SemesterCode, ProcessedLecturers, AvailableInvigilators);
 
         // STEP 4: If not enough, get from other departments (only if needed)
         if AvailableInvigilators.Count < 2 then
-            CollectLecturersFromOtherDepartmentsOptimized(Department, BusyInvigilators, ProcessedLecturers, AvailableInvigilators);
+            CollectLecturersFromOtherDepartmentsOptimized(Department, BusyInvigilators, SemesterCode, ProcessedLecturers, AvailableInvigilators);
 
         // STEP 5: Final fallback - get from all lecturers if still not enough
         if AvailableInvigilators.Count < 2 then
@@ -3880,11 +3882,9 @@ codeunit 50096 "Timetable Management"
         end else begin
             AdditionalInvigilators := ROUND((StudentCount - 100) / 50, 1, '>') * InvigilatorSetup."Next 50";
             InvigilatorCount := FirstInvigilators + AdditionalInvigilators;
-
             if InvigilatorCount > MaxAllowed then
                 InvigilatorCount := MaxAllowed;
         end;
-
         if InvigilatorCount < MinimumRequired then
             InvigilatorCount := MinimumRequired;
 
@@ -5161,7 +5161,7 @@ codeunit 50096 "Timetable Management"
     end;
 
     // Initialize department lecturer cache
-    local procedure InitializeDepartmentCache()
+    local procedure InitializeDepartmentCache(SemesterCode: Code[25])
     var
         LecturerUnits: Record "ACA-Lecturers Units";
         DeptLecturers: List of [Code[20]];
@@ -5176,6 +5176,7 @@ codeunit 50096 "Timetable Management"
 
         LecturerUnits.Reset();
         LecturerUnits.SetCurrentKey(Lecturer);
+        LecturerUnits.SetRange(Semester, SemesterCode);
         if LecturerUnits.FindSet() then
             repeat
                 if LecturerUnits.Lecturer <> '' then begin
@@ -5207,6 +5208,7 @@ codeunit 50096 "Timetable Management"
     local procedure CollectDepartmentLecturersOptimized(
         Department: Code[20];
         BusyInvigilators: List of [Code[20]];
+        SemesterCode: Code[25];
         var ProcessedLecturers: List of [Code[20]];
         var AvailableInvigilators: List of [Code[20]])
     var
@@ -5215,7 +5217,7 @@ codeunit 50096 "Timetable Management"
         RequiredCount: Integer;
     begin
         RequiredCount := 5; // Get up to 5 from department
-        InitializeDepartmentCache();
+        InitializeDepartmentCache(SemesterCode);
 
         if CachedLecturersByDept.ContainsKey(Department) then begin
             DeptLecturers := CachedLecturersByDept.Get(Department);
@@ -5236,6 +5238,7 @@ codeunit 50096 "Timetable Management"
     local procedure CollectLecturersFromOtherDepartmentsOptimized(
         ExcludeDepartment: Code[20];
         BusyInvigilators: List of [Code[20]];
+        SemesterCode: Code[25];
         var ProcessedLecturers: List of [Code[20]];
         var AvailableInvigilators: List of [Code[20]])
     var
@@ -5246,7 +5249,7 @@ codeunit 50096 "Timetable Management"
         DeptKeys: List of [Code[20]];
     begin
         RequiredCount := 3; // Maximum from other departments
-        InitializeDepartmentCache();
+        InitializeDepartmentCache(SemesterCode);
 
         // Get all department keys
         foreach DeptCode in CachedLecturersByDept.Keys do begin
@@ -5476,6 +5479,7 @@ codeunit 50096 "Timetable Management"
             ExamDate,
             ExamTimeSlot,
             CourseOffering.Lecturer,
+            CourseOffering.Semester,
             AvailableInvigilators);
 
         // Check if we have enough invigilators
@@ -5508,6 +5512,7 @@ codeunit 50096 "Timetable Management"
             ExamDate,
             ExamTimeSlot,
             SuppUnits."Lecturer Code",
+            SuppUnits.Semester,
             AvailableInvigilators);
 
         // Check if we have enough invigilators
