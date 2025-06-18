@@ -24,6 +24,9 @@ xmlport 50020 "Export Custom Cust Ledger"
                 fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type") { }
                 fieldelement(Description; DetailedCustLedgerCustom.Description) { }
                 fieldelement(Posted; DetailedCustLedgerCustom.Posted) { }
+                fieldelement(Custom_Amount;DetailedCustLedgerCustom."Custom Amount"){}
+                fieldelement(ledger_Amount;DetailedCustLedgerCustom."Ledger Amount"){}
+
 
                 trigger OnPreXMLItem()
                 begin
