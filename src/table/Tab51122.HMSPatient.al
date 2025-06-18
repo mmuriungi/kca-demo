@@ -650,6 +650,18 @@ table 51122 "HMS-Patient"
         {
             DataClassification = ToBeClassified;
         }
+        //Is Active
+        field(110; "Student Active"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = exist(Customer WHERE("No." = FIELD("Student No."), Status = filter(Current | Registration)));
+        }
+        field(111; "Employee Active"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula = exist("HRM-Employee C" WHERE("No." = FIELD("Employee No."), Status = filter(Active)));
+        }
+
     }
 
     keys
