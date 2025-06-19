@@ -69,5 +69,30 @@ page 52114 "General Ledgers Custom"
 
             }
         }
+
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action(ExportToXML)
+            {
+                ApplicationArea = All;
+                Caption = 'Export to XML Cust ledgers';
+                Image = Export;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Export customer ledger entries to XML file with date filter.';
+
+                trigger OnAction()
+                var
+                    ExportXMLPort: XMLport "General Ledger Export";
+                begin
+                    ExportXMLPort.Run();
+                end;
+            }
+        }
     }
 }
+

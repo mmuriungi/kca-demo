@@ -1,6 +1,6 @@
 xmlport 50020 "Export Custom Cust Ledger"
 {
-    Caption = 'Export Custom Detailed Customer Ledgers';
+    Caption = 'Export CustomDetailed Customer Ledgers';
     Direction = Export;
     Format = VariableText;
     UseRequestPage = true;
