@@ -389,6 +389,7 @@ table 51362 "Detailed Cust ledger Custom"
             "Debit Amount (LCY)" := "Amount (LCY)";
             "Credit Amount (LCY)" := 0;
         end else begin
+
             "Debit Amount" := 0;
             "Credit Amount" := -Amount;
             "Debit Amount (LCY)" := 0;
