@@ -19,14 +19,11 @@ xmlport 50020 "Export Custom Cust Ledger"
                 fieldelement(CustomerNo; DetailedCustLedgerCustom."Customer No.") { }
                 fieldelement(PostingDate; DetailedCustLedgerCustom."Posting Date") { }
                 fieldelement(Amount; DetailedCustLedgerCustom.Amount) { }
-                //fieldelement(TotalAmount; DetailedCustLedgerCustom."Total Amount") { }
-                // fieldelement(EntryAmount; DetailedCustLedgerCustom."Entry Amount") { }
-                // fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type") { }
+                fieldelement(TotalAmount; DetailedCustLedgerCustom."Total Amount") { }
+                fieldelement(EntryAmount; DetailedCustLedgerCustom."Entry Amount") { }
+                //fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type") { }
                 fieldelement(Description; DetailedCustLedgerCustom.Description) { }
-                fieldelement(Posted; DetailedCustLedgerCustom.Posted) { }
-                fieldelement(Custom_Amount; DetailedCustLedgerCustom."Custom Amount") { }
-                fieldelement(ledger_Amount; DetailedCustLedgerCustom."Ledger Amount") { }
-
+                // fieldelement(Posted; DetailedCustLedgerCustom.Posted) { }
 
                 trigger OnPreXMLItem()
                 begin
