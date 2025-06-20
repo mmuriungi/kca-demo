@@ -226,7 +226,17 @@ table 51365 "custom detail vend ledgers"
             Caption = 'Initial Entry No.';
             Editable = false;
         }
+        //Ledgr amount
+        field(49; "Ledger Amount"; decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = lookup("Detailed Vendor Ledg. Entry".Amount WHERE(
+        "Vendor No." = FIELD("Vendor No."), "Document No." = FIELD("Document No."), "Posting Date" = field("Posting Date"),
+        "Entry Type" = CONST("Initial Entry")
+    ));
+        }
     }
+
 
     keys
     {
