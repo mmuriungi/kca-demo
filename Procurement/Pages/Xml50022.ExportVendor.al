@@ -11,7 +11,7 @@ xmlport 50022 "Export Vendor"
     {
         textelement(CustomerLedgerEntries)
         {
-            tableelement(DetailedCustLedgerCustom;"custom detail vend ledgers")
+            tableelement(DetailedCustLedgerCustom; "custom detail vend ledgers")
             {
                 SourceTableView = sorting("Posting Date", "Vendor No.", "Document No.")
                                 where("Entry Type" = const("Initial Entry"));
@@ -27,7 +27,7 @@ xmlport 50022 "Export Vendor"
                 fieldelement(Description; DetailedCustLedgerCustom.Description) { }
                 // fieldelement(Posted; DetailedCustLedgerCustom.Posted) { }
                 fieldelement(LedgerAmount; DetailedCustLedgerCustom."Ledger Amount") { }
-               // fieldelement(EntryAmount1; DetailedCustLedgerCustom."Custom Amount") { }
+                fieldelement(EntryAmount1; DetailedCustLedgerCustom."Custom Amount") { }
 
                 trigger OnPreXMLItem()
                 begin

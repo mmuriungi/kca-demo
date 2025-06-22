@@ -24,14 +24,18 @@ xmlport 50020 "Export Custom Cust Ledger"
                 //fieldelement(EntryType; DetailedCustLedgerCustom."Entry Type") { }
                 fieldelement(Description; DetailedCustLedgerCustom.Description) { }
                 // fieldelement(Posted; DetailedCustLedgerCustom.Posted) { }
-                fieldelement(LedgerAmount; DetailedCustLedgerCustom."Ledger Amount") { }
-                fieldelement(EntryAmount1; DetailedCustLedgerCustom."Custom Amount") { }
+                fieldelement(LedgerAmount; DetailedCustLedgerCustom."Total Amount") { }
+                fieldelement(EntryAmount1; DetailedCustLedgerCustom."Entry Amount") { }
 
                 trigger OnPreXMLItem()
                 begin
                     // Apply date filter if specified
                     if StartDate <> 0D then
                         DetailedCustLedgerCustom.SetRange("Posting Date", StartDate, EndDate);
+
+                    // Apply customer filter if specified
+                    if CustomerNoFilter <> '' then
+                        DetailedCustLedgerCustom.SetFilter("Customer No.", CustomerNoFilter);
                 end;
             }
         }
@@ -60,6 +64,34 @@ xmlport 50020 "Export Custom Cust Ledger"
                         ToolTip = 'End date for the posting date filter.';
                     }
                 }
+                group(CustomerFilter)
+                {
+                    Caption = 'Customer Filter';
+
+                    field(CustomerNoFilterField; CustomerNoFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Customer No. Filter';
+                        ToolTip = 'Filter for specific customer numbers. Use standard filter syntax (e.g., C001|C002 for multiple customers, C001..C010 for range).';
+                        TableRelation = Customer."No.";
+
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            Customer: Record Customer;
+                            CustomerList: Page "Customer List";
+                        begin
+                            Customer.Reset();
+                            CustomerList.SetTableView(Customer);
+                            CustomerList.LookupMode(true);
+                            if CustomerList.RunModal() = Action::OK then begin
+                                CustomerList.GetRecord(Customer);
+                                Text := Customer."No.";
+                                exit(true);
+                            end;
+                            exit(false);
+                        end;
+                    }
+                }
                 group(Options)
                 {
                     Caption = 'Export Options';
@@ -79,12 +111,14 @@ xmlport 50020 "Export Custom Cust Ledger"
         StartDate: Date;
         EndDate: Date;
         IncludeHeader: Boolean;
+        CustomerNoFilter: Text;
 
     trigger OnInitXMLport()
     begin
         StartDate := CalcDate('-1M', Today);
         EndDate := Today;
         IncludeHeader := true;
+        CustomerNoFilter := '';
     end;
 
     trigger OnPreXMLport()

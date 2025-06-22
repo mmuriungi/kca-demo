@@ -230,8 +230,14 @@ table 51365 "custom detail vend ledgers"
         field(49; "Ledger Amount"; decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = lookup("Detailed Vendor Ledg. Entry".Amount WHERE(
-        "Vendor No." = FIELD("Vendor No."), "Document No." = FIELD("Document No."), "Posting Date" = field("Posting Date"),
+            CalcFormula = Sum("Detailed Vendor Ledg. Entry".Amount WHERE("Vendor No." = FIELD("Vendor No."), "Document No." = FIELD("Document No."), "Posting Date" = field("Posting Date"),
+        "Entry Type" = CONST("Initial Entry")
+    ));
+        }
+           field(50; "Custom Amount"; decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Sum("custom detail vend ledgers".Amount WHERE("Vendor No." = FIELD("Vendor No."), "Document No." = FIELD("Document No."), "Posting Date" = field("Posting Date"),
         "Entry Type" = CONST("Initial Entry")
     ));
         }
