@@ -50,15 +50,18 @@ page 52114 "General Ledgers Custom"
                 }
                 field("Source Type"; Rec."Source Type")
                 {
+                    Visible = false;
                     ToolTip = 'Specifies the value of the Source Type field.', Comment = '%';
                 }
                 field(EntryCount; Rec.EntryCount)
                 {
                     ToolTip = 'Specifies the value of the Entry Count field.', Comment = '%';
+                    Visible = false;
                 }
                 field("System-Created Entry"; Rec."System-Created Entry")
                 {
                     ToolTip = 'Specifies whether the entry was created by the system.', Comment = '%';
+                    Visible = false;
                 }
                 // field("System Created Entry"; Rec."System Created Entry")
                 // {
