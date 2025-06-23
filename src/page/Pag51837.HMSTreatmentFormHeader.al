@@ -192,6 +192,32 @@ page 51837 "HMS-Treatment Form Header"
                     ApplicationArea = All;
                 }
             }
+            group("&Examination Findings")
+            {
+                Caption = 'Examination Findings';
+                field("Examination Findings"; Rec."Examination Findings")
+                {
+                    ApplicationArea = All;
+                    MultiLine = true;
+                    ToolTip = 'Enter detailed examination findings';
+                    trigger OnValidate()
+                    begin
+                        UpdatePatientHistory();
+                    end;
+                }
+                field("Physical Examination"; Rec."Physical Examination")
+                {
+                    ApplicationArea = All;
+                    MultiLine = true;
+                    ToolTip = 'Enter physical examination details';
+                }
+                field("Vital Signs"; Rec."Vital Signs")
+                {
+                    ApplicationArea = All;
+                    MultiLine = true;
+                    ToolTip = 'Enter vital signs measurements';
+                }
+            }
             // group(Signs)
             // {
             //     Caption = 'Signs';
@@ -607,6 +633,13 @@ page 51837 "HMS-Treatment Form Header"
         IF Patient.GET(PatientNo) THEN BEGIN
             PatientName := Patient.Surname + ' ' + Patient."Middle Name" + ' ' + Patient."Last Name";
         END;
+    end;
+
+    local procedure UpdatePatientHistory()
+    begin
+        // Update patient treatment history
+        // This will automatically be tracked through the treatment record
+        Message('Examination findings updated for patient %1', Rec."Patient Name");
     end;
 
     trigger OnAfterGetCurrRecord()

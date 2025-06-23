@@ -331,6 +331,16 @@ page 51752 "HMS Patient Employee Card"
                     ApplicationArea = All;
                 }
             }
+            group("Employee Dependants")
+            {
+                Caption = 'Employee Dependants';
+                part(DependantsList; "HRM-Employees Dependants")
+                {
+                    ApplicationArea = All;
+                    SubPageLink = "Employee Code" = field("Employee No.");
+                    UpdatePropagation = Both;
+                }
+            }
         }
     }
 
@@ -338,6 +348,51 @@ page 51752 "HMS Patient Employee Card"
     {
         area(navigation)
         {
+            group("Employee Information")
+            {
+                Caption = 'Employee Information';
+                action("Employee Card")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Employee Card';
+                    Image = Employee;
+                    ToolTip = 'View the employee record';
+                    RunObject = Page "HRM-Employee (B)";
+                    RunPageLink = "No." = field("Employee No.");
+                }
+                action("Employee Dependants")
+                {
+                    ApplicationArea = All;
+                    Caption = 'All Employee Dependants';
+                    Image = Relatives;
+                    ToolTip = 'View all dependants of this employee';
+                    RunObject = Page "HRM-Employees Dependants";
+                    RunPageLink = "Employee Code" = field("Employee No.");
+                }
+            }
+            group("Medical Information")
+            {
+                Caption = 'Medical Information';
+                action("Dependant Patients")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Dependant Patients';
+                    Image = CustomerList;
+                    ToolTip = 'View dependants who are registered as patients';
+                    RunObject = Page "HRM-Employees Dependants";
+                    RunPageLink = "Employee Code" = FIELD("Employee No."), Type = FILTER(Dependant);
+                    RunPageView = WHERE(Type = FILTER(Dependant));
+                }
+                action("Medical Claims")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Medical Claims';
+                    Image = Insurance;
+                    ToolTip = 'View medical claims for this employee and dependants';
+                    RunObject = Page "Medical Claims List";
+                    RunPageLink = "Member No" = field("Employee No.");
+                }
+            }
         }
         area(processing)
         {
@@ -350,6 +405,20 @@ page 51752 "HMS Patient Employee Card"
                 RunObject = Page "HMS-Patient Card";
                 RunPageLink = "Patient No." = FIELD("Patient No.");
                 ApplicationArea = All;
+            }
+            action("Register Dependants as Patients")
+            {
+                ApplicationArea = All;
+                Caption = 'Register Dependants as Patients';
+                Image = NewCustomer;
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'Register employee dependants as patients in the medical system';
+
+                trigger OnAction()
+                begin
+                    RegisterDependantsAsPatients();
+                end;
             }
         }
     }
@@ -408,6 +477,67 @@ page 51752 "HMS Patient Employee Card"
         IF Rec."Date Of Birth" <> 0D THEN BEGIN
             Rec.Age := HRDates.DetermineAge(Rec."Date Of Birth", TODAY);
         END;
+    end;
+
+    local procedure RegisterDependantsAsPatients()
+    var
+        HRMEmployeeKin: Record "HRM-Employee Kin";
+        HMSPatient: Record "HMS-Patient";
+        HMSSetup: Record "HMS-Setup";
+        NoSeriesMgt: Codeunit 396;
+        RegisteredCount: Integer;
+        SkippedCount: Integer;
+        DependantName: Text;
+    begin
+        if not Confirm('Do you want to register all unregistered dependants of this employee as patients?') then
+            exit;
+
+        HMSSetup.Get();
+        HMSSetup.TestField("Patient Nos");
+
+        HRMEmployeeKin.SetRange("Employee Code", Rec."Employee No.");
+        HRMEmployeeKin.SetRange(Type, HRMEmployeeKin.Type::Dependant);
+
+        if HRMEmployeeKin.FindSet() then begin
+            repeat
+                DependantName := HRMEmployeeKin."Other Names" + ' ' + HRMEmployeeKin.SurName;
+
+                // Check if dependant is already registered as a patient
+                HMSPatient.SetRange("Employee No.", Rec."Employee No.");
+                HMSPatient.SetRange("Patient Type", HMSPatient."Patient Type"::Dependant);
+                HMSPatient.SetRange("ID Number", HRMEmployeeKin."ID No/Passport No");
+
+                if not HMSPatient.FindFirst() then begin
+                    // Create new patient record for dependant
+                    HMSPatient.Init();
+                    HMSPatient."Patient No." := NoSeriesMgt.GetNextNo(HMSSetup."Patient Nos", Today, true);
+                    HMSPatient."No. Series" := HMSSetup."Patient Nos";
+                    HMSPatient."Date Registered" := Today;
+                    HMSPatient."Patient Type" := HMSPatient."Patient Type"::Dependant;
+                    HMSPatient."Patient Type2" := HMSPatient."Patient Type2"::Employee;
+                    HMSPatient."Employee No." := Rec."Employee No.";
+                    HMSPatient."Full Name" := DependantName;
+                    HMSPatient."Date Of Birth" := HRMEmployeeKin."Date Of Birth";
+                    HMSPatient."ID Number" := HRMEmployeeKin."ID No/Passport No";
+                    HMSPatient."Telephone No. 1" := HRMEmployeeKin."Home Tel No";
+                    HMSPatient."Emergency Consent Full Name" := Rec."Full Name";
+                    HMSPatient."Emergency Consent Relationship" := HRMEmployeeKin.Relationship;
+                    HMSPatient."Emergency Consent Address 2" := Rec."Telephone No. 1";
+                    HMSPatient."Correspondence Address 1" := HRMEmployeeKin.Address;
+
+                    if HMSPatient.Insert(true) then
+                        RegisteredCount += 1;
+                end else
+                    SkippedCount += 1;
+
+            until HRMEmployeeKin.Next() = 0;
+
+            Message('Registration completed:\Registered: %1 dependant(s)\Skipped (already registered): %2 dependant(s)',
+                RegisteredCount, SkippedCount);
+        end else
+            Message('No dependants found for this employee.');
+
+        CurrPage.Update();
     end;
 }
 

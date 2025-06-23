@@ -67,6 +67,16 @@ page 51804 "HMS-Setup Card"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Pharmacy Requisition field.';
                 }
+                field("Referral Nos. Series"; Rec."Referral Nos. Series")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Number series for referral letters';
+                }
+                field("Medical Officer Email"; Rec."Medical Officer Email")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Email address for medical officer alerts and notifications';
+                }
             }
             group(Pharmacies)
             {

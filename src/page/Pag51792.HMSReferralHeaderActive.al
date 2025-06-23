@@ -7,8 +7,9 @@ page 51792 "HMS Referral Header Active"
     {
         area(content)
         {
-            group(Group)
+            group("General Information")
             {
+                Caption = 'General Information';
 
                 field("Referral No."; Rec."Referral No.")
                 {
@@ -25,6 +26,17 @@ page 51792 "HMS Referral Header Active"
                     Editable = false;
                     ApplicationArea = All;
                 }
+                field(Status; Rec.Status)
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
+            }
+
+            group("PART A - To be retained by Consultant/Hospital")
+            {
+                Caption = 'PART A - To be retained by Consultant/Hospital';
+
                 field("Patient No."; Rec."Patient No.")
                 {
                     Editable = false;
@@ -32,32 +44,162 @@ page 51792 "HMS Referral Header Active"
                 }
                 field(PatientName; PatientName)
                 {
+                    Caption = 'Staff/Dependant/Student Name';
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Hospital No."; Rec."Hospital No.")
+                field("PF/STD No."; Rec."PF/STD No.")
                 {
-                    Editable = true;
                     ApplicationArea = All;
                 }
-                field(HospitalName; HospitalName)
+                field("Referred Hospital"; Rec."Referred Hospital")
                 {
-                    Editable = false;
+                    Caption = 'Referred to Prof/Dr/Mr';
                     ApplicationArea = All;
                 }
-                field("Referral Reason"; Rec."Referral Reason")
+                field("Clinical History"; Rec."Clinical History")
                 {
-                    Editable = false;
+                    MultiLine = true;
                     ApplicationArea = All;
                 }
-                field("Referral Remarks"; Rec."Referral Remarks")
+                field("Examination Findings"; Rec."Examination Findings")
                 {
-                    Editable = false;
+                    MultiLine = true;
                     ApplicationArea = All;
                 }
-                field(Status; Rec.Status)
+                field("Investigations Done"; Rec."Investigations Done")
                 {
-                    Editable = false;
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+                field("Provisional Diagnosis"; Rec."Provisional Diagnosis")
+                {
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+                field("Present Treatment"; Rec."Present Treatment")
+                {
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+                field("Comments"; Rec."Comments")
+                {
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+            }
+
+            group("Reason(s) for Referral")
+            {
+                Caption = 'Reason(s) for Referral';
+
+                field("Opinion/Advice"; Rec."Opinion/Advice")
+                {
+                    ApplicationArea = All;
+                }
+                field("Investigation (Specify)"; Rec."Investigation (Specify)")
+                {
+                    ApplicationArea = All;
+                }
+                field("Further Management"; Rec."Further Management")
+                {
+                    ApplicationArea = All;
+                }
+                field("For Review"; Rec."For Review")
+                {
+                    ApplicationArea = All;
+                }
+            }
+
+            group("Chief Medical Officer")
+            {
+                Caption = 'For: Chief Medical Officer';
+
+                field("CMO Name"; Rec."CMO Name")
+                {
+                    Caption = 'Name';
+                    ApplicationArea = All;
+                }
+                field("CMO Signature/Stamp"; Rec."CMO Signature/Stamp")
+                {
+                    Caption = 'Signature/Stamp';
+                    ApplicationArea = All;
+                }
+                field("CMO Date"; Rec."CMO Date")
+                {
+                    Caption = 'Date';
+                    ApplicationArea = All;
+                }
+            }
+
+            group("PART B - Confidential Report")
+            {
+                Caption = 'PART B - Confidential Report (To be returned to University Clinic by Patient)';
+
+                field("Clinical Lab Findings"; Rec."Clinical Lab Findings")
+                {
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+                field("Diagnosis"; Rec."Diagnosis")
+                {
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+                field("Further Invest Required"; Rec."Further Invest Required")
+                {
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+                field("Treatment Started"; Rec."Treatment Started")
+                {
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+                field("Other Remarks"; Rec."Other Remarks")
+                {
+                    MultiLine = true;
+                    ApplicationArea = All;
+                }
+                field("Doctor Name"; Rec."Doctor Name")
+                {
+                    Caption = 'Doctors Name';
+                    ApplicationArea = All;
+                }
+                field("Doctor Sign"; Rec."Doctor Sign")
+                {
+                    Caption = 'Sign';
+                    ApplicationArea = All;
+                }
+                field("Report Date"; Rec."Report Date")
+                {
+                    Caption = 'Date';
+                    ApplicationArea = All;
+                }
+                field("Official Rubber Stamp"; Rec."Official Rubber Stamp")
+                {
+                    ApplicationArea = All;
+                }
+            }
+
+            group("PART C - To be attached to medical claim")
+            {
+                Caption = 'PART C - To be attached to medical claim';
+
+                field("Consultant/Specialist Name"; Rec."Consultant/Specialist Name")
+                {
+                    ApplicationArea = All;
+                }
+                field("Consultant PF No."; Rec."Consultant PF No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Consultant Signature"; Rec."Consultant Signature")
+                {
+                    ApplicationArea = All;
+                }
+                field("Consultant Date/Stamp"; Rec."Consultant Date/Stamp")
+                {
                     ApplicationArea = All;
                 }
             }
@@ -97,9 +239,24 @@ page 51792 "HMS Referral Header Active"
                                   "No." = FIELD("Treatment no.");
                     ApplicationArea = All;
                 }
+                action("Print Referral Form")
+                {
+                    Caption = 'Print Referral Form';
+                    Image = Print;
+                    Promoted = true;
+                    PromotedCategory = Report;
+                    ApplicationArea = All;
+
+                    trigger OnAction()
+                    begin
+                        // Add report call here
+                        MESSAGE('Print functionality to be implemented');
+                    end;
+                }
             }
         }
     }
+
     var
         PatientName: Text[100];
         HospitalName: Text[100];
@@ -123,4 +280,3 @@ page 51792 "HMS Referral Header Active"
         END;
     end;
 }
-

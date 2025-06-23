@@ -181,8 +181,7 @@ report 51523 "Examinations Timetable"
                     LineBreak: Text;
                     THelper: Codeunit "Type Helper";
                 begin
-                    LineBreak := THelper.CRLFSeparator();
-                    InvigilatorsTxt += Name + LineBreak;
+                   
                 end;
             }
 
@@ -476,38 +475,61 @@ report 51523 "Examinations Timetable"
     local procedure GetSessionInvigilators(SessionType: Option Morning,Midday,Afternoon): Text
     var
         TempExamEntry: Record "Exam Timetable Entry";
-        InvigilatorsInfo: Text;
-        LineBreak: Text;
-        ExamBlock: Text;
-        THelper: Codeunit "Type Helper";
         TempInvigilators: Record "Exam Invigilators";
+        InvigilatorsInfo: Text;
+        InvigilatorBlock: Text;
+        LineBreak: Text;
+        THelper: Codeunit "Type Helper";
     begin
-        LineBreak := THelper.CRLFSeparator(); // Line break for RDLC
+        LineBreak := THelper.CRLFSeparator();
 
-        // Get all exams for this date and session type
-        TempInvigilators.Reset();
-        TempInvigilators.SetRange(TempInvigilators.Date, ExamTimetableEntry."Exam Date");
-        TempInvigilators.SetRange("Session Type", SessionType);
-        TempInvigilators.SetRange(Semester, ExamTimetableEntry.Semester);
-        //TempInvigilators.SetRange("Exam Type", ExamTimetableEntry."Exam Type");
+        // Get all exams for this date and session type first
+        TempExamEntry.Reset();
+        TempExamEntry.SetRange("Exam Date", ExamTimetableEntry."Exam Date");
+        TempExamEntry.SetRange("Session Type", SessionType);
+        TempExamEntry.SetRange(Semester, ExamTimetableEntry.Semester);
+        TempExamEntry.SetRange("Exam Type", ExamTimetableEntry."Exam Type");
 
         // Apply same filters as main dataitem
         if ExamTimetableEntry.GetFilter("Programme Code") <> '' then
-            TempInvigilators.SetFilter("Programme Code", ExamTimetableEntry.GetFilter("Programme Code"));
+            TempExamEntry.SetFilter("Programme Code", ExamTimetableEntry.GetFilter("Programme Code"));
         if ExamTimetableEntry.GetFilter("Stage Code") <> '' then
-            TempInvigilators.SetFilter("Stage Code", ExamTimetableEntry.GetFilter("Stage Code"));
+            TempExamEntry.SetFilter("Stage Code", ExamTimetableEntry.GetFilter("Stage Code"));
 
-        if TempInvigilators.FindSet() then begin
+        if TempExamEntry.FindSet() then begin
             repeat
-              InvigilatorsInfo += TempInvigilators.Name + LineBreak;
-                // Add to main info with separator
+                // Clear the block for each exam
+                Clear(InvigilatorBlock);
+
+                // Get invigilators for this specific exam
+                TempInvigilators.Reset();
+                TempInvigilators.SetRange(Semester, TempExamEntry.Semester);
+                TempInvigilators.SetRange(Date, TempExamEntry."Exam Date");
+                TempInvigilators.SetRange(Unit, TempExamEntry."Unit Code");
+                TempInvigilators.SetRange(Hall, TempExamEntry."Lecture Hall");
+                TempInvigilators.SetRange("Start Time", TempExamEntry."Start Time");
+                if TempInvigilators.FindSet() then begin
+                    repeat
+                        if InvigilatorBlock <> '' then
+                            InvigilatorBlock += LineBreak;
+                        InvigilatorBlock += TempInvigilators.Name;
+                    until TempInvigilators.Next() = 0;
+                end;
+
+                // Add exam separator and invigilator block
                 if InvigilatorsInfo <> '' then
                     InvigilatorsInfo += LineBreak + '---' + LineBreak;
 
-                InvigilatorsInfo += TempInvigilators.Name;
+                // Add unit info as header (to match exam format)
+                InvigilatorsInfo += TempExamEntry."Unit Code";
+                if InvigilatorBlock <> '' then
+                    InvigilatorsInfo += LineBreak + InvigilatorBlock
+                else
+                    InvigilatorsInfo += LineBreak + 'No invigilators assigned';
 
-            until TempInvigilators.Next() = 0;
+            until TempExamEntry.Next() = 0;
         end;
+
         exit(InvigilatorsInfo);
     end;
 
