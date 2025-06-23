@@ -29,6 +29,16 @@ page 51839 "HMS-Treatment Form Injection"
                 {
                     ApplicationArea = All;
                 }
+                field(Dosage; Rec.Dosage)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Enter the dosage for this injection';
+                }
+                field("Route of Administration"; Rec."Route of Administration")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Enter the route of administration (e.g., IV, IM, SC)';
+                }
                 field(Amount; rec.Amount)
                 {
                     Caption = 'Charge';

@@ -137,6 +137,33 @@ codeunit 51826 "Csv Handler"
         end;
     end;
 
+    procedure ImportFromExcelWithDefaults(ArrRecref: array[20] of RecordRef; ArrSheetName: array[20] of Text;
+    arraylength: Integer; FieldsDict: Dictionary of [Integer, List of [Integer]]; KeyCode: Code[25]; KeyIndex: Integer; DefaultValues: Dictionary of [Integer, Text])
+    var
+        i: Integer;
+        RcptBuffer: Record "ACA-Imp. Receipts Buffer";
+        ExcelBuffer: Record "Excel Buffer" temporary;
+        FileMgt: Codeunit "File Management";
+        FileName: Text;
+        UploadResult: Boolean;
+        FileInStream: InStream;
+        FieldsList: List of [Integer];
+    begin
+        UploadResult := UploadIntoStream('Select Excel File', '', '', FileName, FileInStream);
+
+        if not UploadResult then
+            exit;
+        for i := 1 to arraylength do begin
+            ExcelBuffer.Reset();
+            ExcelBuffer.DeleteAll();
+            ExcelBuffer.OpenBookStream(FileInStream, ArrSheetName[i]);
+            ExcelBuffer.ReadSheet();
+            FieldsList := FieldsDict.Get(i);
+            ImportRecordRefWithDefaults(ArrRecref[i], ExcelBuffer, FieldsList, KeyCode, KeyIndex, DefaultValues);
+            ;
+        end;
+    end;
+
     procedure ImportRecordRef(var RecRef: RecordRef; var ExcelBuffer: Record "Excel Buffer" temporary;
     fields: List of [Integer]; KeyCode: Code[25]; KeyIndex: Integer)
     var
@@ -224,6 +251,134 @@ codeunit 51826 "Csv Handler"
         end;
     end;
 
+    procedure ImportRecordRefWithDefaults(var RecRef: RecordRef; var ExcelBuffer: Record "Excel Buffer" temporary;
+    fields: List of [Integer]; KeyCode: Code[25]; KeyIndex: Integer; DefaultValues: Dictionary of [Integer, Text])
+    var
+        field: Integer;
+        RowNo: Integer;
+        MaxRowNo: Integer;
+        fieldref: FieldRef;
+        intvalue: Integer;
+        fieldValue: Text;
+        col: Integer;
+        boolValue: Boolean;
+        DateValue: Date;
+        DecimalValue: Decimal;
+        Student: Record Customer;
+        InvalidStudents: Text;
+        SkipRow: Boolean;
+        ReceiptBuffer: Record "ACA-Imp. Receipts Buffer";
+        DefaultFieldNo: Integer;
+        DefaultFieldValue: Text;
+    begin
+        Clear(InvalidStudents);
+        MaxRowNo := GetLastRowNo(ExcelBuffer);
+        for RowNo := 2 to MaxRowNo do begin
+            Clear(SkipRow);
+            
+            // Process Excel fields first
+            foreach field in fields do begin
+                col := fields.IndexOf(field);
+                fieldref := RecRef.Field(field);
+                fieldValue := GetExcelCellValue(ExcelBuffer, RowNo, col);
+
+                //Check if Student exists
+                if field = ReceiptBuffer.FieldNo("Student No.") then begin
+                    Student.SetRange("Customer Type", Student."Customer Type"::Student);
+                    if not Student.Get(fieldValue) then begin
+                        if InvalidStudents <> '' then
+                            InvalidStudents += '\';
+                        InvalidStudents += StrSubstNo('Row %1: Student No. %2 :: %3', RowNo, fieldValue, Student.Name);
+                        // SkipRow := true;
+                        //break;  
+                    end;
+                end;
+
+                if not SkipRow then begin
+                    if field = KeyIndex then
+                        fieldValue := KeyCode;
+                    case
+                        fieldref.Type of
+                        fieldref.type::Integer:
+                            begin
+                                Evaluate(intvalue, fieldValue);
+                                fieldref.Validate(intvalue);
+                            end;
+                        fieldref.Type::Option:
+                            begin
+                                fieldref.Validate(GetOptionValueFromText(fieldref, fieldValue));
+                            end;
+                        fieldref.Type::Boolean:
+                            begin
+                                Evaluate(boolValue, fieldValue);
+                                fieldref.Validate(boolValue);
+                            end;
+                        fieldref.Type::Date:
+                            begin
+                                Evaluate(DateValue, fieldValue);
+                                fieldref.Validate(DateValue);
+                            end;
+                        fieldref.Type::Decimal:
+                            begin
+                                Evaluate(DecimalValue, fieldValue);
+                                fieldref.Validate(DecimalValue);
+                            end;
+                        else begin
+                            fieldValue := DelChr(fieldValue, '<>', '"');
+                            fieldref.Validate(fieldValue);
+                        end;
+                    end;
+                end;
+            end;
+            
+            // Process default values for fields not in Excel
+            if not SkipRow then begin
+                foreach DefaultFieldNo in DefaultValues.Keys do begin
+                    if not fields.Contains(DefaultFieldNo) then begin
+                        fieldref := RecRef.Field(DefaultFieldNo);
+                        DefaultFieldValue := DefaultValues.Get(DefaultFieldNo);
+                        
+                        case fieldref.Type of
+                            fieldref.type::Integer:
+                                begin
+                                    Evaluate(intvalue, DefaultFieldValue);
+                                    fieldref.Validate(intvalue);
+                                end;
+                            fieldref.Type::Option:
+                                begin
+                                    fieldref.Validate(GetOptionValueFromText(fieldref, DefaultFieldValue));
+                                end;
+                            fieldref.Type::Boolean:
+                                begin
+                                    Evaluate(boolValue, DefaultFieldValue);
+                                    fieldref.Validate(boolValue);
+                                end;
+                            fieldref.Type::Date:
+                                begin
+                                    Evaluate(DateValue, DefaultFieldValue);
+                                    fieldref.Validate(DateValue);
+                                end;
+                            fieldref.Type::Decimal:
+                                begin
+                                    Evaluate(DecimalValue, DefaultFieldValue);
+                                    fieldref.Validate(DecimalValue);
+                                end;
+                            else begin
+                                DefaultFieldValue := DelChr(DefaultFieldValue, '<>', '"');
+                                fieldref.Validate(DefaultFieldValue);
+                            end;
+                        end;
+                    end;
+                end;
+            end;
+            
+            if not SkipRow then begin
+                if not RecRef.Modify(true) then
+                    RecRef.Insert(true);
+            end;
+        end;
+    end;
+
     // procedure getQuizEnumByCName(EnumName: Text): Enum "Question Answer Type"
     // var
     //     QuizEnum: Enum"Question Answer Type";
@@ -231,6 +386,30 @@ codeunit 51826 "Csv Handler"
     //     QuizEnum := Enum::"Investment Category".FromInteger(QuizEnum.Ordinals.Get(QuizEnum.Names.IndexOf(EnumName)));
     //     exit(InvestmentCategoryEnum);
     // end;
+
+    local procedure GetOptionValueFromText(fieldref: FieldRef; OptionText: Text): Integer
+    var
+        OptionString: Text;
+        OptionList: List of [Text];
+        i: Integer;
+        OptionValue: Text;
+    begin
+        OptionString := fieldref.OptionMembers;
+        OptionList := OptionString.Split(',');
+        
+        for i := 1 to OptionList.Count do begin
+            OptionValue := OptionList.Get(i);
+            if UpperCase(OptionValue) = UpperCase(OptionText) then
+                exit(i - 1); // Options are 0-based
+        end;
+        
+        // If not found, try to evaluate as integer (fallback)
+        if Evaluate(i, OptionText) then
+            exit(i);
+            
+        // If still not found return 0 (first option)
+        exit(0);
+    end;
 
     local procedure GetExcelCellValue(var ExcelBuffer: Record "Excel Buffer" temporary; RowNo: Integer; ColNo: Integer): Text
     begin
