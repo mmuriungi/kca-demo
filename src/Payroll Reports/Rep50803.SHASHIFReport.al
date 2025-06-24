@@ -26,7 +26,7 @@ report 50803 "SHA/SHIF Report"
             column(Companyinfo_Picture; Companyinfo.Picture)
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; Companyinfo.Name)
             {
             }
             column(Address; Address)

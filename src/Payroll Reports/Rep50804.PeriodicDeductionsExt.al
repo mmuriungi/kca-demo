@@ -12,16 +12,16 @@ report 50804 "Periodic Deductions Ext"
             column(ReportForNavId_1; 1)
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; Companyinfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102755015; COMPANYNAME)
+            column(COMPANYNAME_Control1102755015; Companyinfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102756027; COMPANYNAME)
+            column(COMPANYNAME_Control1102756027; Companyinfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102756028; COMPANYNAME)
+            column(COMPANYNAME_Control1102756028; Companyinfo.Name)
             {
             }
             column(CompanyInfo_Picture; CompanyInfo.Picture)
@@ -45,7 +45,7 @@ report 50804 "Periodic Deductions Ext"
             column(deductions; 'DEDUCTIONS')
             {
             }
-            column(kirinyagatitle; COMPANYNAME)
+            column(kirinyagatitle; Companyinfo.Name)
             {
             }
             column(abreviation; 'MUST')
