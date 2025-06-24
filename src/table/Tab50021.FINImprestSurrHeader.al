@@ -308,7 +308,8 @@ table 50021 "FIN-Imprest Surr. Header"
                 "Shortcut Dimension 4 Code" := PayHeader."Shortcut Dimension 4 Code";
                 Dim4 := PayHeader.Dim4;
                 "Imprest Issue Date" := PayHeader.Date;
-                if PayHeader."Expected Date of Surrender" < Today then
+                ExpectedDateOfSurrender := PayHeader."Expected Date of Surrender";
+                //if PayHeader."Expected Date of Surrender" < Today then
                     // daystoday := DATE2DMY(Today, 1);
                     // daystoutstanding := DATE2DMY(PayHeader."Expected Date of Surrender", 1);
                     if PayHeader."Expected Date of Surrender" <> 0D then
