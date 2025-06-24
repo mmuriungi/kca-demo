@@ -6,7 +6,7 @@ page 50017 "FIN-Payment Header"
     PromotedActionCategories = 'New,Process,Reports,Approval,Budgetary Control,Category6_caption,Category7_caption,Category8_caption,Category9_caption,Category10_caption';
     RefreshOnActivate = true;
     SourceTable = "FIN-Payments Header";
-    SourceTableView = WHERE(Posted = filter(false), Status = FILTER(<> Cancelled));
+    // SourceTableView = WHERE(Posted = filter(false), Status = FILTER(<> Cancelled));
 
     layout
     {
@@ -24,7 +24,6 @@ page 50017 "FIN-Payment Header"
                 {
                     ApplicationArea = all;
                     Visible = false;
-
                 }
                 field(Date; Rec.Date)
                 {

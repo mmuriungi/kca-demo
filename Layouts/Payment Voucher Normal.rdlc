@@ -1,13 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>7589236c-9d40-4baf-8147-c7ea6c223291</rd:ReportID>
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>PBIRB</am:Name>
+      <am:Version>15.7.1813.16</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>PBIRB</am:Name>
+      <am:Version>15.7.1813.16</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2025-06-24T18:57:30.6543645Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
+      <rd:SecurityType>None</rd:SecurityType>
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
         <ConnectString />
       </ConnectionProperties>
-      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>aac6c4bf-1514-4921-9e60-ec2628f25a02</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -44,13 +57,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox7">
+                          <rd:DefaultName>Textbox7</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Particulars</Value>
+                                  <Value>Particulars</Value>
                                   <Style>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -62,7 +76,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox7</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -78,13 +91,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox9">
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">LPO/LSO No.</Value>
+                                  <Value>LPO/LSO No.</Value>
                                   <Style>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -96,7 +110,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox9</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -112,13 +125,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox11">
+                          <rd:DefaultName>Textbox11</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">INVOICE DATE</Value>
+                                  <Value>INVOICE DATE</Value>
                                   <Style>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -130,7 +144,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -146,13 +159,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox1">
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">INVOICE No.</Value>
+                                  <Value>INVOICE No.</Value>
                                   <Style>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -164,7 +178,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -180,13 +193,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox5">
+                          <rd:DefaultName>Textbox5</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Tax</Value>
+                                  <Value>Tax</Value>
                                   <Style>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -198,7 +212,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox5</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -214,13 +227,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox12">
+                          <rd:DefaultName>Textbox12</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">NET AMOUNT</Value>
+                                  <Value>NET AMOUNT</Value>
                                   <Style>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -232,7 +246,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox12</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -253,20 +266,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox10">
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!PaymentNarration_PaymentsHeader.Value</Value>
+                                  <Value>=Fields!PaymentNarration_PaymentsHeader.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox10</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -287,13 +300,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox17">
+                          <rd:DefaultName>Textbox17</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -302,7 +316,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox17</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -323,24 +336,24 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Vendor_Ledger_Entry_Description">
+                          <rd:DefaultName>Vendor_Ledger_Entry_Description</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Vendor_Ledger_Entry_Description.Value</Value>
+                                  <Value>=Fields!Vendor_Ledger_Entry_Description.Value</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Vendor_Ledger_Entry_Description</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -356,20 +369,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox2">
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!OrderNo.Value</Value>
+                                  <Value>=Fields!OrderNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox2</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -385,13 +398,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox3">
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Vendor_Ledger_Entry__Posting_Date_.Value</Value>
+                                  <Value>=Fields!Vendor_Ledger_Entry__Posting_Date_.Value</Value>
                                   <Style>
                                     <Format>dd-MM-yyyy</Format>
                                   </Style>
@@ -400,7 +414,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -416,20 +429,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="ExDocNo">
+                          <rd:DefaultName>ExDocNo</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!ExDocNo.Value</Value>
+                                  <Value>=Fields!ExDocNo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>ExDocNo</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -445,20 +458,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox8">
+                          <rd:DefaultName>Textbox8</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox8</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -474,13 +487,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="InvAmount">
+                          <rd:DefaultName>InvAmount</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!InvAmount.Value</Value>
+                                  <Value>=Fields!InvAmount.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'-'</Format>
@@ -490,7 +504,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>InvAmount</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -511,13 +524,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox18">
+                          <rd:DefaultName>Textbox18</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Invoice Total</Value>
+                                  <Value>Invoice Total</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -528,7 +542,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox18</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -549,13 +562,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox24">
+                          <rd:DefaultName>Textbox24</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!InvAmount.Value)</Value>
+                                  <Value>=Sum(Fields!InvAmount.Value)</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'-'</Format>
@@ -565,7 +579,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox24</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -586,13 +599,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox43">
+                          <rd:DefaultName>Textbox43</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">VAT Withheld</Value>
+                                  <Value>VAT Withheld</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -603,7 +617,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox43</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -624,13 +637,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TotalVATWithholdingAmount_FINPaymentsHeader">
+                          <rd:DefaultName>TotalVATWithholdingAmount_FINPaymentsHeader</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TotalVATWithholdingAmount_FINPaymentsHeader.Value</Value>
+                                  <Value>=Fields!TotalVATWithholdingAmount_FINPaymentsHeader.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'-'</Format>
@@ -640,7 +654,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TotalVATWithholdingAmount_FINPaymentsHeader</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -661,13 +674,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox86">
+                          <rd:DefaultName>Textbox86</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Withholding Tax</Value>
+                                  <Value>Withholding Tax</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -678,7 +692,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox86</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -699,13 +712,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TotalWithholdingAmount_FINPaymentsHeader">
+                          <rd:DefaultName>TotalWithholdingAmount_FINPaymentsHeader</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TotalWithholdingAmount_FINPaymentsHeader.Value</Value>
+                                  <Value>=Fields!TotalWithholdingAmount_FINPaymentsHeader.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'-'</Format>
@@ -715,7 +729,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TotalWithholdingAmount_FINPaymentsHeader</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -736,13 +749,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="WHT2Code_FINPaymentsHeader">
+                          <rd:DefaultName>WHT2Code_FINPaymentsHeader</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!WHT2Code_FINPaymentsHeader.Value</Value>
+                                  <Value>=Fields!WHT2Code_FINPaymentsHeader.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -753,7 +767,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>WHT2Code_FINPaymentsHeader</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -774,13 +787,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TotalWHT2Amount_FINPaymentsHeader">
+                          <rd:DefaultName>TotalWHT2Amount_FINPaymentsHeader</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TotalWHT2Amount_FINPaymentsHeader.Value</Value>
+                                  <Value>=Fields!TotalWHT2Amount_FINPaymentsHeader.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'-'</Format>
@@ -790,7 +804,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TotalWHT2Amount_FINPaymentsHeader</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -811,13 +824,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox16">
+                          <rd:DefaultName>Textbox16</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Levy Total</Value>
+                                  <Value>Levy Total</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -828,7 +842,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox16</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -849,13 +862,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TotalLevy_FINPaymentsHeader">
+                          <rd:DefaultName>TotalLevy_FINPaymentsHeader</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TotalLevy_FINPaymentsHeader.Value</Value>
+                                  <Value>=Fields!TotalLevy_FINPaymentsHeader.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00)</Format>
@@ -865,7 +879,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TotalLevy_FINPaymentsHeader</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -886,20 +899,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox49">
+                          <rd:DefaultName>Textbox49</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox49</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -919,13 +932,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox55">
+                          <rd:DefaultName>Textbox55</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Grand Total</Value>
+                                  <Value>Grand Total</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -934,7 +948,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox55</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -950,13 +963,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox56">
+                          <rd:DefaultName>Textbox56</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!TotalPayment_Amount.Value</Value>
+                                  <Value>=Fields!TotalPayment_Amount.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'-'</Format>
@@ -966,7 +980,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox56</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -987,13 +1000,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox58">
+                          <rd:DefaultName>Textbox58</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">     Amount In Words      </Value>
+                                  <Value>     Amount In Words      </Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1002,7 +1016,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox58</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1018,20 +1031,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox59">
+                          <rd:DefaultName>Textbox59</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox59</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1047,20 +1060,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox60">
+                          <rd:DefaultName>Textbox60</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox60</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1076,20 +1089,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox62">
+                          <rd:DefaultName>Textbox62</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox62</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1105,13 +1118,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox63">
+                          <rd:DefaultName>Textbox63</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1120,7 +1134,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox63</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1136,13 +1149,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox64">
+                          <rd:DefaultName>Textbox64</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1151,7 +1165,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox64</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1172,24 +1185,24 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox65">
+                          <rd:DefaultName>Textbox65</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto">               </Value>
+                                  <Value xml:space="preserve">               </Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!NumberText_1_.Value</Value>
+                                  <Value>=Fields!NumberText_1_.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox65</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1216,26 +1229,26 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox71">
+                          <rd:DefaultName>Textbox71</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Account Name</Value>
+                                  <Value>Account Name</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve" EvaluationMode="Auto"> </Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox71</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1251,13 +1264,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox72">
+                          <rd:DefaultName>Textbox72</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto"> Account No</Value>
+                                  <Value> Account No</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1266,7 +1280,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox72</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1282,20 +1295,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox73">
+                          <rd:DefaultName>Textbox73</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox73</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1311,20 +1324,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox74">
+                          <rd:DefaultName>Textbox74</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox74</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1340,13 +1353,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox75">
+                          <rd:DefaultName>Textbox75</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1355,7 +1369,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox75</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1371,13 +1384,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox76">
+                          <rd:DefaultName>Textbox76</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto"> Net Amount </Value>
+                                  <Value> Net Amount </Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1386,7 +1400,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox76</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1407,20 +1420,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox77">
+                          <rd:DefaultName>Textbox77</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Payment_Line__Account_Name_.Value</Value>
+                                  <Value>=Fields!Payment_Line__Account_Name_.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox77</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1436,20 +1449,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox78">
+                          <rd:DefaultName>Textbox78</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Payment_Line_Account_No_.Value</Value>
+                                  <Value>=Fields!Payment_Line_Account_No_.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox78</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1465,20 +1478,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox79">
+                          <rd:DefaultName>Textbox79</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox79</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1494,20 +1507,20 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox82">
+                          <rd:DefaultName>Textbox82</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox82</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1523,13 +1536,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox83">
+                          <rd:DefaultName>Textbox83</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto" />
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1538,7 +1552,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox83</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1554,13 +1567,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox84">
+                          <rd:DefaultName>Textbox84</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Payment_Line__Net_Amount_.Value</Value>
+                                  <Value>=Fields!Payment_Line__Net_Amount_.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00);'-'</Format>
@@ -1570,7 +1584,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox84</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1669,13 +1682,14 @@
             </Style>
           </Line>
           <Textbox Name="Textbox4">
+            <rd:DefaultName>Textbox4</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">CREDITORS</Value>
+                    <Value>CREDITORS</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1684,7 +1698,6 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
             <Top>9.49925cm</Top>
             <Left>0.73844cm</Left>
             <Height>0.6cm</Height>
@@ -1701,20 +1714,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox6">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Prepared by Signature...........................Date......................</Value>
+                    <Value>Prepared by Signature...........................Date......................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>10.09925cm</Top>
             <Left>0.77372cm</Left>
             <Height>0.6cm</Height>
@@ -1731,20 +1744,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox23">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Passed by Signature.............................Date......................</Value>
+                    <Value>Passed by Signature.............................Date......................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>11.04207cm</Top>
             <Left>0.77372cm</Left>
             <Height>0.6cm</Height>
@@ -1761,13 +1774,14 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox25">
+            <rd:DefaultName>Textbox4</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">EXAMINATION</Value>
+                    <Value>EXAMINATION</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1776,7 +1790,6 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
             <Top>12.22332cm</Top>
             <Left>2.12308cm</Left>
             <Height>0.6cm</Height>
@@ -1793,13 +1806,14 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox26">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Examined by Signature...............................</Value>
+                    <Value>Examined by Signature...............................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1808,7 +1822,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto" />
+                    <Value />
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1817,14 +1831,13 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Date......................</Value>
+                    <Value>Date......................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>13.05115cm</Top>
             <Left>0.77372cm</Left>
             <Height>1.47312cm</Height>
@@ -1841,13 +1854,14 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox27">
+            <rd:DefaultName>Textbox4</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">AUTHORISATION</Value>
+                    <Value>AUTHORISATION</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1856,7 +1870,6 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
             <Top>14.98084cm</Top>
             <Left>2.16829cm</Left>
             <Height>0.6cm</Height>
@@ -1873,13 +1886,14 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox28">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Signature...............................Date...............................</Value>
+                    <Value>Signature...............................Date...............................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1888,11 +1902,11 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value xml:space="preserve" EvaluationMode="Auto">             </Value>
+                    <Value xml:space="preserve">             </Value>
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value EvaluationMode="Auto">VC/DVC/FO</Value>
+                    <Value>VC/DVC/FO</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1903,14 +1917,13 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto" />
+                    <Value />
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>15.75516cm</Top>
             <Left>1.13642cm</Left>
             <Height>1.06155cm</Height>
@@ -1927,20 +1940,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox29">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Vote Allocation KSHS .......................................</Value>
+                    <Value>Vote Allocation KSHS .......................................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>10.16274cm</Top>
             <Left>10.7485cm</Left>
             <Height>0.6cm</Height>
@@ -1957,20 +1970,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox30">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Less Cumm. Expenditure KSHS .........................</Value>
+                    <Value>Less Cumm. Expenditure KSHS .........................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>11.04207cm</Top>
             <Left>10.72381cm</Left>
             <Height>0.6cm</Height>
@@ -1987,13 +2000,14 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox31">
+            <rd:DefaultName>Textbox4</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">VOTE BOOK</Value>
+                    <Value>VOTE BOOK</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -2002,7 +2016,6 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
             <Top>9.52746cm</Top>
             <Left>10.81905cm</Left>
             <Height>0.6cm</Height>
@@ -2019,13 +2032,14 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox32">
+            <rd:DefaultName>Textbox4</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">INTERNAL AUDIT</Value>
+                    <Value>INTERNAL AUDIT</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -2034,7 +2048,6 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox4</rd:DefaultName>
             <Top>13.90134cm</Top>
             <Left>12.55394cm</Left>
             <Height>0.6cm</Height>
@@ -2051,13 +2064,14 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox33">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Signature...............................</Value>
+                    <Value>Signature...............................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -2066,7 +2080,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto" />
+                    <Value />
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -2075,14 +2089,13 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Date......................</Value>
+                    <Value>Date......................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>14.72916cm</Top>
             <Left>10.74078cm</Left>
             <Height>1.47312cm</Height>
@@ -2147,20 +2160,20 @@
             </Style>
           </Line>
           <Textbox Name="Textbox34">
+            <rd:DefaultName>Textbox34</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">    MODE OF PAY:</Value>
+                    <Value>    MODE OF PAY:</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox34</rd:DefaultName>
             <Top>17.17032cm</Top>
             <Left>0.63261cm</Left>
             <Height>0.6cm</Height>
@@ -2177,20 +2190,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox35">
+            <rd:DefaultName>Textbox34</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">    BANK A/C NAME :                                </Value>
+                    <Value>    BANK A/C NAME :                                </Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox34</rd:DefaultName>
             <Top>17.94672cm</Top>
             <Left>0.63261cm</Left>
             <Height>0.6cm</Height>
@@ -2219,20 +2232,20 @@
             </Style>
           </Line>
           <Textbox Name="Textbox61">
+            <rd:DefaultName>Textbox61</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">=First(Fields!PayMode.Value, "DataSet_Result")</Value>
+                    <Value>=First(Fields!PayMode.Value, "DataSet_Result")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox61</rd:DefaultName>
             <Top>17.17032cm</Top>
             <Left>3.85171cm</Left>
             <Height>0.6cm</Height>
@@ -2249,20 +2262,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox40">
+            <rd:DefaultName>Textbox40</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">=First(Fields!BankName.Value, "DataSet_Result")</Value>
+                    <Value>=First(Fields!BankName.Value, "DataSet_Result")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox40</rd:DefaultName>
             <Top>17.94672cm</Top>
             <Left>4.27504cm</Left>
             <Height>0.6cm</Height>
@@ -2279,20 +2292,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox41">
+            <rd:DefaultName>Textbox41</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">=First(Fields!BankNo.Value, "DataSet_Result")</Value>
+                    <Value>=First(Fields!BankNo.Value, "DataSet_Result")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox41</rd:DefaultName>
             <Top>17.94672cm</Top>
             <Left>14.75486cm</Left>
             <Height>0.6cm</Height>
@@ -2309,20 +2322,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox42">
+            <rd:DefaultName>Textbox42</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">BANK A/C NO:</Value>
+                    <Value>BANK A/C NO:</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox42</rd:DefaultName>
             <Top>17.94672cm</Top>
             <Left>11.92998cm</Left>
             <Height>0.6cm</Height>
@@ -2351,20 +2364,20 @@
             </Style>
           </Line>
           <Textbox Name="Textbox51">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Balance KSHS .............................................</Value>
+                    <Value>Balance KSHS .............................................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>11.88317cm</Top>
             <Left>10.72381cm</Left>
             <Height>0.6cm</Height>
@@ -2381,20 +2394,20 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox52">
+            <rd:DefaultName>Textbox6</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">Signature........................Date...........................</Value>
+                    <Value>Signature........................Date...........................</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>12.9559cm</Top>
             <Left>10.72028cm</Left>
             <Height>0.6cm</Height>
@@ -2446,13 +2459,14 @@
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Textbox Name="Textbox36">
+              <rd:DefaultName>Textbox36</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">PAYEE'S NAME..........................................................................</Value>
+                      <Value>PAYEE'S NAME..........................................................................</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -2461,7 +2475,6 @@
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox36</rd:DefaultName>
               <Top>1.06046cm</Top>
               <Left>0.55294cm</Left>
               <Height>0.6cm</Height>
@@ -2477,13 +2490,14 @@
               </Style>
             </Textbox>
             <Textbox Name="Textbox37">
+              <rd:DefaultName>Textbox36</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">ADDRESS.........................................................................</Value>
+                      <Value>ADDRESS.........................................................................</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -2492,7 +2506,6 @@
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox36</rd:DefaultName>
               <Top>1.96357cm</Top>
               <Left>0.55294cm</Left>
               <Height>0.6cm</Height>
@@ -2509,13 +2522,14 @@
               </Style>
             </Textbox>
             <Textbox Name="Textbox38">
+              <rd:DefaultName>Textbox36</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">PV.NO...............................................</Value>
+                      <Value>PV.NO...............................................</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -2524,7 +2538,6 @@
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox36</rd:DefaultName>
               <Top>1.06046cm</Top>
               <Left>11.64174cm</Left>
               <Height>0.6cm</Height>
@@ -2541,13 +2554,14 @@
               </Style>
             </Textbox>
             <Textbox Name="Textbox39">
+              <rd:DefaultName>Textbox36</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">CHEQUE NO.....................................</Value>
+                      <Value>CHEQUE NO.....................................</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -2556,7 +2570,6 @@
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox36</rd:DefaultName>
               <Top>1.98473cm</Top>
               <Left>11.67349cm</Left>
               <Height>0.6cm</Height>
@@ -2573,20 +2586,20 @@
               </Style>
             </Textbox>
             <Textbox Name="Textbox57">
+              <rd:DefaultName>Textbox57</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!Payee.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!Payee.Value, "DataSet_Result")</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox57</rd:DefaultName>
               <Top>0.94757cm</Top>
               <Left>3.384cm</Left>
               <Height>0.6cm</Height>
@@ -2603,13 +2616,14 @@
               </Style>
             </Textbox>
             <Textbox Name="Textbox80">
+              <rd:DefaultName>Textbox80</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!Payments_Header_No_.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!Payments_Header_No_.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>11pt</FontSize>
                       </Style>
@@ -2618,7 +2632,6 @@
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox80</rd:DefaultName>
               <Top>0.91582cm</Top>
               <Left>13.00977cm</Left>
               <Height>0.6cm</Height>
@@ -2635,20 +2648,20 @@
               </Style>
             </Textbox>
             <Textbox Name="Textbox81">
+              <rd:DefaultName>Textbox80</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!ChequeNo.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!ChequeNo.Value, "DataSet_Result")</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox80</rd:DefaultName>
               <Top>1.75571cm</Top>
               <Left>14.00142cm</Left>
               <Height>0.6cm</Height>
@@ -2665,20 +2678,20 @@
               </Style>
             </Textbox>
             <Textbox Name="USERID">
+              <rd:DefaultName>USERID</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!USERID.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!USERID.Value, "DataSet_Result")</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>USERID</rd:DefaultName>
               <Left>11.81126cm</Left>
               <Height>0.6cm</Height>
               <Width>3.15991cm</Width>
@@ -2694,20 +2707,20 @@
               </Style>
             </Textbox>
             <Textbox Name="FORMAT_TODAY_0_4_">
+              <rd:DefaultName>FORMAT_TODAY_0_4_</rd:DefaultName>
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!FORMAT_TODAY_0_4_.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!FORMAT_TODAY_0_4_.Value, "DataSet_Result")</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>FORMAT_TODAY_0_4_</rd:DefaultName>
               <Left>15.14756cm</Left>
               <Height>0.6cm</Height>
               <Width>3.46035cm</Width>
@@ -2740,7 +2753,7 @@
         <InteractiveHeight>29.7cm</InteractiveHeight>
         <InteractiveWidth>26.95cm</InteractiveWidth>
         <LeftMargin>1cm</LeftMargin>
-        <TopMargin>2cm</TopMargin>
+        <TopMargin>4cm</TopMargin>
         <BottomMargin>2cm</BottomMargin>
         <Style />
       </Page>
@@ -2783,8 +2796,6 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>7589236c-9d40-4baf-8147-c7ea6c223291</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
