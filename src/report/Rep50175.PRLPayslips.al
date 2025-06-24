@@ -14,16 +14,16 @@ report 50175 "PRL-Payslips"
             column(ReportForNavId_6207; 6207)
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; CompanyInfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102755015; COMPANYNAME)
+            column(COMPANYNAME_Control1102755015; CompanyInfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102756027; COMPANYNAME)
+            column(COMPANYNAME_Control1102756027; CompanyInfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102756028; COMPANYNAME)
+            column(COMPANYNAME_Control1102756028; CompanyInfo.Name)
             {
             }
             column(CompanyInfo_Picture; CompanyInfo.Picture)

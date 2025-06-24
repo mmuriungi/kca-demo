@@ -181,7 +181,7 @@ report 51523 "Examinations Timetable"
                     LineBreak: Text;
                     THelper: Codeunit "Type Helper";
                 begin
-                   
+
                 end;
             }
 
@@ -480,6 +480,8 @@ report 51523 "Examinations Timetable"
         InvigilatorBlock: Text;
         LineBreak: Text;
         THelper: Codeunit "Type Helper";
+        ProcessedInvigilators: List of [Text];
+        InvigilatorKey: Text;
     begin
         LineBreak := THelper.CRLFSeparator();
 
@@ -501,6 +503,9 @@ report 51523 "Examinations Timetable"
                 // Clear the block for each exam
                 Clear(InvigilatorBlock);
 
+                // Clear the processed invigilators list for each exam
+                Clear(ProcessedInvigilators);
+
                 // Get invigilators for this specific exam
                 TempInvigilators.Reset();
                 TempInvigilators.SetRange(Semester, TempExamEntry.Semester);
@@ -510,9 +515,17 @@ report 51523 "Examinations Timetable"
                 TempInvigilators.SetRange("Start Time", TempExamEntry."Start Time");
                 if TempInvigilators.FindSet() then begin
                     repeat
-                        if InvigilatorBlock <> '' then
-                            InvigilatorBlock += LineBreak;
-                        InvigilatorBlock += TempInvigilators.Name;
+                        // Create a unique key for the invigilator (using name or ID if available)
+                        InvigilatorKey := TempInvigilators.Name;
+
+                        // Only add if not already processed
+                        if not ProcessedInvigilators.Contains(InvigilatorKey) then begin
+                            ProcessedInvigilators.Add(InvigilatorKey);
+
+                            if InvigilatorBlock <> '' then
+                                InvigilatorBlock += LineBreak;
+                            InvigilatorBlock += TempInvigilators.Name;
+                        end;
                     until TempInvigilators.Next() = 0;
                 end;
 
