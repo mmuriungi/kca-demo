@@ -84,6 +84,18 @@ page 52127 "BC Vendor Ledger List"
                     Xmlport.Run(50217, false, true);
                 end;
             }
+            action("PopulateFromVendorLedger")
+            {
+                ApplicationArea = All;
+                Caption = 'Populate from Vendor Ledger Entry';
+                Image = TransferToGeneralJournal;
+                ToolTip = 'Populate BC Vendor Ledger from Vendor Ledger Entry table with filters';
+                
+                trigger OnAction()
+                begin
+                    Report.Run(Report::"Populate BC Vendor Ledger", true, false);
+                end;
+            }
         }
     }
 }

@@ -84,6 +84,18 @@ page 52129 "BC GL Ledger List"
                     Xmlport.Run(50219, false, true);
                 end;
             }
+            action("PopulateFromGLEntry")
+            {
+                ApplicationArea = All;
+                Caption = 'Populate from G/L Entry';
+                Image = TransferToGeneralJournal;
+                ToolTip = 'Populate BC GL Ledger from G/L Entry table with filters';
+                
+                trigger OnAction()
+                begin
+                    Report.Run(Report::"Populate BC GL Ledger", true, false);
+                end;
+            }
         }
     }
 }
