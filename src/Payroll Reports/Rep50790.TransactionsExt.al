@@ -16,7 +16,7 @@ report 50790 "Transactions Ext"
             column(FORMAT_TODAY_0_4_; Format(Today, 0, 4))
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; companyinfo.Name)
             {
             }
             column(CurrReport_PAGENO; CurrReport.PageNo)

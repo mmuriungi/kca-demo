@@ -141,7 +141,10 @@ page 50591 "PRL-Header Salary Card"
                 {
 
                 }
-
+                field("Secondary Income"; Rec."Secondary Income")
+                {
+                    ApplicationArea = all;
+                }
             }
             group(Posting)
             {

@@ -12,16 +12,16 @@ report 50048 "Deductions Summary 2 Ext"
             column(ReportForNavId_1; 1)
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; CompanyInfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102755015; COMPANYNAME)
+            column(COMPANYNAME_Control1102755015; CompanyInfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102756027; COMPANYNAME)
+            column(COMPANYNAME_Control1102756027; CompanyInfo.Name)
             {
             }
-            column(COMPANYNAME_Control1102756028; COMPANYNAME)
+            column(COMPANYNAME_Control1102756028; CompanyInfo.Name)
             {
             }
             column(CompanyInfo_Picture; CompanyInfo.Picture)
@@ -45,7 +45,7 @@ report 50048 "Deductions Summary 2 Ext"
             column(deductions; 'DEDUCTIONS')
             {
             }
-            column(kirinyagatitle; COMPANYNAME)
+            column(kirinyagatitle; CompanyInfo.Name)
             {
             }
             column(abreviation; 'MUST')

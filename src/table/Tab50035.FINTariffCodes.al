@@ -21,7 +21,7 @@ table 50035 "FIN-Tariff Codes"
         }
         field(5; Type; Option)
         {
-            OptionMembers = " ","W/Tax",VAT,Excise,Others,Retention,PAYE,Commision;
+            OptionMembers = " ","W/Tax",VAT,Excise,Others,Retention,PAYE,Commision,Levy;
         }
         field(6; "Account No."; Code[20])
         {
@@ -34,6 +34,10 @@ table 50035 "FIN-Tariff Codes"
             Caption = 'Account Type';
             //OptionCaption = 'G/L Account,Customer,Vendor,Bank Account,Fixed Asset,IC Partner';
             //OptionMembers = "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner";
+        }
+        field(8; "Subtraction Applies to"; Code[20])
+        {
+            TableRelation = "FIN-Tariff Codes";
         }
     }
 

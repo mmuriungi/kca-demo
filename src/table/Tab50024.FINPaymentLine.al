@@ -66,13 +66,27 @@ table 50024 "FIN-Payment Line"
                         IF TarrifCode.GET("Withholding Tax Code") THEN
                             "W/Tax Rate" := TarrifCode.Percentage;
 
-
                     END;
                     IF RecPayTypes."PAYE Tax Chargeable" = RecPayTypes."PAYE Tax Chargeable"::Yes THEN BEGIN
                         "PAYE Code" := RecPayTypes."PAYE Tax Code";
                         IF TarrifCode.GET("PAYE Code") THEN
                             "PAYE Rate" := TarrifCode.Percentage;
                     END;
+                    //levy
+                    IF RecPayTypes."Pays Levy" = RecPayTypes."Pays Levy"::Yes THEN BEGIN
+                        "levy Code" := RecPayTypes."Levy Code";
+                        IF TarrifCode.GET("levy Code") THEN BEGIN
+                            "Levy Rate" := TarrifCode.Percentage;
+                            "Subtraction Code" := TarrifCode."Subtraction Applies to";
+                        END;
+                    END;
+
+                    IF RecPayTypes."WHT 2 Code" <> '' THEN BEGIN
+                        "WHT 2 Code" := RecPayTypes."WHT 2 Code";
+                        IF TarrifCode.GET("WHT 2 Code") THEN
+                            "WHT 2 Percent" := TarrifCode.Percentage;
+                    END;
+                    //levy end
 
                     IF RecPayTypes."Calculate Retention" = RecPayTypes."Calculate Retention"::Yes THEN BEGIN
                         "Retention Code" := RecPayTypes."Retention Code";
@@ -82,22 +96,15 @@ table 50024 "FIN-Payment Line"
                     END;
 
                 END;
+                IF RecPayTypes.Fuel = TRUE THEN
+                    Fuel := TRUE;
 
                 IF RecPayTypes.FIND('-') THEN BEGIN
                     "Account Type" := RecPayTypes."Account Type";
                     VALIDATE("Account Type");
                     "Transaction Name" := RecPayTypes.Description;
                     // "Budgetary Control A/C":=RecPayTypes."Direct Expense";
-                    /*
-                     IF RecPayTypes."Account Type"=RecPayTypes."Account Type"::"G/L Account" THEN
-                       BEGIN
-                         RecPayTypes.TESTFIELD(RecPayTypes."G/L Account");
-                         "Account No.":=RecPayTypes."G/L Account";
-                         VALIDATE("Account No.");
-                       END;
 
-
-                            */
                     /////////////////////
                     IF RecPayTypes."VAT Chargeable" = RecPayTypes."VAT Chargeable"::Yes THEN BEGIN
                         "VAT Withheld Code" := RecPayTypes."VAT Withheld Code";
@@ -161,11 +168,11 @@ table 50024 "FIN-Payment Line"
         field(11; Cashier; Code[20])
         {
         }
-        field(12; "Account Type"; Enum "Gen. Journal Account Type")
+        field(12; "Account Type"; Option)
         {
             Caption = 'Account Type';
-            //OptionCaption = 'G/L Account,Customer,Vendor,Bank Account,Fixed Asset,IC Partner';
-            //OptionMembers = "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner";
+            OptionCaption = 'G/L Account,Customer,Vendor,Bank Account,Fixed Asset,IC Partner';
+            OptionMembers = "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner";
 
             trigger OnValidate()
             var
@@ -195,16 +202,11 @@ table 50024 "FIN-Payment Line"
         field(13; "Account No."; Code[20])
         {
             Caption = 'Account No.';
-
-            TableRelation =
-            IF ("Account Type" = CONST("G/L Account")) "G/L Account"
-            WHERE("Direct Posting" = filter(true))
+            TableRelation = IF ("Account Type" = CONST("G/L Account")) "G/L Account" WHERE("Direct Posting" = CONST(true))
             ELSE
-            IF ("Account Type" = CONST(Customer)) Customer
-            WHERE("Customer Posting Group" = FIELD(Grouping))
+            IF ("Account Type" = CONST(Customer)) Customer WHERE("Customer Posting Group" = FIELD(Grouping))
             ELSE
-            IF ("Account Type" = CONST(Vendor)) Vendor
-            WHERE("Vendor Posting Group" = FIELD(Grouping))
+            IF ("Account Type" = CONST(Vendor)) Vendor WHERE("Vendor Posting Group" = FIELD(Grouping))
             ELSE
             IF ("Account Type" = CONST("Bank Account")) "Bank Account"
             ELSE
@@ -217,9 +219,7 @@ table 50024 "FIN-Payment Line"
                 Text0001: Label 'The Account number CANNOT be the same as the Paying Bank Account No.';
             begin
                 PH.RESET;
-                PH.SetLoadFields("No.", "Global Dimension 1 Code", "Shortcut Dimension 2 Code", Payee, "Payment Narration", "On Behalf Of");
-                PH.SETRANGE(PH."No.", No);
-                if PH.FindFirst() then;
+                PH.GET(No);
                 "Account Name" := '';
                 RecPayTypes.RESET;
                 RecPayTypes.SETRANGE(RecPayTypes.Code, Type);
@@ -236,7 +236,7 @@ table 50024 "FIN-Payment Line"
                                 "Account Name" := GLAcc.Name;
                                 "Budgetary Control A/C" := GLAcc."Budget Controlled";
                                 PH.TESTFIELD("Global Dimension 1 Code");
-                                //PH.TESTFIELD("Shortcut Dimension 2 Code");
+                                PH.TESTFIELD("Shortcut Dimension 2 Code");
                                 //PH.TESTFIELD("Shortcut Dimension 3 Code");
 
                                 //"Global Dimension 1 Code":='';
@@ -310,6 +310,8 @@ table 50024 "FIN-Payment Line"
         }
         field(17; "Date Posted"; Date)
         {
+            CalcFormula = Lookup("G/L Entry"."Posting Date" WHERE("Document No." = FIELD(No)));
+            FieldClass = FlowField;
         }
         field(18; "Time Posted"; Time)
         {
@@ -326,9 +328,7 @@ table 50024 "FIN-Payment Line"
                 IF "Council Claim" = TRUE THEN
                     TESTFIELD("Council No.");
 
-                if "Manual Tax" = false then
-                    CalculateTax();
-
+                CalculateTax();
                 PHead.RESET;
                 PHead.SETRANGE(PHead."No.", No);
                 IF PHead.FINDFIRST THEN BEGIN
@@ -342,7 +342,7 @@ table 50024 "FIN-Payment Line"
                         END;
                     END;
                 END;
-                //TESTFIELD(Committed, FALSE);
+                TESTFIELD(Committed, FALSE);
             end;
         }
         field(21; Remarks; Text[250])
@@ -356,7 +356,11 @@ table 50024 "FIN-Payment Line"
             TableRelation = "FIN-Tariff Codes".Code WHERE(Type = CONST(VAT));
 
             trigger OnValidate()
+            var
+                TarrifCode: Record "FIN-Tariff Codes";
             begin
+                IF TarrifCode.GET("VAT Code") THEN
+                    "VAT Rate" := TarrifCode.Percentage;
                 CalculateTax();
             end;
         }
@@ -366,8 +370,7 @@ table 50024 "FIN-Payment Line"
 
             trigger OnValidate()
             begin
-                if "Manual Tax" = false then
-                    CalculateTax();
+                CalculateTax();
             end;
         }
         field(25; "VAT Amount"; Decimal)
@@ -378,8 +381,7 @@ table 50024 "FIN-Payment Line"
 
             trigger OnValidate()
             begin
-                if "Manual Tax" = false then
-                    CalculateTax();
+                CalculateTax();
             end;
         }
         field(27; "Net Amount"; Decimal)
@@ -481,68 +483,68 @@ table 50024 "FIN-Payment Line"
         field(46; "Surrender Doc. No"; Code[20])
         {
         }
-        field(47; "Vote Book"; code[20])
+        field(47; "Vote Book"; Code[10])
         {
-            TableRelation = "G/L Account"."No.";
+            TableRelation = "G/L Account";
 
-            //  trigger OnValidate()
-            // begin
-            /*
-                      IF Amount<=0 THEN
-                    ERROR('Please enter the Amount');
+            trigger OnValidate()
+            begin
+                /*
+                          IF Amount<=0 THEN
+                        ERROR('Please enter the Amount');
 
-                   //Confirm the Amount to be issued doesnot exceed the budget and amount Committed
-                    EVALUATE(CurrMonth,FORMAT(DATE2DMY(Date,2)));
-                    EVALUATE(CurrYR,FORMAT(DATE2DMY(Date,3)));
-                    EVALUATE(BudgetDate,FORMAT('01'+'/'+CurrMonth+'/'+CurrYR));
+                       //Confirm the Amount to be issued doesnot exceed the budget and amount Committed
+                        EVALUATE(CurrMonth,FORMAT(DATE2DMY(Date,2)));
+                        EVALUATE(CurrYR,FORMAT(DATE2DMY(Date,3)));
+                        EVALUATE(BudgetDate,FORMAT('01'+'/'+CurrMonth+'/'+CurrYR));
 
-                      //Get the last day of the month
+                          //Get the last day of the month
 
-                      LastDay:=CALCDATE('1M', BudgetDate);
-                      LastDay:=CALCDATE('-1D',LastDay);
+                          LastDay:=CALCDATE('1M', BudgetDate);
+                          LastDay:=CALCDATE('-1D',LastDay);
 
 
-                    //Get Budget for the G/L
-                  IF GenLedSetup.GET THEN BEGIN
-                    GLAccount.SETFILTER(GLAccount."Budget Filter",GenLedSetup."Current Budget");
-                    GLAccount.SETRANGE(GLAccount."No.","Vote Book");
-                    GLAccount.CALCFIELDS(GLAccount."Budgeted Amount",GLAccount."Net Change");
-                    {Get the exact Monthly Budget}
-                    //Start from first date of the budget.//BudgetDate
-                    GLAccount.SETRANGE(GLAccount."Date Filter",GenLedSetup."Current Budget Start Date",LastDay);
+                        //Get Budget for the G/L
+                      IF GenLedSetup.GET THEN BEGIN
+                        GLAccount.SETFILTER(GLAccount."Budget Filter",GenLedSetup."Current Budget");
+                        GLAccount.SETRANGE(GLAccount."No.","Vote Book");
+                        GLAccount.CALCFIELDS(GLAccount."Budgeted Amount",GLAccount."Net Change");
+                        {Get the exact Monthly Budget}
+                        //Start from first date of the budget.//BudgetDate
+                        GLAccount.SETRANGE(GLAccount."Date Filter",GenLedSetup."Current Budget Start Date",LastDay);
 
-                    IF GLAccount.FIND('-') THEN BEGIN
-                     GLAccount.CALCFIELDS(GLAccount."Budgeted Amount",GLAccount."Net Change");
-                     MonthBudget:=GLAccount."Budgeted Amount";
-                     Expenses:=GLAccount."Net Change";
-                     BudgetAvailable:=GLAccount."Budgeted Amount"-GLAccount."Net Change";
-                     "Total Allocation":=MonthBudget;
-                     "Total Expenditure":=Expenses;
+                        IF GLAccount.FIND('-') THEN BEGIN
+                         GLAccount.CALCFIELDS(GLAccount."Budgeted Amount",GLAccount."Net Change");
+                         MonthBudget:=GLAccount."Budgeted Amount";
+                         Expenses:=GLAccount."Net Change";
+                         BudgetAvailable:=GLAccount."Budgeted Amount"-GLAccount."Net Change";
+                         "Total Allocation":=MonthBudget;
+                         "Total Expenditure":=Expenses;
+                         END;
+
+
                      END;
 
+                     CommitmentEntries.RESET;
+                     CommitmentEntries.SETCURRENTKEY(CommitmentEntries.Account);
+                     CommitmentEntries.SETRANGE(CommitmentEntries.Account,"Vote Book");
+                     CommitmentEntries.SETRANGE(CommitmentEntries."Commitment Date",GenLedSetup."Current Budget Start Date",LastDay);
+                     CommitmentEntries.CALCSUMS(CommitmentEntries."Committed Amount");
+                     CommittedAmount:=CommitmentEntries."Committed Amount";
 
-                 END;
+                     "Total Commitments":=CommittedAmount;
+                     Balance:=BudgetAvailable-CommittedAmount;
+                     "Balance Less this Entry":=BudgetAvailable-CommittedAmount-Amount;
+                     MODIFY;
+                     {
+                     IF CommittedAmount+Amount>BudgetAvailable THEN
+                        ERROR('%1,%2,%3,%4','You have Exceeded Budget for G/L Account No',"Vote Book",'by',
+                        ABS(BudgetAvailable-(CommittedAmount+Amount)));
+                      }
+                     //End of Confirming whether Budget Allows Posting
+                */
 
-                 CommitmentEntries.RESET;
-                 CommitmentEntries.SETCURRENTKEY(CommitmentEntries.Account);
-                 CommitmentEntries.SETRANGE(CommitmentEntries.Account,"Vote Book");
-                 CommitmentEntries.SETRANGE(CommitmentEntries."Commitment Date",GenLedSetup."Current Budget Start Date",LastDay);
-                 CommitmentEntries.CALCSUMS(CommitmentEntries."Committed Amount");
-                 CommittedAmount:=CommitmentEntries."Committed Amount";
-
-                 "Total Commitments":=CommittedAmount;
-                 Balance:=BudgetAvailable-CommittedAmount;
-                 "Balance Less this Entry":=BudgetAvailable-CommittedAmount-Amount;
-                 MODIFY;
-                 {
-                 IF CommittedAmount+Amount>BudgetAvailable THEN
-                    ERROR('%1,%2,%3,%4','You have Exceeded Budget for G/L Account No',"Vote Book",'by',
-                    ABS(BudgetAvailable-(CommittedAmount+Amount)));
-                  }
-                 //End of Confirming whether Budget Allows Posting
-            */
-
-            // end;
+            end;
         }
         field(48; "Total Allocation"; Decimal)
         {
@@ -576,7 +578,7 @@ table 50024 "FIN-Payment Line"
         }
         field(57; "Imprest Request No"; Code[20])
         {
-            //TableRelation = FIN-Payments-Users WHERE (Posted=CONST(No));
+            //TableRelation = "FIN-Payments-Users" WHERE(Posted = CONST(No));
 
             trigger OnValidate()
             begin
@@ -760,63 +762,79 @@ table 50024 "FIN-Payment Line"
 
             trigger OnLookup()
             var
-                VendLedgEntry: Record 25;
+                VendLedgEntry: Record "Vendor Ledger Entry";
                 PayToVendorNo: Code[20];
                 OK: Boolean;
                 Text000: Label 'You must specify %1 or %2.';
-                ApplyVendEntries: Page "Apply Vendor Entries 2";
+                ApplyVendEntries: Page "Apply Vendor Entries";
+                InvoiceNos: Text[100];
             begin
                 //CODEUNIT.RUN(CODEUNIT::"Payment Voucher Apply",Rec);
 
                 IF (Rec."Account Type" <> Rec."Account Type"::Customer) AND (Rec."Account Type" <> Rec."Account Type"::Vendor) THEN
                     ERROR('You cannot apply to %1', "Account Type");
-                //Message(Format(rec."Account No."));
-                //WITH Rec DO BEGIN
-                Amount := 0;
-                VALIDATE(Rec.Amount);
-                PayToVendorNo := Rec."Account No.";
-                VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
-                VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
-                //VendLedgEntry.SETRANGE(Open, TRUE);
-                if VendLedgEntry.Find('-') then
-                    //Message(Format(VendLedgEntry."Vendor No."));
-                IF "Applies-to ID" = '' THEN
+
+                WITH Rec DO BEGIN
+                    Amount := 0;
+                    VALIDATE(Amount);
+                    PayToVendorNo := "Account No.";
+                    VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
+                    VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
+                    VendLedgEntry.SETRANGE(Open, TRUE);
+                    IF "Applies-to ID" = '' THEN
                         "Applies-to ID" := No;
-                IF "Applies-to ID" = '' THEN
-                    ERROR(
-                      Text000,
-                      FIELDCAPTION(No), FIELDCAPTION("Applies-to ID"));
-                //ApplyVendEntries."SetPVLine-Delete"(Rec, Rec.FIELDNO("Applies-to ID"));
-                ApplyVendEntries.SetPVLine(Rec, VendLedgEntry, Rec.FIELDNO("Applies-to ID"));
-                ApplyVendEntries.SETRECORD(VendLedgEntry);
-                ApplyVendEntries.SETTABLEVIEW(VendLedgEntry);
-                ApplyVendEntries.LOOKUPMODE(TRUE);
-                OK := ApplyVendEntries.RUNMODAL = ACTION::LookupOK;
-                CLEAR(ApplyVendEntries);
-                IF NOT OK THEN
-                    EXIT;
-                VendLedgEntry.RESET;
-                VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
-                VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
-                VendLedgEntry.SETRANGE(Open, TRUE);
-                VendLedgEntry.SETRANGE("Applies-to ID", Rec."Applies-to ID");
-                IF VendLedgEntry.FIND('-') THEN BEGIN
+                    IF "Applies-to ID" = '' THEN
+                        ERROR(
+                          Text000,
+                          FIELDCAPTION(No), FIELDCAPTION("Applies-to ID"));
+                    ApplyVendEntries."SetPVLine-Delete"(Rec, Rec.FIELDNO("Applies-to ID"));
+                    ApplyVendEntries.SetPVLine(Rec, VendLedgEntry, Rec.FIELDNO("Applies-to ID"));
+                    ApplyVendEntries.SETRECORD(VendLedgEntry);
+                    ApplyVendEntries.SETTABLEVIEW(VendLedgEntry);
+                    ApplyVendEntries.LOOKUPMODE(TRUE);
+                    OK := ApplyVendEntries.RUNMODAL = ACTION::LookupOK;
+                    CLEAR(ApplyVendEntries);
+                    IF NOT OK THEN
+                        EXIT;
+                    VendLedgEntry.RESET;
+                    VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
+                    VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
+                    VendLedgEntry.SETRANGE(Open, TRUE);
+                    VendLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
+                    IF VendLedgEntry.FIND('-') THEN BEGIN
+                        "Applies-to Doc. Type" := 0;
+                        "Applies-to Doc. No." := '';
+                    END ELSE
+                        "Applies-to ID" := '';
+                END;
 
-                    "Applies-to Doc. Type" := 0;
-                    "Applies-to Doc. No." := '';
-                END ELSE
-                    "Applies-to ID" := '';
-                //END;
-
-                //Calculate  Total To Apply
+                //Calculate  Total To Apply//Add code to add invoice No
                 VendLedgEntry.RESET;
                 VendLedgEntry.SETCURRENTKEY("Vendor No.", Open, "Applies-to ID");
                 VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
                 VendLedgEntry.SETRANGE(Open, TRUE);
                 VendLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
+
+                InvoiceNos := ''; // Initialize variable to store combined invoice numbers
+
                 IF VendLedgEntry.FIND('-') THEN BEGIN
                     VendLedgEntry.CALCSUMS("Amount to Apply");
                     Amount := ABS(VendLedgEntry."Amount to Apply");
+
+                    // Loop through all matching records to combine invoice numbers
+                    REPEAT
+                        IF InvoiceNos = '' THEN
+                            InvoiceNos := VendLedgEntry."Document No."
+                        ELSE
+                            InvoiceNos := InvoiceNos + ', ' + VendLedgEntry."Document No.";
+
+                    // If you need other fields from the first record
+                    // IF VendLedgEntry."Document No." <> '' THEN
+                    //     "PartTime Claim" := VendLedgEntry."PartTime Claim";
+
+                    UNTIL VendLedgEntry.NEXT = 0;
+
+                    "Invoice No." := InvoiceNos;
                     VALIDATE(Amount);
                 END;
             end;
@@ -845,7 +863,7 @@ table 50024 "FIN-Payment Line"
 
             trigger OnValidate()
             var
-                TempVendLedgEntry: Record 25;
+                TempVendLedgEntry: Record "Vendor Ledger Entry";
             begin
                 //IF "Applies-to ID" <> '' THEN
                 //  TESTFIELD("Bal. Account No.",'');
@@ -866,8 +884,7 @@ table 50024 "FIN-Payment Line"
 
             trigger OnValidate()
             begin
-                if "Manual Tax" = false then
-                    CalculateTax();
+                CalculateTax();
             end;
         }
         field(91; "Retention  Amount"; Decimal)
@@ -988,6 +1005,9 @@ table 50024 "FIN-Payment Line"
                 //END;
             end;
         }
+        field(102; "Invoice No."; Code[250])
+        {
+        }
         field(5002; "PAYE Amount"; Decimal)
         {
 
@@ -1002,29 +1022,26 @@ table 50024 "FIN-Payment Line"
         }
         field(50001; "Budgeted Amount"; Decimal)
         {
-            FieldClass = FlowField;
-            CalcFormula = Sum("G/L Budget Entry".Amount WHERE("G/L Account No." = FIELD("Vote Head"),
+            CalcFormula = Sum("G/L Budget Entry".Amount WHERE("G/L Account No." = FIELD("Account No."),
                                                                "Global Dimension 1 Code" = FIELD("Global Dimension 1 Code"),
                                                                "Global Dimension 2 Code" = FIELD("Shortcut Dimension 2 Code"),
                                                                "Budget Name" = FIELD("Budget Name")));
-
+            FieldClass = FlowField;
         }
         field(50002; "Actual Expenditure"; Decimal)
         {
-            FieldClass = FlowField;
             CalcFormula = Sum("G/L Entry".Amount WHERE("G/L Account No." = FIELD("Account No."),
                                                         "Global Dimension 1 Code" = FIELD("Global Dimension 1 Code"),
                                                         "Global Dimension 2 Code" = FIELD("Shortcut Dimension 2 Code")));
-
+            FieldClass = FlowField;
         }
         field(50003; "Committed Amount"; Decimal)
         {
-            FieldClass = FlowField;
             CalcFormula = Sum("FIN-Committment".Amount WHERE("G/L Account No." = FIELD("Account No."),
-                                                            "Shortcut Dimension 1 Code" = FIELD("Global Dimension 1 Code"),
-                                                            "Shortcut Dimension 2 Code" = FIELD("Shortcut Dimension 2 Code"),
-                                                            Budget = FIELD("Budget Name")));
-
+                                                              "Shortcut Dimension 1 Code" = FIELD("Global Dimension 1 Code"),
+                                                              "Shortcut Dimension 2 Code" = FIELD("Shortcut Dimension 2 Code"),
+                                                              Budget = FIELD("Budget Name")));
+            FieldClass = FlowField;
         }
         field(50004; "Budget Name"; Code[20])
         {
@@ -1032,8 +1049,6 @@ table 50024 "FIN-Payment Line"
         }
         field(50005; "Budget Balance"; Decimal)
         {
-            FieldClass = FlowField;
-            CalcFormula = sum("FIN-Budget Entries".Amount where("Transaction Type" = filter(Allocation | Commitment | Expense), "G/L Account No." = field("Vote Head"), "Commitment Status" = filter(<> "Commited/Posted")));
         }
         field(50006; "VAT Withheld Amount"; Decimal)
         {
@@ -1085,13 +1100,12 @@ table 50024 "FIN-Payment Line"
             OptionCaption = ' ,Student,Employee';
             OptionMembers = " ",Student,Employee;
         }
-        // field(50015; "Medical Ref. No"; Code[20])
-        // {
-        //     TableRelation = IF ("Medical Claim Type" = CONST(Student)) Customer."No." WHERE("Customer Posting Group" = filter('STUDENT'))
-        //     ELSE
-
-        //     //IF ("Medical Claim Type" = CONST(Employee)) "HRM-Employee C"."No.";
-        // }
+        field(50015; "Medical Ref. No"; Code[20])
+        {
+            TableRelation = IF ("Medical Claim Type" = CONST(Student)) Customer."No." WHERE("Customer Posting Group" = CONST('STUDENT'))
+            ELSE
+            IF ("Medical Claim Type" = CONST(Employee)) "HRM-Employee C"."No.";
+        }
         field(50016; "Payment Status"; Option)
         {
             CalcFormula = Lookup("FIN-Payments Header".Status WHERE("No." = FIELD(No)));
@@ -1105,8 +1119,7 @@ table 50024 "FIN-Payment Line"
 
             trigger OnValidate()
             begin
-                if "Manual Tax" = false then
-                    CalculateTax();
+                CalculateTax();
             end;
         }
         field(50018; "Commision Amount"; Decimal)
@@ -1117,22 +1130,80 @@ table 50024 "FIN-Payment Line"
                 // CalculateTax();
             end;
         }
-        field(50019; "Manual Tax"; Boolean)
+        field(50019; Fuel; Boolean)
+        {
+        }
+        field(50120; "PV Category"; Option)
+        {
+            CalcFormula = Lookup("FIN-Payments Header"."PV Category" WHERE("No." = FIELD(No)));
+            FieldClass = FlowField;
+            OptionCaption = ' ,Normal PV,Part-time Pay,Medical Claims';
+            OptionMembers = " ","Normal PV","Part-time Pay","Medical Claims";
+        }
+        field(69039; "Medical Claim"; Boolean)
+        {
+        }
+        field(69040; "PartTime Claim"; Boolean)
+        {
+        }
+        field(69041; "levy Code"; Code[20])
+        {
+            TableRelation = "FIN-Tariff Codes".Code WHERE(Type = CONST(Levy));
+
+            trigger OnValidate()
+            var
+                TarrifCode: Record "FIN-Tariff Codes";
+            begin
+                IF TarrifCode.GET("levy Code") THEN BEGIN
+                    "Levy Rate" := TarrifCode.Percentage;
+                    "Subtraction Code" := TarrifCode."Subtraction Applies to";
+                    IF NOT MODIFY() THEN;
+                END;
+                CalculateTax();
+            end;
+        }
+        field(69042; "Levy Rate"; Decimal)
+        {
+        }
+        field(69043; "Levy Amount"; Decimal)
+        {
+        }
+        field(69044; "Subtraction Code"; Code[20])
+        {
+        }
+        field(69045; "Subtraction Amount"; Decimal)
+        {
+        }
+        field(69046; "WHT 2 Code"; Code[20])
+        {
+
+            trigger OnValidate()
+            begin
+                CalculateTax();
+            end;
+        }
+        field(69047; "WHT 2 Percent"; Decimal)
+        {
+        }
+        field(69048; "WHT 2 Amount"; Decimal)
+        {
+        }
+        field(50020; "Manual Tax"; Boolean)
         {
 
         }
-        field(50020; "Tax Account No"; Code[20])
+        field(50022; "Tax Account No"; Code[20])
         {
             TableRelation = "Fin-Witholding Tax Ledges"."Vendor No" WHERE("Tax Type" = field("Tax Type"));
 
 
         }
-        field(50021; "Tax Type"; Option)
+        field(50023; "Tax Type"; Option)
         {
             Caption = 'Tax Type';
             OptionMembers = " ","W/Tax",VAT,Excise,Others,Retention,PAYE,Commision;
         }
-        field(50022; "Vendor pv"; Code[20])
+        field(50024; "Vendor pv"; Code[20])
         {
             Caption = 'Vendor pv';
             TableRelation = "Fin-Witholding Tax Ledges"."Vendor Pv No" WHERE("Tax Type" = field("Tax Type"), "Vendor No" = field("Tax Account No"));
@@ -1151,7 +1222,7 @@ table 50024 "FIN-Payment Line"
 
             end;
         }
-        field(50024; "Vote Head"; code[20])
+        field(50025; "Vote Head"; code[20])
 
         {
             TableRelation = "G/L Account"."No.";
@@ -1166,32 +1237,26 @@ table 50024 "FIN-Payment Line"
             end;
 
         }
-        field(50025; "Votehead Name"; text[100])
+        field(50026; "Votehead Name"; text[100])
         {
 
         }
-        field(50026; "Imprest Processed"; Boolean)
+        field(50027; "Imprest Processed"; Boolean)
         {
 
         }
-        field(50027; "Vendor Transaction Type"; Enum "Vendor Transaction Type")
+        field(50028; "Vendor Transaction Type"; Enum "Vendor Transaction Type")
         {
             DataClassification = ToBeClassified;
         }
-
     }
 
     keys
-
     {
         key(Key1; "Line No.", No, Type, "Account No.")
         {
             Clustered = true;
             SumIndexFields = Amount, "VAT Amount", "Withholding Tax Amount", "Net Amount", "NetAmount LCY", "Retention  Amount", "PAYE Amount";
-        }
-        key(key2; "Tax Type")
-        {
-
         }
     }
 
@@ -1224,10 +1289,9 @@ table 50024 "FIN-Payment Line"
         END;
         PHead.RESET;
         PHead.SETRANGE(PHead."No.", No);
-        PHead.SetLoadFields("Global Dimension 1 Code", "Shortcut Dimension 2 Code", "Shortcut Dimension 3 Code", "Shortcut Dimension 4 Code", "Currency Code", "Currency Factor", "Payment Type");
         IF PHead.FINDFIRST THEN BEGIN
             Date := PHead.Date;
-            //PHead.TESTFIELD("Responsibility Center");
+            PHead.TESTFIELD("Responsibility Center");
             "Global Dimension 1 Code" := PHead."Global Dimension 1 Code";
             //"Shortcut Dimension 2 Code":=PHead."Shortcut Dimension 2 Code";
             "Shortcut Dimension 3 Code" := PHead."Shortcut Dimension 3 Code";
@@ -1235,11 +1299,6 @@ table 50024 "FIN-Payment Line"
             "Currency Code" := PHead."Currency Code";
             "Currency Factor" := PHead."Currency Factor";
             "Payment Type" := PHead."Payment Type";
-            BudgetName.reset;
-            BudgetName.SetFilter(Active, '%1', true);
-            if BudgetName.FindFirst() then begin
-                Rec."Budget Name" := BudgetName.Name;
-            end;
         END;
         //
         /*PHead.RESET;
@@ -1255,36 +1314,35 @@ table 50024 "FIN-Payment Line"
 
     trigger OnModify()
     begin
-
+        /*
         PHead.RESET;
-        PHead.SETRANGE(PHead."No.", No);
-        IF PHead.FINDFIRST THEN BEGIN
-            IF (PHead.Status = PHead.Status::Approved) OR (PHead.Status = PHead.Status::Posted) OR
-             (PHead.Status = PHead.Status::"Pending Approval") THEN
-                ERROR('You Cannot modify documents that are approved/posted/Send for Approval');
-        END;
-        TESTFIELD(Committed, FALSE);
-
+        PHead.SETRANGE(PHead."No.",No);
+         IF PHead.FINDFIRST THEN BEGIN
+            IF (PHead.Status=PHead.Status::Approved) OR (PHead.Status=PHead.Status::Posted) OR
+             (PHead.Status=PHead.Status::"Pending Approval") THEN
+               ERROR('You Cannot modify documents that are approved/posted/Send for Approval');
+         END;
+          TESTFIELD(Committed,FALSE);
+         */
 
     end;
 
     var
         PH: Record "FIN-Payments Header";
-        //BSetup: Record "HRM-Jobs per Dimension";
-        VLedgEntry: Record 25;
+        BSetup: Record "HRM-Jobs per Dimension";
+        VLedgEntry: Record "Vendor Ledger Entry";
         ICPartner: Record "IC Partner";
-        FPurch: Record 122;
-        GLAcc: Record 15;
-        Cust: Record 18;
-        Vend: Record 23;
+        FPurch: Record "Purch. Inv. Header";
+        GLAcc: Record "G/L Account";
+        Cust: Record Customer;
+        Vend: Record Vendor;
         FA: Record "Fixed Asset";
-        BankAcc: Record 270;
+        BankAcc: Record "Bank Account";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         GenLedgerSetup: Record "FIN-Cash Office Setup";
         RecPayTypes: Record "FIN-Receipts and Payment Types";
         CashierLinks: Record "FIN-Cash Office User Template";
-        GLAccount: Record 15;
-        BudgetName: record "G/L Budget Name";
+        GLAccount: Record "G/L Account";
         EntryNo: Integer;
         SingleMonth: Boolean;
         DateFrom: Date;
@@ -1305,27 +1363,29 @@ table 50024 "FIN-Payment Line"
         "Date From": Text[30];
         "Date To": Text[30];
         LastDay: Date;
-        VoteheadVisible: Boolean;
-        //mprestReqDet: Record "FIN-Receipt Storage";
+        //ImprestReqDet: Record "FIN-Receipt Storage";
         LoadImprestDetails: Record "FIN-Cash Payment Line q";
         TotAmt: Decimal;
-        DimVal: Record 349;
+        DimVal: Record "Dimension Value";
         PHead: Record "FIN-Payments Header";
-        VendLedgEntry: Record 25;
+        VendLedgEntry: Record "Vendor Ledger Entry";
         VendEntrySetApplID: Codeunit "Vend. Entry-SetAppl.ID";
-        GenJnlApply: Codeunit 225;
-        GenJnILine: Record 81;
-        VBank: Record 288;
-        //ImprestHeader: Record "61704";
+        GenJnlApply: Codeunit "Gen. Jnl.-Apply";
+        GenJnILine: Record "Gen. Journal Line";
+        VBank: Record "Vendor Bank Account";
+        ImprestHeader: Record "FIN-Imprest Header";
         PayLine: Record "FIN-Payment Line";
         ImprestLines: Record "FIN-Imprest Lines";
-        ApplyVendEntries: Page 233;
-        CouncilRec: Record 23;
+        ApplyVendEntries: Page "Apply Vendor Entries";
+        CouncilRec: Record Vendor;
         VarianceTest: Decimal;
+        TarrifC: Record "FIN-Tariff Codes";
+        Fuel: Boolean;
+
 
     procedure SetAmountToApply(AppliesToDocNo: Code[20]; VendorNo: Code[20])
     var
-        VendLedgEntry: Record 25;
+        VendLedgEntry: Record "Vendor Ledger Entry";
     begin
         VendLedgEntry.SETCURRENTKEY("Document No.");
         VendLedgEntry.SETRANGE("Document No.", AppliesToDocNo);
@@ -1343,23 +1403,36 @@ table 50024 "FIN-Payment Line"
         END;
     end;
 
+
     procedure CalculateTax()
     var
         CalculationType: Option VAT,"W/Tax",Retention,PAYE;
-        //TaxCalc: Codeunit "60104";
+        TaxCalc: Codeunit "Tax Calculation2";
         TotalTax: Decimal;
         prPayroll: Codeunit prPayrollProcessing;
+        HousingLevy: Decimal;
+        Tarrifs: Record "FIN-Tariff Codes";
     begin
         "VAT Amount" := 0;
         "Retention  Amount" := 0;
         TotalTax := 0;
         "Net Amount" := 0;
         "Commision Amount" := 0; //"PAYE Amount":=0;,"Withholding Tax Amount":=0;
+        HousingLevy := 0;
         IF Amount <> 0 THEN BEGIN
             IF "VAT Rate" <> 0 THEN BEGIN
                 //  "VAT Amount":=TaxCalc.CalculateTax(Rec,CalculationType::VAT);
-                "VAT Amount" := ("VAT Rate" / 116) * Amount;
+                IF "VAT Code" = 'HSE LEVY' THEN BEGIN
+                    "VAT Amount" := ("VAT Rate" / (100)) * Amount;
+                    HousingLevy := "VAT Amount";
+                    TotalTax := TotalTax + HousingLevy;
+                END
+                ELSE
+                    "VAT Amount" := ("VAT Rate" / (100 + "VAT Rate")) * Amount;
                 // TotalTax:=TotalTax+"VAT Amount"
+                IF Fuel = TRUE THEN
+                    "VAT Amount" := ("VAT Rate" / 108) * Amount;
+                //TotalTax  := TotalTax+"VAT Amount";
             END;
 
             /* IF "W/Tax Rate"<>0 THEN BEGIN
@@ -1383,7 +1456,8 @@ table 50024 "FIN-Payment Line"
                     "Withholding Tax Amount" := ROUND((("W/Tax Rate" / 116) * Amount), 1, '=')
                 ELSE
                     "Withholding Tax Amount" := ROUND((("W/Tax Rate" / 100) * Amount), 1, '=');
-
+                IF Fuel = TRUE THEN
+                    "Withholding Tax Amount" := ROUND((("W/Tax Rate" / 108) * Amount), 1, '=');
 
                 TotalTax := TotalTax + "Withholding Tax Amount"
             END;
@@ -1406,20 +1480,49 @@ table 50024 "FIN-Payment Line"
                 "Net Amount" := Amount - "Commision Amount";
 
             END;
+            //Levy
+            IF "levy Code" <> '' THEN BEGIN
+                // "Retention  Amount":=TaxCalc.CalculateTax(Rec,CalculationType::Retention);
+                IF "Subtraction Code" <> '' THEN BEGIN
+                    IF Tarrifs.GET("Subtraction Code") THEN BEGIN
+                        IF "VAT Amount" <> 0 THEN
+                            "Subtraction Amount" := "VAT Amount"
+                        //    ELSE
+                        //    "Subtraction Amount":=(Tarrifs.Percentage/(100+Tarrifs.Percentage))*(Amount);
+                    END;
+                END;
+                "Levy Amount" := ROUND((("Levy Rate" / 100) * (Amount - "Subtraction Amount")), 1, '=');
+                TotalTax := TotalTax + "Levy Amount";
+            END;
+            //levy End
+
+            IF "WHT 2 Code" <> '' THEN BEGIN
+                Tarrifs.GET("WHT 2 Code");
+                "WHT 2 Amount" := ROUND(((Tarrifs.Percentage / (100 + ("VAT Rate"))) * (Amount)), 1, '=');
+                TotalTax := TotalTax + "WHT 2 Amount";
+            END;
 
             IF "PAYE Code" <> '' THEN BEGIN
                 CALCFIELDS("Telephone Allowance");
-                IF "Telephone Allowance" = TRUE THEN
-                    "PAYE Amount" := (0.3 * Amount) * 0.3
-                ELSE
-                    "PAYE Amount" := (0.3 * Amount);
+                IF "Telephone Allowance" = TRUE THEN BEGIN
+                    "PAYE Amount" := (0.35 * (Amount - (HousingLevy))) * 0.35
+                END ELSE BEGIN
+                    TarrifC.RESET;
+                    TarrifC.SETRANGE(Code, "PAYE Code");
+                    IF TarrifC.FIND('-') THEN BEGIN
+                        TarrifC.TESTFIELD(Percentage);
+                        "PAYE Amount" := (TarrifC.Percentage / 100) * (Amount - (HousingLevy));
+                    END;
+
+                END;
+
 
                 // "PAYE Amount":=TaxCalc.CalculateTax(Rec,CalculationType::PAYE);
                 RecPayTypes.RESET;
                 RecPayTypes.SETRANGE(RecPayTypes.Code, Type);
                 IF RecPayTypes.FIND('-') THEN
                     IF RecPayTypes."Use PAYE Table" = TRUE THEN
-                        "PAYE Amount" := prPayroll.fnGetEmployeePaye(Amount) - 2400;
+                        "PAYE Amount" := prPayroll.fnGetEmployeePaye(Amount);
 
                 TotalTax := TotalTax + "PAYE Amount";
             END;
@@ -1430,6 +1533,7 @@ table 50024 "FIN-Payment Line"
         "Net Amount" := Amount - TotalTax;
         VALIDATE("Net Amount");
     end;
+
 
     procedure PayLinesExist(): Boolean
     var

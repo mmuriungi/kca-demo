@@ -33,7 +33,7 @@ report 50802 "NSSF Schedule Ext"
             column(CompanyInfo_Picture; CompanyInfo.Picture)
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; Companyinfo.Name)
             {
             }
             column(PIN; objEmp."PAYE Number")

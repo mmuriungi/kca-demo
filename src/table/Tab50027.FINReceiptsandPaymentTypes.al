@@ -163,6 +163,19 @@ table 50027 "FIN-Receipts and Payment Types"
         {
             OptionMembers = " ","35 %","30 %";
         }
+        field(34; "Levy Code"; Code[20])
+        {
+            TableRelation = "FIN-Tariff Codes";
+        }
+        field(35; "WHT 2 Code"; Code[20])
+        {
+            TableRelation = "FIN-Tariff Codes";
+        }
+        //Pays Levy
+        field(36; "Pays Levy"; option)
+        {
+            OptionMembers = No,Yes;
+        }
     }
 
     keys

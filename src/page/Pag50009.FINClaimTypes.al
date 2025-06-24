@@ -123,6 +123,41 @@ page 50009 "FIN-Claim Types"
                 {
                     ApplicationArea = All;
                 }
+                field("Pays Levy"; Rec."Pays Levy")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Pays Levy field.', Comment = '%';
+                }
+                field("Levy Code"; Rec."Levy Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Levy Code field.', Comment = '%';
+                }
+                field("Medical Claim?"; Rec."Medical Claim?")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Medical Claim? field.', Comment = '%';
+                }
+                field("Lecturer Claim?"; Rec."Lecturer Claim?")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Lecturer Claim? field.', Comment = '%';
+                }
+                field("Claim PAYE Percentage"; Rec."Claim PAYE Percentage")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Claim PAYE Percentage field.', Comment = '%';
+                }
+                field(Fuel; Rec.Fuel)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Fuel field.', Comment = '%';
+                }
+                field("WHT 2 Code"; Rec."WHT 2 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the WHT 2 Code field.', Comment = '%';
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-page 52123 "Patient Treatment History List"
+page 52124 "Patient Treatment History List"
 {
     ApplicationArea = All;
     Caption = 'Patient Treatment History';

@@ -657,6 +657,12 @@ table 50025 "FIN-Payments Header"
             DataClassification = ToBeClassified;
             OptionMembers = " ","Part-time claim","Medical Claim";
         }
+        //"PV Category"
+        field(50170; "PV Category"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = " ","Normal PV","Part-time Pay","Medical Claims";
+        }
 
     }
 

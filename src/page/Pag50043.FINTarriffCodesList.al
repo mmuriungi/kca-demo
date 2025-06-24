@@ -29,6 +29,16 @@ page 50043 "FIN-Tarriff Codes List"
                 {
                     ApplicationArea = All;
                 }
+                field("Subtraction Applies to"; Rec."Subtraction Applies to")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Subtraction Applies to field.', Comment = '%';
+                }
+                field("Account No."; Rec."Account No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Account No. field.', Comment = '%';
+                }
             }
         }
     }
