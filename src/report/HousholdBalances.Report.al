@@ -40,7 +40,7 @@ Report 78097 "Houshold Balances"
                 Bandentry.Reset;
                 Bandentry.SetRange("Student No.",Customer."No.");
                 if not Bandentry.FindFirst then CurrReport.Skip;
-                if SyncBalances then Report.Run(78095,false,false);
+                if SyncBalances then Report.Run(Report::"Student Process Nfm",false,false);
                 NFM.Reset;
                 NFM.SetRange("Student No.",Customer."No.");
                 NFM.SetFilter(Date,DateFilter);
