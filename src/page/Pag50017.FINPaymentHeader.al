@@ -1518,6 +1518,209 @@ page 50017 "FIN-Payment Header"
 
                     END;
                 END;
+
+                //Post Levy
+                TarriffCodes.RESET;
+                TarriffCodes.SETRANGE(TarriffCodes.Code, PayLine."levy Code");
+                IF TarriffCodes.FIND('-') THEN BEGIN
+                    TarriffCodes.TESTFIELD(TarriffCodes."G/L Account");
+                    LineNo := LineNo + 1000;
+                    GenJnlLine.INIT;
+                    GenJnlLine."Journal Template Name" := JTemplate;
+                    GenJnlLine.VALIDATE(GenJnlLine."Journal Template Name");
+                    GenJnlLine."Journal Batch Name" := JBatch;
+                    GenJnlLine.VALIDATE(GenJnlLine."Journal Batch Name");
+                    GenJnlLine."Source Code" := 'PAYMENTJNL';
+                    GenJnlLine."Line No." := LineNo;
+                    GenJnlLine."Posting Date" := Payment."Payment Release Date";
+                    GenJnlLine."Document Type" := GenJnlLine."Document Type"::Payment;
+                    GenJnlLine."Document No." := PayLine.No;
+                    GenJnlLine."External Document No." := Payments."Cheque No.";
+                    GenJnlLine."Account Type" := GenJnlLine."Account Type"::"G/L Account";
+                    GenJnlLine."Account No." := TarriffCodes."G/L Account";
+                    GenJnlLine.VALIDATE(GenJnlLine."Account No.");
+                    GenJnlLine."Currency Code" := Payments."Currency Code";
+                    GenJnlLine.VALIDATE(GenJnlLine."Currency Code");
+                    GenJnlLine."Gen. Posting Type" := GenJnlLine."Gen. Posting Type"::" ";
+                    GenJnlLine.VALIDATE(GenJnlLine."Gen. Posting Type");
+                    GenJnlLine."Gen. Bus. Posting Group" := '';
+                    GenJnlLine.VALIDATE(GenJnlLine."Gen. Bus. Posting Group");
+                    GenJnlLine."Gen. Prod. Posting Group" := '';
+                    GenJnlLine.VALIDATE(GenJnlLine."Gen. Prod. Posting Group");
+                    GenJnlLine."VAT Bus. Posting Group" := '';
+                    GenJnlLine.VALIDATE(GenJnlLine."VAT Bus. Posting Group");
+                    GenJnlLine."VAT Prod. Posting Group" := '';
+                    GenJnlLine.VALIDATE(GenJnlLine."VAT Prod. Posting Group");
+                    GenJnlLine.Amount := -PayLine."Levy Amount";
+                    GenJnlLine.VALIDATE(GenJnlLine.Amount);
+                    GenJnlLine."Bal. Account Type" := PayLine."Account Type";
+                    GenJnlLine."Bal. Account No." := PayLine."Account No.";
+                    GenJnlLine.Description := COPYSTR(PayLine."PAYE Code" + ':' + FORMAT(PayLine."Account Type") + '::' + FORMAT(PayLine."Account Name"), 1, 50);
+                    GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
+                    GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
+                    GenJnlLine."Shortcut Dimension 2 Code" := Rec."Shortcut Dimension 2 Code";
+                    GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
+                    GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
+                    GenJnlLine.ValidateShortcutDimCode(3, PayLine."Shortcut Dimension 3 Code");
+                    GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
+                    //GenJnlLine."PartTime Claim":= PayLine."PartTime Claim";
+                    IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                END;
+                //post levy end
+
+                ////Post WT2
+                IF PayLine."WHT 2 Code" <> '' THEN BEGIN
+                    TarriffCodes.RESET;
+                    TarriffCodes.SETRANGE(TarriffCodes.Code, PayLine."WHT 2 Code");
+                    IF TarriffCodes.FIND('-') THEN BEGIN
+                        TarriffCodes.TESTFIELD(TarriffCodes."G/L Account");
+                        LineNo := LineNo + 1000;
+                        GenJnlLine.INIT;
+                        GenJnlLine."Journal Template Name" := JTemplate;
+                        GenJnlLine.VALIDATE(GenJnlLine."Journal Template Name");
+                        GenJnlLine."Journal Batch Name" := JBatch;
+                        GenJnlLine.VALIDATE(GenJnlLine."Journal Batch Name");
+                        GenJnlLine."Source Code" := 'PAYMENTJNL';
+                        GenJnlLine."Line No." := LineNo;
+                        GenJnlLine."Posting Date" := Payment."Payment Release Date";
+                        GenJnlLine."Document Type" := GenJnlLine."Document Type"::Payment;
+                        GenJnlLine."Document No." := PayLine.No;
+                        GenJnlLine."External Document No." := Payments."Cheque No.";
+                        GenJnlLine."Account Type" := GenJnlLine."Account Type"::"G/L Account";
+                        GenJnlLine."Account No." := TarriffCodes."G/L Account";
+                        GenJnlLine.VALIDATE(GenJnlLine."Account No.");
+                        GenJnlLine."Currency Code" := Payments."Currency Code";
+                        GenJnlLine.VALIDATE(GenJnlLine."Currency Code");
+                        GenJnlLine."Gen. Posting Type" := GenJnlLine."Gen. Posting Type"::" ";
+                        GenJnlLine.VALIDATE(GenJnlLine."Gen. Posting Type");
+                        GenJnlLine."Gen. Bus. Posting Group" := '';
+                        GenJnlLine.VALIDATE(GenJnlLine."Gen. Bus. Posting Group");
+                        GenJnlLine."Gen. Prod. Posting Group" := '';
+                        GenJnlLine.VALIDATE(GenJnlLine."Gen. Prod. Posting Group");
+                        GenJnlLine."VAT Bus. Posting Group" := '';
+                        GenJnlLine.VALIDATE(GenJnlLine."VAT Bus. Posting Group");
+                        GenJnlLine."VAT Prod. Posting Group" := '';
+                        GenJnlLine.VALIDATE(GenJnlLine."VAT Prod. Posting Group");
+                        GenJnlLine.Amount := -PayLine."WHT 2 Amount";
+                        GenJnlLine.VALIDATE(GenJnlLine.Amount);
+                        GenJnlLine."Bal. Account Type" := PayLine."Account Type";
+                        GenJnlLine."Bal. Account No." := PayLine."Account No.";
+                        GenJnlLine.Description := COPYSTR(PayLine."PAYE Code" + ':' + FORMAT(PayLine."Account Type") + '::' + FORMAT(PayLine."Account Name"), 1, 50);
+                        GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
+                        GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
+                        GenJnlLine."Shortcut Dimension 2 Code" := Rec."Shortcut Dimension 2 Code";
+                        GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
+                        GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
+                        GenJnlLine.ValidateShortcutDimCode(3, PayLine."Shortcut Dimension 3 Code");
+                        GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
+                        //GenJnlLine."PartTime Claim":= PayLine."PartTime Claim";
+                        IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT;
+                    END;
+                END;
+
+
+                //Post GL for Housing Levy
+                IF PayLine."VAT Code" = 'HSE LEVY' THEN BEGIN
+                    LineNo := LineNo + 1000;
+                    GenJnlLine.INIT;
+                    GenJnlLine."Journal Template Name" := JTemplate;
+                    GenJnlLine.VALIDATE(GenJnlLine."Journal Template Name");
+                    GenJnlLine."Journal Batch Name" := JBatch;
+                    GenJnlLine.VALIDATE(GenJnlLine."Journal Batch Name");
+                    GenJnlLine."Source Code" := 'PAYMENTJNL';
+                    GenJnlLine."Line No." := LineNo;
+                    GenJnlLine."Posting Date" := Payment."Payment Release Date";
+                    IF CustomerPayLinesExist THEN
+                        GenJnlLine."Document Type" := GenJnlLine."Document Type"::" "
+                    ELSE
+                        GenJnlLine."Document Type" := GenJnlLine."Document Type"::Payment;
+                    GenJnlLine."Document No." := PayLine.No;
+                    GenJnlLine."External Document No." := Payments."Cheque No.";
+                    GenJnlLine."Account Type" := GenJnlLine."Account Type"::"G/L Account";
+                    GenJnlLine."Account No." := TarriffCodes."G/L Account";
+                    GenJnlLine.VALIDATE(GenJnlLine."Account No.");
+                    GenJnlLine."Currency Code" := Payments."Currency Code";
+                    GenJnlLine.VALIDATE(GenJnlLine."Currency Code");
+                    //CurrFactor
+                    GenJnlLine."Currency Factor" := Payments."Currency Factor";
+                    GenJnlLine.VALIDATE("Currency Factor");
+
+                    GenJnlLine.Amount := -PayLine."VAT Amount";
+                    GenJnlLine."Debit Amount" := PayLine."VAT Amount";
+                    GenJnlLine.VALIDATE(GenJnlLine.Amount);
+                    GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
+                    GenJnlLine."Bal. Account No." := '';
+                    GenJnlLine.Description := COPYSTR(PayLine."VAT Code" + FORMAT(PayLine."Account Type") + '::' + FORMAT(PayLine."Account Name"), 1, 50);
+                    GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
+                    GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
+                    GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
+                    GenJnlLine."Shortcut Dimension 2 Code" := PayLine."Shortcut Dimension 2 Code";
+                    GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
+                    GenJnlLine.ValidateShortcutDimCode(3, PayLine."Shortcut Dimension 3 Code");
+                    GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
+                    GenJnlLine."Applies-to Doc. Type" := GenJnlLine."Applies-to Doc. Type"::Invoice;
+                    GenJnlLine."Applies-to Doc. No." := PayLine."Apply to";
+                    GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
+                    GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
+
+                    IF GenJnlLine.Amount <> 0 THEN BEGIN
+                        GenJnlLine.INSERT;
+                    END;
+                END;
+                ////***********************************************************************************\\\\\
+                //Post W/TAX Balancing Entry Goes to Vendor
+                LineNo := LineNo + 1000;
+                GenJnlLine.INIT;
+                GenJnlLine."Journal Template Name" := JTemplate;
+                GenJnlLine.VALIDATE(GenJnlLine."Journal Template Name");
+                GenJnlLine."Journal Batch Name" := JBatch;
+                GenJnlLine.VALIDATE(GenJnlLine."Journal Batch Name");
+                GenJnlLine."Source Code" := 'PAYMENTJNL';
+                GenJnlLine."Line No." := LineNo;
+                GenJnlLine."Posting Date" := Payment."Payment Release Date";
+                IF CustomerPayLinesExist THEN
+                    GenJnlLine."Document Type" := GenJnlLine."Document Type"::" "
+                ELSE
+                    GenJnlLine."Document Type" := GenJnlLine."Document Type"::Payment;
+                GenJnlLine."Document No." := PayLine.No;
+                GenJnlLine."External Document No." := Payments."Cheque No.";
+                GenJnlLine."Account Type" := PayLine."Account Type";
+                GenJnlLine."Account No." := PayLine."Account No.";
+                GenJnlLine.VALIDATE(GenJnlLine."Account No.");
+                GenJnlLine."Currency Code" := Payments."Currency Code";
+                GenJnlLine.VALIDATE(GenJnlLine."Currency Code");
+                //CurrFactor
+                GenJnlLine."Currency Factor" := Payments."Currency Factor";
+                GenJnlLine.VALIDATE("Currency Factor");
+
+                GenJnlLine."Gen. Posting Type" := GenJnlLine."Gen. Posting Type"::" ";
+                GenJnlLine.VALIDATE(GenJnlLine."Gen. Posting Type");
+                GenJnlLine."Gen. Bus. Posting Group" := '';
+                GenJnlLine.VALIDATE(GenJnlLine."Gen. Bus. Posting Group");
+                GenJnlLine."Gen. Prod. Posting Group" := '';
+                GenJnlLine.VALIDATE(GenJnlLine."Gen. Prod. Posting Group");
+                GenJnlLine."VAT Bus. Posting Group" := '';
+                GenJnlLine.VALIDATE(GenJnlLine."VAT Bus. Posting Group");
+                GenJnlLine."VAT Prod. Posting Group" := '';
+                GenJnlLine.VALIDATE(GenJnlLine."VAT Prod. Posting Group");
+                GenJnlLine.Amount := PayLine."Withholding Tax Amount";
+                GenJnlLine.VALIDATE(GenJnlLine.Amount);
+                GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
+                GenJnlLine."Bal. Account No." := '';
+                GenJnlLine.Description := COPYSTR('W/Tax:' + strText, 1, 50);
+                GenJnlLine.VALIDATE(GenJnlLine."Bal. Account No.");
+                GenJnlLine."Shortcut Dimension 1 Code" := PayLine."Global Dimension 1 Code";
+                GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
+                GenJnlLine."Shortcut Dimension 2 Code" := PayLine."Shortcut Dimension 2 Code";
+                GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 2 Code");
+                GenJnlLine.ValidateShortcutDimCode(3, PayLine."Shortcut Dimension 3 Code");
+                GenJnlLine.ValidateShortcutDimCode(4, PayLine."Shortcut Dimension 4 Code");
+                GenJnlLine."Applies-to Doc. Type" := GenJnlLine."Applies-to Doc. Type"::Invoice;
+                GenJnlLine."Applies-to Doc. No." := PayLine."Apply to";
+                GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
+                GenJnlLine."Applies-to ID" := PayLine."Apply to ID";
+                IF GenJnlLine.Amount <> 0 THEN
+                    GenJnlLine.INSERT;
                 //////////////////////////////////////////////////////////////////////////////////////
                 //////////////////////////////////////////////////////////////////////////////////////
                 //POST PAYE to the PAYE Account
