@@ -1049,6 +1049,7 @@ table 50024 "FIN-Payment Line"
         }
         field(50005; "Budget Balance"; Decimal)
         {
+            
         }
         field(50006; "VAT Withheld Amount"; Decimal)
         {
