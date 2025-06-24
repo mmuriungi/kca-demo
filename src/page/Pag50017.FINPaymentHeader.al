@@ -404,6 +404,8 @@ page 50017 "FIN-Payment Header"
                 Visible = true;
                 ApplicationArea = All;
                 trigger OnAction()
+                var
+                    Pv: Record "FIN-Payments Header";
                 begin
                     // IF Rec.Status <> Rec.Status::Approved THEN
                     //     ERROR('You can only print a Payment Voucher after it is fully Approved');
@@ -411,10 +413,38 @@ page 50017 "FIN-Payment Header"
 
                     // //IF Status=Status::Pending THEN
                     // //ERROR('You cannot Print until the document is released for approval');
-                    Rec.RESET;
-                    Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(report::"Payment Voucher Reports", TRUE, TRUE, Rec);
-                    Rec.RESET;
+                    IF Rec."Direct Expense" = TRUE THEN BEGIN
+                        Pv.RESET;
+                        Pv.SETRANGE(Pv."No.", Rec."No.");
+                        if Pv.FIND('-') THEN BEGIN
+                            REPORT.RUN(Report::"Payment Voucher Report2", TRUE, TRUE, Pv);
+                        END;
+                    END ELSE
+                        IF Rec."PV Category" = Rec."PV Category"::"Part-time Pay" THEN BEGIN
+                            Pv.RESET;
+                            Pv.SETRANGE(Pv."No.", Rec."No.");
+                            if Pv.FIND('-') THEN BEGIN
+                                REPORT.RUN(Report::"Payment Voucher Report", TRUE, TRUE, Pv);
+                            END;
+                        END ELSE IF Rec."PV Category" = Rec."PV Category"::"Normal PV" THEN BEGIN
+                            Pv.RESET;
+                            Pv.SETRANGE(Pv."No.", Rec."No.");
+                            if Pv.FIND('-') THEN BEGIN
+                                REPORT.RUN(Report::"Payment Voucher Normal", TRUE, TRUE, Pv);
+                            END;
+                        END ELSE IF Rec."PV Category" = Rec."PV Category"::"Medical Claims" THEN BEGIN
+                            Pv.RESET;
+                            Pv.SETRANGE(Pv."No.", Rec."No.");
+                            if Pv.FIND('-') THEN BEGIN
+                                REPORT.RUN(Report::"Payment Voucher Normal", TRUE, TRUE, Pv);
+                            END;
+                        END ELSE BEGIN
+                            Pv.RESET;
+                            Pv.SETRANGE(Pv."No.", Rec."No.");
+                            if Pv.FIND('-') THEN BEGIN
+                                REPORT.RUN(Report::"Payment Voucher Normal", TRUE, TRUE, Pv);
+                            END;
+                        END;
 
                     CurrPage.UPDATE;
                     CurrPage.SAVERECORD;

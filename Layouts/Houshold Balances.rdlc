@@ -11,51 +11,6 @@
       <rd:DataSourceID>e651e514-2c14-4afa-bf37-2516a7a752ca</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="No_Customer">
-          <DataField>No_Customer</DataField>
-        </Field>
-        <Field Name="Name_Customer">
-          <DataField>Name_Customer</DataField>
-        </Field>
-        <Field Name="HouseholdDebit">
-          <DataField>HouseholdDebit</DataField>
-        </Field>
-        <Field Name="HouseholdDebitFormat">
-          <DataField>HouseholdDebitFormat</DataField>
-        </Field>
-        <Field Name="HouseholdCredit">
-          <DataField>HouseholdCredit</DataField>
-        </Field>
-        <Field Name="HouseholdCreditFormat">
-          <DataField>HouseholdCreditFormat</DataField>
-        </Field>
-        <Field Name="HouseholdBalance">
-          <DataField>HouseholdBalance</DataField>
-        </Field>
-        <Field Name="HouseholdBalanceFormat">
-          <DataField>HouseholdBalanceFormat</DataField>
-        </Field>
-        <Field Name="CompName">
-          <DataField>CompName</DataField>
-        </Field>
-        <Field Name="CompPic">
-          <DataField>CompPic</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -750,4 +705,47 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="No_Customer">
+          <DataField>No_Customer</DataField>
+        </Field>
+        <Field Name="Name_Customer">
+          <DataField>Name_Customer</DataField>
+        </Field>
+        <Field Name="HouseholdDebit">
+          <DataField>HouseholdDebit</DataField>
+        </Field>
+        <Field Name="HouseholdDebitFormat">
+          <DataField>HouseholdDebitFormat</DataField>
+        </Field>
+        <Field Name="HouseholdCredit">
+          <DataField>HouseholdCredit</DataField>
+        </Field>
+        <Field Name="HouseholdCreditFormat">
+          <DataField>HouseholdCreditFormat</DataField>
+        </Field>
+        <Field Name="HouseholdBalance">
+          <DataField>HouseholdBalance</DataField>
+        </Field>
+        <Field Name="HouseholdBalanceFormat">
+          <DataField>HouseholdBalanceFormat</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="CompPic">
+          <DataField>CompPic</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
