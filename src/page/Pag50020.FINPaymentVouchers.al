@@ -5,8 +5,8 @@ page 50030 "FIN-Payment Vouchers"
     PageType = List;
     SourceTable = "FIN-Payments Header";
     SourceTableView = WHERE(Posted = filter(false),
-                            "Payment Type" = CONST(Normal),
-                            Status = FILTER(Pending | "Pending Approval" | Approved));
+                           "Payment Type" = CONST(Normal),
+                            Status = FILTER(Pending | "Pending Approval" | Approved|Cancelled));
 
     layout
     {
