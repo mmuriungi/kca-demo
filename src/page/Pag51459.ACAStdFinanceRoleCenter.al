@@ -452,6 +452,19 @@ page 51459 "ACA-Std Finance Role Center"
                     RunObject = page "Band Batch List Archived";
                     ApplicationArea = all;
                 }
+                group("NFM Reports")
+                {
+                    action("Houshold Balances")
+                    {
+                        RunObject = Report "Houshold Balances";
+                        ApplicationArea = All;
+                    }
+                    action("Nfm Statement")
+                    {
+                        RunObject = Report "Student Fee Statement Nfm";
+                        ApplicationArea = All;
+                    }
+                }
             }
 
             group("Charge Additions")
