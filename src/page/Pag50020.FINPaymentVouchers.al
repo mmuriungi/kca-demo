@@ -373,6 +373,7 @@ page 50030 "FIN-Payment Vouchers"
         CheckLedger: Record 272;
         CheckManagement: Codeunit 367;
         HasLines: Boolean;
+        sales: page 43;
         AllKeyFieldsEntered: Boolean;
         AdjustGenJnl: Codeunit 407;
         [InDataSet]

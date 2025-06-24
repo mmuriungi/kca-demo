@@ -2327,6 +2327,13 @@ table 50213 "HRM-Employee C"
         field(63218; "Library Patron ID"; Integer)
         {
         }
+        //"Secondary Income"
+        field(63219; "Secondary Income"; boolean)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Secondary Income';
+            //  DecimalPlaces = 2 : 2;
+        }
     }
 
     keys

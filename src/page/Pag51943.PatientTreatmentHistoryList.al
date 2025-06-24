@@ -1,4 +1,4 @@
-page 52123 "Patient Treatment History List"
+page 52124 "Patient Treatment History List"
 {
     ApplicationArea = All;
     Caption = 'Patient Treatment History';
@@ -82,7 +82,7 @@ page 52123 "Patient Treatment History List"
                 Image = View;
                 Promoted = true;
                 PromotedCategory = Process;
-                
+
                 trigger OnAction()
                 begin
                     Page.Run(Page::"HMS-Treatment Form Header", Rec);
@@ -95,7 +95,7 @@ page 52123 "Patient Treatment History List"
                 Image = Customer;
                 Promoted = true;
                 PromotedCategory = Process;
-                
+
                 trigger OnAction()
                 var
                     Patient: Record "HMS-Patient";
@@ -112,7 +112,7 @@ page 52123 "Patient Treatment History List"
                 ApplicationArea = All;
                 Caption = 'Treatment History Report';
                 Image = Report;
-                
+
                 trigger OnAction()
                 begin
                     // Generate treatment history report for this patient

@@ -232,7 +232,7 @@ table 51362 "Detailed Cust ledger Custom"
             FieldClass = FlowField;
             CalcFormula = Sum("Detailed Cust. Ledg. Entry".Amount WHERE(
         "Customer No." = FIELD("Customer No."),
-        "Document No." = FIELD("Normalized Document No."),
+        "Document No." = FIELD("Document No."),
         "Entry Type" = CONST("Initial Entry")
     ));
         }
@@ -261,24 +261,24 @@ table 51362 "Detailed Cust ledger Custom"
 
         }
         //Entry Amount 1
-         field(62; "Ledger Amount"; Decimal)
+        field(62; "Ledger Amount"; Decimal)
         {
             Caption = 'Entry Amount Det';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = Sum("Detailed Cust. Ledg. Entry".Amount WHERE(
         "Customer No." = FIELD("Customer No."),
-        "Document No." = FIELD("Normalized Document No."),"Posting Date"=field("Posting Date"),
+        "Document No." = FIELD("Document No."), "Posting Date" = field("Posting Date"),
         "Entry Type" = CONST("Initial Entry")
     ));
         }
-         field(63; "Custom Amount"; Decimal)
+        field(63; "Custom Amount"; Decimal)
         {
             Caption = 'Entry Amount Custom';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = Sum("Detailed Cust ledger Custom".Amount WHERE(
-        "Customer No." = FIELD("Customer No."),"Posting Date"=field("Posting Date"),"Document No." = FIELD("Document No."),
+        "Customer No." = FIELD("Customer No."), "Posting Date" = field("Posting Date"), "Document No." = FIELD("Document No."),
         "Entry Type" = CONST("Initial Entry")
         ));
 
