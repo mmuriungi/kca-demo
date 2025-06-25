@@ -60,6 +60,27 @@ page 50029 "FIN-Payment Types"
                 {
                     ApplicationArea = All;
                 }
+                field(Fuel; Rec.Fuel)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Fuel field.', Comment = '%';
+                }
+                field("Pays Levy"; Rec."Pays Levy")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Pays Levy field.', Comment = '%';
+                }
+                field("Levy Code"; Rec."Levy Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Levy Code field.', Comment = '%';
+                }
+                field("WHT 2 Code"; Rec."WHT 2 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the WHT 2 Code field.', Comment = '%';
+                }
+
                 field("Default Grouping"; Rec."Default Grouping")
                 {
                     ApplicationArea = All;
