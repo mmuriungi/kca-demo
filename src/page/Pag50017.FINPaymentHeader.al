@@ -63,6 +63,10 @@ page 50017 "FIN-Payment Header"
                 {
                     ApplicationArea = All;
                 }
+                field("Direct Expense"; Rec."Direct Expense")
+                {
+                    ApplicationArea = All;
+                }
                 field("On Behalf Of"; Rec."On Behalf Of")
                 {
                     Editable = false;
