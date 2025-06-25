@@ -782,6 +782,7 @@ table 50024 "FIN-Payment Line"
                     VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
                     VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
                     VendLedgEntry.SETRANGE(Open, TRUE);
+                    VendLedgEntry.SetRange(Reversed, FALSE);
                     IF "Applies-to ID" = '' THEN
                         "Applies-to ID" := No;
                     IF "Applies-to ID" = '' THEN
@@ -802,6 +803,7 @@ table 50024 "FIN-Payment Line"
                     VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
                     VendLedgEntry.SETRANGE(Open, TRUE);
                     VendLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
+                    VendLedgEntry.SetRange(Reversed, FALSE);
                     IF VendLedgEntry.FIND('-') THEN BEGIN
                         "Applies-to Doc. Type" := 0;
                         "Applies-to Doc. No." := '';
@@ -815,7 +817,7 @@ table 50024 "FIN-Payment Line"
                 VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
                 VendLedgEntry.SETRANGE(Open, TRUE);
                 VendLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
-
+                VendLedgEntry.SetRange(Reversed, FALSE);
                 InvoiceNos := ''; // Initialize variable to store combined invoice numbers
 
                 IF VendLedgEntry.FIND('-') THEN BEGIN
