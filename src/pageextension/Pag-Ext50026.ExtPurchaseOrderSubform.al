@@ -31,7 +31,7 @@ pageextension 50026 "ExtPurchase Order Subform" extends "Purchase Order Subform"
             {
                 ApplicationArea = All;
                 Editable = true;
-                MultiLine = true;
+              //  MultiLine = true;
             }
         }
         addafter("Location Code")

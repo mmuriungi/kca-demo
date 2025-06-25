@@ -706,6 +706,7 @@ table 50026 "FIN-Receipt Line q"
             "Shortcut Dimension 2 Code" := RHead."Shortcut Dimension 2 Code";
             "Shortcut Dimension 3 Code" := RHead."Shortcut Dimension 3 Code";
             "Shortcut Dimension 4 Code" := RHead."Shortcut Dimension 4 Code";
+            "Cheque/Deposit Slip No":=RHead."Cheque No.";
         END;
     end;
 
@@ -716,6 +717,7 @@ table 50026 "FIN-Receipt Line q"
         IF RHead.FINDFIRST THEN BEGIN
             IF RHead.Posted THEN
                 ERROR('The transaction has already been posted and therefore cannot be modified.');
+            "Cheque/Deposit Slip No":=RHead."Cheque No.";
         END;
 
         /* IF (Posted=TRUE) AND ("Customer Payment On Account"=FALSE)  THEN
