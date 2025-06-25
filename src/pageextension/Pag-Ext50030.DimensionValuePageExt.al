@@ -13,6 +13,10 @@ pageextension 50030 "Dimension Value PageExt" extends "Dimension Values"
             {
                 ApplicationArea = All;
             }
+            field("Default Receit Dimesnison 1"; Rec."Default Receit Dimesnison 1")
+            {
+                ApplicationArea = All;
+            }
         }
         addafter(Blocked)
         {

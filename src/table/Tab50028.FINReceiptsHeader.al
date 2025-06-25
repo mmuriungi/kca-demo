@@ -376,7 +376,7 @@ table 50028 "FIN-Receipts Header"
         }
         field(50016; "Received From"; Text[100])
         {
-            Caption = 'Account No.';
+            Caption = 'Received From';
             DataClassification = ToBeClassified;
             TableRelation =
             IF ("Received From Account Type" = CONST("G/L Account")) "G/L Account" WHERE("Direct Posting" = filter(true))
@@ -510,6 +510,8 @@ table 50028 "FIN-Receipts Header"
     }
 
     trigger OnInsert()
+    var
+        DimVal: Record "Dimension Value";
     begin
         IF "No." = '' THEN BEGIN
             GenLedgerSetup.GET;
@@ -528,6 +530,12 @@ table 50028 "FIN-Receipts Header"
         "Created By" := USERID;
         "Created Date Time" := CREATEDATETIME(TODAY, TIME);
         //*****************************END***************************//
+        DimVal.RESET;
+        DimVal.SETRANGE("Default Receit Dimesnison 1", true);
+        IF DimVal.FINDFIRST THEN BEGIN
+            "Global Dimension 1 Code" := DimVal.Code;
+            VALIDATE("Global Dimension 1 Code");
+        END;
     end;
 
     trigger OnModify()

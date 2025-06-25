@@ -261,6 +261,7 @@ table 50022 "FIN-Imprest Surrender Details"
         }
 
 
+
         field(29; "Claim Type"; Code[20])
         {
             TableRelation = "FIN-Receipts and Payment Types".Code WHERE(Type = CONST(Claim), "Account Type" = filter("G/L Account"));
@@ -317,6 +318,22 @@ table 50022 "FIN-Imprest Surrender Details"
             IF (Pay.Status = Pay.Status::Posted) OR (Pay.Status = Pay.Status::"Pending Approval")
             OR (Pay.Status = Pay.Status::Approved) THEN
                 ERROR('This Document is already Send for Approval/Approved or Posted');
+    end;
+
+    trigger OnInsert()
+    begin
+        LineNo := getNextEntLineNo();
+    end;
+
+    procedure getNextEntLineNo(): Integer
+    var
+        NextLineNo: Integer;
+        ImpSurrLine: Record "FIN-Imprest Surrender Details";
+    begin
+        ImpSurrLine.reset;
+        IF ImpSurrLine.FindLast() THEN
+            NextLineNo := ImpSurrLine.LineNo + 1;
+        EXIT(NextLineNo);
     end;
 
     trigger OnModify()

@@ -488,6 +488,7 @@ table 50026 "FIN-Receipt Line q"
         field(54; "Bank Account"; Code[30])
         {
             TableRelation = "Bank Account"."No.";
+            Editable = false;
         }
         field(55; Confirmed; Boolean)
         {
@@ -714,6 +715,8 @@ table 50026 "FIN-Receipt Line q"
             Validate("Bank Code");
             "Pay Mode" := RHead."Pay Mode";
             Validate("Pay Mode");
+            "Bank Account" := RHead."Bank Code";
+            Validate("Bank Account");
 
         END;
     end;
@@ -731,6 +734,8 @@ table 50026 "FIN-Receipt Line q"
             Validate("Bank Code");
             "Pay Mode" := RHead."Pay Mode";
             Validate("Pay Mode");
+            "Bank Account" := RHead."Bank Code";
+            Validate("Bank Account");
         END;
 
         /* IF (Posted=TRUE) AND ("Customer Payment On Account"=FALSE)  THEN

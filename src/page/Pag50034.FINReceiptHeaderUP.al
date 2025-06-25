@@ -102,7 +102,7 @@ page 50034 "FIN-Receipt Header UP"
                 }
 
 
-                field("Received From"; Rec."On Behalf Of")
+                field("Received From"; Rec."Received From")
                 {
                     ApplicationArea = All;
                     Caption = 'Received From';
@@ -190,12 +190,12 @@ page 50034 "FIN-Receipt Header UP"
                     Rec."Posted By" := USERID;
                     Rec.MODIFY;
 
-                    IF Rec.Posted = TRUE THEN BEGIN
-                        Rcpt.RESET;
-                        Rcpt.SETFILTER(Rcpt."No.", Rec."No.");
-                        REPORT.RUN(report::Receipt, FALSE, TRUE, Rcpt);
+                    // IF Rec.Posted = TRUE THEN BEGIN
+                    //     Rcpt.RESET;
+                    //     Rcpt.SETFILTER(Rcpt."No.", Rec."No.");
+                    //     REPORT.RUN(report::Receipt, FALSE, TRUE, Rcpt);
 
-                    END;
+                    // END;
                 end;
             }
         }
