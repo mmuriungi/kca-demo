@@ -275,6 +275,10 @@ table 50021 "FIN-Imprest Surr. Header"
             TableRelation = "FIN-Imprest Header"."No." WHERE("Account No." = FIELD("Account No."), Posted = filter(true));
 
             trigger OnValidate()
+            var
+                ExpectedDateOfSurrender: Date;
+                GenLedgerSetup: Record "Cash Office Setup";
+                LineNo: Integer;
             begin
 
                 /*Copy the details from the payments header tableto the imprest surrender table to enable the user work on the same document*/
@@ -305,10 +309,18 @@ table 50021 "FIN-Imprest Surr. Header"
                 "Shortcut Dimension 4 Code" := PayHeader."Shortcut Dimension 4 Code";
                 Dim4 := PayHeader.Dim4;
                 "Imprest Issue Date" := PayHeader.Date;
-                if PayHeader."Expected Date of Surrender" < Today then
+                ExpectedDateOfSurrender := PayHeader."Expected Date of Surrender";
+                //if PayHeader."Expected Date of Surrender" < Today then
                     // daystoday := DATE2DMY(Today, 1);
                     // daystoutstanding := DATE2DMY(PayHeader."Expected Date of Surrender", 1);
-                    OutstandingDays := (Today - PayHeader."Expected Date of Surrender");
+                    if PayHeader."Expected Date of Surrender" <> 0D then
+                        OutstandingDays := (Today - PayHeader."Expected Date of Surrender")
+                    else begin
+                        if GenLedgerSetup.Get() then begin
+                            ExpectedDateOfSurrender := PayHeader.Date + GenLedgerSetup."Surrender Dates";
+                            OutstandingDays := (Today - ExpectedDateOfSurrender);
+                        end;
+                    end;
 
 
 
@@ -326,6 +338,7 @@ table 50021 "FIN-Imprest Surr. Header"
                         ImpSurrLine.VALIDATE(ImpSurrLine."Account No:");
                         ImpSurrLine."Account Name" := PayLine."Account Name";
                         ImpSurrLine.Amount := PayLine.Amount;
+                        ImprestDetails.LineNo:=LineNo+10000;
 
                         ImpSurrLine."Due Date" := PayLine."Due Date";
                         ImpSurrLine."Imprest Holder" := PayLine."Imprest Holder";

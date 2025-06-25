@@ -7,6 +7,7 @@ page 52178741 "Apply Vendor Entries 2"
     LinksAllowed = false;
     PageType = Worksheet;
     SourceTable = "Vendor Ledger Entry";
+    SourceTableView = WHERE(Reversed = filter(false));
 
     layout
     {

@@ -766,8 +766,9 @@ table 50024 "FIN-Payment Line"
                 PayToVendorNo: Code[20];
                 OK: Boolean;
                 Text000: Label 'You must specify %1 or %2.';
-                ApplyVendEntries: Page "Apply Vendor Entries";
-                InvoiceNos: Text[100];
+                ApplyVendEntries: Page "Apply Vendor Entries 2";
+                InvoiceNos: Text[2048];
+            //ApplyEntries: Page "Apply Vendor Entries 2";
             begin
                 //CODEUNIT.RUN(CODEUNIT::"Payment Voucher Apply",Rec);
 
@@ -781,6 +782,7 @@ table 50024 "FIN-Payment Line"
                     VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
                     VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
                     VendLedgEntry.SETRANGE(Open, TRUE);
+                    VendLedgEntry.SetRange(Reversed, FALSE);
                     IF "Applies-to ID" = '' THEN
                         "Applies-to ID" := No;
                     IF "Applies-to ID" = '' THEN
@@ -801,6 +803,7 @@ table 50024 "FIN-Payment Line"
                     VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
                     VendLedgEntry.SETRANGE(Open, TRUE);
                     VendLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
+                    VendLedgEntry.SetRange(Reversed, FALSE);
                     IF VendLedgEntry.FIND('-') THEN BEGIN
                         "Applies-to Doc. Type" := 0;
                         "Applies-to Doc. No." := '';
@@ -814,7 +817,7 @@ table 50024 "FIN-Payment Line"
                 VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
                 VendLedgEntry.SETRANGE(Open, TRUE);
                 VendLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
-
+                VendLedgEntry.SetRange(Reversed, FALSE);
                 InvoiceNos := ''; // Initialize variable to store combined invoice numbers
 
                 IF VendLedgEntry.FIND('-') THEN BEGIN
@@ -827,7 +830,7 @@ table 50024 "FIN-Payment Line"
                             InvoiceNos := VendLedgEntry."Document No."
                         ELSE
                             InvoiceNos := InvoiceNos + ', ' + VendLedgEntry."Document No.";
-
+                    //Amount += Abs(VendLedgEntry."Amount to Apply");
                     // If you need other fields from the first record
                     // IF VendLedgEntry."Document No." <> '' THEN
                     //     "PartTime Claim" := VendLedgEntry."PartTime Claim";
@@ -1005,7 +1008,7 @@ table 50024 "FIN-Payment Line"
                 //END;
             end;
         }
-        field(102; "Invoice No."; Code[250])
+        field(102; "Invoice No."; Code[2048])
         {
         }
         field(5002; "PAYE Amount"; Decimal)
@@ -1049,6 +1052,7 @@ table 50024 "FIN-Payment Line"
         }
         field(50005; "Budget Balance"; Decimal)
         {
+
         }
         field(50006; "VAT Withheld Amount"; Decimal)
         {

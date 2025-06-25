@@ -207,6 +207,20 @@ page 50045 "FIN-Travel Advance Req. UP"
             // group("&Functions")
             // {
             //     Caption = '&Functions';
+            action(Approve)
+            {
+                Caption = 'Approve';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    Rec.Status:=Rec.Status::Approved;
+                    Rec.Modify;
+                    CurrPage.Update;
+                end;
+            }
             action(Approvals)
             {
                 Caption = 'Approvals';
