@@ -6,6 +6,10 @@ pageextension 50026 "ExtPurchase Order Subform" extends "Purchase Order Subform"
         {
             Editable = false;
         }
+        modify("Direct Unit Cost")
+        {
+            Caption='Direct Unit Cost Inclusive VAT';
+        }
         addafter("Direct Unit Cost")
         {
             field("Unit Price "; Rec."Unit Price (LCY)")
@@ -25,12 +29,29 @@ pageextension 50026 "ExtPurchase Order Subform" extends "Purchase Order Subform"
             }
 
         }
+        modify("Bin Code")
+        {
+            Visible = false;
+        }
+        modify("Reserved Quantity")
+        {
+            Visible = false;
+        }
+        modify("Tax Area Code")
+        {
+            Visible = false;
+        }
+        modify("Tax Group Code")
+        {
+            Visible = false;
+        }
         addafter(Description)
         {
             field("Descriptions"; Rec."Description 3")
             {
                 ApplicationArea = All;
                 Editable = true;
+                Visible = false;
               //  MultiLine = true;
             }
         }

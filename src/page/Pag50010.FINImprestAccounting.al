@@ -240,7 +240,24 @@ page 50010 "FIN-Imprest Accounting"
     {
         area(processing)
         {
-
+            action(Approve)
+            {
+                Caption = 'Approve';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    ApprovalMgt: Codeunit "Init Code";
+                    showmessage: Boolean;
+                    ManualCancel: Boolean;
+                begin
+                    Rec.Status := Rec.Status::Approved;
+                    Rec.Modify;
+                    CurrPage.Update;
+                end;
+            }
             group(Functions)
             {
                 Caption = 'Functions';
