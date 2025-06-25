@@ -767,7 +767,7 @@ table 50024 "FIN-Payment Line"
                 OK: Boolean;
                 Text000: Label 'You must specify %1 or %2.';
                 ApplyVendEntries: Page "Apply Vendor Entries";
-                InvoiceNos: Text[100];
+                InvoiceNos: Text[2048];
             begin
                 //CODEUNIT.RUN(CODEUNIT::"Payment Voucher Apply",Rec);
 
@@ -1005,7 +1005,7 @@ table 50024 "FIN-Payment Line"
                 //END;
             end;
         }
-        field(102; "Invoice No."; Code[250])
+        field(102; "Invoice No."; Code[2048])
         {
         }
         field(5002; "PAYE Amount"; Decimal)

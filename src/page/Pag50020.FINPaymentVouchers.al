@@ -6,7 +6,7 @@ page 50030 "FIN-Payment Vouchers"
     SourceTable = "FIN-Payments Header";
     SourceTableView = WHERE(Posted = filter(false),
                            "Payment Type" = CONST(Normal),
-                            Status = FILTER(Pending | "Pending Approval" | Approved|Cancelled));
+                            Status = FILTER(Pending | "Pending Approval" | Approved | Cancelled));
 
     layout
     {
@@ -108,6 +108,26 @@ page 50030 "FIN-Payment Vouchers"
     {
         area(processing)
         {
+            action(Approve)
+            {
+                Caption = 'Approve';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ApprovalMgt: Codeunit "Init Code";
+                    showmessage: Boolean;
+                    ManualCancel: Boolean;
+                begin
+                    Rec.Status := Rec.Status::Approved;
+                    Rec.Modify;
+                    CurrPage.Update;
+                end;
+            }
             group("&Functions")
             {
                 Caption = '&Functions';

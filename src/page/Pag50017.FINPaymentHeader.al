@@ -204,6 +204,26 @@ page 50017 "FIN-Payment Header"
 
         area(processing)
         {
+            action(Approve)
+            {
+                Caption = 'Approve';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ApprovalMgt: Codeunit "Init Code";
+                    showmessage: Boolean;
+                    ManualCancel: Boolean;
+                begin
+                    Rec.Status := Rec.Status::Approved;
+                    Rec.Modify;
+                    CurrPage.Update;
+                end;
+            }
             action(postPvs)
             {
                 Caption = 'Post Payment';

@@ -10,8 +10,7 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
 
         }
         modify("Buy-from")
-        {
-            Visible = false;
+        {            Visible = false;
         }
         modify("No.")
         {
@@ -20,7 +19,7 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
         modify(Status)
         {
 
-            Editable = true;
+            Editable = false;
         }
         addafter("Buy-from Vendor Name")
         {
@@ -204,8 +203,8 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
                 var
                     ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                 begin
-                     CheckLocation();
-                CommitBudget();
+                    CheckLocation();
+                    CommitBudget();
                     if ApprovalsMgmt.CheckPurchaseApprovalPossible(Rec) then
                         ApprovalsMgmt.OnSendPurchaseDocForApproval(Rec);
                 end;
@@ -347,9 +346,9 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
     procedure cancelcommitment()
     var
     begin
-        
+
     end;
-    
+
 
     local procedure ExpenseBudget()
     var
