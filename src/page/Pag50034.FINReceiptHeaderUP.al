@@ -102,7 +102,7 @@ page 50034 "FIN-Receipt Header UP"
                 }
 
 
-                field("Received From"; Rec."On Behalf Of")
+                field("Received From"; Rec."Received From")
                 {
                     ApplicationArea = All;
                     Caption = 'Received From';

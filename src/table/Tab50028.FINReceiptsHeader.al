@@ -376,7 +376,7 @@ table 50028 "FIN-Receipts Header"
         }
         field(50016; "Received From"; Text[100])
         {
-            Caption = 'Account No.';
+            Caption = 'Received From';
             DataClassification = ToBeClassified;
             TableRelation =
             IF ("Received From Account Type" = CONST("G/L Account")) "G/L Account" WHERE("Direct Posting" = filter(true))
