@@ -321,8 +321,9 @@ table 50028 "FIN-Receipts Header"
         }
         field(50014; "Pay Mode"; Option)
         {
-            OptionCaption = ' ,Cash,Cheque,Mpesa,EFT,Deposit Slip,Banker''s Cheque,RTGS';
-            OptionMembers = " ",Cash,Cheque,Mpesa,EFT,"Deposit Slip","Banker's Cheque",RTGS;
+            OptionCaption = ' ,Cash,Cheque,EFT,Deposit Slip,Banker''s Cheque,RTGS';
+            OptionMembers = " ",Cash,Cheque,EFT,"Deposit Slip","Banker's Cheque",RTGS;
+            //" ",Cash,Cheque,EFT,"Deposit Slip","Banker's Cheque",RTGS
 
             trigger OnValidate()
             begin

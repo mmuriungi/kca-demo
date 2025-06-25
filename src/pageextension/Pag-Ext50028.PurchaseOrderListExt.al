@@ -26,7 +26,7 @@ pageextension 50028 "Purchase Order List Ext" extends "Purchase Order List"
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
                     CurrPage.SetSelectionFilter(PurchaseHeader);
-                    REPORT.RUN(52178707, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Purchase Order1", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }

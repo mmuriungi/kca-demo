@@ -10,8 +10,7 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
 
         }
         modify("Buy-from")
-        {
-            Visible = false;
+        {            Visible = false;
         }
         modify("No.")
         {
@@ -20,7 +19,7 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
         modify(Status)
         {
 
-            Editable = true;
+            Editable = false;
         }
         addafter("Buy-from Vendor Name")
         {
@@ -69,6 +68,35 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
                 ExpenseBudget();
             end;
         }
+        addafter(Approvals)
+        {
+            action("Approval Entries")
+            {
+                ApplicationArea = All;
+                Caption = 'Approval Entries';
+                Image = Approval;
+                Promoted = true;
+                PromotedCategory = Category8;
+                ToolTip = 'View approval entries.';
+                trigger OnAction()
+                var
+                    Approvalentries: Page "Approval Entries";
+                    ApprovalEntry: Record "Approval Entry";
+                begin
+                    ApprovalEntry.Reset();
+                    ApprovalEntry.SetRange("Document No.", Rec."No.");
+                    Approvalentry.SetRange("Table ID", Database::"Purchase Header");
+                    Approvalentries.SetTableview(Approvalentry);
+                    Approvalentries.Run;
+                end;
+
+            }
+
+        }
+        modify(Approvals)
+        {
+            Visible = false;
+        }
         addbefore(Print)
         {
             action("Print Order")
@@ -87,7 +115,7 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
                 begin
                     PurchaseHeader := Rec;
                     CurrPage.SetSelectionFilter(PurchaseHeader);
-                    REPORT.RUN(50024, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Purchase Order1", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }
@@ -112,7 +140,7 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
                     CurrPage.SetSelectionFilter(PurchaseHeader);
-                    REPORT.RUN(50024, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Purchase Order1", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }
@@ -135,7 +163,7 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
                     Rec.RESET;
                     //Rec.SETFILTER("No.", Rec."No.");
                     //CurrPage.SetSelectionFilter(PurchaseHeader);
-                    REPORT.RUN(50027, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Update LPO", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }
@@ -147,19 +175,64 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
         }
         modify(SendApprovalRequest)
         {
+            Visible = false;
             trigger OnBeforeAction()
 
             var
             begin
-                IF Rec."Currency Code" = 'KES' then begin
-                    Rec."Currency Code" := '';
-                    Rec."Currency Factor" := 0;
-                    Rec.Modify();
-                end;
+                // IF Rec."Currency Code" = 'KES' then begin
+                //     Rec."Currency Code" := '';
+                //     Rec."Currency Factor" := 0;
+                //     Rec.Modify();
+                // end;
                 CheckLocation();
                 CommitBudget();
             end;
         }
+        addafter(SendApprovalRequest)
+        {
+            action("Send Approval Request")
+            {
+                ApplicationArea = All;
+                Caption = 'Send Approval Request';
+                Promoted = true;
+                PromotedCategory = Category9;
+                PromotedIsBig = true;
+                Image = SendApprovalRequest;
+                trigger OnAction()
+                var
+                    ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                begin
+                    CheckLocation();
+                    CommitBudget();
+                    if ApprovalsMgmt.CheckPurchaseApprovalPossible(Rec) then
+                        ApprovalsMgmt.OnSendPurchaseDocForApproval(Rec);
+                end;
+            }
+            action("Cancel Approval Request")
+            {
+                ApplicationArea = All;
+                Caption = 'Cancel Approval Request';
+                Promoted = true;
+                PromotedCategory = Category9;
+                PromotedIsBig = true;
+                Image = CancelApprovalRequest;
+                trigger OnAction()
+                var
+                    ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                    WorkflowWebhookMgt: Codeunit "Workflow Webhook Management";
+                begin
+                    cancelcommitment();
+                    ApprovalsMgmt.OnCancelPurchaseApprovalRequest(Rec);
+                    WorkflowWebhookMgt.FindAndCancel(Rec.RecordId);
+                end;
+            }
+        }
+        modify(CancelApprovalRequest)
+        {
+            Visible = false;
+        }
+
     }
     trigger OnOpenPage()
     var
@@ -269,6 +342,13 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
             UNTIL PurchaseLine.NEXT = 0;
         END;
     end;
+
+    procedure cancelcommitment()
+    var
+    begin
+
+    end;
+
 
     local procedure ExpenseBudget()
     var

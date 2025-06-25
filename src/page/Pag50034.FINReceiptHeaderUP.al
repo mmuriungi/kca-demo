@@ -32,7 +32,7 @@ page 50034 "FIN-Receipt Header UP"
                 field("Document Date"; Rec."Document Date")
                 {
                     ApplicationArea = All;
-                    Caption = 'Deposit Date';
+                    Caption = 'Posting Date';
                 }
                 field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {

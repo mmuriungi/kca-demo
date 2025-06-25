@@ -819,7 +819,7 @@ report 50005 "Payment Voucher Reports"
                 if "<Payment Line>".find('-') then Begin
                     "<Payment Line>".CalcFields("Budgeted Amount");
 
-                    "<Payment Line>".CalcFields("Budget Balance");
+                    //"<Payment Line>".CalcFields("Budget Balance");
                     BudgetBalance := "<Payment Line>"."Budget Balance" + "<Payment Line>"."Net Amount";
 
 
