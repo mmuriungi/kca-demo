@@ -67,5 +67,10 @@ tableextension 50022 "Dimension Values Ext" extends "Dimension Value"
             Caption = 'Category';
             DataClassification = ToBeClassified;
         }
+        //Default Receit Dimesnison 1
+        field(50006; "Default Receit Dimesnison 1"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
