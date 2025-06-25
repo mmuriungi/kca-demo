@@ -257,7 +257,7 @@ table 50022 "FIN-Imprest Surrender Details"
         }
         field(50006; LineNo; Integer)
         {
-            AutoIncrement = true;
+            //AutoIncrement = true;
         }
 
 
