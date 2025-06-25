@@ -218,7 +218,7 @@ table 50213 "HRM-Employee C"
         field(11; "Post Code"; Code[20])
         {
             TableRelation = "Post Code";
-            //This property is currently not supported
+            ///This property is currently not supported
             //TestTableRelation = false;
             ValidateTableRelation = false;
 
