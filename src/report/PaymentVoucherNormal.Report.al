@@ -188,7 +188,8 @@ Report 50892 "Payment Voucher Normal"
                     begin
 
                         InvAmount := "Vendor Ledger Entry"."Amount to Apply" * -1;
-                        HslAmoun := -0.015 * "Vendor Ledger Entry"."Amount to Apply";
+                        // HslAmoun := -0.015 * "Vendor Ledger Entry"."Amount to Apply";
+                        HslAmoun := 0.015 * "FIN-Payments Header"."Total Payment Amount";
 
                         Pheader.Reset;
                         Pheader.SetRange("No.", "Vendor Ledger Entry"."Document No.");
