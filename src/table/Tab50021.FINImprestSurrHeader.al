@@ -331,6 +331,7 @@ table 50021 "FIN-Imprest Surr. Header"
                   BEGIN
                     REPEAT
                         ImpSurrLine.INIT;
+                        ImpSurrLine.LineNo := getLastEntryNo() + 1;
                         ImpSurrLine."Surrender Doc No." := Rec.No;
                         // ImpSurrLine."Surrender Date" := Rec."Surrender Date";
                         ImpSurrLine."Account No:" := PayLine."Account No:";
@@ -977,6 +978,17 @@ table 50021 "FIN-Imprest Surr. Header"
     procedure ExpenseBudget()
     begin
 
+    end;
+
+    local procedure getLastEntryNo(): Integer
+    var
+        ImpSurrLine: Record "FIN-Imprest Surrender Details";
+    begin
+        ImpSurrLine.RESET;
+        // ImpSurrLine.SETRANGE(ImpSurrLine."Surrender Doc No.", "No.");
+        IF ImpSurrLine.FindLast() THEN
+            EXIT(ImpSurrLine.LineNo);
+        EXIT(0);
     end;
 
 }
