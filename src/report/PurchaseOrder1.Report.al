@@ -3,7 +3,7 @@ Report 51574 "Purchase Order1"
 {
     DefaultLayout = RDLC;
     // RDLCLayout = './Layouts/Purchase Order1.rdlc';
-    RDLCLayout = './Layouts/LPOReport.rdlc';
+    RDLCLayout = './Layouts/LPOReport.rdl';
 
     PreviewMode = PrintLayout;
 
