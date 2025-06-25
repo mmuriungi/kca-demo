@@ -819,8 +819,8 @@ table 50024 "FIN-Payment Line"
                 InvoiceNos := ''; // Initialize variable to store combined invoice numbers
 
                 IF VendLedgEntry.FIND('-') THEN BEGIN
-                    // VendLedgEntry.CALCSUMS("Amount to Apply");
-                    // Amount := ABS(VendLedgEntry."Amount to Apply");
+                    VendLedgEntry.CALCSUMS("Amount to Apply");
+                    Amount := ABS(VendLedgEntry."Amount to Apply");
 
                     // Loop through all matching records to combine invoice numbers
                     REPEAT
@@ -828,7 +828,7 @@ table 50024 "FIN-Payment Line"
                             InvoiceNos := VendLedgEntry."Document No."
                         ELSE
                             InvoiceNos := InvoiceNos + ', ' + VendLedgEntry."Document No.";
-                        Amount += Abs(VendLedgEntry."Amount to Apply");
+                    //Amount += Abs(VendLedgEntry."Amount to Apply");
                     // If you need other fields from the first record
                     // IF VendLedgEntry."Document No." <> '' THEN
                     //     "PartTime Claim" := VendLedgEntry."PartTime Claim";
