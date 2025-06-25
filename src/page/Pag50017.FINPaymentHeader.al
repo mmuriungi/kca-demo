@@ -59,6 +59,10 @@ page 50017 "FIN-Payment Header"
                     Editable = PaymentNarrationEditable;
                     ShowMandatory = true;
                 }
+                field("PV Category"; Rec."PV Category")
+                {
+                    ApplicationArea = All;
+                }
                 field("On Behalf Of"; Rec."On Behalf Of")
                 {
                     Editable = false;
