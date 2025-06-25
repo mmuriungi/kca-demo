@@ -2328,11 +2328,8 @@ table 50213 "HRM-Employee C"
         {
         }
         //"Secondary Income"
-        field(63219; "Secondary Income"; boolean)
+        field(63219; "Secondary Income"; Boolean)
         {
-            DataClassification = ToBeClassified;
-            Caption = 'Secondary Income';
-            //  DecimalPlaces = 2 : 2;
         }
     }
 
