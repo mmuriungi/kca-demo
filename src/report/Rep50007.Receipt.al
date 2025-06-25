@@ -63,6 +63,8 @@ report 50007 Receipt
                 trigger OnAfterGetRecord()
                 begin
                     TotalAmount := TotalAmount + "FIN-Receipt Line q".Amount;
+                    if "FIN-Receipt Line q"."Received From" = '' then "Received From" := "FIN-Receipts Header"."Received From";
+                    if "FIN-Receipt Line q"."Received From" = '' then "Received From" := "FIN-Receipts Header"."On Behalf Of";
 
                     CheckReport.InitTextVariable;
                     CheckReport.FormatNoText(NumberText, TotalAmount, '');
@@ -71,6 +73,7 @@ report 50007 Receipt
 
             trigger OnAfterGetRecord()
             begin
+                if "Received From" = '' then "Received From" := "FIN-Receipts Header"."On Behalf Of";
                 TotalAmount := 0;
             end;
         }
