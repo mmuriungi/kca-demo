@@ -768,7 +768,7 @@ table 50024 "FIN-Payment Line"
                 Text000: Label 'You must specify %1 or %2.';
                 ApplyVendEntries: Page "Apply Vendor Entries 2";
                 InvoiceNos: Text[2048];
-                //ApplyEntries: Page "Apply Vendor Entries 2";
+            //ApplyEntries: Page "Apply Vendor Entries 2";
             begin
                 //CODEUNIT.RUN(CODEUNIT::"Payment Voucher Apply",Rec);
 
@@ -828,7 +828,7 @@ table 50024 "FIN-Payment Line"
                             InvoiceNos := VendLedgEntry."Document No."
                         ELSE
                             InvoiceNos := InvoiceNos + ', ' + VendLedgEntry."Document No.";
-                        Amount += VendLedgEntry."Amount to Apply";
+                        Amount += Abs(VendLedgEntry."Amount to Apply");
                     // If you need other fields from the first record
                     // IF VendLedgEntry."Document No." <> '' THEN
                     //     "PartTime Claim" := VendLedgEntry."PartTime Claim";
