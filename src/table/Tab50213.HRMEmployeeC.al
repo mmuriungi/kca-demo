@@ -218,7 +218,7 @@ table 50213 "HRM-Employee C"
         field(11; "Post Code"; Code[20])
         {
             TableRelation = "Post Code";
-            //This property is currently not supported
+            ///This property is currently not supported
             //TestTableRelation = false;
             ValidateTableRelation = false;
 
@@ -2328,11 +2328,8 @@ table 50213 "HRM-Employee C"
         {
         }
         //"Secondary Income"
-        field(63219; "Secondary Income"; boolean)
+        field(63219; "Secondary Income"; Boolean)
         {
-            DataClassification = ToBeClassified;
-            Caption = 'Secondary Income';
-            //  DecimalPlaces = 2 : 2;
         }
     }
 
