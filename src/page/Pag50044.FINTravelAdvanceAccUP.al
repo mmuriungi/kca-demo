@@ -503,7 +503,8 @@ page 50044 "FIN-Travel Advance Acc. UP"
 
                         //GenerateReceipt();
                         // Message('Available');
-                        CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", GenJnlLine);
+                        if GenJnlLine.FindSet() then
+                        CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnlLine);
                     END;
 
                     //IF JournalPostSuccessful.PostedSuccessfully THEN BEGIN
