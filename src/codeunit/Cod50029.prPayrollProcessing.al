@@ -206,6 +206,8 @@ codeunit 50029 prPayrollProcessing
         i: Integer;
         BalAccType: enum "Gen. Journal Account Type";
         BalAccCode: Code[20];
+        Disabled: Boolean;
+        Employee: Record "HRM-Employee C";
     begin
         //Initialize
         if dtDOE = 0D then dtDOE := CalcDate('1M', Today);
@@ -232,6 +234,8 @@ codeunit 50029 prPayrollProcessing
         HREmp2.SetRange(HREmp2."No.", strEmpCode);
         HREmp2.SetRange(HREmp2."Date Filter", CalcDate('-cm', SelectedPeriod), CalcDate('cm', SelectedPeriod));
         if HREmp2.Find('-') then begin
+            Disabled := HREmp2."Physical Disability";
+
             // HREmp2.CALCFIELDS(HREmp2."Total Hours Worked") ;
             if (HREmp2."Based On Hours worked" = HREmp2."Based On Hours worked"::BasedOnWorkedHrs) then begin
                 ExpectedWorkHrs := MonthlyExpectedWorkHrs;
@@ -1433,7 +1437,7 @@ codeunit 50029 prPayrollProcessing
 
 
 
-
+            if Disabled then curPAYE := 0;
             if not blnPaysPaye then curPAYE := 0; //Get statutory Exemption for the staff. If exempted from tax, set PAYE=0
             curTransAmount := curPAYE;
             if curPAYE < 0 then curTransAmount := 0;
