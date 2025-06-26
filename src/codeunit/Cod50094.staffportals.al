@@ -777,7 +777,9 @@ codeunit 50094 staffportals
         IF LeaveT.FIND('-')
         THEN BEGIN
             ApprovalMgmtHr.IsLeaveEnabled(LeaveT);
+            ApprovalMgmtHr.UpdateLeaveWorkflow(LeaveT);
             ApprovalMgmtHr.OnSendLeavesforApproval(LeaveT);
+            ApprovalMgmtHr.ResetLeaveWorkflow(LeaveT);
         end
     end;
 
@@ -788,7 +790,9 @@ codeunit 50094 staffportals
         IF LeaveT.FIND('-')
         THEN BEGIN
             if (ApprovalMgmtHr.IsLeaveEnabled(LeaveT) = true) THEN begin
+                ApprovalMgmtHr.UpdateLeaveWorkflow(LeaveT);
                 ApprovalMgmtHr.OnSendLeavesforApproval(LeaveT);
+                ApprovalMgmtHr.ResetLeaveWorkflow(LeaveT);
                 send := true;
             end;
         end

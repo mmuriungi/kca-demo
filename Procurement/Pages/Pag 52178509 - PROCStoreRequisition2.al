@@ -41,6 +41,10 @@ page 52178509 "PROC-Store Requisition2"
                 {
                     ApplicationArea = all;
                 }
+                field(Amount; Rec.Amount)
+                {
+                    ApplicationArea = all;
+                }
 
                 field("User ID"; Rec."User ID")
                 {
@@ -85,6 +89,19 @@ page 52178509 "PROC-Store Requisition2"
     {
         area(processing)
         {
+            action(Release)
+            {
+                ApplicationArea = all;
+                Caption = 'Release';
+                Image = Release;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                begin
+                    Rec.Status := Rec.Status::Released;
+                    Rec.Modify;
+                end;
+            }
             group("&Functions")
             {
                 Caption = '&Functions';

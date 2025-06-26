@@ -1,4 +1,4 @@
-report 52178710 "Store Requisition"
+report 52178710 "Store Requisition OLD"
 {
     DefaultLayout = RDLC;
     UsageCategory = ReportsAndAnalysis;

@@ -594,21 +594,21 @@ codeunit 50089 "Approval Workflows V1"
             Database::"Gen-Venue Booking":
                 begin
                     RecRef.SetTable(VenueBooking);
-                    VenueBooking.Validate(Status, VenueBooking.Status::"Pending Approval");
+                    VenueBooking.Validate(Status, VenueBooking.Status::New);
                     VenueBooking.Modify();
                     Handled := true;
                 end;
             Database::"Audit Header":
                 begin
                     RecRef.SetTable(AuditHeader);
-                    AuditHeader.Validate("Status", AuditHeader.Status::"Pending Approval");
+                    AuditHeader.Validate("Status", AuditHeader.Status::open);
                     AuditHeader.Modify();
                     Handled := true;
                 end;
             Database::"PROC-Store Requistion Header":
                 begin
                     RecRef.SetTable(StoreRequisition);
-                    StoreRequisition.Validate("Status", StoreRequisition.Status::"Pending Approval");
+                    StoreRequisition.Validate("Status", StoreRequisition.Status::open);
                     StoreRequisition.Modify();
                     Handled := true;
                 end;

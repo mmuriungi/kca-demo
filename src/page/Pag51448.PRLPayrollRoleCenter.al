@@ -1491,6 +1491,23 @@ page 51448 "PRL-Payroll Role Center"
                     RunObject = Page "FLT-Transport Req. List";
                 }
             }
+            group("Payables")
+            {
+                action("Bank Accounts")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Bank Accounts';
+                    Image = Bank;
+                    RunObject = Page "Bank Account List";
+                }
+                action("Bank Reconciliation")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Bank Reconciliation';
+                    Image = Reconciliation;
+                    RunObject = Page "Bank Acc. Reconciliation List";
+                }
+            }
         }
         area(Embedding)
         {
