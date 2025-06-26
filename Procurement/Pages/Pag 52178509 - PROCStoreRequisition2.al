@@ -41,6 +41,10 @@ page 52178509 "PROC-Store Requisition2"
                 {
                     ApplicationArea = all;
                 }
+                field(Amount;Rec.Amount)
+                {
+                    ApplicationArea = all;
+                }
 
                 field("User ID"; Rec."User ID")
                 {
