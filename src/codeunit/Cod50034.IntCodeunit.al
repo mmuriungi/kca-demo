@@ -37,16 +37,48 @@ codeunit 50034 IntCodeunit
                     WrkflUsrGrpMember.Modify();
                 until WrkflUsrGrpMember.Next() = 0;
             end;
-
-
             WrkflUsrGrpMemberII.Init();
             WrkflUsrGrpMemberII."Workflow User Group Code" := WrkflUserGroup.Code;
             WrkflUsrGrpMemberII."User Name" := UsersID;
             WrkflUsrGrpMemberII."Sequence No." := 1;
             WrkflUsrGrpMemberII.Insert();
+        end;
+    end;
+
+    procedure ResetLeaveWorkflow(var Leave: Record "HRM-Leave Requisition")
+    var
+        WrkflUserGroup: Record "Workflow User Group";
+        WrkflUsrGrpMember: Record "Workflow User Group Member";
+        WrkflUsrGrpMemberII: Record "Workflow User Group Member";
+        Emp: Record "HRM-Employee C";
+        UsersID: Code[50];
+    begin
+        WrkflUserGroup.Reset();
+        WrkflUserGroup.SetRange("Department Code", Leave."Department Code");
+        if WrkflUserGroup.FindFirst() then begin
+            Emp.Reset();
+            Emp.SetRange("No.", Leave."Reliever No.");
+            if Emp.FindFirst() then begin
+                UsersID := Emp."User ID";
+            end;
+            WrkflUsrGrpMember.Reset();
+            WrkflUsrGrpMember.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
+            WrkflUsrGrpMember.SetFilter("User Name", '<>%1', UsersID);
+            if WrkflUsrGrpMember.Find('-') then begin
+                repeat
+                    WrkflUsrGrpMember."Sequence No." := WrkflUsrGrpMember."Sequence No." - 1;
+                    WrkflUsrGrpMember.Modify();
+                until WrkflUsrGrpMember.Next() = 0;
+            end;
+
+            WrkflUsrGrpMemberII.Reset();
+            WrkflUsrGrpMemberII.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
+            WrkflUsrGrpMemberII.SetRange("User Name", UsersID);
+            if WrkflUsrGrpMemberII.Find('-') then begin
+                WrkflUsrGrpMemberII.Delete();
+            end;
 
         end;
-
     end;
 
     procedure IsLeaveEnabled(var Leave: Record "HRM-Leave Requisition"): Boolean

@@ -2875,6 +2875,7 @@ Codeunit 61106 webportals
             //AppMgt.SendApproval(tableNo,NextLeaveApplicationNo,DocType,State);
             ApprovHR.UpdateLeaveWorkflow("HR Leave Application");
             ApprovHR.OnSendLeavesforApproval("HR Leave Application");
+            ApprovHR.ResetLeaveWorkflow("HR Leave Application");
         end;
     end;
 
