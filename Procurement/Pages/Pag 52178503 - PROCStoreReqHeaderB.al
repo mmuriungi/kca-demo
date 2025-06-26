@@ -136,7 +136,19 @@ page 52178503 "PROC-Store Req. Header (B)"
     {
         area(processing)
         {
-
+            action(Release)
+            {
+                ApplicationArea = all;
+                Caption = 'Release';
+                Image = Release;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                begin
+                    Rec.Status := Rec.Status::Released;
+                    Rec.Modify;
+                end;
+            }
 
             action("Post Store Requisition")
             {
@@ -260,7 +272,7 @@ page 52178503 "PROC-Store Req. Header (B)"
             {
                 ApplicationArea = all;
                 Caption = 'Send A&pproval Request';
-                Image = SendApprovalRequest; 
+                Image = SendApprovalRequest;
                 Promoted = true;
                 PromotedCategory = category4;
                 trigger OnAction()
