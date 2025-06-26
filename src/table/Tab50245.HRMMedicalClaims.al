@@ -16,10 +16,10 @@ table 50245 "HRM-Medical Claims"
                 IF HREmpl.FIND('-') THEN BEGIN
                     "Member Names" := HREmpl."First Name" + ' ' + HREmpl."Middle Name" + ' ' + HREmpl."Last Name";
 
-                    HREmpl.TestField("Responsibility Center");
+                    //HREmpl.TestField("Responsibility Center");
                     HREmpl.TestField(Campus);
                     HREmpl.TestField("Department Code");
-                    HREmpl.TestField("Faculty Code");
+                    //HREmpl.TestField("Faculty Code");
                     "Global Dimension 1 Code" := HREmpl.Campus;
                     "Global Dimension 2 Code" := HREmpl."Department Code";
                     "Shortcut Dimension 3 Code" := HREmpl."Faculty Code";
