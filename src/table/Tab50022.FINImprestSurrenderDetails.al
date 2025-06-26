@@ -294,11 +294,16 @@ table 50022 "FIN-Imprest Surrender Details"
         {
 
         }
+        //Entry No.
+        field(33; "Entry No."; Integer)
+        {
+            AutoIncrement = true;
+        }
     }
 
     keys
     {
-        key(Key1; "Surrender Doc No.", LineNo, "Account No:")
+        key(Key1; "Surrender Doc No.", LineNo, "Account No:", "Entry No.")
         {
             Clustered = true;
             SumIndexFields = "Amount LCY", "Imprest Req Amt LCY", "Actual Spent";
