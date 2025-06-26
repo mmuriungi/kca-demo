@@ -69,7 +69,7 @@ page 52178503 "PROC-Store Req. Header (B)"
                 }
                 field("Issue Date"; Rec."Issue Date")
                 {
-                    Editable = false;
+                    Editable = true;
                     ApplicationArea = all;
                 }
                 field("Issuing Store"; Rec."Issuing Store")
