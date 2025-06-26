@@ -327,7 +327,6 @@ table 50022 "FIN-Imprest Surrender Details"
 
     trigger OnInsert()
     begin
-        LineNo := getNextEntLineNo();
     end;
 
     procedure getNextEntLineNo(): Integer
