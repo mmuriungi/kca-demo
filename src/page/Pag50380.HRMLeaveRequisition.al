@@ -143,7 +143,10 @@ page 50380 "HRM-Leave Requisition"
                     approvalmgt: Codeunit IntCodeunit;
                 begin
                     if Rec.Status = Rec.Status::Open then
+                    begin
+                        approvalmgt.UpdateLeaveWorkflow(Rec);
                         approvalmgt.OnSendLeavesforApproval(Rec)
+                    end
                     else
                         Error('Status is not open');
                 end;

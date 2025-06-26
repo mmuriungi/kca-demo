@@ -338,7 +338,14 @@ page 50046 "Procurement Management"
             group("Store Requisition")
             {
                 Caption = 'Store Requisitions';
-
+                action("Store Requisitions")
+                {
+                    Caption='Open Store Requisitions';
+                    ApplicationArea = all;
+                    RunObject = Page "PROC-Store Requisition2";
+                    RunPageView = where(status = filter(open));
+                }
+                
                 action("Storess Requisitions")
                 {
                     ApplicationArea = all;

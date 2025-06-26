@@ -11,6 +11,43 @@ codeunit 50034 IntCodeunit
     begin
     end;
 
+    procedure UpdateLeaveWorkflow(var Leave: Record "HRM-Leave Requisition")
+    var
+        WrkflUserGroup: Record "Workflow User Group";
+        WrkflUsrGrpMember: Record "Workflow User Group Member";
+        WrkflUsrGrpMemberII: Record "Workflow User Group Member";
+        Emp: Record "HRM-Employee C";
+        UsersID: Code[50];
+        Sequence: Integer;
+    begin
+        WrkflUserGroup.Reset();
+        WrkflUserGroup.SetRange("Department Code", Leave."Department Code");
+        if WrkflUserGroup.FindFirst() then begin
+            Emp.Reset();
+            Emp.SetRange("No.", Leave."Reliever No.");
+            if Emp.FindFirst() then begin
+                UsersID := Emp."User ID";
+            end;
+            WrkflUsrGrpMemberII.Init();
+            WrkflUsrGrpMemberII."Workflow User Group Code" := WrkflUserGroup.Code;
+            WrkflUsrGrpMemberII."User Name" := UsersID;
+            WrkflUsrGrpMemberII."Sequence No." := 1;
+            WrkflUsrGrpMemberII.Insert();
+            WrkflUsrGrpMember.Reset();
+            WrkflUsrGrpMember.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
+            WrkflUsrGrpMember.SetCurrentKey("Sequence No.");
+            WrkflUsrGrpMember.SetAscending("Sequence No.", true);
+            if WrkflUsrGrpMember.Find('-') then begin
+                repeat
+                    Sequence := Sequence + 1;
+                    WrkflUsrGrpMember."Sequence No." := Sequence;
+                    WrkflUsrGrpMember.Modify();
+                until WrkflUsrGrpMember.Next() = 0;
+            end;
+        end;
+
+    end;
+
     procedure IsLeaveEnabled(var Leave: Record "HRM-Leave Requisition"): Boolean
     var
         WFMngt: Codeunit "Workflow Management";
