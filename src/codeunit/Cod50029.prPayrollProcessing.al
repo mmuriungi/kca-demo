@@ -206,6 +206,8 @@ codeunit 50029 prPayrollProcessing
         i: Integer;
         BalAccType: enum "Gen. Journal Account Type";
         BalAccCode: Code[20];
+        Disabled: Boolean;
+        Employee: Record "HRM-Employee C";
     begin
         //Initialize
         if dtDOE = 0D then dtDOE := CalcDate('1M', Today);
@@ -232,6 +234,8 @@ codeunit 50029 prPayrollProcessing
         HREmp2.SetRange(HREmp2."No.", strEmpCode);
         HREmp2.SetRange(HREmp2."Date Filter", CalcDate('-cm', SelectedPeriod), CalcDate('cm', SelectedPeriod));
         if HREmp2.Find('-') then begin
+            Disabled := HREmp2."Physical Disability";
+
             // HREmp2.CALCFIELDS(HREmp2."Total Hours Worked") ;
             if (HREmp2."Based On Hours worked" = HREmp2."Based On Hours worked"::BasedOnWorkedHrs) then begin
                 ExpectedWorkHrs := MonthlyExpectedWorkHrs;
@@ -502,6 +506,14 @@ codeunit 50029 prPayrollProcessing
                                 prEmployeeTransactions.MODIFY;
                             END;
                             curTransAmount := ROUND(curTransAmount);
+                            //Prorate amount based on days worked
+                            IF prTransactionCodes."Prorate Payment" THEN begin
+                                IF (DATE2DMY(dtDOE, 2) = DATE2DMY(dtOpenPeriod, 2)) AND (DATE2DMY(dtDOE, 3) = DATE2DMY(dtOpenPeriod, 3)) THEN BEGIN
+                                    CountDaysofMonth := fnDaysInMonth(dtDOE);
+                                    DaysWorked := fnDaysWorked(dtDOE, FALSE);
+                                    curTransAmount := fnBasicPayProrated(strEmpCode, intMonth, intYear, curTransAmount, DaysWorked, CountDaysofMonth)
+                                END;
+                            end;
                         end
                         else begin
                             curTransAmount := prEmployeeTransactions.Amount;
@@ -869,7 +881,7 @@ codeunit 50029 prPayrollProcessing
 
                 EmpPensionContrib := curBasicPay * (0.2);
                 //Employer pension Contribution
-                fnUpdatePeriodTrans(strEmpCode, 'NEmprPension', 'NEmprPension', 14, 0, 'Employer Pension', EmpPensionContrib, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
+                fnUpdatePeriodTrans(strEmpCode, 'EMPPENSION', 'EMPPENSION', 14, 0, 'Employer Pension', EmpPensionContrib, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
 
             END;
             // PREmpTrans_2.Reset();
@@ -1425,7 +1437,7 @@ codeunit 50029 prPayrollProcessing
 
 
 
-
+            if Disabled then curPAYE := 0;
             if not blnPaysPaye then curPAYE := 0; //Get statutory Exemption for the staff. If exempted from tax, set PAYE=0
             curTransAmount := curPAYE;
             if curPAYE < 0 then curTransAmount := 0;
@@ -3133,7 +3145,7 @@ codeunit 50029 prPayrollProcessing
     begin
         SpecialTransAmount := 0;
         prTransactionCodes.Reset;
-        prTransactionCodes.SetRange(prTransactionCodes."Special Transactions", intSpecTransID);
+        //prTransactionCodes.SetRange(prTransactionCodes."Special Transactions", intSpecTransID);
         prTransactionCodes.SetRange(prTransactionCodes.Pension, true);
         if prTransactionCodes.Find('-') then begin
             repeat
