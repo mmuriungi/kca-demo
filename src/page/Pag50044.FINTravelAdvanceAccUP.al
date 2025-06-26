@@ -300,7 +300,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                             //Compare the amount issued =amount on cash reciecied.
                             //Created new field for zero spent
                             //
-
+                            ImprestDetails.TestField("Actual Spent");
                             //ImprestDetails.TESTFIELD("Actual Spent");
                             //ImprestDetails.TESTFIELD("Actual Spent");
                             IF (ImprestDetails."Cash Receipt Amount" + ImprestDetails."Actual Spent") <> ImprestDetails.Amount THEN
