@@ -106,6 +106,12 @@ table 50388 "PRL-Employee P9 Info"
             FieldClass = FlowField;
             CalcFormula = Sum("PRL-Period Transactions".Amount WHERE("Employee Code" = FIELD("Employee Code"), "Payroll Period" = FIELD("Payroll Period"), "Transaction Code" = CONST('SHIF')));
         }
+        //Allow view online
+        field(50004; "Allow View Online"; Boolean)
+        {
+            FieldClass = FlowField;
+            CalcFormula=lookup("PRL-Payroll Periods"."Allow View of Online Payslips" where("Date Opened"=field("Payroll Period")));
+        }
     }
 
     keys

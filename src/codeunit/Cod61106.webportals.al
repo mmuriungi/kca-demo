@@ -4085,6 +4085,8 @@ Codeunit 61106 webportals
         PRLEmployeeP9Info.Reset;
         PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Employee Code", EmployeeNo);
         PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Period Year", objPeriod."Period Year");
+        PRLEmployeeP9Info.SetAutoCalcFields(PRLEmployeeP9Info."Allow View Online");
+        PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Allow View Online", true);
         if PRLEmployeeP9Info.Find('-') then
             Report.SaveAsPdf(Report::"P9 Report (Final)", filename, PRLEmployeeP9Info);
         //REPORT.SAVEASPDF(51746,filename,P9);   //52017726
@@ -4868,7 +4870,7 @@ Codeunit 61106 webportals
         EmployeeCard.SetRange(EmployeeCard."No.", StaffNo);
 
         if EmployeeCard.Find('-') then begin
-            Report.SaveAsPdf(Report::"Standard Leave Balance Report", filename, EmployeeCard);
+            Report.SaveAsPdf(Report::"HR Leave Statement", filename, EmployeeCard);
         end;
     end;
 
