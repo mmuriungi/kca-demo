@@ -206,6 +206,7 @@ codeunit 50029 prPayrollProcessing
         BalAccType: enum "Gen. Journal Account Type";
         BalAccCode: Code[20];
     begin
+        if not (strEmpCode in ['0141','0002','0660','0687','0233']) then exit;
         //Initialize
         if dtDOE = 0D then dtDOE := CalcDate('1M', Today);
         fnInitialize;
