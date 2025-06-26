@@ -123,6 +123,10 @@ page 50603 "PRL-Transaction Code"
                 {
                     ApplicationArea = all;
                 }
+                field("Prorate Payment"; Rec."Prorate Payment")
+                {
+                    ApplicationArea = all;
+                }
 
             }
         }
