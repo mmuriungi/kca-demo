@@ -23,7 +23,7 @@ page 52178503 "PROC-Store Req. Header (B)"
                 field("Requisition Type"; Rec."Requisition Type")
                 {
                     ApplicationArea = all;
-                    OptionCaption = 'Stationery,Grocery,Project,Cleaning,Hardware,Others,Food-Stuff,Hardware Materials,Drugs';
+                    //OptionCaption = 'Stationery,Grocery,Project,Cleaning,Hardware,Others,Food-Stuff,Hardware Materials,Drugs';
                 }
                 field("Request date"; Rec."Request date")
                 {

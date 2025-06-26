@@ -174,7 +174,7 @@ table 52178702 "PROC-Store Requistion Header"
         field(85; "Responsibility Center"; Code[20])
         {
             Caption = 'Responsibility Center';
-            TableRelation = "Responsibility Center".Code ;//where(grouping = filter('SRN'));
+            TableRelation = "Responsibility Center".Code;//where(grouping = filter('SRN'));
 
             trigger OnValidate()
             begin
@@ -244,8 +244,9 @@ table 52178702 "PROC-Store Requistion Header"
         }
         field(50050; "Requisition Type"; Option)
         {
-            OptionCaption = 'Stationery,Project,Cleaning,Hardware,Others';
-            OptionMembers = Stationery,Grocery,Project,Cleaning,Hardware,Others;
+            //OptionCaption = 'Stationery,Project,Cleaning,Hardware,Others';
+            OptionMembers = Stationery,Grocery,Project,Cleaning,Hardware,"Food-Stuff",Drugs,others;
+            //Stationery,Grocery,Project,Cleaning,Hardware,Others,Food-Stuff,Hardware Materials,Drugs'
         }
         field(50051; "Department Name"; Text[250])
         {
