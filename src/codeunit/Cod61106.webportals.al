@@ -2837,6 +2837,7 @@ Codeunit 61106 webportals
             EmployeeUserId := "Employee Card"."User ID";
             LeaveT."Employee No" := EmployeeNo;
             LeaveT."Employee Name" := "Employee Card".FullName;
+            LeaveT."Department Code" := "Employee Card"."Department Code";
             "Supervisor Card".Reset;
             "Supervisor Card".SetRange("Supervisor Card"."User ID", "Employee Card"."User ID");
             if "Supervisor Card".Find('-')
