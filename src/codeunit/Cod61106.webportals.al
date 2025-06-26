@@ -12,7 +12,7 @@ Codeunit 61106 webportals
     end;
 
     var
-        FILESPATH: label 'C:\inetpub\wwwroot\Downloads\';
+        FILESPATH: label '\\172.16.0.114\PortalDownloads\';
         ProgramUnits: Record "ACA-Semester";
         "Employee Card": Record "HRM-Employee C";
         "HR Leave Application": Record "HRM-Leave Requisition";
@@ -50,7 +50,7 @@ Codeunit 61106 webportals
         AppMgt: Codeunit "Approval Workflows V1";
         // ApprovalSetup: Record UnknownRecord452;
         Text004: label 'Approval Setup not found.';
-        FILESPATH_S: label 'C:\inetpub\wwwroot\Downloads\';
+        FILESPATH_S: label '\\172.16.0.114\PortalDownloads\';
         RelieverName: Text;
         LeaveLE: Record "HRM-Leave Ledger";
         ExamResults: Record "ACA-Exam Results";
@@ -94,7 +94,7 @@ Codeunit 61106 webportals
         VoteElection: Record "ELECT Election Result";
         KUCCPSRaw: Record "KUCCPS Imports";
         AdmissionFormHeader: Record "ACA-Adm. Form Header";
-        FILESPATH_A: label 'C:\inetpub\wwwroot\Downloads\';
+        FILESPATH_A: label '\\172.16.0.114\PortalDownloads\';
         OnlineUsersz: Record "OnlineUsers";
         AplicFormHeader: Record "ACA-Applic. Form Header";
         ProgEntrySubjects: Record "ACA-Programme Entry Subjects";
@@ -3278,11 +3278,18 @@ Codeunit 61106 webportals
     var
         "prSalary Card": record "PRL-Salary Card";
         HrmEmployeeC: record "HRM-Employee C";
+        PayrolPeriod: Record "PRL-Payroll Periods";
     begin
         filename := FILESPATH_S + filenameFromApp;
         if Exists(filename) then
             Erase(filename);
         //MESSAGE('OK');
+        PayrolPeriod.Reset;
+        PayrolPeriod.SetRange(PayrolPeriod."Date Opened", Period);
+        if PayrolPeriod.Find('-') then begin
+            if not PayrolPeriod."Allow View of Online Payslips" then
+                exit;
+        end;
         SalaryCard.Reset;
         SalaryCard.SetRange(SalaryCard."Employee Code", EmployeeNo);
         SalaryCard.SetRange(SalaryCard."Payroll Period", Period);
@@ -12557,24 +12564,24 @@ Codeunit 61106 webportals
                     JObj.Add('Status', Format(MileageClaimLines.Status));
                     JArray.Add(JObj);
                 end;
-            MileageClaimLines.Reset;
-            MileageClaimLines.SetRange("Mileage Claim No.", MileageClaimHeader."No.");
-            if MileageClaimLines.FindSet() then begin
-                Clear(JObj);
-                JObj.Add('RequisitionNo', MileageClaimLines."Mileage Claim No.");
-                JObj.Add('VehicleRegNo', MileageClaimLines."Vehicle Registration No.");
-                JObj.Add('VehicleModel', MileageClaimLines."Vehicle Model");
-                JObj.Add('EngineCapacity', MileageClaimLines."Engine Capacity");
-                JObj.Add('StartingPoint', MileageClaimLines."Starting Point");
-                JObj.Add('Destination', MileageClaimLines.Destination);
-                JObj.Add('Passengers', MileageClaimLines."Number of Passengers");
-                JObj.Add('Purpose', MileageClaimLines."Purpose of Trip");
-                JObj.Add('TravelDate', Format(MileageClaimLines."Travel Date"));
-                JObj.Add('Distance', Format(MileageClaimLines."Distance (KM)"));
-                JObj.Add('Amount', Format(MileageClaimLines."Total Cost"));
-                JObj.Add('Status', Format(MileageClaimHeader.Status));
-                JArray.Add(JObj);
-            end;
+                MileageClaimLines.Reset;
+                MileageClaimLines.SetRange("Mileage Claim No.", MileageClaimHeader."No.");
+                if MileageClaimLines.FindSet() then begin
+                    Clear(JObj);
+                    JObj.Add('RequisitionNo', MileageClaimLines."Mileage Claim No.");
+                    JObj.Add('VehicleRegNo', MileageClaimLines."Vehicle Registration No.");
+                    JObj.Add('VehicleModel', MileageClaimLines."Vehicle Model");
+                    JObj.Add('EngineCapacity', MileageClaimLines."Engine Capacity");
+                    JObj.Add('StartingPoint', MileageClaimLines."Starting Point");
+                    JObj.Add('Destination', MileageClaimLines.Destination);
+                    JObj.Add('Passengers', MileageClaimLines."Number of Passengers");
+                    JObj.Add('Purpose', MileageClaimLines."Purpose of Trip");
+                    JObj.Add('TravelDate', Format(MileageClaimLines."Travel Date"));
+                    JObj.Add('Distance', Format(MileageClaimLines."Distance (KM)"));
+                    JObj.Add('Amount', Format(MileageClaimLines."Total Cost"));
+                    JObj.Add('Status', Format(MileageClaimHeader.Status));
+                    JArray.Add(JObj);
+                end;
             until MileageClaimHeader.Next = 0;
             JArray.WriteTo(JsTxt);
             msg := JsTxt;
