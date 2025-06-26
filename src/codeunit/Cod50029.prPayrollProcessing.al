@@ -1219,37 +1219,37 @@ codeunit 50029 prPayrollProcessing
             //Check if employee is disabled
             HREmp2.Reset;
             if HREmp2.Get(strEmpCode) then begin
-                if HREmp2."Physical Disability" = true then begin
-                    if curTaxablePay >= curDisabledLimit then begin
-                        //If taxable pay is greater than limit
-                        curTaxCharged := fnGetEmployeePaye(curTaxablePay - curDisabledLimit);
-                        curTransAmount := curTransAmount;
-                        curTransAmount := curTaxCharged;
-                        strTransDescription := 'Tax Charged';
-                        TGroup := 'TAX COMPUTATION';
-                        TGroupOrder := 6;
-                        TSubGroupOrder := 7; //CHANGE tax calculations TO PAYE INFORMATION-HOSEA  // change TGroupOrder :=6 to 7
-                        fnUpdatePeriodTrans(strEmpCode, 'TXCHRG', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
-                        curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '',
-                        CoopParameters::none);
-                    end else begin
-                        //If taxable pay is lower than limit
-                        //curTaxCharged := fnGetEmployeePaye(curTaxablePay);
-                        curTaxCharged := 0;
-                        curTransAmount := curTransAmount;
-                        curTransAmount := curTaxCharged;
-                        strTransDescription := 'Tax Charged';
-                        TGroup := 'TAX COMPUTATION';
-                        TGroupOrder := 6;
-                        TSubGroupOrder := 7;//CHANGE tax calculations TO PAYE INFORMATION-HOSEA // change TGroupOrder :=6 to 7
-                        fnUpdatePeriodTrans(strEmpCode, 'TXCHRG', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
-                        curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '',
-                        CoopParameters::none);
-                        // END
-                    end;
-                end
+                // if HREmp2."Physical Disability" = true then begin
+                //     if curTaxablePay >= curDisabledLimit then begin
+                //         //If taxable pay is greater than limit
+                //         curTaxCharged := fnGetEmployeePaye(curTaxablePay - curDisabledLimit);
+                //         curTransAmount := curTransAmount;
+                //         curTransAmount := curTaxCharged;
+                //         strTransDescription := 'Tax Charged';
+                //         TGroup := 'TAX COMPUTATION';
+                //         TGroupOrder := 6;
+                //         TSubGroupOrder := 7; //CHANGE tax calculations TO PAYE INFORMATION-HOSEA  // change TGroupOrder :=6 to 7
+                //         fnUpdatePeriodTrans(strEmpCode, 'TXCHRG', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
+                //         curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '',
+                //         CoopParameters::none);
+                //     end else begin
+                //         //If taxable pay is lower than limit
+                //         //curTaxCharged := fnGetEmployeePaye(curTaxablePay);
+                //         curTaxCharged := 0;
+                //         curTransAmount := curTransAmount;
+                //         curTransAmount := curTaxCharged;
+                //         strTransDescription := 'Tax Charged';
+                //         TGroup := 'TAX COMPUTATION';
+                //         TGroupOrder := 6;
+                //         TSubGroupOrder := 7;//CHANGE tax calculations TO PAYE INFORMATION-HOSEA // change TGroupOrder :=6 to 7
+                //         fnUpdatePeriodTrans(strEmpCode, 'TXCHRG', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription,
+                //         curTransAmount, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '',
+                //         CoopParameters::none);
+                //         // END
+                //     end;
+                // end
 
-                else begin
+                /* else */ begin
 
                     //Added for deployed
                     if HREmp2."Employee Category" = 'DEPLOYED' then begin
