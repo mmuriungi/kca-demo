@@ -12593,50 +12593,161 @@ Codeunit 61106 webportals
         end;
     end;
 
-    procedure ApproveDocument(DocumentNo: Code[20]; TableID: Integer; ApproverID: Code[20])
+    procedure FnActionApprovals(TableID: Integer; DocumentNo: Code[50]; EntryNo: Integer; StatusApproveRejectDelegate: text[50]; ApprovalComment: text[80]; ApproverID: Code[50]) retVal: Boolean
     var
-        AppEntry: Record "Approval Entry";
-        Pg: page "Requests to Approve";
+        ApprovalEntryNo: Integer;
+        ObjApprovalEntry: Record "Approval Entry";
+        ObjApprovalEntry2: Record "Approval Entry";
+        ObjApprovalEntry3: Record "Approval Entry";
+        SeqNo: Integer;
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
     begin
-        AppEntry.Reset;
-        AppEntry.SetRange("Document No.", DocumentNo);
-        AppEntry.SetRange("Table ID", TableID);
-        AppEntry.SetRange("Approver ID", ApproverID);
-        if AppEntry.FindSet() then begin
-            ApprovalsMgmt.ApproveApprovalRequests(AppEntry);
+        retVal := false;
+        StatusApproveRejectDelegate := LowerCase(StatusApproveRejectDelegate);
+
+        ObjApprovalEntry.Reset();
+        ObjApprovalEntry.SetRange("Table ID", TableID);
+        ObjApprovalEntry.SetRange("Entry No.", EntryNo);
+        ObjApprovalEntry.SetRange("Approver ID", ApproverID);
+        ObjApprovalEntry.SetRange("Document No.", DocumentNo);
+        if ObjApprovalEntry.Find('-') then begin
+            if StatusApproveRejectDelegate = 'approve' then begin
+                //CuApprovalMgtExtension.OnApproveApprovalRequest(ObjApprovalEntry);
+                ApprovalsMgmt.ApproveApprovalRequests(ObjApprovalEntry);
+                // Commit();
+                // ObjApprovalEntry2.Reset();
+                // ObjApprovalEntry2.Get(entryNo);
+                // ObjApprovalEntry2.Status := ObjApprovalEntry2.Status::Approved;
+                // ObjApprovalEntry2."Last Modified By User ID" := ApproverID;
+                // ObjApprovalEntry2.Modify();
+
+                // //Approve Same Sequence
+                // FnApproveSameSequenceRequests(ObjApprovalEntry, ApproverID);
+            end
+            else
+                if StatusApproveRejectDelegate = 'reject' then begin
+                    ApprovalsMgmt.RejectApprovalRequests(ObjApprovalEntry);
+                    // Commit();
+                    // ObjApprovalEntry2.Reset();
+                    // ObjApprovalEntry2.Get(entryNo);
+                    // ObjApprovalEntry2.Status := ObjApprovalEntry2.Status::Rejected;
+                    // ObjApprovalEntry2.Modify();
+                end
+                else
+                    if StatusApproveRejectDelegate = 'delegate' then begin
+                        ApprovalsMgmt.DelegateApprovalRequests(ObjApprovalEntry);
+                        // Commit();
+                        //FnUpdateDocumentApproval(ObjApprovalEntry."Table ID", ObjApprovalEntry."Document No.", 'delegated', ApproverID);
+                    end;
+
+            FnDocumentApprovalComments(documentNo, ApprovalComment, userID, ObjApprovalEntry."Document Type", ObjApprovalEntry."Record ID to Approve", ObjApprovalEntry."Sequence No.", ObjApprovalEntry."Table ID");
+            // Commit();
+
+            retVal := true;
         end;
     end;
 
-    // procedure GetRequestsToApprove(ApproverID: Code[20]): Text
-    // var
-    //     AppovEntry: Record "Approval Entry";
-    //     JObj: JsonObject;
-    //     JsTxt: Text;
-    //     JArray: JsonArray;
-    //     ReqT: page re
-    // begin
-    //     AppovEntry.Reset;
-    //     AppovEntry.SetRange("Approver ID", ApproverID);
-    //     if AppovEntry.FindSet() then begin
-    //         repeat
-    //             Clear(JObj);
-    //             JObj.Add('No', AppovEntry."No.");
-    //             JObj.Add('EmployeeNo', AppovEntry."Employee No");
-    //             JObj.Add('EmployeeName', AppovEntry."Employee Name");
-    //             JObj.Add('LeaveType', AppovEntry."Leave Type");
-    //             JObj.Add('AppliedDays', AppovEntry."Applied Days");
-    //             JObj.Add('StartingDate', AppovEntry."Starting Date");
-    //             JObj.Add('End Date', AppovEntry."End Date");
-    //             JObj.Add('ReturnDate', AppovEntry."Return Date");
-    //             JObj.Add('Purpose', LeaveT.Purpose);
-    //             JObj.Add('Status', LeaveT.Status);
-    //             JArray.Add(JObj);
-    //         until LeaveT.Next = 0;
-    //         JArray.WriteTo(JsTxt);
-    //         msg := JsTxt;
-    //     end;
-    // end;
+    local procedure FnIsFullyApproved(ApprovalEntry: Record "Approval Entry") retVal: Boolean
+    var
+        ObjApprovalEntry: Record "Approval Entry";
+    begin
+        retVal := true;
+        ObjApprovalEntry.Reset();
+        ObjApprovalEntry.SetRange("Document No.", ApprovalEntry."Document No.");
+        ObjApprovalEntry.SetFilter(Status, '%1|%2', ApprovalEntry.Status::Open, ObjApprovalEntry.Status::Created);
+        if ObjApprovalEntry.Find('-') then
+            retVal := false;
+    end;
+
+    local procedure FnDocumentApprovalComments(documentNo: Code[100]; comments: Text[250]; userID: Code[100]; documentType: Integer; record_id: RecordId; sequence: Integer; table_id: Integer) return_value: Boolean
+    var
+        NextEntryNo: Integer;
+        ObjApprovalCommentLines: Record "Approval Comment Line";
+        R: page "Requests to Approve";
+    begin
+        return_value := FALSE;
+        ObjApprovalCommentLines.RESET;
+        if ObjApprovalCommentLines.FINDLAST() then
+            NextEntryNo := ObjApprovalCommentLines."Entry No." + 1
+        else
+            NextEntryNo := 1;
+        //
+        ObjApprovalCommentLines.RESET;
+        ObjApprovalCommentLines.INIT;
+        ObjApprovalCommentLines."Entry No." := NextEntryNo;
+        ObjApprovalCommentLines."Table ID" := table_id;
+        ObjApprovalCommentLines."Document Type" := documentType;
+        ObjApprovalCommentLines."Document No." := documentNo;
+        ObjApprovalCommentLines."User ID" := userID;
+        ObjApprovalCommentLines.Comment := comments;
+        ObjApprovalCommentLines."Date and Time" := CURRENTDATETIME;
+        ObjApprovalCommentLines."Record ID to Approve" := record_id;
+        ObjApprovalCommentLines.INSERT;
+        return_value := true;
+    end;
+
+    procedure FnApproveSameSequenceRequests(ApprovalEntry: Record "Approval Entry"; UserId: Text[50])
+    var
+        ObjApprovalEntry: Record "Approval Entry";
+    begin
+        // approve other entries with same sequence
+        ObjApprovalEntry.Reset();
+        ObjApprovalEntry.SetRange("Document No.", ApprovalEntry."Document No.");
+        //ObjApprovalEntry.Setfilter("Approver ID", '<>%1', userId);
+        ObjApprovalEntry.SetRange(Status, ObjApprovalEntry.Status::Open);
+        ObjApprovalEntry.SetRange("Sequence No.", ApprovalEntry."Sequence No.");
+        if ObjApprovalEntry.FindSet() then begin
+            repeat
+                ObjApprovalEntry.Status := ObjApprovalEntry.Status::Approved;
+                ObjApprovalEntry."Last Date-Time Modified" := CurrentDateTime;
+                ObjApprovalEntry."Last Modified By User ID" := userId;
+                ObjApprovalEntry.Modify();
+            until ObjApprovalEntry.Next() = 0;
+        end;
+    end;
+
+    procedure GetRequestsToApprove(ApproverID: Code[20]) msg: Text
+    var
+        AppovEntry: Record "Approval Entry";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+        ReqT: page "Requests to Approve";
+    begin
+        AppovEntry.Reset;
+        AppovEntry.SetRange("Approver ID", ApproverID);
+        if AppovEntry.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('No', AppovEntry."Document No.");
+                JObj.Add('TableID', AppovEntry."Table ID");
+                JObj.Add('ApproverID', AppovEntry."Approver ID");
+                JObj.Add('RecordCaption', AppovEntry.RecordCaption());
+                JObj.Add('RecordDetails', AppovEntry.RecordDetails());
+                JObj.Add('Comment', AppovEntry.Comment);
+                JObj.Add('SenderID', AppovEntry."Sender ID");
+                JObj.Add('DueDate', AppovEntry."Due Date");
+                JObj.Add('Status', AppovEntry.Status);
+                JObj.Add('Amount', AppovEntry.Amount);
+                JObj.Add('AmountLCY', AppovEntry."Amount (LCY)");
+                JObj.Add('CurrencyCode', AppovEntry."Currency Code");
+                JArray.Add(JObj);
+            until AppovEntry.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetUserIDByStaffNo(staffNo: Code[20]): Text
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Reset;
+        UserSetup.SetRange("Staff No", staffNo);
+        if UserSetup.FindFirst() then
+            exit(UserSetup."User ID");
+        exit('');
+    end;
 }
 
 
