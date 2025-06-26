@@ -331,7 +331,8 @@ table 50021 "FIN-Imprest Surr. Header"
                   BEGIN
                     REPEAT
                         ImpSurrLine.INIT;
-                        ImpSurrLine.LineNo := getLastEntryNo() + 1;
+                        LineNo := getLastEntryNo() + 1;
+                        ImpSurrLine.LineNo := LineNo;
                         ImpSurrLine."Surrender Doc No." := Rec.No;
                         // ImpSurrLine."Surrender Date" := Rec."Surrender Date";
                         ImpSurrLine."Account No:" := PayLine."Account No:";
