@@ -18,7 +18,6 @@ codeunit 50034 IntCodeunit
         WrkflUsrGrpMemberII: Record "Workflow User Group Member";
         Emp: Record "HRM-Employee C";
         UsersID: Code[50];
-        Sequence: Integer;
     begin
         WrkflUserGroup.Reset();
         WrkflUserGroup.SetRange("Department Code", Leave."Department Code");
