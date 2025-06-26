@@ -28,22 +28,24 @@ codeunit 50034 IntCodeunit
             if Emp.FindFirst() then begin
                 UsersID := Emp."User ID";
             end;
-            WrkflUsrGrpMemberII.Init();
-            WrkflUsrGrpMemberII."Workflow User Group Code" := WrkflUserGroup.Code;
-            WrkflUsrGrpMemberII."User Name" := UsersID;
-            WrkflUsrGrpMemberII."Sequence No." := 1;
-            WrkflUsrGrpMemberII.Insert();
             WrkflUsrGrpMember.Reset();
             WrkflUsrGrpMember.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
             WrkflUsrGrpMember.SetCurrentKey("Sequence No.");
             WrkflUsrGrpMember.SetAscending("Sequence No.", true);
             if WrkflUsrGrpMember.Find('-') then begin
                 repeat
-                    Sequence := Sequence + 1;
-                    WrkflUsrGrpMember."Sequence No." := Sequence;
+                    WrkflUsrGrpMember."Sequence No." := WrkflUsrGrpMember."Sequence No." + 1;
                     WrkflUsrGrpMember.Modify();
                 until WrkflUsrGrpMember.Next() = 0;
             end;
+
+
+            WrkflUsrGrpMemberII.Init();
+            WrkflUsrGrpMemberII."Workflow User Group Code" := WrkflUserGroup.Code;
+            WrkflUsrGrpMemberII."User Name" := UsersID;
+            WrkflUsrGrpMemberII."Sequence No." := 1;
+            WrkflUsrGrpMemberII.Insert();
+
         end;
 
     end;
