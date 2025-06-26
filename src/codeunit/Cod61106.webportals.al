@@ -12592,6 +12592,51 @@ Codeunit 61106 webportals
             msg := JsTxt;
         end;
     end;
+
+    procedure ApproveDocument(DocumentNo: Code[20]; TableID: Integer; ApproverID: Code[20])
+    var
+        AppEntry: Record "Approval Entry";
+        Pg: page "Requests to Approve";
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+    begin
+        AppEntry.Reset;
+        AppEntry.SetRange("Document No.", DocumentNo);
+        AppEntry.SetRange("Table ID", TableID);
+        AppEntry.SetRange("Approver ID", ApproverID);
+        if AppEntry.FindSet() then begin
+            ApprovalsMgmt.ApproveApprovalRequests(AppEntry);
+        end;
+    end;
+
+    // procedure GetRequestsToApprove(ApproverID: Code[20]): Text
+    // var
+    //     AppovEntry: Record "Approval Entry";
+    //     JObj: JsonObject;
+    //     JsTxt: Text;
+    //     JArray: JsonArray;
+    //     ReqT: page re
+    // begin
+    //     AppovEntry.Reset;
+    //     AppovEntry.SetRange("Approver ID", ApproverID);
+    //     if AppovEntry.FindSet() then begin
+    //         repeat
+    //             Clear(JObj);
+    //             JObj.Add('No', AppovEntry."No.");
+    //             JObj.Add('EmployeeNo', AppovEntry."Employee No");
+    //             JObj.Add('EmployeeName', AppovEntry."Employee Name");
+    //             JObj.Add('LeaveType', AppovEntry."Leave Type");
+    //             JObj.Add('AppliedDays', AppovEntry."Applied Days");
+    //             JObj.Add('StartingDate', AppovEntry."Starting Date");
+    //             JObj.Add('End Date', AppovEntry."End Date");
+    //             JObj.Add('ReturnDate', AppovEntry."Return Date");
+    //             JObj.Add('Purpose', LeaveT.Purpose);
+    //             JObj.Add('Status', LeaveT.Status);
+    //             JArray.Add(JObj);
+    //         until LeaveT.Next = 0;
+    //         JArray.WriteTo(JsTxt);
+    //         msg := JsTxt;
+    //     end;
+    // end;
 }
 
 
