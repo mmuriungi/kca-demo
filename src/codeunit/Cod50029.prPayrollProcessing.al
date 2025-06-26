@@ -511,6 +511,13 @@ codeunit 50029 prPayrollProcessing
                         end
                         else begin
                             curTransAmount := prEmployeeTransactions.Amount;
+                            if prTransactionCodes."Prorate Payment" then begin
+                                IF (DATE2DMY(dtDOE, 2) = DATE2DMY(dtOpenPeriod, 2)) AND (DATE2DMY(dtDOE, 3) = DATE2DMY(dtOpenPeriod, 3)) THEN BEGIN
+                                    CountDaysofMonth := fnDaysInMonth(dtDOE);
+                                    DaysWorked := fnDaysWorked(dtDOE, FALSE);
+                                    curTransAmount := fnBasicPayProrated(strEmpCode, intMonth, intYear, curTransAmount, DaysWorked, CountDaysofMonth)
+                                END;
+                            end;
                         end;
 
                         if prTransactionCodes."Balance Type" = prTransactionCodes."Balance Type"::None then //[0=None, 1=Increasing, 2=Reducing]
@@ -1189,9 +1196,14 @@ codeunit 50029 prPayrollProcessing
             END;
 */
             if (curPensionStaff + curDefinedContrib) > curMaxPensionContrib then
-                curTaxablePay := curGrossTaxable - (curSalaryArrears + curMaxPensionContrib + curOOI + curHOSP + curNonTaxable + curNHIF + CurHousingLEvy) + BenifitAmount
-            else
-                curTaxablePay := curGrossTaxable - (curSalaryArrears + curDefinedContrib + curPensionStaff + curOOI + curHOSP + curNonTaxable + curNHIF + CurHousingLEvy) + BenifitAmount;
+                if disabled_emp(strEmpCode, curGrossTaxable) then
+                    curTaxablePay := curGrossTaxable - (curSalaryArrears + curMaxPensionContrib + curOOI + curHOSP + curNonTaxable + curDisabledLimit + curNHIF + CurHousingLEvy) + BenifitAmount else
+                    curTaxablePay := curGrossTaxable - (curSalaryArrears + curMaxPensionContrib + curOOI + curHOSP + curNonTaxable + curNHIF + CurHousingLEvy) + BenifitAmount
+            else begin
+                if disabled_emp(strEmpCode, curGrossTaxable) then
+                    curTaxablePay := curGrossTaxable - (curSalaryArrears + curDefinedContrib + curPensionStaff + curOOI + curHOSP + curNonTaxable + curDisabledLimit + curNHIF + CurHousingLEvy) + BenifitAmount else
+                    curTaxablePay := curGrossTaxable - (curSalaryArrears + curDefinedContrib + curPensionStaff + curOOI + curHOSP + curNonTaxable + curNHIF + CurHousingLEvy) + BenifitAmount;
+            end;
             //curTaxablePay := curTaxablePay - fNHIFReliefAmount;
             curTransAmount := curTaxablePay;
             strTransDescription := 'Chargeable Pay';
