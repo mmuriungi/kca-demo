@@ -292,8 +292,13 @@ table 52178702 "PROC-Store Requistion Header"
     end;
 
     trigger OnInsert()
+    var
+        UserSetup: Record "User Setup";
+        MaxCount: Integer;
     begin
-
+        if UserSetup.GET(UserId) then begin
+            MaxCount := UserSetup."Max Requisition Count";
+        end;
         IF "No." = '' THEN BEGIN
             GenLedgerSetup.GET();
             GenLedgerSetup.TESTFIELD(GenLedgerSetup."Stores Requisition No");
@@ -303,12 +308,12 @@ table 52178702 "PROC-Store Requistion Header"
         END;
         rec.SETRANGE(rec."User ID", USERID);
         rec.SETRANGE(rec.Status, Rec.Status::Open);
-        IF rec.COUNT > 0 THEN BEGIN
+        IF rec.COUNT > MaxCount THEN BEGIN
             ERROR('There are still some pending requisitions in your account. Please use the pending application first');
         END;
         rec.SETRANGE(rec."User ID", USERID);
         rec.SETRANGE(rec.Status, Rec.Status::"Pending Approval");
-        IF rec.COUNT > 0 THEN BEGIN
+        IF rec.COUNT > MaxCount THEN BEGIN
             ERROR('There are still some pending requisitions in your account. Please use the pending application first');
         END;
     end;
