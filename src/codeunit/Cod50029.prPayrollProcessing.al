@@ -502,6 +502,14 @@ codeunit 50029 prPayrollProcessing
                                 prEmployeeTransactions.MODIFY;
                             END;
                             curTransAmount := ROUND(curTransAmount);
+                            //Prorate amount based on days worked
+                            IF prTransactionCodes."Prorate Payment" THEN begin
+                                IF (DATE2DMY(dtDOE, 2) = DATE2DMY(dtOpenPeriod, 2)) AND (DATE2DMY(dtDOE, 3) = DATE2DMY(dtOpenPeriod, 3)) THEN BEGIN
+                                    CountDaysofMonth := fnDaysInMonth(dtDOE);
+                                    DaysWorked := fnDaysWorked(dtDOE, FALSE);
+                                    curTransAmount := fnBasicPayProrated(strEmpCode, intMonth, intYear, curTransAmount, DaysWorked, CountDaysofMonth)
+                                END;
+                            end;
                         end
                         else begin
                             curTransAmount := prEmployeeTransactions.Amount;
@@ -869,7 +877,7 @@ codeunit 50029 prPayrollProcessing
 
                 EmpPensionContrib := curBasicPay * (0.2);
                 //Employer pension Contribution
-                fnUpdatePeriodTrans(strEmpCode, 'NEmprPension', 'NEmprPension', 14, 0, 'Employer Pension', EmpPensionContrib, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
+                fnUpdatePeriodTrans(strEmpCode, 'EMPPENSION', 'EMPPENSION', 14, 0, 'Employer Pension', EmpPensionContrib, 0, intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" ", '', CoopParameters::none);
 
             END;
             // PREmpTrans_2.Reset();
@@ -3133,7 +3141,7 @@ codeunit 50029 prPayrollProcessing
     begin
         SpecialTransAmount := 0;
         prTransactionCodes.Reset;
-        prTransactionCodes.SetRange(prTransactionCodes."Special Transactions", intSpecTransID);
+        //prTransactionCodes.SetRange(prTransactionCodes."Special Transactions", intSpecTransID);
         prTransactionCodes.SetRange(prTransactionCodes.Pension, true);
         if prTransactionCodes.Find('-') then begin
             repeat
