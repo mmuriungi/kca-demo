@@ -1010,6 +1010,27 @@ codeunit 50029 prPayrollProcessing
                     CoopParameters::none);
                 end;
 
+                curPensionCompany := fnGetPensionAmount(strEmpCode, intMonth, intYear, SpecialTransType::"Defined Contribution",
+                TRUE);
+                IF curPensionCompany > 0 THEN BEGIN
+                    IF (((curPensionCompany + curNSSF) - curMaxPensionContrib) > 0) THEN BEGIN
+                        curTransAmount := ((curPensionCompany + curNSSF) - curMaxPensionContrib);
+                        //curTransAmount := curPensionCompany;
+                        curExcessPension := curTransAmount;
+                        strTransDescription := 'Pension (Company)';
+                        IF curExcessPension > 0 THEN BEGIN
+                            curTaxOnExcessPension := (curRateTaxExPension / 100) * curExcessPension;
+                            curTransAmount := curTaxOnExcessPension;
+                            strTransDescription := 'Tax on Ex. Pension';
+                            TGroup := 'STATUTORIES';
+                            TGroupOrder := 7;
+                            TSubGroupOrder := 6;
+                            fnUpdatePeriodTrans(strEmpCode, 'TXEP', TGroup, TGroupOrder, TSubGroupOrder, strTransDescription, curTransAmount, 0,
+                             intMonth, intYear, '', '', SelectedPeriod, Dept, '', JournalPostAs::" ", JournalPostingType::" "
+                             , '', CoopParameters::none);
+                        END;
+                    END;
+                END;
 
                 //Dann
                 //Mortage Relief
@@ -1248,6 +1269,9 @@ codeunit 50029 prPayrollProcessing
                 strTransDescription := 'Chargeable Pay';
                 // curTransAmount already contains the correct value
             end;
+
+
+
 
             // Update final curTaxablePay to reflect any disability exemption applied
             curTaxablePay := curTransAmount;
