@@ -78,7 +78,15 @@ codeunit 50095 "PartTimer Management"
         PayTypes: Record "FIN-Receipts and Payment Types";
         Vendor: Record Vendor;
         HrSetup: Record "HRM-Setup";
+        PVHeaderII: Record "FIN-Payments Header";
     begin
+        PVHeaderII.Reset();
+        PVHeaderII.SetRange("Source Document No", PartTime."No.");
+        if PVHeaderII.FindFirst() then begin
+            exit;
+        end;
+
+
         PVHeader.Init();
         PVHeader."Document Type" := PVHeader."Document Type"::"Payment Voucher";
         PVHeader."No." := '';
