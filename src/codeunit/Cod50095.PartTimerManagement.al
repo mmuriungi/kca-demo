@@ -211,6 +211,7 @@ codeunit 50095 "PartTimer Management"
         PVHeader."Shortcut Dimension 3 Code" := BatchRec."Shortcut Dimension 3 Code";
         PVHeader."Responsibility Center" := BatchRec."Responsibility Center";
         PVHeader."Payment Type" := PVHeader."Payment Type"::Normal;
+        PVHeader."PV Category" := PVHeader."PV Category"::"Part-time Pay";
         PVHeader."Pay Mode" := PVHeader."Pay Mode"::EFT;
         PVHeader."Payment Narration" := 'Part Time Claims Batch ' + BatchNo;
         PVHeader.Payee := 'Part-Time Claims Batch ' + BatchNo;
