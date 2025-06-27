@@ -196,6 +196,7 @@ codeunit 50095 "PartTimer Management"
                 gnLine.Amount := ClaimLines.Amount * -1;
                 gnLine.INSERT;
             until ClaimLines.Next() = 0;
+            Commit();
             gnLine.RESET;
             gnLine.SETRANGE(gnLine."Journal Template Name", 'GENERAL');
             gnLine.SETRANGE(gnLine."Journal Batch Name", 'LECTURER');
