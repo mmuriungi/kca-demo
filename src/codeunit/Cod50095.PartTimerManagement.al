@@ -171,6 +171,7 @@ codeunit 50095 "PartTimer Management"
         Employee: Record "HRM-Employee C";
         gnLine: Record "Gen. Journal Line";
         ClaimLines: Record "Parttime Claim Lines";
+        l: Codeunit "Gen. Jnl.-Check Line";
     begin
         getEmployee(Employee, PartTime."Account No.");
         gnLine.RESET;
@@ -190,7 +191,8 @@ codeunit 50095 "PartTimer Management"
                 gnLine."Shortcut Dimension 1 Code" := PartTime."Global Dimension 1 Code";
                 gnLine."Shortcut Dimension 2 Code" := PartTime."Global Dimension 2 Code";
                 gnLine."Shortcut Dimension 3 Code" := PartTime."Shortcut Dimension 3 Code";
-                gnLine."Document Type" := gnLine."Document Type"::Invoice;
+                //gnLine."External Document No." := PartTime."No.";
+                //gnLine."Document Type" := gnLine."Document Type"::Invoice;
                 gnLine."Posting Date" := TODAY;
                 gnLine."Document No." := PartTime."No.";
                 gnLine.Description := COPYSTR(PartTime.Semester + '/' + ClaimLines.Unit + '/' + ClaimLines."Unit Description", 1, 50);
