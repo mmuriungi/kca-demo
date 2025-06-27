@@ -173,7 +173,10 @@ codeunit 50095 "PartTimer Management"
         ClaimLines: Record "Parttime Claim Lines";
     begin
         getEmployee(Employee, PartTime."Account No.");
-
+        gnLine.RESET;
+        gnLine.SETRANGE(gnLine."Journal Template Name", 'GENERAL');
+        gnLine.SETRANGE(gnLine."Journal Batch Name", 'LECTURER');
+        gnLine.DELETEALL();
         ClaimLines.Reset();
         ClaimLines.SetRange("Document No.", PartTime."No.");
         if ClaimLines.FindSet() then begin
@@ -196,13 +199,11 @@ codeunit 50095 "PartTimer Management"
                 gnLine.Amount := ClaimLines.Amount * -1;
                 gnLine.INSERT;
             until ClaimLines.Next() = 0;
-            Commit();
             gnLine.RESET;
             gnLine.SETRANGE(gnLine."Journal Template Name", 'GENERAL');
             gnLine.SETRANGE(gnLine."Journal Batch Name", 'LECTURER');
-            IF gnLine.FindSet() THEN BEGIN
-                if CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", gnLine) then Posted := true;
-            END;
+            IF gnLine.FindSet() THEN
+                CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", gnLine);
         end;
     end;
 
