@@ -150,6 +150,7 @@ table 50691 "Parttime Claim Header"
                 lecunits.SetRange(Semester, Semester);
                 lecunits.SetRange(Lecturer, "Account No.");
                 if lecunits.FindSet() then begin
+                    repeat
                     parttimeLine.Init();
                     parttimeLine."Document No." := "No.";
                     parttimeLine."Line No." := parttimeLine."Line No." + 1;
@@ -160,6 +161,7 @@ table 50691 "Parttime Claim Header"
                     parttimeLine."Unit" := lecunits.Unit;
                     parttimeLine.Validate("Unit");
                     parttimeLine.Insert();
+                    until lecunits.Next() = 0;
                 end;
             end;
         }
