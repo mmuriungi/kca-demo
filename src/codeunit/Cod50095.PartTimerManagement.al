@@ -29,11 +29,11 @@ codeunit 50095 "PartTimer Management"
             parttimeLine."Exam Exists" := ExamMarks.FindSet();
 
             if parttimeLine."Cat Exists" and parttimeLine."Exam Exists" then
-                parttimeLine.Excluded := false
+                parttimeLine.Included := true
             else
-                parttimeLine.Excluded := true;
+                parttimeLine.Included := false;
         end else
-            parttimeLine.Excluded := true;
+            parttimeLine.Included := false;
     end;
 
     procedure calculateClaimAmount(Var parttimeLine: Record "Parttime Claim Lines")
@@ -43,7 +43,7 @@ codeunit 50095 "PartTimer Management"
         Attendance: Record "Class Attendance Header";
         LecturerUnits: Record "ACA-Lecturers Units";
     begin
-        if parttimeLine.Excluded then
+        if parttimeLine.Included = false then
             //parttimeLine.Amount := 0
             Error('You cannot claim for this unit because either CAT or EXAM is missing')
         else begin

@@ -59,7 +59,7 @@ table 50691 "Parttime Claim Header"
         field(7; "Payment Amount"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = Sum("Parttime Claim Lines".Amount WHERE("Document No." = FIELD("No."), Excluded = const(false)));
+            CalcFormula = Sum("Parttime Claim Lines".Amount WHERE("Document No." = FIELD("No."), Included = const(true)));
             Description = 'Stores the amount of the payment voucher';
             Editable = false;
         }

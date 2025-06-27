@@ -245,7 +245,7 @@ table 50692 "Parttime Claim Lines"
 
         }
         //Exculded
-        field(21; "Excluded"; Boolean)
+        field(21; "Included"; Boolean)
         {
             trigger OnValidate()
             begin
