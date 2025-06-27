@@ -70,6 +70,18 @@ page 51277 "CAT-Meal Booking List"
     {
         area(creation)
         {
+            action("Release")
+            {
+                Caption = 'Release';
+                Image = Release;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                begin
+                    Rec.Status := Rec.Status::Approved;
+                    Rec.Modify;
+                end;
+            }
             action(Approvals)
             {
                 Caption = 'Approvals';
