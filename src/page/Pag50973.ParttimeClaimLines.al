@@ -60,6 +60,11 @@ page 50973 "Parttime Claim Lines"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Amount field.';
                 }
+                field(Excluded; Rec.Excluded)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Excluded field.';
+                }
             }
         }
     }
