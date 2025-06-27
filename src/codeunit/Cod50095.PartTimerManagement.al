@@ -372,4 +372,15 @@ codeunit 50095 "PartTimer Management"
             HideDialog := true;
         end;
     end;
+
+    procedure openPaymentVoucher(var PartTime: Record "Parttime Claim Header")
+    var
+        PvHeader: Record "FIN-Payments Header";
+    begin
+        PvHeader.Reset();
+        PvHeader.SetRange("Source Document No", PartTime."No.");
+        if PvHeader.FindFirst() then begin
+            PAGE.Run(PAGE::"FIN-Payment Vouchers", PvHeader);
+        end;
+    end;
 }

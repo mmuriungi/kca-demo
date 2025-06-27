@@ -222,6 +222,20 @@ page 50971 "Parttime Claims Header"
                 end;
 
             }
+            action("Open PV")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = PostBatch;
+                Visible = Rec.Posted;
+                trigger OnAction()
+                var
+                    ParttimerMgmt: Codeunit "PartTimer Management";
+                begin
+                    ParttimerMgmt.openPaymentVoucher(Rec);
+                end;
+            }
         }
     }
 
