@@ -195,6 +195,10 @@ table 50692 "Parttime Claim Lines"
         }
         field(11; "Hours Done"; Decimal)
         {
+            trigger OnValidate()
+            begin
+                Amount := "Hours Done" * "Hourly Rate";
+            end;
         }
         field(12; "Hourly Rate"; Decimal)
         {
