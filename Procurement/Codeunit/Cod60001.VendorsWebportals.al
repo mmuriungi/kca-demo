@@ -887,10 +887,10 @@ codeunit 60001 VendorsWebportals
             if FileName <> '' then begin
                 Clear(DocAttachment);
                 DocAttachment.Init();
-                DocAttachment.Validate("File Extension", FileManagement.GetExtension(fileName));
-                DocAttachment.Validate("File Name", CopyStr(FileManagement.GetFileNameWithoutExtension(fileName), 1, MaxStrLen(fileName)));
                 DocAttachment.Validate("Table ID", FromRecRef.Number);
                 DocAttachment.Validate("No.", retNo);
+                DocAttachment.Validate("File Extension", FileManagement.GetExtension(fileName));
+                DocAttachment.Validate("File Name", CopyStr(FileManagement.GetFileNameWithoutExtension(fileName), 1, MaxStrLen(fileName)));
                 Bytes := Convert.FromBase64String(Attachment);
                 MemoryStream := MemoryStream.MemoryStream(Bytes);
                 DocAttachment."Document Reference ID".ImportStream(MemoryStream, '', FileName);
