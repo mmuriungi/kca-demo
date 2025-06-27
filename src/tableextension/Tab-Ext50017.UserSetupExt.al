@@ -361,5 +361,9 @@ tableextension 50017 UserSetupExt extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
+        field(56674; "Max Requisition Count"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

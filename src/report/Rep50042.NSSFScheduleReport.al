@@ -27,7 +27,7 @@ report 50042 "NSSF Schedule Report"
             column(CompanyInfo_Picture; CompanyInfo.Picture)
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; Companyinfo.Name)
             {
             }
             column(PeriodName_Control1102756011; PeriodName)

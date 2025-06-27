@@ -11,7 +11,7 @@
       <am:Name>PBIRB</am:Name>
       <am:Version>15.7.1813.16</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-06-11T10:34:46.4984218Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-06-16T09:30:32.3107004Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -35,22 +35,22 @@
                   <Width>1.2in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>2.47917in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.5in</Width>
+                  <Width>2.75in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>2.70833in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.5in</Width>
+                  <Width>2.89583in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>2.55208in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.5in</Width>
+                  <Width>2.78125in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -279,7 +279,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
@@ -311,7 +311,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
@@ -343,7 +343,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
@@ -381,7 +381,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -407,26 +407,10 @@
                                 <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
-                          </Paragraphs>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="MorningDetailsHeader">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>NO. of VENUE INVIGILATORS</Value>
+                                  <Value>NO. of VENUE</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -443,7 +427,38 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="MorningDetailsHeader">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value> INVIGILATORS</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -474,7 +489,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -505,7 +520,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -536,7 +551,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -567,7 +582,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <BackgroundColor>DarkGreen</BackgroundColor>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -655,10 +670,42 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox1">
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Replace(Fields!MorningInvigilators.Value, Chr(13) &amp; Chr(10), vbCrLf)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Top</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="MiddayCourses">
@@ -690,10 +737,42 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox2">
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Replace(Fields!MiddayInvigilators.Value, Chr(13) &amp; Chr(10), vbCrLf)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Top</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="AfternoonCourses">
@@ -725,10 +804,43 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <rd:Selected>true</rd:Selected>
+                        <Textbox Name="Textbox3">
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Replace(Fields!AfternoonInvigilators.Value, Chr(13) &amp; Chr(10), vbCrLf)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Top</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
@@ -788,7 +900,7 @@
             <Top>0.5in</Top>
             <Left>0.25in</Left>
             <Height>2.65in</Height>
-            <Width>20.7in</Width>
+            <Width>17.36666in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -799,7 +911,7 @@
         <Height>4in</Height>
         <Style />
       </Body>
-      <Width>21.3in</Width>
+      <Width>22.28333in</Width>
       <Page>
         <PageHeight>11.69in</PageHeight>
         <PageWidth>24in</PageWidth>
@@ -976,11 +1088,23 @@ End Function
         <Field Name="AfternoonExams">
           <DataField>AfternoonExams</DataField>
         </Field>
+        <Field Name="MorningInvigilators">
+          <DataField>MorningInvigilators</DataField>
+        </Field>
+        <Field Name="MiddayInvigilators">
+          <DataField>MiddayInvigilators</DataField>
+        </Field>
+        <Field Name="AfternoonInvigilators">
+          <DataField>AfternoonInvigilators</DataField>
+        </Field>
         <Field Name="DayOfWeekText">
           <DataField>DayOfWeekText</DataField>
         </Field>
         <Field Name="DateFormatted">
           <DataField>DateFormatted</DataField>
+        </Field>
+        <Field Name="Invigilators">
+          <DataField>Invigilators</DataField>
         </Field>
         <Field Name="InvigilatorNo">
           <DataField>InvigilatorNo</DataField>

@@ -39,6 +39,7 @@ page 50087 "Timetable Role Center"
                     Image = Report;
 
                     RunObject = Page "Timetable Header List";
+                    RunPageLink = "Type" = const(Class);
                     RunPageView = where("Type" = const(Class));
                     ApplicationArea = All;
                 }

@@ -141,13 +141,24 @@ report 51523 "Examinations Timetable"
             column(AfternoonExams; GetSessionExams(ExamTimetableEntry."Session Type"::Afternoon))
             {
             }
+            column(MorningInvigilators; GetSessionInvigilators(ExamTimetableEntry."Session Type"::Morning))
+            {
+            }
+            column(MiddayInvigilators; GetSessionInvigilators(ExamTimetableEntry."Session Type"::Midday))
+            {
+            }
+            column(AfternoonInvigilators; GetSessionInvigilators(ExamTimetableEntry."Session Type"::Afternoon))
+            {
+            }
             column(DayOfWeekText; Format(ExamTimetableEntry."Exam Date", 0, '<Weekday Text>'))
             {
             }
             column(DateFormatted; Format(ExamTimetableEntry."Exam Date", 0, '<Day,2>/<Month,2>/<Year4>'))
             {
             }
-
+            column(Invigilators; InvigilatorsTxt)
+            {
+            }
             dataitem(ExamInvigilators; "Exam Invigilators")
             {
                 DataItemLink = Semester = field(Semester),
@@ -165,6 +176,13 @@ report 51523 "Examinations Timetable"
                 column(InvigilatorCategory; Format(Category))
                 {
                 }
+                trigger OnAfterGetRecord()
+                var
+                    LineBreak: Text;
+                    THelper: Codeunit "Type Helper";
+                begin
+
+                end;
             }
 
             trigger OnAfterGetRecord()
@@ -245,6 +263,8 @@ report 51523 "Examinations Timetable"
         GroupByDate: Boolean;
         ShowInvigilators: Boolean;
         ShowVenueCapacity: Boolean;
+        InvigilatorsTxt: Text[2048];
+        InvigilatorsInfo: Text[2048];
 
     trigger OnInitReport()
     begin
@@ -299,6 +319,7 @@ report 51523 "Examinations Timetable"
             end;
         end;
     end;
+
 
     local procedure GetUnitDetails()
     begin
@@ -448,7 +469,81 @@ report 51523 "Examinations Timetable"
 
             until TempExamEntry.Next() = 0;
         end;
-
         exit(ExamInfo);
     end;
+
+    local procedure GetSessionInvigilators(SessionType: Option Morning,Midday,Afternoon): Text
+    var
+        TempExamEntry: Record "Exam Timetable Entry";
+        TempInvigilators: Record "Exam Invigilators";
+        InvigilatorsInfo: Text;
+        InvigilatorBlock: Text;
+        LineBreak: Text;
+        THelper: Codeunit "Type Helper";
+        ProcessedInvigilators: List of [Text];
+        InvigilatorKey: Text;
+    begin
+        LineBreak := THelper.CRLFSeparator();
+
+        // Get all exams for this date and session type first
+        TempExamEntry.Reset();
+        TempExamEntry.SetRange("Exam Date", ExamTimetableEntry."Exam Date");
+        TempExamEntry.SetRange("Session Type", SessionType);
+        TempExamEntry.SetRange(Semester, ExamTimetableEntry.Semester);
+        TempExamEntry.SetRange("Exam Type", ExamTimetableEntry."Exam Type");
+
+        // Apply same filters as main dataitem
+        if ExamTimetableEntry.GetFilter("Programme Code") <> '' then
+            TempExamEntry.SetFilter("Programme Code", ExamTimetableEntry.GetFilter("Programme Code"));
+        if ExamTimetableEntry.GetFilter("Stage Code") <> '' then
+            TempExamEntry.SetFilter("Stage Code", ExamTimetableEntry.GetFilter("Stage Code"));
+
+        if TempExamEntry.FindSet() then begin
+            repeat
+                // Clear the block for each exam
+                Clear(InvigilatorBlock);
+
+                // Clear the processed invigilators list for each exam
+                Clear(ProcessedInvigilators);
+
+                // Get invigilators for this specific exam
+                TempInvigilators.Reset();
+                TempInvigilators.SetRange(Semester, TempExamEntry.Semester);
+                TempInvigilators.SetRange(Date, TempExamEntry."Exam Date");
+                TempInvigilators.SetRange(Unit, TempExamEntry."Unit Code");
+                TempInvigilators.SetRange(Hall, TempExamEntry."Lecture Hall");
+                TempInvigilators.SetRange("Start Time", TempExamEntry."Start Time");
+                if TempInvigilators.FindSet() then begin
+                    repeat
+                        // Create a unique key for the invigilator (using name or ID if available)
+                        InvigilatorKey := TempInvigilators.Name;
+
+                        // Only add if not already processed
+                        if not ProcessedInvigilators.Contains(InvigilatorKey) then begin
+                            ProcessedInvigilators.Add(InvigilatorKey);
+
+                            if InvigilatorBlock <> '' then
+                                InvigilatorBlock += LineBreak;
+                            InvigilatorBlock += TempInvigilators.Name;
+                        end;
+                    until TempInvigilators.Next() = 0;
+                end;
+
+                // Add exam separator and invigilator block
+                if InvigilatorsInfo <> '' then
+                    InvigilatorsInfo += LineBreak + '---' + LineBreak;
+
+                // Add unit info as header (to match exam format)
+                InvigilatorsInfo += TempExamEntry."Unit Code";
+                if InvigilatorBlock <> '' then
+                    InvigilatorsInfo += LineBreak + InvigilatorBlock
+                else
+                    InvigilatorsInfo += LineBreak + 'No invigilators assigned';
+
+            until TempExamEntry.Next() = 0;
+        end;
+
+        exit(InvigilatorsInfo);
+    end;
+
 }

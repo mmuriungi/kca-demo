@@ -113,6 +113,14 @@ page 53102 "Medical Claims Subform"
                     ApplicationArea = All;
                     Editable = false;
                 }
+                field("Available Balance"; GetAvailableBalanceForClaimType())
+                {
+                    ApplicationArea = All;
+                    Caption = 'Available Balance';
+                    Editable = false;
+                    Style = Favorable;
+                    ToolTip = 'Shows the available balance for this claim type';
+                }
           
                 field(Comments; Rec.Comments)
                 {
@@ -145,4 +153,15 @@ page 53102 "Medical Claims Subform"
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        Rec.SetCurrentFiscalYearFilter();
+        Rec.CalcFields("Employee Category", "Salary Grade");
+    end;
+
+    local procedure GetAvailableBalanceForClaimType(): Decimal
+    begin
+        exit(Rec.GetAvailableBalance(Rec."Claim Type"));
+    end;
 }

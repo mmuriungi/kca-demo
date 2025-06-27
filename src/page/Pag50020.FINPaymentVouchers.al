@@ -5,8 +5,8 @@ page 50030 "FIN-Payment Vouchers"
     PageType = List;
     SourceTable = "FIN-Payments Header";
     SourceTableView = WHERE(Posted = filter(false),
-                            "Payment Type" = CONST(Normal),
-                            Status = FILTER(Pending | "Pending Approval" | Approved));
+                           "Payment Type" = CONST(Normal),
+                            Status = FILTER(Pending | "Pending Approval" | Approved | Cancelled));
 
     layout
     {
@@ -108,6 +108,26 @@ page 50030 "FIN-Payment Vouchers"
     {
         area(processing)
         {
+            action(Approve)
+            {
+                Caption = 'Approve';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ApprovalMgt: Codeunit "Init Code";
+                    showmessage: Boolean;
+                    ManualCancel: Boolean;
+                begin
+                    Rec.Status := Rec.Status::Approved;
+                    Rec.Modify;
+                    CurrPage.Update;
+                end;
+            }
             group("&Functions")
             {
                 Caption = '&Functions';
@@ -280,10 +300,18 @@ page 50030 "FIN-Payment Vouchers"
 
                         //IF Status=Status::Pending THEN
                         //ERROR('You cannot Print until the document is released for approval');
-                        Rec.RESET;
-                        Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(report::"Payment Voucher Reports", TRUE, TRUE, Rec);
-                        Rec.RESET;
+                        IF Rec."Direct Expense" = TRUE THEN BEGIN
+                            REPORT.RUN(Report::"Payment Voucher Report2", TRUE, TRUE, Rec);
+                        END ELSE
+                            IF Rec."PV Category" = Rec."PV Category"::"Part-time Pay" THEN BEGIN
+                                REPORT.RUN(Report::"Payment Voucher Report", TRUE, TRUE, Rec);
+                            END ELSE IF Rec."PV Category" = Rec."PV Category"::"Normal PV" THEN BEGIN
+                                REPORT.RUN(Report::"Payment Voucher Normal", TRUE, TRUE, Rec);
+                            END ELSE IF Rec."PV Category" = Rec."PV Category"::"Medical Claims" THEN BEGIN
+                                REPORT.RUN(Report::"Payment Voucher Normal", TRUE, TRUE, Rec);
+                            END ELSE BEGIN
+                                REPORT.RUN(Report::"Payment Voucher Normal", TRUE, TRUE, Rec);
+                            END;
 
                         CurrPage.UPDATE;
                         CurrPage.SAVERECORD;
@@ -373,6 +401,7 @@ page 50030 "FIN-Payment Vouchers"
         CheckLedger: Record 272;
         CheckManagement: Codeunit 367;
         HasLines: Boolean;
+        sales: page 43;
         AllKeyFieldsEntered: Boolean;
         AdjustGenJnl: Codeunit 407;
         [InDataSet]

@@ -221,7 +221,7 @@ table 50147 "Proc-Purchase Quote Header1"
         field(27; "Responsibility Center"; Code[10])
         {
             Caption = 'Responsibility Center';
-            TableRelation = "Responsibility Center".Code where(grouping = filter('P-QUOTE'));
+            TableRelation = "Responsibility Center".Code ;//where(grouping = filter('P-QUOTE'));
         }
 
         field(28; "UserName"; Code[20])

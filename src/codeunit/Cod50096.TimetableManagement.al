@@ -502,9 +502,6 @@ codeunit 50096 "Timetable Management"
                     CurrentExam += 1;
                     ProgressWindow.Update(1, Format(CurrentExam) + ' of ' + Format(TotalExams));
                     ProgressWindow.Update(2, CourseOffering.Unit);
-                    if CurrentExam >= 367 then begin
-                        Sudo := true;
-                    end;
                     // Schedule the exam within the specified date range
                     if ScheduleExamInDateRange(
                         CourseOffering,
@@ -525,7 +522,7 @@ codeunit 50096 "Timetable Management"
         // Invigilators are already assigned during exam scheduling
 
         ProgressWindow.Close();
-        
+
         // Show distribution statistics with group info
         ShowSessionDistributionMessageForGroup(GroupDescription, CurrentExam);
     end;
@@ -2700,7 +2697,7 @@ codeunit 50096 "Timetable Management"
         end;
 
         ProgressWindow.Close();
-        
+
         // Show distribution statistics
         ShowSessionDistributionMessage();
     end;
@@ -3044,10 +3041,10 @@ codeunit 50096 "Timetable Management"
                         // Check invigilator availability for this slot
                         if HasSufficientInvigilatorsForSlot(ExamDate, ExamTimeSlot, CourseOffering) then begin
                             SelectedTimeSlot := ExamTimeSlot;
-                            
+
                             // Update global counters
                             UpdateGlobalSessionCounter(SessionTypesToTry[i]);
-                            
+
                             exit(true);
                         end;
                     end;
@@ -3115,10 +3112,10 @@ codeunit 50096 "Timetable Management"
                         // Check invigilator availability for this slot
                         if HasSufficientInvigilatorsForSlotSupp(ExamDate, ExamTimeSlot, SuppUnits) then begin
                             SelectedTimeSlot := ExamTimeSlot;
-                            
+
                             // Update global counters
                             UpdateGlobalSessionCounter(SessionTypesToTry[i]);
-                            
+
                             exit(true);
                         end;
                     end;
@@ -3576,6 +3573,7 @@ codeunit 50096 "Timetable Management"
             ExamDate,
             ExamTimeSlot,
             CourseOffering.Lecturer,
+            CourseOffering.Semester,
             AvailableInvigilators);
 
         // Select required number of invigilators
@@ -3656,7 +3654,7 @@ codeunit 50096 "Timetable Management"
         Department := GetCourseDepartmentSupp(SuppUnits);
 
         // Get available invigilators from lecturer units, starting with unit lecturer
-        GetAvailableInvigilatorsFromLecturersOptimized(Department, ExamDate, ExamTimeSlot, SuppUnits."Lecturer Code", AvailableInvigilators);
+        GetAvailableInvigilatorsFromLecturersOptimized(Department, ExamDate, ExamTimeSlot, SuppUnits."Lecturer Code", SemesterCode, AvailableInvigilators);
 
         // Select required number of invigilators, prioritizing full-timers
         SelectInvigilatorsWithWorkloadBalance(AvailableInvigilators, InvigilatorCount, SelectedInvigilators, ExamDate, SemesterCode);
@@ -3684,6 +3682,7 @@ codeunit 50096 "Timetable Management"
         ExamDate: Date;
         ExamTimeSlot: Record "Exam Time Slot";
         UnitLecturer: Code[20];
+        SemesterCode: Code[25];
         var AvailableInvigilators: List of [Code[20]])
     var
         Employee: Record "HRM-Employee C";
@@ -3730,11 +3729,11 @@ codeunit 50096 "Timetable Management"
         end;
 
         // STEP 3: Get department lecturers using cached approach
-        CollectDepartmentLecturersOptimized(Department, BusyInvigilators, ProcessedLecturers, AvailableInvigilators);
+        CollectDepartmentLecturersOptimized(Department, BusyInvigilators, SemesterCode, ProcessedLecturers, AvailableInvigilators);
 
         // STEP 4: If not enough, get from other departments (only if needed)
         if AvailableInvigilators.Count < 2 then
-            CollectLecturersFromOtherDepartmentsOptimized(Department, BusyInvigilators, ProcessedLecturers, AvailableInvigilators);
+            CollectLecturersFromOtherDepartmentsOptimized(Department, BusyInvigilators, SemesterCode, ProcessedLecturers, AvailableInvigilators);
 
         // STEP 5: Final fallback - get from all lecturers if still not enough
         if AvailableInvigilators.Count < 2 then
@@ -3883,11 +3882,9 @@ codeunit 50096 "Timetable Management"
         end else begin
             AdditionalInvigilators := ROUND((StudentCount - 100) / 50, 1, '>') * InvigilatorSetup."Next 50";
             InvigilatorCount := FirstInvigilators + AdditionalInvigilators;
-
             if InvigilatorCount > MaxAllowed then
                 InvigilatorCount := MaxAllowed;
         end;
-
         if InvigilatorCount < MinimumRequired then
             InvigilatorCount := MinimumRequired;
 
@@ -4596,7 +4593,7 @@ codeunit 50096 "Timetable Management"
         AssignInvigilatorsToExams(SemesterCode);
 
         ProgressWindow.Close();
-        
+
         // Show distribution statistics
         ShowSessionDistributionMessage();
     end;
@@ -4644,7 +4641,41 @@ codeunit 50096 "Timetable Management"
             end;
         end;
 
-        // If optimal slot failed, try other slots as fallback
+        // If optimal slot failed, try remaining slots in session preference order
+        // Try to maintain session balance by preferring sessions with lower counts
+        AllTimeSlots.Reset();
+        if AllTimeSlots.FindSet() then begin
+            repeat
+                // Skip the already tried optimal slot
+                if AllTimeSlots.Code <> BestTimeSlot.Code then begin
+                    // Prefer sessions with lower global counts to maintain balance
+                    if ShouldPreferThisSession(AllTimeSlots."Session Type") then begin
+                        // Check if this specific time slot is available
+                        if IsTimeSlotValidForDate(AllTimeSlots, ExamDate) then begin
+                            // Try to schedule with room allocation
+                            if ScheduleExamWithRoomAllocationGroup(
+                                CourseOffering,
+                                ExamDate,
+                                AllTimeSlots,
+                                Semester,
+                                GroupCode,
+                                DocumentNo) then begin
+
+                                // Update courses per day counter
+                                if not CoursesPerDay.ContainsKey(ExamDate) then
+                                    CoursesPerDay.Add(ExamDate, 1)
+                                else
+                                    CoursesPerDay.Set(ExamDate, CoursesPerDay.Get(ExamDate) + 1);
+
+                                exit(true);
+                            end;
+                        end;
+                    end;
+                end;
+            until AllTimeSlots.Next() = 0;
+        end;
+
+        // If balanced approach failed, try any remaining slot
         AllTimeSlots.Reset();
         if AllTimeSlots.FindSet() then begin
             repeat
@@ -4672,6 +4703,36 @@ codeunit 50096 "Timetable Management"
                     end;
                 end;
             until AllTimeSlots.Next() = 0;
+        end;
+
+        exit(false);
+    end;
+
+    local procedure ShouldPreferThisSession(SessionType: Option Morning,Midday,Afternoon): Boolean
+    var
+        MorningCount, MiddayCount, AfternoonCount: Integer;
+        MinCount: Integer;
+    begin
+        // Get current counts
+        MorningCount := GlobalMorningCount;
+        MiddayCount := GlobalMiddayCount;
+        AfternoonCount := GlobalAfternoonCount;
+
+        // Find the minimum count
+        MinCount := MorningCount;
+        if MiddayCount < MinCount then
+            MinCount := MiddayCount;
+        if AfternoonCount < MinCount then
+            MinCount := AfternoonCount;
+
+        // Prefer sessions that have the minimum count (to balance)
+        case SessionType of
+            SessionType::Morning:
+                exit(MorningCount = MinCount);
+            SessionType::Midday:
+                exit(MiddayCount = MinCount);
+            SessionType::Afternoon:
+                exit(AfternoonCount = MinCount);
         end;
 
         exit(false);
@@ -4763,18 +4824,19 @@ codeunit 50096 "Timetable Management"
             until AvailableTimeSlots.Next() = 0;
         end;
 
-        // Use simple round-robin: determine which session type should be used next
-        RotationIndex := (GlobalMorningCount + GlobalMiddayCount + GlobalAfternoonCount) mod 3;
-        
+        // Use sequence-based round-robin: increment sequence on each attempt
+        RotationIndex := GlobalRotationSequence mod 3;
+        GlobalRotationSequence += 1;
+
         // Convert rotation index to session type (1=Morning, 2=Midday, 3=Afternoon)
         SessionTypeToUse := RotationIndex + 1;
-        
+
         // Try the rotation-determined session type first
         if SlotsAvailable[SessionTypeToUse] then begin
             BestTimeSlot := SlotRecords[SessionTypeToUse];
             exit(true);
         end;
-        
+
         // If rotation choice isn't available, try the other two in order
         for i := 1 to 3 do begin
             if (i <> SessionTypeToUse) and SlotsAvailable[i] then begin
@@ -5053,11 +5115,12 @@ codeunit 50096 "Timetable Management"
         Clear(CachedBusyInvigilators);
         Clear(CachedLecturersByDept);
         CacheInitialized := false;
-        
-        // Reset global session counters
+
+        // Reset global session counters and rotation sequence
         GlobalMorningCount := 0;
         GlobalMiddayCount := 0;
         GlobalAfternoonCount := 0;
+        GlobalRotationSequence := 0;
     end;
 
     local procedure GetNextSessionTypeInRotation(): Integer
@@ -5067,10 +5130,10 @@ codeunit 50096 "Timetable Management"
     begin
         // Calculate total sessions assigned so far
         TotalAssigned := GlobalMorningCount + GlobalMiddayCount + GlobalAfternoonCount;
-        
+
         // Use strict rotation: 0=Morning, 1=Midday, 2=Afternoon
         RotationPosition := TotalAssigned mod 3;
-        
+
         // Return session type (0=Morning, 1=Midday, 2=Afternoon)
         exit(RotationPosition);
     end;
@@ -5098,7 +5161,7 @@ codeunit 50096 "Timetable Management"
     end;
 
     // Initialize department lecturer cache
-    local procedure InitializeDepartmentCache()
+    local procedure InitializeDepartmentCache(SemesterCode: Code[25])
     var
         LecturerUnits: Record "ACA-Lecturers Units";
         DeptLecturers: List of [Code[20]];
@@ -5113,12 +5176,13 @@ codeunit 50096 "Timetable Management"
 
         LecturerUnits.Reset();
         LecturerUnits.SetCurrentKey(Lecturer);
+        LecturerUnits.SetRange(Semester, SemesterCode);
         if LecturerUnits.FindSet() then
             repeat
                 if LecturerUnits.Lecturer <> '' then begin
                     LecturerUnits.CalcFields("Department Code");
                     CurrentDept := LecturerUnits."Department Code";
-                    
+
                     if CurrentDept <> '' then begin
                         // Get or create department list
                         if CachedLecturersByDept.ContainsKey(CurrentDept) then
@@ -5144,6 +5208,7 @@ codeunit 50096 "Timetable Management"
     local procedure CollectDepartmentLecturersOptimized(
         Department: Code[20];
         BusyInvigilators: List of [Code[20]];
+        SemesterCode: Code[25];
         var ProcessedLecturers: List of [Code[20]];
         var AvailableInvigilators: List of [Code[20]])
     var
@@ -5152,11 +5217,11 @@ codeunit 50096 "Timetable Management"
         RequiredCount: Integer;
     begin
         RequiredCount := 5; // Get up to 5 from department
-        InitializeDepartmentCache();
+        InitializeDepartmentCache(SemesterCode);
 
         if CachedLecturersByDept.ContainsKey(Department) then begin
             DeptLecturers := CachedLecturersByDept.Get(Department);
-            
+
             foreach LecturerNo in DeptLecturers do begin
                 if AvailableInvigilators.Count >= RequiredCount then
                     break;
@@ -5173,6 +5238,7 @@ codeunit 50096 "Timetable Management"
     local procedure CollectLecturersFromOtherDepartmentsOptimized(
         ExcludeDepartment: Code[20];
         BusyInvigilators: List of [Code[20]];
+        SemesterCode: Code[25];
         var ProcessedLecturers: List of [Code[20]];
         var AvailableInvigilators: List of [Code[20]])
     var
@@ -5183,7 +5249,7 @@ codeunit 50096 "Timetable Management"
         DeptKeys: List of [Code[20]];
     begin
         RequiredCount := 3; // Maximum from other departments
-        InitializeDepartmentCache();
+        InitializeDepartmentCache(SemesterCode);
 
         // Get all department keys
         foreach DeptCode in CachedLecturersByDept.Keys do begin
@@ -5349,8 +5415,8 @@ codeunit 50096 "Timetable Management"
         SessionArray: array[10] of Integer;
         LoadArray: array[10] of Integer;
         Count: Integer;
-        i, j: Integer;
-        TempSession, TempLoad: Integer;
+        i, j : Integer;
+        TempSession, TempLoad : Integer;
         SessionType: Integer;
         Swapped: Boolean;
     begin
@@ -5371,12 +5437,12 @@ codeunit 50096 "Timetable Management"
                     TempLoad := LoadArray[i];
                     LoadArray[i] := LoadArray[i + 1];
                     LoadArray[i + 1] := TempLoad;
-                    
+
                     // Swap session types
                     TempSession := SessionArray[i];
                     SessionArray[i] := SessionArray[i + 1];
                     SessionArray[i + 1] := TempSession;
-                    
+
                     Swapped := true;
                 end;
             end;
@@ -5413,6 +5479,7 @@ codeunit 50096 "Timetable Management"
             ExamDate,
             ExamTimeSlot,
             CourseOffering.Lecturer,
+            CourseOffering.Semester,
             AvailableInvigilators);
 
         // Check if we have enough invigilators
@@ -5445,6 +5512,7 @@ codeunit 50096 "Timetable Management"
             ExamDate,
             ExamTimeSlot,
             SuppUnits."Lecturer Code",
+            SuppUnits.Semester,
             AvailableInvigilators);
 
         // Check if we have enough invigilators
@@ -5525,7 +5593,7 @@ codeunit 50096 "Timetable Management"
                 end;
             until ExamTimetableEntry.Next() = 0;
 
-        DistributionText := StrSubstNo('Session Distribution: Morning: %1, Midday: %2, Afternoon: %3', 
+        DistributionText := StrSubstNo('Session Distribution: Morning: %1, Midday: %2, Afternoon: %3',
                                       MorningCount, MiddayCount, AfternoonCount);
         Message(DistributionText);
     end;
@@ -5556,12 +5624,12 @@ codeunit 50096 "Timetable Management"
             until ExamTimetableEntry.Next() = 0;
 
         TotalCount := MorningCount + MiddayCount + AfternoonCount;
-        
+
         if TotalCount > 0 then begin
             MorningPct := Round((MorningCount * 100.0) / TotalCount, 0.01);
             MiddayPct := Round((MiddayCount * 100.0) / TotalCount, 0.01);
             AfternoonPct := Round((AfternoonCount * 100.0) / TotalCount, 0.01);
-            
+
             Message('Exam timetable generation completed for group: %1\' +
                     'Total exams scheduled: %2\' +
                     '\' +
@@ -5582,7 +5650,8 @@ codeunit 50096 "Timetable Management"
     // Global session counters for strict rotation
     var
         GlobalMorningCount: Integer;
-        GlobalMiddayCount: Integer; 
+        GlobalMiddayCount: Integer;
         GlobalAfternoonCount: Integer;
+        GlobalRotationSequence: Integer;
 
 }

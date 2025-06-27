@@ -455,6 +455,26 @@ page 50018 "FIN-Payment Lines"
                 {
                     ApplicationArea = All;
                 }
+                field("WHT 2 Code"; Rec."WHT 2 Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the WHT 2 Code field.', Comment = '%';
+                }
+                field("WHT 2 Amount"; Rec."WHT 2 Amount")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the WHT 2 Amount field.', Comment = '%';
+                }
+                field("levy Code"; Rec."levy Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the levy Code field.', Comment = '%';
+                }
+                field("Levy Rate"; Rec."Levy Rate")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Levy Rate field.', Comment = '%';
+                }
             }
         }
     }

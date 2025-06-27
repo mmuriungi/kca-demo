@@ -126,6 +126,12 @@ page 51836 "HMS-Treatment Form Drug"
                     end;
                 }
                 // 
+                field("Quantity to issue"; Rec."Quantity to issue")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Quantity Issued';
+                    ToolTip = 'Quantity actually issued to patient';
+                }
                 field(Issued; Rec.Issued)
                 {
                     Editable = false;

@@ -84,7 +84,9 @@ codeunit 50013 "Finance Operations"
                 until FinImprestHeader.Next() = 0;
 
             end;
-
+            FinImprestHeader."Pay Using Pv" := true;
+            FinImprestHeader.Status := FinImprestHeader.Status::Posted;
+            FinImprestHeader.Posted := true;
             FinImprestHeader.Modify()
 
 

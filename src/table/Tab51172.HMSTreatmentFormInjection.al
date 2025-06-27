@@ -58,6 +58,16 @@ table 51172 "HMS-Treatment Form Injection"
         {
             DataClassification = ToBeClassified;
         }
+        field(13; Dosage; Text[100])
+        {
+            Caption = 'Dosage';
+            DataClassification = ToBeClassified;
+        }
+        field(14; "Route of Administration"; Text[50])
+        {
+            Caption = 'Route of Administration';
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -267,6 +267,10 @@ pageextension 50008 UsersetupPgExt extends "User Setup"
             {
                 ApplicationArea = All;
             }
+            field("Max Requisition Count"; Rec."Max Requisition Count")
+            {
+                ApplicationArea = All;
+            }
 
         }
     }

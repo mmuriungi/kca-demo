@@ -1,4 +1,4 @@
-report 50022 "Payment Voucher Report"
+report 50022 "Payment Voucher Report Old"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Payment Voucher Report.rdl';

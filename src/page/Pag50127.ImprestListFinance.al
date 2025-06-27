@@ -55,6 +55,20 @@ page 50127 "Imprest List Finance"
             group("&Functions")
             {
                 Caption = '&Functions';
+                action(Approve)
+                {
+                    Caption = 'Approve';
+                    Image = Approve;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    ApplicationArea = All;
+                    trigger OnAction()
+                    begin
+                        Rec.Status := Rec.Status::Approved;
+                        Rec.Modify;
+                        CurrPage.Update;
+                    end;
+                }
 
                 action(Approvals)
                 {

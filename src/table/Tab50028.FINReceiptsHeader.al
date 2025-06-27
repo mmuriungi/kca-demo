@@ -321,8 +321,9 @@ table 50028 "FIN-Receipts Header"
         }
         field(50014; "Pay Mode"; Option)
         {
-            OptionCaption = ' ,Cash,Cheque,Mpesa,EFT,Deposit Slip,Banker''s Cheque,RTGS';
-            OptionMembers = " ",Cash,Cheque,Mpesa,EFT,"Deposit Slip","Banker's Cheque",RTGS;
+            OptionCaption = ' ,Cash,Cheque,EFT,Deposit Slip,Banker''s Cheque,RTGS';
+            OptionMembers = " ",Cash,Cheque,EFT,"Deposit Slip","Banker's Cheque",RTGS;
+            //" ",Cash,Cheque,EFT,"Deposit Slip","Banker's Cheque",RTGS
 
             trigger OnValidate()
             begin
@@ -375,106 +376,106 @@ table 50028 "FIN-Receipts Header"
         }
         field(50016; "Received From"; Text[100])
         {
-            Caption = 'Account No.';
+            Caption = 'Received From';
             DataClassification = ToBeClassified;
-            TableRelation =
-            IF ("Received From Account Type" = CONST("G/L Account")) "G/L Account" WHERE("Direct Posting" = filter(true))
-            ELSE
-            IF ("Received From Account Type" = CONST(Customer)) Customer WHERE("Customer Posting Group" = FIELD(Grouping))
-            ELSE
-            IF ("Received From Account Type" = CONST(Vendor)) Vendor WHERE("Vendor Posting Group" = FIELD(Grouping))
-            ELSE
-            IF ("Received From Account Type" = CONST("Bank Account")) "Bank Account" WHERE("Bank Acc. Posting Group" = FIELD(Grouping))
-            ELSE
-            IF ("Received From Account Type" = CONST("Fixed Asset")) "Fixed Asset"
-            ELSE
-            IF ("Received From Account Type" = CONST("IC Partner")) "IC Partner";
-
-            // IF ("Received From Account Type" = CONST("G/L Account")) "G/L Account"
+            // TableRelation =
+            // IF ("Received From Account Type" = CONST("G/L Account")) "G/L Account" WHERE("Direct Posting" = filter(true))
             // ELSE
-            // IF ("Received From Account Type" = CONST(Customer)) Customer
+            // IF ("Received From Account Type" = CONST(Customer)) Customer WHERE("Customer Posting Group" = FIELD(Grouping))
             // ELSE
-            // IF ("Received From Account Type" = CONST(Vendor)) Vendor
+            // IF ("Received From Account Type" = CONST(Vendor)) Vendor WHERE("Vendor Posting Group" = FIELD(Grouping))
+            // ELSE
+            // IF ("Received From Account Type" = CONST("Bank Account")) "Bank Account" WHERE("Bank Acc. Posting Group" = FIELD(Grouping))
             // ELSE
             // IF ("Received From Account Type" = CONST("Fixed Asset")) "Fixed Asset"
             // ELSE
-            // IF ("Received From Account Type" = CONST("Bank Account")) "Bank Account";
-            trigger OnValidate()
-            var
-                GLAcc: Record "G/L Account";
-                Cust: Record Customer;
-                vend: Record Vendor;
-                BankAcc: Record "Bank Account";
-                FA: Record "Fixed Asset";
-                ICPartner: Record 413;
+            // IF ("Received From Account Type" = CONST("IC Partner")) "IC Partner";
 
-            begin
-                //Account Name 
-                "Account Name" := '';
+            // // IF ("Received From Account Type" = CONST("G/L Account")) "G/L Account"
+            // // ELSE
+            // // IF ("Received From Account Type" = CONST(Customer)) Customer
+            // // ELSE
+            // // IF ("Received From Account Type" = CONST(Vendor)) Vendor
+            // // ELSE
+            // // IF ("Received From Account Type" = CONST("Fixed Asset")) "Fixed Asset"
+            // // ELSE
+            // // IF ("Received From Account Type" = CONST("Bank Account")) "Bank Account";
+            // trigger OnValidate()
+            // var
+            //     GLAcc: Record "G/L Account";
+            //     Cust: Record Customer;
+            //     vend: Record Vendor;
+            //     BankAcc: Record "Bank Account";
+            //     FA: Record "Fixed Asset";
+            //     ICPartner: Record 413;
 
-                IF "Received From Account Type" IN ["Received From Account Type"::"G/L Account", "Received From Account Type"::Customer,
-                "Received From Account Type"::Vendor, "Received From Account Type"::"IC Partner"] THEN
-                    CASE "Received From Account Type" OF
-                        "Received From Account Type"::"G/L Account":
-                            BEGIN
-                                GLAcc.GET("Received From");
-                                "Account Name" := GLAcc.Name;
+            // begin
+            //     //Account Name 
+            //     "Account Name" := '';
 
-                            END;
-                        "Received From Account Type"::Customer:
-                            BEGIN
-                                Cust.GET("Received From");
-                                "Account Name" := Cust.Name;
+            //     IF "Received From Account Type" IN ["Received From Account Type"::"G/L Account", "Received From Account Type"::Customer,
+            //     "Received From Account Type"::Vendor, "Received From Account Type"::"IC Partner"] THEN
+            //         CASE "Received From Account Type" OF
+            //             "Received From Account Type"::"G/L Account":
+            //                 BEGIN
+            //                     GLAcc.GET("Received From");
+            //                     "Account Name" := GLAcc.Name;
 
-                            END;
-                        "Received From Account Type"::Vendor:
-                            BEGIN
-                                Vend.GET("Received From");
-                                "Account Name" := Vend.Name;
-                            END;
-                        "Received From Account Type"::"Bank Account":
-                            BEGIN
-                                BankAcc.GET("Received From");
-                                "Account Name" := BankAcc.Name;
-                            END;
-                        "Received From Account Type"::"Fixed Asset":
-                            BEGIN
-                                FA.GET("Received From");
-                                "Account Name" := FA.Description;
-                            END;
-                        "Received From Account Type"::"IC Partner":
-                            BEGIN
-                                ICPartner.RESET;
-                                ICPartner.GET("Received From");
-                                "Account Name" := ICPartner.Name;
-                            END;
-                    END;
-                //End 
-                Lines.Reset();
-                Lines.SetRange(No, Rec."No.");
-                //Lines.SetRange("Line No.", 1000);
-                if Lines.FindFirst() then begin
-                    Lines."Account No." := Rec."Received From";
-                    Lines."Bank Account" := Rec."Bank Code";
-                    Lines."Cheque/Deposit Slip No" := Rec."Cheque No.";
-                    Lines.Grouping := Rec.Grouping;
-                    Lines."Pay Mode" := Rec."Pay Mode";
-                    Lines."Account Name" := Rec."Account Name";
-                    Lines.Modify();
-                end else begin
-                    // Lines.Init();
-                    // Lines.No := Rec."No.";
-                    //Lines."Line No." := 1000;
-                    //Lines."Account Type" := Rec."Received From Account Type";
-                    //Lines.validate("Account No.", Rec."Received From");
-                    Lines."Bank Account" := Rec."Bank Code";
-                    Lines."Cheque/Deposit Slip No" := Rec."Cheque No.";
-                    // Lines.Grouping := Rec.Grouping;
-                    Lines."Pay Mode" := Rec."Pay Mode";
-                    // Lines."Account Name" := Rec."Account Name";
-                    Lines.Insert();
-                end;
-            end;
+            //                 END;
+            //             "Received From Account Type"::Customer:
+            //                 BEGIN
+            //                     Cust.GET("Received From");
+            //                     "Account Name" := Cust.Name;
+
+            //                 END;
+            //             "Received From Account Type"::Vendor:
+            //                 BEGIN
+            //                     Vend.GET("Received From");
+            //                     "Account Name" := Vend.Name;
+            //                 END;
+            //             "Received From Account Type"::"Bank Account":
+            //                 BEGIN
+            //                     BankAcc.GET("Received From");
+            //                     "Account Name" := BankAcc.Name;
+            //                 END;
+            //             "Received From Account Type"::"Fixed Asset":
+            //                 BEGIN
+            //                     FA.GET("Received From");
+            //                     "Account Name" := FA.Description;
+            //                 END;
+            //             "Received From Account Type"::"IC Partner":
+            //                 BEGIN
+            //                     ICPartner.RESET;
+            //                     ICPartner.GET("Received From");
+            //                     "Account Name" := ICPartner.Name;
+            //                 END;
+            //         END;
+            //     //End 
+            //     Lines.Reset();
+            //     Lines.SetRange(No, Rec."No.");
+            //     //Lines.SetRange("Line No.", 1000);
+            //     if Lines.FindFirst() then begin
+            //         Lines."Account No." := Rec."Received From";
+            //         Lines."Bank Account" := Rec."Bank Code";
+            //         Lines."Cheque/Deposit Slip No" := Rec."Cheque No.";
+            //         Lines.Grouping := Rec.Grouping;
+            //         Lines."Pay Mode" := Rec."Pay Mode";
+            //         Lines."Account Name" := Rec."Account Name";
+            //         Lines.Modify();
+            //     end else begin
+            //         // Lines.Init();
+            //         // Lines.No := Rec."No.";
+            //         //Lines."Line No." := 1000;
+            //         //Lines."Account Type" := Rec."Received From Account Type";
+            //         //Lines.validate("Account No.", Rec."Received From");
+            //         Lines."Bank Account" := Rec."Bank Code";
+            //         Lines."Cheque/Deposit Slip No" := Rec."Cheque No.";
+            //         // Lines.Grouping := Rec.Grouping;
+            //         Lines."Pay Mode" := Rec."Pay Mode";
+            //         // Lines."Account Name" := Rec."Account Name";
+            //         Lines.Insert();
+            //     end;
+            //end;
         }
         field(50017; "Account Name"; Text[150])
         {
@@ -509,6 +510,8 @@ table 50028 "FIN-Receipts Header"
     }
 
     trigger OnInsert()
+    var
+        DimVal: Record "Dimension Value";
     begin
         IF "No." = '' THEN BEGIN
             GenLedgerSetup.GET;
@@ -527,6 +530,12 @@ table 50028 "FIN-Receipts Header"
         "Created By" := USERID;
         "Created Date Time" := CREATEDATETIME(TODAY, TIME);
         //*****************************END***************************//
+        DimVal.RESET;
+        DimVal.SETRANGE("Default Receit Dimesnison 1", true);
+        IF DimVal.FINDFIRST THEN BEGIN
+            "Global Dimension 1 Code" := DimVal.Code;
+            VALIDATE("Global Dimension 1 Code");
+        END;
     end;
 
     trigger OnModify()

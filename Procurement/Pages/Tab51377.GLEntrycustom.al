@@ -10,7 +10,7 @@ table 51377 "G/L Entry custom"
     {
         field(1; "Entry No."; Integer)
         {
-            Caption = 'Entry No.';
+            Caption = 'Entry No';
         }
         field(3; "G/L Account No."; Code[20])
         {
@@ -454,7 +454,7 @@ table 51377 "G/L Entry custom"
             FieldClass = FlowField;
             CalcFormula = sum("G/L Entry custom".Amount where("G/L Account No." = field("G/L Account No."), "Posting Date" = field("Posting Date"), "Document No." = field("Document No.")));
         }
-        field(8008;"EntryCount"; Integer)
+        field(8008; "EntryCount"; Integer)
         {
             Caption = 'Entry Count';
             FieldClass = FlowField;

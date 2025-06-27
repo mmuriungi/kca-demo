@@ -110,6 +110,11 @@ tableextension 50023 "Cust. Ledger Entry" extends "Cust. Ledger Entry"
                                                             "Repeatition Value" = FIELD("Repeatition Value")));
             FieldClass = FlowField;
         }
+        //skip nfm
+        field(50012; "Skip Nfm"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
     var
         Text000: Label 'must have the same sign as %1';

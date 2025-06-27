@@ -143,6 +143,24 @@ page 50044 "FIN-Travel Advance Acc. UP"
     {
         area(processing)
         {
+            action(Approve)
+            {
+                Caption = 'Approve';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                trigger OnAction()
+                var
+                    ApprovalMgt: Codeunit "Init Code";
+                    showmessage: Boolean;
+                    ManualCancel: Boolean;
+                begin
+                    Rec.Status := Rec.Status::Approved;
+                    Rec.Modify;
+                    CurrPage.Update;
+                end;
+            }
             group(Functions)
             {
                 Caption = 'Functions';
@@ -282,7 +300,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                             //Compare the amount issued =amount on cash reciecied.
                             //Created new field for zero spent
                             //
-
+                            ImprestDetails.TestField("Actual Spent");
                             //ImprestDetails.TESTFIELD("Actual Spent");
                             //ImprestDetails.TESTFIELD("Actual Spent");
                             IF (ImprestDetails."Cash Receipt Amount" + ImprestDetails."Actual Spent") <> ImprestDetails.Amount THEN
@@ -485,7 +503,8 @@ page 50044 "FIN-Travel Advance Acc. UP"
 
                         //GenerateReceipt();
                         // Message('Available');
-                        CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", GenJnlLine);
+                        if GenJnlLine.FindSet() then
+                        CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnlLine);
                     END;
 
                     //IF JournalPostSuccessful.PostedSuccessfully THEN BEGIN

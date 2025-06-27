@@ -27,7 +27,7 @@ report 50041 "NHIF Schedule Report"
             column(Companyinfo_Picture; Companyinfo.Picture)
             {
             }
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; Companyinfo.Name)
             {
             }
             column(Address; Address)

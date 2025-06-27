@@ -338,9 +338,17 @@ page 50046 "Procurement Management"
             group("Store Requisition")
             {
                 Caption = 'Store Requisitions';
-
+                action("Store Requisitions")
+                {
+                    Caption='Store Requisitions';
+                    ApplicationArea = all;
+                    RunObject = Page "PROC-Store Requisition2";
+                    //RunPageView = where(status = filter(open));
+                }
+                
                 action("Storess Requisitions")
                 {
+                    Visible = false;
                     ApplicationArea = all;
                     Caption = 'Stores Requisitions Pending Approval';
                     RunObject = Page "PROC-Store Requisition2";
@@ -348,6 +356,7 @@ page 50046 "Procurement Management"
                 }
                 action("Released Stores Requisitions")
                 {
+                    Visible = false;
                     ApplicationArea = all;
                     Caption = 'Released Stores Requisitions';
                     RunObject = Page "PROC-Store Requisition2";
@@ -356,6 +365,7 @@ page 50046 "Procurement Management"
 
                 action("Posted Store Requisitions")
                 {
+                    Visible = false;
                     Caption = 'Posted Store Requisitions';
                     ApplicationArea = All;
                     Image = PostedOrder;

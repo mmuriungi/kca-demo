@@ -218,7 +218,7 @@ table 50213 "HRM-Employee C"
         field(11; "Post Code"; Code[20])
         {
             TableRelation = "Post Code";
-            //This property is currently not supported
+            ///This property is currently not supported
             //TestTableRelation = false;
             ValidateTableRelation = false;
 
@@ -454,8 +454,9 @@ table 50213 "HRM-Employee C"
         }
         field(51; Title; Option)
         {
-            OptionCaption = ',  ,,MR,MRS,MISS,MS,DR.,CC,PROF.';
-            OptionMembers = "  ","MR.","MRS.","MISS.","MS.","DR.",CC,"PROF.";
+            OptionCaption = 'MR.,MRS.,MISS.,MS,DR.,ENG.,DR,CC,PROF.,PROF';
+            OptionMembers = "MR.","MRS.","MISS.","MS","DR.","ENG.","DR","CC","PROF.","PROF";
+            //MR.,MRS.,MISS.,MS,DR., ENG. ,DR,CC,PROF.,PROF
 
             trigger OnValidate()
             begin
@@ -2325,6 +2326,10 @@ table 50213 "HRM-Employee C"
         }
         //"Library Patron ID"
         field(63218; "Library Patron ID"; Integer)
+        {
+        }
+        //"Secondary Income"
+        field(63219; "Secondary Income"; Boolean)
         {
         }
     }

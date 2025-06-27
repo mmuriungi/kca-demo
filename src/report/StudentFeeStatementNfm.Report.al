@@ -105,13 +105,13 @@ Report 78092 "Student Fee Statement Nfm"
                     CustLedgerEntry.RESET;
                     CustLedgerEntry.SETRANGE(CustLedgerEntry."Entry No.", "Detailed Cust. Ledg. Entry"."Cust. Ledger Entry No.");
                     IF CustLedgerEntry.FIND('-') THEN BEGIN
-                        IF CustLedgerEntry.Reversed THEN CurrReport.SKIP;
+                        IF (CustLedgerEntry.Reversed OR CustLedgerEntry."Skip Nfm") THEN CurrReport.SKIP;
                     END;
                     Gl := '';
                     IF "Detailed Cust. Ledg. Entry"."Debit Amount" <> 0 THEN BEGIN
                         GlEntry.RESET;
                         GlEntry.SETRANGE("Document No.", "Detailed Cust. Ledg. Entry"."Document No.");
-                        GlEntry.SETFILTER("G/L Account No.", '%1|%2|%3|%4|%5|%6|%7', '60055', '60090', '60092', '60096', '60098', '60130', '60075');
+                        GlEntry.SETFILTER("G/L Account No.", '%1|%2|%3|%4|%5|%6|%7|%8', '60055', '60090', '60092', '60096', '60098', '60130', '60075', '60086');
                         IF GlEntry.FINDFIRST THEN BEGIN
                             ignore := TRUE;
                             Gl := GlEntry."G/L Account No.";
@@ -245,7 +245,6 @@ Report 78092 "Student Fee Statement Nfm"
                     END ELSE
                         NfmEntry.INSERT(TRUE);
                     COMMIT;
-                    // Customer.CALCFIELDS("Nfm Balance");
                 end;
             }
             dataitem("NFM Statement Entry"; "NFM Statement Entry")
@@ -292,24 +291,24 @@ Report 78092 "Student Fee Statement Nfm"
 
             trigger OnAfterGetRecord()
             begin
-                Clear(runningBal);
-                ACACourseRegistration.Reset;
-                ACACourseRegistration.SetRange(ACACourseRegistration."Student No.", Customer."No.");
-                ACACourseRegistration.SetFilter(ACACourseRegistration.Programmes, '<>%1', '');
+                CLEAR(runningBal);
+                ACACourseRegistration.RESET;
+                ACACourseRegistration.SETRANGE(ACACourseRegistration."Student No.", Customer."No.");
+                ACACourseRegistration.SETFILTER(ACACourseRegistration.Programmes, '<>%1', '');
                 //ACACourseRegistration.SETFILTER(ACACourseRegistration.Reversed,'=%1',FALSE);
-                ACACourseRegistration.SetFilter(ACACourseRegistration.Transfered, '=%1', false);
-                ACACourseRegistration.SetCurrentkey(Stage);
-                if ACACourseRegistration.Find('+') then begin
-                    Progs.Reset;
-                    Progs.SetRange(Code, ACACourseRegistration.Programmes);
-                    if Progs.Find('-') then begin
-                    end;
-                end;
+                ACACourseRegistration.SETFILTER(ACACourseRegistration.Transfered, '=%1', FALSE);
+                ACACourseRegistration.SETCURRENTKEY(Stage);
+                IF ACACourseRegistration.FIND('+') THEN BEGIN
+                    Progs.RESET;
+                    Progs.SETRANGE(Code, ACACourseRegistration.Programmes);
+                    IF Progs.FIND('-') THEN BEGIN
+                    END;
+                END;
 
-                NfmEntry.Reset;
-                NfmEntry.SetRange("Student No.", Customer."No.");
-                NfmEntry.DeleteAll();
-                ProcessingfeeAdded := false;
+                NfmEntry.RESET;
+                NfmEntry.SETRANGE("Student No.", Customer."No.");
+                NfmEntry.DELETEALL();
+                ProcessingfeeAdded := FALSE;
             end;
         }
     }

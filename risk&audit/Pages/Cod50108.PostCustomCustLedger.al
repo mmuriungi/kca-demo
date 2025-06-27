@@ -1,4 +1,4 @@
-codeunit 50108 "Post Custom Cust Ledger"
+codeunit 50110 "Post Custom Cust Ledger"
 
 {
     trigger OnRun()

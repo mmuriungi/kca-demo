@@ -657,7 +657,55 @@ table 50025 "FIN-Payments Header"
             DataClassification = ToBeClassified;
             OptionMembers = " ","Part-time claim","Medical Claim";
         }
-
+        //"PV Category"
+        field(50170; "PV Category"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = " ","Normal PV","Part-time Pay","Medical Claims";
+        }
+        /*
+        Enabled	Field No.	Field Name	Data Type	Length	Description
+Yes	50159	Direct Expense	Boolean		
+Yes	50160	Total Levy	Decimal		
+Yes	50161	WHT 2 Code	Code	20	
+Yes	50162	Total WHT2 Amount	Decimal		
+Yes	50163	Levy Code	Code	20	
+Yes	50164	Total Withholding Amount	Decimal		
+Yes	50165	Rectified	Boolean		
+        */
+        field(50171; "Direct Expense"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50172; "Total Levy"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula=Sum("FIN-Payment Line"."Levy Amount" WHERE (No=FIELD("No.")));
+        }
+        field(50173; "WHT 2 Code"; Code[20])
+        {
+            FieldClass = FlowField;
+            CalcFormula=Lookup("FIN-Payment Line"."WHT 2 Code" WHERE (No=FIELD("No.")));
+        }
+        field(50174; "Total WHT2 Amount"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula=Sum("FIN-Payment Line"."WHT 2 Amount" WHERE (No=FIELD("No.")));
+        }
+        field(50175; "Levy Code"; Code[20])
+        {
+            FieldClass = FlowField;
+            CalcFormula=Lookup("FIN-Payment Line"."Levy Code" WHERE (No=FIELD("No.")));
+        }
+        field(50176; "Total Withholding Amount"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula=Sum("FIN-Payment Line"."Withholding Tax Amount" WHERE (No=FIELD("No.")));
+        }
+        field(50177; "Rectified"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

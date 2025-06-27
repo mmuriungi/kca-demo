@@ -95,7 +95,7 @@ Report 78095 "Student Process Nfm"
                     IF "Detailed Cust. Ledg. Entry".Amount <> 0 THEN BEGIN
                         GlEntry.RESET;
                         GlEntry.SETRANGE("Document No.", "Detailed Cust. Ledg. Entry"."Document No.");
-                        GlEntry.SETFILTER("G/L Account No.", '%1|%2', '30008', '30004');
+                        GlEntry.SETFILTER("G/L Account No.", '%1|%2', '30008', '30004', '60086');
                         IF GlEntry.FINDFIRST THEN CurrReport.SKIP;
                     END;
 
@@ -104,13 +104,13 @@ Report 78095 "Student Process Nfm"
                     CustLedgerEntry.RESET;
                     CustLedgerEntry.SETRANGE(CustLedgerEntry."Entry No.", "Detailed Cust. Ledg. Entry"."Cust. Ledger Entry No.");
                     IF CustLedgerEntry.FIND('-') THEN BEGIN
-                        IF CustLedgerEntry.Reversed THEN CurrReport.SKIP;
+                        IF (CustLedgerEntry.Reversed OR CustLedgerEntry."Skip Nfm") THEN CurrReport.SKIP;
                     END;
                     Gl := '';
                     IF "Detailed Cust. Ledg. Entry"."Debit Amount" <> 0 THEN BEGIN
                         GlEntry.RESET;
                         GlEntry.SETRANGE("Document No.", "Detailed Cust. Ledg. Entry"."Document No.");
-                        GlEntry.SETFILTER("G/L Account No.", '%1|%2|%3|%4|%5|%6|%7', '60055', '60090', '60092', '60096', '60098', '60130', '60075');
+                        GlEntry.SETFILTER("G/L Account No.", '%1|%2|%3|%4|%5|%6|%7|%8', '60055', '60090', '60092', '60096', '60098', '60130', '60075', '60086');
                         IF GlEntry.FINDFIRST THEN BEGIN
                             ignore := TRUE;
                             Gl := GlEntry."G/L Account No.";
@@ -244,7 +244,6 @@ Report 78095 "Student Process Nfm"
                     END ELSE
                         NfmEntry.INSERT(TRUE);
                     COMMIT;
-                    // Customer.CALCFIELDS("Nfm Balance");
                 end;
             }
             dataitem("Nfm Statement Entry"; "Nfm Statement Entry")

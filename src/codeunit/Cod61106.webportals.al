@@ -12,7 +12,7 @@ Codeunit 61106 webportals
     end;
 
     var
-        FILESPATH: label 'C:\inetpub\wwwroot\Downloads\';
+        FILESPATH: label '\\172.16.0.114\PortalDownloads\';
         ProgramUnits: Record "ACA-Semester";
         "Employee Card": Record "HRM-Employee C";
         "HR Leave Application": Record "HRM-Leave Requisition";
@@ -50,7 +50,7 @@ Codeunit 61106 webportals
         AppMgt: Codeunit "Approval Workflows V1";
         // ApprovalSetup: Record UnknownRecord452;
         Text004: label 'Approval Setup not found.';
-        FILESPATH_S: label 'C:\inetpub\wwwroot\Downloads\';
+        FILESPATH_S: label '\\172.16.0.114\PortalDownloads\';
         RelieverName: Text;
         LeaveLE: Record "HRM-Leave Ledger";
         ExamResults: Record "ACA-Exam Results";
@@ -94,7 +94,7 @@ Codeunit 61106 webportals
         VoteElection: Record "ELECT Election Result";
         KUCCPSRaw: Record "KUCCPS Imports";
         AdmissionFormHeader: Record "ACA-Adm. Form Header";
-        FILESPATH_A: label 'C:\inetpub\wwwroot\Downloads\';
+        FILESPATH_A: label '\\172.16.0.114\PortalDownloads\';
         OnlineUsersz: Record "OnlineUsers";
         AplicFormHeader: Record "ACA-Applic. Form Header";
         ProgEntrySubjects: Record "ACA-Programme Entry Subjects";
@@ -2837,6 +2837,7 @@ Codeunit 61106 webportals
             EmployeeUserId := "Employee Card"."User ID";
             LeaveT."Employee No" := EmployeeNo;
             LeaveT."Employee Name" := "Employee Card".FullName;
+            LeaveT."Department Code" := "Employee Card"."Department Code";
             "Supervisor Card".Reset;
             "Supervisor Card".SetRange("Supervisor Card"."User ID", "Employee Card"."User ID");
             if "Supervisor Card".Find('-')
@@ -2872,7 +2873,9 @@ Codeunit 61106 webportals
             //CLEAR(tableNo);
             //tableNo:=61125;
             //AppMgt.SendApproval(tableNo,NextLeaveApplicationNo,DocType,State);
+            ApprovHR.UpdateLeaveWorkflow("HR Leave Application");
             ApprovHR.OnSendLeavesforApproval("HR Leave Application");
+            ApprovHR.ResetLeaveWorkflow("HR Leave Application");
         end;
     end;
 
@@ -3278,11 +3281,18 @@ Codeunit 61106 webportals
     var
         "prSalary Card": record "PRL-Salary Card";
         HrmEmployeeC: record "HRM-Employee C";
+        PayrolPeriod: Record "PRL-Payroll Periods";
     begin
         filename := FILESPATH_S + filenameFromApp;
         if Exists(filename) then
             Erase(filename);
         //MESSAGE('OK');
+        PayrolPeriod.Reset;
+        PayrolPeriod.SetRange(PayrolPeriod."Date Opened", Period);
+        if PayrolPeriod.Find('-') then begin
+            if not PayrolPeriod."Allow View of Online Payslips" then
+                exit;
+        end;
         SalaryCard.Reset;
         SalaryCard.SetRange(SalaryCard."Employee Code", EmployeeNo);
         SalaryCard.SetRange(SalaryCard."Payroll Period", Period);
@@ -4077,6 +4087,8 @@ Codeunit 61106 webportals
         PRLEmployeeP9Info.Reset;
         PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Employee Code", EmployeeNo);
         PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Period Year", objPeriod."Period Year");
+        PRLEmployeeP9Info.SetAutoCalcFields(PRLEmployeeP9Info."Allow View Online");
+        PRLEmployeeP9Info.SetRange(PRLEmployeeP9Info."Allow View Online", true);
         if PRLEmployeeP9Info.Find('-') then
             Report.SaveAsPdf(Report::"P9 Report (Final)", filename, PRLEmployeeP9Info);
         //REPORT.SAVEASPDF(51746,filename,P9);   //52017726
@@ -4860,7 +4872,7 @@ Codeunit 61106 webportals
         EmployeeCard.SetRange(EmployeeCard."No.", StaffNo);
 
         if EmployeeCard.Find('-') then begin
-            Report.SaveAsPdf(Report::"Standard Leave Balance Report", filename, EmployeeCard);
+            Report.SaveAsPdf(Report::"HR Leave Statement", filename, EmployeeCard);
         end;
     end;
 
@@ -12557,28 +12569,184 @@ Codeunit 61106 webportals
                     JObj.Add('Status', Format(MileageClaimLines.Status));
                     JArray.Add(JObj);
                 end;
-            MileageClaimLines.Reset;
-            MileageClaimLines.SetRange("Mileage Claim No.", MileageClaimHeader."No.");
-            if MileageClaimLines.FindSet() then begin
-                Clear(JObj);
-                JObj.Add('RequisitionNo', MileageClaimLines."Mileage Claim No.");
-                JObj.Add('VehicleRegNo', MileageClaimLines."Vehicle Registration No.");
-                JObj.Add('VehicleModel', MileageClaimLines."Vehicle Model");
-                JObj.Add('EngineCapacity', MileageClaimLines."Engine Capacity");
-                JObj.Add('StartingPoint', MileageClaimLines."Starting Point");
-                JObj.Add('Destination', MileageClaimLines.Destination);
-                JObj.Add('Passengers', MileageClaimLines."Number of Passengers");
-                JObj.Add('Purpose', MileageClaimLines."Purpose of Trip");
-                JObj.Add('TravelDate', Format(MileageClaimLines."Travel Date"));
-                JObj.Add('Distance', Format(MileageClaimLines."Distance (KM)"));
-                JObj.Add('Amount', Format(MileageClaimLines."Total Cost"));
-                JObj.Add('Status', Format(MileageClaimHeader.Status));
-                JArray.Add(JObj);
-            end;
+                MileageClaimLines.Reset;
+                MileageClaimLines.SetRange("Mileage Claim No.", MileageClaimHeader."No.");
+                if MileageClaimLines.FindSet() then begin
+                    Clear(JObj);
+                    JObj.Add('RequisitionNo', MileageClaimLines."Mileage Claim No.");
+                    JObj.Add('VehicleRegNo', MileageClaimLines."Vehicle Registration No.");
+                    JObj.Add('VehicleModel', MileageClaimLines."Vehicle Model");
+                    JObj.Add('EngineCapacity', MileageClaimLines."Engine Capacity");
+                    JObj.Add('StartingPoint', MileageClaimLines."Starting Point");
+                    JObj.Add('Destination', MileageClaimLines.Destination);
+                    JObj.Add('Passengers', MileageClaimLines."Number of Passengers");
+                    JObj.Add('Purpose', MileageClaimLines."Purpose of Trip");
+                    JObj.Add('TravelDate', Format(MileageClaimLines."Travel Date"));
+                    JObj.Add('Distance', Format(MileageClaimLines."Distance (KM)"));
+                    JObj.Add('Amount', Format(MileageClaimLines."Total Cost"));
+                    JObj.Add('Status', Format(MileageClaimHeader.Status));
+                    JArray.Add(JObj);
+                end;
             until MileageClaimHeader.Next = 0;
             JArray.WriteTo(JsTxt);
             msg := JsTxt;
         end;
+    end;
+
+    procedure FnActionApprovals(TableID: Integer; DocumentNo: Code[50]; EntryNo: Integer; StatusApproveRejectDelegate: text[50]; ApprovalComment: text[80]; ApproverID: Code[50]) retVal: Boolean
+    var
+        ApprovalEntryNo: Integer;
+        ObjApprovalEntry: Record "Approval Entry";
+        ObjApprovalEntry2: Record "Approval Entry";
+        ObjApprovalEntry3: Record "Approval Entry";
+        SeqNo: Integer;
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+    begin
+        retVal := false;
+        StatusApproveRejectDelegate := LowerCase(StatusApproveRejectDelegate);
+
+        ObjApprovalEntry.Reset();
+        ObjApprovalEntry.SetRange("Table ID", TableID);
+        ObjApprovalEntry.SetRange("Entry No.", EntryNo);
+        ObjApprovalEntry.SetRange("Approver ID", ApproverID);
+        ObjApprovalEntry.SetRange("Document No.", DocumentNo);
+        if ObjApprovalEntry.Find('-') then begin
+            if StatusApproveRejectDelegate = 'approve' then begin
+                //CuApprovalMgtExtension.OnApproveApprovalRequest(ObjApprovalEntry);
+                ApprovalsMgmt.ApproveApprovalRequests(ObjApprovalEntry);
+                // Commit();
+                // ObjApprovalEntry2.Reset();
+                // ObjApprovalEntry2.Get(entryNo);
+                // ObjApprovalEntry2.Status := ObjApprovalEntry2.Status::Approved;
+                // ObjApprovalEntry2."Last Modified By User ID" := ApproverID;
+                // ObjApprovalEntry2.Modify();
+
+                // //Approve Same Sequence
+                // FnApproveSameSequenceRequests(ObjApprovalEntry, ApproverID);
+            end
+            else
+                if StatusApproveRejectDelegate = 'reject' then begin
+                    ApprovalsMgmt.RejectApprovalRequests(ObjApprovalEntry);
+                    // Commit();
+                    // ObjApprovalEntry2.Reset();
+                    // ObjApprovalEntry2.Get(entryNo);
+                    // ObjApprovalEntry2.Status := ObjApprovalEntry2.Status::Rejected;
+                    // ObjApprovalEntry2.Modify();
+                end
+                else
+                    if StatusApproveRejectDelegate = 'delegate' then begin
+                        ApprovalsMgmt.DelegateApprovalRequests(ObjApprovalEntry);
+                        // Commit();
+                        //FnUpdateDocumentApproval(ObjApprovalEntry."Table ID", ObjApprovalEntry."Document No.", 'delegated', ApproverID);
+                    end;
+
+            FnDocumentApprovalComments(documentNo, ApprovalComment, userID, ObjApprovalEntry."Document Type", ObjApprovalEntry."Record ID to Approve", ObjApprovalEntry."Sequence No.", ObjApprovalEntry."Table ID");
+            // Commit();
+
+            retVal := true;
+        end;
+    end;
+
+    local procedure FnIsFullyApproved(ApprovalEntry: Record "Approval Entry") retVal: Boolean
+    var
+        ObjApprovalEntry: Record "Approval Entry";
+    begin
+        retVal := true;
+        ObjApprovalEntry.Reset();
+        ObjApprovalEntry.SetRange("Document No.", ApprovalEntry."Document No.");
+        ObjApprovalEntry.SetFilter(Status, '%1|%2', ApprovalEntry.Status::Open, ObjApprovalEntry.Status::Created);
+        if ObjApprovalEntry.Find('-') then
+            retVal := false;
+    end;
+
+    local procedure FnDocumentApprovalComments(documentNo: Code[100]; comments: Text[250]; userID: Code[100]; documentType: Integer; record_id: RecordId; sequence: Integer; table_id: Integer) return_value: Boolean
+    var
+        NextEntryNo: Integer;
+        ObjApprovalCommentLines: Record "Approval Comment Line";
+        R: page "Requests to Approve";
+    begin
+        return_value := FALSE;
+        ObjApprovalCommentLines.RESET;
+        if ObjApprovalCommentLines.FINDLAST() then
+            NextEntryNo := ObjApprovalCommentLines."Entry No." + 1
+        else
+            NextEntryNo := 1;
+        //
+        ObjApprovalCommentLines.RESET;
+        ObjApprovalCommentLines.INIT;
+        ObjApprovalCommentLines."Entry No." := NextEntryNo;
+        ObjApprovalCommentLines."Table ID" := table_id;
+        ObjApprovalCommentLines."Document Type" := documentType;
+        ObjApprovalCommentLines."Document No." := documentNo;
+        ObjApprovalCommentLines."User ID" := userID;
+        ObjApprovalCommentLines.Comment := comments;
+        ObjApprovalCommentLines."Date and Time" := CURRENTDATETIME;
+        ObjApprovalCommentLines."Record ID to Approve" := record_id;
+        ObjApprovalCommentLines.INSERT;
+        return_value := true;
+    end;
+
+    procedure FnApproveSameSequenceRequests(ApprovalEntry: Record "Approval Entry"; UserId: Text[50])
+    var
+        ObjApprovalEntry: Record "Approval Entry";
+    begin
+        // approve other entries with same sequence
+        ObjApprovalEntry.Reset();
+        ObjApprovalEntry.SetRange("Document No.", ApprovalEntry."Document No.");
+        //ObjApprovalEntry.Setfilter("Approver ID", '<>%1', userId);
+        ObjApprovalEntry.SetRange(Status, ObjApprovalEntry.Status::Open);
+        ObjApprovalEntry.SetRange("Sequence No.", ApprovalEntry."Sequence No.");
+        if ObjApprovalEntry.FindSet() then begin
+            repeat
+                ObjApprovalEntry.Status := ObjApprovalEntry.Status::Approved;
+                ObjApprovalEntry."Last Date-Time Modified" := CurrentDateTime;
+                ObjApprovalEntry."Last Modified By User ID" := userId;
+                ObjApprovalEntry.Modify();
+            until ObjApprovalEntry.Next() = 0;
+        end;
+    end;
+
+    procedure GetRequestsToApprove(ApproverID: Code[20]) msg: Text
+    var
+        AppovEntry: Record "Approval Entry";
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+        ReqT: page "Requests to Approve";
+    begin
+        AppovEntry.Reset;
+        AppovEntry.SetRange("Approver ID", ApproverID);
+        if AppovEntry.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('No', AppovEntry."Document No.");
+                JObj.Add('TableID', AppovEntry."Table ID");
+                JObj.Add('ApproverID', AppovEntry."Approver ID");
+                JObj.Add('RecordCaption', AppovEntry.RecordCaption());
+                JObj.Add('RecordDetails', AppovEntry.RecordDetails());
+                JObj.Add('Comment', AppovEntry.Comment);
+                JObj.Add('SenderID', AppovEntry."Sender ID");
+                JObj.Add('DueDate', AppovEntry."Due Date");
+                JObj.Add('Status', AppovEntry.Status);
+                JObj.Add('Amount', AppovEntry.Amount);
+                JObj.Add('AmountLCY', AppovEntry."Amount (LCY)");
+                JObj.Add('CurrencyCode', AppovEntry."Currency Code");
+                JArray.Add(JObj);
+            until AppovEntry.Next = 0;
+            JArray.WriteTo(JsTxt);
+            msg := JsTxt;
+        end;
+    end;
+
+    procedure GetUserIDByStaffNo(staffNo: Code[20]): Text
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Reset;
+        UserSetup.SetRange("Staff No", staffNo);
+        if UserSetup.FindFirst() then
+            exit(UserSetup."User ID");
+        exit('');
     end;
 }
 

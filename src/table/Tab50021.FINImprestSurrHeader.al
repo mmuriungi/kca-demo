@@ -275,6 +275,10 @@ table 50021 "FIN-Imprest Surr. Header"
             TableRelation = "FIN-Imprest Header"."No." WHERE("Account No." = FIELD("Account No."), Posted = filter(true));
 
             trigger OnValidate()
+            var
+                ExpectedDateOfSurrender: Date;
+                GenLedgerSetup: Record "Cash Office Setup";
+                LineNo: Integer;
             begin
 
                 /*Copy the details from the payments header tableto the imprest surrender table to enable the user work on the same document*/
@@ -305,10 +309,18 @@ table 50021 "FIN-Imprest Surr. Header"
                 "Shortcut Dimension 4 Code" := PayHeader."Shortcut Dimension 4 Code";
                 Dim4 := PayHeader.Dim4;
                 "Imprest Issue Date" := PayHeader.Date;
-                if PayHeader."Expected Date of Surrender" < Today then
-                    // daystoday := DATE2DMY(Today, 1);
-                    // daystoutstanding := DATE2DMY(PayHeader."Expected Date of Surrender", 1);
-                    OutstandingDays := (Today - PayHeader."Expected Date of Surrender");
+                ExpectedDateOfSurrender := PayHeader."Expected Date of Surrender";
+                //if PayHeader."Expected Date of Surrender" < Today then
+                // daystoday := DATE2DMY(Today, 1);
+                // daystoutstanding := DATE2DMY(PayHeader."Expected Date of Surrender", 1);
+                if PayHeader."Expected Date of Surrender" <> 0D then
+                    OutstandingDays := (Today - PayHeader."Expected Date of Surrender")
+                else begin
+                    if GenLedgerSetup.Get() then begin
+                        ExpectedDateOfSurrender := PayHeader.Date + GenLedgerSetup."Surrender Dates";
+                        OutstandingDays := (Today - ExpectedDateOfSurrender);
+                    end;
+                end;
 
 
 
@@ -319,6 +331,8 @@ table 50021 "FIN-Imprest Surr. Header"
                   BEGIN
                     REPEAT
                         ImpSurrLine.INIT;
+                        LineNo := Random(99999);
+                        ImpSurrLine.LineNo := LineNo;
                         ImpSurrLine."Surrender Doc No." := Rec.No;
                         // ImpSurrLine."Surrender Date" := Rec."Surrender Date";
                         ImpSurrLine."Account No:" := PayLine."Account No:";
@@ -364,7 +378,8 @@ table 50021 "FIN-Imprest Surr. Header"
 
                 PaymentsH.RESET;
                 PaymentsH.SETRANGE(PaymentsH."Imprest No.", "Imprest Issue Doc. No");
-                IF PaymentsH.FIND('-') THEN BEGIN
+                PaymentsH.SetCurrentKey(PaymentsH."No.");
+                IF PaymentsH.FindLast() THEN BEGIN
                     "PV No" := PaymentsH."No.";
                 END;
 
@@ -963,6 +978,17 @@ table 50021 "FIN-Imprest Surr. Header"
     procedure ExpenseBudget()
     begin
 
+    end;
+
+    local procedure getLastEntryNo(): Integer
+    var
+        ImpSurrLine: Record "FIN-Imprest Surrender Details";
+    begin
+        ImpSurrLine.RESET;
+        // ImpSurrLine.SETRANGE(ImpSurrLine."Surrender Doc No.", "No.");
+        IF ImpSurrLine.FindLast() THEN
+            EXIT(ImpSurrLine.LineNo);
+        EXIT(0);
     end;
 
 }

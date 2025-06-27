@@ -175,7 +175,7 @@ table 50145 "PROC-Store Requistion Header1"
         field(85; "Responsibility Center"; Code[20])
         {
             Caption = 'Responsibility Center';
-            TableRelation = "Responsibility Center".Code where(grouping = filter('SRN'));
+            TableRelation = "Responsibility Center".Code ;//where(grouping = filter('SRN'));
 
             trigger OnValidate()
             begin

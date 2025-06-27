@@ -227,19 +227,20 @@ table 51362 "Detailed Cust ledger Custom"
         }
         field(49; "Entry Amount"; Decimal)
         {
-            Caption = 'Entry Amount';
+            Caption = 'Entry Amount Det';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = Sum("Detailed Cust. Ledg. Entry".Amount WHERE(
         "Customer No." = FIELD("Customer No."),
         "Document No." = FIELD("Document No."),
         "Entry Type" = CONST("Initial Entry")
-        ));
+    ));
         }
+
 
         field(50; "Total Amount"; Decimal)
         {
-            Caption = 'Entry Amount';
+            Caption = 'Entry Amount Custom';
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = Sum("Detailed Cust ledger Custom".Amount WHERE(
@@ -249,6 +250,41 @@ table 51362 "Detailed Cust ledger Custom"
         ));
 
         }
+        field(60; "Normalized Document No."; Code[20])
+        {
+            Caption = 'Normalized Document No';
+            Editable = false;
+        }
+        //YEAR
+        field(61; Year; integer)
+        {
+
+        }
+        //Entry Amount 1
+        field(62; "Ledger Amount"; Decimal)
+        {
+            Caption = 'Entry Amount Det';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Detailed Cust. Ledg. Entry".Amount WHERE(
+        "Customer No." = FIELD("Customer No."),
+        "Document No." = FIELD("Document No."), "Posting Date" = field("Posting Date"),
+        "Entry Type" = CONST("Initial Entry")
+    ));
+        }
+        field(63; "Custom Amount"; Decimal)
+        {
+            Caption = 'Entry Amount Custom';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = Sum("Detailed Cust ledger Custom".Amount WHERE(
+        "Customer No." = FIELD("Customer No."), "Posting Date" = field("Posting Date"), "Document No." = FIELD("Document No."),
+        "Entry Type" = CONST("Initial Entry")
+        ));
+
+        }
+
+
     }
 
     keys
@@ -324,6 +360,42 @@ table 51362 "Detailed Cust ledger Custom"
         SetLedgerEntryAmount();
     end;
 
+    local procedure NormalizeDocNo(DocNo: Code[20]): Code[20]
+    var
+        i: Integer;
+    begin
+        for i := 1 to StrLen(DocNo) do begin
+            if CopyStr(DocNo, i, 1) <> '0' then
+                exit(CopyStr(DocNo, i));
+        end;
+
+        exit(''); // fallback if DocNo is all zeros
+    end;
+
+
+    local procedure SetNormalizedDocNo()
+    begin
+        "Normalized Document No." := PadOrNormalizeDocNo("Document No.");
+    end;
+
+    local procedure PadOrNormalizeDocNo(DocNo: Code[20]): Code[20]
+    var
+        DocInt: Integer;
+    begin
+        if Evaluate(DocInt, DocNo) then
+            exit(PadLeft(Format(DocInt), 4, '0'))
+        else
+            exit(DocNo);
+    end;
+
+    local procedure PadLeft(TextIn: Text; TotalLength: Integer; PadChar: Char): Text
+    begin
+        while StrLen(TextIn) < TotalLength do
+            TextIn := PadChar + TextIn;
+        exit(TextIn);
+    end;
+
+
     procedure GetLastEntryNo(): Integer;
     var
         FindRecordManagement: Codeunit "Find Record Management";
@@ -341,6 +413,7 @@ table 51362 "Detailed Cust ledger Custom"
             "Debit Amount (LCY)" := "Amount (LCY)";
             "Credit Amount (LCY)" := 0;
         end else begin
+
             "Debit Amount" := 0;
             "Credit Amount" := -Amount;
             "Debit Amount (LCY)" := 0;

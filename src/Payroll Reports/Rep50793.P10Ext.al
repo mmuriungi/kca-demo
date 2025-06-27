@@ -12,7 +12,7 @@ report 50793 "P.10 Ext"
             column(ReportForNavId_6207; 6207)
             {
             }
-            column(UPPERCASE_COMPANYNAME_; UpperCase(COMPANYNAME))
+            column(UPPERCASE_COMPANYNAME_; UpperCase(companyinfo.Name))
             {
             }
             column(CompanySetup__Company_P_I_N_; CompanySetup."Company P.I.N")
@@ -190,10 +190,17 @@ report 50793 "P.10 Ext"
         }
     }
 
+
+
     labels
     {
     }
-
+    trigger OnPreReport()
+    begin
+        if companyinfo.Get() then begin
+            companyinfo.CalcFields(companyinfo.Picture);
+        end
+    end;
     var
         StringDate: Date;
         EndDate: Date;
@@ -239,5 +246,6 @@ report 50793 "P.10 Ext"
         TOTAL_WCPSCaption_Control1102756103Lbl: label 'TOTAL WCPS';
         TOTAL_PAYE_TAXCaption_Control1102756107Lbl: label 'TOTAL PAYE TAX';
         TOTAL_EMOLUMENTSCaption_Control1102756112Lbl: label 'TOTAL EMOLUMENTS';
+        companyinfo: Record "Company Information";
 }
 

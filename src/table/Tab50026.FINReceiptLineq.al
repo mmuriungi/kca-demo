@@ -23,7 +23,7 @@ table 50026 "FIN-Receipt Line q"
                 "Account No." := '';
                 "Account Name" := '';
                 Remarks := '';
-                "Pay Mode" := "Pay Mode"::Cash;
+                // "Pay Mode" := "Pay Mode"::Cash;
                 RecPayTypes.RESET;
                 RecPayTypes.SETRANGE(RecPayTypes.Code, Type);
                 RecPayTypes.SETRANGE(RecPayTypes.Type, RecPayTypes.Type::Receipt);
@@ -73,6 +73,7 @@ table 50026 "FIN-Receipt Line q"
         {
             OptionCaption = ' ,Cash,Cheque,EFT,Deposit Slip,Banker''s Cheque,RTGS';
             OptionMembers = " ",Cash,Cheque,EFT,"Deposit Slip","Banker's Cheque",RTGS;
+            Editable = false;
 
             trigger OnValidate()
             begin
@@ -86,7 +87,7 @@ table 50026 "FIN-Receipt Line q"
         }
         field(5; "Cheque/Deposit Slip No"; Code[20])
         {
-
+            Editable = false;
             trigger OnValidate()
             begin
                 CheckSlipDetails();
@@ -114,6 +115,7 @@ table 50026 "FIN-Receipt Line q"
         field(8; "Bank Code"; Code[20])
         {
             // TableRelation = "Bank Account"."No.";
+            Editable = false;
         }
         field(9; "Received From"; Text[100])
         {
@@ -486,6 +488,7 @@ table 50026 "FIN-Receipt Line q"
         field(54; "Bank Account"; Code[30])
         {
             TableRelation = "Bank Account"."No.";
+            Editable = false;
         }
         field(55; Confirmed; Boolean)
         {
@@ -706,6 +709,15 @@ table 50026 "FIN-Receipt Line q"
             "Shortcut Dimension 2 Code" := RHead."Shortcut Dimension 2 Code";
             "Shortcut Dimension 3 Code" := RHead."Shortcut Dimension 3 Code";
             "Shortcut Dimension 4 Code" := RHead."Shortcut Dimension 4 Code";
+            "Cheque/Deposit Slip No" := RHead."Cheque No.";
+            Validate("Cheque/Deposit Slip No");
+            "Bank Code" := RHead."Bank Code";
+            Validate("Bank Code");
+            "Pay Mode" := RHead."Pay Mode";
+            Validate("Pay Mode");
+            "Bank Account" := RHead."Bank Code";
+            Validate("Bank Account");
+
         END;
     end;
 
@@ -716,6 +728,14 @@ table 50026 "FIN-Receipt Line q"
         IF RHead.FINDFIRST THEN BEGIN
             IF RHead.Posted THEN
                 ERROR('The transaction has already been posted and therefore cannot be modified.');
+            "Cheque/Deposit Slip No" := RHead."Cheque No.";
+            Validate("Cheque/Deposit Slip No");
+            "Bank Code" := RHead."Bank Code";
+            Validate("Bank Code");
+            "Pay Mode" := RHead."Pay Mode";
+            Validate("Pay Mode");
+            "Bank Account" := RHead."Bank Code";
+            Validate("Bank Account");
         END;
 
         /* IF (Posted=TRUE) AND ("Customer Payment On Account"=FALSE)  THEN

@@ -248,12 +248,28 @@ page 51449 "HMS-Hospital Role Centre"
         {
             group(Registration)
             {
-                action("Patients List")
+                group("Student Patients")
                 {
-                    Image = Register;
+                    action("Patients List")
+                    {
+                        Image = Register;
 
-                    RunObject = Page "HMS-Patient List";
-                    ApplicationArea = All;
+                        RunObject = Page "HMS-Patient List";
+                        RunPageView = where("Student Active" = const(true));
+                        ApplicationArea = All;
+                    }
+                }
+                group("Employee Patients")
+                {
+                    action("&Patients List")
+                    {
+                        Image = Register;
+                        Caption = 'Patient List';
+
+                        RunObject = Page "HMS-Patient List";
+                        RunPageView = where("Employee Active" = const(true));
+                        ApplicationArea = All;
+                    }
                 }
                 action("Active  Visits")
                 {
@@ -803,17 +819,17 @@ page 51449 "HMS-Hospital Role Centre"
                 }
             }
             //Sick Off
-           group(SickOff)
-           {
-            Caption = 'Sick Off';
-            action("SickOff List")
+            group(SickOff)
             {
                 Caption = 'Sick Off';
-                Image = Register;
-                RunObject = Page "HMS Sick Leave Cert. List";
-                ApplicationArea = All;
+                action("SickOff List")
+                {
+                    Caption = 'Sick Off';
+                    Image = Register;
+                    RunObject = Page "HMS Sick Leave Cert. List";
+                    ApplicationArea = All;
+                }
             }
-           }
             group(Immuns)
             {
                 Caption = 'Immunizations';

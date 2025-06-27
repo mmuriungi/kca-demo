@@ -77,6 +77,21 @@ table 51171 "HMS-Treatment Form Header"
             DataClassification = ToBeClassified;
             Editable = false;
         }
+        field(348; "Examination Findings"; Text[2000])
+        {
+            Caption = 'Examination Findings';
+            DataClassification = ToBeClassified;
+        }
+        field(349; "Physical Examination"; Text[2000])
+        {
+            Caption = 'Physical Examination';
+            DataClassification = ToBeClassified;
+        }
+        field(350; "Vital Signs"; Text[1000])
+        {
+            Caption = 'Vital Signs';
+            DataClassification = ToBeClassified;
+        }
         field(11; Status; Option)
         {
             OptionMembers = New,Completed,Referred,Cancelled;

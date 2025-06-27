@@ -50,15 +50,18 @@ page 52114 "General Ledgers Custom"
                 }
                 field("Source Type"; Rec."Source Type")
                 {
+                    Visible = false;
                     ToolTip = 'Specifies the value of the Source Type field.', Comment = '%';
                 }
                 field(EntryCount; Rec.EntryCount)
                 {
                     ToolTip = 'Specifies the value of the Entry Count field.', Comment = '%';
+                    Visible = false;
                 }
                 field("System-Created Entry"; Rec."System-Created Entry")
                 {
                     ToolTip = 'Specifies whether the entry was created by the system.', Comment = '%';
+                    Visible = false;
                 }
                 // field("System Created Entry"; Rec."System Created Entry")
                 // {
@@ -69,5 +72,30 @@ page 52114 "General Ledgers Custom"
 
             }
         }
+
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action(ExportToXML)
+            {
+                ApplicationArea = All;
+                Caption = 'Export to XML Cust ledgers';
+                Image = Export;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Export customer ledger entries to XML file with date filter.';
+
+                trigger OnAction()
+                var
+                    ExportXMLPort: XMLport "General Ledger Export";
+                begin
+                    ExportXMLPort.Run();
+                end;
+            }
+        }
     }
 }
+

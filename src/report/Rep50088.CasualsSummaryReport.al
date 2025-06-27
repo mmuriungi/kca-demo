@@ -11,7 +11,7 @@ report 50088 "Casuals Summary Report"
                                 ORDER(Ascending);
             PrintOnlyIfDetail = true;
             RequestFilterFields = "Employee Code";
-            column(COMPANYNAME; COMPANYNAME)
+            column(COMPANYNAME; CompanyInfo.Name)
             {
             }
             column(CompanyInfo_Picture; CompanyInfo.Picture)

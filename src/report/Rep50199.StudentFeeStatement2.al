@@ -56,7 +56,7 @@ report 50199 "Student Fee Statement 2"
             dataitem("Detailed Cust. Ledg. Entry"; "Detailed Cust. Ledg. Entry")
             {
                 DataItemLink = "Customer No." = FIELD("No.");
-                DataItemTableView = ORDER(Ascending)
+                DataItemTableView = sorting("Posting Date") ORDER(Ascending)
                                     WHERE("Entry Type" = FILTER("Initial Entry"));
                 column(pDate; CustLedgerEntry."Posting Date")
                 {

@@ -186,6 +186,74 @@ page 50058 "Payables Role Center"
                     ToolTip = 'View the posted purchase receipts.';
                 }
             }
+            group("Medical Claims")
+            {
+                action("Open Medical Claims")
+                {
+                    Caption = 'Open Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Status = FILTER(Open));
+                }
+                action("Pending Medical Claims")
+                {
+                    Caption = 'Pending Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Status = FILTER(Pending));
+                }
+                action("Approved Medical Claims")
+                {
+                    Caption = 'Approved Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Status = FILTER(Approved));
+                }
+                action("Rejected Medical Claims")
+                {
+                    Caption = 'Rejected Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Status = FILTER(Rejected));
+                }
+                action("Posted Medical Claims")
+                {
+                    Caption = 'Posted Medical Claims';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims List";
+                    RunPageView = WHERE(Posted = const(true));
+                }
+                //Medical Claim Purchase Invoice
+                action("Medical Claim Purchase Invoice")
+                {
+                    Caption = 'Medical Claim Purchase Invoice';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Purchase Invoices";
+                    RunPageView = WHERE("Claim Type" = FILTER("Medical"));
+                }
+                //posted Medical Claim Purchase Invoice
+                action("Posted Medical Claim Purchase Invoice")
+                {
+                    Caption = 'Posted Medical Claim Purchase Invoice';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Posted Purchase Invoices";
+                    RunPageView = WHERE("Claim Type" = FILTER("Medical"));
+                }
+                action("Medical Claim Batches")
+                {
+                    Caption = 'Medical Claim Batches';
+                    ApplicationArea = All;
+                    Image = CalculateSimulation;
+                    RunObject = Page "Medical Claims Batch List";
+                }
+            }
 
             group(Setup)
             {
