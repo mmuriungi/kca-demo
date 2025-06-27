@@ -42,21 +42,21 @@ page 50973 "Parttime Claim Lines"
                     ToolTip = 'Specifies the value of the Unit Description field.';
                 }
 
-                field("Hours Done"; Rec."Hours Done")
-                {
-                    Editable = false;
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies the value of the Hours Done field.';
-                }
                 field("Hourly Rate"; Rec."Hourly Rate")
                 {
-                    Editable = false;
+                    Editable = true;
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Hourly Rate field.';
                 }
+                field("Hours Done"; Rec."Hours Done")
+                {
+                    Editable = true;
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Hours Done field.';
+                }
                 field(Amount; Rec.Amount)
                 {
-                    Editable = false;
+                    Editable = true;
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Amount field.';
                 }
