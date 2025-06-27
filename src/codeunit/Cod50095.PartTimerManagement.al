@@ -180,6 +180,7 @@ codeunit 50095 "PartTimer Management"
         gnLine.DELETEALL();
         ClaimLines.Reset();
         ClaimLines.SetRange("Document No.", PartTime."No.");
+        ClaimLines.SetRange(Included, true);
         if ClaimLines.FindSet() then begin
             repeat
                 gnLine.INIT;
