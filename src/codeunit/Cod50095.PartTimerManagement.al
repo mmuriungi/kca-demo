@@ -43,10 +43,11 @@ codeunit 50095 "PartTimer Management"
         Attendance: Record "Class Attendance Header";
         LecturerUnits: Record "ACA-Lecturers Units";
     begin
-        if parttimeLine.Included = false then
-            //parttimeLine.Amount := 0
-            Error('You cannot claim for this unit because either CAT or EXAM is missing')
-        else begin
+        //if parttimeLine.Included = false then
+        //parttimeLine.Amount := 0
+        // Error('You cannot claim for this unit because either CAT or EXAM is missing')
+        /* else */
+        begin
             AcaUnits.Reset();
             AcaUnits.SetRange(Code, parttimeLine."Unit");
             if AcaUnits.FindFirst() then begin
