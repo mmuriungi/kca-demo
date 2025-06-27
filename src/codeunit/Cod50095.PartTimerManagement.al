@@ -88,6 +88,7 @@ codeunit 50095 "PartTimer Management"
         PVHeader."Paying Bank Account" := PartTime."Paying Bank Account";
         PVHeader."Pay Mode" := PVHeader."Pay Mode";
         PVHeader."Responsibility Center" := PartTime."Responsibility Center";
+        PVHeader."PV Category" := PVHeader."PV Category"::"Part-time Pay";
         PVHeader."Payment Narration" := PartTime.Purpose;
         PVHeader.Payee := PartTime.Payee;
         PVHeader."Source Document No" := PartTime."No.";
@@ -211,6 +212,7 @@ codeunit 50095 "PartTimer Management"
         PVHeader."Shortcut Dimension 3 Code" := BatchRec."Shortcut Dimension 3 Code";
         PVHeader."Responsibility Center" := BatchRec."Responsibility Center";
         PVHeader."Payment Type" := PVHeader."Payment Type"::Normal;
+        PVHeader."PV Category" := PVHeader."PV Category"::"Part-time Pay";
         PVHeader."Pay Mode" := PVHeader."Pay Mode"::EFT;
         PVHeader."Payment Narration" := 'Part Time Claims Batch ' + BatchNo;
         PVHeader.Payee := 'Part-Time Claims Batch ' + BatchNo;
@@ -223,6 +225,7 @@ codeunit 50095 "PartTimer Management"
         LineNo := 10000;
         PartTime.Reset();
         PartTime.SetRange("Batch No.", BatchNo);
+
         if PartTime.FindSet() then begin
             repeat
                 PartTime.CalcFields("Payment Amount");

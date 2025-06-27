@@ -156,6 +156,7 @@ table 50691 "Parttime Claim Header"
                     parttimeLine."Semester" := Semester;
                     parttimeLine."Academic Year" := "Academic Year";
                     parttimeLine."Lecture No." := lecunits."Lecturer";
+                    parttimeLine."Programme" := lecunits.Programme;
                     parttimeLine."Unit" := lecunits.Unit;
                     parttimeLine.Validate("Unit");
                     parttimeLine.Insert();
