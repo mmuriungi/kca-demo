@@ -22,7 +22,7 @@ Report 51271 "Store Requisition"
             column(Store_Requistion_Header__Request_date_;"Request date")
             {
             }
-            column(Store_Requistion_Header__Required_Date_;"Required Date")
+            column(Store_Requistion_Header__Required_Date_;"Issue Date")
             {
             }
             column(Store_Requistion_Header__Global_Dimension_1_Code_;"Global Dimension 1 Code")

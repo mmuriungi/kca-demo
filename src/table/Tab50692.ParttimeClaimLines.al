@@ -14,11 +14,11 @@ table 50692 "Parttime Claim Lines"
         }
         field(4; "Semester"; code[30])
         {
-
+            TableRelation = "ACA-Semesters"."Code";
         }
         field(5; "Academic Year"; code[30])
         {
-
+            TableRelation = "ACA-Academic Year"."Code";
         }
         field(6; Unit; code[30])
         {

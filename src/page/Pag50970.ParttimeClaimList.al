@@ -113,6 +113,18 @@ page 50970 "Parttime Claim List"
     {
         area(Processing)
         {
+            action("Release")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = ReleaseDocument;
+                trigger OnAction()
+                begin
+                    Rec.Status := Rec.Status::Approved;
+                    Rec.Modify;
+                end;
+            }
             action("Request Approval")
             {
                 ApplicationArea = All;
