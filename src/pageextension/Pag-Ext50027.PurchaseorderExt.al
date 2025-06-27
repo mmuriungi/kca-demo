@@ -97,6 +97,28 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
         {
             Visible = false;
         }
+        modify(Release)
+        {
+            Visible = false;
+        }
+        addafter(Release)
+        {
+            action(ReleaseDocument)
+            {
+                ApplicationArea = All;
+                Caption = 'Release Document';
+                Ellipsis = true;
+                Image = ReleaseDocument;
+                Promoted = true;
+                PromotedCategory = Category5;
+                ToolTip = 'Release the document.';
+                trigger OnAction()
+                begin
+                    Rec.Status := Rec.Status::Released;
+                    Rec.Modify();
+                end;
+            }
+        }
         addbefore(Print)
         {
             action("Print Order")
