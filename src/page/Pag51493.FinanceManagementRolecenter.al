@@ -528,6 +528,16 @@ page 51493 "Finance Management Rolecenter"
                         RunObject = Page "PartTime Invoice Batch List";
                     }
                 }
+                group(Setup)
+                {
+                    action("Parttimer Rates")
+                    {
+                        Caption = 'Parttimer Rates';
+                        ApplicationArea = All;
+                        Image = CalculateSimulation;
+                        RunObject = Page "Parttimer Rates";
+                    }
+                }
 
             }
             group("Medical Claims")
