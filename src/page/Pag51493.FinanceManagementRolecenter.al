@@ -170,9 +170,9 @@ page 51493 "Finance Management Rolecenter"
                         RunObject = Report "FA Proceeds on Disposal";
                         ToolTip = 'View a list of FA Proceeds on Disposal and their current status.';
                     }
-                    
+
                 }
-            
+
             }
             group("Finance Operations")
             {
@@ -667,6 +667,33 @@ page 51493 "Finance Management Rolecenter"
                     Image = GLRegisters;
                     RunObject = Page "G/L Registers";
                     ToolTip = 'View posted G/L entries.';
+                }
+            }
+            group("Receipt Imports")
+            {
+                action("Import Bank Receipts")
+                {
+                    Caption = 'Import Bank Receipts';
+                    Image = ImportExcel;
+
+                    ApplicationArea = All;
+                    RunObject = XMLport "Import Receipts Buffer";
+                }
+                action("Imported Bank Receipts")
+                {
+                    Caption = 'Imported Bank Receipts';
+                    Image = ReceiptLines;
+
+                    RunObject = Page "ACA-Imported Receipts Buffer";
+                    ApplicationArea = All;
+                }
+                action("Posted Receipts Buffer")
+                {
+                    Caption = 'Posted Receipts Buffer';
+                    Image = PostedReceipts;
+
+                    RunObject = Page "ACA-Posted Receipts Buffer";
+                    ApplicationArea = All;
                 }
             }
             group(Common_req)
