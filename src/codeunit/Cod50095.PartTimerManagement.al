@@ -156,6 +156,47 @@ codeunit 50095 "PartTimer Management"
         claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
     end;
 
+    procedure PostClaim(Var PartTime: Record "Parttime Claim Header") Posted: Boolean
+    var
+        claimHandler: Codeunit "Claims Handler";
+        HrSetup: Record "HRM-Setup";
+        Employee: Record "HRM-Employee C";
+        gnLine: Record "Gen. Journal Line";
+        ClaimLines: Record "Parttime Claim Lines";
+    begin
+        getEmployee(Employee, PartTime."Account No.");
+
+        ClaimLines.Reset();
+        ClaimLines.SetRange("Document No.", PartTime."No.");
+        if ClaimLines.FindSet() then begin
+            repeat
+                gnLine.INIT;
+                gnLine."Journal Template Name" := 'GENERAL';
+                gnLine."Journal Batch Name" := 'LECTURER';
+                gnLine."Line No." := gnLine."Line No." + 100;
+                gnLine."Account Type" := gnLine."Account Type"::Vendor;
+                gnLine."Account No." := Employee."Vendor No.";
+                gnLine."Shortcut Dimension 1 Code" := PartTime."Global Dimension 1 Code";
+                gnLine."Shortcut Dimension 2 Code" := PartTime."Global Dimension 2 Code";
+                gnLine."Shortcut Dimension 3 Code" := PartTime."Shortcut Dimension 3 Code";
+                gnLine."Document Type" := gnLine."Document Type"::Invoice;
+                gnLine."Posting Date" := TODAY;
+                gnLine."Document No." := PartTime."No.";
+                gnLine.Description := COPYSTR(PartTime.Semester + '/' + ClaimLines.Unit + '/' + ClaimLines."Unit Description", 1, 50);
+                gnLine."Bal. Account Type" := gnLine."Bal. Account Type"::"G/L Account";
+                gnLine."Bal. Account No." := '70310';//GeneralSetup."Lecturers Expense Account";
+                gnLine.Amount := ClaimLines.Amount * -1;
+                gnLine.INSERT;
+            until ClaimLines.Next() = 0;
+            gnLine.RESET;
+            gnLine.SETRANGE(gnLine."Journal Template Name", 'GENERAL');
+            gnLine.SETRANGE(gnLine."Journal Batch Name", 'LECTURER');
+            IF gnLine.FindSet() THEN BEGIN
+                if CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", gnLine) then Posted := true;
+            END;
+        end;
+    end;
+
     procedure createPurchaseInvoiceBatch(Var PartTime: Record "Parttime Claim Header"; BatchNo: Code[20])
     var
         claimHandler: Codeunit "Claims Handler";
