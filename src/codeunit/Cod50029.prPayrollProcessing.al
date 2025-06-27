@@ -206,7 +206,7 @@ codeunit 50029 prPayrollProcessing
         BalAccType: enum "Gen. Journal Account Type";
         BalAccCode: Code[20];
     begin
-        if not (strEmpCode in ['0141','0002','0660','0687','0233']) then exit;
+     //   if not (strEmpCode in ['0141', '0002', '0660', '0687', '0233']) then exit;
         //Initialize
         if dtDOE = 0D then dtDOE := CalcDate('1M', Today);
         fnInitialize;
@@ -1026,8 +1026,8 @@ codeunit 50029 prPayrollProcessing
                 curPensionCompany := fnGetPensionAmount(strEmpCode, intMonth, intYear, SpecialTransType::"Defined Contribution",
                 TRUE);
                 IF curPensionCompany > 0 THEN BEGIN
-                    IF (((curPensionCompany + curNSSF) - curMaxPensionContrib) > 0) THEN BEGIN
-                        curTransAmount := ((curPensionCompany + curNSSF) - curMaxPensionContrib);
+                    IF (((curPensionCompany + curDefinedContrib) - curMaxPensionContrib) > 0) THEN BEGIN
+                        curTransAmount := ((curPensionCompany + curDefinedContrib) - curMaxPensionContrib);
                         //curTransAmount := curPensionCompany;
                         curExcessPension := curTransAmount;
                         strTransDescription := 'Pension (Company)';
@@ -1044,6 +1044,7 @@ codeunit 50029 prPayrollProcessing
                         END;
                     END;
                 END;
+                curTotalDeductions+=curTaxOnExcessPension;
 
                 //Dann
                 //Mortage Relief
@@ -1250,7 +1251,8 @@ codeunit 50029 prPayrollProcessing
                 //     end;
                 // end
 
-                /* else */ begin
+                /* else */
+                begin
 
                     //Added for deployed
                     if HREmp2."Employee Category" = 'DEPLOYED' then begin
@@ -1381,6 +1383,7 @@ codeunit 50029 prPayrollProcessing
             prEmployeeTransactions.SetRange(prEmployeeTransactions."Employee Code", strEmpCode);
             prEmployeeTransactions.SetRange(prEmployeeTransactions."Period Month", intMonth);
             prEmployeeTransactions.SetRange(prEmployeeTransactions."Period Year", intYear);
+            prEmployeeTransactions.SetFilter(prEmployeeTransactions."Transaction Code",'<>%1',gethousinglevycode(Enum::"Payroll Special Transaction"::"Housing Levy"));
             //prEmployeeTransactions.SETRANGE(prEmployeeTransactions.Suspended,FALSE);
 
             if prEmployeeTransactions.Find('-') then begin
@@ -1700,18 +1703,8 @@ codeunit 50029 prPayrollProcessing
 
                 //END GET TOTAL DEDUCTIONS
             end;
-
-            //Net Pay: calculate the Net pay for the month in the following manner:
-            //>Nett = Gross - (xNssfAmount + curMyNhifAmt + PAYE + PayeArrears + prTotDeductions)
-            //...Tot Deductions also include (SumLoan + SumInterest)
-            curNetPay := curGrossPay - (curDefinedContrib + curNHIF + curPAYE + curPayeArrears + curTotalDeductions + IsCashBenefit + CurHousingLEvy);
-
-            //>Nett = Nett - curExcessPension
-            //...Excess pension is only used for tax. Staff is not paid the amount hence substract it
-            curNetPay := curNetPay; //- curExcessPension
-
-            //>Nett = Nett - cSumEmployerDeductions
-            //...Employer Deductions are used for reporting as cost to company BUT dont affect Net pay
+            curNetPay := curGrossPay - (curDefinedContrib + curNHIF + curPAYE + curPayeArrears + curTotalDeductions + IsCashBenefit  + CurHousingLEvy +curTaxOnExcessPension);
+            curNetPay := curNetPay;
             curNetPay := curNetPay - curTotCompanyDed; //******Get Company Deduction*****
 
             curNetRnd_Effect := curNetPay - Round(curNetPay);
@@ -2068,6 +2061,36 @@ codeunit 50029 prPayrollProcessing
             until prPAYE.Next = 0;
         end;
     end;
+
+
+    procedure fnGetEmployeePayeII(curTaxablePay: Decimal) PAYE: Decimal
+    var
+        prPAYE: Record "PRL-PAYE";
+        curTempAmount: Decimal;
+        KeepCount: Integer;
+    begin
+        KeepCount := 0;
+        prPAYE.RESET;
+        IF prPAYE.FINDFIRST THEN BEGIN
+            IF curTaxablePay < prPAYE."PAYE Tier" THEN EXIT;
+            REPEAT
+                KeepCount += 1;
+                curTempAmount := curTaxablePay;
+                IF curTaxablePay = 0 THEN EXIT;
+                IF KeepCount = prPAYE.COUNT THEN   //this is the last record or loop
+                    curTaxablePay := curTempAmount
+                ELSE
+                    IF curTempAmount >= prPAYE."PAYE Tier" THEN
+                        curTempAmount := prPAYE."PAYE Tier"
+                    ELSE
+                        curTempAmount := curTempAmount;
+
+                PAYE := PAYE + (curTempAmount * (prPAYE.Rate / 100));
+                curTaxablePay := curTaxablePay - curTempAmount;
+
+            UNTIL prPAYE.NEXT = 0;
+        END;
+    End;
 
     procedure fnGetEmployeeNHIF(curBaseAmount: Decimal) NHIF: Decimal
     var
