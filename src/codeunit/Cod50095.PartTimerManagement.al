@@ -78,7 +78,15 @@ codeunit 50095 "PartTimer Management"
         PayTypes: Record "FIN-Receipts and Payment Types";
         Vendor: Record Vendor;
         HrSetup: Record "HRM-Setup";
+        PVHeaderII: Record "FIN-Payments Header";
     begin
+        PVHeaderII.Reset();
+        PVHeaderII.SetRange("Source Document No", PartTime."No.");
+        if PVHeaderII.FindFirst() then begin
+            exit;
+        end;
+
+
         PVHeader.Init();
         PVHeader."Document Type" := PVHeader."Document Type"::"Payment Voucher";
         PVHeader."No." := '';
@@ -154,6 +162,76 @@ codeunit 50095 "PartTimer Management"
         PurchHeader := claimHandler.CreatePurchaseHeader(Employee."Vendor No.", PartTime."Global Dimension 1 Code", PartTime."Global Dimension 2 Code", PartTime."Shortcut Dimension 3 Code", Today, PartTime.Purpose, PartTime."No.", Enum::"Claim Type"::Parttime, '');
         HrSetup.Get();
         claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
+    end;
+
+    procedure CreatePayableAccount(var PartTime: Record "Parttime Claim Header")
+    var
+        claimHandler: Codeunit "Claims Handler";
+        PurchHeader: Record "Purchase Header";
+        HrSetup: Record "HRM-Setup";
+        PurchLine: Record "Purchase Line";
+        Employee: Record "HRM-Employee C";
+        Vend: Record Vendor;
+    begin
+        getEmployee(Employee, PartTime."Account No.");
+        IF NOT Vend.GET(Employee."No.") THEN BEGIN
+            Vend.INIT;
+            Vend."No." := Employee."No.";
+            Vend.Name := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
+            Vend."Search Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
+            Vend."Vendor Posting Group" := 'Lecturer';
+            Vend."Gen. Bus. Posting Group" := 'Local';
+            Vend."VAT Bus. Posting Group" := 'Local';
+            Vend.INSERT;
+            Employee."Vendor No." := Vend."No.";
+            Employee.Modify();
+        END
+    end;
+
+    procedure PostClaim(Var PartTime: Record "Parttime Claim Header") Posted: Boolean
+    var
+        claimHandler: Codeunit "Claims Handler";
+        HrSetup: Record "HRM-Setup";
+        Employee: Record "HRM-Employee C";
+        gnLine: Record "Gen. Journal Line";
+        ClaimLines: Record "Parttime Claim Lines";
+        l: Codeunit "Gen. Jnl.-Check Line";
+    begin
+        getEmployee(Employee, PartTime."Account No.");
+        gnLine.RESET;
+        gnLine.SETRANGE(gnLine."Journal Template Name", 'GENERAL');
+        gnLine.SETRANGE(gnLine."Journal Batch Name", 'LECTURER');
+        gnLine.DELETEALL();
+        ClaimLines.Reset();
+        ClaimLines.SetRange("Document No.", PartTime."No.");
+        ClaimLines.SetRange(Included, true);
+        if ClaimLines.FindSet() then begin
+            repeat
+                gnLine.INIT;
+                gnLine."Journal Template Name" := 'GENERAL';
+                gnLine."Journal Batch Name" := 'LECTURER';
+                gnLine."Line No." := gnLine."Line No." + 100;
+                gnLine."Account Type" := gnLine."Account Type"::Vendor;
+                gnLine."Account No." := Employee."Vendor No.";
+                gnLine."Shortcut Dimension 1 Code" := PartTime."Global Dimension 1 Code";
+                gnLine."Shortcut Dimension 2 Code" := PartTime."Global Dimension 2 Code";
+                gnLine."Shortcut Dimension 3 Code" := PartTime."Shortcut Dimension 3 Code";
+                //gnLine."External Document No." := PartTime."No.";
+                //gnLine."Document Type" := gnLine."Document Type"::Invoice;
+                gnLine."Posting Date" := TODAY;
+                gnLine."Document No." := PartTime."No.";
+                gnLine.Description := COPYSTR(PartTime.Semester + '/' + ClaimLines.Unit + '/' + ClaimLines."Unit Description", 1, 50);
+                gnLine."Bal. Account Type" := gnLine."Bal. Account Type"::"G/L Account";
+                gnLine."Bal. Account No." := '70310';//GeneralSetup."Lecturers Expense Account";
+                gnLine.Amount := ClaimLines.Amount * -1;
+                gnLine.INSERT;
+            until ClaimLines.Next() = 0;
+            gnLine.RESET;
+            gnLine.SETRANGE(gnLine."Journal Template Name", 'GENERAL');
+            gnLine.SETRANGE(gnLine."Journal Batch Name", 'LECTURER');
+            IF gnLine.FindSet() THEN
+                CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post", gnLine);
+        end;
     end;
 
     procedure createPurchaseInvoiceBatch(Var PartTime: Record "Parttime Claim Header"; BatchNo: Code[20])
