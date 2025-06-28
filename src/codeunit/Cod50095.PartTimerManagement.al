@@ -164,6 +164,30 @@ codeunit 50095 "PartTimer Management"
         claimHandler.CreatePurchaseLine(PurchHeader, HrSetup."Parttimer G/L Account", PurchLine.Type::"G/L Account", 1, PartTime."Payment Amount");
     end;
 
+    procedure CreatePayableAccount(var PartTime: Record "Parttime Claim Header")
+    var
+        claimHandler: Codeunit "Claims Handler";
+        PurchHeader: Record "Purchase Header";
+        HrSetup: Record "HRM-Setup";
+        PurchLine: Record "Purchase Line";
+        Employee: Record "HRM-Employee C";
+        Vend: Record Vendor;
+    begin
+        getEmployee(Employee, PartTime."Account No.");
+        IF NOT Vend.GET(Employee."No.") THEN BEGIN
+            Vend.INIT;
+            Vend."No." := Employee."No.";
+            Vend.Name := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
+            Vend."Search Name" := Employee."First Name" + ' ' + Employee."Middle Name" + ' ' + Employee."Last Name";
+            Vend."Vendor Posting Group" := 'Lecturer';
+            Vend."Gen. Bus. Posting Group" := 'Local';
+            Vend."VAT Bus. Posting Group" := 'Local';
+            Vend.INSERT;
+            Employee."Vendor No." := Vend."No.";
+            Employee.Modify();
+        END
+    end;
+
     procedure PostClaim(Var PartTime: Record "Parttime Claim Header") Posted: Boolean
     var
         claimHandler: Codeunit "Claims Handler";

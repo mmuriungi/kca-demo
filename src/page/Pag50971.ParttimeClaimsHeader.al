@@ -214,6 +214,7 @@ page 50971 "Parttime Claims Header"
                 begin
                     if not confirm('Are you sure you want to post this claim? This will create a new purchase invoice and a payment voucher.') then
                         exit;
+                    ParttimerMgmt.CreatePayableAccount(Rec);
                     ParttimerMgmt.PostClaim(Rec);
                     ParttimerMgmt.createPaymentVoucher(Rec);
                     Rec.Posted := true;
