@@ -31,7 +31,7 @@ codeunit 50034 IntCodeunit
             WrkflUsrGrpMember.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
             WrkflUsrGrpMember.SetCurrentKey("Sequence No.");
             WrkflUsrGrpMember.SetAscending("Sequence No.", true);
-            if WrkflUsrGrpMember.Find('-') then begin
+            if WrkflUsrGrpMember.FindSet() then begin
                 repeat
                     WrkflUsrGrpMember."Sequence No." := WrkflUsrGrpMember."Sequence No." + 1;
                     WrkflUsrGrpMember.Modify();
@@ -52,6 +52,7 @@ codeunit 50034 IntCodeunit
         WrkflUsrGrpMemberII: Record "Workflow User Group Member";
         Emp: Record "HRM-Employee C";
         UsersID: Code[50];
+        Surr: Record "FIN-Imprest Surrender Details";
     begin
         WrkflUserGroup.Reset();
         WrkflUserGroup.SetRange("Department Code", Leave."Department Code");
@@ -64,7 +65,7 @@ codeunit 50034 IntCodeunit
             WrkflUsrGrpMember.Reset();
             WrkflUsrGrpMember.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
             WrkflUsrGrpMember.SetFilter("User Name", '<>%1', UsersID);
-            if WrkflUsrGrpMember.Find('-') then begin
+            if WrkflUsrGrpMember.FindSet() then begin
                 repeat
                     WrkflUsrGrpMember."Sequence No." := WrkflUsrGrpMember."Sequence No." - 1;
                     WrkflUsrGrpMember.Modify();
@@ -74,8 +75,9 @@ codeunit 50034 IntCodeunit
             WrkflUsrGrpMemberII.Reset();
             WrkflUsrGrpMemberII.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
             WrkflUsrGrpMemberII.SetRange("User Name", UsersID);
-            if WrkflUsrGrpMemberII.Find('-') then begin
-                WrkflUsrGrpMemberII.Delete();
+            WrkflUsrGrpMemberII.SetRange("Sequence No.", 1);
+            if WrkflUsrGrpMemberII.FindSet() then begin
+                WrkflUsrGrpMemberII.DeleteAll();
             end;
 
         end;
