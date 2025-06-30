@@ -12731,6 +12731,7 @@ Codeunit 61106 webportals
                 JObj.Add('Amount', AppovEntry.Amount);
                 JObj.Add('AmountLCY', AppovEntry."Amount (LCY)");
                 JObj.Add('CurrencyCode', AppovEntry."Currency Code");
+                JObj.Add('EntryNo', AppovEntry."Entry No.");
                 JArray.Add(JObj);
             until AppovEntry.Next = 0;
             JArray.WriteTo(JsTxt);
