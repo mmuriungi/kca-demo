@@ -12263,6 +12263,7 @@ Codeunit 61106 webportals
         MealBookingLines.SetRange("Booking Id", mealNo);
         if MealBookingLines.FindSet() then begin
             repeat
+            MealBookingLines.CalcFields("Meal Name");
                 Clear(JObj);
                 JObj.Add('LineNo', MealBookingLines."Line No.");
                 JObj.Add('MealName', MealBookingLines."Meal Name");
@@ -12313,7 +12314,7 @@ Codeunit 61106 webportals
         MealBooking.SetRange("Booking Id", mealNo);
         if MealBooking.Find('-') then begin
             if MealBooking.Status <> MealBooking.Status::New then begin
-                Error('You can delete line from a %1 meal booking!', MealBooking.Status);
+                Error('You cannot delete a line from a %1 meal booking!', MealBooking.Status);
             end;
         end;
         MealBookingLines.Reset;
