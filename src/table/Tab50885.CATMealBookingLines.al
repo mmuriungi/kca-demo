@@ -23,6 +23,7 @@ table 50885 "CAT-Meal Booking Lines"
                 // CALCFIELDS(Price,"Meal Name");
                 IF items.GET(Rec."Meal Code") THEN
                     "Unit Price" := items."Unit Price";
+                    "Meal Name" := items.Description;
                 VALIDATE(Quantity);
             end;
         }
