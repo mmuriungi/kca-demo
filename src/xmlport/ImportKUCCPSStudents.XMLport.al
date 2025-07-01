@@ -10,9 +10,11 @@ XmlPort 50187 "Import KUCCPS Students"
             tableelement("text kuccps jab"; "KUCCPS Imports")
             {
                 AutoUpdate = false;
+                
                 XmlName = 'Item';
                 fieldelement(a; "Text KUCCPS Jab".ser)
                 {
+                    
                 }
                 fieldelement(b; "Text KUCCPS Jab".Index)
                 {
@@ -67,6 +69,7 @@ XmlPort 50187 "Import KUCCPS Students"
                 fieldelement(n; "Text KUCCPS Jab"."Any Other Institution Attended")
                 {
                     MinOccurs = Zero;
+                    
                 }
                 trigger OnAfterInitRecord()
                 begin

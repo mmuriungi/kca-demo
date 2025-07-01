@@ -90,6 +90,14 @@ table 50536 "ACA-Academic Year"
         field(23; "Release Results"; Boolean)
         {
         }
+        //User_Id
+        field(24; User_Id; Code[50])
+        {
+        }
+        //Academic_Year
+        field(25; Academic_Year; Code[20])
+        {
+        }
     }
 
     keys

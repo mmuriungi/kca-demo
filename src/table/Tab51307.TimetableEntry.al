@@ -77,7 +77,7 @@ table 51307 "Timetable Entry"
         {
             Caption = 'Date';
         }
-        field(16; "Group No"; Integer)
+        field(16; "Group No"; Code[100])
         {
             Caption = 'Group No';
         }

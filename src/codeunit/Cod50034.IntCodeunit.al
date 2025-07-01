@@ -18,6 +18,7 @@ codeunit 50034 IntCodeunit
         WrkflUsrGrpMemberII: Record "Workflow User Group Member";
         Emp: Record "HRM-Employee C";
         UsersID: Code[50];
+        TempWrkflUsrGrpMember: Record "Workflow User Group Member" temporary;
     begin
         WrkflUserGroup.Reset();
         WrkflUserGroup.SetRange("Department Code", Leave."Department Code");
@@ -27,16 +28,29 @@ codeunit 50034 IntCodeunit
             if Emp.FindFirst() then begin
                 UsersID := Emp."User ID";
             end;
+
+            // First, copy all existing members to a temporary table
             WrkflUsrGrpMember.Reset();
             WrkflUsrGrpMember.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
             WrkflUsrGrpMember.SetCurrentKey("Sequence No.");
             WrkflUsrGrpMember.SetAscending("Sequence No.", true);
-            if WrkflUsrGrpMember.Find('-') then begin
+            if WrkflUsrGrpMember.FindSet() then begin
                 repeat
-                    WrkflUsrGrpMember."Sequence No." := WrkflUsrGrpMember."Sequence No." + 1;
-                    WrkflUsrGrpMember.Modify();
+                    TempWrkflUsrGrpMember := WrkflUsrGrpMember;
+                    TempWrkflUsrGrpMember.Insert();
                 until WrkflUsrGrpMember.Next() = 0;
             end;
+
+            // Now update the sequence numbers using the temporary table
+            if TempWrkflUsrGrpMember.FindSet() then begin
+                repeat
+                    WrkflUsrGrpMember.Get(TempWrkflUsrGrpMember."Workflow User Group Code", TempWrkflUsrGrpMember."User Name");
+                    WrkflUsrGrpMember."Sequence No." := TempWrkflUsrGrpMember."Sequence No." + 1;
+                    WrkflUsrGrpMember.Modify();
+                until TempWrkflUsrGrpMember.Next() = 0;
+            end;
+
+            // Insert the new member with sequence 1
             WrkflUsrGrpMemberII.Init();
             WrkflUsrGrpMemberII."Workflow User Group Code" := WrkflUserGroup.Code;
             WrkflUsrGrpMemberII."User Name" := UsersID;
@@ -52,6 +66,8 @@ codeunit 50034 IntCodeunit
         WrkflUsrGrpMemberII: Record "Workflow User Group Member";
         Emp: Record "HRM-Employee C";
         UsersID: Code[50];
+        TempWrkflUsrGrpMember: Record "Workflow User Group Member" temporary;
+        NewSeqNo: Integer;
     begin
         WrkflUserGroup.Reset();
         WrkflUserGroup.SetRange("Department Code", Leave."Department Code");
@@ -61,23 +77,41 @@ codeunit 50034 IntCodeunit
             if Emp.FindFirst() then begin
                 UsersID := Emp."User ID";
             end;
-            WrkflUsrGrpMember.Reset();
-            WrkflUsrGrpMember.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
-            WrkflUsrGrpMember.SetFilter("User Name", '<>%1', UsersID);
-            if WrkflUsrGrpMember.Find('-') then begin
-                repeat
-                    WrkflUsrGrpMember."Sequence No." := WrkflUsrGrpMember."Sequence No." - 1;
-                    WrkflUsrGrpMember.Modify();
-                until WrkflUsrGrpMember.Next() = 0;
-            end;
 
+            // First, delete the reliever's entry with sequence 1
             WrkflUsrGrpMemberII.Reset();
             WrkflUsrGrpMemberII.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
             WrkflUsrGrpMemberII.SetRange("User Name", UsersID);
-            if WrkflUsrGrpMemberII.Find('-') then begin
+            WrkflUsrGrpMemberII.SetRange("Sequence No.", 1);
+            if WrkflUsrGrpMemberII.FindFirst() then begin
                 WrkflUsrGrpMemberII.Delete();
             end;
 
+            // Copy remaining members to temporary table
+            WrkflUsrGrpMember.Reset();
+            WrkflUsrGrpMember.SetRange("Workflow User Group Code", WrkflUserGroup.Code);
+            WrkflUsrGrpMember.SetFilter("User Name", '<>%1', UsersID);
+            WrkflUsrGrpMember.SetCurrentKey("Sequence No.");
+            WrkflUsrGrpMember.SetAscending("Sequence No.", true);
+            if WrkflUsrGrpMember.FindSet() then begin
+                repeat
+                    TempWrkflUsrGrpMember := WrkflUsrGrpMember;
+                    TempWrkflUsrGrpMember.Insert();
+                until WrkflUsrGrpMember.Next() = 0;
+            end;
+
+            // Re-sequence the remaining members
+            NewSeqNo := 1;
+            if TempWrkflUsrGrpMember.FindSet() then begin
+                repeat
+                    if WrkflUsrGrpMember.Get(TempWrkflUsrGrpMember."Workflow User Group Code",
+                                           TempWrkflUsrGrpMember."User Name") then begin
+                        WrkflUsrGrpMember."Sequence No." := NewSeqNo;
+                        WrkflUsrGrpMember.Modify();
+                        NewSeqNo += 1;
+                    end;
+                until TempWrkflUsrGrpMember.Next() = 0;
+            end;
         end;
     end;
 

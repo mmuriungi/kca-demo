@@ -41,5 +41,10 @@ tableextension 50024 "Company Informations" extends "Company Information"
         {
             DataClassification = ToBeClassified;
         }
+        //Delete from Date
+        field(56602; "Delete from Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

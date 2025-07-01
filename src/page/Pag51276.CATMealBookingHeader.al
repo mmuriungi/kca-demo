@@ -172,8 +172,7 @@ page 51276 "CAT-Meal Booking Header"
 
                     Rec.RESET;
                     Rec.SETFILTER("Booking Id", Rec."Booking Id");
-                    REPORT.RUN(69271, TRUE, TRUE, Rec);
-                    Rec.RESET;
+                    REPORT.RUN(Report::"Meal Booking Form", TRUE, TRUE, Rec);
                 end;
             }
             action("Post Meal Requisition")

@@ -37,7 +37,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Academic Governance';
                 Image = ExecuteBatch;
-                
+
                 action("Academic Senate")
                 {
                     Caption = 'Academic Senate';
@@ -78,7 +78,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Programme Management';
                 Image = FixedAssets;
-                
+
                 action("All Programmes")
                 {
                     Caption = 'Academic Programmes';
@@ -112,7 +112,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Faculty Management';
                 Image = HumanResources;
-                
+
                 action("Academic Staff List")
                 {
                     Caption = 'Academic Staff';
@@ -146,7 +146,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Examinations & Results';
                 Image = TestReport;
-                
+
                 action("Examination Management")
                 {
                     Caption = 'Examination Management';
@@ -180,7 +180,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Quality Assurance';
                 Image = QualificationOverview;
-                
+
                 action("DAQA Management")
                 {
                     Caption = 'Quality Assurance';
@@ -214,7 +214,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Research & Innovation';
                 Image = Innovation;
-                
+
                 action("Research Management")
                 {
                     Caption = 'Research & Extensions';
@@ -241,7 +241,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Student Affairs';
                 Image = CustomerGroup;
-                
+
                 action("Student Affairs Center")
                 {
                     Caption = 'Student Affairs';
@@ -282,7 +282,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Timetabling';
                 Image = Calendar;
-                
+
                 action("Timetable Management")
                 {
                     Caption = 'Timetable Management';
@@ -366,7 +366,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Strategic Oversight';
                 Image = ExecuteBatch;
-                
+
                 action("Academic Dashboard")
                 {
                     Caption = 'Academic Dashboard';
@@ -390,7 +390,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Admissions Oversight';
                 Image = RegisteredDocs;
-                
+
                 action("Admission Applications")
                 {
                     Caption = 'Applications';
@@ -420,7 +420,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Academic Performance';
                 Image = Statistics;
-                
+
                 action("Enrollment Statistics")
                 {
                     Caption = 'Enrollment Statistics';
@@ -450,7 +450,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Financial Performance';
                 Image = Statistics;
-                
+
                 action("Student Revenue")
                 {
                     Caption = 'Student Revenue';
@@ -474,7 +474,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Quality & Compliance';
                 Image = QualificationOverview;
-                
+
                 action("CUE Reporting")
                 {
                     Caption = 'CUE Report';
@@ -498,7 +498,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Approvals';
                 Image = Alerts;
-                
+
                 action("Pending My Approval")
                 {
                     Caption = 'Pending My Approval';
@@ -522,7 +522,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Common Requisitions';
                 Image = LotInfo;
-                
+
                 action("Store Requisitions")
                 {
                     Caption = 'Store Requisitions';
@@ -561,7 +561,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Executive Reports';
                 Image = Report;
-                
+
                 action("Senate Summary Report")
                 {
                     Caption = 'Senate Summary Report';
@@ -595,7 +595,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Compliance Reports';
                 Image = FileContract;
-                
+
                 action("CUE Compliance Report")
                 {
                     Caption = 'CUE Compliance';
@@ -622,7 +622,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Academic Analytics';
                 Image = Statistics;
-                
+
                 action("Enrollment Trends")
                 {
                     Caption = 'Enrollment Trends';
@@ -656,7 +656,7 @@ page 52122 "DVC-Academics Role Center"
             {
                 Caption = 'Strategic Reports';
                 Image = Planning;
-                
+
                 action("Population by Faculty Report")
                 {
                     Caption = 'Population by Faculty';

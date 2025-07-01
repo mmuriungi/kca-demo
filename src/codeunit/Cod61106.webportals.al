@@ -12848,6 +12848,7 @@ Codeunit 61106 webportals
     begin
         AppovEntry.Reset;
         AppovEntry.SetRange("Approver ID", ApproverID);
+        AppovEntry.SetRange(Status, AppovEntry.Status::Open);
         if AppovEntry.FindSet() then begin
             repeat
                 Clear(JObj);

@@ -24,6 +24,14 @@ table 50831 "ACA-Exam Processing Filter Log"
         {
             DataClassification = ToBeClassified;
         }
+        field(7; "Student No"; Code[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(8; "Unit Code"; Code[250])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
