@@ -180,7 +180,7 @@ page 52087 "Timetable Header"
                 var
                     TtCu: codeunit "Timetable Management";
                 begin
-                    TtCu.GenerateTimetable(Rec."Academic Year", Rec.Semester);
+                    TtCu.GenerateTimetable(Rec);
                 end;
             }
             action(GenerateExamTimetableByGroup)
