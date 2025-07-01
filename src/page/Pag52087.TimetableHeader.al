@@ -422,7 +422,7 @@ page 52087 "Timetable Header"
                     ChangeLog: Record "Timetable Change Log";
                 begin
                     ChangeLog.SetRange("Timetable Document No.", Rec."Document No.");
-                    Page.RunModal(51317, ChangeLog);
+                    Page.RunModal(52133, ChangeLog);
                 end;
             }
             action("Mark Lecturer Unavailable")
@@ -446,6 +446,49 @@ page 52087 "Timetable Header"
                     // Get lecturer unavailability details from user
                     // TODO: Create lecturer unavailability dialog page
                     Message('Lecturer unavailability functionality will be implemented. This will allow marking lecturers as unavailable for specific dates and automatically suggest alternatives.');
+                end;
+            }
+            action("Define Change Rules")
+            {
+                ApplicationArea = All;
+                Caption = 'Define Change Rules';
+                Promoted = true;
+                PromotedCategory = Category5;
+                PromotedIsBig = true;
+                Image = Setup;
+                Visible = (Rec."Linked Timetable No." <> '') and (Rec.Type = Rec.Type::Class);
+                RunObject = Page "Timetable Change Rules";
+                RunPageLink = "Timetable Document No." = field("Document No.");
+            }
+            action("Apply Automated Changes")
+            {
+                ApplicationArea = All;
+                Caption = 'Apply Automated Changes';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = ChangeLog;
+                Visible = (Rec."Linked Timetable No." <> '') and (Rec.Type = Rec.Type::Class);
+                trigger OnAction()
+                var
+                    ChangeMgt: Codeunit "Timetable Change Management";
+                    ChangeRule: Record "Timetable Change Rule";
+                begin
+                    ChangeRule.SetRange("Timetable Document No.", Rec."Document No.");
+                    ChangeRule.SetRange(Active, true);
+                    ChangeRule.SetRange(Applied, false);
+                    
+                    if ChangeRule.IsEmpty() then
+                        Error('No active change rules defined. Please define rules first.');
+                        
+                    if Confirm('Do you want to preview the changes before applying them?', true) then begin
+                        ChangeMgt.ProcessChangeRules(Rec."Document No.", true);
+                        if Confirm('Do you want to apply these changes now?', true) then
+                            ChangeMgt.ProcessChangeRules(Rec."Document No.", false);
+                    end else
+                        ChangeMgt.ProcessChangeRules(Rec."Document No.", false);
+                        
+                    CurrPage.Update(false);
                 end;
             }
         }
