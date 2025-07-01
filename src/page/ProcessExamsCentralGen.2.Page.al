@@ -65,7 +65,7 @@
 
 //                 trigger OnAction()
 //                 var
-//                      CourseRegForStoppage: Record "ACA-Course Registration";
+//                    CourseRegForStoppage: Record "ACA-Course Registration";
 //                     AcaSpecialExamsDetails7: Record "Aca-Special Exams Details";
 //                     AcaSpecialExamsDetailsz: Record "Aca-Special Exams Details";
 //                     AcdYrs: Record "ACA-Academic Year";
@@ -79,6 +79,7 @@
 //                     AcademicYear_Fin: Record "ACA-Academic Year";
 //                     Semesters_Fin: Record "ACA-Semesters";
 //                     ExamResults: Record "ACA-Exam Results";
+//                     ClassSpecialExamsDetails: Record "Aca-Special Exams Details";
 //                     ClassCustomer: Record Customer;
 //                     ClassExamResultsBuffer2: Record "ACA-Exam Results Buffer 2";
 //                     ClassDimensionValue: Record "Dimension Value";
@@ -114,7 +115,7 @@
 //                     CountedNos: Integer;
 //                     CurrSchool: Code[250];
 //                     AcaSpecialExamsDetails6: Record "Aca-Special Exams Details";
-//                     ACASenateReportsHeaderSupp: Record "ACA-SuppSenate Repo. Header";
+//                     ACASenateReportsHeaderSupp: Record "ACA-SuppExam Class. Studs";
 //                     ProgForFilters: Record "ACA-Programme";
 //                     ACASenateReportsHeaderSupps: Record "ACA-SuppSenate Repo. Header";
 //                     xxxxxxxxxxxxxxxxxxxxx: Text[20];
@@ -129,9 +130,8 @@
 //                     ACA2NDExamClassificationStuds: Record "ACA-2ndSuppExam Class. Studs";
 //                     ACA2NDExamClassificationStudsCheck: Record "ACA-2ndSuppExam Class. Studs";
 //                     ACA2NDExamCummulativeResit: Record "ACA-2ndSuppExam Cumm. Resit";
-//                     ACAExamProcActiveUsers: Record "ACA-Exam Proc. Active Users";
 //                 begin
-//                     //ExamsProcessing.MarksPermissions(USERID);
+//                     ExamsProcessing.MarksPermissions(UserId);
 //                     if Confirm('Process Marks?',true)=false then Error('Cancelled by user!');
 //                     if AcadYear='' then Error('Specify Academic Year');
 //                     if ((Schools = '') and (programs = '') and (StudNos = '')) then Error('Specify one of the following:\a. School\b. Programme\c. Student');
@@ -1147,7 +1147,7 @@
 
 //     trigger OnOpenPage()
 //     var
-//         ACAExamProcessingFilterLog: Record UnknownRecord78010;
+//         ACAExamProcessingFilterLog: Record "ACA-Exam Processing Filter Log";
 //     begin
 //         ACAExamProcessingFilterLog.Reset;
 //         ACAExamProcessingFilterLog.SetRange("User ID",UserId);
@@ -1184,8 +1184,8 @@
 //         Progressbar: Dialog;
 //         ToGraduate: Boolean;
 //         YosStages: Text[150];
-//         ACAExamProcActiveUsers: Record "ACA-Exam Proc. Active Users";
-//         ACAExamProcActiveUsers2: Record "ACA-Exam Proc. Active Users";
+//         ACAExamProcActiveUsers: Record "ACA-Exam Proc Active Users";
+//         ACAExamProcActiveUsers2: Record "ACA-Exam Proc Active Users";
 //         ExamsProcessing: Codeunit UnknownCodeunit60276;
 //         AcaSpecialExamsResults: Record UnknownRecord78003;
 //         Aca2ndSuppExamsResults: Record UnknownRecord78032;
@@ -1407,6 +1407,63 @@
 
 
 //     procedure GetClassificationGrade(EXAMMark: Decimal;Proga: Code[250]) xGrade: Text[100]
+//     var
+//         UnitsRR: Record UnknownRecord61517;
+//         ProgrammeRec: Record UnknownRecord61511;
+//         LastGrade: Code[250];
+//         LastRemark: Code[250];
+//         ExitDo: Boolean;
+//         LastScore: Decimal;
+//         Gradings: Record UnknownRecord61599;
+//         Gradings2: Record UnknownRecord61599;
+//         GradeCategory: Code[250];
+//         GLabel: array [6] of Code[250];
+//         i: Integer;
+//         GLabel2: array [6] of Code[100];
+//         FStatus: Boolean;
+//         Grd: Code[80];
+//         Grade: Code[250];
+//         Marks: Decimal;
+//     begin
+//          Clear(Marks);
+//         Marks:=EXAMMark;
+//         GradeCategory:='';
+//         ProgrammeRec.Reset;
+//         if ProgrammeRec.Get(Proga) then
+//         GradeCategory:=ProgrammeRec."Exam Category";
+//         if GradeCategory='' then  GradeCategory:='DEFAULT';
+//         xGrade:='';
+//         if Marks > 0 then begin
+//         Gradings.Reset;
+//         Gradings.SetRange(Gradings.Category,GradeCategory);
+//         Gradings.SetFilter(Gradings."Lower Limit",'<%1|=%2',Marks,Marks);
+//         Gradings.SetFilter(Gradings."Upper Limit",'>%1|=%2',Marks,Marks);
+//         LastGrade:='';
+//         LastRemark:='';
+//         LastScore:=0;
+//         if Gradings.Find('-') then begin
+//         ExitDo:=false;
+//         //REPEAT
+//         LastScore:=Gradings."Up to";
+//         if Marks < LastScore then begin
+//         if ExitDo = false then begin
+//         xGrade:=Gradings.Grade;
+//         if Gradings.Failed=false then
+//         LastRemark:='PASS'
+//         else
+//         LastRemark:='FAIL';
+//         ExitDo:=true;
+//         end;
+//         end;
+
+
+//         end;
+
+//         end;
+//     end;
+
+
+//     procedure GetClassPassStatus(EXAMMark: Decimal;Proga: Code[250]) Passed: Boolean
 //     var
 //         UnitsRR: Record UnknownRecord61517;
 //         ProgrammeRec: Record UnknownRecord61511;
@@ -1757,7 +1814,7 @@
 
 //     local procedure GetProgFilters2(Programs: Code[1024];Schools: Code[1024]) Progs2: Code[1024]
 //     var
-//         ACAProgramme963: Record UnknownRecord61511;
+//         ACAProgramme963: Record "ACA-Programme";
 //         ProgFilters: Code[1024];
 //     begin
 //         Clear(Progs2);
@@ -1792,14 +1849,14 @@
 //           end;
 //     end;
 
-//     local procedure GetUnitAcademicYear(ACAExamClassificationUnits9: Record UnknownRecord66650) AcademicYear: Code[250]
+//     local procedure GetUnitAcademicYear(ACAExamClassificationUnits9: Record "ACA-Exam Classification Units") AcademicYear: Code[250]
 //     var
-//         ACACourseRegistration9: Record UnknownRecord61532;
+//         ACACourseRegistration9: Record "ACA-Course Registration";
 //     begin
 //         Clear(AcademicYear);
 //         ACACourseRegistration9.Reset;
 //         ACACourseRegistration9.SetRange("Student No.",ACAExamClassificationUnits9."Student No.");
-//         ACACourseRegistration9.SetRange(Programme,ACAExamClassificationUnits9.Programme);
+//         ACACourseRegistration9.SetRange(Programmes,ACAExamClassificationUnits9.Programme);
 //         ACACourseRegistration9.SetRange("Year Of Study",ACAExamClassificationUnits9."Year of Study");
 //         ACACourseRegistration9.SetRange(Reversed,false);
 //         ACACourseRegistration9.SetFilter("Academic Year",'<>%1','');
@@ -1911,9 +1968,9 @@
 //         if AcadClassUnits.Find('-') then CummAttained:=AcadClassUnits.Count;
 //     end;
 
-//    local procedure UpdateSupplementaryMarks(RefRegularCoRegcs: Record "ACA-Exam. Course Registration")
+//     local procedure UpdateSupplementaryMarks(RefRegularCoRegcs: Record "ACA-Exam. Course Registration")
 //     var
-//         ACAExamCourseRegistration888: Record"ACA-Exam. Course Registration";
+//          ACAExamCourseRegistration888: Record "ACA-Exam. Course Registration";
 //         Aca2ndSuppExamsDetailsforSupps: Record "Aca-2nd Supp. Exams Details";
 //         RegularExamUnitsRegForSupp: Record "ACA-Exam Classification Units";
 //         ACAResultsStatus: Record "ACA-Supp. Results Status";
@@ -1934,7 +1991,7 @@
 //         Programme_Fin: Record "ACA-Programme";
 //         ProgrammeStages_Fin: Record "ACA-Programme Stages";
 //         AcademicYear_Fin: Record "ACA-Academic Year";
-//         Semesters_Fin: Record "ACA-Semesters"; 
+//         Semesters_Fin: Record "ACA-Semesters";
 //         ExamResults: Record "ACA-Exam Results";
 //         ClassCustomer: Record Customer;
 //         ClassExamResultsBuffer2: Record "ACA-Exam Results Buffer 2";
@@ -1962,7 +2019,7 @@
 //         ACASemesters: Record "ACA-Semesters";
 //         ACAExamResults_Fin: Record "ACA-Exam Results";
 //         Coregcs: Record "ACA-Course Registration";
-//         ACAExamCummulativeResit: Record "ACA-Exam Cummulative Resit";
+//         ACAExamCummulativeResit: Record "ACA-SuppExam Cumm. Resit";
 //         ACAStudentUnitsForResits: Record "ACA-Student Units";
 //         SEQUENCES: Integer;
 //         CurrStudentNo: Code[250];
@@ -1972,11 +2029,11 @@
 //         Aca2ndSuppExamsResults: Record "Aca-2nd Supp. Exams Results";
 //         Aca2ndSuppExamsDetails3: Record "Aca-2nd Supp. Exams Details";
 //         Aca2ndSuppExamsDetails4: Record "Aca-2nd Supp. Exams Details";
-//         AcaSpecialExamsDetails4: Record "Aca-Special Exams Details"; 
+//         AcaSpecialExamsDetails4: Record "Aca-Special Exams Details";
 //         ACAResultsStatusSupp: Record "ACA-Supp. Results Status";
 //     begin
 //         ProgFIls:=RefRegularCoRegcs.Programme;
-
+        
 //         Clear(ACAExamClassificationStuds);
 //         Clear(ACAExamCourseRegistration);
 //         Clear(ACAExamClassificationUnits);
@@ -1993,7 +2050,7 @@
 //         ACAExamCourseRegistration.SetFilter("Academic Year",RefRegularCoRegcs."Academic Year");
 //         ACAExamClassificationUnits.SetFilter("Academic Year",RefRegularCoRegcs."Academic Year");
 //         ACAExamSuppUnits.SetFilter("Academic Year",AcadYear);
-
+        
 //         ACAExamClassificationStuds.SetFilter(Programme,ProgFIls);
 //         ACAExamCourseRegistration.SetFilter(Programme,ProgFIls);
 //         ACAExamClassificationUnits.SetFilter(Programme,ProgFIls);
@@ -2002,14 +2059,14 @@
 //         if ACAExamCourseRegistration.Find('-') then ACAExamCourseRegistration.DeleteAll;
 //         if ACAExamClassificationUnits.Find('-') then ACAExamClassificationUnits.DeleteAll;
 //         if ACAExamSuppUnits.Find('-') then ACAExamSuppUnits.DeleteAll;
-
+        
 //         ///// Create Supp. Entries Here
 //          ////////////////////////////////////////////////////////////////////////////
 //             //  Supp. Headers
-
+        
 //                 Progyz.Reset;
 //                 if Progyz.Get(RefRegularCoRegcs.Programme) then;
-
+        
 //                     ACAResultsStatus.Reset;
 //                     ACAResultsStatus.SetRange("Special Programme Class",Progyz."Special Programme Class");
 //                     ACAResultsStatus.SetRange("Academic Year",RefRegularCoRegcs."Academic Year");
@@ -2117,7 +2174,7 @@
 //               ACAExamCourseRegistration."Final Year of Study":=ACAExamClassificationStuds."Final Year of Study";
 //               ACAExamCourseRegistration."Admission Date":=ACAExamClassificationStuds."Admission Date";
 //               ACAExamCourseRegistration."Admission Academic Year":=ACAExamClassificationStuds."Admission Academic Year";
-
+        
 //           if ((Progyz.Category=Progyz.Category::"Certificate ") or
 //              (Progyz.Category=Progyz.Category::"Course List") or
 //              (Progyz.Category=Progyz.Category::Professional)) then begin
@@ -2129,7 +2186,7 @@
 //                 end  else if (Progyz.Category=Progyz.Category::Undergraduate) then begin
 //               ACAExamCourseRegistration."Category Order":=1;
 //                 end;
-
+        
 //               ACAExamCourseRegistration.Graduating:=false;
 //               ACAExamCourseRegistration.Classification:='';
 //               Clear(ACAExamCourseRegistration888);
@@ -2140,7 +2197,7 @@
 //               if ACAExamCourseRegistration888.Find('-') then
 //                   if  ACAExamCourseRegistration.Insert(true) then;
 //                   end;
-
+        
 //         // Create Units for the Supp Registration ***********************************
 //         Clear(RegularExamUnitsRegForSupp);
 //         RegularExamUnitsRegForSupp.Reset;
@@ -2160,7 +2217,7 @@
 //             StudentUnits.SetRange("Reg. Reversed",false);
 //            // StudentUnits.SETRANGE("Academic Year (Flow)",RegularExamUnitsRegForSupp."Academic Year");
 //             if StudentUnits.Find('-') then begin
-
+        
 //                             Clear(CATExists);
 //                          Clear(ACAExamResults_Fin);
 //                          ACAExamResults_Fin.Reset;
@@ -2179,13 +2236,13 @@
 //         Coregcs.SetRange(Semester,StudentUnits.Semester);
 //         if Coregcs.Find('-') then begin
 //             RegularExamUnitsRegForSupp.CalcFields(Pass,"Exam Category");
-
+        
 //               Clear(UnitsSubjects);
 //               UnitsSubjects.Reset;
 //               UnitsSubjects.SetRange("Programme Code",RefRegularCoRegcs.Programme);
 //               UnitsSubjects.SetRange(Code,RegularExamUnitsRegForSupp."Unit Code");
 //               if UnitsSubjects.Find('-') then begin
-
+        
 //                 if UnitsSubjects."Default Exam Category"='' then UnitsSubjects."Default Exam Category":=Progyz."Exam Category";
 //                 if UnitsSubjects."Exam Category"='' then UnitsSubjects."Exam Category":=Progyz."Exam Category";
 //                 UnitsSubjects.Modify;
@@ -2208,7 +2265,7 @@
 //                     ACAExamClassificationUnits."Year of Study":=RegularExamUnitsRegForSupp."Year of Study";
 //                     ACAExamClassificationUnits."Academic Year":=RegularExamUnitsRegForSupp."Academic Year";
 //                     ACAExamClassificationUnits."Results Exists Status" := ACAExamClassificationUnits."results exists status"::"Both Exists";
-
+        
 //                         Clear(ExamResults); ExamResults.Reset;
 //                         ExamResults.SetRange("Student No.",RegularExamUnitsRegForSupp."Student No.");
 //                         ExamResults.SetRange(Unit,StudentUnits.Unit);
@@ -2219,10 +2276,10 @@
 //                             if ExamResults."Number of Resits">0 then
 //                             ACAExamClassificationUnits."No. of Resits":=ExamResults."Number of Resits"-1;
 //                             end;
-
+        
 //                    if  ACAExamClassificationUnits.Insert then ;
 //                   end;
-
+        
 //                             /////////////////////////// Update Unit Score
 //                               Clear(ACAExamClassificationUnits);
 //                 ACAExamClassificationUnits.Reset;
@@ -2232,7 +2289,7 @@
 //                 ACAExamClassificationUnits.SetRange("Academic Year",RegularExamUnitsRegForSupp."Academic Year");
 //                 if ACAExamClassificationUnits.Find('-') then begin
 //                   ACAExamClassificationUnits.CalcFields("Is Supp. Unit","Is Special Unit");
-
+        
 //                       if ACAExamClassificationUnits."Is Special Unit" = true then
 //                      begin
 //                     //  Pick Special Marks here and leave value of Sore to Zero if Mark does not exist
@@ -2264,17 +2321,17 @@
 //                           ACAExamClassificationUnits."Total Score Decimal":=ROUND(ACAExamClassificationUnits."Total Score Decimal",0.01,'=');
 //                           ACAExamClassificationUnits."Total Score":=Format(ACAExamClassificationUnits."Total Score Decimal");
 //                           ACAExamClassificationUnits."Weighted Total Score":=ROUND(ACAExamClassificationUnits."Credit Hours"*ACAExamClassificationUnits."Total Score Decimal",0.01,'=');
-
+        
 //                               end;
 //         // //                  ACAExamClassificationUnits."Total Score Decimal":=ROUND(ACAExamClassificationUnits."Exam Score Decimal",0.01,'=');
 //         // //                  ACAExamClassificationUnits."Total Score Decimal":=GetSuppMaxScore(AcaSpecialExamsDetails,Progyz."Exam Category",ACAExamClassificationUnits."Total Score Decimal");
 //         // //                  ACAExamClassificationUnits."Total Score":=FORMAT(ROUND(ACAExamClassificationUnits."Total Score Decimal",0.01,'='));
 //         // //                  ACAExamClassificationUnits."Weighted Total Score":=ROUND(ACAExamClassificationUnits."Credit Hours"*ACAExamClassificationUnits."Total Score Decimal",0.01,'=');
-
+        
 //                       end;
 //                     if ACAExamClassificationUnits."Is Supp. Unit" then begin
 //                       /////////////////////////////////////////////////////////////////////////////////////////
-
+        
 //                     //  Pick Supp Marks here and leave value of Sore to Zero if Mark does not exist
 //                           // Check for Supp Marks if exists
 //                             Clear(AcaSpecialExamsDetails);
@@ -2306,7 +2363,7 @@
 //                           ACAExamClassificationUnits."Total Score Decimal":=GetSuppMaxScore(Progyz."Exam Category",ACAExamClassificationUnits."Total Score Decimal");
 //                           ACAExamClassificationUnits."Total Score":=Format(ROUND(ACAExamClassificationUnits."Total Score Decimal",0.01,'='));
 //                           ACAExamClassificationUnits."Weighted Total Score":=ROUND(ACAExamClassificationUnits."Credit Hours"*ACAExamClassificationUnits."Total Score Decimal",0.01,'=');
-
+        
 //                               end;
 //                       //////////////////////////////////////////////////////////////////////////////////////////////////
 //                       end;
@@ -2325,9 +2382,9 @@
 //                   end;
 //         ////////////*********************************************
 //         //////////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+        
 //         // Check for Special Exams Score if Exists
-
+        
 //                     Clear(AcaSpecialExamsDetails);
 //                             AcaSpecialExamsDetails.Reset;
 //                             AcaSpecialExamsDetails.SetRange("Student No.",StudentUnits."Student No.");
@@ -2359,9 +2416,9 @@
 //                           ACAExamClassificationUnits."Total Score":=Format(ROUND(ACAExamClassificationUnits."Total Score Decimal",0.01,'='));
 //                           ACAExamClassificationUnits."Weighted Total Score":=ROUND(ACAExamClassificationUnits."Credit Hours"*
 //                           ACAExamClassificationUnits."Total Score Decimal",0.01,'=');
-
+        
 //                               end;
-
+        
 //                               ///////////////////////////////////////////////////////// End of Supps Score Updates
 //                             Clear(AcaSpecialExamsDetails);
 //                             AcaSpecialExamsDetails.Reset;
@@ -2404,9 +2461,9 @@
 //                               //  END;
 //                               end;
 //                               //////////////////******************************************************
-
+        
 //         // Check for Special Exams Score if Exists
-
+        
 //                     Clear(AcaSpecialExamsDetails);
 //                             AcaSpecialExamsDetails.Reset;
 //                             AcaSpecialExamsDetails.SetRange("Student No.",StudentUnits."Student No.");
@@ -2440,7 +2497,7 @@
 //                           ACAExamClassificationUnits."Total Score":=Format(ROUND(ACAExamClassificationUnits."Total Score Decimal",0.01,'='));
 //                           ACAExamClassificationUnits."Weighted Total Score":=ROUND(ACAExamClassificationUnits."Credit Hours"*
 //                           ACAExamClassificationUnits."Total Score Decimal",0.01,'=');
-
+        
 //                               end;
 //                               //////////////////////*******************************************************
 //                               ACAExamClassificationUnits."Allow In Graduate":=true;
@@ -2462,7 +2519,7 @@
 //         // //                    AcaSpecialExamsDetails.SETRANGE(Category,AcaSpecialExamsDetails.Category::Supplementary);
 //         // //                    AcaSpecialExamsDetails.SETFILTER("Exam Marks",'%1',0);
 //         // //                    IF AcaSpecialExamsDetails.FIND('-') THEN AcaSpecialExamsDetails.DELETEALL;
-
+        
 //                                 Clear(Aca2ndSuppExamsDetails);
 //                             Aca2ndSuppExamsDetails.Reset;
 //                             Aca2ndSuppExamsDetails.SetRange("Student No.",StudentUnits."Student No.");
@@ -2473,7 +2530,7 @@
 //                             if Aca2ndSuppExamsDetails.Find ('-') then Aca2ndSuppExamsDetails.DeleteAll;
 //                 end else begin
 //                      // Student Failed Supp or Special. Register for the second Supp if first Supp Failed and 1st Supp if Special Failed
-
+        
 //                                 Clear(Aca2ndSuppExamsDetails);
 //                             Aca2ndSuppExamsDetails.Reset;
 //                             Aca2ndSuppExamsDetails.SetRange("Student No.",StudentUnits."Student No.");
@@ -2515,7 +2572,7 @@
 //                               AcaSpecialExamsDetails."Current Academic Year":=GetFinalAcademicYear(StudentUnits."Student No.",StudentUnits.Programme);
 //                               AcaSpecialExamsDetails.Category:=AcaSpecialExamsDetails.Category::Supplementary;
 //                               AcaSpecialExamsDetails.Programme:=StudentUnits.Programme;
-
+        
 //                     Clear(Aca2ndSuppExamsDetails4);
 //                             Aca2ndSuppExamsDetails4.Reset;
 //                             Aca2ndSuppExamsDetails4.SetRange("Student No.",StudentUnits."Student No.");
@@ -2525,7 +2582,7 @@
 //                             AcaSpecialExamsDetails4.SetRange("Exam Marks",0);
 //                             if (Aca2ndSuppExamsDetails4.Find('-')) then begin
 //                               // Check if Allows Creation of Supp
-
+        
 //                               if AcaSpecialExamsDetails.Insert then ;
 //                               end else  begin
 //                                 end;
@@ -2562,10 +2619,10 @@
 //                               Aca2ndSuppExamsDetails."Current Academic Year":=GetFinalAcademicYear(StudentUnits."Student No.",StudentUnits.Programme);
 //                               Aca2ndSuppExamsDetails.Category:=Aca2ndSuppExamsDetails.Category::Supplementary;
 //                               Aca2ndSuppExamsDetails.Programme:=StudentUnits.Programme;
-
+        
 //                               if Aca2ndSuppExamsDetails.Insert then ;
 //                               end;
-
+        
 //                                 end;
 //                  begin
 //                     ACAExamCummulativeResit.Init;
@@ -2591,7 +2648,7 @@
 //               end;
 //               until RegularExamUnitsRegForSupp.Next = 0;
 //               end;
-
+        
 //         /*
 //         Coregcs.RESET;
 //         Coregcs.SETFILTER(Programme,ProgFIls);
@@ -2618,7 +2675,7 @@
 //              Progressbar.UPDATE(2,'Total Recs.: '+FORMAT(TotalRecs));
 //           REPEAT
 //             BEGIN
-
+        
 //             CountedRecs:=CountedRecs+1;
 //             RemeiningRecs:=RemeiningRecs-1;
 //             // Create Registration Unit entry if Not Exists
@@ -2642,8 +2699,8 @@
 //             ELSE IF Coregcs."Year Of Study"=6 THEN YosStages:='Y6S1|Y6S2|Y6S3|Y6S4'
 //             ELSE IF Coregcs."Year Of Study"=7 THEN YosStages:='Y7S1|Y7S2|Y7S3|Y7S4'
 //             ELSE IF Coregcs."Year Of Study"=8 THEN YosStages:='Y8S1|Y8S2|Y8S3|Y8S4';
-
-
+        
+        
 //         Custos.RESET;
 //         Custos.SETRANGE("No.",Coregcs."Student No.");
 //         IF Custos.FIND('-') THEN
@@ -2662,7 +2719,7 @@
 //                END
 //               ELSE
 //               StudentUnits.SETFILTER("Academic Year (Flow)",'=%1',Coregcs."Academic Year");
-
+        
 //            CLEAR(CountedRegistrations);
 //            CLEAR(Coregcsz10);
 //            Coregcsz10.RESET;
@@ -2676,7 +2733,7 @@
 //           StudentUnits.SETRANGE(Stage,Coregcs.Stage);
 //            END;
 //         IF StudentUnits.FIND('-') THEN BEGIN
-
+        
 //           REPEAT
 //             BEGIN
 //              StudentUnits.CALCFIELDS(StudentUnits."CATs Marks Exists");
@@ -2882,7 +2939,7 @@
 //               UnitsSubjects.SETRANGE("Programme Code",StudentUnits.Programme);
 //               UnitsSubjects.SETRANGE(Code,StudentUnits.Unit);
 //               IF UnitsSubjects.FIND('-') THEN BEGIN
-
+        
 //                 IF UnitsSubjects."Default Exam Category"='' THEN UnitsSubjects."Default Exam Category":=Progyz."Exam Category";
 //                 IF UnitsSubjects."Exam Category"='' THEN UnitsSubjects."Exam Category":=Progyz."Exam Category";
 //                 UnitsSubjects.MODIFY;
@@ -2903,7 +2960,7 @@
 //                     ACAExamClassificationUnits."Unit Description":=UnitsSubjects.Desription;
 //                     ACAExamClassificationUnits."Year of Study":=ACAExamCourseRegistration."Year of Study";
 //                     ACAExamClassificationUnits."Academic Year":=Coregcs."Academic Year";
-
+        
 //                         CLEAR(ExamResults); ExamResults.RESET;
 //                         ExamResults.SETRANGE("Student No.",StudentUnits."Student No.");
 //                         ExamResults.SETRANGE(Unit,StudentUnits.Unit);
@@ -2914,10 +2971,10 @@
 //                             IF ExamResults."Number of Resits">0 THEN
 //                             ACAExamClassificationUnits."No. of Resits":=ExamResults."Number of Resits"-1;
 //                             END;
-
+        
 //                    IF  ACAExamClassificationUnits.INSERT THEN ;
 //                   END;
-
+        
 //                             /////////////////////////// Update Unit Score
 //                               CLEAR(ACAExamClassificationUnits);
 //                 ACAExamClassificationUnits.RESET;
@@ -2989,7 +3046,7 @@
 //                           ACAExamClassificationUnits."Total Score Decimal":=GetSuppMaxScore(AcaSpecialExamsDetails,Progyz."Exam Category",ACAExamClassificationUnits."Total Score Decimal");
 //                           ACAExamClassificationUnits."Total Score":=FORMAT(ROUND(ACAExamClassificationUnits."Total Score Decimal",0.01,'='));
 //                           ACAExamClassificationUnits."Weighted Total Score":=ROUND(ACAExamClassificationUnits."Credit Hours"*ACAExamClassificationUnits."Total Score Decimal",0.01,'=');
-
+        
 //                               END ELSE BEGIN
 //                         //Update Total Marks
 //                         IF ((ACAExamClassificationUnits."Exam Score"='') AND (ACAExamClassificationUnits."CAT Score"='')) THEN BEGIN
@@ -3010,11 +3067,11 @@
 //                           ACAExamClassificationUnits."Total Score Decimal":=GetSuppMaxScore(AcaSpecialExamsDetails,Progyz."Exam Category",ACAExamClassificationUnits."Total Score Decimal");
 //                           ACAExamClassificationUnits."Total Score":=FORMAT(ROUND(ACAExamClassificationUnits."Total Score Decimal",0.01,'='));
 //                           ACAExamClassificationUnits."Weighted Total Score":=ROUND(ACAExamClassificationUnits."Credit Hours"*ACAExamClassificationUnits."Total Score Decimal",0.01,'=');
-
+        
 //                            END;
 //                                 END;
 //         // Check for Special Exams Score if Exists
-
+        
 //                     CLEAR(AcaSpecialExamsDetails);
 //                             AcaSpecialExamsDetails.RESET;
 //                             AcaSpecialExamsDetails.SETRANGE("Student No.",StudentUnits."Student No.");
@@ -3046,9 +3103,9 @@
 //                           ACAExamClassificationUnits."Total Score":=FORMAT(ROUND(ACAExamClassificationUnits."Total Score Decimal",0.01,'='));
 //                           ACAExamClassificationUnits."Weighted Total Score":=ROUND(ACAExamClassificationUnits."Credit Hours"*
 //                           ACAExamClassificationUnits."Total Score Decimal"+ACAExamClassificationUnits."CAT Score Decimal",0.01,'=');
-
+        
 //                               END;
-
+        
 //                               ///////////////////////////////////////////////////////// End of Supps Score Updates
 //                             CLEAR(AcaSpecialExamsDetails);
 //                             AcaSpecialExamsDetails.RESET;
@@ -3109,7 +3166,7 @@
 //         // //                    AcaSpecialExamsDetails.SETRANGE(Category,AcaSpecialExamsDetails.Category::Supplementary);
 //         // //                    AcaSpecialExamsDetails.SETFILTER("Exam Marks",'%1',0);
 //         // //                    IF AcaSpecialExamsDetails.FIND('-') THEN AcaSpecialExamsDetails.DELETEALL;
-
+        
 //                                 CLEAR(Aca2ndSuppExamsDetails);
 //                             Aca2ndSuppExamsDetails.RESET;
 //                             Aca2ndSuppExamsDetails.SETRANGE("Student No.",StudentUnits."Student No.");
@@ -3120,7 +3177,7 @@
 //                             IF Aca2ndSuppExamsDetails.FIND ('-') THEN Aca2ndSuppExamsDetails.DELETEALL;
 //                 END ELSE BEGIN
 //                      // Student Failed Supp or Special. Register for the second Supp if first Supp Failed and 1st Supp if Special Failed
-
+        
 //                                 CLEAR(Aca2ndSuppExamsDetails);
 //                             Aca2ndSuppExamsDetails.RESET;
 //                             Aca2ndSuppExamsDetails.SETRANGE("Student No.",StudentUnits."Student No.");
@@ -3162,7 +3219,7 @@
 //                               AcaSpecialExamsDetails."Current Academic Year":=GetFinalAcademicYear(StudentUnits."Student No.",StudentUnits.Programme);
 //                               AcaSpecialExamsDetails.Category:=AcaSpecialExamsDetails.Category::Supplementary;
 //                               AcaSpecialExamsDetails.Programme:=StudentUnits.Programme;
-
+        
 //                     CLEAR(Aca2ndSuppExamsDetails4);
 //                             Aca2ndSuppExamsDetails4.RESET;
 //                             Aca2ndSuppExamsDetails4.SETRANGE("Student No.",StudentUnits."Student No.");
@@ -3172,7 +3229,7 @@
 //                             AcaSpecialExamsDetails4.SETRANGE("Exam Marks",0);
 //                             IF (Aca2ndSuppExamsDetails4.FIND('-')) THEN BEGIN
 //                               // Check if Allows Creation of Supp
-
+        
 //                               IF AcaSpecialExamsDetails.INSERT THEN ;
 //                               END ELSE  BEGIN
 //                                 END;
@@ -3209,10 +3266,10 @@
 //                               Aca2ndSuppExamsDetails."Current Academic Year":=GetFinalAcademicYear(StudentUnits."Student No.",StudentUnits.Programme);
 //                               Aca2ndSuppExamsDetails.Category:=Aca2ndSuppExamsDetails.Category::Supplementary;
 //                               Aca2ndSuppExamsDetails.Programme:=StudentUnits.Programme;
-
+        
 //                               IF Aca2ndSuppExamsDetails.INSERT THEN ;
 //                               END;
-
+        
 //                                 END;
 //                  BEGIN
 //                     ACAExamCummulativeResit.INIT;
@@ -3246,9 +3303,9 @@
 //         // // //                        AcaSpecialExamsDetails3."Exam Marks":=AcaSpecialExamsResults.Score;
 //         // // //                      AcaSpecialExamsDetails3.MODIFY;
 //         // // //                        END;
-
+        
 //                               END;
-
+        
 //                               CLEAR(Aca2ndSuppExamsDetails3);
 //                                Aca2ndSuppExamsDetails3.RESET;
 //                             Aca2ndSuppExamsDetails3.SETRANGE("Student No.",StudentUnits."Student No.");
@@ -3273,7 +3330,7 @@
 //                   END;
 //                         IF  ACAExamClassificationUnits.MODIFY THEN;
 //           StudentUnits.MODIFY;
-
+        
 //                    CLEAR(Progyz);
 //                         IF Progyz.GET(ACAExamCourseRegistration.Programme) THEN;
 //                         CLEAR(ACAExamCourseRegistration4SuppGeneration);
@@ -3293,7 +3350,7 @@
 //             //   Check if the Ststus does not allow Supp. Generation and delete
 //               IF ACAResultsStatusSuppGen."Skip Supp Generation" = FALSE THEN BEGIN
 //                 /////////////////////////////////////// end of YoS Tracker
-
+        
 //                             CLEAR(AcaSpecialExamsDetails);
 //                             AcaSpecialExamsDetails.RESET;
 //                             AcaSpecialExamsDetails.SETRANGE("Student No.",StudentUnits."Student No.");
@@ -3304,17 +3361,17 @@
 //                 END;
 //                 ///////////////////////////////////////////////////////////////// iiiiiiiiiiiiiiiiiiiiiiii End of Finalize Units
 //         END;
-
+        
 //             UNTIL StudentUnits.NEXT=0;
 //           END;
-
+        
 //         END;
 //         UNTIL Coregcs.NEXT=0;
 //             Progressbar.CLOSE;
 //         END;
 //         */
-
-
+        
+        
 //         // Update Averages
 //         Clear(TotalRecs);
 //         Clear(CountedRecs);
@@ -3353,7 +3410,7 @@
 //                   if ACAExamCourseRegistration."Required Stage Units">ACAExamCourseRegistration."Attained Stage Units" then
 //                   ACAExamCourseRegistration."Units Deficit":=ACAExamCourseRegistration."Required Stage Units"-ACAExamCourseRegistration."Attained Stage Units";
 //                   ACAExamCourseRegistration."Multiple Programe Reg. Exists":=GetMultipleProgramExists(ACAExamCourseRegistration."Student Number",ACAExamCourseRegistration."Academic Year");
-
+        
 //                    ACAExamCourseRegistration."Final Classification":=GetRubricSupp(Progyz,ACAExamCourseRegistration);
 //                    if Coregcs."Stopage Yearly Remark"<>'' then
 //                    ACAExamCourseRegistration."Final Classification":=Coregcs."Stopage Yearly Remark";
@@ -3398,7 +3455,7 @@
 //                   ACAExamCourseRegistration."Cumm Attained Units":=GetCummAttainedUnits(ACAExamCourseRegistration."Student Number",ACAExamCourseRegistration."Year of Study",ACAExamCourseRegistration.Programme);
 //                    ACAExamCourseRegistration.Modify(true);
 //                             ACAExamCourseRegistration.CalcFields("Skip Supplementary Generation");
-
+        
 //                 Clear(Aca2ndSuppExamsDetailsforSupps);
 //                 Aca2ndSuppExamsDetailsforSupps.Reset;
 //                 Aca2ndSuppExamsDetailsforSupps.SetRange("Student No.",RegularExamUnitsRegForSupp."Student No.");
@@ -3443,7 +3500,7 @@
 //                   StudentUnits.SetRange(Programme,RegularExamUnitsRegForSupp.Programme);
 //                   StudentUnits.SetRange("Academic Year (Flow)",RegularExamUnitsRegForSupp."Academic Year");
 //                   if StudentUnits.Find('-') then begin
-
+        
 //                                   Clear(CATExists);
 //                                Clear(ACAExamResults_Fin);
 //                                ACAExamResults_Fin.Reset;
@@ -3468,7 +3525,7 @@
 //                 Aca2ndSuppExamsDetailsforSupps.SetRange("Unit Code",RegularExamUnitsRegForSupp."Unit Code");
 //                 Aca2ndSuppExamsDetailsforSupps.SetRange(Semester,StudentUnits.Semester);
 //                 if not (Aca2ndSuppExamsDetailsforSupps.Find('-')) then begin
-
+        
 //                 Clear(Aca2ndSuppExamsDetailsforSupps);
 //                 Aca2ndSuppExamsDetailsforSupps.Reset;
 //                 Aca2ndSuppExamsDetailsforSupps.SetRange("Student No.",RegularExamUnitsRegForSupp."Student No.");
@@ -3493,15 +3550,15 @@
 //            end; //Repeat
 //         until RegularExamUnitsRegForSupp.Next=0;
 //         end;
-
+        
 //                      //...........................................................................................
-
+        
 //                      end;
-
+        
 //                       end;
 //                       until ACAExamCourseRegistration.Next=0;
 //                   end;
-
+        
 //                 /*  CLEAR(ACASenateReportsHeader);
 //                     ACASenateReportsHeader.RESET;
 //                     ACASenateReportsHeader.SETFILTER("Programme Code",ProgFIls);
@@ -3516,7 +3573,7 @@
 //                               ACASenateReportsHeader.CALCFIELDS("School Classification Count","School Total Passed","School Total Passed",
 //                               "School Total Failed","Programme Classification Count","Programme Total Passed","Programme Total Failed","School Total Count",
 //                               "Prog. Total Count");
-
+        
 //                               CALCFIELDS("School Classification Count","School Total Passed","School Total Failed","School Total Count",
 //                               "Programme Classification Count","Prog. Total Count","Programme Total Failed","Programme Total Passed");
 //                               IF "School Total Count">0 THEN
@@ -3541,67 +3598,67 @@
 
 //     end;
 
-//     local procedure DeleteSuppPreviousEntries(RefRegularCoRegcs: Record "ACA-Exam. Course Registration")
+//     local procedure DeleteSuppPreviousEntries(RefRegularCoRegcs: Record UnknownRecord66651)
 //     var
-//         RegularExamUnitsRegForSupp: Record "ACA-Exam. Supp. Units";
-//         ACAResultsStatus: Record "ACA-Supp. Results Status";
-//         ACAExamCourseRegistration4SuppGeneration: Record "ACA-Exam. Course Registration";
+//         RegularExamUnitsRegForSupp: Record UnknownRecord66650;
+//         ACAResultsStatus: Record UnknownRecord69266;
+//         ACAExamCourseRegistration4SuppGeneration: Record UnknownRecord66651;
 //         CATExists: Boolean;
 //         CountedSeq: Integer;
-//         ACAExamCategory: Record "ACA-Exam Category";
-//         ACAGeneralSetUp: Record "ACA-General Set Up";
-//         AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
-//         AcaSpecialExamsDetails3: Record "Aca-Special Exams Details";
-//         ACAExamSuppUnits: Record "ACA-Exam. Supp. Units";
-//         AcdYrs: Record "ACA-Acad. Years";
+//         ACAExamCategory: Record UnknownRecord61568;
+//         ACAGeneralSetUp: Record UnknownRecord61534;
+//         AcaSpecialExamsDetails: Record UnknownRecord78002;
+//         AcaSpecialExamsDetails3: Record UnknownRecord78002;
+//         ACAExamSuppUnits: Record UnknownRecord66649;
+//         AcdYrs: Record UnknownRecord61382;
 //         Custos: Record Customer;
-//         StudentUnits: Record "ACA-Student Units";
-//         Coregcsz10: Record "ACA-Course Registration";
+//         StudentUnits: Record UnknownRecord61549;
+//         Coregcsz10: Record UnknownRecord61532;
 //         CountedRegistrations: Integer;
-//         UnitsSubjects: Record "ACA-Units Subjects";
-//         Programme_Fin: Record "ACA-Programme";
-//         ProgrammeStages_Fin: Record "ACA-Programme Stages";
-//         AcademicYear_Fin: Record "ACA-Acad. Years";
-//         Semesters_Fin: Record "ACA-Semesters";
-//         ExamResults: Record "ACA-Exam Results";
+//         UnitsSubjects: Record UnknownRecord61517;
+//         Programme_Fin: Record UnknownRecord61511;
+//         ProgrammeStages_Fin: Record UnknownRecord61516;
+//         AcademicYear_Fin: Record UnknownRecord61382;
+//         Semesters_Fin: Record UnknownRecord61692;
+//         ExamResults: Record UnknownRecord61548;
 //         ClassCustomer: Record Customer;
-//         ClassExamResultsBuffer2: Record "ACA-Exam Results Buffer";
+//         ClassExamResultsBuffer2: Record UnknownRecord61746;
 //         ClassDimensionValue: Record "Dimension Value";
-//         ClassGradingSystem: Record "ACA-Grading System";
-//         ClassClassGradRubrics: Record "ACA-Class. Grad. Rubrics";
-//         ClassExamResults2: Record "ACA-Exam Results";
+//         ClassGradingSystem: Record UnknownRecord61521;
+//         ClassClassGradRubrics: Record UnknownRecord78011;
+//         ClassExamResults2: Record UnknownRecord61548;
 //         TotalRecs: Integer;
 //         CountedRecs: Integer;
 //         RemeiningRecs: Integer;
 //         ExpectedElectives: Integer;
 //         CountedElectives: Integer;
-//         Progyz: Record "ACA-Programme";
-//         ACADefinedUnitsperYoS: Record "ACA-Defined Units per YoS";
-//         ACAExamClassificationUnits: Record "ACA-Exam. Classification Units";
-//         ACAExamCourseRegistration: Record "ACA-Exam. Course Registration";
-//         ACAExamFailedReasons: Record "ACA-Exam. Failed Reasons";
-//         ACASenateReportsHeader: Record "ACA-Senate Reports Header";
-//         ACAExamClassificationStuds: Record "ACA-Exam. Classification Studs";
-//         ACAExamClassificationStudsCheck: Record "ACA-Exam. Classification Studs";
-//         ACAExamResultsFin: Record "ACA-Exam Results";
-//         ACAResultsStatusSuppGen: Record "ACA-Supp. Results Status";
+//         Progyz: Record UnknownRecord61511;
+//         ACADefinedUnitsperYoS: Record UnknownRecord78017;
+//         ACAExamClassificationUnits: Record UnknownRecord66641;
+//         ACAExamCourseRegistration: Record UnknownRecord66642;
+//         ACAExamFailedReasons: Record UnknownRecord66643;
+//         ACASenateReportsHeader: Record UnknownRecord66645;
+//         ACAExamClassificationStuds: Record UnknownRecord66644;
+//         ACAExamClassificationStudsCheck: Record UnknownRecord66644;
+//         ACAExamResultsFin: Record UnknownRecord61548;
+//         ACAResultsStatusSuppGen: Record UnknownRecord61739;
 //         ProgressForCoReg: Dialog;
 //         Tens: Text;
-//         ACASemesters: Record "ACA-Semesters";
-//         ACAExamResults_Fin: Record "ACA-Exam Results";
-//         Coregcs: Record "ACA-Course Registration";
-//         ACAExamCummulativeResit: Record "ACA-Exam. Cummulative Resit";
-//         ACAStudentUnitsForResits: Record "ACA-Student Units";
+//         ACASemesters: Record UnknownRecord61692;
+//         ACAExamResults_Fin: Record UnknownRecord61548;
+//         Coregcs: Record UnknownRecord61532;
+//         ACAExamCummulativeResit: Record UnknownRecord66647;
+//         ACAStudentUnitsForResits: Record UnknownRecord61549;
 //         SEQUENCES: Integer;
 //         CurrStudentNo: Code[250];
 //         CountedNos: Integer;
 //         CurrSchool: Code[250];
-//         Aca2ndSuppExamsDetails: Record "Aca-2nd Supp. Exams Details";
-//         Aca2ndSuppExamsResults: Record "Aca-2nd Supp. Exams Results";
-//         Aca2ndSuppExamsDetails3: Record "Aca-2nd Supp. Exams Details";
-//         Aca2ndSuppExamsDetails4: Record "Aca-2nd Supp. Exams Details";
-//         AcaSpecialExamsDetails4: Record "Aca-Special Exams Details";
-//         ACAResultsStatusSupp: Record "ACA-Supp. Results Status";
+//         Aca2ndSuppExamsDetails: Record UnknownRecord78031;
+//         Aca2ndSuppExamsResults: Record UnknownRecord78032;
+//         Aca2ndSuppExamsDetails3: Record UnknownRecord78031;
+//         Aca2ndSuppExamsDetails4: Record UnknownRecord78031;
+//         AcaSpecialExamsDetails4: Record UnknownRecord78002;
+//         ACAResultsStatusSupp: Record UnknownRecord69266;
 //     begin
 
 //         ProgFIls:=RefRegularCoRegcs.Programme;
@@ -3633,18 +3690,18 @@
 //         if ACAExamSuppUnits.Find('-') then ACAExamSuppUnits.DeleteAll;
 //     end;
 
-// local procedure GetRubricSupp(ACAProgramme: Record "ACA-Programme"; var CoursesRegz: Record "ACA-SuppExam. Co. Reg.") StatusRemarks: Text[150]
+//     local procedure GetRubricSupp(ACAProgramme: Record UnknownRecord61511;var CoursesRegz: Record UnknownRecord66642) StatusRemarks: Text[150]
 //     var
-//         Customer: Record "ACA-Course Registration";
+//         Customer: Record UnknownRecord61532;
 //         LubricIdentified: Boolean;
-//         ACAResultsStatus: Record "ACA-Supp. Results Status";
+//         ACAResultsStatus: Record UnknownRecord69266;
 //         YearlyReMarks: Text[250];
-//         StudCoregcs2: Record "ACA-Course Registration";
-//         StudCoregcs24: Record "ACA-Course Registration";
+//         StudCoregcs2: Record UnknownRecord61532;
+//         StudCoregcs24: Record UnknownRecord61532;
 //         Customersz: Record Customer;
-//         ACARegStoppageReasons: Record "ACA-Reg. Stoppage Reasons";
-//         AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
-//         StudCoregcs: Record "ACA-Course Registration";
+//         ACARegStoppageReasons: Record UnknownRecord66620;
+//         AcaSpecialExamsDetails: Record UnknownRecord78002;
+//         StudCoregcs: Record UnknownRecord61532;
 //     begin
 //         // // // // // // // // // // // CLEAR(StatusRemarks);
 //         // // // // // // // // // // // CLEAR(YearlyReMarks);
@@ -3659,12 +3716,12 @@
 //         // // // // // // // // // // //          "Total Required Passed","Total Units","Total Weighted Marks");
 //         // // // // // // // // // // //          CoursesRegz.CALCFIELDS("Total Cores Done","Total Cores Passed","Total Courses","Total Electives Done","Total Failed Courses",
 //         // // // // // // // // // // //          "Tota Electives Passed","Total Classified C. Count","Total Classified Units","Total Classified Units");
-//         // // // // // // // // // // // // // //          IF CoursesRegz."Units Deficit">0 THEN BEGIN
-//         // // // // // // // // // // // // // //            CoursesRegz."Failed Cores":=CoursesRegz."Failed Cores"+CoursesRegz."Units Deficit";
-//         // // // // // // // // // // // // // //            CoursesRegz."Failed Courses":=CoursesRegz."Failed Courses"+CoursesRegz."Units Deficit";
-//         // // // // // // // // // // // // // //            CoursesRegz."Total Failed Courses":=CoursesRegz."Total Failed Courses"+CoursesRegz."Units Deficit";
-//         // // // // // // // // // // // // // //            CoursesRegz."Total Courses":=CoursesRegz."Total Courses"+CoursesRegz."Units Deficit";
-//         // // // // // // // // // // // // // //            END;
+//         // // // // // // // // // // // // // // //          IF CoursesRegz."Units Deficit">0 THEN BEGIN
+//         // // // // // // // // // // // // // // //            CoursesRegz."Failed Cores":=CoursesRegz."Failed Cores"+CoursesRegz."Units Deficit";
+//         // // // // // // // // // // // // // // //            CoursesRegz."Failed Courses":=CoursesRegz."Failed Courses"+CoursesRegz."Units Deficit";
+//         // // // // // // // // // // // // // // //            CoursesRegz."Total Failed Courses":=CoursesRegz."Total Failed Courses"+CoursesRegz."Units Deficit";
+//         // // // // // // // // // // // // // // //            CoursesRegz."Total Courses":=CoursesRegz."Total Courses"+CoursesRegz."Units Deficit";
+//         // // // // // // // // // // // // // // //            END;
 //         // // // // // // // // // // //          IF CoursesRegz."Total Courses">0 THEN
 //         // // // // // // // // // // //            CoursesRegz."% Failed Courses":=(CoursesRegz."Failed Courses"/CoursesRegz."Total Courses")*100;
 //         // // // // // // // // // // //          CoursesRegz."% Failed Courses":=ROUND(CoursesRegz."% Failed Courses",0.01,'=');
@@ -3730,25 +3787,25 @@
 //         // // // // // // // // // // //
 //         // // // // // // // // // // //          END ELSE BEGIN
 //         // // // // // // // // // // //
-//         // // // // // // // // // // // // // // // // // CoursesRegz.CALCFIELDS("Attained Stage Units");
-//         // // // // // // // // // // // // // // // // // IF CoursesRegz."Attained Stage Units" = 0 THEN  StatusRemarks:='DTSC';
-//         // // // // // // // // // // // // // // // // // CLEAR(StudCoregcs);
-//         // // // // // // // // // // // // // // // // // StudCoregcs.RESET;
-//         // // // // // // // // // // // // // // // // // StudCoregcs.SETRANGE("Student No.",CoursesRegz."Student Number");
-//         // // // // // // // // // // // // // // // // // StudCoregcs.SETRANGE("Academic Year",CoursesRegz."Academic Year");
-//         // // // // // // // // // // // // // // // // // StudCoregcs.SETRANGE("Stoppage Exists In Acad. Year",TRUE);
-//         // // // // // // // // // // // // // // // // // IF StudCoregcs.FIND('-') THEN BEGIN
-//         // // // // // // // // // // // // // // // // // CLEAR(StudCoregcs2);
-//         // // // // // // // // // // // // // // // // // StudCoregcs2.RESET;
-//         // // // // // // // // // // // // // // // // // StudCoregcs2.SETRANGE("Student No.",CoursesRegz."Student Number");
-//         // // // // // // // // // // // // // // // // // StudCoregcs2.SETRANGE("Academic Year",CoursesRegz."Academic Year");
-//         // // // // // // // // // // // // // // // // // StudCoregcs2.SETRANGE("Stoppage Exists In Acad. Year",TRUE);
-//         // // // // // // // // // // // // // // // // // StudCoregcs2.SETRANGE(Reversed,TRUE);
-//         // // // // // // // // // // // // // // // // // IF StudCoregcs2.FIND('-') THEN BEGIN
-//         // // // // // // // // // // // // // // // // //    StatusRemarks:=UPPERCASE(FORMAT(StudCoregcs2."Stoppage Reason"));
-//         // // // // // // // // // // // // // // // // //  YearlyReMarks:=StatusRemarks;
-//         // // // // // // // // // // // // // // // // //  END;
-//         // // // // // // // // // // // // // // // // //  END;
+//         // // // // // // // // // // // // // // // // // // CoursesRegz.CALCFIELDS("Attained Stage Units");
+//         // // // // // // // // // // // // // // // // // // IF CoursesRegz."Attained Stage Units" = 0 THEN  StatusRemarks:='DTSC';
+//         // // // // // // // // // // // // // // // // // // CLEAR(StudCoregcs);
+//         // // // // // // // // // // // // // // // // // // StudCoregcs.RESET;
+//         // // // // // // // // // // // // // // // // // // StudCoregcs.SETRANGE("Student No.",CoursesRegz."Student Number");
+//         // // // // // // // // // // // // // // // // // // StudCoregcs.SETRANGE("Academic Year",CoursesRegz."Academic Year");
+//         // // // // // // // // // // // // // // // // // // StudCoregcs.SETRANGE("Stoppage Exists In Acad. Year",TRUE);
+//         // // // // // // // // // // // // // // // // // // IF StudCoregcs.FIND('-') THEN BEGIN
+//         // // // // // // // // // // // // // // // // // // CLEAR(StudCoregcs2);
+//         // // // // // // // // // // // // // // // // // // StudCoregcs2.RESET;
+//         // // // // // // // // // // // // // // // // // // StudCoregcs2.SETRANGE("Student No.",CoursesRegz."Student Number");
+//         // // // // // // // // // // // // // // // // // // StudCoregcs2.SETRANGE("Academic Year",CoursesRegz."Academic Year");
+//         // // // // // // // // // // // // // // // // // // StudCoregcs2.SETRANGE("Stoppage Exists In Acad. Year",TRUE);
+//         // // // // // // // // // // // // // // // // // // StudCoregcs2.SETRANGE(Reversed,TRUE);
+//         // // // // // // // // // // // // // // // // // // IF StudCoregcs2.FIND('-') THEN BEGIN
+//         // // // // // // // // // // // // // // // // // //    StatusRemarks:=UPPERCASE(FORMAT(StudCoregcs2."Stoppage Reason"));
+//         // // // // // // // // // // // // // // // // // //  YearlyReMarks:=StatusRemarks;
+//         // // // // // // // // // // // // // // // // // //  END;
+//         // // // // // // // // // // // // // // // // // //  END;
 //         // // // // // // // // // // //
 //         // // // // // // // // // // // ACAResultsStatus.RESET;
 //         // // // // // // // // // // // ACAResultsStatus.SETRANGE(Status,Customer.Status);
@@ -3910,7 +3967,7 @@
 
 //     local procedure GetSuppMaxScore(Categoryz: Code[250];Scorezs: Decimal) SuppScoreNormalized: Decimal
 //     var
-//         ACAExamCategory: Record "ACA-Exam Category";
+//         ACAExamCategory: Record UnknownRecord61568;
 //     begin
 //         SuppScoreNormalized:=Scorezs;
 //         //IF SuppDets.Category = SuppDets.Category::Supplementary THEN BEGIN
@@ -3925,72 +3982,72 @@
 //          // END;
 //     end;
 
-// local procedure Update2ndSupplementaryMarks(ACASuppExamCoRegfor2ndSupp: Record "ACA-SuppExam. Co. Reg.")
+//     local procedure Update2ndSupplementaryMarks(ACASuppExamCoRegfor2ndSupp: Record UnknownRecord66642)
 //     var
-//         ACACourseRegistration777: Record "ACA-Course Registration";
+//         ACACourseRegistration777: Record UnknownRecord61532;
 //         CATExists: Boolean;
-//         Aca2ndSuppExamsDetails3: Record "Aca-2nd Supp. Exams Details";
-//         Aca2ndSuppExamsDetails888: Record "Aca-2nd Supp. Exams Details"; 
-//         Aca2ndSuppExamsDetails: Record "Aca-2nd Supp. Exams Details";
-//         FirstSuppUnitsRegFor2ndSupp: Record "ACA-SuppExam Class. Units";
-//         ST1SuppExamClassificationUnits: Record "ACA-SuppExam Class. Units";
+//         Aca2ndSuppExamsDetails3: Record UnknownRecord78031;
+//         Aca2ndSuppExamsDetails888: Record UnknownRecord78031;
+//         Aca2ndSuppExamsDetails: Record UnknownRecord78031;
+//         FirstSuppUnitsRegFor2ndSupp: Record UnknownRecord66641;
+//         ST1SuppExamClassificationUnits: Record UnknownRecord66641;
 //         CountedSeq: Integer;
-//         ACAExamCategory: Record "ACA-Exam Category";
-//         ACAGeneralSetUp: Record "ACA-General Set-Up";
-//         Aca2NDSpecialExamsDetails: Record "Aca-2nd Supp. Exams Details";
-//         Aca2NDSpecialExamsDetails3: Record "Aca-2nd Supp. Exams Details";
+//         ACAExamCategory: Record UnknownRecord61568;
+//         ACAGeneralSetUp: Record UnknownRecord61534;
+//         Aca2NDSpecialExamsDetails: Record UnknownRecord78031;
+//         Aca2NDSpecialExamsDetails3: Record UnknownRecord78031;
 //         ACAExam2NDSuppUnits: Record "ACA-2ndExam Supp. Units";
-//         AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
-//         Aca2ndSuppExamsResults: Record "Aca-2nd Supp. Exams Results"; 
-//         AcdYrs: Record "ACA-Academic Year";
+//         AcaSpecialExamsDetails: Record UnknownRecord78002;
+//         Aca2ndSuppExamsResults: Record UnknownRecord78032;
+//         AcdYrs: Record UnknownRecord61382;
 //         Custos: Record Customer;
-//         StudentUnits: Record "ACA-Student Units";
-//         Coregcsz10: Record "ACA-Course Registration";
+//         StudentUnits: Record UnknownRecord61549;
+//         Coregcsz10: Record UnknownRecord61532;
 //         CountedRegistrations: Integer;
-//         UnitsSubjects: Record "ACA-Units/Subjects";
-//         Programme_Fin: Record "ACA-Programme";
-//         ProgrammeStages_Fin: Record "ACA-Programme Stages";
-//         AcademicYear_Fin333: Record "ACA-Academic Year";
-//         AcademicYear_Fin: Record "ACA-Academic Year";
-//         Semesters_Fin: Record "ACA-Semesters";
-//         ExamResults: Record "ACA-Exam Results";
+//         UnitsSubjects: Record UnknownRecord61517;
+//         Programme_Fin: Record UnknownRecord61511;
+//         ProgrammeStages_Fin: Record UnknownRecord61516;
+//         AcademicYear_Fin333: Record UnknownRecord61382;
+//         AcademicYear_Fin: Record UnknownRecord61382;
+//         Semesters_Fin: Record UnknownRecord61692;
+//         ExamResults: Record UnknownRecord61548;
 //         ClassCustomer: Record Customer;
-//         ClassExamResultsBuffer2: Record "ACA-Exam Results Buffer 2";
+//         ClassExamResultsBuffer2: Record UnknownRecord61746;
 //         ClassDimensionValue: Record "Dimension Value";
-//         ClassGradingSystem: Record "ACA-Grading System";
-//         ClassClassGradRubrics: Record "ACA-Class/Grad. Rubrics";
-//         ClassExamResults2: Record "ACA-Exam Results";
+//         ClassGradingSystem: Record UnknownRecord61521;
+//         ClassClassGradRubrics: Record UnknownRecord78011;
+//         ClassExamResults2: Record UnknownRecord61548;
 //         TotalRecs: Integer;
 //         CountedRecs: Integer;
 //         RemeiningRecs: Integer;
 //         ExpectedElectives: Integer;
 //         CountedElectives: Integer;
-//         Progyz: Record "ACA-Programme";
-//         ACADefinedUnitsperYoS: Record "ACA-Defined Units per YoS";
-//         ACA2NDExamClassificationUnits: Record "ACA-2ndSuppExam Class. Units";
-//         ACA2NDExamCourseRegistration: Record "ACA-2ndSuppExam. Co. Reg.";
+//         Progyz: Record UnknownRecord61511;
+//         ACADefinedUnitsperYoS: Record UnknownRecord78017;
+//         ACA2NDExamClassificationUnits: Record UnknownRecord66681;
+//         ACA2NDExamCourseRegistration: Record UnknownRecord66682;
 //         ACA2NDExamFailedReasons: Record "ACA-2ndSuppExam Fail Reasons";
 //         ACA2NDSenateReportsHeader: Record "ACA-2ndSuppSenate Repo. Header";
 //         ACA2NDExamClassificationStuds: Record "ACA-2ndSuppExam Class. Studs";
 //         ACA2NDExamClassificationStudsCheck: Record "ACA-2ndSuppExam Class. Studs";
-//         ACAExamResultsFin: Record "ACA-Exam Results";
-//         ACAResultsStatus: Record "ACA-Results Status";
+//         ACAExamResultsFin: Record UnknownRecord61548;
+//         ACAResultsStatus: Record UnknownRecord61739;
 //         ProgressForCoReg: Dialog;
 //         Tens: Text;
-//         ACASemesters: Record "ACA-Semesters";
-//         ACAExamResults_Fin: Record "ACA-Exam Results";
+//         ACASemesters: Record UnknownRecord61692;
+//         ACAExamResults_Fin: Record UnknownRecord61548;
 //         ProgBar22: Dialog;
-//         Coregcs: Record "ACA-Course Registration";
+//         Coregcs: Record UnknownRecord61532;
 //         ACA2NDExamCummulativeResit: Record "ACA-2ndSuppExam Cumm. Resit";
-//         ACAStudentUnitsForResits: Record "ACA-Student Units";
+//         ACAStudentUnitsForResits: Record UnknownRecord61549;
 //         SEQUENCES: Integer;
 //         CurrStudentNo: Code[250];
 //         CountedNos: Integer;
 //         CurrSchool: Code[250];
 //         CUrrentExamScore: Decimal;
 //         OriginalCatScores: Decimal;
-//         ACASuppExamClassUnits4Supp2: Record "ACA-SuppExam Class. Units";
-//         ACA2NDExamCreg: Record "ACA-2ndSuppExam. Co. Reg.";
+//         ACASuppExamClassUnits4Supp2: Record UnknownRecord66641;
+//         ACA2NDExamCreg: Record UnknownRecord66682;
 //     begin
 //         Clear(AcademicYear_Fin333);
 //         AcademicYear_Fin333.Reset;
@@ -4201,7 +4258,7 @@
 //                 SupReviewToBecreated:=true;
 //         //        IF ACA2NDExamCourseRegistration."Student Name"='P102/0869G/19' THEN
 //         //        ERROR(ACA2NDExamCourseRegistration."Student Number");
-//                   if  ACA2NDExamCourseRegistration.Insert() then;
+//                   if  ACA2NDExamCourseRegistration.Insert then;
 //                   end;
 //         //FORCE ACA2NDExamCourseRegistration insertion....Category Order,Student Number,Programme,Year of Study,Academic Year,School Code,Reporting Academic Year
 
@@ -4616,68 +4673,68 @@
 //                   end;
 //     end;
 
-//     local procedure Delete2ndSupplementaryMarks(ACASuppExamCoRegfor2ndSupp: Record "ACA-SuppExam. Co. Reg.")
-//    var
-//        CATExists: Boolean;
-//        Aca2ndSuppExamsDetails3: Record "Aca-2nd Supp. Exams Details";
-//        Aca2ndSuppExamsDetails: Record "Aca-2nd Supp. Exams Details";
-//        FirstSuppUnitsRegFor2ndSupp: Record "ACA-SuppExam Class. Units";
-//        ST1SuppExamClassificationUnits: Record "ACA-SuppExam Class. Units";
-//        CountedSeq: Integer;
-//        ACAExamCategory: Record "ACA-Exam Category";
-//        ACAGeneralSetUp: Record "ACA-General Set-Up";
-//        Aca2NDSpecialExamsDetails: Record "Aca-2nd Supp. Exams Details";
-//        Aca2NDSpecialExamsDetails3: Record "Aca-2nd Supp. Exams Details";
-//        ACAExam2NDSuppUnits: Record "ACA-2ndExam Supp. Units";
-//        AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
-//        Aca2ndSuppExamsResults: Record "Aca-2nd Supp. Exams Results";
-//        AcdYrs: Record "ACA-Academic Year";
-//        Custos: Record Customer;
-//        StudentUnits: Record "ACA-Student Units";
-//        Coregcsz10: Record "ACA-Course Registration";
-//        CountedRegistrations: Integer;
-//        UnitsSubjects: Record "ACA-Units/Subjects";
-//        Programme_Fin: Record "ACA-Programme";
-//        ProgrammeStages_Fin: Record "ACA-Programme Stages";
-//        AcademicYear_Fin: Record "ACA-Academic Year";
-//        Semesters_Fin: Record "ACA-Semesters";
-//        ExamResults: Record "ACA-Exam Results";
-//        ClassCustomer: Record Customer;
-//        ClassExamResultsBuffer2: Record "ACA-Exam Results Buffer 2";
-//        ClassDimensionValue: Record "Dimension Value";
-//        ClassGradingSystem: Record "ACA-Grading System";
-//        ClassClassGradRubrics: Record "ACA-Class/Grad. Rubrics";
-//        ClassExamResults2: Record "ACA-Exam Results";
-//        TotalRecs: Integer;
-//        CountedRecs: Integer;
-//        RemeiningRecs: Integer;
-//        ExpectedElectives: Integer;
-//        CountedElectives: Integer;
-//        Progyz: Record "ACA-Programme";
-//        ACADefinedUnitsperYoS: Record "ACA-Defined Units per YoS";
-//        ACA2NDExamClassificationUnits: Record "ACA-2ndSuppExam Class. Units";
-//        ACA2NDExamCourseRegistration: Record "ACA-2ndSuppExam. Co. Reg.";
-//        ACA2NDExamFailedReasons: Record "ACA-2ndSuppExam Fail Reasons";
-//        ACA2NDSenateReportsHeader: Record "ACA-2ndSuppSenate Repo. Header";
-//        ACA2NDExamClassificationStuds: Record "ACA-2ndSuppExam Class. Studs";
-//        ACA2NDExamClassificationStudsCheck: Record "ACA-2ndSuppExam Class. Studs";
-//        ACAExamResultsFin: Record "ACA-Exam Results";
-//        ACAResultsStatus: Record "ACA-Results Status";
-//        ProgressForCoReg: Dialog;
-//        Tens: Text;
-//        ACASemesters: Record "ACA-Semesters";
-//        ACAExamResults_Fin: Record "ACA-Exam Results";
-//        ProgBar22: Dialog;
-//        Coregcs: Record "ACA-Course Registration";
-//        ACA2NDExamCummulativeResit: Record "ACA-2ndSuppExam Cumm. Resit";
-//        ACAStudentUnitsForResits: Record "ACA-Student Units";
-//        SEQUENCES: Integer;
-//        CurrStudentNo: Code[250];
-//        CountedNos: Integer;
-//        CurrSchool: Code[250];
-//        CUrrentExamScore: Decimal;
-//        OriginalCatScores: Decimal;
-//        ACASuppExamClassUnits4Supp2: Record "ACA-SuppExam Class. Units";
+//     local procedure Delete2ndSupplementaryMarks(ACASuppExamCoRegfor2ndSupp: Record UnknownRecord66642)
+//     var
+//         CATExists: Boolean;
+//         Aca2ndSuppExamsDetails3: Record UnknownRecord78031;
+//         Aca2ndSuppExamsDetails: Record UnknownRecord78031;
+//         FirstSuppUnitsRegFor2ndSupp: Record UnknownRecord66641;
+//         ST1SuppExamClassificationUnits: Record UnknownRecord66641;
+//         CountedSeq: Integer;
+//         ACAExamCategory: Record UnknownRecord61568;
+//         ACAGeneralSetUp: Record UnknownRecord61534;
+//         Aca2NDSpecialExamsDetails: Record UnknownRecord78031;
+//         Aca2NDSpecialExamsDetails3: Record UnknownRecord78031;
+//         ACAExam2NDSuppUnits: Record "ACA-2ndExam Supp. Units";
+//         AcaSpecialExamsDetails: Record UnknownRecord78002;
+//         Aca2ndSuppExamsResults: Record UnknownRecord78032;
+//         AcdYrs: Record UnknownRecord61382;
+//         Custos: Record Customer;
+//         StudentUnits: Record UnknownRecord61549;
+//         Coregcsz10: Record UnknownRecord61532;
+//         CountedRegistrations: Integer;
+//         UnitsSubjects: Record UnknownRecord61517;
+//         Programme_Fin: Record UnknownRecord61511;
+//         ProgrammeStages_Fin: Record UnknownRecord61516;
+//         AcademicYear_Fin: Record UnknownRecord61382;
+//         Semesters_Fin: Record UnknownRecord61692;
+//         ExamResults: Record UnknownRecord61548;
+//         ClassCustomer: Record Customer;
+//         ClassExamResultsBuffer2: Record UnknownRecord61746;
+//         ClassDimensionValue: Record "Dimension Value";
+//         ClassGradingSystem: Record UnknownRecord61521;
+//         ClassClassGradRubrics: Record UnknownRecord78011;
+//         ClassExamResults2: Record UnknownRecord61548;
+//         TotalRecs: Integer;
+//         CountedRecs: Integer;
+//         RemeiningRecs: Integer;
+//         ExpectedElectives: Integer;
+//         CountedElectives: Integer;
+//         Progyz: Record UnknownRecord61511;
+//         ACADefinedUnitsperYoS: Record UnknownRecord78017;
+//         ACA2NDExamClassificationUnits: Record UnknownRecord66681;
+//         ACA2NDExamCourseRegistration: Record UnknownRecord66682;
+//         ACA2NDExamFailedReasons: Record "ACA-2ndSuppExam Fail Reasons";
+//         ACA2NDSenateReportsHeader: Record "ACA-2ndSuppSenate Repo. Header";
+//         ACA2NDExamClassificationStuds: Record "ACA-2ndSuppExam Class. Studs";
+//         ACA2NDExamClassificationStudsCheck: Record "ACA-2ndSuppExam Class. Studs";
+//         ACAExamResultsFin: Record UnknownRecord61548;
+//         ACAResultsStatus: Record UnknownRecord61739;
+//         ProgressForCoReg: Dialog;
+//         Tens: Text;
+//         ACASemesters: Record UnknownRecord61692;
+//         ACAExamResults_Fin: Record UnknownRecord61548;
+//         ProgBar22: Dialog;
+//         Coregcs: Record UnknownRecord61532;
+//         ACA2NDExamCummulativeResit: Record "ACA-2ndSuppExam Cumm. Resit";
+//         ACAStudentUnitsForResits: Record UnknownRecord61549;
+//         SEQUENCES: Integer;
+//         CurrStudentNo: Code[250];
+//         CountedNos: Integer;
+//         CurrSchool: Code[250];
+//         CUrrentExamScore: Decimal;
+//         OriginalCatScores: Decimal;
+//         ACASuppExamClassUnits4Supp2: Record UnknownRecord66641;
 //     begin
 
 //         ProgFIls:=ACASuppExamCoRegfor2ndSupp.Programme;
@@ -4714,97 +4771,118 @@
 //                           if  (ACA2NDSenateReportsHeader.Find('-')) then ACA2NDSenateReportsHeader.DeleteAll;
 //     end;
 
-//     local procedure GetRubricSupp2(ACAProgramme: Record "ACA-Programme";CoursesRegz: Record "ACA-Course Registration") StatusRemarks: Text[150]
+//     local procedure GetRubricSupp2(ACAProgramme: Record UnknownRecord61511;CoursesRegz: Record UnknownRecord66682) StatusRemarks: Text[150]
 //     var
-//         Customer: Record Customer;
+//         Customer: Record UnknownRecord61532;
 //         LubricIdentified: Boolean;
-//         ACAResultsStatus: Record "ACA-Results Status";
+//         ACAResultsStatus: Record UnknownRecord69267;
 //         YearlyReMarks: Text[250];
-//         StudCoregcs2: Record "ACA-Course Registration";
-//         StudCoregcs24: Record "ACA-Course Registration";
+//         StudCoregcs2: Record UnknownRecord61532;
+//         StudCoregcs24: Record UnknownRecord61532;
 //         Customersz: Record Customer;
-//         ACARegStoppageReasons: Record "ACA-Reg. Stoppage Reasons";
-//         AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
-//         StudCoregcs: Record "ACA-Course Registration";
-//         ObjUnits: Record "ACA-Student Units";
+//         ACARegStoppageReasons: Record UnknownRecord66620;
+//         AcaSpecialExamsDetails: Record UnknownRecord78002;
+//         StudCoregcs: Record UnknownRecord61532;
+//         ObjUnits: Record UnknownRecord61549;
 //     begin
-//         Clear(StatusRemarks);
-//         Clear(YearlyReMarks);
-//               Customer.Reset;
-//               Customer.SetRange("Student No.",CoursesRegz."Student Number");
-//               Customer.SetRange("Academic Year",CoursesRegz."Academic Year");
-//               if Customer.Find('-') then begin
-//                 if ((Customer.Status=Customer.Status::Registration) or (Customer.Status=Customer.Status::Current)) then begin
-//           Clear(LubricIdentified);
-//                   CoursesRegz.CalcFields("Attained Stage Units","Failed Cores","Failed Courses","Failed Electives","Failed Required","Failed Units",
+//         /*CLEAR(StatusRemarks);
+//         CLEAR(YearlyReMarks);
+//               Customer.RESET;
+//               Customer.SETRANGE("Student No.",CoursesRegz."Student Number");
+//               Customer.SETRANGE("Academic Year",CoursesRegz."Academic Year");
+//               IF Customer.FIND('-') THEN BEGIN
+//                 IF ((Customer.Status=Customer.Status::Registration) OR (Customer.Status=Customer.Status::Current)) THEN BEGIN
+//           CLEAR(LubricIdentified);
+//                   CoursesRegz.CALCFIELDS("Attained Stage Units","Failed Cores","Failed Courses","Failed Electives","Failed Required","Failed Units",
 //                   "Total Failed Units","Total Marks","Total Required Done",
-//                   "Total Required Passed","Total Units","Total Weighted Marks",
-//                   "Total Cores Done","Total Cores Passed","Total Courses","Total Electives Done","Total Failed Courses",
+//                   "Total Required Passed","Total Units","Total Weighted Marks");
+//                   CoursesRegz.CALCFIELDS("Total Cores Done","Total Cores Passed","Total Courses","Total Electives Done","Total Failed Courses",
 //                   "Tota Electives Passed","Total Classified C. Count","Total Classified Units","Total Classified Units");
-//                   if CoursesRegz."Total Courses">0 then
+//         // // // //          IF CoursesRegz."Units Deficit">0 THEN BEGIN
+//         // // // //            CoursesRegz."Failed Cores":=CoursesRegz."Failed Cores"+CoursesRegz."Units Deficit";
+//         // // // //            CoursesRegz."Failed Courses":=CoursesRegz."Failed Courses"+CoursesRegz."Units Deficit";
+//         // // // //            CoursesRegz."Total Failed Courses":=CoursesRegz."Total Failed Courses"+CoursesRegz."Units Deficit";
+//         // // // //            CoursesRegz."Total Courses":=CoursesRegz."Total Courses"+CoursesRegz."Units Deficit";
+//         // // // //            END;
+//                   IF CoursesRegz."Total Courses">0 THEN
 //                     CoursesRegz."% Failed Courses":=(CoursesRegz."Failed Courses"/CoursesRegz."Total Courses")*100;
-//                   CoursesRegz."% Failed Courses":=ROUND(CoursesRegz."% Failed Courses",0.01,'>');
-//                   if CoursesRegz."% Failed Courses">100 then CoursesRegz."% Failed Courses":=100;
-//                   if CoursesRegz."Total Cores Done">0 then
+//                   CoursesRegz."% Failed Courses":=ROUND(CoursesRegz."% Failed Courses",0.01,'=');
+//                   IF CoursesRegz."% Failed Courses">100 THEN CoursesRegz."% Failed Courses":=100;
+//                   IF CoursesRegz."Total Cores Done">0 THEN
 //                     CoursesRegz."% Failed Cores":=((CoursesRegz."Failed Cores"/CoursesRegz."Total Cores Done")*100);
-//                   CoursesRegz."% Failed Cores":=ROUND(CoursesRegz."% Failed Cores",0.01,'>');
-//                   if CoursesRegz."% Failed Cores">100 then CoursesRegz."% Failed Cores":=100;
-//                   if CoursesRegz."Total Units">0 then
+//                   CoursesRegz."% Failed Cores":=ROUND(CoursesRegz."% Failed Cores",0.01,'=');
+//                   IF CoursesRegz."% Failed Cores">100 THEN CoursesRegz."% Failed Cores":=100;
+//                   IF CoursesRegz."Total Units">0 THEN
 //                     CoursesRegz."% Failed Units":=(CoursesRegz."Failed Units"/CoursesRegz."Total Units")*100;
-//                   CoursesRegz."% Failed Units":=ROUND(CoursesRegz."% Failed Units",0.01,'>');
-//                   if CoursesRegz."% Failed Units">100 then CoursesRegz."% Failed Units":=100;
-//                   if CoursesRegz."Total Electives Done">0 then
+//                   CoursesRegz."% Failed Units":=ROUND(CoursesRegz."% Failed Units",0.01,'=');
+//                   IF CoursesRegz."% Failed Units">100 THEN CoursesRegz."% Failed Units":=100;
+//                   IF CoursesRegz."Total Electives Done">0 THEN
 //                     CoursesRegz."% Failed Electives":=(CoursesRegz."Failed Electives"/CoursesRegz."Total Electives Done")*100;
-//                   CoursesRegz."% Failed Electives":=ROUND(CoursesRegz."% Failed Electives",0.01,'>');
-//                   if CoursesRegz."% Failed Electives">100 then CoursesRegz."% Failed Electives":=100;
-//                             CoursesRegz.Modify;
-//         ACAResultsStatus.Reset;
-//         ACAResultsStatus.SetFilter("Manual Status Processing",'%1',FALSE);
-//         ACAResultsStatus.SetRange("Academic Year",CoursesRegz."Academic Year");
-//         ACAResultsStatus.SetRange("Special Programme Class",ACAProgramme."Special Programme Class");
-//         if ACAProgramme."Special Programme Class"=ACAProgramme."Special Programme Class"::"Medicine & Nursing" then begin
-//           if CoursesRegz."% Failed Cores">0 then begin
-//          ACAResultsStatus.SetFilter("Minimum Core Fails",'=%1|<%2',CoursesRegz."% Failed Cores",CoursesRegz."% Failed Cores");
-//          ACAResultsStatus.SetFilter("Maximum Core Fails",'=%1|>%2',CoursesRegz."% Failed Cores",CoursesRegz."% Failed Cores");
-//          end else begin
-//           ACAResultsStatus.SetFilter("Minimum Units Failed",'=%1|<%2',CoursesRegz."Failed Courses",CoursesRegz."Failed Courses");
-//           ACAResultsStatus.SetFilter("Maximum Units Failed",'=%1|>%2',CoursesRegz."Failed Courses",CoursesRegz."Failed Courses");
-//          end;
-//         end else begin
-//           ACAResultsStatus.SetFilter("Minimum Units Failed",'=%1|<%2',CoursesRegz."% Failed Courses",CoursesRegz."% Failed Courses");
-//           ACAResultsStatus.SetFilter("Maximum Units Failed",'=%1|>%2',CoursesRegz."% Failed Courses",CoursesRegz."% Failed Courses");
-//         end;
-//         ACAResultsStatus.SetCurrentkey("Order No");
-//         if ACAResultsStatus.Find('-') then begin
-//           repeat
-//           begin
+//                   CoursesRegz."% Failed Electives":=ROUND(CoursesRegz."% Failed Electives",0.01,'=');
+//                   IF CoursesRegz."% Failed Electives">100 THEN CoursesRegz."% Failed Electives":=100;
+//                             CoursesRegz.MODIFY;
+//         ACAResultsStatus.RESET;
+//         ACAResultsStatus.SETFILTER("Manual Status Processing",'%1',FALSE);
+//         ACAResultsStatus.SETRANGE("Academic Year",CoursesRegz."Academic Year");
+//         ACAResultsStatus.SETRANGE("Special Programme Class",ACAProgramme."Special Programme Class");
+//         // ACAResultsStatus.SETFILTER("Min. Unit Repeat Counts",'=%1|<%2',CoursesRegz."Highest Yearly Repeats",CoursesRegz."Highest Yearly Repeats");
+//         // ACAResultsStatus.SETFILTER("Max. Unit Repeat Counts",'=%1|>%2',CoursesRegz."Highest Yearly Repeats",CoursesRegz."Highest Yearly Repeats");
+//         // ACAResultsStatus.SETFILTER("Minimum Units Failed",'=%1|<%2',CoursesRegz."Yearly Failed Units %",CoursesRegz."Yearly Failed Units %");
+//         // ACAResultsStatus.SETFILTER("Maximum Units Failed",'=%1|>%2',CoursesRegz."Yearly Failed Units %",CoursesRegz."Yearly Failed Units %");
+//         IF ACAProgramme."Special Programme Class"=ACAProgramme."Special Programme Class"::"Medicine & Nursing" THEN BEGIN
+//           IF CoursesRegz."% Failed Cores">0 THEN BEGIN
+//          ACAResultsStatus.SETFILTER("Minimum Core Fails",'=%1|<%2',CoursesRegz."% Failed Cores",CoursesRegz."% Failed Cores");
+//          ACAResultsStatus.SETFILTER("Maximum Core Fails",'=%1|>%2',CoursesRegz."% Failed Cores",CoursesRegz."% Failed Cores");
+//          END ELSE BEGIN
+//           ACAResultsStatus.SETFILTER("Minimum Units Failed",'=%1|<%2',CoursesRegz."Failed Courses",CoursesRegz."Failed Courses");
+//           ACAResultsStatus.SETFILTER("Maximum Units Failed",'=%1|>%2',CoursesRegz."Failed Courses",CoursesRegz."Failed Courses");
+//          END;
+//         //  ACAResultsStatus.SETFILTER("Minimum None-Core Fails",'=%1|<%2',CoursesRegz."Failed Required",CoursesRegz."Failed Required");
+//         // ACAResultsStatus.SETFILTER("Maximum None-Core Fails",'=%1|>%2',CoursesRegz."Failed Required",CoursesRegz."Failed Required");
+//         END ELSE BEGIN
+//           ACAResultsStatus.SETFILTER("Minimum Units Failed",'=%1|<%2',CoursesRegz."% Failed Courses",CoursesRegz."% Failed Courses");
+//           ACAResultsStatus.SETFILTER("Maximum Units Failed",'=%1|>%2',CoursesRegz."% Failed Courses",CoursesRegz."% Failed Courses");
+//         END;
+//         // // // // // ELSE BEGIN
+//         // // // // // ACAResultsStatus.SETFILTER("Minimum Units Failed",'=%1|<%2',YearlyFailedUnits,YearlyFailedUnits);
+//         // // // // // ACAResultsStatus.SETFILTER("Maximum Units Failed",'=%1|>%2',YearlyFailedUnits,YearlyFailedUnits);
+//         // // // // //  END;
+//         ACAResultsStatus.SETCURRENTKEY("Order No");
+//         IF ACAResultsStatus.FIND('-') THEN BEGIN
+//           REPEAT
+//           BEGIN
 //               StatusRemarks:=ACAResultsStatus.Code;
-//               if ACAResultsStatus."Lead Status"<>'' then
+//               IF ACAResultsStatus."Lead Status"<>'' THEN
 //               StatusRemarks:=ACAResultsStatus."Lead Status";
 //               YearlyReMarks:=ACAResultsStatus."Transcript Remarks";
-//               LubricIdentified:=true;
-//           end;
-//           until ((ACAResultsStatus.Next=0) or (LubricIdentified=true))
-//         end;
-//         CoursesRegz.CalcFields("Supp Exists","Attained Stage Units","Special Exists");
-//         if CoursesRegz."Exists Failed 2nd Supp" then  StatusRemarks:='RETAKE';
-//                   end else begin
-
-//         ACAResultsStatus.Reset;
-//         ACAResultsStatus.SetRange(Status,Customer.Status);
-//         ACAResultsStatus.SetRange("Academic Year",CoursesRegz."Academic Year");
-//         ACAResultsStatus.SetRange("Special Programme Class",ACAProgramme."Special Programme Class");
-//         if ACAResultsStatus.Find('-') then begin
+//               LubricIdentified:=TRUE;
+//           END;
+//           UNTIL ((ACAResultsStatus.NEXT=0) OR (LubricIdentified=TRUE))
+//         END;
+//         CoursesRegz.CALCFIELDS("Supp Exists","Attained Stage Units","Special Exists");
+//         //IF CoursesRegz."Supp/Special Exists" THEN  StatusRemarks:='SPECIAL';
+//         //IF CoursesRegz."Units Deficit">0 THEN StatusRemarks:='DTSC';
+//         //IF CoursesRegz."Required Stage Units">CoursesRegz."Attained Stage Units" THEN StatusRemarks:='DTSC';
+//         //IF CoursesRegz."Exists DTSC Prefix" THEN StatusRemarks:='DTSC';
+//         //IF CoursesRegz."Special Exists" THEN StatusRemarks:='SPECIAL';
+//         IF CoursesRegz."Exists Failed 2nd Supp" THEN  StatusRemarks:='RETAKE';
+//                   END ELSE BEGIN
+        
+//         ACAResultsStatus.RESET;
+//         ACAResultsStatus.SETRANGE(Status,Customer.Status);
+//         ACAResultsStatus.SETRANGE("Academic Year",CoursesRegz."Academic Year");
+//         ACAResultsStatus.SETRANGE("Special Programme Class",ACAProgramme."Special Programme Class");
+//         IF ACAResultsStatus.FIND('-') THEN BEGIN
 //           StatusRemarks:=ACAResultsStatus.Code;
 //           YearlyReMarks:=ACAResultsStatus."Transcript Remarks";
-//         end else begin
-//           StatusRemarks:=UpperCase(Format(Customer.Status));
+//         END ELSE BEGIN
+//           StatusRemarks:=UPPERCASE(FORMAT(Customer.Status));
 //           YearlyReMarks:=StatusRemarks;
-//           end;
-//                     end;
-//                 end;
-
-
+//           END;
+//                     END;
+//                 END;
+//         */
+        
 //         Clear(StatusRemarks);
 //         Clear(YearlyReMarks);
 //               Customer.Reset;
@@ -4840,7 +4918,21 @@
 //         ACAResultsStatus.Reset;
 //         ACAResultsStatus.SetFilter("Manual Status Processing",'%1',false);
 //         ACAResultsStatus.SetRange("Academic Year",CoursesRegz."Academic Year");
+//         //ACAResultsStatus.SETRANGE("Special Programme Class",ACAProgramme."Special Programme Class");
+//         // ACAResultsStatus.SETFILTER("Min. Unit Repeat Counts",'=%1|<%2',CoursesRegz."Highest Yearly Repeats",CoursesRegz."Highest Yearly Repeats");
+//         // ACAResultsStatus.SETFILTER("Max. Unit Repeat Counts",'=%1|>%2',CoursesRegz."Highest Yearly Repeats",CoursesRegz."Highest Yearly Repeats");
+//         // ACAResultsStatus.SETFILTER("Minimum Units Failed",'=%1|<%2',CoursesRegz."Yearly Failed Units %",CoursesRegz."Yearly Failed Units %");
+//         // ACAResultsStatus.SETFILTER("Maximum Units Failed",'=%1|>%2',CoursesRegz."Yearly Failed Units %",CoursesRegz."Yearly Failed Units %");
 //         if ACAProgramme."Special Programme Class"=ACAProgramme."special programme class"::"Medicine & Nursing" then begin
+//         // // // // // // //  IF CoursesRegz."% Failed Cores">0 THEN BEGIN
+//         // // // // // // // ACAResultsStatus.SETFILTER("Minimum Core Fails",'=%1|<%2',CoursesRegz."% Failed Cores",CoursesRegz."% Failed Cores");
+//         // // // // // // // ACAResultsStatus.SETFILTER("Maximum Core Fails",'=%1|>%2',CoursesRegz."% Failed Cores",CoursesRegz."% Failed Cores");
+//         // // // // // // // END ELSE BEGIN
+//         // // // // // // //  ACAResultsStatus.SETFILTER("Minimum Units Failed",'=%1|<%2',CoursesRegz."Failed Courses",CoursesRegz."Failed Courses");
+//         // // // // // // //  ACAResultsStatus.SETFILTER("Maximum Units Failed",'=%1|>%2',CoursesRegz."Failed Courses",CoursesRegz."Failed Courses");
+//         // // // // // // // END;
+//         //  ACAResultsStatus.SETFILTER("Minimum None-Core Fails",'=%1|<%2',CoursesRegz."Failed Required",CoursesRegz."Failed Required");
+//         // ACAResultsStatus.SETFILTER("Maximum None-Core Fails",'=%1|>%2',CoursesRegz."Failed Required",CoursesRegz."Failed Required");
 //         ACAResultsStatus.SetFilter("Special Programme Class",'=%1',ACAResultsStatus."special programme class"::"Medicine & Nursing");
 //         end else begin
 //           ACAResultsStatus.SetFilter("Minimum Units Failed",'=%1|<%2',CoursesRegz."% Failed Units",CoursesRegz."% Failed Units");
@@ -4848,6 +4940,10 @@
 //         end;
 //           ACAResultsStatus.SetFilter("Minimum Units Failed",'=%1|<%2',CoursesRegz."% Failed Units",CoursesRegz."% Failed Units");
 //           ACAResultsStatus.SetFilter("Maximum Units Failed",'=%1|>%2',CoursesRegz."% Failed Units",CoursesRegz."% Failed Units");
+//         // // // // // ELSE BEGIN
+//         // // // // // ACAResultsStatus.SETFILTER("Minimum Units Failed",'=%1|<%2',YearlyFailedUnits,YearlyFailedUnits);
+//         // // // // // ACAResultsStatus.SETFILTER("Maximum Units Failed",'=%1|>%2',YearlyFailedUnits,YearlyFailedUnits);
+//         // // // // //  END;
 //         ACAResultsStatus.SetCurrentkey("Order No");
 //         if ACAResultsStatus.Find('-') then begin
 //           repeat
@@ -4861,10 +4957,13 @@
 //           until ((ACAResultsStatus.Next=0) or (LubricIdentified=true))
 //         end;
 //         CoursesRegz.CalcFields("Supp/Special Exists","Attained Stage Units","Special Registration Exists");
+//         //IF CoursesRegz."Supp/Special Exists" THEN  StatusRemarks:='SPECIAL';
 //         if CoursesRegz."Units Deficit">0 then StatusRemarks:='DTSC';
 //         if CoursesRegz."Required Stage Units">CoursesRegz."Attained Stage Units" then StatusRemarks:='DTSC';
 //         if CoursesRegz."Attained Stage Units" = 0 then StatusRemarks:='DTSC';
-
+//         //IF CoursesRegz."Exists DTSC Prefix" THEN StatusRemarks:='DTSC';
+//         //IF CoursesRegz."Special Registration Exists" THEN StatusRemarks:='Special';
+        
 //         ////////////////////////////////////////////////////////////////////////////////////////////////
 //         // Check if exists a stopped Semester for the Academic Years and Pick the Status on the lines as the rightful Status
 //         Clear(StudCoregcs24);
@@ -4877,7 +4976,7 @@
 //           ACARegStoppageReasons.Reset;
 //           ACARegStoppageReasons.SetRange("Reason Code",StudCoregcs24."Stoppage Reason");
 //           if ACARegStoppageReasons.Find('-') then begin
-
+        
 //         ACAResultsStatus.Reset;
 //         ACAResultsStatus.SetRange(Status,ACARegStoppageReasons."Global Status");
 //         ACAResultsStatus.SetRange("Academic Year",CoursesRegz."Academic Year");
@@ -4893,9 +4992,9 @@
 //           end;
 //           end;
 //         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        
 //                   end else begin
-
+        
 //         CoursesRegz.CalcFields("Attained Stage Units");
 //         if CoursesRegz."Attained Stage Units" = 0 then  StatusRemarks:='DTSC';
 //         if (not CoursesRegz."Special Registration Exists") and (StatusRemarks='DTSC')then begin
@@ -4925,7 +5024,7 @@
 //           YearlyReMarks:=StatusRemarks;
 //           end;
 //           end;
-
+        
 //         ACAResultsStatus.Reset;
 //         ACAResultsStatus.SetRange(Status,Customer.Status);
 //         ACAResultsStatus.SetRange("Academic Year",CoursesRegz."Academic Year");
@@ -4939,8 +5038,8 @@
 //           end;
 //                     end;
 //                 end;
-
-
+        
+        
 //         ACAResultsStatus.Reset;
 //         ACAResultsStatus.SetRange(Code,StatusRemarks);
 //         ACAResultsStatus.SetRange("Academic Year",CoursesRegz."Academic Year");
@@ -4962,9 +5061,9 @@
 
 //     end;
 
-//     local procedure GetSupp2MaxScore(SuppDets: Record "Aca-2nd Supp. Exams Details";Categoryz: Code[250];Scorezs: Decimal) SuppScoreNormalized: Decimal
+//     local procedure GetSupp2MaxScore(SuppDets: Record UnknownRecord78031;Categoryz: Code[250];Scorezs: Decimal) SuppScoreNormalized: Decimal
 //     var
-//         ACAExamCategory: Record "ACA-Exam Category";
+//         ACAExamCategory: Record UnknownRecord61568;
 //     begin
 //         SuppScoreNormalized:=Scorezs;
 //         if SuppDets.Category = SuppDets.Category::Supplementary then begin
@@ -4979,9 +5078,9 @@
 //           end;
 //     end;
 
-//     local procedure GetSuppRubricPassStatus(RubricCode: Code[50];AcademicYears: Code[250];Progyz: Record "ACA-Programme") PassStatus: Boolean
+//     local procedure GetSuppRubricPassStatus(RubricCode: Code[50];AcademicYears: Code[250];Progyz: Record UnknownRecord61511) PassStatus: Boolean
 //     var
-//         ACAResultsStatus: Record "ACA-Results Status";
+//         ACAResultsStatus: Record UnknownRecord69266;
 //     begin
 
 //         ACAResultsStatus.Reset;
@@ -4995,7 +5094,7 @@
 
 //     local procedure GetSuppRubricOrder(RubricCode: Code[50]) RubricOrder: Integer
 //     var
-//         ACAResultsStatus: Record "ACA-Results Status";
+//         ACAResultsStatus: Record UnknownRecord69266;
 //     begin
 
 //         ACAResultsStatus.Reset;
@@ -5005,9 +5104,9 @@
 //         end;
 //     end;
 
-//     local procedure Get2ndSuppRubricPassStatus(RubricCode: Code[50];AcademicYears: Code[250];Progyz: Record "ACA-Programme") PassStatus: Boolean
+//     local procedure Get2ndSuppRubricPassStatus(RubricCode: Code[50];AcademicYears: Code[250];Progyz: Record UnknownRecord61511) PassStatus: Boolean
 //     var
-//         ACAResultsStatus: Record "ACA-Results Status";
+//         ACAResultsStatus: Record UnknownRecord69267;
 //     begin
 
 //         ACAResultsStatus.Reset;
@@ -5021,7 +5120,7 @@
 
 //     local procedure Get2ndSuppRubricOrder(RubricCode: Code[50]) RubricOrder: Integer
 //     var
-//         ACAResultsStatus: Record "ACA-Results Status";
+//         ACAResultsStatus: Record UnknownRecord69267;
 //     begin
 
 //         ACAResultsStatus.Reset;
@@ -5033,7 +5132,7 @@
 
 //     local procedure Get1StSuppScore(StudentNoz: Code[250];UnitCode: Code[250]) SuppScores: Decimal
 //     var
-//         AcaSpecialExamsResultsAl1: Record "Aca-Special Exams Results";
+//         AcaSpecialExamsResultsAl1: Record UnknownRecord78003;
 //     begin
 //         Clear(AcaSpecialExamsResultsAl1);
 //         AcaSpecialExamsResultsAl1.Reset;
@@ -5045,7 +5144,7 @@
 
 //     local procedure Get2ndSuppScore(StudentNoz: Code[250];UnitCode: Code[250]) SecondSuppResults: Decimal
 //     var
-//         AcaSpecialExamsResultsAl1: Record "Aca-2nd Supp. Exams Results";
+//         AcaSpecialExamsResultsAl1: Record UnknownRecord78032;
 //     begin
 //         Clear(AcaSpecialExamsResultsAl1);
 //         Clear(SecondSuppResults);
@@ -5058,8 +5157,8 @@
 
 //     local procedure UpdateAcadYear(var ProgramList: Code[1024])
 //     var
-//         AcaProgrammes_Buffer: Record "ACA-Programme";
-//         AcaProgrammes_Buffer2: Record "ACA-Programme";
+//         AcaProgrammes_Buffer: Record UnknownRecord65824;
+//         AcaProgrammes_Buffer2: Record UnknownRecord65824;
 //     begin
 //         if StudNos <> '' then begin
 //           Clear(AcadYear);
@@ -5179,9 +5278,9 @@
 
 //     local procedure GetAcademicYearDiff(RegAcademicYear: Code[20];CurrentAcademicYear: Code[20]) Register2ndSupp: Boolean
 //     var
-//         AcadYears: Record "ACA-Academic Year";
-//         AcaCourseReg: Record "ACA-Course Registration";
-//         AcaStudUnitsReg: Record "ACA-Stud. Units Reg.";
+//         AcadYears: Record UnknownRecord61382;
+//         AcaCourseReg: Record UnknownRecord61532;
+//         AcaStudUnitsReg: Record UnknownRecord61549;
 //         ProcessingYearInteger: Integer;
 //         CurrYearInteger: Integer;
 //         ProcessingYearString: Text[30];

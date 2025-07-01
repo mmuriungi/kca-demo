@@ -109,8 +109,8 @@ table 50557 "ACA-Std Payments"
         }
         field(10; "Payment Mode"; Option)
         {
-            OptionCaption = ' ,Bank Slip,Cheque,Banker''s Cheque,Cash,Applies to Overpayment,PDQ,Unreferenced,Money Order,Direct Bank Deposit,Staff Invoice,Weiver,HELB,CDF';
-            OptionMembers = " ","Bank Slip",Cheque,"Banker's Cheque",Cash,"Applies to Overpayment",PDQ,Unreferenced,"Money Order","Direct Bank Deposit","Staff Invoice",Weiver,HELB,CDF,"M-Pesa";
+            //  OptionCaption = ' ,Bank Slip,Cheque,Banker''s Cheque,Cash,Applies to Overpayment,PDQ,Unreferenced,Money Order,Direct Bank Deposit,Staff Invoice,Weiver,HELB,CDF';
+            OptionMembers = " ","Bank Slip",Cheque,"Banker's Cheque",Cash,"Applies to Overpayment",PDQ,Unreferenced,"Money Order","Direct Bank Deposit","Staff Invoice",Weiver,HELB,CDF,"M-Pesa","Prepayment","HEF";
         }
         field(11; Programme; Code[20])
         {

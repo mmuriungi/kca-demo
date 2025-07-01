@@ -1,4 +1,4 @@
-report 50608 "Generate Receipts"
+report 50608 "Generate Receipts Old"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Generate Receipts.rdl';

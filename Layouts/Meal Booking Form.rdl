@@ -3165,6 +3165,12 @@ End Function
         <Field Name="TotalCostFormat">
           <DataField>TotalCostFormat</DataField>
         </Field>
+        <Field Name="ApprovedBy">
+          <DataField>ApprovedBy</DataField>
+        </Field>
+        <Field Name="ApprovalDate">
+          <DataField>ApprovalDate</DataField>
+        </Field>
         <Field Name="BkID">
           <DataField>BkID</DataField>
         </Field>
