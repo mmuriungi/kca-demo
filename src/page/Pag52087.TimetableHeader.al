@@ -35,6 +35,14 @@ page 52087 "Timetable Header"
                 {
                     ToolTip = 'Specifies the value of the Exam Type field.', Comment = '%';
                 }
+                field("Timetable Status"; Rec."Timetable Status")
+                {
+                    ToolTip = 'Specifies the value of the Timetable Status field.', Comment = '%';
+                }
+                field("Linked Timetable No."; Rec."Linked Timetable No.")
+                {
+                    ToolTip = 'Specifies the value of the Linked Timetable No. field.', Comment = '%';
+                }
             }
             group(ExamGroup)
             {

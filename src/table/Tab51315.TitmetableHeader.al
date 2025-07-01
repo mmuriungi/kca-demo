@@ -106,6 +106,18 @@ table 51315 "Timetable Header"
         {
             Caption = 'Exam Programme Filter';
         }
+        //Timetable Status
+        field(20; "Timetable Status"; Option)
+        {
+            Caption = 'Timetable Status';
+            OptionMembers = Draft,Final;
+        }
+        //Linked Timetable No
+        field(21; "Linked Timetable No."; Code[20])
+        {
+            Caption = 'Linked Timetable No.';
+            TableRelation = "Timetable Header"."Document No." where(Semester = field(Semester),"Timetable Status" = const(Draft));
+        }
     }
     keys
     {

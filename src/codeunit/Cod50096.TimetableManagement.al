@@ -2,8 +2,14 @@ codeunit 50096 "Timetable Management"
 {
 
     trigger OnRun()
+    var
+        TTHeader: Record "Timetable Header";
     begin
-        GenerateTimetable('2024', 'S1');
+        // This is just for testing - normally called from page with proper header
+        TTHeader.Init();
+        TTHeader."Academic Year" := '2024';
+        TTHeader.Semester := 'S1';
+        GenerateTimetable(TTHeader);
     end;
 
     procedure GenerateExamTimeSlots(TTHeader: Record "Timetable Header")
@@ -1367,7 +1373,7 @@ codeunit 50096 "Timetable Management"
             until ExamTimetableEntry.Next() = 0;
     end;
 
-    procedure GenerateTimetable(AcademicYear: Code[20]; Semester: Code[20])
+    procedure GenerateTimetable(TTHeader: Record "Timetable Header")
     var
         CourseOffering: Record "ACA-Lecturers Units";
         TimetableEntry: Record "Timetable Entry";
@@ -1377,7 +1383,12 @@ codeunit 50096 "Timetable Management"
         CurrentRecord: Integer;
         SchedulingIssue: Record "Scheduling Issue";
         Uscheduled: Integer;
+        AcademicYear: Code[20];
+        Semester: Code[20];
     begin
+        // Get values from header
+        AcademicYear := TTHeader."Academic Year";
+        Semester := TTHeader.Semester;
         // Clear existing timetable
         TimetableEntry.Reset();
         TimetableEntry.SetRange(Semester, Semester);
@@ -1403,7 +1414,7 @@ codeunit 50096 "Timetable Management"
                 ProgressWindow.Update(3, TotalRecords - CurrentRecord);
                 ProgressWindow.Update(4, CourseOffering."Time Table Hours");
 
-                if not AssignBalancedTimeAndLocationNew(CourseOffering, DaysPerWeek) then
+                if not AssignBalancedTimeAndLocationNew(CourseOffering, DaysPerWeek, TTHeader."Document No.") then
                     LogSchedulingIssue(CourseOffering);
             until CourseOffering.Next() = 0;
             //Try again to schedule the logged units and clear them from the log
@@ -1419,7 +1430,7 @@ codeunit 50096 "Timetable Management"
                     CourseOffering.SetRange(Programme, SchedulingIssue."Programme");
                     CourseOffering.SetRange(Stage, SchedulingIssue.Stage);
                     if CourseOffering.FindFirst() then
-                        if AssignBalancedTimeAndLocationNew(CourseOffering, DaysPerWeek) then
+                        if AssignBalancedTimeAndLocationNew(CourseOffering, DaysPerWeek, TTHeader."Document No.") then
                             //LogSchedulingIssue(CourseOffering);
                             SchedulingIssue.Delete();
                 until SchedulingIssue.Next() = 0;
@@ -1537,13 +1548,35 @@ codeunit 50096 "Timetable Management"
         TimetableEntry: Record "Timetable Entry";
         CourseOffering: Record "ACA-Lecturers Units";
     begin
+        // Check if lecturer is already scheduled at this time slot
+        // Don't filter by stage - lecturer can't teach multiple classes at same time regardless of stage
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
-        TimetableEntry.SetRange("Stage Code", Stage);
+        TimetableEntry.SetRange(Semester, Semester);
+        TimetableEntry.SetRange("Lecturer Code", LecturerNo);
+        
+        // If any entry exists for this lecturer at this time, they are busy
+        if not TimetableEntry.IsEmpty() then
+            exit(true);
+        
+        // Also check by looking up lecturer in course offerings
+        // This handles cases where lecturer code might not be directly on timetable entry
+        TimetableEntry.SetRange("Lecturer Code"); // Remove lecturer filter
         if TimetableEntry.FindSet() then
             repeat
-                if CourseOffering.Get(TimetableEntry."Unit Code") then
+                // Look for the course offering that matches this timetable entry
+                CourseOffering.SetRange(Programme, TimetableEntry."Programme Code");
+                CourseOffering.SetRange(Stage, TimetableEntry."Stage Code");
+                CourseOffering.SetRange(Unit, TimetableEntry."Unit Code");
+                CourseOffering.SetRange(Semester, Semester);
+                // Also consider the stream/group
+                if TimetableEntry."Group No" <> '' then
+                    CourseOffering.SetRange(Stream, TimetableEntry."Group No");
+                    
+                if CourseOffering.FindFirst() then
                     if CourseOffering.Lecturer = LecturerNo then
                         exit(true);
+                        
+                CourseOffering.Reset();
             until TimetableEntry.Next() = 0;
 
         exit(false);
@@ -1554,20 +1587,24 @@ codeunit 50096 "Timetable Management"
         TimetableEntry: Record "Timetable Entry";
         ConflictingCourseOffering: Record "ACA-Lecturers Units";
     begin
+        // Check if students from the same stage have another class at this time
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
         TimetableEntry.SetRange(Semester, Semester);
         TimetableEntry.SetRange("Stage Code", Stage);
+        TimetableEntry.SetRange("Programme Code", CourseOffering.Programme);
+        
+        // If same programme and stage already has a class at this time, it's a conflict
+        // Unless it's a different stream of the same unit
         if TimetableEntry.FindSet() then
             repeat
-                ConflictingCourseOffering.Reset();
-                ConflictingCourseOffering.SetRange(Semester, Semester);
-                ConflictingCourseOffering.SetRange("Unit", TimetableEntry."Unit Code");
-                ConflictingCourseOffering.SetRange("Lecturer", CourseOffering.Lecturer);
-                //ConflictingCourseOffering.SetRange("Stage Code", Stage);
-                if ConflictingCourseOffering.Find('-') then
-                    if (ConflictingCourseOffering.Unit = CourseOffering.Unit) and
-                       (ConflictingCourseOffering.Programme <> CourseOffering.Programme) then
-                        exit(true);
+                // If it's the same unit but different stream, that's OK
+                if (TimetableEntry."Unit Code" = CourseOffering.Unit) and 
+                   (TimetableEntry."Group No" <> CourseOffering.Stream) then
+                    exit(false); // Different streams of same unit can be scheduled at same time
+                    
+                // If it's a different unit for the same programme/stage, that's a conflict
+                if TimetableEntry."Unit Code" <> CourseOffering.Unit then
+                    exit(true);
             until TimetableEntry.Next() = 0;
 
         exit(false);
@@ -1678,7 +1715,7 @@ codeunit 50096 "Timetable Management"
     end;
 
     local procedure AssignBalancedTimeAndLocationNew(var CourseOffering: Record "ACA-Lecturers Units";
-       var DaysPerWeek: array[5] of Integer): Boolean
+       var DaysPerWeek: array[5] of Integer; DocumentNo: Code[20]): Boolean
     var
         LectureHall: Record "ACA-Lecturer Halls Setup";
         LabLectureHall: Record "ACA-Lecturer Halls Setup";
@@ -1711,7 +1748,7 @@ codeunit 50096 "Timetable Management"
         IsOnlinePreferredUnit := IsUnitInOnlinePreferences(CourseOffering.Unit, YearOfStudy);
 
         // Check if class needs to be split due to student count
-        RequiresSplit := (StudentCount >= (MaxStudentsPerClass + 4));
+        RequiresSplit := false; // Disable automatic splitting - streams are now predefined in Lecturer Units
 
         // Check if unit hours need to be split into theory and practical
         SplitForPractical := (CourseOffering."Time Table Hours" > 3);  // Using your threshold of 3
@@ -1720,12 +1757,6 @@ codeunit 50096 "Timetable Management"
         if SplitForPractical then begin
             TheoryHours := 2;  // 2 hours for theory
             PracticalHours := CourseOffering."Time Table Hours" - TheoryHours;  // Remaining for practical
-        end;
-
-        if RequiresSplit then begin
-            // Calculate group sizes - divide students into two groups
-            FirstGroupSize := Round(StudentCount / 2, 1, '<');  // First half (round down)
-            SecondGroupSize := StudentCount - FirstGroupSize;   // Second half
         end;
 
         // Copy the days per week array to track busy level for first day assignment
@@ -1739,7 +1770,7 @@ codeunit 50096 "Timetable Management"
             // Find a suitable time slot
             if FindBalancedTimeSlot(CourseOffering, '', TimeSlot, CourseOffering.Semester, LeastBusyDay) then begin
                 // Create online session timetable entry
-                if CreateOnlineSessionEntry(CourseOffering, TimeSlot, LeastBusyDay) then begin
+                if CreateOnlineSessionEntry(CourseOffering, TimeSlot, LeastBusyDay, DocumentNo) then begin
                     DaysPerWeek[LeastBusyDay] += 1;
 
                     // If this is a practical unit, we still need to schedule a physical practical session
@@ -1775,6 +1806,11 @@ codeunit 50096 "Timetable Management"
                                 TimetableEntry."Stage Code" := CourseOffering.Stage;
                                 TimetableEntry.Type := TimetableEntry.Type::Class;
                                 TimetableEntry."Session Type" := TimetableEntry."Session Type"::Practical;
+                                TimetableEntry."Document No." := DocumentNo;
+                                
+                                // Set the stream from the lecturer units
+                                if CourseOffering.Stream <> '' then
+                                    TimetableEntry."Group No" := CourseOffering.Stream;
 
                                 if TimetableEntry.Insert() then
                                     DaysPerWeek[SecondLeastBusyDay] += 1;
@@ -1826,10 +1862,11 @@ codeunit 50096 "Timetable Management"
                     TimetableEntry."Programme Code" := CourseOffering.Programme;
                     TimetableEntry."Stage Code" := CourseOffering.Stage;
                     TimetableEntry.Type := TimetableEntry.Type::Class;
+                    TimetableEntry."Document No." := DocumentNo;
 
-                    // If splitting due to student count, mark as group 1
-                    if RequiresSplit then
-                        TimetableEntry."Group No" := 1;
+                    // Set the stream from the lecturer units
+                    if CourseOffering.Stream <> '' then
+                        TimetableEntry."Group No" := CourseOffering.Stream;
 
                     // If splitting for practical, mark as theory session
                     if SplitForPractical then
@@ -1841,15 +1878,7 @@ codeunit 50096 "Timetable Management"
                         // Update busy level for this day
                         DaysPerWeek[LeastBusyDay] += 1;
 
-                        // Handle second session based on which type of split we're doing
-                        if RequiresSplit and not SplitForPractical then begin
-                            // Handle student count split (original logic)
-                            if FindSecondTimeSlotAndRoom(CourseOffering, TimeSlot, SecondGroupSize, SecondTimeSlot, SecondLectureHall) then
-                                if CreateSecondClassGroup(CourseOffering, SecondTimeSlot, SecondLectureHall, 2) then begin
-                                    if (SecondTimeSlot."Day of Week" >= 1) and (SecondTimeSlot."Day of Week" < 5) then
-                                        DaysPerWeek[SecondTimeSlot."Day of Week"] += 1;
-                                end;
-                        end;
+                        // No automatic group splitting - streams are predefined in Lecturer Units
 
                         // If we need to schedule a practical session
                         if SplitForPractical then begin
@@ -1884,6 +1913,10 @@ codeunit 50096 "Timetable Management"
                                     TimetableEntry."Stage Code" := CourseOffering.Stage;
                                     TimetableEntry.Type := TimetableEntry.Type::Class;
                                     TimetableEntry."Session Type" := TimetableEntry."Session Type"::Practical;  // Explicitly mark as practical
+                                    
+                                    // Set the stream from the lecturer units
+                                    if CourseOffering.Stream <> '' then
+                                        TimetableEntry."Group No" := CourseOffering.Stream;
 
                                     if TimetableEntry.Insert() then
                                         DaysPerWeek[SecondLeastBusyDay] += 1;
@@ -1947,7 +1980,7 @@ codeunit 50096 "Timetable Management"
 
     // NEW: Create an online session timetable entry
     local procedure CreateOnlineSessionEntry(CourseOffering: Record "ACA-Lecturers Units";
-        TimeSlot: Record "Time Slot"; DayOfWeek: Integer): Boolean
+        TimeSlot: Record "Time Slot"; DayOfWeek: Integer; DocumentNo: Code[20]): Boolean
     var
         TimetableEntry: Record "Timetable Entry";
         VirtualRoom: Record "ACA-Lecturer Halls Setup";
@@ -1973,6 +2006,12 @@ codeunit 50096 "Timetable Management"
             TimetableEntry."Stage Code" := CourseOffering.Stage;
             TimetableEntry.Type := TimetableEntry.Type::Class;
             TimetableEntry."Session Type" := TimetableEntry."Session Type"::Online;
+            TimetableEntry."Document No." := DocumentNo;
+            
+            // Set the stream from the lecturer units
+            if CourseOffering.Stream <> '' then
+                TimetableEntry."Group No" := CourseOffering.Stream;
+                
             exit(TimetableEntry.Insert());
         end else begin
             // Use the found virtual room
@@ -1990,12 +2029,18 @@ codeunit 50096 "Timetable Management"
             TimetableEntry."Stage Code" := CourseOffering.Stage;
             TimetableEntry.Type := TimetableEntry.Type::Class;
             TimetableEntry."Session Type" := TimetableEntry."Session Type"::Online;
+            TimetableEntry."Document No." := DocumentNo;
+            
+            // Set the stream from the lecturer units
+            if CourseOffering.Stream <> '' then
+                TimetableEntry."Group No" := CourseOffering.Stream;
+                
             exit(TimetableEntry.Insert());
         end;
     end;
 
     local procedure AssignBalancedTimeAndLocation(var CourseOffering: Record "ACA-Lecturers Units";
-       var DaysPerWeek: array[5] of Integer): Boolean
+       var DaysPerWeek: array[5] of Integer; DocumentNo: Code[20]): Boolean
     var
         LectureHall: Record "ACA-Lecturer Halls Setup";
         LabRoom: Record "ACA-Lecturer Halls Setup";
@@ -2068,14 +2113,15 @@ codeunit 50096 "Timetable Management"
                     TimetableEntry."Programme Code" := CourseOffering.Programme;
                     TimetableEntry."Stage Code" := CourseOffering.Stage;
                     TimetableEntry.Type := TimetableEntry.Type::Class;
+                    TimetableEntry."Document No." := DocumentNo;
                     if RequiresSplit then
-                        TimetableEntry."Group No" := 1;
+                        TimetableEntry."Group No" := CourseOffering.Stream;
                     if TimetableEntry.Insert() then begin
                         DaysPerWeek[LeastBusyDay] += 1;
                         // If we need to split the class, create a second entry with a different timeslot
                         if RequiresSplit then
                             if FindSecondTimeSlotAndRoom(CourseOffering, TimeSlot, SecondGroupSize, SecondTimeSlot, SecondLectureHall) then
-                                if CreateSecondClassGroup(CourseOffering, SecondTimeSlot, SecondLectureHall, 2) then begin
+                                if CreateSecondClassGroup(CourseOffering, SecondTimeSlot, SecondLectureHall, '2', DocumentNo) then begin
                                     // Only update DaysPerWeek if the day is within valid range (1-5)
                                     if (SecondTimeSlot."Day of Week" >= 1) and (SecondTimeSlot."Day of Week" <= 5) then
                                         DaysPerWeek[SecondTimeSlot."Day of Week"] += 1;
@@ -2163,7 +2209,7 @@ codeunit 50096 "Timetable Management"
         TimetableEntry."Stage Code" := CourseOffering.Stage;
         TimetableEntry.Type := TimetableEntry.Type::Theory;
         if RequiresSplit then
-            TimetableEntry."Group No" := 1;
+            TimetableEntry."Group No" := CourseOffering.Stream;
         if not TimetableEntry.Insert() then
             exit(false);
 
@@ -2198,7 +2244,7 @@ codeunit 50096 "Timetable Management"
         TimetableEntry."Stage Code" := CourseOffering.Stage;
         TimetableEntry.Type := TimetableEntry.Type::Practical;
         if RequiresSplit then
-            TimetableEntry."Group No" := 1;
+            TimetableEntry."Group No" := CourseOffering.Stream;
         if not TimetableEntry.Insert() then
             exit(false);
 
@@ -2255,7 +2301,7 @@ codeunit 50096 "Timetable Management"
         TimetableEntry."Programme Code" := CourseOffering.Programme;
         TimetableEntry."Stage Code" := CourseOffering.Stage;
         TimetableEntry.Type := TimetableEntry.Type::Theory;
-        TimetableEntry."Group No" := 2;
+        TimetableEntry."Group No" := CourseOffering.Stream;
         if not TimetableEntry.Insert() then
             exit(false);
 
@@ -2273,7 +2319,7 @@ codeunit 50096 "Timetable Management"
         TimetableEntry."Programme Code" := CourseOffering.Programme;
         TimetableEntry."Stage Code" := CourseOffering.Stage;
         TimetableEntry.Type := TimetableEntry.Type::Practical;
-        TimetableEntry."Group No" := 2;
+        TimetableEntry."Group No" := CourseOffering.Stream;
         if not TimetableEntry.Insert() then
             exit(false);
 
@@ -2396,7 +2442,8 @@ codeunit 50096 "Timetable Management"
         CourseOffering: Record "ACA-Lecturers Units";
         TimeSlot: Record "Time Slot";
         LectureHall: Record "ACA-Lecturer Halls Setup";
-        GroupNo: Integer): Boolean
+        GroupNo: Code[100];
+        DocumentNo: Code[20]): Boolean
     var
         TimetableEntry: Record "Timetable Entry";
     begin
@@ -2415,6 +2462,7 @@ codeunit 50096 "Timetable Management"
         TimetableEntry."Stage Code" := CourseOffering.Stage;
         TimetableEntry.Type := TimetableEntry.Type::Class;
         TimetableEntry."Group No" := GroupNo;
+        TimetableEntry."Document No." := DocumentNo;
 
         exit(TimetableEntry.Insert());
     end;
