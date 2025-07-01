@@ -1,4 +1,4 @@
-page 50963 "Process Exams Central Gen."
+page 50963 "Process Exams Central Gen. Old"
 {
     PageType = Card;
     SourceTable = "ACA-Programme";

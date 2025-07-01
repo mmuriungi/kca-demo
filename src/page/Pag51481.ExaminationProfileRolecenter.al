@@ -85,7 +85,7 @@ page 51481 "Examination Profile Rolecenter"
                     Caption = 'Process Marks';
                     Image = AdjustEntries;
 
-                    RunObject = Page "Process Exams Central Gen.";
+                    RunObject = Page "Process Exams Central Gen.2";
                     ApplicationArea = All;
                 }
                 action("Process Graduation")
