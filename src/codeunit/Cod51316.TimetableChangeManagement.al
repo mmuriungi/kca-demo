@@ -285,4 +285,343 @@ codeunit 51316 "Timetable Change Management"
             
         exit(Summary);
     end;
+
+    procedure ProcessChangeRules(TimetableDocNo: Code[20]; PreviewOnly: Boolean): Integer
+    var
+        ChangeRule: Record "Timetable Change Rule";
+        TimetableEntry: Record "Timetable Entry";
+        TotalChanges: Integer;
+        Window: Dialog;
+        CurrentRule: Integer;
+        TotalRules: Integer;
+    begin
+        ChangeRule.SetRange("Timetable Document No.", TimetableDocNo);
+        ChangeRule.SetRange(Active, true);
+        ChangeRule.SetRange(Applied, false);
+        ChangeRule.SetCurrentKey(Priority);
+        
+        TotalRules := ChangeRule.Count();
+        if TotalRules = 0 then
+            Error('No active change rules found for this timetable.');
+            
+        Window.Open('Processing Change Rules\' +
+                   'Rule: #1### of #2###\' +
+                   'Description: #3######################\' +
+                   'Entries Processed: #4###');
+                   
+        if ChangeRule.FindSet() then begin
+            repeat
+                CurrentRule += 1;
+                Window.Update(1, CurrentRule);
+                Window.Update(2, TotalRules);
+                Window.Update(3, ChangeRule.Description);
+                
+                TotalChanges += ProcessSingleRule(ChangeRule, PreviewOnly);
+                
+                Window.Update(4, TotalChanges);
+            until ChangeRule.Next() = 0;
+        end;
+        
+        Window.Close();
+        
+        if PreviewOnly then
+            Message('%1 entries would be affected by the active rules.', TotalChanges)
+        else
+            Message('%1 entries have been updated successfully.', TotalChanges);
+            
+        exit(TotalChanges);
+    end;
+
+    local procedure ProcessSingleRule(var ChangeRule: Record "Timetable Change Rule"; PreviewOnly: Boolean): Integer
+    var
+        TimetableEntry: Record "Timetable Entry";
+        AffectedEntries: Integer;
+    begin
+        // Build filter based on rule criteria
+        TimetableEntry.SetRange("Document No.", ChangeRule."Timetable Document No.");
+        
+        if ChangeRule."Filter Programme" <> '' then
+            TimetableEntry.SetRange("Programme Code", ChangeRule."Filter Programme");
+        if ChangeRule."Filter Stage" <> '' then
+            TimetableEntry.SetRange("Stage Code", ChangeRule."Filter Stage");
+        if ChangeRule."Filter Unit" <> '' then
+            TimetableEntry.SetRange("Unit Code", ChangeRule."Filter Unit");
+        if ChangeRule."Filter Stream" <> '' then
+            TimetableEntry.SetRange("Group No", ChangeRule."Filter Stream");
+        if ChangeRule."Filter Lecturer" <> '' then
+            TimetableEntry.SetRange("Lecturer Code", ChangeRule."Filter Lecturer");
+        if ChangeRule."Filter Room" <> '' then
+            TimetableEntry.SetRange("Lecture Hall Code", ChangeRule."Filter Room");
+        if ChangeRule."Filter Day" <> 0 then
+            TimetableEntry.SetRange("Day of Week", ChangeRule."Filter Day" - 1);
+        if ChangeRule."Filter Time Slot" <> '' then
+            TimetableEntry.SetRange("Time Slot Code", ChangeRule."Filter Time Slot");
+            
+        if TimetableEntry.FindSet() then begin
+            repeat
+                if ShouldApplyRule(TimetableEntry, ChangeRule) then begin
+                    if not PreviewOnly then
+                        ApplyRuleToEntry(TimetableEntry, ChangeRule);
+                    AffectedEntries += 1;
+                end;
+            until TimetableEntry.Next() = 0;
+        end;
+        
+        if not PreviewOnly then begin
+            ChangeRule."Entries Affected" := AffectedEntries;
+            ChangeRule.Applied := true;
+            ChangeRule."Applied Date" := Today;
+            ChangeRule."Applied By" := UserId;
+            ChangeRule.Modify();
+        end;
+        
+        exit(AffectedEntries);
+    end;
+
+    local procedure ShouldApplyRule(TimetableEntry: Record "Timetable Entry"; ChangeRule: Record "Timetable Change Rule"): Boolean
+    begin
+        // Additional date filtering if specified
+        if (ChangeRule."Filter Date From" <> 0D) or (ChangeRule."Filter Date To" <> 0D) then begin
+            if TimetableEntry.Date = 0D then
+                exit(true); // If no date on entry, include it
+                
+            if (ChangeRule."Filter Date From" <> 0D) and (TimetableEntry.Date < ChangeRule."Filter Date From") then
+                exit(false);
+            if (ChangeRule."Filter Date To" <> 0D) and (TimetableEntry.Date > ChangeRule."Filter Date To") then
+                exit(false);
+        end;
+        
+        exit(true);
+    end;
+
+    local procedure ApplyRuleToEntry(var TimetableEntry: Record "Timetable Entry"; ChangeRule: Record "Timetable Change Rule")
+    var
+        OldLecturer: Code[20];
+        OldRoom: Code[20];
+        OldDay: Option;
+        OldTimeSlot: Code[20];
+        OldStartTime: Time;
+        OldEndTime: Time;
+        TimeSlot: Record "Time Slot";
+    begin
+        case ChangeRule."Rule Type" of
+            ChangeRule."Rule Type"::"Lecturer Change":
+                begin
+                    if ChangeRule."New Lecturer" <> '' then begin
+                        OldLecturer := TimetableEntry."Lecturer Code";
+                        TimetableEntry."Lecturer Code" := ChangeRule."New Lecturer";
+                        TimetableEntry.Modify();
+                        
+                        LogLecturerChange(
+                            TimetableEntry."Document No.",
+                            ChangeRule."Timetable Document No.",
+                            TimetableEntry."Programme Code",
+                            TimetableEntry."Stage Code",
+                            TimetableEntry."Unit Code",
+                            TimetableEntry."Group No",
+                            OldLecturer,
+                            ChangeRule."New Lecturer",
+                            ChangeRule."Change Reason",
+                            TimetableEntry."Academic Year",
+                            TimetableEntry.Semester,
+                            TimetableEntry."Entry No."
+                        );
+                    end;
+                end;
+                
+            ChangeRule."Rule Type"::"Room Change":
+                begin
+                    if ChangeRule."New Room" <> '' then begin
+                        OldRoom := TimetableEntry."Lecture Hall Code";
+                        TimetableEntry."Lecture Hall Code" := ChangeRule."New Room";
+                        TimetableEntry.Modify();
+                        
+                        LogRoomChange(
+                            TimetableEntry."Document No.",
+                            ChangeRule."Timetable Document No.",
+                            TimetableEntry."Programme Code",
+                            TimetableEntry."Stage Code",
+                            TimetableEntry."Unit Code",
+                            TimetableEntry."Group No",
+                            OldRoom,
+                            ChangeRule."New Room",
+                            ChangeRule."Change Reason",
+                            TimetableEntry."Academic Year",
+                            TimetableEntry.Semester,
+                            TimetableEntry."Entry No."
+                        );
+                    end;
+                end;
+                
+            ChangeRule."Rule Type"::"Time Change":
+                begin
+                    OldDay := TimetableEntry."Day of Week";
+                    OldTimeSlot := TimetableEntry."Time Slot Code";
+                    OldStartTime := TimetableEntry."Start Time";
+                    OldEndTime := TimetableEntry."End Time";
+                    
+                    if ChangeRule."New Day" <> 0 then
+                        TimetableEntry."Day of Week" := ChangeRule."New Day" - 1;
+                        
+                    if ChangeRule."New Time Slot" <> '' then begin
+                        TimetableEntry."Time Slot Code" := ChangeRule."New Time Slot";
+                        if TimeSlot.Get(ChangeRule."New Time Slot") then begin
+                            TimetableEntry."Start Time" := TimeSlot."Start Time";
+                            TimetableEntry."End Time" := TimeSlot."End Time";
+                        end;
+                    end;
+                    
+                    TimetableEntry.Modify();
+                    
+                    LogTimeChange(
+                        TimetableEntry."Document No.",
+                        ChangeRule."Timetable Document No.",
+                        TimetableEntry."Programme Code",
+                        TimetableEntry."Stage Code",
+                        TimetableEntry."Unit Code",
+                        TimetableEntry."Group No",
+                        OldTimeSlot,
+                        ChangeRule."New Time Slot",
+                        OldDay,
+                        TimetableEntry."Day of Week",
+                        OldStartTime,
+                        TimetableEntry."Start Time",
+                        OldEndTime,
+                        TimetableEntry."End Time",
+                        ChangeRule."Change Reason",
+                        TimetableEntry."Academic Year",
+                        TimetableEntry.Semester,
+                        TimetableEntry."Entry No."
+                    );
+                end;
+                
+            ChangeRule."Rule Type"::"Unit Cancellation":
+                begin
+                    if ChangeRule."Cancel Unit" then begin
+                        LogTimetableChange(
+                            TimetableEntry."Document No.",
+                            ChangeRule."Timetable Document No.",
+                            ChangeRule."Rule Type",
+                            TimetableEntry."Programme Code",
+                            TimetableEntry."Stage Code",
+                            TimetableEntry."Unit Code",
+                            TimetableEntry."Group No",
+                            'Unit cancelled: ' + ChangeRule."Change Reason",
+                            '',
+                            '',
+                            TimetableEntry."Academic Year",
+                            TimetableEntry.Semester,
+                            TimetableEntry."Entry No."
+                        );
+                        
+                        TimetableEntry.Delete();
+                    end;
+                end;
+                
+            ChangeRule."Rule Type"::"Stream Reassignment":
+                begin
+                    if ChangeRule."New Stream" <> '' then begin
+                        TimetableEntry."Group No" := ChangeRule."New Stream";
+                        TimetableEntry.Modify();
+                        
+                        LogTimetableChange(
+                            TimetableEntry."Document No.",
+                            ChangeRule."Timetable Document No.",
+                            ChangeRule."Rule Type",
+                            TimetableEntry."Programme Code",
+                            TimetableEntry."Stage Code",
+                            TimetableEntry."Unit Code",
+                            TimetableEntry."Group No",
+                            'Stream reassigned: ' + ChangeRule."Change Reason",
+                            ChangeRule."Filter Stream",
+                            ChangeRule."New Stream",
+                            TimetableEntry."Academic Year",
+                            TimetableEntry.Semester,
+                            TimetableEntry."Entry No."
+                        );
+                    end;
+                end;
+        end;
+        
+        MarkTimetableAsChanged(TimetableEntry."Document No.");
+    end;
+
+    procedure ValidateChangeRule(var ChangeRule: Record "Timetable Change Rule"): Boolean
+    var
+        ErrorText: Text;
+    begin
+        // Validate that rule has necessary information
+        case ChangeRule."Rule Type" of
+            ChangeRule."Rule Type"::"Lecturer Change":
+                begin
+                    if ChangeRule."New Lecturer" = '' then
+                        ErrorText += 'New Lecturer must be specified for Lecturer Change rule.\';
+                    if ChangeRule."Filter Lecturer" = '' then
+                        ErrorText += 'Filter Lecturer must be specified to identify which lecturer to replace.\';
+                end;
+                
+            ChangeRule."Rule Type"::"Room Change":
+                begin
+                    if ChangeRule."New Room" = '' then
+                        ErrorText += 'New Room must be specified for Room Change rule.\';
+                    if ChangeRule."Filter Room" = '' then
+                        ErrorText += 'Filter Room must be specified to identify which room to replace.\';
+                end;
+                
+            ChangeRule."Rule Type"::"Time Change":
+                begin
+                    if (ChangeRule."New Day" = 0) and (ChangeRule."New Time Slot" = '') then
+                        ErrorText += 'Either New Day or New Time Slot must be specified for Time Change rule.\';
+                end;
+                
+            ChangeRule."Rule Type"::"Unit Cancellation":
+                begin
+                    if not ChangeRule."Cancel Unit" then
+                        ErrorText += 'Cancel Unit must be checked for Unit Cancellation rule.\';
+                    if ChangeRule."Filter Unit" = '' then
+                        ErrorText += 'Filter Unit must be specified to identify which unit to cancel.\';
+                end;
+                
+            ChangeRule."Rule Type"::"Stream Reassignment":
+                begin
+                    if ChangeRule."New Stream" = '' then
+                        ErrorText += 'New Stream must be specified for Stream Reassignment rule.\';
+                end;
+        end;
+        
+        if ErrorText <> '' then begin
+            Error(ErrorText);
+            exit(false);
+        end;
+        
+        exit(true);
+    end;
+
+    procedure GetAffectedEntriesCount(var ChangeRule: Record "Timetable Change Rule"): Integer
+    var
+        TimetableEntry: Record "Timetable Entry";
+        Count: Integer;
+    begin
+        // Build same filter as ProcessSingleRule but just count
+        TimetableEntry.SetRange("Document No.", ChangeRule."Timetable Document No.");
+        
+        if ChangeRule."Filter Programme" <> '' then
+            TimetableEntry.SetRange("Programme Code", ChangeRule."Filter Programme");
+        if ChangeRule."Filter Stage" <> '' then
+            TimetableEntry.SetRange("Stage Code", ChangeRule."Filter Stage");
+        if ChangeRule."Filter Unit" <> '' then
+            TimetableEntry.SetRange("Unit Code", ChangeRule."Filter Unit");
+        if ChangeRule."Filter Stream" <> '' then
+            TimetableEntry.SetRange("Group No", ChangeRule."Filter Stream");
+        if ChangeRule."Filter Lecturer" <> '' then
+            TimetableEntry.SetRange("Lecturer Code", ChangeRule."Filter Lecturer");
+        if ChangeRule."Filter Room" <> '' then
+            TimetableEntry.SetRange("Lecture Hall Code", ChangeRule."Filter Room");
+        if ChangeRule."Filter Day" <> 0 then
+            TimetableEntry.SetRange("Day of Week", ChangeRule."Filter Day" - 1);
+        if ChangeRule."Filter Time Slot" <> '' then
+            TimetableEntry.SetRange("Time Slot Code", ChangeRule."Filter Time Slot");
+            
+        exit(TimetableEntry.Count());
+    end;
 }

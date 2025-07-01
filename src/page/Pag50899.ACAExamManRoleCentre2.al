@@ -77,7 +77,7 @@ page 50899 "ACA-Exam Man. Role Centre2"
                     Caption = 'Process Marks';
                     Image = AdjustEntries;
 
-                    RunObject = Page "Process Exams Central Gen.";
+                    RunObject = Page "Process Exams Central Gen.2";
                 }
                 action("Process Graduation")
                 {
