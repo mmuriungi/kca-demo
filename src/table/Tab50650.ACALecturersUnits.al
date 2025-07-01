@@ -262,7 +262,7 @@ table 50650 "ACA-Lecturers Units"
         {
             TableRelation = "ACA-Student Types";
         }
-        field(47; Stream; Text[100])
+        field(47; Stream; code[100])
         {
 
         }
