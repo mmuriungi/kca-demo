@@ -118,6 +118,24 @@ table 51315 "Timetable Header"
             Caption = 'Linked Timetable No.';
             TableRelation = "Timetable Header"."Document No." where(Semester = field(Semester),"Timetable Status" = const(Draft));
         }
+        //Change Reason
+        field(22; "Change Reason"; Text[250])
+        {
+            Caption = 'Change Reason';
+        }
+        //Change Type
+        field(23; "Change Type"; Option)
+        {
+            Caption = 'Change Type';
+            OptionMembers = "Lecturer Change","Room Change","Time Change","Unit Addition","Unit Removal","Lecturer Unavailability","Room Unavailability","Student Conflict Resolution","Other";
+            OptionCaption = 'Lecturer Change,Room Change,Time Change,Unit Addition,Unit Removal,Lecturer Unavailability,Room Unavailability,Student Conflict Resolution,Other';
+        }
+        //Has Changes
+        field(24; "Has Changes"; Boolean)
+        {
+            Caption = 'Has Changes';
+            Editable = false;
+        }
     }
     keys
     {

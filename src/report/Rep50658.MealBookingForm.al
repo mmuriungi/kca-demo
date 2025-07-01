@@ -127,38 +127,38 @@ report 50658 "Meal Booking Form"
                 {
                 }
             }
-            dataitem("Approval Entry"; "Approval Entry")
-            {
-                DataItemLink = "Document No." = FIELD("Booking Id");
-                DataItemTableView = SORTING("Table ID", "Document Type", "Document No.", "Sequence No.", "Approver ID")
-                                    ORDER(Ascending)
-                                    WHERE(Status = FILTER(Approved),
-                                          "Approved The Document" = FILTER(true));
-                column(DateAndTime; "Approval Entry"."Last Date-Time Modified")
-                {
-                }
-                column(ApproverId; "Approval Entry"."Approver ID")
-                {
-                }
-                column(Title; userSetup6."Approval Title")
-                {
-                }
+            // dataitem("Approval Entry"; "Approval Entry")
+            // {
+            //     DataItemLink = "Document No." = FIELD("Booking Id");
+            //     DataItemTableView = SORTING("Table ID", "Document Type", "Document No.", "Sequence No.", "Approver ID")
+            //                         ORDER(Ascending)
+            //                         WHERE(Status = FILTER(Approved),
+            //                               "Approved The Document" = FILTER(true));
+            //     column(DateAndTime; "Approval Entry"."Last Date-Time Modified")
+            //     {
+            //     }
+            //     column(ApproverId; "Approval Entry"."Approver ID")
+            //     {
+            //     }
+            //     column(Title; userSetup6."Approval Title")
+            //     {
+            //     }
 
-                trigger OnAfterGetRecord()
-                begin
-                    userSetup6.RESET;
-                    userSetup6.SETRANGE("User ID", "Approval Entry"."Approver ID");
-                    IF userSetup6.FIND('-') THEN BEGIN
+            //     trigger OnAfterGetRecord()
+            //     begin
+            //         userSetup6.RESET;
+            //         userSetup6.SETRANGE("User ID", "Approval Entry"."Approver ID");
+            //         IF userSetup6.FIND('-') THEN BEGIN
 
-                    END;
-                end;
-            }
+            //         END;
+            //     end;
+            // }
             trigger OnAfterGetRecord()
             begin
-                ApprovalsEntries.RESET; 
+                ApprovalsEntries.RESET;
                 ApprovalsEntries.SETRANGE("Document No.", "CAT-Meal Booking Header"."Booking Id");
                 ApprovalsEntries.SETRANGE("Table ID", DATABASE::"CAT-Meal Booking Header");
-                ApprovalsEntries.SETRANGE("Sequence No.",1);
+                ApprovalsEntries.SETRANGE("Sequence No.", 1);
                 ApprovalsEntries.SETRANGE(Status, ApprovalsEntries.Status::Approved);
                 IF ApprovalsEntries.FINDFIRST THEN;
             end;

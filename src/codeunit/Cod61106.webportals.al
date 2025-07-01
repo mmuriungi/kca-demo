@@ -12847,6 +12847,7 @@ Codeunit 61106 webportals
     begin
         AppovEntry.Reset;
         AppovEntry.SetRange("Approver ID", ApproverID);
+        AppovEntry.SetRange(Status, AppovEntry.Status::Open);
         if AppovEntry.FindSet() then begin
             repeat
                 Clear(JObj);
@@ -12863,7 +12864,6 @@ Codeunit 61106 webportals
                 JObj.Add('Amount', AppovEntry.Amount);
                 JObj.Add('AmountLCY', AppovEntry."Amount (LCY)");
                 JObj.Add('CurrencyCode', AppovEntry."Currency Code");
-                JObj.Add('EntryNo', AppovEntry."Entry No.");
                 JArray.Add(JObj);
             until AppovEntry.Next = 0;
             JArray.WriteTo(JsTxt);

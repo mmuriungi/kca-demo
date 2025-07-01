@@ -43,6 +43,25 @@ page 52087 "Timetable Header"
                 {
                     ToolTip = 'Specifies the value of the Linked Timetable No. field.', Comment = '%';
                 }
+                field("Change Type"; Rec."Change Type")
+                {
+                    ToolTip = 'Specifies the type of change made to this timetable.', Comment = '%';
+                    Visible = Rec."Linked Timetable No." <> '';
+                }
+                field("Change Reason"; Rec."Change Reason")
+                {
+                    ToolTip = 'Specifies the reason for changes made to this timetable.', Comment = '%';
+                    Visible = Rec."Linked Timetable No." <> '';
+                    MultiLine = true;
+                }
+                field("Has Changes"; Rec."Has Changes")
+                {
+                    ToolTip = 'Indicates if this timetable has tracked changes.', Comment = '%';
+                    Visible = Rec."Linked Timetable No." <> '';
+                    Editable = false;
+                    Style = Attention;
+                    StyleExpr = Rec."Has Changes";
+                }
             }
             group(ExamGroup)
             {
@@ -361,6 +380,72 @@ page 52087 "Timetable Header"
                     THeader.SetRange(Semester, Rec.Semester);
                     if THeader.FindFirst() then
                         Report.Run(Report::"Exam Timetable", TRUE, FALSE, THeader);
+                end;
+            }
+            action("Copy from Linked Timetable")
+            {
+                ApplicationArea = All;
+                Caption = 'Copy from Linked Timetable';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Image = Copy;
+                Visible = (Rec."Linked Timetable No." <> '') and (Rec.Type = Rec.Type::Class);
+                trigger OnAction()
+                var
+                    SourceHeader: Record "Timetable Header";
+                    TimetableChangeMgt: Codeunit "Timetable Change Management";
+                begin
+                    if Rec."Linked Timetable No." = '' then
+                        Error('No linked timetable specified.');
+                        
+                    if not SourceHeader.Get(Rec."Linked Timetable No.") then
+                        Error('Source timetable %1 not found.', Rec."Linked Timetable No.");
+                        
+                    if Confirm('This will copy all entries from timetable %1. Continue?', false, Rec."Linked Timetable No.") then begin
+                        TimetableChangeMgt.CopyTimetableWithModifications(SourceHeader, Rec);
+                        CurrPage.Update(false);
+                    end;
+                end;
+            }
+            action("View Change Log")
+            {
+                ApplicationArea = All;
+                Caption = 'View Change Log';
+                Promoted = true;
+                PromotedCategory = Category5;
+                PromotedIsBig = true;
+                Image = ViewDetails;
+                Visible = Rec."Has Changes";
+                trigger OnAction()
+                var
+                    ChangeLog: Record "Timetable Change Log";
+                begin
+                    ChangeLog.SetRange("Timetable Document No.", Rec."Document No.");
+                    Page.RunModal(51317, ChangeLog);
+                end;
+            }
+            action("Mark Lecturer Unavailable")
+            {
+                ApplicationArea = All;
+                Caption = 'Mark Lecturer Unavailable';
+                Promoted = true;
+                PromotedCategory = Category5;
+                Image = Absence;
+                Visible = (Rec."Linked Timetable No." <> '') and (Rec.Type = Rec.Type::Class);
+                trigger OnAction()
+                var
+                    LecturerCode: Code[20];
+                    FromDate: Date;
+                    ToDate: Date;
+                    Reason: Text[250];
+                begin
+                    if Rec."Linked Timetable No." = '' then
+                        Error('This action is only available for modified timetables.');
+                        
+                    // Get lecturer unavailability details from user
+                    // TODO: Create lecturer unavailability dialog page
+                    Message('Lecturer unavailability functionality will be implemented. This will allow marking lecturers as unavailable for specific dates and automatically suggest alternatives.');
                 end;
             }
         }

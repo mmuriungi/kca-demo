@@ -158,42 +158,42 @@ page 51452 "CAT-Cafeteria Role Center"
             {
                 action("Open Meal Booking")
                 {
-                    Caption = 'Meal Booking';
+                    Caption = 'Open Meal Booking';
                     RunObject = Page "CAT-Meal Booking List";
                     RunPageView = where(Status = const(New));
                     ApplicationArea = All;
                 }
                 action("Pending Meal Booking")
                 {
-                    Caption = 'Meal Booking';
+                    Caption = 'Pending Meal Booking';
                     RunObject = Page "CAT-Meal Booking List";
                     RunPageView = where(Status = const("Pending Approval"));
                     ApplicationArea = All;
                 }
                 action("Approved Meal Booking")
                 {
-                    Caption = 'Meal Booking';
+                    Caption = 'Approved Meal Booking';
                     RunObject = Page "CAT-Meal Booking List";
                     RunPageView = where(Status = const(Approved));
                     ApplicationArea = All;
                 }
                 action("Cancelled Meal Booking")
                 {
-                    Caption = 'Meal Booking';
+                    Caption = 'Cancelled Meal Booking';
                     RunObject = Page "CAT-Meal Booking List";
                     RunPageView = where(Status = const(Cancelled));
                     ApplicationArea = All;
                 }
                 action("Rejected Meal Booking")
                 {
-                    Caption = 'Meal Booking';
+                    Caption = 'Rejected Meal Booking';
                     RunObject = Page "CAT-Meal Booking List";
                     RunPageView = where(Status = const(Rejected));
                     ApplicationArea = All;
                 }
                 action("All Meal Booking")
                 {
-                    Caption = 'Meal Booking';
+                    Caption = 'All Meal Booking';
                     RunObject = Page "CAT-Meal Booking List";
                     ApplicationArea = All;
                 }
