@@ -12184,13 +12184,114 @@ Codeunit 61106 webportals
         MealBooking."Venue" := venue;
         MealBooking.Pax := people;
         if MealBooking.INSERT(true) then begin
-            variant := MealBooking;
+            /*variant := MealBooking;
             if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then
-                ApprovalMgmt.OnSendDocForApproval(variant);
+                ApprovalMgmt.OnSendDocForApproval(variant);*/
             exit(MealBooking."Booking Id")
         end
         else
             exit('');
+    end;
+
+    procedure SentMealBookingForApproval(mealNo: Code[20]) msg: Boolean
+    var
+        MealBooking: Record "CAT-Meal Booking Header";
+        ApprovalMgmt: Codeunit "Approval Workflows V1";
+        variant: Variant;
+    begin
+        MealBooking.Reset;
+        MealBooking.SetRange("Booking Id", mealNo);
+        if MealBooking.Find('-') then begin
+            variant := MealBooking;
+            if ApprovalMgmt.CheckApprovalsWorkflowEnabled(variant) then begin
+                ApprovalMgmt.OnSendDocForApproval(variant);
+                msg := true;
+            end;
+        end;
+    end;
+
+    procedure GetMealItems(mealNo: Code[20]) msg: Text
+    var
+        MealItems: Record Item;
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        MealItems.Reset;
+        MealItems.SetRange("Item Category Code", 'FOOD');
+        if MealItems.Find('-') then begin
+            repeat
+                MealBookingLines.Reset;
+                MealBookingLines.SetRange("Booking Id", mealNo);
+                MealBookingLines.SetRange("Meal Code", MealItems."No.");
+                if not MealBookingLines.FindSet() then begin
+                    Clear(JObj);
+                    JObj.Add('Code', MealItems."No.");
+                    JObj.Add('Description', MealItems."Description");
+                    JArray.Add(JObj);
+                    JArray.WriteTo(JsTxt);
+                end;
+            until MealItems.Next = 0;
+        end;
+        msg := JsTxt;
+    end;
+
+    procedure InsertMealBookingLine(mealNo: Code[20]; itemCode: Code[20]) msg: Boolean
+    begin
+        MealBookingLines.Reset;
+        MealBookingLines.SetRange("Booking Id", mealNo);
+        MealBookingLines.SetRange("Meal Code", itemCode);
+        if not MealBookingLines.FindSet() then begin
+            MealBookingLines.Init;
+            MealBookingLines."Booking Id" := mealNo;
+            MealBookingLines."Meal Code" := itemCode;
+            MealBookingLines.Validate("Meal Code");
+            if MealBookingLines.INSERT(true) then begin
+                msg := true;
+            end;
+        end;
+    end;
+
+    procedure GetMealLines(mealNo: Code[20]) msg: Text
+    var
+
+        JObj: JsonObject;
+        JsTxt: Text;
+        JArray: JsonArray;
+    begin
+        MealBookingLines.Reset;
+        MealBookingLines.SetRange("Booking Id", mealNo);
+        if MealBookingLines.FindSet() then begin
+            repeat
+                Clear(JObj);
+                JObj.Add('LineNo', MealBookingLines."Line No.");
+                JObj.Add('MealName', MealBookingLines."Meal Name");
+                JObj.Add('Quantity', MealBookingLines."Quantity");
+                JObj.Add('UnitPrice', MealBookingLines."Unit Price");
+                JObj.Add('TotalCost', MealBookingLines.Cost);
+                JArray.Add(JObj);
+                JArray.WriteTo(JsTxt);
+            until MealBookingLines.Next = 0;
+        end;
+        msg := JsTxt;
+    end;
+    procedure CheckMealLineExists(mealNo:Code[20]) msg: Boolean
+    begin
+        MealBookingLines.Reset;
+        MealBookingLines.SetRange("Booking Id", mealNo);
+        if MealBookingLines.FindSet() then begin
+            msg := true;
+        end;
+    end;
+
+    procedure DeleteMealLine(lineNo: Integer) msg: Boolean
+    begin
+        MealBookingLines.Reset;
+        MealBookingLines.SetRange("Line No.", lineNo);
+        if MealBookingLines.Find('-') then begin
+            MealBookingLines.Delete(true);
+            msg := true;
+        end;
     end;
 
     procedure BookVenue(staffno: Code[20]; mtgdesc: Text; reqDate: Date; endDate: Date; reqTime: Time; endTime: Time; venue: Code[20]; people: Integer) msg: Text
@@ -12721,6 +12822,7 @@ Codeunit 61106 webportals
                 Clear(JObj);
                 JObj.Add('No', AppovEntry."Document No.");
                 JObj.Add('TableID', AppovEntry."Table ID");
+                JObj.Add('EntryNo', AppovEntry."Entry No.");
                 JObj.Add('ApproverID', AppovEntry."Approver ID");
                 JObj.Add('RecordCaption', AppovEntry.RecordCaption());
                 JObj.Add('RecordDetails', AppovEntry.RecordDetails());
