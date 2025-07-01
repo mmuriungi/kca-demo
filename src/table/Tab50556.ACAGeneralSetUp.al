@@ -376,6 +376,10 @@ table 50556 "ACA-General Set-Up"
         {
             TableRelation = "G/L Account";
         }
+        field(50101; "HEF Account"; Code[20])
+        {
+            TableRelation = "G/L Account";
+        }
     }
 
 

@@ -155,6 +155,10 @@ page 50860 "ACA-General Set-Up"
                 {
                     ApplicationArea = All;
                 }
+                field("HEF Account"; Rec."HEF Account")
+                {
+                    ApplicationArea = All;
+                }
                 field("Hostel Incidents"; Rec."Hostel Incidents")
                 {
                     ApplicationArea = All;

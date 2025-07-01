@@ -126,7 +126,7 @@ page 51277 "CAT-Meal Booking List"
                     IF Rec.Status <> Rec.Status::New THEN State := State::"Pending Approval";
                     DocType := DocType::"Meals Bookings";
                     CLEAR(tableNo);
-                    tableNo := 61778;
+                    tableNo := DATABASE::"CAT-Meal Booking Header";
                     CLEAR(RespCenter);
                     //  IF ApprovalMgt.SendApproval(tableNo,Rec."Booking Id",DocType,State,RespCenter,0) THEN;
                     //  IF ApprovalMgt.SendLeaveApprovalRequest(Rec) THEN;
@@ -153,7 +153,7 @@ page 51277 "CAT-Meal Booking List"
                     showmessage := TRUE;
                     ManualCancel := TRUE;
                     CLEAR(tableNo);
-                    tableNo := 61778;
+                    tableNo := DATABASE::"CAT-Meal Booking Header";
                     //   IF ApprovalMgt.CancelApproval(tableNo,DocType,Rec."Booking Id",showmessage,ManualCancel) THEN;
 
                     // IF ApprovalMgt.CancelLeaveApprovalRequest(Rec,TRUE,TRUE) THEN;
@@ -174,7 +174,7 @@ page 51277 "CAT-Meal Booking List"
 
                     Rec.RESET;
                     Rec.SETFILTER("Booking Id", Rec."Booking Id");
-                    REPORT.RUN(69271, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Meal Booking Form", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }

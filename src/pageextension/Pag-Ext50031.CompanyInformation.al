@@ -10,6 +10,12 @@ pageextension 50031 CompanyInformation extends "Company Information"
                 ApplicationArea = All;
 
             }
+            field("Delete from Date"; Rec."Delete from Date")
+            {
+                ApplicationArea = All;
+
+            }
+
         }
     }
 

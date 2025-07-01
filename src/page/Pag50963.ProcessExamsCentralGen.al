@@ -53,23 +53,6 @@ page 50963 "Process Exams Central Gen."
     {
         area(creation)
         {
-            action("Process Senate")
-            {
-                Image = EncryptionKeys;
-                Promoted = true;
-                PromotedIsBig = true;
-                PromotedOnly = true;
-                PromotedCategory = Process;
-                ApplicationArea = All;
-                Visible = false;
-                Caption = 'Process Senate';
-                trigger OnAction()
-                var
-                    senateReportNew: Codeunit "Senate Processing";
-                begin
-                    senateReportNew.processResults(programs, semesterz);
-                end;
-            }
             action("Process New KaRU")
             {
                 ApplicationArea = All;
