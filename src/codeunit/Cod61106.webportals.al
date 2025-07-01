@@ -12275,17 +12275,47 @@ Codeunit 61106 webportals
         end;
         msg := JsTxt;
     end;
-    procedure CheckMealLineExists(mealNo:Code[20]) msg: Boolean
+
+    procedure CanSendMealBookingApproval(mealNo: Code[20]) msg: Boolean
+    var
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
-        MealBookingLines.Reset;
-        MealBookingLines.SetRange("Booking Id", mealNo);
-        if MealBookingLines.FindSet() then begin
-            msg := true;
+        MealBooking.Reset;
+        MealBooking.SetRange("Booking Id", mealNo);
+        MealBooking.SetRange(Status, MealBooking.Status::New);
+        if MealBooking.Find('-') then begin
+            MealBookingLines.Reset;
+            MealBookingLines.SetRange("Booking Id", mealNo);
+            if MealBookingLines.Find('-') then begin
+                msg := true;
+            end;
         end;
     end;
 
-    procedure DeleteMealLine(lineNo: Integer) msg: Boolean
+    procedure MealBookingApprovalSend(mealNo: Code[20]) msg: Boolean
+    var
+        MealBooking: Record "CAT-Meal Booking Header";
     begin
+        MealBooking.Reset;
+        MealBooking.SetRange("Booking Id", mealNo);
+        if MealBooking.Find('-') then begin
+            if MealBooking.Status <> MealBooking.Status::New then begin
+                msg := true;
+            end;
+        end;
+    end;
+
+    procedure DeleteMealLine(mealNo: Code[20]; lineNo: Integer) msg: Boolean
+    var
+        MealBooking: Record "CAT-Meal Booking Header";
+    begin
+        MealBooking.Reset;
+        MealBooking.SetRange("Booking Id", mealNo);
+        if MealBooking.Find('-') then begin
+            if MealBooking.Status <> MealBooking.Status::New then begin
+                Error('You can delete line from a %1 meal booking!', MealBooking.Status);
+            end;
+        end;
         MealBookingLines.Reset;
         MealBookingLines.SetRange("Line No.", lineNo);
         if MealBookingLines.Find('-') then begin
