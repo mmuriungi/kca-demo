@@ -518,13 +518,13 @@ page 52122 "DVC-Academics Role Center"
                     ApplicationArea = All;
                 }
             }
-            group("Common Requisitions")
+            
             {
                 Caption = 'Common Requisitions';
                 Image = LotInfo;
                 
                 action("Store Requisitions")
-                {
+              group("Common Requisitions")  {
                     Caption = 'Store Requisitions';
                     RunObject = Page "PROC-Store Requisition";
                     ApplicationArea = All;

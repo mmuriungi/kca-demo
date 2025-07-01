@@ -154,6 +154,50 @@ page 51452 "CAT-Cafeteria Role Center"
                     RunObject = Page "Cleared Stock";
                 }
             }
+            group("&Meal Booking")
+            {
+                action("Open Meal Booking")
+                {
+                    Caption = 'Meal Booking';
+                    RunObject = Page "CAT-Meal Booking List";
+                    RunPageView = where(Status = const(New));
+                    ApplicationArea = All;
+                }
+                action("Pending Meal Booking")
+                {
+                    Caption = 'Meal Booking';
+                    RunObject = Page "CAT-Meal Booking List";
+                    RunPageView = where(Status = const("Pending Approval"));
+                    ApplicationArea = All;
+                }
+                action("Approved Meal Booking")
+                {
+                    Caption = 'Meal Booking';
+                    RunObject = Page "CAT-Meal Booking List";
+                    RunPageView = where(Status = const(Approved));
+                    ApplicationArea = All;
+                }
+                action("Cancelled Meal Booking")
+                {
+                    Caption = 'Meal Booking';
+                    RunObject = Page "CAT-Meal Booking List";
+                    RunPageView = where(Status = const(Cancelled));
+                    ApplicationArea = All;
+                }
+                action("Rejected Meal Booking")
+                {
+                    Caption = 'Meal Booking';
+                    RunObject = Page "CAT-Meal Booking List";
+                    RunPageView = where(Status = const(Rejected));
+                    ApplicationArea = All;
+                }
+                action("All Meal Booking")
+                {
+                    Caption = 'Meal Booking';
+                    RunObject = Page "CAT-Meal Booking List";
+                    ApplicationArea = All;
+                }
+            }
             group(Approvals)
             {
                 Caption = 'Approvals';
@@ -180,23 +224,36 @@ page 51452 "CAT-Cafeteria Role Center"
             group("Common Requisitions")
             {
                 Caption = 'Common Requisitions';
+                Image = LotInfo;
 
-                action("Stores Requisitions")
+                action("Store Requisitions")
                 {
-                    Caption = 'Stores Requisitions';
-                    ApplicationArea = All;
+                    Caption = 'Store Requisitions';
                     RunObject = Page "PROC-Store Requisition";
-                }
-                action("Imprest Requisitions")
-                {
-                    Caption = 'Imprest Requisitions';
                     ApplicationArea = All;
-                    RunObject = Page "FIN-Imprests List";
                 }
-                action("Transport Requisition")
+                action("Purchase Requisitions")
                 {
-                    Caption = 'Transport Requisition';
+                    Caption = 'Purchase Requisitions';
+                    RunObject = Page "FIN-Purchase Requisition";
+                    ApplicationArea = All;
+                }
+                action("Leave Applications")
+                {
+                    Caption = 'Leave Applications';
+                    RunObject = Page "HRM-Leave Requisition List";
+                    ApplicationArea = All;
+                }
+                action("Transport Requisitions")
+                {
+                    Caption = 'Transport Requisitions';
                     RunObject = Page "FLT-Transport Req. List";
+                    ApplicationArea = All;
+                }
+                action("Common Meal Booking")
+                {
+                    Caption = 'Meal Booking';
+                    RunObject = Page "CAT-Meal Booking List";
                     ApplicationArea = All;
                 }
             }
