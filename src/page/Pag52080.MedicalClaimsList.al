@@ -68,6 +68,26 @@ page 52080 "Medical Claims List"
         }
     }
 
+    actions
+    {
+        area(Processing)
+        {
+            action(Release)
+            {
+                Image=approve;
+                Promoted=true;
+                PromotedCategory=Process;
+                ApplicationArea=all;
+                trigger OnAction()
+                begin
+                    Rec.Status:=rec.Status::Approved;
+                    Rec.Modify();
+                    CurrPage.Update();
+                end;
+            }
+        }
+    }
+
     trigger OnAfterGetRecord()
     begin
         Rec.SetCurrentFiscalYearFilter();

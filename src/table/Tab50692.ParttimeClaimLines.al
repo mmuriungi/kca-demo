@@ -14,11 +14,11 @@ table 50692 "Parttime Claim Lines"
         }
         field(4; "Semester"; code[30])
         {
-
+            TableRelation = "ACA-Semesters"."Code";
         }
         field(5; "Academic Year"; code[30])
         {
-
+            TableRelation = "ACA-Academic Year"."Code";
         }
         field(6; Unit; code[30])
         {
@@ -195,6 +195,10 @@ table 50692 "Parttime Claim Lines"
         }
         field(11; "Hours Done"; Decimal)
         {
+            trigger OnValidate()
+            begin
+                Amount := "Hours Done" * "Hourly Rate";
+            end;
         }
         field(12; "Hourly Rate"; Decimal)
         {
@@ -245,7 +249,7 @@ table 50692 "Parttime Claim Lines"
 
         }
         //Exculded
-        field(21; "Excluded"; Boolean)
+        field(21; "Included"; Boolean)
         {
             trigger OnValidate()
             begin

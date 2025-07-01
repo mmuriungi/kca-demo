@@ -271,6 +271,46 @@ pageextension 50008 UsersetupPgExt extends "User Setup"
             {
                 ApplicationArea = All;
             }
+            field("Can Archive Students"; Rec."Can Archive Students")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Can Archive Students field.', Comment = '%';
+            }
+            field("Can Edit Academic Year"; Rec."Can Edit Academic Year")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Can Edit Academic Year field.', Comment = '%';
+            }
+            field("Can Edit Core Banking"; Rec."Can Edit Core Banking")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Can Edit Core Banking field.', Comment = '%';
+            }
+            field("Raise LPOs"; Rec."Raise LPOs")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the "Raise LPOs" field.', Comment = '%';
+            }
+            field("Responsibility Center"; Rec."Responsibility Center")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Responsibility Center field.', Comment = '%';
+            }
+            field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Shortcut Dimension 2 Code field.', Comment = '%';
+            }
+            field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Shortcut Dimension 3 Code field.', Comment = '%';
+            }
+            field("Shortcut Dimension 4 Code"; Rec."Shortcut Dimension 4 Code")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Shortcut Dimension 4 Code field.', Comment = '%';
+            }
 
         }
     }

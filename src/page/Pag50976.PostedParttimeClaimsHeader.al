@@ -155,6 +155,21 @@ page 50976 "Posted Parttime Claims Header"
                 RunPageLink = "No." = field("No.");
             }
 
+            action("Open PV")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = PostBatch;
+                Visible = Rec.Posted;
+                trigger OnAction()
+                var
+                    ParttimerMgmt: Codeunit "PartTimer Management";
+                begin
+                    ParttimerMgmt.openPaymentVoucher(Rec);
+                end;
+            }
+
         }
     }
     var

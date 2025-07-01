@@ -59,7 +59,7 @@ table 50691 "Parttime Claim Header"
         field(7; "Payment Amount"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = Sum("Parttime Claim Lines".Amount WHERE("Document No." = FIELD("No."), Excluded = const(false)));
+            CalcFormula = Sum("Parttime Claim Lines".Amount WHERE("Document No." = FIELD("No."), Included = const(true)));
             Description = 'Stores the amount of the payment voucher';
             Editable = false;
         }
@@ -131,6 +131,7 @@ table 50691 "Parttime Claim Header"
             var
                 Acasem: Record "ACA-Semesters";
                 parttimeLine: Record "Parttime Claim Lines";
+                lecunits: Record "ACA-Lecturers Units";
             begin
                 parttimeLine.Reset();
                 parttimeLine.SetRange("Document No.", "No.");
@@ -142,6 +143,25 @@ table 50691 "Parttime Claim Header"
                     "Academic Year" := Acasem."Academic Year";
                     "Semester Start Date" := Acasem.From;
                     "Semester End Date" := Acasem."To";
+                end;
+
+                //Insert lines from lec allocations
+                lecunits.Reset();
+                lecunits.SetRange(Semester, Semester);
+                lecunits.SetRange(Lecturer, "Account No.");
+                if lecunits.FindSet() then begin
+                    repeat
+                    parttimeLine.Init();
+                    parttimeLine."Document No." := "No.";
+                    parttimeLine."Line No." := parttimeLine."Line No." + 1;
+                    parttimeLine."Semester" := Semester;
+                    parttimeLine."Academic Year" := "Academic Year";
+                    parttimeLine."Lecture No." := lecunits."Lecturer";
+                    parttimeLine."Programme" := lecunits.Programme;
+                    parttimeLine."Unit" := lecunits.Unit;
+                    parttimeLine.Validate("Unit");
+                    parttimeLine.Insert();
+                    until lecunits.Next() = 0;
                 end;
             end;
         }

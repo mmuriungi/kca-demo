@@ -355,7 +355,7 @@ page 51459 "ACA-Std Finance Role Center"
                     Image = ImportExcel;
 
                     ApplicationArea = All;
-                  //  RunObject = XMLport impor
+                   RunObject = XMLport "Import Receipts Buffer";
                 }
                 action("Imported Bank Receipts")
                 {

@@ -135,6 +135,20 @@ page 50974 "Posted Parttime Claim List"
                 RunObject = Page "Document Attachment Details";
                 RunPageLink = "No." = field("No.");
             }
+            action("Open PV")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = PostBatch;
+                Visible = Rec.Posted;
+                trigger OnAction()
+                var
+                    ParttimerMgmt: Codeunit "PartTimer Management";
+                begin
+                    ParttimerMgmt.openPaymentVoucher(Rec);
+                end;
+            }
         }
     }
     procedure GetSelectionFilter(): Text

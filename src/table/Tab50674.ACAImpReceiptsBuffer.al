@@ -99,7 +99,7 @@ table 50674 "ACA-Imp. Receipts Buffer"
         field(23; Invalid; Boolean)
         {
         }
-        
+
 
     }
 

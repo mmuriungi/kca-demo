@@ -214,13 +214,28 @@ page 50971 "Parttime Claims Header"
                 begin
                     if not confirm('Are you sure you want to post this claim? This will create a new purchase invoice and a payment voucher.') then
                         exit;
-                    ParttimerMgmt.createPurchaseInvoice(Rec);
+                    ParttimerMgmt.CreatePayableAccount(Rec);
+                    ParttimerMgmt.PostClaim(Rec);
                     ParttimerMgmt.createPaymentVoucher(Rec);
                     Rec.Posted := true;
                     Rec.Modify();
                     // Rec.PostClaim();
                 end;
 
+            }
+            action("Open PV")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = PostBatch;
+                Visible = Rec.Posted;
+                trigger OnAction()
+                var
+                    ParttimerMgmt: Codeunit "PartTimer Management";
+                begin
+                    ParttimerMgmt.openPaymentVoucher(Rec);
+                end;
             }
         }
     }

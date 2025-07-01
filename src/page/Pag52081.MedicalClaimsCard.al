@@ -119,7 +119,7 @@ page 52081 "Medical Claims Card"
                 {
                     ApplicationArea = All;
                     Importance = Promoted;
-                    
+
                     trigger OnValidate()
                     begin
                         // Table-level validation will handle all checks
@@ -253,6 +253,19 @@ page 52081 "Medical Claims Card"
     {
         area(Processing)
         {
+            action(Release)
+            {
+                Image = approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = all;
+                trigger OnAction()
+                begin
+                    Rec.Status := rec.Status::Approved;
+                    Rec.Modify();
+                    CurrPage.Update();
+                end;
+            }
             action(SendApprovalRequest)
             {
                 ApplicationArea = All;
@@ -341,7 +354,7 @@ page 52081 "Medical Claims Card"
     trigger OnAfterGetRecord()
     begin
         Rec.SetCurrentFiscalYearFilter();
-        Rec.CalcFields("Employee Category", "Salary Grade", "Inpatient Limit", "Outpatient Limit", "Optical Limit", 
+        Rec.CalcFields("Employee Category", "Salary Grade", "Inpatient Limit", "Outpatient Limit", "Optical Limit",
                       "Inpatient Running Balance", "Outpatient Running Balance", "Optical Running Balance");
     end;
 
@@ -365,7 +378,7 @@ page 52081 "Medical Claims Card"
             exit('Standard');
 
         AvailableBalance := Rec.GetAvailableBalance(Rec."Claim Type");
-        
+
         if Rec."Claim Amount" > AvailableBalance then
             exit('Unfavorable')
         else if Rec."Claim Amount" > (AvailableBalance * 0.8) then
@@ -383,7 +396,7 @@ page 52081 "Medical Claims Card"
             exit;
 
         AvailableBalance := Rec.GetAvailableBalance(Rec."Claim Type");
-        
+
         if Rec."Claim Amount" > AvailableBalance then begin
             WarningMsg := 'WARNING: Claim amount (%1) exceeds available balance (%2) for %3 claims.';
             Message(WarningMsg, Rec."Claim Amount", AvailableBalance, Format(Rec."Claim Type"));
