@@ -5019,7 +5019,8 @@ ObjUnits	Record	ACA-Student Units
                   end else begin
         
         CoursesRegz.CalcFields("Attained Stage Units");
-        if CoursesRegz."Attained Stage Units" = 0 then  StatusRemarks:='DTSC';
+        if CoursesRegz."Attained Stage Units" = 0 then 
+         StatusRemarks:='DTSC';
         if (not CoursesRegz."Special Registration Exists") and (StatusRemarks='DTSC')then begin
          ///Ensure special is not skipped.
           ObjUnits.Reset;

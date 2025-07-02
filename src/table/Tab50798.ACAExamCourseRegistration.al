@@ -317,9 +317,9 @@ table 50798 "ACA-Exam. Course Registration"
         {
             DataClassification = ToBeClassified;
         }
-        field(51; "Attained Stage Units"; Integer)
+        field(51; "Attained Stage Units"; Decimal)
         {
-            CalcFormula = Count("ACA-Exam Classification Units" WHERE("Student No." = FIELD("Student Number"),
+            CalcFormula = Sum("ACA-Exam Classification Units"."Credit Hours" WHERE("Student No." = FIELD("Student Number"),
                                                                        Programme = FIELD(Programme),
                                                                        "Year of Study" = FIELD("Year of Study"),
                                                                        "Allow In Graduate" = FILTER(true)));

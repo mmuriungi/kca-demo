@@ -58,6 +58,10 @@ page 50893 "ACA-Lecturer Units Details"
                 {
                     ApplicationArea = All;
                 }
+                field(Stream;Rec.Stream)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

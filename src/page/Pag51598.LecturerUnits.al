@@ -27,6 +27,14 @@ page 51598 "Lecturer Units"
                 {
                     ApplicationArea = All;
                 }
+                field("Student Allocation"; Rec."Student Allocation")
+                {
+                    ApplicationArea = All;
+                }
+                field(Stream; Rec.Stream)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

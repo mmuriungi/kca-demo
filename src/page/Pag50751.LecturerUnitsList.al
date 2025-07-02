@@ -99,6 +99,14 @@ page 50751 "Lecturer Units List"
                 {
                     ApplicationArea = All;
                 }
+                field("Student Allocation";Rec."Student Allocation")
+                {
+                    ApplicationArea = All;
+                }
+                field(Stream;Rec.Stream)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
