@@ -35,6 +35,12 @@ page 50817 "ACA-Intake List"
                     Caption = 'Semetser End Date';
                     ApplicationArea = All;
                 }
+                field("Academic Year";Rec."Academic Year")
+                {
+                    Caption = 'Academic Year';
+                    ApplicationArea = All;
+                    TableRelation = "ACA-Academic Year".Code;
+                }
             }
         }
     }

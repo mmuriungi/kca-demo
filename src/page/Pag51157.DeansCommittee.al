@@ -5,6 +5,7 @@ page 51157 "Deans Committee"
 {
     PageType = Document;
     SourceTable = "ACA-Applic. Form Header";
+    Caption='Registrar';
 
     layout
     {
@@ -538,8 +539,8 @@ page 51157 "Deans Committee"
                     Rec.Status := Rec.Status::"Provisional Admission";
                     Rec.Modify();
                     //generate No
-                    IF (Rec."Admission No" <> '') THEN ERROR('Admission Number axists: ' + Rec."Admission No");
-                    CLEAR(settlementPrefix);
+                    // IF (Rec."Admission No" <> '') THEN ERROR('Admission Number axists: ' + Rec."Admission No");
+                    // CLEAR(settlementPrefix);
                     degCode := '';
                     IF Rec."Admitted Degree" = '' THEN BEGIN
                         IF Rec."First Degree Choice" <> '' THEN BEGIN
@@ -547,35 +548,35 @@ page 51157 "Deans Committee"
                             Rec.MODIFY;
                         END;
                     END;
-                    AdminSetup.RESET;
-                    AdminSetup.SETRANGE(AdminSetup.Degree, Rec."Admitted Degree");
-                    IF AdminSetup.FIND('-') THEN BEGIN
-                        IF ((Rec."Settlement Type" = 'KUCCPS') OR (Rec."Settlement Type" = 'GOK') OR (Rec."Settlement Type" = 'GSS')) THEN
-                            settlementPrefix := AdminSetup."JAB Prefix"
-                        ELSE
-                            IF ((Rec."Settlement Type" = 'PSSP') OR (Rec."Settlement Type" = 'SSS') OR (Rec."Settlement Type" = 'SELFSPONSORED')) THEN
-                                settlementPrefix := AdminSetup."SSP Prefix";
-                        CLEAR(NewAdminCode);
-                        BEGIN
-                            if Rec."Mode of Study" = 'EW' then begin
-                                NewAdminCode := NoSeriesMgt.GetNextNo(AdminSetup."No. Series", TODAY, TRUE);
-                                Rec."Admission No" := AdminSetup."Programme Prefix" + '/EW' + '/' + NewAdminCode + '/' + AdminSetup.Year;
-                                Rec.MODIFY;
-                            end else if Rec."Mode of Study" = 'PT' then begin
-                                NewAdminCode := NoSeriesMgt.GetNextNo(AdminSetup."No. Series", TODAY, TRUE);
-                                Rec."Admission No" := AdminSetup."Programme Prefix" + '/PT' + '/' + NewAdminCode + '/' + AdminSetup.Year;
-                                Rec.MODIFY;
-                            end else begin
-                                NewAdminCode := NoSeriesMgt.GetNextNo(AdminSetup."No. Series", TODAY, TRUE);
-                                Rec."Admission No" := AdminSetup."Programme Prefix" + '/' + NewAdminCode + '/' + AdminSetup.Year;
-                                Rec.MODIFY;
-                            end;
+                    // AdminSetup.RESET;
+                    // AdminSetup.SETRANGE(AdminSetup.Degree, Rec."Admitted Degree");
+                    // IF AdminSetup.FIND('-') THEN BEGIN
+                    //     IF ((Rec."Settlement Type" = 'KUCCPS') OR (Rec."Settlement Type" = 'GOK') OR (Rec."Settlement Type" = 'GSS')) THEN
+                    //         settlementPrefix := AdminSetup."JAB Prefix"
+                    //     ELSE
+                    //         IF ((Rec."Settlement Type" = 'PSSP') OR (Rec."Settlement Type" = 'SSS') OR (Rec."Settlement Type" = 'SELFSPONSORED')) THEN
+                    //             settlementPrefix := AdminSetup."SSP Prefix";
+                    //     CLEAR(NewAdminCode);
+                    //     BEGIN
+                    //         if Rec."Mode of Study" = 'EW' then begin
+                    //             NewAdminCode := NoSeriesMgt.GetNextNo(AdminSetup."No. Series", TODAY, TRUE);
+                    //             Rec."Admission No" := AdminSetup."Programme Prefix" + '/EW' + '/' + NewAdminCode + '/' + AdminSetup.Year;
+                    //             Rec.MODIFY;
+                    //         end else if Rec."Mode of Study" = 'PT' then begin
+                    //             NewAdminCode := NoSeriesMgt.GetNextNo(AdminSetup."No. Series", TODAY, TRUE);
+                    //             Rec."Admission No" := AdminSetup."Programme Prefix" + '/PT' + '/' + NewAdminCode + '/' + AdminSetup.Year;
+                    //             Rec.MODIFY;
+                    //         end else begin
+                    //             NewAdminCode := NoSeriesMgt.GetNextNo(AdminSetup."No. Series", TODAY, TRUE);
+                    //             Rec."Admission No" := AdminSetup."Programme Prefix" + '/' + NewAdminCode + '/' + AdminSetup.Year;
+                    //             Rec.MODIFY;
+                    //         end;
 
-                        END;
-                    END ELSE BEGIN
-                        ERROR('The Admission Number Setup For Programme ' + FORMAT(Rec."Admitted Degree") + ' Does Not Exist');
-                    END;
-                    MESSAGE('Admission number generated successfully!. The Number is ' + Rec."Admission No");
+                    //     END;
+                    // END ELSE BEGIN
+                    //     ERROR('The Admission Number Setup For Programme ' + FORMAT(Rec."Admitted Degree") + ' Does Not Exist');
+                    // END;
+                    // MESSAGE('Admission number generated successfully!. The Number is ' + Rec."Admission No");
                 end;
 
             }

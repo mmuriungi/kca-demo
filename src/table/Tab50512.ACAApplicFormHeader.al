@@ -396,6 +396,30 @@ table 50512 "ACA-Applic. Form Header"
         {
             Description = 'Stores the code of the intake in the database';
             TableRelation = "ACA-Intake".Code;
+            trigger OnValidate()
+            var
+                Intake: Record "ACA-Intake";
+                Stages: Record "ACA-Programme Stages";
+                Programmes: Record "ACA-Programme";
+            begin
+                Intake.RESET;
+                Intake.SETRANGE(Intake.Code, "Intake Code");
+                IF Intake.FIND('-') THEN BEGIN
+                    "Intake Code" := Intake.Code;
+                    "Academic Year" := Intake."Academic Year";
+                END;
+                Stages.RESET;
+                Stages.SETRANGE(Stages."Programme Code", "First Degree Choice");
+                Stages.SetRange(Stages.Order, 1);
+                if Stages.FindFirst() then begin
+                    "Admitted To Stage" := Stages.Code;
+                end;
+                Programmes.RESET;
+                Programmes.SETRANGE(Programmes.Code, "First Degree Choice");
+                IF Programmes.FIND('-') THEN begin
+                    School1 := Programmes."School Code";
+                END;
+            end;
         }
         field(67; "Settlement Type"; Code[50])
         {
