@@ -199,6 +199,10 @@ table 51276 "ACA-Prog/Stage Sem. Schedule"
         {
             Caption = 'Buffer Results';
         }
+        field(28; "AllowHODSuppEditing"; Boolean)
+        {
+            Caption = 'Allow HOD Supp Editing';
+        }
     }
 
     keys
