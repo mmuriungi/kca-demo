@@ -2,7 +2,7 @@ query 50007 "Drill Down Answers"
 {
     Caption = 'Drill Down Answers';
     QueryType = Normal;
-    
+
     elements
     {
         dataitem(DrillDownAnswers; "Drill Down Answers")
@@ -18,9 +18,9 @@ query 50007 "Drill Down Answers"
             }
         }
     }
-    
+
     trigger OnBeforeOpen()
     begin
-    
+
     end;
 }

@@ -6,7 +6,7 @@ page 52102 "PartTime Invoice Subform"
     SourceTable = "Purchase Header";
     SourceTableView = where("Document Type" = const(Invoice));
     CardPageID = "Purchase Invoice";
-    
+
     layout
     {
         area(content)
@@ -46,7 +46,7 @@ page 52102 "PartTime Invoice Subform"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -60,7 +60,7 @@ page 52102 "PartTime Invoice Subform"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'Edit the selected invoice';
-                
+
                 trigger OnAction()
                 begin
                     Page.RunModal(Page::"Purchase Invoice", Rec);

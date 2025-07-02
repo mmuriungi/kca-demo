@@ -5,7 +5,7 @@ xmlport 50021 "General Ledger Export"
     Direction = Export;
     Format = VariableText;
     FieldSeparator = '<TAB>';
-    
+
     schema
     {
         textelement(Root)
@@ -13,7 +13,7 @@ xmlport 50021 "General Ledger Export"
             tableelement(GLEntry; "G/L Entry custom")
             {
                 XmlName = 'GLEntry';
-                
+
                 fieldelement(DocumentNo; GLEntry."Document No.")
                 {
                 }
@@ -53,7 +53,7 @@ xmlport 50021 "General Ledger Export"
             }
         }
     }
-    
+
     requestpage
     {
         layout
@@ -79,7 +79,7 @@ xmlport 50021 "General Ledger Export"
             }
         }
     }
-    
+
     trigger OnPreXmlPort()
     begin
         if (StartDate <> 0D) or (EndDate <> 0D) then begin
@@ -91,7 +91,7 @@ xmlport 50021 "General Ledger Export"
                 GLEntry.SetRange("Posting Date", StartDate, EndDate);
         end;
     end;
-    
+
     var
         StartDate: Date;
         EndDate: Date;

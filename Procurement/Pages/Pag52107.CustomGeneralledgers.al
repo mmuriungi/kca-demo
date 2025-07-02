@@ -4,8 +4,8 @@ page 52107 "Custom General ledgers"
     Caption = 'Custom General ledgers';
     PageType = List;
     SourceTable = "Custom Gen Ledgers";
-    UsageCategory=Administration;
-    
+    UsageCategory = Administration;
+
     layout
     {
         area(Content)

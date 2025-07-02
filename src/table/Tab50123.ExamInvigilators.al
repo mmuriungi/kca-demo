@@ -52,22 +52,22 @@ table 50123 "Exam Invigilators"
         field(11; "Session Type"; Option)
         {
             Caption = 'Session Type';
-            OptionMembers = Morning, Midday, Afternoon;
-            FieldClass = FlowField; 
+            OptionMembers = Morning,Midday,Afternoon;
+            FieldClass = FlowField;
             CalcFormula = lookup("Exam Timetable Entry"."Session Type" where(Semester = field(Semester), "Exam Date" = field(Date), "Unit Code" = field(Unit), "Lecture Hall" = field(Hall)));
         }
         //programme code
         field(12; "Programme Code"; Code[25])
         {
             Caption = 'Programme Code';
-            FieldClass = FlowField; 
+            FieldClass = FlowField;
             CalcFormula = lookup("Exam Timetable Entry"."Programme Code" where(Semester = field(Semester), "Exam Date" = field(Date), "Unit Code" = field(Unit), "Lecture Hall" = field(Hall)));
         }
         //stage code
         field(13; "Stage Code"; Code[25])
         {
             Caption = 'Stage Code';
-            FieldClass = FlowField; 
+            FieldClass = FlowField;
             CalcFormula = lookup("Exam Timetable Entry"."Stage Code" where(Semester = field(Semester), "Exam Date" = field(Date), "Unit Code" = field(Unit), "Lecture Hall" = field(Hall)));
         }
     }

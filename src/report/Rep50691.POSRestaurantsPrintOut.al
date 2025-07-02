@@ -1,4 +1,4 @@
-report 50691 "POS Restaurants PrintOut"
+report 50691 "POS Rest. PrintOut Legacy"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/PosPrintOutRest.rdl';

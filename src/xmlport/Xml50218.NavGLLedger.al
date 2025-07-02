@@ -16,7 +16,7 @@ xmlport 50218 "Nav GL Ledger"
                 AutoSave = true;
                 XmlName = 'NavGLLedger';
                 RequestFilterFields = "Posting Date", "Document No.";
-                
+
                 fieldelement(EntryNo; NavGLLedger."Entry No.")
                 {
                 }

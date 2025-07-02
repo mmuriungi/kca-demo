@@ -2,7 +2,7 @@ table 51363 "PartTime Invoice Batch"
 {
     Caption = 'PartTime Invoice Batch';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Batch No."; Code[20])
@@ -37,7 +37,7 @@ table 51363 "PartTime Invoice Batch"
             Editable = false;
         }
     }
-    
+
     keys
     {
         key(PK; "Batch No.")

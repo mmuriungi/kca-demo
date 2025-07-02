@@ -340,12 +340,12 @@ page 50046 "Procurement Management"
                 Caption = 'Store Requisitions';
                 action("Store Requisitions")
                 {
-                    Caption='Store Requisitions';
+                    Caption = 'Store Requisitions';
                     ApplicationArea = all;
                     RunObject = Page "PROC-Store Requisition2";
                     //RunPageView = where(status = filter(open));
                 }
-                
+
                 action("Storess Requisitions")
                 {
                     Visible = false;

@@ -4,7 +4,7 @@ page 50271 "Audit Recommendation Card"
     Caption = 'Audit Recommendation Card';
     PageType = Card;
     SourceTable = "Audit Recommendations";
-    
+
     layout
     {
         area(content)
@@ -69,7 +69,7 @@ page 50271 "Audit Recommendation Card"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -84,7 +84,7 @@ page 50271 "Audit Recommendation Card"
                 PromotedIsBig = true;
                 PromotedOnly = true;
                 ToolTip = 'Mark this recommendation as implemented.';
-                
+
                 trigger OnAction()
                 begin
                     Rec.Status := Rec.Status::Implemented;

@@ -146,7 +146,7 @@ table 52178574 "Proc Bidder Quoted Amounts"
     }
     keys
     {
-        key(PK; "Document No", "Bid No", "Item No", "Entry No","Supplier No")
+        key(PK; "Document No", "Bid No", "Item No", "Entry No", "Supplier No")
         {
             Clustered = true;
         }

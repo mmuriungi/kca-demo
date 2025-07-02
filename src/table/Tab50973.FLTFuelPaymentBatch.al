@@ -103,7 +103,7 @@ table 50973 "FLT-Fuel Payment Batch"
                         FuelBatchLines."Litres of Oil" := FuelReq."Litres of Oil";
                         FuelBatchLines.Insert(true);
                     until FuelReq.Next() = 0;
-                    
+
                     Message('%1 fuel requisition(s) added to the batch.', FuelReq.Count);
                 end else
                     Message('No approved fuel requisitions found for vendor %1 within the specified date range.', "Vendor Name");

@@ -4,7 +4,7 @@ page 52101 "PartTime Invoice Batch Card"
     Caption = 'PartTime Invoice Batch Card';
     PageType = Card;
     SourceTable = "PartTime Invoice Batch";
-    
+
     layout
     {
         area(content)
@@ -45,7 +45,7 @@ page 52101 "PartTime Invoice Batch Card"
             }
         }
     }
-    
+
     actions
     {
         area(Navigation)
@@ -59,7 +59,7 @@ page 52101 "PartTime Invoice Batch Card"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'View the purchase invoice';
-                
+
                 trigger OnAction()
                 var
                     PurchInvHeader: Record "Purchase Header";
@@ -70,7 +70,7 @@ page 52101 "PartTime Invoice Batch Card"
                         Page.RunModal(Page::"Purchase Invoices", PurchInvHeader);
                 end;
             }
-            
+
             action(ViewPostedInvoice)
             {
                 ApplicationArea = All;
@@ -81,7 +81,7 @@ page 52101 "PartTime Invoice Batch Card"
                 PromotedIsBig = true;
                 ToolTip = 'View the posted purchase invoice';
                 Enabled = Rec.Status = Rec.Status::Posted;
-                
+
                 trigger OnAction()
                 var
                     PurchInvHeader: Record "Purch. Inv. Header";
@@ -93,7 +93,7 @@ page 52101 "PartTime Invoice Batch Card"
                 end;
             }
         }
-        
+
         area(Processing)
         {
             action(PostAllInvoices)
@@ -106,7 +106,7 @@ page 52101 "PartTime Invoice Batch Card"
                 PromotedIsBig = true;
                 ToolTip = 'Post all open invoices for this batch';
                 Enabled = Rec.Status = Rec.Status::Open;
-                
+
                 trigger OnAction()
                 var
                     PurchHeader: Record "Purchase Header";

@@ -7,7 +7,7 @@ Page 52132 "Bank Acc. Reconciliation New"
     PromotedActionCategories = 'New,Process,Report,Bank,Matching';
     SaveValues = false;
     SourceTable = "Bank Acc. Reconciliation";
-    SourceTableView = where("Statement Type"=const("Bank Reconciliation"));
+    SourceTableView = where("Statement Type" = const("Bank Reconciliation"));
 
     layout
     {
@@ -16,65 +16,65 @@ Page 52132 "Bank Acc. Reconciliation New"
             group(General)
             {
                 Caption = 'General';
-                field(BankAccountNo;Rec."Bank Account No.")
+                field(BankAccountNo; Rec."Bank Account No.")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Bank Account No.';
                     ToolTip = 'Specifies the number of the bank account that you want to reconcile with the bank''s statement.';
                 }
-                field(StatementNo;Rec."Statement No.")
+                field(StatementNo; Rec."Statement No.")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Statement No.';
                     ToolTip = 'Specifies the number of the bank account statement.';
                 }
-                field(StatementDate;Rec."Statement Date")
+                field(StatementDate; Rec."Statement Date")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Statement Date';
                     ToolTip = 'Specifies the date on the bank account statement.';
                 }
-                field(BalanceLastStatement;Rec."Balance Last Statement")
+                field(BalanceLastStatement; Rec."Balance Last Statement")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Balance Last Statement';
                     ToolTip = 'Specifies the ending balance shown on the last bank statement, which was used in the last posted bank reconciliation for this bank account.';
                 }
-                field(StatementEndingBalance;Rec."Statement Ending Balance")
+                field(StatementEndingBalance; Rec."Statement Ending Balance")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Statement Ending Balance';
                     ToolTip = 'Specifies the ending balance shown on the bank''s statement that you want to reconcile with the bank account.';
                 }
             }
             group(Control8)
             {
-                part(StmtLine;"Bank Acc. Reconciliation Lines")
+                part(StmtLine; "Bank Acc. Reconciliation Lines")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Bank Statement Lines';
-                    SubPageLink = "Bank Account No."=field("Bank Account No."),
-                                  "Statement No."=field("Statement No.");
+                    SubPageLink = "Bank Account No." = field("Bank Account No."),
+                                  "Statement No." = field("Statement No.");
                 }
-                part(ApplyBankLedgerEntries;"Apply Bank Acc. Ledger Entries")
+                part(ApplyBankLedgerEntries; "Apply Bank Acc. Ledger Entries")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Bank Account Ledger Entries';
                     Enabled = false;
-                    SubPageLink = "Bank Account No."=field("Bank Account No."),
-                                  Open=const(true),
-                                  "Statement Status"=filter(Open|"Bank Acc. Entry Applied"|"Check Entry Applied");
+                    SubPageLink = "Bank Account No." = field("Bank Account No."),
+                                  Open = const(true),
+                                  "Statement Status" = filter(Open | "Bank Acc. Entry Applied" | "Check Entry Applied");
                     Visible = false;
                 }
             }
         }
         area(factboxes)
         {
-            systempart(Control1900383207;Links)
+            systempart(Control1900383207; Links)
             {
                 Visible = false;
             }
-            systempart(Control1905767507;Notes)
+            systempart(Control1905767507; Notes)
             {
                 Visible = false;
             }
@@ -91,11 +91,11 @@ Page 52132 "Bank Acc. Reconciliation New"
                 Image = BankAccountRec;
                 action("&Card")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = '&Card';
                     Image = EditLines;
                     RunObject = Page "Bank Account Card";
-                    RunPageLink = "No."=field("Bank Account No.");
+                    RunPageLink = "No." = field("Bank Account No.");
                     ShortCutKey = 'Shift+F7';
                     ToolTip = 'View or change detailed information about the record that is being processed on the journal line.';
                 }
@@ -109,7 +109,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                 Image = "Action";
                 action(SuggestLines)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Suggest Lines';
                     Ellipsis = true;
                     Image = SuggestLines;
@@ -127,7 +127,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                 }
                 action("Transfer to General Journal")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Transfer to General Journal';
                     Ellipsis = true;
                     Image = TransferToGeneralJournal;
@@ -148,7 +148,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                 Caption = 'Ba&nk';
                 action(ImportBankStatement)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Import Bank Statement';
                     Image = Import;
                     Promoted = true;
@@ -168,7 +168,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                 Caption = 'M&atching';
                 action(MatchAutomatically)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Match Automatically';
                     Image = MapAccounts;
                     Promoted = true;
@@ -178,15 +178,15 @@ Page 52132 "Bank Acc. Reconciliation New"
 
                     trigger OnAction()
                     begin
-                        Rec.SetRange("Statement Type",Rec."Statement Type");
-                        Rec.SetRange("Bank Account No.",Rec."Bank Account No.");
-                        Rec.SetRange("Statement No.",Rec."Statement No.");
-                        Report.Run(Report::"Match Bank Entries",true,true,Rec);
+                        Rec.SetRange("Statement Type", Rec."Statement Type");
+                        Rec.SetRange("Bank Account No.", Rec."Bank Account No.");
+                        Rec.SetRange("Statement No.", Rec."Statement No.");
+                        Report.Run(Report::"Match Bank Entries", true, true, Rec);
                     end;
                 }
                 action(MatchManually)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Match Manually';
                     Image = CheckRulesSyntax;
                     Promoted = true;
@@ -202,12 +202,12 @@ Page 52132 "Bank Acc. Reconciliation New"
                     begin
                         CurrPage.StmtLine.Page.GetSelectedRecords(TempBankAccReconciliationLine);
                         CurrPage.ApplyBankLedgerEntries.Page.GetSelectedRecords(TempBankAccountLedgerEntry);
-                        MatchBankRecLines.MatchManually(TempBankAccReconciliationLine,TempBankAccountLedgerEntry);
+                        MatchBankRecLines.MatchManually(TempBankAccReconciliationLine, TempBankAccountLedgerEntry);
                     end;
                 }
                 action(RemoveMatch)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Remove Match';
                     Image = RemoveContacts;
                     Promoted = true;
@@ -223,12 +223,12 @@ Page 52132 "Bank Acc. Reconciliation New"
                     begin
                         CurrPage.StmtLine.Page.GetSelectedRecords(TempBankAccReconciliationLine);
                         CurrPage.ApplyBankLedgerEntries.Page.GetSelectedRecords(TempBankAccountLedgerEntry);
-                        MatchBankRecLines.RemoveMatch(TempBankAccReconciliationLine,TempBankAccountLedgerEntry);
+                        MatchBankRecLines.RemoveMatch(TempBankAccReconciliationLine, TempBankAccountLedgerEntry);
                     end;
                 }
                 action(All)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Show All';
                     Image = AddWatch;
                     ToolTip = 'Show all bank statement lines.';
@@ -241,7 +241,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                 }
                 action(NotMatched)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Show Nonmatched';
                     Image = AddWatch;
                     ToolTip = 'Show all bank statement lines that have not yet been matched.';
@@ -257,7 +257,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                     ApplicationArea = Basic;
                     Caption = 'Update unpresented';
                     Image = AbsenceCalendar;
-                   // RunObject = Report UnknownReport51002;
+                    // RunObject = Report UnknownReport51002;
                 }
             }
             group("P&osting")
@@ -266,7 +266,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                 Image = Post;
                 action("&Test Report")
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = '&Test Report';
                     Ellipsis = true;
                     Image = TestReport;
@@ -279,7 +279,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                 }
                 action(Post)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'P&ost';
                     Image = PostOrder;
                     Promoted = true;
@@ -291,13 +291,13 @@ Page 52132 "Bank Acc. Reconciliation New"
                     trigger OnAction()
                     begin
 
-                        Codeunit.Run(Codeunit::"Bank Acc. Recon. Post (Yes/No)",Rec);
+                        Codeunit.Run(Codeunit::"Bank Acc. Recon. Post (Yes/No)", Rec);
                         RefreshSharedTempTable;
                     end;
                 }
                 action(PostAndPrint)
                 {
-                    ApplicationArea = Basic,Suite;
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Post and &Print';
                     Image = PostPrint;
                     Promoted = true;
@@ -309,7 +309,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                     trigger OnAction()
                     begin
                         //ERROR('Error');
-                        Codeunit.Run(Codeunit::"Bank Acc. Recon. Post+Print",Rec);
+                        Codeunit.Run(Codeunit::"Bank Acc. Recon. Post+Print", Rec);
                         CurrPage.Update(false);
                         RefreshSharedTempTable;
                     end;
@@ -348,7 +348,7 @@ Page 52132 "Bank Acc. Reconciliation New"
 
     procedure SetSharedTempTable(var TempBankAccReconciliationOnList: Record "Bank Acc. Reconciliation" temporary)
     begin
-        TempBankAccReconciliationDataset.Copy(TempBankAccReconciliationOnList,true);
+        TempBankAccReconciliationDataset.Copy(TempBankAccReconciliationOnList, true);
     end;
 
     local procedure RefreshSharedTempTable()
@@ -357,7 +357,7 @@ Page 52132 "Bank Acc. Reconciliation New"
         GeneralLedgerSetup: Record "General Ledger Setup";
     begin
         TempBankAccReconciliationDataset.DeleteAll;
-       // BankAccReconciliation.GetTempCopy(TempBankAccReconciliationDataset);
+        // BankAccReconciliation.GetTempCopy(TempBankAccReconciliationDataset);
     end;
 }
 

@@ -96,7 +96,7 @@ page 51420 "FLT-Fuel Pymnt Batch"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 enabled = not Rec.Closed and not Rec.Invoiced;
-                
+
                 trigger OnAction()
                 var
                     PurchHeader: Record "Purchase Header";
@@ -117,33 +117,33 @@ page 51420 "FLT-Fuel Pymnt Batch"
                         Error('This batch has already been invoiced.');
                     if Rec.Closed then
                         Error('This batch is closed and cannot be sent to finance.');
-                    
+
                     // Check if there are lines in the batch
                     FuelBatchLines.Reset();
                     FuelBatchLines.SetRange("Payment Batch No", Rec."Batch No");
                     if not FuelBatchLines.FindFirst() then
                         Error('There are no fuel requisitions in this batch.');
-                    
+
                     // Calculate total amount
                     FuelBatchLines.CalcSums("Value of Fuel");
                     TotalAmount := FuelBatchLines."Value of Fuel";
-                    
+
                     if TotalAmount = 0 then
                         Error('Total amount cannot be zero.');
-                    
+
                     // Create Purchase Invoice Header
                     PurchHeader.Init();
                     PurchHeader."Document Type" := PurchHeader."Document Type"::Invoice;
-                    
+
                     // Get invoice number from number series
                     PurchSetup.Get();
                     if PurchSetup."Invoice Nos." <> '' then
                         PurchHeader."No." := NoSeriesMgt.GetNextNo(PurchSetup."Invoice Nos.", WorkDate(), true)
                     else
                         PurchHeader."No." := '';
-                    
-                    
-                    
+
+
+
                     // Set vendor and other header information
                     PurchHeader.Validate("Buy-from Vendor No.", Rec."Vendor No");
                     PurchHeader."Posting Date" := WorkDate();
@@ -152,7 +152,7 @@ page 51420 "FLT-Fuel Pymnt Batch"
                     PurchHeader."Due Date" := CalcDate('<1M>', WorkDate());
                     PurchHeader."Posting Description" := 'Fuel Payment Batch ' + Rec."Batch No";
                     PurchHeader.Insert(true);
-                    
+
                     // Create Purchase Invoice Lines
                     LineNo := 10000;
                     FuelBatchLines.Reset();
@@ -164,7 +164,7 @@ page 51420 "FLT-Fuel Pymnt Batch"
                             PurchLine."Document No." := PurchHeader."No.";
                             PurchLine."Line No." := LineNo;
                             PurchLine.Type := PurchLine.Type::"G/L Account";
-                            
+
                             // Get the fuel expense G/L Account from Fleet Management Setup
                             FleetSetup.Get();
                             FleetSetup.TestField("Fuel Expense Account");
@@ -173,32 +173,32 @@ page 51420 "FLT-Fuel Pymnt Batch"
                             PurchLine.Validate(Quantity, 1);
                             PurchLine.Validate("Direct Unit Cost", FuelBatchLines."Value of Fuel");
                             PurchLine.Insert(true);
-                            
+
                             // Update the batch line with invoice information
                             FuelBatchLines.Invoiced := true;
                             FuelBatchLines."Invoice No." := PurchHeader."No.";
                             FuelBatchLines."Invoiced By" := UserId;
                             FuelBatchLines.Modify();
-                            
+
                             // Update the original fuel requisition
                             if FuelReq.Get(FuelBatchLines."Requisition No") then begin
                                 FuelReq."Vendor Invoice No" := PurchHeader."No.";
                                 FuelReq.Modify();
                             end;
-                            
+
                             LineNo += 10000;
                         until FuelBatchLines.Next() = 0;
                     end;
-                    
+
                     // Update the batch header
                     Rec.Invoiced := true;
                     Rec."Invoice No." := PurchHeader."No.";
                     Rec."Invoiced By" := UserId;
                     Rec.Modify();
-                    
-                    Message('Purchase Invoice %1 has been created successfully for %2 fuel requisition(s) with a total amount of %3.', 
+
+                    Message('Purchase Invoice %1 has been created successfully for %2 fuel requisition(s) with a total amount of %3.',
                             PurchHeader."No.", FuelBatchLines.Count, TotalAmount);
-                    
+
                     // Open the created invoice
                     PAGE.Run(PAGE::"Purchase Invoice", PurchHeader);
                 end;

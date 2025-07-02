@@ -99,11 +99,11 @@ page 50751 "Lecturer Units List"
                 {
                     ApplicationArea = All;
                 }
-                field("Student Allocation";Rec."Student Allocation")
+                field("Student Allocation"; Rec."Student Allocation")
                 {
                     ApplicationArea = All;
                 }
-                field(Stream;Rec.Stream)
+                field(Stream; Rec.Stream)
                 {
                     ApplicationArea = All;
                 }
@@ -123,7 +123,7 @@ page 50751 "Lecturer Units List"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                
+
                 trigger OnAction()
                 var
                     StreamSplittingMgt: Codeunit "Stream Splitting Mgt";
@@ -132,7 +132,7 @@ page 50751 "Lecturer Units List"
                         StreamSplittingMgt.SplitLecturerUnitIntoStreams(Rec);
                 end;
             }
-            
+
             action("Preview Stream Split")
             {
                 ApplicationArea = All;
@@ -140,7 +140,7 @@ page 50751 "Lecturer Units List"
                 Image = ViewDetails;
                 Promoted = true;
                 PromotedCategory = Process;
-                
+
                 trigger OnAction()
                 var
                     StreamSplittingMgt: Codeunit "Stream Splitting Mgt";
@@ -148,7 +148,7 @@ page 50751 "Lecturer Units List"
                     StreamSplittingMgt.PreviewStreamSplit(Rec);
                 end;
             }
-            
+
             action("Batch Stream Splitting")
             {
                 ApplicationArea = All;

@@ -6,7 +6,7 @@ page 50268 "Audit Recommendations List"
     SourceTable = "Audit Recommendations";
     UsageCategory = Lists;
     CardPageID = "Audit Recommendation Card";
-    
+
     layout
     {
         area(content)
@@ -56,7 +56,7 @@ page 50268 "Audit Recommendations List"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -71,10 +71,10 @@ page 50268 "Audit Recommendations List"
                 PromotedIsBig = true;
                 PromotedOnly = true;
                 ToolTip = 'Edit the selected recommendation.';
-                
+
                 trigger OnAction()
                 begin
-                    
+
                 end;
             }
         }

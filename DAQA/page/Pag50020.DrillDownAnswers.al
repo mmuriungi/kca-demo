@@ -5,7 +5,7 @@ page 52057 "Drill Down Answers"
     PageType = List;
     SourceTable = "Drill Down Answers";
     UsageCategory = Lists;
-    
+
     layout
     {
         area(Content)

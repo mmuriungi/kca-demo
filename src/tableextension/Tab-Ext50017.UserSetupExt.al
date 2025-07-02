@@ -365,5 +365,9 @@ tableextension 50017 UserSetupExt extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
+        field(56675; "Is Cashier"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

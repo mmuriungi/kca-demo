@@ -58,6 +58,10 @@ page 50893 "ACA-Lecturer Units Details"
                 {
                     ApplicationArea = All;
                 }
+                field(Lecturer; Rec.Lecturer)
+                {
+                    ApplicationArea = All;
+                }
                 field(Stream; Rec.Stream)
                 {
                     ApplicationArea = All;
@@ -119,14 +123,17 @@ page 50893 "ACA-Lecturer Units Details"
     var
         Allocations: Record "ACA-Lecturers Units";
     begin
-        Allocations.Reset();
-        Allocations.SetRange(Semester, 'SEM2 24/25');
-        Allocations.SetRange("Student Allocation", 0);
-        Allocations.SetAutoCalcFields("Unit Students Count");
-        Allocations.SetFilter("Unit Students Count", '>%1', 0);
-        if Allocations.FindSet() then begin
-            Allocations.ModifyAll("Student Allocation", Allocations."Unit Students Count");
-        end;
+        // Allocations.Reset();
+        // Allocations.SetRange(Semester, 'SEM2 24/25');
+        // Allocations.SetRange(Stream, '');
+        // Allocations.SetAutoCalcFields("Unit Students Count");
+        // Allocations.SetFilter("Unit Students Count", '<>%1', Allocations."Student Allocation");
+        // if Allocations.FindSet() then begin
+        //     repeat
+        //         Allocations."Student Allocation" := Allocations."Unit Students Count";
+        //         Allocations.Modify();
+        //     until Allocations.Next() = 0;
+        // end;
     end;
 }
 

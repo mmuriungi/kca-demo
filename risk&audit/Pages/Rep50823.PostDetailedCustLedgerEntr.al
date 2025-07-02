@@ -93,7 +93,7 @@ report 50824 "Post Detailed Cust Ledger"
     begin
         "Detailed Cust ledger Custom".SETRANGE("Posting Date", StartDate, EndDate);
         "Detailed Cust ledger Custom".SETRANGE(Posted, FALSE);
-   
+
     end;
 
     var

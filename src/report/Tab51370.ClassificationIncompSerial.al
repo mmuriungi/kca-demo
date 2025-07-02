@@ -2,7 +2,7 @@ table 51370 "Classification Incomp. Serial"
 {
     Caption = 'Classification Incomp. Serial';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Student Number"; Code[20])
@@ -16,7 +16,7 @@ table 51370 "Classification Incomp. Serial"
     }
     keys
     {
-        key(PK; "Student Number",Serial)
+        key(PK; "Student Number", Serial)
         {
             Clustered = true;
         }

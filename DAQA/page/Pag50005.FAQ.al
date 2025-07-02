@@ -3,7 +3,7 @@ page 52054 FAQ
     Caption = 'FAQ';
     PageType = Card;
     SourceTable = FAQ;
-    
+
     layout
     {
         area(Content)
@@ -11,7 +11,7 @@ page 52054 FAQ
             group(General)
             {
                 Caption = 'General';
-                
+
                 field(Question; Rec.Question)
                 {
                     ApplicationArea = All;

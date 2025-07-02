@@ -6,14 +6,14 @@ page 53102 "Medical Claims Subform"
     SourceTable = "HRM-Medical Claims";
     CardPageId = "Medical Claims Card";
     InsertAllowed = false;
-    
+
     layout
     {
         area(content)
         {
             repeater(General)
             {
-               
+
                 field("Claim No"; Rec."Claim No")
                 {
                     ApplicationArea = All;
@@ -61,7 +61,7 @@ page 53102 "Medical Claims Subform"
                     ApplicationArea = All;
                     Editable = false;
                 }
-         
+
                 field(Dependants; Rec.Dependants)
                 {
                     ApplicationArea = All;
@@ -72,7 +72,7 @@ page 53102 "Medical Claims Subform"
                     ApplicationArea = All;
                     Importance = Standard;
                 }
-          
+
                 field("Facility Attended"; Rec."Facility Attended")
                 {
                     ApplicationArea = All;
@@ -87,7 +87,7 @@ page 53102 "Medical Claims Subform"
                 {
                     ApplicationArea = All;
                 }
-          
+
                 field("Claim Currency Code"; Rec."Claim Currency Code")
                 {
                     ApplicationArea = All;
@@ -121,7 +121,7 @@ page 53102 "Medical Claims Subform"
                     Style = Favorable;
                     ToolTip = 'Shows the available balance for this claim type';
                 }
-          
+
                 field(Comments; Rec.Comments)
                 {
                     ApplicationArea = All;
@@ -131,7 +131,7 @@ page 53102 "Medical Claims Subform"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -145,7 +145,7 @@ page 53102 "Medical Claims Subform"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'View the medical claim details';
-                
+
                 trigger OnAction()
                 begin
                     Page.RunModal(Page::"Medical Claims Card", Rec);

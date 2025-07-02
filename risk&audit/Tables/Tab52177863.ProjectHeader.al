@@ -246,13 +246,13 @@ table 50157 "Project Header(new)"
         }
         field(46; "Contract End Notification"; DateFormula)
         {
-            DataClassification=ToBeClassified;
+            DataClassification = ToBeClassified;
         }
         field(47; "Reference No."; Code[50])
         {
             DataClassification = ToBeClassified;
         }
-        
+
 
     }
 

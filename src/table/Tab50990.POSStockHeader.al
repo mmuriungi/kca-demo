@@ -1,4 +1,4 @@
-table 50990 "POS Stock Header"
+table 50990 "POS Stock Header Legacy"
 {
     LookupPageId = "POS Stock Header List";
     DrillDownPageId = "POS Stock Header List";
@@ -65,11 +65,11 @@ table 50990 "POS Stock Header"
     end;
 
     var
-        PosSetup: Record "POS Setup";
+        PosSetup: Record "POS Setup Legacy";
         NoSeriesMgt: Codeunit NoSeriesManagement;
-        stockLines: Record "POS Stock Lines";
-        itemledger: Record "POS Item Ledger";
-        posItem: Record "POS Items";
+        stockLines: Record "POS Stock Lines Legacy";
+        itemledger: Record "POS Item Ledger Legacy";
+        posItem: Record "POS Items Legacy";
 
     procedure postStock()
     begin

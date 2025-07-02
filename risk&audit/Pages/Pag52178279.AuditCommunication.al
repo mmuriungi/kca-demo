@@ -130,7 +130,7 @@ page 50117 "Audit Communication"
 
     var
         InStrm: InStream;
-        OutStrm: OutStream;        
+        OutStrm: OutStream;
         ClearNotification: Notification;
         SMSInStrm: InStream;
         SMSOutStrm: OutStream;

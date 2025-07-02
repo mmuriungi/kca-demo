@@ -1,7 +1,7 @@
 report 50175 "PRL-Payslips"
 {
     DefaultLayout = RDLC;
-    Caption = 'Payslip'; 
+    Caption = 'Payslip';
     RDLCLayout = './PayrollLayouts/Individual Payslips.rdlc';
 
     dataset

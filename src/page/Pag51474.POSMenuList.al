@@ -1,7 +1,7 @@
-page 51474 "POS Menu List"
+page 51474 "POS Menu List Legacy"
 {
     PageType = ListPart;
-    SourceTable = "POS Items";
+    SourceTable = "POS Items Legacy";
     layout
     {
         area(Content)

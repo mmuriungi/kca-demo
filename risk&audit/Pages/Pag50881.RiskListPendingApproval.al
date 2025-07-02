@@ -49,7 +49,7 @@ page 50226 "Risk List Pending Approval"
 
                     trigger OnValidate()
                     begin
-                      
+
                     end;
                 }
             }
@@ -63,7 +63,7 @@ page 50226 "Risk List Pending Approval"
     trigger OnAfterGetRecord()
     begin
 
-        
+
     end;
 
     trigger OnDeleteRecord(): Boolean

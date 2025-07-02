@@ -7,7 +7,7 @@ page 52053 FAQs
     UsageCategory = Lists;
     CardPageId = "FAQ";
 
-    
+
     layout
     {
         area(Content)

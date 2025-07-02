@@ -14,7 +14,7 @@ report 52178547 "FA Proceeds on Disposal"
             column(FAPostingType; "FA Posting Type")
             {
             }
-            
+
             column(DocumentNo; "Document No.")
             {
             }
@@ -127,7 +127,7 @@ report 52178547 "FA Proceeds on Disposal"
     var
         CompInfo: Record "Company Information";
         seq: Integer;
-         PeriodText: Text[100];
+        PeriodText: Text[100];
         Text000: Label 'From %1 To %2';
         FromDate: Date;
         ToDate: Date;

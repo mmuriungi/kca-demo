@@ -216,7 +216,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    Rec.Status:=Rec.Status::Approved;
+                    Rec.Status := Rec.Status::Approved;
                     Rec.Modify;
                     CurrPage.Update;
                 end;

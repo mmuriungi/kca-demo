@@ -7,7 +7,7 @@ codeunit 50107 "Customer Ledger Processor"
         TemplateName: Code[10];
         BatchName: Code[10];
         LineNo: Integer;
-        Custleder: Record  "Cust. Ledger Entry";
+        Custleder: Record "Cust. Ledger Entry";
     begin
         TemplateName := 'GENERAL';
         BatchName := 'DATAIMPORT';

@@ -27,7 +27,7 @@ page 50263 "Select Scope - All"
                 trigger OnValidate()
                 begin
 
-                  
+
                 end;
             }
             field("Scheduled Date"; Rec."Scheduled Date")
@@ -43,13 +43,13 @@ page 50263 "Select Scope - All"
     trigger OnAfterGetCurrRecord()
     begin
 
-       
+
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-       
+
     end;
 
     var

@@ -1,7 +1,7 @@
-page 51466 "POS Setup"
+page 51466 "POS Setup Legacy"
 {
     PageType = Card;
-    SourceTable = "POS Setup";
+    SourceTable = "POS Setup Legacy";
     //InsertAllowed = false;
 
     layout

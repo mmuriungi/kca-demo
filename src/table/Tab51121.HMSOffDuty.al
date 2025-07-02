@@ -123,7 +123,7 @@ table 51121 "HMS-Off Duty"
             HMSSetup.TestField("Sick Leave Cert. Nos.");
             NoSeriesMgt.InitSeries(HMSSetup."Sick Leave Cert. Nos.", xRec."Certificate No.", 0D, "Certificate No.", HMSSetup."Sick Leave Cert. Nos.");
         end;
-        
+
         "Certificate Date" := Today;
         "Created By" := UserId;
         "Created Date" := CurrentDateTime;

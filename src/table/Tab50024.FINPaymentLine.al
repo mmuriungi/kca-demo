@@ -775,41 +775,39 @@ table 50024 "FIN-Payment Line"
                 IF (Rec."Account Type" <> Rec."Account Type"::Customer) AND (Rec."Account Type" <> Rec."Account Type"::Vendor) THEN
                     ERROR('You cannot apply to %1', "Account Type");
 
-                WITH Rec DO BEGIN
-                    Amount := 0;
-                    VALIDATE(Amount);
-                    PayToVendorNo := "Account No.";
-                    VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
-                    VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
-                    VendLedgEntry.SETRANGE(Open, TRUE);
-                    VendLedgEntry.SetRange(Reversed, FALSE);
-                    IF "Applies-to ID" = '' THEN
-                        "Applies-to ID" := No;
-                    IF "Applies-to ID" = '' THEN
-                        ERROR(
-                          Text000,
-                          FIELDCAPTION(No), FIELDCAPTION("Applies-to ID"));
-                    ApplyVendEntries."SetPVLine-Delete"(Rec, Rec.FIELDNO("Applies-to ID"));
-                    ApplyVendEntries.SetPVLine(Rec, VendLedgEntry, Rec.FIELDNO("Applies-to ID"));
-                    ApplyVendEntries.SETRECORD(VendLedgEntry);
-                    ApplyVendEntries.SETTABLEVIEW(VendLedgEntry);
-                    ApplyVendEntries.LOOKUPMODE(TRUE);
-                    OK := ApplyVendEntries.RUNMODAL = ACTION::LookupOK;
-                    CLEAR(ApplyVendEntries);
-                    IF NOT OK THEN
-                        EXIT;
-                    VendLedgEntry.RESET;
-                    VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
-                    VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
-                    VendLedgEntry.SETRANGE(Open, TRUE);
-                    VendLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
-                    VendLedgEntry.SetRange(Reversed, FALSE);
-                    IF VendLedgEntry.FIND('-') THEN BEGIN
-                        "Applies-to Doc. Type" := 0;
-                        "Applies-to Doc. No." := '';
-                    END ELSE
-                        "Applies-to ID" := '';
-                END;
+                Rec.Amount := 0;
+                Rec.VALIDATE(Amount);
+                PayToVendorNo := Rec."Account No.";
+                VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
+                VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
+                VendLedgEntry.SETRANGE(Open, TRUE);
+                VendLedgEntry.SetRange(Reversed, FALSE);
+                IF Rec."Applies-to ID" = '' THEN
+                    Rec."Applies-to ID" := Rec.No;
+                IF Rec."Applies-to ID" = '' THEN
+                    ERROR(
+                      Text000,
+                      Rec.FIELDCAPTION(No), Rec.FIELDCAPTION("Applies-to ID"));
+                ApplyVendEntries."SetPVLine-Delete"(Rec, Rec.FIELDNO("Applies-to ID"));
+                ApplyVendEntries.SetPVLine(Rec, VendLedgEntry, Rec.FIELDNO("Applies-to ID"));
+                ApplyVendEntries.SETRECORD(VendLedgEntry);
+                ApplyVendEntries.SETTABLEVIEW(VendLedgEntry);
+                ApplyVendEntries.LOOKUPMODE(TRUE);
+                OK := ApplyVendEntries.RUNMODAL = ACTION::LookupOK;
+                CLEAR(ApplyVendEntries);
+                IF NOT OK THEN
+                    EXIT;
+                VendLedgEntry.RESET;
+                VendLedgEntry.SETCURRENTKEY("Vendor No.", Open);
+                VendLedgEntry.SETRANGE("Vendor No.", PayToVendorNo);
+                VendLedgEntry.SETRANGE(Open, TRUE);
+                VendLedgEntry.SETRANGE("Applies-to ID", Rec."Applies-to ID");
+                VendLedgEntry.SetRange(Reversed, FALSE);
+                IF VendLedgEntry.FIND('-') THEN BEGIN
+                    Rec."Applies-to Doc. Type" := 0;
+                    Rec."Applies-to Doc. No." := '';
+                END ELSE
+                    Rec."Applies-to ID" := '';
 
                 //Calculate  Total To Apply//Add code to add invoice No
                 VendLedgEntry.RESET;

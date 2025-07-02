@@ -112,8 +112,8 @@ table 50888 "Gen-Venue Booking"
         END;
         if "Requested By" = '' then
             "Requested By" := USERID;
-        "Booking Time":=TIME;
-        "Booking Date":=TODAY;
+        "Booking Time" := TIME;
+        "Booking Date" := TODAY;
         HRMEmployeeC.RESET;
         HRMEmployeeC.SETRANGE("No.", "Staff No.");
         IF HRMEmployeeC.FIND('-') THEN BEGIN

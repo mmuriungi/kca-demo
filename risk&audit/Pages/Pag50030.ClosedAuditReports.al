@@ -11,7 +11,7 @@ page 50249 "Closed Audit Reports"
         {
             repeater(Group)
             {
-                field("No."; Rec."No.") 
+                field("No."; Rec."No.")
                 {
                 }
                 field(Date; Rec.Date)

@@ -2,7 +2,7 @@ table 51369 "Results Exists Status Ref"
 {
     Caption = 'Results Exists Status Ref';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(57; "Results Exists Status"; Option)

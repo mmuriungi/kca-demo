@@ -1,4 +1,4 @@
-table 50986 "POS Item Ledger"
+table 50986 "POS Item Ledger Legacy"
 {
     LookupPageId = "POS Item Ledger";
     DrillDownPageId = "POS Item Ledger";

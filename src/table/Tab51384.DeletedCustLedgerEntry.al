@@ -163,7 +163,7 @@ table 51384 "Deleted Cust Ledger Entry"
             var
                 GenJournalLine: Record "Gen. Journal Line";
             begin
-               
+
             end;
         }
         field(34; "Applies-to Doc. Type"; Enum "Gen. Journal Document Type")
@@ -405,7 +405,7 @@ table 51384 "Deleted Cust Ledger Entry"
 
             trigger OnValidate()
             begin
-                
+
             end;
         }
         field(78; "Pmt. Disc. Tolerance Date"; Date)
@@ -425,7 +425,7 @@ table 51384 "Deleted Cust Ledger Entry"
 
             trigger OnValidate()
             begin
-               
+
             end;
         }
         field(80; "Last Issued Reminder Level"; Integer)
@@ -455,7 +455,7 @@ table 51384 "Deleted Cust Ledger Entry"
 
             trigger OnValidate()
             begin
-                
+
             end;
         }
         field(85; "IC Partner Code"; Code[20])
@@ -519,7 +519,7 @@ table 51384 "Deleted Cust Ledger Entry"
             var
                 IsHandled: Boolean;
             begin
-               
+
             end;
         }
         field(290; "Exported to Payment File"; Boolean)

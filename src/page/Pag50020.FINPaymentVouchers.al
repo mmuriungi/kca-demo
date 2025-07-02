@@ -18,7 +18,7 @@ page 50030 "FIN-Payment Vouchers"
                 {
                     ApplicationArea = All;
                 }
-                field(Payee;Rec.Payee)
+                field(Payee; Rec.Payee)
                 {
                     ApplicationArea = All;
                 }

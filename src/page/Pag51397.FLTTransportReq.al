@@ -509,7 +509,7 @@ page 51397 "FLT-Transport Req."
                     if HOD = UserID then begin
                         //Rec.TestField("Transport Officer");
                         Rec.TestField("Recommed this Request");
-                       // Rec.TestField("Recommendation Reason");
+                        // Rec.TestField("Recommendation Reason");
                         if Confirm('Approve the request ?', true) = false then Error('Cancelled');
                         Rec."Approval Stage" := Rec."Approval Stage"::"Registra HRM";
                         Rec."HOD Approved" := true;

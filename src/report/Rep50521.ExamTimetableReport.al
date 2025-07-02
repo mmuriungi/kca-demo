@@ -75,7 +75,7 @@ report 50521 "Exam Timetable Report"
             column(UnitCode; "Unit Code")
             {
             }
-            column(Day;'')
+            column(Day; '')
             {
 
             }

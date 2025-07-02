@@ -59,6 +59,6 @@ table 51353 "Supp. Exam Units"
         LEcUnits.SetRange(Stage, "Stage Code");
         if LEcUnits.findfirst then
             "Lecturer Code" := LEcUnits."Lecturer";
-        
+
     end;
 }

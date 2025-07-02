@@ -1,7 +1,7 @@
 page 52095 "Retake Exam Details"
 {
     ApplicationArea = All;
-   PageType = List;
+    PageType = List;
     SourceTable = "Aca-Special Exams Details";
     SourceTableView = where(Category = const(Retake));
 

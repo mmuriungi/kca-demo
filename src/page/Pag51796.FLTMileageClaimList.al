@@ -6,7 +6,7 @@ page 52119 "FLT-Mileage Claim List"
     CardPageID = "FLT-Mileage Claim Card";
     ApplicationArea = All;
     UsageCategory = Lists;
-    
+
     layout
     {
         area(Content)
@@ -92,7 +92,7 @@ page 52119 "FLT-Mileage Claim List"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -106,11 +106,11 @@ page 52119 "FLT-Mileage Claim List"
                 PromotedIsBig = true;
                 ApplicationArea = All;
                 Enabled = SendForApprovalEnabled;
-                
+
                 trigger OnAction()
                 var
-                VariantRec: Variant;
-                Approv: Codeunit "Approval Workflows V1";
+                    VariantRec: Variant;
+                    Approv: Codeunit "Approval Workflows V1";
                 begin
                     VariantRec := Rec;
                     if Approv.CheckApprovalsWorkflowEnabled(VariantRec) then begin
@@ -118,7 +118,7 @@ page 52119 "FLT-Mileage Claim List"
                     end;
                 end;
             }
-            
+
             // action(ApproveByTransportOfficer)
             // {
             //     Caption = 'Approve (Transport Officer)';
@@ -129,14 +129,14 @@ page 52119 "FLT-Mileage Claim List"
             //     ApplicationArea = All;
             //     Visible = TransportOfficerVisible;
             //     Enabled = TransportOfficerEnabled;
-                
+
             //     trigger OnAction()
             //     begin
             //         Rec.ApproveByTransportOfficer();
             //         CurrPage.Update(false);
             //     end;
             // }
-            
+
             // action(FinalApproval)
             // {
             //     Caption = 'Final Approval';
@@ -147,7 +147,7 @@ page 52119 "FLT-Mileage Claim List"
             //     ApplicationArea = All;
             //     Visible = FinalApproverVisible;
             //     Enabled = FinalApproverEnabled;
-                
+
             //     trigger OnAction()
             //     begin
             //         Rec.FinalApproval();
@@ -155,7 +155,7 @@ page 52119 "FLT-Mileage Claim List"
             //     end;
             // }
         }
-        
+
         area(Reporting)
         {
             action(PrintPreview)
@@ -166,7 +166,7 @@ page 52119 "FLT-Mileage Claim List"
                 PromotedCategory = Report;
                 PromotedIsBig = true;
                 ApplicationArea = All;
-                
+
                 trigger OnAction()
                 var
                     MileageClaimHeader: Record "FLT-Mileage Claim Header";
@@ -177,7 +177,7 @@ page 52119 "FLT-Mileage Claim List"
                 end;
             }
         }
-        
+
         area(Navigation)
         {
             action(MileageClaimLines)
@@ -192,29 +192,29 @@ page 52119 "FLT-Mileage Claim List"
             }
         }
     }
-    
+
     trigger OnAfterGetRecord()
     begin
         SetControlStates();
     end;
-    
+
     trigger OnAfterGetCurrRecord()
     begin
         SetControlStates();
     end;
-    
+
     trigger OnOpenPage()
     begin
         SetControlStates();
     end;
-    
+
     var
         TransportOfficerVisible: Boolean;
         FinalApproverVisible: Boolean;
         TransportOfficerEnabled: Boolean;
         FinalApproverEnabled: Boolean;
         SendForApprovalEnabled: Boolean;
-    
+
     local procedure SetControlStates()
     var
         UserSetup: Record "User Setup";
@@ -226,26 +226,26 @@ page 52119 "FLT-Mileage Claim List"
             // Add logic to check if user is transport officer
             IsTransportOfficer := true; // Simplified for now
         end;
-        
+
         // Check if current user is final approver (VC/DVC/Registrar)
         IsFinalApprover := true; // Simplified for now
-        
+
         // Set control visibility and enablement
-        TransportOfficerVisible := Rec."Approval Stage" in [Rec."Approval Stage"::"Transport Officer", 
-                                                           Rec."Approval Stage"::"VC/DVC/Registrar", 
+        TransportOfficerVisible := Rec."Approval Stage" in [Rec."Approval Stage"::"Transport Officer",
+                                                           Rec."Approval Stage"::"VC/DVC/Registrar",
                                                            Rec."Approval Stage"::"Fully Approved"];
-        
-        FinalApproverVisible := Rec."Approval Stage" in [Rec."Approval Stage"::"VC/DVC/Registrar", 
+
+        FinalApproverVisible := Rec."Approval Stage" in [Rec."Approval Stage"::"VC/DVC/Registrar",
                                                          Rec."Approval Stage"::"Fully Approved"];
-        
+
         SendForApprovalEnabled := (Rec.Status = Rec.Status::Open) and (Rec."Requested By" = UserId);
-        
-        TransportOfficerEnabled := (Rec.Status = Rec.Status::"Pending Approval") and 
-                                   (Rec."Approval Stage" = Rec."Approval Stage"::"Transport Officer") and 
+
+        TransportOfficerEnabled := (Rec.Status = Rec.Status::"Pending Approval") and
+                                   (Rec."Approval Stage" = Rec."Approval Stage"::"Transport Officer") and
                                    IsTransportOfficer;
-        
-        FinalApproverEnabled := (Rec.Status = Rec.Status::"Pending Approval") and 
-                                (Rec."Approval Stage" = Rec."Approval Stage"::"VC/DVC/Registrar") and 
+
+        FinalApproverEnabled := (Rec.Status = Rec.Status::"Pending Approval") and
+                                (Rec."Approval Stage" = Rec."Approval Stage"::"VC/DVC/Registrar") and
                                 IsFinalApprover;
     end;
 }

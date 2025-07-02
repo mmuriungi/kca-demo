@@ -16,7 +16,7 @@ page 50212 "Audit Report Fav Observation"
                     trigger OnValidate()
                     begin
 
-                      
+
                     end;
                 }
             }

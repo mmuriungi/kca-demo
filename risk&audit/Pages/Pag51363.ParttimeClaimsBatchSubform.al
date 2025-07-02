@@ -4,7 +4,7 @@ page 52099 "Parttime Claims Batch Subform"
     PageType = ListPart;
     SourceTable = "Parttime Claim Header";
     Editable = false;
-    
+
     layout
     {
         area(content)
@@ -49,7 +49,7 @@ page 52099 "Parttime Claims Batch Subform"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)

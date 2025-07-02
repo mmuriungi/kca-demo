@@ -2,7 +2,7 @@ table 51387 "ACA-Exam Proc. Active users"
 {
     Caption = 'ACA-Exam Proc. Active users';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
 

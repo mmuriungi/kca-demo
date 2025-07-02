@@ -113,44 +113,44 @@ table 50625 "Aca-Special Exams Details"
                             ERROR('General Setup does not exist!');
                     end else
                         if Category = Category::Retake THEN BEGIN
-                        ACAGeneralSetUp.RESET;
-                        IF ACAGeneralSetUp.FIND('-') THEN BEGIN
-                            IF GENGeneralSetUp."Retake Fee" <> 0 THEN "Cost Per Exam" := GENGeneralSetUp."Retake Fee";
-                            ACAGeneralSetUp.TESTFIELD("Retake Fee");
-                            ACAGeneralSetUp.TESTFIELD("Retake Fee Code");
-                            ACAGeneralSetUp.TESTFIELD("Transaction Nos.");
-                            ACAStdCharges.RESET;
-                            ACAStdCharges.SETRANGE("Student No.", Rec."Student No.");
-                            ACAStdCharges.SETRANGE(Code, Rec."Unit Code");
-                            ACAStdCharges.SETRANGE(Semester, Rec.Semester);
-                            IF NOT (ACAStdCharges.FIND('-')) THEN BEGIN
-                                ACACourseRegistration.RESET;
-                                ACACourseRegistration.SETRANGE(Reversed, FALSE);
-                                ACACourseRegistration.SETRANGE("Student No.", Rec."Student No.");
-                                IF ACACourseRegistration.FIND('+') THEN BEGIN
-                                    ACAStdCharges.INIT;
-                                    ACAStdCharges."Transacton ID" := NoSeriesManagement.GetNextNo(ACAGeneralSetUp."Transaction Nos.", TODAY, TRUE);
-                                    ACAStdCharges."Student No." := ACACourseRegistration."Student No.";
-                                    ACAStdCharges."Reg. Transacton ID" := ACACourseRegistration."Reg. Transacton ID";
-                                    ACAStdCharges."Reg. Transaction ID" := ACACourseRegistration."Reg. Transacton ID";
-                                    ACAStdCharges.Code := ACAGeneralSetUp."Retake Fee Code";
-                                    ACAStdCharges."Transaction Type" := ACAStdCharges."Transaction Type"::Charges;
-                                    ACAStdCharges.Amount := ACAGeneralSetUp."Retake Fee";
-                                    ACAStdCharges.INSERT;
-                                    ACAUnitsSubjects.RESET;
-                                    ACAUnitsSubjects.SETRANGE("Programme Code", Rec.Programme);
-                                    ACAUnitsSubjects.SETRANGE(Code, Rec."Unit Code");
-                                    IF ACAUnitsSubjects.FIND('-') THEN BEGIN
-                                        ACAStdCharges.Description := ' Retake Unit Billing: ' + ACAUnitsSubjects.Desription;
-                                        ACAStdCharges.MODIFY;
-                                        BillStudent(ACACourseRegistration, ACAUnitsSubjects);     //Billing Stopped till further Notice
+                            ACAGeneralSetUp.RESET;
+                            IF ACAGeneralSetUp.FIND('-') THEN BEGIN
+                                IF GENGeneralSetUp."Retake Fee" <> 0 THEN "Cost Per Exam" := GENGeneralSetUp."Retake Fee";
+                                ACAGeneralSetUp.TESTFIELD("Retake Fee");
+                                ACAGeneralSetUp.TESTFIELD("Retake Fee Code");
+                                ACAGeneralSetUp.TESTFIELD("Transaction Nos.");
+                                ACAStdCharges.RESET;
+                                ACAStdCharges.SETRANGE("Student No.", Rec."Student No.");
+                                ACAStdCharges.SETRANGE(Code, Rec."Unit Code");
+                                ACAStdCharges.SETRANGE(Semester, Rec.Semester);
+                                IF NOT (ACAStdCharges.FIND('-')) THEN BEGIN
+                                    ACACourseRegistration.RESET;
+                                    ACACourseRegistration.SETRANGE(Reversed, FALSE);
+                                    ACACourseRegistration.SETRANGE("Student No.", Rec."Student No.");
+                                    IF ACACourseRegistration.FIND('+') THEN BEGIN
+                                        ACAStdCharges.INIT;
+                                        ACAStdCharges."Transacton ID" := NoSeriesManagement.GetNextNo(ACAGeneralSetUp."Transaction Nos.", TODAY, TRUE);
+                                        ACAStdCharges."Student No." := ACACourseRegistration."Student No.";
+                                        ACAStdCharges."Reg. Transacton ID" := ACACourseRegistration."Reg. Transacton ID";
+                                        ACAStdCharges."Reg. Transaction ID" := ACACourseRegistration."Reg. Transacton ID";
+                                        ACAStdCharges.Code := ACAGeneralSetUp."Retake Fee Code";
+                                        ACAStdCharges."Transaction Type" := ACAStdCharges."Transaction Type"::Charges;
+                                        ACAStdCharges.Amount := ACAGeneralSetUp."Retake Fee";
+                                        ACAStdCharges.INSERT;
+                                        ACAUnitsSubjects.RESET;
+                                        ACAUnitsSubjects.SETRANGE("Programme Code", Rec.Programme);
+                                        ACAUnitsSubjects.SETRANGE(Code, Rec."Unit Code");
+                                        IF ACAUnitsSubjects.FIND('-') THEN BEGIN
+                                            ACAStdCharges.Description := ' Retake Unit Billing: ' + ACAUnitsSubjects.Desription;
+                                            ACAStdCharges.MODIFY;
+                                            BillStudent(ACACourseRegistration, ACAUnitsSubjects);     //Billing Stopped till further Notice
+                                        END;
                                     END;
                                 END;
-                            END;
-                            Rec."Charge Posted" := TRUE;
-                        END ELSE
-                            ERROR('General Setup does not exist!');
-                    END;
+                                Rec."Charge Posted" := TRUE;
+                            END ELSE
+                                ERROR('General Setup does not exist!');
+                        END;
                 END;
 
             end;

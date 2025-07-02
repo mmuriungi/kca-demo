@@ -2,7 +2,7 @@ query 50011 "Survey Student Groups"
 {
     Caption = 'Survey Student Groups';
     QueryType = Normal;
-    
+
     elements
     {
         dataitem(SurveyStudentGroups; "Survey Student Groups")
@@ -15,9 +15,9 @@ query 50011 "Survey Student Groups"
             }
         }
     }
-    
+
     trigger OnBeforeOpen()
     begin
-    
+
     end;
 }

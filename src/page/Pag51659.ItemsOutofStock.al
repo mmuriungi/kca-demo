@@ -1,8 +1,8 @@
 page 51659 "Items Out of Stock"
 {
     PageType = List;
-    SourceTable = "POS Items";
-    CardPageId = "POS Item";
+    SourceTable = "POS Items Legacy";
+    CardPageId = "POS Item Legacy";
     Editable = false;
     SourceTableView = where(Inventory = filter(<= 0));
     layout

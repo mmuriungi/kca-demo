@@ -1,4 +1,4 @@
-page 51229 "POS Sales Reports"
+page 51229 "POS Sales Reports Legacy"
 {
     Caption = 'Receivables Reports';
     DeleteAllowed = false;

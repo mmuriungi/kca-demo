@@ -148,7 +148,7 @@ table 51386 "Timetable Change Log"
 
     keys
     {
-        key(PK; "Entry No.")
+        key(PK; "Entry No.", "Timetable Document No.")
         {
             Clustered = true;
         }

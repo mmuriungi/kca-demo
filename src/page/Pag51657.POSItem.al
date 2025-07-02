@@ -1,8 +1,8 @@
-page 51657 "POS Item"
+page 51657 "POS Item Legacy"
 {
     Caption = 'POS Item';
     PageType = Card;
-    SourceTable = "POS Items";
+    SourceTable = "POS Items Legacy";
 
     layout
     {

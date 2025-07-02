@@ -1,8 +1,8 @@
-page 51475 "POS Stock Header List"
+page 51475 "POS Stock Header List Legacy"
 {
     PageType = List;
-    SourceTable = "POS Stock Header";
-    CardPageId = "POS Stock Header Card";
+    SourceTable = "POS Stock Header Legacy";
+    CardPageId = "POS Stock Header Card Legacy";
     SourceTableView = where(Posted = filter(false));
     Editable = false;
 

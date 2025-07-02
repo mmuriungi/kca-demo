@@ -1,6 +1,6 @@
 xmlport 50019 "Export Cust Ledgers"
 {
-     Caption = 'Export Custom Detailed Customer Ledgers';
+    Caption = 'Export Custom Detailed Customer Ledgers';
     Direction = Export;
     Format = VariableText;
     UseRequestPage = true;
@@ -12,7 +12,7 @@ xmlport 50019 "Export Cust Ledgers"
             tableelement(DetailedCustLedgerCustom; "Detailed Cust ledger Custom")
             {
                 SourceTableView = sorting("Posting Date") where("Entry Type" = const("Initial Entry"));
-                
+
                 fieldelement(DocumentNo; DetailedCustLedgerCustom."Document No.")
                 {
                 }

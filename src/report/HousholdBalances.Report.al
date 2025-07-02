@@ -6,51 +6,52 @@ Report 78097 "Houshold Balances"
 
     dataset
     {
-        dataitem(Customer;Customer)
+        dataitem(Customer; Customer)
         {
-            DataItemTableView = where("Customer Type"=const(Student));
-            RequestFilterFields = "Date Filter","No.";
+            DataItemTableView = where("Customer Type" = const(Student));
+            RequestFilterFields = "Date Filter", "No.";
             column(ReportForNavId_1000000000; 1000000000)
             {
             }
-            column(No_Customer;Customer."No.")
+            column(No_Customer; Customer."No.")
             {
             }
-            column(Name_Customer;Customer.Name)
+            column(Name_Customer; Customer.Name)
             {
             }
-            column(HouseholdDebit;DebitH)
+            column(HouseholdDebit; DebitH)
             {
             }
-            column(HouseholdCredit;CreditH)
+            column(HouseholdCredit; CreditH)
             {
             }
-            column(HouseholdBalance;BalanceH)
+            column(HouseholdBalance; BalanceH)
             {
             }
-            column(CompName;CompanyInfo.Name)
+            column(CompName; CompanyInfo.Name)
             {
             }
-            column(CompPic;CompanyInfo.Picture)
+            column(CompPic; CompanyInfo.Picture)
             {
             }
 
             trigger OnAfterGetRecord()
             begin
                 Bandentry.Reset;
-                Bandentry.SetRange("Student No.",Customer."No.");
+                Bandentry.SetRange("Student No.", Customer."No.");
                 if not Bandentry.FindFirst then CurrReport.Skip;
-                if SyncBalances then Report.Run(Report::"Student Process Nfm",false,false);
+                if SyncBalances then Report.Run(Report::"Student Process Nfm", false, false);
                 NFM.Reset;
-                NFM.SetRange("Student No.",Customer."No.");
-                NFM.SetFilter(Date,DateFilter);
+                NFM.SetRange("Student No.", Customer."No.");
+                NFM.SetFilter(Date, DateFilter);
                 if NFM.FindSet then begin
-                  NFM.CalcFields(Balance);
-                  NFM.CalcSums("Debit amount","Credit amount");
-                  DebitH:=NFM."Debit amount";
-                  CreditH:=NFM."Credit amount";
-                  BalanceH:=NFM.Balance;
-                  end else CurrReport.Skip;
+                    NFM.CalcFields(Balance);
+                    NFM.CalcSums("Debit amount", "Credit amount");
+                    DebitH := NFM."Debit amount";
+                    CreditH := NFM."Credit amount";
+                    BalanceH := NFM.Balance;
+                end else
+                    CurrReport.Skip;
             end;
         }
     }
@@ -62,7 +63,7 @@ Report 78097 "Houshold Balances"
         {
             area(content)
             {
-                field("Sync Balances";SyncBalances)
+                field("Sync Balances"; SyncBalances)
                 {
                     ApplicationArea = Basic;
                 }

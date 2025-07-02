@@ -22,7 +22,7 @@ page 51391 "FLT-Driver Card"
                 field("Driver License Number"; Rec."Driver License Number")
                 {
                     ApplicationArea = All;
-                    Editable=true;
+                    Editable = true;
                 }
                 field("License Class"; Rec."License Class")
                 {

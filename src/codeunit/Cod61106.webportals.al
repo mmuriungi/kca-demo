@@ -9669,7 +9669,8 @@ Codeunit 61106 webportals
         end else
             exit(false);
     end;
-procedure FnCheckSpecialMarksEntryValid(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
+
+    procedure FnCheckSpecialMarksEntryValid(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
     var
         StageSem: Record "ACA-Prog/Stage Sem. Schedule";
     begin
@@ -12275,7 +12276,7 @@ procedure FnCheckSpecialMarksEntryValid(Semester: Code[25]; Programme: Code[25];
         MealBookingLines.SetRange("Booking Id", mealNo);
         if MealBookingLines.FindSet() then begin
             repeat
-            MealBookingLines.CalcFields("Meal Name");
+                MealBookingLines.CalcFields("Meal Name");
                 Clear(JObj);
                 JObj.Add('LineNo', MealBookingLines."Line No.");
                 JObj.Add('MealName', MealBookingLines."Meal Name");

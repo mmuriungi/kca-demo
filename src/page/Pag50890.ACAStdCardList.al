@@ -49,7 +49,7 @@ page 50890 "ACA-Std Card List"
                     Caption = 'Programme Name';
                     ApplicationArea = All;
                 }
-            
+
                 field("Phone No."; Rec."Phone No.")
                 {
                     ApplicationArea = All;
@@ -58,11 +58,11 @@ page 50890 "ACA-Std Card List"
                 {
                     ApplicationArea = All;
                 }
-                field("High School index No.";Rec."High School index No.")
+                field("High School index No."; Rec."High School index No.")
                 {
                     ApplicationArea = All;
                 }
-                field("High School Name";Rec."High School Name")
+                field("High School Name"; Rec."High School Name")
                 {
                     ApplicationArea = All;
                 }

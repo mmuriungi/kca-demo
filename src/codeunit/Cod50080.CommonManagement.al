@@ -1,14 +1,14 @@
 codeunit 50080 "Common Management"
 {
     var
-        PosSetup: Record "POS Setup";
-        posLines: record "POS Sales Lines";
+        PosSetup: Record "POS Setup Legacy";
+        posLines: record "POS Sales Lines Legacy";
         GenJnLine: Record "Gen. Journal Line";
         GenJournBatch: Record "Gen. Journal Batch";
         LineNo: Integer;
-        itemledger: Record "POS Item Ledger";
+        itemledger: Record "POS Item Ledger Legacy";
         Err: Label 'You cannot post a cash sale with amount less that 0';
-        POSSaleHeader: Record "POS Sales Header";
+        POSSaleHeader: Record "POS Sales Header Legacy";
         DocAttachment: Record "Document Attachment";
         cafestudLedger: Record "Reconcile CV Acc Buffer";
         totSalesAmount: Decimal;

@@ -2,7 +2,7 @@ table 51349 "WorkPlan Objectives"
 {
     Caption = 'WorkPlan Objectives';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Document No."; Code[20])
@@ -46,7 +46,7 @@ table 51349 "WorkPlan Objectives"
             DataClassification = ToBeClassified;
         }
     }
-    
+
     keys
     {
         key(PK; "Document No.", "Line No.")
@@ -54,13 +54,13 @@ table 51349 "WorkPlan Objectives"
             Clustered = true;
         }
     }
-    
+
     trigger OnInsert()
     begin
         if "Line No." = 0 then
             "Line No." := GetNextLineNo();
     end;
-    
+
     local procedure GetNextLineNo(): Integer
     var
         WorkPlanObj: Record "WorkPlan Objectives";

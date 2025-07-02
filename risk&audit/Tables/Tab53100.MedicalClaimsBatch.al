@@ -11,7 +11,7 @@ table 53100 "Medical Claims Batch"
         {
             Caption = 'Batch No.';
             DataClassification = ToBeClassified;
-            
+
             trigger OnValidate()
             begin
                 if "Batch No." <> xRec."Batch No." then begin
@@ -64,7 +64,7 @@ table 53100 "Medical Claims Batch"
             Caption = 'Vendor No.';
             DataClassification = ToBeClassified;
             TableRelation = Vendor;
-            
+
             trigger OnValidate()
             var
                 Vendor: Record Vendor;
@@ -142,7 +142,7 @@ table 53100 "Medical Claims Batch"
             Editable = false;
         }
     }
-    
+
     keys
     {
         key(PK; "Batch No.")
@@ -150,7 +150,7 @@ table 53100 "Medical Claims Batch"
             Clustered = true;
         }
     }
-    
+
     trigger OnInsert()
     begin
         if "Batch No." = '' then begin
@@ -158,13 +158,13 @@ table 53100 "Medical Claims Batch"
             HRSetup.TestField("Medical Claims Batch Nos.");
             NoSeriesMgt.InitSeries(HRSetup."Medical Claims Batch Nos.", xRec."No. Series", 0D, "Batch No.", "No. Series");
         end;
-        
+
         "Date Created" := Today;
         "Created By" := UserId;
         Status := Status::Open;
     end;
-    
+
     var
-        HRSetup: Record  "HRM-Setup";
+        HRSetup: Record "HRM-Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
 }

@@ -1,7 +1,7 @@
-page 51467 "POS Item Ledger"
+page 51467 "POS Item Ledger Legacy"
 {
     PageType = List;
-    SourceTable = "POS Item Ledger";
+    SourceTable = "POS Item Ledger Legacy";
     layout
     {
         area(content)

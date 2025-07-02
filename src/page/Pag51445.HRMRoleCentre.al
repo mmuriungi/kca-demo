@@ -270,14 +270,14 @@ page 51445 "HRM-Role Centre"
                 Caption = 'Employee List';
                 Visible = false;
                 RunObject = Page "HRM-Employee List";
-                RunPageView=where("Full / Part Time"=filter(<> "Part Time"));
+                RunPageView = where("Full / Part Time" = filter(<> "Part Time"));
             }
             action(Action23)
             {
                 ApplicationArea = all;
                 Caption = 'Part Time Employee List';
                 RunObject = Page "HRM-Employee List";
-                RunPageView=where("Full / Part Time"=const("Part Time"));
+                RunPageView = where("Full / Part Time" = const("Part Time"));
             }
 
             action(payrolldata)
@@ -301,14 +301,14 @@ page 51445 "HRM-Role Centre"
                     ApplicationArea = all;
                     Caption = 'Employee List';
                     RunObject = Page "HRM-Employee List";
-                    RunPageView=where("Full / Part Time"=filter(<> "Part Time"));
+                    RunPageView = where("Full / Part Time" = filter(<> "Part Time"));
                 }
                 action(Action24)
                 {
                     ApplicationArea = all;
                     Caption = 'Part Time Employee List';
                     RunObject = Page "HRM-Employee List";
-                    RunPageView=where("Full / Part Time"=const("Part Time"));
+                    RunPageView = where("Full / Part Time" = const("Part Time"));
                 }
                 action(Casuals)
                 {

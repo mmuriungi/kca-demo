@@ -1553,11 +1553,11 @@ codeunit 50096 "Timetable Management"
         TimetableEntry.SetRange("Time Slot Code", TimeSlotCode);
         TimetableEntry.SetRange(Semester, Semester);
         TimetableEntry.SetRange("Lecturer Code", LecturerNo);
-        
+
         // If any entry exists for this lecturer at this time, they are busy
         if not TimetableEntry.IsEmpty() then
             exit(true);
-        
+
         // Also check by looking up lecturer in course offerings
         // This handles cases where lecturer code might not be directly on timetable entry
         TimetableEntry.SetRange("Lecturer Code"); // Remove lecturer filter
@@ -1571,11 +1571,11 @@ codeunit 50096 "Timetable Management"
                 // Also consider the stream/group
                 if TimetableEntry."Group No" <> '' then
                     CourseOffering.SetRange(Stream, TimetableEntry."Group No");
-                    
+
                 if CourseOffering.FindFirst() then
                     if CourseOffering.Lecturer = LecturerNo then
                         exit(true);
-                        
+
                 CourseOffering.Reset();
             until TimetableEntry.Next() = 0;
 
@@ -1592,16 +1592,16 @@ codeunit 50096 "Timetable Management"
         TimetableEntry.SetRange(Semester, Semester);
         TimetableEntry.SetRange("Stage Code", Stage);
         TimetableEntry.SetRange("Programme Code", CourseOffering.Programme);
-        
+
         // If same programme and stage already has a class at this time, it's a conflict
         // Unless it's a different stream of the same unit
         if TimetableEntry.FindSet() then
             repeat
                 // If it's the same unit but different stream, that's OK
-                if (TimetableEntry."Unit Code" = CourseOffering.Unit) and 
+                if (TimetableEntry."Unit Code" = CourseOffering.Unit) and
                    (TimetableEntry."Group No" <> CourseOffering.Stream) then
                     exit(false); // Different streams of same unit can be scheduled at same time
-                    
+
                 // If it's a different unit for the same programme/stage, that's a conflict
                 if TimetableEntry."Unit Code" <> CourseOffering.Unit then
                     exit(true);
@@ -1807,7 +1807,7 @@ codeunit 50096 "Timetable Management"
                                 TimetableEntry.Type := TimetableEntry.Type::Class;
                                 TimetableEntry."Session Type" := TimetableEntry."Session Type"::Practical;
                                 TimetableEntry."Document No." := DocumentNo;
-                                
+
                                 // Set the stream from the lecturer units
                                 if CourseOffering.Stream <> '' then
                                     TimetableEntry."Group No" := CourseOffering.Stream;
@@ -1913,7 +1913,7 @@ codeunit 50096 "Timetable Management"
                                     TimetableEntry."Stage Code" := CourseOffering.Stage;
                                     TimetableEntry.Type := TimetableEntry.Type::Class;
                                     TimetableEntry."Session Type" := TimetableEntry."Session Type"::Practical;  // Explicitly mark as practical
-                                    
+
                                     // Set the stream from the lecturer units
                                     if CourseOffering.Stream <> '' then
                                         TimetableEntry."Group No" := CourseOffering.Stream;
@@ -2007,11 +2007,11 @@ codeunit 50096 "Timetable Management"
             TimetableEntry.Type := TimetableEntry.Type::Class;
             TimetableEntry."Session Type" := TimetableEntry."Session Type"::Online;
             TimetableEntry."Document No." := DocumentNo;
-            
+
             // Set the stream from the lecturer units
             if CourseOffering.Stream <> '' then
                 TimetableEntry."Group No" := CourseOffering.Stream;
-                
+
             exit(TimetableEntry.Insert());
         end else begin
             // Use the found virtual room
@@ -2030,11 +2030,11 @@ codeunit 50096 "Timetable Management"
             TimetableEntry.Type := TimetableEntry.Type::Class;
             TimetableEntry."Session Type" := TimetableEntry."Session Type"::Online;
             TimetableEntry."Document No." := DocumentNo;
-            
+
             // Set the stream from the lecturer units
             if CourseOffering.Stream <> '' then
                 TimetableEntry."Group No" := CourseOffering.Stream;
-                
+
             exit(TimetableEntry.Insert());
         end;
     end;
@@ -4758,7 +4758,7 @@ codeunit 50096 "Timetable Management"
 
     local procedure ShouldPreferThisSession(SessionType: Option Morning,Midday,Afternoon): Boolean
     var
-        MorningCount, MiddayCount, AfternoonCount: Integer;
+        MorningCount, MiddayCount, AfternoonCount : Integer;
         MinCount: Integer;
     begin
         // Get current counts

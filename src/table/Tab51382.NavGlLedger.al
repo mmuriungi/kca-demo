@@ -2,7 +2,7 @@ table 51382 "Nav Gl Ledger"
 {
     Caption = 'Nav Gl Ledger';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Entry No."; Integer)

@@ -201,6 +201,7 @@ report 50793 "P.10 Ext"
             companyinfo.CalcFields(companyinfo.Picture);
         end
     end;
+
     var
         StringDate: Date;
         EndDate: Date;

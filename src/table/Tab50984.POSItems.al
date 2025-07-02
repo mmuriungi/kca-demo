@@ -1,7 +1,7 @@
-table 50984 "POS Items"
+table 50984 "POS Items Legacy"
 {
-    LookupPageId = "POS Items";
-    DrillDownPageId = "POS Items";
+    LookupPageId = "POS Items Legacy";
+    DrillDownPageId = "POS Items Legacy";
     fields
     {
         field(1; "No."; Code[30])

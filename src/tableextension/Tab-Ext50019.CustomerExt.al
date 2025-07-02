@@ -1321,15 +1321,15 @@ tableextension 50019 "Customer Ext" extends Customer
         field(63214; "Parent Password"; Text[50])
         {
         }
-        field(63218;"High School index No.";Text[50])
+        field(63218; "High School index No."; Text[50])
         {
             Caption = 'High School index No.';
-            
+
         }
-        field(63219;"High School Name";Text[50])
+        field(63219; "High School Name"; Text[50])
         {
             Caption = 'High School Name';
-            
+
         }
         field(63215; "Changed Parent Password"; Boolean)
         {

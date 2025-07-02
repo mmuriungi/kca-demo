@@ -7,7 +7,7 @@ page 52097 "Parttime Claims Batch List"
     PageType = List;
     SourceTable = "Parttime Claims Batch";
     UsageCategory = Lists;
-    
+
     layout
     {
         area(content)
@@ -70,12 +70,12 @@ page 52097 "Parttime Claims Batch List"
             }
         }
     }
-    
+
     actions
     {
         area(Navigation)
         {
-       
+
         }
         area(Processing)
         {
@@ -85,7 +85,7 @@ page 52097 "Parttime Claims Batch List"
                 Caption = 'Generate PV';
                 Image = Payment;
                 ToolTip = 'Generate payment voucher for this batch.';
-                
+
                 trigger OnAction()
                 begin
                     // Code to generate PV will be implemented here

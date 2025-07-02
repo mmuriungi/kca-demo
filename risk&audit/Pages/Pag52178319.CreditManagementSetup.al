@@ -167,7 +167,7 @@ page 50219 "Credit Management Setup"
                     trigger OnValidate()
                     begin
 
-                        
+
                     end;
                 }
             }
@@ -207,7 +207,7 @@ page 50219 "Credit Management Setup"
 
     trigger OnAfterGetRecord()
     begin
- 
+
     end;
 
     var

@@ -1,4 +1,4 @@
-report 50705 "POS Item Sales"
+report 50705 "POS Item Sales Legacy"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/PosItemSales.rdl';
@@ -16,7 +16,7 @@ report 50705 "POS Item Sales"
             column(Inventory_posItem; Inventory)
             {
             }
-            column(ServingCategory_posItem; "Serving Category")
+            column(ServingCategory_posItem; '')
             {
             }
             column(SalesAmount_posItem; "Sales Amount")

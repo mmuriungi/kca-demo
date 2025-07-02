@@ -680,27 +680,27 @@ Yes	50165	Rectified	Boolean
         field(50172; "Total Levy"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula=Sum("FIN-Payment Line"."Levy Amount" WHERE (No=FIELD("No.")));
+            CalcFormula = Sum("FIN-Payment Line"."Levy Amount" WHERE(No = FIELD("No.")));
         }
         field(50173; "WHT 2 Code"; Code[20])
         {
             FieldClass = FlowField;
-            CalcFormula=Lookup("FIN-Payment Line"."WHT 2 Code" WHERE (No=FIELD("No.")));
+            CalcFormula = Lookup("FIN-Payment Line"."WHT 2 Code" WHERE(No = FIELD("No.")));
         }
         field(50174; "Total WHT2 Amount"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula=Sum("FIN-Payment Line"."WHT 2 Amount" WHERE (No=FIELD("No.")));
+            CalcFormula = Sum("FIN-Payment Line"."WHT 2 Amount" WHERE(No = FIELD("No.")));
         }
         field(50175; "Levy Code"; Code[20])
         {
             FieldClass = FlowField;
-            CalcFormula=Lookup("FIN-Payment Line"."Levy Code" WHERE (No=FIELD("No.")));
+            CalcFormula = Lookup("FIN-Payment Line"."Levy Code" WHERE(No = FIELD("No.")));
         }
         field(50176; "Total Withholding Amount"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula=Sum("FIN-Payment Line"."Withholding Tax Amount" WHERE (No=FIELD("No.")));
+            CalcFormula = Sum("FIN-Payment Line"."Withholding Tax Amount" WHERE(No = FIELD("No.")));
         }
         field(50177; "Rectified"; Boolean)
         {

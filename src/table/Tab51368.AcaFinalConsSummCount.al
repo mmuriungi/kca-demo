@@ -2,7 +2,7 @@ table 51368 "Aca-Final Cons. Summ. Count"
 {
     Caption = 'Aca-Final Cons. Summ. Count';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "User Names"; Code[20])
@@ -28,13 +28,13 @@ table 51368 "Aca-Final Cons. Summ. Count"
     }
     keys
     {
-        key(PK; "User Names","Graduation Academic Year","Programme","Student No.")
+        key(PK; "User Names", "Graduation Academic Year", "Programme", "Student No.")
         {
             Clustered = true;
         }
         key(StudentNo; "Student No.")
         {
-            
+
         }
     }
 }

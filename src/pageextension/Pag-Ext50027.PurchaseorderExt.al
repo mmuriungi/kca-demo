@@ -10,7 +10,8 @@ pageextension 50027 "Purchase order Ext" extends "Purchase Order"
 
         }
         modify("Buy-from")
-        {            Visible = false;
+        {
+            Visible = false;
         }
         modify("No.")
         {

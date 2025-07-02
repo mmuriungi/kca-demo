@@ -2065,7 +2065,7 @@ page 50963 "Process Exams Central Gen. Old"
         ACAExamCourseRegistration: Record "ACA-Exam. Course Registration";
         ACAExamClassificationUnits: Record "ACA-Exam Classification Units";
         ACAExamSuppUnits: Record "ACA-Exam Supp. Units";
-        
+
     begin
         ProgFIls := RefRegularCoRegcs.Programme;
 

@@ -2,7 +2,7 @@ table 51364 "Meal Booking Setup"
 {
     Caption = 'Meal Booking Setup';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; Pk; Code[10])
@@ -12,7 +12,7 @@ table 51364 "Meal Booking Setup"
         field(2; "Meal Booking Nos"; Code[25])
         {
             Caption = 'Meal Booking Nos';
-            TableRelation="No. Series";
+            TableRelation = "No. Series";
         }
     }
     keys

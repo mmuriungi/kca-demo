@@ -1,4 +1,4 @@
-table 51009 
+table 51009
 
 "Maintenance Officer"
 {

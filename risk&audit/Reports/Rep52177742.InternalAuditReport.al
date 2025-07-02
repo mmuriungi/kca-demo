@@ -90,7 +90,7 @@ report 50818 "Internal Audit Report"
                 trigger OnAfterGetRecord()
                 begin
                     //Convert Description to Text
-                    
+
                     DNotesText := Description;
                     ImplicationNotesText := "Risk Implication";
                     CriteriaNotesTxt := "Criteria";

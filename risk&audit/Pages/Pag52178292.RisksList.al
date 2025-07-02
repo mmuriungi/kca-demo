@@ -57,7 +57,7 @@ page 50188 "Risks List"
                     Visible = false;
                     trigger OnValidate()
                     begin
-                        
+
                     end;
                 }
             }
@@ -70,7 +70,7 @@ page 50188 "Risks List"
 
     trigger OnAfterGetRecord()
     begin
-      
+
     end;
 
     trigger OnOpenPage()
@@ -90,7 +90,7 @@ page 50188 "Risks List"
 
     trigger OnDeleteRecord(): Boolean
     begin
-      //  Error('You Are Not Allowed To Delete A Record');
+        //  Error('You Are Not Allowed To Delete A Record');
     end;
 
     var

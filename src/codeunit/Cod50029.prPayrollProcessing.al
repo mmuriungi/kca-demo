@@ -206,7 +206,7 @@ codeunit 50029 prPayrollProcessing
         BalAccType: enum "Gen. Journal Account Type";
         BalAccCode: Code[20];
     begin
-     //   if not (strEmpCode in ['0141', '0002', '0660', '0687', '0233']) then exit;
+        //   if not (strEmpCode in ['0141', '0002', '0660', '0687', '0233']) then exit;
         //Initialize
         if dtDOE = 0D then dtDOE := CalcDate('1M', Today);
         fnInitialize;
@@ -1044,7 +1044,7 @@ codeunit 50029 prPayrollProcessing
                         END;
                     END;
                 END;
-                curTotalDeductions+=curTaxOnExcessPension;
+                curTotalDeductions += curTaxOnExcessPension;
 
                 //Dann
                 //Mortage Relief
@@ -1383,7 +1383,7 @@ codeunit 50029 prPayrollProcessing
             prEmployeeTransactions.SetRange(prEmployeeTransactions."Employee Code", strEmpCode);
             prEmployeeTransactions.SetRange(prEmployeeTransactions."Period Month", intMonth);
             prEmployeeTransactions.SetRange(prEmployeeTransactions."Period Year", intYear);
-            prEmployeeTransactions.SetFilter(prEmployeeTransactions."Transaction Code",'<>%1',gethousinglevycode(Enum::"Payroll Special Transaction"::"Housing Levy"));
+            prEmployeeTransactions.SetFilter(prEmployeeTransactions."Transaction Code", '<>%1', gethousinglevycode(Enum::"Payroll Special Transaction"::"Housing Levy"));
             //prEmployeeTransactions.SETRANGE(prEmployeeTransactions.Suspended,FALSE);
 
             if prEmployeeTransactions.Find('-') then begin
@@ -1703,7 +1703,7 @@ codeunit 50029 prPayrollProcessing
 
                 //END GET TOTAL DEDUCTIONS
             end;
-            curNetPay := curGrossPay - (curDefinedContrib + curNHIF + curPAYE + curPayeArrears + curTotalDeductions + IsCashBenefit  + CurHousingLEvy +curTaxOnExcessPension);
+            curNetPay := curGrossPay - (curDefinedContrib + curNHIF + curPAYE + curPayeArrears + curTotalDeductions + IsCashBenefit + CurHousingLEvy + curTaxOnExcessPension);
             curNetPay := curNetPay;
             curNetPay := curNetPay - curTotCompanyDed; //******Get Company Deduction*****
 

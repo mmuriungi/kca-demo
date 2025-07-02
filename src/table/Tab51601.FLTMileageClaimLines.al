@@ -25,7 +25,7 @@ table 51601 "FLT-Mileage Claim Lines"
         {
             Caption = 'Car Model and Registration No.';
             DataClassification = ToBeClassified;
-            
+
             trigger OnValidate()
             var
                 Vehicle: Record "FLT-Vehicle Header";
@@ -79,7 +79,7 @@ table 51601 "FLT-Mileage Claim Lines"
         {
             Caption = 'Estimated Mileage (KM)';
             DataClassification = ToBeClassified;
-            
+
             trigger OnValidate()
             begin
                 CalculateTotalCost();
@@ -89,7 +89,7 @@ table 51601 "FLT-Mileage Claim Lines"
         {
             Caption = 'Approved Rate Per Km';
             DataClassification = ToBeClassified;
-            
+
             trigger OnValidate()
             begin
                 CalculateTotalCost();
@@ -110,7 +110,7 @@ table 51601 "FLT-Mileage Claim Lines"
         {
             Caption = 'Ending Odometer Reading';
             DataClassification = ToBeClassified;
-            
+
             trigger OnValidate()
             begin
                 if ("Ending Odometer Reading" <> 0) and ("Starting Odometer Reading" <> 0) then begin
@@ -221,13 +221,13 @@ table 51601 "FLT-Mileage Claim Lines"
             if MileageClaimHeader.Status in [MileageClaimHeader.Status::Approved, MileageClaimHeader.Status::Posted] then
                 Error('You cannot add lines to a %1 mileage claim.', MileageClaimHeader.Status);
         end;
-        
+
         // Copy dimensions from header
         if MileageClaimHeader.Get("Mileage Claim No.") then begin
             "Global Dimension 1 Code" := MileageClaimHeader."Global Dimension 1 Code";
             "Shortcut Dimension 2 Code" := MileageClaimHeader."Shortcut Dimension 2 Code";
         end;
-        
+
         Status := Status::Open;
     end;
 

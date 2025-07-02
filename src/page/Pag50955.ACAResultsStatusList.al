@@ -147,9 +147,9 @@ page 50955 "ACA-Results Status List"
                 {
                     ApplicationArea = All;
                 }
-                field("Include CF% Fail";Rec."Include CF% Fail")
+                field("Include CF% Fail"; Rec."Include CF% Fail")
                 {
-                    ApplicationArea=all;
+                    ApplicationArea = all;
                 }
                 field("Min/Max Based on"; Rec."Min/Max Based on")
                 {
