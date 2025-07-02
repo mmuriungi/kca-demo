@@ -472,6 +472,16 @@ page 50779 "ACA-Application Form Header"
                     ApplicationArea = All;
                 }
             }
+            group("&Student Feedback")
+            {
+                Caption= 'Student Feedback';
+              
+                field("Student Feedback"; Rec."Student Feedback")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Student Feedback';
+                }
+            }
             group("Post Graduate")
             {
                 field("Bachelor Institution"; Rec."Bachelor Institution")

@@ -278,6 +278,12 @@ page 51155 "HOD Applicants CARD"
                 field("COD Comments"; Rec."COD Comments")
                 {
                     ApplicationArea = All;
+                    Caption = 'HOD Comments';
+                }
+                field("Student Feedback";Rec."Student Feedback")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Student Feedback';
                 }
             }
 
