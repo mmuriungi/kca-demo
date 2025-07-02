@@ -9669,7 +9669,19 @@ Codeunit 61106 webportals
         end else
             exit(false);
     end;
-
+procedure FnCheckSpecialMarksEntryValid(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
+    var
+        StageSem: Record "ACA-Prog/Stage Sem. Schedule";
+    begin
+        StageSem.Reset;
+        StageSem.SetRange(Code, Semester);
+        StageSem.SetRange("Programme Code", Programme);
+        StageSem.SetRange("Stage Code", Stage);
+        if StageSem.FindFirst then begin
+            exit(Today < StageSem."Special Entry Deadline");
+        end else
+            exit(false);
+    end;
 
     procedure FnCheckSpecialsEntryValid(Semester: Code[25]; Programme: Code[25]; Stage: Code[25]): Boolean
     var
