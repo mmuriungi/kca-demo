@@ -36,15 +36,15 @@ page 50621 "HRM-Employee List"
                 {
                     ApplicationArea = all;
                 }
-                field(Grade;Rec.Grade)
+                field(Grade; Rec.Grade)
                 {
                     ApplicationArea = all;
                 }
-                field(Category;Rec.Category)
+                field(Category; Rec.Category)
                 {
                     ApplicationArea = all;
                 }
-                field(Age;Rec.Age)
+                field(Age; Rec.Age)
                 {
                     ApplicationArea = all;
                 }
@@ -58,27 +58,27 @@ page 50621 "HRM-Employee List"
                 {
                     ApplicationArea = all;
                 }
-                field(Tribe;Rec.Tribe)
+                field(Tribe; Rec.Tribe)
                 {
                     ApplicationArea = all;
                 }
-                field("County Name";Rec."County Name")
+                field("County Name"; Rec."County Name")
                 {
                     ApplicationArea = all;
                 }
-                field("Terms of Service";Rec."Terms of Service")
+                field("Terms of Service"; Rec."Terms of Service")
                 {
                     ApplicationArea = all;
                 }
-                field("Date of Join";Rec."Date of Join")
+                field("Date of Join"; Rec."Date of Join")
                 {
                     ApplicationArea = all;
                 }
-                field(Status;Rec.Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = all;
                 }
-                field("Length Of Service";Rec."Length Of Service")
+                field("Length Of Service"; Rec."Length Of Service")
                 {
                     ApplicationArea = all;
                 }
@@ -998,7 +998,7 @@ page 50621 "HRM-Employee List"
 
     trigger OnAfterGetRecord()
     var
-    NoTxt: Text;
+        NoTxt: Text;
     begin
         NoTxt := Rec."No.";
         if NoTxt.Contains('PT_') then begin

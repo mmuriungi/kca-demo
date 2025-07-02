@@ -1,4 +1,4 @@
-page 51473 "POS Role Center"
+page 51473 "POS Role Center Legacy"
 
 {
     Caption = 'Role Center';
@@ -84,7 +84,7 @@ page 51473 "POS Role Center"
                 {
                     ApplicationArea = All;
                     Image = SalesInvoice;
-                    RunObject = Page "POS Items";
+                    RunObject = Page "POS Items Legacy";
                 }
                 /* action("Stock Adjuctment")
                 {

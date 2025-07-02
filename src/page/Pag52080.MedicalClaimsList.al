@@ -74,13 +74,13 @@ page 52080 "Medical Claims List"
         {
             action(Release)
             {
-                Image=approve;
-                Promoted=true;
-                PromotedCategory=Process;
-                ApplicationArea=all;
+                Image = approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = all;
                 trigger OnAction()
                 begin
-                    Rec.Status:=rec.Status::Approved;
+                    Rec.Status := rec.Status::Approved;
                     Rec.Modify();
                     CurrPage.Update();
                 end;

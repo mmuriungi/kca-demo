@@ -8,7 +8,7 @@ pageextension 50026 "ExtPurchase Order Subform" extends "Purchase Order Subform"
         }
         modify("Direct Unit Cost")
         {
-            Caption='Direct Unit Cost Inclusive VAT';
+            Caption = 'Direct Unit Cost Inclusive VAT';
         }
         addafter("Direct Unit Cost")
         {
@@ -52,7 +52,7 @@ pageextension 50026 "ExtPurchase Order Subform" extends "Purchase Order Subform"
                 ApplicationArea = All;
                 Editable = true;
                 Visible = false;
-              //  MultiLine = true;
+                //  MultiLine = true;
             }
         }
         addafter("Location Code")

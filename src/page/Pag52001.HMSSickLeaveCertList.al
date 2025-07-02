@@ -103,7 +103,7 @@ page 55000 "HMS Sick Leave Cert. List"
                 RunObject = Page "HMS Sick Leave Cert. Card";
                 RunPageMode = Create;
             }
-            
+
             action("Print Certificate")
             {
                 Caption = 'Print Certificate';
@@ -118,11 +118,11 @@ page 55000 "HMS Sick Leave Cert. List"
                 begin
                     CurrPage.SetSelectionFilter(SickLeaveRec);
                     if SickLeaveRec.FindFirst() then
-                        Report.Run(Report::"HMS Sick Leave Certificate", true, false, SickLeaveRec); 
+                        Report.Run(Report::"HMS Sick Leave Certificate", true, false, SickLeaveRec);
                 end;
             }
         }
-        
+
         area(navigation)
         {
             action("View Certificate")

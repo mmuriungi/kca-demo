@@ -85,7 +85,7 @@ page 51452 "CAT-Cafeteria Role Center"
                 {
                     ApplicationArea = All;
                     Image = SalesInvoice;
-                    RunObject = Page "POS Items";
+                    RunObject = Page "POS Items Legacy";
                 }
                 action("Items In Stock")
                 {

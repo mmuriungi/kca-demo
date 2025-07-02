@@ -100,7 +100,7 @@ table 51333 "Internal Audit Champions"
         }
         field(10; "Station Code"; Code[90])
         {
-           
+
         }
 
         field(11; "Station Name"; Code[190])

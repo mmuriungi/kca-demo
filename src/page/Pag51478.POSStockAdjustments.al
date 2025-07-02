@@ -1,8 +1,8 @@
-page 51478 "POS Stock Adjustments"
+page 51478 "POS Stock Adjustments Legacy"
 {
     PageType = ListPart;
-    SourceTable = "POS Stock Header";
-    CardPageId = "POS Stock Header Card";
+    SourceTable = "POS Stock Header Legacy";
+    CardPageId = "POS Stock Header Card Legacy";
     Editable = false;
 
     layout

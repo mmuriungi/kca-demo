@@ -219,7 +219,7 @@ table 50054 "ACA-2ndSuppExam Class. Units"
 
     keys
     {
-        key(PK; "Student No.", "Programme", "Unit Code","Academic Year")
+        key(PK; "Student No.", "Programme", "Unit Code", "Academic Year")
         {
             Clustered = true;
         }

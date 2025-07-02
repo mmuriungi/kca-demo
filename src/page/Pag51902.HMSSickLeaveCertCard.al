@@ -26,7 +26,7 @@ page 52118 "HMS Sick Leave Cert. Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Treatment No.';
-                    
+
                     trigger OnValidate()
                     var
                         TreatmentHeader: Record "HMS-Treatment Form Header";
@@ -36,7 +36,7 @@ page 52118 "HMS Sick Leave Cert. Card"
                     begin
                         if TreatmentHeader.Get(Rec."Treatment No.") then begin
                             Rec."Patient No" := TreatmentHeader."Patient No.";
-                            
+
                             // Get patient details
                             if Patient.Get(TreatmentHeader."Patient No.") then begin
                                 if Patient."Student No." <> '' then begin
@@ -58,7 +58,7 @@ page 52118 "HMS Sick Leave Cert. Card"
                     end;
                 }
             }
-            
+
             group("Patient Details")
             {
                 Caption = 'Patient Details';
@@ -91,7 +91,7 @@ page 52118 "HMS Sick Leave Cert. Card"
                     Caption = 'Department';
                 }
             }
-            
+
             group("Leave Details")
             {
                 Caption = 'Sick Leave Details';
@@ -128,7 +128,7 @@ page 52118 "HMS Sick Leave Cert. Card"
                     MultiLine = true;
                 }
             }
-            
+
             group("Authorization")
             {
                 Caption = 'Authorization';
@@ -167,10 +167,10 @@ page 52118 "HMS Sick Leave Cert. Card"
                     SickLeaveRec.Reset();
                     SickLeaveRec.SetRange("Certificate No.", Rec."Certificate No.");
                     if SickLeaveRec.FindFirst() then
-                        Report.Run(Report::"HMS Sick Leave Certificate", true, false, SickLeaveRec); 
+                        Report.Run(Report::"HMS Sick Leave Certificate", true, false, SickLeaveRec);
                 end;
             }
-            
+
             action("Mark as Issued")
             {
                 Caption = 'Mark as Issued';
@@ -178,7 +178,7 @@ page 52118 "HMS Sick Leave Cert. Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
-                
+
                 trigger OnAction()
                 begin
                     if Confirm('Mark this certificate as issued?', false) then begin
@@ -190,12 +190,12 @@ page 52118 "HMS Sick Leave Cert. Card"
             }
         }
     }
-    
+
     trigger OnAfterGetRecord()
     begin
         UpdateVisibility();
     end;
-    
+
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         Rec."Certificate Date" := Today;
@@ -203,11 +203,11 @@ page 52118 "HMS Sick Leave Cert. Card"
         Rec."Created Date" := CurrentDateTime;
         Rec.Status := Rec.Status::New;
     end;
-    
+
     var
         PFNoVisible: Boolean;
         StudentNoVisible: Boolean;
-        
+
     local procedure UpdateVisibility()
     begin
         PFNoVisible := Rec."PF No." <> '';

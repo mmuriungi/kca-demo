@@ -5,7 +5,7 @@ page 52125 "Band Entry List"
     PageType = List;
     SourceTable = "Funding Band Entries";
     UsageCategory = Lists;
-    
+
     layout
     {
         area(Content)

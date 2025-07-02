@@ -192,7 +192,7 @@ page 51394 "FLT-Vehicle Card"
                 field("Inspection Start Date"; Rec."Inspection Start Date")
                 {
                     ApplicationArea = All;
-                    
+
                 }
                 field("Inspection End Date"; rec."Inspection End Date")
                 {

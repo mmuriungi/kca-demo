@@ -19,7 +19,7 @@ page 50195 "Audit Review"
                     trigger OnValidate()
                     begin
 
-                     
+
                     end;
                 }
                 field("Review Procedure"; DNotesText2)
@@ -27,7 +27,7 @@ page 50195 "Audit Review"
 
                     trigger OnValidate()
                     begin
-                       
+
                     end;
                 }
                 field(Review; Rec.Review)
@@ -78,7 +78,7 @@ page 50195 "Audit Review"
     trigger OnAfterGetCurrRecord()
     begin
 
-        
+
     end;
 
     trigger OnAfterGetRecord()

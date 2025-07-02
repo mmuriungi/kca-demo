@@ -1,4 +1,4 @@
-report 50692 "POS Daily Totals"
+report 50692 "POS Daily Totals Legacy"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/PosDailyPrint.rdl';

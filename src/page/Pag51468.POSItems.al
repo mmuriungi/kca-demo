@@ -1,9 +1,9 @@
-page 51468 "POS Items"
+page 51468 "POS Items Legacy"
 {
     PageType = List;
     Caption = 'All Items';
-    SourceTable = "POS Items";
-    CardPageId = "POS Item";
+    SourceTable = "POS Items Legacy";
+    CardPageId = "POS Item Legacy";
     Editable = false;
     layout
     {

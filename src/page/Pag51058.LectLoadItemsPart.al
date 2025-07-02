@@ -25,6 +25,14 @@ page 51058 "Lect Load Items Part"
                 {
                     ApplicationArea = All;
                 }
+                field("Student Allocation"; Rec."Student Allocation")
+                {
+                    ApplicationArea = All;
+                }
+                field(Stream; Rec.Stream)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

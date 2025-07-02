@@ -5,7 +5,7 @@ page 52109 "Timetable Holidays"
     PageType = List;
     SourceTable = "Timetable Holidays";
     UsageCategory = Lists;
-    
+
     layout
     {
         area(Content)

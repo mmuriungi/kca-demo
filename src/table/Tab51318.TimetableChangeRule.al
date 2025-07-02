@@ -35,7 +35,7 @@ table 51388 "Timetable Change Rule"
         {
             Caption = 'Description';
         }
-        
+
         // Criteria fields for matching
         field(10; "Filter Programme"; Code[20])
         {
@@ -84,7 +84,7 @@ table 51388 "Timetable Change Rule"
         {
             Caption = 'Filter Date To';
         }
-        
+
         // Action fields - what to change to
         field(30; "New Lecturer"; Code[20])
         {
@@ -115,7 +115,7 @@ table 51388 "Timetable Change Rule"
         {
             Caption = 'Cancel Unit';
         }
-        
+
         // Additional options
         field(40; "Change Reason"; Text[250])
         {
@@ -168,9 +168,9 @@ table 51388 "Timetable Change Rule"
 
     trigger OnInsert()
     begin
-        TestField("Timetable Document No.");
-        TestField("Rule Type");
-        TestField("Change Reason");
+        // TestField("Timetable Document No.");
+        // TestField("Rule Type");
+        // TestField("Change Reason");
     end;
 
     trigger OnModify()

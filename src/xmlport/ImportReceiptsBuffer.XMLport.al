@@ -7,30 +7,30 @@ XmlPort 50023 "Import Receipts Buffer"
     {
         textelement(Root)
         {
-            tableelement("<aca-imp. receipts buffer>";"ACA-Imp. Receipts Buffer")
+            tableelement("<aca-imp. receipts buffer>"; "ACA-Imp. Receipts Buffer")
             {
                 AutoReplace = true;
                 AutoUpdate = false;
                 XmlName = 'St';
-                fieldelement(A;"<ACA-Imp. Receipts Buffer>"."Transaction Code")
+                fieldelement(A; "<ACA-Imp. Receipts Buffer>"."Transaction Code")
                 {
                 }
-                fieldelement(B;"<ACA-Imp. Receipts Buffer>".Date)
+                fieldelement(B; "<ACA-Imp. Receipts Buffer>".Date)
                 {
                 }
-                fieldelement(c;"<ACA-Imp. Receipts Buffer>".Description)
+                fieldelement(c; "<ACA-Imp. Receipts Buffer>".Description)
                 {
                 }
-                fieldelement(d;"<ACA-Imp. Receipts Buffer>".Amount)
+                fieldelement(d; "<ACA-Imp. Receipts Buffer>".Amount)
                 {
                 }
-                fieldelement(e;"<ACA-Imp. Receipts Buffer>"."Student No.")
+                fieldelement(e; "<ACA-Imp. Receipts Buffer>"."Student No.")
                 {
                 }
 
                 trigger OnBeforeInsertRecord()
                 begin
-                        //Item."VAT Prod. Posting Group":='ZERO';
+                    //Item."VAT Prod. Posting Group":='ZERO';
 
                 end;
             }

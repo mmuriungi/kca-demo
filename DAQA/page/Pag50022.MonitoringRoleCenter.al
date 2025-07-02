@@ -135,7 +135,7 @@ page 52090 "Quality Assurance & Evaluation"
                 Caption = 'Setup';
                 ToolTip = 'Overview and change system and application settings, and manage extensions and services';
                 Image = Setup;
-                
+
                 action("Quality Assurance Setup")
                 {
                     Caption = 'Quality Assurance Setup';
@@ -144,7 +144,7 @@ page 52090 "Quality Assurance & Evaluation"
                     RunObject = Page "Quality Assurance Setup";
                     ApplicationArea = Basic, Suite;
                 }
-                
+
                 action("Monitoring Questions")
                 {
                     ToolTip = 'Define your company policies for business departments and for general activities by filling setup windows manually.';

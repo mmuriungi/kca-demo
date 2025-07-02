@@ -8,7 +8,7 @@ pageextension 50041 "Worflow Usergroup List" extends "Workflow User Groups"
             {
                 ApplicationArea = all;
             }
-            field("Department Name";Rec."Department Name")
+            field("Department Name"; Rec."Department Name")
             {
                 ApplicationArea = all;
             }

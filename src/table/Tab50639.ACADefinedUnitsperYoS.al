@@ -25,7 +25,7 @@ table 50639 "ACA-Defined Units per YoS"
 
     keys
     {
-        key(Key1; Programmes, "Year of Study", Options,"Academic Year")
+        key(Key1; Programmes, "Year of Study", Options, "Academic Year")
         {
         }
     }

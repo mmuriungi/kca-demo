@@ -76,7 +76,7 @@ page 51747 "HMS Off Duty"
                     END;
                 end;
             }
-            
+
             action("Create Sick Leave Certificate")
             {
                 Caption = 'Create Sick Leave Certificate';
@@ -94,12 +94,12 @@ page 51747 "HMS Off Duty"
                     SickLeaveCert.Init();
                     SickLeaveCert."Treatment No." := Rec."Treatment No.";
                     SickLeaveCert.Insert(true);
-                    
+
                     SickLeavePage.SetRecord(SickLeaveCert);
                     SickLeavePage.Run();
                 end;
             }
-            
+
             action("Sick Leave Certificates")
             {
                 Caption = 'All Sick Leave Certificates';

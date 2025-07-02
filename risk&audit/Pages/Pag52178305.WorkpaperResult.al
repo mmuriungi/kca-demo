@@ -16,7 +16,7 @@ page 50202 "Workpaper Result"
                     //
                     trigger OnValidate()
                     begin
-                        
+
                     end;
                 }
                 field("Description 2"; Rec."Description 2")
@@ -38,12 +38,12 @@ page 50202 "Workpaper Result"
 
     trigger OnAfterGetCurrRecord()
     begin
-      
+
     end;
 
     trigger OnAfterGetRecord()
     begin
-      
+
     end;
 
     var

@@ -19,30 +19,30 @@ codeunit 51316 "Timetable Change Management"
         NewHeader.Type := SourceHeader.Type;
         NewHeader."Linked Timetable No." := SourceHeader."Document No.";
         NewHeader."Timetable Status" := NewHeader."Timetable Status"::Draft;
-        
+
         if NewHeader.Insert(true) then begin
             // Copy all timetable entries from source
             SourceEntry.SetRange("Document No.", SourceHeader."Document No.");
             TotalRecords := SourceEntry.Count();
-            
+
             Window.Open('Copying Timetable Entries\' +
                        'Total: #1###\' +
                        'Current: #2###\' +
                        'Unit: #3##################');
-                       
+
             if SourceEntry.FindSet() then begin
                 repeat
                     CurrentRecord += 1;
                     Window.Update(1, TotalRecords);
                     Window.Update(2, CurrentRecord);
                     Window.Update(3, SourceEntry."Unit Code");
-                    
+
                     // Create new entry based on source
                     NewEntry.Init();
                     NewEntry.TransferFields(SourceEntry);
                     NewEntry."Entry No." := 0; // Auto-increment will assign new number
                     NewEntry."Document No." := NewHeader."Document No.";
-                    
+
                     if NewEntry.Insert(true) then begin
                         // Log the copy action
                         LogTimetableChange(
@@ -63,7 +63,7 @@ codeunit 51316 "Timetable Change Management"
                     end;
                 until SourceEntry.Next() = 0;
             end;
-            
+
             Window.Close();
             Message('Timetable copied successfully. %1 entries copied.', TotalRecords);
         end;
@@ -125,12 +125,12 @@ codeunit 51316 "Timetable Change Management"
         // Get lecturer names for better description
         if OldLecturer.Get(OldLecturerCode) then;
         if NewLecturer.Get(NewLecturerCode) then;
-        
-        Description := StrSubstNo('Lecturer changed from %1 to %2 for %3', 
+
+        Description := StrSubstNo('Lecturer changed from %1 to %2 for %3',
             OldLecturer."First Name" + ' ' + OldLecturer."Last Name",
             NewLecturer."First Name" + ' ' + NewLecturer."Last Name",
             UnitCode);
-            
+
         ChangeLog.Init();
         ChangeLog."Timetable Document No." := TimetableDocNo;
         ChangeLog."Source Document No." := SourceDocNo;
@@ -167,7 +167,7 @@ codeunit 51316 "Timetable Change Management"
         Description: Text[250];
     begin
         Description := StrSubstNo('Room changed from %1 to %2 for %3', OldRoomCode, NewRoomCode, UnitCode);
-            
+
         ChangeLog.Init();
         ChangeLog."Timetable Document No." := TimetableDocNo;
         ChangeLog."Source Document No." := SourceDocNo;
@@ -209,9 +209,9 @@ codeunit 51316 "Timetable Change Management"
         ChangeLog: Record "Timetable Change Log";
         Description: Text[250];
     begin
-        Description := StrSubstNo('Time changed from %1 %2-%3 to %4 %5-%6 for %7', 
+        Description := StrSubstNo('Time changed from %1 %2-%3 to %4 %5-%6 for %7',
             OldDay, OldStartTime, OldEndTime, NewDay, NewStartTime, NewEndTime, UnitCode);
-            
+
         ChangeLog.Init();
         ChangeLog."Timetable Document No." := TimetableDocNo;
         ChangeLog."Source Document No." := SourceDocNo;
@@ -279,10 +279,10 @@ codeunit 51316 "Timetable Change Management"
                 end;
             until ChangeLog.Next() = 0;
         end;
-        
+
         Summary := StrSubstNo('Changes: %1 Lecturer, %2 Room, %3 Time, %4 Unit Added, %5 Unit Removed, %6 Other',
             LecturerChanges, RoomChanges, TimeChanges, UnitAdditions, UnitRemovals, Others);
-            
+
         exit(Summary);
     end;
 
@@ -299,36 +299,36 @@ codeunit 51316 "Timetable Change Management"
         ChangeRule.SetRange(Active, true);
         ChangeRule.SetRange(Applied, false);
         ChangeRule.SetCurrentKey(Priority);
-        
+
         TotalRules := ChangeRule.Count();
         if TotalRules = 0 then
             Error('No active change rules found for this timetable.');
-            
+
         Window.Open('Processing Change Rules\' +
                    'Rule: #1### of #2###\' +
                    'Description: #3######################\' +
                    'Entries Processed: #4###');
-                   
+
         if ChangeRule.FindSet() then begin
             repeat
                 CurrentRule += 1;
                 Window.Update(1, CurrentRule);
                 Window.Update(2, TotalRules);
                 Window.Update(3, ChangeRule.Description);
-                
+
                 TotalChanges += ProcessSingleRule(ChangeRule, PreviewOnly);
-                
+
                 Window.Update(4, TotalChanges);
             until ChangeRule.Next() = 0;
         end;
-        
+
         Window.Close();
-        
+
         if PreviewOnly then
             Message('%1 entries would be affected by the active rules.', TotalChanges)
         else
             Message('%1 entries have been updated successfully.', TotalChanges);
-            
+
         exit(TotalChanges);
     end;
 
@@ -339,7 +339,7 @@ codeunit 51316 "Timetable Change Management"
     begin
         // Build filter based on rule criteria
         TimetableEntry.SetRange("Document No.", ChangeRule."Timetable Document No.");
-        
+
         if ChangeRule."Filter Programme" <> '' then
             TimetableEntry.SetRange("Programme Code", ChangeRule."Filter Programme");
         if ChangeRule."Filter Stage" <> '' then
@@ -356,7 +356,7 @@ codeunit 51316 "Timetable Change Management"
             TimetableEntry.SetRange("Day of Week", ChangeRule."Filter Day" - 1);
         if ChangeRule."Filter Time Slot" <> '' then
             TimetableEntry.SetRange("Time Slot Code", ChangeRule."Filter Time Slot");
-            
+
         if TimetableEntry.FindSet() then begin
             repeat
                 if ShouldApplyRule(TimetableEntry, ChangeRule) then begin
@@ -366,7 +366,7 @@ codeunit 51316 "Timetable Change Management"
                 end;
             until TimetableEntry.Next() = 0;
         end;
-        
+
         if not PreviewOnly then begin
             ChangeRule."Entries Affected" := AffectedEntries;
             ChangeRule.Applied := true;
@@ -374,7 +374,7 @@ codeunit 51316 "Timetable Change Management"
             ChangeRule."Applied By" := UserId;
             ChangeRule.Modify();
         end;
-        
+
         exit(AffectedEntries);
     end;
 
@@ -384,13 +384,13 @@ codeunit 51316 "Timetable Change Management"
         if (ChangeRule."Filter Date From" <> 0D) or (ChangeRule."Filter Date To" <> 0D) then begin
             if TimetableEntry.Date = 0D then
                 exit(true); // If no date on entry, include it
-                
+
             if (ChangeRule."Filter Date From" <> 0D) and (TimetableEntry.Date < ChangeRule."Filter Date From") then
                 exit(false);
             if (ChangeRule."Filter Date To" <> 0D) and (TimetableEntry.Date > ChangeRule."Filter Date To") then
                 exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -411,7 +411,7 @@ codeunit 51316 "Timetable Change Management"
                         OldLecturer := TimetableEntry."Lecturer Code";
                         TimetableEntry."Lecturer Code" := ChangeRule."New Lecturer";
                         TimetableEntry.Modify();
-                        
+
                         LogLecturerChange(
                             TimetableEntry."Document No.",
                             ChangeRule."Timetable Document No.",
@@ -428,14 +428,14 @@ codeunit 51316 "Timetable Change Management"
                         );
                     end;
                 end;
-                
+
             ChangeRule."Rule Type"::"Room Change":
                 begin
                     if ChangeRule."New Room" <> '' then begin
                         OldRoom := TimetableEntry."Lecture Hall Code";
                         TimetableEntry."Lecture Hall Code" := ChangeRule."New Room";
                         TimetableEntry.Modify();
-                        
+
                         LogRoomChange(
                             TimetableEntry."Document No.",
                             ChangeRule."Timetable Document No.",
@@ -452,17 +452,17 @@ codeunit 51316 "Timetable Change Management"
                         );
                     end;
                 end;
-                
+
             ChangeRule."Rule Type"::"Time Change":
                 begin
                     OldDay := TimetableEntry."Day of Week";
                     OldTimeSlot := TimetableEntry."Time Slot Code";
                     OldStartTime := TimetableEntry."Start Time";
                     OldEndTime := TimetableEntry."End Time";
-                    
+
                     if ChangeRule."New Day" <> 0 then
                         TimetableEntry."Day of Week" := ChangeRule."New Day" - 1;
-                        
+
                     if ChangeRule."New Time Slot" <> '' then begin
                         TimetableEntry."Time Slot Code" := ChangeRule."New Time Slot";
                         if TimeSlot.Get(ChangeRule."New Time Slot") then begin
@@ -470,9 +470,9 @@ codeunit 51316 "Timetable Change Management"
                             TimetableEntry."End Time" := TimeSlot."End Time";
                         end;
                     end;
-                    
+
                     TimetableEntry.Modify();
-                    
+
                     LogTimeChange(
                         TimetableEntry."Document No.",
                         ChangeRule."Timetable Document No.",
@@ -494,7 +494,7 @@ codeunit 51316 "Timetable Change Management"
                         TimetableEntry."Entry No."
                     );
                 end;
-                
+
             ChangeRule."Rule Type"::"Unit Cancellation":
                 begin
                     if ChangeRule."Cancel Unit" then begin
@@ -513,17 +513,17 @@ codeunit 51316 "Timetable Change Management"
                             TimetableEntry.Semester,
                             TimetableEntry."Entry No."
                         );
-                        
+
                         TimetableEntry.Delete();
                     end;
                 end;
-                
+
             ChangeRule."Rule Type"::"Stream Reassignment":
                 begin
                     if ChangeRule."New Stream" <> '' then begin
                         TimetableEntry."Group No" := ChangeRule."New Stream";
                         TimetableEntry.Modify();
-                        
+
                         LogTimetableChange(
                             TimetableEntry."Document No.",
                             ChangeRule."Timetable Document No.",
@@ -542,7 +542,7 @@ codeunit 51316 "Timetable Change Management"
                     end;
                 end;
         end;
-        
+
         MarkTimetableAsChanged(TimetableEntry."Document No.");
     end;
 
@@ -559,7 +559,7 @@ codeunit 51316 "Timetable Change Management"
                     if ChangeRule."Filter Lecturer" = '' then
                         ErrorText += 'Filter Lecturer must be specified to identify which lecturer to replace.\';
                 end;
-                
+
             ChangeRule."Rule Type"::"Room Change":
                 begin
                     if ChangeRule."New Room" = '' then
@@ -567,13 +567,13 @@ codeunit 51316 "Timetable Change Management"
                     if ChangeRule."Filter Room" = '' then
                         ErrorText += 'Filter Room must be specified to identify which room to replace.\';
                 end;
-                
+
             ChangeRule."Rule Type"::"Time Change":
                 begin
                     if (ChangeRule."New Day" = 0) and (ChangeRule."New Time Slot" = '') then
                         ErrorText += 'Either New Day or New Time Slot must be specified for Time Change rule.\';
                 end;
-                
+
             ChangeRule."Rule Type"::"Unit Cancellation":
                 begin
                     if not ChangeRule."Cancel Unit" then
@@ -581,19 +581,19 @@ codeunit 51316 "Timetable Change Management"
                     if ChangeRule."Filter Unit" = '' then
                         ErrorText += 'Filter Unit must be specified to identify which unit to cancel.\';
                 end;
-                
+
             ChangeRule."Rule Type"::"Stream Reassignment":
                 begin
                     if ChangeRule."New Stream" = '' then
                         ErrorText += 'New Stream must be specified for Stream Reassignment rule.\';
                 end;
         end;
-        
+
         if ErrorText <> '' then begin
             Error(ErrorText);
             exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -604,7 +604,7 @@ codeunit 51316 "Timetable Change Management"
     begin
         // Build same filter as ProcessSingleRule but just count
         TimetableEntry.SetRange("Document No.", ChangeRule."Timetable Document No.");
-        
+
         if ChangeRule."Filter Programme" <> '' then
             TimetableEntry.SetRange("Programme Code", ChangeRule."Filter Programme");
         if ChangeRule."Filter Stage" <> '' then
@@ -621,7 +621,7 @@ codeunit 51316 "Timetable Change Management"
             TimetableEntry.SetRange("Day of Week", ChangeRule."Filter Day" - 1);
         if ChangeRule."Filter Time Slot" <> '' then
             TimetableEntry.SetRange("Time Slot Code", ChangeRule."Filter Time Slot");
-            
+
         exit(TimetableEntry.Count());
     end;
 }

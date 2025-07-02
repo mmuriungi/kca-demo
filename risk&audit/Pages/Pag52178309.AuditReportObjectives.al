@@ -16,7 +16,7 @@ page 50209 "Audit Report Objectives"
                     trigger OnValidate()
                     begin
 
-                        
+
                     end;
                 }
             }

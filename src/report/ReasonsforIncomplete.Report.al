@@ -6,130 +6,130 @@ Report 66627 "Reasons for Incomplete"
 
     dataset
     {
-        dataitem(StudentsClassification;"ACA-Classification Students")
+        dataitem(StudentsClassification; "ACA-Classification Students")
         {
             CalcFields = "Status Students Count";
-            DataItemTableView = where("Final Classification Pass"=filter(false),"Final Classification"=filter(<>''));
+            DataItemTableView = where("Final Classification Pass" = filter(false), "Final Classification" = filter(<> ''));
             PrintOnlyIfDetail = true;
-            RequestFilterFields = "Graduation Academic Year","School Code",Programme;
+            RequestFilterFields = "Graduation Academic Year", "School Code", Programme;
             column(ReportForNavId_2; 2)
             {
             }
-            column(Filtersz;StudentsClassification.GetFilters)
+            column(Filtersz; StudentsClassification.GetFilters)
             {
             }
-            column(ClassCode;StudentsClassification."Final Classification")
+            column(ClassCode; StudentsClassification."Final Classification")
             {
             }
-            column(GradAcademicYear;StudentsClassification."Graduation Academic Year")
+            column(GradAcademicYear; StudentsClassification."Graduation Academic Year")
             {
             }
-            column(ProgCode;StudentsClassification.Programme)
+            column(ProgCode; StudentsClassification.Programme)
             {
             }
-            column(PassStatus;StudentsClassification."Final Classification Pass")
+            column(PassStatus; StudentsClassification."Final Classification Pass")
             {
             }
-            column(PassStatusOrder;StudentsClassification."Final Classification Order")
+            column(PassStatusOrder; StudentsClassification."Final Classification Order")
             {
             }
-            column(ClassOrders;StudentsClassification."Final Classification Order")
+            column(ClassOrders; StudentsClassification."Final Classification Order")
             {
             }
-            column(ClassOrder;StudentsClassification."Final Classification Order")
+            column(ClassOrder; StudentsClassification."Final Classification Order")
             {
             }
-            column(YearOfStudy;StudentsClassification."Year of Study")
+            column(YearOfStudy; StudentsClassification."Year of Study")
             {
             }
-            column(PassOrder;StudentsClassification."Final Classification Order")
+            column(PassOrder; StudentsClassification."Final Classification Order")
             {
             }
-            column(Pics;CompInf.Picture)
+            column(Pics; CompInf.Picture)
             {
             }
-            column(Compname;UpperCase(CompInf.Name))
+            column(Compname; UpperCase(CompInf.Name))
             {
             }
-            column(StatusOrderCompiled;StatusOrder)
+            column(StatusOrderCompiled; StatusOrder)
             {
             }
-            column(statusCompiled;statusCompiled)
+            column(statusCompiled; statusCompiled)
             {
             }
-            column(StatusCode;StudentsClassification."Final Classification")
+            column(StatusCode; StudentsClassification."Final Classification")
             {
             }
-            column(StatusDesc;ACAResultsStatus.Description)
+            column(StatusDesc; ACAResultsStatus.Description)
             {
             }
-            column(SummaryPageCaption;ACAResultsStatus."Summary Page Caption")
+            column(SummaryPageCaption; ACAResultsStatus."Summary Page Caption")
             {
             }
-            column(StatusOrder;StudentsClassification."Final Classification Order")
+            column(StatusOrder; StudentsClassification."Final Classification Order")
             {
             }
-            column(StatCodes;ACAResultsStatus.Code)
+            column(StatCodes; ACAResultsStatus.Code)
             {
             }
-            column(ApprovalsClaimer;'Approved by the board of the Examiners of the  '+FacDesc+' at a meeting held on:')
+            column(ApprovalsClaimer; 'Approved by the board of the Examiners of the  ' + FacDesc + ' at a meeting held on:')
             {
             }
-            column(ProgName;progName)
+            column(ProgName; progName)
             {
             }
-            column(facCode;facCode)
+            column(facCode; facCode)
             {
             }
-            column(FacDesc;FacDesc)
+            column(FacDesc; FacDesc)
             {
             }
-            column(YoS;StudentsClassification."Year of Study")
+            column(YoS; StudentsClassification."Year of Study")
             {
             }
-            column(AcadYear;StudentsClassification."Graduation Academic Year")
+            column(AcadYear; StudentsClassification."Graduation Academic Year")
             {
             }
-            column(YearOfStudyText;YearOfStudyText)
+            column(YearOfStudyText; YearOfStudyText)
             {
             }
-            column(NextYear;NextYear)
+            column(NextYear; NextYear)
             {
             }
-            column(SaltedExamStatusDesc;'In the year '+StudentsClassification."Graduation Academic Year"+' '+SaltedExamStatusDesc)
+            column(SaltedExamStatusDesc; 'In the year ' + StudentsClassification."Graduation Academic Year" + ' ' + SaltedExamStatusDesc)
             {
             }
-            column(SaltedExamStatus;SaltedExamStatus)
+            column(SaltedExamStatus; SaltedExamStatus)
             {
             }
-            column(YoSTexed;YoS)
+            column(YoSTexed; YoS)
             {
             }
-            column(ExamStatus;StudentsClassification."Final Classification")
+            column(ExamStatus; StudentsClassification."Final Classification")
             {
             }
-            column(Names;Cust.Name)
+            column(Names; Cust.Name)
             {
             }
-            column(StudNo;StudentsClassification."Student Number")
+            column(StudNo; StudentsClassification."Student Number")
             {
             }
-            column(Required;StudentsClassification."Required Stage Units")
+            column(Required; StudentsClassification."Required Stage Units")
             {
             }
-            column(Attained;StudentsClassification."Attained Stage Units")
+            column(Attained; StudentsClassification."Attained Stage Units")
             {
             }
-            dataitem(NotGradReason;"ACA-Not Graduating Reasons")
+            dataitem(NotGradReason; "ACA-Not Graduating Reasons")
             {
-                DataItemLink = "Student No."=field("Student Number"),"Graduation Academic Year"=field("Graduation Academic Year");
+                DataItemLink = "Student No." = field("Student Number"), "Graduation Academic Year" = field("Graduation Academic Year");
                 column(ReportForNavId_28; 28)
                 {
                 }
-                column(ResonCode;NotGradReason."Reason Code")
+                column(ResonCode; NotGradReason."Reason Code")
                 {
                 }
-                column(ReasonDetails;NotGradReason."Reason Details")
+                column(ReasonDetails; NotGradReason."Reason Details")
                 {
                 }
             }
@@ -139,14 +139,14 @@ Report 66627 "Reasons for Incomplete"
                 Clear(NextYear);
                 Clear(YearOfStudyText);
                 Clear(YoS);
-                YoS:=GetYearofStudyText(StudentsClassification."Year of Study");
-                YearOfStudyText:=YoS;
-                  Clear(IsaForthYear);
-                  IsaForthYear:=true;
-                  Clear(statusCompiled);
-                 // IsaForthYear:=ACACourseRegistration741."Is Final Year Student";
-                 // IF ((ACACourseRegistration741.Stage='Y4S1') OR (ACACourseRegistration741.Stage='Y4S2')) THEN
-                 //   IsaForthYear:=TRUE;
+                YoS := GetYearofStudyText(StudentsClassification."Year of Study");
+                YearOfStudyText := YoS;
+                Clear(IsaForthYear);
+                IsaForthYear := true;
+                Clear(statusCompiled);
+                // IsaForthYear:=ACACourseRegistration741."Is Final Year Student";
+                // IF ((ACACourseRegistration741.Stage='Y4S1') OR (ACACourseRegistration741.Stage='Y4S2')) THEN
+                //   IsaForthYear:=TRUE;
                 // // CLEAR(StatusOrder);
                 // // IF StudentsClassification."Final Classification Pass" = FALSE THEN BEGIN
                 // // statusCompiled:='INCOMPLETE RESULTS LIST';
@@ -159,47 +159,47 @@ Report 66627 "Reasons for Incomplete"
 
                 Clear(progName);
                 Prog.Reset;
-                Prog.SetRange(Code,StudentsClassification.Programme);
+                Prog.SetRange(Code, StudentsClassification.Programme);
                 if Prog.Find('-') then begin
-                  progName:=Prog.Description;
-                  end;
+                    progName := Prog.Description;
+                end;
 
                 //Get the Department
                 Clear(FacDesc);
                 Clear(facCode);
-                FacDesc:=StudentsClassification."School Name";
-                  facCode:=StudentsClassification."School Code";
+                FacDesc := StudentsClassification."School Name";
+                facCode := StudentsClassification."School Code";
 
 
                 Clear(SaltedExamStatus);
                 Clear(SaltedExamStatusDesc);
-                SaltedExamStatus:=ACAResultsStatus.Code+facCode+Prog.Code+
-                Format(StudentsClassification."Year of Study")+
+                SaltedExamStatus := ACAResultsStatus.Code + facCode + Prog.Code +
+                Format(StudentsClassification."Year of Study") +
                 StudentsClassification."Graduation Academic Year";
                 Clear(NoOfStudents);
                 Clear(NoOfStudentsDecimal);
 
                 ACAResultsStatus.Reset;
 
-                ACAResultsStatus.SetRange(Code,'PASS');
+                ACAResultsStatus.SetRange(Code, 'PASS');
                 //SaltedExamStatusDesc:=ClassHeader.Msg1;
                 Clear(NoOfStudentInText);
                 StudentsClassification.CalcFields("Status Students Count");
-                NoOfStudents:=StudentsClassification."Status Students Count";
-                if NoOfStudents<>0 then NoOfStudentInText:=ConvertDecimalToText.InitiateConvertion(NoOfStudents);
+                NoOfStudents := StudentsClassification."Status Students Count";
+                if NoOfStudents <> 0 then NoOfStudentInText := ConvertDecimalToText.InitiateConvertion(NoOfStudents);
                 if ACAResultsStatus.Find('-') then begin
-                if ACAResultsStatus."Include Class Variable 1" then SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+NoOfStudentInText+' ('+Format(NoOfStudents)+') '+ACAResultsStatus."Classification Msg2";
-                if  ACAResultsStatus."Include Class Variable 2" then SaltedExamStatusDesc:=SaltedExamStatusDesc +' '+FacDesc+' '+ACAResultsStatus."Classification Msg3"+' '+progName+' '+Prog."Exam Category";
-                if ACAResultsStatus."Include Class Variable 3" then SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+ACAResultsStatus."Classification Msg4";
-                //IF ACAResultsStatus."Include Class Variable 4" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+progName+' '+ClassHeader.Msg5;
-                // IF ACAResultsStatus."Include Class Variable 5" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc;//+' '+NextYear;
-                // IF ACAResultsStatus."Include Class Variable 6" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+ClassHeader.Msg6;
-                SaltedExamStatusDesc:= SaltedExamStatusDesc+' '+ACAResultsStatus."Final Year Comment";
+                    if ACAResultsStatus."Include Class Variable 1" then SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + NoOfStudentInText + ' (' + Format(NoOfStudents) + ') ' + ACAResultsStatus."Classification Msg2";
+                    if ACAResultsStatus."Include Class Variable 2" then SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + FacDesc + ' ' + ACAResultsStatus."Classification Msg3" + ' ' + progName + ' ' + Prog."Exam Category";
+                    if ACAResultsStatus."Include Class Variable 3" then SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + ACAResultsStatus."Classification Msg4";
+                    //IF ACAResultsStatus."Include Class Variable 4" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+progName+' '+ClassHeader.Msg5;
+                    // IF ACAResultsStatus."Include Class Variable 5" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc;//+' '+NextYear;
+                    // IF ACAResultsStatus."Include Class Variable 6" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+ClassHeader.Msg6;
+                    SaltedExamStatusDesc := SaltedExamStatusDesc + ' ' + ACAResultsStatus."Final Year Comment";
                 end;
 
-                 Cust.Reset;
-                 Cust.SetRange("No.",StudentsClassification."Student Number");
-                 if Cust.Find('-') then;
+                Cust.Reset;
+                Cust.SetRange("No.", StudentsClassification."Student Number");
+                if Cust.Find('-') then;
             end;
 
             trigger OnPreDataItem()
@@ -267,8 +267,8 @@ Report 66627 "Reasons for Incomplete"
         NoOfStudentsDecimal: Text;
         ACAStudentUnits: Record "ACA-Exam Classification Units";
         CountedRecs: Integer;
-        UnitCodes: array [30] of Text[50];
-        UnitDescs: array [30] of Text[150];
+        UnitCodes: array[30] of Text[50];
+        UnitDescs: array[30] of Text[150];
         UnitCodeLabel: Text;
         UnitDescriptionLabel: Text;
         NoOfStudents: Integer;
@@ -339,8 +339,8 @@ Report 66627 "Reasons for Incomplete"
         ACAUnitsSubjects: Record "ACA-Units/Subjects";
         incounts: Integer;
     begin
-        if StudentsClassification.GetFilter("Graduation Academic Year")='' then Error('Missing Academic years Filter');
-        if StudentsClassification.GetFilter("School Code")='' then Error('Missing Faculty');
+        if StudentsClassification.GetFilter("Graduation Academic Year") = '' then Error('Missing Academic years Filter');
+        if StudentsClassification.GetFilter("School Code") = '' then Error('Missing Faculty');
         // //
         // // ACAClassificationHeader.RESET;
         // // ACAClassificationHeader.SETRANGE("User ID",USERID);
@@ -482,8 +482,8 @@ Report 66627 "Reasons for Incomplete"
         NoOfCausesFailedValue: Integer;
         NoOfStudentsDecimal: Text;
         CountedRecs: Integer;
-        UnitCodes: array [30] of Text[50];
-        UnitDescs: array [30] of Text[150];
+        UnitCodes: array[30] of Text[50];
+        UnitDescs: array[30] of Text[150];
         UnitCodeLabel: Text;
         UnitDescriptionLabel: Text;
         NoOfStudents: Integer;
@@ -546,13 +546,13 @@ Report 66627 "Reasons for Incomplete"
     local procedure GetYearofStudyText(Yos: Integer) YosText: Text[150]
     begin
         Clear(YosText);
-        if Yos=1 then YosText:='FIRST';
-        if Yos=2 then YosText:='SECOND';
-        if Yos=3 then YosText:='THIRD';
-        if Yos=4 then YosText:='FORTH';
-        if Yos=5 then YosText:='FIFTH';
-        if Yos=6 then YosText:='SIXTH';
-        if Yos=7 then YosText:='SEVENTH';
+        if Yos = 1 then YosText := 'FIRST';
+        if Yos = 2 then YosText := 'SECOND';
+        if Yos = 3 then YosText := 'THIRD';
+        if Yos = 4 then YosText := 'FORTH';
+        if Yos = 5 then YosText := 'FIFTH';
+        if Yos = 6 then YosText := 'SIXTH';
+        if Yos = 7 then YosText := 'SEVENTH';
     end;
 
     local procedure FormatNames(CommonName: Text[250]) NewName: Text[250]
@@ -570,33 +570,33 @@ Report 66627 "Reasons for Incomplete"
         Clear(SpaceCount);
         Clear(SpaceFound);
         Clear(OtherNames);
-        if StrLen(CommonName)>100 then  CommonName:=CopyStr(CommonName,1,100);
-        Strlegnth:=StrLen(CommonName);
-        if StrLen(CommonName)>4 then begin
-          NamesSmall:=Lowercase(CommonName);
-          repeat
+        if StrLen(CommonName) > 100 then CommonName := CopyStr(CommonName, 1, 100);
+        Strlegnth := StrLen(CommonName);
+        if StrLen(CommonName) > 4 then begin
+            NamesSmall := Lowercase(CommonName);
+            repeat
             begin
-              SpaceCount+=1;
-              if ((CopyStr(NamesSmall,SpaceCount,1)='') or (CopyStr(NamesSmall,SpaceCount,1)=' ') or (CopyStr(NamesSmall,SpaceCount,1)=',')) then SpaceFound:=true;
-              if not SpaceFound then begin
-                FirsName:=FirsName+UpperCase(CopyStr(NamesSmall,SpaceCount,1));
-                end else  begin
-                  if StrLen(OtherNames)<150 then begin
-                if ((CopyStr(NamesSmall,SpaceCount,1)='') or (CopyStr(NamesSmall,SpaceCount,1)=' ') or (CopyStr(NamesSmall,SpaceCount,1)=',')) then begin
-                  OtherNames:=OtherNames+' ';
-                SpaceCount+=1;
-                  OtherNames:=OtherNames+UpperCase(CopyStr(NamesSmall,SpaceCount,1));
-                  end else begin
-                  OtherNames:=OtherNames+CopyStr(NamesSmall,SpaceCount,1);
-                    end;
+                SpaceCount += 1;
+                if ((CopyStr(NamesSmall, SpaceCount, 1) = '') or (CopyStr(NamesSmall, SpaceCount, 1) = ' ') or (CopyStr(NamesSmall, SpaceCount, 1) = ',')) then SpaceFound := true;
+                if not SpaceFound then begin
+                    FirsName := FirsName + UpperCase(CopyStr(NamesSmall, SpaceCount, 1));
+                end else begin
+                    if StrLen(OtherNames) < 150 then begin
+                        if ((CopyStr(NamesSmall, SpaceCount, 1) = '') or (CopyStr(NamesSmall, SpaceCount, 1) = ' ') or (CopyStr(NamesSmall, SpaceCount, 1) = ',')) then begin
+                            OtherNames := OtherNames + ' ';
+                            SpaceCount += 1;
+                            OtherNames := OtherNames + UpperCase(CopyStr(NamesSmall, SpaceCount, 1));
+                        end else begin
+                            OtherNames := OtherNames + CopyStr(NamesSmall, SpaceCount, 1);
+                        end;
 
-                end;
+                    end;
                 end;
             end;
-              until ((SpaceCount=Strlegnth))
-          end;
-          Clear(NewName);
-        NewName:=FirsName+','+OtherNames;
+            until ((SpaceCount = Strlegnth))
+        end;
+        Clear(NewName);
+        NewName := FirsName + ',' + OtherNames;
     end;
 }
 

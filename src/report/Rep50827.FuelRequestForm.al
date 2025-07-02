@@ -3,25 +3,25 @@ report 50827 "FuelRequest Form"
     ApplicationArea = All;
     Caption = 'FuelRequest Form';
     UsageCategory = ReportsAndAnalysis;
-    DefaultLayout=RDLC;
-    RDLCLayout='./Layouts/FuelRequestForm.rdl';
+    DefaultLayout = RDLC;
+    RDLCLayout = './Layouts/FuelRequestForm.rdl';
     dataset
     {
         dataitem(FLTFuelMaintenanceReq; "FLT-Fuel & Maintenance Req.")
         {
-            column(CompName;CompanyInformation.Name)
+            column(CompName; CompanyInformation.Name)
             {
             }
-            column(Address;CompanyInformation.Address+' ,'+CompanyInformation."Address 2"+' ,'+CompanyInformation.City)
+            column(Address; CompanyInformation.Address + ' ,' + CompanyInformation."Address 2" + ' ,' + CompanyInformation.City)
             {
             }
-            column(conts;CompanyInformation."Phone No."+' '+CompanyInformation."Phone No. 2")
+            column(conts; CompanyInformation."Phone No." + ' ' + CompanyInformation."Phone No. 2")
             {
             }
-            column(mails;CompanyInformation."E-Mail"+' '+CompanyInformation."Home Page")
+            column(mails; CompanyInformation."E-Mail" + ' ' + CompanyInformation."Home Page")
             {
             }
-            column(Logo;CompanyInformation.Picture)
+            column(Logo; CompanyInformation.Picture)
             {
             }
             column(BatteryWater; "Battery Water")
@@ -168,18 +168,18 @@ report 50827 "FuelRequest Form"
             column(ApproverID; Approv."Approver ID")
             {
             }
-            trigger OnAfterGetRecord()  
+            trigger OnAfterGetRecord()
             begin
                 Approv.Reset();
-                approv.SetRange("Document No.","Requisition No");
-                Approv.SetRange("Table ID",Database::"FLT-Fuel & Maintenance Req.");
-                Approv.SetRange("Status",Approv.Status::Approved);
+                approv.SetRange("Document No.", "Requisition No");
+                Approv.SetRange("Table ID", Database::"FLT-Fuel & Maintenance Req.");
+                Approv.SetRange("Status", Approv.Status::Approved);
                 if Approv.FindLast() then begin
                     if UserSetup.Get(Approv."Approver ID") then begin
                         UserSetup.CalcFields("User Signature");
-                    end;  
+                    end;
                 end;
-                
+
             end;
         }
     }
@@ -206,6 +206,7 @@ report 50827 "FuelRequest Form"
         CompanyInformation.Get();
         CompanyInformation.CalcFields(Picture);
     end;
+
     var
         CompanyInformation: Record "Company Information";
         Approv: Record "Approval Entry";

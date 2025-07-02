@@ -2,7 +2,7 @@ page 50103 "Audit Cues"
 {
     Caption = 'Audit Management Cues';
     PageType = CardPart;
-  //  SourceTable = "Common Activities Role Center";
+    //  SourceTable = "Common Activities Role Center";
     RefreshOnActivate = true;
 
     layout

@@ -6,184 +6,184 @@ Report 66625 "ACA-Graduation List"
 
     dataset
     {
-        dataitem(ExamCoregcs;"ACA-Classification Course Reg.")
+        dataitem(ExamCoregcs; "ACA-Classification Course Reg.")
         {
-            CalcFields = "Is Pass","Program Grad. List Count";
-            DataItemTableView = where("Is Pass"=filter(true));
-            RequestFilterFields = Programme,"Graduation Academic Year","Year of Study";
+            CalcFields = "Is Pass", "Program Grad. List Count";
+            DataItemTableView = where("Is Pass" = filter(true));
+            RequestFilterFields = Programme, "Graduation Academic Year", "Year of Study";
             column(ReportForNavId_2901; 2901)
             {
             }
-            column(ProgDesc;ACAProgrammeOptions.Desription)
+            column(ProgDesc; ACAProgrammeOptions.Desription)
             {
             }
-            column(RubricDesc;ACAResultsStatus.Description)
+            column(RubricDesc; ACAResultsStatus.Description)
             {
             }
-            column(RegNo;RegNo)
+            column(RegNo; RegNo)
             {
             }
-            column(Names;Names)
+            column(Names; Names)
             {
             }
-            column(Compname;UpperCase(CompInf.Name))
+            column(Compname; UpperCase(CompInf.Name))
             {
             }
-            column(Pics;CompInf.Picture)
+            column(Pics; CompInf.Picture)
             {
             }
-            column(AllowOptions;AllowOptions)
+            column(AllowOptions; AllowOptions)
             {
             }
-            column(Progoptions;ProgOpts.Desription)
+            column(Progoptions; ProgOpts.Desription)
             {
             }
-            column(StatusCode;ExamCoregcs.Classification)
+            column(StatusCode; ExamCoregcs.Classification)
             {
             }
-            column(StatusDesc;ExamCoregcs.Classification)
+            column(StatusDesc; ExamCoregcs.Classification)
             {
             }
-            column(SummaryPageCaption;ACAResultsStatus."Summary Page Caption")
+            column(SummaryPageCaption; ACAResultsStatus."Summary Page Caption")
             {
             }
-            column(StatusOrder;ACAResultsStatus."Order No")
+            column(StatusOrder; ACAResultsStatus."Order No")
             {
             }
-            column(StatCodes;ExamCoregcs.Classification)
+            column(StatCodes; ExamCoregcs.Classification)
             {
             }
-            column(ApprovalsClaimer;'Approved by the board of the Examiners of the  '+ExamCoregcs."School Name"+' at a meeting held on:')
+            column(ApprovalsClaimer; 'Approved by the board of the Examiners of the  ' + ExamCoregcs."School Name" + ' at a meeting held on:')
             {
             }
-            column(StudNo;ExamCoregcs."Student Number")
+            column(StudNo; ExamCoregcs."Student Number")
             {
             }
-            column(Progs;ExamCoregcs.Programme)
+            column(Progs; ExamCoregcs.Programme)
             {
             }
-            column(ProgName;progName)
+            column(ProgName; progName)
             {
             }
-            column(facCode;facCode)
+            column(facCode; facCode)
             {
             }
-            column(FacDesc;FacDesc)
+            column(FacDesc; FacDesc)
             {
             }
-            column(YoS;ExamCoregcs."Year of Study")
+            column(YoS; ExamCoregcs."Year of Study")
             {
             }
-            column(AcadYear;ExamCoregcs."Graduation Academic Year")
+            column(AcadYear; ExamCoregcs."Graduation Academic Year")
             {
             }
-            column(YearOfStudyText;YearOfStudyText)
+            column(YearOfStudyText; YearOfStudyText)
             {
             }
-            column(NextYear;NextYear)
+            column(NextYear; NextYear)
             {
             }
-            column(SaltedExamStatusDesc;SaltedExamStatusDesc)
+            column(SaltedExamStatusDesc; SaltedExamStatusDesc)
             {
             }
-            column(SaltedExamStatus;SaltedExamStatus)
+            column(SaltedExamStatus; SaltedExamStatus)
             {
             }
-            column(counts;CurrNo)
+            column(counts; CurrNo)
             {
             }
-            column(YoSTexed;YoS)
+            column(YoSTexed; YoS)
             {
             }
-            column(UnitCodeLabel;UnitCodeLabel)
+            column(UnitCodeLabel; UnitCodeLabel)
             {
             }
-            column(UnitDescriptionLabel;UnitDescriptionLabel)
+            column(UnitDescriptionLabel; UnitDescriptionLabel)
             {
             }
-            column(PercentageFailedCaption;PercentageFailedCaption)
+            column(PercentageFailedCaption; PercentageFailedCaption)
             {
             }
-            column(NumberOfCoursesFailedCaption;NumberOfCoursesFailedCaption)
+            column(NumberOfCoursesFailedCaption; NumberOfCoursesFailedCaption)
             {
             }
-            column(PercentageFailedValue;PercentageFailedValue)
+            column(PercentageFailedValue; PercentageFailedValue)
             {
             }
-            column(NoOfCausesFailedValue;NoOfCausesFailedValue)
+            column(NoOfCausesFailedValue; NoOfCausesFailedValue)
             {
             }
-            column(YoA;ExamCoregcs."Admission Academic Year")
+            column(YoA; ExamCoregcs."Admission Academic Year")
             {
             }
-            column(SpecialUnitReg;SpecialUnitReg1)
+            column(SpecialUnitReg; SpecialUnitReg1)
             {
             }
-            column(IsSpecialAndSupp;IsSpecialAndSupp)
+            column(IsSpecialAndSupp; IsSpecialAndSupp)
             {
             }
-            column(IsSpecialOnly;isSpecialOnly)
+            column(IsSpecialOnly; isSpecialOnly)
             {
             }
-            column(NotSpecialNotSuppSpecial;NotSpecialNotSuppSpecial)
+            column(NotSpecialNotSuppSpecial; NotSpecialNotSuppSpecial)
             {
             }
-            column(FinalTexts;FinalTexts)
+            column(FinalTexts; FinalTexts)
             {
             }
-            column(Messages1;Msg1)
+            column(Messages1; Msg1)
             {
             }
-            column(Messages2;Msg2)
+            column(Messages2; Msg2)
             {
             }
-            column(Messages3;Msg3)
+            column(Messages3; Msg3)
             {
             }
-            column(Messages4;Msg4)
+            column(Messages4; Msg4)
             {
             }
-            column(Messages5;Msg5)
+            column(Messages5; Msg5)
             {
             }
-            column(Messages6;Msg6)
+            column(Messages6; Msg6)
             {
             }
-            column(RubricCounts;ExamCoregcs."Program Grad. List Count")
+            column(RubricCounts; ExamCoregcs."Program Grad. List Count")
             {
             }
-            column(RubNumberText;RubNumberText)
+            column(RubNumberText; RubNumberText)
             {
             }
-            column(YearText2;YearText2)
+            column(YearText2; YearText2)
             {
             }
-            column(ProgClassCount;ExamCoregcs."Program Grad. List Count")
+            column(ProgClassCount; ExamCoregcs."Program Grad. List Count")
             {
             }
-            column(PageTitle;ACAResultsStatus."Grad. Title Page Caption")
+            column(PageTitle; ACAResultsStatus."Grad. Title Page Caption")
             {
             }
 
             trigger OnAfterGetRecord()
             begin
-                
+
                 Clear(SpecialUnitReg);
                 Clear(NextYear);
                 Clear(YearOfStudyText);
                 Clear(YoS);
-                
+
                 Clear(ProgOpts);
                 ProgOpts.Reset;
                 ExamCoregcs.CalcFields("Programme Option");
-                ProgOpts.SetRange("Programme Code",ExamCoregcs.Programme);
-                ProgOpts.SetRange(Code,ExamCoregcs."Programme Option");
+                ProgOpts.SetRange("Programme Code", ExamCoregcs.Programme);
+                ProgOpts.SetRange(Code, ExamCoregcs."Programme Option");
                 if ProgOpts.Find('-') then;
                 Clear(Programs);
                 Clear(AllowOptions);
                 Programs.Reset;
-                Programs.SetRange(Code,ExamCoregcs.GetFilter(Programme));
-                if Programs.Find('-') then AllowOptions:=Programs."Show Options on Graduation";
+                Programs.SetRange(Code, ExamCoregcs.GetFilter(Programme));
+                if Programs.Find('-') then AllowOptions := Programs."Show Options on Graduation";
                 // // IF ExamCoregcs."Year Of Study"<>0 THEN BEGIN
                 // //  IF ExamCoregcs."Year Of Study"=1 THEN BEGIN
                 // //    YearOfStudyText:='First Year (1)';
@@ -206,197 +206,198 @@ Report 66625 "ACA-Graduation List"
                 // //   NextYear:='FOUR';
                 // //    END;
                 // //  END;
-                
-                    Clear(YoSText);
-                    if ExamCoregcs."Year of Study"=1 then YoSText:='FIRST';
-                    if ExamCoregcs."Year of Study"=2 then YoSText:='SECOND';
-                    if ExamCoregcs."Year of Study"=3 then YoSText:='THIRD';
-                    if ExamCoregcs."Year of Study"=4 then YoSText:='FOURTH';
-                    if ExamCoregcs."Year of Study"=5 then YoSText:='FIFTH';
-                    if ExamCoregcs."Year of Study"=6 then YoSText:='SIXTH';
-                    if ExamCoregcs."Year of Study"=7 then YoSText:='SEVENTH';
-                YearText2:=YoSText;
-                  Clear(IsaForthYear);
-                  if ExamCoregcs."Year of Study"=ExamCoregcs."Final Year of Study" then
-                    IsaForthYear:=true;
+
+                Clear(YoSText);
+                if ExamCoregcs."Year of Study" = 1 then YoSText := 'FIRST';
+                if ExamCoregcs."Year of Study" = 2 then YoSText := 'SECOND';
+                if ExamCoregcs."Year of Study" = 3 then YoSText := 'THIRD';
+                if ExamCoregcs."Year of Study" = 4 then YoSText := 'FOURTH';
+                if ExamCoregcs."Year of Study" = 5 then YoSText := 'FIFTH';
+                if ExamCoregcs."Year of Study" = 6 then YoSText := 'SIXTH';
+                if ExamCoregcs."Year of Study" = 7 then YoSText := 'SEVENTH';
+                YearText2 := YoSText;
+                Clear(IsaForthYear);
+                if ExamCoregcs."Year of Study" = ExamCoregcs."Final Year of Study" then
+                    IsaForthYear := true;
                 ACASenateReportsHeader.Reset;
-                ACASenateReportsHeader.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
-                ACASenateReportsHeader.SetRange("Programme Code",ExamCoregcs.Programme);
-                ACASenateReportsHeader.SetRange("Classification Code",ExamCoregcs.Classification);
-                ACASenateReportsHeader.SetRange("Year of Study",ExamCoregcs."Year of Study");
-                
+                ACASenateReportsHeader.SetRange("Academic Year", ExamCoregcs."Graduation Academic Year");
+                ACASenateReportsHeader.SetRange("Programme Code", ExamCoregcs.Programme);
+                ACASenateReportsHeader.SetRange("Classification Code", ExamCoregcs.Classification);
+                ACASenateReportsHeader.SetRange("Year of Study", ExamCoregcs."Year of Study");
+
                 if ACASenateReportsHeader.Find('-') then;
-                  ExamCoregcs.CalcFields("Program Grad. List Count");
-                  RubNumberText:=ConvertDecimalToText.InitiateConvertion(ExamCoregcs."Program Grad. List Count");
-                
+                ExamCoregcs.CalcFields("Program Grad. List Count");
+                RubNumberText := ConvertDecimalToText.InitiateConvertion(ExamCoregcs."Program Grad. List Count");
+
                 Clear(progName);
                 Prog.Reset;
-                Prog.SetRange(Code,ExamCoregcs.Programme);
+                Prog.SetRange(Code, ExamCoregcs.Programme);
                 if Prog.Find('-') then begin
-                  progName:=Prog.Description;
-                  end;
-                  Clear(Msg1);
-                  Clear(Msg2);
-                  Clear(Msg3);
-                  Clear(Msg4);
-                  Clear(Msg5);
-                  Clear(Msg6);
-                
+                    progName := Prog.Description;
+                end;
+                Clear(Msg1);
+                Clear(Msg2);
+                Clear(Msg3);
+                Clear(Msg4);
+                Clear(Msg5);
+                Clear(Msg6);
+
                 //Get the Department
                 Clear(FacDesc);
                 Clear(facCode);
-                FacDesc:='';
+                FacDesc := '';
                 Prog.Reset;
-                Prog.SetRange(Code,ExamCoregcs.Programme);
-                Prog.SetFilter("School Code",'<>%1','');
+                Prog.SetRange(Code, ExamCoregcs.Programme);
+                Prog.SetFilter("School Code", '<>%1', '');
                 if Prog.Find('-') then begin
-                Dimensions2.Reset;
-                Dimensions2.SetRange("Dimension Code",'SCHOOL');
-                Dimensions2.SetRange(Code,Prog."School Code");
-                if Dimensions2.Find('-') then begin
-                  FacDesc:=Dimensions2.Name;
-                  facCode:=Dimensions2.Code;
-                  end;
+                    Dimensions2.Reset;
+                    Dimensions2.SetRange("Dimension Code", 'SCHOOL');
+                    Dimensions2.SetRange(Code, Prog."School Code");
+                    if Dimensions2.Find('-') then begin
+                        FacDesc := Dimensions2.Name;
+                        facCode := Dimensions2.Code;
+                    end;
                 end;
-                
-                
-                  if Cust.Get(ExamCoregcs."Student Number") then;
-                  Names:=Cust.Name;
-                  RegNo:=ExamCoregcs."Student Number";
-                  Clear(UnitCodeLabel);
-                  Clear(UnitDescriptionLabel);
-                  Clear(PercentageFailedCaption);
-                  Clear(NumberOfCoursesFailedCaption);
-                  Clear(PercentageFailedValue);
-                  Clear(NoOfCausesFailedValue);
+
+
+                if Cust.Get(ExamCoregcs."Student Number") then;
+                Names := Cust.Name;
+                RegNo := ExamCoregcs."Student Number";
+                Clear(UnitCodeLabel);
+                Clear(UnitDescriptionLabel);
+                Clear(PercentageFailedCaption);
+                Clear(NumberOfCoursesFailedCaption);
+                Clear(PercentageFailedValue);
+                Clear(NoOfCausesFailedValue);
                 ACAResultsStatus.Reset;
-                ACAResultsStatus.SetRange(Code,ExamCoregcs.Classification);
+                ACAResultsStatus.SetRange(Code, ExamCoregcs.Classification);
                 //ACAResultsStatus.SETRANGE("Academic Year",ExamCoregcs."Graduation Academic Year");
                 //ACAResultsStatus.SETRANGE(ACAResultsStatus."Special Programme Class",Prog."Special Programme Class");
                 if ACAResultsStatus.Find('-') then begin
-                  if ACAResultsStatus."Include Failed Units Headers" then begin
-                    UnitCodeLabel:='Course Code';
-                    UnitDescriptionLabel:='Course Title';
-                      ExamCoregcs.CalcFields("Failed Units","Total Units");
-                    if ExamCoregcs."Failed Units">0 then begin
-                // //      IF ACAResultsStatus."Include CF% Fail" THEN
-                // //       PercentageFailedCaption:='% Failed';
-                      //NumberOfCoursesFailedCaption:='Courses Failed';
-                      //NoOfCausesFailedValue:=ExamCoregcs."Yearly Failed Units";
-                
-                //      IF ACAResultsStatus."Include CF% Fail" THEN
-                //      IF ((ExamCoregcs."Failed Units">0) AND (ExamCoregcs."Total Units">0)) THEN
-                //      PercentageFailedValue:=ROUND((((ExamCoregcs."Failed Units")/(ExamCoregcs."Total Units"))*100),0.01,'=');
-                
-                      end;
+                    if ACAResultsStatus."Include Failed Units Headers" then begin
+                        UnitCodeLabel := 'Course Code';
+                        UnitDescriptionLabel := 'Course Title';
+                        ExamCoregcs.CalcFields("Failed Units", "Total Units");
+                        if ExamCoregcs."Failed Units" > 0 then begin
+                            // //      IF ACAResultsStatus."Include CF% Fail" THEN
+                            // //       PercentageFailedCaption:='% Failed';
+                            //NumberOfCoursesFailedCaption:='Courses Failed';
+                            //NoOfCausesFailedValue:=ExamCoregcs."Yearly Failed Units";
+
+                            //      IF ACAResultsStatus."Include CF% Fail" THEN
+                            //      IF ((ExamCoregcs."Failed Units">0) AND (ExamCoregcs."Total Units">0)) THEN
+                            //      PercentageFailedValue:=ROUND((((ExamCoregcs."Failed Units")/(ExamCoregcs."Total Units"))*100),0.01,'=');
+
+                        end;
                     end;
-                    end;
+                end;
                 // //    ExamCoregcs.CALCFIELDS(ExamCoregcs."Special Exam Exists");
                 // //    IF ExamCoregcs."Special Exam Exists"<>ExamCoregcs."Special Exam Exists"::" " THEN BEGIN
                 // //      NumberOfCoursesFailedCaption:='Reason';
                 // //      PercentageFailedCaption:='';
                 // //      END;
-                  Msg1:=ACAResultsStatus."Classification Msg1";
-                  Msg2:=ACAResultsStatus."Classification Msg2";
-                  Msg3:=ACAResultsStatus."Classification Msg3";
+                Msg1 := ACAResultsStatus."Classification Msg1";
+                Msg2 := ACAResultsStatus."Classification Msg2";
+                Msg3 := ACAResultsStatus."Classification Msg3";
                 //  IF (ACASenateReportsHeader.Prog_AcadYear_Status_Count>1) THEN Msg3:='in their'
                 //  ELSE Msg3:='in His/Her';
-                  Msg4:=ACAResultsStatus."Classification Msg4";
-                  if  IsaForthYear then
-                    if ACAResultsStatus."Final Year Comment"='' then IsaForthYear:=false;
-                  Msg5:=ACAResultsStatus."Classification Msg5";
-                  Msg6:=ACAResultsStatus."Classification Msg6";
+                Msg4 := ACAResultsStatus."Classification Msg4";
+                if IsaForthYear then
+                    if ACAResultsStatus."Final Year Comment" = '' then IsaForthYear := false;
+                Msg5 := ACAResultsStatus."Classification Msg5";
+                Msg6 := ACAResultsStatus."Classification Msg6";
                 Clear(SaltedExamStatus);
                 Clear(SaltedExamStatusDesc);
-                SaltedExamStatus:=ACAResultsStatus.Code+facCode+Prog.Code+
-                Format(ExamCoregcs."Year of Study")+
+                SaltedExamStatus := ACAResultsStatus.Code + facCode + Prog.Code +
+                Format(ExamCoregcs."Year of Study") +
                 ExamCoregcs."Graduation Academic Year";
                 Clear(NoOfStudents);
                 Clear(NoOfStudentsDecimal);
                 CReg.Reset;
-                CReg.SetRange(Classification,ExamCoregcs.Classification);
-                CReg.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
-                CReg.SetRange(Programme,ExamCoregcs.Programme);
-                CReg.SetRange("Year of Study",ExamCoregcs."Year of Study");
-                CReg.SetFilter("Total Units",'>%1',0);
+                CReg.SetRange(Classification, ExamCoregcs.Classification);
+                CReg.SetRange("Academic Year", ExamCoregcs."Graduation Academic Year");
+                CReg.SetRange(Programme, ExamCoregcs.Programme);
+                CReg.SetRange("Year of Study", ExamCoregcs."Year of Study");
+                CReg.SetFilter("Total Units", '>%1', 0);
                 if CReg.Find('-') then begin
-                // // // // //  NoOfStudentsDecimal:=FORMAT(ROUND(((CReg.COUNT)),1,'>'));
-                // // // // //  IF EVALUATE(NoOfStudents,NoOfStudentsDecimal) THEN BEGIN
-                // // // // //    END;
-                // // // // //  //NoOfStudents:=CReg.COUNT;
-                // // // // //  END;
-                  //---------------------------------------------------------
-                  ACASenateReportCounts.Reset;
-                ACASenateReportCounts.SetRange("Prog. Code",ExamCoregcs.Programme);
-                ACASenateReportCounts.SetRange(StatusCode,ExamCoregcs.Classification);
-                ACASenateReportCounts.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
-                ACASenateReportCounts.SetRange(YoS,ExamCoregcs."Year of Study");
-                if  ACASenateReportCounts.Find('-') then begin
-                  NoOfStudentsDecimal:=Format(ROUND(((ACASenateReportCounts.Count)),1,'>'));
-                  if Evaluate(NoOfStudents,NoOfStudentsDecimal) then;
-                  end;
-                  //---------------------------------------------------------
-                
-                // // SaltedExamStatusDesc:=Msg1;
-                // // CLEAR(NoOfStudentInText);
-                // // IF NoOfStudents<>0 THEN NoOfStudentInText:=ConvertDecimalToText.InitiateConvertion(NoOfStudents);
-                // // IF ACAResultsStatus."IncludeVariable 1" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+NoOfStudentInText+' ('+FORMAT(NoOfStudents)+') '+Msg2;
-                // // IF  ACAResultsStatus."IncludeVariable 2" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc +' '+FacDesc+' '+Msg3;
-                // // IF ACAResultsStatus."IncludeVariable 3" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+YearOfStudyText+' '+Msg4+' '+progName;
-                // // IF IsaForthYear=FALSE THEN BEGIN
-                // // IF ACAResultsStatus."IncludeVariable 4" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+Msg5;
-                // // IF ACAResultsStatus."IncludeVariable 5" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+NextYear;
-                // // IF ACAResultsStatus."IncludeVariable 6" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+Msg6;
-                // // END ELSE SaltedExamStatusDesc:= SaltedExamStatusDesc+' '+ACAResultsStatus."Final Year Comment";
-                  end;
-                  Clear(CurrNo);
+                    // // // // //  NoOfStudentsDecimal:=FORMAT(ROUND(((CReg.COUNT)),1,'>'));
+                    // // // // //  IF EVALUATE(NoOfStudents,NoOfStudentsDecimal) THEN BEGIN
+                    // // // // //    END;
+                    // // // // //  //NoOfStudents:=CReg.COUNT;
+                    // // // // //  END;
+                    //---------------------------------------------------------
+                    ACASenateReportCounts.Reset;
+                    ACASenateReportCounts.SetRange("Prog. Code", ExamCoregcs.Programme);
+                    ACASenateReportCounts.SetRange(StatusCode, ExamCoregcs.Classification);
+                    ACASenateReportCounts.SetRange("Academic Year", ExamCoregcs."Graduation Academic Year");
+                    ACASenateReportCounts.SetRange(YoS, ExamCoregcs."Year of Study");
+                    if ACASenateReportCounts.Find('-') then begin
+                        NoOfStudentsDecimal := Format(ROUND(((ACASenateReportCounts.Count)), 1, '>'));
+                        if Evaluate(NoOfStudents, NoOfStudentsDecimal) then;
+                    end;
+                    //---------------------------------------------------------
+
+                    // // SaltedExamStatusDesc:=Msg1;
+                    // // CLEAR(NoOfStudentInText);
+                    // // IF NoOfStudents<>0 THEN NoOfStudentInText:=ConvertDecimalToText.InitiateConvertion(NoOfStudents);
+                    // // IF ACAResultsStatus."IncludeVariable 1" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+NoOfStudentInText+' ('+FORMAT(NoOfStudents)+') '+Msg2;
+                    // // IF  ACAResultsStatus."IncludeVariable 2" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc +' '+FacDesc+' '+Msg3;
+                    // // IF ACAResultsStatus."IncludeVariable 3" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+YearOfStudyText+' '+Msg4+' '+progName;
+                    // // IF IsaForthYear=FALSE THEN BEGIN
+                    // // IF ACAResultsStatus."IncludeVariable 4" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+Msg5;
+                    // // IF ACAResultsStatus."IncludeVariable 5" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+NextYear;
+                    // // IF ACAResultsStatus."IncludeVariable 6" THEN SaltedExamStatusDesc:=SaltedExamStatusDesc+' '+Msg6;
+                    // // END ELSE SaltedExamStatusDesc:= SaltedExamStatusDesc+' '+ACAResultsStatus."Final Year Comment";
+                end;
+                Clear(CurrNo);
                 ACASenateReportStatusBuff.Reset;
-                ACASenateReportStatusBuff.SetRange("Prog. Code",ExamCoregcs.Programme);
-                ACASenateReportStatusBuff.SetRange(StatusCode,ExamCoregcs.Classification);
-                ACASenateReportStatusBuff.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
-                ACASenateReportStatusBuff.SetRange(YoS,ExamCoregcs."Year of Study");
-                ACASenateReportStatusBuff.SetRange("Student No.",ExamCoregcs."Student Number");
+                ACASenateReportStatusBuff.SetRange("Prog. Code", ExamCoregcs.Programme);
+                ACASenateReportStatusBuff.SetRange(StatusCode, ExamCoregcs.Classification);
+                ACASenateReportStatusBuff.SetRange("Academic Year", ExamCoregcs."Graduation Academic Year");
+                ACASenateReportStatusBuff.SetRange(YoS, ExamCoregcs."Year of Study");
+                ACASenateReportStatusBuff.SetRange("Student No.", ExamCoregcs."Student Number");
                 if not ACASenateReportStatusBuff.Find('-') then begin
                     ACASenateReportStatusBuff.Init;
-                    ACASenateReportStatusBuff."Prog. Code":=ExamCoregcs.Programme;
-                    ACASenateReportStatusBuff."Student No.":=ExamCoregcs."Student Number";
-                    ACASenateReportStatusBuff.Counts:=1;
-                    ACASenateReportStatusBuff.StatusCode:=ExamCoregcs.Classification;
-                    ACASenateReportStatusBuff.YoS:=ExamCoregcs."Year of Study";
-                    ACASenateReportStatusBuff."Academic Year":=ExamCoregcs."Graduation Academic Year";
+                    ACASenateReportStatusBuff."Prog. Code" := ExamCoregcs.Programme;
+                    ACASenateReportStatusBuff."Student No." := ExamCoregcs."Student Number";
+                    ACASenateReportStatusBuff.Counts := 1;
+                    ACASenateReportStatusBuff.StatusCode := ExamCoregcs.Classification;
+                    ACASenateReportStatusBuff.YoS := ExamCoregcs."Year of Study";
+                    ACASenateReportStatusBuff."Academic Year" := ExamCoregcs."Graduation Academic Year";
                     ACASenateReportStatusBuff.Insert;
-                    end;
+                end;
                 ACASenateReportStatusBuff.Reset;
-                ACASenateReportStatusBuff.SetRange("Prog. Code",ExamCoregcs.Programme);
-                ACASenateReportStatusBuff.SetRange(StatusCode,ExamCoregcs.Classification);
-                ACASenateReportStatusBuff.SetRange("Academic Year",ExamCoregcs."Graduation Academic Year");
-                ACASenateReportStatusBuff.SetRange(YoS,ExamCoregcs."Year of Study");
-                if  ACASenateReportStatusBuff.Find('-') then   CurrNo:=ACASenateReportStatusBuff.Count;
-                 // CurrNo:=CurrNo+1;
-                 /* END ELSE BEGIN
-                    CurrNo:=1;
-                    ACASenateReportStatusBuff.INIT;
-                    ACASenateReportStatusBuff."Prog. Code":=ExamCoregcs.Programme;
-                    ACASenateReportStatusBuff.Counts:=CurrNo;
-                    ACASenateReportStatusBuff.StatusCode:=ExamCoregcs."Exam Status";
-                    ACASenateReportStatusBuff.YoS:=ExamCoregcs."Year Of Study";
-                    ACASenateReportStatusBuff."Academic Year":=ExamCoregcs."Academic Year";
-                    ACASenateReportStatusBuff.INSERT;
-                    END;*/
-                
+                ACASenateReportStatusBuff.SetRange("Prog. Code", ExamCoregcs.Programme);
+                ACASenateReportStatusBuff.SetRange(StatusCode, ExamCoregcs.Classification);
+                ACASenateReportStatusBuff.SetRange("Academic Year", ExamCoregcs."Graduation Academic Year");
+                ACASenateReportStatusBuff.SetRange(YoS, ExamCoregcs."Year of Study");
+                if ACASenateReportStatusBuff.Find('-') then CurrNo := ACASenateReportStatusBuff.Count;
+                // CurrNo:=CurrNo+1;
+                /* END ELSE BEGIN
+                   CurrNo:=1;
+                   ACASenateReportStatusBuff.INIT;
+                   ACASenateReportStatusBuff."Prog. Code":=ExamCoregcs.Programme;
+                   ACASenateReportStatusBuff.Counts:=CurrNo;
+                   ACASenateReportStatusBuff.StatusCode:=ExamCoregcs."Exam Status";
+                   ACASenateReportStatusBuff.YoS:=ExamCoregcs."Year Of Study";
+                   ACASenateReportStatusBuff."Academic Year":=ExamCoregcs."Academic Year";
+                   ACASenateReportStatusBuff.INSERT;
+                   END;*/
+
                 ResultsStatus3.Reset;
-                ResultsStatus3.SetRange(Code,ExamCoregcs.Classification);
+                ResultsStatus3.SetRange(Code, ExamCoregcs.Classification);
                 Clear(SpecialUnitReg1);
                 //SpecialUnitReg1:=TRUE;
-                
+
                 // // // // // IF ExamCoregcs."Special Exam Exists"<>ExamCoregcs."Special Exam Exists"::" " THEN
                 // // // // // SpecialUnitReg1:=TRUE;
-                
-                 Clear(isSpecialOnly);
-                 Clear(IsSpecialAndSupp);
-                 if (ExamCoregcs.Classification='SPECIAL') then begin isSpecialOnly:=true;
-                 SpecialUnitReg1:=isSpecialOnly;
-                 end;
+
+                Clear(isSpecialOnly);
+                Clear(IsSpecialAndSupp);
+                if (ExamCoregcs.Classification = 'SPECIAL') then begin
+                    isSpecialOnly := true;
+                    SpecialUnitReg1 := isSpecialOnly;
+                end;
                 //      PercentageFailedCaption:='';
                 //      PercentageFailedValue:=0;
                 //      NumberOfCoursesFailedCaption:='Reason';
@@ -409,105 +410,105 @@ Report 66625 "ACA-Graduation List"
                 // IF ((isSpecialOnly) OR (IsSpecialAndSupp)) THEN BEGIN
                 // NotSpecialNotSuppSpecial:=TRUE;
                 // END;
-                
+
                 ACAResultsStatusez.Reset;
-                ACAResultsStatusez.SetRange(Code,ExamCoregcs.Classification);
+                ACAResultsStatusez.SetRange(Code, ExamCoregcs.Classification);
                 // ACAResultsStatusez.SETRANGE(ACAResultsStatusez."Special Programme Class",Prog."Special Programme Class");
                 // ACAResultsStatusez.SETRANGE(ACAResultsStatusez."Academic Year",ExamCoregcs."Graduation Academic Year");
                 if ACAResultsStatusez.Find('-') then begin
-                
-                //      IF ((ACAResultsStatusez."Grad. Status Msg 4"='') OR (ACAResultsStatusez."Grad. Status Msg 5"='') OR
-                //         (ACAResultsStatusez."Grad. Status Msg 5"='')) THEN YearText2:='';
-                //  IF ExamCoregcs."Year of Study"=1 THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."1st Year Grad. Comments";
-                // END ELSE  IF ExamCoregcs."Year of Study"=2 THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."2nd Year Grad. Comments";
-                // END ELSE IF ExamCoregcs."Year of Study"=3 THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."3rd Year Grad. Comments";
-                // END ELSE IF ExamCoregcs."Year of Study"=4 THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."4th Year Grad. Comments";
-                // END ELSE IF ExamCoregcs."Year of Study"=5 THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."5th Year Grad. Comments";
-                // END ELSE IF ExamCoregcs."Year of Study"=6 THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."6th Year Grad. Comments";
-                // END ELSE IF ExamCoregcs."Year of Study"=7 THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."7th Year Grad. Comments";
-                // END;
-                
-                // IF ((ExamCoregcs."Final Year of Study") = (ExamCoregcs."Year of Study")) THEN BEGIN
-                //  IF ((Prog.Category=Prog.Category::"Certificate ") OR
-                //    (Prog.Category=Prog.Category::"Course List") OR
-                //    (Prog.Category=Prog.Category::Professional)) THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Cert.";
-                //  END ELSE   IF ((Prog.Category=Prog.Category::Diploma)) THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Dip";
-                //  END ELSE   IF ((Prog.Category=Prog.Category::Undergraduate) OR
-                //    (Prog.Category=Prog.Category::Postgraduate)) THEN BEGIN
-                // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Degree";
-                //  END;
-                //  //ShowRate:=TRUE;
-                // END;
-                
-                // IF ACAResultsStatusez."Grad. Status Msg 6"='' THEN BEGIN
-                //   FinalTexts:='';
-                //  END;
-                // IF ACAResultsStatusez."Grad. Status Msg 4"='' THEN BEGIN
-                //   FinalTexts:='';
-                //  END;
-                // IF ACAResultsStatusez."Grad. Status Msg 5"='' THEN BEGIN
-                //   FinalTexts:='';
-                //  END;
-                  end;
+
+                    //      IF ((ACAResultsStatusez."Grad. Status Msg 4"='') OR (ACAResultsStatusez."Grad. Status Msg 5"='') OR
+                    //         (ACAResultsStatusez."Grad. Status Msg 5"='')) THEN YearText2:='';
+                    //  IF ExamCoregcs."Year of Study"=1 THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."1st Year Grad. Comments";
+                    // END ELSE  IF ExamCoregcs."Year of Study"=2 THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."2nd Year Grad. Comments";
+                    // END ELSE IF ExamCoregcs."Year of Study"=3 THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."3rd Year Grad. Comments";
+                    // END ELSE IF ExamCoregcs."Year of Study"=4 THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."4th Year Grad. Comments";
+                    // END ELSE IF ExamCoregcs."Year of Study"=5 THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."5th Year Grad. Comments";
+                    // END ELSE IF ExamCoregcs."Year of Study"=6 THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."6th Year Grad. Comments";
+                    // END ELSE IF ExamCoregcs."Year of Study"=7 THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."7th Year Grad. Comments";
+                    // END;
+
+                    // IF ((ExamCoregcs."Final Year of Study") = (ExamCoregcs."Year of Study")) THEN BEGIN
+                    //  IF ((Prog.Category=Prog.Category::"Certificate ") OR
+                    //    (Prog.Category=Prog.Category::"Course List") OR
+                    //    (Prog.Category=Prog.Category::Professional)) THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Cert.";
+                    //  END ELSE   IF ((Prog.Category=Prog.Category::Diploma)) THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Dip";
+                    //  END ELSE   IF ((Prog.Category=Prog.Category::Undergraduate) OR
+                    //    (Prog.Category=Prog.Category::Postgraduate)) THEN BEGIN
+                    // FinalTexts:=ACAResultsStatusez."Finalists Grad. Comm. Degree";
+                    //  END;
+                    //  //ShowRate:=TRUE;
+                    // END;
+
+                    // IF ACAResultsStatusez."Grad. Status Msg 6"='' THEN BEGIN
+                    //   FinalTexts:='';
+                    //  END;
+                    // IF ACAResultsStatusez."Grad. Status Msg 4"='' THEN BEGIN
+                    //   FinalTexts:='';
+                    //  END;
+                    // IF ACAResultsStatusez."Grad. Status Msg 5"='' THEN BEGIN
+                    //   FinalTexts:='';
+                    //  END;
+                end;
 
             end;
 
             trigger OnPreDataItem()
             begin
                 Clear(yosInt);
-                if Evaluate(yosInt,ExamCoregcs.GetFilter("Year of Study")) then;
+                if Evaluate(yosInt, ExamCoregcs.GetFilter("Year of Study")) then;
                 CReg.Reset;
                 //CReg.SETRANGE("Yearly Remarks",ExamCoregcs."Yearly Remarks");
-                CReg.SetRange("Academic Year",ExamCoregcs.GetFilter("Graduation Academic Year"));
-                CReg.SetRange(Programme,ExamCoregcs.GetFilter(Programme));
-                CReg.SetRange("Year of Study",yosInt);
+                CReg.SetRange("Academic Year", ExamCoregcs.GetFilter("Graduation Academic Year"));
+                CReg.SetRange(Programme, ExamCoregcs.GetFilter(Programme));
+                CReg.SetRange("Year of Study", yosInt);
                 //CReg.SETRANGE(Options,ExamCoregcs.GETFILTER(Options));
                 ACAProgrammeOptions.Reset;
-                ACAProgrammeOptions.SetRange(Code,ExamCoregcs.GetFilter("Programme Option"));
-                ACAProgrammeOptions.SetRange("Programme Code",ExamCoregcs.GetFilter(Programme));
+                ACAProgrammeOptions.SetRange(Code, ExamCoregcs.GetFilter("Programme Option"));
+                ACAProgrammeOptions.SetRange("Programme Code", ExamCoregcs.GetFilter(Programme));
                 if ACAProgrammeOptions.Find('-') then;
-                CReg.SetFilter("Total Units",'>%1',0);
-                CReg.SetFilter(Classification,'<>%1','');
+                CReg.SetFilter("Total Units", '>%1', 0);
+                CReg.SetFilter(Classification, '<>%1', '');
                 if CReg.Find('-') then begin
-                  ACASenateReportCounts.Reset;
-                ACASenateReportCounts.SetRange("Prog. Code",CReg.Programme);
-                //ACASenateReportCounts.SETRANGE(StatusCode,CReg."Yearly Remarks");
-                ACASenateReportCounts.SetRange("Academic Year",CReg."Academic Year");
-                ACASenateReportCounts.SetRange(YoS,CReg."Year of Study");
-                if ACASenateReportCounts.Find('-') then ACASenateReportCounts.DeleteAll;
-                  repeat
+                    ACASenateReportCounts.Reset;
+                    ACASenateReportCounts.SetRange("Prog. Code", CReg.Programme);
+                    //ACASenateReportCounts.SETRANGE(StatusCode,CReg."Yearly Remarks");
+                    ACASenateReportCounts.SetRange("Academic Year", CReg."Academic Year");
+                    ACASenateReportCounts.SetRange(YoS, CReg."Year of Study");
+                    if ACASenateReportCounts.Find('-') then ACASenateReportCounts.DeleteAll;
+                    repeat
                     begin
-                ACASenateReportCounts.Reset;
-                ACASenateReportCounts.SetRange("Prog. Code",CReg.Programme);
-                ACASenateReportCounts.SetRange(StatusCode,CReg.Classification);
-                ACASenateReportCounts.SetRange("Academic Year",CReg."Academic Year");
-                ACASenateReportCounts.SetRange(YoS,CReg."Year of Study");
-                ACASenateReportCounts.SetRange("Student No.",CReg."Student Number");
-                if not ACASenateReportCounts.Find('-') then begin
-                    ACASenateReportCounts.Init;
-                    ACASenateReportCounts."Prog. Code":=CReg.Programme;
-                    ACASenateReportCounts."Student No.":=CReg."Student Number";
-                    ACASenateReportCounts.StatusCode:=CReg.Classification;
-                    ACASenateReportCounts.YoS:=CReg."Year of Study";
-                    ACASenateReportCounts."Academic Year":=CReg."Academic Year";
-                    ACASenateReportCounts.Insert;
+                        ACASenateReportCounts.Reset;
+                        ACASenateReportCounts.SetRange("Prog. Code", CReg.Programme);
+                        ACASenateReportCounts.SetRange(StatusCode, CReg.Classification);
+                        ACASenateReportCounts.SetRange("Academic Year", CReg."Academic Year");
+                        ACASenateReportCounts.SetRange(YoS, CReg."Year of Study");
+                        ACASenateReportCounts.SetRange("Student No.", CReg."Student Number");
+                        if not ACASenateReportCounts.Find('-') then begin
+                            ACASenateReportCounts.Init;
+                            ACASenateReportCounts."Prog. Code" := CReg.Programme;
+                            ACASenateReportCounts."Student No." := CReg."Student Number";
+                            ACASenateReportCounts.StatusCode := CReg.Classification;
+                            ACASenateReportCounts.YoS := CReg."Year of Study";
+                            ACASenateReportCounts."Academic Year" := CReg."Academic Year";
+                            ACASenateReportCounts.Insert;
+                        end;
+                        // // //  NoOfStudentsDecimal:=FORMAT(ROUND(((CReg.COUNT)),1,'>'));
+                        // // //  IF EVALUATE(NoOfStudents,NoOfStudentsDecimal) THEN BEGIN
+                        // // //    END;
+                        //NoOfStudents:=CReg.COUNT;
                     end;
-                // // //  NoOfStudentsDecimal:=FORMAT(ROUND(((CReg.COUNT)),1,'>'));
-                // // //  IF EVALUATE(NoOfStudents,NoOfStudentsDecimal) THEN BEGIN
-                // // //    END;
-                  //NoOfStudents:=CReg.COUNT;
-                  end;
-                  until CReg.Next=0;
-                  end;
+                    until CReg.Next = 0;
+                end;
             end;
         }
     }
@@ -537,9 +538,9 @@ Report 66625 "ACA-Graduation List"
 
     trigger OnPreReport()
     begin
-        if ExamCoregcs.GetFilter("Year of Study")='' then Error('Specify Year of Study');
-        if ExamCoregcs.GetFilter(Programme)='' then Error('Specify Programme');
-        if ExamCoregcs.GetFilter("Graduation Academic Year")='' then Error('Specify Academic Year');
+        if ExamCoregcs.GetFilter("Year of Study") = '' then Error('Specify Year of Study');
+        if ExamCoregcs.GetFilter(Programme) = '' then Error('Specify Programme');
+        if ExamCoregcs.GetFilter("Graduation Academic Year") = '' then Error('Specify Academic Year');
     end;
 
     var
@@ -567,8 +568,8 @@ Report 66625 "ACA-Graduation List"
         NoOfStudentsDecimal: Text;
         ACAStudentUnits: Record "ACA-Exam Classification Units";
         CountedRecs: Integer;
-        UnitCodes: array [30] of Text[50];
-        UnitDescs: array [30] of Text[150];
+        UnitCodes: array[30] of Text[50];
+        UnitDescs: array[30] of Text[150];
         UnitCodeLabel: Text;
         UnitDescriptionLabel: Text;
         NoOfStudents: Integer;

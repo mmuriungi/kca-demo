@@ -4,7 +4,7 @@ page 52120 "FLT-Mileage Claim Subform"
     PageType = ListPart;
     SourceTable = "FLT-Mileage Claim Lines";
     AutoSplitKey = true;
-    
+
     layout
     {
         area(Content)
@@ -20,7 +20,7 @@ page 52120 "FLT-Mileage Claim Subform"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the vehicle registration number.';
-                    
+
                     trigger OnValidate()
                     begin
                         CurrPage.Update();
@@ -149,7 +149,7 @@ page 52120 "FLT-Mileage Claim Subform"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -161,21 +161,21 @@ page 52120 "FLT-Mileage Claim Subform"
                 ApplicationArea = All;
                 Visible = ShowTransportOfficerFields;
                 Enabled = TransportOfficerEditable;
-                
+
                 trigger OnAction()
                 var
                     Remarks: Text[250];
                 begin
                     if Rec.Status <> Rec.Status::Open then
                         Error('Only open lines can be approved.');
-                        
+
                     Remarks := '';
                     // Simple approval without remarks input for now
                     Rec.ApproveLineByTransportOfficer(Remarks);
                     CurrPage.Update(false);
                 end;
             }
-            
+
             action(RejectLine)
             {
                 Caption = 'Reject Line';
@@ -183,14 +183,14 @@ page 52120 "FLT-Mileage Claim Subform"
                 ApplicationArea = All;
                 Visible = ShowTransportOfficerFields;
                 Enabled = TransportOfficerEditable;
-                
+
                 trigger OnAction()
                 var
                     Remarks: Text[250];
                 begin
                     if Rec.Status <> Rec.Status::Open then
                         Error('Only open lines can be rejected.');
-                        
+
                     Remarks := 'Rejected by Transport Officer';
                     Rec.RejectLineByTransportOfficer(Remarks);
                     CurrPage.Update(false);
@@ -198,22 +198,22 @@ page 52120 "FLT-Mileage Claim Subform"
             }
         }
     }
-    
+
     trigger OnAfterGetCurrRecord()
     begin
         SetControlVisibility();
     end;
-    
+
     trigger OnOpenPage()
     begin
         SetControlVisibility();
     end;
-    
+
     var
         ShowActualReadings: Boolean;
         ShowTransportOfficerFields: Boolean;
         TransportOfficerEditable: Boolean;
-    
+
     local procedure SetControlVisibility()
     var
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
@@ -226,19 +226,19 @@ page 52120 "FLT-Mileage Claim Subform"
                 MileageClaimHeader."Approval Stage"::"VC/DVC/Registrar",
                 MileageClaimHeader."Approval Stage"::"Fully Approved"
             ];
-            
+
             ShowTransportOfficerFields := MileageClaimHeader."Approval Stage" in [
                 MileageClaimHeader."Approval Stage"::"Transport Officer",
                 MileageClaimHeader."Approval Stage"::"VC/DVC/Registrar",
                 MileageClaimHeader."Approval Stage"::"Fully Approved"
             ];
-            
+
             // Check if current user is transport officer
             if UserSetup.Get(UserId) then begin
                 // Add logic to check if user is transport officer
                 IsTransportOfficer := true; // Simplified for now
             end;
-            
+
             TransportOfficerEditable := (MileageClaimHeader.Status = MileageClaimHeader.Status::"Pending Approval") and
                                        (MileageClaimHeader."Approval Stage" = MileageClaimHeader."Approval Stage"::"Transport Officer") and
                                        IsTransportOfficer;

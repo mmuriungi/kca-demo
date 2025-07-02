@@ -167,7 +167,7 @@ Report 78051 "Aca-General Senate Summary"
             {
             }
             column(YearText2; YearText2)
-            { 
+            {
             }
             column(ProgClassCount; ACASenateReportsHeader.Prog_AcadYear_Status_Count)
             {

@@ -1,7 +1,7 @@
-page 51470 "POS Sales Header Card"
+page 51470 "POS Sales Header Card Legacy"
 {
     PageType = Card;
-    SourceTable = "POS Sales Header";
+    SourceTable = "POS Sales Header Legacy";
     RefreshOnActivate = true;
     InsertAllowed = false;
 

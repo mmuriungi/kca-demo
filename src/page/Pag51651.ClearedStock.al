@@ -2,7 +2,7 @@ page 51651 "Cleared Stock"
 {
     Caption = 'Cleared Stock';
     PageType = List;
-    SourceTable = "POS Items";
+    SourceTable = "POS Items Legacy";
 
     layout
     {

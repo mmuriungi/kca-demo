@@ -5,7 +5,7 @@ Page 68789 "ACA-Imported Receipts Buffer1"
     Editable = true;
     PageType = List;
     SourceTable = "ACA-Imp. Receipts Buffer";
-    SourceTableView = where(Posted=const(false));
+    SourceTableView = where(Posted = const(false));
 
     layout
     {
@@ -13,40 +13,40 @@ Page 68789 "ACA-Imported Receipts Buffer1"
         {
             repeater(Control1102760000)
             {
-                field("Transaction Code";Rec."Transaction Code")
+                field("Transaction Code"; Rec."Transaction Code")
                 {
                     ApplicationArea = Basic;
                 }
-                field("Student No.";Rec."Student No.")
+                field("Student No."; Rec."Student No.")
                 {
                     ApplicationArea = Basic;
                     Caption = 'Account No.';
                 }
-                field(Date;Rec.Date)
+                field(Date; Rec.Date)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Description;Rec.Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Amount;Rec.Amount)
+                field(Amount; Rec.Amount)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Posted;Rec.Posted)
+                field(Posted; Rec.Posted)
                 {
                     ApplicationArea = Basic;
                 }
-                field("Receipt No";Rec."Receipt No")
+                field("Receipt No"; Rec."Receipt No")
                 {
                     ApplicationArea = Basic;
                 }
-                field(IDNo;Rec.IDNo)
+                field(IDNo; Rec.IDNo)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Name;Rec.Name)
+                field(Name; Rec.Name)
                 {
                     ApplicationArea = Basic;
                 }
@@ -71,22 +71,23 @@ Page 68789 "ACA-Imported Receipts Buffer1"
 
                     trigger OnAction()
                     begin
-                        if Confirm('Arrange your CSV File to have fields in the following order:\'+
-                        'Serial\'+
-                        'Transaction Code\'+
-                        'Cheque No\'+
-                        'F Name\'+
-                        'M Name\'+
-                        'L Name\'+
-                        'ID No\'+
-                        'Student No.\'+
-                        'Amount\'+
-                        'Description\'+
-                        'Semester\'+
-                        '************************************************************\'+
-                        'Continue?', true)=false then Error('Cancelled By User: '+UserId);
+                        if Confirm('Arrange your CSV File to have fields in the following order:\' +
+                        'Serial\' +
+                        'Transaction Code\' +
+                        'Cheque No\' +
+                        'F Name\' +
+                        'M Name\' +
+                        'L Name\' +
+                        'ID No\' +
+                        'Student No.\' +
+                        'Amount\' +
+                        'Description\' +
+                        'Semester\' +
+                        '************************************************************\' +
+                        'Continue?', true) = false then
+                            Error('Cancelled By User: ' + UserId);
 
-                        Xmlport.Run(50152,true,true);
+                        Xmlport.Run(50152, true, true);
                     end;
                 }
                 action("Post Receipts")
@@ -96,7 +97,7 @@ Page 68789 "ACA-Imported Receipts Buffer1"
                     Image = PostBatch;
                     Promoted = true;
                     PromotedIsBig = true;
-                   // RunObject = Report UnknownReport51526; TODO
+                    // RunObject = Report UnknownReport51526; TODO
                 }
             }
         }

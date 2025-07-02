@@ -384,7 +384,7 @@ table 50792 "ACA-Classification Students"
         field(65; "Exists Alternative Rubric"; Boolean)
         {
             fieldclass = flowfield;
-            calcformula = Exist("ACA-Course Registration" WHERE ("Student No." = FIELD("Student Number"), Programmes = FIELD(Programme), "Alternate Rubric For Stopage" = FILTER(true)));
+            calcformula = Exist("ACA-Course Registration" WHERE("Student No." = FIELD("Student Number"), Programmes = FIELD(Programme), "Alternate Rubric For Stopage" = FILTER(true)));
         }
     }
 

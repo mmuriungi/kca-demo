@@ -132,6 +132,7 @@ codeunit 50048 "Claims Handler"
             exit(PurchHeader);
         end;
     end;
+
     [EventSubscriber(ObjectType::Table, database::"Purchase Line", OnBeforeTestStatusOpen, '', false, false)]
     local procedure SkipStatusCheck(var PurchaseLine: Record "Purchase Line"; var PurchaseHeader: Record "Purchase Header"; xPurchaseLine: Record "Purchase Line"; CallingFieldNo: Integer; var IsHandled: Boolean)
     begin
@@ -139,6 +140,7 @@ codeunit 50048 "Claims Handler"
             IsHandled := true;
         end;
     end;
+
     procedure CreatePurchaseLine(PurchHeader: Record "Purchase Header"; No: Code[20]; AccountTYpe: Enum "Purchase Line Type"; Quantity: Decimal; UnitCost: Decimal)
     var
         PurchLine: Record "Purchase Line";
@@ -205,7 +207,7 @@ codeunit 50048 "Claims Handler"
         CreatePurchaseLine(PurchHeader, HrSetup."Claim G/L Account", PurchLine.Type::"G/L Account", 1, Batch."Total Amount");
     end;
 
-    
+
 
 
 

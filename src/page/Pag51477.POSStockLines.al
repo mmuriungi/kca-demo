@@ -1,7 +1,7 @@
-page 51477 "POS Stock Lines"
+page 51477 "POS Stock Lines Legacy"
 {
     PageType = ListPart;
-    SourceTable = "POS Stock Lines";
+    SourceTable = "POS Stock Lines Legacy";
     layout
     {
         area(Content)

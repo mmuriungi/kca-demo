@@ -6,7 +6,7 @@ tableextension 50040 "Marketing Setup Ext" extends "Marketing Setup"
         {
             Caption = 'Feedback';
             DataClassification = ToBeClassified;
-            TableRelation="No. Series";
+            TableRelation = "No. Series";
         }
     }
 }

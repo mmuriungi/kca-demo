@@ -252,7 +252,7 @@ report 51307 "Class Timetable Report"
         ProgFilter: Text;
         StageFilter: Text;
         LecFilter: Text;
-        SlotArray: array[20] of Integer;
+        SlotArray: array[2000] of Integer;
 
 
     trigger OnPreReport()

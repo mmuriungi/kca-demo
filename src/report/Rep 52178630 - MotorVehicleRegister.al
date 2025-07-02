@@ -9,7 +9,7 @@ report 52178630 "Motor Vehicle Register"
         {
             DataItemTableView = where("FA Class Code" = filter('TANGIBLE'), "FA Subclass Code" = filter('MV'));
             CalcFields = "Disposal Amount";  // Using Disposal Amount instead of Disposal Value
-        
+
             column(CompInfoName; CompInfo.Name)
             {
 

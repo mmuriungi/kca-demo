@@ -16,7 +16,7 @@ table 51600 "FLT-Mileage Claim Header"
         {
             Caption = 'Date of Request';
             DataClassification = ToBeClassified;
-            
+
             trigger OnValidate()
             begin
                 if "Date" = 0D then
@@ -28,7 +28,7 @@ table 51600 "FLT-Mileage Claim Header"
             Caption = 'Employee No.';
             DataClassification = ToBeClassified;
             TableRelation = "HRM-Employee C"."No.";
-            
+
             trigger OnValidate()
             var
                 Employee: Record "HRM-Employee C";
@@ -236,7 +236,7 @@ table 51600 "FLT-Mileage Claim Header"
             FltSetup.TestField("Mileage Claim Nos.");
             NoSeriesMgt.InitSeries(FltSetup."Mileage Claim Nos.", xRec."No. Series", 0D, "No.", "No. Series");
         end;
-        
+
         "Date" := WorkDate();
         "Date Created" := WorkDate();
         "Time Created" := Time;
@@ -255,7 +255,7 @@ table 51600 "FLT-Mileage Claim Header"
     begin
         if Status in [Status::Approved, Status::Posted, Status::"Pending Approval"] then
             Error('You cannot delete a %1 record.', Status);
-            
+
         // Delete related lines
         DeleteMileageClaimLines();
     end;
@@ -273,7 +273,7 @@ table 51600 "FLT-Mileage Claim Header"
     begin
         TestField("Employee No.");
         TestMileageClaimLines();
-        
+
         if Confirm('Send this Mileage Claim for Approval?', true) then begin
             Status := Status::"Pending Approval";
             "Approval Stage" := "Approval Stage"::"Transport Officer";
@@ -288,10 +288,10 @@ table 51600 "FLT-Mileage Claim Header"
     begin
         if not UserSetup.Get(UserId) then
             Error('User %1 is not setup properly.', UserId);
-            
+
         TestField(Status, Status::"Pending Approval");
         TestField("Approval Stage", "Approval Stage"::"Transport Officer");
-        
+
         if Confirm('Approve this Mileage Claim?', true) then begin
             "Transport Officer" := UserId;
             "Transport Officer Date" := WorkDate();
@@ -308,10 +308,10 @@ table 51600 "FLT-Mileage Claim Header"
     begin
         if not UserSetup.Get(UserId) then
             Error('User %1 is not setup properly.', UserId);
-            
+
         TestField(Status, Status::"Pending Approval");
         TestField("Approval Stage", "Approval Stage"::"VC/DVC/Registrar");
-        
+
         if Confirm('Give Final Approval to this Mileage Claim?', true) then begin
             Status := Status::Approved;
             "Approval Stage" := "Approval Stage"::"Fully Approved";

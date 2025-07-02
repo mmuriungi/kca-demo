@@ -13,178 +13,179 @@ Report 51271 "Store Requisition"
             column(ReportForNavId_1826; 1826)
             {
             }
-            column(Store_Requistion_Header__No__;"No.")
+            column(Store_Requistion_Header__No__; "No.")
             {
             }
-            column(Store_Requistion_Header__Request_Description_;"Request Description")
+            column(Store_Requistion_Header__Request_Description_; "Request Description")
             {
             }
-            column(Store_Requistion_Header__Request_date_;"Request date")
+            column(Store_Requistion_Header__Request_date_; "Request date")
             {
             }
-            column(Store_Requistion_Header__Required_Date_;"Issue Date")
+            column(Store_Requistion_Header__Required_Date_; "Issue Date")
             {
             }
-            column(Store_Requistion_Header__Global_Dimension_1_Code_;"Global Dimension 1 Code")
+            column(Store_Requistion_Header__Global_Dimension_1_Code_; "Global Dimension 1 Code")
             {
             }
-            column(dept;dimVal.Name)
+            column(dept; dimVal.Name)
             {
             }
-            column(Store_Requistion_Header__Function_Name_;"Function Name")
+            column(Store_Requistion_Header__Function_Name_; "Function Name")
             {
             }
-            column(Store_Requistion_Header__Budget_Center_Name_;"Budget Center Name")
+            column(Store_Requistion_Header__Budget_Center_Name_; "Budget Center Name")
             {
             }
-            column(TIME_PRINTED_____FORMAT_TIME_;'TIME PRINTED:' + Format(Time))
+            column(TIME_PRINTED_____FORMAT_TIME_; 'TIME PRINTED:' + Format(Time))
             {
                 AutoFormatType = 1;
             }
-            column(DATE_PRINTED_____FORMAT_TODAY_0_4_;'DATE PRINTED:' + Format(Today,0,4))
+            column(DATE_PRINTED_____FORMAT_TODAY_0_4_; 'DATE PRINTED:' + Format(Today, 0, 4))
             {
                 AutoFormatType = 1;
             }
-            column(USERID;UserId)
+            column(USERID; UserId)
             {
             }
-            column(pics;info.Picture)
+            column(pics; info.Picture)
             {
             }
-            column(ApprovalUserArr_3_;ApprovalUserArr[3])
+            column(ApprovalUserArr_3_; ApprovalUserArr[3])
             {
             }
-            column(ApprovalDateArr_3_;ApprovalDateArr[3])
+            column(ApprovalDateArr_3_; ApprovalDateArr[3])
             {
             }
-            column(Store_Requistion_Header__Store_Requistion_Header___Requester_ID_;"Requester ID")
+            column(Store_Requistion_Header__Store_Requistion_Header___Requester_ID_; "Requester ID")
             {
             }
-            column(Store_RequistionCaption;Store_RequistionCaptionLbl)
+            column(Store_RequistionCaption; Store_RequistionCaptionLbl)
             {
             }
-            column(Store_Requistion_Header__No__Caption;FieldCaption("No."))
+            column(Store_Requistion_Header__No__Caption; FieldCaption("No."))
             {
             }
-            column(Store_Requistion_Header__Request_Description_Caption;FieldCaption("Request Description"))
+            column(Store_Requistion_Header__Request_Description_Caption; FieldCaption("Request Description"))
             {
             }
-            column(Store_Requistion_Header__Request_date_Caption;FieldCaption("Request date"))
+            column(Store_Requistion_Header__Request_date_Caption; FieldCaption("Request date"))
             {
             }
-            column(Store_Requistion_Header__Required_Date_Caption;FieldCaption("Required Date"))
+            column(Store_Requistion_Header__Required_Date_Caption; FieldCaption("Required Date"))
             {
             }
-            column(Store_Requistion_Header__Global_Dimension_1_Code_Caption;FieldCaption("Global Dimension 1 Code"))
+            column(Store_Requistion_Header__Global_Dimension_1_Code_Caption; FieldCaption("Global Dimension 1 Code"))
             {
             }
-            column(Store_Requistion_Header__Shortcut_Dimension_2_Code_Caption;FieldCaption("Shortcut Dimension 2 Code"))
+            column(Store_Requistion_Header__Shortcut_Dimension_2_Code_Caption; FieldCaption("Shortcut Dimension 2 Code"))
             {
             }
-            column(Store_Requistion_Lines__No__Caption;SRNLines.FieldCaption("No."))
+            column(Store_Requistion_Lines__No__Caption; SRNLines.FieldCaption("No."))
             {
             }
-            column(Store_Requistion_Lines_DescriptionCaption;SRNLines.FieldCaption(Description))
+            column(Store_Requistion_Lines_DescriptionCaption; SRNLines.FieldCaption(Description))
             {
             }
-            column(Store_Requistion_Lines_QuantityCaption;SRNLines.FieldCaption(Quantity))
+            column(Store_Requistion_Lines_QuantityCaption; SRNLines.FieldCaption(Quantity))
             {
             }
-            column(UoMCaption;UoMCaptionLbl)
+            column(UoMCaption; UoMCaptionLbl)
             {
             }
-            column(Store_Requistion_Lines__Line_Amount_Caption;SRNLines.FieldCaption("Line Amount"))
+            column(Store_Requistion_Lines__Line_Amount_Caption; SRNLines.FieldCaption("Line Amount"))
             {
             }
-            column(Store_Requistion_Lines__Unit_Cost_Caption;SRNLines.FieldCaption("Unit Cost"))
+            column(Store_Requistion_Lines__Unit_Cost_Caption; SRNLines.FieldCaption("Unit Cost"))
             {
             }
-            column(Date_Caption;Date_CaptionLbl)
+            column(Date_Caption; Date_CaptionLbl)
             {
             }
-            column(Name_Caption;Name_CaptionLbl)
+            column(Name_Caption; Name_CaptionLbl)
             {
             }
-            column(RecipientCaption;RecipientCaptionLbl)
+            column(RecipientCaption; RecipientCaptionLbl)
             {
             }
-            column(Printed_By_Caption;Printed_By_CaptionLbl)
+            column(Printed_By_Caption; Printed_By_CaptionLbl)
             {
             }
-            column(Name_Caption_Control1102755052;Name_Caption_Control1102755052Lbl)
+            column(Name_Caption_Control1102755052; Name_Caption_Control1102755052Lbl)
             {
             }
-            column(Date_Caption_Control1102755053;Date_Caption_Control1102755053Lbl)
+            column(Date_Caption_Control1102755053; Date_Caption_Control1102755053Lbl)
             {
             }
-            column(Signature_Caption;Signature_CaptionLbl)
+            column(Signature_Caption; Signature_CaptionLbl)
             {
             }
-            column(AuthorisationsCaption;AuthorisationsCaptionLbl)
+            column(AuthorisationsCaption; AuthorisationsCaptionLbl)
             {
             }
-            column(EmptyStringCaption;EmptyStringCaptionLbl)
+            column(EmptyStringCaption; EmptyStringCaptionLbl)
             {
             }
-            column(Signature_Caption_Control1102755000;Signature_Caption_Control1102755000Lbl)
+            column(Signature_Caption_Control1102755000; Signature_Caption_Control1102755000Lbl)
             {
             }
-            dataitem(SRNLines;"PROC-Store Requistion Lines")
+            dataitem(SRNLines; "PROC-Store Requistion Lines")
             {
-                DataItemLink = "Requistion No"=field("No.");
-                DataItemTableView = sorting("Requistion No","No.") order(ascending);
+                DataItemLink = "Requistion No" = field("No.");
+                DataItemTableView = sorting("Requistion No", "No.") order(ascending);
                 column(ReportForNavId_7187; 7187)
                 {
                 }
-                column(seq;seq)
+                column(seq; seq)
                 {
                 }
-                column(Store_Requistion_Lines__No__;"No.")
+                column(Store_Requistion_Lines__No__; "No.")
                 {
                 }
-                column(Store_Requistion_Lines_Description;Description)
+                column(Store_Requistion_Lines_Description; Description)
                 {
                 }
-                column(Issued;Quantity)
+                column(Issued; Quantity)
                 {
                 }
-                column(Requested;SRNLines."Quantity Requested")
+                column(Requested; SRNLines."Quantity Requested")
                 {
                 }
-                column(Store_Requistion_Lines__Unit_of_Measure_;"Unit of Measure")
+                column(Store_Requistion_Lines__Unit_of_Measure_; "Unit of Measure")
                 {
                 }
-                column(Store_Requistion_Lines__Line_Amount_;"Line Amount")
+                column(Store_Requistion_Lines__Line_Amount_; "Line Amount")
                 {
                 }
-                column(Store_Requistion_Lines__Unit_Cost_;"Unit Cost")
+                column(Store_Requistion_Lines__Unit_Cost_; "Unit Cost")
                 {
                 }
-                column(Store_Requistion_Lines_Requistion_No;"Requistion No")
+                column(Store_Requistion_Lines_Requistion_No; "Requistion No")
                 {
                 }
-                column(QtyRequested;SRNLines."Quantity Requested")
+                column(QtyRequested; SRNLines."Quantity Requested")
                 {
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-                            seq:=seq+1;
+                    seq := seq + 1;
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
                 ApprovalEntry.Reset;
-                ApprovalEntry.SetRange(ApprovalEntry."Document No.",SRN."No.");
+                ApprovalEntry.SetRange(ApprovalEntry."Document No.", SRN."No.");
                 //ApprovalEntry.SetRange(ApprovalEntry."Document Type",ApprovalEntry."document type"::Requisition);
-                if ApprovalEntry.Find('-') then repeat
-                  ApprovalUserArr[ApprovalEntry."Sequence No."]:=ApprovalEntry."Last Modified By ID";
-                  ApprovalDateArr[ApprovalEntry."Sequence No."]:=ApprovalEntry."Last Date-Time Modified";
-                until ApprovalEntry.Next=0;
+                if ApprovalEntry.Find('-') then
+                    repeat
+                        ApprovalUserArr[ApprovalEntry."Sequence No."] := ApprovalEntry."Last Modified By ID";
+                        ApprovalDateArr[ApprovalEntry."Sequence No."] := ApprovalEntry."Last Date-Time Modified";
+                    until ApprovalEntry.Next = 0;
                 Clear(seq);
                 dimVal.Reset;
-                dimVal.SetRange(dimVal.Code,SRN."Shortcut Dimension 2 Code");
+                dimVal.SetRange(dimVal.Code, SRN."Shortcut Dimension 2 Code");
                 if dimVal.Find('-') then begin
                 end;
             end;
@@ -209,16 +210,16 @@ Report 51271 "Store Requisition"
 
     trigger OnInitReport()
     begin
-         info.Reset;
-         if info.Find('-') then begin
-         info.CalcFields(info.Picture);
-         end;
+        info.Reset;
+        if info.Find('-') then begin
+            info.CalcFields(info.Picture);
+        end;
     end;
 
     var
         ApprovalEntry: Record "Approval Entry";
-        ApprovalUserArr: array [40] of Code[30];
-        ApprovalDateArr: array [40] of DateTime;
+        ApprovalUserArr: array[40] of Code[30];
+        ApprovalDateArr: array[40] of DateTime;
         ArrCount: Integer;
         Store_RequistionCaptionLbl: label 'Store Requistion';
         UoMCaptionLbl: label 'UoM';

@@ -170,7 +170,7 @@ permissionset 50000 "Payroll Admin"
         tabledata "HRM-Employee Beneficiaries" = RMID,
         table "HRM-Staff Categories" = X,
         tabledata "HRM-Staff Categories" = RMID,
-        table "HRM-ShortListQualifications"= X,
+        table "HRM-ShortListQualifications" = X,
         tabledata "HRM-ShortListQualifications" = RMID,
         table "HRM-Employee Requisitions" = X,
         tabledata "HRM-Employee Requisitions" = RMID,
@@ -434,7 +434,7 @@ permissionset 50000 "Payroll Admin"
         tabledata "HRM-Job_Salary grade/steps" = RMID,
         table "HRM-Job Sal. grade/steps" = X,
         tabledata "HRM-Job Sal. grade/steps" = RMID,
-        
+
         // Pages
         page "HRM-Score Setup" = X,
         page "GEN-Ethnic Communities" = X,
@@ -613,7 +613,7 @@ permissionset 50000 "Payroll Admin"
         page "Employee Perf Target List" = X,
         //page "Employee Details Summary" = X,
         page "Core Values" = X,
-        
+
         // Reports
         report "Payroll Variance 2 Ext" = X,
         report "Detailed Payroll Summary Ext" = X,
@@ -715,11 +715,11 @@ permissionset 50000 "Payroll Admin"
         report "Casual - NSSF Report (A)" = X,
         report "Appraisal Report" = X,
         report "Appraisal Form" = X,
-        
+
         // Xmlports
         xmlport "Leave Allocations" = X,
         xmlport "Import Charge Additions" = X,
-        
+
         // Codeunits
         codeunit "Appraisal Workflow" = X,
         codeunit "HR Dates" = X,

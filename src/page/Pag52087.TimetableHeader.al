@@ -313,11 +313,17 @@ page 52087 "Timetable Header"
                 trigger OnAction()
                 var
                     THeader: Record "Timetable Header";
+                    Tentry: Record "Timetable Entry";
                 begin
-                    THeader.Reset();
-                    THeader.SetRange(Semester, Rec.Semester);
-                    if THeader.FindFirst() then
-                        Report.Run(Report::"Class Timetable Report", TRUE, FALSE, THeader);
+                    // THeader.Reset();
+                    // THeader.SetRange(Semester, Rec.Semester);
+                    // if THeader.FindFirst() then
+                    //Report.Run(Report::"Class Timetable Report", TRUE, FALSE, THeader);
+                    Tentry.Reset();
+                    Tentry.SetRange(Semester, Rec.Semester);
+                    Tentry.SetRange("Document No.", Rec."Document No.");
+                    if Tentry.FindFirst() then
+                        Report.Run(Report::"Class Timetable New", TRUE, FALSE, Tentry);
                 end;
             }
 
@@ -398,10 +404,13 @@ page 52087 "Timetable Header"
                 begin
                     if Rec."Linked Timetable No." = '' then
                         Error('No linked timetable specified.');
-                        
-                    if not SourceHeader.Get(Rec."Linked Timetable No.") then
+
+                    SourceHeader.Reset();
+                    SourceHeader.SetRange(Semester, Rec.Semester);
+                    SourceHeader.SetRange("Document No.", Rec."Linked Timetable No.");
+                    if not SourceHeader.FindFirst() then
                         Error('Source timetable %1 not found.', Rec."Linked Timetable No.");
-                        
+
                     if Confirm('This will copy all entries from timetable %1. Continue?', false, Rec."Linked Timetable No.") then begin
                         TimetableChangeMgt.CopyTimetableWithModifications(SourceHeader, Rec);
                         CurrPage.Update(false);
@@ -417,13 +426,15 @@ page 52087 "Timetable Header"
                 PromotedIsBig = true;
                 Image = ViewDetails;
                 Visible = Rec."Has Changes";
-                trigger OnAction()
-                var
-                    ChangeLog: Record "Timetable Change Log";
-                begin
-                    ChangeLog.SetRange("Timetable Document No.", Rec."Document No.");
-                    Page.RunModal(52133, ChangeLog);
-                end;
+                RunObject = Page "Timetable Change Log";
+                RunPageLink = "Timetable Document No." = field("Document No.");
+                // trigger OnAction()
+                // var
+                //     ChangeLog: Record "Timetable Change Log";
+                // begin
+                //     ChangeLog.SetRange("Timetable Document No.", Rec."Document No.");
+                //     Page.RunModal(52133, ChangeLog);
+                // end;
             }
             action("Mark Lecturer Unavailable")
             {
@@ -442,7 +453,7 @@ page 52087 "Timetable Header"
                 begin
                     if Rec."Linked Timetable No." = '' then
                         Error('This action is only available for modified timetables.');
-                        
+
                     // Get lecturer unavailability details from user
                     // TODO: Create lecturer unavailability dialog page
                     Message('Lecturer unavailability functionality will be implemented. This will allow marking lecturers as unavailable for specific dates and automatically suggest alternatives.');
@@ -477,17 +488,17 @@ page 52087 "Timetable Header"
                     ChangeRule.SetRange("Timetable Document No.", Rec."Document No.");
                     ChangeRule.SetRange(Active, true);
                     ChangeRule.SetRange(Applied, false);
-                    
+
                     if ChangeRule.IsEmpty() then
                         Error('No active change rules defined. Please define rules first.');
-                        
+
                     if Confirm('Do you want to preview the changes before applying them?', true) then begin
                         ChangeMgt.ProcessChangeRules(Rec."Document No.", true);
                         if Confirm('Do you want to apply these changes now?', true) then
                             ChangeMgt.ProcessChangeRules(Rec."Document No.", false);
                     end else
                         ChangeMgt.ProcessChangeRules(Rec."Document No.", false);
-                        
+
                     CurrPage.Update(false);
                 end;
             }

@@ -32,13 +32,13 @@ page 50196 "Audit Post-Review Procedures"
     trigger OnAfterGetCurrRecord()
     begin
 
-       
+
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-       
+
     end;
 
     var

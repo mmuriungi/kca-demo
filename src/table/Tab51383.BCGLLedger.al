@@ -2,7 +2,7 @@ table 51383 "BC GL Ledger"
 {
     Caption = 'BC GL Ledger';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Entry No."; Integer)

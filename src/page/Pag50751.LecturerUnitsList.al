@@ -99,12 +99,66 @@ page 50751 "Lecturer Units List"
                 {
                     ApplicationArea = All;
                 }
+                field("Student Allocation"; Rec."Student Allocation")
+                {
+                    ApplicationArea = All;
+                }
+                field(Stream; Rec.Stream)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
 
     actions
     {
+        area(Processing)
+        {
+            action("Split Into Streams")
+            {
+                ApplicationArea = All;
+                Caption = 'Split Into Streams';
+                Image = Split;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+
+                trigger OnAction()
+                var
+                    StreamSplittingMgt: Codeunit "Stream Splitting Mgt";
+                begin
+                    if Confirm('Do you want to split this unit into multiple streams based on student allocation?') then
+                        StreamSplittingMgt.SplitLecturerUnitIntoStreams(Rec);
+                end;
+            }
+
+            action("Preview Stream Split")
+            {
+                ApplicationArea = All;
+                Caption = 'Preview Stream Split';
+                Image = ViewDetails;
+                Promoted = true;
+                PromotedCategory = Process;
+
+                trigger OnAction()
+                var
+                    StreamSplittingMgt: Codeunit "Stream Splitting Mgt";
+                begin
+                    StreamSplittingMgt.PreviewStreamSplit(Rec);
+                end;
+            }
+
+            action("Batch Stream Splitting")
+            {
+                ApplicationArea = All;
+                Caption = 'Batch Stream Splitting';
+                Image = Process;
+                Promoted = true;
+                PromotedCategory = Process;
+                RunObject = report "Batch Stream Splitting";
+            }
+        }
     }
 }
 

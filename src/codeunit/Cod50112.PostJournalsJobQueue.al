@@ -4,6 +4,7 @@ codeunit 50112 "Post Journals by Queue"
     begin
         process();
     end;
+
     procedure process()
     var
         GenJnlLine: Record "Gen. Journal Line";

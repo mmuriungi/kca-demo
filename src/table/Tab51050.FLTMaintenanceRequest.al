@@ -11,8 +11,8 @@ table 51050 "FLT Maintenance Request."
 
             trigger OnValidate()
             begin
-               
-                    "Fixed Asset No" := "Vehicle Reg No";
+
+                "Fixed Asset No" := "Vehicle Reg No";
             end;
         }
         field(3; "Vendor(Dealer)"; Code[20])

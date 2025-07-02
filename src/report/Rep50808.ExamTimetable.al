@@ -190,19 +190,19 @@ report 50808 "Exam Timetable"
         VenueName: Text[100];
         TimeSlotLabel: Text[30];
         CompInfo: Record "Company Information";
-        TimeArray: array[2000] of Text;
-        MondayArray: array[2000] of Text;
-        TuesdayArray: array[2000] of Text;
-        WednesdayArray: array[2000] of Text;
-        ThursdayArray: array[2000] of Text;
-        FridayArray: array[2000] of Text;
-        DayArray: array[2000] of Text;
-        InvigilatorArray: array[2000] of Text;
+        TimeArray: array[20000] of Text;
+        MondayArray: array[20000] of Text;
+        TuesdayArray: array[20000] of Text;
+        WednesdayArray: array[20000] of Text;
+        ThursdayArray: array[20000] of Text;
+        FridayArray: array[20000] of Text;
+        DayArray: array[20000] of Text;
+        InvigilatorArray: array[20000] of Text;
         i: Integer;
         ProgFilter: Text;
         StageFilter: Text;
         LecFilter: Text;
-        SlotArray: array[2000] of Integer;
+        SlotArray: array[20000] of Integer;
 
 
     trigger OnPreReport()

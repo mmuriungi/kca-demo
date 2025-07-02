@@ -76,7 +76,7 @@ report 51903 "HMS Sick Leave Certificate"
             column(IdentificationText; GetIdentificationText())
             {
             }
-            
+
             trigger OnAfterGetRecord()
             begin
                 CompanyInfo.Get();
@@ -87,7 +87,7 @@ report 51903 "HMS Sick Leave Certificate"
 
     var
         CompanyInfo: Record "Company Information";
-        
+
     local procedure GetDurationText(): Text
     begin
         if "HMS-Off Duty"."Duration Unit" = "HMS-Off Duty"."Duration Unit"::Days then
@@ -95,7 +95,7 @@ report 51903 "HMS Sick Leave Certificate"
         else
             exit(Format("HMS-Off Duty"."Sick Leave Duration") + ' Weeks');
     end;
-    
+
     local procedure GetTitleText(): Text
     begin
         case "HMS-Off Duty".Title of
@@ -113,7 +113,7 @@ report 51903 "HMS Sick Leave Certificate"
                 exit('');
         end;
     end;
-    
+
     local procedure GetIdentificationText(): Text
     begin
         if "HMS-Off Duty"."PF No." <> '' then

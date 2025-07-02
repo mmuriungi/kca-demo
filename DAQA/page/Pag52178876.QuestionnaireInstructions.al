@@ -6,7 +6,7 @@ page 52091 "Questionnaire Instructions"
     SourceTable = "Questionnaire Instructions";
     UsageCategory = Lists;
     CardPageId = "Questionnaire Instruction";
-    
+
     layout
     {
         area(Content)

@@ -2,7 +2,7 @@ query 50010 "Questionnaire Instructions"
 {
     Caption = 'Questionnaire Instructions';
     QueryType = Normal;
-    
+
     elements
     {
         dataitem(QuestionnaireInstructions; "Questionnaire Instructions")
@@ -18,9 +18,9 @@ query 50010 "Questionnaire Instructions"
             }
         }
     }
-    
+
     trigger OnBeforeOpen()
     begin
-    
+
     end;
 }

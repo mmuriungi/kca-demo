@@ -16,7 +16,7 @@ page 50193 Objectives
                     trigger OnValidate()
                     begin
 
-                        
+
                     end;
                 }
             }
@@ -30,13 +30,13 @@ page 50193 Objectives
     trigger OnAfterGetCurrRecord()
     begin
 
-      
+
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-       
+
     end;
 
     var

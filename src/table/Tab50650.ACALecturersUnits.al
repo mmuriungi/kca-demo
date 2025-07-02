@@ -306,7 +306,7 @@ table 50650 "ACA-Lecturers Units"
 
     keys
     {
-        key(Key1; Programme, Stage, "Campus Code", "Group Type", Class, Lecturer, Unit, Semester, Description)
+        key(Key1; Programme, Stage, "Campus Code", "Group Type", Class, Lecturer, Unit, Semester, Description, Stream)
         {
         }
         key(Key2; Lecturer)

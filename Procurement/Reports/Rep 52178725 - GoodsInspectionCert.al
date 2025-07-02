@@ -4,7 +4,7 @@ report 52178725 "Goods Inspection Cert"
     RDLCLayout = './Procurement/Reports/SSR/GoodsInspectionCertficate.rdl';
     PreviewMode = PrintLayout;
 
-    dataset 
+    dataset
     {
         dataitem(prh; "Purch. Rcpt. Header")
         {

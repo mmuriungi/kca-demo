@@ -75,6 +75,14 @@ page 50948 "ACA-Lecturers Units/Subjects"
                 {
                     ApplicationArea = All;
                 }
+                field("Student Allocation"; Rec."Student Allocation")
+                {
+                    ApplicationArea = All;
+                }
+                field(Stream; Rec.Stream)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

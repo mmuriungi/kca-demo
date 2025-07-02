@@ -80,7 +80,7 @@ page 51587 "Trip Schedule List"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -92,7 +92,7 @@ page 51587 "Trip Schedule List"
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
-                
+
                 trigger OnAction()
                 var
                     TransportReq: Record "FLT-Transport Requisition";

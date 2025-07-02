@@ -55,7 +55,7 @@ page 52126 "Nav Vendor Ledger List"
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -66,7 +66,7 @@ page 52126 "Nav Vendor Ledger List"
                 Caption = 'Import';
                 Image = ImportExcel;
                 ToolTip = 'Import data from CSV file';
-                
+
                 trigger OnAction()
                 begin
                     Xmlport.Run(50216, true, true);
@@ -78,7 +78,7 @@ page 52126 "Nav Vendor Ledger List"
                 Caption = 'Export';
                 Image = ExportFile;
                 ToolTip = 'Export data to CSV file';
-                
+
                 trigger OnAction()
                 begin
                     Xmlport.Run(50216, false, true);

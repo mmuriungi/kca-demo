@@ -16,7 +16,7 @@ page 50210 "Audit Report Background"
                     trigger OnValidate()
                     begin
 
-                        
+
                     end;
                 }
             }

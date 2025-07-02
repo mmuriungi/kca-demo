@@ -34,7 +34,7 @@ table 50245 "HRM-Medical Claims"
         field(2; "Claim Type"; Option)
         {
             OptionMembers = Inpatient,Outpatient,Optical;
-            
+
             trigger OnValidate()
             begin
                 // Recalculate balances when claim type changes
@@ -43,11 +43,11 @@ table 50245 "HRM-Medical Claims"
                     CalcFields("Employee Category", "Salary Grade");
                     CalcFields("Inpatient Limit", "Outpatient Limit", "Optical Limit",
                               "Inpatient Running Balance", "Outpatient Running Balance", "Optical Running Balance");
-                    
+
                     // Re-validate claim amount with new type
                     if "Claim Amount" > 0 then begin
                         fnCheckCeilingAndBalance();
-                        
+
                         // Check for overdraft with new claim type
                         if GetAvailableBalance("Claim Type") <= 0 then
                             CheckForOverdraft();
@@ -111,14 +111,14 @@ table 50245 "HRM-Medical Claims"
                 if ("Member No" <> '') and ("Claim Amount" > 0) then begin
                     // Check ceiling and balance using existing function
                     fnCheckCeilingAndBalance();
-                    
+
                     // Check available balance and send overdraft alert if needed
                     AvailableBalance := GetAvailableBalance("Claim Type");
-                    
+
                     if "Claim Amount" > AvailableBalance then begin
                         WarningMsg := 'WARNING: Claim amount (%1) exceeds available balance (%2) for %3 claims. Proceeding will result in an overdraft.';
                         Message(WarningMsg, "Claim Amount", AvailableBalance, Format("Claim Type"));
-                        
+
                         // Trigger overdraft alert
                         CheckForOverdraft();
                     end else if "Claim Amount" > (AvailableBalance * 0.8) then begin
@@ -517,7 +517,7 @@ table 50245 "HRM-Medical Claims"
         Periods.SetRange("New Fiscal Year", false);
         if Periods.FindLast() then
             EndDate := Periods."Starting Date";
-        
+
         SetFilter("Date Filter", '%1..%2', StartDate, EndDate);
     end;
 
@@ -527,7 +527,7 @@ table 50245 "HRM-Medical Claims"
     begin
         SetCurrentFiscalYearFilter();
         CalcFields("Employee Category", "Salary Grade");
-        
+
         case ClaimType of
             ClaimType::Inpatient:
                 begin
@@ -545,10 +545,10 @@ table 50245 "HRM-Medical Claims"
                     AvailableBalance := "Optical Limit" - "Optical Running Balance";
                 end;
         end;
-        
+
         if AvailableBalance < 0 then
             AvailableBalance := 0;
-            
+
         exit(AvailableBalance);
     end;
 
@@ -564,16 +564,16 @@ table 50245 "HRM-Medical Claims"
         Body: Text;
     begin
         AvailableBalance := GetAvailableBalance("Claim Type");
-        
+
         if AvailableBalance <= 0 then begin
             OverdraftMsg := 'ALERT: Employee %1 (%2) has exceeded their %3 medical limit. Available balance: %4';
             Message(OverdraftMsg, "Member Names", "Member No", Format("Claim Type"), AvailableBalance);
-            
+
             // Send email alert to medical officer (using HMS Setup for medical officer email)
             if HMSSetup.Get() then
                 if HMSSetup."Medical Officer Email" <> '' then
                     Recipients.Add(HMSSetup."Medical Officer Email");
-            
+
             if Recipients.Count > 0 then begin
                 Subject := 'Medical Claims Overdraft Alert';
                 Body := StrSubstNo('Employee %1 (%2) has exceeded their %3 medical limit.\n\nAvailable Balance: %4\nEmployee Department: %5\nResponsibility Center: %6\n\nPlease review and take appropriate action.',

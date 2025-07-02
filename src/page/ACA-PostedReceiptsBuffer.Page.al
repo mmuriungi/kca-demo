@@ -4,7 +4,7 @@ Page 68790 "ACA-Posted Receipts Buffer1"
     Editable = false;
     PageType = List;
     SourceTable = "ACA-Imp. Receipts Buffer";
-    SourceTableView = where(Posted=const(true));
+    SourceTableView = where(Posted = const(true));
 
     layout
     {
@@ -12,31 +12,31 @@ Page 68790 "ACA-Posted Receipts Buffer1"
         {
             repeater(Control1102760000)
             {
-                field("Transaction Code";Rec."Transaction Code")
+                field("Transaction Code"; Rec."Transaction Code")
                 {
                     ApplicationArea = Basic;
                 }
-                field("Student No.";Rec."Student No.")
+                field("Student No."; Rec."Student No.")
                 {
                     ApplicationArea = Basic;
                 }
-                field(Date;Rec.Date)
+                field(Date; Rec.Date)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Description;Rec.Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Amount;Rec.Amount)
+                field(Amount; Rec.Amount)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Posted;Rec.Posted)
+                field(Posted; Rec.Posted)
                 {
                     ApplicationArea = Basic;
                 }
-                field("Receipt No";Rec."Receipt No")
+                field("Receipt No"; Rec."Receipt No")
                 {
                     ApplicationArea = Basic;
                 }

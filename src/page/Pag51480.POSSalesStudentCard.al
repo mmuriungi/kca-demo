@@ -1,7 +1,7 @@
-page 51480 "POS Sales Student Card"
+page 51480 "POS Sales Student Card Legacy"
 {
     PageType = Card;
-    SourceTable = "POS Sales Header";
+    SourceTable = "POS Sales Header Legacy";
     RefreshOnActivate = true;
     SourceTableView = where("Customer Type" = filter(Student), Posted = filter(false));
     layout

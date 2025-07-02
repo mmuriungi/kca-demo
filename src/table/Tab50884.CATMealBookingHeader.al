@@ -170,7 +170,7 @@ table 50884 "CAT-Meal Booking Header"
         END;
 
         if "Requested By" <> '' then
-        "Requested By" := USERID;
+            "Requested By" := USERID;
         "Booking Time" := TIME;
         "Booking Date" := TODAY;
         HRMEmployeeC.RESET;

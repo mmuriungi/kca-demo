@@ -1,4 +1,4 @@
-report 50688 "POS cashier Sales Report"
+report 50688 "POS Sales Report Legacy"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/PosCashierPrintOUT.rdl';

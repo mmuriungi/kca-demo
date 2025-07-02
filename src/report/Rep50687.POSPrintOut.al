@@ -1,4 +1,4 @@
-report 50687 "POS PrintOut"
+report 50687 "POS PrintOut Legacy"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/PosPrintOut.rdl';

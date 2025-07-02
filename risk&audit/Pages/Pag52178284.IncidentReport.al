@@ -142,7 +142,7 @@ page 50121 "Incident Report"
                 {
                     trigger OnValidate()
                     begin
-                        
+
                     end;
                 }
                 field("Rejection reason"; Rec."Rejection reason")
@@ -307,7 +307,7 @@ page 50121 "Incident Report"
 
     trigger OnAfterGetRecord()
     begin
-       
+
     end;
 
     var

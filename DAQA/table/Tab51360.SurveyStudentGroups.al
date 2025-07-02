@@ -2,7 +2,7 @@ table 51360 "Survey Student Groups"
 {
     Caption = 'Survey Student Groups';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Survey Code"; Code[25])
@@ -16,7 +16,7 @@ table 51360 "Survey Student Groups"
     }
     keys
     {
-        key(PK; "Survey Code","Year of Study")
+        key(PK; "Survey Code", "Year of Study")
         {
             Clustered = true;
         }

@@ -1,7 +1,7 @@
-page 51469 "POS Sales Header List"
+page 51469 "POS Sales Header List Legacy"
 {
     PageType = List;
-    SourceTable = "POS Sales Header";
+    SourceTable = "POS Sales Header Legacy";
     CardPageId = "POS Sales Header Card";
     DeleteAllowed = false;
     InsertAllowed = false;

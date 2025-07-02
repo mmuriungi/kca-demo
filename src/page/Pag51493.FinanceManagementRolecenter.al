@@ -915,6 +915,7 @@ page 51493 "Finance Management Rolecenter"
 
                 Caption = 'Payroll Reports';
                 Image = Payables;
+                visible = false;
                 action(Payslips)
                 {
                     ApplicationArea = area;

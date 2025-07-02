@@ -1,4 +1,4 @@
-table 50988 "POS Sales Lines"
+table 50988 "POS Sales Lines Legacy"
 {
     fields
     {
@@ -11,7 +11,7 @@ table 50988 "POS Sales Lines"
         }
         field(3; "No."; code[20])
         {
-            TableRelation = "POS Items"."No." where("Serving Category" = field("Serving Category"));
+            TableRelation = "POS Items Legacy"."No." where("Serving Category" = field("Serving Category"));
             trigger OnValidate()
             var
                 itemledger: Record "POS Item Ledger";

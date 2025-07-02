@@ -6,7 +6,7 @@ Report 51054 "Payment Voucher Report"
 
     dataset
     {
-        dataitem("FIN-Payments Header";"FIN-Payments Header")
+        dataitem("FIN-Payments Header"; "FIN-Payments Header")
         {
             CalcFields = "Total Levy";
             DataItemTableView = sorting("No.");
@@ -14,173 +14,173 @@ Report 51054 "Payment Voucher Report"
             column(ReportForNavId_6437; 6437)
             {
             }
-            column(FORMAT_TODAY_0_4_;Format(Today,0,4))
+            column(FORMAT_TODAY_0_4_; Format(Today, 0, 4))
             {
             }
-            column(COMPANYNAME;COMPANYNAME)
+            column(COMPANYNAME; COMPANYNAME)
             {
             }
-            column(CurrReport_PAGENO;CurrReport.PageNo)
+            column(CurrReport_PAGENO; CurrReport.PageNo)
             {
             }
-            column(TotalLevy_FINPaymentsHeader;"FIN-Payments Header"."Total Levy")
+            column(TotalLevy_FINPaymentsHeader; "FIN-Payments Header"."Total Levy")
             {
             }
-            column(USERID;UserId)
+            column(USERID; UserId)
             {
             }
-            column(Payments_HeaderCaption;Payments_HeaderCaptionLbl)
+            column(Payments_HeaderCaption; Payments_HeaderCaptionLbl)
             {
             }
-            column(CurrReport_PAGENOCaption;CurrReport_PAGENOCaptionLbl)
+            column(CurrReport_PAGENOCaption; CurrReport_PAGENOCaptionLbl)
             {
             }
-            column(Payments_Header_No_;"FIN-Payments Header"."No.")
+            column(Payments_Header_No_; "FIN-Payments Header"."No.")
             {
             }
-            column(ChequeNo;"FIN-Payments Header"."Cheque No.")
+            column(ChequeNo; "FIN-Payments Header"."Cheque No.")
             {
             }
-            column(PayingBank;"FIN-Payments Header"."Paying Bank Account")
+            column(PayingBank; "FIN-Payments Header"."Paying Bank Account")
             {
             }
-            column(Payee;"FIN-Payments Header".Payee)
+            column(Payee; "FIN-Payments Header".Payee)
             {
             }
-            column(BankName;BankName)
+            column(BankName; BankName)
             {
             }
-            column(BankNo;BankNo)
+            column(BankNo; BankNo)
             {
             }
-            column(AmntApplied;AmntApplied)
+            column(AmntApplied; AmntApplied)
             {
             }
-            column(VATHeaderAmount;"FIN-Payments Header"."Total VAT Amount")
+            column(VATHeaderAmount; "FIN-Payments Header"."Total VAT Amount")
             {
             }
-            column(PaymentNarration_PaymentsHeader;"FIN-Payments Header"."Payment Narration")
+            column(PaymentNarration_PaymentsHeader; "FIN-Payments Header"."Payment Narration")
             {
             }
-            column(NetHeaderAmount;"FIN-Payments Header"."Total Net Amount")
+            column(NetHeaderAmount; "FIN-Payments Header"."Total Net Amount")
             {
             }
-            column(TotalPayment_Amount;"FIN-Payments Header"."Total Payment Amount")
+            column(TotalPayment_Amount; "FIN-Payments Header"."Total Payment Amount")
             {
             }
-            column(PayMode;"FIN-Payments Header"."Pay Mode")
+            column(PayMode; "FIN-Payments Header"."Pay Mode")
             {
             }
-            column(PayNarattion;PayNarattion)
+            column(PayNarattion; PayNarattion)
             {
             }
-            dataitem("FIN-Payment Line";"FIN-Payment Line")
+            dataitem("FIN-Payment Line"; "FIN-Payment Line")
             {
-                DataItemLink = No=field("No.");
+                DataItemLink = No = field("No.");
                 column(ReportForNavId_3474; 3474)
                 {
                 }
-                column(Payment_Line__Account_Name_;"FIN-Payment Line"."Account Name")
+                column(Payment_Line__Account_Name_; "FIN-Payment Line"."Account Name")
                 {
                 }
-                column(Payment_Line__Withholding_Tax_Amount_;"FIN-Payment Line"."Withholding Tax Amount")
+                column(Payment_Line__Withholding_Tax_Amount_; "FIN-Payment Line"."Withholding Tax Amount")
                 {
                 }
-                column(Payment_Line__Net_Amount_;"FIN-Payment Line"."Net Amount")
+                column(Payment_Line__Net_Amount_; "FIN-Payment Line"."Net Amount")
                 {
                 }
-                column(Payment_Line_Line_No_;"FIN-Payment Line"."Line No.")
+                column(Payment_Line_Line_No_; "FIN-Payment Line"."Line No.")
                 {
                 }
-                column(Payment_Line_No;"FIN-Payment Line".No)
+                column(Payment_Line_No; "FIN-Payment Line".No)
                 {
                 }
-                column(Payment_Line_Type;"FIN-Payment Line".Type)
+                column(Payment_Line_Type; "FIN-Payment Line".Type)
                 {
                 }
-                column(Payment_Line_Account_No_;"FIN-Payment Line"."Account No.")
+                column(Payment_Line_Account_No_; "FIN-Payment Line"."Account No.")
                 {
                 }
-                column(InvPaid;InvPaid)
+                column(InvPaid; InvPaid)
                 {
                 }
-                column(PAYE;"FIN-Payment Line"."PAYE Amount")
+                column(PAYE; "FIN-Payment Line"."PAYE Amount")
                 {
                 }
-                column(AmountInWords;AmountInWords)
+                column(AmountInWords; AmountInWords)
                 {
                 }
-                column(TTotal;TTotal)
+                column(TTotal; TTotal)
                 {
                 }
-                column(NumberText_1_;NumberText[1])
+                column(NumberText_1_; NumberText[1])
                 {
                 }
-                column(InvNo;InvNo)
+                column(InvNo; InvNo)
                 {
                 }
-                column(VatLinesAmount;"FIN-Payment Line"."VAT Amount")
+                column(VatLinesAmount; "FIN-Payment Line"."VAT Amount")
                 {
                 }
-                column(InvDate;InvDate)
+                column(InvDate; InvDate)
                 {
                 }
-                dataitem("Vendor Ledger Entry";"Vendor Ledger Entry")
+                dataitem("Vendor Ledger Entry"; "Vendor Ledger Entry")
                 {
-                    DataItemLink = "Vendor No."=field("Account No."),"Applies-to ID"=field(No);
+                    DataItemLink = "Vendor No." = field("Account No."), "Applies-to ID" = field(No);
                     column(ReportForNavId_4114; 4114)
                     {
                     }
-                    column(Vendor_Ledger_Entry__Posting_Date_;"Vendor Ledger Entry"."Posting Date")
+                    column(Vendor_Ledger_Entry__Posting_Date_; "Vendor Ledger Entry"."Posting Date")
                     {
                     }
-                    column(Vendor_Ledger_Entry__Amount_to_Apply_;"Amount to Apply")
+                    column(Vendor_Ledger_Entry__Amount_to_Apply_; "Amount to Apply")
                     {
                     }
-                    column(Vendor_Ledger_Entry_Description;Description)
+                    column(Vendor_Ledger_Entry_Description; Description)
                     {
                     }
-                    column(Vendor_Ledger_Entry_Entry_No_;"Entry No.")
+                    column(Vendor_Ledger_Entry_Entry_No_; "Entry No.")
                     {
                     }
-                    column(Vendor_Ledger_Entry_Vendor_No_;"Vendor No.")
+                    column(Vendor_Ledger_Entry_Vendor_No_; "Vendor No.")
                     {
                     }
-                    column(Vendor_Ledger_Entry_Applies_to_ID;"Applies-to ID")
+                    column(Vendor_Ledger_Entry_Applies_to_ID; "Applies-to ID")
                     {
                     }
-                    column(ExDocNo;"Vendor Ledger Entry"."External Document No.")
+                    column(ExDocNo; "Vendor Ledger Entry"."External Document No.")
                     {
                     }
-                    column(OrderNo;"Vendor Ledger Entry"."Order No")
+                    column(OrderNo; "Vendor Ledger Entry"."Order No")
                     {
                     }
-                    column(InvAmount;InvAmount)
+                    column(InvAmount; InvAmount)
                     {
                     }
-                    column(HslAmoun;HslAmoun)
+                    column(HslAmoun; HslAmoun)
                     {
                     }
 
                     trigger OnAfterGetRecord()
                     begin
-                         InvAmount:= "Vendor Ledger Entry"."Amount to Apply"*-1;
-                         HslAmoun:=-0.015*"Vendor Ledger Entry"."Amount to Apply";
+                        InvAmount := "Vendor Ledger Entry"."Amount to Apply" * -1;
+                        HslAmoun := -0.015 * "Vendor Ledger Entry"."Amount to Apply";
                     end;
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-                    TTotal:=TTotal+"FIN-Payment Line"."Net Amount";
+                    TTotal := TTotal + "FIN-Payment Line"."Net Amount";
                     CheckReport.InitTextVariable();
-                    CheckReport.FormatNoText(NumberText,TTotal,'');
+                    CheckReport.FormatNoText(NumberText, TTotal, '');
 
-                    if "FIN-Payment Line"."Account Type"="FIN-Payment Line"."account type"::"G/L Account" then begin
-                    InvNo:="FIN-Payment Line"."Account No.";
-                    InvDate:="FIN-Payment Line".Date;
+                    if "FIN-Payment Line"."Account Type" = "FIN-Payment Line"."account type"::"G/L Account" then begin
+                        InvNo := "FIN-Payment Line"."Account No.";
+                        InvDate := "FIN-Payment Line".Date;
                     end else
-                    InvNo:='';
-                    InvDate:=0D;
+                        InvNo := '';
+                    InvDate := 0D;
                 end;
             }
 
@@ -188,32 +188,32 @@ Report 51054 "Payment Voucher Report"
             begin
                 //AmntApplied:='';
                 "Vendor Ledger Entry".Reset;
-                "Vendor Ledger Entry".SetRange("Vendor Ledger Entry"."Applies-to ID","FIN-Payments Header"."No.");
+                "Vendor Ledger Entry".SetRange("Vendor Ledger Entry"."Applies-to ID", "FIN-Payments Header"."No.");
                 if "Vendor Ledger Entry".Find('-') then begin
-                InvPaid:='Summary of Invoices Paid';
-                //AppliedAmount:="Vendor Ledger Entry"."Amount to Apply";
+                    InvPaid := 'Summary of Invoices Paid';
+                    //AppliedAmount:="Vendor Ledger Entry"."Amount to Apply";
                 end else
-                InvPaid:='';
+                    InvPaid := '';
                 //AppliedAmount:=FORMAT(AmntApplied);
                 //AmntApplied:='';
-                TTotal:=0;
+                TTotal := 0;
                 //Get bank name and AC.NO..........JLL
                 BankRec.Reset;
-                BankRec.SetRange(BankRec."No.","FIN-Payments Header"."Paying Bank Account");
+                BankRec.SetRange(BankRec."No.", "FIN-Payments Header"."Paying Bank Account");
                 if BankRec.Find('-') then begin
-                BankName:=BankRec.Name;
-                BankNo:=BankRec."Bank Account No.";
+                    BankName := BankRec.Name;
+                    BankNo := BankRec."Bank Account No.";
                 end;
                 pline.Reset;
-                pline.SetRange(pline."No","FIN-Payments Header"."No." );
+                pline.SetRange(pline."No", "FIN-Payments Header"."No.");
                 if pline.Find('-') then begin
-                    if "FIN-Payments Header"."PV Category"<> "FIN-Payments Header"."pv category"::"Normal PV" then begin
-                    PayNarattion:=  pline."Transaction Name"+' for '+ pline."Account Name";
-                      end else
-                       PayNarattion:= '';
-                      //PayNarattion:=  pLine."Transaction Name"+' for '+ pLine."Account Name";
+                    if "FIN-Payments Header"."PV Category" <> "FIN-Payments Header"."pv category"::"Normal PV" then begin
+                        PayNarattion := pline."Transaction Name" + ' for ' + pline."Account Name";
+                    end else
+                        PayNarattion := '';
+                    //PayNarattion:=  pLine."Transaction Name"+' for '+ pLine."Account Name";
 
-                  end;
+                end;
             end;
 
             trigger OnPreDataItem()
@@ -247,7 +247,7 @@ Report 51054 "Payment Voucher Report"
         InvPaid: Code[30];
         AmountInWords: Text[200];
         CheckReport: Report Check;
-        NumberText: array [2] of Text[100];
+        NumberText: array[2] of Text[100];
         TTotal: Decimal;
         BankName: Text[100];
         BankNo: Code[50];

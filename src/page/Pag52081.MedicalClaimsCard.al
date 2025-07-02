@@ -173,7 +173,7 @@ page 52081 "Medical Claims Card"
                         Editable = false;
                         Style = Attention;
                     }
-                    field(InpatientAvailable; GetAvailableBalance(0))
+                    field(InpatientAvailable; Rec.GetAvailableBalance(0))
                     {
                         ApplicationArea = All;
                         Caption = 'Available Balance';
@@ -198,7 +198,7 @@ page 52081 "Medical Claims Card"
                         Editable = false;
                         Style = Attention;
                     }
-                    field(OutpatientAvailable; GetAvailableBalance(1))
+                    field(OutpatientAvailable; Rec.GetAvailableBalance(1))
                     {
                         ApplicationArea = All;
                         Caption = 'Available Balance';
@@ -223,7 +223,7 @@ page 52081 "Medical Claims Card"
                         Editable = false;
                         Style = Attention;
                     }
-                    field(OpticalAvailable; GetAvailableBalance(2))
+                    field(OpticalAvailable; Rec.GetAvailableBalance(2))
                     {
                         ApplicationArea = All;
                         Caption = 'Available Balance';

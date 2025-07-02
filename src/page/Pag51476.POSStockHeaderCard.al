@@ -1,7 +1,7 @@
-page 51476 "POS Stock Header Card"
+page 51476 "POS Stock Header Card Legacy"
 {
     PageType = Card;
-    SourceTable = "POS Stock Header";
+    SourceTable = "POS Stock Header Legacy";
     SourceTableView = where(Posted = filter(false));
 
     layout
@@ -47,7 +47,7 @@ page 51476 "POS Stock Header Card"
                     ToolTip = 'Specifies the value of the Posted field.';
                 }
             }
-            part("Quantity Line"; "POS Stock Lines")
+            part("Quantity Line"; "POS Stock Lines Legacy")
             {
                 ApplicationArea = All;
                 SubPageLink = "Document No." = field("No.");

@@ -17,6 +17,10 @@ page 52134 "Timetable Change Rules"
                     ToolTip = 'Specifies the entry number.';
                     Visible = false;
                 }
+                field("Timetable Document No."; Rec."Timetable Document No.")
+                {
+                    ToolTip = 'Specifies the timetable document number.';
+                }
                 field(Active; Rec.Active)
                 {
                     ToolTip = 'Specifies if this rule is active.';
@@ -103,32 +107,32 @@ page 52134 "Timetable Change Rules"
                 field("New Lecturer"; Rec."New Lecturer")
                 {
                     ToolTip = 'Specifies the new lecturer for lecturer change rules.';
-                    Visible = ShowLecturerFields;
+                    ///  Visible = ShowLecturerFields;
                 }
                 field("New Room"; Rec."New Room")
                 {
                     ToolTip = 'Specifies the new room for room change rules.';
-                    Visible = ShowRoomFields;
+                    /// Visible = ShowRoomFields;
                 }
                 field("New Day"; Rec."New Day")
                 {
                     ToolTip = 'Specifies the new day for time change rules.';
-                    Visible = ShowTimeFields;
+                    /// Visible = ShowTimeFields;
                 }
                 field("New Time Slot"; Rec."New Time Slot")
                 {
                     ToolTip = 'Specifies the new time slot for time change rules.';
-                    Visible = ShowTimeFields;
+                    /// Visible = ShowTimeFields;
                 }
                 field("New Stream"; Rec."New Stream")
                 {
                     ToolTip = 'Specifies the new stream for stream reassignment rules.';
-                    Visible = ShowStreamFields;
+                    /// Visible = ShowStreamFields;
                 }
                 field("Cancel Unit"; Rec."Cancel Unit")
                 {
                     ToolTip = 'Specifies if the unit should be cancelled.';
-                    Visible = ShowCancelFields;
+                    /// Visible = ShowCancelFields;
                 }
             }
         }
@@ -165,7 +169,7 @@ page 52134 "Timetable Change Rules"
                 begin
                     Rec.TestField("Timetable Document No.");
                     Rec.TestField(Active, true);
-                    
+
                     AffectedCount := ChangeMgt.GetAffectedEntriesCount(Rec);
                     if Confirm('This rule will affect %1 entries. Do you want to see a detailed preview?', true, AffectedCount) then begin
                         // Show affected entries
@@ -189,7 +193,7 @@ page 52134 "Timetable Change Rules"
                     Rec.TestField("Timetable Document No.");
                     Rec.TestField(Active, true);
                     Rec.TestField(Applied, false);
-                    
+
                     if ChangeMgt.ValidateChangeRule(Rec) then begin
                         ChangeRule.Copy(Rec);
                         ChangeRule.SetRecFilter();
@@ -248,6 +252,11 @@ page 52134 "Timetable Change Rules"
         UpdateFieldVisibility();
     end;
 
+    trigger OnOpenPage()
+    begin
+        UpdateFieldVisibility();
+    end;
+
     local procedure UpdateFieldVisibility()
     begin
         ShowLecturerFields := Rec."Rule Type" = Rec."Rule Type"::"Lecturer Change";
@@ -272,7 +281,7 @@ page 52134 "Timetable Change Rules"
     begin
         // Build the same filter as in the codeunit
         TimetableEntry.SetRange("Document No.", Rec."Timetable Document No.");
-        
+
         if Rec."Filter Programme" <> '' then
             TimetableEntry.SetRange("Programme Code", Rec."Filter Programme");
         if Rec."Filter Stage" <> '' then
@@ -289,14 +298,14 @@ page 52134 "Timetable Change Rules"
             TimetableEntry.SetRange("Day of Week", Rec."Filter Day" - 1);
         if Rec."Filter Time Slot" <> '' then
             TimetableEntry.SetRange("Time Slot Code", Rec."Filter Time Slot");
-            
+
         if TimetableEntry.FindSet() then begin
             repeat
                 TempTimetableEntry := TimetableEntry;
                 TempTimetableEntry.Insert();
             until TimetableEntry.Next() = 0;
         end;
-        
+
         Page.RunModal(Page::"Timetable Entry", TempTimetableEntry);
     end;
 

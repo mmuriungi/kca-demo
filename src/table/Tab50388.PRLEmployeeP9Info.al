@@ -110,7 +110,7 @@ table 50388 "PRL-Employee P9 Info"
         field(50004; "Allow View Online"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula=lookup("PRL-Payroll Periods"."Allow View of Online Payslips" where("Date Opened"=field("Payroll Period")));
+            CalcFormula = lookup("PRL-Payroll Periods"."Allow View of Online Payslips" where("Date Opened" = field("Payroll Period")));
         }
     }
 

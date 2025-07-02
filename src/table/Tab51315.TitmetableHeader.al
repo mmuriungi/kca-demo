@@ -116,7 +116,7 @@ table 51315 "Timetable Header"
         field(21; "Linked Timetable No."; Code[20])
         {
             Caption = 'Linked Timetable No.';
-            TableRelation = "Timetable Header"."Document No." where(Semester = field(Semester),"Timetable Status" = const(Draft));
+            TableRelation = "Timetable Header"."Document No." where(Semester = field(Semester), "Timetable Status" = const(Draft));
         }
         //Change Reason
         field(22; "Change Reason"; Text[250])

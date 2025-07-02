@@ -47,7 +47,7 @@ page 50239 "Audit Plan SubForm"
     begin
 
 
-      
+
     end;
 
     trigger OnAfterGetRecord()

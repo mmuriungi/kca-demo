@@ -1,6 +1,6 @@
 table 51374 "Gen Line Custom2"
 {
-   Caption = 'Gen Line Custom';
+    Caption = 'Gen Line Custom';
     DataClassification = ToBeClassified;
 
     fields
@@ -8,12 +8,12 @@ table 51374 "Gen Line Custom2"
         field(1; "Journal Template Name"; Code[10])
         {
             Caption = 'Journal Template Name';
-           // TableRelation = "Gen. Journal Template";
+            // TableRelation = "Gen. Journal Template";
         }
         field(6; "Journal Batch Name"; Code[10])
         {
             Caption = 'Journal Batch Name';
-          //  TableRelation = "Gen. Journal Batch";
+            //  TableRelation = "Gen. Journal Batch";
         }
         field(2; "Line No."; Integer)
         {

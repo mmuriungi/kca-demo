@@ -1,4 +1,4 @@
-table 50987 "POS Sales Header"
+table 50987 "POS Sales Header Legacy"
 {
     DrillDownPageId = "POS Sales Header List";
     LookupPageId = "POS Sales Header List";
@@ -137,14 +137,14 @@ table 50987 "POS Sales Header"
 
     var
         UserSetup: Record "User Setup";
-        PosSetup: Record "POS Setup";
+        PosSetup: Record "POS Setup Legacy";
         NoSeriesMgt: Codeunit NoSeriesManagement;
-        posLines: record "POS Sales Lines";
+        posLines: record "POS Sales Lines Legacy";
         GenJnLine: Record "Gen. Journal Line";
         Batch: Record "Gen. Journal Batch";
         LineNo: Integer;
-        itemledger: Record "POS Item Ledger";
-        posItems: Record "POS Items";
+        itemledger: Record "POS Item Ledger Legacy";
+        posItems: Record "POS Items Legacy";
         Err: Label 'You cannot post a cash sale with amount less that 0';
 
 

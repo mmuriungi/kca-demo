@@ -19,6 +19,10 @@ page 50935 "ACA-Prog. Defined Units/YoS"
                 {
                     ApplicationArea = All;
                 }
+                field("Academic Year"; Rec."Academic Year")
+                {
+                    ApplicationArea = All;
+                }
                 field("Number of Units"; Rec."Number of Units")
                 {
                     ApplicationArea = All;

@@ -90,7 +90,7 @@ page 51588 "Trip Schedule Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
-                
+
                 trigger OnAction()
                 var
                     TransportReq: Record "FLT-Transport Requisition";

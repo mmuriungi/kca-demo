@@ -1,4 +1,4 @@
-table 50989 "POS Setup"
+table 50989 "POS Setup Legacy"
 {
     DrillDownPageId = "POS Setup";
     LookupPageId = "POS Setup";

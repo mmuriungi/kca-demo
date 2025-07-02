@@ -115,7 +115,7 @@ report 50813 "Audit Plan 2"
                 trigger OnAfterGetRecord()
                 begin
 
-                    
+
                     DNotesText := "Audit Lines".Description;
                 end;
             }

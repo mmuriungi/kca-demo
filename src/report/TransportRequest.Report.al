@@ -6,151 +6,151 @@ Report 51342 "Transport Request"
 
     dataset
     {
-        dataitem("FLT-Transport Requisition";"FLT-Transport Requisition")
+        dataitem("FLT-Transport Requisition"; "FLT-Transport Requisition")
         {
-            RequestFilterFields = "Transport Requisition No","Vehicle Allocated","Driver Allocated";
+            RequestFilterFields = "Transport Requisition No", "Vehicle Allocated", "Driver Allocated";
             column(ReportForNavId_1000000000; 1000000000)
             {
             }
-            column(ReqNo;"FLT-Transport Requisition"."Transport Requisition No")
+            column(ReqNo; "FLT-Transport Requisition"."Transport Requisition No")
             {
             }
-            column(Commencement;"FLT-Transport Requisition".Commencement)
+            column(Commencement; "FLT-Transport Requisition".Commencement)
             {
             }
-            column(Destination;"FLT-Transport Requisition".Destination)
+            column(Destination; "FLT-Transport Requisition".Destination)
             {
             }
-            column(Vehicle;"FLT-Transport Requisition"."Vehicle Allocated")
+            column(Vehicle; "FLT-Transport Requisition"."Vehicle Allocated")
             {
             }
-            column(Driver;"FLT-Transport Requisition"."Driver Allocated")
+            column(Driver; "FLT-Transport Requisition"."Driver Allocated")
             {
             }
-            column(ReqBy;"FLT-Transport Requisition"."Requested By")
+            column(ReqBy; "FLT-Transport Requisition"."Requested By")
             {
             }
-            column(ReqDate;"FLT-Transport Requisition"."Date of Request")
+            column(ReqDate; "FLT-Transport Requisition"."Date of Request")
             {
             }
-            column(AllocBy;"FLT-Transport Requisition"."Vehicle Allocated by")
+            column(AllocBy; "FLT-Transport Requisition"."Vehicle Allocated by")
             {
             }
-            column(OpenningOdoMeterReading;"FLT-Transport Requisition"."Opening Odometer Reading")
+            column(OpenningOdoMeterReading; "FLT-Transport Requisition"."Opening Odometer Reading")
             {
             }
-            column(Status;"FLT-Transport Requisition".Status)
+            column(Status; "FLT-Transport Requisition".Status)
             {
             }
-            column(DateOfTrip;"FLT-Transport Requisition"."Date of Trip")
+            column(DateOfTrip; "FLT-Transport Requisition"."Date of Trip")
             {
             }
-            column(Purpose;"FLT-Transport Requisition"."Purpose of Trip")
+            column(Purpose; "FLT-Transport Requisition"."Purpose of Trip")
             {
             }
-            column(DiverName;"FLT-Transport Requisition"."Driver Name")
+            column(DiverName; "FLT-Transport Requisition"."Driver Name")
             {
             }
-            column(RespCent;"FLT-Transport Requisition"."Responsibility Center")
+            column(RespCent; "FLT-Transport Requisition"."Responsibility Center")
             {
             }
-            column(Position;"FLT-Transport Requisition".Position)
+            column(Position; "FLT-Transport Requisition".Position)
             {
             }
-            column(Names;"FLT-Transport Requisition".Name)
+            column(Names; "FLT-Transport Requisition".Name)
             {
             }
-            column(ClossingODO;"FLT-Transport Requisition"."Clossing ODO")
+            column(ClossingODO; "FLT-Transport Requisition"."Clossing ODO")
             {
             }
-            column(NatureofTrip;"FLT-Transport Requisition"."Nature of Trip")
+            column(NatureofTrip; "FLT-Transport Requisition"."Nature of Trip")
             {
             }
-            column(Group;"FLT-Transport Requisition".Group)
+            column(Group; "FLT-Transport Requisition".Group)
             {
             }
-            column(clubs;"FLT-Transport Requisition"."Club/Societies")
+            column(clubs; "FLT-Transport Requisition"."Club/Societies")
             {
             }
-            column(PtronNo;"FLT-Transport Requisition"."Emp No")
+            column(PtronNo; "FLT-Transport Requisition"."Emp No")
             {
             }
-            column(PatronName;"FLT-Transport Requisition"."Employee Name")
+            column(PatronName; "FLT-Transport Requisition"."Employee Name")
             {
             }
-            column(Log;comp.Picture)
+            column(Log; comp.Picture)
             {
             }
-            column(CompName;comp.Name)
+            column(CompName; comp.Name)
             {
             }
-            column(Models;"FLT-Transport Requisition".Model)
+            column(Models; "FLT-Transport Requisition".Model)
             {
             }
-            column(Makes;"FLT-Transport Requisition".Make)
+            column(Makes; "FLT-Transport Requisition".Make)
             {
             }
-            column(TransportAvailNot;"FLT-Transport Requisition"."Transport Availability.")
+            column(TransportAvailNot; "FLT-Transport Requisition"."Transport Availability.")
             {
             }
-            column(CluSocieties;"FLT-Transport Requisition"."Club/Societies")
+            column(CluSocieties; "FLT-Transport Requisition"."Club/Societies")
             {
             }
-            column(ReturnConfirmeBy;"FLT-Transport Requisition"."Return Confirmed By")
+            column(ReturnConfirmeBy; "FLT-Transport Requisition"."Return Confirmed By")
             {
             }
-            column(VehicleCapacity;"FLT-Transport Requisition"."Vehicle Capacity")
+            column(VehicleCapacity; "FLT-Transport Requisition"."Vehicle Capacity")
             {
             }
-            column(CostPerKilometer;"FLT-Transport Requisition"."Cost Per Kilometer")
+            column(CostPerKilometer; "FLT-Transport Requisition"."Cost Per Kilometer")
             {
             }
-            column(ReturnDate;"FLT-Transport Requisition"."Transport Return Date")
+            column(ReturnDate; "FLT-Transport Requisition"."Transport Return Date")
             {
             }
-            column(Mileagetravelled;"FLT-Transport Requisition"."Total Mileage Travelled")
+            column(Mileagetravelled; "FLT-Transport Requisition"."Total Mileage Travelled")
             {
             }
-            column(MileageAfterTrip;"FLT-Transport Requisition"."Milleage after Trip")
+            column(MileageAfterTrip; "FLT-Transport Requisition"."Milleage after Trip")
             {
             }
-            column(MileageBeforeTrip;"FLT-Transport Requisition"."Mileage Before Trip")
+            column(MileageBeforeTrip; "FLT-Transport Requisition"."Mileage Before Trip")
             {
             }
-            column(TotalCoset;"FLT-Transport Requisition"."Total Cost")
+            column(TotalCoset; "FLT-Transport Requisition"."Total Cost")
             {
             }
-            column(FuelUnitCost;"FLT-Transport Requisition"."Fuel Unit Cost")
+            column(FuelUnitCost; "FLT-Transport Requisition"."Fuel Unit Cost")
             {
             }
-            column(ApprovedRate;"FLT-Transport Requisition"."Approved Rate")
+            column(ApprovedRate; "FLT-Transport Requisition"."Approved Rate")
             {
             }
-            column(EstimateMileage;"FLT-Transport Requisition"."Estimated Mileage")
+            column(EstimateMileage; "FLT-Transport Requisition"."Estimated Mileage")
             {
             }
-            column(Days;"FLT-Transport Requisition"."No of Days Requested")
+            column(Days; "FLT-Transport Requisition"."No of Days Requested")
             {
             }
-            column(TimeOut;"FLT-Transport Requisition"."Time out")
+            column(TimeOut; "FLT-Transport Requisition"."Time out")
             {
             }
-            column(TimeIn;"FLT-Transport Requisition"."Time In")
+            column(TimeIn; "FLT-Transport Requisition"."Time In")
             {
             }
-            column(TimeRequested;"FLT-Transport Requisition"."Time Requested")
+            column(TimeRequested; "FLT-Transport Requisition"."Time Requested")
             {
             }
-            column(Department;"FLT-Transport Requisition"."Department Code")
+            column(Department; "FLT-Transport Requisition"."Department Code")
             {
             }
-            column(DriverName;"FLT-Transport Requisition"."Driver Name")
+            column(DriverName; "FLT-Transport Requisition"."Driver Name")
             {
             }
-            column(TimeOftrip;"FLT-Transport Requisition"."Time of trip")
+            column(TimeOftrip; "FLT-Transport Requisition"."Time of trip")
             {
             }
-            column(NoOfPassangers;"FLT-Transport Requisition"."No Of Passangers")
+            column(NoOfPassangers; "FLT-Transport Requisition"."No Of Passangers")
             {
             }
         }
@@ -176,7 +176,7 @@ Report 51342 "Transport Request"
     begin
         comp.Reset;
         if comp.FindFirst then begin
-          comp.CalcFields(Picture);
+            comp.CalcFields(Picture);
         end;
     end;
 

@@ -32,13 +32,13 @@ page 50198 "Auditor(s)"
     trigger OnAfterGetCurrRecord()
     begin
 
-        
+
     end;
 
     trigger OnAfterGetRecord()
     begin
 
-        
+
     end;
 
     var

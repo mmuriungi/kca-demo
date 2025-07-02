@@ -7,7 +7,7 @@ page 52100 "PartTime Invoice Batch List"
     UsageCategory = Lists;
     Editable = false;
     CardPageId = "PartTime Invoice Batch Card";
-    
+
     layout
     {
         area(content)
@@ -42,7 +42,7 @@ page 52100 "PartTime Invoice Batch List"
             }
         }
     }
-    
+
     actions
     {
         area(Navigation)
@@ -56,7 +56,7 @@ page 52100 "PartTime Invoice Batch List"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ToolTip = 'View the purchase invoice';
-                
+
                 trigger OnAction()
                 var
                     PurchInvHeader: Record "Purchase Header";
@@ -67,7 +67,7 @@ page 52100 "PartTime Invoice Batch List"
                         Page.RunModal(Page::"Purchase Invoices", PurchInvHeader);
                 end;
             }
-            
+
             action(ViewPostedInvoice)
             {
                 ApplicationArea = All;
@@ -78,7 +78,7 @@ page 52100 "PartTime Invoice Batch List"
                 PromotedIsBig = true;
                 ToolTip = 'View the posted purchase invoice';
                 Enabled = Rec.Status = Rec.Status::Posted;
-                
+
                 trigger OnAction()
                 var
                     PurchInvHeader: Record "Purch. Inv. Header";
@@ -90,7 +90,7 @@ page 52100 "PartTime Invoice Batch List"
                 end;
             }
         }
-        
+
         area(Processing)
         {
             action(PostAllInvoices)
@@ -103,7 +103,7 @@ page 52100 "PartTime Invoice Batch List"
                 PromotedIsBig = true;
                 ToolTip = 'Post all open invoices for this batch';
                 Enabled = Rec.Status = Rec.Status::Open;
-                
+
                 trigger OnAction()
                 var
                     PurchHeader: Record "Purchase Header";

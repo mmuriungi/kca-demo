@@ -7,6 +7,6 @@ pageextension 50042 "Depreciation Book Ext" extends "FA Depreciation Books"
             ApplicationArea = All;
             Visible = true;
         }
-        
+
     }
 }

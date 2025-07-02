@@ -1,4 +1,4 @@
-table 50991 "POS Stock Lines"
+table 50991 "POS Stock Lines Legacy"
 {
     LookupPageId = "POS Stock Lines";
     DrillDownPageId = "POS Stock Lines";

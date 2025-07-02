@@ -275,7 +275,7 @@ codeunit 51826 "Csv Handler"
         MaxRowNo := GetLastRowNo(ExcelBuffer);
         for RowNo := 2 to MaxRowNo do begin
             Clear(SkipRow);
-            
+
             // Process Excel fields first
             foreach field in fields do begin
                 col := fields.IndexOf(field);
@@ -330,14 +330,14 @@ codeunit 51826 "Csv Handler"
                     end;
                 end;
             end;
-            
+
             // Process default values for fields not in Excel
             if not SkipRow then begin
                 foreach DefaultFieldNo in DefaultValues.Keys do begin
                     if not fields.Contains(DefaultFieldNo) then begin
                         fieldref := RecRef.Field(DefaultFieldNo);
                         DefaultFieldValue := DefaultValues.Get(DefaultFieldNo);
-                        
+
                         case fieldref.Type of
                             fieldref.type::Integer:
                                 begin
@@ -371,7 +371,7 @@ codeunit 51826 "Csv Handler"
                     end;
                 end;
             end;
-            
+
             if not SkipRow then begin
                 if not RecRef.Modify(true) then
                     RecRef.Insert(true);
@@ -396,17 +396,17 @@ codeunit 51826 "Csv Handler"
     begin
         OptionString := fieldref.OptionMembers;
         OptionList := OptionString.Split(',');
-        
+
         for i := 1 to OptionList.Count do begin
             OptionValue := OptionList.Get(i);
             if UpperCase(OptionValue) = UpperCase(OptionText) then
                 exit(i - 1); // Options are 0-based
         end;
-        
+
         // If not found, try to evaluate as integer (fallback)
         if Evaluate(i, OptionText) then
             exit(i);
-            
+
         // If still not found return 0 (first option)
         exit(0);
     end;

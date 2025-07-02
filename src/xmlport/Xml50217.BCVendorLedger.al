@@ -16,7 +16,7 @@ xmlport 50217 "BC Vendor Ledger"
                 AutoSave = true;
                 XmlName = 'BCVendorLedger';
                 RequestFilterFields = "Posting Date", "Document No.";
-                
+
                 fieldelement(EntryNo; BCVendorLedger."Entry No.")
                 {
                 }

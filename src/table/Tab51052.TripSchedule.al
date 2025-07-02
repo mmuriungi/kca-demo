@@ -79,7 +79,7 @@ table 51052 "Trip Schedule"
         {
         }
     }
-    
+
     trigger OnInsert()
     begin
         "Created Date" := WorkDate();

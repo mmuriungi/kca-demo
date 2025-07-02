@@ -48,7 +48,7 @@ codeunit 50039 "Workflow Event Handling (hr)"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approval Mgmnt. Ext(hr)", 'OnSendLeaveApplicationForApproval', '', true, true)]
     procedure RunWorkFlowOnSendLeaveApplicationForApproval(var LeaveApplication: Record "HRM-Leave Requisition")
     begin
-        
+
         WorkFlowManagement.HandleEvent(RunWorkFlowOnSendLeaveApplicationForApprovalCode, LeaveApplication);
     end;
 

@@ -410,7 +410,7 @@ page 52178741 "Apply Vendor Entries 2"
 
                     trigger OnAction()
                     var
-                    detailedVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
+                        detailedVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
                     begin
                         Navigate.SetDoc(Rec."Posting Date", Rec."Document No.");
                         Navigate.RUN;

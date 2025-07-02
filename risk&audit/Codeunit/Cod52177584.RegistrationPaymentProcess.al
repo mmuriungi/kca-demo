@@ -15,7 +15,7 @@ codeunit 50103 "Registration Payment Process"
             if ObjRiskHeader.FindFirst() then begin
                 Subject := 'Risk Reporting';
                 EmailBody := StrSubstNo('Dear, ' + ' ' + '' + ObjRiskHeader."Auditor Name" + ' ' + '' + '<br><br>'' The risk' + ' ' + '(' + '' + ObjRiskHeader."No." + ')' + ' ' + ', ' + ObjRiskHeader."Risk Description2" + ' ' + ' has been submitted by the risk champion for your review.,  ' + ' ' + LblMailBody);
-                
+
                 // Use Notifications Handler to send email
                 NotificationsHandler.fnSendemail(
                     ObjRiskHeader."Auditor Name",
@@ -188,7 +188,7 @@ codeunit 50103 "Registration Payment Process"
                     '',  // Attachment Name
                     ''   // Attachment Type
                 );
-                
+
                 Message('Notification Sent');
             end;
         end;
@@ -210,7 +210,7 @@ codeunit 50103 "Registration Payment Process"
                 // Prepare email content
                 EmailBody := StrSubstNo('Dear Risk Owner,' + ' ' + '' + 'Your Risk has Been Rejected because of  ' + ' ' + ' ' + ObjRiskHeader."Rejection Reason" + ' ' + ' ' + 'For Risk ' + ' ' + ' ' + ObjRiskHeader."No.", LblMailBody);
                 Subject := 'Rejected Risk';
-                
+
                 // Use Notifications Handler to send email
                 NotificationsHandler.fnSendemail(
                     'Risk Owner',  // Recipient name
@@ -224,7 +224,7 @@ codeunit 50103 "Registration Payment Process"
                     '',  // Attachment Name
                     ''   // Attachment Type
                 );
-                
+
                 // Update document status
                 if ObjRiskHeader."Document Status" = ObjRiskHeader."Document Status"::"Risk Owner" then
                     ObjRiskHeader."Document Status" := ObjRiskHeader."Document Status"::New;

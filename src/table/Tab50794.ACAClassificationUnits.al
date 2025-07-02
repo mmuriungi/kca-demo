@@ -121,33 +121,33 @@ table 50794 "ACA-Classification Units"
         //grade remark
         field(61; "Grade Remark"; Text[150])
         {
-            FieldClass  = FlowField;
-            CalcFormula=Lookup("ACA-Exam Grading Source".Remarks WHERE ("Academic Year"=FIELD("Graduation Academic Year"),"Exam Catregory"=FIELD("Exam Category Flow"),"Total Score"=FIELD("Total Score Decimal"),"Results Exists Status"=FIELD("Results Exists Status")));
+            FieldClass = FlowField;
+            CalcFormula = Lookup("ACA-Exam Grading Source".Remarks WHERE("Academic Year" = FIELD("Graduation Academic Year"), "Exam Catregory" = FIELD("Exam Category Flow"), "Total Score" = FIELD("Total Score Decimal"), "Results Exists Status" = FIELD("Results Exists Status")));
         }
         //Exam Category Flow
         field(62; "Exam Category Flow"; Code[20])
         {
             FieldClass = FlowField;
-            CalcFormula=Lookup("ACA-Units/Subjects"."Exam Category" WHERE ("Programme Code"=FIELD(Programme),"Code"=FIELD("Unit Code")));
+            CalcFormula = Lookup("ACA-Units/Subjects"."Exam Category" WHERE("Programme Code" = FIELD(Programme), "Code" = FIELD("Unit Code")));
         }
         //Results Exists Status
         field(63; "Results Exists Status"; Option)
         {
             FieldClass = FlowField;
             OptionMembers = " ","Both Exists","CAT Only","Exam Only","None Exists";
-            CalcFormula=Lookup("Results Exists Status Ref"."Results Exists Status" WHERE ("CAT Marks Exists"=FIELD("CAT Exists"),"Exam Marks Exists"=FIELD("Exam Exists")));
+            CalcFormula = Lookup("Results Exists Status Ref"."Results Exists Status" WHERE("CAT Marks Exists" = FIELD("CAT Exists"), "Exam Marks Exists" = FIELD("Exam Exists")));
         }
         //CAT Exists
         field(64; "CAT Exists"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula=Exist("ACA-Classification Units" WHERE ("Student No."=FIELD("Student No."),Programme=FIELD(Programme),"Graduation Academic Year"=FIELD("Graduation Academic Year"),"Unit Code"=FIELD("Unit Code"),"CAT Score"=FILTER(<>'')));
+            CalcFormula = Exist("ACA-Classification Units" WHERE("Student No." = FIELD("Student No."), Programme = FIELD(Programme), "Graduation Academic Year" = FIELD("Graduation Academic Year"), "Unit Code" = FIELD("Unit Code"), "CAT Score" = FILTER(<> '')));
         }
         //Exam Exists
         field(65; "Exam Exists"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula=Exist("ACA-Classification Units" WHERE ("Student No."=FIELD("Student No."),Programme=FIELD(Programme),"Graduation Academic Year"=FIELD("Graduation Academic Year"),"Unit Code"=FIELD("Unit Code"),"Exam Score"=FILTER(<>'')));
+            CalcFormula = Exist("ACA-Classification Units" WHERE("Student No." = FIELD("Student No."), Programme = FIELD(Programme), "Graduation Academic Year" = FIELD("Graduation Academic Year"), "Unit Code" = FIELD("Unit Code"), "Exam Score" = FILTER(<> '')));
         }
     }
 

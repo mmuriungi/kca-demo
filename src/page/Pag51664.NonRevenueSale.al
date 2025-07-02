@@ -1,7 +1,7 @@
 page 51664 "Non-Revenue Sale"
 {
     PageType = Card;
-    SourceTable = "POS Sales Header";
+    SourceTable = "POS Sales Header Legacy";
     RefreshOnActivate = true;
     SourceTableView = where(
                             "Customer Type" = filter(NonRevenue),

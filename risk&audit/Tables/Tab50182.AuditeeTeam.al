@@ -2,7 +2,7 @@ table 51351 "Auditee Team"
 {
     Caption = 'Auditee Team';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Document No."; Code[20])
@@ -21,7 +21,7 @@ table 51351 "Auditee Team"
             Caption = 'Member ID';
             DataClassification = ToBeClassified;
             TableRelation = Employee;
-            
+
             trigger OnValidate()
             var
                 Employee: Record Employee;
@@ -57,7 +57,7 @@ table 51351 "Auditee Team"
             DataClassification = ToBeClassified;
         }
     }
-    
+
     keys
     {
         key(PK; "Document No.", "Line No.")
@@ -65,13 +65,13 @@ table 51351 "Auditee Team"
             Clustered = true;
         }
     }
-    
+
     trigger OnInsert()
     begin
         if "Line No." = 0 then
             "Line No." := GetNextLineNo();
     end;
-    
+
     local procedure GetNextLineNo(): Integer
     var
         AuditeeTeam: Record "Auditee Team";
