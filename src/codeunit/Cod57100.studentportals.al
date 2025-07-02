@@ -4513,6 +4513,7 @@ codeunit 57100 studentportals
         fablist."Previous Education Level" := prevedlvl;
         fabList."Admitted Semester" := intakecode;
         fablist."Intake Code" := intakecode;
+        fabList.Validate("Intake Code");
         fablist."Bachelor Programme" := bachelorsProg;
         fablist."Bachelor Institution" := bachelorsInst;
         fablist."Bachelor Grade Attained" := bachelorsGrade;
