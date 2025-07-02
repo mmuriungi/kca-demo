@@ -26,6 +26,11 @@ table 50537 "ACA-Intake"
         {
             TableRelation = "Dimension Value".Code WHERE("Dimension Code" = filter('FACULTY|SCHOOL'));
         }
+        //Academic Year
+        field(10; "Academic Year"; Code[20])
+        {
+            TableRelation = "ACA-Academic Year".Code;
+        }
     }
 
     keys

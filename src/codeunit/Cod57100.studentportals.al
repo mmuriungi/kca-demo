@@ -4503,7 +4503,7 @@ codeunit 57100 studentportals
         fablist."Emergency Contact Telephone" := ecPhoneNo;
         fabList."Emergency Email" := ecEmail;
         fabList."Emergency Relationship" := ecRel;
-        fablist."Former School Code" := highSchool;
+        fablist.formerSchool := highSchool;
         fabList."High School From Year" := hschF;
         fabList."High School To Year" := hschT;
         fablist."Mean Grade Acquired" := meangrade;
@@ -4511,7 +4511,7 @@ codeunit 57100 studentportals
         fablist."Settlement Type" := 'SSS';
         fabList."Application Date" := Today;
         fablist."Previous Education Level" := prevedlvl;
-        //fabList."Admitted Semester" := startingsem;
+        fabList."Admitted Semester" := intakecode;
         fablist."Intake Code" := intakecode;
         fablist."Bachelor Programme" := bachelorsProg;
         fablist."Bachelor Institution" := bachelorsInst;

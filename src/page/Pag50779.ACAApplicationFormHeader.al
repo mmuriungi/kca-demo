@@ -361,12 +361,12 @@ page 50779 "ACA-Application Form Header"
                     ApplicationArea = All;
                     Caption = 'Highschool Attended';
                 }
-                field("Date of Admission"; Rec."Date of Admission")
+                field("Date of Admission"; Rec."High School From Year")
                 {
                     ApplicationArea = All;
                     Caption = 'High School Attended From';
                 }
-                field("Date of Completion"; Rec."Date of Completion")
+                field("Date of Completion"; Rec."High School To Year")
                 {
                     ApplicationArea = All;
                     Caption = 'High School Attended To';
