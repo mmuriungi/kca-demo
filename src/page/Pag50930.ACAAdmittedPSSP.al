@@ -8,7 +8,7 @@ page 50930 "ACA-Admitted PSSP"
     InsertAllowed = false;
     PageType = List;
     SourceTable = "ACA-Applic. Form Header";
-    SourceTableView = WHERE(status = FILTER(Admitted), "Settlement Type" = const('SSS'));
+    SourceTableView = WHERE(status = FILTER(Admitted), "Settlement Type" = const('PSSP'));
 
     layout
     {

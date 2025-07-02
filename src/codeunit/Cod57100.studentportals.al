@@ -4190,7 +4190,7 @@ codeunit 57100 studentportals
                 IF ((fablist."Settlement Type" = 'GSS') OR (fablist."Settlement Type" = 'KUCCPS') OR (fablist."Settlement Type" = 'JAB')) THEN
                     settlementPrefix := AdminSetup."JAB Prefix"
                 ELSE
-                    IF ((fablist."Settlement Type" = 'SSS') OR (fablist."Settlement Type" = 'SSP') OR (fablist."Settlement Type" = 'SELFSPONSORED')) THEN
+                    IF ((fablist."Settlement Type" = 'PSSP') OR (fablist."Settlement Type" = 'SSP') OR (fablist."Settlement Type" = 'SELFSPONSORED')) THEN
                         settlementPrefix := AdminSetup."SSP Prefix";
                 CLEAR(NewAdminCode);
                 BEGIN
@@ -4508,7 +4508,7 @@ codeunit 57100 studentportals
         fabList."High School To Year" := hschT;
         fablist."Mean Grade Acquired" := meangrade;
         fablist."Country of Origin" := nationality;
-        fablist."Settlement Type" := 'SSS';
+        fablist."Settlement Type" := 'PSSP';
         fabList."Application Date" := Today;
         fablist."Previous Education Level" := prevedlvl;
         fabList."Admitted Semester" := intakecode;
