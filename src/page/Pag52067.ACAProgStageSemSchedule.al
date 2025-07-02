@@ -11,6 +11,7 @@ page 52067 "ACA-Prog/Stage Sem. Schedule"
         {
             repeater(General)
             {
+
                 field("Code"; Rec."Code")
                 {
                     ToolTip = 'Specifies the value of the Code field.', Comment = '%';
@@ -110,6 +111,10 @@ page 52067 "ACA-Prog/Stage Sem. Schedule"
                 field("Supplementary Entry Deadline"; Rec."Supplementary Entry Deadline")
                 {
                     ToolTip = 'Specifies the value of the Supplementary Entry Deadline field.', Comment = '%';
+                }
+                field(AllowHODSuppEditing; Rec.AllowHODSuppEditing)
+                {
+                    ToolTip = 'Specifies the value of the Allow HOD Supp Editing field.', Comment = '%';
                 }
             }
         }
