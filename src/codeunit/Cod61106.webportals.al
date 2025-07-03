@@ -4982,8 +4982,8 @@ Codeunit 61106 webportals
                 AcaSpecialExamsResults.Insert;
                 ReturnMessage := 'SUCCESS: Marks Inserted!';
             end;
-            AcaSpecialExamsDetails."Exam Marks" := Marks;
-            AcaSpecialExamsDetails.Modify;
+            // AcaSpecialExamsDetails."Exam Marks" := Marks;
+            // AcaSpecialExamsDetails.Modify;
         end;
     end;
 

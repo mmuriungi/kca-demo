@@ -4,29 +4,29 @@ Table 99410 "Cafe Batch Posting Log"
 
     fields
     {
-        field(1;User_ID;Code[20])
+        field(1; User_ID; Code[20])
         {
         }
-        field(2;"Post Start Date";Date)
+        field(2; "Post Start Date"; Date)
         {
         }
-        field(3;"post Start Time";Time)
+        field(3; "post Start Time"; Time)
         {
         }
-        field(4;"Next User ID";Code[20])
+        field(4; "Next User ID"; Code[20])
         {
         }
-        field(5;"Next User Email";Text[150])
+        field(5; "Next User Email"; Text[150])
         {
         }
-        field(6;"Next User Phone";Text[20])
+        field(6; "Next User Phone"; Text[20])
         {
         }
     }
 
     keys
     {
-        key(Key1;User_ID)
+        key(Key1; User_ID)
         {
             Clustered = true;
         }

@@ -65,10 +65,10 @@ page 52139 "Cafeteria Sales Batches LST"
                 begin
                     if Rec."Batch Status" <> Rec."Batch Status"::New then
                         Error(BatchNotOpenErr);
-                    
+
                     if not Confirm(ConfirmPostMsg, true) then
                         Error(CancelledByUserErr);
-                    
+
                     Clear(CafeteriaSalesBatches);
                     CafeteriaSalesBatches.Reset();
                     CafeteriaSalesBatches.SetRange(User_Id, Rec.User_Id);

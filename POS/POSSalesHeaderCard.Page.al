@@ -83,10 +83,10 @@ Page 99407 "POS Sales Header Card"
                     Editable = false;
                 }
             }
-          group(Lines)
+            group(Lines)
             {
                 Caption = 'Lines';
-                
+
                 part(SalesLines; "POS Sales Lines") // Page 99411
                 {
                     ApplicationArea = All;
@@ -129,7 +129,7 @@ Page 99407 "POS Sales Header Card"
                         SalesHeader.SetRange(Posted, true);
                         Report.Run(Report::"POS Students_Staff PrintOut", false, true, SalesHeader);
                     end;
-                    
+
                     CurrPage.Close();
                 end;
             }

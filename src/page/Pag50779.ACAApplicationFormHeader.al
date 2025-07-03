@@ -474,8 +474,8 @@ page 50779 "ACA-Application Form Header"
             }
             group("&Student Feedback")
             {
-                Caption= 'Student Feedback';
-              
+                Caption = 'Student Feedback';
+
                 field("Student Feedback"; Rec."Student Feedback")
                 {
                     ApplicationArea = All;

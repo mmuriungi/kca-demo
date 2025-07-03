@@ -59,6 +59,7 @@ page 50127 "Imprest List Finance"
                 {
                     Caption = 'Approve';
                     Image = Approve;
+                    Visible = false;
                     Promoted = true;
                     PromotedCategory = Process;
                     ApplicationArea = All;
@@ -233,11 +234,11 @@ page 50127 "Imprest List Finance"
 
                     trigger OnAction()
                     begin
-                        IF Rec.Status <> Rec.Status::Approved THEN
-                            ERROR('You can only print after the document is released for approval');
+                        // IF Rec.Status <> Rec.Status::Approved THEN
+                        //     ERROR('You can only print after the document is released for approval');
                         Rec.RESET;
                         Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(69279, TRUE, TRUE, Rec);
+                        REPORT.RUN(Report::"Imprest Request", TRUE, TRUE, Rec);
                         Rec.RESET;
                     end;
                 }
