@@ -54,6 +54,8 @@ codeunit 50013 "Finance Operations"
             PayHeader."Global Dimension 1 Code" := FinImprestHeader."Global Dimension 1 Code";
             PayHeader."Shortcut Dimension 2 Code" := FinImprestHeader."Shortcut Dimension 2 Code";
             PayHeader."Responsibility Center" := FinImprestHeader."Responsibility Center";
+            PayHeader.Payee := FinImprestHeader.Payee;
+            PayHeader."On Behalf Of" := FinImprestHeader."On Behalf Of";
             Info.get;
             PayHeader."On Behalf Of" := Info.Name;
             PayHeader.Insert();
