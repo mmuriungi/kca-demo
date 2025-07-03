@@ -11,87 +11,6 @@
       <rd:DataSourceID>14dc2d9d-9d80-438e-9e25-18628739586d</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Payments_Header__No__">
-          <DataField>Payments_Header__No__</DataField>
-        </Field>
-        <Field Name="Payments_Header_Payee">
-          <DataField>Payments_Header_Payee</DataField>
-        </Field>
-        <Field Name="Payments_Header__Payments_Header__Date">
-          <DataField>Payments_Header__Payments_Header__Date</DataField>
-        </Field>
-        <Field Name="Payments_Header__Global_Dimension_1_Code_">
-          <DataField>Payments_Header__Global_Dimension_1_Code_</DataField>
-        </Field>
-        <Field Name="Account_No">
-          <DataField>Account_No</DataField>
-        </Field>
-        <Field Name="Payments_Header_Purpose">
-          <DataField>Payments_Header_Purpose</DataField>
-        </Field>
-        <Field Name="DptName">
-          <DataField>DptName</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="NumberText_1_">
-          <DataField>NumberText_1_</DataField>
-        </Field>
-        <Field Name="TTotal">
-          <DataField>TTotal</DataField>
-        </Field>
-        <Field Name="TTotalFormat">
-          <DataField>TTotalFormat</DataField>
-        </Field>
-        <Field Name="TIME_PRINTED_____FORMAT_TIME_">
-          <DataField>TIME_PRINTED_____FORMAT_TIME_</DataField>
-        </Field>
-        <Field Name="DATE_PRINTED_____FORMAT_TODAY_0_4_">
-          <DataField>DATE_PRINTED_____FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="CurrCode">
-          <DataField>CurrCode</DataField>
-        </Field>
-        <Field Name="TotalNetAmount_PaymentsHeader">
-          <DataField>TotalNetAmount_PaymentsHeader</DataField>
-        </Field>
-        <Field Name="TotalNetAmount_PaymentsHeaderFormat">
-          <DataField>TotalNetAmount_PaymentsHeaderFormat</DataField>
-        </Field>
-        <Field Name="Purpose">
-          <DataField>Purpose</DataField>
-        </Field>
-        <Field Name="Payment_Line_Amount">
-          <DataField>Payment_Line_Amount</DataField>
-        </Field>
-        <Field Name="Payment_Line_AmountFormat">
-          <DataField>Payment_Line_AmountFormat</DataField>
-        </Field>
-        <Field Name="Account_No________Account_Name_">
-          <DataField>Account_No________Account_Name_</DataField>
-        </Field>
-        <Field Name="Payment_Line_No">
-          <DataField>Payment_Line_No</DataField>
-        </Field>
-        <Field Name="Payment_Line_Account_No_">
-          <DataField>Payment_Line_Account_No_</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1427,4 +1346,86 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000053">
+          <DataField>ReportForNavId_1000000053</DataField>
+        </Field>
+        <Field Name="Payments_Header__No__">
+          <DataField>Payments_Header__No__</DataField>
+        </Field>
+        <Field Name="Payments_Header_Payee">
+          <DataField>Payments_Header_Payee</DataField>
+        </Field>
+        <Field Name="Payments_Header__Payments_Header__Date">
+          <DataField>Payments_Header__Payments_Header__Date</DataField>
+        </Field>
+        <Field Name="Payments_Header__Global_Dimension_1_Code_">
+          <DataField>Payments_Header__Global_Dimension_1_Code_</DataField>
+        </Field>
+        <Field Name="Account_No">
+          <DataField>Account_No</DataField>
+        </Field>
+        <Field Name="Payments_Header_Purpose">
+          <DataField>Payments_Header_Purpose</DataField>
+        </Field>
+        <Field Name="DptName">
+          <DataField>DptName</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="NumberText_1_">
+          <DataField>NumberText_1_</DataField>
+        </Field>
+        <Field Name="TTotal">
+          <DataField>TTotal</DataField>
+        </Field>
+        <Field Name="TTotalFormat">
+          <DataField>TTotalFormat</DataField>
+        </Field>
+        <Field Name="TIME_PRINTED_____FORMAT_TIME_">
+          <DataField>TIME_PRINTED_____FORMAT_TIME_</DataField>
+        </Field>
+        <Field Name="DATE_PRINTED_____FORMAT_TODAY_0_4_">
+          <DataField>DATE_PRINTED_____FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="CurrCode">
+          <DataField>CurrCode</DataField>
+        </Field>
+        <Field Name="TotalNetAmount_PaymentsHeader">
+          <DataField>TotalNetAmount_PaymentsHeader</DataField>
+        </Field>
+        <Field Name="TotalNetAmount_PaymentsHeaderFormat">
+          <DataField>TotalNetAmount_PaymentsHeaderFormat</DataField>
+        </Field>
+        <Field Name="Purpose">
+          <DataField>Purpose</DataField>
+        </Field>
+        <Field Name="ReportForNavId_1000000004">
+          <DataField>ReportForNavId_1000000004</DataField>
+        </Field>
+        <Field Name="Payment_Line_Amount">
+          <DataField>Payment_Line_Amount</DataField>
+        </Field>
+        <Field Name="Payment_Line_AmountFormat">
+          <DataField>Payment_Line_AmountFormat</DataField>
+        </Field>
+        <Field Name="Account_No________Account_Name_">
+          <DataField>Account_No________Account_Name_</DataField>
+        </Field>
+        <Field Name="Payment_Line_No">
+          <DataField>Payment_Line_No</DataField>
+        </Field>
+        <Field Name="Payment_Line_Account_No_">
+          <DataField>Payment_Line_Account_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
