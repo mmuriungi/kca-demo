@@ -50,7 +50,7 @@ codeunit 50013 "Finance Operations"
             PayHeader.Date := Today;
             PayHeader.Cashier := UserId;
             PayHeader."Time Posted" := Time;
-            PayHeader."Payment Narration" := 'Imprest Combinination';
+            PayHeader."Payment Narration" := FinImprestHeader.Purpose;
             PayHeader."Global Dimension 1 Code" := FinImprestHeader."Global Dimension 1 Code";
             PayHeader."Shortcut Dimension 2 Code" := FinImprestHeader."Shortcut Dimension 2 Code";
             PayHeader."Responsibility Center" := FinImprestHeader."Responsibility Center";
