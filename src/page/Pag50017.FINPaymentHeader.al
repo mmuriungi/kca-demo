@@ -217,6 +217,7 @@ page 50017 "FIN-Payment Header"
                 Caption = 'Approve';
                 Image = Approve;
                 Promoted = true;
+                visible = false;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ApplicationArea = All;

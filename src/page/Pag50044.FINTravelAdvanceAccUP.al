@@ -148,6 +148,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
                 Caption = 'Approve';
                 Image = Approve;
                 Promoted = true;
+                visible = false;
                 PromotedCategory = Process;
                 ApplicationArea = All;
                 trigger OnAction()

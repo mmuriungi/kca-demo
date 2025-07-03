@@ -188,7 +188,7 @@ Page 65228 "POS Sales Reports"
                         Image = AnalysisView;
                         Promoted = true;
                         PromotedIsBig = true;
-                       // RunObject = Report "FIN-Bank Receipts By user";
+                        // RunObject = Report "FIN-Bank Receipts By user";
                     }
                     action(LedgerVariance)
                     {
@@ -206,7 +206,7 @@ Page 65228 "POS Sales Reports"
                         Image = CancelAllLines;
                         Promoted = true;
                         PromotedIsBig = true;
-                       // RunObject = Report UnknownReport99918;
+                        // RunObject = Report UnknownReport99918;
                     }
                 }
                 group(FinanceReports)
@@ -422,7 +422,7 @@ Page 65228 "POS Sales Reports"
 
     local procedure SetSocialListeningFactboxVisibility()
     var
-      //  SocialListeningMgt: Codeunit UnknownCodeunit871;
+    //  SocialListeningMgt: Codeunit UnknownCodeunit871;
     begin
         //SocialListeningMgt.GetCustFactboxVisibility(Rec,SocialListeningSetupVisible,SocialListeningVisible);
     end;

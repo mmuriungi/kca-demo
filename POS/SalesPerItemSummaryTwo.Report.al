@@ -6,73 +6,73 @@ Report 99409 "Sales Per Item Summary Two"
 
     dataset
     {
-        dataitem(PosLines;"POS Sales Lines")
+        dataitem(PosLines; "POS Sales Lines")
         {
-            DataItemTableView = where(Posted=filter(true));
+            DataItemTableView = where(Posted = filter(true));
             RequestFilterFields = "Posting date";
             column(ReportForNavId_1000000000; 1000000000)
             {
             }
-            column(DocumentNo_PosLines;PosLines."Document No.")
+            column(DocumentNo_PosLines; PosLines."Document No.")
             {
             }
-            column(No_PosLines;PosLines."No.")
+            column(No_PosLines; PosLines."No.")
             {
             }
-            column(Quantity_PosLines;PosLines.Quantity)
+            column(Quantity_PosLines; PosLines.Quantity)
             {
             }
-            column(Description_PosLines;PosLines.Description)
+            column(Description_PosLines; PosLines.Description)
             {
             }
-            column(UnitOfMeasure_PosLines;PosLines."Unit Of Measure")
+            column(UnitOfMeasure_PosLines; PosLines."Unit Of Measure")
             {
             }
-            column(Price_PosLines;PosLines.Price)
+            column(Price_PosLines; PosLines.Price)
             {
             }
-            column(LineTotal_PosLines;PosLines."Line Total")
+            column(LineTotal_PosLines; PosLines."Line Total")
             {
             }
-            column(Inventory_PosLines;PosLines.Inventory)
+            column(Inventory_PosLines; PosLines.Inventory)
             {
             }
-            column(ServingCategory_PosLines;PosLines."Serving Category")
+            column(ServingCategory_PosLines; PosLines."Serving Category")
             {
             }
-            column(Postingdate_PosLines;Format(PosLines."Posting date"))
+            column(Postingdate_PosLines; Format(PosLines."Posting date"))
             {
             }
-            column(Posted_PosLines;PosLines.Posted)
+            column(Posted_PosLines; PosLines.Posted)
             {
             }
-            column(CName;Info.Name)
+            column(CName; Info.Name)
             {
             }
-            column(address;Info.Address)
+            column(address; Info.Address)
             {
             }
-            column(cphone;Info."Phone No.")
+            column(cphone; Info."Phone No.")
             {
             }
-            column(logo;Info.Picture)
+            column(logo; Info.Picture)
             {
             }
-            column(email;Info."E-Mail")
+            column(email; Info."E-Mail")
             {
             }
-            column(url;Info."Home Page")
+            column(url; Info."Home Page")
             {
             }
 
             trigger OnAfterGetRecord()
             begin
                 sheader.Reset();
-                  sheader.SetRange("No.", "No.");
-                  if sheader.Find('-') then begin
-                      sheader.CalcFields("Total Amount");
-                      ttamount := sheader."Total Amount";
-                  end;
+                sheader.SetRange("No.", "No.");
+                if sheader.Find('-') then begin
+                    sheader.CalcFields("Total Amount");
+                    ttamount := sheader."Total Amount";
+                end;
             end;
 
             trigger OnPreDataItem()

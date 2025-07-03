@@ -5,7 +5,7 @@ page 51157 "Deans Committee"
 {
     PageType = Document;
     SourceTable = "ACA-Applic. Form Header";
-    Caption='Registrar';
+    Caption = 'Registrar';
 
     layout
     {

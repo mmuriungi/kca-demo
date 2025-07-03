@@ -94,12 +94,12 @@ Page 99430 "POS Sales Card (Staff)"
     }
     var
 
-    saleheader: Record "POS Sales Header";
-    itemledger: Record "POS Item Ledger";
-    LineNo: Integer;
-    Batch: Record "Gen. Journal Batch";
-    GenJnLine: Record "Gen. Journal Line";
-    posLines: Record "POS Sales Lines";
-    NoSeriesMgt: Codeunit NoSeriesManagement;
-    PosSetup: Record "POS Setup";
+        saleheader: Record "POS Sales Header";
+        itemledger: Record "POS Item Ledger";
+        LineNo: Integer;
+        Batch: Record "Gen. Journal Batch";
+        GenJnLine: Record "Gen. Journal Line";
+        posLines: Record "POS Sales Lines";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        PosSetup: Record "POS Setup";
 }

@@ -2,7 +2,7 @@ table 51389 "Mpesa Bank Accounts Setup"
 {
     Caption = 'Mpesa Bank Accounts Setup';
     DataClassification = ToBeClassified;
-    
+
     fields
     {
         field(1; "Mpesa Code"; Code[20])

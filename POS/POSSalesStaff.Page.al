@@ -63,7 +63,7 @@ Page 99408 "POS Sales Staff"
             group(Lines)
             {
                 Caption = 'Lines';
-                
+
                 part(SalesLines; "POS Sales Lines") // Page 99411
                 {
                     ApplicationArea = All;
