@@ -330,6 +330,7 @@ page 51493 "Finance Management Rolecenter"
                     Caption = 'Imprest Warrant';
                     Image = Journal;
                     RunObject = Page "Imprest List Finance";
+                    RunPageView = WHERE(Archived = const(false));
                     //RunPageView = WHERE("Template Type" = CONST(General),Recurring = CONST(false));
                     ToolTip = 'Imprest Requests';
                 }
@@ -353,6 +354,16 @@ page 51493 "Finance Management Rolecenter"
                     ToolTip = 'Posted Imprests';
 
                 }
+                action("Archived Imprest")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Archived Imprest';
+                    Image = Journal;
+                    RunObject = Page "Imprest List Finance";
+                    RunPageView = WHERE(Archived = const(true));
+                    ToolTip = 'Archived Imprests';
+
+                }   
                 action("Outstanding Imprest")
                 {
                     ApplicationArea = Basic, Suite;

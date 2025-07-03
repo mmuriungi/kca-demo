@@ -160,6 +160,7 @@ pageextension 50000 "Accountant Roles Center" extends "Accountant Role Center"
                     Caption = 'Imprest Warrant';
                     Image = Journal;
                     RunObject = Page "Imprest List Finance";
+                    RunPageView = WHERE(Archived = const(false));
                     //RunPageView = WHERE("Template Type" = CONST(General),Recurring = CONST(false));
                     ToolTip = 'Imprest Requests';
                 }
@@ -181,6 +182,16 @@ pageextension 50000 "Accountant Roles Center" extends "Accountant Role Center"
                     Image = Journal;
                     RunObject = Page "FIN-Posted imprest list";
                     ToolTip = 'Posted Imprests';
+
+                }
+                action("Archived Imprest")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Archived Imprest';
+                    Image = Journal;
+                    RunObject = Page "Imprest List Finance";
+                    RunPageView = WHERE(Archived = const(true));
+                    ToolTip = 'Archived Imprests';
 
                 }
                 action("Outstanding Imprest")
