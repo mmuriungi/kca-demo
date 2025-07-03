@@ -1,4 +1,4 @@
-page 51204 "ACA-Std Hostel Lists Hist"
+page 51204 "ACA-Std Hostel Lists Hist X"
 {
     DeleteAllowed = false;
     InsertAllowed = false;

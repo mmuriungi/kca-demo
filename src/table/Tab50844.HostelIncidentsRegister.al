@@ -1,4 +1,4 @@
-table 50844 "Hostel Incidents Register"
+table 50844 "Hostel Incidents Register X"
 {
 
     fields

@@ -1,4 +1,4 @@
-page 51185 "ACA-Hostel Ledger"
+page 51185 "ACA-Hostel Ledger X"
 {
     Editable = false;
     PageType = List;

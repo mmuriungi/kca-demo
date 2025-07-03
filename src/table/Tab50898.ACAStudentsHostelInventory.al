@@ -1,7 +1,7 @@
 /// <summary>
 /// Table ACA-Students Hostel Inventory (ID 61826).
 /// </summary>
-table 50898 "ACA-Students Hostel Inventory"
+table 50898 "ACA-Students Hostel Invent. X"
 {
 
     fields

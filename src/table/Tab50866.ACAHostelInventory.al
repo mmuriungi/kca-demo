@@ -1,4 +1,4 @@
-table 50866 "ACA-Hostel Inventory"
+table 50866 "ACA-Hostel Inventory X"
 {
     DrillDownPageID = "ACA-Hostel Invtry Items List";
     LookupPageID = "ACA-Hostel Invtry Items List";

@@ -1,8 +1,8 @@
-page 51195 "ACAHostel Bookings (All. List)"
+page 51195 "ACAHostel Bookings All. List X"
 {
     Editable = false;
     PageType = List;
-    SourceTable = "ACA-Students Hostel Rooms";
+    SourceTable = "ACA-Students Hostel Rooms x";
     SourceTableView = WHERE(Allocated = FILTER(true),
                             Cleared = FILTER(false));
 

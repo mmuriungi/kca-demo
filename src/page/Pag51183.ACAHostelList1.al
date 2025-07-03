@@ -1,4 +1,4 @@
-page 51183 "ACA-Hostel List1"
+page 51183 "ACA-Hostel List1 X"
 {
     CardPageID = "ACA-Hostel Card1";
     Editable = true;
@@ -8,7 +8,7 @@ page 51183 "ACA-Hostel List1"
     layout
     {
         area(content)
-        {
+        {   
             repeater(___)
             {
                 field("Asset No"; Rec."Asset No")

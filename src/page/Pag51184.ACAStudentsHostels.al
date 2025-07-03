@@ -1,4 +1,4 @@
-page 51184 "ACA-Students Hostels"
+page 51184 "ACA-Students Hostels X"
 {
     DeleteAllowed = false;
     Editable = true;

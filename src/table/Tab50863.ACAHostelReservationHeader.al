@@ -1,4 +1,4 @@
-table 50863 "ACA-Hostel Reservation Header"
+table 50863 "ACA-Hostel Reservation HeaderX"
 {
 
     fields

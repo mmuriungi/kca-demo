@@ -1,4 +1,4 @@
-page 51181 "ACA-Hostels Reservation Reason"
+page 51181 "ACA-Hostels Reserv. Reason X"
 {
     PageType = List;
     SourceTable = "ACA-Host Reservation Reasons";

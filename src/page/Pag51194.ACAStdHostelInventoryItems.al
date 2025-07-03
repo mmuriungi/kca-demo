@@ -1,7 +1,7 @@
-page 51194 "ACA-Std Hostel Inventory Items"
+page 51194 "ACA-Std Hostel Invent. Items X"
 {
     PageType = List;
-    SourceTable = "ACA-Std Hostel Inventory Items";
+    SourceTable = "ACA-Std Hostel Invent. ItemsX";
 
     layout
     {

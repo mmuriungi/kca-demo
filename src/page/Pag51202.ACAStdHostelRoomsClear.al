@@ -1,7 +1,7 @@
-page 51202 "ACA-Std Hostel Rooms Clear"
+page 51202 "ACA-Std Hostel Rooms Clear X"
 {
     PageType = ListPart;
-    SourceTable = "ACA-Students Hostel Rooms";
+    SourceTable = "ACA-Students Hostel Rooms x";
 
     layout
     {
