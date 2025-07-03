@@ -308,7 +308,7 @@ page 50146 "Overdue Imprest Card"
                         //    ERROR('You can only print after the document is released for approval');
                         Rec.RESET;
                         Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(50002, TRUE, TRUE, Rec);
+                        REPORT.RUN(Report::"Imprest Request", TRUE, TRUE, Rec);
                         Rec.RESET;
                     end;
                 }
