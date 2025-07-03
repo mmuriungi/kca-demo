@@ -321,7 +321,102 @@ page 51493 "Finance Management Rolecenter"
 
 
             }
+            Group("Imprest Management")
+            {
+                Caption = 'Imprest Management';
+                action("&Imprest")
+                {//Receipt List
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Imprest Warrant';
+                    Image = Journal;
+                    RunObject = Page "Imprest List Finance";
+                    //RunPageView = WHERE("Template Type" = CONST(General),Recurring = CONST(false));
+                    ToolTip = 'Imprest Requests';
+                }
+                action("Imprest Vouchers")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Imprest Vouchers';
+                    Image = Journal;
+                    RunObject = Page "FIN-Imprest Vouchers";
 
+                    ToolTip = 'Imprest Vouchers';
+
+                }
+
+                action("&Posted Imprest")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Posted Imprest';
+                    Image = Journal;
+                    RunObject = Page "FIN-Posted imprest list";
+                    ToolTip = 'Posted Imprests';
+
+                }
+                action("Outstanding Imprest")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Outstanding Imprest';
+                    Image = Journal;
+                    RunObject = Page "Outstanding Imprest";
+                    ToolTip = 'Outstanding Imprests';
+
+
+                }
+                action("Overdue Imprest")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Overdue Imprest';
+                    Image = Journal;
+                    RunObject = Page "FIN-Overdue Imprest";
+                    ToolTip = 'OOverdue Imprests';
+
+
+                }
+                action("Imprest Recovered")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Imprest Recovered';
+                    Image = Journal;
+                    RunObject = Page "Imprest Transfer to Payroll";
+                    ToolTip = 'Imprest Recovered';
+
+
+                }
+                action("&Imprest Accounting")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Imprest Accounting';
+                    Image = Journal;
+                    RunObject = Page "FIN-Imprest Accounting";
+                    ToolTip = 'Imprest Accounting';
+                }
+                action("&Posted Imprest Accounting")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Posted Imprest Accounting';
+                    Image = Journal;
+                    //RunObject = Page "FIN-Travel Advance Acc. UP";
+                    RunObject = Page "FIN-Posted Imprest Accounting";
+                    //RunObject = Page "FIN-Posted Travel Advs. Acc.";
+                    ToolTip = 'Posted Imprest Accounting';
+
+                }
+                action("Imprest_Register")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Imprest Register';
+                    Image = Journal;
+                    //RunObject = Page "FIN-Travel Advance Acc. UP";
+                    RunObject = Report "FIN-Imprest Register Report";
+                    //RunObject = Page "FIN-Posted Travel Advs. Acc.";
+                    ToolTip = 'Imprest Register';
+
+                }
+
+
+
+            }
             group("Financial Setups")
             {
                 Caption = 'Financial Setups';

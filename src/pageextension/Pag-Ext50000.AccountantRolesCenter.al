@@ -152,7 +152,6 @@ pageextension 50000 "Accountant Roles Center" extends "Accountant Role Center"
 
             }
             Group("Imprest Management")
-
             {
                 Caption = 'Imprest Management';
                 action("Imprest")
@@ -214,10 +213,6 @@ pageextension 50000 "Accountant Roles Center" extends "Accountant Role Center"
 
 
                 }
-
-
-
-
                 action("Imprest Accounting")
                 {
                     ApplicationArea = Basic, Suite;
@@ -243,7 +238,7 @@ pageextension 50000 "Accountant Roles Center" extends "Accountant Role Center"
                     Caption = 'Imprest Register';
                     Image = Journal;
                     //RunObject = Page "FIN-Travel Advance Acc. UP";
-                    RunObject = Report 50033;
+                    RunObject = Report "FIN-Imprest Register Report";
                     //RunObject = Page "FIN-Posted Travel Advs. Acc.";
                     ToolTip = 'Imprest Register';
 
