@@ -12895,6 +12895,13 @@ Codeunit 61106 webportals
             exit(UserSetup."User ID");
         exit('');
     end;
+
+    procedure OpenRecord(TableID: Integer; DocumentNo: Code[50]; EntryNo: Integer): Text
+    var
+        
+    begin
+        
+    end;
 }
 
 

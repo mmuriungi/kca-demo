@@ -107,8 +107,7 @@ page 50127 "Imprest List Finance"
                     Image = Post;
                     trigger OnAction()
                     begin
-                        IF Rec.Select = true THEN
-                            rec.CalcFields("Total Net Amount");
+                        rec.CalcFields("Total Net Amount");
                         IF CONFIRM('Generate  pv?', TRUE) = FALSE THEN EXIT;
                         FinOpertaion.GenerateCashImprestPv(Rec);
                     end;
