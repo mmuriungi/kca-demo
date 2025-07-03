@@ -114,7 +114,7 @@ page 50017 "FIN-Payment Header"
                 {
                     Editable = PaymentNarrationEditable;
                     ApplicationArea = All;
-                    ShowMandatory = true;
+                    ShowMandatory = false;
                 }
                 field("Budgeted Amount"; Rec."Budgeted Amount")
                 {
