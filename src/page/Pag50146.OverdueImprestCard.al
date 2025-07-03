@@ -335,7 +335,7 @@ page 50146 "Overdue Imprest Card"
                     begin
                         Rec.RESET;
                         Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(51267, TRUE, TRUE, Rec);
+                        REPORT.RUN(Report::"Imprest Request", TRUE, TRUE, Rec);
                         Rec.RESET;
                     end;
                 }
