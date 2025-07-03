@@ -11,84 +11,6 @@
       <rd:DataSourceID>53c874b8-77c2-4a88-99c5-065b9ca32f7e</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="No_posItem">
-          <DataField>No_posItem</DataField>
-        </Field>
-        <Field Name="Description_posItem">
-          <DataField>Description_posItem</DataField>
-        </Field>
-        <Field Name="UnitOfmeasure_posItem">
-          <DataField>UnitOfmeasure_posItem</DataField>
-        </Field>
-        <Field Name="Inventory_posItem">
-          <DataField>Inventory_posItem</DataField>
-        </Field>
-        <Field Name="Inventory_posItemFormat">
-          <DataField>Inventory_posItemFormat</DataField>
-        </Field>
-        <Field Name="DateFilter_posItem">
-          <DataField>DateFilter_posItem</DataField>
-        </Field>
-        <Field Name="SalesAmount_posItem">
-          <DataField>SalesAmount_posItem</DataField>
-        </Field>
-        <Field Name="SalesAmount_posItemFormat">
-          <DataField>SalesAmount_posItemFormat</DataField>
-        </Field>
-        <Field Name="SoldUnits_posItem">
-          <DataField>SoldUnits_posItem</DataField>
-        </Field>
-        <Field Name="SoldUnits_posItemFormat">
-          <DataField>SoldUnits_posItemFormat</DataField>
-        </Field>
-        <Field Name="Active_posItem">
-          <DataField>Active_posItem</DataField>
-        </Field>
-        <Field Name="CName">
-          <DataField>CName</DataField>
-        </Field>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="cphone">
-          <DataField>cphone</DataField>
-        </Field>
-        <Field Name="logo">
-          <DataField>logo</DataField>
-        </Field>
-        <Field Name="email">
-          <DataField>email</DataField>
-        </Field>
-        <Field Name="url">
-          <DataField>url</DataField>
-        </Field>
-        <Field Name="StatrtDate">
-          <DataField>StatrtDate</DataField>
-        </Field>
-        <Field Name="endDate">
-          <DataField>endDate</DataField>
-        </Field>
-        <Field Name="sunits">
-          <DataField>sunits</DataField>
-        </Field>
-        <Field Name="samount">
-          <DataField>samount</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -761,4 +683,80 @@ iaz2Y2EzVs27ttmIygabeBgWPyTsbgArAQUb/o4nlhha26VpZlUhknyr/TjBGAP3xnJDqoofm5XFkH8c
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="No_posItem">
+          <DataField>No_posItem</DataField>
+        </Field>
+        <Field Name="Description_posItem">
+          <DataField>Description_posItem</DataField>
+        </Field>
+        <Field Name="UnitOfmeasure_posItem">
+          <DataField>UnitOfmeasure_posItem</DataField>
+        </Field>
+        <Field Name="Inventory_posItem">
+          <DataField>Inventory_posItem</DataField>
+        </Field>
+        <Field Name="Inventory_posItemFormat">
+          <DataField>Inventory_posItemFormat</DataField>
+        </Field>
+        <Field Name="DateFilter_posItem">
+          <DataField>DateFilter_posItem</DataField>
+        </Field>
+        <Field Name="SalesAmount_posItem">
+          <DataField>SalesAmount_posItem</DataField>
+        </Field>
+        <Field Name="SalesAmount_posItemFormat">
+          <DataField>SalesAmount_posItemFormat</DataField>
+        </Field>
+        <Field Name="SoldUnits_posItem">
+          <DataField>SoldUnits_posItem</DataField>
+        </Field>
+        <Field Name="SoldUnits_posItemFormat">
+          <DataField>SoldUnits_posItemFormat</DataField>
+        </Field>
+        <Field Name="Active_posItem">
+          <DataField>Active_posItem</DataField>
+        </Field>
+        <Field Name="CName">
+          <DataField>CName</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="cphone">
+          <DataField>cphone</DataField>
+        </Field>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+        </Field>
+        <Field Name="email">
+          <DataField>email</DataField>
+        </Field>
+        <Field Name="url">
+          <DataField>url</DataField>
+        </Field>
+        <Field Name="StatrtDate">
+          <DataField>StatrtDate</DataField>
+        </Field>
+        <Field Name="endDate">
+          <DataField>endDate</DataField>
+        </Field>
+        <Field Name="sunits">
+          <DataField>sunits</DataField>
+        </Field>
+        <Field Name="samount">
+          <DataField>samount</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

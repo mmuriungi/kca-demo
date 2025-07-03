@@ -53,6 +53,9 @@ codeunit 50013 "Finance Operations"
             PayHeader."Payment Narration" := 'Imprest Combinination';
             PayHeader."Global Dimension 1 Code" := FinImprestHeader."Global Dimension 1 Code";
             PayHeader."Shortcut Dimension 2 Code" := FinImprestHeader."Shortcut Dimension 2 Code";
+            PayHeader."Responsibility Center" := FinImprestHeader."Responsibility Center";
+            PayHeader.Payee := FinImprestHeader.Payee;
+            PayHeader."On Behalf Of" := FinImprestHeader."On Behalf Of";
             Info.get;
             PayHeader."On Behalf Of" := Info.Name;
             PayHeader.Insert();
@@ -61,28 +64,21 @@ codeunit 50013 "Finance Operations"
             Payline.SetFilter("Imprest Processed", '=%1', false);
             Payline.SetRange(No, PayHeader."No.");
             if not Payline.Find('-') then begin
-                repeat
-                    FinImprestHeader.CalcFields("Total Net Amount");
-                    Payline.Init();
-                    Payline.No := PayHeader."No.";
-                    Payline.Type := 'IMPREST';
-                    Payline."Account Type" := Payline."Account Type"::Customer;
-                    Payline.Grouping := 'IMPREST';
-                    Payline."Account No." := FinImprestHeader."Account No.";
-                    Payline.Validate("Account No.");
-                    Payline.Payee := FinImprestHeader.Payee;
-                    Payline."Transaction Name" := PayHeader.Payee;
-                    Payline."Imprest Request No" := FinImprestHeader."No.";
-
-
-
-                    Payline.Amount := FinImprestHeader."Total Net Amount";
-                    Payline.Validate(Amount);
-                    Payline."Imprest Processed" := true;
-                    PayLine.INSERT(True);
-
-                until FinImprestHeader.Next() = 0;
-
+                FinImprestHeader.CalcFields("Total Net Amount");
+                Payline.Init();
+                Payline.No := PayHeader."No.";
+                Payline.Type := 'IMPREST';
+                Payline."Account Type" := Payline."Account Type"::Customer;
+                Payline.Grouping := 'IMPREST';
+                Payline."Account No." := FinImprestHeader."Account No.";
+                Payline.Validate("Account No.");
+                Payline.Payee := FinImprestHeader.Payee;
+                Payline."Transaction Name" := PayHeader.Payee;
+                Payline."Imprest Request No" := FinImprestHeader."No.";
+                Payline.Amount := FinImprestHeader."Total Net Amount";
+                Payline.Validate(Amount);
+                Payline."Imprest Processed" := true;
+                PayLine.INSERT(True);
             end;
             FinImprestHeader."Pay Using Pv" := true;
             FinImprestHeader.Status := FinImprestHeader.Status::Posted;

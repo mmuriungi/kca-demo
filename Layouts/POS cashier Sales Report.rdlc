@@ -11,78 +11,6 @@
       <rd:DataSourceID>5d4af4f0-0923-4a7b-868f-07d7fc3d9b20</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="No_posHeader">
-          <DataField>No_posHeader</DataField>
-        </Field>
-        <Field Name="PostingDescription_posHeader">
-          <DataField>PostingDescription_posHeader</DataField>
-        </Field>
-        <Field Name="TotalAmount_posHeader">
-          <DataField>TotalAmount_posHeader</DataField>
-        </Field>
-        <Field Name="TotalAmount_posHeaderFormat">
-          <DataField>TotalAmount_posHeaderFormat</DataField>
-        </Field>
-        <Field Name="Postingdate_posHeader">
-          <DataField>Postingdate_posHeader</DataField>
-        </Field>
-        <Field Name="Cashier_posHeader">
-          <DataField>Cashier_posHeader</DataField>
-        </Field>
-        <Field Name="CustomerType_posHeader">
-          <DataField>CustomerType_posHeader</DataField>
-        </Field>
-        <Field Name="BankAccount_posHeader">
-          <DataField>BankAccount_posHeader</DataField>
-        </Field>
-        <Field Name="IncomeAccount_posHeader">
-          <DataField>IncomeAccount_posHeader</DataField>
-        </Field>
-        <Field Name="AmountPaid_posHeader">
-          <DataField>AmountPaid_posHeader</DataField>
-        </Field>
-        <Field Name="AmountPaid_posHeaderFormat">
-          <DataField>AmountPaid_posHeaderFormat</DataField>
-        </Field>
-        <Field Name="Balance_posHeader">
-          <DataField>Balance_posHeader</DataField>
-        </Field>
-        <Field Name="Balance_posHeaderFormat">
-          <DataField>Balance_posHeaderFormat</DataField>
-        </Field>
-        <Field Name="CName">
-          <DataField>CName</DataField>
-        </Field>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="cphone">
-          <DataField>cphone</DataField>
-        </Field>
-        <Field Name="logo">
-          <DataField>logo</DataField>
-        </Field>
-        <Field Name="email">
-          <DataField>email</DataField>
-        </Field>
-        <Field Name="url">
-          <DataField>url</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -798,4 +726,74 @@ iaz2Y2EzVs27ttmIygabeBgWPyTsbgArAQUb/o4nlhha26VpZlUhknyr/TjBGAP3xnJDqoofm5XFkH8c
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="No_posHeader">
+          <DataField>No_posHeader</DataField>
+        </Field>
+        <Field Name="PostingDescription_posHeader">
+          <DataField>PostingDescription_posHeader</DataField>
+        </Field>
+        <Field Name="TotalAmount_posHeader">
+          <DataField>TotalAmount_posHeader</DataField>
+        </Field>
+        <Field Name="TotalAmount_posHeaderFormat">
+          <DataField>TotalAmount_posHeaderFormat</DataField>
+        </Field>
+        <Field Name="Postingdate_posHeader">
+          <DataField>Postingdate_posHeader</DataField>
+        </Field>
+        <Field Name="Cashier_posHeader">
+          <DataField>Cashier_posHeader</DataField>
+        </Field>
+        <Field Name="CustomerType_posHeader">
+          <DataField>CustomerType_posHeader</DataField>
+        </Field>
+        <Field Name="BankAccount_posHeader">
+          <DataField>BankAccount_posHeader</DataField>
+        </Field>
+        <Field Name="IncomeAccount_posHeader">
+          <DataField>IncomeAccount_posHeader</DataField>
+        </Field>
+        <Field Name="AmountPaid_posHeader">
+          <DataField>AmountPaid_posHeader</DataField>
+        </Field>
+        <Field Name="AmountPaid_posHeaderFormat">
+          <DataField>AmountPaid_posHeaderFormat</DataField>
+        </Field>
+        <Field Name="Balance_posHeader">
+          <DataField>Balance_posHeader</DataField>
+        </Field>
+        <Field Name="Balance_posHeaderFormat">
+          <DataField>Balance_posHeaderFormat</DataField>
+        </Field>
+        <Field Name="CName">
+          <DataField>CName</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="cphone">
+          <DataField>cphone</DataField>
+        </Field>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+        </Field>
+        <Field Name="email">
+          <DataField>email</DataField>
+        </Field>
+        <Field Name="url">
+          <DataField>url</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

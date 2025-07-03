@@ -11,84 +11,6 @@
       <rd:DataSourceID>475a195c-16e4-4f18-9e0e-d14abc7d1fa9</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="DocumentNo_PosLines">
-          <DataField>DocumentNo_PosLines</DataField>
-        </Field>
-        <Field Name="No_PosLines">
-          <DataField>No_PosLines</DataField>
-        </Field>
-        <Field Name="Quantity_PosLines">
-          <DataField>Quantity_PosLines</DataField>
-        </Field>
-        <Field Name="Quantity_PosLinesFormat">
-          <DataField>Quantity_PosLinesFormat</DataField>
-        </Field>
-        <Field Name="Description_PosLines">
-          <DataField>Description_PosLines</DataField>
-        </Field>
-        <Field Name="UnitOfMeasure_PosLines">
-          <DataField>UnitOfMeasure_PosLines</DataField>
-        </Field>
-        <Field Name="Price_PosLines">
-          <DataField>Price_PosLines</DataField>
-        </Field>
-        <Field Name="Price_PosLinesFormat">
-          <DataField>Price_PosLinesFormat</DataField>
-        </Field>
-        <Field Name="LineTotal_PosLines">
-          <DataField>LineTotal_PosLines</DataField>
-        </Field>
-        <Field Name="LineTotal_PosLinesFormat">
-          <DataField>LineTotal_PosLinesFormat</DataField>
-        </Field>
-        <Field Name="Inventory_PosLines">
-          <DataField>Inventory_PosLines</DataField>
-        </Field>
-        <Field Name="Inventory_PosLinesFormat">
-          <DataField>Inventory_PosLinesFormat</DataField>
-        </Field>
-        <Field Name="ServingCategory_PosLines">
-          <DataField>ServingCategory_PosLines</DataField>
-        </Field>
-        <Field Name="Postingdate_PosLines">
-          <DataField>Postingdate_PosLines</DataField>
-        </Field>
-        <Field Name="Posted_PosLines">
-          <DataField>Posted_PosLines</DataField>
-        </Field>
-        <Field Name="CName">
-          <DataField>CName</DataField>
-        </Field>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="cphone">
-          <DataField>cphone</DataField>
-        </Field>
-        <Field Name="logo">
-          <DataField>logo</DataField>
-        </Field>
-        <Field Name="email">
-          <DataField>email</DataField>
-        </Field>
-        <Field Name="url">
-          <DataField>url</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1028,4 +950,80 @@ iaz2Y2EzVs27ttmIygabeBgWPyTsbgArAQUb/o4nlhha26VpZlUhknyr/TjBGAP3xnJDqoofm5XFkH8c
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="DocumentNo_PosLines">
+          <DataField>DocumentNo_PosLines</DataField>
+        </Field>
+        <Field Name="No_PosLines">
+          <DataField>No_PosLines</DataField>
+        </Field>
+        <Field Name="Quantity_PosLines">
+          <DataField>Quantity_PosLines</DataField>
+        </Field>
+        <Field Name="Quantity_PosLinesFormat">
+          <DataField>Quantity_PosLinesFormat</DataField>
+        </Field>
+        <Field Name="Description_PosLines">
+          <DataField>Description_PosLines</DataField>
+        </Field>
+        <Field Name="UnitOfMeasure_PosLines">
+          <DataField>UnitOfMeasure_PosLines</DataField>
+        </Field>
+        <Field Name="Price_PosLines">
+          <DataField>Price_PosLines</DataField>
+        </Field>
+        <Field Name="Price_PosLinesFormat">
+          <DataField>Price_PosLinesFormat</DataField>
+        </Field>
+        <Field Name="LineTotal_PosLines">
+          <DataField>LineTotal_PosLines</DataField>
+        </Field>
+        <Field Name="LineTotal_PosLinesFormat">
+          <DataField>LineTotal_PosLinesFormat</DataField>
+        </Field>
+        <Field Name="Inventory_PosLines">
+          <DataField>Inventory_PosLines</DataField>
+        </Field>
+        <Field Name="Inventory_PosLinesFormat">
+          <DataField>Inventory_PosLinesFormat</DataField>
+        </Field>
+        <Field Name="ServingCategory_PosLines">
+          <DataField>ServingCategory_PosLines</DataField>
+        </Field>
+        <Field Name="Postingdate_PosLines">
+          <DataField>Postingdate_PosLines</DataField>
+        </Field>
+        <Field Name="Posted_PosLines">
+          <DataField>Posted_PosLines</DataField>
+        </Field>
+        <Field Name="CName">
+          <DataField>CName</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="cphone">
+          <DataField>cphone</DataField>
+        </Field>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+        </Field>
+        <Field Name="email">
+          <DataField>email</DataField>
+        </Field>
+        <Field Name="url">
+          <DataField>url</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
