@@ -13215,6 +13215,14 @@ Codeunit 61106 webportals
         exit(Base64Text);
         ;
     end;
+    procedure IsSecurityOfficer(staffNo:Code[20])msg:Boolean
+        begin
+            Employeecard.Reset();
+            EmployeeCard.SetRange("No.", staffNo);
+            if Employeecard.FindFirst() then begin
+                msg := Employeecard."Is Security Officer";
+            end;
+    end;
 }
 
 
