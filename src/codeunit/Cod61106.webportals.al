@@ -12933,9 +12933,9 @@ Codeunit 61106 webportals
             '.field-value { color: #245424; }' +
             '.lines-section { margin-top: 30px; }' +
             '.lines-header { font-size: 18px; font-weight: bold; color: #245424; margin-bottom: 15px; }' +
-            'table { width: 100%; border-collapse: collapse; background-color: #245424; }' +
+            'table { width: 100%; border-collapse: collapse; background-color: #fff; }' +
             'th { background-color: #1e4a1e; color: #ffffff; padding: 10px; text-align: left; border: 1px solid #3a6b3a; }' +
-            'td { padding: 8px; border: 1px solid #3a6b3a; color: #e0f2e0; }' +
+            'td { padding: 8px; border: 1px solid #3a6b3a; color: #1e4a1e; }' +
             'tr:hover { background-color: #2d5a2d; }' +
             '</style>';
 
