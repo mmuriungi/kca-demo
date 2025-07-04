@@ -395,7 +395,7 @@ Report 66628 "ACA-Classification Incomplete"
                     begin
                         sequence += 1;
                         ClassificationIncompSerial.Serial := sequence;
-                        ClassificationIncompSerial.Rename(ClassificationIncompSerial."Student Number", sequence);
+                        ClassificationIncompSerial.Modify;
                     end;
                     until ClassificationIncompSerial.Next = 0;
                 end;
