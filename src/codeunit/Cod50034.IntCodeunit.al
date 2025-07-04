@@ -45,7 +45,7 @@ codeunit 50034 IntCodeunit
                 Subject := 'Leave Application for ' + Leave."Employee Name";
                 Body := 'You have been selected as the reliever for the leave application of ' + Leave."Employee Name" + '.<br><br>' +
                     'Please review the leave application for your approval.<br><br>';
-                NotifHandler.fnSendemail(Emp."First Name",Subject,Body,Emp."E-Mail",'','',false,'','','');
+                NotifHandler.fnSendemail(Emp."First Name", Subject, Body, Emp."Company E-Mail", '', '', false, '', '', '');
             end;
 
             // First, copy all existing members to a temporary table
