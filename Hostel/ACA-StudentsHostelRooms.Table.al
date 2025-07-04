@@ -28,7 +28,7 @@ Table 61155 "ACA-Students Hostel Rooms"
                 courseReg.SetRange(courseReg.Semester, Semester);
                 //  courseReg.SETRANGE(courseReg."Academic Year","Academic Year");
                 if courseReg.Find('-') then begin
-                    if prog.Get(courseReg.Programme) then begin
+                    if prog.Get(courseReg.Programmes) then begin
                         if prog."Special Programme" then
                             settlementType := Settlementtype::"Special Programme"
                         else if courseReg."Settlement Type" = 'KUCCPS' then
@@ -239,7 +239,7 @@ Table 61155 "ACA-Students Hostel Rooms"
                 courseReg.SetRange(courseReg.Semester, Semester);
                 //  courseReg.SETRANGE(courseReg."Academic Year","Academic Year");
                 if courseReg.Find('-') then begin
-                    if prog.Get(courseReg.Programme) then begin
+                    if prog.Get(courseReg.Programmes) then begin
                         if prog."Special Programme" then
                             settlementType := Settlementtype::"Special Programme"
                         else if courseReg."Settlement Type" = 'JAB' then
@@ -296,7 +296,7 @@ Table 61155 "ACA-Students Hostel Rooms"
                 courseReg.SetRange(courseReg.Semester, Semester);
                 //  courseReg.SETRANGE(courseReg."Academic Year","Academic Year");
                 if courseReg.Find('-') then begin
-                    if prog.Get(courseReg.Programme) then begin
+                    if prog.Get(courseReg.Programmes) then begin
                         if prog."Special Programme" then
                             settlementType := Settlementtype::"Special Programme"
                         else if courseReg."Settlement Type" = 'JAB' then
@@ -344,7 +344,7 @@ Table 61155 "ACA-Students Hostel Rooms"
                 courseReg.SetRange(courseReg.Semester, Semester);
                 //  courseReg.SETRANGE(courseReg."Academic Year","Academic Year");
                 if courseReg.Find('-') then begin
-                    if prog.Get(courseReg.Programme) then begin
+                    if prog.Get(courseReg.Programmes) then begin
                         if prog."Special Programme" then
                             settlementType := Settlementtype::"Special Programme"
                         else if courseReg."Settlement Type" = 'JAB' then
@@ -394,7 +394,7 @@ Table 61155 "ACA-Students Hostel Rooms"
                 courseReg.SetRange(courseReg.Semester, Semester);
                 //  courseReg.SETRANGE(courseReg."Academic Year","Academic Year");
                 if courseReg.Find('-') then begin
-                    if prog.Get(courseReg.Programme) then begin
+                    if prog.Get(courseReg.Programmes) then begin
                         if prog."Special Programme" then
                             settlementType := Settlementtype::"Special Programme"
                         else if courseReg."Settlement Type" = 'JAB' then
@@ -604,8 +604,8 @@ Table 61155 "ACA-Students Hostel Rooms"
         MailBody: Text;
         PgHostelRooms: Page "ACA-Stud. Hostel Rooms";
         settlementType: Option " ",JAB,SSP,"Special Programme";
-        Creg1: Record UnknownRecord61532;
-        prog: Record UnknownRecord61511;
+        Creg1: Record "ACA-Course Registration";
+        prog: Record "ACA-Programme";
         RptFilename: Text;
     begin
 
@@ -640,7 +640,7 @@ Table 61155 "ACA-Students Hostel Rooms"
                         Balance := cust."Balance (LCY)";
                     end;
                     stageCharges.Reset;
-                    stageCharges.SetRange(stageCharges."Programme Code", courseReg.Programme);
+                    stageCharges.SetRange(stageCharges."Programme Code", courseReg.Programmes);
                     stageCharges.SetRange(stageCharges."Stage Code", courseReg.Stage);
                     stageCharges.SetRange(stageCharges."Settlement Type", courseReg."Settlement Type");
                     stageCharges.SetRange(stageCharges.Code, 'ACCOMMODATION');
@@ -720,7 +720,7 @@ Table 61155 "ACA-Students Hostel Rooms"
                 //  Creg1.SETRANGE(Creg1."Academic Year","Academic Year");
                 if Creg1.Find('-') then begin
                     // Check if Prog is Special
-                    if prog.Get(Creg1.Programme) then begin
+                    if prog.Get(Creg1.Programmes) then begin
                         if prog."Special Programme" then
                             settlementType := Settlementtype::"Special Programme"
                         else if Creg1."Settlement Type" = 'KUCCPS' then
@@ -798,14 +798,14 @@ Table 61155 "ACA-Students Hostel Rooms"
     end;
 
     var
-        courseReg: Record UnknownRecord61532;
-        AcadYear: Record UnknownRecord61382;
-        Sem: Record UnknownRecord61692;
-        stageCharges: Record UnknownRecord61533;
+        courseReg: Record "ACA-Course Registration";
+        AcadYear: Record "ACA-Academic Year";
+        Sem: Record "ACA-Semesters";
+        stageCharges: Record "ACA-Stage Charges";
         cust: Record Customer;
-        roomSpaces: Record UnknownRecord61824;
+        roomSpaces: Record "ACA-Room Spaces";
         Rooms: Record "ACA-Hostel Block Rooms";
-        prog: Record UnknownRecord61511;
+        prog: Record "ACA-Programme";
         settlementType: Option " ",JAB,SSP,"Special Programme";
         billAmount: Decimal;
         HostRec: Record "ACA-Hostel Card";

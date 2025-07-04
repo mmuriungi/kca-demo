@@ -67,7 +67,7 @@ Report 51245 "Hostel Inventory"
             column(Hostel_Ledger__Student_No_Caption; FieldCaption("Student No"))
             {
             }
-            dataitem(UnknownTable61164; UnknownTable61164)
+            dataitem("ACA-Room Inventory"; "ACA-Room Inventory")
             {
                 DataItemLink = "Space No" = field("Space No");
                 column(ReportForNavId_6356; 6356)

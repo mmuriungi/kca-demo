@@ -164,9 +164,9 @@ Report 51791 "Hostel Allo. Per Room (Det.)"
 
     var
         totRooms: Integer;
-        creg: Record UnknownRecord61532;
-        sems: Record UnknownRecord61692;
-        acadYShcedule: Record UnknownRecord61654;
+        creg: Record "ACA-Course Registration";
+        sems: Record "ACA-Semesters";
+        acadYShcedule: Record "ACA-Academic Year Schedule";
         roomall: Record "ACA-Students Hostel Rooms";
         ACAHostelCard: Record "ACA-Hostel Card";
         Customer: Record Customer;

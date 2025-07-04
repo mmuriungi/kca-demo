@@ -1,7 +1,7 @@
 /// <summary>
 /// Report InComplete Hostel Booking (ID 51219).
 /// </summary>
-report 50618 "InComplete Hostel Booking"
+report 50618 "InComplete Hostel Booking X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/InComplete Hostel Booking.rdl';

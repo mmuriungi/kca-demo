@@ -38,7 +38,7 @@ Table 61823 "ACA-Hostel Block Rooms"
 
             trigger OnValidate()
             var
-                ACARoomSpaces: Record UnknownRecord61824;
+                ACARoomSpaces: Record "ACA-Room Spaces";
             begin
                 ACARoomSpaces.Reset;
                 ACARoomSpaces.SetRange("Hostel Code", Rec."Hostel Code");
@@ -194,7 +194,7 @@ Table 61823 "ACA-Hostel Block Rooms"
 
     var
         hostel: Record "ACA-Hostel Card";
-        roomspaces: Record UnknownRecord61824;
+        roomspaces: Record "ACA-Room Spaces";
         rmsLedger: Record "ACA-Hostel Ledger";
         ACAHostelPermissions: Record "ACA-Hostel Permissions";
 }

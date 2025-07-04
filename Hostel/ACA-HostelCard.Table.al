@@ -213,7 +213,7 @@ Table 61162 "ACA-Hostel Card"
 
     var
         rooms: Record "ACA-Hostel Block Rooms";
-        rmspcs: Record UnknownRecord61824;
+        rmspcs: Record "ACA-Room Spaces";
         rmsLedger: Record "ACA-Hostel Ledger";
         ACAHostelPermissions: Record "ACA-Hostel Permissions";
 

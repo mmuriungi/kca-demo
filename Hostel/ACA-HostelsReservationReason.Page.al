@@ -2,7 +2,7 @@
 Page 68128 "ACA-Hostels Reservation Reason"
 {
     PageType = List;
-    SourceTable = UnknownTable61628;
+    SourceTable = "ACA-Host Reservation Reasons";
 
     layout
     {
@@ -10,11 +10,11 @@ Page 68128 "ACA-Hostels Reservation Reason"
         {
             repeater(Group)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = Basic;
                 }

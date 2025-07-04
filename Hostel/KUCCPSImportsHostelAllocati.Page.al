@@ -2,7 +2,7 @@
 Page 77393 "KUCCPS Imports Hostel Allocati"
 {
     PageType = List;
-    SourceTable = UnknownTable70082;
+    SourceTable = "KUCCPS Imports";
 
     layout
     {
@@ -10,35 +10,35 @@ Page 77393 "KUCCPS Imports Hostel Allocati"
         {
             repeater(Group)
             {
-                field(Admin; Admin)
+                field(Admin; Rec.Admin)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Names; Names)
+                field(Names; Rec.Names)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Gender; Gender)
+                field(Gender; Rec.Gender)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Phone; Phone)
+                field(Phone; Rec.Phone)
                 {
                     ApplicationArea = Basic;
                 }
-                field(Email; Email)
+                field(Email; Rec.Email)
                 {
                     ApplicationArea = Basic;
                 }
-                field("Assigned Block"; "Assigned Block")
+                field("Assigned Block"; Rec."Assigned Block")
                 {
                     ApplicationArea = Basic;
                 }
-                field("Assigned Room"; "Assigned Room")
+                field("Assigned Room"; Rec."Assigned Room")
                 {
                     ApplicationArea = Basic;
                 }
-                field("Assigned Space"; "Assigned Space")
+                field("Assigned Space"; Rec."Assigned Space")
                 {
                     ApplicationArea = Basic;
                 }

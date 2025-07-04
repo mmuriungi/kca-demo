@@ -62,6 +62,6 @@ Report 51793 "Update Hostels"
 
     var
         Room: Record "ACA-Hostel Block Rooms";
-        RoomSpaces: Record UnknownRecord61824;
+        RoomSpaces: Record "ACA-Room Spaces";
 }
 

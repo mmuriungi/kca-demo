@@ -10,67 +10,67 @@ Page 77342 "ACA-Batch Hostel Alloc. Dets."
         {
             repeater(Group)
             {
-                field(Selected; Selected)
+                field(Selected; Rec.Selected)
                 {
                     ApplicationArea = Basic;
                 }
-                field("Student No."; "Student No.")
+                field("Student No."; Rec."Student No.")
                 {
                     ApplicationArea = Basic;
                 }
-                field("Student Name"; "Student Name")
-                {
-                    ApplicationArea = Basic;
-                    Editable = false;
-                    Enabled = false;
-                }
-                field("Room No"; "Room No")
-                {
-                    ApplicationArea = Basic;
-                }
-                field("Room Space"; "Room Space")
-                {
-                    ApplicationArea = Basic;
-                }
-                field("Room Cost"; "Room Cost")
-                {
-                    ApplicationArea = Basic;
-                }
-                field("Notification Send"; "Notification Send")
+                field("Student Name"; Rec."Student Name")
                 {
                     ApplicationArea = Basic;
                     Editable = false;
                     Enabled = false;
                 }
-                field("posted to Hostels?"; "posted to Hostels?")
+                field("Room No"; Rec."Room No")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Room Space"; Rec."Room Space")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Room Cost"; Rec."Room Cost")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Notification Send"; Rec."Notification Send")
                 {
                     ApplicationArea = Basic;
                     Editable = false;
                     Enabled = false;
                 }
-                field("Imported By"; "Imported By")
+                field("posted to Hostels?"; Rec."posted to Hostels?")
                 {
                     ApplicationArea = Basic;
                     Editable = false;
                     Enabled = false;
                 }
-                field("Date Imported"; "Date Imported")
+                field("Imported By"; Rec."Imported By")
                 {
                     ApplicationArea = Basic;
                     Editable = false;
                     Enabled = false;
                 }
-                field("Time Imported"; "Time Imported")
+                field("Date Imported"; Rec."Date Imported")
                 {
                     ApplicationArea = Basic;
                     Editable = false;
                     Enabled = false;
                 }
-                field("Phone Number"; "Phone Number")
+                field("Time Imported"; Rec."Time Imported")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                    Enabled = false;
+                }
+                field("Phone Number"; Rec."Phone Number")
                 {
                     ApplicationArea = Basic;
                 }
-                field("Email Address"; "Email Address")
+                field("Email Address"; Rec."Email Address")
                 {
                     ApplicationArea = Basic;
                 }

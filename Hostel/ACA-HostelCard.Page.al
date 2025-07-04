@@ -157,7 +157,7 @@ Page 68241 "ACA-Hostel Card"
         "Space Name": Code[20];
         Counter2: Integer;
         TotalCount: Integer;
-        RoomSpaces: Record UnknownRecord61824;
+        RoomSpaces: Record "ACA-Room Spaces";
         ACAHostelPermissions: Record "ACA-Hostel Permissions";
 
 
@@ -241,7 +241,7 @@ Page 68241 "ACA-Hostel Card"
     procedure clearFromRoom()
     var
         Rooms: Record "ACA-Hostel Block Rooms";
-        spaces: Record UnknownRecord61824;
+        spaces: Record "ACA-Room Spaces";
         hostLedger: Record "ACA-Hostel Ledger";
         HostRooms: Record "ACA-Students Hostel Rooms";
     begin

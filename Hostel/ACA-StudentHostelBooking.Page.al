@@ -102,13 +102,13 @@ Page 68205 "ACA-Student Hostel Booking"
 
     var
         HostelLedger: Record "ACA-Hostel Ledger";
-        StudentCharges: Record UnknownRecord61535;
+        StudentCharges: Record "ACA-Std Charges";
         PaidAmt: Decimal;
-        ChargesRec: Record UnknownRecord61515;
+        ChargesRec: Record "ACA-Charge";
         Cust: Record Customer;
-        GenSetup: Record UnknownRecord61534;
-        Creg: Record UnknownRecord61532;
-        Sem: Record UnknownRecord61692;
+        GenSetup: Record "ACA-General Set-Up";
+        Creg: Record "ACA-Course Registration";
+        Sem: Record "ACA-Semesters";
         Registered: Boolean;
         StudHostel: Record "ACA-Students Hostel Rooms";
 }

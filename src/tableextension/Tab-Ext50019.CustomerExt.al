@@ -1343,6 +1343,9 @@ tableextension 50019 "Customer Ext" extends Customer
         field(63217; "Library Patron ID"; Integer)
         {
         }
+        field(63220; "Emergency Contact"; Text[50])
+        {
+        }
         modify("No.")
         {
             Caption = 'No.';

@@ -93,7 +93,7 @@ Page 69177 "ACA-Hostels Role Center"
             action("Download hostel form")
             {
                 ApplicationArea = Basic;
-                RunObject = Report UnknownReport51373;
+                RunObject = Report "Resident Room Agreement";
             }
             action("Allocations List")
             {
@@ -158,7 +158,7 @@ Page 69177 "ACA-Hostels Role Center"
                     Caption = 'Hostel Billing';
                     Image = Invoice;
                     Promoted = true;
-                    RunObject = Page UnknownPage68835;
+                    RunObject = Page "ACA-Std Billing List";
                     Visible = true;
                 }
                 action(ProformaBatch)
@@ -235,43 +235,43 @@ Page 69177 "ACA-Hostels Role Center"
                 {
                     ApplicationArea = Basic;
                     Caption = 'Clearance Requests';
-                    RunObject = Page UnknownPage68970;
+                    RunObject = Page "ACA-Clearance Approval Entries";
                 }
             }
-            group(Common_req)
+            group("Common Requisitions")
             {
                 Caption = 'Common Requisitions';
                 Image = LotInfo;
-                action("Stores Requisitions")
+
+                action("Store Requisitions")
                 {
-                    ApplicationArea = Basic;
-                    Caption = 'Stores Requisitions';
-                    RunObject = Page UnknownPage68218;
+                    Caption = 'Store Requisitions';
+                    RunObject = Page "PROC-Store Requisition";
+                    ApplicationArea = All;
                 }
-                action("Imprest Requisitions")
+                action("Purchase Requisitions")
                 {
-                    ApplicationArea = Basic;
-                    Caption = 'Imprest Requisitions';
-                    RunObject = Page UnknownPage68125;
+                    Caption = 'Purchase Requisitions';
+                    RunObject = Page "FIN-Purchase Requisition";
+                    ApplicationArea = All;
                 }
                 action("Leave Applications")
                 {
-                    ApplicationArea = Basic;
                     Caption = 'Leave Applications';
-                    RunObject = Page UnknownPage68107;
+                    RunObject = Page "HRM-Leave Requisition List";
+                    ApplicationArea = All;
                 }
-                action("My Approved Leaves")
+                action("Transport Requisitions")
                 {
-                    ApplicationArea = Basic;
-                    Caption = 'My Approved Leaves';
-                    Image = History;
-                    RunObject = Page UnknownPage68232;
+                    Caption = 'Transport Requisitions';
+                    RunObject = Page "FLT-Transport Req. List";
+                    ApplicationArea = All;
                 }
-                action("Meal Booking")
+                action("Common Meal Booking")
                 {
-                    ApplicationArea = Basic;
                     Caption = 'Meal Booking';
-                    RunObject = Page UnknownPage69302;
+                    RunObject = Page "CAT-Meal Booking List";
+                    ApplicationArea = All;
                 }
             }
         }

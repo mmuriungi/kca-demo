@@ -8,7 +8,7 @@ page 51183 "ACA-Hostel List1 X"
     layout
     {
         area(content)
-        {   
+        {
             repeater(___)
             {
                 field("Asset No"; Rec."Asset No")

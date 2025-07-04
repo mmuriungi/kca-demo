@@ -142,7 +142,7 @@ Page 69095 "ACAHostel Bookings (All. List)"
                             //  Creg1.SETRANGE(Creg1."Academic Year","Academic Year");
                             if Creg1.Find('-') then begin
                                 // Check if Prog is Special
-                                if prog.Get(Creg1.Programme) then begin
+                                if prog.Get(Creg1.Programmes) then begin
                                     if prog."Special Programme" then
                                         settlementType := Settlementtype::"Special Programme"
                                     else if Creg1."Settlement Type" = 'JAB' then
@@ -194,35 +194,35 @@ Page 69095 "ACAHostel Bookings (All. List)"
         userst: Record "User Setup";
         AccPayment: Boolean;
         hostStus: Record "ACA-Students Hostel Rooms";
-        charges1: Record UnknownRecord61515;
+        charges1: Record "ACA-Charge";
         cou: Integer;
         studRoomBlock: Record "ACA-Students Hostel Rooms";
         Blocks: Record "ACA-Hostel Card";
-        coReg: Record UnknownRecord61532;
+        coReg: Record "ACA-Course Registration";
         HostelLedger: Record "ACA-Hostel Ledger";
-        Sem: Record UnknownRecord61692;
+        Sem: Record "ACA-Semesters";
         Registered: Boolean;
-        acadYear: Record UnknownRecord61382;
-        semz: Record UnknownRecord61692;
+        acadYear: Record "ACA-Academic Year";
+        semz: Record "ACA-Semesters";
         PictureExists: Boolean;
-        StudentPayments: Record UnknownRecord61536;
-        StudentCharge: Record UnknownRecord61535;
+        StudentPayments: Record "ACA-Std Payments";
+        StudentCharge: Record "ACA-Std Charges";
         GenJnl: Record "Gen. Journal Line";
-        Stages: Record UnknownRecord61516;
+        Stages: Record "ACA-Programme Stages";
         LineNo: Integer;
         GenJnlLine: Record "Gen. Journal Line";
-        Units: Record UnknownRecord61517;
-        ExamsByStage: Record UnknownRecord61526;
-        ExamsByUnit: Record UnknownRecord61527;
-        Charges: Record UnknownRecord61515;
-        ChargesRec: Record UnknownRecord61515;
+        Units: Record "ACA-Units/Subjects";
+        ExamsByStage: Record "ACA-Exams";
+        ExamsByUnit: Record "ACA-Exams By Units";
+        Charges: Record "ACA-Charge";
+        ChargesRec: Record "ACA-Charge";
         PaidAmt: Decimal;
-        Receipt: Record UnknownRecord61538;
+        Receipt: Record "ACA-Receipt";
         NoRoom: Integer;
-        ReceiptItems: Record UnknownRecord61539;
-        "GenSetUp.": Record UnknownRecord61534;
-        StudentCharges2: Record UnknownRecord61535;
-        CourseReg: Record UnknownRecord61532;
+        ReceiptItems: Record "ACA-Receipt Items";
+        "GenSetUp.": Record "ACA-General Set-Up";
+        StudentCharges2: Record "ACA-Std Charges";
+        CourseReg: Record "ACA-Course Registration";
         CurrentBill: Decimal;
         GLEntry: Record "G/L Entry";
         CustLed: Record "Cust. Ledger Entry";
@@ -234,25 +234,25 @@ Page 69095 "ACAHostel Bookings (All. List)"
         DVendLedg: Record "Detailed Vendor Ledg. Entry";
         NoSeries: Record "No. Series Line";
         VATEntry: Record "VAT Entry";
-        CReg: Record UnknownRecord61532;
-        StudCharges: Record UnknownRecord61535;
+        CReg: Record "ACA-Course Registration";
+        StudCharges: Record "ACA-Std Charges";
         CustLed2: Record "Cust. Ledger Entry";
-        Receipt2: Record UnknownRecord61538;
+        Receipt2: Record "ACA-Receipt";
         Cont: Boolean;
         LastNo: Code[20];
         Cust: Record Customer;
         CustPostGroup: Record "Customer Posting Group";
         window: Dialog;
         GLPosting: Codeunit "Gen. Jnl.-Post Line";
-        Receipts: Record UnknownRecord61538;
+        Receipts: Record "ACA-Receipt";
         CustLedg: Record "Cust. Ledger Entry";
         DueDate: Date;
-        Sems: Record UnknownRecord61692;
+        Sems: Record "ACA-Semesters";
         ChangeLog: Record "Change Log Entry";
         StudentHostel: Record "ACA-Students Hostel Rooms";
-        StudentCharges: Record UnknownRecord61535;
-        GenSetUp: Record UnknownRecord61534;
-        Rooms_Spaces: Record UnknownRecord61824;
+        StudentCharges: Record "ACA-Std Charges";
+        GenSetUp: Record "ACA-General Set-Up";
+        Rooms_Spaces: Record "ACA-Room Spaces";
         Hostel_Rooms: Record "ACA-Hostel Block Rooms";
         Host_Ledger: Record "ACA-Hostel Ledger";
         counts: Integer;
@@ -261,10 +261,10 @@ Page 69095 "ACAHostel Bookings (All. List)"
         invItems: Record "ACA-Hostel Inventory";
         Hostel_Rooms2: Record "ACA-Hostel Block Rooms";
         settlementType: Option " ",JAB,SSP,"Special Programme";
-        Creg1: Record UnknownRecord61532;
-        prog: Record UnknownRecord61511;
+        Creg1: Record "ACA-Course Registration";
+        prog: Record "ACA-Programme";
         allocations: Record "ACA-Students Hostel Rooms";
-        "Settlement Type": Record UnknownRecord61522;
+        "Settlement Type": Record "ACA-Settlement Type";
 
 
     procedure "Book Room"(var settle_m: Option " ",JAB,SSP,"Special Programme")
@@ -363,7 +363,7 @@ Page 69095 "ACAHostel Bookings (All. List)"
                         // ELSE
                         StudentCharges.Amount := billAmount;
                         StudentCharges.Date := Today;
-                        StudentCharges.Programme := coReg.Programme;
+                        StudentCharges.Programme := coReg.Programmes;
                         StudentCharges.Stage := coReg.Stage;
                         StudentCharges.Semester := coReg.Semester;
                         StudentCharges.Insert();
@@ -638,7 +638,7 @@ Page 69095 "ACAHostel Bookings (All. List)"
                     if CReg.Find('-') then begin
                         if CReg."Register for" = CReg."register for"::Stage then begin
                             Stages.Reset;
-                            Stages.SetRange(Stages."Programme Code", CReg.Programme);
+                            Stages.SetRange(Stages."Programme Code", CReg.Programmes);
                             Stages.SetRange(Stages.Code, CReg.Stage);
                             if Stages.Find('-') then begin
                                 if (Stages."Modules Registration" = true) and (Stages."Ignore No. Of Units" = false) then begin
@@ -826,8 +826,8 @@ Page 69095 "ACAHostel Bookings (All. List)"
             GenJnl.Reset;
             GenJnl.SetRange("Journal Template Name", 'SALES');
             GenJnl.SetRange("Journal Batch Name", 'STUD PAY');
-            if GenJnl.Find('-') then begin
-                Codeunit.Run(Codeunit::"Gen. Jnl.-Post Bill", GenJnl);
+            if GenJnl.FindSet() then begin
+                Codeunit.Run(Codeunit::"Gen. Jnl.-Post Batch", GenJnl);
             end;
 
             //Post New

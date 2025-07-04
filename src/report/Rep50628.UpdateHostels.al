@@ -1,4 +1,4 @@
-report 50628 "Update Hostels"
+report 50628 "Update Hostels X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Update Hostels.rdl';

@@ -1,8 +1,8 @@
 #pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
 Table 61560 "ACA-Hostel Rooms"
 {
-    DrillDownPageID = UnknownPage67059;
-    LookupPageID = UnknownPage67059;
+    //DrillDownPageID = UnknownPage67059;
+    //LookupPageID = UnknownPage67059;
 
     fields
     {
@@ -63,6 +63,6 @@ Table 61560 "ACA-Hostel Rooms"
     end;
 
     var
-        roomspaces: Record UnknownRecord61824;
+        roomspaces: Record "ACA-Room Spaces";
 }
 

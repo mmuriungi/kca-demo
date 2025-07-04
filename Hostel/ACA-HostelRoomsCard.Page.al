@@ -58,7 +58,7 @@ Page 69165 "ACA-Hostel Rooms Card"
     procedure clearFromRoom()
     var
         Rooms: Record "ACA-Hostel Block Rooms";
-        spaces: Record UnknownRecord61824;
+        spaces: Record "ACA-Room Spaces";
         hostLedger: Record "ACA-Hostel Ledger";
         HostRooms: Record "ACA-Students Hostel Rooms";
     begin

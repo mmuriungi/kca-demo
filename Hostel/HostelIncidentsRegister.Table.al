@@ -65,7 +65,7 @@ Table 61832 "Hostel Incidents Register"
     end;
 
     var
-        AppSetup: Record UnknownRecord61534;
-        NoSeriesMgt: Codeunit UnknownCodeunit396;
+        AppSetup: Record "ACA-General Set-Up";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
 }
 

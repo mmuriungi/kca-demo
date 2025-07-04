@@ -95,7 +95,7 @@ Report 51463 "Update Norminal roll in Hostel"
     }
 
     var
-        Creg: Record UnknownRecord61532;
+        Creg: Record "ACA-Course Registration";
         Students_Hostel_RoomsCaptionLbl: label 'Students Hostel Rooms';
         CurrReport_PAGENOCaptionLbl: label 'Page';
 }

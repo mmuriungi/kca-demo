@@ -94,7 +94,7 @@ Report 51795 "Hostel Invoice"
                 courseReg.SetRange(courseReg."Academic Year", "ACA-Students Hostel Rooms"."Academic Year");
                 if courseReg.Find('-') then begin
                     Prog.Reset;
-                    Prog.SetRange(Prog.Code, courseReg.Programme);
+                    Prog.SetRange(Prog.Code, courseReg.Programmes);
                     if Prog.Find('-') then begin
                         Prog.CalcFields(Prog."Department Name");
                         Dept.Reset;
@@ -142,8 +142,8 @@ Report 51795 "Hostel Invoice"
 
     var
         cust: Record Customer;
-        courseReg: Record UnknownRecord61532;
-        Prog: Record UnknownRecord61511;
+        courseReg: Record "ACA-Course Registration";
+        Prog: Record "ACA-Programme";
         Dept: Record "Dimension Value";
         users: Record User;
         currUser: Code[150];

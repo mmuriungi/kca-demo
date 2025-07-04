@@ -204,7 +204,7 @@ Table 61163 "ACA-Hostel Ledger"
     end;
 
     var
-        roomSpaces: Record UnknownRecord61824;
+        roomSpaces: Record "ACA-Room Spaces";
         LedgerHistory: Record "ACA-Hostel Ledger History";
         counts: Integer;
 }

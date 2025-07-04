@@ -1,4 +1,4 @@
-report 50627 "Hostel Allo. Per Room (Det.)"
+report 50627 "Hostel Allo. Per Room (Det.) X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Hostel Allo. Per Room (Det.).rdl';

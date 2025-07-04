@@ -64,7 +64,7 @@ Page 69171 "ACA-Std Information (Hostels)"
                 {
                     ApplicationArea = Basic;
                 }
-                field("Emergency Contact"; "Emergency Contact")
+                field("Emergency Contact"; Rec."Emergency Contact")
                 {
                     ApplicationArea = Basic;
                 }
@@ -152,27 +152,27 @@ Page 69171 "ACA-Std Information (Hostels)"
     }
 
     var
-        acadYear: Record UnknownRecord61382;
-        semz: Record UnknownRecord61692;
+        acadYear: Record "ACA-Academic Year";
+        semz: Record "ACA-Semesters";
         PictureExists: Boolean;
-        StudentPayments: Record UnknownRecord61536;
-        StudentCharge: Record UnknownRecord61535;
+        StudentPayments: Record "ACA-Std Payments";
+        StudentCharge: Record "ACA-Std Charges";
         GenJnl: Record "Gen. Journal Line";
-        Stages: Record UnknownRecord61516;
+        Stages: Record "ACA-Programme Stages";
         LineNo: Integer;
         GenJnlLine: Record "Gen. Journal Line";
-        Units: Record UnknownRecord61517;
-        ExamsByStage: Record UnknownRecord61526;
-        ExamsByUnit: Record UnknownRecord61527;
-        Charges: Record UnknownRecord61515;
-        ChargesRec: Record UnknownRecord61515;
+        Units: Record "ACA-Units/Subjects";
+        ExamsByStage: Record "ACA-Exams";
+        ExamsByUnit: Record "ACA-Exams By Units";
+        Charges: Record "ACA-Charge";
+        ChargesRec: Record "ACA-Charge";
         PaidAmt: Decimal;
-        Receipt: Record UnknownRecord61538;
+        Receipt: Record "ACA-Receipt";
         NoRoom: Integer;
-        ReceiptItems: Record UnknownRecord61539;
-        "GenSetUp.": Record UnknownRecord61534;
-        StudentCharges2: Record UnknownRecord61535;
-        CourseReg: Record UnknownRecord61532;
+        ReceiptItems: Record "ACA-Receipt Items";
+        "GenSetUp.": Record "ACA-General Set-Up";
+        StudentCharges2: Record "ACA-Std Charges";
+        CourseReg: Record "ACA-Course Registration";
         CurrentBill: Decimal;
         GLEntry: Record "G/L Entry";
         CustLed: Record "Cust. Ledger Entry";
@@ -184,29 +184,29 @@ Page 69171 "ACA-Std Information (Hostels)"
         DVendLedg: Record "Detailed Vendor Ledg. Entry";
         NoSeries: Record "No. Series Line";
         VATEntry: Record "VAT Entry";
-        CReg: Record UnknownRecord61532;
-        StudCharges: Record UnknownRecord61535;
+        CReg: Record "ACA-Course Registration";
+        StudCharges: Record "ACA-Std Charges";
         CustLed2: Record "Cust. Ledger Entry";
-        Receipt2: Record UnknownRecord61538;
+        Receipt2: Record "ACA-Receipt";
         Cont: Boolean;
         LastNo: Code[20];
         Cust: Record Customer;
         CustPostGroup: Record "Customer Posting Group";
         window: Dialog;
         GLPosting: Codeunit "Gen. Jnl.-Post Line";
-        Receipts: Record UnknownRecord61538;
+        Receipts: Record "ACA-Receipt";
         CustLedg: Record "Cust. Ledger Entry";
         DueDate: Date;
-        Sems: Record UnknownRecord61692;
+        Sems: Record "ACA-Semesters";
         ChangeLog: Record "Change Log Entry";
         StudentHostel: Record "ACA-Students Hostel Rooms";
-        StudentCharges: Record UnknownRecord61535;
-        GenSetUp: Record UnknownRecord61534;
-        Rooms_Spaces: Record UnknownRecord61824;
+        StudentCharges: Record "ACA-Std Charges";
+        GenSetUp: Record "ACA-General Set-Up";
+        Rooms_Spaces: Record "ACA-Room Spaces";
         Hostel_Rooms: Record "ACA-Hostel Block Rooms";
         Host_Ledger: Record "ACA-Hostel Ledger";
         counts: Integer;
-        "emergency contact": Record UnknownRecord70082;
+        "emergency contact": Record "KUCCPS Imports";
 
 
     procedure "Book Room"()
