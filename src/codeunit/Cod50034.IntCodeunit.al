@@ -19,7 +19,22 @@ codeunit 50034 IntCodeunit
         Emp: Record "HRM-Employee C";
         UsersID: Code[50];
         TempWrkflUsrGrpMember: Record "Workflow User Group Member" temporary;
+        NotifHandler: Codeunit "Notifications Handler";
+        Body: Text;
+        Subject: Text;
     begin
+        /*
+        recipientName: Text;
+        subject: Text;
+        body: text;
+        recipientEmail: Text;
+        addCC: Text;
+        addBcc: text;
+        hasAttachment: Boolean;
+        attachmentBase64: Text;
+        attachmentName: Text;
+        attachmentType: Text
+        */
         WrkflUserGroup.Reset();
         WrkflUserGroup.SetRange("Department Code", Leave."Department Code");
         if WrkflUserGroup.FindFirst() then begin
@@ -27,6 +42,10 @@ codeunit 50034 IntCodeunit
             Emp.SetRange("No.", Leave."Reliever No.");
             if Emp.FindFirst() then begin
                 UsersID := Emp."User ID";
+                Subject := 'Leave Application for ' + Leave."Employee Name";
+                Body := 'You have been selected as the reliever for the leave application of ' + Leave."Employee Name" + '.<br><br>' +
+                    'Please review the leave application for your approval.<br><br>';
+                NotifHandler.fnSendemail(Emp."First Name",Subject,Body,Emp."E-Mail",'','',false,'','','');
             end;
 
             // First, copy all existing members to a temporary table

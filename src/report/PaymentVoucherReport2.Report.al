@@ -81,7 +81,7 @@ Report 51055 "Payment Voucher Report2"
                 column(ReportForNavId_3474; 3474)
                 {
                 }
-                column(Payment_Line__Account_Name_; "Account Name")
+                column(Payment_Line__Account_Name_; AccountNameTxt)
                 {
                 }
                 column(Payment_Line__Withholding_Tax_Amount_; "Withholding Tax Amount")
@@ -167,9 +167,11 @@ Report 51055 "Payment Voucher Report2"
                 }
 
                 trigger OnAfterGetRecord()
+
                 begin
                     TTotal := TTotal + "FIN-Payment Line"."Net Amount";
-
+                    AccountNameTxt := '';
+                    AccountNameTxt := "FIN-Payment Line"."Account Name";
                     if "FIN-Payment Line"."Account Type" = "FIN-Payment Line"."account type"::"G/L Account" then begin
                         InvNo := "FIN-Payment Line"."Account No.";
                         InvDate := "FIN-Payment Line".Date;
@@ -179,8 +181,11 @@ Report 51055 "Payment Voucher Report2"
 
                     ImprestLine.Reset;
                     ImprestLine.SetRange(ImprestLine.No, "FIN-Payments Header"."Apply to Document No");
-                    if ImprestLine.Find('-') then
+                    if ImprestLine.Find('-') then begin
                         GLNo := ImprestLine."Account No:";
+                        AccountNameTxt := ImprestLine."Account Name";
+                    end;
+
                 end;
             }
 
@@ -239,6 +244,7 @@ Report 51055 "Payment Voucher Report2"
         FooterPrinted: Boolean;
         Payments_HeaderCaptionLbl: label 'Payments Header';
         CurrReport_PAGENOCaptionLbl: label 'Page';
+        AccountNameTxt: Text[300];
         InvPaid: Code[30];
         AmountInWords: Text[200];
         CheckReport: Report Check;

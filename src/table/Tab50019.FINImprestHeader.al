@@ -606,6 +606,11 @@ table 50019 "FIN-Imprest Header"
         {
             DataClassification = ToBeClassified;
         }
+        //Archived
+        field(50034; Archived; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 

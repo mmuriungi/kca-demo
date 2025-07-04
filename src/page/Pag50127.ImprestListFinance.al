@@ -55,6 +55,23 @@ page 50127 "Imprest List Finance"
             group("&Functions")
             {
                 Caption = '&Functions';
+                action("Archive")
+                {
+                    Caption = 'Archive';
+                    Image = Archive;
+                    Visible = true;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    ApplicationArea = All;
+                    trigger OnAction()
+                    begin
+                        if not confirm('Are you sure you want to archive this document?') then
+                            exit;
+                        Rec.Archived := true;
+                        Rec.Modify;
+                        CurrPage.Update;
+                    end;
+                }
                 action(Approve)
                 {
                     Caption = 'Approve';
@@ -90,8 +107,7 @@ page 50127 "Imprest List Finance"
                     Image = Post;
                     trigger OnAction()
                     begin
-                        IF Rec.Select = true THEN
-                            rec.CalcFields("Total Net Amount");
+                        rec.CalcFields("Total Net Amount");
                         IF CONFIRM('Generate  pv?', TRUE) = FALSE THEN EXIT;
                         FinOpertaion.GenerateCashImprestPv(Rec);
                     end;

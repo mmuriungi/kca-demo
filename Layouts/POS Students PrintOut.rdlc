@@ -11,141 +11,6 @@
       <rd:DataSourceID>586fca26-dfc6-441c-aef7-dccbd31f8d13</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="No_POSHeader">
-          <DataField>No_POSHeader</DataField>
-        </Field>
-        <Field Name="PostingDescription_POSHeader">
-          <DataField>PostingDescription_POSHeader</DataField>
-        </Field>
-        <Field Name="TotalAmount_POSHeader">
-          <DataField>TotalAmount_POSHeader</DataField>
-        </Field>
-        <Field Name="TotalAmount_POSHeaderFormat">
-          <DataField>TotalAmount_POSHeaderFormat</DataField>
-        </Field>
-        <Field Name="Postingdate_POSHeader">
-          <DataField>Postingdate_POSHeader</DataField>
-        </Field>
-        <Field Name="Cashier_POSHeader">
-          <DataField>Cashier_POSHeader</DataField>
-        </Field>
-        <Field Name="CustomerType_POSHeader">
-          <DataField>CustomerType_POSHeader</DataField>
-        </Field>
-        <Field Name="BankAccount_POSHeader">
-          <DataField>BankAccount_POSHeader</DataField>
-        </Field>
-        <Field Name="IncomeAccount_POSHeader">
-          <DataField>IncomeAccount_POSHeader</DataField>
-        </Field>
-        <Field Name="AmountPaid_POSHeader">
-          <DataField>AmountPaid_POSHeader</DataField>
-        </Field>
-        <Field Name="AmountPaid_POSHeaderFormat">
-          <DataField>AmountPaid_POSHeaderFormat</DataField>
-        </Field>
-        <Field Name="Balance_POSHeader">
-          <DataField>Balance_POSHeader</DataField>
-        </Field>
-        <Field Name="Balance_POSHeaderFormat">
-          <DataField>Balance_POSHeaderFormat</DataField>
-        </Field>
-        <Field Name="NoSeries_POSHeader">
-          <DataField>NoSeries_POSHeader</DataField>
-        </Field>
-        <Field Name="Posted_POSHeader">
-          <DataField>Posted_POSHeader</DataField>
-        </Field>
-        <Field Name="CurrentDateTime_POSHeader">
-          <DataField>CurrentDateTime_POSHeader</DataField>
-        </Field>
-        <Field Name="CName">
-          <DataField>CName</DataField>
-        </Field>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="cphone">
-          <DataField>cphone</DataField>
-        </Field>
-        <Field Name="logo">
-          <DataField>logo</DataField>
-        </Field>
-        <Field Name="email">
-          <DataField>email</DataField>
-        </Field>
-        <Field Name="url">
-          <DataField>url</DataField>
-        </Field>
-        <Field Name="UserName">
-          <DataField>UserName</DataField>
-        </Field>
-        <Field Name="DocumentNo_POSLines">
-          <DataField>DocumentNo_POSLines</DataField>
-        </Field>
-        <Field Name="No_POSLines">
-          <DataField>No_POSLines</DataField>
-        </Field>
-        <Field Name="Quantity_POSLines">
-          <DataField>Quantity_POSLines</DataField>
-        </Field>
-        <Field Name="Quantity_POSLinesFormat">
-          <DataField>Quantity_POSLinesFormat</DataField>
-        </Field>
-        <Field Name="Description_POSLines">
-          <DataField>Description_POSLines</DataField>
-        </Field>
-        <Field Name="UnitOfMeasure_POSLines">
-          <DataField>UnitOfMeasure_POSLines</DataField>
-        </Field>
-        <Field Name="Price_POSLines">
-          <DataField>Price_POSLines</DataField>
-        </Field>
-        <Field Name="Price_POSLinesFormat">
-          <DataField>Price_POSLinesFormat</DataField>
-        </Field>
-        <Field Name="LineTotal_POSLines">
-          <DataField>LineTotal_POSLines</DataField>
-        </Field>
-        <Field Name="LineTotal_POSLinesFormat">
-          <DataField>LineTotal_POSLinesFormat</DataField>
-        </Field>
-        <Field Name="Inventory_POSLines">
-          <DataField>Inventory_POSLines</DataField>
-        </Field>
-        <Field Name="Inventory_POSLinesFormat">
-          <DataField>Inventory_POSLinesFormat</DataField>
-        </Field>
-        <Field Name="ServingCategory_POSLines">
-          <DataField>ServingCategory_POSLines</DataField>
-        </Field>
-        <Field Name="Postingdate_POSLines">
-          <DataField>Postingdate_POSLines</DataField>
-        </Field>
-        <Field Name="Posted_POSLines">
-          <DataField>Posted_POSLines</DataField>
-        </Field>
-        <Field Name="ttamount">
-          <DataField>ttamount</DataField>
-        </Field>
-        <Field Name="ttamountFormat">
-          <DataField>ttamountFormat</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1332,4 +1197,140 @@ iaz2Y2EzVs27ttmIygabeBgWPyTsbgArAQUb/o4nlhha26VpZlUhknyr/TjBGAP3xnJDqoofm5XFkH8c
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="No_POSHeader">
+          <DataField>No_POSHeader</DataField>
+        </Field>
+        <Field Name="PostingDescription_POSHeader">
+          <DataField>PostingDescription_POSHeader</DataField>
+        </Field>
+        <Field Name="TotalAmount_POSHeader">
+          <DataField>TotalAmount_POSHeader</DataField>
+        </Field>
+        <Field Name="TotalAmount_POSHeaderFormat">
+          <DataField>TotalAmount_POSHeaderFormat</DataField>
+        </Field>
+        <Field Name="Postingdate_POSHeader">
+          <DataField>Postingdate_POSHeader</DataField>
+        </Field>
+        <Field Name="Cashier_POSHeader">
+          <DataField>Cashier_POSHeader</DataField>
+        </Field>
+        <Field Name="CustomerType_POSHeader">
+          <DataField>CustomerType_POSHeader</DataField>
+        </Field>
+        <Field Name="BankAccount_POSHeader">
+          <DataField>BankAccount_POSHeader</DataField>
+        </Field>
+        <Field Name="IncomeAccount_POSHeader">
+          <DataField>IncomeAccount_POSHeader</DataField>
+        </Field>
+        <Field Name="AmountPaid_POSHeader">
+          <DataField>AmountPaid_POSHeader</DataField>
+        </Field>
+        <Field Name="AmountPaid_POSHeaderFormat">
+          <DataField>AmountPaid_POSHeaderFormat</DataField>
+        </Field>
+        <Field Name="Balance_POSHeader">
+          <DataField>Balance_POSHeader</DataField>
+        </Field>
+        <Field Name="Balance_POSHeaderFormat">
+          <DataField>Balance_POSHeaderFormat</DataField>
+        </Field>
+        <Field Name="NoSeries_POSHeader">
+          <DataField>NoSeries_POSHeader</DataField>
+        </Field>
+        <Field Name="Posted_POSHeader">
+          <DataField>Posted_POSHeader</DataField>
+        </Field>
+        <Field Name="CurrentDateTime_POSHeader">
+          <DataField>CurrentDateTime_POSHeader</DataField>
+        </Field>
+        <Field Name="CName">
+          <DataField>CName</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="cphone">
+          <DataField>cphone</DataField>
+        </Field>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+        </Field>
+        <Field Name="email">
+          <DataField>email</DataField>
+        </Field>
+        <Field Name="url">
+          <DataField>url</DataField>
+        </Field>
+        <Field Name="UserName">
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="ReportForNavId_1000000020">
+          <DataField>ReportForNavId_1000000020</DataField>
+        </Field>
+        <Field Name="DocumentNo_POSLines">
+          <DataField>DocumentNo_POSLines</DataField>
+        </Field>
+        <Field Name="No_POSLines">
+          <DataField>No_POSLines</DataField>
+        </Field>
+        <Field Name="Quantity_POSLines">
+          <DataField>Quantity_POSLines</DataField>
+        </Field>
+        <Field Name="Quantity_POSLinesFormat">
+          <DataField>Quantity_POSLinesFormat</DataField>
+        </Field>
+        <Field Name="Description_POSLines">
+          <DataField>Description_POSLines</DataField>
+        </Field>
+        <Field Name="UnitOfMeasure_POSLines">
+          <DataField>UnitOfMeasure_POSLines</DataField>
+        </Field>
+        <Field Name="Price_POSLines">
+          <DataField>Price_POSLines</DataField>
+        </Field>
+        <Field Name="Price_POSLinesFormat">
+          <DataField>Price_POSLinesFormat</DataField>
+        </Field>
+        <Field Name="LineTotal_POSLines">
+          <DataField>LineTotal_POSLines</DataField>
+        </Field>
+        <Field Name="LineTotal_POSLinesFormat">
+          <DataField>LineTotal_POSLinesFormat</DataField>
+        </Field>
+        <Field Name="Inventory_POSLines">
+          <DataField>Inventory_POSLines</DataField>
+        </Field>
+        <Field Name="Inventory_POSLinesFormat">
+          <DataField>Inventory_POSLinesFormat</DataField>
+        </Field>
+        <Field Name="ServingCategory_POSLines">
+          <DataField>ServingCategory_POSLines</DataField>
+        </Field>
+        <Field Name="Postingdate_POSLines">
+          <DataField>Postingdate_POSLines</DataField>
+        </Field>
+        <Field Name="Posted_POSLines">
+          <DataField>Posted_POSLines</DataField>
+        </Field>
+        <Field Name="ttamount">
+          <DataField>ttamount</DataField>
+        </Field>
+        <Field Name="ttamountFormat">
+          <DataField>ttamountFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

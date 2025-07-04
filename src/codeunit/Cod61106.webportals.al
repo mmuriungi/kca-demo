@@ -12895,6 +12895,334 @@ Codeunit 61106 webportals
             exit(UserSetup."User ID");
         exit('');
     end;
+
+    procedure OpenRecord(TableID: Integer; DocumentNo: Code[50]; EntryNo: Integer): Text
+    var
+        LeaveApplication: Record "HRM-Leave Requisition";
+        Imprest: Record "FIN-Imprest Header";
+        PV: Record "FIN-Payments Header";
+        PurchaseHeader: Record "Purchase Header";
+        MealBooking: Record "CAT-Meal Booking Header";
+        ImpSurrender: Record "FIN-Imprest Surr. Header";
+        ImprestLines: Record "FIN-Imprest Lines";
+        MealBookingLines: Record "CAT-Meal Booking Lines";
+        PvLines: Record "FIN-Payment Line";
+        PurchaseLines: Record "Purchase Line";
+        StoreReq: Record "PROC-Store Requistion Header";
+        StoreReqLines: Record "PROC-Store Requistion Lines";
+        ParttimeHeader: Record "Parttime Claim Header";
+        ParttimeLines: Record "Parttime Claim Lines";
+        MedClaimHeader: Record "HRM-Medical Claims";
+        ApprovalEntry: Record "Approval Entry";
+        HTMLStyle: Text;
+        HTMLContent: Text;
+        HTMLText: Text;
+        Base64Convert: Codeunit "Base64 Convert";
+        TempBlob: Codeunit "Temp Blob";
+        OutStream: OutStream;
+        InStream: InStream;
+        Base64Text: Text;
+    begin
+        HTMLStyle := '<style>' +
+            'body { font-family: Arial, sans-serif; background-color: #ffffff; color: #333333; margin: 0; padding: 20px; }' +
+            '.record-container { background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 1200px; margin: 0 auto; }' +
+            '.record-header { background-color:hsl(120, 42.30%, 20.40%); padding: 15px; border-radius: 6px; margin-bottom: 20px; }' +
+            '.record-title { font-size: 24px; font-weight: bold; color: #ffffff; margin: 0; }' +
+            '.field-group { margin-bottom: 15px; }' +
+            '.field-label { font-weight: bold; color: #245424; margin-right: 10px; display: inline-block; min-width: 150px; }' +
+            '.field-value { color: #245424; }' +
+            '.lines-section { margin-top: 30px; }' +
+            '.lines-header { font-size: 18px; font-weight: bold; color: #245424; margin-bottom: 15px; }' +
+            'table { width: 100%; border-collapse: collapse; background-color: #fff; }' +
+            'th { background-color: #1e4a1e; color: #ffffff; padding: 10px; text-align: left; border: 1px solid #3a6b3a; }' +
+            'td { padding: 8px; border: 1px solid #3a6b3a; color: #1e4a1e; }' +
+            'tr:hover { background-color: #2d5a2d; }' +
+            '</style>';
+
+        ApprovalEntry.Reset;
+        ApprovalEntry.SetRange("Document No.", DocumentNo);
+        ApprovalEntry.SetRange("Table ID", TableID);
+        ApprovalEntry.SetRange("Entry No.", EntryNo);
+        if ApprovalEntry.FindFirst() then begin
+            case TableID of
+                Database::"HRM-Leave Requisition":
+                    begin
+                        LeaveApplication.Reset();
+                        LeaveApplication.SetRange("No.", DocumentNo);
+                        if LeaveApplication.FindFirst() then begin
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Leave Application Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">Application No:</span><span class="field-value">' + LeaveApplication."No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Employee No:</span><span class="field-value">' + LeaveApplication."Employee No" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Employee Name:</span><span class="field-value">' + LeaveApplication."Employee Name" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Leave Type:</span><span class="field-value">' + LeaveApplication."Leave Type" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Start Date:</span><span class="field-value">' + Format(LeaveApplication."Starting Date") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">End Date:</span><span class="field-value">' + Format(LeaveApplication."End Date") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Days Applied:</span><span class="field-value">' + Format(LeaveApplication."Applied Days") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Purpose of Leave:</span><span class="field-value">' + LeaveApplication.Purpose + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(LeaveApplication.Status) + '</span></div>' +
+                                '</div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+                Database::"FIN-Imprest Header":
+                    begin
+                        Imprest.Reset();
+                        Imprest.SetRange("No.", DocumentNo);
+                        if Imprest.FindFirst() then begin
+                            Imprest.CalcFields("Total Net Amount");
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Imprest Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">Imprest No:</span><span class="field-value">' + Imprest."No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Date:</span><span class="field-value">' + Format(Imprest.Date) + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Account No:</span><span class="field-value">' + Imprest."Account No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Payee:</span><span class="field-value">' + Imprest.Payee + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Total Amount:</span><span class="field-value">' + Format(Imprest."Total Net Amount") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(Imprest.Status) + '</span></div>';
+
+                            HTMLContent += '<div class="lines-section"><h2 class="lines-header">Imprest Lines</h2><table><thead><tr>' +
+                                '<th>Account No</th><th>Account Name</th><th>Amount</th><th>Description</th></tr></thead><tbody>';
+
+                            ImprestLines.Reset();
+                            ImprestLines.SetRange(No, DocumentNo);
+                            if ImprestLines.FindSet() then begin
+                                repeat
+                                    HTMLContent += '<tr>' +
+                                        '<td>' + ImprestLines."Account No:" + '</td>' +
+                                        '<td>' + ImprestLines."Account Name" + '</td>' +
+                                        '<td>' + Format(ImprestLines.Amount) + '</td>' +
+                                        '<td>' + ImprestLines.Purpose + '</td>' +
+                                        '</tr>';
+                                until ImprestLines.Next() = 0;
+                            end;
+                            HTMLContent += '</tbody></table></div></div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+                Database::"FIN-Payments Header":
+                    begin
+                        PV.Reset();
+                        PV.SetRange("No.", DocumentNo);
+                        if PV.FindFirst() then begin
+                            PV.CalcFields("Total Net Amount");
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Payment Voucher Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">PV No:</span><span class="field-value">' + PV."No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Date:</span><span class="field-value">' + Format(PV.Date) + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Payee:</span><span class="field-value">' + PV.Payee + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Total Amount:</span><span class="field-value">' + Format(PV."Total Net Amount") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(PV.Status) + '</span></div>';
+
+                            HTMLContent += '<div class="lines-section"><h2 class="lines-header">Payment Lines</h2><table><thead><tr>' +
+                                '<th>Account No</th><th>Account Name</th><th>Amount</th><th>Description</th></tr></thead><tbody>';
+
+                            PvLines.Reset();
+                            PvLines.SetRange(No, DocumentNo);
+                            if PvLines.FindSet() then begin
+                                repeat
+                                    HTMLContent += '<tr>' +
+                                        '<td>' + PvLines."Account No." + '</td>' +
+                                        '<td>' + PvLines."Account Name" + '</td>' +
+                                        '<td>' + Format(PvLines.Amount) + '</td>' +
+                                        '<td>' + PvLines.Remarks + '</td>' +
+                                        '</tr>';
+                                until PvLines.Next() = 0;
+                            end;
+                            HTMLContent += '</tbody></table></div></div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+                Database::"Purchase Header":
+                    begin
+                        PurchaseHeader.Reset();
+                        PurchaseHeader.SetRange("No.", DocumentNo);
+                        if PurchaseHeader.FindFirst() then begin
+                            PurchaseHeader.CalcFields("Amount");
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Purchase Order Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">Document No:</span><span class="field-value">' + PurchaseHeader."No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Vendor No:</span><span class="field-value">' + PurchaseHeader."Buy-from Vendor No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Vendor Name:</span><span class="field-value">' + PurchaseHeader."Buy-from Vendor Name" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Document Date:</span><span class="field-value">' + Format(PurchaseHeader."Document Date") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Amount:</span><span class="field-value">' + Format(PurchaseHeader.Amount) + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(PurchaseHeader.Status) + '</span></div>';
+
+                            HTMLContent += '<div class="lines-section"><h2 class="lines-header">Purchase Lines</h2><table><thead><tr>' +
+                                '<th>Type</th><th>No</th><th>Description</th><th>Quantity</th><th>Unit Price</th><th>Amount</th></tr></thead><tbody>';
+
+                            PurchaseLines.Reset();
+                            PurchaseLines.SetRange("Document No.", DocumentNo);
+                            PurchaseLines.SetRange("Document Type", PurchaseHeader."Document Type");
+                            if PurchaseLines.FindSet() then begin
+                                repeat
+                                    HTMLContent += '<tr>' +
+                                        '<td>' + Format(PurchaseLines.Type) + '</td>' +
+                                        '<td>' + PurchaseLines."No." + '</td>' +
+                                        '<td>' + PurchaseLines.Description + '</td>' +
+                                        '<td>' + Format(PurchaseLines.Quantity) + '</td>' +
+                                        '<td>' + Format(PurchaseLines."Direct Unit Cost") + '</td>' +
+                                        '<td>' + Format(PurchaseLines.Amount) + '</td>' +
+                                        '</tr>';
+                                until PurchaseLines.Next() = 0;
+                            end;
+                            HTMLContent += '</tbody></table></div></div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+                Database::"CAT-Meal Booking Header":
+                    begin
+                        MealBooking.Reset();
+                        MealBooking.SetRange("Booking Id", DocumentNo);
+                        if MealBooking.FindFirst() then begin
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Meal Booking Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">Booking No:</span><span class="field-value">' + MealBooking."Booking Id" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Date:</span><span class="field-value">' + Format(MealBooking."Booking Date") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Total Amount:</span><span class="field-value">' + Format(MealBooking."Total Cost") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(MealBooking.Status) + '</span></div>';
+
+                            HTMLContent += '<div class="lines-section"><h2 class="lines-header">Meal Booking Lines</h2><table><thead><tr>' +
+                                '<th>Item No</th><th>Description</th><th>Quantity</th><th>Unit Price</th><th>Amount</th></tr></thead><tbody>';
+
+                            MealBookingLines.Reset();
+                            MealBookingLines.SetRange("Booking Id", DocumentNo);
+                            if MealBookingLines.FindSet() then begin
+                                repeat
+                                    HTMLContent += '<tr>' +
+                                        '<td>' + MealBookingLines."Meal Code" + '</td>' +
+                                        '<td>' + MealBookingLines."Meal Name" + '</td>' +
+                                        '<td>' + Format(MealBookingLines.Quantity) + '</td>' +
+                                        '<td>' + Format(MealBookingLines."Unit Price") + '</td>' +
+                                        '<td>' + Format(MealBookingLines.Cost) + '</td>' +
+                                        '</tr>';
+                                until MealBookingLines.Next() = 0;
+                            end;
+                            HTMLContent += '</tbody></table></div></div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+                Database::"FIN-Imprest Surr. Header":
+                    begin
+                        ImpSurrender.Reset();
+                        ImpSurrender.SetRange(No, DocumentNo);
+                        if ImpSurrender.FindFirst() then begin
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Imprest Surrender Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">Surrender No:</span><span class="field-value">' + ImpSurrender.No + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Imprest Issue Doc No:</span><span class="field-value">' + ImpSurrender."Imprest Issue Doc. No" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Date:</span><span class="field-value">' + Format(ImpSurrender."Surrender Date") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Account No:</span><span class="field-value">' + ImpSurrender."Account No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Amount:</span><span class="field-value">' + Format(ImpSurrender."Net Amount") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(ImpSurrender.Status) + '</span></div>' +
+                                '</div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+                Database::"PROC-Store Requistion Header":
+                    begin
+                        StoreReq.Reset();
+                        StoreReq.SetRange("No.", DocumentNo);
+                        if StoreReq.FindFirst() then begin
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Store Requisition Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">Requisition No:</span><span class="field-value">' + StoreReq."No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Request Date:</span><span class="field-value">' + Format(StoreReq."Request date") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Requester ID:</span><span class="field-value">' + StoreReq."Requester ID" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(StoreReq.Status) + '</span></div>';
+
+                            HTMLContent += '<div class="lines-section"><h2 class="lines-header">Requisition Lines</h2><table><thead><tr>' +
+                                '<th>Item No</th><th>Description</th><th>Quantity Requested</th><th>Unit of Measure</th></tr></thead><tbody>';
+
+                            StoreReqLines.Reset();
+                            StoreReqLines.SetRange("Requistion No", DocumentNo);
+                            if StoreReqLines.FindSet() then begin
+                                repeat
+                                    HTMLContent += '<tr>' +
+                                        '<td>' + StoreReqLines."No." + '</td>' +
+                                        '<td>' + StoreReqLines.Description + '</td>' +
+                                        '<td>' + Format(StoreReqLines."Quantity Requested") + '</td>' +
+                                        '<td>' + StoreReqLines."Unit of Measure" + '</td>' +
+                                        '</tr>';
+                                until StoreReqLines.Next() = 0;
+                            end;
+                            HTMLContent += '</tbody></table></div></div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+                Database::"Parttime Claim Header":
+                    begin
+                        ParttimeHeader.Reset();
+                        ParttimeHeader.SetRange("No.", DocumentNo);
+                        if ParttimeHeader.FindFirst() then begin
+                            ParttimeHeader.CalcFields(ParttimeHeader."Payment Amount");
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Part-time Claim Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">Claim No:</span><span class="field-value">' + ParttimeHeader."No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Employee No:</span><span class="field-value">' + ParttimeHeader."Account No." + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Employee Name:</span><span class="field-value">' + ParttimeHeader.payee + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Claim Date:</span><span class="field-value">' + Format(ParttimeHeader.Date) + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Total Amount:</span><span class="field-value">' + Format(ParttimeHeader."Payment Amount") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(ParttimeHeader.Status) + '</span></div>';
+
+                            HTMLContent += '<div class="lines-section"><h2 class="lines-header">Claim Lines</h2><table><thead><tr>' +
+                                '<th>Unit Code</th><th>Unit Name</th><th>Programme</th><th>Hours</th><th>Rate</th><th>Amount</th></tr></thead><tbody>';
+
+                            ParttimeLines.Reset();
+                            ParttimeLines.SetRange(ParttimeLines."Document No.", DocumentNo);
+                            if ParttimeLines.FindSet() then begin
+                                repeat
+                                    HTMLContent += '<tr>' +
+                                    '<td>' + ParttimeLines.Semester + '</td>' +
+                                        '<td>' + ParttimeLines.Unit + '</td>' +
+                                        '<td>' + ParttimeLines."Unit Description" + '</td>' +
+                                        '<td>' + ParttimeLines.Programme + '</td>' +
+                                        '<td>' + Format(ParttimeLines."Hours Done") + '</td>' +
+                                        '<td>' + Format(ParttimeLines."Hourly Rate") + '</td>' +
+                                        '<td>' + Format(ParttimeLines.Amount) + '</td>' +
+                                        '</tr>';
+                                until ParttimeLines.Next() = 0;
+                            end;
+                            HTMLContent += '</tbody></table></div></div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+                Database::"HRM-Medical Claims":
+                    begin
+                        MedClaimHeader.Reset();
+                        MedClaimHeader.SetRange("Claim No", DocumentNo);
+                        if MedClaimHeader.FindFirst() then begin
+                            HTMLContent := '<div class="record-container">' +
+                                '<div class="record-header"><h1 class="record-title">Medical Claim Details</h1></div>' +
+                                '<div class="field-group"><span class="field-label">Claim No:</span><span class="field-value">' + MedClaimHeader."Claim No" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Employee No:</span><span class="field-value">' + MedClaimHeader."Member No" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Employee Name:</span><span class="field-value">' + MedClaimHeader."Member Names" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Claim Date:</span><span class="field-value">' + Format(MedClaimHeader."Claim Date") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Hospital/Clinic:</span><span class="field-value">' + MedClaimHeader."Facility Name" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Patient Name:</span><span class="field-value">' + MedClaimHeader."Patient Name" + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Relationship:</span><span class="field-value">' + MedClaimHeader.Dependants + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Total Amount:</span><span class="field-value">' + Format(MedClaimHeader."Claim Amount") + '</span></div>' +
+                                '<div class="field-group"><span class="field-label">Status:</span><span class="field-value">' + Format(MedClaimHeader.Status) + '</span></div>' +
+                                '</div>';
+                            HTMLText := '<!DOCTYPE html><html><head>' + HTMLStyle + '</head><body>' + HTMLContent + '</body></html>';
+                        end;
+                    end;
+            end;
+        end;
+        TempBlob.CreateOutStream(OutStream);
+        OutStream.WriteText(HTMLText);
+        TempBlob.CreateInStream(InStream);
+        Base64Text := Base64Convert.ToBase64(InStream);
+        exit(Base64Text);
+        ;
+    end;
+    procedure IsSecurityOfficer(staffNo:Code[20])msg:Boolean
+        begin
+            Employeecard.Reset();
+            EmployeeCard.SetRange("No.", staffNo);
+            if Employeecard.FindFirst() then begin
+                msg := Employeecard."Is Security Officer";
+            end;
+    end;
 }
 
 
