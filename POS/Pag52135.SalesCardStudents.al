@@ -1,6 +1,6 @@
 page 52135 "Sales Card (Students)"
 {
-   Caption = 'Sales Card (Students)';
+    Caption = 'Sales Card (Students)';
     PageType = Card;
     SourceTable = "POS Sales Header";
     SourceTableView = where("Customer Type" = filter(Student), Posted = filter(false));
@@ -14,7 +14,7 @@ page 52135 "Sales Card (Students)"
             group(General)
             {
                 Caption = 'General';
-                
+
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
@@ -70,7 +70,7 @@ page 52135 "Sales Card (Students)"
             group(Lines)
             {
                 Caption = 'Lines';
-                
+
                 part(SalesLines; "POS Sales Lines")
                 {
                     ApplicationArea = All;

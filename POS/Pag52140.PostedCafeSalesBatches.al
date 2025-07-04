@@ -70,14 +70,14 @@ page 52140 "Posted Cafe Sales Batches"
                 begin
                     if Rec."Batch Status" <> Rec."Batch Status"::New then
                         Error(BatchNotOpenErr);
-                    
+
                     Rec.CalcFields("Un-posted Receipts");
                     if Rec."Un-posted Receipts" = 0 then
                         Error(NoReceiptsErr);
-                    
+
                     if not Confirm(ConfirmPostMsg, true) then
                         Error(CancelledByUserErr);
-                    
+
                     POSSalesHeader.PostReceiptToJournal(Rec);
                     CurrPage.Update();
                 end;

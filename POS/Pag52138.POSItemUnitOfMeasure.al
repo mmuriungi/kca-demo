@@ -2,7 +2,7 @@ page 52138 "POS Item Units of Measure"
 {
     Caption = 'POS Item Units of Measure';
     PageType = List;
-    SourceTable ="Pos Unit of Measure";
+    SourceTable = "Pos Unit of Measure";
     ApplicationArea = All;
     UsageCategory = Lists;
 

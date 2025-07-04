@@ -116,6 +116,7 @@ page 50030 "FIN-Payment Vouchers"
             {
                 Caption = 'Approve';
                 Image = Approve;
+                visible = false;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;

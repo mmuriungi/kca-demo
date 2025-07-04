@@ -1293,7 +1293,7 @@ table 50024 "FIN-Payment Line"
         PHead.SETRANGE(PHead."No.", No);
         IF PHead.FINDFIRST THEN BEGIN
             Date := PHead.Date;
-            PHead.TESTFIELD("Responsibility Center");
+            //PHead.TESTFIELD("Responsibility Center");
             "Global Dimension 1 Code" := PHead."Global Dimension 1 Code";
             //"Shortcut Dimension 2 Code":=PHead."Shortcut Dimension 2 Code";
             "Shortcut Dimension 3 Code" := PHead."Shortcut Dimension 3 Code";

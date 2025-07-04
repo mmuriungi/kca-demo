@@ -247,6 +247,7 @@ page 50010 "FIN-Imprest Accounting"
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
+                visible = false;
                 trigger OnAction()
                 var
                     ApprovalMgt: Codeunit "Init Code";

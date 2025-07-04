@@ -55,10 +55,28 @@ page 50127 "Imprest List Finance"
             group("&Functions")
             {
                 Caption = '&Functions';
+                action("Archive")
+                {
+                    Caption = 'Archive';
+                    Image = Archive;
+                    Visible = true;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    ApplicationArea = All;
+                    trigger OnAction()
+                    begin
+                        if not confirm('Are you sure you want to archive this document?') then
+                            exit;
+                        Rec.Archived := true;
+                        Rec.Modify;
+                        CurrPage.Update;
+                    end;
+                }
                 action(Approve)
                 {
                     Caption = 'Approve';
                     Image = Approve;
+                    Visible = false;
                     Promoted = true;
                     PromotedCategory = Process;
                     ApplicationArea = All;
@@ -89,8 +107,7 @@ page 50127 "Imprest List Finance"
                     Image = Post;
                     trigger OnAction()
                     begin
-                        IF Rec.Select = true THEN
-                            rec.CalcFields("Total Net Amount");
+                        rec.CalcFields("Total Net Amount");
                         IF CONFIRM('Generate  pv?', TRUE) = FALSE THEN EXIT;
                         FinOpertaion.GenerateCashImprestPv(Rec);
                     end;
@@ -233,11 +250,11 @@ page 50127 "Imprest List Finance"
 
                     trigger OnAction()
                     begin
-                        IF Rec.Status <> Rec.Status::Approved THEN
-                            ERROR('You can only print after the document is released for approval');
+                        // IF Rec.Status <> Rec.Status::Approved THEN
+                        //     ERROR('You can only print after the document is released for approval');
                         Rec.RESET;
                         Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(69279, TRUE, TRUE, Rec);
+                        REPORT.RUN(Report::"Imprest Request", TRUE, TRUE, Rec);
                         Rec.RESET;
                     end;
                 }

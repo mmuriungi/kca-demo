@@ -1,4 +1,4 @@
-report 50002 "Imprest Request"
+report 50002 "Imprest Request Legacy"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Imprest Request.rdlc';

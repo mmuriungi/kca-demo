@@ -212,6 +212,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                 Caption = 'Approve';
                 Image = Approve;
                 Promoted = true;
+                Visible = false;
                 PromotedCategory = Process;
                 ApplicationArea = All;
                 trigger OnAction()
@@ -259,6 +260,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                         ERROR('Some of the Key Fields on the Lines:[ACCOUNT NO.,AMOUNT] Have not been Entered please RECHECK your entries');
 
                     //IF ApprovalMgt2.CheckImprestWorkflowEnabled() THEN
+                    Rec.TestField(Purpose);
                     ApprovalMgt2.OnSendImprestforApproval(Rec);
 
                 end;
@@ -393,7 +395,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                     //    ERROR('You can only print after the document is released for approval');
                     Rec.RESET;
                     Rec.SETFILTER("No.", Rec."No.");
-                    REPORT.RUN(50002, TRUE, TRUE, Rec);
+                    REPORT.RUN(Report::"Imprest Request", TRUE, TRUE, Rec);
                     Rec.RESET;
                 end;
             }

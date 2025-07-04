@@ -202,7 +202,7 @@ page 50015 "FIN-Imprests List"
                             ERROR('You can only print after the document is released for approval');
                         Rec.RESET;
                         Rec.SETFILTER("No.", Rec."No.");
-                        REPORT.RUN(69279, TRUE, TRUE, Rec);
+                        REPORT.RUN(Report::"Imprest Request", TRUE, TRUE, Rec);
                         Rec.RESET;
                     end;
                 }
