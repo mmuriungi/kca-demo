@@ -9241,6 +9241,11 @@ Codeunit 61106 webportals
                                             ACAExamResults.Department := Programmezz."Department Code";
                                             ACAExamResults."Admission No" := StudNoz;
                                             ACAExamResults."Academic Year" := ACASemesters."Academic Year";
+                                            ACAExamResults."Last Edited By" := UserNamez;
+                                            ACAExamResults."Last Edited On" := Today;
+                                            ACAExamResults."Last Modified by" := UserNamez;
+                                            ACAExamResults."Date Last Modified" := Today;
+                                            ACAExamResults."Time Last Modified" := Time;
                                             ACAExamResults.Score := Scorez;
                                             ACAExamResults.Insert;
                                             ACAExamResults.Reset;
