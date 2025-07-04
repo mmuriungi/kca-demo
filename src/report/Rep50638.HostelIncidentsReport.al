@@ -1,4 +1,4 @@
-report 50638 "Hostel Incidents Report"
+report 50638 "Hostel Incidents Report X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Hostel Incidents Report.rdl';

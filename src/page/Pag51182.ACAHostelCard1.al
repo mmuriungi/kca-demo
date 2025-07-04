@@ -1,4 +1,4 @@
-page 51182 "ACA-Hostel Card1"
+page 51182 "ACA-Hostel Card1 X"
 {
     PageType = Document;
     SourceTable = "ACA-Hostel Card";

@@ -1,4 +1,4 @@
-page 51199 "ACA-Hostel Rooms Card"
+page 51199 "ACA-Hostel Rooms Card X"
 {
     PageType = Card;
     SourceTable = "ACA-Hostel Block Rooms";

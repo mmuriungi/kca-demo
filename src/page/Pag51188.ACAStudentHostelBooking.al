@@ -1,4 +1,4 @@
-page 51188 "ACA-Student Hostel Booking"
+page 51188 "ACA-Student Hostel Booking X"
 {
     PageType = Document;
     SourceTable = "ACA-Students Hostel Rooms";

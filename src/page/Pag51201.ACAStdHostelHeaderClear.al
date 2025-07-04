@@ -1,4 +1,4 @@
-page 51201 "ACA-Std Hostel Header Clear"
+page 51201 "ACA-Std Hostel Header Clear X"
 {
     Editable = true;
     PageType = Document;

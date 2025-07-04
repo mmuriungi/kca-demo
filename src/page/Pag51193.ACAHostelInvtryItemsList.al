@@ -1,7 +1,7 @@
-page 51193 "ACA-Hostel Invtry Items List"
+page 51193 "ACA-Hostel Invtry Items List X"
 {
     PageType = List;
-    SourceTable = "ACA-Hostel Inventory";
+    SourceTable = "ACA-Hostel Inventory x";
 
     layout
     {
