@@ -11,57 +11,6 @@
       <rd:DataSourceID>a37b2bad-9c3a-4171-9d87-3bcbd6cbf67e</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="studNo">
-          <DataField>studNo</DataField>
-        </Field>
-        <Field Name="HostelNo">
-          <DataField>HostelNo</DataField>
-        </Field>
-        <Field Name="RoomNo">
-          <DataField>RoomNo</DataField>
-        </Field>
-        <Field Name="SpaceNo">
-          <DataField>SpaceNo</DataField>
-        </Field>
-        <Field Name="Charges">
-          <DataField>Charges</DataField>
-        </Field>
-        <Field Name="ChargesFormat">
-          <DataField>ChargesFormat</DataField>
-        </Field>
-        <Field Name="Allocated">
-          <DataField>Allocated</DataField>
-        </Field>
-        <Field Name="Billed">
-          <DataField>Billed</DataField>
-        </Field>
-        <Field Name="Cleared">
-          <DataField>Cleared</DataField>
-        </Field>
-        <Field Name="stdName">
-          <DataField>stdName</DataField>
-        </Field>
-        <Field Name="Valid">
-          <DataField>Valid</DataField>
-        </Field>
-        <Field Name="sem">
-          <DataField>sem</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -833,4 +782,53 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="studNo">
+          <DataField>studNo</DataField>
+        </Field>
+        <Field Name="HostelNo">
+          <DataField>HostelNo</DataField>
+        </Field>
+        <Field Name="RoomNo">
+          <DataField>RoomNo</DataField>
+        </Field>
+        <Field Name="SpaceNo">
+          <DataField>SpaceNo</DataField>
+        </Field>
+        <Field Name="Charges">
+          <DataField>Charges</DataField>
+        </Field>
+        <Field Name="ChargesFormat">
+          <DataField>ChargesFormat</DataField>
+        </Field>
+        <Field Name="Allocated">
+          <DataField>Allocated</DataField>
+        </Field>
+        <Field Name="Billed">
+          <DataField>Billed</DataField>
+        </Field>
+        <Field Name="Cleared">
+          <DataField>Cleared</DataField>
+        </Field>
+        <Field Name="stdName">
+          <DataField>stdName</DataField>
+        </Field>
+        <Field Name="Valid">
+          <DataField>Valid</DataField>
+        </Field>
+        <Field Name="sem">
+          <DataField>sem</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

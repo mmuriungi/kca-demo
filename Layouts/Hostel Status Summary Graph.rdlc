@@ -11,60 +11,6 @@
       <rd:DataSourceID>2faa2dab-44cc-45f9-ad46-e9ec216c7b8b</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="address">
-          <DataField>address</DataField>
-        </Field>
-        <Field Name="Phone">
-          <DataField>Phone</DataField>
-        </Field>
-        <Field Name="pics">
-          <DataField>pics</DataField>
-        </Field>
-        <Field Name="No">
-          <DataField>No</DataField>
-        </Field>
-        <Field Name="Desc">
-          <DataField>Desc</DataField>
-        </Field>
-        <Field Name="Vaccant">
-          <DataField>Vaccant</DataField>
-        </Field>
-        <Field Name="fullyOccupied">
-          <DataField>fullyOccupied</DataField>
-        </Field>
-        <Field Name="partiallyOccupied">
-          <DataField>partiallyOccupied</DataField>
-        </Field>
-        <Field Name="Blacklisted">
-          <DataField>Blacklisted</DataField>
-        </Field>
-        <Field Name="totRooms">
-          <DataField>totRooms</DataField>
-        </Field>
-        <Field Name="vspaces">
-          <DataField>vspaces</DataField>
-        </Field>
-        <Field Name="OccupiedSpaces">
-          <DataField>OccupiedSpaces</DataField>
-        </Field>
-        <Field Name="TotalSpaces">
-          <DataField>TotalSpaces</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -619,4 +565,56 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1">
+          <DataField>ReportForNavId_1</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+        </Field>
+        <Field Name="pics">
+          <DataField>pics</DataField>
+        </Field>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="Desc">
+          <DataField>Desc</DataField>
+        </Field>
+        <Field Name="Vaccant">
+          <DataField>Vaccant</DataField>
+        </Field>
+        <Field Name="fullyOccupied">
+          <DataField>fullyOccupied</DataField>
+        </Field>
+        <Field Name="partiallyOccupied">
+          <DataField>partiallyOccupied</DataField>
+        </Field>
+        <Field Name="Blacklisted">
+          <DataField>Blacklisted</DataField>
+        </Field>
+        <Field Name="totRooms">
+          <DataField>totRooms</DataField>
+        </Field>
+        <Field Name="vspaces">
+          <DataField>vspaces</DataField>
+        </Field>
+        <Field Name="OccupiedSpaces">
+          <DataField>OccupiedSpaces</DataField>
+        </Field>
+        <Field Name="TotalSpaces">
+          <DataField>TotalSpaces</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -11,48 +11,6 @@
       <rd:DataSourceID>2fb3001a-e278-4722-b6ee-3231eee506f3</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="StudentNo_RoomAllocationBuffer">
-          <DataField>StudentNo_RoomAllocationBuffer</DataField>
-        </Field>
-        <Field Name="StudentName_RoomAllocationBuffer">
-          <DataField>StudentName_RoomAllocationBuffer</DataField>
-        </Field>
-        <Field Name="Gender_RoomAllocationBuffer">
-          <DataField>Gender_RoomAllocationBuffer</DataField>
-        </Field>
-        <Field Name="HostelNo_RoomAllocationBuffer">
-          <DataField>HostelNo_RoomAllocationBuffer</DataField>
-        </Field>
-        <Field Name="RoomNo_RoomAllocationBuffer">
-          <DataField>RoomNo_RoomAllocationBuffer</DataField>
-        </Field>
-        <Field Name="SpaceNo_RoomAllocationBuffer">
-          <DataField>SpaceNo_RoomAllocationBuffer</DataField>
-        </Field>
-        <Field Name="HostelName_RoomAllocationBuffer">
-          <DataField>HostelName_RoomAllocationBuffer</DataField>
-        </Field>
-        <Field Name="Amount_RoomAllocationBuffer">
-          <DataField>Amount_RoomAllocationBuffer</DataField>
-        </Field>
-        <Field Name="Amount_RoomAllocationBufferFormat">
-          <DataField>Amount_RoomAllocationBufferFormat</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -829,4 +787,47 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1000000000">
+          <DataField>ReportForNavId_1000000000</DataField>
+        </Field>
+        <Field Name="StudentNo_RoomAllocationBuffer">
+          <DataField>StudentNo_RoomAllocationBuffer</DataField>
+        </Field>
+        <Field Name="StudentName_RoomAllocationBuffer">
+          <DataField>StudentName_RoomAllocationBuffer</DataField>
+        </Field>
+        <Field Name="Gender_RoomAllocationBuffer">
+          <DataField>Gender_RoomAllocationBuffer</DataField>
+        </Field>
+        <Field Name="HostelNo_RoomAllocationBuffer">
+          <DataField>HostelNo_RoomAllocationBuffer</DataField>
+        </Field>
+        <Field Name="RoomNo_RoomAllocationBuffer">
+          <DataField>RoomNo_RoomAllocationBuffer</DataField>
+        </Field>
+        <Field Name="SpaceNo_RoomAllocationBuffer">
+          <DataField>SpaceNo_RoomAllocationBuffer</DataField>
+        </Field>
+        <Field Name="HostelName_RoomAllocationBuffer">
+          <DataField>HostelName_RoomAllocationBuffer</DataField>
+        </Field>
+        <Field Name="HostelName_RoomAllocationBufferFormat">
+          <DataField>HostelName_RoomAllocationBufferFormat</DataField>
+        </Field>
+        <Field Name="Amount_RoomAllocationBuffer">
+          <DataField>Amount_RoomAllocationBuffer</DataField>
+        </Field>
+        <Field Name="Amount_RoomAllocationBufferFormat">
+          <DataField>Amount_RoomAllocationBufferFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

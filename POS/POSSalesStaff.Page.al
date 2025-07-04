@@ -31,6 +31,11 @@ Page 99408 "POS Sales Staff"
                     ApplicationArea = Basic;
                     Editable = true;
                 }
+                field("Phone No"; Rec."Phone No")
+                {
+                    ApplicationArea = Basic;
+                    Editable = true;
+                }
                 field("Till Number"; Rec."Till Number")
                 {
                     ApplicationArea = Basic;
@@ -92,7 +97,7 @@ Page 99408 "POS Sales Staff"
 
                 trigger OnAction()
                 var
-                    SalesHeader: Record "POS Sales Header"; // Table 99408
+                    SalesHeader: Record "POS Sales Header";
                     POSRestaurantsPrintOut: Report "POS Restaurants PrintOut";
                 begin
                     CurrPage.Update();
@@ -102,6 +107,20 @@ Page 99408 "POS Sales Staff"
                     Report.Run(Report::"POS Restaurants PrintOut", false, true, SalesHeader);
                     CurrPage.Close();
                 end;
+            }
+            action("Send STK Push")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = process;
+                Image = "Invoicing-Document";
+                trigger OnAction()
+                var
+                    PaymentAPI: Codeunit "Payment API Manager";
+                begin
+                    PaymentAPI.SendPaymentRequest(Rec."No.", Rec."Phone No", Rec."Total Amount", '2729111');
+                end;
+
             }
         }
     }
