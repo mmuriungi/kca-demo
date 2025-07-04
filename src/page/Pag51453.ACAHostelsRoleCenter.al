@@ -1,7 +1,7 @@
 /// <summary>
 /// Page ACA-Hostels Role Center (ID 69177).
 /// </summary>
-page 51453 "ACA-Hostels Role Center"
+page 51453 "ACA-Hostels Role Center X"
 {
     Caption = 'Hostels Role Center';
     PageType = RoleCenter;

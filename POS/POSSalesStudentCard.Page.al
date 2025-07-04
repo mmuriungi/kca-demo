@@ -41,6 +41,11 @@ Page 99409 "POS Sales Student Card"
                 {
                     ApplicationArea = Basic;
                 }
+                field("Phone No"; Rec."Phone No")
+                {
+                    ApplicationArea = Basic;
+                    Editable = true;
+                }
                 field("Till Number"; Rec."Till Number")
                 {
                     ApplicationArea = Basic;
@@ -72,5 +77,47 @@ Page 99409 "POS Sales Student Card"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action(Print)
+            {
+                ApplicationArea = All;
+                Caption = 'Print';
+                Image = VendorContact;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ShortCutKey = 'F9';
+                ToolTip = 'Print the staff sales receipt.';
 
+                trigger OnAction()
+                var
+                    SalesHeader: Record "POS Sales Header";
+                    POSRestaurantsPrintOut: Report "POS Restaurants PrintOut";
+                begin
+                   Rec.PostSale();
+                    SalesHeader.RESET();
+                    SalesHeader.SETRANGE("No.", Rec."No.");
+                    IF SalesHeader.FIND('-') THEN
+                        REPORT.RUN(REPORT::"POS Students PrintOut", FALSE, TRUE, SalesHeader);
+                    CurrPage.CLOSE;
+                end;
+            }
+            action("Send STK Push")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = process;
+                Image = "Invoicing-Document";
+                trigger OnAction()
+                var
+                    PaymentAPI: Codeunit "Payment API Manager";
+                begin
+                    PaymentAPI.SendPaymentRequest(Rec."No.", Rec."Phone No", Rec."Total Amount", '2729111');
+                end;
+            }
+        }
+    }
 }

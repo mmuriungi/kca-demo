@@ -1,4 +1,4 @@
-page 51183 "ACA-Hostel List1"
+page 51183 "ACA-Hostel List1 X"
 {
     CardPageID = "ACA-Hostel Card1";
     Editable = true;

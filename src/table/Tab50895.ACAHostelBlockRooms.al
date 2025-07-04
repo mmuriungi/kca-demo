@@ -1,4 +1,4 @@
-table 50895 "ACA-Hostel Block Rooms"
+table 50895 "ACA-Hostel Block Rooms X"
 {
 
     fields

@@ -1,4 +1,4 @@
-table 50862 "ACA-Hostel Rooms"
+table 50862 "ACA-Hostel Rooms X"
 {
     // DrillDownPageID = 67059;
     // LookupPageID = 67059;

@@ -1,4 +1,4 @@
-page 51179 "ACA-Hostel Reservation"
+page 51179 "ACA-Hostel Reservation X"
 {
     PageType = Card;
     SourceTable = "ACA-Hostel Reservation Header";

@@ -1,4 +1,4 @@
-table 50897 "ACA-Hostel Ledger History"
+table 50897 "ACA-Hostel Ledger History X"
 {
     DrillDownPageID = "ACA-Hostel Ledger";
     LookupPageID = "ACA-Hostel Ledger";

@@ -1,4 +1,4 @@
-report 50623 "Update Norminal roll in Hostel"
+report 50623 "Update Norminal roll Hostel X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Update Norminal roll in Hostel.rdl';

@@ -1,4 +1,4 @@
-table 50899 "ACA-Hostel Permissions"
+table 50899 "ACA-Hostel Permissions X"
 {
 
     fields

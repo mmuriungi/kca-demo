@@ -198,6 +198,12 @@ Table 99408 "POS Sales Header"
         field(33; "M-pesa Trans Missing"; Boolean)
         {
         }
+        field(34; "Ecitizen Invoice No"; Text[50])
+        {
+        }
+        field(35; "Phone No"; Text[50])
+        {
+        }
     }
 
     keys

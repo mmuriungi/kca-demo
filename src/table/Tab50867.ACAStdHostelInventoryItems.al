@@ -1,4 +1,4 @@
-table 50867 "ACA-Std Hostel Inventory Items"
+table 50867 "ACA-Std Hostel Invent. ItemsX"
 {
 
     fields

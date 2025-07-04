@@ -1,8 +1,8 @@
-page 51192 "ACA-Hostel Bookings (Unalloc.)"
+page 51192 "ACA-Hostel Bookings Unalloc X"
 {
     DeleteAllowed = true;
     PageType = List;
-    SourceTable = "ACA-Students Hostel Rooms";
+    SourceTable = "ACA-Students Hostel Rooms x";
     SourceTableView = WHERE(Allocated = FILTER(false));
 
     layout

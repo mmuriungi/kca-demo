@@ -1,6 +1,6 @@
-page 51211 "ACA-Std Information (Hostels)h"
+page 51211 "ACA-Std Information Hostelsh X"
 {
-    CardPageID = "ACA-Students Hostels hst";
+    CardPageID = "ACA-Students Hostels hst X";
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;

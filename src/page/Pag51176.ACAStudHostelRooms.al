@@ -1,4 +1,4 @@
-page 51176 "ACA-Stud. Hostel Rooms"
+page 51176 "ACA-Stud. Hostel Rooms X"
 {
     PageType = ListPart;
     SourceTable = "ACA-Students Hostel Rooms";

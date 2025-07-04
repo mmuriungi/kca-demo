@@ -129,5 +129,5 @@ page 51223 "Cafeteria Menu Prices"
     end;
 
     var
-        UserSetup: Record "ACA-Hostel Permissions";
+        UserSetup: Record "ACA-Hostel Permissions X";
 }

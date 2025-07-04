@@ -1,4 +1,4 @@
-report 50639 "Hostel Status Summary Graph"
+report 50639 "Hostel Status Summary Graph X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Hostel Status Summary Graph.rdl';

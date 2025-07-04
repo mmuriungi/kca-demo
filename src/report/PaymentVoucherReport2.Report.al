@@ -178,14 +178,14 @@ Report 51055 "Payment Voucher Report2"
                     end else
                         InvNo := '';
                     InvDate := 0D;
-
-                    ImprestLine.Reset;
-                    ImprestLine.SetRange(ImprestLine.No, "FIN-Payments Header"."Apply to Document No");
-                    if ImprestLine.Find('-') then begin
-                        GLNo := ImprestLine."Account No:";
-                        AccountNameTxt := ImprestLine."Account Name";
+                    if "FIN-Payments Header"."Imprest No." <> '' then begin
+                        ImprestLine.Reset;
+                        ImprestLine.SetRange(ImprestLine.No, "FIN-Payments Header"."Imprest No.");
+                        if ImprestLine.Find('-') then begin
+                            GLNo := ImprestLine."Account No:";
+                            AccountNameTxt := ImprestLine."Account Name";
+                        end;
                     end;
-
                 end;
             }
 

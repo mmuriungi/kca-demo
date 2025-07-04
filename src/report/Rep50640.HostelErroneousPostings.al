@@ -1,4 +1,4 @@
-report 50640 "Hostel Erroneous Postings"
+report 50640 "Hostel Erroneous Postings X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Hostel Erroneous Postings.rdl';
