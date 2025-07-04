@@ -10299,8 +10299,7 @@ Codeunit 61106 webportals
     begin
         EmployeeCard.RESET;
         EmployeeCard.SETRANGE(EmployeeCard."No.", username);
-        EmployeeCard.SETRANGE(EmployeeCard.HOD, TRUE);
-        IF EmployeeCard.FIND('-') THEN BEGIN
+        IF (EmployeeCard.HOD) or (EmployeeCard."Has HOD Rights") THEN BEGIN
             ishod := TRUE;
         END;
     end;
