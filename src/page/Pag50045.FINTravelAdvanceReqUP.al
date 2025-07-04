@@ -260,6 +260,7 @@ page 50045 "FIN-Travel Advance Req. UP"
                         ERROR('Some of the Key Fields on the Lines:[ACCOUNT NO.,AMOUNT] Have not been Entered please RECHECK your entries');
 
                     //IF ApprovalMgt2.CheckImprestWorkflowEnabled() THEN
+                    Rec.TestField(Purpose);
                     ApprovalMgt2.OnSendImprestforApproval(Rec);
 
                 end;
