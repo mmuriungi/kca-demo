@@ -10,48 +10,6 @@
       <rd:DataSourceID>b981d403-c03e-4311-a62d-d8ef20f9fe8b</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="pic">
-          <DataField>pic</DataField>
-        </Field>
-        <Field Name="Title1">
-          <DataField>Title1</DataField>
-        </Field>
-        <Field Name="StdNo">
-          <DataField>StdNo</DataField>
-        </Field>
-        <Field Name="stdName">
-          <DataField>stdName</DataField>
-        </Field>
-        <Field Name="host">
-          <DataField>host</DataField>
-        </Field>
-        <Field Name="room">
-          <DataField>room</DataField>
-        </Field>
-        <Field Name="AmountCharged">
-          <DataField>AmountCharged</DataField>
-        </Field>
-        <Field Name="AmountChargedFormat">
-          <DataField>AmountChargedFormat</DataField>
-        </Field>
-        <Field Name="settlement">
-          <DataField>settlement</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -958,4 +916,44 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_1">
+          <DataField>ReportForNavId_1</DataField>
+        </Field>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="Title1">
+          <DataField>Title1</DataField>
+        </Field>
+        <Field Name="StdNo">
+          <DataField>StdNo</DataField>
+        </Field>
+        <Field Name="stdName">
+          <DataField>stdName</DataField>
+        </Field>
+        <Field Name="host">
+          <DataField>host</DataField>
+        </Field>
+        <Field Name="room">
+          <DataField>room</DataField>
+        </Field>
+        <Field Name="AmountCharged">
+          <DataField>AmountCharged</DataField>
+        </Field>
+        <Field Name="AmountChargedFormat">
+          <DataField>AmountChargedFormat</DataField>
+        </Field>
+        <Field Name="settlement">
+          <DataField>settlement</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

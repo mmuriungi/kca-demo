@@ -10304,9 +10304,11 @@ Codeunit 61106 webportals
     begin
         EmployeeCard.RESET;
         EmployeeCard.SETRANGE(EmployeeCard."No.", username);
-        IF (EmployeeCard.HOD) or (EmployeeCard."Has HOD Rights") THEN BEGIN
-            ishod := TRUE;
-        END;
+        if EmployeeCard.FIND('-') then begin
+            IF (EmployeeCard.HOD) or (EmployeeCard."Has HOD Rights") THEN BEGIN
+                ishod := TRUE;
+            END;
+        end;
     end;
 
     procedure checkDean(username: code[10]) ishod: Boolean
@@ -13219,13 +13221,14 @@ Codeunit 61106 webportals
         exit(Base64Text);
         ;
     end;
-    procedure IsSecurityOfficer(staffNo:Code[20])msg:Boolean
-        begin
-            Employeecard.Reset();
-            EmployeeCard.SetRange("No.", staffNo);
-            if Employeecard.FindFirst() then begin
-                msg := Employeecard."Is Security Officer";
-            end;
+
+    procedure IsSecurityOfficer(staffNo: Code[20]) msg: Boolean
+    begin
+        Employeecard.Reset();
+        EmployeeCard.SetRange("No.", staffNo);
+        if Employeecard.FindFirst() then begin
+            msg := Employeecard."Is Security Officer";
+        end;
     end;
 }
 

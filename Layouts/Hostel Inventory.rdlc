@@ -11,129 +11,6 @@
       <rd:DataSourceID>712f8736-e2a3-43d2-ac47-6db9b3f15d96</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Hostel_No_">
-          <DataField>Hostel_Ledger__Hostel_No_</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Space_No_">
-          <DataField>Hostel_Ledger__Space_No_</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Room_No_">
-          <DataField>Hostel_Ledger__Room_No_</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger_Status">
-          <DataField>Hostel_Ledger_Status</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Room_Cost_">
-          <DataField>Hostel_Ledger__Room_Cost_</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Room_Cost_Format">
-          <DataField>Hostel_Ledger__Room_Cost_Format</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Student_No_">
-          <DataField>Hostel_Ledger__Student_No_</DataField>
-        </Field>
-        <Field Name="Hostel_InventoryCaption">
-          <DataField>Hostel_InventoryCaption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Hostel_No_Caption">
-          <DataField>Hostel_Ledger__Hostel_No_Caption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Space_No_Caption">
-          <DataField>Hostel_Ledger__Space_No_Caption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Room_No_Caption">
-          <DataField>Hostel_Ledger__Room_No_Caption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger_StatusCaption">
-          <DataField>Hostel_Ledger_StatusCaption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Room_Cost_Caption">
-          <DataField>Hostel_Ledger__Room_Cost_Caption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Student_No_Caption">
-          <DataField>Hostel_Ledger__Student_No_Caption</DataField>
-        </Field>
-        <Field Name="Room_Inventory__Type_No_">
-          <DataField>Room_Inventory__Type_No_</DataField>
-        </Field>
-        <Field Name="Room_Inventory_Description">
-          <DataField>Room_Inventory_Description</DataField>
-        </Field>
-        <Field Name="Room_Inventory_Units">
-          <DataField>Room_Inventory_Units</DataField>
-        </Field>
-        <Field Name="Room_Inventory_Quantity">
-          <DataField>Room_Inventory_Quantity</DataField>
-        </Field>
-        <Field Name="Room_Inventory_QuantityFormat">
-          <DataField>Room_Inventory_QuantityFormat</DataField>
-        </Field>
-        <Field Name="Room_Inventory__Unit_Price_">
-          <DataField>Room_Inventory__Unit_Price_</DataField>
-        </Field>
-        <Field Name="Room_Inventory__Unit_Price_Format">
-          <DataField>Room_Inventory__Unit_Price_Format</DataField>
-        </Field>
-        <Field Name="Room_Inventory__Item_Charges_">
-          <DataField>Room_Inventory__Item_Charges_</DataField>
-        </Field>
-        <Field Name="Room_Inventory__Item_Charges_Format">
-          <DataField>Room_Inventory__Item_Charges_Format</DataField>
-        </Field>
-        <Field Name="Room_Inventory__Type_No_Caption">
-          <DataField>Room_Inventory__Type_No_Caption</DataField>
-        </Field>
-        <Field Name="Room_Inventory_DescriptionCaption">
-          <DataField>Room_Inventory_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="Room_Inventory_UnitsCaption">
-          <DataField>Room_Inventory_UnitsCaption</DataField>
-        </Field>
-        <Field Name="Room_Inventory_QuantityCaption">
-          <DataField>Room_Inventory_QuantityCaption</DataField>
-        </Field>
-        <Field Name="Room_Inventory__Unit_Price_Caption">
-          <DataField>Room_Inventory__Unit_Price_Caption</DataField>
-        </Field>
-        <Field Name="Room_Inventory__Item_Charges_Caption">
-          <DataField>Room_Inventory__Item_Charges_Caption</DataField>
-        </Field>
-        <Field Name="Room_Inventory_Line_No">
-          <DataField>Room_Inventory_Line_No</DataField>
-        </Field>
-        <Field Name="Room_Inventory_Space_No">
-          <DataField>Room_Inventory_Space_No</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -930,4 +807,128 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Invalid</rd:ReportUnitType>
   <rd:ReportID>d0b6f4e5-8c53-4610-8920-4356234db844</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_3889">
+          <DataField>ReportForNavId_3889</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENO">
+          <DataField>CurrReport_PAGENO</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Hostel_No_">
+          <DataField>Hostel_Ledger__Hostel_No_</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Space_No_">
+          <DataField>Hostel_Ledger__Space_No_</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Room_No_">
+          <DataField>Hostel_Ledger__Room_No_</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger_Status">
+          <DataField>Hostel_Ledger_Status</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Room_Cost_">
+          <DataField>Hostel_Ledger__Room_Cost_</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Room_Cost_Format">
+          <DataField>Hostel_Ledger__Room_Cost_Format</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Student_No_">
+          <DataField>Hostel_Ledger__Student_No_</DataField>
+        </Field>
+        <Field Name="Hostel_InventoryCaption">
+          <DataField>Hostel_InventoryCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Hostel_No_Caption">
+          <DataField>Hostel_Ledger__Hostel_No_Caption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Space_No_Caption">
+          <DataField>Hostel_Ledger__Space_No_Caption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Room_No_Caption">
+          <DataField>Hostel_Ledger__Room_No_Caption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger_StatusCaption">
+          <DataField>Hostel_Ledger_StatusCaption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Room_Cost_Caption">
+          <DataField>Hostel_Ledger__Room_Cost_Caption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Student_No_Caption">
+          <DataField>Hostel_Ledger__Student_No_Caption</DataField>
+        </Field>
+        <Field Name="ReportForNavId_6356">
+          <DataField>ReportForNavId_6356</DataField>
+        </Field>
+        <Field Name="Room_Inventory__Type_No_">
+          <DataField>Room_Inventory__Type_No_</DataField>
+        </Field>
+        <Field Name="Room_Inventory_Description">
+          <DataField>Room_Inventory_Description</DataField>
+        </Field>
+        <Field Name="Room_Inventory_Units">
+          <DataField>Room_Inventory_Units</DataField>
+        </Field>
+        <Field Name="Room_Inventory_Quantity">
+          <DataField>Room_Inventory_Quantity</DataField>
+        </Field>
+        <Field Name="Room_Inventory_QuantityFormat">
+          <DataField>Room_Inventory_QuantityFormat</DataField>
+        </Field>
+        <Field Name="Room_Inventory__Unit_Price_">
+          <DataField>Room_Inventory__Unit_Price_</DataField>
+        </Field>
+        <Field Name="Room_Inventory__Unit_Price_Format">
+          <DataField>Room_Inventory__Unit_Price_Format</DataField>
+        </Field>
+        <Field Name="Room_Inventory__Item_Charges_">
+          <DataField>Room_Inventory__Item_Charges_</DataField>
+        </Field>
+        <Field Name="Room_Inventory__Item_Charges_Format">
+          <DataField>Room_Inventory__Item_Charges_Format</DataField>
+        </Field>
+        <Field Name="Room_Inventory__Type_No_Caption">
+          <DataField>Room_Inventory__Type_No_Caption</DataField>
+        </Field>
+        <Field Name="Room_Inventory_DescriptionCaption">
+          <DataField>Room_Inventory_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Room_Inventory_UnitsCaption">
+          <DataField>Room_Inventory_UnitsCaption</DataField>
+        </Field>
+        <Field Name="Room_Inventory_QuantityCaption">
+          <DataField>Room_Inventory_QuantityCaption</DataField>
+        </Field>
+        <Field Name="Room_Inventory__Unit_Price_Caption">
+          <DataField>Room_Inventory__Unit_Price_Caption</DataField>
+        </Field>
+        <Field Name="Room_Inventory__Item_Charges_Caption">
+          <DataField>Room_Inventory__Item_Charges_Caption</DataField>
+        </Field>
+        <Field Name="Room_Inventory_Line_No">
+          <DataField>Room_Inventory_Line_No</DataField>
+        </Field>
+        <Field Name="Room_Inventory_Space_No">
+          <DataField>Room_Inventory_Space_No</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

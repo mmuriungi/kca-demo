@@ -11,69 +11,6 @@
       <rd:DataSourceID>c7e53f38-af0f-44e5-ad07-f65daab52146</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="FORMAT_TODAY_0_4_">
-          <DataField>FORMAT_TODAY_0_4_</DataField>
-        </Field>
-        <Field Name="COMPANYNAME">
-          <DataField>COMPANYNAME</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Hostel_No_">
-          <DataField>Hostel_Ledger__Hostel_No_</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Hostel_No__Control1000000011">
-          <DataField>Hostel_Ledger__Hostel_No__Control1000000011</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Room_No_">
-          <DataField>Hostel_Ledger__Room_No_</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Space_No_">
-          <DataField>Hostel_Ledger__Space_No_</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger_Status">
-          <DataField>Hostel_Ledger_Status</DataField>
-        </Field>
-        <Field Name="Hostel_RoomsCaption">
-          <DataField>Hostel_RoomsCaption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Hostel_No__Control1000000011Caption">
-          <DataField>Hostel_Ledger__Hostel_No__Control1000000011Caption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Room_No_Caption">
-          <DataField>Hostel_Ledger__Room_No_Caption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Space_No_Caption">
-          <DataField>Hostel_Ledger__Space_No_Caption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger_StatusCaption">
-          <DataField>Hostel_Ledger_StatusCaption</DataField>
-        </Field>
-        <Field Name="Hostel_Ledger__Hostel_No_Caption">
-          <DataField>Hostel_Ledger__Hostel_No_Caption</DataField>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSet</rd:DataSetName>
-        <rd:SchemaPath>Report.xsd</rd:SchemaPath>
-        <rd:TableName>Result</rd:TableName>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -888,4 +825,65 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Invalid</rd:ReportUnitType>
   <rd:ReportID>b82604d4-6540-44b7-b1db-0fb5b56e42a9</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportForNavId_3889">
+          <DataField>ReportForNavId_3889</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENO">
+          <DataField>CurrReport_PAGENO</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Hostel_No_">
+          <DataField>Hostel_Ledger__Hostel_No_</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Hostel_No__Control1000000011">
+          <DataField>Hostel_Ledger__Hostel_No__Control1000000011</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Room_No_">
+          <DataField>Hostel_Ledger__Room_No_</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Space_No_">
+          <DataField>Hostel_Ledger__Space_No_</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger_Status">
+          <DataField>Hostel_Ledger_Status</DataField>
+        </Field>
+        <Field Name="Hostel_RoomsCaption">
+          <DataField>Hostel_RoomsCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Hostel_No__Control1000000011Caption">
+          <DataField>Hostel_Ledger__Hostel_No__Control1000000011Caption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Room_No_Caption">
+          <DataField>Hostel_Ledger__Room_No_Caption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Space_No_Caption">
+          <DataField>Hostel_Ledger__Space_No_Caption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger_StatusCaption">
+          <DataField>Hostel_Ledger_StatusCaption</DataField>
+        </Field>
+        <Field Name="Hostel_Ledger__Hostel_No_Caption">
+          <DataField>Hostel_Ledger__Hostel_No_Caption</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
