@@ -826,6 +826,18 @@ page 51464 "ACA-Exam Man. Role Centre"
                     ApplicationArea = All;
                 }
             }
+            group("&Bulk Units Registration")
+            {
+                Caption = 'Bulk Units Registration';
+                action("Bulk Units Registration")
+                {
+                    Caption = 'Bulk Units Registration';
+                    Image = Registered;
+
+                    RunObject = Page "ACA-Bulk Units Registration";
+                    ApplicationArea = All;
+                }
+            }
             group("Exam Results Verification")
             {
                 group("Verify Results")

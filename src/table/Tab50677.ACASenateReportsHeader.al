@@ -8,7 +8,7 @@ table 50677 "ACA-Senate Reports Header"
             DataClassification = ToBeClassified;
             TableRelation = "ACA-Academic Year".Code;
         }
-        field(2; "School Code"; Code[20])
+        field(2; "School Code"; Code[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Dimension Value".Code WHERE("Dimension Code" = FILTER('FACULTY'));
@@ -17,7 +17,7 @@ table 50677 "ACA-Senate Reports Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(4; "Classification Code"; Code[20])
+        field(4; "Classification Code"; Code[250])
         {
             DataClassification = ToBeClassified;
         }
@@ -57,7 +57,7 @@ table 50677 "ACA-Senate Reports Header"
         {
             DataClassification = ToBeClassified;
         }
-        field(11; "Programme Code"; Code[20])
+        field(11; "Programme Code"; Code[220])
         {
             DataClassification = ToBeClassified;
             TableRelation = "ACA-Programme".Code;
