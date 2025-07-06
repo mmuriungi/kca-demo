@@ -311,7 +311,21 @@ pageextension 50008 UsersetupPgExt extends "User Setup"
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Shortcut Dimension 4 Code field.', Comment = '%';
             }
-
+            field("Hostel Admin"; Rec."Hostel Admin")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Hostel Admin field.', Comment = '%';
+            }
+            field("Can Archive Prof. Host. Allocs"; Rec."Can Archive Prof. Host. Allocs")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Can Archive Prof. Host. Allocs field.', Comment = '%';
+            }
+            field("Bulk upload of Units"; Rec."Bulk upload of Units")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Bulk upload of Units field.', Comment = '%';
+            }
         }
     }
     actions

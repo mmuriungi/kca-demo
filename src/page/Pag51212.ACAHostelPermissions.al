@@ -1,7 +1,7 @@
-page 51212 "ACA-Hostel Permissions"
+page 51212 "ACA-Hostel Permissions X"
 {
     PageType = List;
-    SourceTable = "ACA-Hostel Permissions";
+    SourceTable = "ACA-Hostel Permissions X";
 
     layout
     {

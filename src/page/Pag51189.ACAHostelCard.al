@@ -1,8 +1,8 @@
-page 51189 "ACA-Hostel Card"
+page 51189 "ACA-Hostel Card X"
 {
     DeleteAllowed = false;
     PageType = Document;
-    SourceTable = "ACA-Hostel Card";
+    SourceTable = "ACA-Hostel Card x";
 
     layout
     {

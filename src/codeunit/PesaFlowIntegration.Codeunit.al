@@ -278,7 +278,11 @@ Codeunit 50152 "PesaFlow Integration"
         CoreBankingHeader: Record "Core_Banking Header";
         PesaFlow_ServiceIDs: Record "Pesa-Flow_Service-IDs";
         WebPortal: Codeunit webportals;
+       posheader: Record "POS Sales Header";
     begin
+        posheader.RESET;
+        posheader.SETRANGE("No.", customerref);
+        IF posheader.FIND('-') THEN BEGIN
         PesaFlowIntegration.Reset;
         PesaFlowIntegration.SetRange(PaymentRefID, paymentrefid);
         if not PesaFlowIntegration.Find('-') then begin
@@ -295,13 +299,109 @@ Codeunit 50152 "PesaFlow Integration"
             PesaFlowIntegration."Date Received" := Today;
             PesaFlowIntegration.Status := status;
             if PesaFlowIntegration.Insert then begin
+                PostCafeSale(PesaflowIntegration);
                 inserted := true;
             end else begin
                 Error(paymentrefid + ' is a duplicate transaction ID!!!');
             end;
         end;
+        END ELSE BEGIN
+            ERROR('invalid invoice');
+        end;
     end;
 
+procedure PostCafeSale(var pflow: Record "PesaFlow Integration")
+    var
+        PosSetup: Record "POS Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        posLines: record "POS Sales Lines";
+        GenJnLine: Record "Gen. Journal Line";
+        Batch: Record "Gen. Journal Batch";
+        LineNo: Integer;
+        itemledger: Record "POS Item Ledger";
+        posItems: Record "POS Items";
+        posHeader: Record "POS Sales Header";
+
+    begin
+        posHeader.Reset();
+        posHeader.SetRange("No.", pflow.CustomerRefNo);
+        if posHeader.Find('-') then begin
+            posLines.Reset();
+            posLines.SetRange("Document No.", pflow.CustomerRefNo);
+            if posLines.Find('-') then begin
+                repeat
+                    itemledger.Init();
+                    itemledger."Entry No." := GetLastEntryNo + 1;
+                    itemledger."Item No." := posLines."No.";
+                    itemledger."Document No." := posLines."No." + posLines."Document No.";
+                    itemledger."Entry Type" := itemledger."Entry Type"::"Negative Adjmt.";
+                    itemledger."Posting Date" := Today;
+                    itemledger.Quantity := -posLines.Quantity;
+                    itemledger.Description := posLines.Description;
+                    itemledger.Insert(true);
+
+                    posLines.Posted := true;
+                    posLines.Modify();
+                until posLines.Next() = 0;
+
+            end;
+
+            // Delete Lines Present on the General Journal Line
+            GenJnLine.RESET;
+            GenJnLine.SETRANGE(GenJnLine."Journal Template Name", 'GENERAL');
+            GenJnLine.SETRANGE(GenJnLine."Journal Batch Name", pflow.CustomerRefNo);
+            GenJnLine.DELETEALL;
+            Batch.INIT;
+            Batch."Journal Template Name" := 'GENERAL';
+            Batch.Name := pflow.CustomerRefNo;
+            IF NOT Batch.GET(Batch."Journal Template Name", Batch.Name) THEN
+                Batch.INSERT;
+
+            //Debit Post acquisition
+            LineNo := LineNo + 1000;
+            GenJnLine.INIT;
+            GenJnLine."Journal Template Name" := 'GENERAL';
+            GenJnLine."Journal Batch Name" := pflow.CustomerRefNo;
+            GenJnLine."Line No." := LineNo;
+            GenJnLine."Document Type" := GenJnLine."Document Type"::Payment;
+            GenJnLine."Shortcut Dimension 1 Code" := '020';
+            GenJnLine."Account Type" := GenJnLine."Account Type"::"Bank Account";
+            GenJnLine."Account No." := posHeader."Bank Account";
+            GenJnLine."Posting Date" := pflow."Date Received";
+            GenJnLine."Document No." := pflow.CustomerRefNo;
+            GenJnLine.Description := 'Food sales for ' + format(posHeader."Customer Type");
+            GenJnLine.Amount := pflow.PaidAmount;
+            GenJnLine.VALIDATE(GenJnLine.Amount);
+            GenJnLine."Bal. Account Type" := GenJnLine."Bal. Account Type"::"G/L Account";
+            GenJnLine."Bal. Account No." := posHeader."Income Account";
+            IF GenJnLine.Amount <> 0 THEN
+                GenJnLine.INSERT;
+            CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post2", GenJnLine);
+            Batch.setrange("Journal Template Name", 'GENERAL');
+            Batch.setrange(Name, pflow.CustomerRefNo);
+            Batch.Delete();
+
+            posHeader.Posted := True;
+            posHeader.Modify(true);
+            Message('im here');
+        end;
+
+
+
+
+
+    end;
+
+    procedure GetLastEntryNo(): Integer;
+    var
+        PosLedger: Record "POS Item Ledger";
+    begin
+        PosLedger.Reset();
+        if PosLedger.FindLast() then
+            exit(PosLedger."Entry No.")
+        else
+            exit(0);
+    end;
 
     procedure PesaFlowTransExists(paymentrefid: Code[20]) exists: Boolean
     begin

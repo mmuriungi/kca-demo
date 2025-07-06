@@ -1,4 +1,4 @@
-report 50624 "Hostel Booking Card"
+report 50624 "Hostel Booking Card X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Hostel Booking Card.rdl';

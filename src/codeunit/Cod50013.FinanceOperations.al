@@ -56,6 +56,7 @@ codeunit 50013 "Finance Operations"
             PayHeader."Responsibility Center" := FinImprestHeader."Responsibility Center";
             PayHeader.Payee := FinImprestHeader.Payee;
             PayHeader."On Behalf Of" := FinImprestHeader."On Behalf Of";
+            PayHeader."Imprest No.":=FinImprestHeader."No.";
             Info.get;
             PayHeader."On Behalf Of" := Info.Name;
             PayHeader.Insert();

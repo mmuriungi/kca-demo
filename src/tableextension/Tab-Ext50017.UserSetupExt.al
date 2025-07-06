@@ -369,5 +369,18 @@ tableextension 50017 UserSetupExt extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
+        field(56676; "Hostel Admin"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(56677; "Can Archive Prof. Host. Allocs"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        //"Bulk upload of Units"
+        field(56678; "Bulk upload of Units"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

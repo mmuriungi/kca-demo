@@ -1,4 +1,4 @@
-report 50615 "Hostel Allocations Per Block"
+report 50615 "Hostel Allocations Per Block X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Hostel Allocations Per Block.rdl';

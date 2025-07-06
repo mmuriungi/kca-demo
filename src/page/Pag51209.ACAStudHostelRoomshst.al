@@ -1,7 +1,7 @@
-page 51209 "ACA-Stud. Hostel Rooms hst"
+page 51209 "ACA-Stud. Hostel Rooms hst X"
 {
     PageType = ListPart;
-    SourceTable = "ACA-Students Hostel Rooms";
+    SourceTable = "ACA-Students Hostel Rooms x";
     SourceTableView = WHERE(Cleared = CONST(true));
 
     layout

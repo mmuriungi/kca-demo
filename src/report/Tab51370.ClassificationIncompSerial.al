@@ -16,7 +16,7 @@ table 51370 "Classification Incomp. Serial"
     }
     keys
     {
-        key(PK; "Student Number", Serial)
+        key(PK; "Student Number")
         {
             Clustered = true;
         }

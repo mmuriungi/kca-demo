@@ -244,8 +244,8 @@ Table 77382 Core_Banking_Details
         GenJnl: Record "Gen. Journal Line";
         Stages: Record "ACA-Programme Stages";
         Units: Record "ACA-Units/Subjects";
-        // ExamsByStage: Record UnknownRecord61526;
-        // ExamsByUnit: Record UnknownRecord61527;
+        // ExamsByStage: Record "ACA-Exams";
+        // ExamsByUnit: Record "ACA-Exams By Units";
         Charges: Record "ACA-Charge";
         Receipt: Record "ACA-Receipt";
         ReceiptItems: Record "ACA-Receipt Items";

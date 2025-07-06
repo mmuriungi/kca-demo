@@ -152,8 +152,6 @@ Page 77702 "Process Exams Central Gen.2"
                     ACAExamProcActiveUsers.SetRange("User is Active", true);
                     if ACAExamProcActiveUsers.Find('-') then begin
                         if Confirm(ACAExamProcActiveUsers."Processing Users" + ' is Processing!\Continue?', true, 'FALSE', 'Test') = true then begin
-                            ACAExamProcActiveUsers2.Reset;
-                            if ACAExamProcActiveUsers2.Find('-') then ACAExamProcActiveUsers2.DeleteAll;
                             ACAExamProcActiveUsers2.Init;
                             ACAExamProcActiveUsers2."Token ID" := 1;
                             ACAExamProcActiveUsers2."Processing Users" := UserId;

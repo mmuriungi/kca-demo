@@ -2332,6 +2332,9 @@ table 50213 "HRM-Employee C"
         field(63219; "Secondary Income"; Boolean)
         {
         }
+        field(63220; "Is Security Officer"; Boolean)
+        {
+        }
     }
 
     keys

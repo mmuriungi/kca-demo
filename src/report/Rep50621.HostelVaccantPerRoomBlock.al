@@ -1,4 +1,4 @@
-report 50621 "Hostel Vaccant Per Room/Block"
+report 50621 "Hostel Vaccant Per Block X"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Hostel Vaccant Per RoomBlock.rdl';

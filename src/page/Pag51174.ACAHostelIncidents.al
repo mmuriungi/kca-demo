@@ -1,4 +1,4 @@
-page 51174 "ACA-Hostel Incidents"
+page 51174 "ACA-Hostel Incidents X"
 {
     PageType = List;
     SourceTable = "Hostel Incidents Register";
