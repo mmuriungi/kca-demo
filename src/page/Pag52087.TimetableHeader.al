@@ -66,6 +66,7 @@ page 52087 "Timetable Header"
             group(ExamGroup)
             {
                 Caption = 'Exam Controls';
+                Visible = Rec."Type" = Rec."Type"::Exam;
                 field("Start Date"; Rec."Start Date")
                 {
                     ToolTip = 'Specifies the value of the Start Date field.', Comment = '%';
