@@ -105,6 +105,17 @@ Page 69177 "ACA-Hostels Role Center"
                 PromotedOnly = true;
                 RunObject = Report "Hostel Allo. Per Room (Det.)";
             }
+            action("Semester Progression")
+            {
+                ApplicationArea = Basic;
+                Caption = 'Semester Progression';
+                Image = Process;
+                Promoted = true;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                RunObject = Report "ACA-Hostel Sem. Progression";
+                ToolTip = 'Progress hostel students to a new semester';
+            }
         }
         area(sections)
         {
