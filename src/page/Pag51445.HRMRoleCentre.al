@@ -122,7 +122,6 @@ page 51445 "HRM-Role Centre"
             }
             group("Leave Reports")
             {
-                // Caption = 'MNU HRM Reports';
                 action("Leave")
                 {
                     Caption = 'Leave Types';
