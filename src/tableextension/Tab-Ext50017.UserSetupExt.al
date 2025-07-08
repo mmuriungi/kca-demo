@@ -382,5 +382,9 @@ tableextension 50017 UserSetupExt extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
+        field(56679; "Can Process Marks"; Boolean)
+        {
+            
+        }
     }
 }

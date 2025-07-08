@@ -12,6 +12,10 @@ pageextension 50008 UsersetupPgExt extends "User Setup"
             {
                 ApplicationArea = all;
             }
+            field("Can Process Marks";Rec."Can Process Marks")
+            {
+
+            }
         }
         addafter("Allow Posting To")
         {
