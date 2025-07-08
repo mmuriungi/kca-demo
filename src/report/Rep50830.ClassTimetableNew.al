@@ -422,7 +422,7 @@ report 50830 "Class Timetable New"
         if TimetableEntry."Programme Code" <> '' then
             ClassText += ' (' + TimetableEntry."Programme Code" + ')';
         if LecturerName <> '' then
-            ClassText += '\' + LecturerName;
+            ClassText += lbr + LecturerName;
 
             ClassText+=lbr+Format(TimetableEntry."Duration (Hours)") +' hrs.';
         exit(ClassText);
