@@ -49,7 +49,7 @@ report 50832 Check1
             column(JournalBatchName_GenJnlLine; "Journal Batch Name")
             {
             }
-            column(Description_GenJnlLinel; GenJnlLine.Description) { }
+            column(Description_GenJnlLine; GenJnlLine.Description) { }
             column(LineNo_GenJnlLine; "Line No.")
             {
             }
@@ -61,6 +61,10 @@ report 50832 Check1
                 }
                 column(CheckDateText; CheckDateText)
                 {
+                }
+                column(NumberText_1_; NumberText[1])
+                {
+
                 }
                 column(CheckNoText; CheckNoText)
                 {
@@ -159,6 +163,8 @@ report 50832 Check1
 
                     trigger OnAfterGetRecord()
                     begin
+                        CheckReport.InitTextVariable();
+                        CheckReport.FormatNoText(NumberText, GenJnlLine.Amount, '');
                         if not TestPrint then begin
                             if FoundLast or not AddedRemainingAmount then begin
                                 if RemainingAmount <> 0 then begin
@@ -892,6 +898,7 @@ report 50832 Check1
     end;
 
     var
+        CheckReport: Report "Check";
         CompanyInfo: Record "Company Information";
         CurrencyExchangeRate: Record "Currency Exchange Rate";
         SalesPurchPerson: Record "Salesperson/Purchaser";
@@ -920,6 +927,7 @@ report 50832 Check1
         CheckNoText: Text[30];
         CheckDateText: Text[30];
         CheckAmountText: Text[30];
+        NumberText: array[2] of Text[1024];
         DescriptionLine: array[2] of Text[80];
         DocNo: Text[30];
         ExtDocNo: Text[35];
