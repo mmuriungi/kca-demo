@@ -2407,7 +2407,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine."Applies-to Doc. No." := PayLine."Applies-to Doc. No.";
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Applies-to ID";
-                GenJnlLine.Description := Rec.Payee + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
+                GenJnlLine.Description := Rec.Payee + '  ' + Payments."Cheque No.";
                 ///GenJnlLine."Received By":=Payee;
                 IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
 
