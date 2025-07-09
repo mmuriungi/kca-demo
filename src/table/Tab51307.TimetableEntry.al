@@ -94,7 +94,7 @@ table 51307 "Timetable Entry"
 
     keys
     {
-        key(PK; "Entry No.", "Academic Year", "Unit Code", "Time Slot Code", Semester)
+        key(PK; "Entry No.", "Academic Year", "Unit Code", "Time Slot Code", Semester,"Session Type")
         {
             Clustered = true;
         }
