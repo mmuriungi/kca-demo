@@ -760,7 +760,7 @@ table 50483 "KUCCPS Imports"
                     end;
                     until ACANewStudDocSetup.Next = 0;
                 end;
-                //begin create customer in order to bill hostel
+                //begin create customer in order to bill hostel 
                 //process admission
                 if KUCCPSImports.Accomodation = KUCCPSImports.Accomodation::Resident then begin
                     Selected := true;

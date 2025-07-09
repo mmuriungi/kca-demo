@@ -11,7 +11,7 @@
       <am:Name>PBIRB</am:Name>
       <am:Version>15.7.1813.16</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-07-02T12:00:00.0000000Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-07-08T04:49:57.0883682Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -28,8 +28,8 @@
     <ReportSection>
       <Body>
         <ReportItems>
-          <!-- Header Section -->
           <Textbox Name="ReportTitle">
+            <rd:DefaultName>ReportTitle</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
@@ -79,7 +79,6 @@
                 </Style>
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>ReportTitle</rd:DefaultName>
             <Top>0.25in</Top>
             <Left>0.5in</Left>
             <Height>1in</Height>
@@ -94,19 +93,17 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <!-- Main Timetable Matrix -->
           <Tablix Name="TimetableMatrix">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.5in</Width>
+                  <Width>2.51042in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2in</Width>
+                  <Width>2.97917in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
-                <!-- Header Row -->
                 <TablixRow>
                   <Height>0.3in</Height>
                   <TablixCells>
@@ -122,7 +119,6 @@
                                   <Value>VENUE</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
-                                    <FontSize>10pt</FontSize>
                                     <TextAlign>Center</TextAlign>
                                   </Style>
                                 </TextRun>
@@ -134,9 +130,7 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
                             <BackgroundColor>DarkGray</BackgroundColor>
                             <Color>White</Color>
@@ -159,8 +153,8 @@
                                 <TextRun>
                                   <Value>=Fields!TimeSlotHeader.Value</Value>
                                   <Style>
-                                    <FontWeight>Bold</FontWeight>
                                     <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextAlign>Center</TextAlign>
                                   </Style>
                                 </TextRun>
@@ -172,9 +166,7 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
                             <BackgroundColor>DarkGray</BackgroundColor>
                             <Color>White</Color>
@@ -188,7 +180,6 @@
                     </TablixCell>
                   </TablixCells>
                 </TablixRow>
-                <!-- Day Header Row -->
                 <TablixRow>
                   <Height>0.3in</Height>
                   <TablixCells>
@@ -203,8 +194,8 @@
                                 <TextRun>
                                   <Value>=Fields!DayOfWeek.Value</Value>
                                   <Style>
-                                    <FontWeight>Bold</FontWeight>
                                     <FontSize>11pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextAlign>Left</TextAlign>
                                   </Style>
                                 </TextRun>
@@ -216,11 +207,9 @@
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightBlue</BackgroundColor>
+                            <BackgroundColor>Green</BackgroundColor>
                             <PaddingLeft>4pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -238,21 +227,20 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value></Value>
+                                  <Value />
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
                             </Border>
-                            <BackgroundColor>LightBlue</BackgroundColor>
+                            <BackgroundColor>Green</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -263,7 +251,6 @@
                     </TablixCell>
                   </TablixCells>
                 </TablixRow>
-                <!-- Data Row -->
                 <TablixRow>
                   <Height>0.4in</Height>
                   <TablixCells>
@@ -283,11 +270,11 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>Black</Color>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
@@ -314,11 +301,11 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
                           <Style>
                             <Border>
-                              <Color>LightGray</Color>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
@@ -386,16 +373,17 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>1.5in</Top>
             <Left>0.5in</Left>
-            <Height>2in</Height>
-            <Width>15in</Width>
+            <Height>1in</Height>
+            <Width>5.48958in</Width>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
-          <!-- Footer Information -->
           <Textbox Name="FooterInfo">
+            <rd:DefaultName>FooterInfo</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
@@ -404,18 +392,19 @@
                   <TextRun>
                     <Value>=First(Fields!PrintedBy.Value, "DataSet_Result") + "  " + First(Fields!PrintedDate.Value, "DataSet_Result") + "  " + First(Fields!PrintedTime.Value, "DataSet_Result")</Value>
                     <Style>
-                      <FontSize>8pt</FontSize>
                       <FontStyle>Italic</FontStyle>
+                      <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
+                <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>FooterInfo</rd:DefaultName>
             <Top>4in</Top>
             <Left>0.5in</Left>
             <Height>0.3in</Height>
             <Width>15in</Width>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -430,9 +419,10 @@
         <Height>5in</Height>
         <Style />
       </Body>
+      <Width>17in</Width>
       <Page>
         <PageHeight>8.5in</PageHeight>
-        <PageWidth>17in</PageWidth>
+        <PageWidth>24in</PageWidth>
         <LeftMargin>0.25in</LeftMargin>
         <RightMargin>0.25in</RightMargin>
         <TopMargin>0.25in</TopMargin>
@@ -440,7 +430,6 @@
         <ColumnSpacing>0.13in</ColumnSpacing>
         <Style />
       </Page>
-      <Width>17in</Width>
     </ReportSection>
   </ReportSections>
   <Language>en-US</Language>

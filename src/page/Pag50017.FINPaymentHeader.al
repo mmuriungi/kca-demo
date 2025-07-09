@@ -212,6 +212,29 @@ page 50017 "FIN-Payment Header"
 
         area(processing)
         {
+            Action("Approve/Modify to Aprove")
+            {
+                Caption = 'Approval';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    if Confirm('Do you want to Approve this Payment Voucher?', true) then begin
+                        Rec.Status := Rec.Status::Approved;
+                        Rec."Modified Appproved By" := USERID;
+                        Rec.Modify;
+                        CurrPage.Update;
+                        // end else begin
+                        // Rec.Status := Rec.Status::Open;
+                        //  Rec.Modify;
+                        // CurrPage.Update;
+                    end;
+
+                end;
+            }
             action(Approve)
             {
                 Caption = 'Approve';
@@ -557,19 +580,19 @@ page 50017 "FIN-Payment Header"
 
                     trigger OnAction()
                     begin
-                        //CheckPVRequiredItems(Rec);
-                        // DELETE ANY LINE ITEM THAT MAY BE PRESENT
-                        // GenJnlLine.RESET;
-                        // GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
-                        // GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-                        // IF GenJnlLine.FIND('+') THEN
-                        //     GenJnlLine.DELETEALL(true);
-                        //GenJnlLine.RESET;
+                        CheckPVRequiredItems(Rec);
+                        //  DELETE ANY LINE ITEM THAT MAY BE PRESENT
+                        GenJnlLine.RESET;
+                        GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
+                        GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
+                        IF GenJnlLine.FIND('+') THEN
+                            GenJnlLine.DELETEALL(true);
+                        GenJnlLine.RESET;
 
-                        // PopulateCheckJournal(Payments);
-                        // GenSetup.GET;
-                        // GenSetup."Casuals  Register Nos" := Rec."Paying Bank Account";
-                        // GenSetup.MODIFY;
+                        PopulateCheckJournal(Payments);
+                        GenSetup.GET;
+                        GenSetup."Casuals  Register Nos" := Rec."Paying Bank Account";
+                        GenSetup.MODIFY;
 
 
                         // UPDATE CHEQUE NO
@@ -589,12 +612,17 @@ page 50017 "FIN-Payment Header"
 
                     trigger OnAction()
                     begin
+                        GenJnlLine.RESET;
+                        GenJnlLine.SETRANGE("Journal Template Name", JTemplate);
+                        GenJnlLine.SETRANGE("Journal Batch Name", JBatch);
+                        IF GenJnlLine.FIND('-') THEN
+                            REPORT.RUN(Report::Check1, TRUE, TRUE, GenJnlLine);
 
 
-                        Payments.RESET;
+                        /*Payments.RESET;
                         Payments.SETFILTER(Payments."No.", rec."No.");
                         //IF Payments.FIND('-') THEN
-                        REPORT.RUN(Report::"Check-Printing", TRUE, TRUE, Payments);
+                        REPORT.RUN(Report::Check1, TRUE, TRUE, Payments);*/
                     end;
                 }
                 action("Void Check")
@@ -2379,7 +2407,7 @@ page 50017 "FIN-Payment Header"
                 GenJnlLine."Applies-to Doc. No." := PayLine."Applies-to Doc. No.";
                 GenJnlLine.VALIDATE(GenJnlLine."Applies-to Doc. No.");
                 GenJnlLine."Applies-to ID" := PayLine."Applies-to ID";
-                GenJnlLine.Description := Rec.Payee + ' _ ' + 'Cheque No: ' + Payments."Cheque No.";
+                GenJnlLine.Description := Rec.Payee + '  ' + Payments."Cheque No.";
                 ///GenJnlLine."Received By":=Payee;
                 IF GenJnlLine.Amount <> 0 THEN GenJnlLine.INSERT(True);
 

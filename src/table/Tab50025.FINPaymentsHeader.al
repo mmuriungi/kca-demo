@@ -706,6 +706,12 @@ Yes	50165	Rectified	Boolean
         {
             DataClassification = ToBeClassified;
         }
+        field(50178; "Modified Appproved By"; Code[30])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Modified By';
+            Description = 'Stores the user who modified the record';
+        }
     }
 
     keys

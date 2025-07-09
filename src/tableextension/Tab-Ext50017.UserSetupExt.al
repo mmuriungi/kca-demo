@@ -377,5 +377,14 @@ tableextension 50017 UserSetupExt extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
+        //"Bulk upload of Units"
+        field(56678; "Bulk upload of Units"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(56679; "Can Process Marks"; Boolean)
+        {
+            
+        }
     }
 }

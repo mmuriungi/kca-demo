@@ -154,7 +154,7 @@ page 50591 "PRL-Header Salary Card"
                     ApplicationArea = all;
 
                 }
-                field("Bank Name"; Rec."Bank Name")
+                field("Bank Name"; Rec."Main Bank Name")
                 {
                     ToolTip = 'Specifies the value of the Bank Name field.';
                     ApplicationArea = All;

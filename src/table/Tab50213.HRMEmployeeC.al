@@ -1641,12 +1641,12 @@ table 50213 "HRM-Employee C"
             begin
                 PrBankStructure.SetRange(PrBankStructure."Bank Code", "Main Bank");
                 PrBankStructure.SetRange(PrBankStructure."Branch Code", "Branch Bank");
-
-                if PrBankStructure.FindFirst() then
+                if PrBankStructure.FindFirst() then begin
                     "Branch Bank" := PrBankStructure."Branch Code";
-                "Branch Bank Name" := PrBankStructure."Branch Name";
-                "Main Bank Name" := PrBankStructure."Bank Name";
-                Validate("Branch Bank", "Main Bank");
+                    "Branch Bank Name" := PrBankStructure."Branch Name";
+                    "Main Bank Name" := PrBankStructure."Bank Name";
+                    "Bank Name" := PrBankStructure."Bank Name";
+                end;
             end;
         }
         field(2026; "Branch Bank"; Code[10])

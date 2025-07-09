@@ -245,14 +245,20 @@ report 50830 "Class Timetable New"
         IncludeStudentCount: Boolean;
 
     local procedure SetReportFilters()
+    var
+        Semester: Record "ACA-Semesters";
     begin
         ReportTitle := 'CLASS TIMETABLE';
 
         // Set Academic Year
         if TimetableEntry.GetFilter("Academic Year") <> '' then
             AcademicYear := TimetableEntry.GetFilter("Academic Year")
-        else
-            AcademicYear := 'All Academic Years';
+        else begin
+            Semester.Reset();
+            Semester.SetRange(Code, TimetableEntry.Semester);
+            if Semester.FindFirst() then
+                AcademicYear := Semester."Academic Year";
+        end;
 
         // Set Semester
         if TimetableEntry.GetFilter(Semester) <> '' then
@@ -309,8 +315,10 @@ report 50830 "Class Timetable New"
     local procedure GetLecturerDetails()
     begin
         LecturerName := '';
-        if LecturerRec.Get(TimetableEntry."Lecturer Code") then
-            LecturerName := LecturerRec.Names;
+        LecturerRec.Reset();
+        LecturerRec.SetRange("No.",TimetableEntry."Lecturer Code");
+        if LecturerRec.FindFirst() then
+            LecturerName := LecturerRec."First Name"+' '+LecturerRec."Middle Name"+' '+LecturerRec."Last Name";;
     end;
 
     local procedure CalculateStudentCount()
@@ -402,15 +410,21 @@ report 50830 "Class Timetable New"
 
     local procedure GetClassDetails(): Text[500]
     var
-        ClassText: Text[500];
+        ClassText: Text[2048];
+        lec: Text[500];
+        lbr: Text;
+        Thelper: Codeunit "Type Helper";
     begin
+        lbr:=Thelper.CRLFSeparator();
         ClassText := TimetableEntry."Unit Code";
         if TimetableEntry."Group No" <> '' then
-            ClassText += TimetableEntry."Group No";
+            ClassText += ' ' + '(' + TimetableEntry."Group No" + ') ';
         if TimetableEntry."Programme Code" <> '' then
             ClassText += ' (' + TimetableEntry."Programme Code" + ')';
         if LecturerName <> '' then
-            ClassText += '\' + LecturerName;
+            ClassText += lbr + LecturerName;
+
+            ClassText+=lbr+Format(TimetableEntry."Duration (Hours)") +' hrs.';
         exit(ClassText);
     end;
 

@@ -77,12 +77,12 @@ table 50896 "ACA-Room Spaces"
 
     trigger OnInsert()
     begin
-        ACAHostelPermissions.PermissionMan(USERID, 9);
+      //  ACAHostelPermissions.PermissionMan(USERID, 9);
     end;
 
     trigger OnModify()
     begin
-        ACAHostelPermissions.PermissionMan(USERID, 9);
+        //ACAHostelPermissions.PermissionMan(USERID, 9);
     end;
 
     var

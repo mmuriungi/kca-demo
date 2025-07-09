@@ -3297,7 +3297,7 @@ Codeunit 61106 webportals
         SalaryCard.SetRange(SalaryCard."Employee Code", EmployeeNo);
         SalaryCard.SetRange(SalaryCard."Payroll Period", Period);
         if SalaryCard.Find('-') then begin
-            Report.SaveAsPdf(report::"Individual Payslips 2", filename, SalaryCard);   //52017726
+            Report.SaveAsPdf(report::"PRL-Payslips", filename, SalaryCard);
         end;
         exit(filename);
     end;
@@ -9230,6 +9230,7 @@ Codeunit 61106 webportals
                                             ACAExamResults.Validate(Score);
                                             ACAExamResults.Modify;
                                             ACAExamResults.Validate(ExamType);
+                                            Commit();
                                             MarksCaptureReturn := 'SUCCESS:: Marks inserted';
                                         end else begin
                                             ACAExamResults.Init;
@@ -9271,6 +9272,7 @@ Codeunit 61106 webportals
                                                 ACAExamResults.Validate(ExamType);
                                                 ACAExamResults.Modify;
                                             end;
+                                            Commit();
                                             MarksCaptureReturn := 'SUCCESS:: Marks inserted';
                                         end;
                                         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -9525,6 +9527,7 @@ Codeunit 61106 webportals
                                                 ACAExamResults.Validate(ExamType);
                                                 ACAExamResults.Modify;
                                             end;
+                                            Commit();
                                             MarksCaptureReturn := 'SUCCESS:: Marks inserted';
                                         end;
                                         ///////////////////////////////////////////////////////////////////////////////////////////

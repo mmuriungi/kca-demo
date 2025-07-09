@@ -130,8 +130,14 @@ Page 77702 "Process Exams Central Gen.2"
                     ACA2NDExamClassificationStuds: Record "ACA-2ndSuppExam Class. Studs";
                     ACA2NDExamClassificationStudsCheck: Record "ACA-2ndSuppExam Class. Studs";
                     ACA2NDExamCummulativeResit: Record "ACA-2ndSuppExam Cumm. Resit";
+                    userSetup: Record "User Setup";
                 begin
                     //ExamsProcessing.MarksPermissions(UserId);
+                    userSetup.Reset();
+                    userSetup.SetRange("User ID",UserId);
+                    if userSetup.FindFirst() then begin
+                        if not userSetup."Can Process Marks" then Error('Processing marks not permitted. Contact ICT.');
+                    end else Error('Your user id does not exist in the user setup.');
                     if Confirm('Process Marks?', true) = false then Error('Cancelled by user!');
                     if AcadYear = '' then Error('Specify Academic Year');
                     if ((Schools = '') and (programs = '') and (StudNos = '')) then Error('Specify one of the following:\a. School\b. Programme\c. Student');
@@ -152,8 +158,6 @@ Page 77702 "Process Exams Central Gen.2"
                     ACAExamProcActiveUsers.SetRange("User is Active", true);
                     if ACAExamProcActiveUsers.Find('-') then begin
                         if Confirm(ACAExamProcActiveUsers."Processing Users" + ' is Processing!\Continue?', true, 'FALSE', 'Test') = true then begin
-                            ACAExamProcActiveUsers2.Reset;
-                            if ACAExamProcActiveUsers2.Find('-') then ACAExamProcActiveUsers2.DeleteAll;
                             ACAExamProcActiveUsers2.Init;
                             ACAExamProcActiveUsers2."Token ID" := 1;
                             ACAExamProcActiveUsers2."Processing Users" := UserId;

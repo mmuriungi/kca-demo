@@ -12,6 +12,10 @@ pageextension 50008 UsersetupPgExt extends "User Setup"
             {
                 ApplicationArea = all;
             }
+            field("Can Process Marks";Rec."Can Process Marks")
+            {
+
+            }
         }
         addafter("Allow Posting To")
         {
@@ -320,6 +324,11 @@ pageextension 50008 UsersetupPgExt extends "User Setup"
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Can Archive Prof. Host. Allocs field.', Comment = '%';
+            }
+            field("Bulk upload of Units"; Rec."Bulk upload of Units")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Bulk upload of Units field.', Comment = '%';
             }
         }
     }

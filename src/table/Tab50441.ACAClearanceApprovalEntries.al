@@ -71,7 +71,7 @@ table 50441 "ACA-Clearance Approval Entries"
 
     keys
     {
-        key(Key1; "Clearance Level Code", Department, "Clear By ID")
+        key(Key1; "Clearance Level Code", Department, "Clear By ID",Semester,"Academic Year","Student ID")
         {
             Clustered = true;
         }

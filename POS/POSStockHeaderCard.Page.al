@@ -39,10 +39,29 @@ Page 99413 "POS Stock Header Card"
                 {
                     ApplicationArea = Basic;
                 }
-                part(Control1000000012; "POS Stock Lines")
-                {
-                    SubPageLink = "Document No." = field("No.");
-                }
+
+            }
+            part(Control1000000012; "POS Stock Lines")
+            {
+                SubPageLink = "Document No." = field("No.");
+            }
+        }
+    }
+    actions
+    {
+        area(processing)
+        {
+            action("Post")
+            {
+                ApplicationArea = Basic;
+                Image = WIPLedger;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                trigger OnAction()
+                begin
+                    Rec.postStock();
+                end;
             }
         }
     }

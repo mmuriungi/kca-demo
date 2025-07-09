@@ -150,11 +150,14 @@ table 50829 "Aca-Special Exams Results"
                         IF ACAExamCategory."Supplementary Max. Score" <> 0 THEN BEGIN
                             IF ((Contribution > ACAExamCategory."Supplementary Max. Score") OR (Contribution = ACAExamCategory."Supplementary Max. Score")) THEN BEGIN
                                 AcaSpecialExamsDetails."Total Marks" := ACAExamCategory."Supplementary Max. Score";
+                                AcaSpecialExamsDetails."Exam Marks":=ACAExamCategory."Supplementary Max. Score";
                             END ELSE BEGIN
                                 AcaSpecialExamsDetails."Total Marks" := Contribution;//;
+                                AcaSpecialExamsDetails."Exam Marks":=Contribution;
                             END;
                         END ELSE BEGIN
                             AcaSpecialExamsDetails."Total Marks" := Contribution;
+                            AcaSpecialExamsDetails."Exam Marks":=Contribution;
                         END;
                         // // //      IF prog."Exam Category"='NURSING' THEN BEGIN
                         // // //      IF ((Contribution>50) OR (Contribution=50)) THEN BEGIN 
@@ -173,6 +176,7 @@ table 50829 "Aca-Special Exams Results"
                         // AcaSpecialExamsDetails.Grade:=GetGrade(0,0,AcaSpecialExamsDetails."Total Marks",Rec.Programme);
                         // stud_Units."Old Unit":=GetGrade(stud_Units."CAT-1",stud_Units."CAT-2",stud_Units."EXAMs Marks",Course_Reg.Programme);
                         // stud_Units."Academic Year":="Academic Year";
+
                         AcaSpecialExamsDetails.MODIFY;
                     END;
 

@@ -1037,13 +1037,6 @@ report 50175 "PRL-Payslips"
 
             trigger OnAfterGetRecord()
             begin
-                /*PeriodTrans.RESET;
-                PeriodTrans.SETRANGE(PeriodTrans."Employee Code","PRL-Salary Card"."Employee Code");
-                PeriodTrans.SETRANGE(PeriodTrans."Payroll Period",SelectedPeriod);
-                PeriodTrans.SETRANGE(PeriodTrans."Transaction Code",'NPAY');
-                IF PeriodTrans.FIND('-') =FALSE THEN
-                 CurrReport.SKIP;*/
-
                 emp1.Reset;
                 emp1.SetRange(emp1."No.", "PRL-Salary Card"."Employee Code");
                 emp1.SetRange(emp1.Status, emp1.Status::Active);
@@ -1053,27 +1046,14 @@ report 50175 "PRL-Payslips"
                     ColumnNo := ColumnNo + 1;
 
                 end else if ColumnNo = 2 then begin ColumnNo := 1; end;
-
-                //ColumnNo:=ColumnNo+1;
-
                 strNssfNo := '. ';
                 strNhifNo := '. ';
                 strBank := '. ';
                 strBranch := '. ';
                 strAccountNo := '. ';
                 strPin := '. ';
-                /*CLEAR();
-                CLEAR();
-                CLEAR();
-                CLEAR();
-                CLEAR();
-                CLEAR();
-                CLEAR();
-                CLEAR(); */
 
                 RecordNo := RecordNo + 1;
-                //IF ColumnNo=0 THEN ColumnNo := ColumnNo + 1;
-
 
                 //Get the staff details (header)
                 objEmp.SetRange(objEmp."No.", "Employee Code");
@@ -1222,62 +1202,62 @@ report 50175 "PRL-Payslips"
                 strGrpText := '';
                 if PeriodTrans.Find('-') then
                     repeat
+                        if not (PeriodTrans."Transaction Code" in ['DEFCON1', 'DEFCON2']) then begin
+                            //Check if the group has changed
+                            if strGrpText <> PeriodTrans."Group Text" then begin
+                                if PeriodTrans."Group Order" <> 1 then begin
+                                    Index := Index + 1;
+                                    Trans[ColumnNo, Index] := '............................................................';
+                                    TransAmt[ColumnNo, Index] := '.........................................................';
+                                    //  TransBal[ColumnNo,Index]:='......................................';
+                                end;
 
-                        //Check if the group has changed
-                        if strGrpText <> PeriodTrans."Group Text" then begin
-                            if PeriodTrans."Group Order" <> 1 then begin
+                                if (PeriodTrans."Group Text" <> 'BASIC SALARY') and (PeriodTrans."Group Text" <> 'GROSS PAY') and
+                                (PeriodTrans."Group Text" <> 'NET PAY') then begin
+                                    Index := Index + 1;
+                                    strGrpText := PeriodTrans."Group Text";
+
+                                    Trans[ColumnNo, Index] := strGrpText;
+                                    TransAmt[ColumnNo, Index] := '.';
+                                    //  TransBal[ColumnNo,Index]:='.';
+                                end;
+
+                                // IF PeriodTrans.Amount>0 THEN
+                                // BEGIN
                                 Index := Index + 1;
-                                Trans[ColumnNo, Index] := '............................................................';
-                                TransAmt[ColumnNo, Index] := '.........................................................';
-                                //  TransBal[ColumnNo,Index]:='......................................';
-                            end;
-
-                            if (PeriodTrans."Group Text" <> 'BASIC SALARY') and (PeriodTrans."Group Text" <> 'GROSS PAY') and
-                            (PeriodTrans."Group Text" <> 'NET PAY') then begin
-                                Index := Index + 1;
-                                strGrpText := PeriodTrans."Group Text";
-
-                                Trans[ColumnNo, Index] := strGrpText;
-                                TransAmt[ColumnNo, Index] := '.';
-                                //  TransBal[ColumnNo,Index]:='.';
-                            end;
-
-                            // IF PeriodTrans.Amount>0 THEN
-                            // BEGIN
-                            Index := Index + 1;
-                            Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
-                            Evaluate(TransAmt[ColumnNo, Index], Format(PeriodTrans.Amount));
-
-                            //   IF PeriodTrans.Balance=0 THEN
-                            //  EVALUATE(TransBal[ColumnNo,Index],FORMAT('                           .'))
-                            //  ELSE
-                            //  EVALUATE(TransBal[ColumnNo,Index],FORMAT(PeriodTrans.Balance));
-                            // END;
-
-                        end else begin
-                            //  IF PeriodTrans.Amount>0 THEN
-                            //  BEGIN
-
-                            if (PeriodTrans."Group Text" <> 'BASIC SALARY') and (PeriodTrans."Group Text" <> 'GROSS PAY')
-                                        and (PeriodTrans."Group Text" <> 'NET PAY') then begin
-
-                                Index := Index + 1;
-                                strGrpText := PeriodTrans."Group Text";
-
                                 Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
                                 Evaluate(TransAmt[ColumnNo, Index], Format(PeriodTrans.Amount));
 
-                                // IF PeriodTrans.Balance=0 THEN
-                                //   EVALUATE(TransBal[ColumnNo,Index],FORMAT('                           .'))
+                                //   IF PeriodTrans.Balance=0 THEN
+                                //  EVALUATE(TransBal[ColumnNo,Index],FORMAT('                           .'))
                                 //  ELSE
                                 //  EVALUATE(TransBal[ColumnNo,Index],FORMAT(PeriodTrans.Balance));
-                            end;
-                        end;
-                        PeriodTrans.CalcFields(PeriodTrans."Total Statutories");
-                        if PeriodTrans."Transaction Code" = 'TOT-DED' then
-                            //  error('Test');
-                            Evaluate(TransAmt[ColumnNo, Index], Format(PeriodTrans.Amount + PeriodTrans."Total Statutories"));
+                                // END;
 
+                            end else begin
+                                //  IF PeriodTrans.Amount>0 THEN
+                                //  BEGIN
+
+                                if (PeriodTrans."Group Text" <> 'BASIC SALARY') and (PeriodTrans."Group Text" <> 'GROSS PAY')
+                                            and (PeriodTrans."Group Text" <> 'NET PAY') then begin
+
+                                    Index := Index + 1;
+                                    strGrpText := PeriodTrans."Group Text";
+
+                                    Trans[ColumnNo, Index] := PeriodTrans."Transaction Name";
+                                    Evaluate(TransAmt[ColumnNo, Index], Format(PeriodTrans.Amount));
+
+                                    // IF PeriodTrans.Balance=0 THEN
+                                    //   EVALUATE(TransBal[ColumnNo,Index],FORMAT('                           .'))
+                                    //  ELSE
+                                    //  EVALUATE(TransBal[ColumnNo,Index],FORMAT(PeriodTrans.Balance));
+                                end;
+                            end;
+                            PeriodTrans.CalcFields(PeriodTrans."Total Statutories");
+                            if PeriodTrans."Transaction Code" = 'TOT-DED' then
+                                //  error('Test');
+                                Evaluate(TransAmt[ColumnNo, Index], Format(PeriodTrans.Amount + PeriodTrans."Total Statutories"));
+                        end;
                     until PeriodTrans.Next = 0;
                 Index := Index + 1;
                 Trans[ColumnNo, Index] := '................................................................';
