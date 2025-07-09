@@ -1913,6 +1913,7 @@ codeunit 50096 "Timetable Management"
                                     TimetableEntry."Stage Code" := CourseOffering.Stage;
                                     TimetableEntry.Type := TimetableEntry.Type::Class;
                                     TimetableEntry."Session Type" := TimetableEntry."Session Type"::Practical;  // Explicitly mark as practical
+                                    TimetableEntry."Document No.":=DocumentNo;
 
                                     // Set the stream from the lecturer units
                                     if CourseOffering.Stream <> '' then

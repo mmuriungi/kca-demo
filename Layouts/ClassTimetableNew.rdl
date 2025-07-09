@@ -24,133 +24,6 @@
       <rd:DataSourceID>1d3a5e89-8b5d-4e21-8a7f-3c2b4d5e6f7a</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="ReportTitle">
-          <DataField>ReportTitle</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="CompanyPicture">
-          <DataField>CompanyPicture</DataField>
-        </Field>
-        <Field Name="AcademicYear">
-          <DataField>AcademicYear</DataField>
-        </Field>
-        <Field Name="SemesterName">
-          <DataField>SemesterName</DataField>
-        </Field>
-        <Field Name="TimetablePeriod">
-          <DataField>TimetablePeriod</DataField>
-        </Field>
-        <Field Name="ProgrammeFilter">
-          <DataField>ProgrammeFilter</DataField>
-        </Field>
-        <Field Name="StageFilter">
-          <DataField>StageFilter</DataField>
-        </Field>
-        <Field Name="PrintedBy">
-          <DataField>PrintedBy</DataField>
-        </Field>
-        <Field Name="PrintedDate">
-          <DataField>PrintedDate</DataField>
-        </Field>
-        <Field Name="PrintedTime">
-          <DataField>PrintedTime</DataField>
-        </Field>
-        <Field Name="Date">
-          <DataField>Date</DataField>
-        </Field>
-        <Field Name="ClassDate">
-          <DataField>ClassDate</DataField>
-        </Field>
-        <Field Name="ClassDateShort">
-          <DataField>ClassDateShort</DataField>
-        </Field>
-        <Field Name="DayOfWeek">
-          <DataField>DayOfWeek</DataField>
-        </Field>
-        <Field Name="DayOrder">
-          <DataField>DayOrder</DataField>
-        </Field>
-        <Field Name="TimeSlotCode">
-          <DataField>TimeSlotCode</DataField>
-        </Field>
-        <Field Name="StartTime">
-          <DataField>StartTime</DataField>
-        </Field>
-        <Field Name="EndTime">
-          <DataField>EndTime</DataField>
-        </Field>
-        <Field Name="Duration">
-          <DataField>Duration</DataField>
-        </Field>
-        <Field Name="UnitCode">
-          <DataField>UnitCode</DataField>
-        </Field>
-        <Field Name="UnitDescription">
-          <DataField>UnitDescription</DataField>
-        </Field>
-        <Field Name="LectureHallCode">
-          <DataField>LectureHallCode</DataField>
-        </Field>
-        <Field Name="LectureHallName">
-          <DataField>LectureHallName</DataField>
-        </Field>
-        <Field Name="HallCapacity">
-          <DataField>HallCapacity</DataField>
-        </Field>
-        <Field Name="ProgrammeCode">
-          <DataField>ProgrammeCode</DataField>
-        </Field>
-        <Field Name="ProgrammeName">
-          <DataField>ProgrammeName</DataField>
-        </Field>
-        <Field Name="StageCode">
-          <DataField>StageCode</DataField>
-        </Field>
-        <Field Name="StageName">
-          <DataField>StageName</DataField>
-        </Field>
-        <Field Name="LecturerCode">
-          <DataField>LecturerCode</DataField>
-        </Field>
-        <Field Name="LecturerName">
-          <DataField>LecturerName</DataField>
-        </Field>
-        <Field Name="ClassType">
-          <DataField>ClassType</DataField>
-        </Field>
-        <Field Name="SessionType">
-          <DataField>SessionType</DataField>
-        </Field>
-        <Field Name="StudentCount">
-          <DataField>StudentCount</DataField>
-        </Field>
-        <Field Name="DocumentNo">
-          <DataField>DocumentNo</DataField>
-        </Field>
-        <Field Name="EntryNo">
-          <DataField>EntryNo</DataField>
-        </Field>
-        <Field Name="DayTimeSlot">
-          <DataField>DayTimeSlot</DataField>
-        </Field>
-        <Field Name="ClassDetails">
-          <DataField>ClassDetails</DataField>
-        </Field>
-        <Field Name="TimeSlotHeader">
-          <DataField>TimeSlotHeader</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -559,12 +432,133 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Language>en-US</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="CompanyPicture">
+          <DataField>CompanyPicture</DataField>
+        </Field>
+        <Field Name="AcademicYear">
+          <DataField>AcademicYear</DataField>
+        </Field>
+        <Field Name="SemesterName">
+          <DataField>SemesterName</DataField>
+        </Field>
+        <Field Name="TimetablePeriod">
+          <DataField>TimetablePeriod</DataField>
+        </Field>
+        <Field Name="ProgrammeFilter">
+          <DataField>ProgrammeFilter</DataField>
+        </Field>
+        <Field Name="StageFilter">
+          <DataField>StageFilter</DataField>
+        </Field>
+        <Field Name="PrintedBy">
+          <DataField>PrintedBy</DataField>
+        </Field>
+        <Field Name="PrintedDate">
+          <DataField>PrintedDate</DataField>
+        </Field>
+        <Field Name="PrintedTime">
+          <DataField>PrintedTime</DataField>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+        </Field>
+        <Field Name="ClassDate">
+          <DataField>ClassDate</DataField>
+        </Field>
+        <Field Name="ClassDateShort">
+          <DataField>ClassDateShort</DataField>
+        </Field>
+        <Field Name="DayOfWeek">
+          <DataField>DayOfWeek</DataField>
+        </Field>
+        <Field Name="DayOrder">
+          <DataField>DayOrder</DataField>
+        </Field>
+        <Field Name="TimeSlotCode">
+          <DataField>TimeSlotCode</DataField>
+        </Field>
+        <Field Name="StartTime">
+          <DataField>StartTime</DataField>
+        </Field>
+        <Field Name="EndTime">
+          <DataField>EndTime</DataField>
+        </Field>
+        <Field Name="Duration">
+          <DataField>Duration</DataField>
+        </Field>
+        <Field Name="UnitCode">
+          <DataField>UnitCode</DataField>
+        </Field>
+        <Field Name="UnitDescription">
+          <DataField>UnitDescription</DataField>
+        </Field>
+        <Field Name="LectureHallCode">
+          <DataField>LectureHallCode</DataField>
+        </Field>
+        <Field Name="LectureHallName">
+          <DataField>LectureHallName</DataField>
+        </Field>
+        <Field Name="HallCapacity">
+          <DataField>HallCapacity</DataField>
+        </Field>
+        <Field Name="ProgrammeCode">
+          <DataField>ProgrammeCode</DataField>
+        </Field>
+        <Field Name="ProgrammeName">
+          <DataField>ProgrammeName</DataField>
+        </Field>
+        <Field Name="StageCode">
+          <DataField>StageCode</DataField>
+        </Field>
+        <Field Name="StageName">
+          <DataField>StageName</DataField>
+        </Field>
+        <Field Name="LecturerCode">
+          <DataField>LecturerCode</DataField>
+        </Field>
+        <Field Name="LecturerName">
+          <DataField>LecturerName</DataField>
+        </Field>
+        <Field Name="ClassType">
+          <DataField>ClassType</DataField>
+        </Field>
+        <Field Name="SessionType">
+          <DataField>SessionType</DataField>
+        </Field>
+        <Field Name="StudentCount">
+          <DataField>StudentCount</DataField>
+        </Field>
+        <Field Name="DocumentNo">
+          <DataField>DocumentNo</DataField>
+        </Field>
+        <Field Name="EntryNo">
+          <DataField>EntryNo</DataField>
+        </Field>
+        <Field Name="DayTimeSlot">
+          <DataField>DayTimeSlot</DataField>
+        </Field>
+        <Field Name="ClassDetails">
+          <DataField>ClassDetails</DataField>
+        </Field>
+        <Field Name="TimeSlotHeader">
+          <DataField>TimeSlotHeader</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -13,60 +13,52 @@ codeunit 51316 "Timetable Change Management"
         if SourceHeader."Document No." = '' then
             Error('Source timetable document number cannot be empty.');
 
-        // Copy header information
-        NewHeader."Academic Year" := SourceHeader."Academic Year";
-        NewHeader.Semester := SourceHeader.Semester;
-        NewHeader.Type := SourceHeader.Type;
-        NewHeader."Linked Timetable No." := SourceHeader."Document No.";
-        NewHeader."Timetable Status" := NewHeader."Timetable Status"::Draft;
 
-        if NewHeader.Insert(true) then begin
-            // Copy all timetable entries from source
-            SourceEntry.SetRange("Document No.", SourceHeader."Document No.");
-            TotalRecords := SourceEntry.Count();
+        // Copy all timetable entries from source
+        SourceEntry.SetRange("Document No.", SourceHeader."Document No.");
+        TotalRecords := SourceEntry.Count();
 
-            Window.Open('Copying Timetable Entries\' +
-                       'Total: #1###\' +
-                       'Current: #2###\' +
-                       'Unit: #3##################');
+        Window.Open('Copying Timetable Entries\' +
+                   'Total: #1###\' +
+                   'Current: #2###\' +
+                   'Unit: #3##################');
 
-            if SourceEntry.FindSet() then begin
-                repeat
-                    CurrentRecord += 1;
-                    Window.Update(1, TotalRecords);
-                    Window.Update(2, CurrentRecord);
-                    Window.Update(3, SourceEntry."Unit Code");
+        if SourceEntry.FindSet() then begin
+            repeat
+                CurrentRecord += 1;
+                Window.Update(1, TotalRecords);
+                Window.Update(2, CurrentRecord);
+                Window.Update(3, SourceEntry."Unit Code");
 
-                    // Create new entry based on source
-                    NewEntry.Init();
-                    NewEntry.TransferFields(SourceEntry);
-                    NewEntry."Entry No." := 0; // Auto-increment will assign new number
-                    NewEntry."Document No." := NewHeader."Document No.";
+                // Create new entry based on source
+                NewEntry.Init();
+                NewEntry.TransferFields(SourceEntry);
+                NewEntry."Entry No." := 0; // Auto-increment will assign new number
+                NewEntry."Document No." := NewHeader."Document No.";
 
-                    if NewEntry.Insert(true) then begin
-                        // Log the copy action
-                        LogTimetableChange(
-                            NewHeader."Document No.",
-                            SourceHeader."Document No.",
-                            ChangeLog."Change Type"::"Other",
-                            NewEntry."Programme Code",
-                            NewEntry."Stage Code",
-                            NewEntry."Unit Code",
-                            NewEntry."Group No",
-                            'Entry copied from source timetable',
-                            '',
-                            '',
-                            NewEntry."Academic Year",
-                            NewEntry.Semester,
-                            NewEntry."Entry No."
-                        );
-                    end;
-                until SourceEntry.Next() = 0;
-            end;
-
-            Window.Close();
-            Message('Timetable copied successfully. %1 entries copied.', TotalRecords);
+                if NewEntry.Insert(true) then begin
+                    // Log the copy action
+                    LogTimetableChange(
+                        NewHeader."Document No.",
+                        SourceHeader."Document No.",
+                        ChangeLog."Change Type"::"Other",
+                        NewEntry."Programme Code",
+                        NewEntry."Stage Code",
+                        NewEntry."Unit Code",
+                        NewEntry."Group No",
+                        'Entry copied from source timetable',
+                        '',
+                        '',
+                        NewEntry."Academic Year",
+                        NewEntry.Semester,
+                        NewEntry."Entry No."
+                    );
+                end;
+            until SourceEntry.Next() = 0;
         end;
+
+        Window.Close();
+        Message('Timetable copied successfully. %1 entries copied.', TotalRecords);
     end;
 
     procedure LogTimetableChange(
