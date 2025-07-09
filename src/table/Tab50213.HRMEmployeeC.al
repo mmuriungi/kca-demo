@@ -1646,6 +1646,7 @@ table 50213 "HRM-Employee C"
                     "Branch Bank" := PrBankStructure."Branch Code";
                     "Branch Bank Name" := PrBankStructure."Branch Name";
                     "Main Bank Name" := PrBankStructure."Bank Name";
+                    "Bank Name" := PrBankStructure."Bank Name";
                 end;
             end;
         }
