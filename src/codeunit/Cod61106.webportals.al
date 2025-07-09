@@ -5402,7 +5402,7 @@ Codeunit 61106 webportals
         TXTInactive: label 'Your Account is not active';
     begin
         KUCCPSRaw.Reset;
-        KUCCPSRaw.SetRange(KUCCPSRaw.Admin, username);
+        KUCCPSRaw.SetRange(KUCCPSRaw.Index, username);
         //KUCCPSRaw.SetRange(KUCCPSRaw."Academic Year", '2024/2025');
         if KUCCPSRaw.Find('-') then begin
             FullNames := KUCCPSRaw.Names;
@@ -13232,13 +13232,22 @@ Codeunit 61106 webportals
         exit(Base64Text);
         ;
     end;
-
     procedure IsSecurityOfficer(staffNo: Code[20]) msg: Boolean
     begin
         Employeecard.Reset();
         EmployeeCard.SetRange("No.", staffNo);
         if Employeecard.FindFirst() then begin
             msg := Employeecard."Is Security Officer";
+        end;
+    end;
+    procedure GetDefaultProgramUnitExamCategory(prog:Code[20];unit:Code[20];stage:Code[20]): Code[20]
+    begin
+        UnitSubjects.Reset();
+        UnitSubjects.SetRange("Code", unit);
+        UnitSubjects.SetRange("Programme Code", prog);
+        UnitSubjects.SetRange("Stage Code", stage);
+        if UnitSubjects.FindFirst() then begin
+            exit(UnitSubjects."Default Exam Category");
         end;
     end;
 }
