@@ -1641,7 +1641,6 @@ table 50213 "HRM-Employee C"
             begin
                 PrBankStructure.SetRange(PrBankStructure."Bank Code", "Main Bank");
                 PrBankStructure.SetRange(PrBankStructure."Branch Code", "Branch Bank");
-
                 if PrBankStructure.FindFirst() then begin
                     "Branch Bank" := PrBankStructure."Branch Code";
                     "Branch Bank Name" := PrBankStructure."Branch Name";
