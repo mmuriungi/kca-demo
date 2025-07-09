@@ -59,6 +59,8 @@ report 50832 Check1
             column(ChkAmount; ChkAmount)
             {
             }
+            //PostingDate_GenJnlLine
+            column(PostingDate_GenJnlLine; GenJnlLine."Posting Date") { }
 
             column(NumberText_1_; NumberText[1])
             {

@@ -271,14 +271,23 @@ End Function</Code>
         <Field Name="LineNo_GenJnlLine">
           <DataField>LineNo_GenJnlLine</DataField>
         </Field>
+        <Field Name="ChkAmount">
+          <DataField>ChkAmount</DataField>
+        </Field>
+        <Field Name="ChkAmountFormat">
+          <DataField>ChkAmountFormat</DataField>
+        </Field>
+        <Field Name="NumberText_1_">
+          <DataField>NumberText_1_</DataField>
+        </Field>
+        <Field Name="ChkAmount_txt">
+          <DataField>ChkAmount_txt</DataField>
+        </Field>
         <Field Name="CheckToAddr1">
           <DataField>CheckToAddr1</DataField>
         </Field>
         <Field Name="CheckDateText">
           <DataField>CheckDateText</DataField>
-        </Field>
-        <Field Name="NumberText_1_">
-          <DataField>NumberText_1_</DataField>
         </Field>
         <Field Name="CheckNoText">
           <DataField>CheckNoText</DataField>
