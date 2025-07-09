@@ -212,6 +212,29 @@ page 50017 "FIN-Payment Header"
 
         area(processing)
         {
+            Action("Approve/Modify to Aprove")
+            {
+                Caption = 'Approval';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    if Confirm('Do you want to Approve this Payment Voucher?', true) then begin
+                        Rec.Status := Rec.Status::Approved;
+                        Rec."Modified Appproved By" := USERID;
+                        Rec.Modify;
+                        CurrPage.Update;
+                        // end else begin
+                        // Rec.Status := Rec.Status::Open;
+                        //  Rec.Modify;
+                        // CurrPage.Update;
+                    end;
+
+                end;
+            }
             action(Approve)
             {
                 Caption = 'Approve';
