@@ -166,6 +166,7 @@ page 52136 "New POS"
                 }
                 action("POS Stock List")
                 {
+                    Caption = 'stock Adjustments';
                     RunObject = Page "POS Stock Header List";
                     ApplicationArea = Basic, Suite;
                 }
