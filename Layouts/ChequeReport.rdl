@@ -277,6 +277,9 @@ End Function</Code>
         <Field Name="CheckDateText">
           <DataField>CheckDateText</DataField>
         </Field>
+        <Field Name="NumberText_1_">
+          <DataField>NumberText_1_</DataField>
+        </Field>
         <Field Name="CheckNoText">
           <DataField>CheckNoText</DataField>
         </Field>
