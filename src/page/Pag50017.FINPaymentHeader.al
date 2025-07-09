@@ -589,12 +589,17 @@ page 50017 "FIN-Payment Header"
 
                     trigger OnAction()
                     begin
+                        GenJnlLine.RESET;
+                        GenJnlLine.SETRANGE("Journal Template Name", JTemplate);
+                        GenJnlLine.SETRANGE("Journal Batch Name", JBatch);
+                        IF GenJnlLine.FIND('-') THEN
+                            REPORT.RUN(Report::Check1, TRUE, TRUE, GenJnlLine);
 
 
-                        Payments.RESET;
+                        /*Payments.RESET;
                         Payments.SETFILTER(Payments."No.", rec."No.");
                         //IF Payments.FIND('-') THEN
-                        REPORT.RUN(Report::"Check-Printing", TRUE, TRUE, Payments);
+                        REPORT.RUN(Report::Check1, TRUE, TRUE, Payments);*/
                     end;
                 }
                 action("Void Check")
