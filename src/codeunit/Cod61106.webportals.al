@@ -3297,7 +3297,7 @@ Codeunit 61106 webportals
         SalaryCard.SetRange(SalaryCard."Employee Code", EmployeeNo);
         SalaryCard.SetRange(SalaryCard."Payroll Period", Period);
         if SalaryCard.Find('-') then begin
-            Report.SaveAsPdf(report::"Individual Payslips 2", filename, SalaryCard);   //52017726
+            Report.SaveAsPdf(report::"PRL-Payslips", filename, SalaryCard);
         end;
         exit(filename);
     end;
