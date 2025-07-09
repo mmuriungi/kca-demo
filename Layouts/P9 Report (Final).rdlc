@@ -6675,18 +6675,6 @@ AQvr9Wr/0dBNaFe69nAf93I/93Rf93Z/93if93q/93zf937/94Af+II/+IRf+IZ/+Iif+EoREAA7</Im
         <Field Name="PayPeriod">
           <DataField>PayPeriod</DataField>
         </Field>
-        <Field Name="TotalAHL">
-          <DataField>TotalAHL</DataField>
-        </Field>
-        <Field Name="TotalAHLFormat">
-          <DataField>TotalAHLFormat</DataField>
-        </Field>
-        <Field Name="TotalSHIF">
-          <DataField>TotalSHIF</DataField>
-        </Field>
-        <Field Name="TotalSHIFFormat">
-          <DataField>TotalSHIFFormat</DataField>
-        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

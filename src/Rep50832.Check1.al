@@ -49,6 +49,7 @@ report 50832 Check1
             column(JournalBatchName_GenJnlLine; "Journal Batch Name")
             {
             }
+            column(Description_GenJnlLinel; GenJnlLine.Description) { }
             column(LineNo_GenJnlLine; "Line No.")
             {
             }
