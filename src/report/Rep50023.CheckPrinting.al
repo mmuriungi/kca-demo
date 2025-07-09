@@ -2,6 +2,8 @@ report 50023 "Check-Printing"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './Layouts/Check-Printing.rdl';
+    //ChequeReport
+    //
 
     dataset
     {
@@ -88,5 +90,6 @@ report 50023 "Check-Printing"
         NumberText: array[2] of Text[80];
         CheckReport: Report 1401;
         BankRec: Record 270;
+        Report: report 1401;
 }
 
