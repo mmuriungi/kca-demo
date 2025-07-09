@@ -49,9 +49,25 @@ report 50832 Check1
             column(JournalBatchName_GenJnlLine; "Journal Batch Name")
             {
             }
+            column(Description_GenJnlLine; GenJnlLine.Description) { }
             column(LineNo_GenJnlLine; "Line No.")
             {
             }
+            //ChkAmount
+
+            //ChkAmount
+            column(ChkAmount; ChkAmount)
+            {
+            }
+            //PostingDate_GenJnlLine
+            column(PostingDate_GenJnlLine; GenJnlLine."Posting Date") { }
+
+            column(NumberText_1_; NumberText[1])
+            {
+
+            }
+            //ChkAmount_txt
+            column(ChkAmount_txt; ChkAmount_txt) { }
             dataitem(CheckPages; "Integer")
             {
                 DataItemTableView = sorting(Number);
@@ -61,6 +77,7 @@ report 50832 Check1
                 column(CheckDateText; CheckDateText)
                 {
                 }
+
                 column(CheckNoText; CheckNoText)
                 {
                 }
@@ -158,6 +175,7 @@ report 50832 Check1
 
                     trigger OnAfterGetRecord()
                     begin
+
                         if not TestPrint then begin
                             if FoundLast or not AddedRemainingAmount then begin
                                 if RemainingAmount <> 0 then begin
@@ -779,6 +797,15 @@ report 50832 Check1
                     CheckNoText := Text011;
                     CheckDateText := Text012;
                 end;
+                CheckReport.InitTextVariable();
+                CheckReport.FormatNoText(NumberText, GenJnlLine.Amount, '');
+                ChkAmount := GenJnlLine.Amount;
+                ChkAmount_txt := FORMAT(ChkAmount);
+                IF STRPOS(ChkAmount_txt, '.') = 0 THEN
+                    ChkAmount_txt := ChkAmount_txt + '.00';
+
+                IF STRLEN(COPYSTR(ChkAmount_txt, STRPOS(ChkAmount_txt, '.'), STRLEN(ChkAmount_txt))) = 2 THEN
+                    ChkAmount_txt := ChkAmount_txt + '0';
             end;
 
             trigger OnPreDataItem()
@@ -891,6 +918,7 @@ report 50832 Check1
     end;
 
     var
+        CheckReport: Report "Check";
         CompanyInfo: Record "Company Information";
         CurrencyExchangeRate: Record "Currency Exchange Rate";
         SalesPurchPerson: Record "Salesperson/Purchaser";
@@ -919,8 +947,11 @@ report 50832 Check1
         CheckNoText: Text[30];
         CheckDateText: Text[30];
         CheckAmountText: Text[30];
+        NumberText: array[2] of Text[1024];
         DescriptionLine: array[2] of Text[80];
         DocNo: Text[30];
+        ChkAmount: Decimal;
+        ChkAmount_txt: Text[30];
         ExtDocNo: Text[35];
         VoidText: Text[30];
         LineAmount: Decimal;
