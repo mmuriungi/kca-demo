@@ -557,19 +557,19 @@ page 50017 "FIN-Payment Header"
 
                     trigger OnAction()
                     begin
-                        //CheckPVRequiredItems(Rec);
-                        // DELETE ANY LINE ITEM THAT MAY BE PRESENT
-                        // GenJnlLine.RESET;
-                        // GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
-                        // GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
-                        // IF GenJnlLine.FIND('+') THEN
-                        //     GenJnlLine.DELETEALL(true);
-                        //GenJnlLine.RESET;
+                        CheckPVRequiredItems(Rec);
+                        //  DELETE ANY LINE ITEM THAT MAY BE PRESENT
+                        GenJnlLine.RESET;
+                        GenJnlLine.SETRANGE(GenJnlLine."Journal Template Name", JTemplate);
+                        GenJnlLine.SETRANGE(GenJnlLine."Journal Batch Name", JBatch);
+                        IF GenJnlLine.FIND('+') THEN
+                            GenJnlLine.DELETEALL(true);
+                        GenJnlLine.RESET;
 
-                        // PopulateCheckJournal(Payments);
-                        // GenSetup.GET;
-                        // GenSetup."Casuals  Register Nos" := Rec."Paying Bank Account";
-                        // GenSetup.MODIFY;
+                        PopulateCheckJournal(Payments);
+                        GenSetup.GET;
+                        GenSetup."Casuals  Register Nos" := Rec."Paying Bank Account";
+                        GenSetup.MODIFY;
 
 
                         // UPDATE CHEQUE NO
