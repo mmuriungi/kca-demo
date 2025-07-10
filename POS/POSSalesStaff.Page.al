@@ -64,6 +64,26 @@ Page 99408 "POS Sales Staff"
                     ApplicationArea = Basic;
                     Editable = false;
                 }
+                field("Bank Account"; Rec."Bank Account")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Bank Account field.', Comment = '%';
+                }
+                field("Cash Account"; Rec."Cash Account")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Cash Account field.', Comment = '%';
+                }
+                field("Ecitizen Invoice No"; Rec."Ecitizen Invoice No")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Ecitizen Invoice No field.', Comment = '%';
+                }
+                field("Income Account"; Rec."Income Account")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Income Account field.', Comment = '%';
+                }
             }
             group(Lines)
             {
