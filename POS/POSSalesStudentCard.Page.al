@@ -104,7 +104,7 @@ Page 99409 "POS Sales Student Card"
                     SalesHeader.RESET();
                     SalesHeader.SETRANGE("No.", Rec."No.");
                     IF SalesHeader.FIND('-') THEN
-                        REPORT.RUN(REPORT::"POS Students PrintOut", FALSE, TRUE, SalesHeader);
+                        REPORT.RUN(REPORT::"POS Students PrintOut", true, false, SalesHeader);
                     CurrPage.CLOSE;
                 end;
             }
