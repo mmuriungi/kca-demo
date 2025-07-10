@@ -238,7 +238,7 @@ Table 99408 "POS Sales Header"
             Cashier := UserId;
             "Current Date Time" := SYSTEM.CurrentDatetime();
             "Cash Account" := PosSetup."Cash Account";
-            //Rec."Bank Account" := PosSetup."Students Cashbook";
+            Rec."Bank Account" := PosSetup."Students Cashbook";
             // Rec."Income Account" := PosSetup."Students Sales Account";
         end;
         officeTemp2.Get(UserId);
