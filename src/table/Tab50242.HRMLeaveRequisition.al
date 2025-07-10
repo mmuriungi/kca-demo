@@ -667,5 +667,42 @@ table 50242 "HRM-Leave Requisition"
         dates: Record Date;
     begin
     end;
+
+    procedure PostLeaveApplications()
+    var
+        LeaveEntry: Record "HRM-Leave Ledger";
+        HREmp: Record "HRM-Employee C";
+    begin
+        if Rec.Status <> Rec.Status::Released then Error('The Document Approval is not Complete');
+
+        Rec.TestField("Employee No");
+        Rec.TestField("Applied Days");
+        Rec.TestField("Starting Date");
+
+        LeaveEntry.Init;
+        LeaveEntry."Document No" := Rec."No.";
+        LeaveEntry."Leave Period" := Date2DWY(Today, 3);
+        LeaveEntry."Transaction Date" := Rec.Date;
+        LeaveEntry."Employee No" := Rec."Employee No";
+        LeaveEntry."Leave Type" := Rec."Leave Type";
+        LeaveEntry."No. of Days" := -Rec."Applied Days";
+        LeaveEntry."Transaction Description" := Rec.Purpose;
+        LeaveEntry."Entry Type" := LeaveEntry."Entry Type"::Application;
+        LeaveEntry."Created By" := UserId;
+        LeaveEntry."Transaction Type" := LeaveEntry."Transaction Type"::Application;
+        LeaveEntry.Insert(true);
+
+        Rec.Posted := true;
+        Rec."Posted By" := UserId;
+        Rec."Posting Date" := Today;
+        Rec.Modify;
+
+        if HREmp.Get(Rec."Employee No") then begin
+            HREmp."On Leave" := true;
+            HREmp."Current Leave No" := Rec."No.";
+            HREmp.Modify;
+        end;
+        Message('Leave Posted Successfully');
+    end;
 }
 

@@ -373,7 +373,7 @@ codeunit 50037 "Work Flow Code"
                 begin
                     RecRef.SetTable(Leave);
                     Leave.Validate(Status, Leave.Status::Released);
-                    //  Leave.PostLeaveApplications();
+                     Leave.PostLeaveApplications();
                     Leave.Modify();
                     Variant := Leave;
                 end;
