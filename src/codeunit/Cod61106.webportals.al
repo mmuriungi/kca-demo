@@ -4989,6 +4989,9 @@ Codeunit 61106 webportals
 
 
     procedure GetFees(StudentNo: Text) Message: Text
+    var
+        FundingBands: record "Funding Band Entries";
+        NFMStatement: record "NFM Statement Entry";
     begin
         Customer.Reset;
         Customer.SetRange(Customer."No.", StudentNo);
@@ -4996,7 +4999,24 @@ Codeunit 61106 webportals
             Customer.CalcFields("Debit Amount", "Credit Amount", Balance);
             Message := Format(Customer."Debit Amount") + '::' + Format(Customer."Credit Amount") + '::' + Format(Customer.Balance);
 
-        end
+        end;
+        FundingBands.RESET;
+        FundingBands.SETRANGE("Student No.", StudentNo);
+        IF FundingBands.FIND('-') THEN BEGIN
+            Customer.RESET;
+            Customer.SETRANGE(Customer."No.", StudentNo);
+            IF Customer.FIND('-') THEN BEGIN
+                REPORT.RUN(78095, FALSE, FALSE, Customer);
+                COMMIT();
+                NFMStatement.RESET;
+                NFMStatement.SETRANGE("Student No.", StudentNo);
+                IF NFMStatement.FINDSET THEN BEGIN
+                    NFMStatement.CALCFIELDS(Balance);
+                    NFMStatement.CALCSUMS("Debit amount", "Credit amount");
+                    Message := FORMAT(NFMStatement."Debit amount") + '::' + FORMAT(NFMStatement."Credit amount") + '::' + FORMAT(NFMStatement.Balance);
+                END;
+            END;
+        END;
     end;
 
     local procedure GetSchool(Prog: Code[20]) SchoolName: Text[150]
@@ -9173,7 +9193,7 @@ Codeunit 61106 webportals
                                     // IF  ((HRMEmployeeC.Lecturer=FALSE) AND ((HRMEmployeeC."Is HOD"=FALSE) AND (HRMEmployeeC."Has HOD Rights"=FALSE))) THEN MarksCaptureReturn:='Access Denied: Not Lecturer Not HOD';
 
                                     if ((ExamTypez = 'CAT') or (ExamTypez = 'CATS')) then begin
-                                        
+
                                         // HodRights := HRMEmployeeC."Is HOD" or HRMEmployeeC."Has HOD Rights";
                                         // if ((ACASemesters."Lock CAT Editting") and (HodRights = false)) then
                                         //     MarksCaptureReturn := 'CAT Marks editing locked';
@@ -13235,6 +13255,7 @@ Codeunit 61106 webportals
         exit(Base64Text);
         ;
     end;
+
     procedure IsSecurityOfficer(staffNo: Code[20]) msg: Boolean
     begin
         Employeecard.Reset();
@@ -13243,7 +13264,8 @@ Codeunit 61106 webportals
             msg := Employeecard."Is Security Officer";
         end;
     end;
-    procedure GetDefaultProgramUnitExamCategory(prog:Code[20];unit:Code[20];stage:Code[20]): Code[20]
+
+    procedure GetDefaultProgramUnitExamCategory(prog: Code[20]; unit: Code[20]; stage: Code[20]): Code[20]
     begin
         UnitSubjects.Reset();
         UnitSubjects.SetRange("Code", unit);
