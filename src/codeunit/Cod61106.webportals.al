@@ -9230,7 +9230,7 @@ Codeunit 61106 webportals
                                             ACAExamResults.Validate(Score);
                                             ACAExamResults.Modify;
                                             ACAExamResults.Validate(ExamType);
-                                            Commit();
+                                            //Commit();
                                             MarksCaptureReturn := 'SUCCESS:: Marks inserted';
                                         end else begin
                                             ACAExamResults.Init;
@@ -9272,7 +9272,7 @@ Codeunit 61106 webportals
                                                 ACAExamResults.Validate(ExamType);
                                                 ACAExamResults.Modify;
                                             end;
-                                            Commit();
+                                            //Commit();
                                             MarksCaptureReturn := 'SUCCESS:: Marks inserted';
                                         end;
                                         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -9527,7 +9527,7 @@ Codeunit 61106 webportals
                                                 ACAExamResults.Validate(ExamType);
                                                 ACAExamResults.Modify;
                                             end;
-                                            Commit();
+                                            //Commit();
                                             MarksCaptureReturn := 'SUCCESS:: Marks inserted';
                                         end;
                                         ///////////////////////////////////////////////////////////////////////////////////////////
