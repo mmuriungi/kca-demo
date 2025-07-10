@@ -120,8 +120,10 @@ Page 99408 "POS Sales Staff"
                     SalesHeader: Record "POS Sales Header";
                     POSRestaurantsPrintOut: Report "POS Restaurants PrintOut";
                 begin
-                    CurrPage.Update();
-                    Rec.PostSale();
+                    if not Rec.posted then begin
+                        CurrPage.Update();
+                        Rec.PostSale();
+                    end;
                     SalesHeader.Reset();
                     SalesHeader.SetRange("No.", Rec."No.");
                     Report.Run(Report::"POS Restaurants PrintOut", false, true, SalesHeader);

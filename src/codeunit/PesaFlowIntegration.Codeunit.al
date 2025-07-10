@@ -386,8 +386,11 @@ Codeunit 50152 "PesaFlow Integration"
             Batch.Delete();
 
             posHeader.Posted := True;
-            posHeader.Modify(true);
-            //Message('im here');
+            if posHeader.Modify(true) then begin
+                if posHeader."Customer Type" = posHeader."Customer Type"::Staff then
+                    Report.Run(Report::"POS Restaurants PrintOut", false, true, posHeader) else
+                    Report.Run(Report::"POS Students PrintOut", false, true, posHeader);
+            end;
         end;
 
 
