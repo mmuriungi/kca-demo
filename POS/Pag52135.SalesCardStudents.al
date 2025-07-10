@@ -102,10 +102,11 @@ page 52135 "Sales Card (Students)"
                     SalesHeader: Record "POS Sales Header";
                     POSStudentsPrintOut: Report "POS Students PrintOut";
                 begin
-                    Rec.PostSale();
+                    if not rec.posted then
+                        Rec.PostSale();
                     SalesHeader.Reset();
                     SalesHeader.SetRange("No.", Rec."No.");
-                    Report.Run(Report::"POS Students PrintOut", false, true, SalesHeader);
+                    Report.Run(Report::"POS Students PrintOut", true, false, SalesHeader);
                     CurrPage.Close();
                 end;
             }

@@ -386,6 +386,8 @@ Codeunit 50152 "PesaFlow Integration"
             Batch.Delete();
 
             posHeader.Posted := True;
+            posHeader."Amount Paid":=pflow.PaidAmount;
+            posHeader."M-Pesa Transaction Number":=pflow.PaymentRefID;
             posHeader.Modify(true);
             if posHeader."Customer Type" = posHeader."Customer Type"::Staff then
                 Report.Run(Report::"POS Restaurants PrintOut", true, false, posHeader) else
