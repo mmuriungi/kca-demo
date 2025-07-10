@@ -8072,31 +8072,31 @@ Codeunit 61106 webportals
             HRMEmployeeC.Reset;
             HRMEmployeeC.SetRange("No.", UserNamez);
             if HRMEmployeeC.Find('-') then begin
-                if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
+                if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC.HOD = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
 
-                // if ((ACASemesters."Lock CAT Editting") and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
+                // if ((ACASemesters."Lock CAT Editting") and ((HRMEmployeeC.HOD = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
                 //     MarksCaptureReturn := 'CAT Marks editing locked';
-                // if ((ACASemesters."Lock CAT Editting") and ((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
+                // if ((ACASemesters."Lock CAT Editting") and ((HRMEmployeeC.HOD = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
                 //     MarksCaptureReturn := 'CAT Marks editing locked';
                 if ACAProgStageSemSchedule."Lock CAT Editting" then
                     MarksCaptureReturn := 'CAT Marks editing locked';
                 // -------------------------------------------------------------- Exams
 
-                // if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
+                // if ((EdittingLocked) and ((HRMEmployeeC.HOD = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
                 //     MarksCaptureReturn := 'EXAM Marks editing locked';
                 if ACAProgStageSemSchedule."Lock Exam Editting" then
                     MarksCaptureReturn := 'EXAM Marks editing locked';
                 if ((EdittingLocked = false) and (HRMEmployeeC.Lecturer = false)) then MarksCaptureReturn := 'Not Lecturer: Access denied!';
-                // if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
+                // if ((EdittingLocked) and ((HRMEmployeeC.HOD = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
                 //     MarksCaptureReturn := 'EXAM Marks editing locked';
-                // if ((HRMEmployeeC."Is HOD" = true) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
+                // if ((HRMEmployeeC.HOD = true) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
                 //     MarksCaptureReturn := 'HOD editing not allowed';
                 ACAUnitsSubjects.Reset;
                 ACAUnitsSubjects.SetRange(Code, Unitz);
                 ACAUnitsSubjects.SetRange("Programme Code", Programz);
                 if ACAUnitsSubjects.Find('-') then
                     if ACAUnitsSubjects."Common Unit" = false then;
-                //            IF (((HRMEmployeeC."Is HOD"=TRUE) OR (HRMEmployeeC."Has HOD Rights"=TRUE)) AND (ACASemesters."Evaluate Lecture"=TRUE) AND  (AcaProgram."Department Code"<>HRMEmployeeC."Department Code") ) THEN
+                //            IF (((HRMEmployeeC.HOD=TRUE) OR (HRMEmployeeC."Has HOD Rights"=TRUE)) AND (ACASemesters."Evaluate Lecture"=TRUE) AND  (AcaProgram."Department Code"<>HRMEmployeeC."Department Code") ) THEN
                 //            MarksCaptureReturn:=AcaProgram."Department Code"+' is not your department!';
             end else
                 MarksCaptureReturn := 'Invalid Staff No. ' + Semesterz;
@@ -9189,12 +9189,12 @@ Codeunit 61106 webportals
                                 HRMEmployeeC.Reset;
                                 HRMEmployeeC.SetRange("No.", UserNamez);
                                 if HRMEmployeeC.Find('-') then begin
-                                    if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
-                                    // IF  ((HRMEmployeeC.Lecturer=FALSE) AND ((HRMEmployeeC."Is HOD"=FALSE) AND (HRMEmployeeC."Has HOD Rights"=FALSE))) THEN MarksCaptureReturn:='Access Denied: Not Lecturer Not HOD';
+                                    if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC.HOD = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
+                                    // IF  ((HRMEmployeeC.Lecturer=FALSE) AND ((HRMEmployeeC.HOD=FALSE) AND (HRMEmployeeC."Has HOD Rights"=FALSE))) THEN MarksCaptureReturn:='Access Denied: Not Lecturer Not HOD';
 
                                     if ((ExamTypez = 'CAT') or (ExamTypez = 'CATS')) then begin
 
-                                        // HodRights := HRMEmployeeC."Is HOD" or HRMEmployeeC."Has HOD Rights";
+                                        // HodRights := HRMEmployeeC.HOD or HRMEmployeeC."Has HOD Rights";
                                         // if ((ACASemesters."Lock CAT Editting") and (HodRights = false)) then
                                         //     MarksCaptureReturn := 'CAT Marks editing locked';
                                         // if ((ACASemesters."Lock CAT Editting") and (HodRights = false)) then
@@ -9205,19 +9205,19 @@ Codeunit 61106 webportals
                                     // -------------------------------------------------------------- Exams
 
                                     if ((ExamTypez = 'EXAM') or (ExamTypez = 'MAIN EXAM') or (ExamTypez = 'FINAL EXAM')) then begin
-                                        // if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
+                                        // if ((EdittingLocked) and ((HRMEmployeeC.HOD = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
                                         //     MarksCaptureReturn := 'EXAM Marks editing locked';
                                         // if ((EdittingLocked = false) and (HRMEmployeeC.Lecturer = false)) then MarksCaptureReturn := 'Not Lecturer: Access denied!';
-                                        // if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
+                                        // if ((EdittingLocked) and ((HRMEmployeeC.HOD = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
                                         //     MarksCaptureReturn := 'EXAM Marks editing locked';
                                         if ACAProgStageSemSchedule."Lock Exam Editting" then
-                                            MarksCaptureReturn := 'EXAM Marks editing locked';
+                                            MarksCaptureReturn := 'EXAM Marks editing locked!';
                                     end;
-                                    // if (((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
+                                    // if (((HRMEmployeeC.HOD = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
                                     //     MarksCaptureReturn := 'HOD editing not allowed';
 
 
-                                    if (((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (EdittingLocked = true) and
+                                    if (((HRMEmployeeC.HOD = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (EdittingLocked = true) and
                                       (AcaProgram."Department Code" <> HRMEmployeeC."Department Code")) then
                                         MarksCaptureReturn := AcaProgram."Department Code" + ' is not your department!';
 
@@ -9456,29 +9456,29 @@ Codeunit 61106 webportals
                                 HRMEmployeeC.Reset;
                                 HRMEmployeeC.SetRange("No.", UserNamez);
                                 if HRMEmployeeC.Find('-') then begin
-                                    if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
-                                    // IF  ((HRMEmployeeC.Lecturer=FALSE) AND ((HRMEmployeeC."Is HOD"=FALSE) AND (HRMEmployeeC."Has HOD Rights"=FALSE))) THEN MarksCaptureReturn:='Access Denied: Not Lecturer Not HOD';
+                                    if ((HRMEmployeeC.Lecturer = false) and ((HRMEmployeeC.HOD = false) and (HRMEmployeeC."Has HOD Rights" = false))) then MarksCaptureReturn := 'Access Denied: Not Lecturer Not HOD';
+                                    // IF  ((HRMEmployeeC.Lecturer=FALSE) AND ((HRMEmployeeC.HOD=FALSE) AND (HRMEmployeeC."Has HOD Rights"=FALSE))) THEN MarksCaptureReturn:='Access Denied: Not Lecturer Not HOD';
 
                                     if ((ExamTypez = 'CAT') or (ExamTypez = 'CATS')) then begin
-                                        if ((ACASemesters."Lock CAT Editting") and (HRMEmployeeC."Is HOD" = false)) then
+                                        if ((ACASemesters."Lock CAT Editting") and (HRMEmployeeC.HOD = false)) then
                                             MarksCaptureReturn := 'CAT Marks editing locked';
-                                        if ((ACASemesters."Lock CAT Editting") and (HRMEmployeeC."Is HOD" = true) and (ACASemesters."Evaluate Lecture" = false)) then
+                                        if ((ACASemesters."Lock CAT Editting") and (HRMEmployeeC.HOD = true) and (ACASemesters."Evaluate Lecture" = false)) then
                                             MarksCaptureReturn := 'CAT Marks editing locked';
                                     end;
                                     // -------------------------------------------------------------- Exams
 
                                     if ((ExamTypez = 'EXAM') or (ExamTypez = 'MAIN EXAM') or (ExamTypez = 'FINAL EXAM')) then begin
-                                        if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
+                                        if ((EdittingLocked) and ((HRMEmployeeC.HOD = false) and (HRMEmployeeC."Has HOD Rights" = false))) then
                                             MarksCaptureReturn := 'EXAM Marks editing locked';
                                         if ((EdittingLocked = false) and (HRMEmployeeC.Lecturer = false)) then MarksCaptureReturn := 'Not Lecturer: Access denied!';
-                                        if ((EdittingLocked) and ((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
+                                        if ((EdittingLocked) and ((HRMEmployeeC.HOD = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false)) then
                                             MarksCaptureReturn := 'EXAM Marks editing locked';
                                     end;
-                                    if (((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
+                                    if (((HRMEmployeeC.HOD = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (ACASemesters."Evaluate Lecture" = false) and (HRMEmployeeC.Lecturer = false)) then
                                         MarksCaptureReturn := 'HOD editing not allowed';
 
 
-                                    if (((HRMEmployeeC."Is HOD" = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (EdittingLocked = true) and
+                                    if (((HRMEmployeeC.HOD = true) or (HRMEmployeeC."Has HOD Rights" = true)) and (EdittingLocked = true) and
                                       (AcaProgram."Department Code" <> HRMEmployeeC."Department Code")) then
                                         MarksCaptureReturn := AcaProgram."Department Code" + ' is not your department!';
 
