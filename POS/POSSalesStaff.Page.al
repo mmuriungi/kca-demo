@@ -116,7 +116,7 @@ Page 99408 "POS Sales Staff"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                // ShortCutKey = 'F9';
+                ShortCutKey = 'F9';
                 ToolTip = 'Print the staff sales receipt.';
 
                 trigger OnAction()
@@ -127,7 +127,7 @@ Page 99408 "POS Sales Staff"
 
                     SalesHeader.Reset();
                     SalesHeader.SetRange("No.", Rec."No.");
-                    SalesHeader.SetRange(Posted, true);
+                    //SalesHeader.SetRange(Posted, true);
 
                     Report.Run(Report::"POS Restaurants PrintOut", true, false, SalesHeader);
                     CurrPage.Close();
@@ -141,7 +141,7 @@ Page 99408 "POS Sales Staff"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ShortCutKey = 'F9';
+                //ShortCutKey = 'F9';
                 ToolTip = 'Print the staff sales receipt.';
 
                 trigger OnAction()
