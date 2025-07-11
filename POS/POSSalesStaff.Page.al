@@ -84,6 +84,10 @@ Page 99408 "POS Sales Staff"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Income Account field.', Comment = '%';
                 }
+                field(Posted; Rec.Posted)
+                {
+                    ApplicationArea = all;
+                }
             }
             group(Lines)
             {
@@ -120,14 +124,25 @@ Page 99408 "POS Sales Staff"
                     SalesHeader: Record "POS Sales Header";
                     POSRestaurantsPrintOut: Report "POS Restaurants PrintOut";
                 begin
+
+                    SalesHeader.Reset();
+                    SalesHeader.SetRange("No.", Rec."No.");
+                    Report.Run(Report::"POS Restaurants PrintOut", true, false, SalesHeader);
+                    CurrPage.Close();
+                end;
+            }
+            action("Manual post")
+            {
+                Caption = 'Post';
+                Image = Post;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                begin
                     if not Rec.posted then begin
                         CurrPage.Update();
                         Rec.PostSale();
                     end;
-                    SalesHeader.Reset();
-                    SalesHeader.SetRange("No.", Rec."No.");
-                    Report.Run(Report::"POS Restaurants PrintOut", false, true, SalesHeader);
-                    CurrPage.Close();
                 end;
             }
             action("Send STK Push")
@@ -141,6 +156,9 @@ Page 99408 "POS Sales Staff"
                     PaymentAPI: Codeunit "Payment API Manager";
                 begin
                     PaymentAPI.SendPaymentRequest(Rec."No.", Rec."Phone No", Rec."Total Amount", '2729111');
+                    //PaymentAPI.RefreshPayment(Rec);
+                    Sleep(2000);
+                    CurrPage.Update();
                 end;
 
             }

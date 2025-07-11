@@ -33,7 +33,7 @@ codeunit 54233 "Payment API Manager"
                 ResponseMsg.Content().ReadAs(ResponseText);
                 if ProcessPaymentResponse(ResponseText, InvoiceNo, StatusCode) then begin
                     if InvoiceNo = '' then Error(StatusCode);
-                    PostTransactionToBC(DocNo, InvoiceNo, Amount);
+                   // PostTransactionToBC(DocNo, InvoiceNo, Amount);
                     Message('STK Push Sent Successfully. Invoice Number is: %1', InvoiceNo);
                     exit(true);
                 end else begin
@@ -48,6 +48,20 @@ codeunit 54233 "Payment API Manager"
         end;
 
         exit(false);
+    end;
+
+    procedure RefreshPayment(var PosHeader: Record "POS Sales Header")
+    var
+        pflow: Record "PesaFlow Integration";
+    begin
+        pflow.Reset();
+        pflow.SetRange(CustomerRefNo, PosHeader."No.");
+        if pflow.FindFirst() then begin
+            PosHeader."M-Pesa Transaction Number" := pflow.PaymentRefID;
+            posHeader."Ecitizen Invoice No" := pflow.InvoiceNo;
+            PosHeader."Amount Paid" := pflow.PaidAmount;
+            PosHeader.Modify();
+        end
     end;
 
     local procedure ProcessPaymentResponse(ResponseText: Text; var InvoiceNo: Text; var status: Text): Boolean
