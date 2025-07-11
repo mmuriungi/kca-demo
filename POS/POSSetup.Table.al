@@ -43,6 +43,12 @@ Table 99401 "POS Setup"
         {
             TableRelation = "Bank Account"."No.";
         }
+        field(11; "Ecitizen Bank Account"; Code[30])
+        {
+            TableRelation = "Bank Account"."No.";
+        }
+
+
     }
 
     keys
