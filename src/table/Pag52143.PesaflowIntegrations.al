@@ -32,6 +32,14 @@ page 52143 "Pesaflow Integrations"
                     ToolTip = 'Specifies if the record has been selected and posted.';
                     applicationArea = All;
                 }
+                field(PaymentRefID; Rec.PaymentRefID)
+                {
+                    ToolTip = 'Specifies the value of the Payment Ref ID field.';
+                }
+                field(InvoiceAmount; Rec.InvoiceAmount)
+                {
+                    ToolTip = 'Specifies the value of the Invoice Amount field.';
+                }
             }
         }
     }

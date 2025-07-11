@@ -18,6 +18,11 @@ Page 99407 "POS Sales Header Card"
                     ApplicationArea = Basic;
                     Editable = false;
                 }
+                field(Posted; Rec.Posted)
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
                 field("Posting Description"; Rec."Posting Description")
                 {
                     ApplicationArea = Basic;
@@ -121,7 +126,7 @@ Page 99407 "POS Sales Header Card"
                     begin
                         SalesHeader.Reset();
                         SalesHeader.SetRange("No.", Rec."No.");
-                        SalesHeader.SetRange(Posted, true);
+                        //SalesHeader.SetRange(Posted, true);
                         Report.Run(Report::"POS Students_Staff PrintOut", true, false, SalesHeader);
                     end;
 

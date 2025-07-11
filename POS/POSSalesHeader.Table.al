@@ -126,8 +126,8 @@ Table 99408 "POS Sales Header"
                 PesaFlowIntergration.SetRange(PaymentRefID, Rec."M-Pesa Transaction Number");
                 if PesaFlowIntergration.Find('-') then begin
                     if PesaFlowIntergration.InvoiceAmount < Rec."Receipt Amount" then Error('Receipt amount is less than invoiced amount.');
-                end else
-                    Error('Invalid transaction code');
+                end; //else
+                     //Error('Invalid transaction code');
                 Rec.Validate(Rec."Amount Paid", Rec."Receipt Amount");
             end;
         }
