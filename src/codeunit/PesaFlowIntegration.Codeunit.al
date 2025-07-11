@@ -299,7 +299,7 @@ Codeunit 50152 "PesaFlow Integration"
                 PesaFlowIntegration."Date Received" := Today;
                 PesaFlowIntegration.Status := status;
                 if PesaFlowIntegration.Insert then begin
-                    PostCafeSale(PesaflowIntegration);
+                  //  PostCafeSale(PesaflowIntegration);
                     inserted := true;
                 end else begin
                     Error(paymentrefid + ' is a duplicate transaction ID!!!');
