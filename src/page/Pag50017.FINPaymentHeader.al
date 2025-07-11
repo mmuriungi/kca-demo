@@ -2486,6 +2486,7 @@ page 50017 "FIN-Payment Header"
         GLAccount: Record "G/L Account";
         DimensionValue: Record "Dimension Value";
         PostBudgetEnties: Codeunit "Post Budget Enties";
+        item: Record Item;
     begin
         BCSetup.GET;
         //IF NOT ((BCSetup.Mandatory) AND (BCSetup."PV Budget Mandatory")) THEN EXIT;

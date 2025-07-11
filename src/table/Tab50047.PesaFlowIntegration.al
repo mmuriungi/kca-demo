@@ -2,6 +2,8 @@ table 50049 "PesaFlow Integration"
 {
     Caption = 'PesaFlow Integration';
     DataClassification = ToBeClassified;
+    LookupPageId = "PesaFlow Integration";
+    DrillDownPageId = "PesaFlow Integration";
 
     fields
     {

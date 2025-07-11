@@ -105,8 +105,8 @@ Table 99408 "POS Sales Header"
         }
         field(15; "M-Pesa Transaction Number"; Code[100])
         {
-            TableRelation = if ("M-pesa Trans Missing" = filter(false)) "PesaFlow Intergration".PaymentRefID where(ServiceID = filter('2729111'),
-                                                                                                               //"Selected And Posted" = filter(false),
+            TableRelation = if ("M-pesa Trans Missing" = filter(false)) "PesaFlow Integration".PaymentRefID where(ServiceID = filter('2729111'),
+                                                                                                               "Selected And Posted" = filter(false),
                                                                                                                "Date Received" = field("Posting date"));
 
             trigger OnValidate()
@@ -211,6 +211,10 @@ Table 99408 "POS Sales Header"
         key(Key1; "No.")
         {
             Clustered = true;
+        }
+        key(key2; "M-Pesa Transaction Number")
+        {
+            Clustered = false;
         }
     }
 
