@@ -212,6 +212,10 @@ Table 99408 "POS Sales Header"
         {
             Clustered = true;
         }
+        key(key2; "M-Pesa Transaction Number")
+        {
+            Clustered = false;
+        }
     }
 
     fieldgroups
