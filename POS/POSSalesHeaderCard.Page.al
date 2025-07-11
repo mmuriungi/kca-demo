@@ -118,19 +118,23 @@ Page 99407 "POS Sales Header Card"
                 var
                     SalesHeader: Record "POS Sales Header";
                 begin
-                    if not Rec.Posted then begin
-                        Rec.PostSale();
-                        SalesHeader.Reset();
-                        SalesHeader.SetRange("No.", Rec."No.");
-                        Report.Run(Report::"POS Restaurants PrintOut", false, true, SalesHeader);
-                    end else begin
+                    begin
                         SalesHeader.Reset();
                         SalesHeader.SetRange("No.", Rec."No.");
                         SalesHeader.SetRange(Posted, true);
-                        Report.Run(Report::"POS Students_Staff PrintOut", false, true, SalesHeader);
+                        Report.Run(Report::"POS Students_Staff PrintOut", true, false, SalesHeader);
                     end;
 
                     CurrPage.Close();
+                end;
+            }
+            action("Manual Post")
+            {
+                trigger OnAction()
+                begin
+                    if not Rec.Posted then begin
+                        Rec.PostSale();
+                    end
                 end;
             }
         }
