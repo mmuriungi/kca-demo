@@ -2,6 +2,9 @@ page 52143 "Pesaflow Integrations"
 {
     ApplicationArea = All;
     Caption = 'Pesaflow Integrations';
+    Editable = false;
+    InsertAllowed = false;
+    ModifyAllowed = false;
     PageType = List;
     SourceTable = "PesaFlow Integration";
 
