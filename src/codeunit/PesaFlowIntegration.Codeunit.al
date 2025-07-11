@@ -278,39 +278,39 @@ Codeunit 50152 "PesaFlow Integration"
         CoreBankingHeader: Record "Core_Banking Header";
         PesaFlow_ServiceIDs: Record "Pesa-Flow_Service-IDs";
         WebPortal: Codeunit webportals;
-       posheader: Record "POS Sales Header";
+        posheader: Record "POS Sales Header";
     begin
         posheader.RESET;
         posheader.SETRANGE("No.", customerref);
         IF posheader.FIND('-') THEN BEGIN
-        PesaFlowIntegration.Reset;
-        PesaFlowIntegration.SetRange(PaymentRefID, paymentrefid);
-        if not PesaFlowIntegration.Find('-') then begin
-            PesaFlowIntegration.Init;
-            PesaFlowIntegration.PaymentRefID := paymentrefid;
-            PesaFlowIntegration.CustomerRefNo := customerref;
-            PesaFlowIntegration.InvoiceNo := invoiceno;
-            PesaFlowIntegration.InvoiceAmount := invoiceamt;
-            PesaFlowIntegration.PaidAmount := paidamt;
-            PesaFlowIntegration.ServiceID := '2729111';
-            PesaFlowIntegration.Description := 'Payment for catering services';
-            PesaFlowIntegration.PaymentChannel := channel;
-            PesaFlowIntegration.PaymentDate := paymentdate;
-            PesaFlowIntegration."Date Received" := Today;
-            PesaFlowIntegration.Status := status;
-            if PesaFlowIntegration.Insert then begin
-                PostCafeSale(PesaflowIntegration);
-                inserted := true;
-            end else begin
-                Error(paymentrefid + ' is a duplicate transaction ID!!!');
+            PesaFlowIntegration.Reset;
+            PesaFlowIntegration.SetRange(PaymentRefID, paymentrefid);
+            if not PesaFlowIntegration.Find('-') then begin
+                PesaFlowIntegration.Init;
+                PesaFlowIntegration.PaymentRefID := paymentrefid;
+                PesaFlowIntegration.CustomerRefNo := customerref;
+                PesaFlowIntegration.InvoiceNo := invoiceno;
+                PesaFlowIntegration.InvoiceAmount := invoiceamt;
+                PesaFlowIntegration.PaidAmount := paidamt;
+                PesaFlowIntegration.ServiceID := '2729111';
+                PesaFlowIntegration.Description := 'Payment for catering services';
+                PesaFlowIntegration.PaymentChannel := channel;
+                PesaFlowIntegration.PaymentDate := paymentdate;
+                PesaFlowIntegration."Date Received" := Today;
+                PesaFlowIntegration.Status := status;
+                if PesaFlowIntegration.Insert then begin
+                    PostCafeSale(PesaflowIntegration);
+                    inserted := true;
+                end else begin
+                    Error(paymentrefid + ' is a duplicate transaction ID!!!');
+                end;
             end;
-        end;
         END ELSE BEGIN
             ERROR('invalid invoice');
         end;
     end;
 
-procedure PostCafeSale(var pflow: Record "PesaFlow Integration")
+    procedure PostCafeSale(var pflow: Record "PesaFlow Integration")
     var
         PosSetup: Record "POS Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
@@ -321,8 +321,12 @@ procedure PostCafeSale(var pflow: Record "PesaFlow Integration")
         itemledger: Record "POS Item Ledger";
         posItems: Record "POS Items";
         posHeader: Record "POS Sales Header";
-
+        DimValues: record "Dimension Value";
     begin
+        DimValues.Reset();
+        DimValues.SetRange("Default Receit Dimesnison 1", true);
+        if DimValues.FindFirst() then;
+
         posHeader.Reset();
         posHeader.SetRange("No.", pflow.CustomerRefNo);
         if posHeader.Find('-') then begin
@@ -364,7 +368,7 @@ procedure PostCafeSale(var pflow: Record "PesaFlow Integration")
             GenJnLine."Journal Batch Name" := pflow.CustomerRefNo;
             GenJnLine."Line No." := LineNo;
             GenJnLine."Document Type" := GenJnLine."Document Type"::Payment;
-            GenJnLine."Shortcut Dimension 1 Code" := '020';
+            GenJnLine."Shortcut Dimension 1 Code" := DimValues.code;
             GenJnLine."Account Type" := GenJnLine."Account Type"::"Bank Account";
             GenJnLine."Account No." := posHeader."Bank Account";
             GenJnLine."Posting Date" := pflow."Date Received";
@@ -376,14 +380,17 @@ procedure PostCafeSale(var pflow: Record "PesaFlow Integration")
             GenJnLine."Bal. Account No." := posHeader."Income Account";
             IF GenJnLine.Amount <> 0 THEN
                 GenJnLine.INSERT;
-            CODEUNIT.RUN(CODEUNIT::"Modified Gen. Jnl.-Post2", GenJnLine);
+            CODEUNIT.RUN(CODEUNIT::"Gen. Jnl.-Post Batch", GenJnLine);
             Batch.setrange("Journal Template Name", 'GENERAL');
             Batch.setrange(Name, pflow.CustomerRefNo);
             Batch.Delete();
 
             posHeader.Posted := True;
-            posHeader.Modify(true);
-            Message('im here');
+            if posHeader.Modify(true) then begin
+                if posHeader."Customer Type" = posHeader."Customer Type"::Staff then
+                    Report.Run(Report::"POS Restaurants PrintOut", false, true, posHeader) else
+                    Report.Run(Report::"POS Students PrintOut", false, true, posHeader);
+            end;
         end;
 
 

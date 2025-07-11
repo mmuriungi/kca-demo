@@ -1,4 +1,4 @@
-page 50795 "ACA-Pending Admissions List"
+page 50795 "ACA-Pending Admissions List X"
 {
     CardPageID = "ACA-Applic. Documents Verif.";
     DeleteAllowed = false;

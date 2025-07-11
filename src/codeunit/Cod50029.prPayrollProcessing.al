@@ -1963,7 +1963,7 @@ codeunit 50029 prPayrollProcessing
                             if prTransactionCodes."Is Formula" then begin
                                 strExtractedFrml := '';
                                 strExtractedFrml := fnPureFormula(strEmpCode, intMonth, intYear, prTransactionCodes.Formula);
-                                SpecialTransAmount := SpecialTransAmount + (fnFormulaResult(strExtractedFrml)); //Get the calculated amount
+                                SpecialTransAmount := SpecialTransAmount + (fnFormulaResult(strExtractedFrml));
                             end else
                                 SpecialTransAmount := SpecialTransAmount + prEmployeeTransactions.Amount;
 
