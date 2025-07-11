@@ -156,6 +156,8 @@ Page 99408 "POS Sales Staff"
                     PaymentAPI: Codeunit "Payment API Manager";
                 begin
                     PaymentAPI.SendPaymentRequest(Rec."No.", Rec."Phone No", Rec."Total Amount", '2729111');
+                    PaymentAPI.RefreshPayment(Rec);
+                    CurrPage.Update();
                 end;
 
             }
