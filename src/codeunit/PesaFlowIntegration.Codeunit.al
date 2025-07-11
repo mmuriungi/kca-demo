@@ -305,6 +305,9 @@ Codeunit 50152 "PesaFlow Integration"
                     Error(paymentrefid + ' is a duplicate transaction ID!!!');
                 end;
             end;
+             posHeader.Posted := True;
+            posHeader."Amount Paid":=paidamt;
+            posHeader."M-Pesa Transaction Number":=PaymentRefID;
         END ELSE BEGIN
             ERROR('invalid invoice');
         end;

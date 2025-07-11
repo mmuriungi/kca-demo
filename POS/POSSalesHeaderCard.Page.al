@@ -118,12 +118,7 @@ Page 99407 "POS Sales Header Card"
                 var
                     SalesHeader: Record "POS Sales Header";
                 begin
-                    if not Rec.Posted then begin
-                        Rec.PostSale();
-                        SalesHeader.Reset();
-                        SalesHeader.SetRange("No.", Rec."No.");
-                        Report.Run(Report::"POS Restaurants PrintOut", true, false, SalesHeader);
-                    end else begin
+                    begin
                         SalesHeader.Reset();
                         SalesHeader.SetRange("No.", Rec."No.");
                         SalesHeader.SetRange(Posted, true);
@@ -131,6 +126,15 @@ Page 99407 "POS Sales Header Card"
                     end;
 
                     CurrPage.Close();
+                end;
+            }
+            action("Manual Post")
+            {
+                trigger OnAction()
+                begin
+                    if not Rec.Posted then begin
+                        Rec.PostSale();
+                    end
                 end;
             }
         }
