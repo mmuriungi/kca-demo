@@ -299,15 +299,17 @@ Codeunit 50152 "PesaFlow Integration"
                 PesaFlowIntegration."Date Received" := Today;
                 PesaFlowIntegration.Status := status;
                 if PesaFlowIntegration.Insert then begin
-                  //  PostCafeSale(PesaflowIntegration);
+                    //  PostCafeSale(PesaflowIntegration);
                     inserted := true;
                 end else begin
                     Error(paymentrefid + ' is a duplicate transaction ID!!!');
                 end;
             end;
-             posHeader.Posted := True;
-            posHeader."Amount Paid":=paidamt;
-            posHeader."M-Pesa Transaction Number":=PaymentRefID;
+            posheader."Ecitizen Invoice No" := invoiceno;
+            posHeader.Posted := True;
+            posHeader."Amount Paid" := paidamt;
+            posHeader."M-Pesa Transaction Number" := PaymentRefID;
+            posHeader.Modify();
         END ELSE BEGIN
             ERROR('invalid invoice');
         end;
@@ -389,8 +391,8 @@ Codeunit 50152 "PesaFlow Integration"
             Batch.Delete();
 
             posHeader.Posted := True;
-            posHeader."Amount Paid":=pflow.PaidAmount;
-            posHeader."M-Pesa Transaction Number":=pflow.PaymentRefID;
+            posHeader."Amount Paid" := pflow.PaidAmount;
+            posHeader."M-Pesa Transaction Number" := pflow.PaymentRefID;
             posHeader.Modify(true);
             if posHeader."Customer Type" = posHeader."Customer Type"::Staff then
                 Report.Run(Report::"POS Restaurants PrintOut", true, false, posHeader) else

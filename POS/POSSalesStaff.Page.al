@@ -84,9 +84,9 @@ Page 99408 "POS Sales Staff"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Income Account field.', Comment = '%';
                 }
-                field(Posted;Rec.Posted)
+                field(Posted; Rec.Posted)
                 {
-                    ApplicationArea=all;
+                    ApplicationArea = all;
                 }
             }
             group(Lines)
@@ -134,9 +134,9 @@ Page 99408 "POS Sales Staff"
             action("Manual post")
             {
                 Caption = 'Post';
-                Image=Post;
-                Promoted=true;
-                PromotedCategory=Process;
+                Image = Post;
+                Promoted = true;
+                PromotedCategory = Process;
                 trigger OnAction()
                 begin
                     if not Rec.posted then begin
@@ -156,7 +156,8 @@ Page 99408 "POS Sales Staff"
                     PaymentAPI: Codeunit "Payment API Manager";
                 begin
                     PaymentAPI.SendPaymentRequest(Rec."No.", Rec."Phone No", Rec."Total Amount", '2729111');
-                    PaymentAPI.RefreshPayment(Rec);
+                    //PaymentAPI.RefreshPayment(Rec);
+                    Sleep(2000);
                     CurrPage.Update();
                 end;
 
