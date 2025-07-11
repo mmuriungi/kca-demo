@@ -38,6 +38,10 @@ Page 99401 "POS Setup"
                 {
                     ApplicationArea = Basic;
                 }
+                field("Ecitizen Bank Account"; Rec."Ecitizen Bank Account")
+                {
+                    ApplicationArea = Basic;
+                }
             }
         }
     }

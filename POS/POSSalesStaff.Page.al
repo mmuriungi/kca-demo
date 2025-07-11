@@ -3,6 +3,7 @@ Page 99408 "POS Sales Staff"
 {
     PageType = Card;
     RefreshOnActivate = true;
+
     SourceTable = "POS Sales Header";
 
     layout
@@ -127,6 +128,7 @@ Page 99408 "POS Sales Staff"
 
                     SalesHeader.Reset();
                     SalesHeader.SetRange("No.", Rec."No.");
+                    SalesHeader.SetRange(Posted, true);
                     Report.Run(Report::"POS Restaurants PrintOut", true, false, SalesHeader);
                     CurrPage.Close();
                 end;
@@ -156,7 +158,7 @@ Page 99408 "POS Sales Staff"
                     PaymentAPI: Codeunit "Payment API Manager";
                 begin
                     PaymentAPI.SendPaymentRequest(Rec."No.", Rec."Phone No", Rec."Total Amount", '2729111');
-                    //PaymentAPI.RefreshPayment(Rec);
+                    PaymentAPI.RefreshPayment(Rec);
                     Sleep(2000);
                     CurrPage.Update();
                 end;
@@ -186,6 +188,7 @@ Page 99408 "POS Sales Staff"
             PosSetup.Get();
             PosSetup.TestField("Sales No.");
             NoSeriesMgt.InitSeries(PosSetup."Sales No.", xRec."No. Series", 0D, Rec."No.", Rec."No. Series");
+
             InitializeStaffRecord();
         end;
     end;
@@ -209,6 +212,8 @@ Page 99408 "POS Sales Staff"
         Rec."Customer Type" := Rec."Customer Type"::Staff;
         Rec."Current Date Time" := CurrentDateTime;
         Rec."Cash Account" := PosSetup."Cash Account";
+        Rec."Bank Account" := PosSetup."Ecitizen Bank Account";
+        Rec."Payment Method" := Rec."Payment Method"::ECITIZEN;
         Rec."Income Account" := PosSetup."Staff Sales Account";
         Rec.Validate("Income Account");
     end;
