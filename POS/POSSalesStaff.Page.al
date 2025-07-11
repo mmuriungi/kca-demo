@@ -127,7 +127,7 @@ Page 99408 "POS Sales Staff"
 
                     SalesHeader.Reset();
                     SalesHeader.SetRange("No.", Rec."No.");
-                    //SalesHeader.SetRange(Posted, true);
+                    SalesHeader.SetRange(Posted, true);
 
                     Report.Run(Report::"POS Restaurants PrintOut", true, false, SalesHeader);
                     CurrPage.Close();
