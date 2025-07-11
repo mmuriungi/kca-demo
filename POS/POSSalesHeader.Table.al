@@ -112,23 +112,25 @@ Table 99408 "POS Sales Header"
             trigger OnValidate()
             begin
                 if Rec."M-Pesa Transaction Number" = '' then exit;
-                if Rec."M-pesa Trans Missing" then exit;
-                Clear(bnkLedger);
-                bnkLedger.Reset;
-                bnkLedger.SetRange("Document No.", "M-Pesa Transaction Number");
-                if bnkLedger.Find('-') then Error('Mpesa Transaction Code Already Exist');
-                if Rec."Payment Method" = Rec."payment method"::Cash then Error('Cash Payments have no Transaction Code');
+                if Rec."M-pesa Trans Missing" = false then begin
+                    Clear(bnkLedger);
+                    bnkLedger.Reset;
+                    bnkLedger.SetRange("Document No.", "M-Pesa Transaction Number");
+                    if bnkLedger.Find('-') then Error('Mpesa Transaction Code Already Exist');
+                    if Rec."Payment Method" = Rec."payment method"::Cash then Error('Cash Payments have no Transaction Code');
 
-                Rec.CalcFields("Receipt Amount");
-                if Rec."Receipt Amount" = 0 then Error('Details are missing.');
-                Clear(PesaFlowIntergration);
-                PesaFlowIntergration.Reset;
-                PesaFlowIntergration.SetRange(PaymentRefID, Rec."M-Pesa Transaction Number");
-                if PesaFlowIntergration.Find('-') then begin
-                    if PesaFlowIntergration.InvoiceAmount < Rec."Receipt Amount" then Error('Receipt amount is less than invoiced amount.');
-                end; //else
-                     //Error('Invalid transaction code');
-                Rec.Validate(Rec."Amount Paid", Rec."Receipt Amount");
+                    Rec.CalcFields("Receipt Amount");
+                    if Rec."Receipt Amount" = 0 then Error('Details are missing.');
+                    Clear(PesaFlowIntergration);
+                    PesaFlowIntergration.Reset;
+                    PesaFlowIntergration.SetRange(PaymentRefID, Rec."M-Pesa Transaction Number");
+
+                    if PesaFlowIntergration.Find('-') then begin
+                        if PesaFlowIntergration.InvoiceAmount < Rec."Receipt Amount" then Error('Receipt amount is less than invoiced amount.');
+                    end; //else
+                         //Error('Invalid transaction code');
+                    Rec.Validate(Rec."Amount Paid", Rec."Receipt Amount");
+                end;
             end;
         }
         field(16; "Till Number"; Code[20])

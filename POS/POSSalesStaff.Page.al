@@ -3,7 +3,6 @@ Page 99408 "POS Sales Staff"
 {
     PageType = Card;
     RefreshOnActivate = true;
-
     SourceTable = "POS Sales Header";
 
     layout
@@ -117,7 +116,7 @@ Page 99408 "POS Sales Staff"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ShortCutKey = 'F9';
+                // ShortCutKey = 'F9';
                 ToolTip = 'Print the staff sales receipt.';
 
                 trigger OnAction()
@@ -129,10 +128,41 @@ Page 99408 "POS Sales Staff"
                     SalesHeader.Reset();
                     SalesHeader.SetRange("No.", Rec."No.");
                     SalesHeader.SetRange(Posted, true);
+
                     Report.Run(Report::"POS Restaurants PrintOut", true, false, SalesHeader);
                     CurrPage.Close();
                 end;
             }
+            action(Print1)
+            {
+                ApplicationArea = All;
+                Caption = 'Print';
+                Image = VendorContact;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ShortCutKey = 'F9';
+                ToolTip = 'Print the staff sales receipt.';
+
+                trigger OnAction()
+                var
+                    SalesHeader: Record "POS Sales Header";
+                    SalesHeaderRef: RecordRef;
+                begin
+                    SalesHeader.Reset();
+                    SalesHeader.SetRange("No.", Rec."No.");
+                    SalesHeader.SetRange(Posted, true);
+
+                    // Convert Record to RecordRef
+                    SalesHeaderRef.GetTable(SalesHeader);
+
+                    // Print directly without dialog - empty string uses default printer
+                    Report.Print(Report::"POS Restaurants PrintOut", '', '', SalesHeaderRef);
+
+                    CurrPage.Close();
+                end;
+            }
+
             action("Manual post")
             {
                 Caption = 'Post';
@@ -212,7 +242,7 @@ Page 99408 "POS Sales Staff"
         Rec."Customer Type" := Rec."Customer Type"::Staff;
         Rec."Current Date Time" := CurrentDateTime;
         Rec."Cash Account" := PosSetup."Cash Account";
-        Rec."Bank Account" := PosSetup."Ecitizen Bank Account";
+        Rec."Bank Account" := 'B164';
         Rec."Payment Method" := Rec."Payment Method"::ECITIZEN;
         Rec."Income Account" := PosSetup."Staff Sales Account";
         Rec.Validate("Income Account");
