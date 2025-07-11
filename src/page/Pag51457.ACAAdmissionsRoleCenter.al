@@ -277,6 +277,36 @@ page 51457 "ACA-Admissions Role Center"
 
 
             }
+            group("SMS Management")
+            {
+                Caption = 'SMS Management';
+                Image = Communication;
+                action("SMS Campaigns")
+                {
+                    ApplicationArea = All;
+                    Caption = 'SMS Campaigns';
+                    Image = EmailTemplate;
+                    RunObject = Page "SMS Campaign List";
+                    ToolTip = 'Manage SMS campaigns and bulk messaging.';
+                }
+                action("Send Bulk SMS")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Send Bulk SMS';
+                    Image = SendMail;
+                    RunObject = Page "SMS Campaign Card";
+                    RunPageMode = Create;
+                    ToolTip = 'Create and send bulk SMS campaigns.';
+                }
+                action("SMS Log")
+                {
+                    ApplicationArea = All;
+                    Caption = 'SMS Log';
+                    Image = Log;
+                    RunObject = Page "GEN-SMS_Master List";
+                    ToolTip = 'View SMS sending history and logs.';
+                }
+            }
         }
         area(embedding)
         {
