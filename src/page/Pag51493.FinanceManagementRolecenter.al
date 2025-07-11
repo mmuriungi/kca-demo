@@ -363,7 +363,7 @@ page 51493 "Finance Management Rolecenter"
                     RunPageView = WHERE(Archived = const(true));
                     ToolTip = 'Archived Imprests';
 
-                }   
+                }
                 action("Outstanding Imprest")
                 {
                     ApplicationArea = Basic, Suite;
@@ -426,6 +426,22 @@ page 51493 "Finance Management Rolecenter"
                 }
 
 
+
+            }
+            group("Cafeteria Management")
+            {
+                Caption = 'Cafeteria Management';
+                Image = Cafeteria;
+                ToolTip = 'Cafeteria Management';
+
+                action("Post Cafeteria Batches")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Post Cafeteria Batches';
+                    Image = Journal;
+                    RunObject = Page "Posted Cafe Sales Batches";
+                    ToolTip = 'Meal Booking';
+                }
 
             }
             group("Financial Setups")
