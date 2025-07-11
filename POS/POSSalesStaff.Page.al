@@ -139,6 +139,7 @@ Page 99408 "POS Sales Staff"
                 Caption = 'Print';
                 Image = VendorContact;
                 Promoted = true;
+                Visible = false;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 //ShortCutKey = 'F9';
@@ -154,12 +155,13 @@ Page 99408 "POS Sales Staff"
                     SalesHeader.SetRange(Posted, true);
 
                     // Convert Record to RecordRef
-                    SalesHeaderRef.GetTable(SalesHeader);
+                  //  SalesHeaderRef.GetTable(SalesHeader);
 
-                    // Print directly without dialog - empty string uses default printer
-                    Report.Print(Report::"POS Restaurants PrintOut", '', '', SalesHeaderRef);
+                      Report.RunModal(Report::"POS Restaurants PrintOut", false, true, SalesHeader);
+        
+        CurrPage.Close();
 
-                    CurrPage.Close();
+                    
                 end;
             }
 
