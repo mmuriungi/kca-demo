@@ -610,7 +610,7 @@ table 50483 "KUCCPS Imports"
                         MailBody := 'You have not applied for a hostel allocation. You are therefore adviced to make personal arrangements for accomodation. Find Attached Form.';
                         RptFileName := 'G:\Non-Resident Form\5b.-Non-Resident-Form (1)' + '.pdf';
                         FileBase64 := SendMail.ConvertFileToBase64(RptFileName);
-                        SendMail.fnSendemail(Names,'HOSTEL ALERT TO NON RESIDENT',MailBody,Email,'','',true,FileBase64,'5b.-Non-Resident-Form (1)','pdf');
+                        SendMail.fnSendemail(Names, 'HOSTEL ALERT TO NON RESIDENT', MailBody, Email, '', '', true, FileBase64, '5b.-Non-Resident-Form (1)', 'pdf');
                         //SendMail.SendEmailEasy_WithAttachment('Dear ', Names, MailBody, '', 'Karatina University', 'Hostel Manager', Email, ' HOSTEL ALERT TO NON RESIDENT', RptFileName, RptFileName);
                     end;
                     if KUCCPSImports."Assigned Space" <> '' then begin
@@ -776,9 +776,7 @@ table 50483 "KUCCPS Imports"
                         ApplicHeader.TestField(County);
                         ApplicHeader.TestField("ID Number");
                         ApplicHeader.TestField("Date Of Birth");
-
-
-
+                        ApplicHeader."Settlement Type" := 'NFM';
                         ApplicHeader.Status := ApplicHeader.Status::Approved;
                         ApplicHeader.Validate(Status);
                         ApplicHeader."Documents Verified" := true;
