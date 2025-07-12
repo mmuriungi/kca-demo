@@ -460,6 +460,23 @@ codeunit 52178866 "Notifications Handler"
 
     end;
 
+
+    procedure ConvertFileToBase64(FilePath: Text): Text
+    var
+        TempBlob: Codeunit "Temp Blob";
+        FileManagement: Codeunit "File Management";
+        Base64Convert: Codeunit "Base64 Convert";
+        InStream: InStream;
+        OutStream: OutStream;
+        Base64Text: Text;
+    begin
+        TempBlob.CreateOutStream(OutStream);
+        FileManagement.BLOBImportFromServerFile(TempBlob, FilePath);
+        TempBlob.CreateInStream(InStream);
+        Base64Text := Base64Convert.ToBase64(InStream);
+        exit(Base64Text);
+    end;
+
     var
         Approvals: Record "Approval Entry";
         Employees: Record "HRM-Employee C";
@@ -500,5 +517,4 @@ codeunit 52178867 "Assessment"
             end;
         end;
     end;
-
 }
