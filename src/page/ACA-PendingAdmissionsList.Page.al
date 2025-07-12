@@ -1183,7 +1183,7 @@ Page 68483 "ACA-Pending Admissions List"
         KuccpsImport.SetRange(KuccpsImport.Index, Rec."Application No.");
         KuccpsImport.SetRange(KuccpsImport.Accomodation, KuccpsImport.Accomodation::Resident);
         KuccpsImport.SetAutocalcFields("Receipt Amount");
-        KuccpsImport.SetFilter("Receipt Amount", '>%1', 0);
+        //KuccpsImport.SetFilter("Receipt Amount", '>%1', 0);
         if KuccpsImport.FindFirst then begin
             KuccpsImport.CalcFields("Receipt Amount", KuccpsImport.Billable_Amount);
             //    IF KuccpsImport."Receipt Amount"=0 THEN BEGIN
