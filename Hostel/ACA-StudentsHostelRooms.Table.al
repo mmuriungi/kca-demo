@@ -607,6 +607,14 @@ Table 61155 "ACA-Students Hostel Rooms"
         Creg1: Record "ACA-Course Registration";
         prog: Record "ACA-Programme";
         RptFilename: Text;
+        cuTemplob: Codeunit "Temp Blob";
+        BcInstream: InStream;
+        bcOutStream: OutStream;
+        RecRef: RecordRef;
+        cuBase64: Codeunit "Base64 Convert";
+        RptBase64: Text;
+        FileName: Text;
+        NotificationHandler: Codeunit "Notifications Handler";
     begin
 
         Clear(Custs);
@@ -750,26 +758,32 @@ Table 61155 "ACA-Students Hostel Rooms"
 
             //if no errorss send communication
             Commit();
-            /*
+
             BEGIN
-            cust.RESET;
-            cust.SETRANGE("No.",Rec.Student);
-            IF cust.FINDFIRST THEN BEGIN
-              cust.TESTFIELD("E-Mail");
-              MailBody:='This is to notify you that you have been allocated accommodation at the university. '+
-        'You have been allocated Block '+"Hostel No"+', Room no: '+"Room No"+', Space: '+"Space No"+
-        'Kindly collect the keys and other items from the Hostel manager on the reporting day. Fill the attached form and present it to the hostel manager';
-        RptFilename:='D:\'+'Room Agreement_'+DELCHR(Student,'=','/')+'.pdf';
-        
-        IF EXISTS(RptFilename) THEN
-          ERASE(RptFilename);
-        REPORT.SAVEASPDF(REPORT::"Resident Room Agreement",RptFilename,cust);
-              SendMail.SendEmailEasy_WithAttachment('Dear ',cust.Name,MailBody,'','Karatina University','Hostel Manager',cust."E-Mail",'HOSTEL ALLOCATION BLOCK',RptFilename,RptFilename);
-        IF EXISTS(RptFilename) THEN
-          ERASE(RptFilename);
-              END;
+                cust.RESET;
+                cust.SETRANGE("No.", Rec.Student);
+                IF cust.FINDFIRST THEN BEGIN
+                    cust.TESTFIELD("E-Mail");
+                    MailBody := 'This is to notify you that you have been allocated accommodation at the university. ' +
+              'You have been allocated Block ' + "Hostel No" + ', Room no: ' + "Room No" + ', Space: ' + "Space No" +
+              'Kindly collect the keys and other items from the Hostel manager on the reporting day. Fill the attached form and present it to the hostel manager';
+                    // RptFilename := 'G:\' + 'Room Agreement_' + DELCHR(Student, '=', '/') + '.pdf';
+
+                    // IF EXISTS(RptFilename) THEN
+                    //     ERASE(RptFilename);
+                    RecRef.GETTABLE(cust);
+                    cuTemplob.CreateOutStream(BcOutStream);
+                    Report.SaveAs(REPORT::"Resident Room Agreement", '', ReportFormat::Pdf, bcOutStream, RecRef);
+                    cuTemplob.CreateInStream(BcInstream);
+                    RptBase64 := (cuBase64.ToBase64(BcInstream));
+                    NotificationHandler.fnSendemail(cust.Name, 'HOSTEL ALERT TO NON RESIDENT', MailBody, cust."E-Mail", '', '', true, RptBase64, '5b.-Non-Resident-Form (1)', 'pdf');
+
+                    // SendMail.SendEmailEasy_WithAttachment('Dear ', cust.Name, MailBody, '', 'Karatina University', 'Hostel Manager', cust."E-Mail", 'HOSTEL ALLOCATION BLOCK', RptFilename, RptFilename);
+                    // IF EXISTS(RptFilename) THEN
+                    //     ERASE(RptFilename);
+                END;
             END;
-            */
+
             //check if ledger is inserted
             Host_Ledger.Reset;
             Host_Ledger.SetRange("Student No", Student);
@@ -811,7 +825,7 @@ Table 61155 "ACA-Students Hostel Rooms"
         HostRec: Record "ACA-Hostel Card";
         hstR: Record "ACA-Students Hostel Rooms";
         ACAHostelLedger: Record "ACA-Hostel Ledger";
-        SendMail: Codeunit webportals;
+        SendMail: Codeunit "Notifications Handler";
         SalesHeader: Record "Sales Header";
         SalesLine: Record "Sales Line";
         CoreBankingDetails: Record Core_Banking_Details;
