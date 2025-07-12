@@ -13,16 +13,17 @@ report 50245 "Process JAB Admissions"
             begin
                 /*This function processes the KUCCPS admission and takes them to the Applications list*/
 
-                SettlementType.GET('KUCCPS');
+                SettlementType.GET("KUCCPS Imports"."Settlement Type");
+                Applications.INIT;
                 Applications."Application No." := "KUCCPS Imports".Index;
                 Applications.Date := TODAY;
                 //SplitNames(Names,Applications.Surname,Applications."Other Names");
                 Applications.Surname := "KUCCPS Imports".Names;
                 Applications."Application Date" := TODAY;
-                Applications."Admission No" := "KUCCPS Imports"."Student No";
                 Applications.Gender := "KUCCPS Imports".Gender - 1;
                 Applications."Marital Status" := Applications."Marital Status"::Single;
                 Applications.Nationality := 'KENYAN';
+
                 Applications."Address for Correspondence1" := "KUCCPS Imports".Box;
                 Applications."Address for Correspondence2" := "KUCCPS Imports".Codes;
                 Applications."Address for Correspondence3" := "KUCCPS Imports".Town;
@@ -38,22 +39,22 @@ report 50245 "Process JAB Admissions"
                 Applications."Application Form Receipt No." := '';
                 Applications."Index Number" := "KUCCPS Imports".Index;
                 Applications.Status := Applications.Status::"Provisional Admission";
-                Applications."Admission Board Recommendation" := 'Admitted Through KUCCPS';
+                Applications."Admission Board Recommendation" := 'Admitted Through ' + "KUCCPS Imports"."Settlement Type";
                 Applications."Admission Board Date" := TODAY;
                 Applications."Admission Board Time" := TIME;
                 Applications."Admitted Degree" := "KUCCPS Imports".Prog;
                 Applications."Date Of Meeting" := TODAY;
                 Applications."Date Of Receipt Slip" := TODAY;
                 Applications."Receipt Slip No." := '';
-                Applications."Academic Year" := Year;
+                Applications."Academic Year" := "KUCCPS Imports"."Academic Year";
                 Applications."Admission No" := "KUCCPS Imports".Admin;
                 Applications."Admitted To Stage" := 'Y1S1';
                 Applications."Admitted Semester" := semester;
                 Applications."First Choice Stage" := 'Y1S1';
                 Applications."First Choice Semester" := semester;
                 Applications."Intake Code" := Intake;
-                Applications."Settlement Type" := 'KUCCPS';
-                Applications."ID Number" := '';
+                Applications."Settlement Type" := "KUCCPS Imports"."Settlement Type";
+                Applications."ID Number" := "KUCCPS Imports"."ID Number/BirthCert";
                 Applications."Date Sent for Approval" := TODAY;
                 Applications."Issued Date" := TODAY;
                 Applications.Campus := 'MAIN';
@@ -62,10 +63,26 @@ report 50245 "Process JAB Admissions"
                 Applications."Responsibility Center" := 'MAIN';
                 Applications."First Choice Qualify" := TRUE;
                 Applications."Programme Level" := Applications."Programme Level"::Undergraduate;
-                Applications."Admission Comments" := 'Admitted through the KUCCPS';
-                Applications."Knew College Thru" := 'KUCCPS';
+                Applications."Admission Comments" := 'Admitted through the ' + "KUCCPS Imports"."Settlement Type";
+                Applications."Knew College Thru" := "KUCCPS Imports"."Settlement Type";
                 Applications."First Choice Category" := Applications."First Choice Category"::Undergraduate;
-                Applications.INSERT;
+                Applications."Date Of Birth" := "KUCCPS Imports"."Date of Birth";
+                Applications.County := "KUCCPS Imports".County;
+                Applications.Phone := "KUCCPS Imports".Phone;
+                Applications."Alt. Phone" := "KUCCPS Imports"."Alt. Phone";
+                Applications.Box := "KUCCPS Imports".Box;
+                Applications.Town := "KUCCPS Imports".Town;
+                Applications."NHIF No" := "KUCCPS Imports"."NHIF No";
+                Applications.Location := "KUCCPS Imports".Location;
+                Applications."Name of Chief" := "KUCCPS Imports"."Name of Chief";
+                Applications."Sub-County" := "KUCCPS Imports"."Sub-County";
+                Applications.Constituency := "KUCCPS Imports".Constituency;
+                Applications."OLevel School" := "KUCCPS Imports"."OLevel School";
+                Applications."OLevel Year Completed" := "KUCCPS Imports"."OLevel Year Completed";
+                Applications."Documents Verification Remarks" := 'OK';
+                Applications."Documents Verified" := FALSE;
+                Applications."Medical Verified" := TRUE;
+                IF Applications.INSERT THEN;
                 "KUCCPS Imports".Processed := TRUE;
                 "KUCCPS Imports".MODIFY;
 
