@@ -28,21 +28,23 @@ table 51095 "HMS-Appointment Form Header"
         }
         field(5; "Patient Type"; Option)
         {
-            OptionMembers = ,Student,Employee,others;
+            OptionMembers = " ",Employee,Student,NSInternship,Dependant,Others;
         }
         field(6; "Patient No."; Code[20])
         {
-            TableRelation = "HMS-Patient";
+            TableRelation = "HMS-Patient" where("Patient Type" = field("Patient Type"));
+            ValidateTableRelation = false;
 
             trigger OnValidate()
             var
                 ptS: Record "HMS-Patient";
             begin
-                pts.Reset();
-                if pts.Get("Employee No.") then begin
-                    rec."Employee No." := pts."Employee No.";
+                ptS.Reset();
+                if ptS.Get("Patient No.") then begin
+                    rec."Employee No." := ptS."Employee No.";
                     rec.Age := ptS.Age;
                     rec."Patient email" := ptS.Email;
+                    rec.Gender := ptS.Gender;
                     rec.Modify();
                 end;
 
@@ -160,6 +162,7 @@ table 51095 "HMS-Appointment Form Header"
         {
             DataClassification = ToBeClassified;
         }
+        
     }
 
     keys
