@@ -493,20 +493,86 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="Case_No_">
-          <DataField>Case_No_</DataField>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
         </Field>
-        <Field Name="Accused_Name">
-          <DataField>Accused_Name</DataField>
+        <Field Name="CompanyLogo">
+          <DataField>CompanyLogo</DataField>
         </Field>
-        <Field Name="Victim_Reporting_Party">
-          <DataField>Victim_Reporting_Party</DataField>
+        <Field Name="CompanyAddr">
+          <DataField>CompanyAddr</DataField>
         </Field>
-        <Field Name="Nature_of_Case">
-          <DataField>Nature_of_Case</DataField>
+        <Field Name="CompanyCIty">
+          <DataField>CompanyCIty</DataField>
         </Field>
-        <Field Name="Category">
-          <DataField>Category</DataField>
+        <Field Name="CompanyPhoneNo">
+          <DataField>CompanyPhoneNo</DataField>
+        </Field>
+        <Field Name="CompanyPostCode">
+          <DataField>CompanyPostCode</DataField>
+        </Field>
+        <Field Name="CompanyEmail">
+          <DataField>CompanyEmail</DataField>
+        </Field>
+        <Field Name="CompanyWebsite">
+          <DataField>CompanyWebsite</DataField>
+        </Field>
+        <Field Name="CompanyCountry">
+          <DataField>CompanyCountry</DataField>
+        </Field>
+        <Field Name="EmployeeName">
+          <DataField>EmployeeName</DataField>
+        </Field>
+        <Field Name="IncidenceLocation">
+          <DataField>IncidenceLocation</DataField>
+        </Field>
+        <Field Name="IncidenceLocationName">
+          <DataField>IncidenceLocationName</DataField>
+        </Field>
+        <Field Name="IncidentDate">
+          <DataField>IncidentDate</DataField>
+        </Field>
+        <Field Name="IncidentTime">
+          <DataField>IncidentTime</DataField>
+        </Field>
+        <Field Name="IncidentDescription">
+          <DataField>IncidentDescription</DataField>
+        </Field>
+        <Field Name="IncidentCause">
+          <DataField>IncidentCause</DataField>
+        </Field>
+        <Field Name="UserRemarks">
+          <DataField>UserRemarks</DataField>
+        </Field>
+        <Field Name="EmployeeDept">
+          <DataField>EmployeeDept</DataField>
+        </Field>
+        <Field Name="EmployeePhoneNo">
+          <DataField>EmployeePhoneNo</DataField>
+        </Field>
+        <Field Name="Action_Taken">
+          <DataField>Action_Taken</DataField>
+        </Field>
+        <Field Name="Action_Date">
+          <DataField>Action_Date</DataField>
+        </Field>
+        <Field Name="Incident_Reference">
+          <DataField>Incident_Reference</DataField>
+        </Field>
+        <Field Name="Incident_Status">
+          <DataField>Incident_Status</DataField>
+        </Field>
+        <Field Name="Priority">
+          <DataField>Priority</DataField>
+        </Field>
+        <Field Name="Recommendation">
+          <DataField>Recommendation</DataField>
+        </Field>
+        <Field Name="Linked_Risk">
+          <DataField>Linked_Risk</DataField>
+        </Field>
+        <Field Name="Sent">
+          <DataField>Sent</DataField>
         </Field>
         <Field Name="Status">
           <DataField>Status</DataField>
