@@ -21,7 +21,7 @@ page 51763 "HMS Patient Student Card"
                 {
                     ApplicationArea = All;
                 }
-                field("Patient Type"; Rec."Patient Type2")
+                field("Patient Type"; Rec."Patient Type")
                 {
                     Editable = true;
                     ApplicationArea = All;
@@ -29,7 +29,7 @@ page 51763 "HMS Patient Student Card"
 
                     trigger OnValidate()
                     begin
-                        rec.IsPatientTypeOthers := (rec."Patient Type2" = rec."Patient Type2"::Others);
+                        rec.IsPatientTypeOthers := (rec."Patient Type" = rec."Patient Type"::Others);
                         if rec.IsPatientTypeOthers then begin
                             rec."Employee No." := '';
                             Rec."Full Name" := '';
@@ -460,7 +460,7 @@ page 51763 "HMS Patient Student Card"
     begin
 
         REC."Examining Officer" := UserId();
-        REC."Patient Type2" := REC."Patient Type2"::Others;
+        REC."Patient Type" := REC."Patient Type"::Others;
     end;
 
 
@@ -493,10 +493,10 @@ page 51763 "HMS Patient Student Card"
 
     procedure CheckPatientType()
     begin
-        IF Rec."Patient Type" = Rec."Patient Type2"::Others THEN BEGIN
+        IF Rec."Patient Type" = Rec."Patient Type"::Others THEN BEGIN
             "Student No.Enable" := TRUE;
-            "Employee No.Enable" := FALSE;
-            "Relative No.Enable" := FALSE;
+            "Employee No.Enable" := true;
+            "Relative No.Enable" := TRUE;
         END
         ELSE BEGIN
             "Student No.Enable" := FALSE;
@@ -519,7 +519,7 @@ page 51763 "HMS Patient Student Card"
 
     trigger OnAfterGetRecord()
     begin
-        REC.IsPatientTypeOthers := (REC."Patient Type2" = REC."Patient Type2"::Others);
+        REC.IsPatientTypeOthers := (REC."Patient Type" = REC."Patient Type"::Others);
     end;
 
 

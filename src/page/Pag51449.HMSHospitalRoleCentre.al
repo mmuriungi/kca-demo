@@ -271,6 +271,17 @@ page 51449 "HMS-Hospital Role Centre"
                         ApplicationArea = All;
                     }
                 }
+                group("Other Patients")
+                {
+                    action("Other Patients List")
+                    {
+                        Image = Register;
+                        Caption = 'Other Patients List';
+                        RunObject = Page "HMS-Patient List";
+                        RunPageView = where("Patient Type" = const(Others));
+                        ApplicationArea = All;
+                    }
+                }
                 action("Active  Visits")
                 {
                     Image = Register;
