@@ -28,7 +28,7 @@ Report 51003 "prHousing Levy"
             column(CompanyInfo_Picture; CompanyInfo.Picture)
             {
             }
-            column(companyinfo_NSSFNO; '')
+            column(companyinfo_NSSFNO; companyinfo."VAT Registration No.")
             {
             }
             column(COMPANYNAME; companyinfo."Name")
@@ -150,7 +150,16 @@ Report 51003 "prHousing Levy"
             }
 
             trigger OnAfterGetRecord()
+            var
+                PrPeriod: Record "prl-Payroll Periods";
             begin
+                if PeriodName = '' then begin
+                    PrPeriod.Reset;
+                    PrPeriod.SetRange(PrPeriod."Date Opened", SelectedPeriod);
+                    if PrPeriod.Find('-') then begin
+                        PeriodName := PrPeriod."Period Name";
+                    end;
+                end;
                 objEmp.Reset;
                 objEmp.SetRange(objEmp."No.", "Employee Code");
                 if objEmp.Find('-') then begin
