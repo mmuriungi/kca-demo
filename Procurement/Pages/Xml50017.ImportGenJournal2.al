@@ -16,6 +16,7 @@ xmlport 50017 "Import Gen Journal 2"
                 //journalname
                 fieldelement(JournalName; GenJournalLine."Journal Template Name")
                 {
+                    MinOccurs = Zero;
                 }
                 fieldelement(JournalBatchName; GenJournalLine."Journal Batch Name")
                 {
