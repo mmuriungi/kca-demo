@@ -33,7 +33,7 @@ codeunit 54233 "Payment API Manager"
                 ResponseMsg.Content().ReadAs(ResponseText);
                 if ProcessPaymentResponse(ResponseText, InvoiceNo, StatusCode) then begin
                     if InvoiceNo = '' then Error(StatusCode);
-                    // PostTransactionToBC(DocNo, InvoiceNo, Amount);
+                    PostTransactionToBC(DocNo, InvoiceNo, Amount);
                     Message('STK Push Sent Successfully. Invoice Number is: %1', InvoiceNo);
                     exit(true);
                 end else begin
