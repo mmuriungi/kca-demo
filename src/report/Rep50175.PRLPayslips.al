@@ -1036,7 +1036,15 @@ report 50175 "PRL-Payslips"
             }
 
             trigger OnAfterGetRecord()
+            var
+                PrPeriods: Record "PRL-Payroll Periods";
             begin
+                if PeriodName = '' then begin
+                    PrPeriods.Reset;
+                    PrPeriods.SetRange(PrPeriods."Date Opened", SelectedPeriod);
+                    if PrPeriods.Find('-') then;
+                    PeriodName := PrPeriods."Period Name";
+                end;
                 emp1.Reset;
                 emp1.SetRange(emp1."No.", "PRL-Salary Card"."Employee Code");
                 emp1.SetRange(emp1.Status, emp1.Status::Active);
