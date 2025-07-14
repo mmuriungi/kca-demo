@@ -135,6 +135,12 @@ report 50800 "PAYE Schedule Ext"
             column(Hse_LevyRelief; HseLevyRelief)
             {
             }
+            column(NssFVoluntary; NssFVoluntary)
+            {
+            }
+            column(BritamInsurance; BritamInsurance)
+            {
+            }
 
             trigger OnAfterGetRecord()
             begin
@@ -177,7 +183,7 @@ report 50800 "PAYE Schedule Ext"
                         if (PeriodTrans."Group Order" = 7) and (PeriodTrans."Sub Group Order" = 6) then begin
                             Taxpension := PeriodTrans.Amount;
                             // IF Taxpension<=0 THEN
-                            //CurrReport.SKIP;
+                            //CurrReport.SKIP; 
                         end;
 
                         if (PeriodTrans."Transaction Code" = '690') then begin
@@ -188,7 +194,7 @@ report 50800 "PAYE Schedule Ext"
                             PersonalRelief := PeriodTrans.Amount;
                         end;
 
-                        if (PeriodTrans."Transaction Code" = 'NSSF(I)') or (PeriodTrans."Transaction Code" = 'NSSF(2)') then begin
+                        if (PeriodTrans."Transaction Code" = 'NSSF(I)') or (PeriodTrans."Transaction Code" = 'NSSF(II)') then begin
                             Nssf += PeriodTrans.Amount;
                         end;
 
@@ -206,6 +212,12 @@ report 50800 "PAYE Schedule Ext"
                         end;
                         if (PeriodTrans."Transaction Code" = '996') then begin
                             HseLevyRelief := PeriodTrans.Amount;
+                        end;
+                        if (PeriodTrans."Transaction Code" = '621') then begin
+                            NssFVoluntary += PeriodTrans.Amount;
+                        end;
+                        if (PeriodTrans."Transaction Code" = '016') then begin
+                            BritamInsurance += PeriodTrans.Amount;
                         end;
 
                         //GrpOrder 7, SubGrpOrder 3 = Taxable Pay
@@ -329,5 +341,7 @@ report 50800 "PAYE Schedule Ext"
         NHIFRelief: Decimal;
         Taxpension: Decimal;
         HseLevyRelief: Decimal;
+        NssFVoluntary: Decimal;
+        BritamInsurance: Decimal;
 }
 

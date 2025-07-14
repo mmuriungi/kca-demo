@@ -1668,6 +1668,7 @@ table 50213 "HRM-Employee C"
                 if bankStructure.FindFirst() then begin
                     "Main Bank Name" := bankStructure."Bank Name";
                     "Branch Bank Name" := bankStructure."Branch Name";
+                    "Branch Name" := bankStructure."Branch Name";
                 end;
             end;
         }
