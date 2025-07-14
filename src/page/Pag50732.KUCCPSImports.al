@@ -144,6 +144,15 @@ page 50732 "KUCCPS Imports"
     {
         area(processing)
         {
+            action(Test)
+            {
+                trigger OnAction()
+                var
+                    p: codeunit webportals;
+                begin
+                    p.MarkKUCCPSDetailsUpdated(Rec.Admin);
+                end;
+            }
             group("&Functions")
             {
                 Caption = '&Functions';
