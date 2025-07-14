@@ -311,7 +311,21 @@ Codeunit 50152 "PesaFlow Integration"
             posHeader."M-Pesa Transaction Number" := PaymentRefID;
             posHeader.Modify();
         END ELSE BEGIN
-            ERROR('invalid invoice');
+            // ERROR('invalid invoice');
+            //Insert into PesaFlowIntegration
+            PesaFlowIntegration.Init;
+            PesaFlowIntegration.PaymentRefID := paymentrefid;
+            PesaFlowIntegration.CustomerRefNo := customerref;
+            PesaFlowIntegration.InvoiceNo := invoiceno;
+            PesaFlowIntegration.InvoiceAmount := invoiceamt;
+            PesaFlowIntegration.PaidAmount := paidamt;
+            PesaFlowIntegration.ServiceID := '2729111';
+            PesaFlowIntegration.Description := 'Payment for catering services';
+            PesaFlowIntegration.PaymentChannel := channel;
+            PesaFlowIntegration.PaymentDate := paymentdate;
+            PesaFlowIntegration."Date Received" := Today;
+            PesaFlowIntegration.Status := status;
+            PesaFlowIntegration.Insert;
         end;
     end;
 
@@ -402,7 +416,7 @@ Codeunit 50152 "PesaFlow Integration"
 
 
 
-    
+
     end;
 
     procedure GetLastEntryNo(): Integer;
