@@ -163,6 +163,10 @@ report 50800 "PAYE Schedule Ext"
                 PersonalRelief := 0;
                 PensionSelf := 0;
                 NHIFRelief := 0;
+                HseLevyRelief := 0;
+                NssFVoluntary := 0;
+                BritamInsurance := 0;
+
 
                 PeriodTrans.Reset;
                 PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
