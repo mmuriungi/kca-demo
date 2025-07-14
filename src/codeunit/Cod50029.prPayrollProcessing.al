@@ -1452,19 +1452,11 @@ codeunit 50029 prPayrollProcessing
                         // Pension
                         if (prTransactionCodes."Special Transactions" = prTransactionCodes."Special Transactions"::"Defined Contribution") then
                             if prTransactionCodes.Pension = true then
-                             //AND (prTransactionCodes."Deduct Mortgage"=FALSE) THEN
                              begin
-                                curTransAmount := (0.1 * curBasicPay);//-curNSSF;
-                                //curTransAmount := 0;
                                 fnUpdateEmployerDeductions(strEmpCode, prTransactionCodes."Transaction Code",
                         'EMP', TGroupOrder, TSubGroupOrder, '', curTransAmount, 0, intMonth, intYear,
                          prEmployeeTransactions.Membership, prEmployeeTransactions."Reference No", SelectedPeriod);
                             end;
-                        // if (prTransactionCodes."Transaction Code" = 'D-20') then begin
-                        //     IF curTransAmount > curMaxPensionContrib THEN
-                        //         curTransAmount := curMaxPensionContrib
-
-                        // end;
 
                         //Get the posting Details
                         JournalPostingType := JournalPostingType::" ";

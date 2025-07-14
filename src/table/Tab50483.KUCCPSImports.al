@@ -426,7 +426,7 @@ table 50483 "KUCCPS Imports"
                         Clear(ACAAcademicYear);
                         ACAAcademicYear.Reset;
                         //ACAAcademicYear.SETRANGE(Current,TRUE);
-                        ACAAcademicYear.SetRange(Code, '2024/2025');
+                        ACAAcademicYear.SetRange(Code, '2025/2026');
                         if ACAAcademicYear.Find('-') then begin
                         end;
                         Rec."Current Approval Level" := 'APPROVAL INITIATED';
