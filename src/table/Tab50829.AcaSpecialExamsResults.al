@@ -150,11 +150,15 @@ table 50829 "Aca-Special Exams Results"
                         IF ACAExamCategory."Supplementary Max. Score" <> 0 THEN BEGIN
                             IF ((Contribution > ACAExamCategory."Supplementary Max. Score") OR (Contribution = ACAExamCategory."Supplementary Max. Score")) THEN BEGIN
                                 AcaSpecialExamsDetails."Total Marks" := ACAExamCategory."Supplementary Max. Score";
+                                AcaSpecialExamsDetails.Grade := GetGrade(0, stud_Units."CATs Marks", Contribution, Rec.Programmes);
+                                AcaSpecialExamsDetails."Exam Marks":=ACAExamCategory."Supplementary Max. Score";
                             END ELSE BEGIN
                                 AcaSpecialExamsDetails."Total Marks" := Contribution;//;
+                                AcaSpecialExamsDetails."Exam Marks":=Contribution;
                             END;
                         END ELSE BEGIN
                             AcaSpecialExamsDetails."Total Marks" := Contribution;
+                            AcaSpecialExamsDetails."Exam Marks":=Contribution;
                         END;
                         // // //      IF prog."Exam Category"='NURSING' THEN BEGIN
                         // // //      IF ((Contribution>50) OR (Contribution=50)) THEN BEGIN 
