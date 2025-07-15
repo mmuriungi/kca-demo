@@ -1142,102 +1142,103 @@ table 50562 "ACA-Student Units"
             OptionCaption = ' ,Special,Suspension,Supplementary';
             OptionMembers = " ",Special,Suspension,Supplementary;
 
-            // trigger OnValidate()
-            // var
-            //     AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
-            //     ACAAcademicYear: Record "ACA-Academic Year";
-            // begin
-            //     IF Rec."Special Exam" <> Rec."Special Exam"::" " THEN BEGIN
-            //         IF Rec."Reason for Special Exam/Susp." = '' THEN ERROR('Specify the reason for ' + FORMAT(Rec."Special Exam") + ' first.');
-            //     END;
-            //     IF ((Rec."Special Exam" = Rec."Special Exam"::Special) AND
-            //       (Rec."Supp. Registered & Passed" = FALSE)) THEN BEGIN
-            //         ACAAcademicYear.RESET;
-            //         ACAAcademicYear.SETRANGE(Current, TRUE);
-            //         IF ACAAcademicYear.FIND('-') THEN BEGIN
+            trigger OnValidate()
+            var
+                AcaSpecialExamsDetails: Record "Aca-Special Exams Details";
+                ACAAcademicYear: Record "ACA-Academic Year";
+            begin
+                IF Rec."Special Exam" <> Rec."Special Exam"::" " THEN BEGIN
+                    IF Rec."Reason for Special Exam/Susp." = '' THEN ERROR('Specify the reason for ' + FORMAT(Rec."Special Exam") + ' first.');
+                END;
+                IF ((Rec."Special Exam" = Rec."Special Exam"::Special) AND
+                  (Rec."Supp. Registered & Passed" = FALSE)) THEN BEGIN
+                    ACAAcademicYear.RESET;
+                    ACAAcademicYear.SETRANGE(Current, TRUE);
+                    IF ACAAcademicYear.FIND('-') THEN BEGIN
 
-            //         END ELSE
-            //             ERROR('Current Academic Year has not been defined!');
+                    END ELSE
+                        ERROR('Current Academic Year has not been defined!');
 
-            //         AcaSpecialExamsDetails.RESET;
-            //         AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
-            //         AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Special);
-            //         AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
-            //         AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
-            //         IF NOT (AcaSpecialExamsDetails.FIND('-')) THEN BEGIN
-            //             //Create it
-            //             AcaSpecialExamsDetails.INIT;
-            //             AcaSpecialExamsDetails."Academic Year" := Rec."Academic Year";
-            //             AcaSpecialExamsDetails.Semester := Rec.Semester;
-            //             AcaSpecialExamsDetails."Student No." := Rec."Student No.";
-            //             AcaSpecialExamsDetails.Stage := Rec.Stage;
-            //             AcaSpecialExamsDetails.Programme := Rec.Programme;
-            //             AcaSpecialExamsDetails."Unit Code" := Rec.Unit;
-            //             AcaSpecialExamsDetails.Category := AcaSpecialExamsDetails.Category::Special;
-            //             AcaSpecialExamsDetails."Current Academic Year" := ACAAcademicYear.Code;
-            //             AcaSpecialExamsDetails.INSERT;
-            //         END ELSE BEGIN
-            //             //IF found Delete & reregister if marks not exists
-            //             //AcaSpecialExamsDetails.SETFILTER("Total Marks",'>%1',40);
-            //             AcaSpecialExamsDetails.SETFILTER("Marks Exists", '%1', TRUE);
-            //             IF AcaSpecialExamsDetails.FIND('-') THEN ERROR('Marks have already been posted for special exams');
+                    AcaSpecialExamsDetails.RESET;
+                    AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
+                    AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Special);
+                    AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
+                    AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
+                    IF NOT (AcaSpecialExamsDetails.FIND('-')) THEN BEGIN
+                        //Create it
+                        AcaSpecialExamsDetails.INIT;
+                        AcaSpecialExamsDetails."Academic Year" := Rec."Academic Year";
+                        AcaSpecialExamsDetails.Semester := Rec.Semester;
+                        AcaSpecialExamsDetails."Student No." := Rec."Student No.";
+                        AcaSpecialExamsDetails.Stage := Rec.Stage;
+                        AcaSpecialExamsDetails.Programme := Rec.Programme;
+                        AcaSpecialExamsDetails."Special Exam Reason" := Rec."Reason for Special Exam/Susp.";
+                        AcaSpecialExamsDetails."Unit Code" := Rec.Unit;
+                        AcaSpecialExamsDetails.Category := AcaSpecialExamsDetails.Category::Special;
+                        AcaSpecialExamsDetails."Current Academic Year" := ACAAcademicYear.Code;
+                        AcaSpecialExamsDetails.INSERT;
+                    END ELSE BEGIN
+                        //IF found Delete & reregister if marks not exists
+                        //AcaSpecialExamsDetails.SETFILTER("Total Marks",'>%1',40);
+                        AcaSpecialExamsDetails.SETFILTER("Marks Exists", '%1', TRUE);
+                        IF AcaSpecialExamsDetails.FIND('-') THEN ERROR('Marks have already been posted for special exams');
 
-            //         END;
-            //     END ELSE
-            //         IF ((Rec."Special Exam" = Rec."Special Exam"::" ") AND
-            //  (Rec."Supp. Registered & Passed" = FALSE)) THEN BEGIN
-            //             //Delete from Special if Marks are not yet posted
-            //             AcaSpecialExamsDetails.RESET;
-            //             AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
-            //             AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Special);
-            //             AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
-            //             AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
-            //             IF AcaSpecialExamsDetails.FIND('-') THEN BEGIN
-            //                 AcaSpecialExamsDetails.SETFILTER("Marks Exists", '%1', FALSE);
-            //                 IF AcaSpecialExamsDetails.FIND('-') THEN
-            //                     AcaSpecialExamsDetails.DELETE
-            //                 ELSE
-            //                     ERROR('There exists marks for the Unit under special examinations\Modification of this status is not allowed!');
-            //             END;
-            //         END ELSE
-            //             IF ((Rec."Special Exam" = Rec."Special Exam"::Supplementary) AND
-            //    (Rec."Supp. Registered & Passed" = FALSE)) THEN BEGIN
-            //                 ACAAcademicYear.RESET;
-            //                 ACAAcademicYear.SETRANGE(Current, TRUE);
-            //                 IF ACAAcademicYear.FIND('-') THEN BEGIN
+                    END;
+                END ELSE IF ((Rec."Special Exam" = Rec."Special Exam"::" ") AND
+                  (Rec."Supp. Registered & Passed" = FALSE)) THEN BEGIN
+                    //Delete from Special if Marks are not yet posted
+                    AcaSpecialExamsDetails.RESET;
+                    AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
+                    AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Special);
+                    AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
+                    AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
+                    IF AcaSpecialExamsDetails.FIND('-') THEN BEGIN
+                        AcaSpecialExamsDetails.SETFILTER("Marks Exists", '%1', FALSE);
+                        IF AcaSpecialExamsDetails.FIND('-') THEN
+                            AcaSpecialExamsDetails.DELETE
+                        ELSE
+                            ERROR('There exists marks for the Unit under special examinations\Modification of this status is not allowed!');
+                    END;
+                END ELSE IF ((Rec."Special Exam" = Rec."Special Exam"::Supplementary) AND
+                (Rec."Supp. Registered & Passed" = FALSE)) THEN BEGIN
+                    ACAAcademicYear.RESET;
+                    ACAAcademicYear.SETRANGE(Current, TRUE);
+                    IF ACAAcademicYear.FIND('-') THEN BEGIN
 
-            //                 END ELSE
-            //                     ERROR('Current Academic Year has not been defined!');
+                    END ELSE
+                        ERROR('Current Academic Year has not been defined!');
 
-            //                 AcaSpecialExamsDetails.RESET;
-            //                 AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
-            //                 AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Supplementary);
-            //                 AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
-            //                 AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
-            //                 IF NOT (AcaSpecialExamsDetails.FIND('-')) THEN BEGIN
-            //                     //Create it
-            //                     AcaSpecialExamsDetails.INIT;
-            //                     AcaSpecialExamsDetails."Academic Year" := Rec."Academic Year";
-            //                     AcaSpecialExamsDetails.Semester := Rec.Semester;
-            //                     AcaSpecialExamsDetails."Student No." := Rec."Student No.";
-            //                     AcaSpecialExamsDetails.Stage := Rec.Stage;
-            //                     AcaSpecialExamsDetails.Programme := Rec.Programme;
-            //                     AcaSpecialExamsDetails."Unit Code" := Rec.Unit;
-            //                     AcaSpecialExamsDetails.Category := AcaSpecialExamsDetails.Category::Supplementary;
-            //                     AcaSpecialExamsDetails."Current Academic Year" := ACAAcademicYear.Code;
-            //                     AcaSpecialExamsDetails.INSERT;
-            //                 END ELSE BEGIN
-            //                     //IF found Delete & reregister if marks not exists
-            //                     //AcaSpecialExamsDetails.SETFILTER("Total Marks",'>%1',40);
-            //                     AcaSpecialExamsDetails.SETFILTER("Marks Exists", '%1', TRUE);
-            //                     IF AcaSpecialExamsDetails.FIND('-') THEN ERROR('Marks have already been posted for Supplementary exams');
+                    AcaSpecialExamsDetails.RESET;
+                    AcaSpecialExamsDetails.SETRANGE("Student No.", Rec."Student No.");
+                    AcaSpecialExamsDetails.SETFILTER(Category, '%1', AcaSpecialExamsDetails.Category::Supplementary);
+                    AcaSpecialExamsDetails.SETRANGE("Unit Code", Rec.Unit);
+                    AcaSpecialExamsDetails.SETRANGE(Semester, Rec.Semester);
+                    IF NOT (AcaSpecialExamsDetails.FIND('-')) THEN BEGIN
+                        //Create it
+                        AcaSpecialExamsDetails.INIT;
+                        AcaSpecialExamsDetails."Academic Year" := Rec."Academic Year";
+                        AcaSpecialExamsDetails.Semester := Rec.Semester;
+                        AcaSpecialExamsDetails."Student No." := Rec."Student No.";
+                        AcaSpecialExamsDetails.Stage := Rec.Stage;
+                        AcaSpecialExamsDetails.Programme := Rec.Programme;
+                        AcaSpecialExamsDetails."Unit Code" := Rec.Unit;
+                        AcaSpecialExamsDetails.Category := AcaSpecialExamsDetails.Category::Supplementary;
+                        AcaSpecialExamsDetails."Current Academic Year" := ACAAcademicYear.Code;
+                        AcaSpecialExamsDetails.INSERT;
+                    END ELSE BEGIN
+                        //IF found Delete & reregister if marks not exists
+                        //AcaSpecialExamsDetails.SETFILTER("Total Marks",'>%1',40);
+                        AcaSpecialExamsDetails.SETFILTER("Marks Exists", '%1', TRUE);
+                        IF AcaSpecialExamsDetails.FIND('-') THEN ERROR('Marks have already been posted for Supplementary exams');
 
-            //                 END;
-            //             END;
-            // end;
+                    END;
+                END;
+
+            end;
         }
-        field(50086; "Reason for Special Exam/Susp."; Text[100])
+        field(50086; "Reason for Special Exam/Susp."; Code[300])
         {
+            TableRelation="ACA-Special Exams Reason"."Reason Code";
         }
         field(50087; "Supp. Registered & Passed"; Boolean)
         {
