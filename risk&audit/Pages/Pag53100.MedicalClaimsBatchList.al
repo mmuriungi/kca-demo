@@ -86,48 +86,48 @@ page 53100 "Medical Claims Batch List"
                 end;
             }
 
-            action(ViewInvoice)
-            {
-                ApplicationArea = All;
-                Caption = 'View Invoice';
-                Image = Invoice;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ToolTip = 'View the purchase invoice';
-                Enabled = Rec."Invoice Generated";
+            // action(ViewInvoice)
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'View Invoice';
+            //     Image = Invoice;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     PromotedIsBig = true;
+            //     ToolTip = 'View the purchase invoice';
+            //     Enabled = Rec."Invoice Generated";
 
-                trigger OnAction()
-                var
-                    PurchInvHeader: Record "Purchase Header";
-                begin
-                    PurchInvHeader.SetRange("Document Type", PurchInvHeader."Document Type"::Invoice);
-                    PurchInvHeader.SetRange("No.", Rec."Invoice No.");
-                    if PurchInvHeader.FindFirst() then
-                        Page.RunModal(Page::"Purchase Invoice", PurchInvHeader);
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         PurchInvHeader: Record "Purchase Header";
+            //     begin
+            //         PurchInvHeader.SetRange("Document Type", PurchInvHeader."Document Type"::Invoice);
+            //         PurchInvHeader.SetRange("No.", Rec."Invoice No.");
+            //         if PurchInvHeader.FindFirst() then
+            //             Page.RunModal(Page::"Purchase Invoice", PurchInvHeader);
+            //     end;
+            // }
 
-            action(ViewPostedInvoice)
-            {
-                ApplicationArea = All;
-                Caption = 'View Posted Invoice';
-                Image = PostedOrder;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ToolTip = 'View the posted purchase invoice';
-                Enabled = Rec.Status = Rec.Status::Posted;
+            // action(ViewPostedInvoice)
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'View Posted Invoice';
+            //     Image = PostedOrder;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     PromotedIsBig = true;
+            //     ToolTip = 'View the posted purchase invoice';
+            //     Enabled = Rec.Status = Rec.Status::Posted;
 
-                trigger OnAction()
-                var
-                    PurchInvHeader: Record "Purch. Inv. Header";
-                begin
-                    PurchInvHeader.SetRange("No.", Rec."Posted Invoice No.");
-                    if PurchInvHeader.FindFirst() then
-                        Page.RunModal(Page::"Posted Purchase Invoice", PurchInvHeader);
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         PurchInvHeader: Record "Purch. Inv. Header";
+            //     begin
+            //         PurchInvHeader.SetRange("No.", Rec."Posted Invoice No.");
+            //         if PurchInvHeader.FindFirst() then
+            //             Page.RunModal(Page::"Posted Purchase Invoice", PurchInvHeader);
+            //     end;
+            // }
         }
 
         area(Processing)
@@ -217,62 +217,82 @@ page 53100 "Medical Claims Batch List"
 
             }
 
-            action(GenerateInvoice)
+            // action(GenerateInvoice)
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Generate Invoice';
+            //     Image = NewPurchaseInvoice;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     PromotedIsBig = true;
+            //     Visible
+            //     ToolTip = 'Generate a purchase invoice for this batch';
+            //     Enabled = (Rec.Status = Rec.Status::Open) and (not Rec."Invoice Generated") and (Rec."Vendor No." <> '');
+
+            //     trigger OnAction()
+            //     var
+            //     begin
+            //         if not Confirm('Do you want to generate an invoice for batch %1?', false, Rec."Batch No.") then
+            //             exit;
+            //     end;
+            // }
+
+            // action(PostInvoice)
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Post Invoice';
+            //     Image = PostOrder;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     PromotedIsBig = true;
+            //     ToolTip = 'Post the purchase invoice for this batch';
+            //     Enabled = Rec."Invoice Generated" and (Rec.Status = Rec.Status::Open);
+
+            //     trigger OnAction()
+            //     var
+            //     begin
+            //         if not Confirm('Do you want to post invoice %1?', false, Rec."Invoice No.") then
+            //             exit;
+            //     end;
+            // }
+            action(SendApprovalRequest)
             {
                 ApplicationArea = All;
-                Caption = 'Generate Invoice';
-                Image = NewPurchaseInvoice;
+                Caption = 'Send Approval Request';
+                Image = SendApprovalRequest;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Generate a purchase invoice for this batch';
-                Enabled = (Rec.Status = Rec.Status::Open) and (not Rec."Invoice Generated") and (Rec."Vendor No." <> '');
-
-                trigger OnAction()
-                var
-                begin
-                    if not Confirm('Do you want to generate an invoice for batch %1?', false, Rec."Batch No.") then
-                        exit;
-                end;
-            }
-
-            action(PostInvoice)
-            {
-                ApplicationArea = All;
-                Caption = 'Post Invoice';
-                Image = PostOrder;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ToolTip = 'Post the purchase invoice for this batch';
-                Enabled = Rec."Invoice Generated" and (Rec.Status = Rec.Status::Open);
-
-                trigger OnAction()
-                var
-                begin
-                    if not Confirm('Do you want to post invoice %1?', false, Rec."Invoice No.") then
-                        exit;
-                end;
-            }
-
-            action(ApproveBatch)
-            {
-                ApplicationArea = All;
-                Caption = 'Approve Batch';
-                Image = Approve;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                ToolTip = 'Approve this medical claims batch';
+                ToolTip = 'Send this medical claims batch for approval';
                 Enabled = Rec.Status = Rec.Status::Open;
 
                 trigger OnAction()
+                var
+                    ApprovalRequest: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
                 begin
-                    if Confirm('Do you want to approve batch %1?', false, Rec."Batch No.") then begin
-                        Rec.Status := Rec.Status::Approved;
-                        Rec.Modify();
-                        Message('Batch %1 has been approved.', Rec."Batch No.");
-                    end;
+                    Variant := Rec;
+                    ApprovalRequest.OnSendDocForApproval(Variant);
+                end;
+            }
+            action("Cancel Approval Request")
+            {
+                ApplicationArea = All;
+                Caption = 'Cancel Approval Request';
+                Image = CancelApprovalRequest;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Cancel the approval request for this medical claims batch';
+                Enabled = Rec.Status = Rec.Status::Open;
+
+                trigger OnAction()
+                var
+                    ApprovalRequest: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
+                begin
+                    Variant := Rec;
+                    ApprovalRequest.OnCancelDocApprovalRequest(Variant);
                 end;
             }
         }

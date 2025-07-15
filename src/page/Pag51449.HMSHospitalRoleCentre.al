@@ -444,25 +444,32 @@ page 51449 "HMS-Hospital Role Centre"
                     RunObject = Page "HMS-Pharmacy Posted";
                     ApplicationArea = All;
                 }
-                action("Drug List")
-                {
-                    Caption = 'Main Store Drug List';
-                    RunObject = Page "Drug List";
-                    ApplicationArea = All;
-                }
-                action("Issued Drugs From Main Store")
-                {
-                    Caption = 'Main Store Drug List';
-                    RunObject = Page "pharmacy issued";
+                // action("Drug List")
+                // {
+                //     Caption = 'Main Store Drug List';
+                //     RunObject = Page "Drug List";
+                //     ApplicationArea = All;
+                // }
+                // action("Issued Drugs From Main Store")
+                // {
+                //     Caption = 'Main Store Drug List';
+                //     RunObject = Page "pharmacy issued";
 
-                    ApplicationArea = All;
-                }
+                //     ApplicationArea = All;
+                // }
                 action("Pharmacy Store")
                 {
                     Caption = 'Pharmacy Store';
                     ApplicationArea = All;
                     Image = DistributionGroup;
                     RunObject = Page "Pharmacy Items";
+                }
+                action("Dispensing Store")
+                {
+                    Caption = 'Dispensing Store';
+                    ApplicationArea = All;
+                    Image = DistributionGroup;
+                    RunObject = Page "Dispensing Store items";
                 }
                 action("Non-Pharms Store")
                 {

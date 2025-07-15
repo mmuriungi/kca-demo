@@ -10,43 +10,43 @@ page 56271 "Import SMS Recipients"
             group(Options)
             {
                 Caption = 'Import Options';
-                
+
                 field(RecipientSource; RecipientSource)
                 {
                     ApplicationArea = All;
                     Caption = 'Recipient Source';
                     OptionCaption = 'All Customers,Customer Filter,All Vendors,Vendor Filter,All KUCCPS,KUCCPS Filter';
-                    
+
                     trigger OnValidate()
                     begin
                         UpdatePageControls();
                     end;
                 }
-                
+
                 group(CustomerFilters)
                 {
                     Caption = 'Customer Filters';
                     Visible = ShowCustomerFilters;
-                    
+
                     field(CustomerPostingGroup; CustomerPostingGroup)
                     {
                         ApplicationArea = All;
                         Caption = 'Customer Posting Group';
                         TableRelation = "Customer Posting Group";
                     }
-                    
+
                     field(CustomerBlocked; CustomerBlocked)
                     {
                         ApplicationArea = All;
                         Caption = 'Blocked';
                         OptionCaption = 'All,Not Blocked,Invoice,Ship,All Blocked';
                     }
-                    
+
                     field(CustomerNoFilter; CustomerNoFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Customer No. Filter';
-                        
+
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             Customer: Record Customer;
@@ -64,31 +64,31 @@ page 56271 "Import SMS Recipients"
                         end;
                     }
                 }
-                
+
                 group(VendorFilters)
                 {
                     Caption = 'Vendor Filters';
                     Visible = ShowVendorFilters;
-                    
+
                     field(VendorPostingGroup; VendorPostingGroup)
                     {
                         ApplicationArea = All;
                         Caption = 'Vendor Posting Group';
                         TableRelation = "Vendor Posting Group";
                     }
-                    
+
                     field(VendorBlocked; VendorBlocked)
                     {
                         ApplicationArea = All;
                         Caption = 'Blocked';
                         OptionCaption = 'All,Not Blocked,Payment,All Blocked';
                     }
-                    
+
                     field(VendorNoFilter; VendorNoFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Vendor No. Filter';
-                        
+
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             Vendor: Record Vendor;
@@ -106,38 +106,38 @@ page 56271 "Import SMS Recipients"
                         end;
                     }
                 }
-                
+
                 group(KUCCPSFilters)
                 {
                     Caption = 'KUCCPS Filters';
                     Visible = ShowKUCCPSFilters;
-                    
+
                     field(ProgramFilter; ProgramFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Program';
                         TableRelation = "ACA-Programme".Code;
                     }
-                    
+
                     field(AcademicYear; AcademicYear)
                     {
                         ApplicationArea = All;
                         Caption = 'Academic Year';
                     }
-                    
+
                     field(StreamFilter; StreamFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Stream';
                     }
-                    
+
                     field(AdmissionDateFilter; AdmissionDateFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Admission Date Filter';
                     }
                 }
-                
+
                 field(IncludeBlankPhones; IncludeBlankPhones)
                 {
                     ApplicationArea = All;
@@ -210,11 +210,11 @@ page 56271 "Import SMS Recipients"
         TotalCount: Integer;
     begin
         Customer.Reset();
-        
+
         if RecipientSource = RecipientSource::"Customer Filter" then begin
             if CustomerPostingGroup <> '' then
                 Customer.SetRange("Customer Posting Group", CustomerPostingGroup);
-                
+
             case CustomerBlocked of
                 CustomerBlocked::"Not Blocked":
                     Customer.SetRange(Blocked, Customer.Blocked::" ");
@@ -225,26 +225,26 @@ page 56271 "Import SMS Recipients"
                 CustomerBlocked::"All Blocked":
                     Customer.SetRange(Blocked, Customer.Blocked::All);
             end;
-            
+
             if CustomerNoFilter <> '' then
                 Customer.SetFilter("No.", CustomerNoFilter);
         end;
-        
+
         if not IncludeBlankPhones then
             Customer.SetFilter("Phone No.", '<>%1', '');
-            
+
         TotalCount := Customer.Count();
-        
+
         if TotalCount > 0 then begin
             Window.Open('Importing Customers\' +
                        'Progress: #1########## @2@@@@@@@@@@');
-            
+
             if Customer.FindSet() then
                 repeat
                     Counter += 1;
                     Window.Update(1, Counter);
                     Window.Update(2, Round(Counter / TotalCount * 10000, 1));
-                    
+
                     SMSCampaignLine.Init();
                     SMSCampaignLine."Campaign No." := CampaignNo;
                     SMSCampaignLine."Recipient Type" := SMSCampaignLine."Recipient Type"::Customer;
@@ -253,7 +253,7 @@ page 56271 "Import SMS Recipients"
                     if not SMSCampaignLine.Insert(true) then
                         SMSCampaignLine.Modify(true);
                 until Customer.Next() = 0;
-                
+
             Window.Close();
             Message('Imported %1 customer(s).', Counter);
         end else
@@ -269,11 +269,11 @@ page 56271 "Import SMS Recipients"
         TotalCount: Integer;
     begin
         Vendor.Reset();
-        
+
         if RecipientSource = RecipientSource::"Vendor Filter" then begin
             if VendorPostingGroup <> '' then
                 Vendor.SetRange("Vendor Posting Group", VendorPostingGroup);
-                
+
             case VendorBlocked of
                 VendorBlocked::"Not Blocked":
                     Vendor.SetRange(Blocked, Vendor.Blocked::" ");
@@ -282,26 +282,26 @@ page 56271 "Import SMS Recipients"
                 VendorBlocked::"All Blocked":
                     Vendor.SetRange(Blocked, Vendor.Blocked::All);
             end;
-            
+
             if VendorNoFilter <> '' then
                 Vendor.SetFilter("No.", VendorNoFilter);
         end;
-        
+
         if not IncludeBlankPhones then
             Vendor.SetFilter("Phone No.", '<>%1', '');
-            
+
         TotalCount := Vendor.Count();
-        
+
         if TotalCount > 0 then begin
             Window.Open('Importing Vendors\' +
                        'Progress: #1########## @2@@@@@@@@@@');
-            
+
             if Vendor.FindSet() then
                 repeat
                     Counter += 1;
                     Window.Update(1, Counter);
                     Window.Update(2, Round(Counter / TotalCount * 10000, 1));
-                    
+
                     SMSCampaignLine.Init();
                     SMSCampaignLine."Campaign No." := CampaignNo;
                     SMSCampaignLine."Recipient Type" := SMSCampaignLine."Recipient Type"::Vendor;
@@ -310,7 +310,7 @@ page 56271 "Import SMS Recipients"
                     if not SMSCampaignLine.Insert(true) then
                         SMSCampaignLine.Modify(true);
                 until Vendor.Next() = 0;
-                
+
             Window.Close();
             Message('Imported %1 vendor(s).', Counter);
         end else
@@ -324,45 +324,75 @@ page 56271 "Import SMS Recipients"
         Window: Dialog;
         Counter: Integer;
         TotalCount: Integer;
+        NextLineNo: Integer;
     begin
         KUCCPSImports.Reset();
-        
+
         if RecipientSource = RecipientSource::"KUCCPS Filter" then begin
             if ProgramFilter <> '' then
                 KUCCPSImports.SetRange(KUCCPSImports.Prog, ProgramFilter);
-                
+
             if AcademicYear <> '' then
                 KUCCPSImports.SetRange("Academic Year", AcademicYear);
-                
         end;
-        
+
         if not IncludeBlankPhones then
             KUCCPSImports.SetFilter(Phone, '<>%1', '');
-            
+
         TotalCount := KUCCPSImports.Count();
-        
+
         if TotalCount > 0 then begin
+            // Get the next line number
+            NextLineNo := GetNextLineNo();
+
             Window.Open('Importing KUCCPS Records\' +
                        'Progress: #1########## @2@@@@@@@@@@');
-            
+
             if KUCCPSImports.FindSet() then
                 repeat
                     Counter += 1;
                     Window.Update(1, Counter);
                     Window.Update(2, Round(Counter / TotalCount * 10000, 1));
-                    
-                    SMSCampaignLine.Init();
-                    SMSCampaignLine."Campaign No." := CampaignNo;
-                    SMSCampaignLine."Recipient Type" := SMSCampaignLine."Recipient Type"::KUCCPS;
-                    SMSCampaignLine.Validate("Recipient No.", KUCCPSImports.Admin);
-                    SMSCampaignLine.Selected := true;
-                    if not SMSCampaignLine.Insert(true) then
+
+                    // Check if record already exists using the RecipientKey
+                    SMSCampaignLine.Reset();
+                    SMSCampaignLine.SetRange("Campaign No.", CampaignNo);
+                    SMSCampaignLine.SetRange("Recipient Type", SMSCampaignLine."Recipient Type"::KUCCPS);
+                    SMSCampaignLine.SetRange("Recipient No.", KUCCPSImports.Admin);
+
+                    if not SMSCampaignLine.FindFirst() then begin
+                        // Record doesn't exist, create new one
+                        SMSCampaignLine.Init();
+                        SMSCampaignLine."Campaign No." := CampaignNo;
+                        SMSCampaignLine."Line No." := NextLineNo;
+                        SMSCampaignLine."Recipient Type" := SMSCampaignLine."Recipient Type"::KUCCPS;
+                        SMSCampaignLine.Validate("Recipient No.", KUCCPSImports.Admin);
+                        SMSCampaignLine.Selected := true;
+                        SMSCampaignLine.Insert(true);
+
+                        NextLineNo += 10000; // Increment for next record
+                    end else begin
+                        // Record exists, just update the Selected field
+                        SMSCampaignLine.Selected := true;
                         SMSCampaignLine.Modify(true);
+                    end;
                 until KUCCPSImports.Next() = 0;
-                
+
             Window.Close();
             Message('Imported %1 KUCCPS record(s).', Counter);
         end else
             Message('No KUCCPS records found with the specified filters.');
+    end;
+
+    local procedure GetNextLineNo(): Integer
+    var
+        SMSCampaignLine: Record "SMS Campaign Line";
+    begin
+        SMSCampaignLine.Reset();
+        SMSCampaignLine.SetRange("Campaign No.", CampaignNo);
+        if SMSCampaignLine.FindLast() then
+            exit(SMSCampaignLine."Line No." + 10000)
+        else
+            exit(10000);
     end;
 }

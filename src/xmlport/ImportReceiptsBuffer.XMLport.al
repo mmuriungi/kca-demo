@@ -27,6 +27,9 @@ XmlPort 50023 "Import Receipts Buffer"
                 fieldelement(e; "<ACA-Imp. Receipts Buffer>"."Student No.")
                 {
                 }
+                fieldelement(f; "<ACA-Imp. Receipts Buffer>"."Bank Code")
+                {
+                }
 
                 trigger OnBeforeInsertRecord()
                 begin

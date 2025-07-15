@@ -40,6 +40,12 @@ Page 99414 "POS Stock Header List"
                 {
                     ApplicationArea = Basic;
                 }
+                field(Location; Rec.Location)
+                {
+                    ApplicationArea = Basic;
+                    ToolTip = 'The location where the stock adjustment is being made.';
+                    TableRelation = Location;
+                }
             }
         }
     }

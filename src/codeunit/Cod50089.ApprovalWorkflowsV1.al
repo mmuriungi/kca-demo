@@ -129,6 +129,11 @@ codeunit 50089 "Approval Workflows V1"
         OnCancelFuelReqforApprovalTxt: Label 'An Approval request for Fuel & Maintenance is Cancelled';
         RunWorkflowOnSendFuelReqforApprovalCode: Label 'RUNWORKFLOWONSENDFUELREQFORAPPROVAL';
         RunWorkflowOnCancelFuelReqforApprovalCode: Label 'RUNWORKFLOWONCANCELFUELREQFORAPPROVAL';
+        //Medical Claims Batch
+        OnSendMedicalClaimsBatchforApprovalTxt: Label 'Approval request for Medical Claims Batch is requested';
+        OnCancelMedicalClaimsBatchforApprovalTxt: Label 'An Approval request for Medical Claims Batch is Cancelled';
+        RunWorkflowOnSendMedicalClaimsBatchforApprovalCode: Label 'RUNWORKFLOWONSENDMEDICALCLAIMSBATCHFORAPPROVAL';
+        RunWorkflowOnCancelMedicalClaimsBatchforApprovalCode: Label 'RUNWORKFLOWONCANCELMEDICALCLAIMSBATCHFORAPPROVAL';
 
 
     procedure CheckApprovalsWorkflowEnabled(var Variant: Variant): Boolean
@@ -188,6 +193,8 @@ codeunit 50089 "Approval Workflows V1"
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendTransportReqforApprovalCode));
             Database::"FLT-Fuel & Maintenance Req.":
                 exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendFuelReqforApprovalCode));
+            Database::"Medical Claims Batch":
+                exit(CheckApprovalsWorkflowEnabledCode(variant, RunWorkflowOnSendMedicalClaimsBatchforApprovalCode));
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end;
@@ -298,6 +305,9 @@ codeunit 50089 "Approval Workflows V1"
         //Fuel & Maintenance Request
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendFuelReqforApprovalCode, Database::"FLT-Fuel & Maintenance Req.", OnSendFuelReqforApprovalTxt, 0, false);
         WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelFuelReqforApprovalCode, Database::"FLT-Fuel & Maintenance Req.", OnCancelFuelReqforApprovalTxt, 0, false);
+        //Medical Claims Batch
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnSendMedicalClaimsBatchforApprovalCode, Database::"Medical Claims Batch", OnSendMedicalClaimsBatchforApprovalTxt, 0, false);
+        WorkFlowEventHandling.AddEventToLibrary(RunWorkflowOnCancelMedicalClaimsBatchforApprovalCode, Database::"Medical Claims Batch", OnCancelMedicalClaimsBatchforApprovalTxt, 0, false);
     end;
 
 
@@ -364,6 +374,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendTransportReqforApprovalCode, Variant);
             Database::"FLT-Fuel & Maintenance Req.":
                 WorkflowManagement.HandleEvent(RunWorkflowOnSendFuelReqforApprovalCode, Variant);
+            Database::"Medical Claims Batch":
+                WorkflowManagement.HandleEvent(RunWorkflowOnSendMedicalClaimsBatchforApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -428,6 +440,8 @@ codeunit 50089 "Approval Workflows V1"
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelTransportReqforApprovalCode, Variant);
             Database::"FLT-Fuel & Maintenance Req.":
                 WorkflowManagement.HandleEvent(RunWorkflowOnCancelFuelReqforApprovalCode, Variant);
+            Database::"Medical Claims Batch":
+                WorkflowManagement.HandleEvent(RunWorkflowOnCancelMedicalClaimsBatchforApprovalCode, Variant);
             else
                 Error(UnsupportedRecordTypeErr, RecRef.Caption);
         end
@@ -463,6 +477,7 @@ codeunit 50089 "Approval Workflows V1"
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
         TransportReq: Record "FLT-Transport Requisition";
         FuelReq: Record "FLT-Fuel & Maintenance Req.";
+        MedicalClaimsBatch: Record "Medical Claims Batch";
     begin
         case RecRef.Number of
             Database::club:
@@ -640,6 +655,13 @@ codeunit 50089 "Approval Workflows V1"
                     FuelReq.Modify();
                     Handled := true;
                 end;
+            Database::"Medical Claims Batch":
+                begin
+                    RecRef.SetTable(MedicalClaimsBatch);
+                    MedicalClaimsBatch.Validate("Status", MedicalClaimsBatch.Status::Open);
+                    MedicalClaimsBatch.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -671,6 +693,7 @@ codeunit 50089 "Approval Workflows V1"
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
         TransportReq: Record "FLT-Transport Requisition";
         FuelReq: Record "FLT-Fuel & Maintenance Req.";
+        MedicalClaimsBatch: Record "Medical Claims Batch";
     begin
         case RecRef.Number of
             Database::club:
@@ -852,6 +875,13 @@ codeunit 50089 "Approval Workflows V1"
                     FuelReq.Modify();
                     IsHandled := true;
                 end;
+            Database::"Medical Claims Batch":
+                begin
+                    RecRef.SetTable(MedicalClaimsBatch);
+                    MedicalClaimsBatch.Validate("Status", MedicalClaimsBatch.Status::Pending);
+                    MedicalClaimsBatch.Modify();
+                    IsHandled := true;
+                end;
         end;
     end;
 
@@ -883,6 +913,7 @@ codeunit 50089 "Approval Workflows V1"
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
         TransportReq: Record "FLT-Transport Requisition";
         FuelReq: Record "FLT-Fuel & Maintenance Req.";
+        MedicalClaimsBatch: Record "Medical Claims Batch";
     begin
         case RecRef.number of
             Database::Club:
@@ -1011,6 +1042,11 @@ codeunit 50089 "Approval Workflows V1"
                     RecRef.SetTable(FuelReq);
                     ApprovalEntryArgument."Document No." := FuelReq."Requisition No";
                 end;
+            Database::"Medical Claims Batch":
+                begin
+                    RecRef.SetTable(MedicalClaimsBatch);
+                    ApprovalEntryArgument."Document No." := MedicalClaimsBatch."Batch No.";
+                end;
         end;
     end;
 
@@ -1047,6 +1083,7 @@ codeunit 50089 "Approval Workflows V1"
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
         TransportReq: Record "FLT-Transport Requisition";
         FuelReq: Record "FLT-Fuel & Maintenance Req.";
+        MedicalClaimsBatch: Record "Medical Claims Batch";
     begin
         case RecRef.Number of
             Database::Club:
@@ -1229,6 +1266,13 @@ codeunit 50089 "Approval Workflows V1"
                     FuelReq.Modify();
                     Handled := true;
                 end;
+            Database::"Medical Claims Batch":
+                begin
+                    RecRef.SetTable(MedicalClaimsBatch);
+                    MedicalClaimsBatch.Validate("Status", MedicalClaimsBatch.Status::Approved);
+                    MedicalClaimsBatch.Modify();
+                    Handled := true;
+                end;
         end;
     end;
 
@@ -1260,6 +1304,7 @@ codeunit 50089 "Approval Workflows V1"
         MileageClaimHeader: Record "FLT-Mileage Claim Header";
         TransportReq: Record "FLT-Transport Requisition";
         FuelReq: Record "FLT-Fuel & Maintenance Req.";
+        MedicalClaimsBatch: Record "Medical Claims Batch";
     begin
         case ApprovalEntry."Table ID" of
             Database::club:
@@ -1440,6 +1485,13 @@ codeunit 50089 "Approval Workflows V1"
                     if FuelReq.Get(ApprovalEntry."Document No.") then begin
                         FuelReq.Status := FuelReq.Status::Open;
                         FuelReq.Modify(true);
+                    end;
+                end;
+            Database::"Medical Claims Batch":
+                begin
+                    if MedicalClaimsBatch.Get(ApprovalEntry."Document No.") then begin
+                        MedicalClaimsBatch.Status := MedicalClaimsBatch.Status::Rejected;
+                        MedicalClaimsBatch.Modify(true);
                     end;
                 end;
         end;
