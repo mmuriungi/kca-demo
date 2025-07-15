@@ -22,11 +22,14 @@ tableextension 50009 Location extends Location
             DataClassification = ToBeClassified;
 
         }
-        // field(88002; "Cafeteria Location";Boolean)
-        // {
-        //     DataClassification = ToBeClassified;
+        //Pharmacy Category
+        field(88002; "Pharmacy Category"; Option)
+        {
+            OptionCaption = ' ,Main Store,Dispensing Store';
+            OptionMembers = " ","Main Store","Dispensing Store";
+            DataClassification = ToBeClassified;
 
-        // }
+        }
     }
 
 }

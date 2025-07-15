@@ -38,14 +38,37 @@ table 51095 "HMS-Appointment Form Header"
             trigger OnValidate()
             var
                 ptS: Record "HMS-Patient";
+                HrEmployee: Record "HRM-Employee C";
+                student: Record Customer;
+                HrDates: Codeunit "HR Dates";
             begin
                 ptS.Reset();
                 if ptS.Get("Patient No.") then begin
+
                     rec."Employee No." := ptS."Employee No.";
-                    rec.Age := ptS.Age;
-                    rec."Patient email" := ptS.Email;
-                    rec.Gender := ptS.Gender;
-                    rec.Modify();
+                    if ptS."Patient Type" = ptS."Patient Type"::Employee then begin
+                        HrEmployee.Reset();
+                        if HrEmployee.Get(ptS."Employee No.") then begin
+                            if HrEmployee."Date of Birth" <> 0D then begin
+                                rec.Age := HrDates.DetermineAge(HrEmployee."Date of Birth", Today);
+                            end;
+                            rec."Patient email" := HrEmployee."E-Mail";
+                            rec.Gender := HrEmployee.Gender;
+                            rec.Modify();
+                        end;
+                    end;
+                    if ptS."Patient Type" = ptS."Patient Type"::Student then begin
+                        Rec."Student No." := ptS."Student No.";
+                        student.Reset();
+                        if student.Get(ptS."Student No.") then begin
+                            if student."Date of Birth" <> 0D then begin
+                                rec.Age := HrDates.DetermineAge(student."Date of Birth", Today);
+                            end;
+                            rec."Patient email" := student."E-Mail";
+                            rec.Gender := student.Gender;
+                            rec.Modify();
+                        end;
+                    end;
                 end;
 
 
@@ -77,10 +100,10 @@ table 51095 "HMS-Appointment Form Header"
 
             trigger OnValidate()
             begin
-                IF Pat.GET("Patient No.") THEN BEGIN
-                    Gender := Pat.Gender;
-                    //Age:= 
-                END;
+                // IF Pat.GET("Patient No.") THEN BEGIN
+                //     Gender := Pat.Gender;
+                //     //Age:= 
+                // END;
             end;
         }
         field(8; "Employee No."; Code[20])
@@ -146,10 +169,8 @@ table 51095 "HMS-Appointment Form Header"
             FieldClass = FlowField;
             OptionMembers = New,Completed,Referred,Cancelled;
         }
-        field(24; Gender; Option)
+        field(24; Gender; Enum Gender)
         {
-            OptionCaption = ',Male,Female';
-            OptionMembers = ,Male,Female;
         }
         field(25; Age; Text[100])
         {
@@ -162,7 +183,7 @@ table 51095 "HMS-Appointment Form Header"
         {
             DataClassification = ToBeClassified;
         }
-        
+
     }
 
     keys

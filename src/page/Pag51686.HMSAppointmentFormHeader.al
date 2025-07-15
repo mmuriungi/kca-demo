@@ -28,14 +28,14 @@ page 51686 "HMS-Appointment Form Header"
 
                     trigger OnValidate()
                     begin
-                        GetAppointmentTypeName(AppointmentTypeName, Rec."Appointment Type");
+                        // GetAppointmentTypeName(AppointmentTypeName, Rec."Appointment Type");
                     end;
                 }
-                field(AppointmentTypeName; AppointmentTypeName)
-                {
-                    Editable = false;
-                    ApplicationArea = All;
-                }
+                // field(AppointmentTypeName; AppointmentTypeName)
+                // {
+                //     Editable = false;
+                //     ApplicationArea = All;
+                // }
                 // field("Patient Type"; Rec."Patient Type")
                 // {
                 //     ApplicationArea = All;
@@ -511,7 +511,7 @@ page 51686 "HMS-Appointment Form Header"
         GetDoctorName(Rec.Doctor, DoctorName);
         GetPatientNo(Rec."Patient No.", Rec."Student No.", Rec."Employee No.", Rec."Relative No.");
         GetPatientName(Rec."Patient No.", PatientName);
-        GetPatientAge(Rec."Patient No.", Rec.Age);
+        //GetPatientAge(Rec."Patient No.", Rec.Age);
         GetAppointmentStats(Rec."Patient No.");
     end;
 }

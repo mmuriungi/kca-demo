@@ -386,5 +386,10 @@ tableextension 50017 UserSetupExt extends "User Setup"
         {
             
         }
+        field(56680; "Finance User"; Boolean)
+        {
+            Caption = 'Finance User';
+            DataClassification = ToBeClassified;
+        }
     }
 }
