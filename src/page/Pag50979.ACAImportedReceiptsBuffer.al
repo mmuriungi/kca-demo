@@ -15,48 +15,59 @@ page 50979 "ACA-Imported Receipts Buffer"
                 field("Transaction Code"; Rec."Transaction Code")
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field("Student No."; Rec."Student No.")
                 {
                     Caption = 'Account No.';
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field(Date; Rec.Date)
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field(Posted; Rec.Posted)
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    StyleExpr = varStyle;
                 }
                 field("Receipt No"; Rec."Receipt No")
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field(IDNo; Rec.IDNo)
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field("Cheque No"; Rec."Cheque No")
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
                 field("Stud Exist"; Rec."Stud Exist")
                 {
                     ApplicationArea = All;
+                    StyleExpr = varStyle;
                 }
             }
         }
@@ -114,5 +125,14 @@ page 50979 "ACA-Imported Receipts Buffer"
     var
         StudPayments: Record "ACA-Std Payments";
         RcptBuffer: Integer;
+        varStyle: Text;
+
+    trigger OnAfterGetRecord()
+    begin
+        varStyle := 'Favorable';
+        Rec.CalcFields("Stud Exist");
+        if Rec."Stud Exist" = 0 then
+            varStyle := 'Attention';
+    end;
 }
 

@@ -38,9 +38,10 @@ table 50674 "ACA-Imp. Receipts Buffer"
                 if cust.Get(Rec."Student No.") then begin
                     Name := cust.Name;
                     if "Receipt No" = '' then begin
-                        genSetup.Get();
-                        genSetup.TestField("Receipt Nos.");
-                        "Receipt No" := NoSeriesManagement.GetNextNo(genSetup."Receipt Nos.", 0D, True);
+                        // genSetup.Get();
+                        // genSetup.TestField("Receipt Nos.");
+                        // "Receipt No" := NoSeriesManagement.GetNextNo(genSetup."Receipt Nos.", 0D, True);
+                        InitSeries();
                     end;
                     // Rec."Batch No." := Rec."Transaction Code";
                     // Rec.Modify();
@@ -99,6 +100,16 @@ table 50674 "ACA-Imp. Receipts Buffer"
         field(23; Invalid; Boolean)
         {
         }
+        field(24; "Bank Code"; Code[20])
+        {
+        }
+        field(25; "Bank Name"; Text[100])
+        {
+        }
+        //No. Series
+        field(26; "No. Series"; Code[20])
+        {
+        }
 
 
     }
@@ -137,6 +148,9 @@ table 50674 "ACA-Imp. Receipts Buffer"
         if not Cust.FindFirst() then begin
             Rec.Invalid := true;
         end;
+        if Rec."Receipt No" = '' then begin
+            InitSeries();
+        end;
     end;
 
     trigger OnModify()
@@ -150,6 +164,19 @@ table 50674 "ACA-Imp. Receipts Buffer"
         end else begin
             Rec.Invalid := false;
         end;
+    end;
+
+    procedure InitSeries()
+    var
+        bank: Record "Bank Account";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+    begin
+        bank.Reset();
+        bank.SetRange("No.", Rec."Bank Code");
+        IF bank.FindFirst THEN BEGIN
+            bank.TestField(bank."Receipt No. Series");
+            NoSeriesMgt.InitSeries(bank."Receipt No. Series", xRec."No. Series", 0D, Rec."Receipt No", "No. Series");
+        END;
     end;
 }
 
