@@ -31,9 +31,9 @@ page 51836 "HMS-Treatment Form Drug"
                     var
 
                     begin
-                        rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
-                        rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
-                        rec.Modify();
+                       // rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
+                        //rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
+                        //rec.Modify();
                         CurrPage.Update();
                     end;
 
@@ -45,9 +45,9 @@ page 51836 "HMS-Treatment Form Drug"
                     var
 
                     begin
-                        rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
-                        rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
-                        rec.Modify();
+                     ///   rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
+                       // rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
+                      //  rec.Modify();
                         CurrPage.Update();
                     end;
                 }
@@ -58,9 +58,9 @@ page 51836 "HMS-Treatment Form Drug"
                     var
 
                     begin
-                        rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
-                        rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
-                        rec.Modify();
+                     //   rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
+                     //   rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
+                     //   rec.Modify();
                         CurrPage.Update();
 
                     end;
@@ -73,9 +73,9 @@ page 51836 "HMS-Treatment Form Drug"
 
                     begin
 
-                        rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
-                        rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
-                        rec.Modify();
+                       // rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
+                       // rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
+                      //  rec.Modify();
                         CurrPage.Update();
                     end;
 
@@ -88,9 +88,9 @@ page 51836 "HMS-Treatment Form Drug"
 
                     begin
 
-                        rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
-                        rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
-                        rec.Modify();
+                        // rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
+                        // rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
+                        // rec.Modify();
                         CurrPage.Update();
                     end;
                 }
@@ -119,9 +119,9 @@ page 51836 "HMS-Treatment Form Drug"
 
                     begin
 
-                        rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
-                        rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
-                        rec.Modify();
+                        // rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
+                        // rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
+                        // rec.Modify();
                         CurrPage.Update();
                     end;
                 }
