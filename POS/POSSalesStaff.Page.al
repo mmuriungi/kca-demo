@@ -124,12 +124,14 @@ Page 99408 "POS Sales Staff"
                     SalesHeader: Record "POS Sales Header";
                     POSRestaurantsPrintOut: Report "POS Restaurants PrintOut";
                 begin
+                    Rec.PostSale();
 
                     SalesHeader.Reset();
                     SalesHeader.SetRange("No.", Rec."No.");
                     SalesHeader.SetRange(Posted, true);
+                    REPORT.RUN(REPORT::"POS Restaurants PrintOut", FALSE, TRUE, SalesHeader);
 
-                    Report.Run(Report::"POS Restaurants PrintOut", true, false, SalesHeader);
+                    //Report.Run(Report::"POS Restaurants PrintOut", true, false, SalesHeader);
                     CurrPage.Close();
                 end;
             }
@@ -155,13 +157,13 @@ Page 99408 "POS Sales Staff"
                     SalesHeader.SetRange(Posted, true);
 
                     // Convert Record to RecordRef
-                  //  SalesHeaderRef.GetTable(SalesHeader);
+                    //  SalesHeaderRef.GetTable(SalesHeader);
 
-                      Report.RunModal(Report::"POS Restaurants PrintOut", false, true, SalesHeader);
-        
-        CurrPage.Close();
+                    Report.RunModal(Report::"POS Restaurants PrintOut", false, true, SalesHeader);
 
-                    
+                    CurrPage.Close();
+
+
                 end;
             }
 
