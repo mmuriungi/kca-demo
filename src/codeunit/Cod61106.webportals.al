@@ -1750,9 +1750,6 @@ Codeunit 61106 webportals
 
 
     procedure GetIndexNo(username: Code[20]) Index: Text
-    var
-        LecturerUnits: Record "ACA-Lecturers Units";
-        LectLoadBatch: Record "Lect Load Batch Lines";
     begin
         begin
             KUCCPSRaw.Reset;
@@ -1766,44 +1763,35 @@ Codeunit 61106 webportals
 
     procedure DeleteAttachments(indexno: Code[20]; doctype: Code[50]) Deleted: Boolean
     var
-        LecturerUnits: Record "ACA-Lecturers Units";
-        LectLoadBatch: Record "Lect Load Batch Lines";
+        DocAttachments: Record "Document Attachment";
     begin
-        begin
-            StudentDocs.Reset;
-            StudentDocs.SetRange("Index Number", GetIndexNo(indexno));
-            StudentDocs.SetRange("Document Code", doctype);
-            if StudentDocs.Find('-') then begin
-                StudentDocs.CalcFields(Document_Image);
-                if StudentDocs.Document_Image.Hasvalue then begin
-                    Clear(StudentDocs.Document_Image);
-                    StudentDocs.Modify;
-                    Deleted := true;
-                end;
-            end;
+        DocAttachments.Reset;
+        DocAttachments.SetRange("No.", indexno);
+        DocAttachments.SetRange("File Name", doctype);
+        DocAttachments.SetRange("Table ID", 50483);
+        if DocAttachments.Find('-') then begin
+            DocAttachments.Delete();
+            Deleted := true;
         end;
     end;
 
 
     procedure CheckUnattachedDoc(indexno: Code[20]) Msg: Boolean
     var
-        LecturerUnits: Record "ACA-Lecturers Units";
-        LectLoadBatch: Record "Lect Load Batch Lines";
+        DocAttachments: Record "Document Attachment";
     begin
         begin
             DocSetup.Reset;
-            //DocSetup.SETRANGE("Academic Year",GetCurrentAcademicYear());
+            DocSetup.SETRANGE("Academic Year", GetCurrentAcademicYear());
             DocSetup.SetRange(Mandatory, true);
             if DocSetup.Find('-') then begin
                 repeat
-                    StudentDocs.Reset;
-                    StudentDocs.SetRange("Index Number", GetIndexNo(indexno));
-                    StudentDocs.SetRange("Document Code", DocSetup."Document Code");
-                    if StudentDocs.Find('-') then begin
-                        StudentDocs.CalcFields(Document_Image);
-                        if not StudentDocs.Document_Image.Hasvalue then begin
-                            Msg := true;
-                        end;
+                    DocAttachments.Reset;
+                    DocAttachments.SetRange("No.", GetIndexNo(indexno));
+                    DocAttachments.SetRange("File Name", DocSetup."Document Code");
+                    DocAttachments.SetRange("Table ID", 50483);
+                    if not DocAttachments.Find('-') then begin
+                        exit(true);
                     end;
                 until DocSetup.Next = 0;
             end;
@@ -1832,6 +1820,7 @@ Codeunit 61106 webportals
     var
         LecturerUnits: Record "ACA-Lecturers Units";
         LectLoadBatch: Record "Lect Load Batch Lines";
+        DocAttachments: Record "Document Attachment";
     begin
         begin
             DocSetup.Reset;
@@ -1839,20 +1828,30 @@ Codeunit 61106 webportals
             DocSetup.SetRange(Mandatory, true);
             if DocSetup.Find('-') then begin
                 repeat
-                    StudentDocs.Reset;
-                    StudentDocs.SetRange("Index Number", GetIndexNo(indexno));
-                    StudentDocs.SetRange("Document Code", DocSetup."Document Code");
-                    if StudentDocs.Find('-') then begin
-                        StudentDocs.CalcFields(Document_Image);
-                        if not StudentDocs.Document_Image.Hasvalue then begin
-                            Message += Format(DocSetup."Document Code") + ' ::';
-                        end;
+                    DocAttachments.Reset;
+                    DocAttachments.SetRange("No.", GetIndexNo(indexno));
+                    DocAttachments.SetRange("File Name", DocSetup."Document Code");
+                    DocAttachments.SetRange("Table ID", 50483);
+                    
+                    if not DocAttachments.Find('-') then begin
+                        Message += Format(DocSetup."Document Code") + ' ::';
                     end;
                 until DocSetup.Next = 0;
             end;
         end;
     end;
 
+    procedure GetSubmittedAttachments(admno: Code[20]) Message: Text
+    var
+        DocAttachments: Record "Document Attachment";
+    begin
+        DocAttachments.Reset;
+        DocAttachments.SetRange("No.", GetIndexNo(admno));
+        DocAttachments.SetRange("Table ID", 50483);
+        if DocAttachments.Find('-') then begin
+            Message += DocAttachments."File Name" + ' ::';
+        end;
+    end;
 
     procedure GetConfirmedSupUnits(StdNo: Code[20]) Message: Text
     var
