@@ -35,11 +35,12 @@ page 50868 "ACA-Student Units"
                 {
                     ApplicationArea = All;
                 }
-                field("Special Exam"; Rec."Special Exam")
+
+                field("Reason for Special Exam/Susp."; Rec."Reason for Special Exam/Susp.")
                 {
                     ApplicationArea = All;
                 }
-                field("Reason for Special Exam/Susp."; Rec."Reason for Special Exam/Susp.")
+                field("Special Exam"; Rec."Special Exam")
                 {
                     ApplicationArea = All;
                 }
