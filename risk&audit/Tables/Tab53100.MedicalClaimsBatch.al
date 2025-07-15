@@ -41,8 +41,8 @@ table 53100 "Medical Claims Batch"
         field(5; Status; Option)
         {
             Caption = 'Status';
-            OptionMembers = Open,Approved,Posted;
-            OptionCaption = 'Open,Approved,Posted';
+            OptionMembers = Open,Pending,Approved,Posted,Rejected;
+            OptionCaption = 'Open,Pending,Approved,Posted,Rejected';
             Editable = false;
         }
         field(6; "Total Amount"; Decimal)
