@@ -6,7 +6,7 @@ page 51463 "HMS-Lab Test Requests list"
 
     CardPageId = "HMS-Treatment Form Header";
     SourceTable = "HMS-Treatment Form Header";
-    SourceTableView = order(ascending) where("sent to lab" = filter('True'), "Lab Status" = filter(<> 'Cleared'));
+    SourceTableView = order(ascending) where("sent to lab" = filter(True), "Lab Status" = filter(<> Cleared));
 
     layout
     {
