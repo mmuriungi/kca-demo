@@ -45,17 +45,26 @@ page 51686 "HMS-Appointment Form Header"
                 //     //     CheckPatientType();
                 //     // end;
                 // }
+                field("Patient Type"; Rec."Patient Type")
+                {
+                    ApplicationArea = All;
+                }
                 field("Patient No."; Rec."Patient No.")
                 {
                     ApplicationArea = All;
 
                     //TableRelation = "HMS-Patient";
-                    // trigger OnValidate()
-                    // begin
-                    //     GetPatientName(Rec."Patient No.", PatientName);
-                    //     GetPatientNo(Rec."Patient No.", Rec."Student No.", Rec."Employee No.", Rec."Relative No.");
-                    //     GetAppointmentStats(Rec."Patient No.");
-                    // end;
+                    trigger OnValidate()
+                    begin
+                        GetPatientName(Rec."Patient No.", PatientName);
+                        //     GetPatientNo(Rec."Patient No.", Rec."Student No.", Rec."Employee No.", Rec."Relative No.");
+                        //     GetAppointmentStats(Rec."Patient No.");
+                    end;
+                }
+                field(PatientName; PatientName)
+                {
+                    Editable = false;
+                    ApplicationArea = All;
                 }
                 field("Employee No."; Rec."Employee No.")
                 {
@@ -180,7 +189,8 @@ page 51686 "HMS-Appointment Form Header"
                     Caption = 'Dispatch To Observation Room';
                     Image = ReleaseDoc;
                     ApplicationArea = All;
-
+                    Promoted = true;
+                    PromotedCategory = Process;
                     trigger OnAction()
                     begin
 
@@ -225,6 +235,8 @@ page 51686 "HMS-Appointment Form Header"
                     Image = ReleaseDoc;
                     ApplicationArea = All;
                     Visible = (Rec.Status = Rec.Status::New);
+                    Promoted = true;
+                    PromotedCategory = Process;
 
                     trigger OnAction()
                     begin
@@ -274,7 +286,7 @@ page 51686 "HMS-Appointment Form Header"
                     Caption = ' Book And Notify ';
                     Image = Delegate;
                     Promoted = true;
-                    PromotedCategory = Category4;
+                    PromotedCategory = Process;
                     PromotedOnly = true;
                     ToolTip = 'Notify the Applicant';
                     Visible = (Rec.Status = Rec.Status::New);
@@ -304,7 +316,7 @@ page 51686 "HMS-Appointment Form Header"
                     Caption = ' Close the Appointment ';
                     Image = Delegate;
                     Promoted = true;
-                    PromotedCategory = Category4;
+                    PromotedCategory = Process;
                     PromotedOnly = true;
 
                     Visible = (Rec.Status = Rec.Status::Booked);

@@ -137,6 +137,9 @@ report 50803 "SHA/SHIF Report"
             column(krapin; krapin)
             {
             }
+            column(phone; phone)
+            {
+            }
 
             trigger OnAfterGetRecord()
             begin
@@ -152,6 +155,7 @@ report 50803 "SHA/SHIF Report"
                 IDNumber := objEmp."ID Number";
                 Dob := objEmp."Date Of Birth";
                 krapin := objEmp."PIN Number";
+                phone := objEmp."Cellular Phone Number";
 
                 PeriodTrans.Reset;
                 PeriodTrans.SetRange(PeriodTrans."Employee Code", "Employee Code");
@@ -256,7 +260,7 @@ report 50803 "SHA/SHIF Report"
         Tel: Text[30];
         Dob: Date;
         Companyinfo: Record "Company Information";
-        NATIONAL_HOSPITAL_INSURANCE_FUNDCaptionLbl: label 'NATIONAL HOSPITAL INSURANCE FUND';
+        NATIONAL_HOSPITAL_INSURANCE_FUNDCaptionLbl: label 'SOCIAL HEALTH INSURANCE FUND';
         User_Name_CaptionLbl: label 'User Name:';
         Print_Date_CaptionLbl: label 'Print Date:';
         Period_CaptionLbl: label 'Period:';
@@ -269,16 +273,17 @@ report 50803 "SHA/SHIF Report"
         TEL_NO_CaptionLbl: label 'TEL NO:';
         AmountCaptionLbl: label 'Amount';
         ID_Number_CaptionLbl: label 'ID Number:';
-        NHIF_No_CaptionLbl: label 'NHIF No:';
+        NHIF_No_CaptionLbl: label 'SHIF No:';
         Employee_NameCaptionLbl: label 'Employee Name';
         No_CaptionLbl: label 'No:';
         Date_Of_BirthCaptionLbl: label 'Date Of Birth';
         Prepared_by_______________________________________Date_________________CaptionLbl: label 'Prepared by……………………………………………………..                 Date……………………………………………';
         Checked_by________________________________________Date_________________CaptionLbl: label 'Checked by…………………………………………………..                   Date……………………………………………';
         Authorized_by____________________________________Date_________________CaptionLbl: label 'Authorized by……………………………………………………..              Date……………………………………………';
-        Total_NHIF_CaptionLbl: label 'Total NHIF:';
+        Total_NHIF_CaptionLbl: label 'Total SHIF:';
         Approved_by______________________________________Date_________________CaptionLbl: label 'Approved by……………………………………………………..                Date……………………………………………';
         LastName: Text[50];
         krapin: Text;
+        phone: Text;
 }
 

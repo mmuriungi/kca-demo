@@ -39,6 +39,7 @@ page 52136 "New POS"
                 RunPageMode = Create;
                 Caption = 'Student Sales';
                 ToolTip = 'Add some tooltip here';
+                ShortcutKey = 'F9';
                 Image = New;
                 RunObject = page "POS Sales Student Card";
                 ApplicationArea = Basic, Suite;
@@ -50,6 +51,16 @@ page 52136 "New POS"
                 ToolTip = 'Add some tooltip here';
                 Image = New;
                 RunObject = page "POS Sales Staff";
+                ShortcutKey = 'F7';
+                ApplicationArea = Basic, Suite;
+            }
+            action(Setups)
+            {
+                RunPageMode = Create;
+                Caption = 'Setups';
+                ToolTip = 'Add some tooltip here';
+                Image = Setup;
+                RunObject = page "POS Setup";
                 ApplicationArea = Basic, Suite;
             }
         }

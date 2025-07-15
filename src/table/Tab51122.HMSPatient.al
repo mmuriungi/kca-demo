@@ -43,13 +43,13 @@ table 51122 "HMS-Patient"
             /* OptionCaption = ' ,Others,Student,Employee,Dependant';
             OptionMembers = " ",Others,Student,Employee,Dependant; */
             OptionMembers = " ",Employee,Student,"New Student",Others;
-            OptionCaption = '" ",Employee,Student,Others';
+            OptionCaption = '" ",Employee,Student,"New Student",Others';
 
 
         }
         field(4; "Student No."; Code[20])
         {
-            TableRelation = Customer."No." WHERE("Customer Posting Group" = CONST('Student'));
+            TableRelation = Customer."No." WHERE("Customer Posting Group" = CONST('Student'), Status = filter(Current | Registration | "New Admission"));
             trigger OnValidate()
             begin
 
@@ -474,9 +474,9 @@ table 51122 "HMS-Patient"
         }
         field(88; "Patient Ref. No."; Code[20])
         {
-            TableRelation = IF ("Patient Type" = CONST(Employee)) "HRM-Employee C"."No."
+            TableRelation = IF ("Patient Type" = CONST(Employee)) "HRM-Employee C"."No." where(Status = const(Active))
             ELSE
-            IF ("Patient Type" = CONST(Student)) Customer."No." WHERE("Customer Posting Group" = CONST('STUDENT'))
+            IF ("Patient Type" = CONST(Student)) Customer."No." WHERE("Customer Posting Group" = CONST('STUDENT'), Status = filter(Current | Registration | "New Admission"))
             ELSE
             IF ("Patient Type" = CONST(Dependant)) "HRM-Employee Beneficiaries"."Entry No" WHERE("Employee Code" = FIELD("Depandant Principle Member"));
 
@@ -654,7 +654,7 @@ table 51122 "HMS-Patient"
         field(110; "Student Active"; Boolean)
         {
             FieldClass = FlowField;
-            CalcFormula = exist(Customer WHERE("No." = FIELD("Student No."), Status = filter(Current | Registration)));
+            CalcFormula = exist(Customer WHERE("No." = FIELD("Student No."), Status = filter(Current | Registration | "New Admission")));
         }
         field(111; "Employee Active"; Boolean)
         {
@@ -674,6 +674,9 @@ table 51122 "HMS-Patient"
 
     fieldgroups
     {
+        fieldgroup(DropDown; "Employee No.", "Full Name", Gender, "Date Of Birth", "ID Number", Photo, "Correspondence Address 1", "Correspondence Address 2", "Correspondence Address 3", "Telephone No. 1", "Telephone No. 2", Email)
+        {
+        }
     }
 
     trigger OnInsert()

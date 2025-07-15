@@ -80,11 +80,13 @@ Page 99430 "POS Sales Card (Staff)"
                 Image = VendorContact;
                 trigger OnAction()
                 begin
+                    if not rec.Posted then begin
                     CurrPage.UPDATE();
                     Rec.PostSale();
+                    end;
                     saleheader.RESET();
                     saleheader.SETRANGE("No.", Rec."No.");
-                    REPORT.RUN(REPORT::"POS Restaurants PrintOut", FALSE, TRUE, saleheader);
+                    REPORT.RUN(REPORT::"POS Restaurants PrintOut", true, false, saleheader);
 
                     CurrPage.CLOSE;
                 end;

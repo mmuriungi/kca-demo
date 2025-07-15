@@ -1139,6 +1139,10 @@ table 50512 "ACA-Applic. Form Header"
         field(99; "Assigned Block"; Code[20])
         {
         }
+        //Date Updated
+        field(118; "Data Updated"; Boolean)
+        {
+        }
 
     }
 

@@ -2,6 +2,8 @@ table 50049 "PesaFlow Integration"
 {
     Caption = 'PesaFlow Integration';
     DataClassification = ToBeClassified;
+    LookupPageId = "Pesaflow Integrations";
+    DrillDownPageId = "Pesaflow Integrations";
 
     fields
     {
@@ -40,7 +42,7 @@ table 50049 "PesaFlow Integration"
             Caption = 'Customer Name';
             DataClassification = CustomerContent;
         }
-        field(4; "InvoiceNo"; Code[20])
+        field(4; "InvoiceNo"; Code[50])
         {
             Caption = 'Invoice No.';
             DataClassification = CustomerContent;

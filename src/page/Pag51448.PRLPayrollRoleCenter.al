@@ -614,7 +614,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'P9 Report';
                     Image = PrintForm;
-                    RunObject = Report "P9 Report Ext";
+                    RunObject = Report "P9 Report (Final)";
                 }
                 action("Transactions")
                 {
@@ -697,7 +697,7 @@ page 51448 "PRL-Payroll Role Center"
                     ApplicationArea = all;
                     Caption = 'P9 Report';
                     Image = Report2;
-                    RunObject = Report "P9 Report Ext";
+                    RunObject = Report "P9 Report (Final)";
                 }
                 action("&Employer Certificate")
                 {

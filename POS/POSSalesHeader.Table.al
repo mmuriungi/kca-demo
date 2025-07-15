@@ -105,30 +105,32 @@ Table 99408 "POS Sales Header"
         }
         field(15; "M-Pesa Transaction Number"; Code[100])
         {
-            TableRelation = if ("M-pesa Trans Missing" = filter(false)) "PesaFlow Intergration".PaymentRefID where(ServiceID = filter('2729111'),
+            TableRelation = if ("M-pesa Trans Missing" = filter(false)) "PesaFlow Integration".PaymentRefID where(ServiceID = filter('2729111'),
                                                                                                                "Selected And Posted" = filter(false),
                                                                                                                "Date Received" = field("Posting date"));
 
             trigger OnValidate()
             begin
                 if Rec."M-Pesa Transaction Number" = '' then exit;
-                if Rec."M-pesa Trans Missing" then exit;
-                Clear(bnkLedger);
-                bnkLedger.Reset;
-                bnkLedger.SetRange("Document No.", "M-Pesa Transaction Number");
-                if bnkLedger.Find('-') then Error('Mpesa Transaction Code Already Exist');
-                if Rec."Payment Method" = Rec."payment method"::Cash then Error('Cash Payments have no Transaction Code');
+                if Rec."M-pesa Trans Missing" = false then begin
+                    Clear(bnkLedger);
+                    bnkLedger.Reset;
+                    bnkLedger.SetRange("Document No.", "M-Pesa Transaction Number");
+                    if bnkLedger.Find('-') then Error('Mpesa Transaction Code Already Exist');
+                    if Rec."Payment Method" = Rec."payment method"::Cash then Error('Cash Payments have no Transaction Code');
 
-                Rec.CalcFields("Receipt Amount");
-                if Rec."Receipt Amount" = 0 then Error('Details are missing.');
-                Clear(PesaFlowIntergration);
-                PesaFlowIntergration.Reset;
-                PesaFlowIntergration.SetRange(PaymentRefID, Rec."M-Pesa Transaction Number");
-                if PesaFlowIntergration.Find('-') then begin
-                    if PesaFlowIntergration.InvoiceAmount < Rec."Receipt Amount" then Error('Receipt amount is less than invoiced amount.');
-                end else
-                    Error('Invalid transaction code');
-                Rec.Validate(Rec."Amount Paid", Rec."Receipt Amount");
+                    Rec.CalcFields("Receipt Amount");
+                    if Rec."Receipt Amount" = 0 then Error('Details are missing.');
+                    Clear(PesaFlowIntergration);
+                    PesaFlowIntergration.Reset;
+                    PesaFlowIntergration.SetRange(PaymentRefID, Rec."M-Pesa Transaction Number");
+
+                    if PesaFlowIntergration.Find('-') then begin
+                        if PesaFlowIntergration.InvoiceAmount < Rec."Receipt Amount" then Error('Receipt amount is less than invoiced amount.');
+                    end; //else
+                         //Error('Invalid transaction code');
+                    Rec.Validate(Rec."Amount Paid", Rec."Receipt Amount");
+                end;
             end;
         }
         field(16; "Till Number"; Code[20])
@@ -212,6 +214,10 @@ Table 99408 "POS Sales Header"
         {
             Clustered = true;
         }
+        key(key2; "M-Pesa Transaction Number")
+        {
+            Clustered = false;
+        }
     }
 
     fieldgroups
@@ -238,7 +244,7 @@ Table 99408 "POS Sales Header"
             Cashier := UserId;
             "Current Date Time" := SYSTEM.CurrentDatetime();
             "Cash Account" := PosSetup."Cash Account";
-            //Rec."Bank Account" := PosSetup."Students Cashbook";
+            Rec."Bank Account" := PosSetup."Students Cashbook";
             // Rec."Income Account" := PosSetup."Students Sales Account";
         end;
         officeTemp2.Get(UserId);

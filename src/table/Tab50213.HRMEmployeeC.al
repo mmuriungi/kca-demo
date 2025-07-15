@@ -1668,6 +1668,7 @@ table 50213 "HRM-Employee C"
                 if bankStructure.FindFirst() then begin
                     "Main Bank Name" := bankStructure."Bank Name";
                     "Branch Bank Name" := bankStructure."Branch Name";
+                    "Branch Name" := bankStructure."Branch Name";
                 end;
             end;
         }
@@ -2276,10 +2277,10 @@ table 50213 "HRM-Employee C"
 
         }
         //"Is HOD"
-        field(60092; "Is HOD"; Boolean)
-        {
+        // field(60092; "Is HOD"; Boolean)
+        // {
 
-        }
+        // }
         //Has HOD Rights
         field(60093; "Has HOD Rights"; Boolean)
         {

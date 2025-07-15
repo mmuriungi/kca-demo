@@ -97,11 +97,14 @@ Page 99409 "POS Sales Student Card"
                     SalesHeader: Record "POS Sales Header";
                     POSRestaurantsPrintOut: Report "POS Restaurants PrintOut";
                 begin
-                   Rec.PostSale();
+                    if not Rec.posted then begin
+                        CurrPage.Update();
+                        Rec.PostSale();
+                    end;
                     SalesHeader.RESET();
                     SalesHeader.SETRANGE("No.", Rec."No.");
                     IF SalesHeader.FIND('-') THEN
-                        REPORT.RUN(REPORT::"POS Students PrintOut", FALSE, TRUE, SalesHeader);
+                        REPORT.RUN(REPORT::"POS Students PrintOut", true, false, SalesHeader);
                     CurrPage.CLOSE;
                 end;
             }

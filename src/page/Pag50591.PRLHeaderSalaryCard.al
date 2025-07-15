@@ -163,7 +163,7 @@ page 50591 "PRL-Header Salary Card"
                 {
                     ApplicationArea = all;
                 }
-                field("Branch Name"; Rec."Branch Name")
+                field("Branch Name"; Rec."Branch Bank Name")
                 {
                     ToolTip = 'Specifies the value of the Branch Name field.';
                     ApplicationArea = All;
@@ -262,7 +262,6 @@ page 50591 "PRL-Header Salary Card"
                     objEmp.Reset;
                     objEmp.SetRange(objEmp."No.", Rec."No.");
                     if objEmp.Find('-') then
-                        // REPORT.Run(51198, true, false, objEmp);
                         begin
                         SalCard.Reset();
                         SalCard.SetRange(SalCard."Employee Code", Rec."No.");

@@ -11,32 +11,32 @@ table 50483 "KUCCPS Imports"
 
             trigger OnValidate()
             begin
-                Clear(ACAAcademicYear);
-                ACAAcademicYear.Reset;
-                ACAAcademicYear.SetRange(Current, true);
-                if ACAAcademicYear.Find('-') then begin
+                CLEAR(ACAAcademicYear);
+                ACAAcademicYear.RESET;
+                ACAAcademicYear.SETRANGE(Current, TRUE);
+                IF ACAAcademicYear.FIND('-') THEN BEGIN
 
-                end;
+                END;
                 Rec."Current Approval Level" := 'APPROVAL INITIATED';
-                Clear(ACANewStudDocSetup);
-                ACANewStudDocSetup.Reset;
-                ACANewStudDocSetup.SetRange("Academic Year", Rec."Academic Year");
-                if ACANewStudDocSetup.Find('-') then begin
-                    repeat
-                    begin
-                        ACANewStudDocuments.Init;
+                CLEAR(ACANewStudDocSetup);
+                ACANewStudDocSetup.RESET;
+                ACANewStudDocSetup.SETRANGE("Academic Year", Rec."Academic Year");
+                IF ACANewStudDocSetup.FIND('-') THEN BEGIN
+                    REPEAT
+                    BEGIN
+                        ACANewStudDocuments.INIT;
                         ACANewStudDocuments."Academic Year" := ACANewStudDocSetup."Academic Year";
                         ACANewStudDocuments."Index Number" := Rec.Index;
                         ACANewStudDocuments."Document Code" := ACANewStudDocSetup."Document Code";
                         ACANewStudDocuments."Approval Sequence" := ACANewStudDocSetup.Sequence;
-                        if ACANewStudDocSetup.Sequence = 1 then
-                            ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Open
-                        else
-                            ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Created;
-                        if ACANewStudDocuments.Insert then;
-                    end;
-                    until ACANewStudDocSetup.Next = 0;
-                end;
+                        IF ACANewStudDocSetup.Sequence = 1 THEN
+                            ACANewStudDocuments."Approval Status" := ACANewStudDocuments."Approval Status"::Open
+                        ELSE
+                            ACANewStudDocuments."Approval Status" := ACANewStudDocuments."Approval Status"::Created;
+                        IF ACANewStudDocuments.INSERT THEN;
+                    END;
+                    UNTIL ACANewStudDocSetup.NEXT = 0;
+                END;
             end;
         }
         field(2; Index; Code[20])
@@ -44,31 +44,31 @@ table 50483 "KUCCPS Imports"
 
             trigger OnValidate()
             begin
-                Clear(ACAAcademicYear);
-                ACAAcademicYear.Reset;
-                ACAAcademicYear.SetRange(Current, true);
-                if ACAAcademicYear.Find('-') then begin
-                end;
+                CLEAR(ACAAcademicYear);
+                ACAAcademicYear.RESET;
+                ACAAcademicYear.SETRANGE(Current, TRUE);
+                IF ACAAcademicYear.FIND('-') THEN BEGIN
+                END;
                 Rec."Current Approval Level" := 'APPROVAL INITIATED';
-                Clear(ACANewStudDocSetup);
-                ACANewStudDocSetup.Reset;
-                ACANewStudDocSetup.SetRange("Academic Year", Rec."Academic Year");
-                if ACANewStudDocSetup.Find('-') then begin
-                    repeat
-                    begin
-                        ACANewStudDocuments.Init;
+                CLEAR(ACANewStudDocSetup);
+                ACANewStudDocSetup.RESET;
+                ACANewStudDocSetup.SETRANGE("Academic Year", Rec."Academic Year");
+                IF ACANewStudDocSetup.FIND('-') THEN BEGIN
+                    REPEAT
+                    BEGIN
+                        ACANewStudDocuments.INIT;
                         ACANewStudDocuments."Academic Year" := ACANewStudDocSetup."Academic Year";
                         ACANewStudDocuments."Index Number" := Rec.Index;
                         ACANewStudDocuments."Document Code" := ACANewStudDocSetup."Document Code";
                         ACANewStudDocuments."Approval Sequence" := ACANewStudDocSetup.Sequence;
-                        if ACANewStudDocSetup.Sequence = 1 then
-                            ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Open
-                        else
-                            ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Created;
-                        if ACANewStudDocuments.Insert then;
-                    end;
-                    until ACANewStudDocSetup.Next = 0;
-                end;
+                        IF ACANewStudDocSetup.Sequence = 1 THEN
+                            ACANewStudDocuments."Approval Status" := ACANewStudDocuments."Approval Status"::Open
+                        ELSE
+                            ACANewStudDocuments."Approval Status" := ACANewStudDocuments."Approval Status"::Created;
+                        IF ACANewStudDocuments.INSERT THEN;
+                    END;
+                    UNTIL ACANewStudDocSetup.NEXT = 0;
+                END;
             end;
         }
         field(3; Admin; Code[50])
@@ -396,9 +396,10 @@ table 50483 "KUCCPS Imports"
                 ACARoomSpaces: Record "ACA-Room Spaces";
                 KUCCPSImports2: Record "KUCCPS Imports";
                 accomChargeCode: Code[20];
-                SendMail: Codeunit "Send Mails Easy";
+                SendMail: Codeunit "Notifications Handler";
                 RptFileName: Text;
                 MailBody: Text;
+                FileBase64: Text;
             begin
                 // Confirmation by the student triggers generation of proforma Bill
                 if Confirmed = true then begin
@@ -425,7 +426,7 @@ table 50483 "KUCCPS Imports"
                         Clear(ACAAcademicYear);
                         ACAAcademicYear.Reset;
                         //ACAAcademicYear.SETRANGE(Current,TRUE);
-                        ACAAcademicYear.SetRange(Code, '2024/2025');
+                        ACAAcademicYear.SetRange(Code, '2025/2026');
                         if ACAAcademicYear.Find('-') then begin
                         end;
                         Rec."Current Approval Level" := 'APPROVAL INITIATED';
@@ -606,9 +607,11 @@ table 50483 "KUCCPS Imports"
                         Report.Run(Report::"Process JAB Admissions", false, false, KUCCPSImports);
                         Commit;
                         //Send Non-Resident Email  TODO
-                        // MailBody := 'You have not applied for a hostel allocation. You are therefore adviced to make personal arrangements for accomodation. Find Attached Form.';
-                        // RptFileName := 'D:\Non-Resident Form\5b.-Non-Resident-Form (1)' + '.pdf';
-                        // SendMail.SendEmailEasy_WithAttachment('Dear ', Names, MailBody, '', 'Karatina University', 'Hostel Manager', Email, ' HOSTEL ALERT TO NON RESIDENT', RptFileName, RptFileName);
+                        MailBody := 'You have not applied for a hostel allocation. You are therefore adviced to make personal arrangements for accomodation. Find Attached Form.';
+                        RptFileName := 'G:\Non-Resident Form\5b.-Non-Resident-Form (1)' + '.pdf';
+                        FileBase64 := SendMail.ConvertFileToBase64(RptFileName);
+                        SendMail.fnSendemail(Names, 'HOSTEL ALERT TO NON RESIDENT', MailBody, Email, '', '', true, FileBase64, '5b.-Non-Resident-Form (1)', 'pdf');
+                        //SendMail.SendEmailEasy_WithAttachment('Dear ', Names, MailBody, '', 'Karatina University', 'Hostel Manager', Email, ' HOSTEL ALERT TO NON RESIDENT', RptFileName, RptFileName);
                     end;
                     if KUCCPSImports."Assigned Space" <> '' then begin
                         // Create Hostel Charge
@@ -773,9 +776,7 @@ table 50483 "KUCCPS Imports"
                         ApplicHeader.TestField(County);
                         ApplicHeader.TestField("ID Number");
                         ApplicHeader.TestField("Date Of Birth");
-
-
-
+                        ApplicHeader."Settlement Type" := 'NFM';
                         ApplicHeader.Status := ApplicHeader.Status::Approved;
                         ApplicHeader.Validate(Status);
                         ApplicHeader."Documents Verified" := true;
@@ -902,35 +903,35 @@ table 50483 "KUCCPS Imports"
     {
     }
 
-    // trigger OnInsert()
-    // begin
-    //     Clear(ACAAcademicYear);
-    //     ACAAcademicYear.Reset;
-    //     ACAAcademicYear.SetRange(Current, true);
-    //     if ACAAcademicYear.Find('-') then begin
-    //         "Academic Year" := ACAAcademicYear.Code;
-    //     end;
-    //     Rec."Current Approval Level" := 'APPROVAL INITIATED';
-    //     Clear(ACANewStudDocSetup);
-    //     ACANewStudDocSetup.Reset;
-    //     ACANewStudDocSetup.SetRange("Academic Year", Rec."Academic Year");
-    //     if ACANewStudDocSetup.Find('-') then begin
-    //         repeat
-    //         begin
-    //             ACANewStudDocuments.Init;
-    //             ACANewStudDocuments."Academic Year" := ACANewStudDocSetup."Academic Year";
-    //             ACANewStudDocuments."Index Number" := Rec.Index;
-    //             ACANewStudDocuments."Document Code" := ACANewStudDocSetup."Document Code";
-    //             ACANewStudDocuments."Approval Sequence" := ACANewStudDocSetup.Sequence;
-    //             if ACANewStudDocSetup.Sequence = 1 then
-    //                 ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Open
-    //             else
-    //                 ACANewStudDocuments."Approval Status" := ACANewStudDocuments."approval status"::Created;
-    //             if ACANewStudDocuments.Insert then;
-    //         end;
-    //         until ACANewStudDocSetup.Next = 0;
-    //     end;
-    // end;
+    trigger OnInsert()
+    begin
+        CLEAR(ACAAcademicYear);
+        ACAAcademicYear.RESET;
+        ACAAcademicYear.SETRANGE(Current, TRUE);
+        IF ACAAcademicYear.FIND('-') THEN BEGIN
+            "Academic Year" := ACAAcademicYear.Code;
+        END;
+        Rec."Current Approval Level" := 'APPROVAL INITIATED';
+        CLEAR(ACANewStudDocSetup);
+        ACANewStudDocSetup.RESET;
+        ACANewStudDocSetup.SETRANGE("Academic Year", Rec."Academic Year");
+        IF ACANewStudDocSetup.FIND('-') THEN BEGIN
+            REPEAT
+            BEGIN
+                ACANewStudDocuments.INIT;
+                ACANewStudDocuments."Academic Year" := ACANewStudDocSetup."Academic Year";
+                ACANewStudDocuments."Index Number" := Rec.Index;
+                ACANewStudDocuments."Document Code" := ACANewStudDocSetup."Document Code";
+                ACANewStudDocuments."Approval Sequence" := ACANewStudDocSetup.Sequence;
+                IF ACANewStudDocSetup.Sequence = 1 THEN
+                    ACANewStudDocuments."Approval Status" := ACANewStudDocuments."Approval Status"::Open
+                ELSE
+                    ACANewStudDocuments."Approval Status" := ACANewStudDocuments."Approval Status"::Created;
+                IF ACANewStudDocuments.INSERT THEN;
+            END;
+            UNTIL ACANewStudDocSetup.NEXT = 0;
+        END;
+    end;
 
     var
         ACAAcademicYear: Record "ACA-Academic Year";

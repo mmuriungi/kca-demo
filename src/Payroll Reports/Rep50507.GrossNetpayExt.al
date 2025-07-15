@@ -68,7 +68,14 @@ report 50507 "Gross Netpay Ext"
             }
 
             trigger OnAfterGetRecord()
+            var
+                PrPeriod: Record "PRL-Payroll Periods";
             begin
+                if PeriodName = '' then begin
+                    PrPeriod.Reset;
+                    PrPeriod.SetRange(PrPeriod."Date Opened", SelectedPeriod);
+                    if PrPeriod.Find('-') then PeriodName := PrPeriod."Period Name";
+                end;
                 seq := seq + 1;
                 objEmp.Reset;
                 objEmp.SetRange(objEmp."No.", "PRL-Period Transactions"."Employee Code");

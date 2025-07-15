@@ -207,8 +207,7 @@ report 50046 "Master Payroll Summary Ext"
                 //NSSFEmployer
                 PerTrans.Reset;
                 PerTrans.CopyFilters(prPeriod_Transactions);
-                PerTrans.SetFilter("Group Text", '%1|%2', 'DEDUCTIONS', 'STATUTORIES');
-                PerTrans.SetRange("Transaction Code", 'NSSF');
+                PerTrans.SetFilter("Transaction Code", '@*NSSF*');
                 if PerTrans.Find('-') then begin
                     PerTrans.CalcSums(Amount);
                     NSSFEmployer := PerTrans.Amount;
@@ -217,7 +216,7 @@ report 50046 "Master Payroll Summary Ext"
                 //Provident
                 PerTrans.Reset;
                 PerTrans.CopyFilters(prPeriod_Transactions);
-                PerTrans.SetFilter("Group Text", '%1|%2', 'DEDUCTIONS', 'STATUTORIES');
+                //PerTrans.SetFilter("Group Text", '%1|%2', 'DEDUCTIONS', 'STATUTORIES');
                 PerTrans.SetFilter("Transaction Code", '%1|%2|%3', '592', '817', '806');
                 if PerTrans.Find('-') then begin
                     PerTrans.CalcSums(Amount);
@@ -226,7 +225,6 @@ report 50046 "Master Payroll Summary Ext"
                 //hOUSING lEVY
                 PerTrans.Reset;
                 PerTrans.CopyFilters(prPeriod_Transactions);
-                PerTrans.SetFilter("Group Text", '%1', 'DEDUCTIONS');
                 PerTrans.SetFilter("Transaction Code", '%1', '996');
                 if PerTrans.Find('-') then begin
                     PerTrans.CalcSums(Amount);
@@ -236,7 +234,7 @@ report 50046 "Master Payroll Summary Ext"
                 //Pension
                 PerTrans.Reset;
                 PerTrans.CopyFilters(prPeriod_Transactions);
-                PerTrans.SetFilter("Group Text", '%1|%2', 'DEDUCTIONS', 'STATUTORIES');
+                //PerTrans.SetFilter("Group Text", '%1|%2', 'DEDUCTIONS', 'STATUTORIES');
                 PerTrans.SetFilter("Transaction Code", '%1|%2|%3|%4|%5|%6|%7', '16', '690', '692', '694', '737', '807', '808');
                 if PerTrans.Find('-') then begin
                     PerTrans.CalcSums(Amount);

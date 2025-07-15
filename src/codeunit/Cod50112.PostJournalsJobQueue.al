@@ -8,7 +8,7 @@ codeunit 50112 "Post Journals by Queue"
     procedure process()
     var
         GenJnlLine: Record "Gen. Journal Line";
-        v: Record Vendor;
+
     begin
         GenJnlLine.Reset();
         GenJnlLine.SetRange(GenJnlLine."Journal Template Name", 'GENERAL');

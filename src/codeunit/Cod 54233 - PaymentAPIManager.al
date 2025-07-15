@@ -50,6 +50,20 @@ codeunit 54233 "Payment API Manager"
         exit(false);
     end;
 
+    procedure RefreshPayment(var PosHeader: Record "POS Sales Header")
+    var
+        pflow: Record "PesaFlow Integration";
+    begin
+        pflow.Reset();
+        pflow.SetRange(CustomerRefNo, PosHeader."No.");
+        if pflow.FindFirst() then begin
+            PosHeader."M-Pesa Transaction Number" := pflow.PaymentRefID;
+            posHeader."Ecitizen Invoice No" := pflow.InvoiceNo;
+            PosHeader."Amount Paid" := pflow.PaidAmount;
+            PosHeader.Modify();
+        end
+    end;
+
     local procedure ProcessPaymentResponse(ResponseText: Text; var InvoiceNo: Text; var status: Text): Boolean
     var
         ResponseJson: JsonObject;
@@ -76,6 +90,8 @@ codeunit 54233 "Payment API Manager"
         posHeader.SetRange("No.", DocNo);
         IF posHeader.Find('-') then begin
             posHeader."Ecitizen Invoice No" := InvoiceNo;
+            posHeader.Posted := true;
+
             posHeader.Modify();
         end;
     end;

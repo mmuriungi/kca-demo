@@ -18,6 +18,11 @@ Page 99407 "POS Sales Header Card"
                     ApplicationArea = Basic;
                     Editable = false;
                 }
+                field(Posted; Rec.Posted)
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
                 field("Posting Description"; Rec."Posting Description")
                 {
                     ApplicationArea = Basic;
@@ -118,19 +123,23 @@ Page 99407 "POS Sales Header Card"
                 var
                     SalesHeader: Record "POS Sales Header";
                 begin
-                    if not Rec.Posted then begin
-                        Rec.PostSale();
+                    begin
                         SalesHeader.Reset();
                         SalesHeader.SetRange("No.", Rec."No.");
-                        Report.Run(Report::"POS Restaurants PrintOut", false, true, SalesHeader);
-                    end else begin
-                        SalesHeader.Reset();
-                        SalesHeader.SetRange("No.", Rec."No.");
-                        SalesHeader.SetRange(Posted, true);
-                        Report.Run(Report::"POS Students_Staff PrintOut", false, true, SalesHeader);
+                        //SalesHeader.SetRange(Posted, true);
+                        Report.Run(Report::"POS Students_Staff PrintOut", true, false, SalesHeader);
                     end;
 
                     CurrPage.Close();
+                end;
+            }
+            action("Manual Post")
+            {
+                trigger OnAction()
+                begin
+                    if not Rec.Posted then begin
+                        Rec.PostSale();
+                    end
                 end;
             }
         }
