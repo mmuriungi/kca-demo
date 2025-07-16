@@ -248,9 +248,14 @@ page 51792 "HMS Referral Header Active"
                     ApplicationArea = All;
 
                     trigger OnAction()
+                    var
+                        ReferralHeader: Record "HMS-Referral Header";
                     begin
-                        // Add report call here
-                        MESSAGE('Print functionality to be implemented');
+                        ReferralHeader.Reset();
+                        ReferralHeader.SetRange("Treatment no.", Rec."Treatment no.");
+                        ReferralHeader.SetRange("Referral No.", Rec."Referral No.");
+                        if ReferralHeader.FindFirst() then
+                            REPORT.Run(Report::"HMS Medical Referral Form", true, false, ReferralHeader);
                     end;
                 }
             }

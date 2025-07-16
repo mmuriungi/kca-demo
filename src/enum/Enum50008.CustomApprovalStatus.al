@@ -6,6 +6,7 @@ enum 50008 "Custom Approval Status"
     }
     value(1; Pending)
     {
+        Caption = 'Pending Approval';
     }
     value(2; Approved)
     {

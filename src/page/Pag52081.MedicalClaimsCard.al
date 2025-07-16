@@ -31,6 +31,7 @@ page 52081 "Medical Claims Card"
                 {
                     ApplicationArea = All;
                     Importance = Promoted;
+                    Editable = false;
                 }
                 field("Claim Type"; Rec."Claim Type")
                 {
@@ -256,6 +257,7 @@ page 52081 "Medical Claims Card"
             action(Release)
             {
                 Image = approve;
+                Visible = false;
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = all;
@@ -290,7 +292,7 @@ page 52081 "Medical Claims Card"
                 ApplicationArea = All;
                 Caption = 'Cancel Approval';
                 Image = CancelApproval;
-                Visible = Rec."Status" = Rec."Status"::open;
+                Visible = Rec."Status" = Rec."Status"::Pending;
                 Promoted = true;
                 PromotedCategory = Category4;
                 trigger OnAction()
@@ -301,6 +303,25 @@ page 52081 "Medical Claims Card"
                     variant := Rec;
                     if ApprovMgmt.CheckApprovalsWorkflowEnabled(variant) then
                         ApprovMgmt.OnCancelDocApprovalRequest(variant);
+                end;
+            }
+            action(Approvals)
+            {
+                ApplicationArea = All;
+                Caption = 'Approvals';
+                Image = Approvals;
+                Promoted = true;
+                PromotedCategory = Category4;
+                trigger OnAction()
+                var
+                    ApprovalEntries: Page "Approval Entries";
+                    Approv: Record "Approval Entry";
+                begin
+                    Approv.RESET;
+                    Approv.SETRANGE(Approv."Document No.", Rec."Claim No");
+                    Approv.SETRANGE(Approv."Table ID", DATABASE::"HRM-Medical Claims");
+                    ApprovalEntries.SetTableView(Approv);
+                    ApprovalEntries.Run;
                 end;
             }
             action(Post)
