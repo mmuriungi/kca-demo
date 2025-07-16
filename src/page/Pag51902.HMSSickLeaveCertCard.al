@@ -22,40 +22,17 @@ page 52118 "HMS Sick Leave Cert. Card"
                     ApplicationArea = All;
                     Caption = 'Date';
                 }
+                field("Patient Type"; Rec."Patient Type")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Patient Type';
+                }
                 field("Treatment No."; Rec."Treatment No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Treatment No.';
 
-                    trigger OnValidate()
-                    var
-                        TreatmentHeader: Record "HMS-Treatment Form Header";
-                        Patient: Record "HMS-Patient";
-                        Employee: Record "HRM-Employee C";
-                        Student: Record Customer;
-                    begin
-                        if TreatmentHeader.Get(Rec."Treatment No.") then begin
-                            Rec."Patient No" := TreatmentHeader."Patient No.";
 
-                            // Get patient details
-                            if Patient.Get(TreatmentHeader."Patient No.") then begin
-                                if Patient."Student No." <> '' then begin
-                                    Rec."Student No." := Patient."Student No.";
-                                    if Student.Get(Patient."Student No.") then begin
-                                        Rec."Staff Name" := Student.Name;
-                                        Rec.Department := Student."Global Dimension 2 Code";
-                                    end;
-                                end else if Patient."Employee No." <> '' then begin
-                                    Rec."Staff No" := Patient."Employee No.";
-                                    Rec."PF No." := Patient."Employee No.";
-                                    if Employee.Get(Patient."Employee No.") then begin
-                                        Rec."Staff Name" := Employee."Search Name";
-                                        Rec.Department := Employee."Department Name";
-                                    end;
-                                end;
-                            end;
-                        end;
-                    end;
                 }
             }
 
@@ -66,12 +43,6 @@ page 52118 "HMS Sick Leave Cert. Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Title';
-                }
-                field("Staff Name"; Rec."Staff Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Name';
-                    Editable = false;
                 }
                 field("PF No."; Rec."PF No.")
                 {
@@ -84,6 +55,12 @@ page 52118 "HMS Sick Leave Cert. Card"
                     ApplicationArea = All;
                     Caption = 'Student No.';
                     Visible = StudentNoVisible;
+                }
+                field("Staff Name"; Rec."Staff Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Name';
+                    Editable = false;
                 }
                 field(Department; Rec.Department)
                 {
@@ -188,6 +165,88 @@ page 52118 "HMS Sick Leave Cert. Card"
                     end;
                 end;
             }
+
+            action("Send to Staff and MO")
+            {
+                Caption = 'Send Certificate to Staff';
+                Image = Email;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    SickLeaveRec: Record "HMS-Off Duty";
+                    HMSSetup: Record "HMS-Setup";
+                    Employee: Record "HRM-Employee C";
+                    TempBlob: Codeunit "Temp Blob";
+                    InStr: InStream;
+                    OutStr: OutStream;
+                    RecRef: RecordRef;
+                    FileName: Text;
+                    StaffEmail: Text[100];
+                    MOEmail: Text[100];
+                    EmailSubject: Text[250];
+                    EmailBody: Text;
+                    NotificationHandler: Codeunit "Notifications Handler";
+                    RptB64: Text;
+                    B64Converter: Codeunit "Base64 Convert";
+                    PatientName: Text[100];
+                begin
+                    SickLeaveRec.Reset();
+                    SickLeaveRec.SetRange("Certificate No.", Rec."Certificate No.");
+                    if not SickLeaveRec.FindFirst() then
+                        Error('Sick leave certificate record not found');
+
+                    // Get staff email from HRM-Employee C table
+                    if Rec."PF No." <> '' then begin
+                        Employee.Reset();
+                        Employee.SetRange("No.", Rec."PF No.");
+                        if Employee.FindFirst() then
+                            StaffEmail := Employee."E-Mail"
+                        else
+                            Error('Staff record not found for PF No: %1', Rec."PF No.");
+                    end else
+                        Error('PF No. is required to send email to staff');
+
+                    if StaffEmail = '' then
+                        Error('Staff email address is not available in employee record');
+
+                    // Get Medical Officer email from HMS Setup for CC
+                    if HMSSetup.Get() then
+                        MOEmail := HMSSetup."Medical Officer Email";
+
+                    // Generate the sick leave certificate report
+                    TempBlob.CreateOutStream(OutStr);
+                    RecRef.GetTable(SickLeaveRec);
+                    if not REPORT.SaveAs(Report::"HMS Sick Leave Certificate", '', ReportFormat::Pdf, OutStr, RecRef) then
+                        Error('Failed to generate sick leave certificate PDF');
+
+                    // Prepare patient name
+                    PatientName := Rec."Staff Name";
+
+                    // Create email
+                    EmailSubject := StrSubstNo('Sick Leave Certificate - %1', Rec."Certificate No.");
+                    EmailBody := 'Dear ' + PatientName + ',<br><br>' +
+                                'Your sick leave certificate has been issued:<br><br>' +
+                                'Certificate No: ' + Rec."Certificate No." + '<br>' +
+                                'Date Issued: ' + Format(Rec."Certificate Date") + '<br>' +
+                                'Duration: ' + Format(Rec."Sick Leave Duration") + ' ' + Format(Rec."Duration Unit") + '<br>' +
+                                'Start Date: ' + Format(Rec."Off Duty Start Date") + '<br><br>' +
+                                'Please find the certificate attached.<br><br>' +
+                                'Best regards,<br>' +
+                                'Medical Services';
+
+                    TempBlob.CreateInStream(InStr);
+                    RptB64 := B64Converter.ToBase64(InStr);
+                    FileName := StrSubstNo('SickLeave_Certificate_%1.pdf', Rec."Certificate No.");
+
+                    // Send to staff with MO as CC
+                    NotificationHandler.fnSendemail(PatientName, EmailSubject, EmailBody, StaffEmail, MOEmail, '', true, RptB64, FileName, 'pdf');
+
+                    Message('Sick leave certificate has been sent to staff with copy to medical officer.');
+                end;
+            }
         }
     }
 
@@ -210,7 +269,7 @@ page 52118 "HMS Sick Leave Cert. Card"
 
     local procedure UpdateVisibility()
     begin
-        PFNoVisible := Rec."PF No." <> '';
-        StudentNoVisible := Rec."Student No." <> '';
+        PFNoVisible := Rec."Patient Type" = Rec."Patient Type"::Staff;
+        StudentNoVisible := Rec."Patient Type" = Rec."Patient Type"::Student;
     end;
 }
