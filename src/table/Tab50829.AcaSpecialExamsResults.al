@@ -131,7 +131,7 @@ table 50829 "Aca-Special Exams Results"
 
                 AcaSpecialExamsDetails.RESET;
                 AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Student No.", Rec."Student No.");
-                AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Current Academic Year", Rec."Current Academic Year");
+                //AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Current Academic Year", Rec."Current Academic Year");
                 AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Unit Code", Rec.Unit);
                 //AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails.Semester,Semester);
                 //AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Student No.","Student No.");
@@ -186,7 +186,7 @@ table 50829 "Aca-Special Exams Results"
 
                 AcaSpecialExamsDetails.RESET;
                 AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Student No.", Rec."Student No.");
-                AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Current Academic Year", Rec."Current Academic Year");
+                //AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Current Academic Year", Rec."Current Academic Year");
                 AcaSpecialExamsDetails.SETRANGE(AcaSpecialExamsDetails."Unit Code", Rec.Unit);
                 IF AcaSpecialExamsDetails.FIND('-') THEN BEGIN
                     Course_Reg2.RESET;
