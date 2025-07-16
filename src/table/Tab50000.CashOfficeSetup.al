@@ -277,6 +277,11 @@ table 50000 "Cash Office Setup"
         {
             TableRelation = "No. Series".code;
         }
+        //"Journal Vouchers")
+        field(50067; "Journal Vouchers"; code[20])
+        {
+            TableRelation = "No. Series".code;
+        }
     }
 
     keys
