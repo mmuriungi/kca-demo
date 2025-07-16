@@ -178,6 +178,7 @@ pageextension 50019 "ExtPurchase Invoice" extends "Purchase Invoice"
     procedure checkBudgetControl(var glAcc: Code[20]) IsBudgetControlled: Boolean
     var
         GLAccount: Record "G/L Account";
+        var1: record 276;
     begin
         CLEAR(IsBudgetControlled);
         GLAccount.RESET;
