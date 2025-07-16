@@ -120,6 +120,13 @@ page 51457 "ACA-Admissions Role Center"
                     RunObject = Page "ACA-Marketing Strategies 2";
                     ApplicationArea = All;
                 }
+                action("Document Setup")
+                {
+                    Image = SetupList;
+
+                    RunObject = Page "Document Setup";
+                    ApplicationArea = All;
+                }
             }
             group("Application and Admission")
             {
