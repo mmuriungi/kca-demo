@@ -23,6 +23,7 @@ pageextension 50044 "Bank Recon Card Ext" extends "Bank Acc. Reconciliation"
                 Caption = 'Post Reconciliation';
                 Image = PostOrder;
                 Promoted = true;
+                Visible = false;
                 PromotedCategory = Category6;
                 PromotedIsBig = true;
                 RunObject = Codeunit "bank Reconciliation Management";

@@ -1,8 +1,8 @@
-<<<<<<< HEAD
+
 table 51392 "Bank Rec. Archive Header"
-=======
-table 50178 "Bank Rec. Archive Header"
->>>>>>> 34f38dec1936c09d734c210f8c578c2203eaec4a
+
+
+
 {
     Caption = 'Bank Rec. Archive Header';
     DataClassification = ToBeClassified;
@@ -45,7 +45,7 @@ table 50178 "Bank Rec. Archive Header"
         field(60; "User ID"; Code[50])
         {
             Caption = 'User ID';
-          //  TableRelation = user
+            //  TableRelation = user
             DataClassification = EndUserIdentifiableInformation;
         }
         field(70; "Archive Date"; Date)
