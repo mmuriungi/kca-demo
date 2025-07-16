@@ -61,6 +61,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Bank Account Ledger Entries';
                     Enabled = false;
+                    // visible = false;
                     SubPageLink = "Bank Account No." = field("Bank Account No."),
                                   Open = const(true),
                                   "Statement Status" = filter(Open | "Bank Acc. Entry Applied" | "Check Entry Applied");
