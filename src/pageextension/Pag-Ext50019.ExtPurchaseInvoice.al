@@ -157,7 +157,7 @@ pageextension 50019 "ExtPurchase Invoice" extends "Purchase Invoice"
                 , FINBudgetEntries."Transaction Type"::Allocation);
                 FINBudgetEntries.SETFILTER("Commitment Status", '%1|%2',
                 FINBudgetEntries."Commitment Status"::" ", FINBudgetEntries."Commitment Status"::Commitment);
-                FINBudgetEntries.SETFILTER(Date, PostBudgetEnties.GetBudgetStartAndEndDates(Rec."Order Date"));
+                FINBudgetEntries.SETFILTER(Date, PostBudgetEnties.GetBudgetStartAndEndDates(Rec."Posting Date"));
                 IF FINBudgetEntries.FIND('-') THEN BEGIN
                     IF checkBudgetControl(FINBudgetEntries."G/L Account No.") = FALSE THEN EXIT;
                     IF FINBudgetEntries.CALCSUMS(Amount) THEN BEGIN
