@@ -1,10 +1,8 @@
-<<<<<<< HEAD
+
 table 51391 "Journal Voucher Lines"
-=======
-table 50184 "Journal Voucher Lines"
->>>>>>> 34f38dec1936c09d734c210f8c578c2203eaec4a
+
 {
-    Caption = 'Journal Voucher Lines ';
+    Caption = 'JV Voucher Lines ';
     DataClassification = ToBeClassified;
 
     fields
@@ -40,13 +38,13 @@ table 50184 "Journal Voucher Lines"
             ELSE
             IF ("Account Type" = CONST(Employee)) Employee;
             trigger OnValidate()
-             var
-           postedRecon: record "Bank Rec. Archive Header";
+            var
+                postedRecon: record "Bank Rec. Archive Header";
             begin
                 //Reconciliation
-                if Rec."Account Type"= Rec."Account Type"::"Bank Account" then 
-                postedRecon.RESET;
-                postedRecon.SETRANGE(postedRecon."Bank Account No.","Account No");
+                if Rec."Account Type" = Rec."Account Type"::"Bank Account" then
+                    postedRecon.RESET;
+                postedRecon.SETRANGE(postedRecon."Bank Account No.", "Account No");
                 postedRecon.SetCurrentKey(postedRecon."Statement Date");
                 if postedRecon.FindLast() then begin
                     if postedRecon."Statement Date" > "Posting Date" then
@@ -113,14 +111,14 @@ table 50184 "Journal Voucher Lines"
             IF ("Bal. Account Type" = CONST("IC Partner")) "IC Partner"
             ELSE
             IF ("Bal. Account Type" = CONST(Employee)) Employee;
-             trigger OnValidate()
-             var
-           postedRecon: record "Bank Rec. Archive Header";
+            trigger OnValidate()
+            var
+                postedRecon: record "Bank Rec. Archive Header";
             begin
                 //Reconciliation
-                if Rec."Bal. Account Type"= Rec."Bal. Account Type"::"Bank Account" then 
-                postedRecon.RESET;
-                postedRecon.SETRANGE(postedRecon."Bank Account No.","Balancing Account No");
+                if Rec."Bal. Account Type" = Rec."Bal. Account Type"::"Bank Account" then
+                    postedRecon.RESET;
+                postedRecon.SETRANGE(postedRecon."Bank Account No.", "Balancing Account No");
                 postedRecon.SetCurrentKey(postedRecon."Statement Date");
                 if postedRecon.FindLast() then begin
                     if postedRecon."Statement Date" > "Posting Date" then
