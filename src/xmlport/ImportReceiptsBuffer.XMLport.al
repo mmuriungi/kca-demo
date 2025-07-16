@@ -29,6 +29,7 @@ XmlPort 50023 "Import Receipts Buffer"
                 }
                 fieldelement(f; "<ACA-Imp. Receipts Buffer>"."Bank Code")
                 {
+                    MinOccurs = zero;
                 }
 
                 trigger OnBeforeInsertRecord()

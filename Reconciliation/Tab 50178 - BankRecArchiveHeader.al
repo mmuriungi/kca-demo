@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 table 51392 "Bank Rec. Archive Header"
+=======
+table 50178 "Bank Rec. Archive Header"
+>>>>>>> 34f38dec1936c09d734c210f8c578c2203eaec4a
 {
     Caption = 'Bank Rec. Archive Header';
     DataClassification = ToBeClassified;

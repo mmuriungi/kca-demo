@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 table 51393 "ArchiveBank LedgerEntries(Rec)"
+=======
+table 50183 "ArchiveBank LedgerEntries(Rec)"
+>>>>>>> 34f38dec1936c09d734c210f8c578c2203eaec4a
 {
     Caption = 'ArchiveBank LedgerEntries(Rec)';
     DataClassification = ToBeClassified;

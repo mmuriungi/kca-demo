@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 table 51391 "Journal Voucher Lines"
+=======
+table 50184 "Journal Voucher Lines"
+>>>>>>> 34f38dec1936c09d734c210f8c578c2203eaec4a
 {
     Caption = 'Journal Voucher Lines ';
     DataClassification = ToBeClassified;
