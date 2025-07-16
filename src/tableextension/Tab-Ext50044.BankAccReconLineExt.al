@@ -22,5 +22,35 @@ tableextension 50044 "Bank Acc Recon Line Ext" extends "Bank Acc. Reconciliation
         {
             DataClassification = ToBeClassified;
         }
+        //select
+        field(50008; select; Boolean)
+        {
+            Caption = 'Select';
+            DataClassification = ToBeClassified;
+        }
+        //Reference No
+        field(50009; "Reference No"; code[200])
+        {
+            Caption = 'Reference No';
+            DataClassification = ToBeClassified;
+        }
+        //Unreconcile Previously
+        field(50010; "Unreconcile Previously"; Boolean)
+        {
+            Caption = 'Unreconcile Previously';
+            DataClassification = ToBeClassified;
+        }
+        //Credit Amount
+        field(50011; "Credit Amount"; Decimal)
+        {
+            Caption = 'Credit Amount';
+            DataClassification = ToBeClassified;
+        }
+        //Debit Amount
+        field(50012; "Debit Amount"; Decimal)
+        {
+            Caption = 'Debit Amount';
+            DataClassification = ToBeClassified;
+        }
     }
 }

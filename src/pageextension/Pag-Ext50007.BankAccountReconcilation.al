@@ -6,7 +6,7 @@ pageextension 50007 "Bank Account Reconcilation" extends "Bank Acc. Reconciliati
 
         addafter("P&osting")
         {
-            action("&Test Report2")
+            action("&Test Report3")
             {
 
                 Caption = 'Test Bank Rec. Report';
