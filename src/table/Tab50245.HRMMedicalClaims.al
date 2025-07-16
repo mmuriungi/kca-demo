@@ -213,6 +213,7 @@ table 50245 "HRM-Medical Claims"
         }
         field(3973; Status; enum "Custom Approval Status")
         {
+            Editable = false;
         }
         field(3974; "Responsibility Center"; Code[10])
         {
