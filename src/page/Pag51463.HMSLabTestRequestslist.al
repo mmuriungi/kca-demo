@@ -4,9 +4,9 @@ page 51463 "HMS-Lab Test Requests list"
     InsertAllowed = false;
     DeleteAllowed = false;
 
-    CardPageId = "HMS-Treatment Form Header";
+    CardPageId = "Treatment Form Header Lab";
     SourceTable = "HMS-Treatment Form Header";
-    SourceTableView = order(ascending) where("sent to lab" = filter('True'), "Lab Status" = filter(<> 'Cleared'));
+    SourceTableView = order(ascending) where("sent to lab" = filter(True), "Lab Status" = filter(<> Cleared));
 
     layout
     {

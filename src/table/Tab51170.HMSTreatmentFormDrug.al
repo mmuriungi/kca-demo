@@ -104,6 +104,15 @@ table 51170 "HMS-Treatment Form Drug"
         field(11; Dosage; Text[200])
         {
             NotBlank = true;
+            trigger OnValidate()
+            var
+
+            begin
+
+                // rec." Total Number Of Tablets" := rec.Quantity * rec."Dosage Frequencies " * rec."Number Of Days";
+                rec." Total Cost" := rec." Total Number Of Tablets" * rec."unit cost ";
+                // rec.Modify();
+            end;
         }
         field(12; "Marked as Incompatible"; Boolean)
         {
@@ -140,7 +149,7 @@ table 51170 "HMS-Treatment Form Drug"
         field(115; "Route of Administration"; Option)
         {
             OptionMembers = "",oral,injection,"Enteral Routes of Medication","Sublingual and Buccal Routes","Rectal Route","Parenteral Routes of Medication","Intravenous Route","Intramuscular Route"
-,"Subcutaneous Route";
+,"Subcutaneous Route",IV,Tube;
             DataClassification = ToBeClassified;
         }
         field(134; " Total Number Of Tablets"; Integer)

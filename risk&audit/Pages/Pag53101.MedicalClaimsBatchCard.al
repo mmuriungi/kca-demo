@@ -5,6 +5,8 @@ page 53101 "Medical Claims Batch Card"
     PageType = Card;
     SourceTable = "Medical Claims Batch";
 
+   
+
     layout
     {
         area(content)
@@ -254,6 +256,7 @@ page 53101 "Medical Claims Batch Card"
                 PromotedIsBig = true;
                 ToolTip = 'Generate a purchase invoice for this batch';
                 Enabled = (Rec.Status = Rec.Status::Open) and (not Rec."Invoice Generated") and (Rec."Vendor No." <> '');
+                Visible = IsFinanceUser;
 
                 trigger OnAction()
                 var
@@ -275,6 +278,7 @@ page 53101 "Medical Claims Batch Card"
             //     PromotedIsBig = true;
             //     ToolTip = 'Post the purchase invoice for this batch';
             //     Enabled = Rec."Invoice Generated" and (Rec.Status = Rec.Status::Open);
+            //     Visible = IsFinanceUser;
 
             //     trigger OnAction()
             //     var
@@ -286,26 +290,57 @@ page 53101 "Medical Claims Batch Card"
             //     end;
             // }
 
-            action(ApproveBatch)
+            action(SendApprovalRequest)
             {
                 ApplicationArea = All;
-                Caption = 'Approve Batch';
-                Image = Approve;
+                Caption = 'Send Approval Request';
+                Image = SendApprovalRequest;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ToolTip = 'Approve this medical claims batch';
+                ToolTip = 'Send this medical claims batch for approval';
                 Enabled = Rec.Status = Rec.Status::Open;
 
                 trigger OnAction()
+                var
+                    ApprovalRequest: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
                 begin
-                    if Confirm('Do you want to approve batch %1?', false, Rec."Batch No.") then begin
-                        Rec.Status := Rec.Status::Approved;
-                        Rec.Modify();
-                        Message('Batch %1 has been approved.', Rec."Batch No.");
-                    end;
+                    Variant := Rec;
+                    ApprovalRequest.OnSendDocForApproval(Variant);
+                end;
+            }
+            action("Cancel Approval Request")
+            {
+                ApplicationArea = All;
+                Caption = 'Cancel Approval Request';
+                Image = CancelApprovalRequest;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Cancel the approval request for this medical claims batch';
+                Enabled = Rec.Status = Rec.Status::Open;
+
+                trigger OnAction()
+                var
+                    ApprovalRequest: Codeunit "Approval Workflows V1";
+                    Variant: Variant;
+                begin
+                    Variant := Rec;
+                    ApprovalRequest.OnCancelDocApprovalRequest(Variant);
                 end;
             }
         }
     }
+
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        IsFinanceUser := false;
+        if UserSetup.Get(UserId) then
+            IsFinanceUser := UserSetup."Finance User";
+    end;
+     var
+        IsFinanceUser: Boolean;
 }

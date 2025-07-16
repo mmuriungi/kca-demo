@@ -287,7 +287,7 @@ Table 99408 "POS Sales Header"
         PesaFlowIntergration2: Record "PesaFlow Intergration";
     begin
         Rec.Validate("M-Pesa Transaction Number");
-        if Rec."M-Pesa Transaction Number" <> '' then Rec.TestField("Till Number");
+        ///if Rec."M-Pesa Transaction Number" <> '' then Rec.TestField("Till Number");
         Clear(Batchids);
         Clear(bnkLedger);
         bnkLedger.Reset;
