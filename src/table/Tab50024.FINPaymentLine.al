@@ -213,6 +213,8 @@ table 50024 "FIN-Payment Line"
             IF ("Account Type" = CONST("Fixed Asset")) "Fixed Asset"
             ELSE
             IF ("Account Type" = CONST("IC Partner")) "IC Partner";
+            //temporary
+            ValidateTableRelation=false;
 
             trigger OnValidate()
             var
