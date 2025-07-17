@@ -166,6 +166,56 @@ table 51139 "HMS-Pharmacy Header"
 
     end;
 
+    procedure PostPharmacyItems()
+    var
+        LineNo: Integer;
+        ItemJnlLine: Record "Item Journal Line";
+        Drug: Record "HMS-Treatment Form Drug";
+        Location: Record Location;
+        Item: Record Item;
+        ItemJnlPostLine: Codeunit "Item Jnl.-Post Line";
+    begin
+        HMSSetup.GET;
+        Location.Reset();
+        Location.SetRange("Pharmacy Category", Location."Pharmacy Category"::"Dispensing Store");
+        if Location.FindFirst() then;
+        Drug.Reset();
+        Drug.SetRange("Pharmacy No.", Rec."Pharmacy No.");
+        Drug.SetRange(Issued, true);
+        Drug.SetFilter("Drug No.", '<>%1', '');
+        if Drug.Find('-') then begin
+            repeat
+                Item.Reset;
+                Item.SetRange("No.", Drug."Drug No.");
+                if Item.FindFirst() then;
+                LineNo := LineNo + 1000;
+                ItemJnlLine.INIT;
+                ItemJnlLine."Journal Template Name" := HMSSetup."Pharmacy Item Journal Template";
+                ItemJnlLine."Journal Batch Name" := HMSSetup."Pharmacy Item Journal Batch";
+                ItemJnlLine."Line No." := LineNo;
+                ItemJnlLine."Posting Date" := TODAY;
+                ItemJnlLine."Entry Type" := ItemJnlLine."Entry Type"::"Negative Adjmt.";
+                ItemJnlLine."Document No." := Rec."Pharmacy No." + ':' + Drug."Drug No.";
+                ItemJnlLine."Item No." := Drug."Drug No.";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Item No.");
+                ItemJnlLine."Location Code" := Location.Code;
+                ItemJnlLine.VALIDATE(ItemJnlLine."Location Code");
+                ItemJnlLine.Quantity := Drug.Quantity;
+                ItemJnlLine.VALIDATE(ItemJnlLine.Quantity);
+                ItemJnlLine."Unit of Measure Code" := Item."Base Unit of Measure";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Unit of Measure Code");
+                ItemJnlLine."Unit Amount" := Item."Unit Price";
+                ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
+                ItemJnlLine.INSERT(True);
+                ItemJnlPostLine.RunWithCheck(ItemJnlLine);
+            until Drug.Next() = 0;
+            Rec.Status := Rec.Status::Completed;
+            Rec.Modify(true);
+            Message('Posted Successifully');
+        end else
+            Message('No Items to Post, Ensure you have marked as issued.');
+    end;
+
     procedure MarkasComplete()
     begin
         Treatment.Reset();
