@@ -78,7 +78,7 @@ page 51765 "HMS Pharmacy Header"
 
                 trigger OnAction()
                 begin
-                    Rec.PostPharmacy();
+                    Rec.PostPharmacyItems();
                     CurrPage.Close();
                 end;
             }

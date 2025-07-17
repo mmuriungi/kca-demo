@@ -5,6 +5,35 @@ table 51121 "HMS-Off Duty"
     {
         field(1; "Treatment No."; Code[20])
         {
+            trigger OnValidate()
+            var
+                TreatmentHeader: Record "HMS-Treatment Form Header";
+                Patient: Record "HMS-Patient";
+                Employee: Record "HRM-Employee C";
+                Student: Record Customer;
+            begin
+                if TreatmentHeader.Get(Rec."Treatment No.") then begin
+                    Rec."Patient No" := TreatmentHeader."Patient No.";
+
+                    // Get patient details
+                    if Patient.Get(TreatmentHeader."Patient No.") then begin
+                        if Patient."Student No." <> '' then begin
+                            Rec."Student No." := Patient."Student No.";
+                            if Student.Get(Patient."Student No.") then begin
+                                Rec."Staff Name" := Student.Name;
+                                Rec.Department := Student."Global Dimension 2 Code";
+                            end;
+                        end else if Patient."Employee No." <> '' then begin
+                            Rec."Staff No" := Patient."Employee No.";
+                            Rec."PF No." := Patient."Employee No.";
+                            if Employee.Get(Patient."Employee No.") then begin
+                                Rec."Staff Name" := Employee."Search Name";
+                                Rec.Department := Employee."Department Name";
+                            end;
+                        end;
+                    end;
+                end;
+            end;
         }
         field(2; "Staff No"; Code[20])
         {
@@ -95,6 +124,13 @@ table 51121 "HMS-Off Duty"
         {
             Caption = 'Created Date';
             Editable = false;
+        }
+        //Patient type
+        field(24; "Patient Type"; Option)
+        {
+            Caption = 'Patient Type';
+            OptionMembers = " ",Staff,Student;
+            OptionCaption = ' ,Staff,Student';
         }
     }
 

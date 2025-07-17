@@ -230,4 +230,10 @@ table 51144 "HMS-Referral Header"
         HmsSetup.TestField("Referral Nos");
         NoSeriesManagement.InitSeries(HmsSetup."Referral Nos", xRec."No. Series", 0D, Rec."Referral No.", Rec."No. Series");
     end;
+
+    procedure FullName(): Text
+    begin
+        Rec.CalcFields(Surname, "Middle Name", "Last Name");
+        exit(Rec.Surname + ' ' + Rec."Middle Name" + ' ' + Rec."Last Name");
+    end;
 }

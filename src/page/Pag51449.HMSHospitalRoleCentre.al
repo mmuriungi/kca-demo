@@ -367,10 +367,23 @@ page 51449 "HMS-Hospital Role Centre"
             {
                 Caption = 'Lab. Visits';
                 Image = FiledPosted;
-                action(sentrequests)
+                // action(sentrequests)
+                // {
+                //     Caption = 'Sent Requests';
+                //     RunObject = page "HMS-Lab Test Requests list";
+                //     ApplicationArea = all;
+                // }
+                action("Lab Test Requests")
                 {
-                    Caption = 'Sent Requests';
-                    RunObject = page "HMS-Lab Test Requests list";
+                    Caption = 'Lab Test Requests';
+                    RunObject = page "HMS Laboratory List";
+                    ApplicationArea = all;
+                }
+                //HMS-Laboratory Form List 2
+                action("Lab Test Findings")
+                {
+                    Caption = 'Lab Test Findings';
+                    RunObject = page "HMS-Laboratory Form List 2";
                     ApplicationArea = all;
                 }
                 action("Lab Reagents")
