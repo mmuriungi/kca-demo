@@ -353,7 +353,7 @@ page 50458 "FIN-Posted Imprest Req. UP"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
+       // Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
         //OnAfterGetCurrRecord;
     end;
 

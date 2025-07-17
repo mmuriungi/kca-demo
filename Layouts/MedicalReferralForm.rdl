@@ -24,157 +24,6 @@
       <rd:DataSourceID>40edd403-2563-4673-b10f-6c81cc8c83df</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="ReferralNo">
-          <DataField>ReferralNo</DataField>
-        </Field>
-        <Field Name="TreatmentNo">
-          <DataField>TreatmentNo</DataField>
-        </Field>
-        <Field Name="PatientNo">
-          <DataField>PatientNo</DataField>
-        </Field>
-        <Field Name="DateReferred">
-          <DataField>DateReferred</DataField>
-        </Field>
-        <Field Name="PFSTDNo">
-          <DataField>PFSTDNo</DataField>
-        </Field>
-        <Field Name="ReferredHospital">
-          <DataField>ReferredHospital</DataField>
-        </Field>
-        <Field Name="ClinicalHistory">
-          <DataField>ClinicalHistory</DataField>
-        </Field>
-        <Field Name="ExaminationFindings">
-          <DataField>ExaminationFindings</DataField>
-        </Field>
-        <Field Name="InvestigationsDone">
-          <DataField>InvestigationsDone</DataField>
-        </Field>
-        <Field Name="ProvisionalDiagnosis">
-          <DataField>ProvisionalDiagnosis</DataField>
-        </Field>
-        <Field Name="PresentTreatment">
-          <DataField>PresentTreatment</DataField>
-        </Field>
-        <Field Name="Comments">
-          <DataField>Comments</DataField>
-        </Field>
-        <Field Name="OpinionAdvice">
-          <DataField>OpinionAdvice</DataField>
-        </Field>
-        <Field Name="InvestigationSpecify">
-          <DataField>InvestigationSpecify</DataField>
-        </Field>
-        <Field Name="FurtherManagement">
-          <DataField>FurtherManagement</DataField>
-        </Field>
-        <Field Name="ForReview">
-          <DataField>ForReview</DataField>
-        </Field>
-        <Field Name="CMOName">
-          <DataField>CMOName</DataField>
-        </Field>
-        <Field Name="CMOSignatureStamp">
-          <DataField>CMOSignatureStamp</DataField>
-        </Field>
-        <Field Name="CMODate">
-          <DataField>CMODate</DataField>
-        </Field>
-        <Field Name="ClinicalLabFindings">
-          <DataField>ClinicalLabFindings</DataField>
-        </Field>
-        <Field Name="Diagnosis">
-          <DataField>Diagnosis</DataField>
-        </Field>
-        <Field Name="FurtherInvestRequired">
-          <DataField>FurtherInvestRequired</DataField>
-        </Field>
-        <Field Name="TreatmentStarted">
-          <DataField>TreatmentStarted</DataField>
-        </Field>
-        <Field Name="OtherRemarks">
-          <DataField>OtherRemarks</DataField>
-        </Field>
-        <Field Name="DoctorName">
-          <DataField>DoctorName</DataField>
-        </Field>
-        <Field Name="DoctorSign">
-          <DataField>DoctorSign</DataField>
-        </Field>
-        <Field Name="ReportDate">
-          <DataField>ReportDate</DataField>
-        </Field>
-        <Field Name="OfficialRubberStamp">
-          <DataField>OfficialRubberStamp</DataField>
-        </Field>
-        <Field Name="ConsultantSpecialistName">
-          <DataField>ConsultantSpecialistName</DataField>
-        </Field>
-        <Field Name="ConsultantPFNo">
-          <DataField>ConsultantPFNo</DataField>
-        </Field>
-        <Field Name="ConsultantSignature">
-          <DataField>ConsultantSignature</DataField>
-        </Field>
-        <Field Name="ConsultantDateStamp">
-          <DataField>ConsultantDateStamp</DataField>
-        </Field>
-        <Field Name="Surname">
-          <DataField>Surname</DataField>
-        </Field>
-        <Field Name="MiddleName">
-          <DataField>MiddleName</DataField>
-        </Field>
-        <Field Name="LastName">
-          <DataField>LastName</DataField>
-        </Field>
-        <Field Name="PatientName">
-          <DataField>PatientName</DataField>
-        </Field>
-        <Field Name="IDNumber">
-          <DataField>IDNumber</DataField>
-        </Field>
-        <Field Name="CorrespondenceAddress1">
-          <DataField>CorrespondenceAddress1</DataField>
-        </Field>
-        <Field Name="TelephoneNo1">
-          <DataField>TelephoneNo1</DataField>
-        </Field>
-        <Field Name="Email">
-          <DataField>Email</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="CompanyAddress">
-          <DataField>CompanyAddress</DataField>
-        </Field>
-        <Field Name="CompanyLogo">
-          <DataField>CompanyLogo</DataField>
-        </Field>
-        <Field Name="UniversityTitle">
-          <DataField>UniversityTitle</DataField>
-        </Field>
-        <Field Name="DepartmentTitle">
-          <DataField>DepartmentTitle</DataField>
-        </Field>
-        <Field Name="FormCode">
-          <DataField>FormCode</DataField>
-        </Field>
-        <Field Name="FormTitle">
-          <DataField>FormTitle</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2244,12 +2093,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2287,4 +2130,155 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ReferralNo">
+          <DataField>ReferralNo</DataField>
+        </Field>
+        <Field Name="TreatmentNo">
+          <DataField>TreatmentNo</DataField>
+        </Field>
+        <Field Name="PatientNo">
+          <DataField>PatientNo</DataField>
+        </Field>
+        <Field Name="DateReferred">
+          <DataField>DateReferred</DataField>
+        </Field>
+        <Field Name="PFSTDNo">
+          <DataField>PFSTDNo</DataField>
+        </Field>
+        <Field Name="ReferredHospital">
+          <DataField>ReferredHospital</DataField>
+        </Field>
+        <Field Name="ClinicalHistory">
+          <DataField>ClinicalHistory</DataField>
+        </Field>
+        <Field Name="ExaminationFindings">
+          <DataField>ExaminationFindings</DataField>
+        </Field>
+        <Field Name="InvestigationsDone">
+          <DataField>InvestigationsDone</DataField>
+        </Field>
+        <Field Name="ProvisionalDiagnosis">
+          <DataField>ProvisionalDiagnosis</DataField>
+        </Field>
+        <Field Name="PresentTreatment">
+          <DataField>PresentTreatment</DataField>
+        </Field>
+        <Field Name="Comments">
+          <DataField>Comments</DataField>
+        </Field>
+        <Field Name="OpinionAdvice">
+          <DataField>OpinionAdvice</DataField>
+        </Field>
+        <Field Name="InvestigationSpecify">
+          <DataField>InvestigationSpecify</DataField>
+        </Field>
+        <Field Name="FurtherManagement">
+          <DataField>FurtherManagement</DataField>
+        </Field>
+        <Field Name="ForReview">
+          <DataField>ForReview</DataField>
+        </Field>
+        <Field Name="CMOName">
+          <DataField>CMOName</DataField>
+        </Field>
+        <Field Name="CMOSignatureStamp">
+          <DataField>CMOSignatureStamp</DataField>
+        </Field>
+        <Field Name="CMODate">
+          <DataField>CMODate</DataField>
+        </Field>
+        <Field Name="ClinicalLabFindings">
+          <DataField>ClinicalLabFindings</DataField>
+        </Field>
+        <Field Name="Diagnosis">
+          <DataField>Diagnosis</DataField>
+        </Field>
+        <Field Name="FurtherInvestRequired">
+          <DataField>FurtherInvestRequired</DataField>
+        </Field>
+        <Field Name="TreatmentStarted">
+          <DataField>TreatmentStarted</DataField>
+        </Field>
+        <Field Name="OtherRemarks">
+          <DataField>OtherRemarks</DataField>
+        </Field>
+        <Field Name="DoctorName">
+          <DataField>DoctorName</DataField>
+        </Field>
+        <Field Name="DoctorSign">
+          <DataField>DoctorSign</DataField>
+        </Field>
+        <Field Name="ReportDate">
+          <DataField>ReportDate</DataField>
+        </Field>
+        <Field Name="OfficialRubberStamp">
+          <DataField>OfficialRubberStamp</DataField>
+        </Field>
+        <Field Name="ConsultantSpecialistName">
+          <DataField>ConsultantSpecialistName</DataField>
+        </Field>
+        <Field Name="ConsultantPFNo">
+          <DataField>ConsultantPFNo</DataField>
+        </Field>
+        <Field Name="ConsultantSignature">
+          <DataField>ConsultantSignature</DataField>
+        </Field>
+        <Field Name="ConsultantDateStamp">
+          <DataField>ConsultantDateStamp</DataField>
+        </Field>
+        <Field Name="Surname">
+          <DataField>Surname</DataField>
+        </Field>
+        <Field Name="MiddleName">
+          <DataField>MiddleName</DataField>
+        </Field>
+        <Field Name="LastName">
+          <DataField>LastName</DataField>
+        </Field>
+        <Field Name="PatientName">
+          <DataField>PatientName</DataField>
+        </Field>
+        <Field Name="IDNumber">
+          <DataField>IDNumber</DataField>
+        </Field>
+        <Field Name="CorrespondenceAddress1">
+          <DataField>CorrespondenceAddress1</DataField>
+        </Field>
+        <Field Name="TelephoneNo1">
+          <DataField>TelephoneNo1</DataField>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="CompanyAddress">
+          <DataField>CompanyAddress</DataField>
+        </Field>
+        <Field Name="CompanyLogo">
+          <DataField>CompanyLogo</DataField>
+        </Field>
+        <Field Name="UniversityTitle">
+          <DataField>UniversityTitle</DataField>
+        </Field>
+        <Field Name="DepartmentTitle">
+          <DataField>DepartmentTitle</DataField>
+        </Field>
+        <Field Name="FormCode">
+          <DataField>FormCode</DataField>
+        </Field>
+        <Field Name="FormTitle">
+          <DataField>FormTitle</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

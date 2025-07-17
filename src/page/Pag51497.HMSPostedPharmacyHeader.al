@@ -87,7 +87,7 @@ page 51497 "HMS Posted Pharmacy Header"
 
                 trigger OnAction()
                 begin
-                    Rec.PostPharmacy();
+                    Rec.PostPharmacyitems();
                 end;
             }
             group("&Functions")

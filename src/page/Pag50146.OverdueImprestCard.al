@@ -371,7 +371,7 @@ page 50146 "Overdue Imprest Card"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
+        //Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
         //OnAfterGetCurrRecord;
     end;
 

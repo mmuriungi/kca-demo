@@ -18,7 +18,7 @@ codeunit 50048 "Claims Handler"
         PVHeader."Payment Type" := PVHeader."Payment Type"::Normal;
         //PVHeader."Paying Bank Account" := Claim.;
         PVHeader."Pay Mode" := PVHeader."Pay Mode";
-        PVHeader."Responsibility Center" := Claim."Responsibility Center";
+        //PVHeader."Responsibility Center" := Claim."Responsibility Center";
         PVHeader."Payment Narration" := Claim.Comments;
         PVHeader."Source Document Type" := PVHeader."Source Document Type"::"Medical Claim";
         PVHeader.Payee := Claim."Member Names";

@@ -368,11 +368,11 @@ table 50019 "FIN-Imprest Header"
             trigger OnValidate()
             begin
 
-                TESTFIELD(Status, Status::Pending);
-                IF NOT UserMgt.CheckRespCenter(1, "Shortcut Dimension 3 Code") THEN
-                    ERROR(
-                      Text001,
-                      RespCenter.TABLECAPTION, UserMgt.GetPurchasesFilter);
+                // TESTFIELD(Status, Status::Pending);
+                // IF NOT UserMgt.CheckRespCenter(1, "Shortcut Dimension 3 Code") THEN
+                //     ERROR(
+                //       Text001,
+                //       RespCenter.TABLECAPTION, UserMgt.GetPurchasesFilter);
                 /*
                "Location Code" := UserMgt.GetLocation(1,'',"Responsibility Center");
                IF "Location Code" = '' THEN BEGIN

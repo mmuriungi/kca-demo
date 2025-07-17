@@ -12,7 +12,7 @@ table 51109 "HMS-Laboratory Test Line"
             NotBlank = true;
             TableRelation = "HMS-Setup Lab Test".Code;
         }
-        field(5; "Laboratory Test Name"; Text[30])
+        field(5; "Laboratory Test Name"; Text[100])
         {
             CalcFormula = Lookup("HMS-Setup Lab Test".Description WHERE(Code = FIELD("Laboratory Test Code")));
             FieldClass = FlowField;
@@ -22,7 +22,7 @@ table 51109 "HMS-Laboratory Test Line"
             NotBlank = true;
             TableRelation = "HMS-Setup Specimen".Code;
         }
-        field(7; "Specimen Name"; Text[30])
+        field(7; "Specimen Name"; Text[100])
         {
             CalcFormula = Lookup("HMS-Setup Specimen".Description WHERE(Code = FIELD("Specimen Code")));
             FieldClass = FlowField;

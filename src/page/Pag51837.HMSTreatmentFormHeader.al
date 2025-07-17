@@ -328,12 +328,90 @@ page 51837 "HMS-Treatment Form Header"
                 PromotedCategory = Process;
                 ApplicationArea = all;
                 trigger OnAction()
+                var
+                FormLab: Record "HMS-Treatment Form Laboratory";
                 begin
                     if Confirm('Send to Laboratory', False) = false then begin exit end;
                     //rec.TestField("Patient No.");
                     rec."Lab Status" := rec."Lab Status"::Pending;
                     rec."sent to lab" := true;
                     rec.Location := rec.Location::Lab;
+
+                        HMSSetup.RESET;
+                        HMSSetup.GET();
+                        NewNo := NoSeriesMgt.GetNextNo(HMSSetup."Lab Test Request Nos", 0D, TRUE);
+                        TreatmentHeader.RESET;
+                        TreatmentHeader.GET(Rec."Treatment No.");
+                        LabHeader.RESET;
+                        LabHeader.INIT;
+                        LabHeader."Laboratory No." := NewNo;
+                        LabHeader."Laboratory Date" := TODAY;
+                        LabHeader."Laboratory Time" := TIME;
+                        LabHeader."Patient No." := TreatmentHeader."Patient No.";
+                        LabHeader."Student No." := TreatmentHeader."Student No.";
+                        LabHeader."Employee No." := TreatmentHeader."Employee No.";
+                        LabHeader."Relative No." := TreatmentHeader."Relative No.";
+                        LabHeader."Request Area" := LabHeader."Request Area"::Doctor;
+                        LabHeader."Link Type" := 'Treatment';
+                        LabHeader."Link No." := TreatmentHeader."Treatment No.";
+                        labheader2.RESET;
+                        labheader2.SETRANGE(labheader2."Link No.", TreatmentHeader."Treatment No.");
+                        IF labheader2.FIND('-') THEN BEGIN
+                            IF CONFIRM('Record already exist,Confirm Continue?') THEN LabHeader.INSERT;
+                        END
+                        ELSE BEGIN
+                            LabHeader.INSERT;
+                        END;
+                        DocLabRequestLines.RESET;
+                        DocLabRequestLines.SETRANGE(DocLabRequestLines."Treatment No.", Rec."Treatment No.");
+                        DocLabRequestLines.SETRANGE(DocLabRequestLines.Status, DocLabRequestLines.Status::New);
+                        IF DocLabRequestLines.FIND('-') THEN BEGIN
+                            REPEAT
+                                DocLabRequestLines.Status := DocLabRequestLines.Status::Forwarded;
+                                DocLabRequestLines.MODIFY;
+                                /*
+                                 LabSpecimenSetup.RESET;
+                                 LabSpecimenSetup.SETRANGE(LabSpecimenSetup.Test,DocLabRequestLines."Laboratory Test Package Code");
+                                    IF LabSpecimenSetup.FIND('-') THEN BEGIN
+                                     REPEAT
+                                     */
+                                LabTestLines.INIT;
+                                LabTestLines."Laboratory No." := LabHeader."Laboratory No.";
+                                //LabTestLines."Laboratory Test Code":=LabSpecimenSetup.Test;
+                                LabTestLines."Laboratory Test Code" := DocLabRequestLines."Laboratory Test Package Code";
+                                LabTestLines."Specimen Code" := LabSpecimenSetup."Specimen Name";
+                                LabTestLines."Measuring Unit Code" := LabSpecimenSetup.unit;
+                                //LabTestLines."Laboratory Test Name":=LabSpecimenSetup."Test Name";
+                                LabTestLines."Laboratory Test Name" := DocLabRequestLines."Laboratory Test Package Name";
+
+                                LabTestLines."Specimen Name" := LabSpecimenSetup."Specimen Name";
+                                LabTestLines.INSERT;
+                            //  UNTIL LabSpecimenSetup.NEXT=0;
+                            // END;
+
+                            /* DocLabRequestLines.reset;
+                             DocLabRequestLines.SETRANGE(DocLabRequestLines."Laboratory Test Package Code",LabTestLines."Laboratory Test Code");
+
+                             DocLabRequestLines.find('-') then begin
+                               REPEAT
+                                 LabTestLines.INIT;
+                                // LabTestLines."Laboratory No.":=LabHeader."Laboratory No.";
+                                 LabTestLines."Laboratory Test Code":=LabSpecimenSetup.Test;
+                                 LabTestLines."Specimen Code":=LabSpecimenSetup.Specimen;
+                                 LabTestLines."Measuring Unit Code":=LabSpecimenSetup."Measuring Unit";
+                                 LabTestLines."Laboratory Test Name":=LabSpecimenSetup."Test Name";
+                                 LabTestLines."Specimen Name":=LabSpecimenSetup."Specimen Name";
+                                 LabTestLines.INSERT;
+                              UNTIL LabSpecimenSetup.NEXT=0;
+                             END;
+                                  */
+                            // DocLabRequestLines.Status:=DocLabRequestLines.Status::Forwarded;
+                            //DocLabRequestLines.MODIFY;
+                            UNTIL DocLabRequestLines.NEXT = 0;
+                        END
+                        ELSE BEGIN
+                            ERROR('Nothing to Forward!');
+                        END;
 
                     Message('Patient sent to Laboratory');
                 end;

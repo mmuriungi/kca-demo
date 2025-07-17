@@ -153,10 +153,10 @@ page 50026 "FIN-Posted Payment Header UP"
                 //     Caption = 'Total Net Amount LCY';
                 //     Editable = false;
                 // }
-                field("Responsibility Center"; Rec."Responsibility Center")
-                {
-                    ApplicationArea = all;
-                }
+                // field("Responsibility Center"; Rec."Responsibility Center")
+                // {
+                //     ApplicationArea = all;
+                // }
                 field("Cheque No."; Rec."Cheque No.")
                 {
                     Caption = 'Cheque/EFT No.';
@@ -292,7 +292,7 @@ page 50026 "FIN-Posted Payment Header UP"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
+       // Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
         //Add dimensions if set by default here
         Rec."Global Dimension 1 Code" := UserMgt.GetSetDimensions(USERID, 1);
         Rec.VALIDATE("Global Dimension 1 Code");
@@ -302,17 +302,17 @@ page 50026 "FIN-Posted Payment Header UP"
         Rec.VALIDATE("Shortcut Dimension 3 Code");
         Rec."Shortcut Dimension 4 Code" := UserMgt.GetSetDimensions(USERID, 4);
         Rec.VALIDATE("Shortcut Dimension 4 Code");
-        Rec."Responsibility Center" := 'MAIN';
+       // Rec."Responsibility Center" := 'MAIN';
         //OnAfterGetCurrRecord;
     end;
 
     trigger OnOpenPage()
     begin
-        IF UserMgt.GetPurchasesFilter() <> '' THEN BEGIN
-            Rec.FILTERGROUP(2);
-            Rec.SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter());
-            Rec.FILTERGROUP(0);
-        END;
+        // IF UserMgt.GetPurchasesFilter() <> '' THEN BEGIN
+        //     Rec.FILTERGROUP(2);
+        //     Rec.SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter());
+        //     Rec.FILTERGROUP(0);
+        // END;
 
 
         //UpdateControls;

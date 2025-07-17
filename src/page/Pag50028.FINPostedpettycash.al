@@ -198,10 +198,10 @@ page 50462 "FIN-Posted petty cash"
                 {
                     ApplicationArea = All;
                 }
-                field("Responsibility Center"; Rec."Responsibility Center")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Responsibility Center"; Rec."Responsibility Center")
+                // {
+                //     ApplicationArea = All;
+                // }
                 field("Cheque Type"; Rec."Cheque Type")
                 {
                     ApplicationArea = All;
