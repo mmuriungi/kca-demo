@@ -143,10 +143,10 @@ page 50007 "FIN-Cash Payment Header UP"
                 {
                     ApplicationArea = All;
                 }
-                field("Responsibility Center"; Rec."Responsibility Center")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Responsibility Center"; Rec."Responsibility Center")
+                // {
+                //     ApplicationArea = All;
+                // }
                 field("Date Posted"; Rec."Date Posted")
                 {
                     Editable = true;
@@ -431,7 +431,7 @@ page 50007 "FIN-Cash Payment Header UP"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
+       // Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
         //Add dimensions if set by default here
         Rec."Global Dimension 1 Code" := UserMgt.GetSetDimensions(USERID, 1);
         Rec.VALIDATE("Global Dimension 1 Code");
@@ -446,11 +446,11 @@ page 50007 "FIN-Cash Payment Header UP"
 
     trigger OnOpenPage()
     begin
-        IF UserMgt.GetPurchasesFilter() <> '' THEN BEGIN
-            Rec.FILTERGROUP(2);
-            Rec.SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter());
-            Rec.FILTERGROUP(0);
-        END;
+        // IF UserMgt.GetPurchasesFilter() <> '' THEN BEGIN
+        //     Rec.FILTERGROUP(2);
+        //     Rec.SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter());
+        //     Rec.FILTERGROUP(0);
+        // END;
 
         UpdateControls;
     end;
