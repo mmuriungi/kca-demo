@@ -13,6 +13,7 @@ table 50019 "FIN-Imprest Header"
         field(2; Date; Date)
         {
             Description = 'Stores the date when the payment voucher was inserted into the system';
+            
 
             trigger OnValidate()
             begin
@@ -608,6 +609,11 @@ table 50019 "FIN-Imprest Header"
         }
         //Archived
         field(50034; Archived; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        //Date Requested
+        field(50035; "Date Requested"; Date)
         {
             DataClassification = ToBeClassified;
         }
