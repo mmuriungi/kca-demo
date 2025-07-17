@@ -218,6 +218,7 @@ page 50017 "FIN-Payment Header"
                 Image = Approve;
                 Promoted = true;
                 PromotedCategory = Process;
+                Visible=false;
                 PromotedIsBig = true;
                 ApplicationArea = All;
                 trigger OnAction()

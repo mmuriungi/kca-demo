@@ -181,7 +181,7 @@ table 51139 "HMS-Pharmacy Header"
         if Location.FindFirst() then;
         Drug.Reset();
         Drug.SetRange("Pharmacy No.", Rec."Pharmacy No.");
-        Drug.SetRange(Issued, true);
+       // Drug.SetRange(Issued, true);
         Drug.SetFilter("Drug No.", '<>%1', '');
         if Drug.Find('-') then begin
             repeat
@@ -208,12 +208,14 @@ table 51139 "HMS-Pharmacy Header"
                 ItemJnlLine.VALIDATE(ItemJnlLine."Unit Amount");
                 ItemJnlLine.INSERT(True);
                 ItemJnlPostLine.RunWithCheck(ItemJnlLine);
+                Drug.Issued:=true;
+                Drug.Modify();
             until Drug.Next() = 0;
             Rec.Status := Rec.Status::Completed;
             Rec.Modify(true);
             Message('Posted Successifully');
         end else
-            Message('No Items to Post, Ensure you have marked as issued.');
+            Message('No Items to Post!');
     end;
 
     procedure MarkasComplete()
