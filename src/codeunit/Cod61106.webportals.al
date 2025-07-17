@@ -1032,13 +1032,13 @@ Codeunit 61106 webportals
         NoSeriesMgt.InitSeries(
             CashOfficeSetup."Imprest Req No",
             ImprestHeader."No. Series",
-            WorkDate(),
+            Today,
             ImprestHeader."No.",
             ImprestHeader."No. Series"
         );
 
         // Set basic fields
-        ImprestHeader.Date := WorkDate();
+        ImprestHeader."Date Requested" := Today;
         ImprestHeader.Validate("Currency Code", CurrencyCode);
         ImprestHeader."Account Type" := ImprestHeader."Account Type"::Customer;
         ImprestHeader."Account No." := AccNO;
