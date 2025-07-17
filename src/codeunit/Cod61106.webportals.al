@@ -1047,7 +1047,7 @@ Codeunit 61106 webportals
         // Set dimensions
         ImprestHeader.Validate("Global Dimension 1 Code", CampusCode);
         ImprestHeader.Validate("Shortcut Dimension 2 Code", DepartmentCode);
-        ImprestHeader.Validate("Responsibility Center", ResponsibilityCenter);
+        //ImprestHeader.Validate("Responsibility Center", ResponsibilityCenter);
 
         // Set payee information
         if Customer.Get(AccNO) then begin

@@ -199,10 +199,10 @@ page 50147 "Imprest Transfer to Payroll"
                 {
                     ApplicationArea = All;
                 }
-                field("Responsibility Center"; Rec."Responsibility Center")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Responsibility Center"; Rec."Responsibility Center")
+                // {
+                //     ApplicationArea = All;
+                // }
                 field("Account Type"; Rec."Account Type")
                 {
                     ApplicationArea = All;

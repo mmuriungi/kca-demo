@@ -736,7 +736,7 @@ page 50044 "FIN-Travel Advance Acc. UP"
             if imprestHeader.FindFirst() then begin
                 CHead."Paying Bank Account" := imprestHeader."Paying Bank Account";
                 CHead."Bank Name" := imprestHeader."Bank Name";
-                CHead."Responsibility Center" := imprestHeader."Responsibility Center";
+               // CHead."Responsibility Center" := imprestHeader."Responsibility Center";
             end;
             CHead.Cashier := Rec.Cashier;
             CHead.Insert();

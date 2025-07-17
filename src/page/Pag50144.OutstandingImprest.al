@@ -197,10 +197,10 @@ page 50144 "Outstanding Imprest"
                 {
                     ApplicationArea = All;
                 }
-                field("Responsibility Center"; Rec."Responsibility Center")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Responsibility Center"; Rec."Responsibility Center")
+                // {
+                //     ApplicationArea = All;
+                // }
                 field("Account Type"; Rec."Account Type")
                 {
                     ApplicationArea = All;

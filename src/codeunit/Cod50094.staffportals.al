@@ -1280,7 +1280,7 @@ codeunit 50094 staffportals
             ImprestRequisition."Function Name" := CampusName;
             ImprestRequisition."Budget Center Name" := DeptName;
             ImprestRequisition."No. Series" := 'IMP';
-            ImprestRequisition."Responsibility Center" := RCentre;
+            //ImprestRequisition."Responsibility Center" := RCentre;
             //ImprestRequisition."Account Type" := AccType;
             ImprestRequisition."Account No." := EmployeeCard."No.";
             ImprestRequisition.Purpose := Reason;
