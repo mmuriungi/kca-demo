@@ -1038,7 +1038,7 @@ Codeunit 61106 webportals
         );
 
         // Set basic fields
-        ImprestHeader.Date := Today;
+        ImprestHeader."Date Requested" := Today;
         ImprestHeader.Validate("Currency Code", CurrencyCode);
         ImprestHeader."Account Type" := ImprestHeader."Account Type"::Customer;
         ImprestHeader."Account No." := AccNO;
