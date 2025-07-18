@@ -224,7 +224,7 @@ page 51735 "HMS Observation Form Header Cl"
         Patient.RESET;
         PatientName := '';
         IF Patient.GET(PatientNo) THEN BEGIN
-            PatientName := Patient.Surname + ' ' + Patient."Middle Name" + ' ' + Patient."Last Name";
+            PatientName := Patient."Full Name";// Patient.Surname + ' ' + Patient."Middle Name" + ' ' + Patient."Last Name";
         END;
     end;
 

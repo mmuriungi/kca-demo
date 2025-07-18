@@ -245,6 +245,8 @@ Report 78092 "Student Fee Statement Nfm"
                     END ELSE
                         NfmEntry.INSERT(TRUE);
                     COMMIT;
+                    //Customer.CALCFIELDS("Nfm Balance");
+
                 end;
             }
             dataitem("NFM Statement Entry"; "NFM Statement Entry")
