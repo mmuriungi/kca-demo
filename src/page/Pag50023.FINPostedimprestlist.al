@@ -194,10 +194,10 @@ page 50457 "FIN-Posted imprest list"
                 {
                     ApplicationArea = All;
                 }
-                field("Responsibility Center"; Rec."Responsibility Center")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Responsibility Center"; Rec."Responsibility Center")
+                // {
+                //     ApplicationArea = All;
+                // }
                 field("Account Type"; Rec."Account Type")
                 {
                     ApplicationArea = All;

@@ -125,7 +125,7 @@ codeunit 52178866 "Notifications Handler"
                 CuEmailMessage.AddAttachment(AttachmentName + '.' + attachmentType, AttachmentType, AttachmentBase64);
             end;
             CuEmailMessage.AppendToBody('<html> <body> <font face="Maiandra GD,Garamond,Tahoma", size = "3">');
-            CuEmailMessage.AppendToBody('Dear ' + 'Sir/Madam' + ',');
+            //CuEmailMessage.AppendToBody('Dear ' + 'Sir/Madam' + ',');
             CuEmailMessage.AppendToBody('<br><br>');
             CuEmailMessage.AppendToBody(Body);
             CuEmailMessage.AppendToBody('<br><br>');
@@ -204,7 +204,6 @@ codeunit 52178866 "Notifications Handler"
                 CuEmailMessage.AddAttachment(AttachmentName + '.' + attachmentType, AttachmentType, AttachmentBase64);
             end;
             CuEmailMessage.AppendToBody('<html> <body> <font face="Maiandra GD,Garamond,Tahoma", size = "3">');
-            CuEmailMessage.AppendToBody('Dear ' + 'Sir/Madam' + ',');
             CuEmailMessage.AppendToBody('<br><br>');
             CuEmailMessage.AppendToBody(Body);
             CuEmailMessage.AppendToBody('<br><br>');
@@ -304,7 +303,6 @@ codeunit 52178866 "Notifications Handler"
 
             end;
             CuEmailMessage.AppendToBody('<html> <body> <font face="Maiandra GD,Garamond,Tahoma", size = "3">');
-            CuEmailMessage.AppendToBody('Dear ' + 'Sir/Madam' + ',');
             CuEmailMessage.AppendToBody('<br><br>');
             CuEmailMessage.AppendToBody(Body);
             CuEmailMessage.AppendToBody('<br><br>');

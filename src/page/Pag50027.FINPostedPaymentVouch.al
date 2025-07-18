@@ -198,10 +198,10 @@ page 50027 "FIN-Posted Payment Vouch."
                 {
                     ApplicationArea = All;
                 }
-                field("Responsibility Center"; Rec."Responsibility Center")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Responsibility Center"; Rec."Responsibility Center")
+                // {
+                //     ApplicationArea = All;
+                // }
                 field("Cheque Type"; Rec."Cheque Type")
                 {
                     ApplicationArea = All;

@@ -11,7 +11,7 @@
       <am:Name>PBIRB</am:Name>
       <am:Version>15.7.1813.16</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-07-16T12:33:47.0087982Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-07-16T22:54:56.2421959Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -46,7 +46,6 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>2in</Width>
-            <ZIndex>1</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="OpinionAdviceLabel">
@@ -67,7 +66,7 @@
             <Left>2.3in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
-            <ZIndex>2</ZIndex>
+            <ZIndex>1</ZIndex>
             <Style />
           </Textbox>
           <Line Name="OpinionAdviceLine">
@@ -75,7 +74,7 @@
             <Left>3.8in</Left>
             <Height>0in</Height>
             <Width>3.5in</Width>
-            <ZIndex>3</ZIndex>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -100,7 +99,7 @@
             <Left>2.3in</Left>
             <Height>0.2in</Height>
             <Width>2in</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>3</ZIndex>
             <Style />
           </Textbox>
           <Line Name="InvestigationSpecifyLine">
@@ -108,7 +107,7 @@
             <Left>4.3in</Left>
             <Height>0in</Height>
             <Width>3in</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>4</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -133,7 +132,7 @@
             <Left>2.3in</Left>
             <Height>0.2in</Height>
             <Width>2in</Width>
-            <ZIndex>6</ZIndex>
+            <ZIndex>5</ZIndex>
             <Style />
           </Textbox>
           <Line Name="FurtherManagementLine">
@@ -141,7 +140,7 @@
             <Left>4.3in</Left>
             <Height>0in</Height>
             <Width>3in</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -166,7 +165,7 @@
             <Left>2.3in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>7</ZIndex>
             <Style />
           </Textbox>
           <Line Name="ForReviewLine">
@@ -174,7 +173,7 @@
             <Left>3.8in</Left>
             <Height>0in</Height>
             <Width>3.5in</Width>
-            <ZIndex>9</ZIndex>
+            <ZIndex>8</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -199,7 +198,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>0.5in</Width>
-            <ZIndex>10</ZIndex>
+            <ZIndex>9</ZIndex>
             <Style />
           </Textbox>
           <Line Name="NameLine">
@@ -207,7 +206,7 @@
             <Left>0.7in</Left>
             <Height>0in</Height>
             <Width>2.5in</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>10</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -232,7 +231,7 @@
             <Left>3.3in</Left>
             <Height>0.2in</Height>
             <Width>1.2in</Width>
-            <ZIndex>12</ZIndex>
+            <ZIndex>11</ZIndex>
             <Style />
           </Textbox>
           <Line Name="SignatureLine">
@@ -240,7 +239,7 @@
             <Left>4.5in</Left>
             <Height>0in</Height>
             <Width>1.5in</Width>
-            <ZIndex>13</ZIndex>
+            <ZIndex>12</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -265,7 +264,7 @@
             <Left>6.1in</Left>
             <Height>0.2in</Height>
             <Width>0.4in</Width>
-            <ZIndex>14</ZIndex>
+            <ZIndex>13</ZIndex>
             <Style />
           </Textbox>
           <Line Name="DateLine">
@@ -273,7 +272,7 @@
             <Left>6.5in</Left>
             <Height>0in</Height>
             <Width>0.8in</Width>
-            <ZIndex>15</ZIndex>
+            <ZIndex>14</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -298,7 +297,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>2.5in</Width>
-            <ZIndex>16</ZIndex>
+            <ZIndex>15</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="PartBTitle">
@@ -321,7 +320,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>7in</Width>
-            <ZIndex>17</ZIndex>
+            <ZIndex>16</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="PatientNameLabelB">
@@ -342,7 +341,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>1.3in</Width>
-            <ZIndex>18</ZIndex>
+            <ZIndex>17</ZIndex>
             <Style />
           </Textbox>
           <Line Name="PatientNameLineB">
@@ -350,7 +349,7 @@
             <Left>1.5in</Left>
             <Height>0in</Height>
             <Width>2in</Width>
-            <ZIndex>19</ZIndex>
+            <ZIndex>18</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -375,7 +374,7 @@
             <Left>3.6in</Left>
             <Height>0.2in</Height>
             <Width>0.8in</Width>
-            <ZIndex>20</ZIndex>
+            <ZIndex>19</ZIndex>
             <Style />
           </Textbox>
           <Line Name="PFSTDLineB">
@@ -383,7 +382,7 @@
             <Left>4.4in</Left>
             <Height>0in</Height>
             <Width>1.2in</Width>
-            <ZIndex>21</ZIndex>
+            <ZIndex>20</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -408,7 +407,7 @@
             <Left>5.7in</Left>
             <Height>0.2in</Height>
             <Width>0.5in</Width>
-            <ZIndex>22</ZIndex>
+            <ZIndex>21</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="SrNoValueB">
@@ -433,7 +432,7 @@
             <Left>6.3in</Left>
             <Height>0.25in</Height>
             <Width>1in</Width>
-            <ZIndex>23</ZIndex>
+            <ZIndex>22</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ClinicalLabFindingsLabel">
@@ -454,7 +453,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>2in</Width>
-            <ZIndex>24</ZIndex>
+            <ZIndex>23</ZIndex>
             <Style />
           </Textbox>
           <Line Name="ClinicalLabLine">
@@ -462,7 +461,7 @@
             <Left>2.2in</Left>
             <Height>0in</Height>
             <Width>5.1in</Width>
-            <ZIndex>25</ZIndex>
+            <ZIndex>24</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -474,7 +473,7 @@
             <Left>0.2in</Left>
             <Height>0in</Height>
             <Width>7.1in</Width>
-            <ZIndex>26</ZIndex>
+            <ZIndex>25</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -499,7 +498,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>0.8in</Width>
-            <ZIndex>27</ZIndex>
+            <ZIndex>26</ZIndex>
             <Style />
           </Textbox>
           <Line Name="CommentsLine1">
@@ -507,7 +506,7 @@
             <Left>1.4in</Left>
             <Height>0in</Height>
             <Width>5.9in</Width>
-            <ZIndex>28</ZIndex>
+            <ZIndex>27</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -532,7 +531,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>1.2in</Width>
-            <ZIndex>29</ZIndex>
+            <ZIndex>28</ZIndex>
             <Style />
           </Textbox>
           <Line Name="PresentTreatmentLine1">
@@ -540,7 +539,7 @@
             <Left>1.9in</Left>
             <Height>0in</Height>
             <Width>5.4in</Width>
-            <ZIndex>30</ZIndex>
+            <ZIndex>29</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -565,7 +564,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>1.7in</Width>
-            <ZIndex>31</ZIndex>
+            <ZIndex>30</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="FormCode">
@@ -588,7 +587,7 @@
             <Left>6in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
-            <ZIndex>32</ZIndex>
+            <ZIndex>31</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="UniversityName">
@@ -613,7 +612,7 @@
             <Top>1.3in</Top>
             <Height>0.3in</Height>
             <Width>7.5in</Width>
-            <ZIndex>33</ZIndex>
+            <ZIndex>32</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="Department">
@@ -637,7 +636,7 @@
             <Top>1.6in</Top>
             <Height>0.25in</Height>
             <Width>7.5in</Width>
-            <ZIndex>34</ZIndex>
+            <ZIndex>33</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="AddressPhone">
@@ -661,7 +660,7 @@
             <Top>1.85in</Top>
             <Height>0.2in</Height>
             <Width>7.5in</Width>
-            <ZIndex>35</ZIndex>
+            <ZIndex>34</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="SrNoLabel">
@@ -684,7 +683,7 @@
             <Left>4.5in</Left>
             <Height>0.2in</Height>
             <Width>1in</Width>
-            <ZIndex>36</ZIndex>
+            <ZIndex>35</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="SrNoValue">
@@ -709,7 +708,7 @@
             <Left>5.5in</Left>
             <Height>0.25in</Height>
             <Width>2in</Width>
-            <ZIndex>37</ZIndex>
+            <ZIndex>36</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="FormTitle">
@@ -734,7 +733,7 @@
             <Top>2.4in</Top>
             <Height>0.3in</Height>
             <Width>7.5in</Width>
-            <ZIndex>38</ZIndex>
+            <ZIndex>37</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="PartATitle">
@@ -758,7 +757,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>7in</Width>
-            <ZIndex>39</ZIndex>
+            <ZIndex>38</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="StaffNameLabel">
@@ -779,7 +778,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>2.5in</Width>
-            <ZIndex>40</ZIndex>
+            <ZIndex>39</ZIndex>
             <Style />
           </Textbox>
           <Line Name="StaffNameLine">
@@ -787,7 +786,7 @@
             <Left>2.7in</Left>
             <Height>0in</Height>
             <Width>2.3in</Width>
-            <ZIndex>41</ZIndex>
+            <ZIndex>40</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -812,7 +811,7 @@
             <Left>2.7in</Left>
             <Height>0.2in</Height>
             <Width>2.3in</Width>
-            <ZIndex>42</ZIndex>
+            <ZIndex>41</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="PFSTDLabel">
@@ -833,7 +832,7 @@
             <Left>5.1in</Left>
             <Height>0.2in</Height>
             <Width>0.8in</Width>
-            <ZIndex>43</ZIndex>
+            <ZIndex>42</ZIndex>
             <Style />
           </Textbox>
           <Line Name="PFSTDLine">
@@ -841,7 +840,7 @@
             <Left>5.9in</Left>
             <Height>0in</Height>
             <Width>1.5in</Width>
-            <ZIndex>44</ZIndex>
+            <ZIndex>43</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -853,7 +852,7 @@
             <Left>1in</Left>
             <Height>0in</Height>
             <Width>6.3in</Width>
-            <ZIndex>45</ZIndex>
+            <ZIndex>44</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -878,7 +877,7 @@
             <Left>5.9in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
-            <ZIndex>46</ZIndex>
+            <ZIndex>45</ZIndex>
             <Style />
           </Textbox>
           <Line Name="ReferredToLine">
@@ -886,7 +885,7 @@
             <Left>2.4in</Left>
             <Height>0in</Height>
             <Width>3.5in</Width>
-            <ZIndex>47</ZIndex>
+            <ZIndex>46</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -911,7 +910,7 @@
             <Left>2.4in</Left>
             <Height>0.2in</Height>
             <Width>3.5in</Width>
-            <ZIndex>48</ZIndex>
+            <ZIndex>47</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="HospitalLabel">
@@ -932,7 +931,7 @@
             <Left>5.95in</Left>
             <Height>0.2in</Height>
             <Width>0.6in</Width>
-            <ZIndex>49</ZIndex>
+            <ZIndex>48</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ClinicalHistoryLabel">
@@ -953,7 +952,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
-            <ZIndex>50</ZIndex>
+            <ZIndex>49</ZIndex>
             <Style />
           </Textbox>
           <Line Name="ClinicalHistoryLine1">
@@ -961,7 +960,7 @@
             <Left>1.7in</Left>
             <Height>0in</Height>
             <Width>5.6in</Width>
-            <ZIndex>51</ZIndex>
+            <ZIndex>50</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -973,7 +972,7 @@
             <Left>0.2in</Left>
             <Height>0in</Height>
             <Width>7.1in</Width>
-            <ZIndex>52</ZIndex>
+            <ZIndex>51</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -998,7 +997,7 @@
             <Left>1.7in</Left>
             <Height>0.4in</Height>
             <Width>5.6in</Width>
-            <ZIndex>53</ZIndex>
+            <ZIndex>52</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ExamFindingsLabel">
@@ -1019,7 +1018,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>1.8in</Width>
-            <ZIndex>54</ZIndex>
+            <ZIndex>53</ZIndex>
             <Style />
           </Textbox>
           <Line Name="ExamFindingsLine1">
@@ -1027,7 +1026,7 @@
             <Left>2in</Left>
             <Height>0in</Height>
             <Width>5.3in</Width>
-            <ZIndex>55</ZIndex>
+            <ZIndex>54</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -1052,7 +1051,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>1.7in</Width>
-            <ZIndex>56</ZIndex>
+            <ZIndex>55</ZIndex>
             <Style />
           </Textbox>
           <Line Name="InvestigationsLine1">
@@ -1060,7 +1059,7 @@
             <Left>1.9in</Left>
             <Height>0in</Height>
             <Width>5.4in</Width>
-            <ZIndex>57</ZIndex>
+            <ZIndex>56</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -1085,7 +1084,7 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>1.8in</Width>
-            <ZIndex>58</ZIndex>
+            <ZIndex>57</ZIndex>
             <Style />
           </Textbox>
           <Line Name="ProvDiagnosisLine1">
@@ -1093,7 +1092,7 @@
             <Left>2in</Left>
             <Height>0in</Height>
             <Width>5.3in</Width>
-            <ZIndex>59</ZIndex>
+            <ZIndex>58</ZIndex>
             <Style>
               <Border>
                 <Style>Dotted</Style>
@@ -1118,22 +1117,9 @@
             <Left>0.2in</Left>
             <Height>0.2in</Height>
             <Width>2.2in</Width>
-            <ZIndex>60</ZIndex>
+            <ZIndex>59</ZIndex>
             <Style />
           </Textbox>
-          <Line Name="PartCDivider">
-            <Top>10.8in</Top>
-            <Left>0.2in</Left>
-            <Height>0in</Height>
-            <Width>7.1in</Width>
-            <ZIndex>61</ZIndex>
-            <Style>
-              <Border>
-                <Style>Solid</Style>
-                <Width>2pt</Width>
-              </Border>
-            </Style>
-          </Line>
           <Textbox Name="ReferredToValue2">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -1152,7 +1138,7 @@
             <Left>2.2in</Left>
             <Height>0.2in</Height>
             <Width>3.5in</Width>
-            <ZIndex>62</ZIndex>
+            <ZIndex>60</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ReferredToValue3">
@@ -1173,7 +1159,7 @@
             <Left>2.2in</Left>
             <Height>0.2in</Height>
             <Width>3.5in</Width>
-            <ZIndex>63</ZIndex>
+            <ZIndex>61</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ReferredToValue4">
@@ -1194,7 +1180,7 @@
             <Left>2.2in</Left>
             <Height>0.2in</Height>
             <Width>3.5in</Width>
-            <ZIndex>64</ZIndex>
+            <ZIndex>62</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ReferredToValue5">
@@ -1215,7 +1201,7 @@
             <Left>2.2in</Left>
             <Height>0.2in</Height>
             <Width>3.5in</Width>
-            <ZIndex>65</ZIndex>
+            <ZIndex>63</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ReferredToValue6">
@@ -1236,7 +1222,7 @@
             <Left>2.2in</Left>
             <Height>0.2in</Height>
             <Width>3.5in</Width>
-            <ZIndex>66</ZIndex>
+            <ZIndex>64</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ForReviewLabel2">
@@ -1257,7 +1243,7 @@
             <Left>4.7in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
-            <ZIndex>67</ZIndex>
+            <ZIndex>65</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ForReviewLabel3">
@@ -1278,7 +1264,7 @@
             <Left>4.7in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
-            <ZIndex>68</ZIndex>
+            <ZIndex>66</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ForReviewLabel4">
@@ -1299,7 +1285,7 @@
             <Left>4.7in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
-            <ZIndex>69</ZIndex>
+            <ZIndex>67</ZIndex>
             <Style />
           </Textbox>
           <Textbox Name="ForReviewLabel5">
@@ -1320,11 +1306,781 @@
             <Left>4.7in</Left>
             <Height>0.2in</Height>
             <Width>1.5in</Width>
+            <ZIndex>68</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="PartBLine2">
+            <Top>10in</Top>
+            <Left>0.2in</Left>
+            <Height>0in</Height>
+            <Width>7.1in</Width>
+            <ZIndex>69</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="DoctorsNameLabel">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Doctors Name</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.1in</Top>
+            <Left>0.2in</Left>
+            <Height>0.2in</Height>
+            <Width>1in</Width>
             <ZIndex>70</ZIndex>
             <Style />
           </Textbox>
+          <Line Name="DoctorsNameLine">
+            <Top>10.3in</Top>
+            <Left>1.2in</Left>
+            <Height>0in</Height>
+            <Width>2.5in</Width>
+            <ZIndex>71</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="SignLabelB">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Sign</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.1in</Top>
+            <Left>3.8in</Left>
+            <Height>0.2in</Height>
+            <Width>0.4in</Width>
+            <ZIndex>72</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="SignLineB">
+            <Top>10.3in</Top>
+            <Left>4.2in</Left>
+            <Height>0in</Height>
+            <Width>3.1in</Width>
+            <ZIndex>73</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="FurtherInvestLabel">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Further investigations required (if any)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.5in</Top>
+            <Left>0.2in</Left>
+            <Height>0.2in</Height>
+            <Width>2.5in</Width>
+            <ZIndex>74</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="FurtherInvestLine1">
+            <Top>10.7in</Top>
+            <Left>2.7in</Left>
+            <Height>0in</Height>
+            <Width>1.5in</Width>
+            <ZIndex>75</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="DateLabelB">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Date</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.5in</Top>
+            <Left>4.3in</Left>
+            <Height>0.2in</Height>
+            <Width>0.4in</Width>
+            <ZIndex>76</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="DateLineB">
+            <Top>10.7in</Top>
+            <Left>4.7in</Left>
+            <Height>0in</Height>
+            <Width>1.2in</Width>
+            <ZIndex>77</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="OfficialRubberStampLabel">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Official Rubber Stamp</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.5in</Top>
+            <Left>6in</Left>
+            <Height>0.2in</Height>
+            <Width>1.3in</Width>
+            <ZIndex>78</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="FurtherInvestLine2">
+            <Top>10.9in</Top>
+            <Left>0.2in</Left>
+            <Height>0in</Height>
+            <Width>7.1in</Width>
+            <ZIndex>79</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="TreatmentStartedLabel">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Treatment started</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>11in</Top>
+            <Left>0.2in</Left>
+            <Height>0.2in</Height>
+            <Width>1.3in</Width>
+            <ZIndex>80</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="TreatmentStartedLine">
+            <Top>11.2in</Top>
+            <Left>1.5in</Left>
+            <Height>0in</Height>
+            <Width>5.8in</Width>
+            <ZIndex>81</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Line Name="TreatmentLine2">
+            <Top>11.4in</Top>
+            <Left>0.2in</Left>
+            <Height>0in</Height>
+            <Width>7.1in</Width>
+            <ZIndex>82</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="OtherRemarksLabel">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Other remarks</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>11.5in</Top>
+            <Left>0.2in</Left>
+            <Height>0.2in</Height>
+            <Width>1in</Width>
+            <ZIndex>83</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="OtherRemarksLine">
+            <Top>11.7in</Top>
+            <Left>1.2in</Left>
+            <Height>0in</Height>
+            <Width>6.1in</Width>
+            <ZIndex>84</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Line Name="PartCDivider">
+            <Top>11.9in</Top>
+            <Left>0.2in</Left>
+            <Height>0in</Height>
+            <Width>7.1in</Width>
+            <ZIndex>85</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+                <Width>2pt</Width>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="PartCTitle">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>PART C: To be attached to medical claim</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.1in</Top>
+            <Left>0.2in</Left>
+            <Height>0.2in</Height>
+            <Width>3in</Width>
+            <ZIndex>86</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="SrNoLabelC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Sr. No.</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.1in</Top>
+            <Left>5.5in</Left>
+            <Height>0.2in</Height>
+            <Width>0.5in</Width>
+            <ZIndex>87</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="SrNoValueC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ReferralNo.Value</Value>
+                    <Style>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>Red</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.05in</Top>
+            <Left>6.1in</Left>
+            <Height>0.25in</Height>
+            <Width>1.2in</Width>
+            <ZIndex>88</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="StaffDependantsNameLabelC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Staff/Dependants Name</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.4in</Top>
+            <Left>0.2in</Left>
+            <Height>0.2in</Height>
+            <Width>1.7in</Width>
+            <ZIndex>89</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="StaffDependantsNameLineC">
+            <Top>12.6in</Top>
+            <Left>1.9in</Left>
+            <Height>0in</Height>
+            <Width>2.7in</Width>
+            <ZIndex>90</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="PFNoLabelC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>PF No.</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.4in</Top>
+            <Left>4.7in</Left>
+            <Height>0.2in</Height>
+            <Width>0.5in</Width>
+            <ZIndex>91</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="PFNoLineC">
+            <Top>12.6in</Top>
+            <Left>5.2in</Left>
+            <Height>0in</Height>
+            <Width>2.1in</Width>
+            <ZIndex>92</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="ConsultantSpecialistNameLabel">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Name of consultant/specialist</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.8in</Top>
+            <Left>0.2in</Left>
+            <Height>0.2in</Height>
+            <Width>2.2in</Width>
+            <ZIndex>93</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="ConsultantSpecialistNameLine">
+            <Top>13in</Top>
+            <Left>2.4in</Left>
+            <Height>0in</Height>
+            <Width>4.9in</Width>
+            <ZIndex>94</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="SignatureLabelC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Signature</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>13.2in</Top>
+            <Left>0.2in</Left>
+            <Height>0.2in</Height>
+            <Width>0.7in</Width>
+            <ZIndex>95</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="SignatureLineC">
+            <Top>13.4in</Top>
+            <Left>0.9in</Left>
+            <Height>0in</Height>
+            <Width>2.8in</Width>
+            <ZIndex>96</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="DateStampLabelC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Date/Stamp</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>13.2in</Top>
+            <Left>3.8in</Left>
+            <Height>0.2in</Height>
+            <Width>0.8in</Width>
+            <ZIndex>97</ZIndex>
+            <Style />
+          </Textbox>
+          <Line Name="DateStampLineC">
+            <Top>13.4in</Top>
+            <Left>4.6in</Left>
+            <Height>0in</Height>
+            <Width>2.7in</Width>
+            <ZIndex>98</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dotted</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Image Name="UniversityLogo">
+            <Source>Database</Source>
+            <Value>=First(Fields!CompanyLogo.Value, "DataSet_Result")</Value>
+            <MIMEType>image/png</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>0.5in</Top>
+            <Left>3.25in</Left>
+            <Height>0.8in</Height>
+            <Width>1in</Width>
+            <ZIndex>99</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="PatientNameValueB">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!PatientName.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>8.75in</Top>
+            <Left>1.5in</Left>
+            <Height>0.2in</Height>
+            <Width>2in</Width>
+            <ZIndex>100</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="PFSTDNoValueB">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!PFSTDNo.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>8.75in</Top>
+            <Left>4.4in</Left>
+            <Height>0.2in</Height>
+            <Width>1.2in</Width>
+            <ZIndex>101</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="ClinicalLabFindingsValue">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ClinicalLabFindings.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>9.05in</Top>
+            <Left>2.2in</Left>
+            <Height>0.4in</Height>
+            <Width>5.1in</Width>
+            <ZIndex>102</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="DiagnosisValue">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!Diagnosis.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>9.55in</Top>
+            <Left>1in</Left>
+            <Height>0.4in</Height>
+            <Width>6.3in</Width>
+            <ZIndex>103</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="DoctorsNameValue">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!DoctorName.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.05in</Top>
+            <Left>1.2in</Left>
+            <Height>0.2in</Height>
+            <Width>2.5in</Width>
+            <ZIndex>104</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="FurtherInvestValue">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!FurtherInvestRequired.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.45in</Top>
+            <Left>2.7in</Left>
+            <Height>0.4in</Height>
+            <Width>4.6in</Width>
+            <ZIndex>105</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="DateValueB">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ReportDate.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.45in</Top>
+            <Left>4.7in</Left>
+            <Height>0.2in</Height>
+            <Width>1.2in</Width>
+            <ZIndex>106</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="TreatmentStartedValue">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!TreatmentStarted.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.95in</Top>
+            <Left>1.5in</Left>
+            <Height>0.4in</Height>
+            <Width>5.8in</Width>
+            <ZIndex>107</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="OtherRemarksValue">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!OtherRemarks.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>11.45in</Top>
+            <Left>1.2in</Left>
+            <Height>0.2in</Height>
+            <Width>6.1in</Width>
+            <ZIndex>108</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="StaffDependantsNameValueC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!PatientName.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.35in</Top>
+            <Left>1.9in</Left>
+            <Height>0.2in</Height>
+            <Width>2.7in</Width>
+            <ZIndex>109</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="PFNoValueC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ConsultantPFNo.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.35in</Top>
+            <Left>5.2in</Left>
+            <Height>0.2in</Height>
+            <Width>2.1in</Width>
+            <ZIndex>110</ZIndex>
+            <Style />
+          </Textbox>
+          <Textbox Name="ConsultantSpecialistNameValue">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ConsultantSpecialistName.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.75in</Top>
+            <Left>2.4in</Left>
+            <Height>0.2in</Height>
+            <Width>4.9in</Width>
+            <ZIndex>111</ZIndex>
+            <Style />
+          </Textbox>
         </ReportItems>
-        <Height>11in</Height>
+        <Height>13.5in</Height>
         <Style />
       </Body>
       <Width>7.5in</Width>

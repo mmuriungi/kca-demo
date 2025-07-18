@@ -42,7 +42,7 @@ page 51792 "HMS Referral Header Active"
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field(PatientName; PatientName)
+                field(PatientName; Rec.FullName())
                 {
                     Caption = 'Staff/Dependant/Student Name';
                     Editable = false;
@@ -256,6 +256,69 @@ page 51792 "HMS Referral Header Active"
                         ReferralHeader.SetRange("Referral No.", Rec."Referral No.");
                         if ReferralHeader.FindFirst() then
                             REPORT.Run(Report::"HMS Medical Referral Form", true, false, ReferralHeader);
+                    end;
+                }
+                action("Send Referral Form")
+                {
+                    Caption = 'Send Referral Form to Patient';
+                    Image = Email;
+                    Promoted = true;
+                    PromotedCategory = Report;
+                    ApplicationArea = All;
+
+                    trigger OnAction()
+                    var
+                        ReferralHeader: Record "HMS-Referral Header";
+                        HMSSetup: Record "HMS-Setup";
+                        SMTPMail: Codeunit "Email Message";
+                        Email: Codeunit Email;
+                        TempBlob: Codeunit "Temp Blob";
+                        InStr: InStream;
+                        OutStr: OutStream;
+                        RecRef: RecordRef;
+                        FileName: Text;
+                        PatientEmail: Text[100];
+                        MOEmail: Text[100];
+                        EmailSubject: Text[250];
+                        EmailBody: Text;
+                        NotificationHandler: Codeunit "Notifications Handler";
+                        RptB64: Text;
+                        B64Converter: Codeunit "Base64 Convert";
+                    begin
+                        ReferralHeader.Reset();
+                        ReferralHeader.SetRange("Treatment no.", Rec."Treatment no.");
+                        ReferralHeader.SetRange("Referral No.", Rec."Referral No.");
+                        if not ReferralHeader.FindFirst() then
+                            Error('Referral record not found');
+
+                        // Get patient email
+                        ReferralHeader.CalcFields(Email);
+                        PatientEmail := ReferralHeader.Email;
+                        if PatientEmail = '' then
+                            Error('Patient email address is not available. Please update the patient record.');
+
+                        // Get Medical Officer email from HMS Setup
+                        if HMSSetup.Get() then
+                            MOEmail := HMSSetup."Medical Officer Email";
+
+                        // Generate the referral form report
+                        TempBlob.CreateOutStream(OutStr);
+                        RecRef.GetTable(ReferralHeader);
+                        if not REPORT.SaveAs(Report::"HMS Medical Referral Form", '', ReportFormat::Pdf, OutStr, RecRef) then
+                            Error('Failed to generate referral form PDF');
+
+                        // Create email
+                        EmailSubject := StrSubstNo('Medical Referral Form - %1', Rec."Referral No.");
+                        EmailBody := 'Dear Patient,<br><br>' +
+                                    'Please find attached your medical referral form.<br><br>' +
+                                    'Referral No: ' + Rec."Referral No." + '<br>' +
+                                    'Date: ' + Format(Rec."Date Referred") + '<br><br>' +
+                                    'Kind regards,<br>' +
+                                    'Medical Services';
+                        TempBlob.CreateInStream(InStr);
+                        RptB64 := B64Converter.ToBase64(InStr);
+                        FileName := StrSubstNo('Referral_Form_%1.pdf', Rec."Referral No.");
+                        NotificationHandler.fnSendemail(PatientName, EmailSubject, EmailBody, PatientEmail, MOEmail, '', true, RptB64, FileName, 'pdf');
                     end;
                 }
             }

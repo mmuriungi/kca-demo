@@ -27,6 +27,7 @@ page 51836 "HMS-Treatment Form Drug"
                 {
                     Caption = 'Quantity of Issues';
                     ApplicationArea = All;
+                    visible=false;
                     trigger OnValidate()
                     var
 
@@ -68,6 +69,7 @@ page 51836 "HMS-Treatment Form Drug"
                 field(" Total Number Of Tablets"; rec." Total Number Of Tablets")
                 {
                     ApplicationArea = All;
+                    
                     trigger OnValidate()
                     var
 

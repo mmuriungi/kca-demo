@@ -32,6 +32,11 @@ page 50458 "FIN-Posted Imprest Req. UP"
                     Editable = DateEditable;
                     ApplicationArea = All;
                 }
+                field("Date Requested"; Rec."Date Requested")
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
                 field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {
                     Editable = GlobalDimension1CodeEditable;
@@ -328,6 +333,12 @@ page 50458 "FIN-Posted Imprest Req. UP"
     trigger OnAfterGetRecord()
     begin
         //OnAfterGetCurrRecord;
+        if rec."Date Requested" = 0D then begin
+            if Rec.Date <> 0D then begin
+                rec."Date Requested" := Rec.Date;
+                rec.Modify();
+            end;
+        end;
     end;
 
     trigger OnInit()
@@ -353,7 +364,7 @@ page 50458 "FIN-Posted Imprest Req. UP"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
+        // Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
         //OnAfterGetCurrRecord;
     end;
 

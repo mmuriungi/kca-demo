@@ -155,6 +155,7 @@ table 51170 "HMS-Treatment Form Drug"
         field(134; " Total Number Of Tablets"; Integer)
         {
             DataClassification = ToBeClassified;
+            Caption='Quantity to be Issued';
             trigger OnValidate()
             var
 

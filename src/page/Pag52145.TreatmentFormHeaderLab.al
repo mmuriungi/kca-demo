@@ -1,6 +1,6 @@
 page 52145 "Treatment Form Header Lab"
 {
-   PageType = Document;
+    PageType = Document;
     Editable = true;
     InsertAllowed = true;
     SourceTable = "HMS-Treatment Form Header";
@@ -174,22 +174,20 @@ page 52145 "Treatment Form Header Lab"
                     ApplicationArea = all;
                 }
             }
-           
-            group("Lab")
+
+
+            part(Part4; "HMS-Treatment Form Laboratory")
             {
-                Caption = 'Labaratory';
-                part(Part4; "HMS-Treatment Form Laboratory")
-                {
-                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
-                    ApplicationArea = All;
-                }
-                part(Items; "Lab Visit Items")
-                {
-                    ApplicationArea = All;
-                    SubPageLink = "Lab Visit No." = field("Treatment No.");
-                }
+                SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                ApplicationArea = All;
             }
-          
+            part(Items; "Lab Visit Items")
+            {
+                ApplicationArea = All;
+                SubPageLink = "Lab Visit No." = field("Treatment No.");
+            }
+
+
         }
     }
 
@@ -216,11 +214,11 @@ page 52145 "Treatment Form Header Lab"
                 begin
                     IF Confirm('Send to the Doctor ? ', true) = False Then ERROR('Cancelled buy user');
                     Rec."Lab Status" := Rec."Lab Status"::Cleared;
-                    Rec.Location:=Rec.Location::Consultation;
+                    Rec.Location := Rec.Location::Consultation;
                     Rec.Modify();
                 end;
             }
-          
+
 
         }
     }

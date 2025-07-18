@@ -13,6 +13,7 @@ table 50019 "FIN-Imprest Header"
         field(2; Date; Date)
         {
             Description = 'Stores the date when the payment voucher was inserted into the system';
+            
 
             trigger OnValidate()
             begin
@@ -367,11 +368,11 @@ table 50019 "FIN-Imprest Header"
             trigger OnValidate()
             begin
 
-                TESTFIELD(Status, Status::Pending);
-                IF NOT UserMgt.CheckRespCenter(1, "Shortcut Dimension 3 Code") THEN
-                    ERROR(
-                      Text001,
-                      RespCenter.TABLECAPTION, UserMgt.GetPurchasesFilter);
+                // TESTFIELD(Status, Status::Pending);
+                // IF NOT UserMgt.CheckRespCenter(1, "Shortcut Dimension 3 Code") THEN
+                //     ERROR(
+                //       Text001,
+                //       RespCenter.TABLECAPTION, UserMgt.GetPurchasesFilter);
                 /*
                "Location Code" := UserMgt.GetLocation(1,'',"Responsibility Center");
                IF "Location Code" = '' THEN BEGIN
@@ -608,6 +609,11 @@ table 50019 "FIN-Imprest Header"
         }
         //Archived
         field(50034; Archived; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        //Date Requested
+        field(50035; "Date Requested"; Date)
         {
             DataClassification = ToBeClassified;
         }

@@ -55,6 +55,9 @@ page 51840 "HMS-Treatment Form Laboratory"
             {
                 Caption = '&Request Tests';
                 ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = AddToHome;
 
                 trigger OnAction()
                 begin

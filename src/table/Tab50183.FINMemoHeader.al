@@ -457,7 +457,7 @@ table 50183 "FIN-Memo Header"
                         FinImprestHeader."Account No." := FinMemoDetails."Staff no.";
                         FinImprestHeader.Payee := FinMemoDetails."Staff Name";
                         FinImprestHeader.Purpose := Rec.Title + ' ' + Rec."Title/Ref.";
-                        FinImprestHeader."Responsibility Center" := Rec."Responsibility Centre";
+                        //FinImprestHeader."Responsibility Center" := Rec."Responsibility Centre";
                         // FinImprestHeader."Paying Bank Account" := 'BNK0001';
                         // FinImprestHeader."Bank Name" := 'KCB Account';
                         FinImprestHeader."Payment Voucher No" := Rec."No.";

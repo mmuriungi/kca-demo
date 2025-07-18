@@ -80,7 +80,11 @@ pageextension 50044 "Bank Recon Card Ext" extends "Bank Acc. Reconciliation"
         }
     }
     // Transfer to Journal Voucher
+<<<<<<< HEAD
    /* procedure TransferToJournalVoucher(Bankrecon: Record "Bank Acc. Reconciliation")
+=======
+    /*procedure TransferToJournalVoucher(Bankrecon: Record "Bank Acc. Reconciliation")
+>>>>>>> 5f76fcef33d9c4d077e5950c4e65acf912bfac04
     var
 
         TempBankAccReconciliationLine: Record "Bank Acc. Reconciliation Line";
