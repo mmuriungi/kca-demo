@@ -26,7 +26,8 @@ pageextension 50044 "Bank Recon Card Ext" extends "Bank Acc. Reconciliation"
                 Visible = false;
                 PromotedCategory = Category6;
                 PromotedIsBig = true;
-                RunObject = Codeunit "bank Reconciliation Management";
+                
+               // RunObject = Codeunit "bank Reconciliation Management";
 
                 ShortCutKey = 'F9';
                 ToolTip = 'Finalize the document or journal by posting the amounts and quantities to the related accounts in your company books.';
@@ -71,7 +72,7 @@ pageextension 50044 "Bank Recon Card Ext" extends "Bank Acc. Reconciliation"
                 ApplicationArea = all;
                 trigger OnAction()
                 begin
-                    TransferToJournalVoucher(Rec);
+                   // TransferToJournalVoucher(Rec);
 
                 end;
             }
@@ -79,7 +80,7 @@ pageextension 50044 "Bank Recon Card Ext" extends "Bank Acc. Reconciliation"
         }
     }
     // Transfer to Journal Voucher
-    procedure TransferToJournalVoucher(Bankrecon: Record "Bank Acc. Reconciliation")
+   /* procedure TransferToJournalVoucher(Bankrecon: Record "Bank Acc. Reconciliation")
     var
 
         TempBankAccReconciliationLine: Record "Bank Acc. Reconciliation Line";
@@ -179,7 +180,7 @@ pageextension 50044 "Bank Recon Card Ext" extends "Bank Acc. Reconciliation"
         if JournalVoucherLine.FINDLAST then begin
             exit(JournalVoucherLine."Line No");
         end;
-    end;
+    end;*/
 
 
     //end;

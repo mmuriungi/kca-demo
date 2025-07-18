@@ -1,4 +1,4 @@
-table 51395 "Bank statement Lines 2"
+table ew "Bank statement Lines 2"
 {
 
     DataClassification = CustomerContent;
