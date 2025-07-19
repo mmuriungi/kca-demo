@@ -70,16 +70,16 @@ codeunit 50028 AccSchedManagement2
         if AccSchedLine.IsEmpty() then
             exit;
         GeneralLedgerSetup.Get();
-        if CurrentSchedName in
-           [GeneralLedgerSetup."Acc. Sched. for Balance Sheet", GeneralLedgerSetup."Acc. Sched. for Cash Flow Stmt",
-            GeneralLedgerSetup."Acc. Sched. for Income Stmt.", GeneralLedgerSetup."Acc. Sched. for Retained Earn."]
-        then
-            if ConfirmManagement.GetResponseOrDefault(SystemGeneratedAccSchedQst, true) then begin
-                AccScheduleName.SetRange(Name, CurrentSchedName);
-                CopyAccountSchedule.SetTableView(AccScheduleName);
-                CopyAccountSchedule.RunModal;
-                CurrentSchedName := CopyAccountSchedule.GetNewAccountScheduleName;
-            end;
+        // if CurrentSchedName in
+        //    [GeneralLedgerSetup."Acc. Sched. for Balance Sheet", GeneralLedgerSetup."Acc. Sched. for Cash Flow Stmt",
+        //     GeneralLedgerSetup."Acc. Sched. for Income Stmt.", GeneralLedgerSetup."Acc. Sched. for Retained Earn."]
+        // then
+        //     if ConfirmManagement.GetResponseOrDefault(SystemGeneratedAccSchedQst, true) then begin
+        //         AccScheduleName.SetRange(Name, CurrentSchedName);
+        //         CopyAccountSchedule.SetTableView(AccScheduleName);
+        //         CopyAccountSchedule.RunModal;
+        //         CurrentSchedName := CopyAccountSchedule.GetNewAccountScheduleName;
+        //     end;
     end;
 
     local procedure CheckTemplateAndSetFilter(var CurrentSchedName: Code[10]; var AccSchedLine: Record "Acc. Schedule Line")

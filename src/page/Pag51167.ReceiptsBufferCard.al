@@ -17,23 +17,23 @@ page 51167 "Receipts Buffer Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the No. field.';
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field("Transaction Type"; Rec."Transaction Type")
                 {
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field("User Id"; Rec."User Id")
                 {
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field("Document Date"; Rec."Document Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Document Date field.';
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 // field("Batch No."; Rec."Batch No.")
                 // {
@@ -44,26 +44,26 @@ page 51167 "Receipts Buffer Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Academic Year field.';
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field(Semester; Rec.Semester)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Semester field.';
-                    Editable = editable;
+                    Editable = vareditable;
                 }
 
                 field("Bank Code"; Rec."Bank Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Allocating Bank Account field.';
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field("Batch Date"; Rec."Batch Date")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Batch Date field.';
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field(Cafeteria; Rec.Cafeteria)
                 {
@@ -78,7 +78,7 @@ page 51167 "Receipts Buffer Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Posted field.';
-                    Editable = editable;
+                    Editable = vareditable;
 
                 }
 
@@ -115,14 +115,14 @@ page 51167 "Receipts Buffer Card"
 
     var
         PostReceipt: Codeunit "Post Stud Receipt Buff";
-        editable: Boolean;
+        vareditable: Boolean;
 
     trigger OnOpenPage()
     begin
         if Rec.Posted = true then
-            editable := false
+            vareditable := false
         else
-            editable := true;
+            vareditable := true;
     end;
 
 }

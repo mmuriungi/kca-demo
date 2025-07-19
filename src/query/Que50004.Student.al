@@ -300,7 +300,7 @@ query 50004 Student
             column(county; County)
             {
             }
-            column(coupledToCRM; "Coupled to CRM")
+            column(coupledToCRM; "Coupled to Dataverse")
             {
             }
             column(coupledToDataverse; "Coupled to Dataverse")

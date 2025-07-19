@@ -237,7 +237,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                     trigger OnAction()
                     begin
                         CurrPage.StmtLine.Page.ToggleMatchedFilter(false);
-                        CurrPage.ApplyBankLedgerEntries.Page.ToggleMatchedFilter(false);
+                        //   CurrPage.ApplyBankLedgerEntries.Page.ToggleMatchedFilter(false);
                     end;
                 }
                 action(NotMatched)
@@ -250,7 +250,7 @@ Page 52132 "Bank Acc. Reconciliation New"
                     trigger OnAction()
                     begin
                         CurrPage.StmtLine.Page.ToggleMatchedFilter(true);
-                        CurrPage.ApplyBankLedgerEntries.Page.ToggleMatchedFilter(true);
+                        // CurrPage.ApplyBankLedgerEntries.Page.ToggleMatchedFilter(true);
                     end;
                 }
                 action("Update unpresented")

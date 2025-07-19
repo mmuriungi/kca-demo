@@ -23,18 +23,18 @@ page 51163 "Receipt Buffer Lines"
                 field("User ID"; rec."User ID")
                 {
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field(Date; Rec.Date)
                 {
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field("Student No."; Rec."Student No.")
                 {
                     Caption = 'Account No.';
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
 
                     trigger OnValidate()
                     var
@@ -47,12 +47,12 @@ page 51163 "Receipt Buffer Lines"
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
                 }
 
                 field(Posted; Rec.Posted)
@@ -72,12 +72,12 @@ page 51163 "Receipt Buffer Lines"
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field("Cheque No"; Rec."Cheque No")
                 {
                     ApplicationArea = All;
-                    Editable = editable;
+                    Editable = vareditable;
                 }
                 field("Stud Exist"; Rec."Stud Exist")
                 {
@@ -105,13 +105,13 @@ page 51163 "Receipt Buffer Lines"
         }
     }
     var
-        editable: Boolean;
+        vareditable: Boolean;
 
     trigger OnOpenPage()
     begin
         if Rec.Posted = true then
-            editable := false
+            vareditable := false
         else
-            editable := true;
+            vareditable := true;
     end;
 }

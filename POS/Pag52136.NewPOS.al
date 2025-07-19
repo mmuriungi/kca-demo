@@ -23,10 +23,6 @@ page 52136 "New POS"
             {
                 ApplicationArea = Basic, Suite;
             }
-            part("Power BI Report Spinner Part"; "Power BI Report Spinner Part")
-            {
-                ApplicationArea = Basic, Suite;
-            }
         }
     }
 

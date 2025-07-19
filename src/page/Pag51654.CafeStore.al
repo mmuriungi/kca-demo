@@ -1639,7 +1639,7 @@ page 51654 "Cafe Store"
                 {
                     Caption = '&Bin Contents';
                     Image = BinContent;
-                    RunObject = Page 7379;
+                    RunObject = Page "Bin Contents";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;

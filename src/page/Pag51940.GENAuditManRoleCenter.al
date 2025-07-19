@@ -180,15 +180,15 @@ page 51940 "GEN-Audit Man. Role Center"
                     {
                         Caption = '&Intrastat - Checklist';
                         Image = "Report";
-                        RunObject = Report 502;
-                        ApplicationArea = All;
+                        // RunObject = Report intrastat;
+                        // ApplicationArea = All;
                     }
                     action("Intrastat - For&m")
                     {
                         Caption = 'Intrastat - For&m';
                         Image = "Report";
-                        RunObject = Report 501;
-                        ApplicationArea = All;
+                        // RunObject = Report 501;
+                        // ApplicationArea = All;
                     }
                     separator("  ")
                     {
@@ -673,8 +673,8 @@ page 51940 "GEN-Audit Man. Role Center"
                     Caption = 'Adjust E&xchange Rates';
                     Ellipsis = true;
                     Image = AdjustExchangeRates;
-                    RunObject = Report 595;
-                    ApplicationArea = All;
+                    // RunObject = Report 595;
+                    // ApplicationArea = All;
                 }
                 action("P&ost Inventory Cost to G/L")
                 {
