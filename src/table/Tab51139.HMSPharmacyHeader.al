@@ -197,6 +197,7 @@ table 51139 "HMS-Pharmacy Header"
                 ItemJnlLine."Entry Type" := ItemJnlLine."Entry Type"::"Negative Adjmt.";
                 ItemJnlLine."Document No." := Rec."Pharmacy No." + ':' + Drug."Drug No.";
                 ItemJnlLine."Item No." := Drug."Drug No.";
+                ItemJnlLine."Gen. Prod. Posting Group":='MEDICAL';
                 ItemJnlLine.VALIDATE(ItemJnlLine."Item No.");
                 ItemJnlLine."Location Code" := Location.Code;
                 ItemJnlLine.VALIDATE(ItemJnlLine."Location Code");

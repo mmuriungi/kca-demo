@@ -451,7 +451,7 @@ page 51686 "HMS-Appointment Form Header"
     begin
         Patient.RESET;
         IF Patient.GET(PatientNo) THEN BEGIN
-            PatientName := Patient.Surname + ' ' + Patient."Middle Name" + Patient."Last Name";
+            PatientName :=patient."Full Name";// Patient.Surname + ' ' + Patient."Middle Name" + Patient."Last Name";
         END;
     end;
 

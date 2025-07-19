@@ -138,7 +138,7 @@ page 51767 "HMS Pharmacy Header History"
         Patient.RESET;
         PatientName := '';
         IF Patient.GET(PatientNo) THEN BEGIN
-            PatientName := Patient.Surname + ' ' + Patient."Middle Name" + ' ' + Patient."Last Name";
+            PatientName := Patient."Full Name";// Patient.Surname + ' ' + Patient."Middle Name" + ' ' + Patient."Last Name";
         END;
     end;
 

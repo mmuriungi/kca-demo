@@ -1,7 +1,7 @@
 page 51449 "HMS-Hospital Role Centre"
 {
     Caption = 'Role Center';
-    PageType = RoleCenter;
+    PageType = RoleCenter; 
 
     layout
     {

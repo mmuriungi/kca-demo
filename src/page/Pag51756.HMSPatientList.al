@@ -300,6 +300,14 @@ page 51756 "HMS-Patient List"
         CurrPage.LOOKUPMODE := TRUE;
     end;
 
+    trigger OnAfterGetRecord()
+    var
+        Student: Record Customer;
+        Employee: Record "HRM-Employee C";
+    begin
+
+    end;
+
 
     local procedure MoveRecords()
     var
