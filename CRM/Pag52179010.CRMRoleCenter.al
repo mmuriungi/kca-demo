@@ -9,7 +9,7 @@ page 52179010 "CRM Role Center"
         {
             group("Welcome")
             {
-                part("Headline"; "CRM Headline RC")
+                part("Headline"; "Headline RC CRM")
                 {
                     ApplicationArea = All;
                 }
@@ -17,27 +17,27 @@ page 52179010 "CRM Role Center"
 
             group("Performance")
             {
-                part("CRM Performance"; "CRM Performance Part")
+                part("CRM Performance"; "CRM Dashboard FactBox")
                 {
                     ApplicationArea = All;
                 }
             }
 
-            group("Activities")
-            {
-                part("CRM Activities"; "CRM Activities Part")
-                {
-                    ApplicationArea = All;
-                }
-            }
+            // group("Activities")
+            // {
+            //     part("CRM Activities"; "CRM Activities Part")
+            //     {
+            //         ApplicationArea = All;
+            //     }
+            // }
 
-            group("Analytics")
-            {
-                part("CRM Charts"; "CRM Charts Part")
-                {
-                    ApplicationArea = All;
-                }
-            }
+            // group("Analytics")
+            // {
+            //     part("CRM Charts"; "CRM Charts Part")
+            //     {
+            //         ApplicationArea = All;
+            //     }
+            // }
         }
     }
 
@@ -333,7 +333,7 @@ page 52179010 "CRM Role Center"
                     ApplicationArea = All;
                     Caption = 'Campaign Performance Report';
                     Image = Report;
-                    RunObject = Report "CRM Campaign Performance Report";
+                    RunObject = Report "CRM Campaign Performance";
                     ToolTip = 'Generate campaign performance analytics report.';
                 }
 
@@ -346,14 +346,14 @@ page 52179010 "CRM Role Center"
                     ToolTip = 'Generate customer support metrics report.';
                 }
 
-                action("Revenue Analytics")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Revenue Analytics';
-                    Image = Report;
-                    RunObject = Report "CRM Revenue Analytics Report";
-                    ToolTip = 'Generate revenue and transaction analytics report.';
-                }
+                // action("Revenue Analytics")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Revenue Analytics';
+                //     Image = Report;
+                //     RunObject = Report "CRM Revenue Analytics Report";
+                //     ToolTip = 'Generate revenue and transaction analytics report.';
+                // }
             }
 
             group("Setup")
@@ -365,7 +365,7 @@ page 52179010 "CRM Role Center"
                     ApplicationArea = All;
                     Caption = 'CRM Setup';
                     Image = Setup;
-                    RunObject = Page "CRM Setup";
+                    RunObject = Page "CRM Configuration";
                     ToolTip = 'Configure CRM system settings and parameters.';
                 }
 
@@ -457,93 +457,93 @@ page 52179010 "CRM Role Center"
             {
                 Caption = 'Data Management';
 
-                action("Import Customers")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Import Customers';
-                    Image = Import;
-                    ToolTip = 'Import customer data from external sources.';
+                //     action("Import Customers")
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Import Customers';
+                //         Image = Import;
+                //         ToolTip = 'Import customer data from external sources.';
 
-                    trigger OnAction()
-                    begin
-                        Message('Customer import functionality would be implemented here.');
-                    end;
-                }
+                //         trigger OnAction()
+                //         begin
+                //             Message('Customer import functionality would be implemented here.');
+                //         end;
+                //     }
 
-                action("Generate Demo Data")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Generate Demo Data';
-                    Image = TestDatabase;
-                    ToolTip = 'Generate demo data for testing and training purposes.';
+                //     action("Generate Demo Data")
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Generate Demo Data';
+                //         Image = TestDatabase;
+                //         ToolTip = 'Generate demo data for testing and training purposes.';
 
-                    trigger OnAction()
-                    var
-                        DemoDataGenerator: Codeunit "CRM Demo Data Generator";
-                    begin
-                        if Confirm('This will generate demo CRM data including customers, leads, campaigns, and transactions. Continue?') then begin
-                            DemoDataGenerator.GenerateCustomers();
-                            Message('Demo data has been generated successfully.');
-                        end;
-                    end;
-                }
+                //         trigger OnAction()
+                //         var
+                //             DemoDataGenerator: Codeunit "CRM Demo Data Generator";
+                //         begin
+                //             if Confirm('This will generate demo CRM data including customers, leads, campaigns, and transactions. Continue?') then begin
+                //                 DemoDataGenerator.GenerateCustomers();
+                //                 Message('Demo data has been generated successfully.');
+                //             end;
+                //         end;
+                //     }
 
-                action("Data Cleanup")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Data Cleanup';
-                    Image = Delete;
-                    ToolTip = 'Clean up old and obsolete CRM data.';
+                //     action("Data Cleanup")
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Data Cleanup';
+                //         Image = Delete;
+                //         ToolTip = 'Clean up old and obsolete CRM data.';
 
-                    trigger OnAction()
-                    begin
-                        Message('Data cleanup functionality would be implemented here.');
-                    end;
-                }
-            }
+                //         trigger OnAction()
+                //         begin
+                //             Message('Data cleanup functionality would be implemented here.');
+                //         end;
+                //     }
+                // }
 
-            group("Bulk Operations")
-            {
-                Caption = 'Bulk Operations';
+                // group("Bulk Operations")
+                // {
+                //     Caption = 'Bulk Operations';
 
-                action("Bulk Email Campaign")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Send Bulk Email';
-                    Image = Email;
-                    ToolTip = 'Send bulk email to selected customer segments.';
+                //     action("Bulk Email Campaign")
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Send Bulk Email';
+                //         Image = Email;
+                //         ToolTip = 'Send bulk email to selected customer segments.';
 
-                    trigger OnAction()
-                    begin
-                        Message('Bulk email functionality would be implemented here.');
-                    end;
-                }
+                //         trigger OnAction()
+                //         begin
+                //             Message('Bulk email functionality would be implemented here.');
+                //         end;
+                //     }
 
-                action("Bulk SMS Campaign")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Send Bulk SMS';
-                    Image = PhoneServices;
-                    ToolTip = 'Send bulk SMS to selected customer segments.';
+                //     action("Bulk SMS Campaign")
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Send Bulk SMS';
+                //         Image = PhoneServices;
+                //         ToolTip = 'Send bulk SMS to selected customer segments.';
 
-                    trigger OnAction()
-                    begin
-                        Message('Bulk SMS functionality would be implemented here.');
-                    end;
-                }
+                //         trigger OnAction()
+                //         begin
+                //             Message('Bulk SMS functionality would be implemented here.');
+                //         end;
+                //     }
 
-                action("Update Segmentation")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Update Segmentation';
-                    Image = Refresh;
-                    ToolTip = 'Refresh customer segmentation based on current criteria.';
+                //     action("Update Segmentation")
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Update Segmentation';
+                //         Image = Refresh;
+                //         ToolTip = 'Refresh customer segmentation based on current criteria.';
 
-                    trigger OnAction()
-                    begin
-                        Message('Segmentation update functionality would be implemented here.');
-                    end;
-                }
+                //         trigger OnAction()
+                //         begin
+                //             Message('Segmentation update functionality would be implemented here.');
+                //         end;
+                //     }
             }
         }
 
@@ -553,14 +553,14 @@ page 52179010 "CRM Role Center"
             {
                 Caption = 'Customer Reports';
 
-                action("Customer List Report")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Customer List';
-                    Image = Report;
-                    RunObject = Report "CRM Customer List Report";
-                    ToolTip = 'Print customer list report.';
-                }
+                // action("Customer List Report")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Customer List';
+                //     Image = Report;
+                //     RunObject = Report "CRM Customer List Report";
+                //     ToolTip = 'Print customer list report.';
+                // }
 
                 action("Customer Engagement Analysis")
                 {
@@ -571,14 +571,14 @@ page 52179010 "CRM Role Center"
                     ToolTip = 'Analyze customer engagement metrics.';
                 }
 
-                action("Customer Satisfaction Report")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Satisfaction Report';
-                    Image = Report;
-                    RunObject = Report "CRM Customer Satisfaction Report";
-                    ToolTip = 'Generate customer satisfaction analysis.';
-                }
+                // action("Customer Satisfaction Report")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Satisfaction Report';
+                //     Image = Report;
+                //     RunObject = Report "CRM Customer Satisfaction Report";
+                //     ToolTip = 'Generate customer satisfaction analysis.';
+                // }
             }
 
             group("Marketing Reports")
@@ -594,46 +594,46 @@ page 52179010 "CRM Role Center"
                     ToolTip = 'Analyze return on investment for marketing campaigns.';
                 }
 
-                action("Lead Generation Report")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Lead Generation Report';
-                    Image = Report;
-                    RunObject = Report "CRM Lead Generation Report";
-                    ToolTip = 'Analyze lead generation performance by source and channel.';
-                }
+                // action("Lead Generation Report")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Lead Generation Report';
+                //     Image = Report;
+                //     RunObject = Report "CRM Lead Generation Report";
+                //     ToolTip = 'Analyze lead generation performance by source and channel.';
+                // }
 
-                action("Conversion Funnel Analysis")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Conversion Funnel';
-                    Image = Report;
-                    RunObject = Report "CRM Conversion Funnel Report";
-                    ToolTip = 'Analyze the customer conversion funnel.';
-                }
+                // action("Conversion Funnel Analysis")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Conversion Funnel';
+                //     Image = Report;
+                //     RunObject = Report "CRM Conversion Funnel Report";
+                //     ToolTip = 'Analyze the customer conversion funnel.';
+                // }
             }
 
             group("Service Reports")
             {
                 Caption = 'Service Reports';
 
-                action("Support KPI Dashboard")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Support KPIs';
-                    Image = Report;
-                    RunObject = Report "CRM Support KPI Report";
-                    ToolTip = 'View customer support key performance indicators.';
-                }
+                // action("Support KPI Dashboard")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Support KPIs';
+                //     Image = Report;
+                //     RunObject = Report "CRM Support KPI Report";
+                //     ToolTip = 'View customer support key performance indicators.';
+                // }
 
-                action("SLA Compliance Report")
-                {
-                    ApplicationArea = All;
-                    Caption = 'SLA Compliance';
-                    Image = Report;
-                    RunObject = Report "CRM SLA Compliance Report";
-                    ToolTip = 'Analyze service level agreement compliance.';
-                }
+                // action("SLA Compliance Report")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'SLA Compliance';
+                //     Image = Report;
+                //     RunObject = Report "CRM SLA Compliance Report";
+                //     ToolTip = 'Analyze service level agreement compliance.';
+                // }
 
                 action("Agent Performance Report")
                 {

@@ -99,7 +99,7 @@ page 52179014 "CRM Campaign Card"
                 }
             }
             
-            group(Content)
+            group("Campaign Content")
             {
                 Caption = 'Campaign Content';
                 
