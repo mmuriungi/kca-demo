@@ -8,7 +8,7 @@ table 52179002 "CRM Interaction Log"
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
-            AutoIncrement = true;
+          //  AutoIncrement = true;
         }
         field(2; "Customer No."; Code[20])
         {
@@ -145,7 +145,7 @@ table 52179002 "CRM Interaction Log"
     
     keys
     {
-        key(PK; "Entry No.")
+        key(PK; "Entry No.", "Customer No.")
         {
             Clustered = true;
         }
@@ -176,6 +176,8 @@ table 52179002 "CRM Interaction Log"
             "Interaction Date" := WorkDate();
         if "Interaction Time" = 0T then
             "Interaction Time" := Time;
+            if "Entry No." = 0 then
+                "Entry No." := Random(1000000);
     end;
     
     trigger OnModify()

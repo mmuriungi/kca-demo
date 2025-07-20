@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -10,46 +10,6 @@
       <rd:SecurityType>None</rd:SecurityType>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="CaseNo">
-          <DataField>CaseNo</DataField>
-        </Field>
-        <Field Name="CaseTitle">
-          <DataField>CaseTitle</DataField>
-        </Field>
-        <Field Name="CaseType">
-          <DataField>CaseType</DataField>
-        </Field>
-        <Field Name="CaseStatus">
-          <DataField>CaseStatus</DataField>
-        </Field>
-        <Field Name="Priority">
-          <DataField>Priority</DataField>
-        </Field>
-        <Field Name="PlaintiffClaimant">
-          <DataField>PlaintiffClaimant</DataField>
-        </Field>
-        <Field Name="DefendantRespondent">
-          <DataField>DefendantRespondent</DataField>
-        </Field>
-        <Field Name="NextCourtDate">
-          <DataField>NextCourtDate</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="ReportTitle">
-          <DataField>ReportTitle</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -386,22 +346,426 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="CompanyName">
+    <ReportParameter Name="CaseNoCaption">
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>Karatina University</Value>
+          <Value>CaseNoCaption</Value>
         </Values>
       </DefaultValue>
-      <Prompt>Company Name</Prompt>
+      <Prompt>CaseNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseTitleCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseTitleCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseTitleCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseTypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseTypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseTypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseCategoryCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseCategoryCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseCategoryCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseStatusCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseStatusCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseStatusCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PriorityCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PriorityCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PriorityCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RiskLevelCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RiskLevelCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RiskLevelCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PlaintiffClaimantCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PlaintiffClaimantCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PlaintiffClaimantCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DefendantRespondentCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DefendantRespondentCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DefendantRespondentCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LeadCounselCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LeadCounselCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LeadCounselCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ExternalCounselCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ExternalCounselCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ExternalCounselCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CourtNameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CourtNameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CourtNameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CourtFileNumberCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CourtFileNumberCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CourtFileNumberCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FilingDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>FilingDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>FilingDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NextCourtDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>NextCourtDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>NextCourtDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DepartmentCodeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DepartmentCodeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DepartmentCodeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ClaimAmountCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ClaimAmountCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ClaimAmountCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EstimatedCostsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EstimatedCostsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EstimatedCostsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ActualCostsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ActualCostsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ActualCostsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HearingDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HearingDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HearingDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HearingTypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HearingTypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HearingTypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PresidingJudgeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PresidingJudgeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PresidingJudgeCaption</Prompt>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>1</NumberOfColumns>
-      <NumberOfRows>1</NumberOfRows>
+      <NumberOfRows>22</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>CaseNoCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>CaseTitleCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>CaseTypeCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>CaseCategoryCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>CaseStatusCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>PriorityCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>RiskLevelCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>PlaintiffClaimantCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>DefendantRespondentCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>LeadCounselCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>10</RowIndex>
+          <ParameterName>ExternalCounselCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>11</RowIndex>
+          <ParameterName>CourtNameCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>12</RowIndex>
+          <ParameterName>CourtFileNumberCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>13</RowIndex>
+          <ParameterName>FilingDateCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>14</RowIndex>
+          <ParameterName>NextCourtDateCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>15</RowIndex>
+          <ParameterName>DepartmentCodeCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>16</RowIndex>
+          <ParameterName>ClaimAmountCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>17</RowIndex>
+          <ParameterName>EstimatedCostsCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>18</RowIndex>
+          <ParameterName>ActualCostsCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>19</RowIndex>
+          <ParameterName>HearingDateCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>20</RowIndex>
+          <ParameterName>HearingTypeCaption</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>21</RowIndex>
+          <ParameterName>PresidingJudgeCaption</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>a8b3c4d5-e6f7-8901-2345-6789abcdef01</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CaseNo">
+          <DataField>CaseNo</DataField>
+        </Field>
+        <Field Name="CaseTitle">
+          <DataField>CaseTitle</DataField>
+        </Field>
+        <Field Name="CaseType">
+          <DataField>CaseType</DataField>
+        </Field>
+        <Field Name="CaseCategory">
+          <DataField>CaseCategory</DataField>
+        </Field>
+        <Field Name="CaseStatus">
+          <DataField>CaseStatus</DataField>
+        </Field>
+        <Field Name="Priority">
+          <DataField>Priority</DataField>
+        </Field>
+        <Field Name="RiskLevel">
+          <DataField>RiskLevel</DataField>
+        </Field>
+        <Field Name="PlaintiffClaimant">
+          <DataField>PlaintiffClaimant</DataField>
+        </Field>
+        <Field Name="DefendantRespondent">
+          <DataField>DefendantRespondent</DataField>
+        </Field>
+        <Field Name="LeadCounsel">
+          <DataField>LeadCounsel</DataField>
+        </Field>
+        <Field Name="ExternalCounsel">
+          <DataField>ExternalCounsel</DataField>
+        </Field>
+        <Field Name="CourtName">
+          <DataField>CourtName</DataField>
+        </Field>
+        <Field Name="CourtFileNumber">
+          <DataField>CourtFileNumber</DataField>
+        </Field>
+        <Field Name="FilingDate">
+          <DataField>FilingDate</DataField>
+        </Field>
+        <Field Name="NextCourtDate">
+          <DataField>NextCourtDate</DataField>
+        </Field>
+        <Field Name="DepartmentCode">
+          <DataField>DepartmentCode</DataField>
+        </Field>
+        <Field Name="ClaimAmount">
+          <DataField>ClaimAmount</DataField>
+        </Field>
+        <Field Name="ClaimAmountFormat">
+          <DataField>ClaimAmountFormat</DataField>
+        </Field>
+        <Field Name="EstimatedCosts">
+          <DataField>EstimatedCosts</DataField>
+        </Field>
+        <Field Name="EstimatedCostsFormat">
+          <DataField>EstimatedCostsFormat</DataField>
+        </Field>
+        <Field Name="ActualCosts">
+          <DataField>ActualCosts</DataField>
+        </Field>
+        <Field Name="ActualCostsFormat">
+          <DataField>ActualCostsFormat</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="ReportDate">
+          <DataField>ReportDate</DataField>
+        </Field>
+        <Field Name="UserID">
+          <DataField>UserID</DataField>
+        </Field>
+        <Field Name="TimeGenerated">
+          <DataField>TimeGenerated</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="HearingDate">
+          <DataField>HearingDate</DataField>
+        </Field>
+        <Field Name="HearingType">
+          <DataField>HearingType</DataField>
+        </Field>
+        <Field Name="PresidingJudge">
+          <DataField>PresidingJudge</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -1,16 +1,16 @@
 codeunit 50097 "Timetable setup"
 {
-    Subtype = Install;
+    //Subtype = Install;
 
     trigger OnRun()
     begin
         InitializeTimeSlots();
     end;
 
-    trigger OnInstallAppPerCompany()
-    begin
-        InitializeTimeSlots();
-    end;
+    // trigger OnInstallAppPerCompany()
+    // begin
+    //     InitializeTimeSlots();
+    // end;
 
     local procedure InitializeTimeSlots()
     var

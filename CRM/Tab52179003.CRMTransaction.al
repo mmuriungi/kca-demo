@@ -8,7 +8,6 @@ table 52179003 "CRM Transaction"
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
-            AutoIncrement = true;
         }
         field(2; "Customer No."; Code[20])
         {
@@ -141,7 +140,7 @@ table 52179003 "CRM Transaction"
     
     keys
     {
-        key(PK; "Entry No.")
+        key(PK; "Entry No.", "Customer No.")
         {
             Clustered = true;
         }
@@ -173,5 +172,7 @@ table 52179003 "CRM Transaction"
             "Transaction Date" := WorkDate();
         if "Status" = "Status"::" " then
             "Status" := "Status"::Pending;
+        If "Entry No." = 0 then 
+            "Entry No." := Random(1000000);
     end;
 }

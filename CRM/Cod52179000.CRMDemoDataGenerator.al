@@ -1,5 +1,10 @@
 codeunit 52179000 "CRM Demo Data Generator"
 {
+    trigger OnRun()
+    begin
+        GenerateCustomers();
+    end;
+
     procedure GenerateCustomers()
     var
         Customer: Record "CRM Customer";
@@ -8,7 +13,7 @@ codeunit 52179000 "CRM Demo Data Generator"
     begin
         // Generate segmentation data first
         GenerateSegmentation();
-        
+
         // Generate 100 demo customers
         for i := 1 to 100 do begin
             Customer.Init();
@@ -47,7 +52,7 @@ codeunit 52179000 "CRM Demo Data Generator"
             Customer."Notes" := 'Demo customer generated on ' + Format(CurrentDateTime);
             Customer."GDPR Consent Date" := CurrentDateTime;
             Customer."Satisfaction Score" := Random(10) + 1;
-            
+
             if Customer.Insert(true) then begin
                 GenerateInteractionHistory(Customer."No.");
                 GenerateTransactionHistory(Customer."No.");
@@ -55,41 +60,45 @@ codeunit 52179000 "CRM Demo Data Generator"
                 GenerateSupportTickets(Customer."No.");
             end;
         end;
-        
+
         GenerateLeads();
         GenerateCampaigns();
     end;
-    
+
     local procedure GenerateSegmentation()
     var
         Segmentation: Record "CRM Segmentation";
         SegmentationList: List of [Text];
         SegmentText: Text;
     begin
-        SegmentationList.Add('YOUNG_PROFESSIONALS|Young Professionals|Demographic|Age 25-35, Career-focused');
-        SegmentationList.Add('SENIOR_EXECUTIVES|Senior Executives|Demographic|Age 40+, Management positions');
-        SegmentationList.Add('RECENT_GRADUATES|Recent Graduates|Academic|Graduated within last 2 years');
-        SegmentationList.Add('RETURNING_STUDENTS|Returning Students|Academic|Career changers, upgrading skills');
-        SegmentationList.Add('INTERNATIONAL|International Students|Geographic|Non-Kenyan students');
-        SegmentationList.Add('HIGH_ENGAGERS|High Engagers|Engagement|Frequent website visitors, event attendees');
-        SegmentationList.Add('DONORS|Active Donors|Revenue Based|Regular financial contributors');
-        SegmentationList.Add('ALUMNI_NETWORK|Alumni Network|Academic|Graduated students');
-        
+        // Using comma as delimiter for SelectStr function
+        SegmentationList.Add('YOUNG_PROFESSIONALS,Young Professionals,Demographic,Age 25-35 Career-focused');
+        SegmentationList.Add('SENIOR_EXECUTIVES,Senior Executives,Demographic,Age 40+ Management positions');
+        SegmentationList.Add('RECENT_GRADUATES,Recent Graduates,Academic,Graduated within last 2 years');
+        SegmentationList.Add('RETURNING_STUDENTS,Returning Students,Academic,Career changers upgrading skills');
+        SegmentationList.Add('INTERNATIONAL,International Students,Geographic,Non-Kenyan students');
+        SegmentationList.Add('HIGH_ENGAGERS,High Engagers,Engagement,Frequent website visitors event attendees');
+        SegmentationList.Add('DONORS,Active Donors,Revenue Based,Regular financial contributors');
+        SegmentationList.Add('ALUMNI_NETWORK,Alumni Network,Academic,Graduated students Alumni network members');
+
         foreach SegmentText in SegmentationList do begin
             Segmentation.Init();
             Segmentation.Code := CopyStr(SelectStr(1, SegmentText), 1, 20);
             Segmentation.Description := CopyStr(SelectStr(2, SegmentText), 1, 100);
-            if SelectStr(3, SegmentText) = 'Demographic' then
-                Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::Demographic
-            else if SelectStr(3, SegmentText) = 'Academic' then
-                Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::Academic
-            else if SelectStr(3, SegmentText) = 'Geographic' then
-                Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::Geographic
-            else if SelectStr(3, SegmentText) = 'Engagement' then
-                Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::Engagement
-            else if SelectStr(3, SegmentText) = 'Revenue Based' then
-                Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::"Revenue Based";
-            
+
+            case SelectStr(3, SegmentText) of
+                'Demographic':
+                    Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::Demographic;
+                'Academic':
+                    Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::Academic;
+                'Geographic':
+                    Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::Geographic;
+                'Engagement':
+                    Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::Engagement;
+                'Revenue Based':
+                    Segmentation."Segmentation Type" := Segmentation."Segmentation Type"::"Revenue Based";
+            end;
+
             Segmentation.Criteria := CopyStr(SelectStr(4, SegmentText), 1, 250);
             Segmentation.Active := true;
             Segmentation."Marketing Priority" := Segmentation."Marketing Priority"::Medium;
@@ -97,7 +106,7 @@ codeunit 52179000 "CRM Demo Data Generator"
                 Segmentation.Modify(true);
         end;
     end;
-    
+
     local procedure GenerateInteractionHistory(CustomerNo: Code[20])
     var
         InteractionLog: Record "CRM Interaction Log";
@@ -105,9 +114,10 @@ codeunit 52179000 "CRM Demo Data Generator"
         NumInteractions: Integer;
     begin
         NumInteractions := Random(10) + 1; // 1-10 interactions per customer
-        
+
         for i := 1 to NumInteractions do begin
             InteractionLog.Init();
+            InteractionLog."Entry No." := Random(1000000);
             InteractionLog."Customer No." := CustomerNo;
             InteractionLog."Interaction Type" := GetRandomInteractionType();
             InteractionLog."Interaction Date" := CalcDate('<-' + Format(Random(365)) + 'D>', WorkDate());
@@ -127,7 +137,7 @@ codeunit 52179000 "CRM Demo Data Generator"
             InteractionLog.Insert(true);
         end;
     end;
-    
+
     local procedure GenerateTransactionHistory(CustomerNo: Code[20])
     var
         Transaction: Record "CRM Transaction";
@@ -135,9 +145,10 @@ codeunit 52179000 "CRM Demo Data Generator"
         NumTransactions: Integer;
     begin
         NumTransactions := Random(5) + 1; // 1-5 transactions per customer
-        
+
         for i := 1 to NumTransactions do begin
             Transaction.Init();
+            Transaction."Entry No." := Random(1000000);
             Transaction."Customer No." := CustomerNo;
             Transaction."Transaction Type" := GetRandomTransactionType();
             Transaction."Transaction Date" := CalcDate('<-' + Format(Random(365)) + 'D>', WorkDate());
@@ -155,7 +166,7 @@ codeunit 52179000 "CRM Demo Data Generator"
             Transaction.Insert(true);
         end;
     end;
-    
+
     local procedure GenerateCampaignResponses(CustomerNo: Code[20])
     var
         CampaignResponse: Record "CRM Campaign Response";
@@ -164,6 +175,7 @@ codeunit 52179000 "CRM Demo Data Generator"
         // Generate 1-3 campaign responses per customer
         for i := 1 to Random(3) + 1 do begin
             CampaignResponse.Init();
+            CampaignResponse."Entry No." := Random(1000000);
             CampaignResponse."Campaign No." := GetRandomCampaignNo();
             CampaignResponse."Customer No." := CustomerNo;
             CampaignResponse."Response Date" := CreateDateTime(CalcDate('<-' + Format(Random(180)) + 'D>', WorkDate()), Time);
@@ -188,7 +200,7 @@ codeunit 52179000 "CRM Demo Data Generator"
             CampaignResponse.Insert(true);
         end;
     end;
-    
+
     local procedure GenerateSupportTickets(CustomerNo: Code[20])
     var
         SupportTicket: Record "CRM Support Ticket";
@@ -212,7 +224,7 @@ codeunit 52179000 "CRM Demo Data Generator"
             SupportTicket.Insert(true);
         end;
     end;
-    
+
     local procedure GenerateLeads()
     var
         Lead: Record "CRM Lead";
@@ -264,7 +276,7 @@ codeunit 52179000 "CRM Demo Data Generator"
             Lead.Insert(true);
         end;
     end;
-    
+
     local procedure GenerateCampaigns()
     var
         Campaign: Record "CRM Campaign";
@@ -282,7 +294,7 @@ codeunit 52179000 "CRM Demo Data Generator"
         CampaignNames.Add('Scholarship Fundraising');
         CampaignNames.Add('Digital Innovation Summit');
         CampaignNames.Add('Career Fair Outreach');
-        
+
         for i := 1 to 10 do begin
             Campaign.Init();
             Campaign."No." := 'CAMP' + Format(i, 6, '<Integer,6><Filler Character,0>');
@@ -309,7 +321,7 @@ codeunit 52179000 "CRM Demo Data Generator"
             Campaign.Insert(true);
         end;
     end;
-    
+
     // Helper functions for random data generation
     local procedure GetRandomCustomerType(): Enum "CRM Customer Type"
     var
@@ -323,11 +335,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         CustomerTypes.Add(5); // Staff
         CustomerTypes.Add(6); // Parent
         CustomerTypes.Add(7); // Donor
-        
+
         RandomIndex := Random(CustomerTypes.Count);
         exit("CRM Customer Type".FromInteger(CustomerTypes.Get(RandomIndex)));
     end;
-    
+
     local procedure GetRandomFirstName(): Text[50]
     var
         Names: List of [Text];
@@ -373,11 +385,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         Names.Add('Paul');
         Names.Add('Catherine');
         Names.Add('Moses');
-        
-        RandomIndex := Random(Names.Count) + 1;
+
+        RandomIndex := Random(Names.Count);
         exit(CopyStr(Names.Get(RandomIndex), 1, 50));
     end;
-    
+
     local procedure GetRandomLastName(): Text[50]
     var
         Names: List of [Text];
@@ -413,11 +425,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         Names.Add('Karanja');
         Names.Add('Ndung');
         Names.Add('Kiarie');
-        
-        RandomIndex := Random(Names.Count) + 1;
+
+        RandomIndex := Random(Names.Count);
         exit(CopyStr(Names.Get(RandomIndex), 1, 50));
     end;
-    
+
     local procedure GetRandomAddress(): Text[100]
     var
         Addresses: List of [Text];
@@ -438,11 +450,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         Addresses.Add('159 Moi Avenue');
         Addresses.Add('357 Kimathi Street');
         Addresses.Add('486 Haile Selassie Avenue');
-        
-        RandomIndex := Random(Addresses.Count) + 1;
+
+        RandomIndex := Random(Addresses.Count);
         exit(CopyStr(Addresses.Get(RandomIndex), 1, 100));
     end;
-    
+
     local procedure GetRandomCity(): Text[50]
     var
         Cities: List of [Text];
@@ -457,17 +469,17 @@ codeunit 52179000 "CRM Demo Data Generator"
         Cities.Add('Machakos');
         Cities.Add('Meru');
         Cities.Add('Nyeri');
-        Cities.Add('Karatina');
+        Cities.Add('Vihiga');
         Cities.Add('Embu');
         Cities.Add('Kitale');
         Cities.Add('Garissa');
         Cities.Add('Kakamega');
         Cities.Add('Malindi');
-        
-        RandomIndex := Random(Cities.Count) + 1;
+
+        RandomIndex := Random(Cities.Count);
         exit(CopyStr(Cities.Get(RandomIndex), 1, 50));
     end;
-    
+
     local procedure GetRandomCounty(): Text[50]
     var
         Counties: List of [Text];
@@ -488,14 +500,14 @@ codeunit 52179000 "CRM Demo Data Generator"
         Counties.Add('Kakamega');
         Counties.Add('Kilifi');
         Counties.Add('Murang a');
-        
-        RandomIndex := Random(Counties.Count) + 1;
+
+        RandomIndex := Random(Counties.Count);
         exit(CopyStr(Counties.Get(RandomIndex), 1, 50));
     end;
-    
+
     local procedure GetRandomGender(): Enum "CRM Gender"
     begin
-        case Random(3) + 1 of
+        case Random(3) of
             1:
                 exit("CRM Gender"::Male);
             2:
@@ -504,10 +516,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Gender"::"Prefer not to say");
         end;
     end;
-    
+
     local procedure GetRandomMaritalStatus(): Enum "CRM Marital Status"
     begin
-        case Random(6) + 1 of
+        case Random(6) of
             1:
                 exit("CRM Marital Status"::Single);
             2:
@@ -522,10 +534,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Marital Status"::"Prefer not to say");
         end;
     end;
-    
+
     local procedure GetRandomLeadSource(): Enum "CRM Lead Source"
     begin
-        case Random(14) + 1 of
+        case Random(14) of
             1:
                 exit("CRM Lead Source"::Website);
             2:
@@ -556,10 +568,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Lead Source"::"Alumni Network");
         end;
     end;
-    
+
     local procedure GetRandomLeadStatus(): Enum "CRM Lead Status"
     begin
-        case Random(12) + 1 of
+        case Random(12) of
             1:
                 exit("CRM Lead Status"::New);
             2:
@@ -586,10 +598,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Lead Status"::"Follow Up");
         end;
     end;
-    
+
     local procedure GetRandomContactMethod(): Enum "CRM Contact Method"
     begin
-        case Random(8) + 1 of
+        case Random(8) of
             1:
                 exit("CRM Contact Method"::Email);
             2:
@@ -608,7 +620,7 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Contact Method"::Telegram);
         end;
     end;
-    
+
     local procedure GetRandomSegmentationCode(): Code[20]
     var
         Codes: List of [Text];
@@ -622,11 +634,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         Codes.Add('HIGH_ENGAGERS');
         Codes.Add('DONORS');
         Codes.Add('ALUMNI_NETWORK');
-        
-        RandomIndex := Random(Codes.Count) + 1;
+
+        RandomIndex := Random(Codes.Count);
         exit(CopyStr(Codes.Get(RandomIndex), 1, 20));
     end;
-    
+
     local procedure GetRandomAcademicProgram(): Code[20]
     var
         Programs: List of [Text];
@@ -647,11 +659,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         Programs.Add('MA-ECON');
         Programs.Add('PHD-CS');
         Programs.Add('DIP-IT');
-        
-        RandomIndex := Random(Programs.Count) + 1;
+
+        RandomIndex := Random(Programs.Count);
         exit(CopyStr(Programs.Get(RandomIndex), 1, 20));
     end;
-    
+
     local procedure GetRandomAcademicYear(): Code[20]
     var
         Years: List of [Text];
@@ -662,11 +674,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         Years.Add('2022/2023');
         Years.Add('2021/2022');
         Years.Add('2020/2021');
-        
-        RandomIndex := Random(Years.Count) + 1;
+
+        RandomIndex := Random(Years.Count);
         exit(CopyStr(Years.Get(RandomIndex), 1, 20));
     end;
-    
+
     local procedure GetRandomCompanyName(): Text[100]
     var
         Companies: List of [Text];
@@ -687,11 +699,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         Companies.Add('Diamond Trust Bank');
         Companies.Add('Liberty Kenya Holdings');
         Companies.Add('Centum Investment');
-        
-        RandomIndex := Random(Companies.Count) + 1;
+
+        RandomIndex := Random(Companies.Count);
         exit(CopyStr(Companies.Get(RandomIndex), 1, 100));
     end;
-    
+
     local procedure GetRandomJobTitle(): Text[100]
     var
         Titles: List of [Text];
@@ -712,11 +724,11 @@ codeunit 52179000 "CRM Demo Data Generator"
         Titles.Add('Consultant');
         Titles.Add('Entrepreneur');
         Titles.Add('Government Officer');
-        
-        RandomIndex := Random(Titles.Count) + 1;
+
+        RandomIndex := Random(Titles.Count);
         exit(CopyStr(Titles.Get(RandomIndex), 1, 100));
     end;
-    
+
     local procedure GetRandomTags(): Text[250]
     var
         TagSets: List of [Text];
@@ -732,14 +744,14 @@ codeunit 52179000 "CRM Demo Data Generator"
         TagSets.Add('business,entrepreneurship,startup');
         TagSets.Add('government,policy,public-service');
         TagSets.Add('arts,culture,creative');
-        
-        RandomIndex := Random(TagSets.Count) + 1;
+
+        RandomIndex := Random(TagSets.Count);
         exit(CopyStr(TagSets.Get(RandomIndex), 1, 250));
     end;
-    
+
     local procedure GetRandomInteractionType(): Enum "CRM Interaction Type"
     begin
-        case Random(20) + 1 of
+        case Random(20) of
             1:
                 exit("CRM Interaction Type"::Call);
             2:
@@ -782,7 +794,7 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Interaction Type"::Newsletter);
         end;
     end;
-    
+
     local procedure GetRandomInteractionSubject(): Text[100]
     var
         Subjects: List of [Text];
@@ -803,14 +815,14 @@ codeunit 52179000 "CRM Demo Data Generator"
         Subjects.Add('Research Collaboration');
         Subjects.Add('Partnership Inquiry');
         Subjects.Add('General Information');
-        
-        RandomIndex := Random(Subjects.Count) + 1;
+
+        RandomIndex := Random(Subjects.Count);
         exit(CopyStr(Subjects.Get(RandomIndex), 1, 100));
     end;
-    
+
     local procedure GetRandomInteractionOutcome(): Enum "CRM Interaction Outcome"
     begin
-        case Random(12) + 1 of
+        case Random(12) of
             1:
                 exit("CRM Interaction Outcome"::Successful);
             2:
@@ -837,10 +849,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Interaction Outcome"::Escalated);
         end;
     end;
-    
+
     local procedure GetRandomPriority(): Enum "CRM Priority Level"
     begin
-        case Random(4) + 1 of
+        case Random(4) of
             1:
                 exit("CRM Priority Level"::Low);
             2:
@@ -851,10 +863,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Priority Level"::Critical);
         end;
     end;
-    
+
     local procedure GetRandomTransactionType(): Enum "CRM Transaction Type"
     begin
-        case Random(18) + 1 of
+        case Random(18) of
             1:
                 exit("CRM Transaction Type"::Payment);
             2:
@@ -893,7 +905,7 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Transaction Type"::"General Donation");
         end;
     end;
-    
+
     local procedure GetRandomTransactionDescription(): Text[100]
     var
         Descriptions: List of [Text];
@@ -914,14 +926,14 @@ codeunit 52179000 "CRM Demo Data Generator"
         Descriptions.Add('Late Payment Penalty');
         Descriptions.Add('Accommodation Fee');
         Descriptions.Add('Application Processing Fee');
-        
-        RandomIndex := Random(Descriptions.Count) + 1;
+
+        RandomIndex := Random(Descriptions.Count);
         exit(CopyStr(Descriptions.Get(RandomIndex), 1, 100));
     end;
-    
+
     local procedure GetRandomPaymentMethod(): Enum "CRM Payment Method"
     begin
-        case Random(15) + 1 of
+        case Random(15) of
             1:
                 exit("CRM Payment Method"::Cash);
             2:
@@ -954,10 +966,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Payment Method"::Cryptocurrency);
         end;
     end;
-    
+
     local procedure GetRandomTransactionStatus(): Enum "CRM Transaction Status"
     begin
-        case Random(11) + 1 of
+        case Random(11) of
             1:
                 exit("CRM Transaction Status"::Pending);
             2:
@@ -982,7 +994,7 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Transaction Status"::Rejected);
         end;
     end;
-    
+
     local procedure GetRandomCampaignNo(): Code[20]
     var
         CampaignNos: List of [Text];
@@ -998,14 +1010,14 @@ codeunit 52179000 "CRM Demo Data Generator"
         CampaignNos.Add('CAMP000008');
         CampaignNos.Add('CAMP000009');
         CampaignNos.Add('CAMP000010');
-        
-        RandomIndex := Random(CampaignNos.Count) + 1;
+
+        RandomIndex := Random(CampaignNos.Count);
         exit(CopyStr(CampaignNos.Get(RandomIndex), 1, 20));
     end;
-    
+
     local procedure GetRandomResponseType(): Enum "CRM Response Type"
     begin
-        case Random(20) + 1 of
+        case Random(20) of
             1:
                 exit("CRM Response Type"::"Email Open");
             2:
@@ -1048,10 +1060,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Response Type"::Unsubscribe);
         end;
     end;
-    
+
     local procedure GetRandomMarketingChannel(): Enum "CRM Marketing Channel"
     begin
-        case Random(25) + 1 of
+        case Random(25) of
             1:
                 exit("CRM Marketing Channel"::Email);
             2:
@@ -1104,10 +1116,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Marketing Channel"::"Content Marketing");
         end;
     end;
-    
+
     local procedure GetRandomDeviceType(): Enum "CRM Device Type"
     begin
-        case Random(7) + 1 of
+        case Random(7) of
             1:
                 exit("CRM Device Type"::Desktop);
             2:
@@ -1124,7 +1136,7 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Device Type"::Other);
         end;
     end;
-    
+
     local procedure GetRandomTicketSubject(): Text[100]
     var
         Subjects: List of [Text];
@@ -1145,14 +1157,14 @@ codeunit 52179000 "CRM Demo Data Generator"
         Subjects.Add('Report Generation Issue');
         Subjects.Add('Data Update Request');
         Subjects.Add('General Inquiry');
-        
-        RandomIndex := Random(Subjects.Count) + 1;
+
+        RandomIndex := Random(Subjects.Count);
         exit(CopyStr(Subjects.Get(RandomIndex), 1, 100));
     end;
-    
+
     local procedure GetRandomTicketCategory(): Enum "CRM Ticket Category"
     begin
-        case Random(22) + 1 of
+        case Random(22) of
             1:
                 exit("CRM Ticket Category"::"Technical Support");
             2:
@@ -1199,10 +1211,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Ticket Category"::Other);
         end;
     end;
-    
+
     local procedure GetRandomTicketStatus(): Enum "CRM Ticket Status"
     begin
-        case Random(14) + 1 of
+        case Random(14) of
             1:
                 exit("CRM Ticket Status"::Open);
             2:
@@ -1233,10 +1245,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Ticket Status"::"Will Not Fix");
         end;
     end;
-    
+
     local procedure GetRandomTicketSource(): Enum "CRM Ticket Source"
     begin
-        case Random(17) + 1 of
+        case Random(17) of
             1:
                 exit("CRM Ticket Source"::Email);
             2:
@@ -1273,10 +1285,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Ticket Source"::"Direct Mail");
         end;
     end;
-    
+
     local procedure GetRandomInterestLevel(): Enum "CRM Interest Level"
     begin
-        case Random(6) + 1 of
+        case Random(6) of
             1:
                 exit("CRM Interest Level"::Low);
             2:
@@ -1291,10 +1303,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Interest Level"::Low);
         end;
     end;
-    
+
     local procedure GetRandomStudyMode(): Enum "CRM Study Mode"
     begin
-        case Random(8) + 1 of
+        case Random(8) of
             1:
                 exit("CRM Study Mode"::"Full Time");
             2:
@@ -1313,10 +1325,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Study Mode"::"Block Release");
         end;
     end;
-    
+
     local procedure GetRandomBudgetRange(): Enum "CRM Budget Range"
     begin
-        case Random(7) + 1 of
+        case Random(7) of
             1:
                 exit("CRM Budget Range"::"Under 50K");
             2:
@@ -1333,10 +1345,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Budget Range"::"To Be Determined");
         end;
     end;
-    
+
     local procedure GetRandomDecisionTimeline(): Enum "CRM Decision Timeline"
     begin
-        case Random(7) + 1 of
+        case Random(7) of
             1:
                 exit("CRM Decision Timeline"::Immediate);
             2:
@@ -1353,10 +1365,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Decision Timeline"::"Just Researching");
         end;
     end;
-    
+
     local procedure GetRandomAgeGroup(): Enum "CRM Age Group"
     begin
-        case Random(8) + 1 of
+        case Random(8) of
             1:
                 exit("CRM Age Group"::"Under 18");
             2:
@@ -1375,10 +1387,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Age Group"::"Prefer not to say");
         end;
     end;
-    
+
     local procedure GetRandomEducationLevel(): Enum "CRM Education Level"
     begin
-        case Random(10) + 1 of
+        case Random(10) of
             1:
                 exit("CRM Education Level"::"High School");
             2:
@@ -1401,10 +1413,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Education Level"::Other);
         end;
     end;
-    
+
     local procedure GetRandomNurtureStage(): Enum "CRM Nurture Stage"
     begin
-        case Random(9) + 1 of
+        case Random(9) of
             1:
                 exit("CRM Nurture Stage"::Awareness);
             2:
@@ -1425,10 +1437,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Nurture Stage"::"Re-engagement");
         end;
     end;
-    
+
     local procedure GetRandomLifecycleStage(): Enum "CRM Lifecycle Stage"
     begin
-        case Random(9) + 1 of
+        case Random(9) of
             1:
                 exit("CRM Lifecycle Stage"::Subscriber);
             2:
@@ -1449,10 +1461,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Lifecycle Stage"::Other);
         end;
     end;
-    
+
     local procedure GetRandomCampaignType(): Enum "CRM Campaign Type"
     begin
-        case Random(20) + 1 of
+        case Random(20) of
             1:
                 exit("CRM Campaign Type"::Email);
             2:
@@ -1495,10 +1507,10 @@ codeunit 52179000 "CRM Demo Data Generator"
                 exit("CRM Campaign Type"::Survey);
         end;
     end;
-    
+
     local procedure GetRandomCampaignStatus(): Enum "CRM Campaign Status"
     begin
-        case Random(11) + 1 of
+        case Random(11) of
             1:
                 exit("CRM Campaign Status"::Draft);
             2:

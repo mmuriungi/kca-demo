@@ -241,6 +241,30 @@ table 51331 "Audit Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+        field(46; "Audit Task Nos."; Code[20])
+        {
+            Caption = 'Audit Task Nos.';
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
+        field(47; "Audit Universe Nos."; Code[20])
+        {
+            Caption = 'Audit Universe Nos.';
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
+        field(48; "Audit Finding Nos."; Code[20])
+        {
+            Caption = 'Audit Finding Nos.';
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
+        field(49; "Audit Action Nos."; Code[20])
+        {
+            Caption = 'Audit Action Nos.';
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
 
 
 

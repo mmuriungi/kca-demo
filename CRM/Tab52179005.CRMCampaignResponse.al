@@ -8,7 +8,6 @@ table 52179005 "CRM Campaign Response"
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
-            AutoIncrement = true;
         }
         field(2; "Campaign No."; Code[20])
         {
@@ -227,7 +226,7 @@ table 52179005 "CRM Campaign Response"
     
     keys
     {
-        key(PK; "Entry No.")
+        key(PK; "Entry No.", "Customer No.")
         {
             Clustered = true;
         }
@@ -256,6 +255,8 @@ table 52179005 "CRM Campaign Response"
         "Modified By" := UserId;
         if "Response Date" = 0DT then
             "Response Date" := CurrentDateTime;
+        if "Entry No." = 0 then 
+            "Entry No." := Random(1000000);
     end;
     
     trigger OnModify()

@@ -138,16 +138,16 @@ codeunit 52179081 "Legal Affairs Installer"
     var
         AllProfile: Record "All Profile";
     begin
-        if not AllProfile.Get('', 'LEGALAFFAIRS') then begin
-            AllProfile.Init();
-            AllProfile."Profile ID" := 'LEGALAFFAIRS';
-            AllProfile.Description := 'Legal Affairs Manager';
-            AllProfile."Role Center ID" := Page::"Legal Affairs Role Center";
-            AllProfile.Enabled := true;
-            AllProfile.Promoted := true;
-            AllProfile."Default Role Center" := false;
-            AllProfile.Insert();
-        end;
+        // if not AllProfile.Get('', 'LEGALAFFAIRS') then begin
+        //     AllProfile.Init();
+        //     AllProfile."Profile ID" := 'LEGALAFFAIRS';
+        //     AllProfile.Description := 'Legal Affairs Manager';
+        //     AllProfile."Role Center ID" := Page::"Legal Affairs Role Center";
+        //     AllProfile.Enabled := true;
+        //     AllProfile.Promoted := true;
+        //     AllProfile."Default Role Center" := false;
+        //     AllProfile.Insert();
+        // end;
     end;
     
     local procedure SetupMenuItems()
