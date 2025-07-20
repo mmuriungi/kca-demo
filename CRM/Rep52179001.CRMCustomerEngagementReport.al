@@ -4,6 +4,7 @@ report 52179001 "CRM Customer Engagement Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     ProcessingOnly = false;
+    RDLCLayout = './Rep52179001.CRMCustomerEngagementReport.rdl';
 
     dataset
     {

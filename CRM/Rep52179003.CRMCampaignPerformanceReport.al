@@ -4,6 +4,7 @@ report 52179003 "CRM Campaign Performance"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     ProcessingOnly = false;
+    RDLCLayout = './Rep52179003.CRMCampaignPerformanceReport.rdl';
 
     dataset
     {

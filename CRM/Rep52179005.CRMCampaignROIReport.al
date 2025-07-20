@@ -4,6 +4,7 @@ report 52179005 "CRM Campaign ROI Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     ProcessingOnly = false;
+    RDLCLayout = './Rep52179005.CRMCampaignROIReport.rdl';
 
     dataset
     {

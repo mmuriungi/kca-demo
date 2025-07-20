@@ -4,6 +4,7 @@ report 52179002 "CRM Lead Conversion Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     ProcessingOnly = false;
+    RDLCLayout = './Rep52179002.CRMLeadConversionReport.rdl';
 
     dataset
     {

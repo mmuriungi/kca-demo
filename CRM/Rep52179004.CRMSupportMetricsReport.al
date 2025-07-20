@@ -4,6 +4,7 @@ report 52179004 "CRM Support Metrics Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     ProcessingOnly = false;
+    RDLCLayout = './Rep52179004.CRMSupportMetricsReport.rdl';
 
     dataset
     {

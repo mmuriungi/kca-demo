@@ -4,6 +4,7 @@ report 52179006 "CRM Agent Performance Report"
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     ProcessingOnly = false;
+    RDLCLayout = './Rep52179006.CRMAgentPerformanceReport.rdl';
 
     dataset
     {
