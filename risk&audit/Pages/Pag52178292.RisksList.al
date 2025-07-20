@@ -3,7 +3,6 @@ page 50188 "Risks List"
 
     CardPageID = "Risk Card";
     PageType = List;
-    Caption = 'Risk Champion';
     SourceTable = "Risk Header";
     DeleteAllowed = false;
     SourceTableView = WHERE("Document Status" = FILTER(New));

@@ -37,13 +37,13 @@ page 52179030 "Internal Audit Role Center"
                 action("Audit Universe")
                 {
                     Caption = 'Audit Universe';
-                    // RunObject = Page "Audit Universe List";
+                    RunObject = Page "Audit Universe List";
                     ApplicationArea = All;
                 }
                 action("Risk Assessment")
                 {
                     Caption = 'Risk Assessment';
-                    // RunObject = Page "Risk Header";
+                    RunObject = Page "Risks List";
                     ApplicationArea = All;
                 }
                 action("Annual Audit Plans")
@@ -77,10 +77,10 @@ page 52179030 "Internal Audit Role Center"
                 Caption = 'Audit Planning & Scheduling';
                 Image = Calendar;
                 
-                action("Audit Schedule")
+action("Audit Schedule")
                 {
                     Caption = 'Audit Schedule';
-                    // RunObject = Page "Audit Schedule Calendar";
+                    RunObject = Page "Audit Schedule Calendar";
                     ApplicationArea = All;
                 }
                 action("Audit Projects")
@@ -92,19 +92,19 @@ page 52179030 "Internal Audit Role Center"
                 action("Resource Allocation")
                 {
                     Caption = 'Resource Allocation';
-                    // RunObject = Page "Audit Resource Allocation";
+                    RunObject = Page "Audit Resource Allocation List";
                     ApplicationArea = All;
                 }
-                action("Task Management")
+action("Task Management")
                 {
                     Caption = 'Task Management';
-                    // RunObject = Page "Audit Task Management";
+                    RunObject = Page "Audit Task Management List";
                     ApplicationArea = All;
                 }
                 action("Audit Notifications")
                 {
                     Caption = 'Audit Notifications';
-                    RunObject = Page "Audit Notifications";
+                    RunObject = Page "Audit Notifications List";
                     ApplicationArea = All;
                 }
             }
@@ -222,7 +222,7 @@ page 52179030 "Internal Audit Role Center"
                 action("Action Tracking")
                 {
                     Caption = 'Action Tracking';
-                    // RunObject = Page "Audit Action Tracking";
+                    RunObject = Page "Audit Action Tracking List";
                     ApplicationArea = All;
                 }
                 action("Open Findings")

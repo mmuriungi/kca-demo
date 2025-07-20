@@ -3,7 +3,7 @@ table 51328 "Audit Types"
 
     fields
     {
-        field(1; "Code"; Code[10])
+        field(1; "Code"; Code[20])
         {
             DataClassification = ToBeClassified;
         }

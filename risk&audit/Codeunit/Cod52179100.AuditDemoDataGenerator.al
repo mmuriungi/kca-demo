@@ -2,9 +2,12 @@ codeunit 52179100 "Audit Demo Data Generator"
 {
     trigger OnRun()
     begin
-        if not Confirm('This will generate demo data for the Internal Audit module. Do you want to continue?', false) then
+        if not Confirm('This will delete all existing audit data and generate fresh demo data for the Internal Audit module. Do you want to continue?', false) then
             exit;
             
+        // Delete existing data first
+        DeleteExistingData();
+        
         GenerateAuditSetup();
         GenerateAuditPeriods();
         GenerateAuditors();
@@ -16,8 +19,23 @@ codeunit 52179100 "Audit Demo Data Generator"
         GenerateAuditFindings();
         GenerateActionTracking();
         GeneratePerformanceMetrics();
+        GenerateAuditSchedule();
+        GenerateResourceAllocation();
+        GenerateAuditNotifications();
+        GenerateComplianceMonitoring();
+        GenerateRiskAssessments();
         
-        Message('Demo data generation completed successfully!');
+        Message('Comprehensive demo data generation completed successfully! Generated:\n' +
+                'Audit Universe: 10 entries\n' +
+                'Audit Plans: 1 annual plan\n' +
+                'Audits: 4 sample audits\n' +
+                'Tasks: 20 audit tasks\n' +
+                'Working Papers: 40 documents\n' +
+                'Findings: 12 audit findings\n' +
+                'Actions: 24 corrective actions\n' +
+                'Performance Metrics: 12 months\n' +
+                'Schedule Entries: 50 calendar items\n' +
+                'Resource Allocations: 20 assignments');
     end;
     
     local procedure GenerateAuditSetup()
@@ -398,5 +416,217 @@ codeunit 52179100 "Audit Demo Data Generator"
             
             if not Metrics.Insert() then;
         end;
+    end;
+    
+    local procedure GenerateAuditSchedule()
+    var
+        ScheduleEntry: Record "Audit Schedule";
+        i: Integer;
+        StartDate: Date;
+    begin
+        StartDate := DMY2Date(1, 1, Date2DMY(Today, 3));
+        
+        for i := 1 to 50 do begin
+            ScheduleEntry.Init();
+            ScheduleEntry."Entry No." := i;
+            ScheduleEntry."Audit No." := 'AUD00' + Format(Random(4) + 1);
+            ScheduleEntry."Task Description" := GetScheduleTaskDescription(Random(8) + 1);
+            ScheduleEntry."Start Date" := CalcDate('<' + Format(Random(365)) + 'D>', StartDate);
+            ScheduleEntry."End Date" := CalcDate('<' + Format(Random(20) + 1) + 'D>', ScheduleEntry."Start Date");
+            ScheduleEntry."Assigned To" := 'AUD' + Format(Random(10) + 1);
+            ScheduleEntry."Status" := Random(4);
+            ScheduleEntry."Priority" := Random(4);
+            ScheduleEntry."Estimated Hours" := 8 + Random(40);
+            ScheduleEntry."Location" := GetRandomLocation();
+            ScheduleEntry."Task Type" := Random(6);
+            if not ScheduleEntry.Insert() then;
+        end;
+    end;
+    
+    local procedure GetScheduleTaskDescription(TaskType: Integer): Text[250]
+    begin
+        case TaskType of
+            1: exit('Opening meeting with auditee');
+            2: exit('Document review and analysis');
+            3: exit('Interviews with key personnel');
+            4: exit('Testing of internal controls');
+            5: exit('Substantive testing procedures');
+            6: exit('Follow-up on prior findings');
+            7: exit('Closing meeting and draft report');
+            8: exit('Final report presentation');
+        end;
+    end;
+    
+    local procedure GetRandomLocation(): Text[100]
+    var
+        Locations: array[8] of Text[100];
+    begin
+        Locations[1] := 'Finance Department';
+        Locations[2] := 'IT Department';
+        Locations[3] := 'Human Resources';
+        Locations[4] := 'Registrar Office';
+        Locations[5] := 'Procurement Office';
+        Locations[6] := 'Board Room';
+        Locations[7] := 'Audit Conference Room';
+        Locations[8] := 'Dean Office';
+        
+        exit(Locations[Random(8) + 1]);
+    end;
+    
+    local procedure GenerateResourceAllocation()
+    var
+        Resource: Record "Audit Resource Allocation";
+        i: Integer;
+    begin
+        for i := 1 to 20 do begin
+            Resource.Init();
+            Resource."Allocation No." := 'RES' + Format(i);
+            Resource."Audit No." := 'AUD00' + Format(Random(4) + 1);
+            Resource."Resource Type" := Random(4);
+            Resource."Resource Code" := 'AUD' + Format(Random(10) + 1);
+            Resource."Allocation Start Date" := CalcDate('<-' + Format(Random(30)) + 'D>', Today);
+            Resource."Allocation End Date" := CalcDate('<' + Format(Random(60)) + 'D>', Resource."Allocation Start Date");
+            Resource."Allocated Hours" := 40 + Random(120);
+            Resource."Utilization %" := 60 + Random(40);
+            Resource."Cost Rate" := 25 + Random(75);
+            Resource."Total Cost" := Resource."Allocated Hours" * Resource."Cost Rate";
+            if not Resource.Insert() then;
+        end;
+    end;
+    
+    local procedure GenerateAuditNotifications()
+    var
+        Notification: Record "Audit Notifications";
+        i: Integer;
+    begin
+        for i := 1 to 15 do begin
+            Notification.Init();
+            Notification."Notification No." := 'NOT' + Format(i);
+            Notification."Audit No." := 'AUD00' + Format(Random(4) + 1);
+            Notification."Notification Type" := Random(6);
+            Notification.Subject := GetNotificationSubject(Notification."Notification Type");
+            Notification."Message Text" := 'This is a system-generated notification regarding your audit assignment.';
+            Notification."Recipient Email" := 'user' + Format(Random(10)) + '@university.edu';
+            Notification."Notification Date" := CalcDate('<-' + Format(Random(30)) + 'D>', Today);
+            Notification."Due Date" := CalcDate('<' + Format(Random(14)) + 'D>', Notification."Notification Date");
+            Notification."Delivery Status" := Random(3);
+            Notification.Priority := Random(3);
+            if not Notification.Insert() then;
+        end;
+    end;
+    
+    local procedure GetNotificationSubject(NotificationType: Integer): Text[250]
+    begin
+        case NotificationType of
+            0: exit('Audit Assignment Notification');
+            1: exit('Task Due Date Reminder');
+            2: exit('Document Request');
+            3: exit('Meeting Schedule');
+            4: exit('Finding Response Required');
+            5: exit('Audit Completion Notice');
+            else exit('General Audit Notification');
+        end;
+    end;
+    
+    local procedure GenerateComplianceMonitoring()
+    var
+        Compliance: Record "Compliance Monitoring";
+        i: Integer;
+    begin
+        for i := 1 to 10 do begin
+            Compliance.Init();
+            Compliance."Monitoring No." := 'COMP' + Format(i);
+            Compliance."Compliance Area" := GetComplianceArea(i);
+            Compliance."Monitoring Date" := CalcDate('<-' + Format(Random(90)) + 'D>', Today);
+            Compliance."Next Review Date" := CalcDate('<' + Format(Random(180) + 90) + 'D>', Compliance."Monitoring Date");
+            Compliance."Compliance Status" := Random(3);
+            Compliance."Risk Level" := Random(4);
+            Compliance."Responsible Person" := 'EMP' + Format(Random(10) + 1);
+            Compliance."Compliance Score" := 60 + Random(40);
+            Compliance."Action Required" := Random(2) = 1;
+            if not Compliance.Insert() then;
+        end;
+    end;
+    
+    local procedure GetComplianceArea(Index: Integer): Text[100]
+    begin
+        case Index of
+            1: exit('Financial Reporting Standards');
+            2: exit('Data Protection Regulations');
+            3: exit('Health and Safety Requirements');
+            4: exit('Employment Law Compliance');
+            5: exit('Environmental Regulations');
+            6: exit('Student Privacy Laws');
+            7: exit('Research Ethics Guidelines');
+            8: exit('Procurement Regulations');
+            9: exit('IT Security Standards');
+            10: exit('Academic Standards Compliance');
+            else exit('General Compliance');
+        end;
+    end;
+    
+    local procedure GenerateRiskAssessments()
+    var
+        RiskAssessment: Record "Risk Assessment Enhanced";
+        i: Integer;
+    begin
+        for i := 1 to 15 do begin
+            RiskAssessment.Init();
+            RiskAssessment."Assessment No." := 'RASS' + Format(i);
+            RiskAssessment."Audit Universe Code" := 'FIN-0' + Format(Random(3) + 1);
+            RiskAssessment."Assessment Date" := CalcDate('<-' + Format(Random(60)) + 'D>', Today);
+            RiskAssessment."Risk Category" := Random(5);
+            RiskAssessment."Inherent Risk" := Random(5);
+            RiskAssessment."Control Risk" := Random(5);
+            RiskAssessment."Detection Risk" := Random(5);
+            RiskAssessment."Overall Risk" := (RiskAssessment."Inherent Risk" + RiskAssessment."Control Risk" + RiskAssessment."Detection Risk") / 3;
+            RiskAssessment."Risk Description" := 'Risk assessment for ' + RiskAssessment."Audit Universe Code";
+            RiskAssessment."Mitigation Strategy" := 'Implement enhanced controls and monitoring procedures';
+            RiskAssessment."Assessment Status" := Random(4);
+            RiskAssessment."Assessed By" := 'AUD' + Format(Random(5) + 1);
+            if not RiskAssessment.Insert() then;
+        end;
+    end;
+    
+    local procedure DeleteExistingData()
+    var
+        AuditUniverse: Record "Audit Universe";
+        AuditHeader: Record "Audit Header";
+        AuditLines: Record "Audit Lines";
+        AuditTypes: Record "Audit Types";
+        AuditorsList: Record "Auditors List";
+        AuditTaskManagement: Record "Audit Task Management";
+        WorkingPaper: Record "Working Paper Management";
+        AuditFinding: Record "Audit Finding Enhanced";
+        AuditAction: Record "Audit Action Tracking";
+        AuditPerformanceMetrics: Record "Audit Performance Metrics";
+        AuditSchedule: Record "Audit Schedule";
+        AuditResourceAllocation: Record "Audit Resource Allocation";
+        AuditNotifications: Record "Audit Notifications";
+        ComplianceMonitoring: Record "Compliance Monitoring";
+        RiskAssessmentEnhanced: Record "Risk Assessment Enhanced";
+        AuditPeriod: Record "Audit Period";
+    begin
+        Message('Deleting existing audit data...');
+        
+        // Delete in reverse dependency order to avoid foreign key issues
+        RiskAssessmentEnhanced.DeleteAll();
+        ComplianceMonitoring.DeleteAll();
+        AuditNotifications.DeleteAll();
+        AuditResourceAllocation.DeleteAll();
+        AuditSchedule.DeleteAll();
+        AuditPerformanceMetrics.DeleteAll();
+        AuditAction.DeleteAll();
+        AuditFinding.DeleteAll();
+        WorkingPaper.DeleteAll();
+        AuditTaskManagement.DeleteAll();
+        AuditLines.DeleteAll();
+        AuditHeader.DeleteAll();
+        AuditTypes.DeleteAll();
+        AuditUniverse.DeleteAll();
+        AuditorsList.DeleteAll();
+        AuditPeriod.DeleteAll();
+        
+        Message('Existing audit data deleted successfully. Generating fresh demo data...');
     end;
 }
