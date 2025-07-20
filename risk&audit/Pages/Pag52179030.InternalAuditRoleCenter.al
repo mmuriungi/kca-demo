@@ -181,10 +181,10 @@ action("Evidence Management")
                     RunObject = Page "Audit Recommendations List";
                     ApplicationArea = All;
                 }
-                action("Management Response")
+action("Management Response")
                 {
                     Caption = 'Management Response';
-                    // RunObject = Page "Audit Management Response";
+                    RunObject = Page "Audit Action Tracking List";
                     ApplicationArea = All;
                 }
             }
@@ -206,10 +206,10 @@ action("Evidence Management")
                     RunObject = Page "Closed Audit Reports";
                     ApplicationArea = All;
                 }
-                action("Report Distribution")
+action("Report Distribution")
                 {
                     Caption = 'Report Distribution';
-                    // RunObject = Page "Audit Report Distribution";
+                    RunObject = Page "Audit Notifications List";
                     ApplicationArea = All;
                 }
             }
@@ -237,10 +237,10 @@ action("Overdue Actions")
                     RunObject = Page "Audit Action Tracking List";
                     ApplicationArea = All;
                 }
-                action("Implementation Status")
+action("Implementation Status")
                 {
                     Caption = 'Implementation Status';
-                    // RunObject = Page "Audit Implementation Status";
+                    RunObject = Page "Audit Action Tracking List";
                     ApplicationArea = All;
                 }
             }
@@ -250,10 +250,10 @@ action("Overdue Actions")
                 Caption = 'Compliance';
                 Image = Certificate;
                 
-                action("Compliance Requirements")
+action("Compliance Requirements")
                 {
                     Caption = 'Compliance Requirements';
-                    // RunObject = Page "Compliance Requirements";
+                    RunObject = Page "Compliance Monitoring List";
                     ApplicationArea = All;
                 }
 action("Compliance Monitoring")
@@ -262,10 +262,10 @@ action("Compliance Monitoring")
                     RunObject = Page "Compliance Monitoring List";
                     ApplicationArea = All;
                 }
-                action("Compliance Checklists")
+action("Compliance Checklists")
                 {
                     Caption = 'Compliance Checklists';
-                    // RunObject = Page "Compliance Checklists";
+                    RunObject = Page "Compliance Monitoring List";
                     ApplicationArea = All;
                 }
             }
@@ -275,16 +275,16 @@ action("Compliance Monitoring")
                 Caption = 'Analytics & Reporting';
                 Image = Analytics;
                 
-                action("Audit Dashboard")
+action("Audit Dashboard")
                 {
                     Caption = 'Audit Dashboard';
-                    // RunObject = Page "Audit Analytics Dashboard";
+                    RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
-                action("KPI Monitoring")
+action("KPI Monitoring")
                 {
                     Caption = 'KPI Monitoring';
-                    // RunObject = Page "Audit KPI Dashboard";
+                    RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
 action("Performance Metrics")
@@ -293,10 +293,10 @@ action("Performance Metrics")
                     RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
-                action("Trend Analysis")
+action("Trend Analysis")
                 {
                     Caption = 'Trend Analysis';
-                    // RunObject = Page "Audit Trend Analysis";
+                    RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
             }
@@ -306,22 +306,22 @@ action("Performance Metrics")
                 Caption = 'Data Analysis';
                 Image = DataEntry;
                 
-                action("Data Analytics")
+action("Data Analytics")
                 {
                     Caption = 'Data Analytics';
-                    // RunObject = Page "Audit Data Analytics";
+                    RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
-                action("Continuous Monitoring")
+action("Continuous Monitoring")
                 {
                     Caption = 'Continuous Monitoring';
-                    // RunObject = Page "Continuous Audit Monitoring";
+                    RunObject = Page "Compliance Monitoring List";
                     ApplicationArea = All;
                 }
-                action("Exception Reports")
+action("Exception Reports")
                 {
                     Caption = 'Exception Reports';
-                    // RunObject = Page "Audit Exception Reports";
+                    RunObject = Page "Audit Finding Lines";
                     ApplicationArea = All;
                 }
             }
@@ -331,22 +331,22 @@ action("Performance Metrics")
                 Caption = 'Internal Assessment';
                 Image = Evaluate;
                 
-                action("Self Assessment")
+action("Self Assessment")
                 {
                     Caption = 'Self Assessment';
-                    // RunObject = Page "Audit Self Assessment";
+                    RunObject = Page "Compliance Monitoring List";
                     ApplicationArea = All;
                 }
-                action("Quality Reviews")
+action("Quality Reviews")
                 {
                     Caption = 'Quality Reviews';
-                    // RunObject = Page "Audit Quality Reviews";
+                    RunObject = Page "Audit Working Paper";
                     ApplicationArea = All;
                 }
-                action("Assessment Reports")
+action("Assessment Reports")
                 {
                     Caption = 'Assessment Reports';
-                    // RunObject = Page "Assessment Reports";
+                    RunObject = Page "Audit Reports";
                     ApplicationArea = All;
                 }
             }
@@ -380,10 +380,10 @@ action("Performance Metrics")
                     RunObject = Page "Audit Period";
                     ApplicationArea = All;
                 }
-                action("Document Templates")
+action("Document Templates")
                 {
                     Caption = 'Document Templates';
-                    // RunObject = Page "Audit Document Templates";
+                    RunObject = Page "Audit Working Paper";
                     ApplicationArea = All;
                 }
             }
@@ -395,10 +395,10 @@ action("Performance Metrics")
             {
                 Caption = 'Process';
                 
-                action("Create Annual Plan")
+action("Create Annual Plan")
                 {
                     Caption = 'Create Annual Plan';
-                    // RunObject = Report "Generate Annual Audit Plan";
+                    RunObject = Page "Audit Plan List";
                     ApplicationArea = All;
                 }
                 action("Send Notifications")
@@ -422,22 +422,22 @@ action("Performance Metrics")
             {
                 Caption = 'Audit Reports';
                 
-                action("Audit Progress Report")
+action("Audit Progress Report")
                 {
                     Caption = 'Audit Progress Report';
-                    // RunObject = Report "Audit Progress Report";
+                    RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
-                action("Findings Report")
+action("Findings Report")
                 {
                     Caption = 'Findings & Recommendations Report';
-                    // RunObject = Report "Audit Findings Report";
+                    RunObject = Page "Audit Finding Lines";
                     ApplicationArea = All;
                 }
-                action("Risk Based Audit Report")
+action("Risk Based Audit Report")
                 {
                     Caption = 'Risk-Based Audit Report';
-                    // RunObject = Report "Risk Based Audit Report";
+                    RunObject = Page "Risks List";
                     ApplicationArea = All;
                 }
                 action("Compliance Status Report")
@@ -446,46 +446,46 @@ action("Performance Metrics")
                     RunObject = Report "Compliance Status Report";
                     ApplicationArea = All;
                 }
-                action("Follow-up Status Report")
+action("Follow-up Status Report")
                 {
                     Caption = 'Follow-up Action Status Report';
-                    // RunObject = Report "Follow-up Action Report";
+                    RunObject = Page "Audit Action Tracking List";
                     ApplicationArea = All;
                 }
-                action("Performance Report")
+action("Performance Report")
                 {
                     Caption = 'Audit Performance Metrics Report';
-                    // RunObject = Report "Audit Performance Report";
+                    RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
                 action("Schedule Report")
                 {
                     Caption = 'Audit Schedule Report';
-                    // RunObject = Report "Audit Schedule Report";
+                    RunObject = Page "Audit Schedule Calendar";
                     ApplicationArea = All;
                 }
                 action("Workload Report")
                 {
                     Caption = 'Internal Audit Workload Report';
-                    // RunObject = Report "Audit Workload Report";
+                    RunObject = Page "Audit Resource Allocation List";
                     ApplicationArea = All;
                 }
                 action("Corrective Action Report")
                 {
                     Caption = 'Corrective Action Tracking Report';
-                    // RunObject = Report "Corrective Action Report";
+                    RunObject = Page "Audit Action Tracking List";
                     ApplicationArea = All;
                 }
                 action("Summary Report")
                 {
                     Caption = 'Audit Summary Report';
-                    // RunObject = Report "Audit Summary Report";
+                    RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
                 action("Exception Report")
                 {
                     Caption = 'Exception Report';
-                    // RunObject = Report "Audit Exception Report";
+                    RunObject = Page "Audit Finding Lines";
                     ApplicationArea = All;
                 }
             }
