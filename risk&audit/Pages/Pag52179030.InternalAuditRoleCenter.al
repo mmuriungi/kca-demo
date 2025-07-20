@@ -64,10 +64,10 @@ page 52179030 "Internal Audit Role Center"
                     RunObject = Page "Audit Plan Committee Stage";
                     ApplicationArea = All;
                 }
-                action("Budget Planning")
+action("Budget Planning")
                 {
                     Caption = 'Budget/Time Planning';
-                    // RunObject = Page "Audit Resource Planning";
+                    RunObject = Page "Audit Resource Allocation List";
                     ApplicationArea = All;
                 }
             }
@@ -138,16 +138,16 @@ action("Task Management")
                     RunObject = Page "Audit Planning Procedures";
                     ApplicationArea = All;
                 }
-                action("Test Results")
+action("Test Results")
                 {
                     Caption = 'Test Results';
-                    // RunObject = Page "Audit Test Results";
+                    RunObject = Page "Audit Working Paper";
                     ApplicationArea = All;
                 }
-                action("Evidence Management")
+action("Evidence Management")
                 {
                     Caption = 'Evidence Management';
-                    // RunObject = Page "Audit Evidence Management";
+                    RunObject = Page "Audit Working Paper";
                     ApplicationArea = All;
                 }
                 action("Record Requisitions")
@@ -225,16 +225,16 @@ action("Task Management")
                     RunObject = Page "Audit Action Tracking List";
                     ApplicationArea = All;
                 }
-                action("Open Findings")
+action("Open Findings")
                 {
                     Caption = 'Open Findings';
-                    // RunObject = Page "Audit Open Findings";
+                    RunObject = Page "Audit Finding Lines";
                     ApplicationArea = All;
                 }
-                action("Overdue Actions")
+action("Overdue Actions")
                 {
                     Caption = 'Overdue Actions';
-                    // RunObject = Page "Audit Overdue Actions";
+                    RunObject = Page "Audit Action Tracking List";
                     ApplicationArea = All;
                 }
                 action("Implementation Status")
@@ -256,10 +256,10 @@ action("Task Management")
                     // RunObject = Page "Compliance Requirements";
                     ApplicationArea = All;
                 }
-                action("Compliance Monitoring")
+action("Compliance Monitoring")
                 {
                     Caption = 'Compliance Monitoring';
-                    // RunObject = Page "Compliance Monitoring";
+                    RunObject = Page "Compliance Monitoring List";
                     ApplicationArea = All;
                 }
                 action("Compliance Checklists")
@@ -287,10 +287,10 @@ action("Task Management")
                     // RunObject = Page "Audit KPI Dashboard";
                     ApplicationArea = All;
                 }
-                action("Performance Metrics")
+action("Performance Metrics")
                 {
                     Caption = 'Performance Metrics';
-                    // RunObject = Page "Audit Performance Metrics";
+                    RunObject = Page "Audit Performance Metrics List";
                     ApplicationArea = All;
                 }
                 action("Trend Analysis")
@@ -502,13 +502,13 @@ action("Task Management")
             action("My Tasks")
             {
                 Caption = 'My Tasks';
-                // RunObject = Page "Audit Task Management";
+                RunObject = Page "Audit Task Management List";
                 ApplicationArea = All;
             }
-            action("Pending Actions")
+action("Pending Actions")
             {
                 Caption = 'Pending Actions';
-                // RunObject = Page "Audit Open Findings";
+                RunObject = Page "Audit Action Tracking List";
                 ApplicationArea = All;
             }
         }

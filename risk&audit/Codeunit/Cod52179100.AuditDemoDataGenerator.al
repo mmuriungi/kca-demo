@@ -430,7 +430,7 @@ codeunit 52179100 "Audit Demo Data Generator"
             ScheduleEntry.Init();
             ScheduleEntry."Entry No." := i;
             ScheduleEntry."Audit No." := 'AUD00' + Format(Random(4) + 1);
-            ScheduleEntry."Task Description" := GetScheduleTaskDescription(Random(8) + 1);
+            ScheduleEntry."Task Description" := GetScheduleTaskDescription(1 + (Random(100) mod 8));
             ScheduleEntry."Start Date" := CalcDate('<' + Format(Random(365)) + 'D>', StartDate);
             ScheduleEntry."End Date" := CalcDate('<' + Format(Random(20) + 1) + 'D>', ScheduleEntry."Start Date");
             ScheduleEntry."Assigned To" := 'AUD' + Format(Random(10) + 1);
@@ -454,12 +454,14 @@ codeunit 52179100 "Audit Demo Data Generator"
             6: exit('Follow-up on prior findings');
             7: exit('Closing meeting and draft report');
             8: exit('Final report presentation');
+            else exit('General audit task');
         end;
     end;
     
     local procedure GetRandomLocation(): Text[100]
     var
         Locations: array[8] of Text[100];
+        Index: Integer;
     begin
         Locations[1] := 'Finance Department';
         Locations[2] := 'IT Department';
@@ -470,7 +472,8 @@ codeunit 52179100 "Audit Demo Data Generator"
         Locations[7] := 'Audit Conference Room';
         Locations[8] := 'Dean Office';
         
-        exit(Locations[Random(8) + 1]);
+        Index := 1 + (Random(100) mod 8);
+        exit(Locations[Index]);
     end;
     
     local procedure GenerateResourceAllocation()
