@@ -31,7 +31,7 @@ Report 78020 "Send Hostel E-Mails"
                         if Exists(RptFileName) then
                             Erase(RptFileName);
                         Report.SaveAsPdf(Report::"Resident Room Agreement", RptFileName, ObjCust);
-                        SendMail.SendEmailEasy_WithAttachment('Dear ', ObjCust.Name, MailBody, '', 'Karatina University', 'Hostel Manager', ObjCust."E-Mail", 'HOSTEL ALLOCATION BLOCK', RptFileName, RptFileName);
+                        SendMail.SendEmailEasy_WithAttachment('Dear ', ObjCust.Name, MailBody, '', 'Appkings Solutions', 'Hostel Manager', ObjCust."E-Mail", 'HOSTEL ALLOCATION BLOCK', RptFileName, RptFileName);
                         if Exists(RptFileName) then
                             Erase(RptFileName);
                     end;

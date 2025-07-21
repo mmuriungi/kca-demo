@@ -11,10 +11,10 @@ codeunit 52179060 "Foundation Demo Data Generator"
         CreateDemoScholarships();
         CreateDemoEvents();
         CreateDemoPartnerships();
-        
+
         Message('Foundation demo data generated successfully!');
     end;
-    
+
     local procedure CreateFoundationSetup()
     var
         FoundationSetup: Record "Foundation Setup";
@@ -24,7 +24,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         if not FoundationSetup.Get() then begin
             FoundationSetup.Init();
             FoundationSetup."Primary Key" := '';
-            
+
             // Create number series
             CreateNumberSeries('DONOR', 'Donors', 'D-00001', 'D-99999');
             CreateNumberSeries('DONATION', 'Donations', 'DN-00001', 'DN-99999');
@@ -34,7 +34,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
             CreateNumberSeries('SCHOLAR', 'Scholarships', 'SC-00001', 'SC-99999');
             CreateNumberSeries('EVENT', 'Events', 'EV-00001', 'EV-99999');
             CreateNumberSeries('PARTNER', 'Partnerships', 'PT-00001', 'PT-99999');
-            
+
             FoundationSetup."Donor Nos." := 'DONOR';
             FoundationSetup."Donation Nos." := 'DONATION';
             FoundationSetup."Campaign Nos." := 'CAMPAIGN';
@@ -43,22 +43,22 @@ codeunit 52179060 "Foundation Demo Data Generator"
             FoundationSetup."Scholarship Nos." := 'SCHOLAR';
             FoundationSetup."Event Nos." := 'EVENT';
             FoundationSetup."Partnership Nos." := 'PARTNER';
-            
+
             FoundationSetup."Min. Major Donor Amount" := 100000;
             FoundationSetup."Bronze Level Amount" := 10000;
             FoundationSetup."Silver Level Amount" := 25000;
             FoundationSetup."Gold Level Amount" := 50000;
             FoundationSetup."Platinum Level Amount" := 100000;
             FoundationSetup."Diamond Level Amount" := 250000;
-            
+
             FoundationSetup."Auto Send Acknowledgment" := true;
             FoundationSetup."Enable PayPal" := true;
             FoundationSetup."Enable M-Pesa" := true;
-            
+
             FoundationSetup.Insert();
         end;
     end;
-    
+
     local procedure CreateNumberSeries(SeriesCode: Code[20]; Description: Text[100]; StartingNo: Code[20]; EndingNo: Code[20])
     var
         NoSeries: Record "No. Series";
@@ -71,7 +71,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
             NoSeries."Default Nos." := true;
             NoSeries."Manual Nos." := true;
             NoSeries.Insert();
-            
+
             NoSeriesLine.Init();
             NoSeriesLine."Series Code" := SeriesCode;
             NoSeriesLine."Line No." := 10000;
@@ -83,26 +83,26 @@ codeunit 52179060 "Foundation Demo Data Generator"
             NoSeriesLine.Insert();
         end;
     end;
-    
+
     local procedure CreateDemoDonors()
     begin
         // Corporate Donors
         CreateDonor('Safaricom Foundation', 'foundation@safaricom.co.ke', "Foundation Donor Type"::Corporate, '', 0);
         CreateDonor('Equity Bank Foundation', 'foundation@equitybank.co.ke', "Foundation Donor Type"::Corporate, '', 0);
         CreateDonor('Kenya Commercial Bank Foundation', 'foundation@kcb.co.ke', "Foundation Donor Type"::Corporate, '', 0);
-        
+
         // Alumni Donors
         CreateDonor('Dr. Mary Wanjiku', 'mary.wanjiku@gmail.com', "Foundation Donor Type"::Alumni, 'ALU1001', 2010);
         CreateDonor('Prof. James Mwangi', 'james.mwangi@yahoo.com', "Foundation Donor Type"::Alumni, 'ALU1002', 2005);
         CreateDonor('Sarah Njeri Kamau', 'sarah.kamau@hotmail.com', "Foundation Donor Type"::Alumni, 'ALU1003', 2015);
-        
+
         // Individual Donors
         CreateDonor('John Smith', 'john.smith@email.com', "Foundation Donor Type"::Individual, '', 0);
         CreateDonor('Grace Wanjiru', 'grace.wanjiru@gmail.com', "Foundation Donor Type"::Individual, '', 0);
         CreateDonor('Peter Kiprotich', 'peter.kiprotich@email.com', "Foundation Donor Type"::Individual, '', 0);
         CreateDonor('Anne Muthoni', 'anne.muthoni@gmail.com', "Foundation Donor Type"::Individual, '', 0);
     end;
-    
+
     local procedure CreateDonor(Name: Text[100]; Email: Text[80]; DonorType: Enum "Foundation Donor Type"; AlumniID: Code[20]; GraduationYear: Integer)
     var
         Donor: Record "Foundation Donor";
@@ -112,13 +112,13 @@ codeunit 52179060 "Foundation Demo Data Generator"
         Donor.Validate(Name, Name);
         Donor.Validate(Email, Email);
         Donor.Validate("Donor Type", DonorType);
-        
+
         if AlumniID <> '' then begin
             Donor."Alumni ID" := AlumniID;
             Donor."Graduation Year" := GraduationYear;
             Donor.Faculty := GetRandomFaculty();
         end;
-        
+
         Donor."Phone No." := '+254' + Format(Random(999999999), 9, '<Integer,9><Filler Character,0>');
         Donor.City := GetRandomCity();
         Donor."Country/Region Code" := 'KE';
@@ -126,10 +126,10 @@ codeunit 52179060 "Foundation Demo Data Generator"
         Donor."Marketing Opt-In" := Random(2) = 1;
         Donor."Newsletter Subscription" := Random(2) = 1;
         Donor."Event Invitations" := Random(2) = 1;
-        
+
         Donor.Insert(true);
     end;
-    
+
     local procedure CreateDemoCampaigns()
     begin
         CreateCampaign('Build the Future - Library Expansion', "Foundation Donation Purpose"::Library);
@@ -138,7 +138,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         CreateCampaign('Sports Complex Development', "Foundation Donation Purpose"::Sports);
         CreateCampaign('Emergency Student Support Fund', "Foundation Donation Purpose"::Emergency);
     end;
-    
+
     local procedure CreateCampaign(Name: Text[100]; Purpose: Enum "Foundation Donation Purpose")
     var
         Campaign: Record "Foundation Campaign";
@@ -155,7 +155,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         Campaign."Campaign Manager" := UserId;
         Campaign.Insert(true);
     end;
-    
+
     local procedure CreateDemoDonations()
     var
         Donation: Record "Foundation Donation";
@@ -172,7 +172,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
                     Donation."No." := '';
                     Donation.Validate("Donor No.", Donor."No.");
                     Donation."Donation Date" := CalcDate('-' + Format(Random(365)) + 'D', Today);
-                    
+
                     case Donor."Donor Type" of
                         Donor."Donor Type"::Corporate:
                             Donation.Amount := (Random(50) + 10) * 10000;
@@ -181,7 +181,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
                         else
                             Donation.Amount := (Random(10) + 1) * 1000;
                     end;
-                    
+
                     if Random(2) = 1 then begin
                         Campaign.Reset();
                         Campaign.SetRange(Status, Campaign.Status::Active);
@@ -192,7 +192,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
                         end;
                     end else
                         Donation.Purpose := GetRandomPurpose();
-                    
+
                     Donation."Payment Method" := GetRandomPaymentMethod();
                     Donation.Status := Donation.Status::Received;
                     Donation."Tax Deductible" := Random(2) = 1;
@@ -200,12 +200,12 @@ codeunit 52179060 "Foundation Demo Data Generator"
                     Donation."Acknowledgment Sent" := Random(2) = 1;
                     if Donation."Acknowledgment Sent" then
                         Donation."Acknowledgment Date" := Donation."Donation Date" + Random(7);
-                    
+
                     Donation.Insert(true);
                 end;
             until Donor.Next() = 0;
     end;
-    
+
     local procedure CreateDemoPledges()
     var
         Pledge: Record "Foundation Pledge";
@@ -221,24 +221,24 @@ codeunit 52179060 "Foundation Demo Data Generator"
                     Pledge."Pledge Date" := CalcDate('-' + Format(Random(180)) + 'D', Today);
                     Pledge."Start Date" := Pledge."Pledge Date";
                     Pledge."End Date" := CalcDate('+' + Format(1 + Random(3)) + 'Y', Pledge."Start Date");
-                    
+
                     case Donor."Donor Type" of
                         Donor."Donor Type"::Corporate:
                             Pledge.Amount := (Random(100) + 50) * 10000;
                         else
                             Pledge.Amount := (Random(50) + 10) * 1000;
                     end;
-                    
+
                     Pledge.Frequency := GetRandomFrequency();
                     Pledge.Purpose := GetRandomPurpose();
                     Pledge."Next Payment Date" := CalcDate('+1M', Pledge."Start Date");
                     Pledge.Status := "Foundation Pledge Status"::Active;
-                    
+
                     Pledge.Insert(true);
                 end;
             until Donor.Next() = 0;
     end;
-    
+
     local procedure CreateDemoGrants()
     begin
         CreateGrant('Research Innovation Grant');
@@ -247,7 +247,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         CreateGrant('Infrastructure Improvement Grant');
         CreateGrant('Technology Enhancement Grant');
     end;
-    
+
     local procedure CreateGrant(GrantName: Text[100])
     var
         Grant: Record "Foundation Grant";
@@ -266,7 +266,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         Grant."Eligibility Criteria" := 'Must be enrolled student or faculty member';
         Grant.Insert(true);
     end;
-    
+
     local procedure CreateDemoScholarships()
     begin
         CreateScholarship('Excellence Merit Scholarship');
@@ -275,7 +275,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         CreateScholarship('First Generation College Scholarship');
         CreateScholarship('STEM Leadership Scholarship');
     end;
-    
+
     local procedure CreateScholarship(ScholarshipName: Text[100])
     var
         Scholarship: Record "Foundation Scholarship";
@@ -294,7 +294,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         Scholarship.Renewable := Random(2) = 1;
         Scholarship.Insert(true);
     end;
-    
+
     local procedure CreateDemoEvents()
     begin
         CreateFoundationEvent('Annual Fundraising Gala', "Foundation Event Type"::Gala);
@@ -303,7 +303,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         CreateFoundationEvent('Chancellor''s Charity Golf Tournament', "Foundation Event Type"::GolfTournament);
         CreateFoundationEvent('CEO Cycling Challenge', "Foundation Event Type"::CyclingTour);
     end;
-    
+
     local procedure CreateFoundationEvent(EventName: Text[100]; EventType: Enum "Foundation Event Type")
     var
         Events: Record "Foundation Event";
@@ -326,7 +326,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         Events."Max Registrations" := Events."Expected Attendance";
         Events.Insert(true);
     end;
-    
+
     local procedure CreateDemoPartnerships()
     begin
         CreatePartnership('World Bank Education Partnership', "Foundation Partnership Type"::Government);
@@ -335,7 +335,7 @@ codeunit 52179060 "Foundation Demo Data Generator"
         CreatePartnership('Kenya Red Cross Community Partnership', "Foundation Partnership Type"::Community);
         CreatePartnership('UNESCO Educational Excellence Partnership', "Foundation Partnership Type"::International);
     end;
-    
+
     local procedure CreatePartnership(PartnerName: Text[100]; PartnershipType: Enum "Foundation Partnership Type")
     var
         Partnership: Record "Foundation Partnership";
@@ -355,82 +355,120 @@ codeunit 52179060 "Foundation Demo Data Generator"
         Partnership."Primary Contact" := UserId;
         Partnership.Insert(true);
     end;
-    
+
     // Helper procedures
     local procedure GetRandomFaculty(): Text[50]
     begin
         case Random(5) of
-            0: exit('School of Business');
-            1: exit('School of Education');
-            2: exit('School of Pure and Applied Sciences');
-            3: exit('School of Agriculture');
-            4: exit('School of Natural Resources');
+            0:
+                exit('School of Business');
+            1:
+                exit('School of Education');
+            2:
+                exit('School of Pure and Applied Sciences');
+            3:
+                exit('School of Agriculture');
+            4:
+                exit('School of Natural Resources');
         end;
     end;
-    
+
     local procedure GetRandomCity(): Text[30]
     begin
         case Random(7) of
-            0: exit('Nairobi');
-            1: exit('Mombasa');
-            2: exit('Kisumu');
-            3: exit('Nakuru');
-            4: exit('Eldoret');
-            5: exit('Nyeri');
-            6: exit('Karatina');
+            0:
+                exit('Nairobi');
+            1:
+                exit('Mombasa');
+            2:
+                exit('Kisumu');
+            3:
+                exit('Nakuru');
+            4:
+                exit('Eldoret');
+            5:
+                exit('Nyeri');
+            6:
+                exit('Karatina');
         end;
     end;
-    
+
     local procedure GetRandomPaymentMethod(): Option
     begin
         case Random(6) of
-            0: exit(1); // Cash
-            1: exit(2); // Bank Transfer
-            2: exit(3); // Cheque
-            3: exit(4); // Credit Card
-            4: exit(6); // PayPal
-            5: exit(7); // Mpesa
+            0:
+                exit(1); // Cash
+            1:
+                exit(2); // Bank Transfer
+            2:
+                exit(3); // Cheque
+            3:
+                exit(4); // Credit Card
+            4:
+                exit(6); // PayPal
+            5:
+                exit(7); // Mpesa
         end;
     end;
-    
+
     local procedure GetRandomFrequency(): Option
     begin
         case Random(3) of
-            0: exit(2); // Monthly
-            1: exit(3); // Quarterly
-            2: exit(5); // Annual
+            0:
+                exit(2); // Monthly
+            1:
+                exit(3); // Quarterly
+            2:
+                exit(5); // Annual
         end;
     end;
-    
+
     local procedure GetRandomPurpose(): Enum "Foundation Donation Purpose"
     begin
         case Random(12) of
-            0: exit("Foundation Donation Purpose"::GeneralFund);
-            1: exit("Foundation Donation Purpose"::Scholarship);
-            2: exit("Foundation Donation Purpose"::Research);
-            3: exit("Foundation Donation Purpose"::Infrastructure);
-            4: exit("Foundation Donation Purpose"::Equipment);
-            5: exit("Foundation Donation Purpose"::Library);
-            6: exit("Foundation Donation Purpose"::Sports);
-            7: exit("Foundation Donation Purpose"::StudentWelfare);
-            8: exit("Foundation Donation Purpose"::FacultyDevelopment);
-            9: exit("Foundation Donation Purpose"::Innovation);
-            10: exit("Foundation Donation Purpose"::Emergency);
-            11: exit("Foundation Donation Purpose"::Endowment);
+            0:
+                exit("Foundation Donation Purpose"::GeneralFund);
+            1:
+                exit("Foundation Donation Purpose"::Scholarship);
+            2:
+                exit("Foundation Donation Purpose"::Research);
+            3:
+                exit("Foundation Donation Purpose"::Infrastructure);
+            4:
+                exit("Foundation Donation Purpose"::Equipment);
+            5:
+                exit("Foundation Donation Purpose"::Library);
+            6:
+                exit("Foundation Donation Purpose"::Sports);
+            7:
+                exit("Foundation Donation Purpose"::StudentWelfare);
+            8:
+                exit("Foundation Donation Purpose"::FacultyDevelopment);
+            9:
+                exit("Foundation Donation Purpose"::Innovation);
+            10:
+                exit("Foundation Donation Purpose"::Emergency);
+            11:
+                exit("Foundation Donation Purpose"::Endowment);
         end;
     end;
-    
+
     local procedure GetRandomVenue(): Text[100]
     begin
         case Random(5) of
-            0: exit('Karatina University Main Hall');
-            1: exit('Safari Park Hotel');
-            2: exit('Villa Rosa Kempinski');
-            3: exit('Windsor Golf & Country Club');
-            4: exit('Nairobi National Museum');
+            0:
+                exit('Appkings Solutions Main Hall');
+            1:
+                exit('Safari Park Hotel');
+            2:
+                exit('Villa Rosa Kempinski');
+            3:
+                exit('Windsor Golf & Country Club');
+            4:
+                exit('Nairobi National Museum');
         end;
     end;
-    
+
     local procedure GetPartnerEmail(PartnerName: Text): Text[80]
     begin
         case PartnerName of

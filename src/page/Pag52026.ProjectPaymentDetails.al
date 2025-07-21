@@ -1,6 +1,7 @@
 page 52026 "Project Payment Details"
 {
     PageType = ListPart;
+    ApplicationArea = All;
     SourceTable = "Project Payment Lines";
 
     layout
@@ -12,6 +13,7 @@ page 52026 "Project Payment Details"
 
                 field("Payment Date"; Rec."Payment Date")
                 {
+                    ApplicationArea = All;
                     Editable = true;
                 }
                 field("Payment Amount"; Rec."Payment Amount")

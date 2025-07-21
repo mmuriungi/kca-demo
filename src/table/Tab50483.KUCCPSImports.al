@@ -611,7 +611,7 @@ table 50483 "KUCCPS Imports"
                         RptFileName := 'G:\Non-Resident Form\5b.-Non-Resident-Form (1)' + '.pdf';
                         FileBase64 := SendMail.ConvertFileToBase64(RptFileName);
                         SendMail.fnSendemail(Names, 'HOSTEL ALERT TO NON RESIDENT', MailBody, Email, '', '', true, FileBase64, '5b.-Non-Resident-Form (1)', 'pdf');
-                        //SendMail.SendEmailEasy_WithAttachment('Dear ', Names, MailBody, '', 'Karatina University', 'Hostel Manager', Email, ' HOSTEL ALERT TO NON RESIDENT', RptFileName, RptFileName);
+                        //SendMail.SendEmailEasy_WithAttachment('Dear ', Names, MailBody, '', 'Appkings Solutions', 'Hostel Manager', Email, ' HOSTEL ALERT TO NON RESIDENT', RptFileName, RptFileName);
                     end;
                     if KUCCPSImports."Assigned Space" <> '' then begin
                         // Create Hostel Charge

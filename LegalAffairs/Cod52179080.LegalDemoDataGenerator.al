@@ -1,12 +1,12 @@
 codeunit 52179080 "Legal Demo Data Generator"
 {
     Subtype = Normal;
-    
+
     trigger OnRun()
     begin
         if not Confirm('This will generate demo data for Legal Affairs module. Do you want to continue?', false) then
             exit;
-            
+
         GenerateLegalAffairsSetup();
         GenerateLegalCases();
         GenerateLegalDocuments();
@@ -16,10 +16,10 @@ codeunit 52179080 "Legal Demo Data Generator"
         GenerateCalendarEntries();
         GenerateCaseParties();
         GenerateCourtHearings();
-        
+
         Message('Legal Affairs demo data has been generated successfully.');
     end;
-    
+
     local procedure GenerateLegalAffairsSetup()
     var
         LegalSetup: Record "Legal Affairs Setup";
@@ -40,7 +40,7 @@ codeunit 52179080 "Legal Demo Data Generator"
             LegalSetup.Insert();
         end;
     end;
-    
+
     local procedure GenerateLegalCases()
     var
         LegalCase: Record "Legal Case";
@@ -50,7 +50,7 @@ codeunit 52179080 "Legal Demo Data Generator"
             Clear(LegalCase);
             LegalCase.Init();
             LegalCase."Case No." := 'CASE' + Format(i, 0, '<Integer,4><Filler Character,0>');
-            
+
             case i mod 5 of
                 0:
                     begin
@@ -58,7 +58,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                         LegalCase."Case Category" := LegalCase."Case Category"::"Labor Law";
                         LegalCase."Case Title" := 'Employee Termination Dispute - ' + Format(i);
                         LegalCase."Plaintiff/Claimant" := 'Former Employee ' + Format(i);
-                        LegalCase."Defendant/Respondent" := 'Karatina University';
+                        LegalCase."Defendant/Respondent" := 'Appkings Solutions';
                         LegalCase."Claim Amount" := 500000 + (i * 100000);
                     end;
                 1:
@@ -66,7 +66,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                         LegalCase."Case Type" := LegalCase."Case Type"::"Contract Dispute";
                         LegalCase."Case Category" := LegalCase."Case Category"::"Contract Law";
                         LegalCase."Case Title" := 'Service Contract Breach - Vendor ' + Format(i);
-                        LegalCase."Plaintiff/Claimant" := 'Karatina University';
+                        LegalCase."Plaintiff/Claimant" := 'Appkings Solutions';
                         LegalCase."Defendant/Respondent" := 'Vendor Company ' + Format(i);
                         LegalCase."Claim Amount" := 1000000 + (i * 200000);
                     end;
@@ -75,7 +75,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                         LegalCase."Case Type" := LegalCase."Case Type"::"Intellectual Property";
                         LegalCase."Case Category" := LegalCase."Case Category"::"Intellectual Property";
                         LegalCase."Case Title" := 'Patent Infringement Case ' + Format(i);
-                        LegalCase."Plaintiff/Claimant" := 'Karatina University Research Dept';
+                        LegalCase."Plaintiff/Claimant" := 'Appkings Solutions Research Dept';
                         LegalCase."Defendant/Respondent" := 'Tech Company ' + Format(i);
                         LegalCase."Claim Amount" := 2000000 + (i * 500000);
                     end;
@@ -93,17 +93,17 @@ codeunit 52179080 "Legal Demo Data Generator"
                         LegalCase."Case Type" := LegalCase."Case Type"::Civil;
                         LegalCase."Case Category" := LegalCase."Case Category"::"Property Law";
                         LegalCase."Case Title" := 'Land Dispute - Parcel ' + Format(i);
-                        LegalCase."Plaintiff/Claimant" := 'Karatina University';
+                        LegalCase."Plaintiff/Claimant" := 'Appkings Solutions';
                         LegalCase."Defendant/Respondent" := 'Adjacent Property Owner ' + Format(i);
                         LegalCase."Claim Amount" := 5000000 + (i * 1000000);
                     end;
             end;
-            
+
             LegalCase.Description := 'Demo case for testing purposes. ' + LegalCase."Case Title";
             LegalCase."Filing Date" := CalcDate('<-' + Format(i * 30) + 'D>', Today);
             LegalCase."Court Name" := 'Karatina Law Courts';
             LegalCase."Court File Number" := 'KLR/' + Format(Date2DMY(Today, 3)) + '/' + Format(i * 100);
-            
+
             case i mod 4 of
                 0:
                     LegalCase."Case Status" := LegalCase."Case Status"::Open;
@@ -114,7 +114,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                 3:
                     LegalCase."Case Status" := LegalCase."Case Status"::Closed;
             end;
-            
+
             case i mod 3 of
                 0:
                     LegalCase.Priority := LegalCase.Priority::High;
@@ -123,7 +123,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                 2:
                     LegalCase.Priority := LegalCase.Priority::Low;
             end;
-            
+
             case i mod 4 of
                 0:
                     LegalCase."Risk Level" := LegalCase."Risk Level"::High;
@@ -134,22 +134,22 @@ codeunit 52179080 "Legal Demo Data Generator"
                 3:
                     LegalCase."Risk Level" := LegalCase."Risk Level"::Critical;
             end;
-            
+
             LegalCase."Lead Counsel" := 'EMP001';
             LegalCase."External Counsel" := 'Advocate ' + SelectRandomName(i);
             LegalCase."External Counsel Firm" := SelectRandomLawFirm(i);
             LegalCase."Judge/Magistrate" := 'Hon. Justice ' + SelectRandomName(i + 10);
             LegalCase."Department Code" := 'LEGAL';
             LegalCase."Estimated Costs" := 100000 + (i * 50000);
-            
+
             if LegalCase."Case Status" in [LegalCase."Case Status"::Open, LegalCase."Case Status"::"In Progress"] then
                 LegalCase."Next Court Date" := CalcDate('<+' + Format(i mod 30 + 1) + 'D>', Today);
-                
+
             LegalCase."Notice Type" := LegalCase."Notice Type"::Plaint;
             LegalCase.Insert();
         end;
     end;
-    
+
     local procedure GenerateLegalDocuments()
     var
         LegalDoc: Record "Legal Document";
@@ -159,7 +159,7 @@ codeunit 52179080 "Legal Demo Data Generator"
             Clear(LegalDoc);
             LegalDoc.Init();
             LegalDoc."Document No." := 'LEGDOC' + Format(i, 0, '<Integer,4><Filler Character,0>');
-            
+
             case i mod 6 of
                 0:
                     begin
@@ -192,23 +192,23 @@ codeunit 52179080 "Legal Demo Data Generator"
                         LegalDoc."Document Title" := 'Court Judgment - Case ' + Format(i mod 15 + 1);
                     end;
             end;
-            
+
             LegalDoc.Description := 'Demo document for ' + LegalDoc."Document Title";
             if i mod 3 = 0 then
                 LegalDoc."Case No." := 'CASE' + Format(i mod 15 + 1, 0, '<Integer,4><Filler Character,0>');
             if i mod 4 = 0 then
                 LegalDoc."Contract No." := 'PROJ-000' + Format(i mod 10 + 1);
-                
+
             LegalDoc."Document Date" := CalcDate('<-' + Format(i * 10) + 'D>', Today);
             if i mod 5 = 0 then
                 LegalDoc."Expiry Date" := CalcDate('<+' + Format(i * 30) + 'D>', Today);
-                
+
             LegalDoc."Filed By" := UserId;
             LegalDoc."File Name" := LegalDoc."Document Title" + '.pdf';
             LegalDoc."File Extension" := 'PDF';
             LegalDoc."File Size (KB)" := 100 + (i * 50);
             LegalDoc.Keywords := 'legal, document, ' + Format(LegalDoc."Document Type");
-            
+
             case i mod 4 of
                 0:
                     LegalDoc."Access Level" := LegalDoc."Access Level"::Public;
@@ -219,14 +219,14 @@ codeunit 52179080 "Legal Demo Data Generator"
                 3:
                     LegalDoc."Access Level" := LegalDoc."Access Level"::"Highly Confidential";
             end;
-            
+
             LegalDoc."Approval Status" := LegalDoc."Approval Status"::Approved;
             LegalDoc."Department Code" := 'LEGAL';
             LegalDoc."Is View Only" := true;
             LegalDoc.Insert();
         end;
     end;
-    
+
     local procedure GenerateComplianceTasks()
     var
         CompTask: Record "Legal Compliance Task";
@@ -236,7 +236,7 @@ codeunit 52179080 "Legal Demo Data Generator"
             Clear(CompTask);
             CompTask.Init();
             CompTask."Task No." := 'COMPLY' + Format(i, 0, '<Integer,4><Filler Character,0>');
-            
+
             case i mod 6 of
                 0:
                     begin
@@ -275,10 +275,10 @@ codeunit 52179080 "Legal Demo Data Generator"
                         CompTask."Regulation/Law" := 'Anti-Corruption and Economic Crimes Act';
                     end;
             end;
-            
+
             CompTask."Due Date" := CalcDate('<+' + Format(i * 15) + 'D>', Today);
             CompTask."Assigned To" := 'EMP00' + Format(i mod 5 + 1);
-            
+
             case i mod 4 of
                 0:
                     CompTask.Status := CompTask.Status::Open;
@@ -292,7 +292,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                     else
                         CompTask.Status := CompTask.Status::Open;
             end;
-            
+
             case i mod 3 of
                 0:
                     CompTask.Priority := CompTask.Priority::High;
@@ -301,10 +301,10 @@ codeunit 52179080 "Legal Demo Data Generator"
                 2:
                     CompTask.Priority := CompTask.Priority::Low;
             end;
-            
+
             CompTask."Risk Level" := CompTask.Priority;
             CompTask."Penalty Amount" := 50000 * (i mod 10 + 1);
-            
+
             case i mod 4 of
                 0:
                     CompTask.Frequency := CompTask.Frequency::Annually;
@@ -315,13 +315,13 @@ codeunit 52179080 "Legal Demo Data Generator"
                 3:
                     CompTask.Frequency := CompTask.Frequency::"One-Time";
             end;
-            
+
             CompTask."Department Code" := 'LEGAL';
             CompTask."Evidence Required" := 'Compliance certificate, audit report';
             CompTask.Insert();
         end;
     end;
-    
+
     local procedure GenerateLegalInvoices()
     var
         LegalInv: Record "Legal Invoice";
@@ -332,14 +332,14 @@ codeunit 52179080 "Legal Demo Data Generator"
             LegalInv.Init();
             LegalInv."Invoice No." := 'LEGINV' + Format(i, 0, '<Integer,4><Filler Character,0>');
             LegalInv."Invoice Date" := CalcDate('<-' + Format(i * 5) + 'D>', Today);
-            
+
             if i mod 2 = 0 then
                 LegalInv."Case No." := 'CASE' + Format(i mod 15 + 1, 0, '<Integer,4><Filler Character,0>');
-                
+
             LegalInv."Vendor No." := 'V00' + Format(i mod 5 + 1);
             LegalInv."Vendor Name" := SelectRandomLawFirm(i);
             LegalInv."External Counsel" := 'Advocate ' + SelectRandomName(i);
-            
+
             case i mod 5 of
                 0:
                     LegalInv."Service Type" := LegalInv."Service Type"::"Legal Consultation";
@@ -352,10 +352,10 @@ codeunit 52179080 "Legal Demo Data Generator"
                 4:
                     LegalInv."Service Type" := LegalInv."Service Type"::"Filing Fees";
             end;
-            
+
             LegalInv.Description := 'Legal services for ' + Format(LegalInv."Service Type");
-            
-            if LegalInv."Service Type" in [LegalInv."Service Type"::"Legal Consultation", 
+
+            if LegalInv."Service Type" in [LegalInv."Service Type"::"Legal Consultation",
                                            LegalInv."Service Type"::"Court Representation",
                                            LegalInv."Service Type"::"Document Preparation"] then begin
                 LegalInv."Hours Worked" := 10 + (i * 5);
@@ -364,10 +364,10 @@ codeunit 52179080 "Legal Demo Data Generator"
             end else begin
                 LegalInv."Amount (LCY)" := 10000 + (i * 5000);
             end;
-            
+
             LegalInv."VAT Amount" := LegalInv."Amount (LCY)" * 0.16;
             LegalInv."Total Amount" := LegalInv."Amount (LCY)" + LegalInv."VAT Amount";
-            
+
             case i mod 4 of
                 0:
                     LegalInv."Payment Status" := LegalInv."Payment Status"::Pending;
@@ -378,14 +378,14 @@ codeunit 52179080 "Legal Demo Data Generator"
                 3:
                     LegalInv."Payment Status" := LegalInv."Payment Status"::Paid;
             end;
-            
+
             LegalInv."Due Date" := CalcDate('<30D>', LegalInv."Invoice Date");
             LegalInv."Department Code" := 'LEGAL';
             LegalInv."Budget Code" := 'LEGAL-EXP';
             LegalInv.Insert();
         end;
     end;
-    
+
     local procedure GenerateRiskAssessments()
     var
         RiskAssess: Record "Legal Risk Assessment";
@@ -395,7 +395,7 @@ codeunit 52179080 "Legal Demo Data Generator"
             Clear(RiskAssess);
             RiskAssess.Init();
             RiskAssess."Assessment No." := 'RISK' + Format(i, 0, '<Integer,4><Filler Character,0>');
-            
+
             case i mod 5 of
                 0:
                     begin
@@ -423,12 +423,12 @@ codeunit 52179080 "Legal Demo Data Generator"
                         RiskAssess."Risk Description" := 'Labor dispute escalation risk';
                     end;
             end;
-            
+
             if i mod 3 = 0 then
                 RiskAssess."Case No." := 'CASE' + Format(i mod 15 + 1, 0, '<Integer,4><Filler Character,0>');
             if i mod 4 = 0 then
                 RiskAssess."Contract No." := 'PROJ-000' + Format(i mod 10 + 1);
-                
+
             case i mod 3 of
                 0:
                     RiskAssess.Probability := RiskAssess.Probability::High;
@@ -437,7 +437,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                 2:
                     RiskAssess.Probability := RiskAssess.Probability::Low;
             end;
-            
+
             case i mod 3 of
                 0:
                     RiskAssess.Impact := RiskAssess.Impact::Major;
@@ -446,7 +446,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                 2:
                     RiskAssess.Impact := RiskAssess.Impact::Minor;
             end;
-            
+
             RiskAssess."Mitigation Strategy" := 'Implement controls and monitoring for ' + Format(RiskAssess."Risk Type");
             RiskAssess."Responsible Person" := 'EMP00' + Format(i mod 5 + 1);
             RiskAssess."Assessment Date" := Today;
@@ -458,7 +458,7 @@ codeunit 52179080 "Legal Demo Data Generator"
             RiskAssess.Insert();
         end;
     end;
-    
+
     local procedure GenerateCalendarEntries()
     var
         CalEntry: Record "Legal Calendar Entry";
@@ -467,7 +467,7 @@ codeunit 52179080 "Legal Demo Data Generator"
         for i := 1 to 15 do begin
             Clear(CalEntry);
             CalEntry.Init();
-            
+
             case i mod 5 of
                 0:
                     begin
@@ -495,16 +495,16 @@ codeunit 52179080 "Legal Demo Data Generator"
                         CalEntry."Event Description" := 'Compliance submission deadline';
                     end;
             end;
-            
+
             CalEntry."Event Date" := CalcDate('<+' + Format(i * 2) + 'D>', Today);
             CalEntry."Event Time" := 090000T + (i * 10000);
-            
+
             if i mod 3 = 0 then
                 CalEntry."Case No." := 'CASE' + Format(i mod 15 + 1, 0, '<Integer,4><Filler Character,0>');
-                
+
             CalEntry.Location := 'Conference Room ' + Format(i mod 5 + 1);
             CalEntry."Responsible Person" := 'EMP00' + Format(i mod 5 + 1);
-            
+
             case i mod 3 of
                 0:
                     CalEntry.Priority := CalEntry.Priority::High;
@@ -513,13 +513,13 @@ codeunit 52179080 "Legal Demo Data Generator"
                 2:
                     CalEntry.Priority := CalEntry.Priority::Low;
             end;
-            
+
             CalEntry.Status := CalEntry.Status::Scheduled;
             CalEntry."Department Code" := 'LEGAL';
             CalEntry.Insert();
         end;
     end;
-    
+
     local procedure GenerateCaseParties()
     var
         CaseParty: Record "Legal Case Party";
@@ -529,7 +529,7 @@ codeunit 52179080 "Legal Demo Data Generator"
             Clear(CaseParty);
             CaseParty.Init();
             CaseParty."Case No." := 'CASE' + Format((i - 1) div 2 + 1, 0, '<Integer,4><Filler Character,0>');
-            
+
             if i mod 2 = 1 then begin
                 CaseParty."Party Type" := CaseParty."Party Type"::Plaintiff;
                 CaseParty."Party Name" := 'Plaintiff ' + SelectRandomName(i);
@@ -537,7 +537,7 @@ codeunit 52179080 "Legal Demo Data Generator"
                 CaseParty."Party Type" := CaseParty."Party Type"::Defendant;
                 CaseParty."Party Name" := 'Defendant ' + SelectRandomName(i);
             end;
-            
+
             CaseParty."Party ID/Registration No." := 'ID' + Format(1000000 + i * 1000);
             CaseParty."Legal Representative" := 'Advocate ' + SelectRandomName(i + 20);
             CaseParty."Law Firm" := SelectRandomLawFirm(i);
@@ -545,14 +545,14 @@ codeunit 52179080 "Legal Demo Data Generator"
             CaseParty."Phone No." := '+254' + Format(700000000 + i * 1000);
             CaseParty.Email := LowerCase(DelChr(CaseParty."Contact Person", '=', ' ')) + '@example.com';
             CaseParty.Address := 'P.O. Box ' + Format(i * 100) + ' Karatina';
-            
+
             if i mod 5 = 0 then
                 CaseParty."Is University Party" := true;
-                
+
             CaseParty.Insert();
         end;
     end;
-    
+
     local procedure GenerateCourtHearings()
     var
         Hearing: Record "Legal Court Hearing";
@@ -564,7 +564,7 @@ codeunit 52179080 "Legal Demo Data Generator"
             Hearing."Case No." := 'CASE' + Format(i mod 10 + 1, 0, '<Integer,4><Filler Character,0>');
             Hearing."Hearing Date" := CalcDate('<+' + Format(i * 7) + 'D>', Today);
             Hearing."Hearing Time" := 090000T + (i * 10000);
-            
+
             case i mod 4 of
                 0:
                     Hearing."Hearing Type" := Hearing."Hearing Type"::Mention;
@@ -575,22 +575,22 @@ codeunit 52179080 "Legal Demo Data Generator"
                 3:
                     Hearing."Hearing Type" := Hearing."Hearing Type"::Ruling;
             end;
-            
+
             Hearing."Court Room" := 'Court Room ' + Format(i mod 5 + 1);
             Hearing."Presiding Judge" := 'Hon. Justice ' + SelectRandomName(i + 30);
             Hearing."Legal Counsel Present" := 'Advocate ' + SelectRandomName(i) + ', Advocate ' + SelectRandomName(i + 40);
             Hearing.Status := Hearing.Status::Scheduled;
-            
+
             if i mod 3 = 0 then begin
                 Hearing."Hearing Outcome" := 'Matter adjourned to next hearing date';
                 Hearing."Next Hearing Date" := CalcDate('<+30D>', Hearing."Hearing Date");
                 Hearing.Status := Hearing.Status::Completed;
             end;
-            
+
             Hearing.Insert();
         end;
     end;
-    
+
     local procedure SelectRandomName(Seed: Integer): Text[50]
     var
         Names: array[20] of Text[50];
@@ -615,10 +615,10 @@ codeunit 52179080 "Legal Demo Data Generator"
         Names[18] := 'Sang';
         Names[19] := 'Kiptoo';
         Names[20] := 'Muturi';
-        
+
         exit(Names[(Seed mod 20) + 1]);
     end;
-    
+
     local procedure SelectRandomLawFirm(Seed: Integer): Text[100]
     var
         Firms: array[10] of Text[100];
@@ -633,7 +633,7 @@ codeunit 52179080 "Legal Demo Data Generator"
         Firms[8] := 'Summit Law Firm';
         Firms[9] := 'Liberty Advocates';
         Firms[10] := 'Unity Legal Practitioners';
-        
+
         exit(Firms[(Seed mod 10) + 1]);
     end;
 }

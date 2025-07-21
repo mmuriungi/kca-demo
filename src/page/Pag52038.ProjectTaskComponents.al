@@ -1,6 +1,7 @@
 page 52038 "Project Task Components"
 {
     Caption = 'Contract Milestone Components';
+    ApplicationArea = All;
     PageType = List;
 
     SourceTable = "Project Task Components";

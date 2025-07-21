@@ -213,8 +213,19 @@ page 52179025 "CRM Marketing Template Card"
                 ToolTip = 'Send a test version of this template.';
                 
                 trigger OnAction()
+                var
+                    EmailHandler: Codeunit "Simple Email Handler";
+                    TestEmail: Text;
+                    Subject: Text;
+                    Body: Text;
                 begin
-                    Message('Test send functionality would be implemented here.');
+                    TestEmail := 'test@appkings.solutions';
+                    Subject := 'Test: ' + Rec."Template Name";
+                    Body := Rec.GetContentAsText();
+                    if EmailHandler.SendHTMLEmail(TestEmail, Subject, Body) then
+                        Message('Test email sent successfully to %1', TestEmail)
+                    else
+                        Error('Failed to send test email');
                 end;
             }
             

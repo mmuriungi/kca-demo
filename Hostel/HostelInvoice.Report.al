@@ -72,7 +72,7 @@ Report 51795 "Hostel Invoice"
             column(Footer3; 'THIS INVOICE IS VALID ONLY FOR 24 HOURS')
             {
             }
-            column(hEADER1; 'KARATINA UNIVERSITY P.O. BOX 1957 - 10101 KARATINA TEL: 05920091')
+            column(hEADER1; 'Appkings Solutions P.O. BOX 1957 - 10101 KARATINA TEL: 05920091')
             {
             }
             column(invpost; invpost)

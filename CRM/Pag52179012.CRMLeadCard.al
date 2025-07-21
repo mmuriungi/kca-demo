@@ -405,10 +405,19 @@ page 52179012 "CRM Lead Card"
                     ToolTip = 'Send email to this lead.';
 
                     trigger OnAction()
+                    var
+                        EmailHandler: Codeunit "Simple Email Handler";
+                        Subject: Text;
+                        Body: Text;
                     begin
-                        if Rec."Email" <> '' then
-                            Message('Email functionality would launch here for: %1', Rec."Email")
-                        else
+                        if Rec."Email" <> '' then begin
+                            Subject := 'Follow-up: ' + Rec."First Name" + ' ' + Rec."Last Name";
+                            Body := StrSubstNo('Dear %1,<br><br>Thank you for your interest in Appkings Solutions.<br><br>We would like to follow up with you regarding your inquiry.<br><br>Best regards,<br>Appkings Solutions CRM Team', Rec."First Name" + ' ' + Rec."Last Name");
+                            if EmailHandler.SendHTMLEmail(Rec."Email", Subject, Body) then
+                                Message('Email sent successfully to %1', Rec."Email")
+                            else
+                                Error('Failed to send email to %1', Rec."Email");
+                        end else
                             Error('No email address specified for this lead.');
                     end;
                 }

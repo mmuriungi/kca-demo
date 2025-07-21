@@ -50,7 +50,7 @@ report 50114 "Payroll Summary 3"
             column(kirinyagatitle; COMPANYNAME)
             {
             }
-            column(abreviation; 'KARATINA UNIVERSITY')
+            column(abreviation; 'Appkings Solutions')
             {
             }
             column(DetDate; DetDate)

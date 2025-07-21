@@ -296,7 +296,7 @@ page 50732 "KUCCPS Imports"
                         if KUCCPSImports.Find('-') then begin
                             repeat
                             begin
-                                SendMailNoticiations.SendEmailEasy('Dear, ', KUCCPSImports.Names, 'We are glad to inform you that you have been offered admission to Karatina University.',
+                                SendMailNoticiations.SendEmailEasy('Dear, ', KUCCPSImports.Names, 'We are glad to inform you that you have been offered admission to Appkings Solutions.',
                                 'You are therefore advised to start your Admission by filling your details on the Portal at <a href = "https://karu.ac.ke/kuccps-admission-2023-2024-updated/">Self Admission</a> to update your profile ' +
                                 ' and do self admission', 'Disclaimer....', 'Disclaimer.....',
                                 KUCCPSImports.Email, 'ADMISSION NOTIFICATION');

@@ -14,7 +14,7 @@ report 50657 "CAT-Meals Recipe Report"
             column(seq; seq)
             {
             }
-            column(comp; 'KARATINA UNIVERSITY')
+            column(comp; 'Appkings Solutions')
             {
             }
             column(tittle; 'MEAL RECIPE')

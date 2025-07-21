@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-This is a Business Central AL extension for Karatina University's academic management system, developed by Appkings. The system manages student accommodation, bulk unit registration, and quality assurance surveys.
+This is a Business Central AL extension for Appkings Solutions's academic management system, developed by Appkings. The system manages student accommodation, bulk unit registration, and quality assurance surveys.
 
 ## Common Development Commands
 

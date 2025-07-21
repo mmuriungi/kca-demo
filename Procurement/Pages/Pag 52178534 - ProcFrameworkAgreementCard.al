@@ -2,6 +2,7 @@ page 52178534 "Proc-Framework Agreement Card"
 {
     Caption = 'Framework Agreement Card';
     PageType = Card;
+    ApplicationArea = All;
     DeleteAllowed = false;
     SourceTable = "PROC-Purchase Quote Header";
     PromotedActionCategories = 'Opening,Vendors, Report,Evaluation Matrix, Award, Bid,Approvals,Attachments';

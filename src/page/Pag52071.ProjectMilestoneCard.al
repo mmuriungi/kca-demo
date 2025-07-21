@@ -14,46 +14,59 @@ page 52071 "Project Milestone Card"
                 Editable = IsOpen;
                 field("Task No"; Rec."Task No")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Descriprion; Rec.Descriprion)
                 {
+                    ApplicationArea = All;
                 }
                 field("Responsible Person"; Rec."Responsible Person")
                 {
+                    ApplicationArea = All;
                 }
                 field(Category; Rec.Category)
                 {
+                    ApplicationArea = All;
                 }
                 field(Importance; Rec.Importance)
                 {
+                    ApplicationArea = All;
                 }
                 field("Progress Level %"; Rec."Progress Level %")
                 {
+                    ApplicationArea = All;
                 }
                 field("Task Budget"; Rec."Task Budget")
                 {
+                    ApplicationArea = All;
                 }
                 field("Estimated Start Date"; Rec."Estimated Start Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Estimated End Date"; Rec."Estimated End Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Actual Start Date"; Rec."Actual Start Date")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Actual End date"; Rec."Actual End date")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("User ID"; Rec."User ID")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                     Editable = false;
 
                     trigger OnValidate()
@@ -71,6 +84,7 @@ page 52071 "Project Milestone Card"
         {
             action("Milestone Components")
             {
+                ApplicationArea = All;
                 Image = List;
                 Promoted = true;
                 PromotedCategory = Process;

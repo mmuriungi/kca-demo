@@ -1832,7 +1832,7 @@ Codeunit 61106 webportals
                     DocAttachments.SetRange("No.", GetIndexNo(indexno));
                     DocAttachments.SetRange("File Name", DocSetup."Document Code");
                     DocAttachments.SetRange("Table ID", 50483);
-                    
+
                     if not DocAttachments.Find('-') then begin
                         Message += Format(DocSetup."Document Code") + ' ::';
                     end;
@@ -2493,7 +2493,7 @@ Codeunit 61106 webportals
                 Message := 'Account Created successfully' + '::' + RecAccountusers.Password;
                 // Send Email here
                 /*SendEmailEasy(FORMAT(RecAccountusers.Initials),FirstName+' '+MiddleName+' '+LastName,',You have successfully created online Recruitment account at KARU',
-                'Your User Name is: '+EmailAddress+', Password: '+Passwordz,'Once again welcome to the Karatina University Recruitment portal.'+
+                'Your User Name is: '+EmailAddress+', Password: '+Passwordz,'Once again welcome to the Appkings Solutions Recruitment portal.'+
                 'Keep your credentials safely.','This is a system generated email. Do not reply.',EmailAddress,COMPANYNAME+' Recruitment portal Account');*/
             end else
                 Message := 'Error, not created' + '::' + RecAccountusers.Password;
@@ -2512,7 +2512,7 @@ Codeunit 61106 webportals
             Message := 'Kindly check your email for the password.';
             // Send Email here
             SendEmailEasy('', '', 'Your KarU recruitment Portal Password is  ' + RecAccountusers.Password,
-            'Login to continue with your application.', 'Once again welcome to the Karatina University Recruitment portal.' +
+            'Login to continue with your application.', 'Once again welcome to the Appkings Solutions Recruitment portal.' +
             'Keep your credentials safely.', 'This is a system generated email. Do not reply.', EmailAddress, COMPANYNAME + ' Recruitment portal Account');
         end else
             Message := 'Error';

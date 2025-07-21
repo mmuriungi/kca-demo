@@ -778,7 +778,7 @@ Table 61155 "ACA-Students Hostel Rooms"
                     RptBase64 := (cuBase64.ToBase64(BcInstream));
                     NotificationHandler.fnSendemail(cust.Name, 'HOSTEL ALERT TO NON RESIDENT', MailBody, cust."E-Mail", '', '', true, RptBase64, '5b.-Non-Resident-Form (1)', 'pdf');
 
-                    // SendMail.SendEmailEasy_WithAttachment('Dear ', cust.Name, MailBody, '', 'Karatina University', 'Hostel Manager', cust."E-Mail", 'HOSTEL ALLOCATION BLOCK', RptFilename, RptFilename);
+                    // SendMail.SendEmailEasy_WithAttachment('Dear ', cust.Name, MailBody, '', 'Appkings Solutions', 'Hostel Manager', cust."E-Mail", 'HOSTEL ALLOCATION BLOCK', RptFilename, RptFilename);
                     // IF EXISTS(RptFilename) THEN
                     //     ERASE(RptFilename);
                 END;

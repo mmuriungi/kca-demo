@@ -115,10 +115,20 @@ page 52179089 "Legal Affairs Setup"
     end;
     
     local procedure SendTestEmail()
+    var
+        EmailHandler: Codeunit "Simple Email Handler";
+        Subject: Text;
+        Body: Text;
     begin
         if Rec."Legal Department Email" = '' then
             Error('Please specify Legal Department Email');
             
-        Message('Test email functionality would be implemented here.');
+        Subject := 'Legal Affairs System - Test Email';
+        Body := 'This is a test email from the Legal Affairs module of Appkings Solutions.<br><br>If you received this email, the email configuration is working correctly.<br><br>Best regards,<br>Legal Affairs System';
+        
+        if EmailHandler.SendHTMLEmail(Rec."Legal Department Email", Subject, Body) then
+            Message('Test email sent successfully to %1', Rec."Legal Department Email")
+        else
+            Error('Failed to send test email to %1', Rec."Legal Department Email");
     end;
 }

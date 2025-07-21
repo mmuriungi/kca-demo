@@ -49,7 +49,7 @@ report 50046 "Master Payroll Summary Ext"
             column(kirinyagatitle; CompanyInfo.Name)
             {
             }
-            column(abreviation; 'KARATINA UNIVERSITY')
+            column(abreviation; 'Appkings Solutions')
             {
             }
             column(DetDate; DetDate)

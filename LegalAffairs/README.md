@@ -1,6 +1,6 @@
 # Legal Affairs Management Module
 
-This module provides comprehensive legal affairs management for Karatina University, covering all requirements specified in the original request.
+This module provides comprehensive legal affairs management for Appkings Solutions, covering all requirements specified in the original request.
 
 ## Features Implemented
 

@@ -743,7 +743,7 @@ Report 78088 "Supp. Exam Card"
         Units_RegisteredCaptionLbl: label 'Units Registered';
         Units_RegisteredCaption_Control1102755023Lbl: label 'Units Registered';
         SUPsIGNATURE: label 'Signature of the Invigilator on Collection of the Scripts';
-        compName: label 'KARATINA UNIVERSITY';
+        compName: label 'Appkings Solutions';
         coursecode: label 'COURSE CODE';
         CourseDesc: label 'COURSE TITLE';
         creditHrs: label 'UNITS';

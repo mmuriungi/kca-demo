@@ -1,6 +1,7 @@
 page 52028 "Project Header Card"
 {
     PageType = Card;
+    ApplicationArea = All;
     SourceTable = "Project Header";
     Caption = 'Contract Header Card';
 
@@ -13,51 +14,62 @@ page 52028 "Project Header Card"
                 //Editable = IsOpen;
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Project Name"; Rec."Project Name")
                 {
+                    ApplicationArea = All;
                     Caption = 'Contract Name';
                     Editable = IsOpen;
                 }
                 field("Project Date"; Rec."Project Date")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Caption = 'Contract Date';
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     Editable = IsOpen;
                 }
                 field("Vendor No"; Rec."Vendor No")
                 {
-
+                    ApplicationArea = All;
                 }
                 field(Name; Rec.Name)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Physical Address"; Rec."Physical Address")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Postal Address"; Rec."Postal Address")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(City; Rec.City)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("E-mail"; Rec."E-mail")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Telephone No"; Rec."Telephone No")
                 {
+                    ApplicationArea = All;
                 }
                 field("Mobile No"; Rec."Mobile No")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Contract Category"; Rec."Contract Category")
@@ -66,6 +78,7 @@ page 52028 "Project Header Card"
                 }
                 field("Contract Type"; Rec."Contract Type")
                 {
+                    ApplicationArea = All;
                     Editable = IsOpen;
                     trigger OnValidate()
                     var
@@ -80,80 +93,94 @@ page 52028 "Project Header Card"
                 }
                 field("Insurance Type"; Rec."Insurance Type")
                 {
+                    ApplicationArea = All;
                     Editable = isInsurance;
                 }
                 field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                     Editable = IsOpen;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                     Editable = IsOpen;
                 }
                 field("Shortcut Dimension 3 Code"; Rec."Shortcut Dimension 3 Code")
                 {
+                    ApplicationArea = All;
                     Editable = IsOpen;
                 }
                 field("Estimated Start Date"; Rec."Estimated Start Date")
                 {
+                    ApplicationArea = All;
                     Editable = IsOpen;
                 }
                 field("Estimated End Date"; Rec."Estimated End Date")
                 {
+                    ApplicationArea = All;
                     Editable = IsOpen;
                 }
                 field("Estimated Duration"; Rec."Estimated Duration")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Actual Start Date"; Rec."Actual Start Date")
                 {
+                    ApplicationArea = All;
                     //Editable = false;
                 }
                 field("Actual End Date"; Rec."Actual End Date")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Actual Duration"; Rec."Actual Duration")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Project Budget"; Rec."Project Budget")
                 {
+                    ApplicationArea = All;
                     Editable = IsOpen;
                 }
                 field("User ID"; Rec."User ID")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Extend ?"; Extend)
                 {
+                    ApplicationArea = All;
                     Editable = true;
 
                 }
                 field("Payment Frequency"; Rec."Payment Frequency")
                 {
-
+                    ApplicationArea = All;
                 }
                 field("Frequency Amount"; Rec."Frequency Amount")
                 {
-
+                    ApplicationArea = All;
                 }
                 field("Payment Start Date"; Rec."Payment Start Date")
                 {
-
+                    ApplicationArea = All;
                 }
                 field(Installments; Rec.Installments)
                 {
-
+                    ApplicationArea = All;
                 }
                 field("Expense Code"; Rec."Expense Code")
                 {
-
+                    ApplicationArea = All;
                 }
                 //field(Recommendations; RecommendationsTxt)
                 field(Recommendations; Rec.Recommendations)
@@ -185,17 +212,18 @@ page 52028 "Project Header Card"
                     Editable = ActionExtend;
                     field("Extend From"; Rec."Extend From")
                     {
-
+                        ApplicationArea = All;
                     }
                     field("Extend To"; Rec."Extend To")
                     {
-
+                        ApplicationArea = All;
                     }
                 }
 
             }
             part("Committe Lines"; "Contract Committee")
             {
+                ApplicationArea = All;
                 Visible = ActionVerify or ActionExtend or ActionExtended;
                 Editable = ActionVerify;
                 SubPageLink = "Document No" = FIELD("No.");
@@ -203,6 +231,7 @@ page 52028 "Project Header Card"
             }
             part("Payment Frequency Details"; "Project Payment Details")
             {
+                ApplicationArea = All;
                 Editable = false;
                 SubPageLink = "Header No" = field("No.");
             }
@@ -242,6 +271,7 @@ page 52028 "Project Header Card"
         {
             action(Team)
             {
+                ApplicationArea = All;
                 Image = TeamSales;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -252,6 +282,7 @@ page 52028 "Project Header Card"
             }
             action(Milestone)
             {
+                ApplicationArea = All;
                 Image = Task;
                 Promoted = true;
                 PromotedCategory = Process;

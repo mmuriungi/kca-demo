@@ -3,6 +3,7 @@ page 52025 "Contract Committee"
 
     Caption = 'Contract Extension Committee Lines';
     PageType = ListPart;
+    ApplicationArea = All;
     SourceTable = "Contract Committee";
 
     layout

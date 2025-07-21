@@ -1,6 +1,7 @@
 page 52034 "Project Tasks Card"
 {
     Caption = 'Contract Tasks';
+    ApplicationArea = All;
     PageType = Card;
     SourceTable = "Project Tasks";
 

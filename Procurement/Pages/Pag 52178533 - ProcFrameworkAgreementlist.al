@@ -2,6 +2,7 @@ page 52178533 "Proc Framework Agreement list"
 {
     CardPageId = "Proc-Consultancy Service Card";
     Caption = 'Framework Agreement List';
+    ApplicationArea = All;
     DeleteAllowed = false;
     Editable = false;
     PageType = List;

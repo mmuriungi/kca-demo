@@ -137,7 +137,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">KARATINA UNIVERSITY</Value>
+                    <Value EvaluationMode="Auto">Appkings Solutions</Value>
                     <Style>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -206,7 +206,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">(A Constituent KARATINA UNIVERSITY)</Value>
+                    <Value EvaluationMode="Auto">(A Constituent Appkings Solutions)</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>

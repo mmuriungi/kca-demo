@@ -245,6 +245,9 @@ table 52179004 "CRM Campaign"
             "Status" := "Status"::Draft;
         if "Approval Status" = "Approval Status"::" " then
             "Approval Status" := "Approval Status"::Pending;
+            if "No." = '' then begin
+                "No.":='CP-00'+format(Random(1000));
+            end;
     end;
     
     trigger OnModify()
