@@ -35,6 +35,7 @@ codeunit 52179074 "Risk Demo Data Generator"
     begin
         for Counter := 1 to 20 do begin
             RiskRegister.Init();
+            RiskRegister."Entry No.":=Random(1000000);
             RiskRegister."Risk ID" := 'DEMO-RISK-' + Format(Counter);
             RiskRegister."Risk Title" := GetDemoRiskTitle(Counter);
             RiskRegister."Risk Description" := GetDemoRiskDescription(Counter);

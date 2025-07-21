@@ -181,7 +181,7 @@ page 52179070 "Risk Management Role Center"
                 action(ScenarioAnalysisReport)
                 {
                     Caption = 'Scenario Analysis Report';
-                    RunObject = report "Scenario Analysis Report";
+                    //RunObject = report "Scenario Analysis Report";
                     ApplicationArea = All;
                     Image = Report;
                 }
