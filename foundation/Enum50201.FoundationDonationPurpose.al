@@ -1,4 +1,4 @@
-enum 50201 "Foundation Donation Purpose"
+enum 50301 "Foundation Donation Purpose"
 {
     Extensible = true;
     

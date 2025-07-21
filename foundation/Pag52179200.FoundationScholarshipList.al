@@ -1,4 +1,4 @@
-page 52179066 "Foundation Scholarship List"
+page 52155 "Foundation Scholarship List"
 {
     PageType = List;
     SourceTable = "Foundation Scholarship";

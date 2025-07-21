@@ -1,4 +1,4 @@
-page 52179067 "Foundation Event Card"
+page 52152 "Foundation Event Card"
 {
     PageType = Card;
     SourceTable = "Foundation Event";
@@ -15,7 +15,6 @@ page 52179067 "Foundation Event Card"
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
-                    Importance = Promoted;
                     
                     trigger OnAssistEdit()
                     var

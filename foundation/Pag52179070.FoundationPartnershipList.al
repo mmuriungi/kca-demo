@@ -1,4 +1,4 @@
-page 52179070 "Foundation Partnership List"
+page 52154 "Foundation Partnership List"
 {
     PageType = List;
     SourceTable = "Foundation Partnership";

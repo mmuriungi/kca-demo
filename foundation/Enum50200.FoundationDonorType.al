@@ -1,4 +1,4 @@
-enum 50200 "Foundation Donor Type"
+enum 50300 "Foundation Donor Type"
 {
     Extensible = true;
     

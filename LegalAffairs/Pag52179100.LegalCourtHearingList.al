@@ -1,4 +1,4 @@
-page 52179100 "Legal Court Hearing List"
+page 52156 "Legal Court Hearing List"
 {
     PageType = List;
     SourceTable = "Legal Court Hearing";

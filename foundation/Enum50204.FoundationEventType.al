@@ -1,4 +1,4 @@
-enum 50204 "Foundation Event Type"
+enum 50304 "Foundation Event Type"
 {
     Extensible = true;
     

@@ -1,4 +1,4 @@
-enum 50207 "Foundation Partnership Status"
+enum 50307 "Foundation Partnership Status"
 {
     Extensible = true;
     

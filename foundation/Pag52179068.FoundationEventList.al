@@ -1,4 +1,4 @@
-page 52179068 "Foundation Event List"
+page 52153 "Foundation Event List"
 {
     PageType = List;
     SourceTable = "Foundation Event";

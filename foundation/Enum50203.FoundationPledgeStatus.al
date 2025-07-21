@@ -1,4 +1,4 @@
-enum 50203 "Foundation Pledge Status"
+enum 50303 "Foundation Pledge Status"
 {
     Extensible = true;
     

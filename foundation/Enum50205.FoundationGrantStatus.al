@@ -1,4 +1,4 @@
-enum 50205 "Foundation Grant Status"
+enum 50305 "Foundation Grant Status"
 {
     Extensible = true;
     
