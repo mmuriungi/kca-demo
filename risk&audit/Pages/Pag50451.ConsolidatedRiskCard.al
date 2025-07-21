@@ -39,6 +39,7 @@ page 50098 "Consolidated Risk Card"
                 }
                 field("Current Plan"; Rec."Current Plan")
                 {
+                    ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
@@ -70,16 +71,19 @@ page 50098 "Consolidated Risk Card"
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Visible = false;
                 }
                 field("Rejection Reason"; Rec."Rejection Reason")
                 {
+                    ApplicationArea = All;
                     Editable = Rec."Document Status" = Rec."Document Status"::Champion;
                     Visible = false;
                 }
                 field("Risk Description"; Rec."Risk Description")
                 {
+                    ApplicationArea = All;
                     Caption = 'Comments';
                     Editable = true;
                 }
@@ -87,6 +91,7 @@ page 50098 "Consolidated Risk Card"
 
             part("Risk Details"; "Risk Details")
             {
+                ApplicationArea = All;
                 SubPageLink = "Risk No." = field("No.");
             }
 
@@ -153,6 +158,7 @@ page 50098 "Consolidated Risk Card"
                     }
                     field("Risk Likelihood Value"; Rec."Risk Likelihood Value")
                     {
+                        ApplicationArea = All;
                         Caption = 'Likelihood Score';
                         Editable = false;
                     }
@@ -164,6 +170,7 @@ page 50098 "Consolidated Risk Card"
                     }
                     field("Risk Impact Value"; Rec."Risk Impact Value")
                     {
+                        ApplicationArea = All;
                         Caption = 'Impact Score';
                         Editable = false;
                     }
@@ -176,6 +183,7 @@ page 50098 "Consolidated Risk Card"
 
                     field("Risk (L * I)"; Rec."Risk (L * I)")
                     {
+                        ApplicationArea = All;
                         Caption = 'Gross Risk Score';
                         Editable = false;
                     }
@@ -252,6 +260,7 @@ page 50098 "Consolidated Risk Card"
                     }
                     field("Control RAG Status"; Rec."Control RAG Status")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                 }
@@ -262,33 +271,40 @@ page 50098 "Consolidated Risk Card"
 
                     field("Residual Value"; Rec."Residual Value")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Residual Risk Likelihood"; Rec."Residual Risk Likelihood")
                     {
+                        ApplicationArea = All;
                         Caption = 'Residual Likelihood Value';
                         Editable = false;
                     }
                     field("Residual Risk Likelihood Cat"; Rec."Residual Risk Likelihood Cat")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Residual Likelihood Impact"; Rec."Residual Likelihood Impact")
                     {
+                        ApplicationArea = All;
                         Caption = 'Residual Impact Value';
                         Editable = false;
                     }
                     field("Residual Risk Impact"; Rec."Residual Risk Impact")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Residual Risk (L * I)"; Rec."Residual Risk (L * I)")
                     {
+                        ApplicationArea = All;
                         Caption = 'Residual Risk Score';
                         Editable = false;
                     }
                     field("Residual RAG Status"; Rec."Residual RAG Status")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                 }
@@ -298,10 +314,12 @@ page 50098 "Consolidated Risk Card"
                     Visible = ChampionEditable;
                     field("Risk Response"; Rec."Risk Response")
                     {
+                        ApplicationArea = All;
                         Caption = 'Acceptance Decision';
                     }
                     field(Comment; Rec.Comment)
                     {
+                        ApplicationArea = All;
 
                     }
                 }
@@ -322,6 +340,7 @@ page 50098 "Consolidated Risk Card"
         {
             systempart(Links; Links)
             {
+                ApplicationArea = All;
             }
 
             part(CommentsFactBox; "Approval Comments FactBox")

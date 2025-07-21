@@ -11,70 +11,87 @@ page 50215 "Risk Survey"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Enabled = false;
                 }
                 field(Date; Rec.Date)
                 {
+                    ApplicationArea = All;
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                     Enabled = false;
                 }
                 field("Employee No."; Rec."Employee No.")
                 {
+                    ApplicationArea = All;
                     Enabled = true;
                 }
                 field("Employee Name"; Rec."Employee Name")
                 {
+                    ApplicationArea = All;
                     Enabled = false;
                 }
                 field("Sender E-Mail"; Rec."Sender E-Mail")
                 {
+                    ApplicationArea = All;
                     Enabled = false;
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Document Status"; Rec."Document Status")
                 {
+                    ApplicationArea = All;
                     enabled = false;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                     Enabled = false;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Department Name"; Rec."Department Name")
                 {
+                    ApplicationArea = All;
                     Enabled = false;
                 }
                 field("Notification Sent"; Rec."Notification Sent")
                 {
+                    ApplicationArea = All;
                     Enabled = false;
                 }
             }
             part(OperationRisk; "Operations Risk")
             {
+                ApplicationArea = All;
                 Caption = 'Risk Category';
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Internal Risk");
             }
             part(ExternalRisk; "External Risks")
             {
+                ApplicationArea = All;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("External Risk");
             }
             part(RiskMitigationProposal; "Risk Mitigation Proposal")
             {
+                ApplicationArea = All;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Risk Mitigation");
                 Visible = false;
             }
             part(RiskOpportunities; "Risk Opportunities")
             {
+                ApplicationArea = All;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Risk Opportunities");
                 Visible = false;
             }
@@ -83,9 +100,11 @@ page 50215 "Risk Survey"
         {
             systempart(Control23; Links)
             {
+                ApplicationArea = All;
             }
             systempart(Control22; Notes)
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -96,6 +115,7 @@ page 50215 "Risk Survey"
         {
             action("Survey Report")
             {
+                ApplicationArea = All;
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
@@ -110,6 +130,7 @@ page 50215 "Risk Survey"
             }
             action("Send Survey")
             {
+                ApplicationArea = All;
                 Image = SendMail;
                 Promoted = true;
                 PromotedCategory = Process;

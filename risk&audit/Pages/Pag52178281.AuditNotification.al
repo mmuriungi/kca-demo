@@ -11,26 +11,32 @@ page 50119 "Audit Notification"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Type; Rec.Type)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     MultiLine = true;
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Communication Type"; Rec."Communication Type")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                 }
                 group(Control13)
@@ -44,9 +50,11 @@ page 50119 "Audit Notification"
                     }
                     field("E-Mail Subject"; Rec."E-Mail Subject")
                     {
+                        ApplicationArea = All;
                     }
                     field("Email Message"; rec."E-Mail Body")
                     {
+                        ApplicationArea = All;
                         MultiLine = true;
 
                         trigger OnValidate()
@@ -57,6 +65,7 @@ page 50119 "Audit Notification"
                     }
                     field(Attachment; Rec.Attachment)
                     {
+                        ApplicationArea = All;
                         Editable = false;
 
                         trigger OnAssistEdit()
@@ -76,6 +85,7 @@ page 50119 "Audit Notification"
                     Visible = ((Rec."Communication Type" = Rec."Communication Type"::"SMS") OR (Rec."Communication Type" = Rec."Communication Type"::"E-Mail & SMS"));
                     field("SMS Message"; rec."SMS Text")
                     {
+                        ApplicationArea = All;
                         MultiLine = true;
 
                         trigger OnValidate()
@@ -91,20 +101,25 @@ page 50119 "Audit Notification"
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Sender; Rec.Sender)
                 {
+                    ApplicationArea = All;
                 }
                 field("Sender Name"; Rec."Sender Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sender Email"; Rec."Sender Email")
                 {
+                    ApplicationArea = All;
                 }
                 label("Receipient:")
                 {
@@ -113,6 +128,7 @@ page 50119 "Audit Notification"
                 }
                 field("Notify Department"; Rec."Notify Department")
                 {
+                    ApplicationArea = All;
                 }
                 group(Control34)
                 {
@@ -120,6 +136,7 @@ page 50119 "Audit Notification"
                     Visible = Rec."Notify Department";
                     part(Control33; "Audit Notification Subform")
                     {
+                        ApplicationArea = All;
                         SubPageLink = "No." = FIELD("No.");
                     }
                 }
@@ -129,12 +146,15 @@ page 50119 "Audit Notification"
                     Visible = NOT Rec."Notify Department";
                     field(Receipient; Rec.Receipient)
                     {
+                        ApplicationArea = All;
                     }
                     field("Receipient Name"; Rec."Receipient Name")
                     {
+                        ApplicationArea = All;
                     }
                     field("Receipient E-Mail"; Rec."Receipient E-Mail")
                     {
+                        ApplicationArea = All;
                     }
                 }
             }
@@ -147,6 +167,7 @@ page 50119 "Audit Notification"
         {
             action("Send Notification")
             {
+                ApplicationArea = All;
                 Image = SendMail;
                 Promoted = true;
                 PromotedCategory = Process;

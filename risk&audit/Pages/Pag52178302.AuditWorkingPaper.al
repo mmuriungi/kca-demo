@@ -12,10 +12,12 @@ page 50199 "Audit Working Paper"
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Date; Rec.Date)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Type; Rec.Type)
@@ -24,16 +26,20 @@ page 50199 "Audit Working Paper"
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                 }
                 field("Employee No."; Rec."Employee No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Employee Name"; Rec."Employee Name")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Audit Program No."; Rec."Audit Program No.")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -45,6 +51,7 @@ page 50199 "Audit Working Paper"
                 }
                 field("Select Working Scope"; Rec."Working Paper Scope")
                 {
+                    ApplicationArea = All;
                 }
                 label("Audit Program Details:")
                 {
@@ -53,33 +60,42 @@ page 50199 "Audit Working Paper"
                 }
                 field("Done By"; Rec."Done By")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Done By Name"; Rec."Done By Name")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Stage"; Rec."Audit Stage")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Date Completed"; Rec."Date Completed")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                 }
                 part(Control36; "Audit Workpaper Scope")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                     SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("WorkPaper Scope");
                 }
@@ -115,22 +131,26 @@ page 50199 "Audit Working Paper"
                 // }
                 field(Reviewed; Rec.Reviewed)
                 {
+                    ApplicationArea = All;
 
                 }
             }
 
             part(Objectives; "WorkPaper Objectives")
             {
+                ApplicationArea = All;
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("WorkPaper Objectives");
             }
             part(Control13; "Workpaper Result")
             {
+                ApplicationArea = All;
                 Visible = false;
                 SubPageLink = "Document No." = FIELD("No.");
             }
             part(Conclusion; "WorkPaper Conclusion")
             {
+                ApplicationArea = All;
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("WorkPaper Conclusion");
             }
@@ -152,6 +172,7 @@ page 50199 "Audit Working Paper"
         {
             action("Working Paper")
             {
+                ApplicationArea = All;
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
@@ -167,6 +188,7 @@ page 50199 "Audit Working Paper"
             }
             action("Send For Recommendation")
             {
+                ApplicationArea = All;
                 Image = SendTo;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -207,6 +229,7 @@ page 50199 "Audit Working Paper"
             }
             action(SendApprovalRequest)
             {
+                ApplicationArea = All;
                 Caption = 'Send For Review';
                 Image = SendApprovalRequest;
                 Promoted = true;
@@ -225,6 +248,7 @@ page 50199 "Audit Working Paper"
             }
             action(CancelApprovalRequest)
             {
+                ApplicationArea = All;
                 Caption = 'Cancel Review';
                 Image = CancelApprovalRequest;
                 Promoted = true;
@@ -242,6 +266,7 @@ page 50199 "Audit Working Paper"
             }
             action(Approvals)
             {
+                ApplicationArea = All;
                 Caption = 'Approvals';
                 Image = Approval;
                 Promoted = true;
@@ -262,6 +287,7 @@ page 50199 "Audit Working Paper"
             }
             action("Audit Program")
             {
+                ApplicationArea = All;
                 Caption = 'Audit Program';
                 Image = Card;
                 Promoted = true;

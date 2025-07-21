@@ -58,10 +58,12 @@ page 50189 "Risk Card"
                 }
                 field("Station Code"; Rec."Station Code")
                 {
+                    ApplicationArea = All;
                     Editable = true;
                 }
                 field("Station Name"; Rec."Station Name")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
@@ -72,19 +74,23 @@ page 50189 "Risk Card"
                 }
                 field(Region; Rec.Region)
                 {
+                    ApplicationArea = All;
                     Visible = false;
                 }
                 field("Risk No"; Rec."Risk No")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Caption = 'Department Risk No';
                 }
                 field("Region Risk No"; Rec."Region Risk No")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Audit Period"; Rec."Audit Period")
                 {
+                    ApplicationArea = All;
                     Caption = 'Risk Period';
                 }
 
@@ -128,11 +134,13 @@ page 50189 "Risk Card"
                 }
                 field("Risk Description"; Rec."Risk Description2")
                 {
+                    ApplicationArea = All;
                     Caption = 'Objective';
                     // MultiLine = true;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Document Status"; Rec."Document Status")
@@ -143,15 +151,18 @@ page 50189 "Risk Card"
 
                 field("Rejection Reason"; Rec."Rejection Reason")
                 {
+                    ApplicationArea = All;
                     Editable = Rec."Document Status" = Rec."Document Status"::"Risk Manager";
                 }
                 field("Reason For Changes"; Rec."Reason For Changes")
                 {
+                    ApplicationArea = All;
                     Editable = Rec."Document Status" = Rec."Document Status"::"Risk Owner";
                 }
             }
             part("Risk Details"; "Risk Details")
             {
+                ApplicationArea = All;
                 SubPageLink = "Risk No." = field("No.");
             }
             group(RiskDefinition)
@@ -228,6 +239,7 @@ page 50189 "Risk Card"
                     }
                     field("Risk Likelihood Value"; Rec."Risk Likelihood Value")
                     {
+                        ApplicationArea = All;
                         Caption = 'Likelihood Score';
                         Editable = false;
                     }
@@ -239,6 +251,7 @@ page 50189 "Risk Card"
                     }
                     field("Risk Impact Value"; Rec."Risk Impact Value")
                     {
+                        ApplicationArea = All;
                         Caption = 'Impact Score';
                         Editable = false;
                     }
@@ -251,6 +264,7 @@ page 50189 "Risk Card"
 
                     field("Risk (L * I)"; Rec."Risk (L * I)")
                     {
+                        ApplicationArea = All;
                         Caption = 'Gross Risk Score';
                         Editable = false;
                     }
@@ -288,45 +302,46 @@ page 50189 "Risk Card"
                 {
                     field("Value after Control"; Rec."Value after Control")
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                     }
                     field("Control Risk Probability"; Rec."Control Risk Probability")
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
 
                     }
                     field("Control Evaluation Likelihood"; Rec."Control Evaluation Likelihood")
                     {
                         Caption = 'Control risk likelihood value';
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Control Risk Likelihood"; Rec."Control Risk Likelihood")
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Editable = false;
                     }
 
                     field("Control Evaluation Impact"; Rec."Control Evaluation Impact")
                     {
                         Caption = 'Control risk impact value';
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Control Risk Impact"; Rec."Control Risk Impact")
                     {
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Editable = false;
                     }
 
                     field("Control Risk (L * I)"; Rec."Control Risk (L * I)")
                     {
                         Caption = 'Control Gross risk';
-                        ApplicationArea = Basic, Suite;
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Control RAG Status"; Rec."Control RAG Status")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                 }
@@ -337,33 +352,40 @@ page 50189 "Risk Card"
 
                     field("Residual Value"; Rec."Residual Value")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Residual Risk Likelihood"; Rec."Residual Risk Likelihood")
                     {
+                        ApplicationArea = All;
                         Caption = 'Residual Likelihood Value';
                         Editable = false;
                     }
                     field("Residual Risk Likelihood Cat"; Rec."Residual Risk Likelihood Cat")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Residual Likelihood Impact"; Rec."Residual Likelihood Impact")
                     {
+                        ApplicationArea = All;
                         Caption = 'Residual Impact Value';
                         Editable = false;
                     }
                     field("Residual Risk Impact"; Rec."Residual Risk Impact")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                     field("Residual Risk (L * I)"; Rec."Residual Risk (L * I)")
                     {
+                        ApplicationArea = All;
                         Caption = 'Residual Risk Score';
                         Editable = false;
                     }
                     field("Residual RAG Status"; Rec."Residual RAG Status")
                     {
+                        ApplicationArea = All;
                         Editable = false;
                     }
                 }
@@ -373,10 +395,12 @@ page 50189 "Risk Card"
                     Visible = ChampionEditable;
                     field("Risk Response"; Rec."Risk Response")
                     {
+                        ApplicationArea = All;
                         Caption = 'Acceptance Decision';
                     }
                     field(Comment; Rec.Comment)
                     {
+                        ApplicationArea = All;
 
                     }
                 }
@@ -397,6 +421,7 @@ page 50189 "Risk Card"
         {
             systempart(Links; Links)
             {
+                ApplicationArea = All;
             }
 
             part(CommentsFactBox; "Approval Comments FactBox")

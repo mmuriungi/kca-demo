@@ -16,43 +16,54 @@ page 50188 "Risks List"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Date Created"; Rec."Date Created")
                 {
+                    ApplicationArea = All;
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                 }
                 field("Employee No."; Rec."Employee No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Employee Name"; Rec."Employee Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Period"; Rec."Audit Period")
                 {
+                    ApplicationArea = All;
                     Caption = 'Risk Period';
                 }
 
 
                 field("Risk Description2"; Rec."Risk Description2")
                 {
+                    ApplicationArea = All;
                     Caption = 'Objective';
                 }
                 field("Station Code"; Rec."Station Code")
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Station Name"; Rec."Station Name")
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Document Status"; Rec."Document Status")
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Risk Description"; Rec."Risk Description")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                     trigger OnValidate()
                     begin

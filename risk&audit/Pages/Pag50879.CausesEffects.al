@@ -16,47 +16,57 @@ page 50221 "Causes & Effects"
 
                 field("Entry No"; Rec."Entry No")
                 {
+                    ApplicationArea = All;
                     Editable = false;
 
                 }
                 field("Line Risk Category"; Rec."Line Risk Category")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Caption = 'Risk Category';
                 }
                 field(Causes; Rec.Causes)
                 {
+                    ApplicationArea = All;
                     // MultiLine = true;
                 }
                 field(Effects; Rec.Effects)
                 {
+                    ApplicationArea = All;
                     // MultiLine = true;
                 }
                 field("Opportunity (identify)"; Rec."Opportunity (identify)")
                 {
+                    ApplicationArea = All;
 
                 }
 
                 field("Risk Rating Main"; Rec."Risk Rating Main")
                 {
+                    ApplicationArea = All;
                     Caption = 'Risk Rating';
                     Visible = false;
                 }
                 field("Risk Impact Main"; Rec."Risk Impact Main")
                 {
+                    ApplicationArea = All;
                     Caption = 'Risk Impact';
                 }
                 field("Risk Impact Value Main"; Rec."Risk Impact Value Main")
                 {
+                    ApplicationArea = All;
                     Caption = 'Impact Score';
                     Editable = false;
                 }
                 field("Risk Likelihood Main"; Rec."Risk Likelihood Main")
                 {
+                    ApplicationArea = All;
                     Caption = 'Risk Likelihood';
                 }
                 field("Risk Likelihood Value Main"; Rec."Risk Likelihood Value Main")
                 {
+                    ApplicationArea = All;
                     Caption = 'Risk Likelihood Value';
                     Editable = false;
                 }
@@ -73,6 +83,7 @@ page 50221 "Causes & Effects"
                 }
                 field(Q1; Rec.Q1)
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Risk Likelihood"; Rec."Risk Likelihood")
@@ -86,11 +97,13 @@ page 50221 "Causes & Effects"
                 }
                 field("Risk Likelihood Value"; Rec."Risk Likelihood Value")
                 {
+                    ApplicationArea = All;
                     Caption = 'Likelihood Score';
                     Editable = false;
                 }
                 field("Risk Rating"; Rec."Risk Rating")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Visible = false;
                 }
@@ -101,6 +114,7 @@ page 50221 "Causes & Effects"
                 }
                 field("Risk Impact Value"; Rec."Risk Impact Value")
                 {
+                    ApplicationArea = All;
                     Caption = 'Impact Score';
                     Editable = false;
                     Visible = false;
@@ -119,6 +133,7 @@ page 50221 "Causes & Effects"
                 }
                 field(Q2; Rec.Q2)
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Risk Likelihood Q2"; Rec."Risk Likelihood Q2")
@@ -132,11 +147,13 @@ page 50221 "Causes & Effects"
                 }
                 field("Risk Likelihood Value Q2"; Rec."Risk Likelihood Value Q2")
                 {
+                    ApplicationArea = All;
                     Caption = 'Likelihood Score Q2';
                     Editable = false;
                 }
                 field("Risk Rating Q2"; Rec."Risk Rating Q2")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Visible = false;
                 }
@@ -147,6 +164,7 @@ page 50221 "Causes & Effects"
                 }
                 field("Risk Impact Value Q2"; Rec."Risk Impact Value Q2")
                 {
+                    ApplicationArea = All;
                     Caption = 'Impact Score Q2';
                     Editable = false;
                     Visible = false;
@@ -165,6 +183,7 @@ page 50221 "Causes & Effects"
                 }
                 field(Q3; Rec.Q3)
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Risk Likelihood Q3"; Rec."Risk Likelihood Q3")
@@ -178,11 +197,13 @@ page 50221 "Causes & Effects"
                 }
                 field("Risk Likelihood Value Q3"; Rec."Risk Likelihood Value Q3")
                 {
+                    ApplicationArea = All;
                     Caption = 'Likelihood Score Q3';
                     Editable = false;
                 }
                 field("Risk Rating Q3"; Rec."Risk Rating Q3")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Visible = false;
                 }
@@ -193,6 +214,7 @@ page 50221 "Causes & Effects"
                 }
                 field("Risk Impact Value Q3"; Rec."Risk Impact Value Q3")
                 {
+                    ApplicationArea = All;
                     Caption = 'Impact Score Q3';
                     Editable = false;
                     Visible = false;
@@ -211,6 +233,7 @@ page 50221 "Causes & Effects"
                 }
                 field("Document Status"; Rec."Document Status")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
 

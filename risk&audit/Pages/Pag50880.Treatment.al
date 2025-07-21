@@ -14,46 +14,58 @@ page 50224 Treatment
             {
                 field("Entry No."; Rec."Entry No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Treatment"; Rec."Treatment (risk champion suggestions)")
                 {
+                    ApplicationArea = All;
                     Caption = 'Treatment';
                 }
                 field("Action points To have a treatment action plan on the side"; Rec."Action points (risk owner in point form) To have a treatment action plan on the side")
                 {
+                    ApplicationArea = All;
                     Caption = 'Action points';
                 }
                 field("Areas to review evidences"; Rec."Areas to review (risk champion)-evidences")
                 {
+                    ApplicationArea = All;
                     Caption = 'Areas to review evidences';
                 }
                 field("Responsibility"; Rec."Responsibility (for each action plan)")
 
-                { Caption = 'Responsibility'; }
+                { 
+                    ApplicationArea = All;
+                    Caption = 'Responsibility'; }
                 field("Responsibility Name"; Rec."Responsibility Name")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Caption = 'Responsibility Name';
                 }
                 field(Email; Rec.Email)
                 {
+                    ApplicationArea = All;
                     // Editable = false;
                 }
                 field("Timelines"; Rec."Timelines(when I will be carried out)")
                 {
+                    ApplicationArea = All;
                     Caption = 'Timelines';
                 }
                 field(Remarks; Rec.Remarks)
                 {
+                    ApplicationArea = All;
                     MultiLine = true;
                 }
                 field(Causes; Rec.Causes)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Effects; Rec.Effects)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
             }
@@ -66,6 +78,7 @@ page 50224 Treatment
         {
             action("Notify Assigned Employee")
             {
+                ApplicationArea = All;
                 Caption = 'Notify Assigned Employee';
                 Image = ExportSalesPerson;
                 Promoted = true;

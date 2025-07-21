@@ -12,6 +12,7 @@ page 50220 "Risk Details"
             {
                 field("Risk Details Line"; Rec."Risk Details Line")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Caption = 'Risk No';
                 }
@@ -31,6 +32,7 @@ page 50220 "Risk Details"
 
                 field("Risk Descriptions"; Rec."Risk Descriptions")
                 {
+                    ApplicationArea = All;
                     Caption = 'Risk Description';
                     MultiLine = true;
                 }
@@ -46,12 +48,14 @@ page 50220 "Risk Details"
                 }
                 field("Risk Likelihood Value"; Rec."Risk Likelihood Value")
                 {
+                    ApplicationArea = All;
                     Caption = 'Likelihood Score';
                     Editable = false;
 
                 }
                 field("Risk Rating"; Rec."Risk Rating")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Visible = false;
                 }
@@ -62,6 +66,7 @@ page 50220 "Risk Details"
                 }
                 field("Risk Impact Value"; Rec."Risk Impact Value")
                 {
+                    ApplicationArea = All;
                     Caption = 'Impact Score';
                     Editable = false;
                 }
@@ -80,38 +85,46 @@ page 50220 "Risk Details"
 
                 field(Department; Rec.Department)
                 {
+                    ApplicationArea = All;
                     // Editable = false;
                     Visible = false;
                 }
                 field("To Consolidate"; Rec."To Consolidate")
                 {
+                    ApplicationArea = All;
                     //Editable = "Document Status" = "Document Status"::Auditor;
                 }
 
 
                 field(Archive; Rec.Archive)
                 {
+                    ApplicationArea = All;
 
                 }
                 field("No of Records"; Rec."No of Records")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Objective; Rec.Objective)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Visible = false;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Document Status"; Rec."Document Status")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Function Code"; Rec."Funtion Code")
@@ -139,6 +152,7 @@ page 50220 "Risk Details"
         {
             action("Get Gross Risk Score")
             {
+                ApplicationArea = All;
                 Caption = 'Get Gross Risk Score';
                 Image = Process;
                 Promoted = true;
@@ -167,6 +181,7 @@ page 50220 "Risk Details"
             }
             action("Causes & Effects")
             {
+                ApplicationArea = All;
                 Image = Process;
                 Promoted = true;
                 PromotedCategory = Category4;
@@ -176,6 +191,7 @@ page 50220 "Risk Details"
             }
             action("Risk Type")
             {
+                ApplicationArea = All;
                 Image = Process;
                 Promoted = true;
                 PromotedCategory = Category4;
@@ -185,6 +201,7 @@ page 50220 "Risk Details"
             }
             action("Comments")
             {
+                ApplicationArea = All;
                 Image = Process;
                 Promoted = true;
                 PromotedCategory = Category4;

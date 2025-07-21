@@ -16,16 +16,20 @@ page 50099 "Consolidated Risk List"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Date Created"; Rec."Date Created")
                 {
+                    ApplicationArea = All;
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Period"; Rec."Audit Period")
                 {
+                    ApplicationArea = All;
 
                 }
                 // field("Risk Description2"; "Risk Description2")
@@ -40,14 +44,17 @@ page 50099 "Consolidated Risk List"
                 // }
                 field("Current Plan"; Rec."Current Plan")
                 {
+                    ApplicationArea = All;
 
                 }
                 field(Comment; Rec.Comment)
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Risk Description"; Rec."Risk Description")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                     trigger OnValidate()
                     begin

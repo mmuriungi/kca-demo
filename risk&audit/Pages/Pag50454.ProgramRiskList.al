@@ -12,10 +12,12 @@ page 50101 "Program Risk List"
             {
                 field("Audit Plan No."; Rec."Audit Plan No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Risk No"; Rec."Risk No")
                 {
+                    ApplicationArea = All;
 
                 }
                 field("Risk Category"; Rec."Risk Category")
@@ -41,6 +43,7 @@ page 50101 "Program Risk List"
                 }
                 field("Risk Descriptions"; Rec."Risk Descriptions")
                 {
+                    ApplicationArea = All;
                     Caption = 'Risk Description';
                     MultiLine = true;
                 }
@@ -55,11 +58,13 @@ page 50101 "Program Risk List"
                 }
                 field("Risk Likelihood Value"; Rec."Risk Likelihood Value")
                 {
+                    ApplicationArea = All;
                     Caption = 'Likelihood Score';
                     Editable = false;
                 }
                 field("Risk Rating"; Rec."Risk Rating")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Visible = false;
                 }
@@ -69,12 +74,14 @@ page 50101 "Program Risk List"
                 }
                 field("Risk Impact Value"; Rec."Risk Impact Value")
                 {
+                    ApplicationArea = All;
                     Caption = 'Impact Score';
                     Editable = false;
                 }
 
                 field("Risk (L * I)"; Rec."Risk (L * I)")
                 {
+                    ApplicationArea = All;
                     Caption = 'Gross Risk Score';
                     Editable = false;
                 }
@@ -98,11 +105,13 @@ page 50101 "Program Risk List"
                 // }
                 field(Department; Rec.Department)
                 {
+                    ApplicationArea = All;
                     // Editable = false;
                     Visible = false;
                 }
                 field("To Consolidate"; Rec."To Consolidate")
                 {
+                    ApplicationArea = All;
                     //Editable = "Document Status" = "Document Status"::Auditor;
                 }
                 // field("Document Status"; "Document Status")
@@ -112,6 +121,7 @@ page 50101 "Program Risk List"
 
                 field(Archive; Rec.Archive)
                 {
+                    ApplicationArea = All;
 
                 }
 

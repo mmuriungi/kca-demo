@@ -13,41 +13,53 @@ page 50192 "Audit Program"
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Date; Rec.Date)
                 {
+                    ApplicationArea = All;
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                 }
                 field("Employee No."; Rec."Employee No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Employee Name"; Rec."Employee Name")
                 {
+                    ApplicationArea = All;
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Plan No."; Rec."Audit Plan No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Notification No."; Rec."Audit Notification No.")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Audit Period"; Rec."Audit Period")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 // field("Audit Manager"; "Audit Manager")
@@ -55,6 +67,7 @@ page 50192 "Audit Program"
                 // }
                 field("Send Attachment"; Rec."Send Attachment")
                 {
+                    ApplicationArea = All;
                     Visible = false;
 
                 }
@@ -63,6 +76,7 @@ page 50192 "Audit Program"
             }
             field(Adhoc; Rec.Adhoc)
             {
+                ApplicationArea = All;
 
             }
             group("Risk")
@@ -84,6 +98,7 @@ page 50192 "Audit Program"
             {
                 field(Introduction; Rec.Introduction)
                 {
+                    ApplicationArea = All;
                     MultiLine = true;
                 }
             }
@@ -91,6 +106,7 @@ page 50192 "Audit Program"
             {
                 field(BackGround; Rec.BackGround)
                 {
+                    ApplicationArea = All;
                     MultiLine = true;
                 }
             }
@@ -98,29 +114,35 @@ page 50192 "Audit Program"
             {
                 field("Audit Approach"; Rec."Audit Approach")
                 {
+                    ApplicationArea = All;
                     MultiLine = true;
                 }
             }
             part("Risk Details"; "Program Risk List")
             {
+                ApplicationArea = All;
                 SubPageLink = "Program No" = field("No.");
             }
             part("Risk Exposure"; "Risk Exposure")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = field("No.");
             }
             part("Activities & Deliverables"; "Activities & Deliverables")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = field("No.");
             }
             part(Control17; "Auditor(s)")
             {
+                ApplicationArea = All;
                 Caption = 'Audit Allocation Team';
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST(Auditor);
             }
             part(Scope; "Audit Scope")
             {
+                ApplicationArea = All;
                 Caption = 'Scope';
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST(Scope);
@@ -128,6 +150,7 @@ page 50192 "Audit Program"
 
             part(Objectives; Objectives)
             {
+                ApplicationArea = All;
                 Caption = 'Objectives';
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST(Objectives);
@@ -135,24 +158,28 @@ page 50192 "Audit Program"
 
             part("Planning Procedures"; "Audit Planning Procedures")
             {
+                ApplicationArea = All;
                 Caption = 'Planning Procedures';
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = FILTER(Planning);
             }
             part("Review Procedures"; "Audit Review")
             {
+                ApplicationArea = All;
                 Caption = 'Review Procedures';
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST(Review);
             }
             part("Post-Review"; "Audit Post-Review Procedures")
             {
+                ApplicationArea = All;
                 Caption = 'Post-Review';
                 Editable = Rec."Status" <> Rec."Status"::Released;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Post Reveiw");
             }
             part(Recommendation; "Audit Report UnFav Observation")
             {
+                ApplicationArea = All;
                 Caption = 'Unfavourable Observation';
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Recommendation");
             }
@@ -199,6 +226,7 @@ page 50192 "Audit Program"
             }
             action(Plan)
             {
+                ApplicationArea = All;
                 Caption = 'Program';
                 Image = "Report";
                 Promoted = true;
@@ -214,6 +242,7 @@ page 50192 "Audit Program"
             }
             action("Audit Plan")
             {
+                ApplicationArea = All;
                 Caption = 'Audit Plan';
                 Image = Card;
                 Promoted = true;
@@ -233,6 +262,7 @@ page 50192 "Audit Program"
             }
             action("Send Audit Plan")
             {
+                ApplicationArea = All;
                 Caption = 'Send Audit Program';
                 Image = SendMail;
                 Promoted = true;
@@ -249,6 +279,7 @@ page 50192 "Audit Program"
             }
             action(SendApprovalRequest)
             {
+                ApplicationArea = All;
                 Caption = 'Send For Approval';
                 Image = SendApprovalRequest;
                 Promoted = true;
@@ -266,6 +297,7 @@ page 50192 "Audit Program"
             }
             action(CancelApprovalRequest)
             {
+                ApplicationArea = All;
                 Caption = 'Cancel Approval';
                 Image = CancelApprovalRequest;
                 Promoted = true;
@@ -282,6 +314,7 @@ page 50192 "Audit Program"
             }
             action(Approvals)
             {
+                ApplicationArea = All;
                 Caption = 'Approvals';
                 Image = Approval;
                 Promoted = true;
@@ -302,6 +335,7 @@ page 50192 "Audit Program"
             }
             action(ReOpen)
             {
+                ApplicationArea = All;
                 Image = ReOpen;
                 Promoted = true;
                 PromotedCategory = Process;
