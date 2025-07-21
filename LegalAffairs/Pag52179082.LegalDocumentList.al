@@ -101,8 +101,13 @@ page 52179082 "Legal Document List"
                 ToolTip = 'View the document file.';
                 
                 trigger OnAction()
+                var
+                    DocumentAttachmentDetails: Page "Document Attachment Details";
+                    RecRef: RecordRef;
                 begin
-                    Message('Document viewing functionality would be implemented here for: %1', Rec."File Name");
+                    RecRef.GetTable(Rec);
+                    DocumentAttachmentDetails.OpenForRecRef(RecRef);
+                    DocumentAttachmentDetails.RunModal();
                 end;
             }
             action("Download Document")
@@ -113,8 +118,13 @@ page 52179082 "Legal Document List"
                 ToolTip = 'Download the document file.';
                 
                 trigger OnAction()
+                var
+                    DocumentAttachmentDetails: Page "Document Attachment Details";
+                    RecRef: RecordRef;
                 begin
-                    Message('Document download functionality would be implemented here for: %1', Rec."File Name");
+                    RecRef.GetTable(Rec);
+                    DocumentAttachmentDetails.OpenForRecRef(RecRef);
+                    DocumentAttachmentDetails.RunModal();
                 end;
             }
         }

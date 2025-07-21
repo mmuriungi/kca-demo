@@ -1,4 +1,4 @@
-page 52179031 "Audit Universe List"
+page 52166 "Audit Universe List"
 {
     PageType = List;
     ApplicationArea = All;
@@ -6,7 +6,7 @@ page 52179031 "Audit Universe List"
     SourceTable = "Audit Universe";
     Caption = 'Audit Universe';
     CardPageId = "Audit Universe Card";
-    
+
     layout
     {
         area(Content)
@@ -94,7 +94,7 @@ page 52179031 "Audit Universe List"
             // }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -105,7 +105,7 @@ page 52179031 "Audit Universe List"
                 Caption = 'Generate Annual Plan';
                 Image = Planning;
                 ToolTip = 'Generate annual audit plan based on risk priorities.';
-                
+
                 trigger OnAction()
                 // var
                 //     AuditPlanGenerator: Codeunit "Audit Plan Generator";
@@ -121,7 +121,7 @@ page 52179031 "Audit Universe List"
                 Caption = 'Risk Assessment';
                 Image = Risks;
                 ToolTip = 'Perform risk assessment for selected audit areas.';
-                
+
                 trigger OnAction()
                 begin
                     Page.Run(Page::"Risks List");
@@ -136,7 +136,7 @@ page 52179031 "Audit Universe List"
                 Caption = 'Audit History';
                 Image = History;
                 ToolTip = 'View audit history for this area.';
-                
+
                 trigger OnAction()
                 var
                     AuditHeader: Record "Audit Header";
@@ -152,7 +152,7 @@ page 52179031 "Audit Universe List"
                 Caption = 'Related Audits';
                 Image = Navigate;
                 ToolTip = 'View audits related to this audit universe entry.';
-                
+
                 trigger OnAction()
                 var
                     AuditHeader: Record "Audit Header";
@@ -171,7 +171,7 @@ page 52179031 "Audit Universe List"
                 Caption = 'Audit Universe Report';
                 Image = Report;
                 ToolTip = 'Print audit universe report.';
-                
+
                 trigger OnAction()
                 begin
                     // Report.Run(Report::"Audit Universe Report", true, false, Rec);

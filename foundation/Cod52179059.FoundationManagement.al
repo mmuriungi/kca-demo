@@ -173,13 +173,39 @@ codeunit 52179059 "Foundation Management"
     end;
     
     procedure ImportDonors()
+    var
+        DonorImport: XmlPort "Foundation Donor Import";
+        InStream: InStream;
+        FileName: Text;
+        Processed, Inserted, Skipped: Integer;
     begin
-        Message('Import Donors functionality would be implemented here.');
+        if not UploadIntoStream('Select Donor Import File', '', 'Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv|All Files (*.*)|*.*', FileName, InStream) then
+            exit;
+
+        DonorImport.SetSource(InStream);
+        DonorImport.Import();
+        DonorImport.GetImportStatistics(Processed, Inserted, Skipped);
+        
+        Message('Donor import completed.\nProcessed: %1\nInserted: %2\nSkipped: %3', Processed, Inserted, Skipped);
     end;
     
     procedure ExportDonors()
+    var
+        DonorExport: XmlPort "Foundation Donor Export";
+        OutStream: OutStream;
+        TempBlob: Codeunit "Temp Blob";
+        FileName: Text;
+        ExportedCount: Integer;
     begin
-        Message('Export Donors functionality would be implemented here.');
+        TempBlob.CreateOutStream(OutStream);
+        DonorExport.SetDestination(OutStream);
+        DonorExport.Export();
+        ExportedCount := DonorExport.GetExportStatistics();
+        
+        FileName := 'Foundation_Donors_' + Format(Today, 0, '<Year4><Month,2><Day,2>') + '.txt';
+        DownloadFromStream(TempBlob.CreateInStream(), 'Export Donors', '', 'Text Files (*.txt)|*.txt', FileName);
+        
+        Message('Exported %1 donor records to file: %2', ExportedCount, FileName);
     end;
     
     procedure UpdateDonorRecognitionLevels()

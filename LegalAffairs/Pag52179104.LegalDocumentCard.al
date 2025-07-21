@@ -251,17 +251,37 @@ page 52179104 "Legal Document Card"
     }
     
     local procedure ViewDocument()
+    var
+        DocumentAttachmentDetails: Page "Document Attachment Details";
+        RecRef: RecordRef;
     begin
-        Message('Document viewing functionality would be implemented here for: %1', Rec."File Name");
+        RecRef.GetTable(Rec);
+        DocumentAttachmentDetails.OpenForRecRef(RecRef);
+        DocumentAttachmentDetails.RunModal();
     end;
     
     local procedure DownloadDocument()
+    var
+        DocumentAttachmentDetails: Page "Document Attachment Details";
+        RecRef: RecordRef;
     begin
-        Message('Document download functionality would be implemented here for: %1', Rec."File Name");
+        RecRef.GetTable(Rec);
+        DocumentAttachmentDetails.OpenForRecRef(RecRef);
+        DocumentAttachmentDetails.RunModal();
     end;
     
     local procedure UploadNewVersion()
+    var
+        DocumentAttachmentDetails: Page "Document Attachment Details";
+        RecRef: RecordRef;
     begin
-        Message('New version upload functionality would be implemented here.');
+        RecRef.GetTable(Rec);
+        DocumentAttachmentDetails.OpenForRecRef(RecRef);
+        DocumentAttachmentDetails.RunModal();
+        
+        // Increment version number after upload
+        Rec."Version No." += 1;
+        Rec.Modify(true);
+        CurrPage.Update(false);
     end;
 }

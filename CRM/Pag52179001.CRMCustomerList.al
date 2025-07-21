@@ -124,8 +124,22 @@ page 52179001 "CRM Customer List"
                     ToolTip = 'Import customers from external source.';
 
                     trigger OnAction()
+                    var
+                        CustomerImport: XmlPort "CRM Customer Import";
+                        ImportFile: File;
+                        InStream: InStream;
+                        FileName: Text;
+                        Processed, Inserted, Skipped: Integer;
                     begin
-                        Message('Import functionality would be implemented here.');
+                        if not UploadIntoStream('Select Customer Import File', '', 'Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv|All Files (*.*)|*.*', FileName, InStream) then
+                            exit;
+
+                        CustomerImport.SetSource(InStream);
+                        CustomerImport.Import();
+                        CustomerImport.GetImportStatistics(Processed, Inserted, Skipped);
+                        
+                        CurrPage.Update(false);
+                        Message('Import completed.\nProcessed: %1\nInserted: %2\nSkipped: %3', Processed, Inserted, Skipped);
                     end;
                 }
             }
@@ -161,8 +175,11 @@ page 52179001 "CRM Customer List"
                     ToolTip = 'Update multiple customers at once.';
 
                     trigger OnAction()
+                    var
+                        BulkUpdatePage: Page "CRM Bulk Update";
                     begin
-                        Message('Bulk update functionality would be implemented here.');
+                        BulkUpdatePage.RunModal();
+                        CurrPage.Update(false);
                     end;
                 }
 

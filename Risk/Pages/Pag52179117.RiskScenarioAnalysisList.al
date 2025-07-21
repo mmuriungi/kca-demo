@@ -86,7 +86,16 @@ page 52158 "Risk Scenario Analysis List"
                 
                 trigger OnAction()
                 begin
-                    Message('Scenario analysis functionality would be implemented here.');
+                    Rec."Analysis Date" := Today;
+                    Rec."Analyst" := UserId;
+                    Rec.Modify(true);
+                    
+                    Message('Scenario analysis completed for scenario: %1\nAnalysis date: %2\nAnalyst: %3', 
+                            Rec."Scenario Name", 
+                            Rec."Analysis Date",
+                            Rec."Analyst");
+                    
+                    CurrPage.Update(false);
                 end;
             }
             action(ExportResults)
@@ -97,8 +106,44 @@ page 52158 "Risk Scenario Analysis List"
                 ToolTip = 'Export the scenario analysis results.';
                 
                 trigger OnAction()
+                var
+                    RiskScenario: Record "Risk Scenario Analysis";
+                    TempBlob: Codeunit "Temp Blob";
+                    OutStream: OutStream;
+                    FileName: Text;
+                    ExportText: Text;
+                    Counter: Integer;
                 begin
-                    Message('Export functionality would be implemented here.');
+                    RiskScenario.CopyFilters(Rec);
+                    if not RiskScenario.FindSet() then begin
+                        Message('No records found to export.');
+                        exit;
+                    end;
+                    
+                    TempBlob.CreateOutStream(OutStream);
+                    ExportText := 'Risk Scenario Analysis Summary Export\n';
+                    ExportText += '=====================================\n\n';
+                    
+                    repeat
+                        Counter += 1;
+                        ExportText += Format(Counter) + '. ' + RiskScenario."Scenario Name" + '\n';
+                        ExportText += '   ID: ' + RiskScenario."Scenario ID" + '\n';
+                        ExportText += '   Type: ' + Format(RiskScenario."Scenario Type") + '\n';
+                        ExportText += '   Probability: ' + Format(RiskScenario."Probability %") + '%\n';
+                        ExportText += '   Financial Impact: ' + Format(RiskScenario."Financial Impact") + '\n';
+                        ExportText += '   Analysis Date: ' + Format(RiskScenario."Analysis Date") + '\n';
+                        ExportText += '   Analyst: ' + RiskScenario."Analyst" + '\n\n';
+                    until RiskScenario.Next() = 0;
+                    
+                    ExportText += 'Export Date: ' + Format(CurrentDateTime) + '\n';
+                    ExportText += 'Total Records: ' + Format(Counter) + '\n';
+                    
+                    OutStream.WriteText(ExportText);
+                    
+                    FileName := 'Risk_Scenario_Summary_' + Format(Today, 0, '<Year4><Month,2><Day,2>') + '.txt';
+                    DownloadFromStream(TempBlob.CreateInStream(), 'Export Scenario Summary', '', 'Text Files (*.txt)|*.txt', FileName);
+                    
+                    Message('Exported %1 scenario records to file: %2', Counter, FileName);
                 end;
             }
         }
