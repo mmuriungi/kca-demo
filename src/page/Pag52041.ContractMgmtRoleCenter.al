@@ -121,8 +121,21 @@ page 52041 "Contract Mgmt Role Center"
                 {
                     ApplicationArea = All;
                     RunObject = page "Expense Code";
-
                 }
+                // action("Generate Contract Demo Data")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Generate Contract Demo Data';
+                //     Image = Setup;
+                //     ToolTip = 'Generate comprehensive demo data for contract management including projects, documents, and related records.';
+                    
+                //     trigger OnAction()
+                //     var
+                //         ContractDemoGen: Codeunit "Contract Demo Data Generator";
+                //     begin
+                //         ContractDemoGen.GenerateContractManagementDemoData();
+                //     end;
+                // }
             }
         }
     }
