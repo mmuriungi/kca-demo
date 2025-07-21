@@ -77,6 +77,13 @@ page 52179070 "Risk Management Role Center"
                 ApplicationArea = All;
                 Image = Simulate;
             }
+            action(RiskActivitiesNav)
+            {
+                Caption = 'Risk Activities';
+                RunObject = page "Risk Activities";
+                ApplicationArea = All;
+                Image = TaskList;
+            }
         }
         area(sections)
         {
@@ -216,6 +223,30 @@ page 52179070 "Risk Management Role Center"
             {
                 Caption = 'KRI';
                 RunObject = page "Key Risk Indicators Card";
+                RunPageMode = Create;
+                ApplicationArea = All;
+                Image = New;
+            }
+            action(NewMitigation)
+            {
+                Caption = 'Mitigation';
+                RunObject = page "Risk Mitigation Card";
+                RunPageMode = Create;
+                ApplicationArea = All;
+                Image = New;
+            }
+            action(NewScenario)
+            {
+                Caption = 'Scenario Analysis';
+                RunObject = page "Risk Scenario Analysis Card";
+                RunPageMode = Create;
+                ApplicationArea = All;
+                Image = New;
+            }
+            action(NewComplianceRisk)
+            {
+                Caption = 'Compliance Risk';
+                RunObject = page "Compliance Risk Card";
                 RunPageMode = Create;
                 ApplicationArea = All;
                 Image = New;
