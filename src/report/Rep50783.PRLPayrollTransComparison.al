@@ -82,7 +82,7 @@ report 50783 "PRL Payroll Trans Comparison"
             }
             trigger OnAfterGetRecord()
             begin
-                if "PRL-Variance Trans. Code Buff"."Current Amount" = "PRL-Variance Trans. Code Buff"."Previous Amount" then CurrReport.Skip;
+                if Round("PRL-Variance Trans. Code Buff"."Current Amount", 1) = Round("PRL-Variance Trans. Code Buff"."Previous Amount", 1) then CurrReport.Skip;
             end;
         }
     }
