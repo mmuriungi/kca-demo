@@ -363,6 +363,14 @@ page 52179090 "Legal Affairs Role Center"
                     RunObject = page "No. Series";
                     ToolTip = 'Set up number series.';
                 }
+                action("Generate Contract Demo Data")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Generate Contract Demo Data';
+                    RunObject = codeunit "Contract Demo Data Generator";
+                    Image = Setup;
+                    ToolTip = 'Generate comprehensive demo data for contract management including project headers, documents, and invoices.';
+                }
             }
         }
     }
