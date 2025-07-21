@@ -2,15 +2,19 @@ page 52179060 "Foundation Role Center"
 {
     PageType = RoleCenter;
     Caption = 'Company Foundation';
-    
+
     layout
     {
         area(RoleCenter)
         {
             // Welcome content would go in a CardPart if needed
+            part("Headline"; "Headline RC Team Member")
+            {
+                ApplicationArea = All;
+            }
         }
     }
-    
+
     actions
     {
         area(Creation)
@@ -66,13 +70,13 @@ page 52179060 "Foundation Role Center"
                 PromotedCategory = New;
             }
         }
-        
+
         area(Sections)
         {
             group(DonorManagement)
             {
                 Caption = 'Donor & Alumni Management';
-                
+
                 action(Donors)
                 {
                     ApplicationArea = All;
@@ -103,11 +107,11 @@ page 52179060 "Foundation Role Center"
                     RunPageView = where("Donor Category" = const(Major));
                 }
             }
-            
+
             group(FundraisingDonations)
             {
                 Caption = 'Fundraising & Donations';
-                
+
                 action(Donations)
                 {
                     ApplicationArea = All;
@@ -116,12 +120,92 @@ page 52179060 "Foundation Role Center"
                     Promoted = true;
                     PromotedCategory = Process;
                 }
+                action(Pledges)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Pledges';
+                    RunObject = page "Foundation Pledge List";
+                    Promoted = true;
+                    PromotedCategory = Process;
+                }
+                action(Campaigns)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Campaigns';
+                    RunObject = page "Foundation Campaign List";
+                }
             }
-            
+
+            group(GrantsScholarships)
+            {
+                Caption = 'Grants & Scholarships';
+
+                action(Grants)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Grants';
+                    RunObject = page "Foundation Grant List";
+                }
+                action(GrantApplications)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Grant Applications';
+                    RunObject = page "Foundation Grant App. List";
+                }
+                action(Scholarships)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Scholarships';
+                    RunObject = page "Foundation Scholarship List";
+                }
+                action(ScholarshipApplications)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Scholarship Applications';
+                    RunObject = page "Foundation Scholar App List";
+                }
+            }
+
+            group(EventsPartnerships)
+            {
+                Caption = 'Events & Partnerships';
+
+                action(Events)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Events';
+                    RunObject = page "Foundation Event List";
+                }
+                action(EventRegistrations)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Event Registrations';
+                    RunObject = page "Foundation Event Reg. List";
+                }
+                action(Partnerships)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Partnerships';
+                    RunObject = page "Foundation Partnership List";
+                }
+            }
+
+            group(Communications)
+            {
+                Caption = 'Communications';
+
+                action(CommunicationLog)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Communication Log';
+                    RunObject = page "Foundation Communication List";
+                }
+            }
+
             group(Administration)
             {
                 Caption = 'Administration';
-                
+
                 action(DemoDataGenerator)
                 {
                     ApplicationArea = All;
@@ -138,6 +222,70 @@ page 52179060 "Foundation Role Center"
                     RunObject = page "Foundation Setup";
                     Promoted = true;
                     PromotedCategory = Category4;
+                }
+            }
+        }
+
+        area(Reporting)
+        {
+            group(DonorReports)
+            {
+                Caption = 'Donor Reports';
+
+                action(DonorList)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Donor List';
+                    Image = Report;
+                    RunObject = report "Foundation Donor List";
+                }
+                action(DonorAnalysis)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Donor Analysis';
+                    Image = Report;
+                    RunObject = report "Foundation Donor Analysis";
+                }
+                action(MajorDonorsReport)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Major Donors';
+                    Image = Report;
+                    RunObject = report "Foundation Major Donors";
+                }
+                action(DonorStatement)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Donor Statement';
+                    Image = Report;
+                    RunObject = report "Foundation Donor Statement";
+                }
+            }
+
+            group(DonationReports)
+            {
+                Caption = 'Donation Reports';
+
+                action(DonationReport)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Donation Report';
+                    Image = Report;
+                    RunObject = report "Foundation Donation Report";
+                }
+                action(DonationSummary)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Donation Summary';
+                    Image = Report;
+                    RunObject = report "Foundation Donation Summary";
+                }
+                action(DonationHistory)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Donation History';
+                    Image = Report;
+                    RunObject = report "Foundation Donation History";
                 }
             }
         }
