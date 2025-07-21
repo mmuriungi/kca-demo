@@ -11,57 +11,72 @@ page 50242 "Audit Plan"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Date; Rec.Date)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Audit Period"; Rec."Audit Period")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Manager"; Rec."Audit Manager")
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Manager Name"; Rec."Audit Manager Name")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Audit Manager Email"; Rec."Audit Manager Email")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 label("Cut Off Period:")
                 {
+                    ApplicationArea = All;
                     Style = Strong;
                     StyleExpr = TRUE;
                 }
                 field("Cut Off Start Date"; Rec."Cut Off Start Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Cut Off End Date"; Rec."Cut Off End Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Status"; Rec."Audit Status")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
             }
             part(Control13; "Audit Plan SubForm")
             {
+                ApplicationArea = All;
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Audit Plan");
             }
         }
@@ -73,6 +88,7 @@ page 50242 "Audit Plan"
         {
             action(Plan)
             {
+                ApplicationArea = All;
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
@@ -87,6 +103,7 @@ page 50242 "Audit Plan"
             }
             action("Send Audit Committee")
             {
+                ApplicationArea = All;
                 Image = SendTo;
                 Promoted = true;
                 PromotedCategory = "Report";
@@ -105,6 +122,7 @@ page 50242 "Audit Plan"
             }
             action("Final Approval")
             {
+                ApplicationArea = All;
                 Image = SendTo;
                 Promoted = true;
                 PromotedCategory = Process;

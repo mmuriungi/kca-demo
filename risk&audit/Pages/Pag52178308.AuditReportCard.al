@@ -11,22 +11,27 @@ page 50208 "Audit Report Card"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Date; Rec.Date)
                 {
+                    ApplicationArea = All;
                     Editable = NOT AuditeeReport;
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Audit Program No."; Rec."Audit Program No.")
                 {
+                    ApplicationArea = All;
                     Editable = NOT AuditeeReport;
                 }
                 field("Audit WorkPaper No."; Rec."Audit WorkPaper No.")
                 {
+                    ApplicationArea = All;
                     Caption = 'Select Workpaper(s)';
                     Editable = NOT AuditeeReport;
                     Enabled = NOT AuditeeReport;
@@ -38,93 +43,113 @@ page 50208 "Audit Report Card"
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                     Editable = NOT AuditeeReport;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                     Editable = NOT AuditeeReport;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                     Editable = NOT AuditeeReport;
                 }
                 field("Department Name"; Rec."Department Name")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Audit Period"; Rec."Audit Period")
                 {
+                    ApplicationArea = All;
                     Editable = NOT AuditeeReport;
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Audit Firm"; Rec."Audit Firm")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                 }
                 field("Audit Manager"; Rec."Audit Manager")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 label("Auditee:")
                 {
+                    ApplicationArea = All;
                     Style = Strong;
                     StyleExpr = TRUE;
                 }
                 field(Auditee; Rec.Auditee)
                 {
+                    ApplicationArea = All;
                     Editable = NOT AuditeeReport;
                 }
                 field("Name of Auditee"; Rec."Name of Auditee")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Auditee User ID"; Rec."Auditee User ID")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("User Reviewed"; Rec."User Reviewed")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 label("Report Workpapers:")
                 {
+                    ApplicationArea = All;
                     Style = Strong;
                     StyleExpr = TRUE;
                 }
                 part(Control37; "Audit Report Workpapers")
                 {
+                    ApplicationArea = All;
                     Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                     SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Workpapers");
                 }
             }
             part("Report Background"; "Audit Report Background")
             {
+                ApplicationArea = All;
                 Caption = 'Report Background';
                 Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Background");
             }
             part("Report Objectives"; "Audit Report Objectives")
             {
+                ApplicationArea = All;
                 Caption = 'Report Objectives';
                 Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Objectives");
             }
             part("Favourable Observation"; "Audit Report Fav Observation")
             {
+                ApplicationArea = All;
                 Caption = 'Favourable Observation';
                 Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Observation");
             }
             part("Unfavourable Observation"; "Audit Report UnFav Observation")
             {
+                ApplicationArea = All;
                 Caption = 'Unfavourable Observation';
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Recommendation");
             }
             part(Conclusion; "Audit Report Opinion")
             {
+                ApplicationArea = All;
                 Caption = 'Conclusion';
                 Editable = (Rec."Report Status" <> Rec."Report Status"::Auditee);
                 SubPageLink = "Document No." = FIELD("No."), "Audit Line Type" = CONST("Report Opinion");
@@ -134,9 +159,11 @@ page 50208 "Audit Report Card"
         {
             systempart(Control21; Links)
             {
+                ApplicationArea = All;
             }
             systempart(Control18; Notes)
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -147,6 +174,7 @@ page 50208 "Audit Report Card"
         {
             action("Audit Report")
             {
+                ApplicationArea = All;
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
@@ -161,6 +189,7 @@ page 50208 "Audit Report Card"
             }
             action("Dispatch Report")
             {
+                ApplicationArea = All;
                 Image = SendMail;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -174,6 +203,7 @@ page 50208 "Audit Report Card"
             }
             action(SendApprovalRequest)
             {
+                ApplicationArea = All;
                 Caption = 'Send For Review';
                 Image = SendApprovalRequest;
                 Promoted = true;
@@ -192,6 +222,7 @@ page 50208 "Audit Report Card"
             }
             action(CancelApprovalRequest)
             {
+                ApplicationArea = All;
                 Caption = 'Cancel Review';
                 Image = CancelApprovalRequest;
                 Promoted = true;
@@ -209,6 +240,7 @@ page 50208 "Audit Report Card"
             }
             action(Approvals)
             {
+                ApplicationArea = All;
                 Image = Approvals;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -225,6 +257,7 @@ page 50208 "Audit Report Card"
             }
             action("Close Report")
             {
+                ApplicationArea = All;
                 Image = Closed;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -245,6 +278,7 @@ page 50208 "Audit Report Card"
             }
             action(NotifyAuditor)
             {
+                ApplicationArea = All;
                 Image = SendMail;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -252,6 +286,7 @@ page 50208 "Audit Report Card"
             }
             action("Send To Auditee")
             {
+                ApplicationArea = All;
                 Image = ExportSalesPerson;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -265,6 +300,7 @@ page 50208 "Audit Report Card"
             }
             action("Send To Auditor")
             {
+                ApplicationArea = All;
                 Image = ExportSalesPerson;
                 Promoted = true;
                 PromotedCategory = Process;

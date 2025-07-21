@@ -13,18 +13,23 @@ page 50241 "Audit Plan List"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Date; Rec.Date)
                 {
+                    ApplicationArea = All;
                 }
                 field("Created By"; Rec."Created By")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Document Status"; Rec."Document Status")
                 {
+                    ApplicationArea = All;
                     Caption = 'Audit Status';
                 }
             }

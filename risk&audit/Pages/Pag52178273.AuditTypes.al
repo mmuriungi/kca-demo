@@ -11,9 +11,11 @@ page 50111 "Audit Types"
             {
                 field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Name; Rec.Name)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

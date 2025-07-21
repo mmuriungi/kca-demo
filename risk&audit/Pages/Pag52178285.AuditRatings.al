@@ -11,9 +11,11 @@ page 50122 "Audit Ratings"
             {
                 field(Rating; Rec.Rating)
                 {
+                    ApplicationArea = All;
                 }
                 field(Descriptor; Rec.Descriptor)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

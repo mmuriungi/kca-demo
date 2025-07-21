@@ -11,13 +11,15 @@ page 50275 "Audit Notification Subform"
             {
                 field(Activity; Rec.Activity)
                 {
+                    ApplicationArea = All;
                 }
                 field("Audit Requirements"; Rec."Audit Requirements")
                 {
-
+                    ApplicationArea = All;
                 }
                 field("Department Name"; Rec."Department Name")
                 {
+                    ApplicationArea = All;
                     //Editable = false;
                 }
 
@@ -31,6 +33,7 @@ page 50275 "Audit Notification Subform"
         {
             action(Departments)
             {
+                ApplicationArea = All;
                 Image = Holiday;
                 Promoted = true;
                 PromotedCategory = Process;
