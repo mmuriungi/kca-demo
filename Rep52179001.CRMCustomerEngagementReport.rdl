@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="ReportTitle">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ReportTitle</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ReportTitle</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CustomerNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CustomerNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CustomerNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CustomerNameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CustomerNameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CustomerNameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CustomerTypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CustomerTypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CustomerTypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EmailCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EmailCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EmailCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PhoneCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PhoneCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PhoneCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="VIPCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>VIPCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>VIPCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EngagementScoreCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EngagementScoreCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EngagementScoreCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LastInteractionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LastInteractionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LastInteractionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TotalInteractionsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TotalInteractionsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TotalInteractionsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CreatedDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CreatedDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CreatedDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SegmentationCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SegmentationCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SegmentationCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="InteractionDetailsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>InteractionDetailsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>InteractionDetailsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CampaignResponsesCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CampaignResponsesCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CampaignResponsesCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Customer_No">
+          <DataField>Customer_No</DataField>
+        </Field>
+        <Field Name="Customer_Name">
+          <DataField>Customer_Name</DataField>
+        </Field>
+        <Field Name="Customer_Type">
+          <DataField>Customer_Type</DataField>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+        </Field>
+        <Field Name="VIP">
+          <DataField>VIP</DataField>
+        </Field>
+        <Field Name="Engagement_Score">
+          <DataField>Engagement_Score</DataField>
+        </Field>
+        <Field Name="Engagement_ScoreFormat">
+          <DataField>Engagement_ScoreFormat</DataField>
+        </Field>
+        <Field Name="Last_Interaction_Date">
+          <DataField>Last_Interaction_Date</DataField>
+        </Field>
+        <Field Name="Total_Interactions">
+          <DataField>Total_Interactions</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Segmentation_Code">
+          <DataField>Segmentation_Code</DataField>
+        </Field>
+        <Field Name="Interaction_Date">
+          <DataField>Interaction_Date</DataField>
+        </Field>
+        <Field Name="Interaction_Type">
+          <DataField>Interaction_Type</DataField>
+        </Field>
+        <Field Name="Interaction_Subject">
+          <DataField>Interaction_Subject</DataField>
+        </Field>
+        <Field Name="Interaction_Outcome">
+          <DataField>Interaction_Outcome</DataField>
+        </Field>
+        <Field Name="Duration_Minutes">
+          <DataField>Duration_Minutes</DataField>
+        </Field>
+        <Field Name="Campaign_No">
+          <DataField>Campaign_No</DataField>
+        </Field>
+        <Field Name="Response_Date">
+          <DataField>Response_Date</DataField>
+        </Field>
+        <Field Name="Responded">
+          <DataField>Responded</DataField>
+        </Field>
+        <Field Name="Response_Type">
+          <DataField>Response_Type</DataField>
+        </Field>
+        <Field Name="Engagement_Score_Response">
+          <DataField>Engagement_Score_Response</DataField>
+        </Field>
+        <Field Name="Engagement_Score_ResponseFormat">
+          <DataField>Engagement_Score_ResponseFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

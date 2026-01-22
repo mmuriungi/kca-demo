@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Pic">
+          <DataField>Pic</DataField>
+        </Field>
+        <Field Name="CompMail">
+          <DataField>CompMail</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="AcademicHours">
+          <DataField>AcademicHours</DataField>
+        </Field>
+        <Field Name="AcademicHoursFormat">
+          <DataField>AcademicHoursFormat</DataField>
+        </Field>
+        <Field Name="Allocation">
+          <DataField>Allocation</DataField>
+        </Field>
+        <Field Name="AllocationFormat">
+          <DataField>AllocationFormat</DataField>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+        </Field>
+        <Field Name="AmountFormat">
+          <DataField>AmountFormat</DataField>
+        </Field>
+        <Field Name="Attachment">
+          <DataField>Attachment</DataField>
+        </Field>
+        <Field Name="AttachmentExists">
+          <DataField>AttachmentExists</DataField>
+        </Field>
+        <Field Name="Audit">
+          <DataField>Audit</DataField>
+        </Field>
+        <Field Name="Code">
+          <DataField>Code</DataField>
+        </Field>
+        <Field Name="CombinationCount">
+          <DataField>CombinationCount</DataField>
+        </Field>
+        <Field Name="CommonUnit">
+          <DataField>CommonUnit</DataField>
+        </Field>
+        <Field Name="CoordinatorName">
+          <DataField>CoordinatorName</DataField>
+        </Field>
+        <Field Name="CoordinatorNo">
+          <DataField>CoordinatorNo</DataField>
+        </Field>
+        <Field Name="CorectedUnitCode">
+          <DataField>CorectedUnitCode</DataField>
+        </Field>
+        <Field Name="CreditHours">
+          <DataField>CreditHours</DataField>
+        </Field>
+        <Field Name="CreditHoursFormat">
+          <DataField>CreditHoursFormat</DataField>
+        </Field>
+        <Field Name="DateLastModified">
+          <DataField>DateLastModified</DataField>
+        </Field>
+        <Field Name="DayFilter">
+          <DataField>DayFilter</DataField>
+        </Field>
+        <Field Name="DefaultExamCategory">
+          <DataField>DefaultExamCategory</DataField>
+        </Field>
+        <Field Name="Department">
+          <DataField>Department</DataField>
+        </Field>
+        <Field Name="Desription">
+          <DataField>Desription</DataField>
+        </Field>
+        <Field Name="DetailsCount">
+          <DataField>DetailsCount</DataField>
+        </Field>
+        <Field Name="EntryNo">
+          <DataField>EntryNo</DataField>
+        </Field>
+        <Field Name="EstimateReg">
+          <DataField>EstimateReg</DataField>
+        </Field>
+        <Field Name="ExamCategory">
+          <DataField>ExamCategory</DataField>
+        </Field>
+        <Field Name="ExamFilter">
+          <DataField>ExamFilter</DataField>
+        </Field>
+        <Field Name="ExamNotAllocated">
+          <DataField>ExamNotAllocated</DataField>
+        </Field>
+        <Field Name="ExamRemarks">
+          <DataField>ExamRemarks</DataField>
+        </Field>
+        <Field Name="ExamSlotsVarience">
+          <DataField>ExamSlotsVarience</DataField>
+        </Field>
+        <Field Name="ExamStatus">
+          <DataField>ExamStatus</DataField>
+        </Field>
+        <Field Name="ExamsDone">
+          <DataField>ExamsDone</DataField>
+        </Field>
+        <Field Name="FailedTotalScore">
+          <DataField>FailedTotalScore</DataField>
+        </Field>
+        <Field Name="FailedTotalScoreFormat">
+          <DataField>FailedTotalScoreFormat</DataField>
+        </Field>
+        <Field Name="GLAccount">
+          <DataField>GLAccount</DataField>
+        </Field>
+        <Field Name="IgnoreinFinalAverage">
+          <DataField>IgnoreinFinalAverage</DataField>
+        </Field>
+        <Field Name="IssuedCopies">
+          <DataField>IssuedCopies</DataField>
+        </Field>
+        <Field Name="KeyCourse">
+          <DataField>KeyCourse</DataField>
+        </Field>
+        <Field Name="LabSlots">
+          <DataField>LabSlots</DataField>
+        </Field>
+        <Field Name="LastModifiedby">
+          <DataField>LastModifiedby</DataField>
+        </Field>
+        <Field Name="LectureRoomFilter">
+          <DataField>LectureRoomFilter</DataField>
+        </Field>
+        <Field Name="LecturerCode">
+          <DataField>LecturerCode</DataField>
+        </Field>
+        <Field Name="LecturerLkup">
+          <DataField>LecturerLkup</DataField>
+        </Field>
+        <Field Name="LecturerRoom">
+          <DataField>LecturerRoom</DataField>
+        </Field>
+        <Field Name="LecturerUnitSet">
+          <DataField>LecturerUnitSet</DataField>
+        </Field>
+        <Field Name="LessonFilter">
+          <DataField>LessonFilter</DataField>
+        </Field>
+        <Field Name="MedicalUnit">
+          <DataField>MedicalUnit</DataField>
+        </Field>
+        <Field Name="NewUnit">
+          <DataField>NewUnit</DataField>
+        </Field>
+        <Field Name="NoUnits">
+          <DataField>NoUnits</DataField>
+        </Field>
+        <Field Name="NoUnitsFormat">
+          <DataField>NoUnitsFormat</DataField>
+        </Field>
+        <Field Name="NormalSlots">
+          <DataField>NormalSlots</DataField>
+        </Field>
+        <Field Name="NotAllocated">
+          <DataField>NotAllocated</DataField>
+        </Field>
+        <Field Name="OldUnit">
+          <DataField>OldUnit</DataField>
+        </Field>
+        <Field Name="Prerequisite">
+          <DataField>Prerequisite</DataField>
+        </Field>
+        <Field Name="PrintedCopies">
+          <DataField>PrintedCopies</DataField>
+        </Field>
+        <Field Name="ProgrammeCode">
+          <DataField>ProgrammeCode</DataField>
+        </Field>
+        <Field Name="ProgrammeCodelkup">
+          <DataField>ProgrammeCodelkup</DataField>
+        </Field>
+        <Field Name="ProgrammeName">
+          <DataField>ProgrammeName</DataField>
+        </Field>
+        <Field Name="ProgrammeOption">
+          <DataField>ProgrammeOption</DataField>
+        </Field>
+        <Field Name="Project">
+          <DataField>Project</DataField>
+        </Field>
+        <Field Name="ReSit">
+          <DataField>ReSit</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="RepeatitionCount">
+          <DataField>RepeatitionCount</DataField>
+        </Field>
+        <Field Name="Research">
+          <DataField>Research</DataField>
+        </Field>
+        <Field Name="ReservedRoom">
+          <DataField>ReservedRoom</DataField>
+        </Field>
+        <Field Name="ReturnedCopies">
+          <DataField>ReturnedCopies</DataField>
+        </Field>
+        <Field Name="SchoolCode">
+          <DataField>SchoolCode</DataField>
+        </Field>
+        <Field Name="ScoreBuffer">
+          <DataField>ScoreBuffer</DataField>
+        </Field>
+        <Field Name="ScoreBufferFormat">
+          <DataField>ScoreBufferFormat</DataField>
+        </Field>
+        <Field Name="Semester">
+          <DataField>Semester</DataField>
+        </Field>
+        <Field Name="Show">
+          <DataField>Show</DataField>
+        </Field>
+        <Field Name="SlotsVarience">
+          <DataField>SlotsVarience</DataField>
+        </Field>
+        <Field Name="SpecialProgrammeClass">
+          <DataField>SpecialProgrammeClass</DataField>
+        </Field>
+        <Field Name="StageCode">
+          <DataField>StageCode</DataField>
+        </Field>
+        <Field Name="StudentType">
+          <DataField>StudentType</DataField>
+        </Field>
+        <Field Name="StudentsRegistered">
+          <DataField>StudentsRegistered</DataField>
+        </Field>
+        <Field Name="SubmissionDate">
+          <DataField>SubmissionDate</DataField>
+        </Field>
+        <Field Name="SubmissionTime">
+          <DataField>SubmissionTime</DataField>
+        </Field>
+        <Field Name="Submited">
+          <DataField>Submited</DataField>
+        </Field>
+        <Field Name="SystemCreatedAt">
+          <DataField>SystemCreatedAt</DataField>
+        </Field>
+        <Field Name="SystemCreatedBy">
+          <DataField>SystemCreatedBy</DataField>
+        </Field>
+        <Field Name="SystemId">
+          <DataField>SystemId</DataField>
+        </Field>
+        <Field Name="SystemModifiedAt">
+          <DataField>SystemModifiedAt</DataField>
+        </Field>
+        <Field Name="SystemModifiedBy">
+          <DataField>SystemModifiedBy</DataField>
+        </Field>
+        <Field Name="Tested">
+          <DataField>Tested</DataField>
+        </Field>
+        <Field Name="TimeLastModified">
+          <DataField>TimeLastModified</DataField>
+        </Field>
+        <Field Name="TimeTable">
+          <DataField>TimeTable</DataField>
+        </Field>
+        <Field Name="TimeTableCode">
+          <DataField>TimeTableCode</DataField>
+        </Field>
+        <Field Name="TimeTabledCount">
+          <DataField>TimeTabledCount</DataField>
+        </Field>
+        <Field Name="TimeTabledUsedCount">
+          <DataField>TimeTabledUsedCount</DataField>
+        </Field>
+        <Field Name="TimetablePriority">
+          <DataField>TimetablePriority</DataField>
+        </Field>
+        <Field Name="TotalCreditHours">
+          <DataField>TotalCreditHours</DataField>
+        </Field>
+        <Field Name="TotalCreditHoursFormat">
+          <DataField>TotalCreditHoursFormat</DataField>
+        </Field>
+        <Field Name="TotalIncome">
+          <DataField>TotalIncome</DataField>
+        </Field>
+        <Field Name="TotalIncomeFormat">
+          <DataField>TotalIncomeFormat</DataField>
+        </Field>
+        <Field Name="TotalScore">
+          <DataField>TotalScore</DataField>
+        </Field>
+        <Field Name="TotalScoreFormat">
+          <DataField>TotalScoreFormat</DataField>
+        </Field>
+        <Field Name="UnitClassSize">
+          <DataField>UnitClassSize</DataField>
+        </Field>
+        <Field Name="UnitClassSizeFormat">
+          <DataField>UnitClassSizeFormat</DataField>
+        </Field>
+        <Field Name="UnitRegistered">
+          <DataField>UnitRegistered</DataField>
+        </Field>
+        <Field Name="UnitType">
+          <DataField>UnitType</DataField>
+        </Field>
+        <Field Name="UsedCount">
+          <DataField>UsedCount</DataField>
+        </Field>
+        <Field Name="YearofStudy">
+          <DataField>YearofStudy</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

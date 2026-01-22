@@ -1,0 +1,99 @@
+table 51373 "Gen Line Custom1"
+{
+    Caption = 'Gen Line Custom';
+    DataClassification = ToBeClassified;
+
+    fields
+    {
+        field(1; "Journal Template Name"; Code[10])
+        {
+            Caption = 'Journal Template Name';
+            // TableRelation = "Gen. Journal Template";
+        }
+        field(6; "Journal Batch Name"; Code[10])
+        {
+            Caption = 'Journal Batch Name';
+            //  TableRelation = "Gen. Journal Batch";
+        }
+        field(2; "Line No."; Integer)
+        {
+            Caption = 'Line No.';
+        }
+        field(3; "Account Type"; Enum "Gen. Journal Account Type")
+        {
+            Caption = 'Account Type';
+
+
+        }
+        field(4; "Account No."; Code[20])
+        {
+            Caption = 'Account No.';
+            TableRelation = if ("Account Type" = const("G/L Account")) "G/L Account" where("Account Type" = const(Posting),
+                                                                                          Blocked = const(false))
+            else
+            if ("Account Type" = const(Customer)) Customer
+            else
+            if ("Account Type" = const(Vendor)) Vendor
+            else
+            if ("Account Type" = const("Bank Account")) "Bank Account"
+            else
+            if ("Account Type" = const("Fixed Asset")) "Fixed Asset"
+            else
+            if ("Account Type" = const("IC Partner")) "IC Partner"
+            else
+            if ("Account Type" = const("Allocation Account")) "Allocation Account"
+            else
+            if ("Account Type" = const(Employee)) Employee;
+        }
+        field(5; "Posting Date"; Date)
+        {
+            Caption = 'Posting Date';
+            ClosingDates = true;
+        }
+        field(7; "Document No."; Code[20])
+        {
+            Caption = 'Document No.';
+        }
+        field(13; Amount; Decimal)
+        {
+        }
+        field(14; Description; Text[100])
+        {
+            Caption = 'Description';
+        }
+        field(15; "External Document No."; Code[35])
+        {
+            Caption = 'External Document No.';
+        }
+        field(16; "Bal. Account Type"; Enum "Gen. Journal Account Type")
+        {
+        }
+        field(11; "Bal. Account No."; Code[20])
+        {
+            Caption = 'Bal. Account No.';
+            TableRelation = if ("Bal. Account Type" = const("G/L Account")) "G/L Account" where("Account Type" = const(Posting),
+                                                                                               Blocked = const(false))
+            else
+            if ("Bal. Account Type" = const(Customer)) Customer
+            else
+            if ("Bal. Account Type" = const(Vendor)) Vendor
+            else
+            if ("Bal. Account Type" = const("Bank Account")) "Bank Account"
+            else
+            if ("Bal. Account Type" = const("Fixed Asset")) "Fixed Asset"
+            else
+            if ("Bal. Account Type" = const("IC Partner")) "IC Partner"
+            else
+            if ("Bal. Account Type" = const("Allocation Account")) "Allocation Account"
+            else
+            if ("Bal. Account Type" = const(Employee)) Employee;
+        }
+    }
+    keys
+    {
+        key(PK; "Line No.")
+        {
+            Clustered = true;
+        }
+    }
+}

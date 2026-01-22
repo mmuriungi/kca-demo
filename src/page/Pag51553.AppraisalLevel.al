@@ -1,0 +1,234 @@
+page 51553 "Appraisal Level"
+{
+    Caption = 'Appraisal Level';
+    PageType = Card;
+    SourceTable = "Employee Perfomance Target";
+
+    layout
+    {
+        area(content)
+        {
+            group(General)
+            {
+                field("No."; Rec."No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the No. field.';
+                }
+                field("Employee No."; Rec."Employee No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Employee No. field.';
+                    trigger OnValidate()
+                    var
+                        Employee: Record "HRM-Employee C";
+                    begin
+                        if Employee.Get(rec."Employee No.") then begin
+                            Rec."Employee Name" := Employee.FullName();
+                        end;
+                    end;
+                }
+                field("Employee Name"; Rec."Employee Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    ToolTip = 'Specifies the value of the Employee Name field.';
+                }
+                field("Department Code"; Rec."Department Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Department Code field.';
+                }
+                field("Target Year"; Rec."Target Year")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Target Year field.';
+                }
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Status field.';
+                }
+                field(Level; Rec.Level)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Level field.';
+                }
+
+            }
+            part(lines; "Reporting employee Perfomance")
+            {
+                //SubPageLink = "Document No." = field("No.");
+                ApplicationArea = all;
+                Caption = 'Employee Perf Line';
+            }
+            part(line2; "PC Employee Subcategories")
+            {
+                SubPageLink = "Document No." = field("No.");
+                ApplicationArea = all;
+            }
+
+        }
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action("Populate Targets")
+            {
+                ApplicationArea = all;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                trigger OnAction()
+                var
+                    WorkplanLines: Record "Work Plan Lines";
+                    EmployeePerfTargets: Record "Employee Perf Targets Line";
+                    LineNo: Integer;
+                begin
+                    EmployeePerfTargets.Init();
+                    repeat
+                        if EmployeePerfTargets.FindLast() then
+                            LineNo := EmployeePerfTargets."Line No." + 10000
+                        else
+                            LineNo := 10000;
+                        WorkplanLines.CalcFields("Department Code");
+                        WorkplanLines.SetRange("Department Code", Rec."Department Code");
+                        EmployeePerfTargets.Reset();
+                        EmployeePerfTargets."Line No." := LineNo;
+                        EmployeePerfTargets."Document No." := Rec."No.";
+                        EmployeePerfTargets.Category := WorkplanLines.Category;
+                        EmployeePerfTargets."Category Description" := WorkplanLines."Category Description";
+                        EmployeePerfTargets."Weight (%)" := WorkplanLines."Weight (%)";
+                        EmployeePerfTargets."Performance Criteria" := WorkplanLines."Performance Criteria";
+                        EmployeePerfTargets."S/No." := WorkplanLines."S/No.";
+                        EmployeePerfTargets."Status Previous Year" := WorkplanLines."Status Previous Year";
+                        EmployeePerfTargets.Target := WorkplanLines.Target;
+                        EmployeePerfTargets."Unit of Measure" := WorkplanLines."Unit of Measure";
+                        EmployeePerfTargets.Insert();
+                    until WorkplanLines.Next() = 0;
+                end;
+            }
+            action(Approve)
+            {
+                ApplicationArea = Suite;
+                Caption = 'Approve';
+                Image = Approve;
+                Promoted = true;
+                PromotedCategory = Category4;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                ToolTip = 'Approve the requested changes.';
+                trigger OnAction()
+                begin
+                    //  ApprovalsMgmt.ApproveRecordApprovalRequest(Rec.RecordId);
+                end;
+            }
+            action(Reject)
+            {
+                ApplicationArea = Suite;
+                Caption = 'Reject';
+                Image = Reject;
+                Promoted = true;
+                PromotedCategory = Category4;
+                PromotedIsBig = true;
+                PromotedOnly = true;
+                ToolTip = 'Reject the requested changes.';
+                trigger OnAction()
+                begin
+                    // ApprovalsMgmt.RejectRecordApprovalRequest(Rec.RecordId);
+                end;
+            }
+            action(Delegate)
+            {
+                ApplicationArea = Suite;
+                Caption = 'Delegate';
+                Image = Delegate;
+                Promoted = true;
+                PromotedCategory = Category4;
+                PromotedOnly = true;
+                ToolTip = 'Delegate the requested changes to the substitute approver.';
+                trigger OnAction()
+                begin
+                    // ApprovalsMgmt.DelegateRecordApprovalRequest(Rec.RecordId);
+                end;
+            }
+            action("Notify the HOD")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Notify the HOD';
+                Image = Delegate;
+                Promoted = true;
+                PromotedCategory = Category4;
+                PromotedOnly = true;
+                ToolTip = 'Notify the HOD';
+                trigger OnAction()
+                var
+                    EmailMessage: Codeunit "Email Message";
+                    Email: Codeunit Email;
+                    Recipients: List of [Text];
+                    Subject: Text;
+                    Body: Text;
+                begin
+                    Recipients.Add('markokoth96@outlook.com');
+                    Subject := StrSubstNo('My perfomance target for the year %1..%2', 2022, 2023);
+                    Body := StrSubstNo('I have forwared my appraisal target for the kindly review and approve', UserId);
+                    EmailMessage.Create(Recipients, Subject, Body, true);
+                    Email.Send(EmailMessage, Enum::"Email Scenario"::Default);
+                end;
+            }
+            action("Forward to Reporting")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Forward to Reporting';
+                Image = Delegate;
+                Promoted = true;
+                PromotedCategory = Category4;
+                PromotedOnly = true;
+                ToolTip = 'Forward to Reporting';
+                trigger OnAction()
+                begin
+                    REC.Level := REC.Level::Report;
+                    Rec.Modify()
+                end;
+            }
+            action("Print")
+            {
+                ApplicationArea = Suite;
+                Caption = 'Print';
+                Image = Delegate;
+                Promoted = true;
+                PromotedCategory = Category4;
+                PromotedOnly = true;
+                ToolTip = 'Print';
+                trigger OnAction()
+
+                begin
+                    Rec.SetRange("No.", Rec."No.");
+                    if Rec.FindFirst() then begin
+                        //Report.Run(report::"WorkPlan Report", true, true, Rec);
+                    end;
+                end;
+            }
+            action(DocAttach)
+            {
+                ApplicationArea = All;
+                Caption = 'Attachments';
+                Image = Attach;
+                ToolTip = 'Add a file as an attachment. You can attach images as well as documents.';
+
+                trigger OnAction()
+                var
+                    DocumentAttachmentDetails: Page "Document Attachment Details";
+                    RecRef: RecordRef;
+                begin
+                    RecRef.GetTable(Rec);
+                    //DocumentAttachmentDetails.OpenForRecRef(RecRef);
+                    DocumentAttachmentDetails.RunModal();
+                end;
+
+            }
+        }
+    }
+}

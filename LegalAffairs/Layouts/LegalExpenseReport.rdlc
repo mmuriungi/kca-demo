@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="Title">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ReportTitle.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>16pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Title</rd:DefaultName>
+            <Top>0.25in</Top>
+            <Left>0in</Left>
+            <Height>0.25in</Height>
+            <Width>7.5in</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Table Name="ExpenseTable">
+            <DataSetName>DataSet_Result</DataSetName>
+            <Top>0.75in</Top>
+            <Left>0in</Left>
+            <Height>1in</Height>
+            <Width>7.5in</Width>
+            <Header>
+              <TableRows>
+                <TableRow>
+                  <Height>0.25in</Height>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="InvoiceNoHeader">
+                          <Value>Invoice No.</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="DateHeader">
+                          <Value>Date</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="VendorHeader">
+                          <Value>Vendor</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="ServiceHeader">
+                          <Value>Service Type</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="AmountHeader">
+                          <Value>Amount</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                </TableRow>
+              </TableRows>
+            </Header>
+            <Details>
+              <TableRows>
+                <TableRow>
+                  <Height>0.25in</Height>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="InvoiceNo">
+                          <Value>=Fields!InvoiceNo.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="InvoiceDate">
+                          <Value>=Fields!InvoiceDate.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="VendorName">
+                          <Value>=Fields!VendorName.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="ServiceType">
+                          <Value>=Fields!ServiceType.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="TotalAmount">
+                          <Value>=Fields!TotalAmount.Value</Value>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                            <Format>C</Format>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                </TableRow>
+              </TableRows>
+            </Details>
+            <TableColumns>
+              <TableColumn>
+                <Width>1.5in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.25in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>2in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.5in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.25in</Width>
+              </TableColumn>
+            </TableColumns>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Table>
+        </ReportItems>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>7.5in</Width>
+      <Style />
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="InvoiceNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>InvoiceNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>InvoiceNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="InvoiceDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>InvoiceDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>InvoiceDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="VendorNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>VendorNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>VendorNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="VendorNameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>VendorNameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>VendorNameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ExternalCounselCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ExternalCounselCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ExternalCounselCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ServiceTypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ServiceTypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ServiceTypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DescriptionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DescriptionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DescriptionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HoursWorkedCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HoursWorkedCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HoursWorkedCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HourlyRateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HourlyRateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HourlyRateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="AmountLCYCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>AmountLCYCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>AmountLCYCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="VATAmountCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>VATAmountCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>VATAmountCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TotalAmountCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TotalAmountCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TotalAmountCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PaymentStatusCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PaymentStatusCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PaymentStatusCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DueDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DueDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DueDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DepartmentCodeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DepartmentCodeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DepartmentCodeCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>b8c3d4e5-f6g7-h901-i345-j789kbcdefgh</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="InvoiceNo">
+          <DataField>InvoiceNo</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <DataField>InvoiceDate</DataField>
+        </Field>
+        <Field Name="CaseNo">
+          <DataField>CaseNo</DataField>
+        </Field>
+        <Field Name="VendorNo">
+          <DataField>VendorNo</DataField>
+        </Field>
+        <Field Name="VendorName">
+          <DataField>VendorName</DataField>
+        </Field>
+        <Field Name="ExternalCounsel">
+          <DataField>ExternalCounsel</DataField>
+        </Field>
+        <Field Name="ServiceType">
+          <DataField>ServiceType</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="HoursWorked">
+          <DataField>HoursWorked</DataField>
+        </Field>
+        <Field Name="HoursWorkedFormat">
+          <DataField>HoursWorkedFormat</DataField>
+        </Field>
+        <Field Name="HourlyRate">
+          <DataField>HourlyRate</DataField>
+        </Field>
+        <Field Name="HourlyRateFormat">
+          <DataField>HourlyRateFormat</DataField>
+        </Field>
+        <Field Name="AmountLCY">
+          <DataField>AmountLCY</DataField>
+        </Field>
+        <Field Name="AmountLCYFormat">
+          <DataField>AmountLCYFormat</DataField>
+        </Field>
+        <Field Name="VATAmount">
+          <DataField>VATAmount</DataField>
+        </Field>
+        <Field Name="VATAmountFormat">
+          <DataField>VATAmountFormat</DataField>
+        </Field>
+        <Field Name="TotalAmount">
+          <DataField>TotalAmount</DataField>
+        </Field>
+        <Field Name="TotalAmountFormat">
+          <DataField>TotalAmountFormat</DataField>
+        </Field>
+        <Field Name="PaymentStatus">
+          <DataField>PaymentStatus</DataField>
+        </Field>
+        <Field Name="DueDate">
+          <DataField>DueDate</DataField>
+        </Field>
+        <Field Name="DepartmentCode">
+          <DataField>DepartmentCode</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="ReportDate">
+          <DataField>ReportDate</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="PeriodStart">
+          <DataField>PeriodStart</DataField>
+        </Field>
+        <Field Name="PeriodEnd">
+          <DataField>PeriodEnd</DataField>
+        </Field>
+        <Field Name="TotalInvoices">
+          <DataField>TotalInvoices</DataField>
+        </Field>
+        <Field Name="TotalHours">
+          <DataField>TotalHours</DataField>
+        </Field>
+        <Field Name="TotalHoursFormat">
+          <DataField>TotalHoursFormat</DataField>
+        </Field>
+        <Field Name="TotalAmountLCY">
+          <DataField>TotalAmountLCY</DataField>
+        </Field>
+        <Field Name="TotalAmountLCYFormat">
+          <DataField>TotalAmountLCYFormat</DataField>
+        </Field>
+        <Field Name="TotalVAT">
+          <DataField>TotalVAT</DataField>
+        </Field>
+        <Field Name="TotalVATFormat">
+          <DataField>TotalVATFormat</DataField>
+        </Field>
+        <Field Name="GrandTotal">
+          <DataField>GrandTotal</DataField>
+        </Field>
+        <Field Name="GrandTotalFormat">
+          <DataField>GrandTotalFormat</DataField>
+        </Field>
+        <Field Name="TotalPending">
+          <DataField>TotalPending</DataField>
+        </Field>
+        <Field Name="TotalPendingFormat">
+          <DataField>TotalPendingFormat</DataField>
+        </Field>
+        <Field Name="TotalPaid">
+          <DataField>TotalPaid</DataField>
+        </Field>
+        <Field Name="TotalPaidFormat">
+          <DataField>TotalPaidFormat</DataField>
+        </Field>
+        <Field Name="ConsultationTotal">
+          <DataField>ConsultationTotal</DataField>
+        </Field>
+        <Field Name="ConsultationTotalFormat">
+          <DataField>ConsultationTotalFormat</DataField>
+        </Field>
+        <Field Name="RepresentationTotal">
+          <DataField>RepresentationTotal</DataField>
+        </Field>
+        <Field Name="RepresentationTotalFormat">
+          <DataField>RepresentationTotalFormat</DataField>
+        </Field>
+        <Field Name="CourtFeesTotal">
+          <DataField>CourtFeesTotal</DataField>
+        </Field>
+        <Field Name="CourtFeesTotalFormat">
+          <DataField>CourtFeesTotalFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

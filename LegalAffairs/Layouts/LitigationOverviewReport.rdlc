@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="CaseNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseTitleCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseTitleCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseTitleCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseTypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseTypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseTypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseStatusCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseStatusCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseStatusCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PriorityCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PriorityCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PriorityCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PlaintiffClaimantCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PlaintiffClaimantCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PlaintiffClaimantCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DefendantRespondentCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DefendantRespondentCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DefendantRespondentCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CourtNameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CourtNameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CourtNameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FilingDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>FilingDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>FilingDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NextCourtDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>NextCourtDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>NextCourtDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ClaimAmountCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ClaimAmountCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ClaimAmountCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SettlementAmountCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SettlementAmountCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SettlementAmountCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ActualCostsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ActualCostsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ActualCostsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HearingDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HearingDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HearingDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HearingTypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HearingTypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HearingTypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HearingStatusCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HearingStatusCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HearingStatusCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HearingOutcomeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HearingOutcomeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HearingOutcomeCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CaseNo">
+          <DataField>CaseNo</DataField>
+        </Field>
+        <Field Name="CaseTitle">
+          <DataField>CaseTitle</DataField>
+        </Field>
+        <Field Name="CaseType">
+          <DataField>CaseType</DataField>
+        </Field>
+        <Field Name="CaseStatus">
+          <DataField>CaseStatus</DataField>
+        </Field>
+        <Field Name="Priority">
+          <DataField>Priority</DataField>
+        </Field>
+        <Field Name="PlaintiffClaimant">
+          <DataField>PlaintiffClaimant</DataField>
+        </Field>
+        <Field Name="DefendantRespondent">
+          <DataField>DefendantRespondent</DataField>
+        </Field>
+        <Field Name="CourtName">
+          <DataField>CourtName</DataField>
+        </Field>
+        <Field Name="FilingDate">
+          <DataField>FilingDate</DataField>
+        </Field>
+        <Field Name="NextCourtDate">
+          <DataField>NextCourtDate</DataField>
+        </Field>
+        <Field Name="ClaimAmount">
+          <DataField>ClaimAmount</DataField>
+        </Field>
+        <Field Name="ClaimAmountFormat">
+          <DataField>ClaimAmountFormat</DataField>
+        </Field>
+        <Field Name="SettlementAmount">
+          <DataField>SettlementAmount</DataField>
+        </Field>
+        <Field Name="SettlementAmountFormat">
+          <DataField>SettlementAmountFormat</DataField>
+        </Field>
+        <Field Name="ActualCosts">
+          <DataField>ActualCosts</DataField>
+        </Field>
+        <Field Name="ActualCostsFormat">
+          <DataField>ActualCostsFormat</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="ReportDate">
+          <DataField>ReportDate</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="HearingDate">
+          <DataField>HearingDate</DataField>
+        </Field>
+        <Field Name="HearingType">
+          <DataField>HearingType</DataField>
+        </Field>
+        <Field Name="HearingStatus">
+          <DataField>HearingStatus</DataField>
+        </Field>
+        <Field Name="HearingOutcome">
+          <DataField>HearingOutcome</DataField>
+        </Field>
+        <Field Name="TotalCases">
+          <DataField>TotalCases</DataField>
+        </Field>
+        <Field Name="OpenCases">
+          <DataField>OpenCases</DataField>
+        </Field>
+        <Field Name="InProgressCases">
+          <DataField>InProgressCases</DataField>
+        </Field>
+        <Field Name="ClosedCases">
+          <DataField>ClosedCases</DataField>
+        </Field>
+        <Field Name="SettledCases">
+          <DataField>SettledCases</DataField>
+        </Field>
+        <Field Name="TotalClaimedAmount">
+          <DataField>TotalClaimedAmount</DataField>
+        </Field>
+        <Field Name="TotalClaimedAmountFormat">
+          <DataField>TotalClaimedAmountFormat</DataField>
+        </Field>
+        <Field Name="TotalSettlementAmount">
+          <DataField>TotalSettlementAmount</DataField>
+        </Field>
+        <Field Name="TotalSettlementAmountFormat">
+          <DataField>TotalSettlementAmountFormat</DataField>
+        </Field>
+        <Field Name="TotalLegalCosts">
+          <DataField>TotalLegalCosts</DataField>
+        </Field>
+        <Field Name="TotalLegalCostsFormat">
+          <DataField>TotalLegalCostsFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

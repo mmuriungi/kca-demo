@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+        </Field>
+        <Field Name="CoName">
+          <DataField>CoName</DataField>
+        </Field>
+        <Field Name="CoAddress">
+          <DataField>CoAddress</DataField>
+        </Field>
+        <Field Name="CoCity">
+          <DataField>CoCity</DataField>
+        </Field>
+        <Field Name="CoPhone">
+          <DataField>CoPhone</DataField>
+        </Field>
+        <Field Name="CoEmail">
+          <DataField>CoEmail</DataField>
+        </Field>
+        <Field Name="HomePage">
+          <DataField>HomePage</DataField>
+        </Field>
+        <Field Name="Pf_No">
+          <DataField>Pf_No</DataField>
+        </Field>
+        <Field Name="Title">
+          <DataField>Title</DataField>
+        </Field>
+        <Field Name="FName">
+          <DataField>FName</DataField>
+        </Field>
+        <Field Name="EmpTelephone">
+          <DataField>EmpTelephone</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="IdNo">
+          <DataField>IdNo</DataField>
+        </Field>
+        <Field Name="Gender">
+          <DataField>Gender</DataField>
+        </Field>
+        <Field Name="Tribe">
+          <DataField>Tribe</DataField>
+        </Field>
+        <Field Name="Disabled">
+          <DataField>Disabled</DataField>
+        </Field>
+        <Field Name="DOB">
+          <DataField>DOB</DataField>
+        </Field>
+        <Field Name="DOJ">
+          <DataField>DOJ</DataField>
+        </Field>
+        <Field Name="EmpAge">
+          <DataField>EmpAge</DataField>
+        </Field>
+        <Field Name="LOS">
+          <DataField>LOS</DataField>
+        </Field>
+        <Field Name="Telephone">
+          <DataField>Telephone</DataField>
+        </Field>
+        <Field Name="Cell">
+          <DataField>Cell</DataField>
+        </Field>
+        <Field Name="Extension">
+          <DataField>Extension</DataField>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+        </Field>
+        <Field Name="EMail2">
+          <DataField>EMail2</DataField>
+        </Field>
+        <Field Name="Department">
+          <DataField>Department</DataField>
+        </Field>
+        <Field Name="PIN">
+          <DataField>PIN</DataField>
+        </Field>
+        <Field Name="NSSF">
+          <DataField>NSSF</DataField>
+        </Field>
+        <Field Name="NHIF">
+          <DataField>NHIF</DataField>
+        </Field>
+        <Field Name="HELB">
+          <DataField>HELB</DataField>
+        </Field>
+        <Field Name="CooperateNo">
+          <DataField>CooperateNo</DataField>
+        </Field>
+        <Field Name="PayrollNo">
+          <DataField>PayrollNo</DataField>
+        </Field>
+        <Field Name="shownextofkin">
+          <DataField>shownextofkin</DataField>
+        </Field>
+        <Field Name="KinRelationship">
+          <DataField>KinRelationship</DataField>
+        </Field>
+        <Field Name="KinSurName">
+          <DataField>KinSurName</DataField>
+        </Field>
+        <Field Name="KinOtherNames">
+          <DataField>KinOtherNames</DataField>
+        </Field>
+        <Field Name="KinId">
+          <DataField>KinId</DataField>
+        </Field>
+        <Field Name="KinPhone">
+          <DataField>KinPhone</DataField>
+        </Field>
+        <Field Name="showBeneficiery">
+          <DataField>showBeneficiery</DataField>
+        </Field>
+        <Field Name="BenRelationship">
+          <DataField>BenRelationship</DataField>
+        </Field>
+        <Field Name="BenSurname">
+          <DataField>BenSurname</DataField>
+        </Field>
+        <Field Name="BenOtherNames">
+          <DataField>BenOtherNames</DataField>
+        </Field>
+        <Field Name="BenID">
+          <DataField>BenID</DataField>
+        </Field>
+        <Field Name="BenPhone">
+          <DataField>BenPhone</DataField>
+        </Field>
+        <Field Name="showDependants">
+          <DataField>showDependants</DataField>
+        </Field>
+        <Field Name="DependantsRela">
+          <DataField>DependantsRela</DataField>
+        </Field>
+        <Field Name="DependantsSurname">
+          <DataField>DependantsSurname</DataField>
+        </Field>
+        <Field Name="DependantsOtherNames">
+          <DataField>DependantsOtherNames</DataField>
+        </Field>
+        <Field Name="DependantsID">
+          <DataField>DependantsID</DataField>
+        </Field>
+        <Field Name="DependantsPhone">
+          <DataField>DependantsPhone</DataField>
+        </Field>
+        <Field Name="showQualif">
+          <DataField>showQualif</DataField>
+        </Field>
+        <Field Name="qualific">
+          <DataField>qualific</DataField>
+        </Field>
+        <Field Name="QualType">
+          <DataField>QualType</DataField>
+        </Field>
+        <Field Name="QualFrom">
+          <DataField>QualFrom</DataField>
+        </Field>
+        <Field Name="QualTo">
+          <DataField>QualTo</DataField>
+        </Field>
+        <Field Name="QualInst">
+          <DataField>QualInst</DataField>
+        </Field>
+        <Field Name="showEmployHist">
+          <DataField>showEmployHist</DataField>
+        </Field>
+        <Field Name="EmpHistCompany">
+          <DataField>EmpHistCompany</DataField>
+        </Field>
+        <Field Name="EmpHistFrom">
+          <DataField>EmpHistFrom</DataField>
+        </Field>
+        <Field Name="EmpHistTo">
+          <DataField>EmpHistTo</DataField>
+        </Field>
+        <Field Name="EmpHistTitle">
+          <DataField>EmpHistTitle</DataField>
+        </Field>
+        <Field Name="showProfMemberShip">
+          <DataField>showProfMemberShip</DataField>
+        </Field>
+        <Field Name="MembershipNo">
+          <DataField>MembershipNo</DataField>
+        </Field>
+        <Field Name="MembershipNameOfBody">
+          <DataField>MembershipNameOfBody</DataField>
+        </Field>
+        <Field Name="MembershipDate">
+          <DataField>MembershipDate</DataField>
+        </Field>
+        <Field Name="MembershipStatus">
+          <DataField>MembershipStatus</DataField>
+        </Field>
+        <Field Name="MembershipRemarks">
+          <DataField>MembershipRemarks</DataField>
+        </Field>
+        <Field Name="showTrainHist">
+          <DataField>showTrainHist</DataField>
+        </Field>
+        <Field Name="TrainAppcationNo">
+          <DataField>TrainAppcationNo</DataField>
+        </Field>
+        <Field Name="TrainCourseTitle">
+          <DataField>TrainCourseTitle</DataField>
+        </Field>
+        <Field Name="TrainFromDate">
+          <DataField>TrainFromDate</DataField>
+        </Field>
+        <Field Name="TrainToDate">
+          <DataField>TrainToDate</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="TIME">
+          <DataField>TIME</DataField>
+        </Field>
+        <Field Name="CompanyInformation_Name">
+          <DataField>CompanyInformation_Name</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="SubTitle">
+          <DataField>SubTitle</DataField>
+        </Field>
+        <Field Name="Item_Vendor__TABLECAPTION__________ItemVendorFilter">
+          <DataField>Item_Vendor__TABLECAPTION__________ItemVendorFilter</DataField>
+        </Field>
+        <Field Name="ItemVendorFilter">
+          <DataField>ItemVendorFilter</DataField>
+        </Field>
+        <Field Name="SortingOrder2">
+          <DataField>SortingOrder2</DataField>
+        </Field>
+        <Field Name="SortingOrder">
+          <DataField>SortingOrder</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Vendor_No__">
+          <DataField>Item_Vendor__Vendor_No__</DataField>
+        </Field>
+        <Field Name="Vendor_Name">
+          <DataField>Vendor_Name</DataField>
+        </Field>
+        <Field Name="Vendor__Phone_No__">
+          <DataField>Vendor__Phone_No__</DataField>
+        </Field>
+        <Field Name="Vendor_Contact">
+          <DataField>Vendor_Contact</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Item_No__">
+          <DataField>Item_Vendor__Item_No__</DataField>
+        </Field>
+        <Field Name="Item_Description">
+          <DataField>Item_Description</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Item_No___Control11">
+          <DataField>Item_Vendor__Item_No___Control11</DataField>
+        </Field>
+        <Field Name="Item_Description_Control13">
+          <DataField>Item_Description_Control13</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Lead_Time_Calculation_">
+          <DataField>Item_Vendor__Lead_Time_Calculation_</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Vendor_Item_No__">
+          <DataField>Item_Vendor__Vendor_Item_No__</DataField>
+        </Field>
+        <Field Name="PurchPrice__Starting_Date_">
+          <DataField>PurchPrice__Starting_Date_</DataField>
+        </Field>
+        <Field Name="PurchPrice__Direct_Unit_Cost_">
+          <DataField>PurchPrice__Direct_Unit_Cost_</DataField>
+        </Field>
+        <Field Name="PurchPrice__Direct_Unit_Cost_Format">
+          <DataField>PurchPrice__Direct_Unit_Cost_Format</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Vendor_No___Control23">
+          <DataField>Item_Vendor__Vendor_No___Control23</DataField>
+        </Field>
+        <Field Name="Vendor_Name_Control25">
+          <DataField>Vendor_Name_Control25</DataField>
+        </Field>
+        <Field Name="Vendor__Phone_No___Control27">
+          <DataField>Vendor__Phone_No___Control27</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Lead_Time_Calculation__Control31">
+          <DataField>Item_Vendor__Lead_Time_Calculation__Control31</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Vendor_Item_No___Control35">
+          <DataField>Item_Vendor__Vendor_Item_No___Control35</DataField>
+        </Field>
+        <Field Name="PurchPrice__Starting_Date__Control1020004">
+          <DataField>PurchPrice__Starting_Date__Control1020004</DataField>
+        </Field>
+        <Field Name="PurchPrice__Direct_Unit_Cost__Control1020006">
+          <DataField>PurchPrice__Direct_Unit_Cost__Control1020006</DataField>
+        </Field>
+        <Field Name="PurchPrice__Direct_Unit_Cost__Control1020006Format">
+          <DataField>PurchPrice__Direct_Unit_Cost__Control1020006Format</DataField>
+        </Field>
+        <Field Name="Item_Vendor_Variant_Code">
+          <DataField>Item_Vendor_Variant_Code</DataField>
+        </Field>
+        <Field Name="Item_Vendor_CatalogCaption">
+          <DataField>Item_Vendor_CatalogCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Item_No___Control11Caption">
+          <DataField>Item_Vendor__Item_No___Control11Caption</DataField>
+        </Field>
+        <Field Name="Item_Description_Control13Caption">
+          <DataField>Item_Description_Control13Caption</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Lead_Time_Calculation_Caption">
+          <DataField>Item_Vendor__Lead_Time_Calculation_Caption</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Vendor_Item_No__Caption">
+          <DataField>Item_Vendor__Vendor_Item_No__Caption</DataField>
+        </Field>
+        <Field Name="PurchPrice__Starting_Date_Caption">
+          <DataField>PurchPrice__Starting_Date_Caption</DataField>
+        </Field>
+        <Field Name="PurchPrice__Direct_Unit_Cost_Caption">
+          <DataField>PurchPrice__Direct_Unit_Cost_Caption</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Vendor_No___Control23Caption">
+          <DataField>Item_Vendor__Vendor_No___Control23Caption</DataField>
+        </Field>
+        <Field Name="Vendor_Name_Control25Caption">
+          <DataField>Vendor_Name_Control25Caption</DataField>
+        </Field>
+        <Field Name="Vendor__Phone_No___Control27Caption">
+          <DataField>Vendor__Phone_No___Control27Caption</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Lead_Time_Calculation__Control31Caption">
+          <DataField>Item_Vendor__Lead_Time_Calculation__Control31Caption</DataField>
+        </Field>
+        <Field Name="Item_Vendor__Vendor_Item_No___Control35Caption">
+          <DataField>Item_Vendor__Vendor_Item_No___Control35Caption</DataField>
+        </Field>
+        <Field Name="PurchPrice__Starting_Date__Control1020004Caption">
+          <DataField>PurchPrice__Starting_Date__Control1020004Caption</DataField>
+        </Field>
+        <Field Name="PurchPrice__Direct_Unit_Cost__Control1020006Caption">
+          <DataField>PurchPrice__Direct_Unit_Cost__Control1020006Caption</DataField>
+        </Field>
+        <Field Name="Vendor__Phone_No__Caption">
+          <DataField>Vendor__Phone_No__Caption</DataField>
+        </Field>
+        <Field Name="Vendor_ContactCaption">
+          <DataField>Vendor_ContactCaption</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

@@ -1,0 +1,48 @@
+table 50831 "ACA-Exam Processing Filter Log"
+{
+
+    fields
+    {
+        field(1; "User ID"; Code[50])
+        {
+        }
+        field(2; "Programme Code"; Code[250])
+        {
+        }
+        field(3; "Semester Code"; Code[250])
+        {
+        }
+        field(4; "Graduation Year"; Code[250])
+        {
+        }
+        field(5; "School Filters"; Code[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+        //"Academic Year Code"
+        field(6; "Academic Year Code"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(7; "Student No"; Code[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(8; "Unit Code"; Code[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+    }
+
+    keys
+    {
+        key(Key1; "User ID")
+        {
+        }
+    }
+
+    fieldgroups
+    {
+    }
+}
+

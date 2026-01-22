@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="Title">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Compliance Status Report</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>16pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Title</rd:DefaultName>
+            <Top>0.25in</Top>
+            <Left>0in</Left>
+            <Height>0.25in</Height>
+            <Width>7.5in</Width>
+          </Textbox>
+          <Table Name="ComplianceTable">
+            <DataSetName>DataSet_Result</DataSetName>
+            <Top>0.75in</Top>
+            <Left>0in</Left>
+            <Height>1in</Height>
+            <Width>7.5in</Width>
+            <Header>
+              <TableRows>
+                <TableRow>
+                  <Height>0.25in</Height>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="TaskNoHeader">
+                          <Value>Task No.</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="TypeHeader">
+                          <Value>Type</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="DescriptionHeader">
+                          <Value>Description</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="DueDateHeader">
+                          <Value>Due Date</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="StatusHeader">
+                          <Value>Status</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="PriorityHeader">
+                          <Value>Priority</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="RiskHeader">
+                          <Value>Risk</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                </TableRow>
+              </TableRows>
+            </Header>
+            <Details>
+              <TableRows>
+                <TableRow>
+                  <Height>0.25in</Height>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="TaskNo">
+                          <Value>=Fields!TaskNo.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="ComplianceType">
+                          <Value>=Fields!ComplianceType.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="TaskDescription">
+                          <Value>=Fields!TaskDescription.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="DueDate">
+                          <Value>=Fields!DueDate.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Status">
+                          <Value>=Fields!Status.Value</Value>
+                          <Style>
+                            <Color>=IIF(Fields!Status.Value = "Overdue", "Red", IIF(Fields!Status.Value = "Completed", "Green", "Black"))</Color>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Priority">
+                          <Value>=Fields!Priority.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="RiskLevel">
+                          <Value>=Fields!RiskLevel.Value</Value>
+                          <Style>
+                            <Color>=IIF(Fields!RiskLevel.Value = "Critical", "Red", IIF(Fields!RiskLevel.Value = "High", "Orange", "Black"))</Color>
+                          </Style>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                </TableRow>
+              </TableRows>
+            </Details>
+            <TableColumns>
+              <TableColumn>
+                <Width>1in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.25in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>2.5in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>0.75in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>0.75in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>0.75in</Width>
+              </TableColumn>
+            </TableColumns>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Table>
+        </ReportItems>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>7.5in</Width>
+      <Style />
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="TaskNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TaskNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TaskNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ComplianceTypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ComplianceTypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ComplianceTypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TaskDescriptionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TaskDescriptionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TaskDescriptionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RegulationLawCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RegulationLawCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RegulationLawCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DueDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DueDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DueDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="AssignedToCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>AssignedToCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>AssignedToCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="StatusCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>StatusCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>StatusCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PriorityCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PriorityCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PriorityCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CompletionDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CompletionDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CompletionDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DepartmentCodeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DepartmentCodeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DepartmentCodeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RiskLevelCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RiskLevelCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RiskLevelCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PenaltyAmountCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PenaltyAmountCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PenaltyAmountCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FrequencyCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>FrequencyCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>FrequencyCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NextReviewDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>NextReviewDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>NextReviewDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EvidenceRequiredCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EvidenceRequiredCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EvidenceRequiredCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>d0e5f6g7-h8i9-j123-k567-l890mnopqrst</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="TaskNo">
+          <DataField>TaskNo</DataField>
+        </Field>
+        <Field Name="ComplianceType">
+          <DataField>ComplianceType</DataField>
+        </Field>
+        <Field Name="TaskDescription">
+          <DataField>TaskDescription</DataField>
+        </Field>
+        <Field Name="RegulationLaw">
+          <DataField>RegulationLaw</DataField>
+        </Field>
+        <Field Name="DueDate">
+          <DataField>DueDate</DataField>
+        </Field>
+        <Field Name="AssignedTo">
+          <DataField>AssignedTo</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="Priority">
+          <DataField>Priority</DataField>
+        </Field>
+        <Field Name="CompletionDate">
+          <DataField>CompletionDate</DataField>
+        </Field>
+        <Field Name="DepartmentCode">
+          <DataField>DepartmentCode</DataField>
+        </Field>
+        <Field Name="RiskLevel">
+          <DataField>RiskLevel</DataField>
+        </Field>
+        <Field Name="PenaltyAmount">
+          <DataField>PenaltyAmount</DataField>
+        </Field>
+        <Field Name="PenaltyAmountFormat">
+          <DataField>PenaltyAmountFormat</DataField>
+        </Field>
+        <Field Name="Frequency">
+          <DataField>Frequency</DataField>
+        </Field>
+        <Field Name="NextReviewDate">
+          <DataField>NextReviewDate</DataField>
+        </Field>
+        <Field Name="EvidenceRequired">
+          <DataField>EvidenceRequired</DataField>
+        </Field>
+        <Field Name="DaysOverdue">
+          <DataField>DaysOverdue</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="ReportDate">
+          <DataField>ReportDate</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="TotalTasks">
+          <DataField>TotalTasks</DataField>
+        </Field>
+        <Field Name="OpenCount">
+          <DataField>OpenCount</DataField>
+        </Field>
+        <Field Name="InProgressCount">
+          <DataField>InProgressCount</DataField>
+        </Field>
+        <Field Name="CompletedCount">
+          <DataField>CompletedCount</DataField>
+        </Field>
+        <Field Name="OverdueCount">
+          <DataField>OverdueCount</DataField>
+        </Field>
+        <Field Name="NonCompliantCount">
+          <DataField>NonCompliantCount</DataField>
+        </Field>
+        <Field Name="LowRiskCount">
+          <DataField>LowRiskCount</DataField>
+        </Field>
+        <Field Name="MediumRiskCount">
+          <DataField>MediumRiskCount</DataField>
+        </Field>
+        <Field Name="HighRiskCount">
+          <DataField>HighRiskCount</DataField>
+        </Field>
+        <Field Name="CriticalRiskCount">
+          <DataField>CriticalRiskCount</DataField>
+        </Field>
+        <Field Name="TotalPenalty">
+          <DataField>TotalPenalty</DataField>
+        </Field>
+        <Field Name="TotalPenaltyFormat">
+          <DataField>TotalPenaltyFormat</DataField>
+        </Field>
+        <Field Name="ComplianceRate">
+          <DataField>ComplianceRate</DataField>
+        </Field>
+        <Field Name="ComplianceRateFormat">
+          <DataField>ComplianceRateFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

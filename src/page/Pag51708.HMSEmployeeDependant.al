@@ -1,0 +1,124 @@
+page 51708 "HMS Employee Dependant"
+{
+    PageType = Document;
+    SourceTable = "HRM-Employee C";
+
+    layout
+    {
+        area(content)
+        {
+            group(gr)
+            {
+                Editable = false;
+                field("No."; Rec."No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("First Name"; Rec."First Name")
+                {
+                    ApplicationArea = All;
+                }
+                field("Middle Name"; Rec."Middle Name")
+                {
+                    ApplicationArea = All;
+                }
+                field("Last Name"; Rec."Last Name")
+                {
+                    ApplicationArea = All;
+                }
+                field(Initials; Rec.Initials)
+                {
+                    ApplicationArea = All;
+                }
+                field(Gender; Rec.Gender)
+                {
+                    ApplicationArea = All;
+                }
+                field("Postal Address"; Rec."Postal Address")
+                {
+                    ApplicationArea = All;
+                }
+                field("Residential Address"; Rec."Residential Address")
+                {
+                    ApplicationArea = All;
+                }
+                field(City; Rec.City)
+                {
+                    ApplicationArea = All;
+                }
+                field("Post Code"; Rec."Post Code")
+                {
+                    ApplicationArea = All;
+                }
+                field(County; Rec.County)
+                {
+                    ApplicationArea = All;
+                }
+                field("Home Phone Number"; Rec."Home Phone Number")
+                {
+                    ApplicationArea = All;
+                }
+                field("Cellular Phone Number"; Rec."Cellular Phone Number")
+                {
+                    ApplicationArea = All;
+                }
+                field("Work Phone Number"; Rec."Work Phone Number")
+                {
+                    ApplicationArea = All;
+                }
+                field("Ext."; Rec."Ext.")
+                {
+                    ApplicationArea = All;
+                }
+                field("E-Mail"; Rec."E-Mail")
+                {
+                    ApplicationArea = All;
+                }
+            }
+            part(Part; "HMS Employee Dependant SUB")
+            {
+                SubPageLink = "Employee No." = FIELD("No.");
+                SubPageView = WHERE("Patient Type" = CONST(Employee),
+                                    "Request Registration" = CONST(false));
+                ApplicationArea = All;
+            }
+        }
+    }
+
+    actions
+    {
+        area(processing)
+        {
+            action("&Place Request")
+            {
+                Caption = '&Place Request';
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                begin
+                    Line.RESET;
+                    Line.SETRANGE(Line."Patient Type", Line."Patient Type"::Employee);
+                    Line.SETRANGE(Line."Employee No.", Rec."No.");
+                    Line.SETRANGE(Line."Request Registration", FALSE);
+                    Line.SETRANGE(Line.Select, TRUE);
+
+                    IF Line.FIND('-') THEN BEGIN
+                        IF CONFIRM('Place Registration Request for selected dependants?', TRUE) = FALSE THEN BEGIN EXIT END;
+                        REPEAT
+                            Line.Status := Line.Status::"Request Made";
+                            Line."Request Registration" := TRUE;
+                            Line.MODIFY;
+                        UNTIL Line.NEXT = 0;
+                        MESSAGE('Registration Request placed for the selected dependants.');
+                    END;
+                end;
+            }
+        }
+    }
+
+    var
+        Line: Record "HMS-Patient";
+}
+

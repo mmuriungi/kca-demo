@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FORMAT__Treatment_Date__0_4_">
+          <DataField>FORMAT__Treatment_Date__0_4_</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Header__Patient_No__">
+          <DataField>HMS_Treatment_Form_Header__Patient_No__</DataField>
+        </Field>
+        <Field Name="UPPERCASE_COMPANYNAME_">
+          <DataField>UPPERCASE_COMPANYNAME_</DataField>
+        </Field>
+        <Field Name="Patient_Surname_________Patient__Middle_Name__________Patient__Last_Name_">
+          <DataField>Patient_Surname_________Patient__Middle_Name__________Patient__Last_Name_</DataField>
+        </Field>
+        <Field Name="AgeText">
+          <DataField>AgeText</DataField>
+        </Field>
+        <Field Name="Gender">
+          <DataField>Gender</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Header__Treatment_Remarks_">
+          <DataField>HMS_Treatment_Form_Header__Treatment_Remarks_</DataField>
+        </Field>
+        <Field Name="LabNo">
+          <DataField>LabNo</DataField>
+        </Field>
+        <Field Name="DoctorName">
+          <DataField>DoctorName</DataField>
+        </Field>
+        <Field Name="University_HEALTH_SERVICESCaption">
+          <DataField>University_HEALTH_SERVICESCaption</DataField>
+        </Field>
+        <Field Name="LABORATORY_REQUEST_FORMCaption">
+          <DataField>LABORATORY_REQUEST_FORMCaption</DataField>
+        </Field>
+        <Field Name="Name_Caption">
+          <DataField>Name_Caption</DataField>
+        </Field>
+        <Field Name="Department_Caption">
+          <DataField>Department_Caption</DataField>
+        </Field>
+        <Field Name="Age_Caption">
+          <DataField>Age_Caption</DataField>
+        </Field>
+        <Field Name="Gender_Caption">
+          <DataField>Gender_Caption</DataField>
+        </Field>
+        <Field Name="Date_Caption">
+          <DataField>Date_Caption</DataField>
+        </Field>
+        <Field Name="PF_No__Caption">
+          <DataField>PF_No__Caption</DataField>
+        </Field>
+        <Field Name="Clinical_NotesCaption">
+          <DataField>Clinical_NotesCaption</DataField>
+        </Field>
+        <Field Name="DescriptionCaption">
+          <DataField>DescriptionCaption</DataField>
+        </Field>
+        <Field Name="CodeCaption">
+          <DataField>CodeCaption</DataField>
+        </Field>
+        <Field Name="Date_DueCaption">
+          <DataField>Date_DueCaption</DataField>
+        </Field>
+        <Field Name="RemarksCaption">
+          <DataField>RemarksCaption</DataField>
+        </Field>
+        <Field Name="Request_No__Caption">
+          <DataField>Request_No__Caption</DataField>
+        </Field>
+        <Field Name="Doctor_s_NameCaption">
+          <DataField>Doctor_s_NameCaption</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Header_Treatment_No_">
+          <DataField>HMS_Treatment_Form_Header_Treatment_No_</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Laboratory__Laboratory_Test_Package_Code_">
+          <DataField>HMS_Treatment_Form_Laboratory__Laboratory_Test_Package_Code_</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Laboratory__Laboratory_Test_Package_Name_">
+          <DataField>HMS_Treatment_Form_Laboratory__Laboratory_Test_Package_Name_</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Laboratory__Date_Due_">
+          <DataField>HMS_Treatment_Form_Laboratory__Date_Due_</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Laboratory_Results">
+          <DataField>HMS_Treatment_Form_Laboratory_Results</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Laboratory_Treatment_No_">
+          <DataField>HMS_Treatment_Form_Laboratory_Treatment_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

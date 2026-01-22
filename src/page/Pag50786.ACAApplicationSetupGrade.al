@@ -1,0 +1,32 @@
+page 50786 "ACA-Application Setup Grade"
+{
+    PageType = CardPart;
+    SourceTable = "ACA-Applic. Setup Grade";
+
+    layout
+    {
+        area(content)
+        {
+            repeater(___)
+            {
+                field(Code; Rec.Code)
+                {
+                    ApplicationArea = All;
+                }
+                field(Grade; Rec.Grade)
+                {
+                    ApplicationArea = All;
+                }
+                field(Points; Rec.Points)
+                {
+                    ApplicationArea = All;
+                }
+            }
+        }
+    }
+
+    actions
+    {
+    }
+}
+

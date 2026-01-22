@@ -1,0 +1,35 @@
+tableextension 50009 Location extends Location
+{
+    fields
+    {
+        field(50000; "User Id"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50001; "Cafeteria Location"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(88000; "Cafeteria Location Category"; Option)
+        {
+            OptionCaption = ' ,Staff,Students';
+            OptionMembers = " ",Staff,Students;
+            DataClassification = ToBeClassified;
+
+        }
+        field(88001; "Campus Code"; code[20])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        //Pharmacy Category
+        field(88002; "Pharmacy Category"; Option)
+        {
+            OptionCaption = ' ,Main Store,Dispensing Store';
+            OptionMembers = " ","Main Store","Dispensing Store";
+            DataClassification = ToBeClassified;
+
+        }
+    }
+
+}

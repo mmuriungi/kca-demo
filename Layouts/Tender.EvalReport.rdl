@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_PurchaseHeader">
+          <DataField>No_PurchaseHeader</DataField>
+        </Field>
+        <Field Name="BuyfromAddress_PurchaseHeader">
+          <DataField>BuyfromAddress_PurchaseHeader</DataField>
+        </Field>
+        <Field Name="RequisitionNo_Eval">
+          <DataField>RequisitionNo_Eval</DataField>
+        </Field>
+        <Field Name="No_Eval">
+          <DataField>No_Eval</DataField>
+        </Field>
+        <Field Name="ProcurementMethods_Eval">
+          <DataField>ProcurementMethods_Eval</DataField>
+        </Field>
+        <Field Name="RecommendedforAward_Eval">
+          <DataField>RecommendedforAward_Eval</DataField>
+        </Field>
+        <Field Name="QuotedAmount">
+          <DataField>QuotedAmount</DataField>
+        </Field>
+        <Field Name="QuotedAmountFormat">
+          <DataField>QuotedAmountFormat</DataField>
+        </Field>
+        <Field Name="BidderSupplier_Eval">
+          <DataField>BidderSupplier_Eval</DataField>
+        </Field>
+        <Field Name="name_Eval">
+          <DataField>name_Eval</DataField>
+        </Field>
+        <Field Name="CompName">
+          <DataField>CompName</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="CompMail">
+          <DataField>CompMail</DataField>
+        </Field>
+        <Field Name="CompPhone">
+          <DataField>CompPhone</DataField>
+        </Field>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+        </Field>
+        <Field Name="BidderNo">
+          <DataField>BidderNo</DataField>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
+        <Field Name="AwardedBId_Purchasequote">
+          <DataField>AwardedBId_Purchasequote</DataField>
+        </Field>
+        <Field Name="Description_Purchasequote">
+          <DataField>Description_Purchasequote</DataField>
+        </Field>
+        <Field Name="ExpectedOpeningDate_Purchasequote">
+          <DataField>ExpectedOpeningDate_Purchasequote</DataField>
+        </Field>
+        <Field Name="No_Purchasequote">
+          <DataField>No_Purchasequote</DataField>
+        </Field>
+        <Field Name="CategoryDescription_Purchasequote">
+          <DataField>CategoryDescription_Purchasequote</DataField>
+        </Field>
+        <Field Name="Procurementmethods_Purchasequote">
+          <DataField>Procurementmethods_Purchasequote</DataField>
+        </Field>
+        <Field Name="SuppliersCategory_Purchasequote">
+          <DataField>SuppliersCategory_Purchasequote</DataField>
+        </Field>
+        <Field Name="Tenderdesc">
+          <DataField>Tenderdesc</DataField>
+        </Field>
+        <Field Name="Openingdate">
+          <DataField>Openingdate</DataField>
+        </Field>
+        <Field Name="Confirmed_ProcConfirmRecommended">
+          <DataField>Confirmed_ProcConfirmRecommended</DataField>
+        </Field>
+        <Field Name="Date_ProcConfirmRecommended">
+          <DataField>Date_ProcConfirmRecommended</DataField>
+        </Field>
+        <Field Name="Recommendation_ProcConfirmRecommended">
+          <DataField>Recommendation_ProcConfirmRecommended</DataField>
+        </Field>
+        <Field Name="StaffNo_ProcConfirmRecommended">
+          <DataField>StaffNo_ProcConfirmRecommended</DataField>
+        </Field>
+        <Field Name="No_ProcConfirmRecommended">
+          <DataField>No_ProcConfirmRecommended</DataField>
+        </Field>
+        <Field Name="Name_ProcConfirmRecommended">
+          <DataField>Name_ProcConfirmRecommended</DataField>
+        </Field>
+        <Field Name="BidderNo_ProcConfirmRecommended">
+          <DataField>BidderNo_ProcConfirmRecommended</DataField>
+        </Field>
+        <Field Name="ProcConfirmRecommendedsno">
+          <DataField>ProcConfirmRecommendedsno</DataField>
+        </Field>
+        <Field Name="UserSignature_UserSetup">
+          <DataField>UserSignature_UserSetup</DataField>
+        </Field>
+        <Field Name="ApprovalTitle_UserSetup">
+          <DataField>ApprovalTitle_UserSetup</DataField>
+        </Field>
+        <Field Name="Date_ProcCommitteeAppointmentH">
+          <DataField>Date_ProcCommitteeAppointmentH</DataField>
+        </Field>
+        <Field Name="To_ProcCommitteeAppointmentH">
+          <DataField>To_ProcCommitteeAppointmentH</DataField>
+        </Field>
+        <Field Name="RefNo_ProcCommitteeAppointmentH">
+          <DataField>RefNo_ProcCommitteeAppointmentH</DataField>
+        </Field>
+        <Field Name="ProcurementMethod_ProcCommitteeAppointmentH">
+          <DataField>ProcurementMethod_ProcCommitteeAppointmentH</DataField>
+        </Field>
+        <Field Name="Description_ProcCommitteeAppointmentH">
+          <DataField>Description_ProcCommitteeAppointmentH</DataField>
+        </Field>
+        <Field Name="MemberNo_ProcCommitteeMembers">
+          <DataField>MemberNo_ProcCommitteeMembers</DataField>
+        </Field>
+        <Field Name="Email_ProcCommitteeMembers">
+          <DataField>Email_ProcCommitteeMembers</DataField>
+        </Field>
+        <Field Name="PhoneNo_ProcCommitteeMembers">
+          <DataField>PhoneNo_ProcCommitteeMembers</DataField>
+        </Field>
+        <Field Name="Committee_ProcCommitteeMembers">
+          <DataField>Committee_ProcCommitteeMembers</DataField>
+        </Field>
+        <Field Name="Name_ProcCommitteeMembers">
+          <DataField>Name_ProcCommitteeMembers</DataField>
+        </Field>
+        <Field Name="Role_ProcCommitteeMembers">
+          <DataField>Role_ProcCommitteeMembers</DataField>
+        </Field>
+        <Field Name="MemberType_ProcCommitteeMembers">
+          <DataField>MemberType_ProcCommitteeMembers</DataField>
+        </Field>
+        <Field Name="sno3">
+          <DataField>sno3</DataField>
+        </Field>
+        <Field Name="ProcPreliminaryEntry_No_">
+          <DataField>ProcPreliminaryEntry_No_</DataField>
+        </Field>
+        <Field Name="ProcPreliminaryDescription">
+          <DataField>ProcPreliminaryDescription</DataField>
+        </Field>
+        <Field Name="ProcPreliminaryStaff_No">
+          <DataField>ProcPreliminaryStaff_No</DataField>
+        </Field>
+        <Field Name="ProcPreliminaryStaff_Name">
+          <DataField>ProcPreliminaryStaff_Name</DataField>
+        </Field>
+        <Field Name="ProcPreliminaryQuote_No_">
+          <DataField>ProcPreliminaryQuote_No_</DataField>
+        </Field>
+        <Field Name="ProcPreliminaryScored">
+          <DataField>ProcPreliminaryScored</DataField>
+        </Field>
+        <Field Name="ProcPreliminaryReason">
+          <DataField>ProcPreliminaryReason</DataField>
+        </Field>
+        <Field Name="sno">
+          <DataField>sno</DataField>
+        </Field>
+        <Field Name="ProcTechnicalQuote_No_">
+          <DataField>ProcTechnicalQuote_No_</DataField>
+        </Field>
+        <Field Name="ProcTechnicalEntryNo">
+          <DataField>ProcTechnicalEntryNo</DataField>
+        </Field>
+        <Field Name="ProcTechnicalScored">
+          <DataField>ProcTechnicalScored</DataField>
+        </Field>
+        <Field Name="ProcTechnicalScoredFormat">
+          <DataField>ProcTechnicalScoredFormat</DataField>
+        </Field>
+        <Field Name="ProcTechnicalStaff_No">
+          <DataField>ProcTechnicalStaff_No</DataField>
+        </Field>
+        <Field Name="ProcTechnicalStaff_Name">
+          <DataField>ProcTechnicalStaff_Name</DataField>
+        </Field>
+        <Field Name="ProcTechnicalMaxScore">
+          <DataField>ProcTechnicalMaxScore</DataField>
+        </Field>
+        <Field Name="ProcTechnicalMaxScoreFormat">
+          <DataField>ProcTechnicalMaxScoreFormat</DataField>
+        </Field>
+        <Field Name="ProcTechnicalDescription">
+          <DataField>ProcTechnicalDescription</DataField>
+        </Field>
+        <Field Name="ProcTechnicalAverage_Score">
+          <DataField>ProcTechnicalAverage_Score</DataField>
+        </Field>
+        <Field Name="ProcTechnicalAverage_ScoreFormat">
+          <DataField>ProcTechnicalAverage_ScoreFormat</DataField>
+        </Field>
+        <Field Name="sno1">
+          <DataField>sno1</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifQuote_No_">
+          <DataField>ProcDemoQualifQuote_No_</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifEntryNo">
+          <DataField>ProcDemoQualifEntryNo</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifScored">
+          <DataField>ProcDemoQualifScored</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifScoredFormat">
+          <DataField>ProcDemoQualifScoredFormat</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifMaxScore">
+          <DataField>ProcDemoQualifMaxScore</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifMaxScoreFormat">
+          <DataField>ProcDemoQualifMaxScoreFormat</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifDescription">
+          <DataField>ProcDemoQualifDescription</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifAverage_Score">
+          <DataField>ProcDemoQualifAverage_Score</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifAverage_ScoreFormat">
+          <DataField>ProcDemoQualifAverage_ScoreFormat</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifStaff_No">
+          <DataField>ProcDemoQualifStaff_No</DataField>
+        </Field>
+        <Field Name="ProcDemoQualifStaff_Name">
+          <DataField>ProcDemoQualifStaff_Name</DataField>
+        </Field>
+        <Field Name="sno2">
+          <DataField>sno2</DataField>
+        </Field>
+        <Field Name="ProcFinancialQuote_No_">
+          <DataField>ProcFinancialQuote_No_</DataField>
+        </Field>
+        <Field Name="ProcFinancialEntry_No_">
+          <DataField>ProcFinancialEntry_No_</DataField>
+        </Field>
+        <Field Name="ProcFinancialQuoted_Amount">
+          <DataField>ProcFinancialQuoted_Amount</DataField>
+        </Field>
+        <Field Name="ProcFinancialQuoted_AmountFormat">
+          <DataField>ProcFinancialQuoted_AmountFormat</DataField>
+        </Field>
+        <Field Name="ProcFinancialScore">
+          <DataField>ProcFinancialScore</DataField>
+        </Field>
+        <Field Name="ProcFinancialScoreFormat">
+          <DataField>ProcFinancialScoreFormat</DataField>
+        </Field>
+        <Field Name="ProcFinancialTender_Quoted_Amount">
+          <DataField>ProcFinancialTender_Quoted_Amount</DataField>
+        </Field>
+        <Field Name="ProcFinancialTender_Quoted_AmountFormat">
+          <DataField>ProcFinancialTender_Quoted_AmountFormat</DataField>
+        </Field>
+        <Field Name="snofin">
+          <DataField>snofin</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

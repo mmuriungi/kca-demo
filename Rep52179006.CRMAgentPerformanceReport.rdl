@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="ReportTitle">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ReportTitle</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ReportTitle</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="UserNameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>UserNameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>UserNameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FullNameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>FullNameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>FullNameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EmailCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EmailCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EmailCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TotalTicketsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TotalTicketsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TotalTicketsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="OpenTicketsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>OpenTicketsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>OpenTicketsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ResolvedTicketsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ResolvedTicketsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ResolvedTicketsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ClosedTicketsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ClosedTicketsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ClosedTicketsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="AvgResolutionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>AvgResolutionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>AvgResolutionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="AvgResponseCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>AvgResponseCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>AvgResponseCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SLAComplianceCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SLAComplianceCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SLAComplianceCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SatisfactionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SatisfactionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SatisfactionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FirstContactCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>FirstContactCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>FirstContactCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EscalationCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EscalationCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EscalationCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="WorkloadCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>WorkloadCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>WorkloadCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PerformanceCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PerformanceCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PerformanceCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LeadsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LeadsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LeadsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ConvertedCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ConvertedCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ConvertedCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ConversionRateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ConversionRateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ConversionRateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RevenueCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RevenueCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RevenueCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DealSizeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DealSizeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DealSizeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="InteractionsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>InteractionsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>InteractionsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="QualityCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>QualityCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>QualityCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="User_Name">
+          <DataField>User_Name</DataField>
+        </Field>
+        <Field Name="Full_Name">
+          <DataField>Full_Name</DataField>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+        </Field>
+        <Field Name="Total_Tickets">
+          <DataField>Total_Tickets</DataField>
+        </Field>
+        <Field Name="Open_Tickets">
+          <DataField>Open_Tickets</DataField>
+        </Field>
+        <Field Name="Resolved_Tickets">
+          <DataField>Resolved_Tickets</DataField>
+        </Field>
+        <Field Name="Closed_Tickets">
+          <DataField>Closed_Tickets</DataField>
+        </Field>
+        <Field Name="Avg_Resolution_Time">
+          <DataField>Avg_Resolution_Time</DataField>
+        </Field>
+        <Field Name="Avg_Resolution_TimeFormat">
+          <DataField>Avg_Resolution_TimeFormat</DataField>
+        </Field>
+        <Field Name="Avg_Response_Time">
+          <DataField>Avg_Response_Time</DataField>
+        </Field>
+        <Field Name="Avg_Response_TimeFormat">
+          <DataField>Avg_Response_TimeFormat</DataField>
+        </Field>
+        <Field Name="SLA_Compliance_Rate">
+          <DataField>SLA_Compliance_Rate</DataField>
+        </Field>
+        <Field Name="SLA_Compliance_RateFormat">
+          <DataField>SLA_Compliance_RateFormat</DataField>
+        </Field>
+        <Field Name="Customer_Satisfaction">
+          <DataField>Customer_Satisfaction</DataField>
+        </Field>
+        <Field Name="Customer_SatisfactionFormat">
+          <DataField>Customer_SatisfactionFormat</DataField>
+        </Field>
+        <Field Name="First_Contact_Resolution_Rate">
+          <DataField>First_Contact_Resolution_Rate</DataField>
+        </Field>
+        <Field Name="First_Contact_Resolution_RateFormat">
+          <DataField>First_Contact_Resolution_RateFormat</DataField>
+        </Field>
+        <Field Name="Escalation_Rate">
+          <DataField>Escalation_Rate</DataField>
+        </Field>
+        <Field Name="Escalation_RateFormat">
+          <DataField>Escalation_RateFormat</DataField>
+        </Field>
+        <Field Name="Tickets_Per_Day">
+          <DataField>Tickets_Per_Day</DataField>
+        </Field>
+        <Field Name="Tickets_Per_DayFormat">
+          <DataField>Tickets_Per_DayFormat</DataField>
+        </Field>
+        <Field Name="Workload_Score">
+          <DataField>Workload_Score</DataField>
+        </Field>
+        <Field Name="Workload_ScoreFormat">
+          <DataField>Workload_ScoreFormat</DataField>
+        </Field>
+        <Field Name="Performance_Score">
+          <DataField>Performance_Score</DataField>
+        </Field>
+        <Field Name="Performance_ScoreFormat">
+          <DataField>Performance_ScoreFormat</DataField>
+        </Field>
+        <Field Name="Total_Leads">
+          <DataField>Total_Leads</DataField>
+        </Field>
+        <Field Name="Converted_Leads">
+          <DataField>Converted_Leads</DataField>
+        </Field>
+        <Field Name="Lead_Conversion_Rate">
+          <DataField>Lead_Conversion_Rate</DataField>
+        </Field>
+        <Field Name="Lead_Conversion_RateFormat">
+          <DataField>Lead_Conversion_RateFormat</DataField>
+        </Field>
+        <Field Name="Revenue_Generated">
+          <DataField>Revenue_Generated</DataField>
+        </Field>
+        <Field Name="Revenue_GeneratedFormat">
+          <DataField>Revenue_GeneratedFormat</DataField>
+        </Field>
+        <Field Name="Avg_Deal_Size">
+          <DataField>Avg_Deal_Size</DataField>
+        </Field>
+        <Field Name="Avg_Deal_SizeFormat">
+          <DataField>Avg_Deal_SizeFormat</DataField>
+        </Field>
+        <Field Name="Total_Interactions">
+          <DataField>Total_Interactions</DataField>
+        </Field>
+        <Field Name="Interaction_Quality_Score">
+          <DataField>Interaction_Quality_Score</DataField>
+        </Field>
+        <Field Name="Interaction_Quality_ScoreFormat">
+          <DataField>Interaction_Quality_ScoreFormat</DataField>
+        </Field>
+        <Field Name="Ticket_No">
+          <DataField>Ticket_No</DataField>
+        </Field>
+        <Field Name="Customer_No">
+          <DataField>Customer_No</DataField>
+        </Field>
+        <Field Name="Subject">
+          <DataField>Subject</DataField>
+        </Field>
+        <Field Name="Category">
+          <DataField>Category</DataField>
+        </Field>
+        <Field Name="Priority">
+          <DataField>Priority</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Resolution_Date">
+          <DataField>Resolution_Date</DataField>
+        </Field>
+        <Field Name="Due_Date">
+          <DataField>Due_Date</DataField>
+        </Field>
+        <Field Name="Escalated">
+          <DataField>Escalated</DataField>
+        </Field>
+        <Field Name="Lead_No">
+          <DataField>Lead_No</DataField>
+        </Field>
+        <Field Name="Lead_First_Name">
+          <DataField>Lead_First_Name</DataField>
+        </Field>
+        <Field Name="Lead_Last_Name">
+          <DataField>Lead_Last_Name</DataField>
+        </Field>
+        <Field Name="Lead_Status">
+          <DataField>Lead_Status</DataField>
+        </Field>
+        <Field Name="Lead_Score">
+          <DataField>Lead_Score</DataField>
+        </Field>
+        <Field Name="Lead_Created_Date">
+          <DataField>Lead_Created_Date</DataField>
+        </Field>
+        <Field Name="Lead_Converted_Date">
+          <DataField>Lead_Converted_Date</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

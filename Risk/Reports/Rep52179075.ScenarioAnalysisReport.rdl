@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition">
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="CompanyName"><DataField>CompanyName</DataField></Field>
+        <Field Name="ReportTitle"><DataField>ReportTitle</DataField></Field>
+        <Field Name="Scenario_ID"><DataField>Scenario_ID</DataField></Field>
+        <Field Name="Scenario_Name"><DataField>Scenario_Name</DataField></Field>
+        <Field Name="Scenario_Type"><DataField>Scenario_Type</DataField></Field>
+        <Field Name="Probability_Percentage"><DataField>Probability_Percentage</DataField></Field>
+        <Field Name="Financial_Impact"><DataField>Financial_Impact</DataField></Field>
+        <Field Name="Risk_Score"><DataField>Risk_Score</DataField></Field>
+        <Field Name="Analysis_Date"><DataField>Analysis_Date</DataField></Field>
+        <Field Name="Status"><DataField>Status</DataField></Field>
+        <Field Name="Analyst"><DataField>Analyst</DataField></Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="CompanyName">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!CompanyName.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>#4472c4</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style><TextAlign>Center</TextAlign></Style>
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.1in</Top>
+            <Left>0in</Left>
+            <Height>0.3in</Height>
+            <Width>7.5in</Width>
+          </Textbox>
+          <Textbox Name="ReportTitle">
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!ReportTitle.Value</Value>
+                    <Style>
+                      <FontFamily>Segoe UI</FontFamily>
+                      <FontSize>16pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>#4472c4</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style><TextAlign>Center</TextAlign></Style>
+              </Paragraph>
+            </Paragraphs>
+            <Top>0.4in</Top>
+            <Left>0in</Left>
+            <Height>0.3in</Height>
+            <Width>7.5in</Width>
+          </Textbox>
+          <Tablix Name="ScenarioTable">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn><Width>0.8in</Width></TablixColumn>
+                <TablixColumn><Width>1.5in</Width></TablixColumn>
+                <TablixColumn><Width>1.0in</Width></TablixColumn>
+                <TablixColumn><Width>0.8in</Width></TablixColumn>
+                <TablixColumn><Width>1.2in</Width></TablixColumn>
+                <TablixColumn><Width>0.8in</Width></TablixColumn>
+                <TablixColumn><Width>1.0in</Width></TablixColumn>
+                <TablixColumn><Width>0.4in</Width></TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.3in</Height>
+                  <TablixCells>
+                    <TablixCell><CellContents><Textbox Name="Header1"><Paragraphs><Paragraph><TextRuns><TextRun><Value>ID</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color></Style></TextRun></TextRuns></Paragraph></Paragraphs><Style><BackgroundColor>#4472c4</BackgroundColor><Border><Style>Solid</Style></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Header2"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Scenario Name</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color></Style></TextRun></TextRuns></Paragraph></Paragraphs><Style><BackgroundColor>#4472c4</BackgroundColor><Border><Style>Solid</Style></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Header3"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Type</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color></Style></TextRun></TextRuns></Paragraph></Paragraphs><Style><BackgroundColor>#4472c4</BackgroundColor><Border><Style>Solid</Style></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Header4"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Probability</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color></Style></TextRun></TextRuns></Paragraph></Paragraphs><Style><BackgroundColor>#4472c4</BackgroundColor><Border><Style>Solid</Style></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Header5"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Financial Impact</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color></Style></TextRun></TextRuns></Paragraph></Paragraphs><Style><BackgroundColor>#4472c4</BackgroundColor><Border><Style>Solid</Style></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Header6"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Score</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color></Style></TextRun></TextRuns></Paragraph></Paragraphs><Style><BackgroundColor>#4472c4</BackgroundColor><Border><Style>Solid</Style></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Header7"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Date</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color></Style></TextRun></TextRuns></Paragraph></Paragraphs><Style><BackgroundColor>#4472c4</BackgroundColor><Border><Style>Solid</Style></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Header8"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Status</Value><Style><FontWeight>Bold</FontWeight><Color>White</Color></Style></TextRun></TextRuns></Paragraph></Paragraphs><Style><BackgroundColor>#4472c4</BackgroundColor><Border><Style>Solid</Style></Border></Style></Textbox></CellContents></TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell><CellContents><Textbox Name="Data1"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!Scenario_ID.Value</Value></TextRun></TextRuns></Paragraph></Paragraphs><Style><Border><Style>Solid</Style><Color>#cccccc</Color></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Data2"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!Scenario_Name.Value</Value></TextRun></TextRuns></Paragraph></Paragraphs><Style><Border><Style>Solid</Style><Color>#cccccc</Color></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Data3"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!Scenario_Type.Value</Value></TextRun></TextRuns></Paragraph></Paragraphs><Style><Border><Style>Solid</Style><Color>#cccccc</Color></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Data4"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!Probability_Percentage.Value &amp; "%"</Value></TextRun></TextRuns></Paragraph></Paragraphs><Style><Border><Style>Solid</Style><Color>#cccccc</Color></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Data5"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Format(Fields!Financial_Impact.Value, "Currency")</Value></TextRun></TextRuns></Paragraph></Paragraphs><Style><Border><Style>Solid</Style><Color>#cccccc</Color></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Data6"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!Risk_Score.Value</Value></TextRun></TextRuns></Paragraph></Paragraphs><Style><Border><Style>Solid</Style><Color>#cccccc</Color></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Data7"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!Analysis_Date.Value</Value></TextRun></TextRuns></Paragraph></Paragraphs><Style><Border><Style>Solid</Style><Color>#cccccc</Color></Border></Style></Textbox></CellContents></TablixCell>
+                    <TablixCell><CellContents><Textbox Name="Data8"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!Status.Value</Value></TextRun></TextRuns></Paragraph></Paragraphs><Style><Border><Style>Solid</Style><Color>#cccccc</Color></Border></Style></Textbox></CellContents></TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember><TablixHeader><Size>0.3in</Size></TablixHeader></TablixMember>
+                <TablixMember><Group Name="Details" /></TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DataSet_Result</DataSetName>
+            <Top>0.8in</Top>
+            <Left>0in</Left>
+            <Height>0.55in</Height>
+            <Width>7.5in</Width>
+          </Tablix>
+        </ReportItems>
+        <Height>2in</Height>
+      </Body>
+      <Width>8.5in</Width>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters />
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+</Report>

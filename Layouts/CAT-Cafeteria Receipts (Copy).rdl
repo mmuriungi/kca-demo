@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="pic">
+          <DataField>pic</DataField>
+        </Field>
+        <Field Name="address">
+          <DataField>address</DataField>
+        </Field>
+        <Field Name="tel">
+          <DataField>tel</DataField>
+        </Field>
+        <Field Name="fax">
+          <DataField>fax</DataField>
+        </Field>
+        <Field Name="pin">
+          <DataField>pin</DataField>
+        </Field>
+        <Field Name="email">
+          <DataField>email</DataField>
+        </Field>
+        <Field Name="vat">
+          <DataField>vat</DataField>
+        </Field>
+        <Field Name="dettotal">
+          <DataField>dettotal</DataField>
+        </Field>
+        <Field Name="dettotalFormat">
+          <DataField>dettotalFormat</DataField>
+        </Field>
+        <Field Name="dates">
+          <DataField>dates</DataField>
+        </Field>
+        <Field Name="recNo">
+          <DataField>recNo</DataField>
+        </Field>
+        <Field Name="transType">
+          <DataField>transType</DataField>
+        </Field>
+        <Field Name="totals">
+          <DataField>totals</DataField>
+        </Field>
+        <Field Name="totalsFormat">
+          <DataField>totalsFormat</DataField>
+        </Field>
+        <Field Name="AmountPaid">
+          <DataField>AmountPaid</DataField>
+        </Field>
+        <Field Name="AmountPaidFormat">
+          <DataField>AmountPaidFormat</DataField>
+        </Field>
+        <Field Name="change">
+          <DataField>change</DataField>
+        </Field>
+        <Field Name="changeFormat">
+          <DataField>changeFormat</DataField>
+        </Field>
+        <Field Name="Amounts">
+          <DataField>Amounts</DataField>
+        </Field>
+        <Field Name="AmountsFormat">
+          <DataField>AmountsFormat</DataField>
+        </Field>
+        <Field Name="creditEmp">
+          <DataField>creditEmp</DataField>
+        </Field>
+        <Field Name="users">
+          <DataField>users</DataField>
+        </Field>
+        <Field Name="BonApettie">
+          <DataField>BonApettie</DataField>
+        </Field>
+        <Field Name="endOfReceipt">
+          <DataField>endOfReceipt</DataField>
+        </Field>
+        <Field Name="double_Line">
+          <DataField>double_Line</DataField>
+        </Field>
+        <Field Name="MealCode">
+          <DataField>MealCode</DataField>
+        </Field>
+        <Field Name="MealDesc">
+          <DataField>MealDesc</DataField>
+        </Field>
+        <Field Name="qty">
+          <DataField>qty</DataField>
+        </Field>
+        <Field Name="unitPrice">
+          <DataField>unitPrice</DataField>
+        </Field>
+        <Field Name="unitPriceFormat">
+          <DataField>unitPriceFormat</DataField>
+        </Field>
+        <Field Name="TotLine_Amount">
+          <DataField>TotLine_Amount</DataField>
+        </Field>
+        <Field Name="TotLine_AmountFormat">
+          <DataField>TotLine_AmountFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

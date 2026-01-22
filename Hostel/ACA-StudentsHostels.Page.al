@@ -1,0 +1,363 @@
+#pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0204, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
+Page 68147 "ACA-Students Hostels"
+{
+    DeleteAllowed = false;
+    Editable = true;
+    InsertAllowed = false;
+    PageType = Document;
+    SourceTable = Customer;
+    SourceTableView = where("Customer Type" = const(Student));
+
+    layout
+    {
+        area(content)
+        {
+            group(General)
+            {
+                Caption = 'General';
+                Editable = true;
+                field("No."; Rec."No.")
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'No.(*)';
+                    Editable = false;
+                }
+                field("<Old Registration Number>"; Rec."Old Student Code")
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'Old Registration Number';
+                    Editable = false;
+                }
+                field(Name; Rec.Name)
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Emergency Contact"; Rec."Emergency Contact")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("ID No"; Rec."ID No")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Date Registered"; Rec."Date Registered")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Hostel Black Listed"; Rec."Hostel Black Listed")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Black Listed Reason"; Rec."Black Listed Reason")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field(Gender; Rec.Gender)
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Date Of Birth"; Rec."Date Of Birth")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field(Blocked; Rec.Blocked)
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Debit Amount (LCY)"; Rec."Debit Amount (LCY)")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Credit Amount (LCY)"; Rec."Credit Amount (LCY)")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Balance (LCY)"; Rec."Balance (LCY)")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+
+                    trigger OnDrillDown()
+                    var
+                        DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry";
+                        CustLedgEntry: Record "Cust. Ledger Entry";
+                    begin
+                        DtldCustLedgEntry.SetRange("Customer No.", Rec."No.");
+                        Rec.Copyfilter("Global Dimension 1 Filter", DtldCustLedgEntry."Initial Entry Global Dim. 1");
+                        Rec.Copyfilter("Global Dimension 2 Filter", DtldCustLedgEntry."Initial Entry Global Dim. 2");
+                        Rec.Copyfilter("Currency Filter", DtldCustLedgEntry."Currency Code");
+                        CustLedgEntry.DrillDownOnEntries(DtldCustLedgEntry);
+                    end;
+                }
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field(Picture; Rec.Image)
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+            }
+            part(Control1102760004; "ACA-Stud. Hostel Rooms")
+            {
+                SubPageLink = Student = field("No."),
+                              Gender = field(Gender);
+            }
+        }
+    }
+
+    actions
+    {
+        area(navigation)
+        {
+            group(Student)
+            {
+                Caption = 'Student';
+                action("Black List Student")
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'Black List Student';
+                    Image = Archive;
+                    Promoted = true;
+                    PromotedIsBig = true;
+
+                    trigger OnAction()
+                    begin
+                        if Confirm('Do you really want Black List Student?') then begin
+                            Rec.TestField("Black Listed Reason");
+                            Rec."Hostel Black Listed" := true;
+                            Rec."Black Listed By" := UserId;
+                            Rec.Modify;
+                        end;
+                    end;
+                }
+                separator(Action1102755004)
+                {
+                }
+                action("Send Email")
+                {
+                    ApplicationArea = Basic;
+
+                    trigger OnAction()
+                    var
+                        SendMail: Codeunit webportals;
+                        RptFileName: Text;
+                        MailBody: Text;
+                        ObjHostel: Record "ACA-Students Hostel Rooms";
+                        ObjCust: Record Customer;
+                        KUCCPSImports: Record "KUCCPS Imports";
+                        hostelrooms: Record "ACA-Students Hostel Rooms";
+                    begin
+                        //send hostel email
+                        ObjCust.Reset;
+                        ObjCust.SetRange("No.", hostelrooms.Student);
+                        if ObjCust.FindFirst then begin
+                            ObjHostel.Reset;
+                            ObjHostel.SetRange(Student, ObjCust."No.");
+                            ObjHostel.SetRange(Student, hostelrooms.Semester);
+                            if ObjHostel.FindFirst then begin
+                                MailBody := 'This is to notify you that you have been allocated accommodation at the university. ' +
+                      'You have been allocated Block ' + ObjHostel."Hostel No" + ', Room no: ' + ObjHostel."Room No" + ', Space: ' + ObjHostel."Space No" +
+                      'Kindly collect the keys and other items from the Hostel manager on the reporting day. Fill the attached form and present it to the hostel manager';
+                                RptFileName := 'D:\' + 'Room Agreement_' + DelChr(ObjHostel.Student, '=', '/') + '.pdf';
+
+                                if Exists(RptFileName) then
+                                    Erase(RptFileName);
+                                Report.SaveAsPdf(Report::"Resident Room Agreement", RptFileName, ObjCust);
+                                SendMail.SendEmailEasy_WithAttachment('Dear ', ObjCust.Name, MailBody, '', 'Appkings Solutions', 'Hostel Manager', ObjCust."E-Mail", 'HOSTEL ALLOCATION BLOCK', RptFileName, RptFileName);
+                                if Exists(RptFileName) then
+                                    Erase(RptFileName);
+                            end;
+                        end;
+                    end;
+                }
+                action("Revoke Student BlackList")
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'Revoke Student BlackList';
+                    Image = ReverseLines;
+                    Promoted = true;
+                    PromotedIsBig = true;
+
+                    trigger OnAction()
+                    begin
+                        if Confirm('Do you really want Revoke Black List Student?') then begin
+                            Rec.TestField("Hostel Black Listed", true);
+                            Rec."Hostel Black Listed" := false;
+                            Rec."Black Listed By" := UserId;
+                            Rec.Modify;
+                        end;
+                    end;
+                }
+                separator(Action1102755006)
+                {
+                }
+            }
+        }
+        area(processing)
+        {
+            action("Post Charges")
+            {
+                ApplicationArea = Basic;
+                Caption = 'Post Charges';
+                Promoted = true;
+                PromotedCategory = Process;
+                Visible = false;
+
+                trigger OnAction()
+                begin
+                    if Confirm('Do You Really Want to Post The Room Charges') then begin
+                        StudentHostel.Reset;
+                        StudentHostel.SetRange(StudentHostel.Student, Rec."No.");
+                        StudentHostel.SetRange(StudentHostel.Billed, false);
+                        if StudentHostel.Find('-') then begin
+                            repeat
+                                ;
+                                StudentCharges.Validate(StudentCharges."Transacton ID");
+                                StudentCharges.Init;
+                                StudentCharges.Validate(StudentCharges."Transacton ID");
+                                StudentCharges."Student No." := Rec."No.";
+                                StudentCharges."Transaction Type" := StudentCharges."transaction type"::Charges;
+                                StudentCharges.Description := 'Hostel Charges ' + StudentHostel."Space No";
+                                StudentCharges.Amount := StudentHostel."Accomodation Fee";
+                                StudentCharges.Date := StudentHostel."Allocation Date";
+                                StudentCharges.Insert(true);
+                                StudentHostel.Billed := true;
+                                StudentHostel."Billed Date" := Today;
+                                StudentHostel.Modify;
+                            until StudentHostel.Next = 0;
+                        end;
+                        Message('Hostel Charges Posted Successfully');
+                    end;
+                end;
+            }
+        }
+    }
+
+    trigger OnAfterGetRecord()
+    begin
+        Rec.CalcFields("Total Billed", "Total Paid");
+        CurrentBill := Rec."Total Billed" - Rec."Total Paid";
+    end;
+
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    begin
+        Rec."Customer Type" := Rec."customer type"::Student;
+        Rec."Date Registered" := Today;
+    end;
+
+    var
+        PictureExists: Boolean;
+        StudentPayments: Record "ACA-Std Payments";
+        StudentCharge: Record "ACA-Std Charges";
+        GenJnl: Record "Gen. Journal Line";
+        Stages: Record "ACA-Programme Stages";
+        Units: Record "ACA-Units/Subjects";
+        ExamsByStage: Record "ACA-Exams";
+        LineNo: Integer;
+        ExamsByUnit: Record "ACA-Exams By Units";
+        Charges: Record "ACA-Charge";
+        Receipt: Record "ACA-Receipt";
+        ReceiptItems: Record "ACA-Receipt Items";
+        GenSetUp: Record "ACA-General Set-Up";
+        StudentCharges2: Record "ACA-Std Charges";
+        CourseReg: Record "ACA-Course Registration";
+        CurrentBill: Decimal;
+        GLEntry: Record "G/L Entry";
+        CustLed: Record "Cust. Ledger Entry";
+        BankLedg: Record "Bank Account Ledger Entry";
+        DCustLedg: Record "Detailed Cust. Ledg. Entry";
+        PDate: Date;
+        DocNo: Code[20];
+        VendLedg: Record "Vendor Ledger Entry";
+        DVendLedg: Record "Detailed Vendor Ledg. Entry";
+        VATEntry: Record "VAT Entry";
+        CReg: Record "ACA-Course Registration";
+        StudCharges: Record "ACA-Std Charges";
+        GenJnlLine: Record "Gen. Journal Line";
+        CustLed2: Record "Cust. Ledger Entry";
+        Receipt2: Record "ACA-Receipt";
+        Cont: Boolean;
+        Cust: Record Customer;
+        CustPostGroup: Record "Customer Posting Group";
+        window: Dialog;
+        GLPosting: Codeunit "Gen. Jnl.-Post Line";
+        Receipts: Record "ACA-Receipt";
+        CustLedg: Record "Cust. Ledger Entry";
+        DueDate: Date;
+        Sems: Record "ACA-Semesters";
+        ChangeLog: Record "Change Log Entry";
+        StudentHostel: Record "ACA-Students Hostel Rooms";
+        StudentCharges: Record "ACA-Std Charges";
+        Rooms: Record "ACA-Hostel Ledger";
+        StudentHostel2: Record "ACA-Students Hostel Rooms";
+
+
+    procedure "Post Charges"()
+    begin
+        GenJnlLine.SetRange(GenJnlLine."Journal Template Name", 'PAYMENTS');
+        GenJnlLine.SetRange(GenJnlLine."Journal Batch Name", 'CHARGES');
+        if GenJnlLine.Find('-') then begin
+            GenJnlLine.DeleteAll
+        end;
+
+        StudentHostel.Reset;
+        StudentHostel.SetRange(StudentHostel.Student, Rec."No.");
+        StudentHostel.SetRange(StudentHostel.Cleared, false);
+        if StudentHostel.Find('-') then begin
+            repeat
+                StudentHostel.TestField(StudentHostel.Semester);
+                StudentHostel.TestField(StudentHostel."Space No");
+                if StudentHostel.Charges > 0 then begin
+                    LineNo := LineNo + 1000;
+                    GenJnlLine.Init;
+                    GenJnlLine."Journal Template Name" := 'PAYMENTS';
+                    GenJnlLine."Journal Batch Name" := 'CHARGES';
+                    GenJnlLine."Line No." := LineNo;
+                    GenJnlLine."Account Type" := GenJnlLine."account type"::Customer;
+                    GenJnlLine."Account No." := Rec."No.";
+                    GenJnlLine.Validate(GenJnlLine."Account No.");
+                    GenJnlLine."Posting Date" := Today;
+                    GenJnlLine."Document Type" := GenJnlLine."document type"::Invoice;
+                    GenJnlLine."Document No." := StudentHostel."Space No" + ' ' + StudentHostel."Room No";
+                    //GenJnlLine."External Document No.":="Cheque No";
+                    GenJnlLine.Amount := StudentHostel.Charges;
+                    GenJnlLine.Validate(GenJnlLine.Amount);
+                    GenJnlLine."Bal. Account Type" := GenJnlLine."bal. account type"::"G/L Account";
+                    GenJnlLine."Bal. Account No." := '300007';
+                    GenJnlLine.Description := Rec.Name;
+                    GenJnlLine.Validate(GenJnlLine."Bal. Account No.");
+                    GenJnlLine."Shortcut Dimension 1 Code" := 'ACADEMIC';
+                    //GenJnlLine.VALIDATE(GenJnlLine."Shortcut Dimension 1 Code");
+                    //GenJnlLine."Document No.":="Doc No";
+                    if GenJnlLine.Amount <> 0 then
+                        GenJnlLine.Insert;
+                end;
+            until StudentHostel.Next = 0;
+        end;
+
+        GenJnlLine.SetRange(GenJnlLine."Journal Template Name", 'PAYMENTS');
+        GenJnlLine.SetRange(GenJnlLine."Journal Batch Name", 'CHARGES');
+        if GenJnlLine.Find('-') then begin
+            Codeunit.Run(Codeunit::"Gen. Jnl.-Post", GenJnlLine);
+        end;
+    end;
+}
+

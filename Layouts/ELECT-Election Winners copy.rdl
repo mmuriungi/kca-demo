@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ElectHeader">
+          <DataField>ElectHeader</DataField>
+        </Field>
+        <Field Name="CompNames">
+          <DataField>CompNames</DataField>
+        </Field>
+        <Field Name="CompAddress">
+          <DataField>CompAddress</DataField>
+        </Field>
+        <Field Name="COmpPhone">
+          <DataField>COmpPhone</DataField>
+        </Field>
+        <Field Name="Pic">
+          <DataField>Pic</DataField>
+        </Field>
+        <Field Name="CompMail">
+          <DataField>CompMail</DataField>
+        </Field>
+        <Field Name="ElectralCode">
+          <DataField>ElectralCode</DataField>
+        </Field>
+        <Field Name="ElectralDistrict">
+          <DataField>ElectralDistrict</DataField>
+        </Field>
+        <Field Name="ElectPositionCategory">
+          <DataField>ElectPositionCategory</DataField>
+        </Field>
+        <Field Name="ElectPositionCode">
+          <DataField>ElectPositionCode</DataField>
+        </Field>
+        <Field Name="ElectSchool">
+          <DataField>ElectSchool</DataField>
+        </Field>
+        <Field Name="ElectDepartment">
+          <DataField>ElectDepartment</DataField>
+        </Field>
+        <Field Name="ElectCampus">
+          <DataField>ElectCampus</DataField>
+        </Field>
+        <Field Name="WinnerNames">
+          <DataField>WinnerNames</DataField>
+        </Field>
+        <Field Name="WinnerVotes">
+          <DataField>WinnerVotes</DataField>
+        </Field>
+        <Field Name="WinnerPercentage">
+          <DataField>WinnerPercentage</DataField>
+        </Field>
+        <Field Name="WinnerPercentageFormat">
+          <DataField>WinnerPercentageFormat</DataField>
+        </Field>
+        <Field Name="WinnerPosition">
+          <DataField>WinnerPosition</DataField>
+        </Field>
+        <Field Name="Order">
+          <DataField>Order</DataField>
+        </Field>
+        <Field Name="CandidateNo">
+          <DataField>CandidateNo</DataField>
+        </Field>
+        <Field Name="CandidateNames">
+          <DataField>CandidateNames</DataField>
+        </Field>
+        <Field Name="CandPic">
+          <DataField>CandPic</DataField>
+        </Field>
+        <Field Name="Votesotten">
+          <DataField>Votesotten</DataField>
+        </Field>
+        <Field Name="Ranking">
+          <DataField>Ranking</DataField>
+        </Field>
+        <Field Name="CandIsWinner">
+          <DataField>CandIsWinner</DataField>
+        </Field>
+        <Field Name="PercentageVotes">
+          <DataField>PercentageVotes</DataField>
+        </Field>
+        <Field Name="PercentageVotesFormat">
+          <DataField>PercentageVotesFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

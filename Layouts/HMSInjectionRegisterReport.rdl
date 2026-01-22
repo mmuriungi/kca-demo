@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Injection_18_">
+          <DataField>Injection_18_</DataField>
+        </Field>
+        <Field Name="Injection_15_">
+          <DataField>Injection_15_</DataField>
+        </Field>
+        <Field Name="Injection_16_">
+          <DataField>Injection_16_</DataField>
+        </Field>
+        <Field Name="Injection_17_">
+          <DataField>Injection_17_</DataField>
+        </Field>
+        <Field Name="Injection_14_">
+          <DataField>Injection_14_</DataField>
+        </Field>
+        <Field Name="Injection_13_">
+          <DataField>Injection_13_</DataField>
+        </Field>
+        <Field Name="Injection_12_">
+          <DataField>Injection_12_</DataField>
+        </Field>
+        <Field Name="Injection_11_">
+          <DataField>Injection_11_</DataField>
+        </Field>
+        <Field Name="Injection_10_">
+          <DataField>Injection_10_</DataField>
+        </Field>
+        <Field Name="Injection_9_">
+          <DataField>Injection_9_</DataField>
+        </Field>
+        <Field Name="Injection_8_">
+          <DataField>Injection_8_</DataField>
+        </Field>
+        <Field Name="Injection_7_">
+          <DataField>Injection_7_</DataField>
+        </Field>
+        <Field Name="Injection_6_">
+          <DataField>Injection_6_</DataField>
+        </Field>
+        <Field Name="Injection_5_">
+          <DataField>Injection_5_</DataField>
+        </Field>
+        <Field Name="Injection_4_">
+          <DataField>Injection_4_</DataField>
+        </Field>
+        <Field Name="Injection_3_">
+          <DataField>Injection_3_</DataField>
+        </Field>
+        <Field Name="Injection_2_">
+          <DataField>Injection_2_</DataField>
+        </Field>
+        <Field Name="Injection_1_">
+          <DataField>Injection_1_</DataField>
+        </Field>
+        <Field Name="UPPERCASE_COMPANYNAME_">
+          <DataField>UPPERCASE_COMPANYNAME_</DataField>
+        </Field>
+        <Field Name="Drug_1_">
+          <DataField>Drug_1_</DataField>
+        </Field>
+        <Field Name="PFNo_1_">
+          <DataField>PFNo_1_</DataField>
+        </Field>
+        <Field Name="PatientName_1_">
+          <DataField>PatientName_1_</DataField>
+        </Field>
+        <Field Name="Dose_1_">
+          <DataField>Dose_1_</DataField>
+        </Field>
+        <Field Name="PFNo_2_">
+          <DataField>PFNo_2_</DataField>
+        </Field>
+        <Field Name="PatientName_2_">
+          <DataField>PatientName_2_</DataField>
+        </Field>
+        <Field Name="Drug_2_">
+          <DataField>Drug_2_</DataField>
+        </Field>
+        <Field Name="Dose_2_">
+          <DataField>Dose_2_</DataField>
+        </Field>
+        <Field Name="SIGNATURECaption">
+          <DataField>SIGNATURECaption</DataField>
+        </Field>
+        <Field Name="DOSECaption">
+          <DataField>DOSECaption</DataField>
+        </Field>
+        <Field Name="DRUGCaption">
+          <DataField>DRUGCaption</DataField>
+        </Field>
+        <Field Name="NAMECaption">
+          <DataField>NAMECaption</DataField>
+        </Field>
+        <Field Name="OP_IP_NO_Caption">
+          <DataField>OP_IP_NO_Caption</DataField>
+        </Field>
+        <Field Name="SIGNATURECaption_Control1102760076">
+          <DataField>SIGNATURECaption_Control1102760076</DataField>
+        </Field>
+        <Field Name="DOSECaption_Control1102760093">
+          <DataField>DOSECaption_Control1102760093</DataField>
+        </Field>
+        <Field Name="DRUGCaption_Control1102760100">
+          <DataField>DRUGCaption_Control1102760100</DataField>
+        </Field>
+        <Field Name="NAMECaption_Control1102760112">
+          <DataField>NAMECaption_Control1102760112</DataField>
+        </Field>
+        <Field Name="DATE__________________________________________________Caption">
+          <DataField>DATE__________________________________________________Caption</DataField>
+        </Field>
+        <Field Name="OP_IP_NO_Caption_Control1102760119">
+          <DataField>OP_IP_NO_Caption_Control1102760119</DataField>
+        </Field>
+        <Field Name="University_HEALTH_SERVICESCaption">
+          <DataField>University_HEALTH_SERVICESCaption</DataField>
+        </Field>
+        <Field Name="INJECTION_REGISTERCaption">
+          <DataField>INJECTION_REGISTERCaption</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Injection_Treatment_No_">
+          <DataField>HMS_Treatment_Form_Injection_Treatment_No_</DataField>
+        </Field>
+        <Field Name="HMS_Treatment_Form_Injection_Injection_No_">
+          <DataField>HMS_Treatment_Form_Injection_Injection_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

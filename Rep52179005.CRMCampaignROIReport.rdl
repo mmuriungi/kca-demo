@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="ReportTitle">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ReportTitle</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ReportTitle</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CampaignNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CampaignNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CampaignNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DescriptionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DescriptionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DescriptionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="StatusCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>StatusCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>StatusCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="StartDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>StartDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>StartDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EndDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EndDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EndDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BudgetCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>BudgetCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>BudgetCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ActualCostCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ActualCostCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ActualCostCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TotalRevenueCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TotalRevenueCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TotalRevenueCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NetProfitCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>NetProfitCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>NetProfitCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ROIAmountCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ROIAmountCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ROIAmountCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ROIPercentageCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ROIPercentageCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ROIPercentageCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CostPerResponseCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CostPerResponseCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CostPerResponseCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CostPerLeadCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CostPerLeadCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CostPerLeadCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CostPerConversionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CostPerConversionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CostPerConversionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RevenuePerLeadCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RevenuePerLeadCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RevenuePerLeadCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ConversionValueCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ConversionValueCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ConversionValueCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ResponsesCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ResponsesCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ResponsesCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LeadsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LeadsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LeadsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ConversionsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ConversionsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ConversionsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ResponseRateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ResponseRateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ResponseRateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LeadConversionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LeadConversionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LeadConversionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LifetimeValueCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LifetimeValueCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LifetimeValueCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PaybackPeriodCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PaybackPeriodCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PaybackPeriodCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BreakEvenCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>BreakEvenCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>BreakEvenCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Campaign_No">
+          <DataField>Campaign_No</DataField>
+        </Field>
+        <Field Name="Campaign_Description">
+          <DataField>Campaign_Description</DataField>
+        </Field>
+        <Field Name="Campaign_Type">
+          <DataField>Campaign_Type</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="Start_Date">
+          <DataField>Start_Date</DataField>
+        </Field>
+        <Field Name="End_Date">
+          <DataField>End_Date</DataField>
+        </Field>
+        <Field Name="Budget_Amount">
+          <DataField>Budget_Amount</DataField>
+        </Field>
+        <Field Name="Budget_AmountFormat">
+          <DataField>Budget_AmountFormat</DataField>
+        </Field>
+        <Field Name="Actual_Cost">
+          <DataField>Actual_Cost</DataField>
+        </Field>
+        <Field Name="Actual_CostFormat">
+          <DataField>Actual_CostFormat</DataField>
+        </Field>
+        <Field Name="Total_Revenue">
+          <DataField>Total_Revenue</DataField>
+        </Field>
+        <Field Name="Total_RevenueFormat">
+          <DataField>Total_RevenueFormat</DataField>
+        </Field>
+        <Field Name="Net_Profit">
+          <DataField>Net_Profit</DataField>
+        </Field>
+        <Field Name="Net_ProfitFormat">
+          <DataField>Net_ProfitFormat</DataField>
+        </Field>
+        <Field Name="ROI_Amount">
+          <DataField>ROI_Amount</DataField>
+        </Field>
+        <Field Name="ROI_AmountFormat">
+          <DataField>ROI_AmountFormat</DataField>
+        </Field>
+        <Field Name="ROI_Percentage">
+          <DataField>ROI_Percentage</DataField>
+        </Field>
+        <Field Name="ROI_PercentageFormat">
+          <DataField>ROI_PercentageFormat</DataField>
+        </Field>
+        <Field Name="Cost_Per_Response">
+          <DataField>Cost_Per_Response</DataField>
+        </Field>
+        <Field Name="Cost_Per_ResponseFormat">
+          <DataField>Cost_Per_ResponseFormat</DataField>
+        </Field>
+        <Field Name="Cost_Per_Lead">
+          <DataField>Cost_Per_Lead</DataField>
+        </Field>
+        <Field Name="Cost_Per_LeadFormat">
+          <DataField>Cost_Per_LeadFormat</DataField>
+        </Field>
+        <Field Name="Cost_Per_Conversion">
+          <DataField>Cost_Per_Conversion</DataField>
+        </Field>
+        <Field Name="Cost_Per_ConversionFormat">
+          <DataField>Cost_Per_ConversionFormat</DataField>
+        </Field>
+        <Field Name="Revenue_Per_Lead">
+          <DataField>Revenue_Per_Lead</DataField>
+        </Field>
+        <Field Name="Revenue_Per_LeadFormat">
+          <DataField>Revenue_Per_LeadFormat</DataField>
+        </Field>
+        <Field Name="Conversion_Value">
+          <DataField>Conversion_Value</DataField>
+        </Field>
+        <Field Name="Conversion_ValueFormat">
+          <DataField>Conversion_ValueFormat</DataField>
+        </Field>
+        <Field Name="Total_Responses">
+          <DataField>Total_Responses</DataField>
+        </Field>
+        <Field Name="Total_Leads">
+          <DataField>Total_Leads</DataField>
+        </Field>
+        <Field Name="Total_Conversions">
+          <DataField>Total_Conversions</DataField>
+        </Field>
+        <Field Name="Response_Rate">
+          <DataField>Response_Rate</DataField>
+        </Field>
+        <Field Name="Response_RateFormat">
+          <DataField>Response_RateFormat</DataField>
+        </Field>
+        <Field Name="Lead_Conversion_Rate">
+          <DataField>Lead_Conversion_Rate</DataField>
+        </Field>
+        <Field Name="Lead_Conversion_RateFormat">
+          <DataField>Lead_Conversion_RateFormat</DataField>
+        </Field>
+        <Field Name="Customer_Lifetime_Value">
+          <DataField>Customer_Lifetime_Value</DataField>
+        </Field>
+        <Field Name="Customer_Lifetime_ValueFormat">
+          <DataField>Customer_Lifetime_ValueFormat</DataField>
+        </Field>
+        <Field Name="Payback_Period_Days">
+          <DataField>Payback_Period_Days</DataField>
+        </Field>
+        <Field Name="Break_Even_Point">
+          <DataField>Break_Even_Point</DataField>
+        </Field>
+        <Field Name="Break_Even_PointFormat">
+          <DataField>Break_Even_PointFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

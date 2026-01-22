@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="PrintDate">
+          <DataField>PrintDate</DataField>
+        </Field>
+        <Field Name="KRI_ID">
+          <DataField>KRI_ID</DataField>
+        </Field>
+        <Field Name="KRI_Name">
+          <DataField>KRI_Name</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Related_Risk_ID">
+          <DataField>Related_Risk_ID</DataField>
+        </Field>
+        <Field Name="Current_Value">
+          <DataField>Current_Value</DataField>
+        </Field>
+        <Field Name="Current_ValueFormat">
+          <DataField>Current_ValueFormat</DataField>
+        </Field>
+        <Field Name="Target_Value">
+          <DataField>Target_Value</DataField>
+        </Field>
+        <Field Name="Target_ValueFormat">
+          <DataField>Target_ValueFormat</DataField>
+        </Field>
+        <Field Name="Threshold_Green">
+          <DataField>Threshold_Green</DataField>
+        </Field>
+        <Field Name="Threshold_GreenFormat">
+          <DataField>Threshold_GreenFormat</DataField>
+        </Field>
+        <Field Name="Threshold_Yellow">
+          <DataField>Threshold_Yellow</DataField>
+        </Field>
+        <Field Name="Threshold_YellowFormat">
+          <DataField>Threshold_YellowFormat</DataField>
+        </Field>
+        <Field Name="Threshold_Red">
+          <DataField>Threshold_Red</DataField>
+        </Field>
+        <Field Name="Threshold_RedFormat">
+          <DataField>Threshold_RedFormat</DataField>
+        </Field>
+        <Field Name="Alert_Status">
+          <DataField>Alert_Status</DataField>
+        </Field>
+        <Field Name="Alert_Status_Text">
+          <DataField>Alert_Status_Text</DataField>
+        </Field>
+        <Field Name="Monitoring_Frequency">
+          <DataField>Monitoring_Frequency</DataField>
+        </Field>
+        <Field Name="Monitoring_Frequency_Text">
+          <DataField>Monitoring_Frequency_Text</DataField>
+        </Field>
+        <Field Name="Last_Measured_Date">
+          <DataField>Last_Measured_Date</DataField>
+        </Field>
+        <Field Name="Next_Measurement_Date">
+          <DataField>Next_Measurement_Date</DataField>
+        </Field>
+        <Field Name="Data_Source">
+          <DataField>Data_Source</DataField>
+        </Field>
+        <Field Name="Responsible_Person">
+          <DataField>Responsible_Person</DataField>
+        </Field>
+        <Field Name="Department_Code">
+          <DataField>Department_Code</DataField>
+        </Field>
+        <Field Name="Active">
+          <DataField>Active</DataField>
+        </Field>
+        <Field Name="Active_Text">
+          <DataField>Active_Text</DataField>
+        </Field>
+        <Field Name="Measurement_Method">
+          <DataField>Measurement_Method</DataField>
+        </Field>
+        <Field Name="Performance_Indicator">
+          <DataField>Performance_Indicator</DataField>
+        </Field>
+        <Field Name="Days_Since_Last_Measurement">
+          <DataField>Days_Since_Last_Measurement</DataField>
+        </Field>
+        <Field Name="Days_Until_Next_Measurement">
+          <DataField>Days_Until_Next_Measurement</DataField>
+        </Field>
+        <Field Name="Risk_Title">
+          <DataField>Risk_Title</DataField>
+        </Field>
+        <Field Name="Risk_Category">
+          <DataField>Risk_Category</DataField>
+        </Field>
+        <Field Name="Risk_Status">
+          <DataField>Risk_Status</DataField>
+        </Field>
+        <Field Name="Risk_Owner">
+          <DataField>Risk_Owner</DataField>
+        </Field>
+        <Field Name="Inherent_Risk_Level">
+          <DataField>Inherent_Risk_Level</DataField>
+        </Field>
+        <Field Name="Residual_Risk_Level">
+          <DataField>Residual_Risk_Level</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

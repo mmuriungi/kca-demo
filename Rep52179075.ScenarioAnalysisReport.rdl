@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="Scenario_ID">
+          <DataField>Scenario_ID</DataField>
+        </Field>
+        <Field Name="Related_Risk_ID">
+          <DataField>Related_Risk_ID</DataField>
+        </Field>
+        <Field Name="Scenario_Name">
+          <DataField>Scenario_Name</DataField>
+        </Field>
+        <Field Name="Scenario_Type">
+          <DataField>Scenario_Type</DataField>
+        </Field>
+        <Field Name="Scenario_Description">
+          <DataField>Scenario_Description</DataField>
+        </Field>
+        <Field Name="Probability_Percentage">
+          <DataField>Probability_Percentage</DataField>
+        </Field>
+        <Field Name="Probability_PercentageFormat">
+          <DataField>Probability_PercentageFormat</DataField>
+        </Field>
+        <Field Name="Financial_Impact">
+          <DataField>Financial_Impact</DataField>
+        </Field>
+        <Field Name="Financial_ImpactFormat">
+          <DataField>Financial_ImpactFormat</DataField>
+        </Field>
+        <Field Name="Operational_Impact">
+          <DataField>Operational_Impact</DataField>
+        </Field>
+        <Field Name="Reputational_Impact">
+          <DataField>Reputational_Impact</DataField>
+        </Field>
+        <Field Name="Analysis_Date">
+          <DataField>Analysis_Date</DataField>
+        </Field>
+        <Field Name="Analyst">
+          <DataField>Analyst</DataField>
+        </Field>
+        <Field Name="Sensitivity_Factor">
+          <DataField>Sensitivity_Factor</DataField>
+        </Field>
+        <Field Name="Sensitivity_FactorFormat">
+          <DataField>Sensitivity_FactorFormat</DataField>
+        </Field>
+        <Field Name="Mitigation_Strategy">
+          <DataField>Mitigation_Strategy</DataField>
+        </Field>
+        <Field Name="Contingency_Plan">
+          <DataField>Contingency_Plan</DataField>
+        </Field>
+        <Field Name="Review_Date">
+          <DataField>Review_Date</DataField>
+        </Field>
+        <Field Name="Scenario_Type_Display">
+          <DataField>Scenario_Type_Display</DataField>
+        </Field>
+        <Field Name="Key_Variables">
+          <DataField>Key_Variables</DataField>
+        </Field>
+        <Field Name="Risk_Title">
+          <DataField>Risk_Title</DataField>
+        </Field>
+        <Field Name="Risk_Category">
+          <DataField>Risk_Category</DataField>
+        </Field>
+        <Field Name="Risk_Owner">
+          <DataField>Risk_Owner</DataField>
+        </Field>
+        <Field Name="Current_Risk_Level">
+          <DataField>Current_Risk_Level</DataField>
+        </Field>
+        <Field Name="Risk_Status">
+          <DataField>Risk_Status</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>
