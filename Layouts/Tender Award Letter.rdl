@@ -1,0 +1,1121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>d974bdbe-f922-4736-944f-748a61b71839</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="Textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>1) </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>For the attention of Tenderer's Authorized Representative </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Left>0.07167in</Left>
+            <Height>0.25in</Height>
+            <Width>9.38667in</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Name:  </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>AName</Label>
+                    <Value>=First(Fields!Name_TenderApplicantsRegistration.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Address:  </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>Addrress</Label>
+                    <Value>=First(Fields!Address_TenderApplicantsRegistration.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Telephone:  </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>phone</Label>
+                    <Value>=First(Fields!PhoneNo_TenderApplicantsRegistration.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Email Address:  </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>Email</Label>
+                    <Value>=First(Fields!ContactPersonEmail_TenderApplicantsRegistration.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox3</rd:DefaultName>
+            <Top>0.26333in</Top>
+            <Left>0.08in</Left>
+            <Height>0.85in</Height>
+            <Width>4.80833in</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox5">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Date of Transmission:  </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>[Procuring Entity]:</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>Name</Label>
+                    <Value>=First(Fields!cname.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Project:  </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>Title</Label>
+                    <Value>=First(Fields!PostingDescription_TenderSubmissionHeader.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Contract title:  </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>Title</Label>
+                    <Value>=First(Fields!PostingDescription_TenderSubmissionHeader.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Country:  </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Kenya</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Tender No:  </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>Tender No</Label>
+                    <Value>=First(Fields!TenderNo_TenderSubmissionHeader.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox5</rd:DefaultName>
+            <Top>1.18833in</Top>
+            <Left>0.11333in</Left>
+            <Height>1.25in</Height>
+            <Width>9.345in</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox6">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>This Notification of Intention to Award (Notification) notifies you of our decision to award the above contract. The transmission of this Notification begins the Standstill Period. During the Standstill Period you may:</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>a)           Request a debriefing in relation to the evaluation of your Tender, and/ or</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <LeftIndent>0.46944in</LeftIndent>
+                <HangingIndent>-28.2pt</HangingIndent>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                  <LineHeight>11pt</LineHeight>
+                </Style>
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>b)           Submit a Procurement-related Complaint in relation to the decision to award the contract.</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <LeftIndent>0.46944in</LeftIndent>
+                <HangingIndent>-28.2pt</HangingIndent>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                  <LineHeight>11pt</LineHeight>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>2.48in</Top>
+            <Left>0.12167in</Left>
+            <Height>0.86667in</Height>
+            <Width>9.33667in</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox7">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>i) The successful Tenderer</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>3.38833in</Top>
+            <Left>0.13833in</Left>
+            <Height>0.25in</Height>
+            <Width>4.05833in</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox4">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Name:  </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>AName</Label>
+                    <Value>=First(Fields!Name_TenderApplicantsRegistration.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Address:  </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>Addrress</Label>
+                    <Value>=First(Fields!Address_TenderApplicantsRegistration.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Telephone:  </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>phone</Label>
+                    <Value>=First(Fields!PhoneNo_TenderApplicantsRegistration.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Email Address:  </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Label>Email</Label>
+                    <Value>=First(Fields!ContactPersonEmail_TenderApplicantsRegistration.Value, "DataSet_Result")</Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Total combined Score:   </Value>
+                    <Style>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox3</rd:DefaultName>
+            <Top>3.7025in</Top>
+            <Left>0.2in</Left>
+            <Height>0.98333in</Height>
+            <Width>3.99666in</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox9">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>2)      </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Other Tenderers [INSTRUCTIONS: insert names of all Tenderers that submitted a Tender. If the Tender's price was evaluated include the evaluated price as well as the</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Tender price as read out.]</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Cambria</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#231f20</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <LeftIndent>0.24097in</LeftIndent>
+                <HangingIndent>-0.5pt</HangingIndent>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                  <LineHeight>12pt</LineHeight>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox9</rd:DefaultName>
+            <Top>4.74667in</Top>
+            <Left>0.18833in</Left>
+            <Height>0.64167in</Height>
+            <Width>9.27in</Width>
+            <ZIndex>6</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Height>5.84667in</Height>
+        <Style />
+      </Body>
+      <Width>9.45833in</Width>
+      <Page>
+        <PageHeader>
+          <Height>1in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Image Name="Image1">
+              <Source>Database</Source>
+              <Value>=First(Fields!logo.Value, "DataSet_Result")</Value>
+              <MIMEType>image/png</MIMEType>
+              <Sizing>FitProportional</Sizing>
+              <Top>0.08055in</Top>
+              <Left>0.07167in</Left>
+              <Height>0.83889in</Height>
+              <Width>0.96166in</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+            <Textbox Name="Textbox2">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Label>Name</Label>
+                      <Value>=First(Fields!cname.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontFamily>Cambria</FontFamily>
+                        <FontSize>12pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Label>mail</Label>
+                      <Value>=First(Fields!mail.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontFamily>Cambria</FontFamily>
+                        <FontSize>12pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Label>url</Label>
+                      <Value>=First(Fields!url.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontFamily>Cambria</FontFamily>
+                        <FontSize>12pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>NOTIFICATION OF INTENTION TO AWARD</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Cambria</FontFamily>
+                        <FontSize>12pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>#231f20</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.08055in</Top>
+              <Left>1.10277in</Left>
+              <Height>0.83889in</Height>
+              <Width>8.35556in</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageHeader>
+        <PageHeight>17in</PageHeight>
+        <PageWidth>11in</PageWidth>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_TenderSubmissionHeader">
+          <DataField>No_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="BidderNo_TenderSubmissionHeader">
+          <DataField>BidderNo_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="TenderNo_TenderSubmissionHeader">
+          <DataField>TenderNo_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="BidStatus_TenderSubmissionHeader">
+          <DataField>BidStatus_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="ExpectedOpeningDate_TenderSubmissionHeader">
+          <DataField>ExpectedOpeningDate_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="PostingDate_TenderSubmissionHeader">
+          <DataField>PostingDate_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="ExpectedClosingDate_TenderSubmissionHeader">
+          <DataField>ExpectedClosingDate_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="PostingDescription_TenderSubmissionHeader">
+          <DataField>PostingDescription_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="TechnicalTotal_TenderSubmissionHeader">
+          <DataField>TechnicalTotal_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="TechnicalTotal_TenderSubmissionHeaderFormat">
+          <DataField>TechnicalTotal_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="TechnicalScore_TenderSubmissionHeader">
+          <DataField>TechnicalScore_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="TechnicalScore_TenderSubmissionHeaderFormat">
+          <DataField>TechnicalScore_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="TechnicalPercentage_TenderSubmissionHeader">
+          <DataField>TechnicalPercentage_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="TechnicalPercentage_TenderSubmissionHeaderFormat">
+          <DataField>TechnicalPercentage_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="DemoTotal_TenderSubmissionHeader">
+          <DataField>DemoTotal_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="DemoTotal_TenderSubmissionHeaderFormat">
+          <DataField>DemoTotal_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="DemoScore_TenderSubmissionHeader">
+          <DataField>DemoScore_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="DemoScore_TenderSubmissionHeaderFormat">
+          <DataField>DemoScore_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="DemoPercentage_TenderSubmissionHeader">
+          <DataField>DemoPercentage_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="DemoPercentage_TenderSubmissionHeaderFormat">
+          <DataField>DemoPercentage_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="FinancialBudgetedAmount_TenderSubmissionHeader">
+          <DataField>FinancialBudgetedAmount_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="FinancialBudgetedAmount_TenderSubmissionHeaderFormat">
+          <DataField>FinancialBudgetedAmount_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="FinancialQuotedAmount_TenderSubmissionHeader">
+          <DataField>FinancialQuotedAmount_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="FinancialQuotedAmount_TenderSubmissionHeaderFormat">
+          <DataField>FinancialQuotedAmount_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="FinancialVariation_TenderSubmissionHeader">
+          <DataField>FinancialVariation_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="FinancialVariation_TenderSubmissionHeaderFormat">
+          <DataField>FinancialVariation_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="TechnicalProposalPath_TenderSubmissionHeader">
+          <DataField>TechnicalProposalPath_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="FinancialProposalPath_TenderSubmissionHeader">
+          <DataField>FinancialProposalPath_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="FinancialQuotedAmount2_TenderSubmissionHeader">
+          <DataField>FinancialQuotedAmount2_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="FinancialQuotedAmount2_TenderSubmissionHeaderFormat">
+          <DataField>FinancialQuotedAmount2_TenderSubmissionHeaderFormat</DataField>
+        </Field>
+        <Field Name="ResponsibilityCenter_TenderSubmissionHeader">
+          <DataField>ResponsibilityCenter_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="QuoteNo_TenderSubmissionHeader">
+          <DataField>QuoteNo_TenderSubmissionHeader</DataField>
+        </Field>
+        <Field Name="cname">
+          <DataField>cname</DataField>
+        </Field>
+        <Field Name="cname2">
+          <DataField>cname2</DataField>
+        </Field>
+        <Field Name="logo">
+          <DataField>logo</DataField>
+        </Field>
+        <Field Name="mail">
+          <DataField>mail</DataField>
+        </Field>
+        <Field Name="url">
+          <DataField>url</DataField>
+        </Field>
+        <Field Name="phone">
+          <DataField>phone</DataField>
+        </Field>
+        <Field Name="caddress">
+          <DataField>caddress</DataField>
+        </Field>
+        <Field Name="caddress2">
+          <DataField>caddress2</DataField>
+        </Field>
+        <Field Name="No_TenderApplicantsRegistration">
+          <DataField>No_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="Name_TenderApplicantsRegistration">
+          <DataField>Name_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="Address_TenderApplicantsRegistration">
+          <DataField>Address_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="City_TenderApplicantsRegistration">
+          <DataField>City_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="Contact_TenderApplicantsRegistration">
+          <DataField>Contact_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="PhoneNo_TenderApplicantsRegistration">
+          <DataField>PhoneNo_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="ContactPerson_TenderApplicantsRegistration">
+          <DataField>ContactPerson_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="ContactPersonEmail_TenderApplicantsRegistration">
+          <DataField>ContactPersonEmail_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="OurAccountNo_TenderApplicantsRegistration">
+          <DataField>OurAccountNo_TenderApplicantsRegistration</DataField>
+        </Field>
+        <Field Name="TenderNo_TenderBidderPrelimReqs">
+          <DataField>TenderNo_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="Code_TenderBidderPrelimReqs">
+          <DataField>Code_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="Description_TenderBidderPrelimReqs">
+          <DataField>Description_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="Description2_TenderBidderPrelimReqs">
+          <DataField>Description2_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="RequirementsMet_TenderBidderPrelimReqs">
+          <DataField>RequirementsMet_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="Remarks_TenderBidderPrelimReqs">
+          <DataField>Remarks_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="BidNo_TenderBidderPrelimReqs">
+          <DataField>BidNo_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="BidderNo_TenderBidderPrelimReqs">
+          <DataField>BidderNo_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="Employeeno_TenderBidderPrelimReqs">
+          <DataField>Employeeno_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="UserName_TenderBidderPrelimReqs">
+          <DataField>UserName_TenderBidderPrelimReqs</DataField>
+        </Field>
+        <Field Name="TenderNo_TenderBidderTechnicalReqs">
+          <DataField>TenderNo_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="Code_TenderBidderTechnicalReqs">
+          <DataField>Code_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="Description_TenderBidderTechnicalReqs">
+          <DataField>Description_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="Description2_TenderBidderTechnicalReqs">
+          <DataField>Description2_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="MaximumScore_TenderBidderTechnicalReqs">
+          <DataField>MaximumScore_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="MaximumScore_TenderBidderTechnicalReqsFormat">
+          <DataField>MaximumScore_TenderBidderTechnicalReqsFormat</DataField>
+        </Field>
+        <Field Name="score_TenderBidderTechnicalReqs">
+          <DataField>score_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="score_TenderBidderTechnicalReqsFormat">
+          <DataField>score_TenderBidderTechnicalReqsFormat</DataField>
+        </Field>
+        <Field Name="Remarks_TenderBidderTechnicalReqs">
+          <DataField>Remarks_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="BidNo_TenderBidderTechnicalReqs">
+          <DataField>BidNo_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="BidderNo_TenderBidderTechnicalReqs">
+          <DataField>BidderNo_TenderBidderTechnicalReqs</DataField>
+        </Field>
+        <Field Name="TenderNo_TenderBidderDemoReqs">
+          <DataField>TenderNo_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="Code_TenderBidderDemoReqs">
+          <DataField>Code_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="Description_TenderBidderDemoReqs">
+          <DataField>Description_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="Description2_TenderBidderDemoReqs">
+          <DataField>Description2_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="MaximumScore_TenderBidderDemoReqs">
+          <DataField>MaximumScore_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="MaximumScore_TenderBidderDemoReqsFormat">
+          <DataField>MaximumScore_TenderBidderDemoReqsFormat</DataField>
+        </Field>
+        <Field Name="Score_TenderBidderDemoReqs">
+          <DataField>Score_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="Score_TenderBidderDemoReqsFormat">
+          <DataField>Score_TenderBidderDemoReqsFormat</DataField>
+        </Field>
+        <Field Name="Remarks_TenderBidderDemoReqs">
+          <DataField>Remarks_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="BidNo_TenderBidderDemoReqs">
+          <DataField>BidNo_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="BidderNo_TenderBidderDemoReqs">
+          <DataField>BidderNo_TenderBidderDemoReqs</DataField>
+        </Field>
+        <Field Name="TenderNo_TenderBidderFinReqs">
+          <DataField>TenderNo_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="Code_TenderBidderFinReqs">
+          <DataField>Code_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="Description_TenderBidderFinReqs">
+          <DataField>Description_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="Description2_TenderBidderFinReqs">
+          <DataField>Description2_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="BudgetedValue_TenderBidderFinReqs">
+          <DataField>BudgetedValue_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="BudgetedValue_TenderBidderFinReqsFormat">
+          <DataField>BudgetedValue_TenderBidderFinReqsFormat</DataField>
+        </Field>
+        <Field Name="QuotedAmount_TenderBidderFinReqs">
+          <DataField>QuotedAmount_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="QuotedAmount_TenderBidderFinReqsFormat">
+          <DataField>QuotedAmount_TenderBidderFinReqsFormat</DataField>
+        </Field>
+        <Field Name="Remarks_TenderBidderFinReqs">
+          <DataField>Remarks_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="BidNo_TenderBidderFinReqs">
+          <DataField>BidNo_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="BidderNo_TenderBidderFinReqs">
+          <DataField>BidderNo_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="TotalBidAmount_TenderBidderFinReqs">
+          <DataField>TotalBidAmount_TenderBidderFinReqs</DataField>
+        </Field>
+        <Field Name="TotalBidAmount_TenderBidderFinReqsFormat">
+          <DataField>TotalBidAmount_TenderBidderFinReqsFormat</DataField>
+        </Field>
+        <Field Name="BuyfromBidderNo_TenderSubmissionLines">
+          <DataField>BuyfromBidderNo_TenderSubmissionLines</DataField>
+        </Field>
+        <Field Name="No_TenderSubmissionLines">
+          <DataField>No_TenderSubmissionLines</DataField>
+        </Field>
+        <Field Name="DocumentNo_TenderSubmissionLines">
+          <DataField>DocumentNo_TenderSubmissionLines</DataField>
+        </Field>
+        <Field Name="LocationCode_TenderSubmissionLines">
+          <DataField>LocationCode_TenderSubmissionLines</DataField>
+        </Field>
+        <Field Name="ExpectedReceiptDate_TenderSubmissionLines">
+          <DataField>ExpectedReceiptDate_TenderSubmissionLines</DataField>
+        </Field>
+        <Field Name="Description_TenderSubmissionLines">
+          <DataField>Description_TenderSubmissionLines</DataField>
+        </Field>
+        <Field Name="UnitofMeasure_TenderSubmissionLines">
+          <DataField>UnitofMeasure_TenderSubmissionLines</DataField>
+        </Field>
+        <Field Name="Quantity_TenderSubmissionLines">
+          <DataField>Quantity_TenderSubmissionLines</DataField>
+        </Field>
+        <Field Name="Quantity_TenderSubmissionLinesFormat">
+          <DataField>Quantity_TenderSubmissionLinesFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="ReportTitle">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ReportTitle</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ReportTitle</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LeadNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LeadNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LeadNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LeadNameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LeadNameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LeadNameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CompanyCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CompanyCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CompanyCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SourceCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SourceCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SourceCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="StatusCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>StatusCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>StatusCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ScoreCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ScoreCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ScoreCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="InterestCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>InterestCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>InterestCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CreatedCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CreatedCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CreatedCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ConvertedCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ConvertedCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ConvertedCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DaysToConvertCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DaysToConvertCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>DaysToConvertCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="AssignedToCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>AssignedToCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>AssignedToCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EmailCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EmailCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EmailCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PhoneCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PhoneCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PhoneCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ExpectedRevenueCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ExpectedRevenueCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ExpectedRevenueCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="BudgetCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>BudgetCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>BudgetCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TimelineCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TimelineCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TimelineCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="StageCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>StageCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>StageCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LastContactCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LastContactCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LastContactCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NextFollowupCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>NextFollowupCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>NextFollowupCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="StatisticsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>StatisticsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>StatisticsCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Lead_No">
+          <DataField>Lead_No</DataField>
+        </Field>
+        <Field Name="Lead_First_Name">
+          <DataField>Lead_First_Name</DataField>
+        </Field>
+        <Field Name="Lead_Last_Name">
+          <DataField>Lead_Last_Name</DataField>
+        </Field>
+        <Field Name="Company_Name">
+          <DataField>Company_Name</DataField>
+        </Field>
+        <Field Name="Lead_Source">
+          <DataField>Lead_Source</DataField>
+        </Field>
+        <Field Name="Lead_Status">
+          <DataField>Lead_Status</DataField>
+        </Field>
+        <Field Name="Lead_Score">
+          <DataField>Lead_Score</DataField>
+        </Field>
+        <Field Name="Interest_Level">
+          <DataField>Interest_Level</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Converted_Date">
+          <DataField>Converted_Date</DataField>
+        </Field>
+        <Field Name="Days_to_Convert">
+          <DataField>Days_to_Convert</DataField>
+        </Field>
+        <Field Name="Assigned_To">
+          <DataField>Assigned_To</DataField>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+        </Field>
+        <Field Name="Budget_Range">
+          <DataField>Budget_Range</DataField>
+        </Field>
+        <Field Name="Decision_Timeline">
+          <DataField>Decision_Timeline</DataField>
+        </Field>
+        <Field Name="Nurture_Stage">
+          <DataField>Nurture_Stage</DataField>
+        </Field>
+        <Field Name="Last_Contact_Date">
+          <DataField>Last_Contact_Date</DataField>
+        </Field>
+        <Field Name="Next_Follow_up_Date">
+          <DataField>Next_Follow_up_Date</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

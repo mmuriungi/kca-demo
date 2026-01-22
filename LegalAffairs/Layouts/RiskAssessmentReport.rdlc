@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="AssessmentNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>AssessmentNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>AssessmentNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RiskTypeCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RiskTypeCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RiskTypeCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RiskDescriptionCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RiskDescriptionCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RiskDescriptionCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RiskLevelCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RiskLevelCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RiskLevelCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ProbabilityCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ProbabilityCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ProbabilityCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ImpactCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ImpactCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ImpactCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RiskScoreCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>RiskScoreCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>RiskScoreCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="StatusCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>StatusCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>StatusCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FinancialImpactCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>FinancialImpactCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>FinancialImpactCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ResponsiblePersonCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ResponsiblePersonCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ResponsiblePersonCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="AssessmentDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>AssessmentDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>AssessmentDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ReviewDateCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ReviewDateCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ReviewDateCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="MitigationStrategyCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>MitigationStrategyCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>MitigationStrategyCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CaseNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CaseNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CaseNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ContractNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ContractNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ContractNoCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="AssessmentNo">
+          <DataField>AssessmentNo</DataField>
+        </Field>
+        <Field Name="RiskType">
+          <DataField>RiskType</DataField>
+        </Field>
+        <Field Name="RiskDescription">
+          <DataField>RiskDescription</DataField>
+        </Field>
+        <Field Name="RiskLevel">
+          <DataField>RiskLevel</DataField>
+        </Field>
+        <Field Name="Probability">
+          <DataField>Probability</DataField>
+        </Field>
+        <Field Name="Impact">
+          <DataField>Impact</DataField>
+        </Field>
+        <Field Name="RiskScore">
+          <DataField>RiskScore</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="FinancialImpact">
+          <DataField>FinancialImpact</DataField>
+        </Field>
+        <Field Name="FinancialImpactFormat">
+          <DataField>FinancialImpactFormat</DataField>
+        </Field>
+        <Field Name="ResponsiblePerson">
+          <DataField>ResponsiblePerson</DataField>
+        </Field>
+        <Field Name="AssessmentDate">
+          <DataField>AssessmentDate</DataField>
+        </Field>
+        <Field Name="ReviewDate">
+          <DataField>ReviewDate</DataField>
+        </Field>
+        <Field Name="MitigationStrategy">
+          <DataField>MitigationStrategy</DataField>
+        </Field>
+        <Field Name="CaseNo">
+          <DataField>CaseNo</DataField>
+        </Field>
+        <Field Name="ContractNo">
+          <DataField>ContractNo</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ReportTitle">
+          <DataField>ReportTitle</DataField>
+        </Field>
+        <Field Name="ReportDate">
+          <DataField>ReportDate</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="TotalRisks">
+          <DataField>TotalRisks</DataField>
+        </Field>
+        <Field Name="LowRiskCount">
+          <DataField>LowRiskCount</DataField>
+        </Field>
+        <Field Name="MediumRiskCount">
+          <DataField>MediumRiskCount</DataField>
+        </Field>
+        <Field Name="HighRiskCount">
+          <DataField>HighRiskCount</DataField>
+        </Field>
+        <Field Name="CriticalRiskCount">
+          <DataField>CriticalRiskCount</DataField>
+        </Field>
+        <Field Name="ActiveRisks">
+          <DataField>ActiveRisks</DataField>
+        </Field>
+        <Field Name="MitigatedRisks">
+          <DataField>MitigatedRisks</DataField>
+        </Field>
+        <Field Name="ClosedRisks">
+          <DataField>ClosedRisks</DataField>
+        </Field>
+        <Field Name="TotalFinancialImpact">
+          <DataField>TotalFinancialImpact</DataField>
+        </Field>
+        <Field Name="TotalFinancialImpactFormat">
+          <DataField>TotalFinancialImpactFormat</DataField>
+        </Field>
+        <Field Name="OverdueReviews">
+          <DataField>OverdueReviews</DataField>
+        </Field>
+        <Field Name="RiskMitigationRate">
+          <DataField>RiskMitigationRate</DataField>
+        </Field>
+        <Field Name="RiskMitigationRateFormat">
+          <DataField>RiskMitigationRateFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="COMPANYNAME">
+          <DataField>COMPANYNAME</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENO">
+          <DataField>CurrReport_PAGENO</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer__Transaction_Code_">
+          <DataField>Imported_Receipts_Buffer__Transaction_Code_</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer__Student_No__">
+          <DataField>Imported_Receipts_Buffer__Student_No__</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_Date">
+          <DataField>Imported_Receipts_Buffer_Date</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_Description">
+          <DataField>Imported_Receipts_Buffer_Description</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_Amount">
+          <DataField>Imported_Receipts_Buffer_Amount</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_AmountFormat">
+          <DataField>Imported_Receipts_Buffer_AmountFormat</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_Posted">
+          <DataField>Imported_Receipts_Buffer_Posted</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_Amount_Control1102760000">
+          <DataField>Imported_Receipts_Buffer_Amount_Control1102760000</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_Amount_Control1102760000Format">
+          <DataField>Imported_Receipts_Buffer_Amount_Control1102760000Format</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_BufferCaption">
+          <DataField>Imported_Receipts_BufferCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer__Transaction_Code_Caption">
+          <DataField>Imported_Receipts_Buffer__Transaction_Code_Caption</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer__Student_No__Caption">
+          <DataField>Imported_Receipts_Buffer__Student_No__Caption</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_DateCaption">
+          <DataField>Imported_Receipts_Buffer_DateCaption</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_DescriptionCaption">
+          <DataField>Imported_Receipts_Buffer_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_AmountCaption">
+          <DataField>Imported_Receipts_Buffer_AmountCaption</DataField>
+        </Field>
+        <Field Name="Imported_Receipts_Buffer_PostedCaption">
+          <DataField>Imported_Receipts_Buffer_PostedCaption</DataField>
+        </Field>
+        <Field Name="TotalCaption">
+          <DataField>TotalCaption</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

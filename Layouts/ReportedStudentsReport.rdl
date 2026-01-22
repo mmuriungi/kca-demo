@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Application_No_">
+          <DataField>Application_No_</DataField>
+        </Field>
+        <Field Name="AdmissionNo_ACAApplicFormHeader">
+          <DataField>AdmissionNo_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="firstName_ACAApplicFormHeader">
+          <DataField>firstName_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="OtherNames_ACAApplicFormHeader">
+          <DataField>OtherNames_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="Surname_ACAApplicFormHeader">
+          <DataField>Surname_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="IndexNumber_ACAApplicFormHeader">
+          <DataField>IndexNumber_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="ProgrammeFaculty_ACAApplicFormHeader">
+          <DataField>ProgrammeFaculty_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="AdmittedDepartment_ACAApplicFormHeader">
+          <DataField>AdmittedDepartment_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="FirstChoiceStage_ACAApplicFormHeader">
+          <DataField>FirstChoiceStage_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="SettlementType_ACAApplicFormHeader">
+          <DataField>SettlementType_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="Gender_ACAApplicFormHeader">
+          <DataField>Gender_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="FirstChoiceSemester_ACAApplicFormHeader">
+          <DataField>FirstChoiceSemester_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="AcademicYear_ACAApplicFormHeader">
+          <DataField>AcademicYear_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="Campus_ACAApplicFormHeader">
+          <DataField>Campus_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="ModeofStudy_ACAApplicFormHeader">
+          <DataField>ModeofStudy_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="County_ACAApplicFormHeader">
+          <DataField>County_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="IDNumber_ACAApplicFormHeader">
+          <DataField>IDNumber_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="YearofExamination_ACAApplicFormHeader">
+          <DataField>YearofExamination_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="Disability_ACAApplicFormHeader">
+          <DataField>Disability_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="Nationality_ACAApplicFormHeader">
+          <DataField>Nationality_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="TelephoneNo1_ACAApplicFormHeader">
+          <DataField>TelephoneNo1_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="TelephoneNo2_ACAApplicFormHeader">
+          <DataField>TelephoneNo2_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="StudentEmail_ACAApplicFormHeader">
+          <DataField>StudentEmail_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="AddressforCorrespondence1_ACAApplicFormHeader">
+          <DataField>AddressforCorrespondence1_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="DateOfBirth_ACAApplicFormHeader">
+          <DataField>DateOfBirth_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="EmergencyContactName_ACAApplicFormHeader">
+          <DataField>EmergencyContactName_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="EmergencyContactEmail_ACAApplicFormHeader">
+          <DataField>EmergencyContactEmail_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="EmergencyContactTelephone_ACAApplicFormHeader">
+          <DataField>EmergencyContactTelephone_ACAApplicFormHeader</DataField>
+        </Field>
+        <Field Name="EmergencyRelationship_ACAApplicFormHeader">
+          <DataField>EmergencyRelationship_ACAApplicFormHeader</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

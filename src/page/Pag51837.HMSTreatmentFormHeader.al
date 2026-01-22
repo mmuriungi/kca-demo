@@ -1,0 +1,730 @@
+page 51837 "HMS-Treatment Form Header"
+{
+    PageType = Document;
+    Editable = true;
+    InsertAllowed = true;
+    SourceTable = "HMS-Treatment Form Header";
+    // SourceTableView = WHERE(Status = FILTER(New));
+
+    layout
+    {
+        area(content)
+        {
+            group(Group)
+            {
+                field("Treatment No.";
+                Rec."Treatment No.")
+                {
+                    Caption = 'Treatment No.';
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Treatment Location"; Rec."Treatment Location")
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
+                field("Treatment Type"; Rec."Treatment Type")
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
+                field(Direct; Rec.Direct)
+                {
+                    ApplicationArea = All;
+                    Visible = false;
+                }
+                field("Link No."; Rec."Link No.")
+                {
+                    ApplicationArea = All;
+                    Visible = true;
+
+                    trigger OnValidate()
+                    begin
+                        IF (Rec."Treatment Type" = Rec."Treatment Type"::Outpatient) AND (Rec.Direct = FALSE) THEN BEGIN
+                            Observation.RESET;
+                            IF Observation.GET(Rec."Link No.") THEN BEGIN
+                                Rec."Patient No." := Observation."Patient No.";
+                                GetPatientNo(Observation."Patient No.", Rec."Student No.", Rec."Employee No.", Rec."Relative No.");
+                                Rec."Link Type" := 'Observation';
+                            END;
+                        END
+                        ELSE
+                            IF (Rec."Treatment Type" = Rec."Treatment Type"::Outpatient) AND (Rec.Direct = TRUE) THEN BEGIN
+                                Appointment.RESET;
+                                IF Appointment.GET(Rec."Link No.") THEN BEGIN
+                                    Rec."Patient No." := Appointment."Patient No.";
+                                    Rec."Student No." := Appointment."Student No.";
+                                    Rec."Employee No." := Appointment."Employee No.";
+                                    GetPatientNo(Appointment."Patient No.", Rec."Student No.", Rec."Employee No.", Rec."Relative No.");
+                                    Rec."Link Type" := 'Appointment';
+                                END;
+                            END
+                            ELSE
+                                IF Rec."Treatment Type" = Rec."Treatment Type"::Inpatient THEN BEGIN
+                                    Admission.RESET;
+                                    IF Admission.GET(Rec."Link No.") THEN BEGIN
+                                        Rec."Patient No." := Admission."Patient No.";
+                                        GetPatientNo(Admission."Patient No.", Rec."Student No.", Rec."Employee No.", Rec."Relative No.");
+                                        Rec."Link Type" := 'Admission';
+                                    END;
+                                END;
+                        GetPatientName(Rec."Patient No.", PatientName);
+                    end;
+                }
+                field("Treatment Date"; Rec."Treatment Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+
+                }
+                field("Treatment Time"; Rec."Treatment Time")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field(age; rec.age)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+
+                }
+                field(gender; rec.gender)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+
+                }
+                // field("Date Of Birth"; rec."Date Of Birth")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+
+                // }
+                field("Passport Photo"; rec.Photo)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+
+                }
+                field("Doctor ID"; Rec."Doctor ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+
+                }
+                // field("Doctor Name"; DoctorName)
+                // {
+                //     Editable = false;
+                //     ApplicationArea = All;
+                // }
+                field("Patient No.";
+                Rec."Patient No.")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                // field("Student No."; Rec."Student No.")
+                // {
+                //     Caption = 'Student No.';
+                //     Editable = false;
+                //     ApplicationArea = All;
+                // }
+                // field("Observation remarks"; Rec."Observation remarks")
+                // {
+                //     ApplicationArea = All;
+                // }
+                field("Treatment Remarks"; rec."Treatment Remarks")
+                {
+                    ApplicationArea = All;
+                }
+                field("Telephone No. 1"; rec."Telephone No. 1")
+                {
+                    ApplicationArea = all;
+                }
+                field("Status"; Rec.Status)
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
+                // field("Lab Status"; Rec."Lab Status")
+                // {
+                //     // Editable = false;
+                //     ApplicationArea = All;
+                // }
+
+
+
+                field("Patient Name"; rec."Patient Name")
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
+                field(AllergicTo2; rec.AllergicTo)
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+
+                }
+
+
+                field("sent to lab"; rec."sent to lab")
+                {
+                    Editable = false;
+                    ApplicationArea = all;
+                }
+            }
+            // group(Processes)
+            // {
+            //     Caption = 'Processes';
+            //     part(Part11; "HMS-Treatment Form Processes")
+            //     {
+            //         SubPageLink = "Treatment No." = FIELD("Treatment No.");
+            //         ApplicationArea = All;
+            //     }
+            // }
+            group(Symptoms)
+            {
+                Caption = 'Signs and Symptoms';
+                part(Part1; "HMS Observation Symptoms")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
+            group("&Examination Findings")
+            {
+                Caption = 'Examination Findings';
+                field("Examination Findings"; Rec."Examination Findings")
+                {
+                    ApplicationArea = All;
+                    MultiLine = true;
+                    ToolTip = 'Enter detailed examination findings';
+                    trigger OnValidate()
+                    begin
+                        UpdatePatientHistory();
+                    end;
+                }
+                field("Physical Examination"; Rec."Physical Examination")
+                {
+                    ApplicationArea = All;
+                    MultiLine = true;
+                    ToolTip = 'Enter physical examination details';
+                }
+                field("Vital Signs"; Rec."Vital Signs")
+                {
+                    ApplicationArea = All;
+                    MultiLine = true;
+                    ToolTip = 'Enter vital signs measurements';
+                }
+            }
+            // group(Signs)
+            // {
+            //     Caption = 'Signs';
+            //     part(Part2; "HMS Observation Signs")
+            //     {
+            //         SubPageLink = "Treatment No." = FIELD("Treatment No.");
+            //         ApplicationArea = All;
+            //     }
+            // }
+            group(Premedication)
+            {
+                part(PreDrugs; "Premedication Drugs")
+                {
+                    ApplicationArea = All;
+                    SubPageLink = "Treatment No." = field("Treatment No.");
+                }
+            }
+            group(History)
+            {
+                Caption = 'History';
+                part(Part3; "HMS Treatment History")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
+            group("Lab")
+            {
+                Caption = 'Labaratory';
+                part(Part4; "HMS-Treatment Form Laboratory")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+                part(Items; "Lab Visit Items")
+                {
+                    ApplicationArea = All;
+                    SubPageLink = "Lab Visit No." = field("Treatment No.");
+                }
+            }
+            group(Radiology)
+            {
+                Caption = 'Radiology';
+                part(Part5; "HMS-Treatment Form Radiology")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
+            group(Diagnosis)
+            {
+                Caption = 'Diagnosis';
+                part(Part6; "HMS-Treatment Form Diagnosis")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
+            group(Procedures)
+            {
+                Caption = 'Procedures';
+                part(Part7; "HMS-Treatment Form Injection")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
+            group(Prescription)
+            {
+                Caption = 'Prescription';
+                part(Part8; "HMS-Treatment Form Drug")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
+            group(Referrals)
+            {
+                Caption = 'Referrals';
+                part(Part9; "HMS-Treatment Form Referral")
+                {
+                    SubPageLink = "Treatment No." = FIELD("Treatment No.");
+                    ApplicationArea = All;
+                }
+            }
+        }
+    }
+
+    actions
+    {
+        area(processing)
+        {
+
+            action("Lab Test Results")
+            {
+                //Caption = 'History';
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = all;
+                RunObject = Page "HMS-Treatment Form Laboratory";
+                RunPageLink = "Treatment No." = field("Treatment No.");
+            }
+            action("Send to lab")
+            {
+                Caption = 'Send To Lab';
+                Image = SendTo;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = all;
+                trigger OnAction()
+                var
+                    FormLab: Record "HMS-Treatment Form Laboratory";
+                begin
+                    if Confirm('Send to Laboratory', False) = false then begin exit end;
+                    //rec.TestField("Patient No.");
+                    rec."Lab Status" := rec."Lab Status"::Pending;
+                    rec."sent to lab" := true;
+                    rec.Location := rec.Location::Lab;
+
+                    HMSSetup.RESET;
+                    HMSSetup.GET();
+                    NewNo := NoSeriesMgt.GetNextNo(HMSSetup."Lab Test Request Nos", 0D, TRUE);
+                    TreatmentHeader.RESET;
+                    TreatmentHeader.GET(Rec."Treatment No.");
+                    LabHeader.RESET;
+                    LabHeader.INIT;
+                    LabHeader."Laboratory No." := NewNo;
+                    LabHeader."Laboratory Date" := TODAY;
+                    LabHeader."Laboratory Time" := TIME;
+                    LabHeader."Patient No." := TreatmentHeader."Patient No.";
+                    LabHeader."Student No." := TreatmentHeader."Student No.";
+                    LabHeader."Employee No." := TreatmentHeader."Employee No.";
+                    LabHeader."Relative No." := TreatmentHeader."Relative No.";
+                    LabHeader."Request Area" := LabHeader."Request Area"::Doctor;
+                    LabHeader."Link Type" := 'Treatment';
+                    LabHeader."Link No." := TreatmentHeader."Treatment No.";
+                    labheader2.RESET;
+                    labheader2.SETRANGE(labheader2."Link No.", TreatmentHeader."Treatment No.");
+                    IF labheader2.FIND('-') THEN BEGIN
+                        IF CONFIRM('Record already exist,Confirm Continue?') THEN LabHeader.INSERT;
+                    END
+                    ELSE BEGIN
+                        LabHeader.INSERT;
+                    END;
+                    DocLabRequestLines.RESET;
+                    DocLabRequestLines.SETRANGE(DocLabRequestLines."Treatment No.", Rec."Treatment No.");
+                    DocLabRequestLines.SETRANGE(DocLabRequestLines.Status, DocLabRequestLines.Status::New);
+                    IF DocLabRequestLines.FIND('-') THEN BEGIN
+                        REPEAT
+                            DocLabRequestLines.Status := DocLabRequestLines.Status::Forwarded;
+                            DocLabRequestLines.MODIFY;
+                            /*
+                             LabSpecimenSetup.RESET;
+                             LabSpecimenSetup.SETRANGE(LabSpecimenSetup.Test,DocLabRequestLines."Laboratory Test Package Code");
+                                IF LabSpecimenSetup.FIND('-') THEN BEGIN
+                                 REPEAT
+                                 */
+                            LabTestLines.INIT;
+                            LabTestLines."Laboratory No." := LabHeader."Laboratory No.";
+                            //LabTestLines."Laboratory Test Code":=LabSpecimenSetup.Test;
+                            LabTestLines."Laboratory Test Code" := DocLabRequestLines."Laboratory Test Package Code";
+                            LabTestLines."Specimen Code" := LabSpecimenSetup."Specimen Name";
+                            LabTestLines."Measuring Unit Code" := LabSpecimenSetup.unit;
+                            //LabTestLines."Laboratory Test Name":=LabSpecimenSetup."Test Name";
+                            LabTestLines."Laboratory Test Name" := DocLabRequestLines."Laboratory Test Package Name";
+
+                            LabTestLines."Specimen Name" := LabSpecimenSetup."Specimen Name";
+                            LabTestLines.INSERT;
+                        //  UNTIL LabSpecimenSetup.NEXT=0;
+                        // END;
+
+                        /* DocLabRequestLines.reset;
+                         DocLabRequestLines.SETRANGE(DocLabRequestLines."Laboratory Test Package Code",LabTestLines."Laboratory Test Code");
+
+                         DocLabRequestLines.find('-') then begin
+                           REPEAT
+                             LabTestLines.INIT;
+                            // LabTestLines."Laboratory No.":=LabHeader."Laboratory No.";
+                             LabTestLines."Laboratory Test Code":=LabSpecimenSetup.Test;
+                             LabTestLines."Specimen Code":=LabSpecimenSetup.Specimen;
+                             LabTestLines."Measuring Unit Code":=LabSpecimenSetup."Measuring Unit";
+                             LabTestLines."Laboratory Test Name":=LabSpecimenSetup."Test Name";
+                             LabTestLines."Specimen Name":=LabSpecimenSetup."Specimen Name";
+                             LabTestLines.INSERT;
+                          UNTIL LabSpecimenSetup.NEXT=0;
+                         END;
+                              */
+                        // DocLabRequestLines.Status:=DocLabRequestLines.Status::Forwarded;
+                        //DocLabRequestLines.MODIFY;
+                        UNTIL DocLabRequestLines.NEXT = 0;
+                    END
+                    ELSE BEGIN
+                        ERROR('Nothing to Forward!');
+                    END;
+
+                    Message('Patient sent to Laboratory');
+                end;
+            }
+            action("Send to Pharmacy")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = process;
+
+                trigger OnAction()
+                begin
+                    IF Confirm('Send to the Pharmacist ? ', true) = False Then ERROR('Cancelled buy user');
+                    Rec.CreatePharmRequest();
+                    rec.Location := rec.Location::Pharmacy;
+                    rec.Modify();
+                end;
+
+            }
+            action("&Mark as Completed")
+            {
+                Caption = '&Mark as Completed';
+                Image = Close;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+                Visible = true;
+
+                trigger OnAction()
+                begin
+                    /*Ask for confirmation*/
+                    IF CONFIRM('Mark the Treatment as Completed?', true) = FALSE THEN ERROR('Cancelled');
+                    Rec.TESTFIELD("Treatment Date");
+                    rec.Location := rec.location::" ";
+                    Rec.Status := Rec.Status::Completed;
+                    Rec.MODIFY;
+                    MESSAGE('Treatment Marked as Completed');
+
+                end;
+            }
+            action("Referral Progress")
+            {
+                Caption = 'Referral Letter';
+                Image = RefreshLines;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                var
+                    treat: Record "HMS-Treatment Form Header";
+                    refer: Record "HMS-Treatment Referral";
+                begin
+                    treat.Reset();
+                    treat.SetRange("Treatment No.", Rec."Treatment No.");
+                    if treat.Find('-') then begin
+                        Report.Run(Report::"Clinic Referal Report", true, false, treat);
+                    end;
+
+
+                end;
+            }
+            action("Historical Diagnosis Report")
+            {
+                Caption = 'Historical Diagnosis Report';
+                Image = RegisteredDocs;
+                Promoted = true;
+                PromotedCategory = Process;
+                RunObject = report "Clinic Diagnosis Report";
+
+            }
+            action("HMS-Sales")
+            {
+                Caption = 'Historical HMS-Sales';
+                Image = RegisteredDocs;
+                Promoted = true;
+                PromotedCategory = Process;
+                RunObject = report "HMS-Sales";
+
+            }
+            // action("Admission Details")
+            // {
+            //     Caption = 'Admission Details';
+            //     Image = RegisteredDocs;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     RunObject = Page "HMS Admission Progress";
+            //     RunPageLink = "Link Type" = CONST('DOCTOR'),
+            //                   "Link No." = FIELD("Treatment No.");
+            //     ApplicationArea = All;
+            // }
+            action("Radiology Results")
+            {
+                Visible = false;
+                Caption = 'Radiology Results';
+                Image = ResourceJournal;
+                Promoted = true;
+                PromotedCategory = Process;
+                RunObject = Page "HMS-Radiology View Test Header";
+                RunPageLink = "Link Type" = CONST('DOCTOR'),
+                              "Link No." = FIELD("Treatment No.");
+                ApplicationArea = All;
+            }
+            // action("Laboratory Results")
+            // {
+            //     Caption = 'Laboratory Results';
+            //     Image = AdjustEntries;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     RunObject = Page "Labaratory Results";
+            //     ApplicationArea = All;
+
+            //     trigger OnAction()
+            //     begin
+
+
+            //     end;
+            // }
+            // action("Laboratory Results")
+            // {
+            //     Caption = 'Laboratory Results';
+            //     Image = AdjustEntries;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     RunObject = Page "HMS-Labaratory Test Line";
+            //     ApplicationArea = All;
+
+            //     trigger OnAction()
+            //     begin
+
+            //         Labrecords.RESET;
+            //         Labrecords.SETRANGE(Labrecords."Patient No.", Rec."Patient No.");
+            //         Labrecords.SETRANGE(Labrecords.Status, Labrecords.Status::Completed);
+            //         IF Labrecords.FIND('-') THEN BEGIN
+            //             LabResults.SETTABLEVIEW(Labrecords);
+            //             LabResults.RUN;
+            //         END;
+            //     end;
+            // }
+
+
+            action("Observation Room")
+            {
+                Caption = 'Observation Room';
+                Image = Allocations;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                begin
+                    ObservationRec.RESET;
+                    ObservationRec.SETRANGE(ObservationRec."Patient No.", Rec."Patient No.");
+                    ObservationRec.SETRANGE(ObservationRec."Observation No.", Rec."Link No.");
+                    IF ObservationRec.FIND('-') THEN BEGIN
+                        ObservationForm.SETTABLEVIEW(ObservationRec);
+                        ObservationForm.RUN;
+                    END
+                    ELSE
+                        MESSAGE('No Observation details available for this patient!');
+                end;
+            }
+            action(History2)
+            {
+                Caption = 'History';
+                RunObject = Page "HMS-Treatment History List";
+                RunPageLink = "Patient No." = FIELD("Patient No.");
+                ApplicationArea = All;
+            }
+            action("Initiate Items Disposal")
+            {
+                Caption = 'Initiate Items Disposal';
+                Image = ItemAvailability;
+                Promoted = true;
+                PromotedCategory = Process;
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ItemDisposal: Record "Item Disposal Header";
+                    ItemDisposalMgt: Codeunit "Item Disposal Management";
+                    LabVisitItems: Record "Lab Visit Items";
+                begin
+                    // Check if there are lab items for this treatment
+                    LabVisitItems.Reset();
+                    LabVisitItems.SetRange("Lab Visit No.", Rec."Treatment No.");
+                    if not LabVisitItems.FindFirst() then
+                        Error('There are no lab items to dispose for this treatment.');
+
+                    // Create disposal document from lab visit items
+                    ItemDisposal := ItemDisposalMgt.CreateDisposalFromLabVisit(Rec."Treatment No.", '');
+
+                    // Open the created disposal document
+                    Page.Run(Page::"Item Disposal Card", ItemDisposal);
+                end;
+            }
+
+        }
+    }
+
+    trigger OnOpenPage()
+    begin
+        UpdateUserIdOnOpenPage();
+    end;
+
+    var
+    procedure UpdateUserIdOnOpenPage()
+    begin
+        rec."Doctor ID" := UserId;
+    end;
+
+    trigger OnInit()
+    begin
+        /*
+        "Off Duty CommentsEnable" := TRUE;
+        "Light Duty DaysEnable" := TRUE;
+        "Off Duty DaysEnable" := TRUE;
+        */
+
+    end;
+
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    begin
+        Rec.Direct := TRUE;
+        Rec."Treatment Type" := Rec."Treatment Type"::Outpatient;
+        Rec."Doctor ID" := USERID;
+    end;
+
+    var
+        HBLAB: RECORD "HMS-Laboratory Form Header";
+        User: Record "User";
+
+        SupervisorName: Text[100];
+        LabLine: Record "HMS-Laboratory Test Line";
+        blnCompleted: Boolean;
+        blnsenttolab: Boolean;
+        Age: Text[100];
+        HRDates: Codeunit "HR Dates";
+
+        LabHeader: Record "HMS-Laboratory Form Header";
+
+        TreatmentHeader: Record "HMS-Treatment Form Header";
+        TreatmentLine: Record "HMS-Treatment Form Laboratory";
+        Tests: Record "HMS-Setup Lab Package Test";
+        SpecimenList: Record "HMS-Setup Test Specimen";
+        HMSSetup: Record "HMS-Setup";
+        NoSeriesMgt: Codeunit 396;
+        NewNo: Code[20];
+        DocLabRequestLines: Record "HMS-Treatment Form Laboratory";
+        LabTestLines: Record "HMS-Laboratory Test Line";
+        Labsetup: Record "HMS-Setup Lab Test";
+        LabSpecimenSetup: Record "HMS-Setup Test Specimen";
+        labheader2: Record "HMS-Laboratory Form Header";
+        PatientName: Text[100];
+        DoctorName: Text[30];
+        Patient: Record "HMS-Patient";
+        Doctor: Record "HMIS-Visits/Registrations";
+        Observation: Record "HMS-Observation Form Header";
+        Admission: Record "HMS-Admission Form Header";
+        Appointment: Record "HMS-Appointment Form Header";
+        Labrecords: Record "HMS-Laboratory Form Header";
+        ObservationRec: Record "HMS-Observation Form Header";
+        [InDataSet]
+        "Off Duty DaysEnable": Boolean;
+        [InDataSet]
+        "Light Duty DaysEnable": Boolean;
+        [InDataSet]
+        "Off Duty CommentsEnable": Boolean;
+        LabResults: Page "HMS Laboratory Form History";
+        ObservationForm: Page "HMS Observation Form Header Cl";
+
+
+    procedure GetPatientNo(var PatientNo: Code[20]; var "Student No.": Code[20]; var "Employee No.": Code[20]; var "Relative No.": Integer)
+    begin
+        Patient.RESET;
+        IF Patient.GET(PatientNo) THEN BEGIN
+            "Student No." := Patient."Student No.";
+            "Employee No." := Patient."Employee No.";
+            "Relative No." := Patient."Relative No.";
+        END;
+    end;
+
+
+    procedure GetDoctorName(var DoctorID: Code[20]; var DoctorName: Text[30])
+    begin
+        Doctor.RESET;
+        DoctorName := '';
+        // IF Doctor.GET(DoctorID) THEN BEGIN
+        //Doctor.CALCFIELDS(Doctor."Doctor's Name");
+        DoctorName := Doctor."Doctor's Name";
+        //END;
+    end;
+
+
+    procedure GetPatientName(var PatientNo: Code[20]; var PatientName: Text[100])
+    begin
+        Patient.RESET;
+        PatientName := '';
+        IF Patient.GET(PatientNo) THEN BEGIN
+            PatientName := Patient."Full Name";// Patient.Surname + ' ' + Patient."Middle Name" + ' ' + Patient."Last Name";
+        END;
+    end;
+
+    local procedure UpdatePatientHistory()
+    begin
+        // Update patient treatment history
+        // This will automatically be tracked through the treatment record
+        Message('Examination findings updated for patient %1', Rec."Patient Name");
+    end;
+
+    trigger OnAfterGetCurrRecord()
+    begin
+        xRec := Rec;
+        GetPatientName(Rec."Patient No.", PatientName);
+        GetDoctorName(Rec."Doctor ID", DoctorName);
+    end;
+}
+

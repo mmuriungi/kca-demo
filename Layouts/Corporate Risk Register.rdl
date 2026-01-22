@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyLogo">
+          <DataField>CompanyLogo</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="CompanyAddress">
+          <DataField>CompanyAddress</DataField>
+        </Field>
+        <Field Name="CompanyAddress2">
+          <DataField>CompanyAddress2</DataField>
+        </Field>
+        <Field Name="CompanyPostCode">
+          <DataField>CompanyPostCode</DataField>
+        </Field>
+        <Field Name="CompanyCity">
+          <DataField>CompanyCity</DataField>
+        </Field>
+        <Field Name="CompanyPhone">
+          <DataField>CompanyPhone</DataField>
+        </Field>
+        <Field Name="CompanyFax">
+          <DataField>CompanyFax</DataField>
+        </Field>
+        <Field Name="CompanyEmail">
+          <DataField>CompanyEmail</DataField>
+        </Field>
+        <Field Name="CompanyWebsite">
+          <DataField>CompanyWebsite</DataField>
+        </Field>
+        <Field Name="Additionalmitigationcontrols">
+          <DataField>Additionalmitigationcontrols</DataField>
+        </Field>
+        <Field Name="AssessmentDate">
+          <DataField>AssessmentDate</DataField>
+        </Field>
+        <Field Name="AuditPeriod">
+          <DataField>AuditPeriod</DataField>
+        </Field>
+        <Field Name="Auditor">
+          <DataField>Auditor</DataField>
+        </Field>
+        <Field Name="AuditorEmail">
+          <DataField>AuditorEmail</DataField>
+        </Field>
+        <Field Name="AuditorName">
+          <DataField>AuditorName</DataField>
+        </Field>
+        <Field Name="Comment">
+          <DataField>Comment</DataField>
+        </Field>
+        <Field Name="ConsolidatetoHQ">
+          <DataField>ConsolidatetoHQ</DataField>
+        </Field>
+        <Field Name="ConsolidateionDate">
+          <DataField>ConsolidateionDate</DataField>
+        </Field>
+        <Field Name="ControlEvaluationImpact">
+          <DataField>ControlEvaluationImpact</DataField>
+        </Field>
+        <Field Name="ControlEvaluationImpactFormat">
+          <DataField>ControlEvaluationImpactFormat</DataField>
+        </Field>
+        <Field Name="ControlEvaluationLikelihood">
+          <DataField>ControlEvaluationLikelihood</DataField>
+        </Field>
+        <Field Name="ControlEvaluationLikelihoodFormat">
+          <DataField>ControlEvaluationLikelihoodFormat</DataField>
+        </Field>
+        <Field Name="ControlRAGStatus">
+          <DataField>ControlRAGStatus</DataField>
+        </Field>
+        <Field Name="ControlRiskLI">
+          <DataField>ControlRiskLI</DataField>
+        </Field>
+        <Field Name="ControlRiskLIFormat">
+          <DataField>ControlRiskLIFormat</DataField>
+        </Field>
+        <Field Name="ControlRiskImpact">
+          <DataField>ControlRiskImpact</DataField>
+        </Field>
+        <Field Name="ControlRiskLikelihood">
+          <DataField>ControlRiskLikelihood</DataField>
+        </Field>
+        <Field Name="ControlRiskProbability">
+          <DataField>ControlRiskProbability</DataField>
+        </Field>
+        <Field Name="ControlRiskProbabilityFormat">
+          <DataField>ControlRiskProbabilityFormat</DataField>
+        </Field>
+        <Field Name="CreatedBy">
+          <DataField>CreatedBy</DataField>
+        </Field>
+        <Field Name="CurrentDisposal">
+          <DataField>CurrentDisposal</DataField>
+        </Field>
+        <Field Name="CurrentPlan">
+          <DataField>CurrentPlan</DataField>
+        </Field>
+        <Field Name="DateCreated">
+          <DataField>DateCreated</DataField>
+        </Field>
+        <Field Name="DateIdentified">
+          <DataField>DateIdentified</DataField>
+        </Field>
+        <Field Name="DocumentStatus">
+          <DataField>DocumentStatus</DataField>
+        </Field>
+        <Field Name="EmployeeEmail">
+          <DataField>EmployeeEmail</DataField>
+        </Field>
+        <Field Name="EmployeeName">
+          <DataField>EmployeeName</DataField>
+        </Field>
+        <Field Name="EmployeeNo">
+          <DataField>EmployeeNo</DataField>
+        </Field>
+        <Field Name="ExistingRiskControls">
+          <DataField>ExistingRiskControls</DataField>
+        </Field>
+        <Field Name="HODUserID">
+          <DataField>HODUserID</DataField>
+        </Field>
+        <Field Name="LinkedIncident">
+          <DataField>LinkedIncident</DataField>
+        </Field>
+        <Field Name="LinkedIncidentDescription">
+          <DataField>LinkedIncidentDescription</DataField>
+        </Field>
+        <Field Name="MarkOkay">
+          <DataField>MarkOkay</DataField>
+        </Field>
+        <Field Name="MitigationOwner">
+          <DataField>MitigationOwner</DataField>
+        </Field>
+        <Field Name="MitigationSuggestions">
+          <DataField>MitigationSuggestions</DataField>
+        </Field>
+        <Field Name="No">
+          <DataField>No</DataField>
+        </Field>
+        <Field Name="NoSeries">
+          <DataField>NoSeries</DataField>
+        </Field>
+        <Field Name="PlanType">
+          <DataField>PlanType</DataField>
+        </Field>
+        <Field Name="ProjectCode">
+          <DataField>ProjectCode</DataField>
+        </Field>
+        <Field Name="RAGStatus">
+          <DataField>RAGStatus</DataField>
+        </Field>
+        <Field Name="Rejected">
+          <DataField>Rejected</DataField>
+        </Field>
+        <Field Name="RejectionReason">
+          <DataField>RejectionReason</DataField>
+        </Field>
+        <Field Name="ResidualLikelihoodImpact">
+          <DataField>ResidualLikelihoodImpact</DataField>
+        </Field>
+        <Field Name="ResidualLikelihoodImpactFormat">
+          <DataField>ResidualLikelihoodImpactFormat</DataField>
+        </Field>
+        <Field Name="ResidualRAGStatus">
+          <DataField>ResidualRAGStatus</DataField>
+        </Field>
+        <Field Name="ResidualRiskLI">
+          <DataField>ResidualRiskLI</DataField>
+        </Field>
+        <Field Name="ResidualRiskLIFormat">
+          <DataField>ResidualRiskLIFormat</DataField>
+        </Field>
+        <Field Name="ResidualRiskImpact">
+          <DataField>ResidualRiskImpact</DataField>
+        </Field>
+        <Field Name="ResidualRiskLikelihood">
+          <DataField>ResidualRiskLikelihood</DataField>
+        </Field>
+        <Field Name="ResidualRiskLikelihoodFormat">
+          <DataField>ResidualRiskLikelihoodFormat</DataField>
+        </Field>
+        <Field Name="ResidualRiskLikelihoodCat">
+          <DataField>ResidualRiskLikelihoodCat</DataField>
+        </Field>
+        <Field Name="ResidualValue">
+          <DataField>ResidualValue</DataField>
+        </Field>
+        <Field Name="ResidualValueFormat">
+          <DataField>ResidualValueFormat</DataField>
+        </Field>
+        <Field Name="ReviewDate">
+          <DataField>ReviewDate</DataField>
+        </Field>
+        <Field Name="RiskLI">
+          <DataField>RiskLI</DataField>
+        </Field>
+        <Field Name="RiskLIFormat">
+          <DataField>RiskLIFormat</DataField>
+        </Field>
+        <Field Name="RiskAcceptanceDecision">
+          <DataField>RiskAcceptanceDecision</DataField>
+        </Field>
+        <Field Name="RiskArea">
+          <DataField>RiskArea</DataField>
+        </Field>
+        <Field Name="RiskCategory">
+          <DataField>RiskCategory</DataField>
+        </Field>
+        <Field Name="RiskCategoryDescription">
+          <DataField>RiskCategoryDescription</DataField>
+        </Field>
+        <Field Name="RiskDepartment">
+          <DataField>RiskDepartment</DataField>
+        </Field>
+        <Field Name="RiskDepartmentDescription">
+          <DataField>RiskDepartmentDescription</DataField>
+        </Field>
+        <Field Name="RiskDescription">
+          <DataField>RiskDescription</DataField>
+        </Field>
+        <Field Name="RiskDescription2">
+          <DataField>RiskDescription2</DataField>
+        </Field>
+        <Field Name="RiskImpact">
+          <DataField>RiskImpact</DataField>
+        </Field>
+        <Field Name="RiskImpactValue">
+          <DataField>RiskImpactValue</DataField>
+        </Field>
+        <Field Name="RiskImpactValueFormat">
+          <DataField>RiskImpactValueFormat</DataField>
+        </Field>
+        <Field Name="RiskLikelihood">
+          <DataField>RiskLikelihood</DataField>
+        </Field>
+        <Field Name="RiskLikelihoodValue">
+          <DataField>RiskLikelihoodValue</DataField>
+        </Field>
+        <Field Name="RiskLikelihoodValueFormat">
+          <DataField>RiskLikelihoodValueFormat</DataField>
+        </Field>
+        <Field Name="RiskOpportunityAssessment">
+          <DataField>RiskOpportunityAssessment</DataField>
+        </Field>
+        <Field Name="RiskProbability">
+          <DataField>RiskProbability</DataField>
+        </Field>
+        <Field Name="RiskProbabilityFormat">
+          <DataField>RiskProbabilityFormat</DataField>
+        </Field>
+        <Field Name="RiskRegion">
+          <DataField>RiskRegion</DataField>
+        </Field>
+        <Field Name="RiskRegionName">
+          <DataField>RiskRegionName</DataField>
+        </Field>
+        <Field Name="RiskResponse">
+          <DataField>RiskResponse</DataField>
+        </Field>
+        <Field Name="RiskResult">
+          <DataField>RiskResult</DataField>
+        </Field>
+        <Field Name="RiskType">
+          <DataField>RiskType</DataField>
+        </Field>
+        <Field Name="RiskTypeDescription">
+          <DataField>RiskTypeDescription</DataField>
+        </Field>
+        <Field Name="RootCauseAnalysis">
+          <DataField>RootCauseAnalysis</DataField>
+        </Field>
+        <Field Name="SenttoHQ">
+          <DataField>SenttoHQ</DataField>
+        </Field>
+        <Field Name="ShortcutDimension1Code">
+          <DataField>ShortcutDimension1Code</DataField>
+        </Field>
+        <Field Name="ShortcutDimension2Code">
+          <DataField>ShortcutDimension2Code</DataField>
+        </Field>
+        <Field Name="StationCode">
+          <DataField>StationCode</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="Submission">
+          <DataField>Submission</DataField>
+        </Field>
+        <Field Name="TotalCount">
+          <DataField>TotalCount</DataField>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
+        <Field Name="ValueafterControl">
+          <DataField>ValueafterControl</DataField>
+        </Field>
+        <Field Name="ValueafterControlFormat">
+          <DataField>ValueafterControlFormat</DataField>
+        </Field>
+        <Field Name="ValueatRisk">
+          <DataField>ValueatRisk</DataField>
+        </Field>
+        <Field Name="ValueatRiskFormat">
+          <DataField>ValueatRiskFormat</DataField>
+        </Field>
+        <Field Name="Risk_Category">
+          <DataField>Risk_Category</DataField>
+        </Field>
+        <Field Name="Risk_Category_Description">
+          <DataField>Risk_Category_Description</DataField>
+        </Field>
+        <Field Name="Risk_Type">
+          <DataField>Risk_Type</DataField>
+        </Field>
+        <Field Name="Risk_Type_Description">
+          <DataField>Risk_Type_Description</DataField>
+        </Field>
+        <Field Name="Risk_Descriptions">
+          <DataField>Risk_Descriptions</DataField>
+        </Field>
+        <Field Name="Risk_Likelihood">
+          <DataField>Risk_Likelihood</DataField>
+        </Field>
+        <Field Name="Risk_Likelihood_Value">
+          <DataField>Risk_Likelihood_Value</DataField>
+        </Field>
+        <Field Name="Risk_Likelihood_ValueFormat">
+          <DataField>Risk_Likelihood_ValueFormat</DataField>
+        </Field>
+        <Field Name="Risk_Rating">
+          <DataField>Risk_Rating</DataField>
+        </Field>
+        <Field Name="Risk_Impact">
+          <DataField>Risk_Impact</DataField>
+        </Field>
+        <Field Name="Risk_Impact_Value">
+          <DataField>Risk_Impact_Value</DataField>
+        </Field>
+        <Field Name="Risk_Impact_ValueFormat">
+          <DataField>Risk_Impact_ValueFormat</DataField>
+        </Field>
+        <Field Name="Gross_Risk_Score">
+          <DataField>Gross_Risk_Score</DataField>
+        </Field>
+        <Field Name="Gross_Risk_ScoreFormat">
+          <DataField>Gross_Risk_ScoreFormat</DataField>
+        </Field>
+        <Field Name="To_Consolidate">
+          <DataField>To_Consolidate</DataField>
+        </Field>
+        <Field Name="Causes">
+          <DataField>Causes</DataField>
+        </Field>
+        <Field Name="Effects">
+          <DataField>Effects</DataField>
+        </Field>
+        <Field Name="Opportunity__identify_">
+          <DataField>Opportunity__identify_</DataField>
+        </Field>
+        <Field Name="Treatment__risk_champion_suggestions_">
+          <DataField>Treatment__risk_champion_suggestions_</DataField>
+        </Field>
+        <Field Name="Action_points__risk_owner_in_point_form__To_have_a_treatment_action_plan_on_the_side">
+          <DataField>Action_points__risk_owner_in_point_form__To_have_a_treatment_action_plan_on_the_side</DataField>
+        </Field>
+        <Field Name="Areas_to_review__risk_champion__evidences">
+          <DataField>Areas_to_review__risk_champion__evidences</DataField>
+        </Field>
+        <Field Name="Entry_No_">
+          <DataField>Entry_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

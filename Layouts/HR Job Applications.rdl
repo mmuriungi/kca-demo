@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="ApplicationNo_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ApplicationNo_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ApplicationNo_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FirstName_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>FirstName_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>FirstName_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="MiddleName_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>MiddleName_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>MiddleName_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LastName_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LastName_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LastName_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="JobAppliedFor_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>JobAppliedFor_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>JobAppliedFor_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="City_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>City_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>City_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PostCode_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PostCode_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PostCode_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="IDNumber_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>IDNumber_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>IDNumber_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Gender_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Gender_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Gender_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CountryCode_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CountryCode_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CountryCode_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HomePhoneNumber_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>HomePhoneNumber_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>HomePhoneNumber_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CellPhoneNumber_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CellPhoneNumber_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CellPhoneNumber_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="WorkPhoneNumber_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>WorkPhoneNumber_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>WorkPhoneNumber_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EMail_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>EMail_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>EMail_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PostalAddress_HRJobApplicationsCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PostalAddress_HRJobApplicationsCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>PostalAddress_HRJobApplicationsCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CI_NameCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CI_NameCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CI_NameCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CI_AddressCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CI_AddressCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CI_AddressCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CI_Address2Caption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CI_Address2Caption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CI_Address2Caption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CI_CityCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CI_CityCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CI_CityCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CI_EMailCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CI_EMailCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CI_EMailCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CI_HomePageCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CI_HomePageCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CI_HomePageCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CI_PhoneNoCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CI_PhoneNoCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CI_PhoneNoCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CI_PictureCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CI_PictureCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>CI_PictureCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="ApplicationNo_HRJobApplications">
+          <DataField>ApplicationNo_HRJobApplications</DataField>
+        </Field>
+        <Field Name="FirstName_HRJobApplications">
+          <DataField>FirstName_HRJobApplications</DataField>
+        </Field>
+        <Field Name="MiddleName_HRJobApplications">
+          <DataField>MiddleName_HRJobApplications</DataField>
+        </Field>
+        <Field Name="LastName_HRJobApplications">
+          <DataField>LastName_HRJobApplications</DataField>
+        </Field>
+        <Field Name="JobAppliedFor_HRJobApplications">
+          <DataField>JobAppliedFor_HRJobApplications</DataField>
+        </Field>
+        <Field Name="JobAppliedforDescription_HRJobApplications">
+          <DataField>JobAppliedforDescription_HRJobApplications</DataField>
+        </Field>
+        <Field Name="City_HRJobApplications">
+          <DataField>City_HRJobApplications</DataField>
+        </Field>
+        <Field Name="PostCode_HRJobApplications">
+          <DataField>PostCode_HRJobApplications</DataField>
+        </Field>
+        <Field Name="IDNumber_HRJobApplications">
+          <DataField>IDNumber_HRJobApplications</DataField>
+        </Field>
+        <Field Name="Gender_HRJobApplications">
+          <DataField>Gender_HRJobApplications</DataField>
+        </Field>
+        <Field Name="CountryCode_HRJobApplications">
+          <DataField>CountryCode_HRJobApplications</DataField>
+        </Field>
+        <Field Name="HomePhoneNumber_HRJobApplications">
+          <DataField>HomePhoneNumber_HRJobApplications</DataField>
+        </Field>
+        <Field Name="CellPhoneNumber_HRJobApplications">
+          <DataField>CellPhoneNumber_HRJobApplications</DataField>
+        </Field>
+        <Field Name="WorkPhoneNumber_HRJobApplications">
+          <DataField>WorkPhoneNumber_HRJobApplications</DataField>
+        </Field>
+        <Field Name="EMail_HRJobApplications">
+          <DataField>EMail_HRJobApplications</DataField>
+        </Field>
+        <Field Name="PostalAddress_HRJobApplications">
+          <DataField>PostalAddress_HRJobApplications</DataField>
+        </Field>
+        <Field Name="CI_Name">
+          <DataField>CI_Name</DataField>
+        </Field>
+        <Field Name="CI_Address">
+          <DataField>CI_Address</DataField>
+        </Field>
+        <Field Name="CI_Address2">
+          <DataField>CI_Address2</DataField>
+        </Field>
+        <Field Name="CI_City">
+          <DataField>CI_City</DataField>
+        </Field>
+        <Field Name="CI_EMail">
+          <DataField>CI_EMail</DataField>
+        </Field>
+        <Field Name="CI_HomePage">
+          <DataField>CI_HomePage</DataField>
+        </Field>
+        <Field Name="CI_PhoneNo">
+          <DataField>CI_PhoneNo</DataField>
+        </Field>
+        <Field Name="CI_Picture">
+          <DataField>CI_Picture</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

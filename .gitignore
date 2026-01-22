@@ -1,3 +1,14 @@
+*.app
+*.JSON
+*.txt
+*.http
+.alpackages
+.vscode
+.snapshots
+node_modules
+dotnet.al
+
+packages.al
 ### AL ###
 #Template for AL projects for Dynamics 365 Business Central
 #launch.json folder
